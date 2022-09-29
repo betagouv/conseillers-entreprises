@@ -14,7 +14,6 @@ FactoryBot.define do
     after(:create) do |need, _|
       if need.matches.present?
         need.diagnosis.update_columns(step: :completed)
-        need.reload
       end
     end
   end

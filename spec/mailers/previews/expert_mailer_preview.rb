@@ -31,6 +31,12 @@ class ExpertMailerPreview < ActionMailer::Preview
     ExpertMailer.positioning_rate_reminders(expert, User.support_users.sample)
   end
 
+  def last_chance
+    expert = active_expert
+    need = expert.received_needs.sample
+    ExpertMailer.last_chance(expert, need, User.support_users.sample)
+  end
+
   private
 
   def active_expert

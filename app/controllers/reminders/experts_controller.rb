@@ -37,8 +37,8 @@ module Reminders
       retrieve_needs(@expert, :not_for_me, view: :quo)
     end
 
-    def expired
-      retrieve_needs(@expert, :expired, view: :quo)
+    def abandoned
+      retrieve_needs(@expert, :abandoned, view: :quo)
     end
 
     def show

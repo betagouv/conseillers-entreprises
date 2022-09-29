@@ -15,4 +15,46 @@ RSpec.describe Reminders::NeedsController, type: :controller do
       expect(need.reload.abandoned_email_sent).to be true
     end
   end
+
+  describe 'GET #not_for_me' do
+    # - besoin avec 1 positionnement « refusé », et autres MER sans réponse           ko
+    # - besoin avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ko
+    # - besoin avec 1 cloture « injoignable », et autres MER sans réponse             ko
+    # - besoin avec tous les positionnement « refusé »                                ok
+    # - besoin archivé avec tous les positionnement « refusé »                        ko
+
+    let!(:need1) { create :need_with_matches }
+    let!(:need1_match) { create :match, need: need1, status: :not_for_me }
+    let!(:need2) { create :need_with_matches }
+    let!(:need2_match) { create :match, need: need2, status: :done_no_help }
+    let!(:need3) { create :need_with_matches }
+    let!(:need3_match) { create :match, need: need3, status: :done_not_reachable }
+    let!(:need4) { create :need }
+    let!(:need4_match1) { create :match, need: need4, status: :not_for_me }
+    let!(:need4_match2) { create :match, need: need4, status: :not_for_me }
+    let!(:need5) { create :need, archived_at: Time.now }
+    let!(:need5_match) { create :match, need: need5, status: :not_for_me }
+
+    before { get :not_for_me }
+
+    it 'display only not_for_me needs' do
+      expect(assigns(:needs)).to match_array [need4]
+    end
+  end
+
+  describe '#send_reminder_email' do
+    let!(:need) { create :need }
+    let!(:match1) { create :match, status: :quo, need: need }
+    let!(:match2) { create :match, status: :done, need: need }
+    let!(:match3) { create :match, status: :taking_care, need: need }
+    let!(:match4) { create :match, status: :done_no_help, need: need }
+    let!(:match5) { create :match, status: :done_not_reachable, need: need }
+    let!(:match6) { create :match, status: :not_for_me, need: need }
+
+    before { post :send_reminder_email, params: { id: need.id } }
+
+    it 'send email only for quo match' do
+      expect(ActionMailer::Base.deliveries.count).to eq 1
+    end
+  end
 end

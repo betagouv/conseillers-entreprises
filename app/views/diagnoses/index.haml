@@ -1,6 +1,6 @@
 - meta title: t('.title')
 - content_for :header, render('header', recipient: current_user, collection_name: @collection_name)
-- content_for :menu, render('menu', recipient: current_user, collections_counts: @collections_counts, antenne: current_user.antenne)
+- content_for :menu, render('menu', recipient: current_user, collections_by_reminders_actions_count: @collections_by_reminders_actions_count, antenne: current_user.antenne)
 
 .fr-container
 

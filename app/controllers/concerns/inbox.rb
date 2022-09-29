@@ -4,7 +4,7 @@ module Inbox
   private
 
   def inbox_collection_names
-    %i[quo taking_care done not_for_me expired]
+    %i[quo taking_care done not_for_me abandoned]
   end
 
   # Common render method for collection actions

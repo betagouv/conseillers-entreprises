@@ -22,6 +22,7 @@ ActiveAdmin.register Need do
     column :status do |need|
       human_attribute_status_tag need, :status
       status_tag I18n.t('attributes.is_archived') if need.is_archived
+      status_tag I18n.t('attributes.is_abandoned') if need.abandoned_email_sent
     end
     column(:matches) do |d|
       div admin_link_to(d, :matches)
@@ -75,6 +76,7 @@ ActiveAdmin.register Need do
       row :created_at
       row :updated_at
       row :archived_at
+      row(:abandoned) { |n| n.abandoned_email_sent }
       row :content
       row(:status) { |need| human_attribute_status_tag need, :status }
       row(:matches) do |d|

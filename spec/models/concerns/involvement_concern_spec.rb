@@ -89,29 +89,19 @@ RSpec.describe InvolvementConcern do
     end
   end
 
-  describe 'needs_expired' do
-    let(:date) { 61.days.ago }
-    # 1 - besoin récent non pris en charge ko
-    let!(:match_1) { create :match, expert: current_expert, status: :quo, need: need_1 }
-    let(:need_1) { create :need, diagnosis: diagnosis }
-    # 2 - besoin de plus de 60 jours non pris en charge ok
-    let!(:match_2) { travel_to(date) { create :match, expert: current_expert, status: :quo, need: need_2 } }
-    let(:need_2) { create :need, diagnosis: diagnosis }
-    # 3 - besoin récent non pris en charge et archivé ko
-    let!(:match_3) { create :match, expert: current_expert, status: :quo, need: need_3 }
-    let(:need_3) { create :need, diagnosis: diagnosis, archived_at: Time.zone.now }
-    # 4 - besoin de plus de 60 jours non pris en charge et archivé ok
-    let!(:match_4) { travel_to(date) { create :match, expert: current_expert, status: :quo, need: need_4 } }
-    let(:need_4) { create(:need, diagnosis: diagnosis, archived_at: Time.zone.now) }
-    # 5 - besoin récent pris en charge ko
-    let!(:match_5) { create :match, expert: current_expert, status: :taking_care, need: need_5 }
-    let(:need_5) { create :need, diagnosis: diagnosis }
-    # 6 - besoin de plus de 60 jours pris en charge ko
-    let!(:match_6) { travel_to(date) { create :match, expert: current_expert, status: :taking_care, need: need_6 } }
-    let(:need_6) { create :need, diagnosis: diagnosis }
+  describe 'needs_abandoned' do
+    # Besoin marqué abandonné             ok
+    # Besoin marqué abandonné et archivé  ko
+    # Besoin pas marqué abandonné         ko
+    let(:match1) { create :match, expert: current_expert }
+    let!(:need1) { create :need, diagnosis: diagnosis, abandoned_email_sent: true, matches: [match1] }
+    let(:match2) { create :match, expert: current_expert, matches: [match2] }
+    let!(:need2) { create :need, diagnosis: diagnosis }
+    let(:match3) { create :match, expert: current_expert, matches: [match3], abandoned_email_sent: true, archived_at: Time.now }
+    let!(:need3) { create :need, diagnosis: diagnosis }
 
-    subject { user.needs_expired }
+    subject { user.needs_abandoned }
 
-    it { is_expected.to match_array([need_2, need_4]) }
+    it { is_expected.to match_array([need1]) }
   end
 end

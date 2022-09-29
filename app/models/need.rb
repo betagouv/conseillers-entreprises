@@ -96,7 +96,14 @@ class Need < ApplicationRecord
 
   ## Scopes
   #
-  EXPERT_ABANDONED_DELAY = 14.days
+  NO_ACTIVITY_DELAY = 14.days
+  ARCHIVE_DELAY = 6.months
+  REMINDERS_DAYS = {
+    poke: 7,
+    recall: 14,
+    last_chance: 21,
+    abandon: 45
+  }
 
   scope :ordered_for_interview, -> do
     left_outer_joins(:subject)
@@ -117,7 +124,7 @@ class Need < ApplicationRecord
         .status_not_for_me
 
       query1.or(query2)
-    else # :poke and :recall
+    else # :poke, :recall and :last_chance
       diagnosis_completed
         .archived(false)
         .in_reminders_range(action)
@@ -141,12 +148,6 @@ class Need < ApplicationRecord
   scope :received_by, -> (user_id) do
     joins(:contacted_users).where(users: { id: user_id })
   end
-
-  REMINDERS_DAYS = {
-    poke: 7,
-    recall: 14,
-    archive: 30
-  }
 
   def self.reminders_range(action)
     index = REMINDERS_DAYS.keys.index(action)
@@ -173,8 +174,12 @@ class Need < ApplicationRecord
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
 
-  # For Reminders, find Needs without taking care since EXPERT_ABANDONED_DELAY
-  scope :abandoned, -> { joins(:matches).where("matches.created_at < ?", EXPERT_ABANDONED_DELAY.ago) }
+  # For Reminders, find Needs without taking care since NO_ACTIVITY_DELAY
+  scope :no_activity, -> { joins(:matches).where("matches.created_at < ?", NO_ACTIVITY_DELAY.ago) }
+
+  scope :abandoned, -> { where(abandoned_email_sent: true) }
+
+  scope :not_abandoned, -> { where(abandoned_email_sent: false) }
 
   scope :with_some_matches_in_status, -> (status) do
     # status can be an array
@@ -203,6 +208,10 @@ class Need < ApplicationRecord
 
   scope :without_exchange, -> do
     where(status: [:not_for_me, :done_not_reachable, :quo, :taking_care])
+  end
+
+  scope :for_reminders, -> do
+    where(status: [:quo, :done_no_help, :done_not_reachable])
   end
 
   scope :with_exchange, -> do
@@ -297,8 +306,12 @@ class Need < ApplicationRecord
     matches.pluck(:created_at).min
   end
 
-  def abandoned?
-    updated_at < EXPERT_ABANDONED_DELAY.ago
+  def no_activity?
+    updated_at < NO_ACTIVITY_DELAY.ago
+  end
+
+  def has_action?(action)
+    reminders_actions.find_by(category: action).present?
   end
 
   def quo_experts

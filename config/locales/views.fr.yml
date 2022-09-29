@@ -498,6 +498,10 @@ fr:
         your_solicitation_html: Vous avez entamé une demande concernant le sujet «<strong>%{subject}</strong>» sur le site Place des Entreprises.
     cordially: Bien cordialement,
     email_sent: L’email a bien été envoyé
+    emails_sent:
+      one: 1 email envoyé
+      other: "%{count} emails envoyés"
+      zero: Aucun email envoyé
     expert_mailer:
       first_notification_help:
         answer: C’est un nouveau service public financé par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
@@ -511,6 +515,12 @@ fr:
         what_is_pde: Qu’est-ce que Place des Entreprises ?
       invitation_not_accepted_warning:
         you_need_to_use_your_user_account: Place des entreprises nécessite de se connecter à son compte utilisateur pour accéder aux informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.
+      last_chance:
+        at_your_disposal: Je reste à votre disposition si vous avez besoin d’aide.
+        company_solicitation_html: 'Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier :'
+        link_to_need: Lien vers la fiche
+        subject: "[Service public Place des Entreprises] Le besoin de l’entreprise %{company} va être abandonné "
+        we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant ou à la dirigeante resté(e) sans nouvelles.
       notify_company_needs:
         advisor_met_company_html: "<strong>%{name}</strong> - %{antenne} - vous a partagé cette demande le %{visit_date}."
         needs_you_html: a besoin de votre expertise sur <strong>« %{subject} »</strong>
@@ -634,16 +644,6 @@ fr:
         match_status_html: 'Votre positionnement sur cette demande d’entreprise : %{status}'
         new_comment_html: "%{author} (%{antenne}) a fait un commentaire sur la demande de l’entreprise <b>%{company}</b>, adressée le %{date}."
         subject: "[Service public Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
-      notify_match_status:
-        expert_and_status:
-          done_html: "<p>%{expert} (%{antenne}) a clôturé ce besoin.</p>"
-          done_no_help_html: "<p>%{expert} (%{antenne}) a échangé avec l’entreprise mais n’a pas d’accompagnement adapté à sa situation.</p>"
-          done_not_reachable_html: "<p>%{expert} (%{antenne}) a clôturé le besoin, après avoir tenté de joindre l’entreprise sans succès à plusieurs reprises.</p>"
-          not_for_me_html: "<p>%{expert} (%{antenne}) a refusé ce besoin.</p><p>Si aucun expert n’intervient, l’Équipe Place des Entreprises prendra le relai.</p>"
-          quo_html: "<p>%{expert} (%{antenne}) a annulé sa dernière action (%{previous_status}).</p>"
-          taking_care_html: "<p>%{expert} (%{antenne}) a pris en charge ce besoin.</p>"
-        need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
-        subject: "[Service public Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
       quarterly_report:
         antenne_manager:
           one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service public Place des Entreprises.
@@ -684,17 +684,17 @@ fr:
       subjet_achived: Le besoin a été archivé
       unarchive: Désarchiver
     collections:
+      abandoned: Expirées
       archived: Expirées
       done: Clôturées
-      expired: Expirées
       not_for_me: Refusées
       quo: Boite de réception
       search: Recherche
       taking_care: Prises en charge
     collections_single:
+      abandoned: Expirée
       archived: Expirée
       done: Clôturée
-      expired: Expirée
       not_for_me: Refusée
       quo: Boite de réception
       taking_care: Prise en charge
@@ -804,6 +804,7 @@ fr:
     matches_file_name: export-mises-en-relation-%{antenne}-%{year}T%{number}.xlsx
     stats_file_name: export-stats-%{antenne}-%{year}T%{number}.xlsx
   reminders:
+    abandoned_need_email_sent: Email d’échec envoyé
     experts:
       expert:
         expert_creation_date: Inscription le %{date}
@@ -835,28 +836,37 @@ fr:
     need:
       abandoned_need_email_sent: Email d’echec envoyé
       critical_rate_expert: Cet expert se trouve aussi dans le panier taux de positionnement critique
-      send_abandoned_need_email: Envoyer l’email d'échec
     needs:
       scopes:
         detail:
           archive: J+%{days} et refusés
+          last_chance: J+%{days}
           poke: J+%{days}
           recall: J+%{days}
         instruction:
           archive: Je fais un mail d’échec à l’entreprise
-          poke: Je mets un commentaire dans la fiche pour relancer la dynamique
+          last_chance: j’envoie le mail de la dernière chance aux experts, puis le besoin sera automatiquement abandonné
+          not_for_me: Besoins avec toutes les mises en relation refusées
+          poke: Je mets un commentaire sur la fiche pour relancer la dynamique
           recall: J’appelle les experts qui ne se sont pas positionnés
         mark_done:
           archive: Archiver
           poke: Expert relancé
-          recall: Expert rappelé
         name:
           archive: Abandonnés
+          last_chance: En cours d’abandon
+          not_for_me: Refusés
           poke: À relancer
           recall: À rappeler
+      send_reminder_email:
+        email_send: Email de relance envoyé
     section:
-      experts: Par taux de positionnement d’expert
-      needs: Par délai du besoin
+      experts: Par expert
+      needs: Par besoin
+      needs_by_statut: Par statut du besoin
+    send_abandoned_need_email: Envoyer l’email d’échec
+    send_last_chance_email: Envoyer l’email de la dernière chance
+    send_reminder_email_email: Envoyer l’email de relance
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
   reports:
