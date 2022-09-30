@@ -2,7 +2,7 @@ require "rails_helper"
 require 'swagger_helper'
 
 RSpec.describe "Solicitations API", type: :request do
-  let(:institution) { create(:institution) }
+  let(:institution) { create(:institution, name: 'Institution Partenaire') }
   let(:Authorization) { "Bearer token=#{find_token(institution)}" }
   let(:landing_01) { create_base_landing(institution) }
   let!(:rh_theme) { create_rh_theme([landing_01]) }
@@ -29,9 +29,10 @@ RSpec.describe "Solicitations API", type: :request do
     path '/api/v1/solicitations' do
       post 'Créer une sollicitation' do
         tags 'Sollicitation'
-        description 'Crée une sollicitation liée à un sujet, en provenance d’une organisation.'
+        description 'Crée une sollicitation liée à un sujet, en provenance d’une institution.'
         consumes 'application/json'
-        parameter name: :solicitation_params, in: :body, schema: { '$ref': '#/components/schemas/new_solicitation' }
+        produces 'application/json'
+        parameter name: :solicitation, in: :body, schema: { '$ref': '#/components/schemas/new_solicitation' }
 
         response '200', 'ok' do
           schema type: :object,
@@ -41,29 +42,29 @@ RSpec.describe "Solicitations API", type: :request do
                      items: {
                        '$ref': "#/components/schemas/solicitation_created"
                      }
-                   },
-                   metadata: {
-                     type: :object,
-                     properties: {}
                    }
                  }
+
           let(:siret) { 13002526500013 }
-          let(:solicitation_params) {
-  {
-    landing_id: landing_01.id,
-  landing_subject_id: recrutement_subject.id,
-  description: "ma demande",
-  full_name: "Hubertine Auclerc",
-  phone_number: '0606060606',
-  email: 'hubertine@example.com',
-  siret: siret,
-  questions_additionnelles: [
-    { question_id: cadre_question.id, answer: true },
-    { question_id: apprentissage_question.id, answer: false },
-  ],
-  api_calling_url: 'http://mon-partenaire.fr/page-recrutement'
-  }
-}
+          let(:solicitation) {
+            {
+              solicitation:
+                            {
+                              landing_id: landing_01.id,
+                              landing_subject_id: recrutement_subject.id,
+                              description: "ma demande",
+                              full_name: "Hubertine Auclerc",
+                              phone_number: '0606060606',
+                              email: 'hubertine@example.com',
+                              siret: siret,
+                              api_calling_url: 'http://mon-partenaire.fr/page-recrutement',
+                              questions_additionnelles: [
+                                { question_id: cadre_question.id, answer: true },
+                                { question_id: apprentissage_question.id, answer: false },
+                              ],
+                            }
+            }
+          }
           let(:token) { '1234' }
           let(:api_entreprise_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
 
@@ -91,19 +92,133 @@ RSpec.describe "Solicitations API", type: :request do
           end
 
           it 'creates a solicitation' do
-            solicitation = Solicitation.last
-            pp solicitation
+            new_solicitation = Solicitation.last
 
-            expect(solicitation).to be_persisted
-            expect(solicitation.code_region).to eq(11)
-            expect(solicitation.api_calling_url).to eq('http://mon-partenaire.fr/page-recrutement')
-            expect(solicitation.status).to eq('in_progress')
-            expect(solicitation.institution_filters.size).to eq(2)
+            expect(new_solicitation).to be_persisted
+            expect(new_solicitation.code_region).to eq(11)
+            expect(new_solicitation.api_calling_url).to eq('http://mon-partenaire.fr/page-recrutement')
+            expect(new_solicitation.status).to eq('in_progress')
+            expect(new_solicitation.institution_filters.size).to eq(2)
+            expect(new_solicitation.institution).to eq(institution)
           end
         end
 
-        # response '404' do
-        # end
+        context 'Paramètres manquants' do
+          response '400', 'Paramètres manquants' do
+            schema errors: {
+              type: :array,
+                   items: {
+                     '$ref': "#/components/schemas/error"
+                   }
+            }
+            let(:solicitation) { {} }
+
+            before do |example|
+              submit_request(example.metadata)
+            end
+
+            it 'returns a 400 response' do |example|
+              expect(response).to have_http_status(:bad_request)
+              result = JSON.parse(response.body)
+
+              expect(result["errors"].first["source"]).to eq('solicitation')
+              expect(result["errors"].first["message"]).to eq('le paramètre est manquant')
+            end
+          end
+        end
+
+        context 'Url d’appel manquante' do
+          response '422', 'Url d’appel manquante' do
+            schema errors: {
+              type: :array,
+                    items: {
+                      '$ref': "#/components/schemas/error"
+                    }
+            }
+            let(:siret) { 13002526500013 }
+            let(:solicitation) {
+              {
+                solicitation:
+                          {
+                            landing_id: landing_01.id,
+                            landing_subject_id: recrutement_subject.id,
+                            description: "ma demande",
+                            full_name: "Hubertine Auclerc",
+                            phone_number: '0606060606',
+                            email: 'hubertine@example.com',
+                            siret: siret,
+                            questions_additionnelles: [
+                              { question_id: cadre_question.id, answer: true },
+                              { question_id: apprentissage_question.id, answer: false },
+                            ],
+                          }
+              }
+            }
+
+            let(:token) { '1234' }
+            let(:api_entreprise_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
+
+            before do |example|
+              ENV['API_ENTREPRISE_TOKEN'] = token
+              stub_request(:get, api_entreprise_url).to_return(
+                body: file_fixture('api_entreprise_get_etablissement.json')
+              )
+              submit_request(example.metadata)
+            end
+
+            xit 'returns calling_url error' do
+              expect(response).to have_http_status(:unprocessable_entity)
+              result = JSON.parse(response.body)
+              expect(result["errors"].first["source"]).to eq('institution_filters')
+              expect(result["errors"].first["message"]).to eq('n’existe pas ou est invalide')
+            end
+          end
+        end
+
+        context 'Questions additionnelles manquantes' do
+          response '422', 'Questions additionnelles manquantes' do
+            schema errors: {
+              type: :array,
+                    items: {
+                      '$ref': "#/components/schemas/error"
+                    }
+            }
+            let(:siret) { 13002526500013 }
+            let(:solicitation) {
+            {
+              solicitation:
+                        {
+                          landing_id: landing_01.id,
+                          landing_subject_id: recrutement_subject.id,
+                          description: "ma demande",
+                          full_name: "Hubertine Auclerc",
+                          phone_number: '0606060606',
+                          email: 'hubertine@example.com',
+                          siret: siret,
+                          api_calling_url: 'http://mon-partenaire.fr/page-recrutement',
+                        }
+            }
+          }
+
+            let(:token) { '1234' }
+            let(:api_entreprise_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
+
+            before do |example|
+              ENV['API_ENTREPRISE_TOKEN'] = token
+              stub_request(:get, api_entreprise_url).to_return(
+                body: file_fixture('api_entreprise_get_etablissement.json')
+              )
+              submit_request(example.metadata)
+            end
+
+            it 'returns insitution_filters error' do |example|
+              expect(response).to have_http_status(:unprocessable_entity)
+              result = JSON.parse(response.body)
+              expect(result["errors"].first["source"]).to eq('Questions additionnelles')
+              expect(result["errors"].first["message"]).to eq('doit être rempli(e)')
+            end
+          end
+        end
       end
     end
   end

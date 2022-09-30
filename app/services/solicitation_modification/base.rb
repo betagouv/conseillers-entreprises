@@ -1,7 +1,7 @@
 module SolicitationModification
   class Base
     def initialize(solicitation = Solicitation.new, params)
-      @params = params
+      @params = format_params(params)
       @solicitation = solicitation
     end
 
@@ -23,6 +23,10 @@ module SolicitationModification
     end
 
     private
+
+    def format_params(params)
+      params
+    end
 
     def check_in_deployed_region
       @params = @params.merge(created_in_deployed_region: from_deployed_territory?)

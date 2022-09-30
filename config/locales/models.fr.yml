@@ -372,6 +372,7 @@ fr:
         user: Utilisateur
       solicitation:
         ab_testing: A/B test
+        institution_filters: Questions additionnelles
         landing: Page source
         landing_subject: Intitulé de sujet choisi
         location: Localisation

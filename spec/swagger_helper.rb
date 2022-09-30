@@ -104,25 +104,29 @@ RSpec.configure do |config|
           new_solicitation: {
             type: :object,
             properties: {
-              landing_id: { type: :integer },
-              landing_subject_id: { type: :integer },
-              description: { type: :string },
-              code_region: { type: :integer },
-              status: { type: :integer },
-              full_name: { type: :string },
-              phone_number: { type: :string },
-              email: { type: :string },
-              siret: { type: :string },
-              location: { type: :string },
-              questions_additionnelles: {
-                type: :array,
-                items: {
-                  '$ref': "#/components/schemas/question_additionnelle_short"
-                }
-              },
-              api_calling_url: { type: :string }
+              solicitation: {
+                type: :object,
+                properties: {
+                  landing_id: { type: :integer },
+                  landing_subject_id: { type: :integer },
+                  description: { type: :string },
+                  full_name: { type: :string },
+                  email: { type: :string },
+                  phone_number: { type: :string },
+                  siret: { type: :string },
+                  location: { type: :string },
+                  api_calling_url: { type: :string },
+                  questions_additionnelles: {
+                    type: :array,
+                    items: {
+                      '$ref': "#/components/schemas/question_additionnelle_short"
+                    }
+                  },
+                },
+                required: [ 'landing_id', 'landing_subject_id', 'description', 'full_name', 'email', 'api_calling_url' ]
+              }
             },
-            required: [ 'landing_id', 'landing_subject_id', 'description', 'full_name', 'email', 'api_calling_url' ]
+            required: [ 'solicitation' ]
           },
           solicitation_created: {
             type: :object,

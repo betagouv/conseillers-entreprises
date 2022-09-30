@@ -25,7 +25,7 @@ class Api::V1::BaseController < ActionController::API
     errors = [
       {
         source: source,
-            message: I18n.t('api_pde.errors.not_found')
+        message: I18n.t('api_pde.errors.not_found')
       }
     ]
     render_error_payload(errors: errors, status: 404)
