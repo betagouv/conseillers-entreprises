@@ -2,7 +2,7 @@
 xml.instruct!
 xml.urlset xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" do
   # Landing pages
-  Landing.locales.preload(:landing_themes).each do |landing|
+  Landing.intern.preload(:landing_themes).each do |landing|
     xml.url do
       xml.loc landing_url(landing)
       xml.lastmod landing.updated_at.iso8601

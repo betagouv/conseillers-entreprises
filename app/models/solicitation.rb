@@ -456,6 +456,8 @@ class Solicitation < ApplicationRecord
   def provenance_category
     if landing&.iframe?
       :iframe
+    elsif landing&.api?
+      :api
     elsif pk_campaign&.start_with?('googleads-') || mtm_campaign&.start_with?('googleads-')
       :googleads
     elsif pk_campaign.present? || mtm_campaign.present?
@@ -467,12 +469,16 @@ class Solicitation < ApplicationRecord
     provenance_category == :iframe
   end
 
+  def from_api?
+    provenance_category == :api
+  end
+
   def from_campaign?
     provenance_category == :campaign || provenance_category == :googleads
   end
 
   def provenance_title
-    if from_iframe?
+    if from_iframe? || from_api?
       landing.slug
     elsif from_campaign?
       campaign

@@ -269,7 +269,7 @@ Rails.application.routes.draw do
       get :redirect_to_solicitation_step, path: 'continuer'
     end
   end
-  # New et create custom pour concerver des url avec les landings etfaciliter gestion des iframes
+  # New et create custom pour concerver des url avec les landings et faciliter gestion des iframes
   get 'aide-entreprise/:landing_slug/demande/:landing_subject_slug', to: 'solicitations#new', as: :new_solicitation
   post 'aide-entreprise/:landing_slug/demande/:landing_subject_slug', to: 'solicitations#create', as: :solicitations
 

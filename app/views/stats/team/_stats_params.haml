@@ -11,7 +11,7 @@
         include_blank: t('all.feminine') }, class: "fr-select"
       .fr-select-group
         = f.label :iframe, t('stats.stats_params.iframes'), class: 'fr-label'
-        = f.collection_select :iframe, Landing.not_archived.iframes.order(:title), :id, :title, { selected: params[:iframe],
+        = f.collection_select :iframe, Landing.not_archived.iframe.order(:title), :id, :title, { selected: params[:iframe],
         include_blank: t('all.feminine') }, class: "fr-select"
       .fr-input-group
         = f.label :mtm_campaign, t('stats.stats_params.campaign'), class: 'fr-label'

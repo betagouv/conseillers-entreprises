@@ -56,6 +56,7 @@ fr:
       active: Actifs
       admin: Admins
       all: Tout
+      api: API
       archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
@@ -66,6 +67,8 @@ fr:
       expert_provider: Fournisseur d’experts
       from_solicitation: Sollicitations
       from_visit: Visites
+      iframe: Iframe
+      intern: Interne
       invitation_not_accepted: Invitations pas encore acceptées
       is_archived: Archivés
       managers: Responsables d’antenne
@@ -233,6 +236,7 @@ fr:
         home_title: Titre sur la page d’accueil
         iframe_category: Type d’iframe
         institution: Institution partenaire
+        integration: Type d’intégration
         landing_subjects: Sujets de landing
         landing_themes: Thématiques de landing
         layout: Mise en page
@@ -246,6 +250,10 @@ fr:
         integral: 360°
         subjects: liste de sujets
         themes: liste de thématiques
+      landing/integrations:
+        api: API
+        iframe: iframe
+        intern: interne
       landing/layouts:
         multiple_steps: plusieurs étapes
         single_page: regroupement par thématique
@@ -845,6 +853,7 @@ fr:
       uppercase: lettre majuscule
   solicitation:
     provenance_categories:
+      api: API
       campaign: Campagne
       googleads: Google Ads
       iframe: Iframe

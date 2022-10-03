@@ -10,8 +10,9 @@ ActiveAdmin.register Landing do
   end
 
   scope :not_archived, default: true
-  scope :iframes
-  scope :locales
+  scope :intern
+  scope :iframe
+  scope :api
   scope :is_archived
 
   ## Index
@@ -55,10 +56,11 @@ ActiveAdmin.register Landing do
         row :slug do |l|
           div link_to l.slug, l if l.slug.present?
         end
-        row :archived_at
-        row(:layout) { |landing| human_attribute_status_tag landing, :layout }
         row :created_at
         row :updated_at
+        row :archived_at
+        row(:layout) { |landing| human_attribute_status_tag landing, :layout }
+        row(:integration) { |landing| human_attribute_status_tag landing, :integration }
       end
     end
 
@@ -68,11 +70,13 @@ ActiveAdmin.register Landing do
       row :main_logo
     end
 
-    attributes_table title: I18n.t("landings.landings.admin.iframe_fields") do
-      row :iframe
-      row(:iframe_category) { |landing| human_attribute_status_tag landing, :iframe_category }
+    attributes_table title: I18n.t("landings.landings.admin.iframe_and_api_fields") do
       row :institution
       row :partner_url
+    end
+
+    attributes_table title: I18n.t("landings.landings.admin.iframe_fields") do
+      row(:iframe_category) { |landing| human_attribute_status_tag landing, :iframe_category }
       row :custom_css
       row :display_pde_partnership_mention
     end
@@ -96,8 +100,8 @@ ActiveAdmin.register Landing do
                 :layout,
                 :emphasis, :home_description, :main_logo,
                 :meta_title, :meta_description,
-                :iframe, :iframe_category, :institution_id,
-                :custom_css, :partner_url, :display_pde_partnership_mention,
+                :integration, :institution_id, :partner_url,
+                :iframe_category, :custom_css, :display_pde_partnership_mention,
                 landing_joint_themes_attributes: landing_joint_themes_attributes
 
   form title: :title do |f|
@@ -105,6 +109,7 @@ ActiveAdmin.register Landing do
       f.input :title
       f.input :slug
       f.input :layout, as: :select, collection: Landing.human_attribute_values(:layout).invert
+      f.input :integration, as: :select, collection: Landing.human_attribute_values(:integration).invert
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
@@ -113,11 +118,13 @@ ActiveAdmin.register Landing do
       f.input :main_logo
     end
 
-    f.inputs I18n.t("landings.landings.admin.iframe_fields") do
-      f.input :iframe
-      f.input :iframe_category, as: :select, collection: Landing.human_attribute_values(:iframe_category).invert
+    f.inputs I18n.t("landings.landings.admin.iframe_and_api_fields") do
       f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
       f.input :partner_url
+    end
+
+    f.inputs I18n.t("landings.landings.admin.iframe_fields") do
+      f.input :iframe_category, as: :select, collection: Landing.human_attribute_values(:iframe_category).invert
       f.input :custom_css, as: :text, input_html: { style: 'font-family:monospace', rows: 10 }
       f.input :display_pde_partnership_mention
     end

@@ -8,8 +8,8 @@
 #  display_pde_partnership_mention :boolean          default(FALSE)
 #  emphasis                        :boolean          default(FALSE)
 #  home_description                :text             default("")
-#  iframe                          :boolean          default(FALSE)
 #  iframe_category                 :integer          default("integral")
+#  integration                     :integer          default("pde")
 #  layout                          :integer          default("multiple_steps")
 #  main_logo                       :string
 #  meta_description                :string
@@ -35,6 +35,12 @@
 class Landing < ApplicationRecord
   include WithSlug
   include Archivable
+
+  enum integration: {
+    intern: 0,
+    iframe: 1,
+    api: 2
+  }
 
   enum layout: {
     multiple_steps: 1,
@@ -63,14 +69,11 @@ class Landing < ApplicationRecord
 
   ## Validation
   #
-  validates :partner_url, presence: true, if: :iframe?
+  validates :partner_url, presence: true, if: -> { iframe? || api? }
 
   ## Scopes
   #
   scope :emphasis, -> { where(emphasis: true) }
-  scope :iframes, -> { where(iframe: true) }
-  scope :locales, -> { where.not(iframe: true) }
-
   def self.accueil
     Landing.find_by(slug: 'accueil')
   end
