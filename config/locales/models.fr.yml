@@ -147,7 +147,7 @@ fr:
     attributes:
       additional_subject_questions:
         ameliorer_conditions_travail:
-          label: Avec cet investissement, allez-vous améliorer les conditions de travail de vos salariés (sécurité, pénibilité) ?
+          label: Cet investissement permet-il de réduire la pénibilité au travail de vos salariés ou de renforcer leur sécurité ?
         entreprise_a_reprendre_trouvee:
           label: Avez-vous déjà trouvé une entreprise à reprendre ?
         etalement_cotisations_sociales:
