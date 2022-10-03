@@ -51,9 +51,7 @@ module Reminders
     def update_badges
       @need = Need.find(params.permit(:id)[:id])
       badges_params = params.require(:need).permit(badge_ids: [])
-      if @need.valid?
-        @need.update(badges_params)
-      else
+      unless @need.update(badges_params)
         flash.alert = @need.errors.full_messages.to_sentence
         redirect_back(fallback_location: poke_reminders_needs_path)
       end
