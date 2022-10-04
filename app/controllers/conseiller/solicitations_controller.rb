@@ -8,18 +8,18 @@ class Conseiller::SolicitationsController < ApplicationController
   layout 'side_menu'
 
   def index
-    @solicitations = ordered_solicitations.status_in_progress
+    @solicitations = ordered_solicitations(:in_progress)
     @status = t('solicitations.header.index')
   end
 
   def processed
-    @solicitations = ordered_solicitations.status_processed
+    @solicitations = ordered_solicitations(:processed)
     @status = t('solicitations.header.processed')
     render :index
   end
 
   def canceled
-    @solicitations = ordered_solicitations.status_canceled
+    @solicitations = ordered_solicitations(:canceled)
     @status = t('solicitations.header.canceled')
     render :index
   end
@@ -85,11 +85,11 @@ class Conseiller::SolicitationsController < ApplicationController
 
   private
 
-  def ordered_solicitations
-    solicitations = Solicitation.step_complete.order(:created_at)
+  def ordered_solicitations(status)
+    solicitations = Solicitation.where(status: status).order(:created_at)
     solicitations = solicitations.by_possible_region(territory_id) if territory_id.present?
-    solicitations.page(params[:page]).omnisearch(params[:query]).distinct
-      .includes(:badge_badgeables, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne }, landing_subject: :subject, institution: :logo)
+    solicitations.omnisearch(params[:query]).distinct
+      .includes(:badge_badgeables, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne }, landing_subject: :subject, institution: :logo).page(params[:page])
   end
 
   def authorize_index_solicitation
@@ -121,7 +121,7 @@ class Conseiller::SolicitationsController < ApplicationController
     # le cache n'avait pas beaucoup de sens ici
     @count_solicitations =
       {
-        in_progress: ordered_solicitations.status_in_progress.total_count
+        in_progress: ordered_solicitations(:in_progress).total_count
       }
   end
 
