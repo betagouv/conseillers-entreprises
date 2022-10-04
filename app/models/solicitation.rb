@@ -152,6 +152,7 @@ class Solicitation < ApplicationRecord
   validates :description, presence: true, allow_blank: false, if: -> { status_in_progress? }
 
   validates :institution_filters, presence: true, if: -> { subject_with_additional_questions? }
+  validates :api_calling_url, presence: true, if: -> { landing.api? }
 
   def subject_with_additional_questions?
     status_in_progress? && self.subject&.additional_subject_questions&.any?
@@ -478,15 +479,21 @@ class Solicitation < ApplicationRecord
   end
 
   def provenance_title
-    if from_iframe? || from_api?
+    if from_iframe?
       landing.slug
+    elsif from_api?
+      landing.partner_url
     elsif from_campaign?
       campaign
     end
   end
 
   def provenance_detail
-    pk_kwd.presence || mtm_kwd.presence
+    if from_campaign?
+      pk_kwd.presence || mtm_kwd.presence
+    elsif from_api?
+      api_calling_url
+    end
   end
 
   def campaign

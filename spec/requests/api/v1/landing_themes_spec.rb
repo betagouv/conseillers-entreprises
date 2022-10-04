@@ -76,7 +76,7 @@ RSpec.describe "Landing Themes API", type: :request do
       get 'Page thème' do
         tags 'Thèmes'
         description 'Affiche le détail d’un thème et la liste de ses sujets'
-        parameter name: :id, in: :path, type: :string
+        parameter name: :id, in: :path, type: :string, description: 'identifiant du thème', required: true
         produces 'application/json'
 
         response '200', 'Page thème trouvée' do

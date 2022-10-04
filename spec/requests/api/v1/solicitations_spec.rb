@@ -9,6 +9,25 @@ RSpec.describe "Solicitations API", type: :request do
   let!(:recrutement_subject) { create_recrutement_subject(rh_theme) }
   let!(:cadre_question) { create_cadre_question(recrutement_subject.subject) }
   let!(:apprentissage_question) { create_apprentissage_question(recrutement_subject.subject) }
+  let(:siret) { 13002526500013 }
+  let(:token) { '1234' }
+  let(:api_entreprise_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
+  let(:base_solicitation) {
+    {
+      landing_id: landing_01.id,
+      landing_subject_id: recrutement_subject.id,
+      description: "ma demande",
+      full_name: "Hubertine Auclerc",
+      phone_number: '0606060606',
+      email: 'hubertine@example.com',
+      siret: siret,
+      api_calling_url: 'http://mon-partenaire.fr/page-recrutement',
+      questions_additionnelles: [
+        { question_id: cadre_question.id, answer: true },
+        { question_id: apprentissage_question.id, answer: false },
+      ],
+    }
+  }
 
   # Génération automatique des exemples dans la doc
   after do |example|
@@ -32,9 +51,9 @@ RSpec.describe "Solicitations API", type: :request do
         description 'Crée une sollicitation liée à un sujet, en provenance d’une institution.'
         consumes 'application/json'
         produces 'application/json'
-        parameter name: :solicitation, in: :body, schema: { '$ref': '#/components/schemas/new_solicitation' }
+        parameter name: :solicitation, in: :body, schema: { '$ref': '#/components/schemas/new_solicitation' }, required: true
 
-        response '200', 'ok' do
+        response '200', 'Solicitation créée' do
           schema type: :object,
                  properties: {
                    data: {
@@ -45,28 +64,7 @@ RSpec.describe "Solicitations API", type: :request do
                    }
                  }
 
-          let(:siret) { 13002526500013 }
-          let(:solicitation) {
-            {
-              solicitation:
-                            {
-                              landing_id: landing_01.id,
-                              landing_subject_id: recrutement_subject.id,
-                              description: "ma demande",
-                              full_name: "Hubertine Auclerc",
-                              phone_number: '0606060606',
-                              email: 'hubertine@example.com',
-                              siret: siret,
-                              api_calling_url: 'http://mon-partenaire.fr/page-recrutement',
-                              questions_additionnelles: [
-                                { question_id: cadre_question.id, answer: true },
-                                { question_id: apprentissage_question.id, answer: false },
-                              ],
-                            }
-            }
-          }
-          let(:token) { '1234' }
-          let(:api_entreprise_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
+          let(:solicitation) { { solicitation: base_solicitation } }
 
           before do |example|
             ENV['API_ENTREPRISE_TOKEN'] = token
@@ -103,8 +101,8 @@ RSpec.describe "Solicitations API", type: :request do
           end
         end
 
-        context 'Paramètres manquants' do
-          response '400', 'Paramètres manquants' do
+        context 'Paramètre "Solicitation" manquant' do
+          response '400', 'Paramètre "Solicitation" manquant' do
             schema errors: {
               type: :array,
                    items: {
@@ -135,28 +133,7 @@ RSpec.describe "Solicitations API", type: :request do
                       '$ref': "#/components/schemas/error"
                     }
             }
-            let(:siret) { 13002526500013 }
-            let(:solicitation) {
-              {
-                solicitation:
-                          {
-                            landing_id: landing_01.id,
-                            landing_subject_id: recrutement_subject.id,
-                            description: "ma demande",
-                            full_name: "Hubertine Auclerc",
-                            phone_number: '0606060606',
-                            email: 'hubertine@example.com',
-                            siret: siret,
-                            questions_additionnelles: [
-                              { question_id: cadre_question.id, answer: true },
-                              { question_id: apprentissage_question.id, answer: false },
-                            ],
-                          }
-              }
-            }
-
-            let(:token) { '1234' }
-            let(:api_entreprise_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
+            let(:solicitation) { { solicitation: base_solicitation.except(:api_calling_url) } }
 
             before do |example|
               ENV['API_ENTREPRISE_TOKEN'] = token
@@ -166,17 +143,17 @@ RSpec.describe "Solicitations API", type: :request do
               submit_request(example.metadata)
             end
 
-            xit 'returns calling_url error' do
+            it 'returns calling_url error' do
               expect(response).to have_http_status(:unprocessable_entity)
               result = JSON.parse(response.body)
-              expect(result["errors"].first["source"]).to eq('institution_filters')
-              expect(result["errors"].first["message"]).to eq('n’existe pas ou est invalide')
+              expect(result["errors"].first["source"]).to eq('Url d’appel')
+              expect(result["errors"].first["message"]).to eq('doit être rempli(e)')
             end
           end
         end
 
         context 'Questions additionnelles manquantes' do
-          response '422', 'Questions additionnelles manquantes' do
+          response '422', 'Un champs obligatoire de la solicitation manquant' do
             schema errors: {
               type: :array,
                     items: {
@@ -184,24 +161,7 @@ RSpec.describe "Solicitations API", type: :request do
                     }
             }
             let(:siret) { 13002526500013 }
-            let(:solicitation) {
-            {
-              solicitation:
-                        {
-                          landing_id: landing_01.id,
-                          landing_subject_id: recrutement_subject.id,
-                          description: "ma demande",
-                          full_name: "Hubertine Auclerc",
-                          phone_number: '0606060606',
-                          email: 'hubertine@example.com',
-                          siret: siret,
-                          api_calling_url: 'http://mon-partenaire.fr/page-recrutement',
-                        }
-            }
-          }
-
-            let(:token) { '1234' }
-            let(:api_entreprise_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
+            let(:solicitation) { { solicitation: base_solicitation.except(:questions_additionnelles) } }
 
             before do |example|
               ENV['API_ENTREPRISE_TOKEN'] = token

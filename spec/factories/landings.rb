@@ -7,7 +7,8 @@ FactoryBot.define do
     end
 
     trait :api do
-      partner_url { 'https://www.example.com/aides' }
+      integration { :api }
+      partner_url { 'https://www.example.com' }
     end
   end
 end

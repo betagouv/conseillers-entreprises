@@ -380,6 +380,7 @@ fr:
         user: Utilisateur
       solicitation:
         ab_testing: A/B test
+        api_calling_url: Url d’appel
         institution_filters: Questions additionnelles
         landing: Page source
         landing_subject: Intitulé de sujet choisi

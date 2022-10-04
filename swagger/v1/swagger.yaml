@@ -2,10 +2,10 @@
 openapi: 3.0.1
 info:
   title: API Place des Entreprises V1
-  description: "## Bienvenue sur la documentation de l'API de Place des Entreprises\n
+  description: "## Bienvenue sur la documentation de l’API de Place des Entreprises\n
     \       \nCette API permet à une organisation de proposer un formulaire de dépôt
     de besoin d'entreprise connecté à Place des Entreprises sur son propre site internet.\n
-    \       \nConcrètement, cette API permet de :\n        \n- récupérer la liste
+    \       \nConcrètement, cette API permet de :\n        \n- récupérer la liste
     des pages d'atterrisage, thèmes et sujets autorisés pour l'organisation concernée,\n
     \       \n- d'envoyer à Place des Entreprises un besoin\n        \n### Limite
     des requêtes\n        \nLe serveur accepte un maximum de 300 appels  par 5 minutes.\n
@@ -34,11 +34,11 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 692
+                    - id: 155
                       title: Recruter un ou plusieurs salariés
                       slug: recruter
-                      landing_id: 857
-                      landing_theme_id: 1054
+                      landing_id: 179
+                      landing_theme_id: 203
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>S’informer sur les aides à l'embauche
                         des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
@@ -51,21 +51,21 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles:
-                      - id: 63
+                      - id: 105
                         key: recrutement_poste_cadre
-                        position: 
-                        subject_id: 753
+                        position: 1
                         question: Souhaitez-vous recruter sur un poste de cadre ?
-                      - id: 64
+                        question_type: boolean
+                      - id: 106
                         key: recrutement_en_apprentissage
-                        position: 
-                        subject_id: 753
+                        position: 2
                         question: Souhaitez-vous recruter en apprentissage ?
-                    - id: 693
+                        question_type: boolean
+                    - id: 156
                       title: Mettre en place un projet de formation
                       slug: former
-                      landing_id: 857
-                      landing_theme_id: 1054
+                      landing_id: 179
+                      landing_theme_id: 203
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>Choisir la bonne formation</li><li>Trouver
                         votre OPCO, financer la formation</li><li>Mettre en place
@@ -78,12 +78,12 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles: []
-                    - id: 694
+                    - id: 157
                       title: Répondre à vos obligations en matière de santé et de
                         sécurité
                       slug: obligations-sante-securite
-                      landing_id: 858
-                      landing_theme_id: 1055
+                      landing_id: 180
+                      landing_theme_id: 204
                       landing_theme_slug: sante-securite-travail
                       description: '<ul><li>Rédiger ou réviser votre document unique
                         d''évaluation des risques professionnels (DUERP)</li><li>Faire
@@ -121,6 +121,7 @@ paths:
       parameters:
       - name: id
         in: path
+        description: identifiant du sujet
         required: true
         schema:
           type: string
@@ -133,11 +134,11 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 695
+                      id: 158
                       title: Recruter un ou plusieurs salariés
                       slug: recruter
-                      landing_id: 859
-                      landing_theme_id: 1056
+                      landing_id: 181
+                      landing_theme_id: 205
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>S’informer sur les aides à l'embauche
                         des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
@@ -150,16 +151,16 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles:
-                      - id: 65
+                      - id: 107
                         key: recrutement_poste_cadre
-                        position: 
-                        subject_id: 756
+                        position: 1
                         question: Souhaitez-vous recruter sur un poste de cadre ?
-                      - id: 66
+                        question_type: boolean
+                      - id: 108
                         key: recrutement_en_apprentissage
-                        position: 
-                        subject_id: 756
+                        position: 2
                         question: Souhaitez-vous recruter en apprentissage ?
+                        question_type: boolean
               schema:
                 type: object
                 properties:
@@ -182,7 +183,7 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 1057
+                    - id: 206
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -190,11 +191,11 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 697
+                      - id: 160
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_id: 860
-                        landing_theme_id: 1057
+                        landing_id: 182
+                        landing_theme_id: 206
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -205,11 +206,11 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 698
+                      - id: 161
                         title: Gestion de l’eau
                         slug: eau
-                        landing_id: 860
-                        landing_theme_id: 1057
+                        landing_id: 182
+                        landing_theme_id: 206
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -222,7 +223,7 @@ paths:
                           en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                    - id: 1058
+                    - id: 207
                       title: Améliorer la santé et la sécurité au travail
                       slug: sante-securite-travail
                       description: Réviser votre document unique d’évaluation des
@@ -230,7 +231,7 @@ paths:
                         des risques professionnels (DUERP), connaître les règles d’hygiène,
                         améliorer la qualité de vie au travail pour être plus performant.
                       landing_subjects: []
-                    - id: 1059
+                    - id: 208
                       title: Recruter ou former vos salariés, améliorer l’organisation
                         du travail
                       slug: recrutement-formation
@@ -263,6 +264,7 @@ paths:
       parameters:
       - name: id
         in: path
+        description: identifiant du thème
         required: true
         schema:
           type: string
@@ -275,7 +277,7 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 1062
+                      id: 211
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -283,11 +285,11 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 703
+                      - id: 166
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_id: 863
-                        landing_theme_id: 1062
+                        landing_id: 185
+                        landing_theme_id: 211
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -298,11 +300,11 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 704
+                      - id: 167
                         title: Gestion de l’eau
                         slug: eau
-                        landing_id: 863
-                        landing_theme_id: 1062
+                        landing_id: 185
+                        landing_theme_id: 211
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -343,19 +345,19 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 864
+                    - id: 186
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
-                      partner_url: https://www.example.com/aides
+                      partner_url: https://www.example.com
                       landing_themes:
-                      - id: 1063
+                      - id: 212
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 1064
+                      - id: 213
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -406,7 +408,7 @@ paths:
       parameters:
       - name: url
         in: query
-        description: url de la page qui appelle l’API
+        description: Domaine du site qui appelle l’API
         required: false
         schema:
           type: string
@@ -419,19 +421,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 867
+                      id: 189
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
-                      partner_url: https://www.example.com/aides
+                      partner_url: https://www.example.com
                       landing_themes:
-                      - id: 1069
+                      - id: 218
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 1070
+                      - id: 219
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -492,6 +494,7 @@ paths:
       parameters:
       - name: id
         in: path
+        description: identifiant de la page
         required: true
         schema:
           type: string
@@ -504,19 +507,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 870
+                      id: 192
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
-                      partner_url: https://www.example.com/aides
+                      partner_url: https://www.example.com
                       landing_themes:
-                      - id: 1075
+                      - id: 224
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 1076
+                      - id: 225
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -537,6 +540,83 @@ paths:
                       total_themes:
                         type: integer
                         description: Nombre de thèmes liée à la page d’atterrissage.
+  "/api/v1/solicitations":
+    post:
+      summary: Créer une sollicitation
+      tags:
+      - Sollicitation
+      description: Crée une sollicitation liée à un sujet, en provenance d’une institution.
+      parameters: []
+      responses:
+        '200':
+          description: Solicitation créée
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    data:
+                      uuid: 859a94d2-18c1-4b46-aac1-ef8245c8c195
+                      code_region: 11
+                      description: ma demande
+                      email: hubertine@example.com
+                      full_name: Hubertine Auclerc
+                      status: in_progress
+                      location: 
+                      phone_number: '0606060606'
+                      siret: '13002526500013'
+                      landing_subject: Recruter un ou plusieurs salariés
+                      api_calling_url: http://mon-partenaire.fr/page-recrutement
+                      questions_additionnelles:
+                      - question_id: 111
+                        question_label: Souhaitez-vous recruter sur un poste de cadre ?
+                        answer: true
+                      - question_id: 112
+                        question_label: Souhaitez-vous recruter en apprentissage ?
+                        answer: false
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/solicitation_created"
+        '400':
+          description: Paramètre "Solicitation" manquant
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    errors:
+                    - source: solicitation
+                      message: le paramètre est manquant
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
+        '422':
+          description: Un champs obligatoire de la solicitation manquant
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    errors:
+                    - source: Questions additionnelles
+                      message: doit être rempli(e)
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/new_solicitation"
+        required: true
 servers:
 - url: https://place-des-entreprises.beta.gouv.fr
 - url: https://reso-staging.osc-fr1.scalingo.io
@@ -609,35 +689,92 @@ components:
     new_solicitation:
       type: object
       properties:
-        landing_id:
-          type: integer
-        landing_subject_id:
-          type: integer
-        description:
+        solicitation:
+          type: object
+          properties:
+            landing_id:
+              type: integer
+            landing_subject_id:
+              type: integer
+            description:
+              type: string
+            full_name:
+              type: string
+            email:
+              type: string
+            phone_number:
+              type: string
+            siret:
+              type: string
+            location:
+              type: string
+            api_calling_url:
+              type: string
+            questions_additionnelles:
+              type: array
+              items:
+                "$ref": "#/components/schemas/question_additionnelle_short"
+          required:
+          - landing_id
+          - landing_subject_id
+          - description
+          - full_name
+          - email
+          - api_calling_url
+      required:
+      - solicitation
+    solicitation_created:
+      type: object
+      properties:
+        uuid:
           type: string
-        code_region:
-          type: integer
-        status:
-          type: integer
+        landing_subject:
+          type: string
         full_name:
           type: string
-        phone_number:
-          type: string
         email:
+          type: string
+        phone_number:
           type: string
         siret:
           type: string
         location:
           type: string
-        institution_filters_attributes:
-          type: object
-          properties:
-            id:
-              type: integer
-            additional_subject_question_id:
-              type: integer
-            filter_value:
-              type: string
+        description:
+          type: string
+        code_region:
+          type: integer
+        status:
+          type: string
+        questions_additionnelles:
+          type: array
+          items:
+            "$ref": "#/components/schemas/question_additionnelle_long"
+        api_calling_url:
+          type: string
+      required:
+      - landing_id
+      - landing_subject_id
+      - description
+      - full_name
+      - email
+      - api_calling_url
+    question_additionnelle_short:
+      type: object
+      properties:
+        question_id:
+          type: integer
+        answer:
+          type: string
+    question_additionnelle_long:
+      type: object
+      properties:
+        question_id:
+          type: integer
+        question_label:
+          type: string
+        answer:
+          type: string
     error:
       type: object
       properties:

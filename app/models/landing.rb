@@ -9,7 +9,7 @@
 #  emphasis                        :boolean          default(FALSE)
 #  home_description                :text             default("")
 #  iframe_category                 :integer          default("integral")
-#  integration                     :integer          default("pde")
+#  integration                     :integer          default("intern")
 #  layout                          :integer          default("multiple_steps")
 #  main_logo                       :string
 #  meta_description                :string
