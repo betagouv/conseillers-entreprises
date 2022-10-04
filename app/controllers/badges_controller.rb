@@ -34,9 +34,10 @@ class BadgesController < ApplicationController
   end
 
   def destroy
+    category = @badge.category
     @badge.destroy
     flash.notice = t('.badge_destroyed')
-    redirect_to badges_path
+    redirect_to action: category
   end
 
   def edit; end
