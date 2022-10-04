@@ -133,7 +133,12 @@ class Solicitation < ApplicationRecord
   ## Validations
   #
   validates :landing, presence: true, allow_blank: false
+  # Il y a des solicitation sans landing_subject jusqu'en octobre 2020
+  validates :landing_subject, presence: true, allow_blank: false, if: -> { created_at.nil? || created_at > "20201101".to_date }
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
+  validates :institution_filters, presence: true, if: -> { subject_with_additional_questions? }
+  validates :api_calling_url, presence: true, if: -> { landing&.api? }
+
   validate if: -> { status_step_contact? || status_step_company? || status_step_description? } do
     contact_step_required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
@@ -150,9 +155,6 @@ class Solicitation < ApplicationRecord
     end
   end
   validates :description, presence: true, allow_blank: false, if: -> { status_in_progress? }
-
-  validates :institution_filters, presence: true, if: -> { subject_with_additional_questions? }
-  validates :api_calling_url, presence: true, if: -> { landing.api? }
 
   def subject_with_additional_questions?
     status_in_progress? && self.subject&.additional_subject_questions&.any?

@@ -179,6 +179,34 @@ RSpec.describe "Solicitations API", type: :request do
             end
           end
         end
+
+        context 'Mauvaise landing' do
+          response '422', 'Page introuvable' do
+            schema errors: {
+              type: :array,
+                    items: {
+                      '$ref': "#/components/schemas/error"
+                    }
+            }
+            let(:siret) { 13002526500013 }
+            let(:solicitation) { { solicitation: base_solicitation.merge({ landing_id: 'abc' }) } }
+
+            before do |example|
+              ENV['API_ENTREPRISE_TOKEN'] = token
+              stub_request(:get, api_entreprise_url).to_return(
+                body: file_fixture('api_entreprise_get_etablissement.json')
+              )
+              submit_request(example.metadata)
+            end
+
+            it 'returns insitution_filters error' do |example|
+              expect(response).to have_http_status(:unprocessable_entity)
+              result = JSON.parse(response.body)
+              expect(result["errors"].first["source"]).to eq('Page d’atterrissage')
+              expect(result["errors"].first["message"]).to eq('doit être rempli(e)')
+            end
+          end
+        end
       end
     end
   end
