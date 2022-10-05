@@ -54,6 +54,8 @@ class Need < ApplicationRecord
   has_many :reminders_actions, inverse_of: :need, dependent: :destroy
   has_one :company_satisfaction, dependent: :destroy, inverse_of: :need
   has_many :institution_filters, dependent: :destroy, as: :institution_filtrable, inverse_of: :institution_filtrable
+  has_many :badge_badgeables, as: :badgeable
+  has_many :badges, through: :badge_badgeables, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
 
   ## Validations
   #
@@ -359,5 +361,9 @@ class Need < ApplicationRecord
     end
 
     result
+  end
+
+  def touch_after_badges_update(_badge)
+    touch if persisted?
   end
 end

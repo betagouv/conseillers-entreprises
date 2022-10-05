@@ -89,7 +89,7 @@ class Conseiller::SolicitationsController < ApplicationController
     solicitations = Solicitation.step_complete.order(:created_at)
     solicitations = solicitations.by_possible_region(territory_id) if territory_id.present?
     solicitations.page(params[:page]).omnisearch(params[:query]).distinct
-      .includes(:badges_solicitations, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne }, landing_subject: :subject, institution: :logo)
+      .includes(:badge_badgeables, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne }, landing_subject: :subject, institution: :logo)
   end
 
   def authorize_index_solicitation

@@ -168,6 +168,9 @@ fr:
         local: Local
         national: National
         regional: Régional
+      badge/categories:
+        needs: Besoins
+        solicitations: Sollicitations
       commune:
         insee_code: Code commune
       company:
@@ -655,7 +658,9 @@ fr:
       one: Tag
       other: Tags
     categories: Catégories
+    category: Catégorie
     code_effectif: Tranche d’effectif
+    color: Couleur
     commune: Commune
     communes: Communes
     community: Communauté

@@ -113,16 +113,27 @@ fr:
   attributes:
     is_global_zone: Territoire national
   badges:
+    create:
+      badge_created: Le tag a bien été créé
+    destroy:
+      badge_destroyed: Le tag a bien été supprimé
+    edit:
+      title: Modifier un tag
+    form:
+      save: Enregistrer
     index:
-      add_badge: Ajouter un tag
-      button:
-        title: Ajouter
-      color: Couleur
       confirm_delete: Voulez-vous supprimer ce tag ?
       delete: Supprimer
-      no_badges: Il n’y a aucun tag pour le moment
+      edit: Modifier
       title: Tags
-      title_label: Titre
+    menu:
+      needs: Tags de besoins
+      new: Créer
+      solicitations: Tags de sollicitations
+    new:
+      title: Créer un tag
+    update:
+      badge_updated: Le tag a bien été mis à jour
   breadcrumbs_helper:
     home_link:
       home: Accueil
@@ -241,8 +252,6 @@ fr:
         unban_facility: Réintégrer l'entreprise
       solicitation_badges:
         add_remove_badges: Ajouter / Enlever des tags
-      solicitations_tags_js:
-        manage_badges: Gérer les tags
   contacts:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
@@ -860,6 +869,8 @@ fr:
           recall: À rappeler
       send_reminder_email:
         email_send: Email de relance envoyé
+    needs_badges:
+      add_remove_badges: Ajouter ou retirer un tag
     section:
       experts: Par expert
       needs: Par besoin

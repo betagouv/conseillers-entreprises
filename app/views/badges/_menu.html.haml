@@ -1,0 +1,5 @@
+%ul.fr-sidemenu__list
+  %li
+    = active_link_to(t('.solicitations'), solicitations_badges_path, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active')
+    = active_link_to(t('.needs'), needs_badges_path, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active')
+    = active_link_to(t('.new'), new_badge_path, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active')

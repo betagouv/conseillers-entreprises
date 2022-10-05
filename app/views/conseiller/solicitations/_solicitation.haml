@@ -3,8 +3,7 @@
     .card__title
       %h2= [solicitation.to_s, solicitation.full_name].join(' - ')
       %span.subtitle= I18n.l(solicitation.created_at, format: :long)
-    .card__badges
-      = render 'solicitation_badges', solicitation: solicitation
+    = render 'solicitation_badges', solicitation: solicitation
   .fr-card__body
     .card__info
       .card__fields

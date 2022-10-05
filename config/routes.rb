@@ -185,6 +185,7 @@ Rails.application.routes.draw do
     resources :needs, path: 'besoins', only: %i[index] do
       member do
         post :send_abandoned_email
+        post :update_badges
         post :send_reminder_email
       end
       collection do
@@ -223,7 +224,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :badges, only: %i[index create destroy]
+  resources :badges, except: :show, path: 'tags' do
+    collection do
+      get :solicitations, path: 'sollicitations'
+      get :needs, path: 'besoins'
+    end
+  end
 
   resources :partner_tools, only: %i[], path: 'outils-partenaires' do
     collection do

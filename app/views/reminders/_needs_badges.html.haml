@@ -1,0 +1,10 @@
+.card__badges{ data: { controller: 'badges' } }
+  .badges-list{ id: "need-#{need.id}-badges", 'data-badges-target': 'list' }
+    - need.badges.each do |badge|
+      = badge_label(badge)
+  .hide.badges{ 'data-badges-target': 'form' }
+    = form_with model: need, url: update_badges_reminders_need_path(need), method: :post, id: "need-#{need.id}-form-badges" do |f|
+      = f.select(:badge_ids, options_from_collection_for_select(Badge.category_needs, :id, :title, need.badge_ids), {}, { multiple: true, class: 'clearable ui search selection dropdown badges' })
+
+      = f.submit t('ok'), class: 'fr-btn fr-btn--sm'
+  %button.ri-price-tag-3-line.fr-mr-1w.modify-badges{ data: { action: 'click->badges#toggleForm', id: "#{need.id}" }, title: t('.add_remove_badges') }
