@@ -184,7 +184,6 @@ RSpec.describe Solicitation, type: :model do
   end
 
   describe '#preselected_subject' do
-
     subject { solicitation.preselected_subject }
 
     context 'subject is known' do
