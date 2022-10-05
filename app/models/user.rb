@@ -322,7 +322,7 @@ class User < ApplicationRecord
     user_experts = self.relevant_experts - self.personal_skillsets
     # si c'est une équipe
     if user_experts.present?
-      new_user.relevant_experts = user_experts
+      new_user.relevant_experts << user_experts
       new_user.save
     # si c'est un expert personnel on attribue les sujets à l'expert personnel du nouvel utilisateur
     elsif self.personal_skillsets.map(&:experts_subjects).present?

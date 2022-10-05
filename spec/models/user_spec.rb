@@ -313,18 +313,19 @@ RSpec.describe User, type: :model do
     let(:a_subject) { create :subject }
     let(:institution_subject) { create :institution_subject, institution: institution, subject: a_subject }
     let(:expert_subject) { create :expert_subject, institution_subject: institution_subject }
-    let(:old_user) { create :user, :invitation_accepted, :manager, experts: [expert], antenne: antenne }
+    let(:old_user) { create :user, :invitation_accepted, :manager, experts: [expert], antenne: antenne, full_name: 'Old User' }
 
     context 'with team' do
       let(:expert) { create :expert_with_users, experts_subjects: [expert_subject] }
-      let(:new_user) { old_user.duplicate({ full_name: 'Bruce Benamran', email: 'test1@email.com', phone_number: '0303030303' }) }
+      let(:new_user) { old_user.duplicate({ full_name: 'New User', email: 'test1@email.com', phone_number: '0303030303' }) }
 
       it "duplicate a user and add it to old_user team" do
-        expect(new_user.full_name).to eq 'Bruce Benamran'
+        expect(new_user.full_name).to eq 'New User'
         expect(new_user.email).to eq 'test1@email.com'
         expect(new_user.phone_number).to eq '03 03 03 03 03'
         expect(new_user.job).to eq old_user.job
         expect(new_user.antenne).to eq old_user.antenne
+        expect(new_user.antenne.experts.count).to eq 2
         expect(new_user.experts.map { |e| e.subjects }.flatten).to match_array [a_subject]
         expect(new_user.relevant_experts).to match_array [expert]
         expect(new_user.user_rights.count).to eq 1
