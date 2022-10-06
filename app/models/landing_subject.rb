@@ -14,7 +14,7 @@
 #  position                       :integer
 #  requires_location              :boolean          default(FALSE), not null
 #  requires_requested_help_amount :boolean          default(FALSE), not null
-#  requires_siret                 :boolean          default(FALSE), not null
+#  requires_siret                 :boolean          default(TRUE), not null
 #  slug                           :string
 #  title                          :string
 #  created_at                     :datetime         not null
