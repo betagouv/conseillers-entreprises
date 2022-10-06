@@ -15,11 +15,24 @@ RSpec.describe Conseiller::SolicitationsController, type: :controller do
     let!(:canceled) { create :solicitation, status: :canceled }
 
     describe 'GET #index' do
-      subject(:request) { get :index }
+      context 'without search params' do
+        subject(:request) { get :index }
 
-      before { request }
+        before { request }
 
-      it { expect(assigns(:solicitations)).to contain_exactly(in_progress, feedback.solicitation) }
+        it { expect(assigns(:solicitations)).to contain_exactly(in_progress, feedback.solicitation) }
+      end
+
+      context 'with search params' do
+        let(:badge) { create(:badge, title: 'avis équipe') }
+        let!(:solicitation_with_badge) { create(:solicitation, status: :in_progress, badges: [badge]) }
+
+        subject(:request) { get :index, params: { query: 'avis équipe' } }
+
+        before { request }
+
+        it { expect(assigns(:solicitations)).to contain_exactly(solicitation_with_badge) }
+      end
     end
 
     describe 'GET #processed' do
