@@ -86,7 +86,6 @@ export default class extends Controller {
       return data;
     } catch(err) {
       // eslint-disable-next-line no-undef
-      Sentry.captureException(err)
       this.manageSourceError({error: "error reading not json data"})
     }
   }
