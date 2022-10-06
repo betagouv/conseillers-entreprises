@@ -5,6 +5,7 @@ RSpec.describe "Landing Subjects API", type: :request do
   let(:institution) { create(:institution) }
   let(:Authorization) { "Bearer token=#{find_token(institution)}" }
   let(:landing_01) { create_base_landing(institution) }
+  let(:landing_id) { landing_01.id }
   let!(:rh_theme) { create_rh_theme([landing_01]) }
   let!(:recrutement_subject) { create_recrutement_subject(rh_theme) }
   let!(:formation_subject) { create_formation_subject(rh_theme) }
@@ -27,10 +28,11 @@ RSpec.describe "Landing Subjects API", type: :request do
   end
 
   describe 'index' do
-    path '/api/v1/landing_subjects' do
+    path '/api/v1/landings/{landing_id}/landing_subjects' do
       get 'Liste des sujets' do
         tags 'Sujets'
-        description 'Affiche tous les sujets pour l’organisation authentifiée'
+        description 'Affiche tous les sujets d’une page d’atterrissage'
+        parameter name: :landing_id, in: :path, type: :integer, description: 'identifiant de la page d’atterrissage', required: true
         produces 'application/json'
 
         response '200', 'ok' do
@@ -47,7 +49,7 @@ RSpec.describe "Landing Subjects API", type: :request do
                      properties: {
                        total_results: {
                          type: :integer,
-                         description: 'Nombre de sujets pour l’organisation authentifiée.'
+                         description: 'Nombre de sujets de la page d’atterrissage.'
                        }
                      }
                    }
@@ -65,7 +67,7 @@ RSpec.describe "Landing Subjects API", type: :request do
             expect(response).to have_http_status(:ok)
             result = JSON.parse(response.body)
             expect(result.size).to eq(2)
-            expect(result['data'].size).to eq(3)
+            expect(result['data'].size).to eq(2)
           end
         end
       end
@@ -73,14 +75,15 @@ RSpec.describe "Landing Subjects API", type: :request do
   end
 
   describe 'show' do
-    path '/api/v1/landing_subjects/{id}' do
+    path '/api/v1/landings/{landing_id}/landing_subjects/{id}' do
       get 'Page sujet' do
         tags 'Sujets'
         description 'Affiche le détail d’un formulaire sujet'
-        parameter name: :id, in: :path, type: :string, description: 'identifiant du sujet', required: true
+        parameter name: :landing_id, in: :path, type: :integer, description: 'identifiant de la page d’atterrissage', required: true
+        parameter name: :id, in: :path, type: :integer, description: 'identifiant du sujet', required: true
         produces 'application/json'
 
-        response '200', 'Sujet trouvée' do
+        response '200', 'Sujet trouvé' do
           schema type: :object,
                  properties: {
                    data: {

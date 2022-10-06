@@ -5,6 +5,7 @@ RSpec.describe "Landing Themes API", type: :request do
   let(:institution) { create(:institution) }
   let(:Authorization) { "Bearer token=#{find_token(institution)}" }
   let(:landing_01) { create_base_landing(institution) }
+  let(:landing_id) { landing_01.id }
   let!(:ecolo_theme) { create_ecolo_theme([landing_01]) }
   let!(:dechet_subject) { create_dechet_subject(ecolo_theme) }
   let!(:eau_subject) { create_eau_subject(ecolo_theme) }
@@ -25,10 +26,11 @@ RSpec.describe "Landing Themes API", type: :request do
   end
 
   describe 'index' do
-    path '/api/v1/landing_themes' do
+    path '/api/v1/landings/{landing_id}/landing_themes' do
       get 'Liste des thèmes' do
         tags 'Thèmes'
         description 'Affiche tous les thèmes pour l’organisation authentifiée'
+        parameter name: :landing_id, in: :path, type: :integer, description: 'identifiant de la page d’atterrissage', required: true
         produces 'application/json'
 
         response '200', 'ok' do
@@ -64,7 +66,7 @@ RSpec.describe "Landing Themes API", type: :request do
             expect(response).to have_http_status(:ok)
             result = JSON.parse(response.body)
             expect(result.size).to eq(2)
-            expect(result['data'].size).to eq(3)
+            expect(result['data'].size).to eq(2)
           end
         end
       end
@@ -72,10 +74,11 @@ RSpec.describe "Landing Themes API", type: :request do
   end
 
   describe 'show' do
-    path '/api/v1/landing_themes/{id}' do
+    path '/api/v1/landings/{landing_id}/landing_themes/{id}' do
       get 'Page thème' do
         tags 'Thèmes'
         description 'Affiche le détail d’un thème et la liste de ses sujets'
+        parameter name: :landing_id, in: :path, type: :integer, description: 'identifiant de la page d’atterrissage', required: true
         parameter name: :id, in: :path, type: :string, description: 'identifiant du thème', required: true
         produces 'application/json'
 
