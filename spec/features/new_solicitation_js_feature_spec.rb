@@ -282,7 +282,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
           click_button 'Suivant'
           expect(page).not_to have_content('Sélectionnez votre entreprise :')
 
-          expect(page).to have_content("L'identifiant (siret ou siren) est invalide")
+          expect(page).to have_content("L’identifiant (siret ou siren) est invalide")
         end
       end
     end

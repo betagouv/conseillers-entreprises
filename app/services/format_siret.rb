@@ -17,7 +17,8 @@ class FormatSiret
   end
 
   def self.siren_is_valid(siren)
-    siren.present? && siren.match?(/^\d{9}$/)
+    siren.present? && siren.match?(/^\d{9}$/) &&
+    (luhn_valid(siren) || siret_is_hardcoded_valid(siren))
   end
 
   def self.siret_is_valid(siret)
