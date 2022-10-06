@@ -13,6 +13,8 @@ module ApiInsee
         http_request = request
         if http_request.success?
           responder(http_request).call
+        elsif http_request.not_found?
+          raise ApiInseeError, I18n.t('api_requests.non_diffusible_error')
         elsif http_request.unavailable_api?
           raise UnavailableApiError, I18n.t('api_requests.generic_error')
         else
@@ -69,6 +71,10 @@ module ApiInsee
 
     def unavailable_api?
       response_status.internal_server_error? || response_status.bad_gateway? || response_status.service_unavailable?
+    end
+
+    def not_found?
+      response_status.not_found?
     end
 
     def response_status

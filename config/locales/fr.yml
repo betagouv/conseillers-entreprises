@@ -16,8 +16,9 @@ fr:
       etablissement: Erreur lors de la récupération des détails de l’établissement.
     embraced_error_html: 'La recherche de votre entreprise auprès de nos partenaires a rencontré une erreur : "%{message}". Veuillez modifier votre recherche, réessayer ultérieurement ou <a href=%{url}>renseigner votre SIRET manuellement</a>.'
     foreign_facility: Votre établissement est identifié dans un pays étranger (%{country}), nous ne pouvons prendre en charge votre demande.
-    generic_error: Nous n'avons pu récupérer les détails de l'entreprise auprès de nos partenaires
-    invalid_siret_or_siren: L'identifiant (siret ou siren) est invalide
+    generic_error: Nous n’avons pas pu récupérer les détails de votre entité auprès de nos partenaires
+    invalid_siret_or_siren: L’identifiant (siret ou siren) est invalide
+    non_diffusible_error: Nous n’avons pas pu identifier votre entité. Peut-être est-elle non diffusible ?
   app_name: Place des Entreprises
   boolean:
     text:
