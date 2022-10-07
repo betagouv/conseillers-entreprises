@@ -8,6 +8,7 @@ fr:
   api_pde:
     errors:
       not_found: n’existe pas ou est invalide
+      parameter_missing: le paramètre est manquant
       unrecognized: malformés ou inconnus
     query_parameters: paramètres de requête
   api_requests:

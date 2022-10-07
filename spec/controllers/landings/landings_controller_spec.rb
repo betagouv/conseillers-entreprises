@@ -17,7 +17,7 @@ RSpec.describe Landings::LandingsController, type: :controller do
   end
 
   describe "iframes" do
-    let!(:landing) { create :landing, slug: 'iframe-baby', iframe: true, iframe_category: iframe_category, partner_url: 'example.com' }
+    let!(:landing) { create :landing, slug: 'iframe-baby', integration: :iframe, iframe_category: iframe_category, partner_url: 'example.com' }
     let!(:landing_theme) { create :landing_theme, slug: 'theme-cool' }
     let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, slug: 'yeah-subject' }
 

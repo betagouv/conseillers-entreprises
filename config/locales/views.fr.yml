@@ -412,6 +412,7 @@ fr:
         back_to_other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href="/" class='blue'>Découvrez les autres sujets.</a>
     landings:
       admin:
+        iframe_and_api_fields: Champs partagés iframe & API
         iframe_fields: Champs iframe
       home:
         answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'

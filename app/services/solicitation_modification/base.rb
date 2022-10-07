@@ -1,7 +1,7 @@
 module SolicitationModification
   class Base
     def initialize(solicitation = Solicitation.new, params)
-      @params = params
+      @params = format_params(params)
       @solicitation = solicitation
     end
 
@@ -24,15 +24,22 @@ module SolicitationModification
 
     private
 
+    def format_params(params)
+      params
+    end
+
     def check_in_deployed_region
-      if from_deployed_territory?
-        @params = @params.merge(created_in_deployed_region: true)
-      end
+      @params = @params.merge(created_in_deployed_region: from_deployed_territory?)
     end
 
     # Methode a surcharger
     def from_deployed_territory?
-      @params[:code_region].present? && Territory.deployed_codes_regions.include?(@params[:code_region].to_i)
+      code_region = @params[:code_region] || @solicitation.code_region
+      if @solicitation.persisted?
+        code_region.present? && Territory.deployed_codes_regions.include?(code_region.to_i) && (@solicitation.created_at > solicitation_territory(code_region).deployed_at)
+      else
+        code_region.present? && Territory.deployed_codes_regions.include?(@params[:code_region].to_i)
+      end
     end
 
     # on gère automatiquement les étapes du formulaire de création d'une solicitation

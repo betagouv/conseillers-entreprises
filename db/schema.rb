@@ -411,10 +411,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_28_134804) do
     t.boolean "emphasis", default: false
     t.string "main_logo"
     t.integer "layout", default: 1
-    t.boolean "iframe", default: false
     t.integer "iframe_category", default: 1
     t.boolean "display_pde_partnership_mention", default: false
     t.datetime "archived_at", precision: nil
+    t.integer "integration", default: 0
     t.index ["archived_at"], name: "index_landings_on_archived_at"
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
@@ -524,7 +524,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_28_134804) do
     t.string "location"
     t.bigint "institution_id"
     t.integer "code_region"
-    t.boolean "created_in_deployed_region", default: false
+    t.boolean "created_in_deployed_region", default: true
     t.bigint "landing_id"
     t.bigint "landing_subject_id"
     t.boolean "banned", default: false

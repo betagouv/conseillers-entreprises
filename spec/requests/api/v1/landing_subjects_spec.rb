@@ -77,7 +77,7 @@ RSpec.describe "Landing Subjects API", type: :request do
       get 'Page sujet' do
         tags 'Sujets'
         description 'Affiche le détail d’un formulaire sujet'
-        parameter name: :id, in: :path, type: :string
+        parameter name: :id, in: :path, type: :string, description: 'identifiant du sujet', required: true
         produces 'application/json'
 
         response '200', 'Sujet trouvée' do
