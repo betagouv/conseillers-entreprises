@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_28_134804) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_10_154842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -363,7 +363,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_28_134804) do
     t.string "form_title"
     t.text "form_description"
     t.text "description_explanation"
-    t.boolean "requires_siret", default: false, null: false
+    t.boolean "requires_siret", default: true, null: false
     t.boolean "requires_requested_help_amount", default: false, null: false
     t.boolean "requires_location", default: false, null: false
     t.datetime "created_at", null: false
