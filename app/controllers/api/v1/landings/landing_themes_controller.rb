@@ -1,5 +1,6 @@
 class Api::V1::Landings::LandingThemesController < Api::V1::Landings::BaseController
   before_action :retrieve_landing
+
   def index
     landing_themes = base_scope
 

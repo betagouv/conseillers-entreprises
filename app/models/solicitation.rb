@@ -481,7 +481,7 @@ class Solicitation < ApplicationRecord
   end
 
   def provenance_title
-    if from_iframe? || from_api?
+    if from_iframe?
       landing.slug
     elsif from_api?
       landing.partner_url
