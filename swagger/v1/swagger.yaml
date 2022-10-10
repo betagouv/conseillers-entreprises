@@ -19,12 +19,19 @@ tags:
 - name: Thèmes
 - name: Sujets
 paths:
-  "/api/v1/landing_subjects":
+  "/api/v1/landings/{landing_id}/landing_subjects":
     get:
       summary: Liste des sujets
       tags:
       - Sujets
-      description: Affiche tous les sujets pour l’organisation authentifiée
+      description: Affiche tous les sujets d’une page d’atterrissage
+      parameters:
+      - name: landing_id
+        in: path
+        description: identifiant de la page d’atterrissage
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: ok
@@ -34,11 +41,11 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 155
+                    - id: 1108
                       title: Recruter un ou plusieurs salariés
                       slug: recruter
-                      landing_id: 179
-                      landing_theme_id: 203
+                      landing_id: 1086
+                      landing_theme_id: 1112
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>S’informer sur les aides à l'embauche
                         des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
@@ -51,21 +58,21 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles:
-                      - id: 105
+                      - id: 111
                         key: recrutement_poste_cadre
                         position: 1
                         question: Souhaitez-vous recruter sur un poste de cadre ?
                         question_type: boolean
-                      - id: 106
+                      - id: 112
                         key: recrutement_en_apprentissage
                         position: 2
                         question: Souhaitez-vous recruter en apprentissage ?
                         question_type: boolean
-                    - id: 156
+                    - id: 1109
                       title: Mettre en place un projet de formation
                       slug: former
-                      landing_id: 179
-                      landing_theme_id: 203
+                      landing_id: 1086
+                      landing_theme_id: 1112
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>Choisir la bonne formation</li><li>Trouver
                         votre OPCO, financer la formation</li><li>Mettre en place
@@ -78,27 +85,8 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles: []
-                    - id: 157
-                      title: Répondre à vos obligations en matière de santé et de
-                        sécurité
-                      slug: obligations-sante-securite
-                      landing_id: 180
-                      landing_theme_id: 204
-                      landing_theme_slug: sante-securite-travail
-                      description: '<ul><li>Rédiger ou réviser votre document unique
-                        d''évaluation des risques professionnels (DUERP)</li><li>Faire
-                        une étude de poste</li><li><span style="background-color:
-                        rgb(255, 255, 255);">Réduire la pénibilité au travail, m</span>onter
-                        un dossier de subvention Carsat</li><li>Connaître les règles
-                        d''hygiène applicables à votre activité</li></ul>'
-                      description_explanation: "<ul><li>votre activité</li><li>si
-                        vous avez un document unique</li><li>ce qui a déjà été mis
-                        en place</li></ul>"
-                      requires_siret: true
-                      requires_location: false
-                      questions_additionnelles: []
                     metadata:
-                      total_results: 3
+                      total_results: 2
               schema:
                 type: object
                 properties:
@@ -111,34 +99,40 @@ paths:
                     properties:
                       total_results:
                         type: integer
-                        description: Nombre de sujets pour l’organisation authentifiée.
-  "/api/v1/landing_subjects/{id}":
+                        description: Nombre de sujets de la page d’atterrissage.
+  "/api/v1/landings/{landing_id}/landing_subjects/{id}":
     get:
       summary: Page sujet
       tags:
       - Sujets
       description: Affiche le détail d’un formulaire sujet
       parameters:
+      - name: landing_id
+        in: path
+        description: identifiant de la page d’atterrissage
+        required: true
+        schema:
+          type: integer
       - name: id
         in: path
         description: identifiant du sujet
         required: true
         schema:
-          type: string
+          type: integer
       responses:
         '200':
-          description: Sujet trouvée
+          description: Sujet trouvé
           content:
             application/json:
               examples:
                 test_example:
                   value:
                     data:
-                      id: 158
+                      id: 1111
                       title: Recruter un ou plusieurs salariés
                       slug: recruter
-                      landing_id: 181
-                      landing_theme_id: 205
+                      landing_id: 1088
+                      landing_theme_id: 1114
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>S’informer sur les aides à l'embauche
                         des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
@@ -151,12 +145,12 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles:
-                      - id: 107
+                      - id: 113
                         key: recrutement_poste_cadre
                         position: 1
                         question: Souhaitez-vous recruter sur un poste de cadre ?
                         question_type: boolean
-                      - id: 108
+                      - id: 114
                         key: recrutement_en_apprentissage
                         position: 2
                         question: Souhaitez-vous recruter en apprentissage ?
@@ -168,12 +162,19 @@ paths:
                     "$ref": "#/components/schemas/landing_subject"
                   metadata:
                     type: object
-  "/api/v1/landing_themes":
+  "/api/v1/landings/{landing_id}/landing_themes":
     get:
       summary: Liste des thèmes
       tags:
       - Thèmes
       description: Affiche tous les thèmes pour l’organisation authentifiée
+      parameters:
+      - name: landing_id
+        in: path
+        description: identifiant de la page d’atterrissage
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: ok
@@ -183,7 +184,7 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 206
+                    - id: 1115
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -191,11 +192,11 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 160
+                      - id: 1113
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_id: 182
-                        landing_theme_id: 206
+                        landing_id: 1089
+                        landing_theme_id: 1115
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -206,11 +207,11 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 161
+                      - id: 1114
                         title: Gestion de l’eau
                         slug: eau
-                        landing_id: 182
-                        landing_theme_id: 206
+                        landing_id: 1089
+                        landing_theme_id: 1115
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -223,15 +224,7 @@ paths:
                           en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                    - id: 207
-                      title: Améliorer la santé et la sécurité au travail
-                      slug: sante-securite-travail
-                      description: Réviser votre document unique d’évaluation des
-                        risques professionnels, former vos salariés à la prévention
-                        des risques professionnels (DUERP), connaître les règles d’hygiène,
-                        améliorer la qualité de vie au travail pour être plus performant.
-                      landing_subjects: []
-                    - id: 208
+                    - id: 1117
                       title: Recruter ou former vos salariés, améliorer l’organisation
                         du travail
                       slug: recrutement-formation
@@ -241,7 +234,7 @@ paths:
                         départs en retraite.
                       landing_subjects: []
                     metadata:
-                      total_results: 3
+                      total_results: 2
               schema:
                 type: object
                 properties:
@@ -255,13 +248,19 @@ paths:
                       total_results:
                         type: integer
                         description: Nombre de thèmes pour l’organisation authentifiée.
-  "/api/v1/landing_themes/{id}":
+  "/api/v1/landings/{landing_id}/landing_themes/{id}":
     get:
       summary: Page thème
       tags:
       - Thèmes
       description: Affiche le détail d’un thème et la liste de ses sujets
       parameters:
+      - name: landing_id
+        in: path
+        description: identifiant de la page d’atterrissage
+        required: true
+        schema:
+          type: integer
       - name: id
         in: path
         description: identifiant du thème
@@ -277,7 +276,7 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 211
+                      id: 1120
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -285,11 +284,11 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 166
+                      - id: 1119
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_id: 185
-                        landing_theme_id: 211
+                        landing_id: 1092
+                        landing_theme_id: 1120
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -300,11 +299,11 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 167
+                      - id: 1120
                         title: Gestion de l’eau
                         slug: eau
-                        landing_id: 185
-                        landing_theme_id: 211
+                        landing_id: 1092
+                        landing_theme_id: 1120
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -345,19 +344,19 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 186
+                    - id: 1093
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com
                       landing_themes:
-                      - id: 212
+                      - id: 1121
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 213
+                      - id: 1122
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -421,19 +420,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 189
+                      id: 1096
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com
                       landing_themes:
-                      - id: 218
+                      - id: 1127
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 219
+                      - id: 1128
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -507,19 +506,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 192
+                      id: 1099
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com
                       landing_themes:
-                      - id: 224
+                      - id: 1133
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 225
+                      - id: 1134
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -556,7 +555,7 @@ paths:
                 test_example:
                   value:
                     data:
-                      uuid: 859a94d2-18c1-4b46-aac1-ef8245c8c195
+                      uuid: a8ac08af-a5ab-453a-ab52-d7a613b87532
                       code_region: 11
                       description: ma demande
                       email: hubertine@example.com
@@ -568,10 +567,10 @@ paths:
                       landing_subject: Recruter un ou plusieurs salariés
                       api_calling_url: http://mon-partenaire.fr/page-recrutement
                       questions_additionnelles:
-                      - question_id: 111
+                      - question_id: 117
                         question_label: Souhaitez-vous recruter sur un poste de cadre ?
                         answer: true
-                      - question_id: 112
+                      - question_id: 118
                         question_label: Souhaitez-vous recruter en apprentissage ?
                         answer: false
               schema:
@@ -597,14 +596,14 @@ paths:
                   items:
                     "$ref": "#/components/schemas/error"
         '422':
-          description: Un champs obligatoire de la solicitation manquant
+          description: Page introuvable
           content:
             application/json:
               examples:
                 test_example:
                   value:
                     errors:
-                    - source: Questions additionnelles
+                    - source: Page d’atterrissage
                       message: doit être rempli(e)
               schema:
                 errors:

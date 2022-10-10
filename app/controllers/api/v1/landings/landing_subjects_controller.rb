@@ -1,4 +1,6 @@
-class Api::V1::Landings::LandingSubjectsController < Api::V1::BaseController
+class Api::V1::Landings::LandingSubjectsController < Api::V1::Landings::BaseController
+  before_action :retrieve_landing
+
   def index
     landing_subjects = base_scope
     render json: landing_subjects, each_serializer: serializer, meta: { total_results: landing_subjects.size }
@@ -16,6 +18,6 @@ class Api::V1::Landings::LandingSubjectsController < Api::V1::BaseController
   end
 
   def base_scope
-    current_institution.landing_subjects.archived(false)
+    @landing.landing_subjects.archived(false)
   end
 end

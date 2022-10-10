@@ -1,4 +1,6 @@
-class Api::V1::Landings::LandingThemesController < Api::V1::BaseController
+class Api::V1::Landings::LandingThemesController < Api::V1::Landings::BaseController
+  before_action :retrieve_landing
+
   def index
     landing_themes = base_scope
 
@@ -17,6 +19,6 @@ class Api::V1::Landings::LandingThemesController < Api::V1::BaseController
   end
 
   def base_scope
-    current_institution.landing_themes.archived(false)
+    @landing.landing_themes.archived(false)
   end
 end
