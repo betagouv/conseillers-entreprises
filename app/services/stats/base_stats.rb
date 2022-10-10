@@ -15,8 +15,8 @@ module Stats
       @iframe = Landing.find_by(id: params.iframe) if params.iframe.present?
       @mtm_campaign = params.mtm_campaign
       @mtm_kwd = params.mtm_kwd
-      @start_date = params.start_date.to_date || (Date.today - 6.months)
-      @end_date = params.end_date.to_date || Date.today
+      @start_date = params.start_date.to_time || (Time.zone.now.beginning_of_day - 6.months)
+      @end_date = params.end_date.to_time.end_of_day || Time.zone.now.end_of_day
     end
 
     def date_group_attribute
@@ -106,6 +106,7 @@ module Stats
     private
 
     def grouped_by_month(query)
+      # Ici les mois sont en UTC
       query.group("DATE_TRUNC('month', #{query.model.name.pluralize}.created_at)")
     end
 
