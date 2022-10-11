@@ -24,7 +24,9 @@ Rails.application.routes.draw do
       resources :landings, controller: "landings/landings", only: [:index, :show] do
         get :search, on: :collection
         resources :landing_themes, controller: "landings/landing_themes", only: [:index, :show]
-        resources :landing_subjects, controller: "landings/landing_subjects", only: [:index, :show]
+        resources :landing_subjects, controller: "landings/landing_subjects", only: [:index, :show] do
+          get :search, on: :collection
+        end
       end
       resources :solicitations, only: [:create]
     end

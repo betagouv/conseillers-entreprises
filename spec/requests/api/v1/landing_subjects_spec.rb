@@ -74,6 +74,77 @@ RSpec.describe "Landing Subjects API", type: :request do
     end
   end
 
+  describe 'search_by_slug' do
+    path '/api/v1/landings/{landing_id}/landing_subjects/search' do
+      get 'Recherche d’un sujet à partir de son slug' do
+        tags 'Sujets'
+        description 'Recherche d’un sujet à partir de son slug, équivalent à un mot clé, pour faciliter la récupération d’un sujet spécifique.'
+        produces 'application/json'
+        parameter name: :landing_id, in: :path, type: :integer, description: 'identifiant de la page d’atterrissage', required: true
+        parameter name: :slug, in: :query, type: :string, description: 'Slug du sujet', required: false
+
+        response '200', 'Sujet trouvé' do
+          schema type: :object,
+                 properties: {
+                   data: {
+                     '$ref' => '#/components/schemas/landing_subject'
+                   },
+                   metadata: {
+                     type: :object
+                   }
+                 }
+          let(:slug) { recrutement_subject.slug }
+
+          before do |example|
+            submit_request(example.metadata)
+          end
+
+          it 'returns a valid 200 response' do |example|
+            expect(response).to have_http_status(:ok)
+            result = JSON.parse(response.body)
+            expect(result.size).to eq(1)
+
+            result_item = result['data']
+            expect(result_item["title"]).to eq('Recruter un ou plusieurs salariés')
+          end
+        end
+
+        response '404', 'Page d’atterrissage inconnue' do
+          schema errors: {
+            type: :array,
+                 items: {
+                   '$ref': "#/components/schemas/error"
+                 }
+          }
+          let(:slug) { 'un-slug-fictif' }
+
+          run_test! do |response|
+            expect(response.status).to eq(404)
+            result = JSON.parse(response.body)
+            expect(result["errors"].first["source"]).to eq('Sujet de landing')
+            expect(result["errors"].first["message"]).to eq('n’existe pas ou est invalide')
+          end
+        end
+
+        response '400', 'Paramètres vides' do
+          schema errors: {
+            type: :array,
+                 items: {
+                   '$ref': "#/components/schemas/error"
+                 }
+          }
+
+          run_test! do |response|
+            expect(response.status).to eq(400)
+            result = JSON.parse(response.body)
+            expect(result["errors"].first["source"]).to eq('paramètres de requête')
+            expect(result["errors"].first["message"]).to eq('malformés ou inconnus')
+          end
+        end
+      end
+    end
+  end
+
   describe 'show' do
     path '/api/v1/landings/{landing_id}/landing_subjects/{id}' do
       get 'Page sujet' do
