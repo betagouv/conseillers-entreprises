@@ -86,7 +86,7 @@ RSpec.describe Solicitation, type: :model do
       end
 
       context 'with failing siret' do
-        let(:solicitation) { create :solicitation, siret: "lalala", code_region: nil, email: email, status: :step_description }
+        let(:solicitation) { build :solicitation, siret: "lalala", code_region: nil, email: email, status: :step_description }
 
         before { solicitation.complete }
 
@@ -124,7 +124,7 @@ RSpec.describe Solicitation, type: :model do
       context 'with valid siren' do
         let(:siren) { siret[0,9] }
         let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{siren}" }
-        let(:solicitation) { create :solicitation, siret: siren, code_region: nil, status: :step_description }
+        let(:solicitation) { build :solicitation, siret: siren, code_region: nil, status: :step_description }
 
         before do
           ENV['INSEE_CONSUMER_KEY'] = 'consumer_key'
