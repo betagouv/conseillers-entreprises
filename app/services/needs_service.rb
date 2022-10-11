@@ -2,7 +2,7 @@ class NeedsService
   def self.archive_old_needs
     # Archive les vieux besoins non pris en charge pour ne pas saturer l’onglet "expirés" des conseillers
     Need.archived(false).for_reminders.where(created_at: ..Need::ARCHIVE_DELAY.ago).each do |need|
-      need.update(archived_at: Time.now)
+      need.update(archived_at: Time.zone.now)
     end
   end
 
