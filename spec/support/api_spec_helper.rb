@@ -28,12 +28,15 @@ module ApiSpecHelper
   end
 
   def create_recrutement_subject(landing_theme)
-    create(:landing_subject, landing_theme: landing_theme,
+    recrutement_subject = create(:landing_subject, landing_theme: landing_theme,
       title: 'Recruter un ou plusieurs salariés', slug: 'recruter',
       description: "<ul><li>S’informer sur les aides à l'embauche des jeunes, à l'apprentissage</li><li>S'informer sur les emplois francs en quartiers prioritaires, le contrat de professionnalisation, le VTE Vert sur les métiers de la transition écologique</li><li>Trouver des candidats</li></ul>",
       description_explanation: "<ul><li>le type de poste</li><li>si l'offre est déjà connue de Pôle emploi</li><li>si vous envisagez de recruter une personne en situation de handicap</li></ul>",
       requires_siret: true,
       requires_requested_help_amount: false)
+    logo = Logo.create(filename: 'cci', name: 'Cci', institution: create(:institution, name: 'CCI'))
+    recrutement_subject.logos.push(logo)
+    recrutement_subject
   end
 
   def create_formation_subject(landing_theme)

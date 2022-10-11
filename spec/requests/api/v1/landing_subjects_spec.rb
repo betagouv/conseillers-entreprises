@@ -106,9 +106,10 @@ RSpec.describe "Landing Subjects API", type: :request do
             expect(result.size).to eq(1)
 
             result_item = result['data']
-            expect(result_item.keys).to match_array(["id", "title", "slug", "landing_id", "landing_theme_id", "landing_theme_slug", "description", "description_explanation", "requires_siret", "requires_location", "questions_additionnelles"])
+            expect(result_item.keys).to match_array(["id", "title", "slug", "landing_id", "landing_theme_id", "landing_theme_slug", "description", "description_explanation", "requires_siret", "requires_location", "questions_additionnelles", "institutions_partenaires"])
             expect(result_item["title"]).to eq('Recruter un ou plusieurs salariés')
             expect(result_item["landing_theme_slug"]).to eq('recrutement-formation')
+            expect(result_item["institutions_partenaires"]).to eq(['CCI'])
           end
         end
       end
