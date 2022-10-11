@@ -54,7 +54,7 @@ module CsvExport
         solicitation_provenance_detail: -> { provenance_detail },
         solicitation_gclid: -> { gclid },
         landing_theme_title: -> { landing_theme&.title },
-        landing_subject_title: -> { landing_subject&.title },
+        landing_subject_title: -> { solicitation&.subject&.label },
         siret: -> { siret },
         commune: -> { diagnosis&.facility&.commune },
         facility_regions: -> { region&.name },

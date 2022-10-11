@@ -11,7 +11,7 @@ module CsvExport
         solicitation_provenance_detail: -> { solicitation&.provenance_detail },
         solicitation_gclid: -> { solicitation&.gclid },
         landing_theme_title: -> { solicitation&.landing_theme&.title },
-        landing_subject_title: -> { solicitation&.landing_subject&.title },
+        landing_subject_title: -> { solicitation&.subject&.label },
         siret: -> { facility.siret },
         commune: -> { facility.commune },
         facility_regions: -> { facility_regions&.pluck(:name).uniq.join(", ") },
