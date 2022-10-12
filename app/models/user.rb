@@ -145,7 +145,7 @@ class User < ApplicationRecord
   # `create_personal_skillset_if_needed` makes sure there is one after a user is created.
   # However there is nothing preventing an expert to be removed afterwards.
   # This can reasonably happen when expert teams are reorganized.
-  scope :without_experts, -> { left_outer_joins(:experts).where(experts: { id: nil }) }
+  scope :without_experts, -> { where.missing(:experts) }
 
   # Activity
   scope :active_searchers, -> (date) do

@@ -295,8 +295,7 @@ class Solicitation < ApplicationRecord
 
   # /!\ Fonctionne pas tout à fait, des solicitations avec matches ressortent (une vingtaine)
   scope :without_matches, -> {
-    left_outer_joins(:matches)
-      .where(matches: { id: nil })
+    where.missing(:matches)
   }
 
   scope :step_complete, -> { where(status: completed_statuses) }

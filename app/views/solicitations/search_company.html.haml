@@ -9,9 +9,9 @@
     - @companies.each do |company|
       .fr-mb-2w
       - if company.un_seul_etablissement == true
-        = render 'facility_tile', company: company
+        = render 'facility_tile', company: company, solicitation: @solicitation
       - else
-        = render 'company_tile', company: company
+        = render 'company_tile', company: company, solicitation: @solicitation
 
 = render 'manual_step_company_link', solicitation: @solicitation
 
