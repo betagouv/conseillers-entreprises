@@ -5,6 +5,7 @@
 #  id                               :bigint(8)        not null, primary key
 #  banned                           :boolean          default(FALSE)
 #  code_region                      :integer
+#  completed_at                     :datetime
 #  created_in_deployed_region       :boolean          default(TRUE)
 #  description                      :string
 #  email                            :string
@@ -98,7 +99,7 @@ class Solicitation < ApplicationRecord
       transitions from: [:step_company], to: :step_description, if: -> { company_step_required_fields.all?{ |attr| self.public_send(attr).present? } }
     end
 
-    event :complete, before: :format_solicitation do
+    event :complete, before: :format_solicitation, after: :set_completed_at do
       transitions from: [:step_description], to: :in_progress, guard: -> { description.present? }
     end
 
@@ -138,6 +139,7 @@ class Solicitation < ApplicationRecord
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
   validates :institution_filters, presence: true, if: -> { subject_with_additional_questions? }
   validates :api_calling_url, presence: true, if: -> { landing&.api? }
+  validates :completed_at, presence: true, if: -> { step_complete? }
 
   validate if: -> { status_step_contact? || status_step_company? || status_step_description? || landing&.api? } do
     contact_step_required_fields.each do |attr|
@@ -212,6 +214,10 @@ class Solicitation < ApplicationRecord
       end
     end
     params
+  end
+
+  def set_completed_at
+    update(completed_at: Time.zone.now)
   end
 
   ## Scopes

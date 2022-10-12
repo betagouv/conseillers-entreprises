@@ -86,7 +86,7 @@ class Conseiller::SolicitationsController < ApplicationController
   private
 
   def ordered_solicitations(status)
-    solicitations = Solicitation.where(status: status).order(:created_at)
+    solicitations = Solicitation.where(status: status).order(:completed_at)
     solicitations = solicitations.by_possible_region(territory_id) if territory_id.present?
     solicitations.omnisearch(params[:query]).distinct
       .includes(:badge_badgeables, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne }, landing_subject: :subject, institution: :logo).page(params[:page])
