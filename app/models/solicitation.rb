@@ -97,7 +97,7 @@ class Solicitation < ApplicationRecord
       transitions from: [:step_company], to: :step_description, if: -> { company_step_required_fields.all?{ |attr| self.public_send(attr).present? } }
     end
 
-    event :complete, before: :format_solicitation, after: :set_completed_at do
+    event :complete, before: :format_solicitation do
       transitions from: [:step_description], to: :in_progress, guard: -> { description.present? }
     end
 
@@ -212,10 +212,6 @@ class Solicitation < ApplicationRecord
       end
     end
     params
-  end
-
-  def set_completed_at
-    touch(:completed_at)
   end
 
   ## Scopes
