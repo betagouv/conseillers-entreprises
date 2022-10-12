@@ -80,6 +80,7 @@ class SolicitationsController < PagesController
 
   def redirect_to_solicitation_step
     solicitation = Solicitation.find_by(uuid: params[:uuid])
+    solicitation.update(params.permit(:mtm_kwd, :mtm_campaign))
     case solicitation.status
     when 'step_company'
       redirect_to step_company_search_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
