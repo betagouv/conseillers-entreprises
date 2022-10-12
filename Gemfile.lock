@@ -356,7 +356,6 @@ GEM
       rails (>= 3.0.0)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.0)
     minitest (5.16.3)
     msgpack (1.6.0)
     mustermann (3.0.0)
@@ -370,10 +369,7 @@ GEM
     net-smtp (0.3.2)
       net-protocol
     nio4r (2.5.8)
-    nokogiri (1.13.8)
-      mini_portile2 (~> 2.8.0)
-      racc (~> 1.4)
-    nokogiri (1.13.8-x86_64-darwin)
+    nokogiri (1.13.8-arm64-darwin)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.22.1)
@@ -650,8 +646,7 @@ GEM
     zeitwerk (2.6.1)
 
 PLATFORMS
-  ruby
-  x86_64-darwin-19
+  arm64-darwin-21
 
 DEPENDENCIES
   aasm
@@ -753,7 +748,7 @@ DEPENDENCIES
   webpacker
 
 RUBY VERSION
-   ruby 3.1.1p18
+   ruby 3.1.2p20
 
 BUNDLED WITH
-   2.3.4
+   2.3.23
