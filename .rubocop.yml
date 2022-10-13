@@ -809,6 +809,9 @@ Rails:
 RSpec/AnyInstance:
   Enabled: false
 
+RSpec/Capybara/SpecificMatcher:
+  Enabled: false
+
 RSpec/ContextWording:
   Enabled: false
 
@@ -843,7 +846,7 @@ RSpec/MessageSpies:
 
 RSpec/VariableName:
   EnforcedStyle: snake_case
-  IgnoredPatterns:
+  AllowedPatterns:
     - ^Authorization
 
 RSpec/NestedGroups:

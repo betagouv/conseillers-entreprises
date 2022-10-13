@@ -86,9 +86,9 @@ class Antenne < ApplicationRecord
 
   ##
   #
-  scope :without_communes, -> { left_outer_joins(:communes).where(communes: { id: nil }) }
+  scope :without_communes, -> { where.missing(:communes) }
 
-  scope :without_managers, -> { left_outer_joins(:managers).where(managers: { id: nil }) }
+  scope :without_managers, -> { where.missing(:managers) }
 
   scope :by_antenne_and_institution_names, -> (antennes_and_institutions_names) do
     tuples_array = antennes_and_institutions_names

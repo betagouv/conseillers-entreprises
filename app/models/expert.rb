@@ -108,9 +108,8 @@ class Expert < ApplicationRecord
     # Experts without members can’t connect to the app.
     # This is not a normal state, but can happen during referencing
     # before users are actually registered, or when a user is removed.
-    left_outer_joins(:users)
+    where.missing(:users)
       .merge(User.unscoped.not_deleted)
-      .where(users: { id: nil })
   end
 
   scope :teams, -> do
@@ -155,15 +154,14 @@ class Expert < ApplicationRecord
     # The naive “joins(:communes).distinct” is way more complex.
     where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
   end
-  scope :without_custom_communes, -> { left_outer_joins(:communes).where(communes: { id: nil }) }
+  scope :without_custom_communes, -> { where.missing(:communes) }
 
   scope :with_global_zone, -> do
     where(is_global_zone: true)
   end
 
   scope :without_subjects, -> do
-    left_outer_joins(:experts_subjects)
-      .where(experts_subjects: { id: nil })
+    where.missing(:experts_subjects)
   end
 
   scope :with_subjects, -> do
