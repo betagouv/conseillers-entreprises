@@ -32,7 +32,7 @@ class Institution < ApplicationRecord
   has_many :institutions_subjects, inverse_of: :institution
   has_many :landings, inverse_of: :institution
   has_many :solicitations, inverse_of: :institution
-  has_and_belongs_to_many :categories
+  has_and_belongs_to_many :categories # Une institution peut avoir plusieurs categories a la fois, donc enum trop limitante
   has_one :logo, inverse_of: :institution
   has_many :facilities, inverse_of: :opco
   has_many :institution_filters, dependent: :destroy, as: :institution_filtrable, inverse_of: :institution_filtrable
@@ -130,6 +130,11 @@ class Institution < ApplicationRecord
 
   def slug_field
     name
+  end
+
+  def opco?
+    opco_category = Category.find_by(label: 'opco')
+    self.categories.include?(opco_category)
   end
 
   def retrieve_antennes(region_id)

@@ -168,6 +168,11 @@ RSpec.describe "Landing Subjects API", type: :request do
           let(:id) { recrutement_subject.id }
 
           before do |example|
+            logo1 = Logo.create(filename: 'ocapiat', name: 'Ocapiat', institution: create(:opco, name: 'OPCO OCAPIAT'))
+            logo2 = Logo.create(filename: 'uniformation', name: 'Uniformation', institution: create(:opco, name: 'OPCO Uniformation'))
+            recrutement_subject.logos.push(logo1)
+            recrutement_subject.logos.push(logo2)
+
             submit_request(example.metadata)
           end
 
@@ -180,7 +185,7 @@ RSpec.describe "Landing Subjects API", type: :request do
             expect(result_item.keys).to match_array(["id", "title", "slug", "landing_id", "landing_theme_id", "landing_theme_slug", "description", "description_explanation", "requires_siret", "requires_location", "questions_additionnelles", "institutions_partenaires"])
             expect(result_item["title"]).to eq('Recruter un ou plusieurs salariés')
             expect(result_item["landing_theme_slug"]).to eq('recrutement-formation')
-            expect(result_item["institutions_partenaires"]).to eq(['CCI'])
+            expect(result_item["institutions_partenaires"]).to eq(['CCI', 'OPCO'])
           end
         end
       end

@@ -5,7 +5,7 @@ FactoryBot.define do
     sequence(:name) { |n| Faker::Company.name + n.to_s }
 
     factory :opco do
-      categories { [build(:category, label: 'opco')] }
+      categories { [Category.where(label: 'opco').first_or_create] }
     end
   end
 end
