@@ -215,7 +215,7 @@ class Solicitation < ApplicationRecord
   end
 
   def set_completed_at
-    update(completed_at: Time.zone.now)
+    touch(:completed_at)
   end
 
   ## Scopes
