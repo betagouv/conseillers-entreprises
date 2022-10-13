@@ -16,6 +16,7 @@ import accessibleAutocomplete from 'accessible-autocomplete';
         element: autocompleteField,
         id: 'city_autocomplete',
         showNoOptionsFound: false,
+        minLength: 3,
         templates: {
           inputValue: inputValueTemplate,
           suggestion: suggestionTemplate
