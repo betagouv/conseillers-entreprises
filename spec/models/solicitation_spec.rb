@@ -20,6 +20,26 @@ RSpec.describe Solicitation, type: :model do
 
       it { is_expected.to validate_presence_of :description }
     end
+
+    describe 'siret field' do
+      let(:subject_with_siret) { create :landing_subject, requires_siret: true }
+      let(:subject_without_siret) { create :landing_subject, requires_siret: false }
+      # solicitation à l'étape contact ko
+      let(:contact_solicitation) { build :solicitation, status: :step_contact, landing_subject: subject_with_siret }
+      # solicitation à l'étape company ko
+      let(:company_solicitation) { build :solicitation, status: :step_company, landing_subject: subject_with_siret }
+      # solicitation à l'étape description avec siret obligatoire ok
+      let(:description_solicitation_with_siret) { build :solicitation, status: :step_description, landing_subject: subject_with_siret }
+      # solicitation à l'étape description sans siret obligatoire ko
+      let(:description_solicitation_without_siret) { build :solicitation, status: :step_description, landing_subject: subject_without_siret }
+
+      it 'check presence of siret' do
+        expect(contact_solicitation).not_to validate_presence_of :siret
+        expect(company_solicitation).not_to validate_presence_of :siret
+        expect(description_solicitation_with_siret).to validate_presence_of :siret
+        expect(description_solicitation_without_siret).not_to validate_presence_of :siret
+      end
+    end
   end
 
   describe 'callbacks' do
@@ -84,18 +104,6 @@ RSpec.describe Solicitation, type: :model do
           expect(solicitation.email).to eq('contact.machin@truc.fr')
         end
       end
-
-      context 'with failing siret' do
-        let(:solicitation) { build :solicitation, siret: "lalala", code_region: nil, email: email, status: :step_description }
-
-        before { solicitation.complete }
-
-        it 'doesnt set code_region' do
-          expect(solicitation.code_region).to be_nil
-          expect(solicitation.siret).to eq('lalala')
-          expect(solicitation.email).to eq('contact.machin@truc.fr')
-        end
-      end
     end
 
     describe 'set_siret_and_region' do
@@ -115,68 +123,8 @@ RSpec.describe Solicitation, type: :model do
         end
 
         it 'sets correctly siret and code_region' do
-          expect(solicitation.code_region).to eq(11)
           expect(solicitation.siret).to eq('41816609600069')
-          expect(solicitation.created_in_deployed_region).to be true
-        end
-      end
-
-      context 'with valid siren' do
-        let(:siren) { siret[0,9] }
-        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{siren}" }
-        let(:solicitation) { build :solicitation, siret: siren, code_region: nil, status: :step_description }
-
-        before do
-          ENV['INSEE_CONSUMER_KEY'] = 'consumer_key'
-          ENV['INSEE_CONSUMER_TOKEN'] = 'consumer_token'
-          insee_token = Base64.strict_encode64("consumer_key:consumer_token")
-          stub_request(:post, 'https://api.insee.fr/token')
-            .with(headers: { 'Authorization' => "Basic #{insee_token}" }, body: { grant_type: 'client_credentials' })
-            .to_return(
-              body: "{ 'token1234' }".to_json
-            )
-
-          stub_request(:get, api_url)
-            .with(headers: { 'Authorization' => "Bearer " })
-            .to_return(
-              body: file_fixture(result_file_name)
-            )
-
-          ENV['API_ENTREPRISE_TOKEN'] = token
-          stub_request(:get, entreprise_api_url).to_return(
-            body: file_fixture('api_entreprise_get_etablissement.json')
-          )
-
-          solicitation.complete
-        end
-
-        context 'with_many_facilities_results' do
-          let(:result_file_name) { 'api_insee_sirets_by_siren_many.json' }
-
-          it 'doesnt change params' do
-            expect(solicitation.code_region).to be_nil
-            expect(solicitation.siret).to eq('418166096')
-            expect(solicitation.created_in_deployed_region).to be true
-          end
-        end
-
-        context 'with_one_facility_results' do
-          let(:result_file_name) { 'api_insee_sirets_by_siren_one.json' }
-
-          it 'sets correctly siret and code_region' do
-            expect(solicitation.code_region).to eq(11)
-            expect(solicitation.siret).to eq('41816609600069')
-            expect(solicitation.created_in_deployed_region).to be true
-          end
-        end
-      end
-
-      context 'with wrong siret' do
-        let(:solicitation) { create :solicitation, siret: "lalala", code_region: nil }
-
-        it 'doesnt set code_region' do
-          expect(solicitation.code_region).to be_nil
-          expect(solicitation.siret).to eq('lalala')
+          expect(solicitation.code_region).to eq(11)
           expect(solicitation.created_in_deployed_region).to be true
         end
       end
