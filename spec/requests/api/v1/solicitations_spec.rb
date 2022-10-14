@@ -32,10 +32,11 @@ RSpec.describe "Solicitations API", type: :request do
   # Génération automatique des exemples dans la doc
   after do |example|
     content = example.metadata[:response][:content] || {}
+    example_name = example.metadata[:response][:description].parameterize.underscore
     example_spec = {
       "application/json" => {
         examples: {
-          test_example: {
+          "#{example_name}": {
             value: JSON.parse(response.body, symbolize_names: true)
           }
         }
