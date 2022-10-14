@@ -30,6 +30,7 @@ RSpec.describe "Landing Themes API", type: :request do
       get 'Liste des thèmes' do
         tags 'Thèmes'
         description 'Affiche tous les thèmes pour l’organisation authentifiée'
+        operationId 'listLandingThemes'
         parameter name: :landing_id, in: :path, type: :integer, description: 'identifiant de la page d’atterrissage', required: true
         produces 'application/json'
 
@@ -78,6 +79,7 @@ RSpec.describe "Landing Themes API", type: :request do
       get 'Page thème' do
         tags 'Thèmes'
         description 'Affiche le détail d’un thème et la liste de ses sujets'
+        operationId 'showLandingTheme'
         parameter name: :landing_id, in: :path, type: :integer, description: 'identifiant de la page d’atterrissage', required: true
         parameter name: :id, in: :path, type: :string, description: 'identifiant du thème', required: true
         produces 'application/json'

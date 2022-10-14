@@ -49,6 +49,7 @@ RSpec.describe "Solicitations API", type: :request do
       post 'Créer une sollicitation' do
         tags 'Sollicitation'
         description 'Crée une sollicitation liée à un sujet, en provenance d’une institution.'
+        operationId 'createSolicitation'
         consumes 'application/json'
         produces 'application/json'
         parameter name: :solicitation, in: :body, schema: { '$ref': '#/components/schemas/new_solicitation' }, required: true
@@ -67,6 +68,11 @@ RSpec.describe "Solicitations API", type: :request do
           let(:solicitation) { { solicitation: base_solicitation } }
 
           before do |example|
+            logo1 = Logo.create(filename: 'ocapiat', name: 'Ocapiat', institution: create(:opco, name: 'OPCO OCAPIAT'))
+            logo2 = Logo.create(filename: 'uniformation', name: 'Uniformation', institution: create(:opco, name: 'OPCO Uniformation'))
+            recrutement_subject.logos.push(logo1)
+            recrutement_subject.logos.push(logo2)
+
             ENV['API_ENTREPRISE_TOKEN'] = token
             stub_request(:get, api_entreprise_url).to_return(
               body: file_fixture('api_entreprise_get_etablissement.json')
@@ -78,15 +84,7 @@ RSpec.describe "Solicitations API", type: :request do
             expect(response).to have_http_status(:ok)
             data = JSON.parse(response.body)['data']
 
-            expect(data['uuid']).not_to be_nil
-            expect(data['code_region']).to eq(11)
-            expect(data['landing_subject']).to eq("Recruter un ou plusieurs salariés")
-            expect(data['status']).to eq('in_progress')
-            expect(data['questions_additionnelles']).to match_array([
-              { 'question_id' => cadre_question.id, 'question_label' => I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, cadre_question.key]), 'answer' => true },
-              { 'question_id' => apprentissage_question.id, 'question_label' => I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, apprentissage_question.key]), 'answer' => false },
-            ])
-            expect(data['api_calling_url']).to eq('http://mon-partenaire.fr/page-recrutement')
+            expect(data['institutions_partenaires']).to eq(['CCI', 'OPCO'])
           end
 
           it 'creates a solicitation' do
@@ -148,6 +146,29 @@ RSpec.describe "Solicitations API", type: :request do
               result = JSON.parse(response.body)
               expect(result["errors"].first["source"]).to eq('Url d’appel')
               expect(result["errors"].first["message"]).to eq('doit être rempli(e)')
+            end
+          end
+        end
+
+        context 'Siret invalide' do
+          response '422', 'Siret invalide' do
+            schema errors: {
+              type: :array,
+                    items: {
+                      '$ref': "#/components/schemas/error"
+                    }
+            }
+            let(:solicitation) { { solicitation: base_solicitation.merge({ siret: '12345678900011' }) } }
+
+            before do |example|
+              submit_request(example.metadata)
+            end
+
+            it 'returns siret error' do
+              result = JSON.parse(response.body)
+              expect(response).to have_http_status(:unprocessable_entity)
+              expect(result["errors"].first["source"]).to eq('SIRET')
+              expect(result["errors"].first["message"]).to eq('doit être un numéro à 14 chiffres valide')
             end
           end
         end

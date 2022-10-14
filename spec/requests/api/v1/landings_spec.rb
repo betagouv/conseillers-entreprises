@@ -28,6 +28,7 @@ RSpec.describe "Landings API", type: :request do
       get 'Liste des pages d’atterrissage' do
         tags 'Page d’atterrissage'
         description 'Affiche toutes les pages d’atterrissage pour l’organisation authentifiée'
+        operationId 'listLandings'
         produces 'application/json'
 
         response '200', 'ok' do
@@ -92,6 +93,7 @@ RSpec.describe "Landings API", type: :request do
       get 'Recherche d’une page d’atterrissage à partir de l’url de sa page d’appel' do
         tags 'Page d’atterrissage'
         description 'Afin de pouvoir tracer et quantifier les appels, nous enregistrons les url des pages des sites partenaires depuis lesquelles l’API est appelé. Ainsi, pour retrouver la page d’atterrissage devant figurer à l’url XX, vous pouvez faire une recherche via cette url.'
+        operationId 'searchLanding'
         produces 'application/json'
         parameter name: :url, in: :query, type: :string, description: 'Domaine du site qui appelle l’API', required: false
 
@@ -167,6 +169,7 @@ RSpec.describe "Landings API", type: :request do
       get 'Page d’atterrissage' do
         tags 'Page d’atterrissage'
         description 'Affiche le détail d’une page d’atterrissage et la liste de ses thèmes'
+        operationId 'showLanding'
         parameter name: :id, in: :path, type: :string, description: 'identifiant de la page', required: true
         produces 'application/json'
 

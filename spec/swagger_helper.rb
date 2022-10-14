@@ -155,7 +155,7 @@ RSpec.configure do |config|
             type: :object,
             properties: {
               question_id: { type: :integer },
-              answer: { type: :string }
+              answer: { type: :boolean }
             }
           },
           question_additionnelle_long: {
@@ -163,7 +163,7 @@ RSpec.configure do |config|
             properties: {
               question_id: { type: :integer },
               question_label: { type: :string },
-              answer: { type: :string }
+              answer: { type: :boolean }
             }
           },
           error: {
