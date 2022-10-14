@@ -398,6 +398,9 @@ fr:
         siret: SIRET
         slug: Slug
         tracking: Suivi
+        provenance_category: Type de source
+        provenance_detail: Détail de la source
+        provenance_title: Intitulé de la source
       solicitation/statuses:
         canceled: Abandonnée
         in_progress: Reçue
