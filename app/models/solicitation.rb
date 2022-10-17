@@ -231,6 +231,7 @@ class Solicitation < ApplicationRecord
         .or(email_contains(query))
         .or(mtm_kwd_contains(query))
         .or(mtm_campaign_contains(query))
+        .or(relaunch_contains(query))
     end
   end
 
@@ -260,6 +261,10 @@ class Solicitation < ApplicationRecord
 
   scope :email_contains, -> (query) do
     where('solicitations.email ILIKE ?', "%#{query}%")
+  end
+
+  scope :relaunch_contains, -> (query) do
+    where('solicitations.relaunch ILIKE ?', "%#{query}%")
   end
 
   scope :mtm_kwd_contains, -> (query) {
@@ -511,7 +516,7 @@ class Solicitation < ApplicationRecord
   end
 
   def display_attributes
-    %i[normalized_phone_number institution requested_help_amount location provenance_title provenance_detail]
+    %i[normalized_phone_number institution requested_help_amount location provenance_title provenance_detail relaunch]
   end
 
   def normalized_siret

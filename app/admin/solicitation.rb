@@ -94,6 +94,7 @@ ActiveAdmin.register Solicitation do
   filter :code_region, as: :select, collection: -> { Territory.deployed_regions.order(:name).pluck(:name, :code_region) }
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
   filter :mtm_campaign, as: :string
+  filter :relaunch
 
   ## Batch actions
   # Statuses

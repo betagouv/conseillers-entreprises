@@ -78,9 +78,11 @@ class SolicitationsController < PagesController
     update_solicitation_from_step(:step_description, form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
+  # Redirection vers la bonne étape de sollicitation
+  # Utilisé par les emails de relance pour les sollicitations incomplètes
   def redirect_to_solicitation_step
     solicitation = Solicitation.find_by(uuid: params[:uuid])
-    solicitation.update(params.permit(:mtm_kwd, :mtm_campaign))
+    solicitation.update(relaunch: params.require(:relaunch))
     case solicitation.status
     when 'step_company'
       redirect_to step_company_search_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
