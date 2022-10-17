@@ -263,10 +263,6 @@ class Solicitation < ApplicationRecord
     where('solicitations.email ILIKE ?', "%#{query}%")
   end
 
-  scope :relaunch_contains, -> (query) do
-    where('solicitations.relaunch ILIKE ?', "%#{query}%")
-  end
-
   scope :mtm_kwd_contains, -> (query) {
     where("solicitations.form_info::json->>'mtm_kwd' ILIKE ?", "%#{query}%")
       .or(where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{query}%"))
@@ -275,6 +271,11 @@ class Solicitation < ApplicationRecord
   scope :mtm_campaign_contains, -> (query) {
     where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}%")
       .or(where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%"))
+  }
+
+  scope :relaunch_contains, -> (query) {
+    where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}%")
+      .or(where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}%"))
   }
 
   # Pour ransack, en admin
@@ -398,7 +399,7 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid mtm_campaign mtm_kwd api_calling_url]
+  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid mtm_campaign mtm_kwd api_calling_url relaunch]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##
