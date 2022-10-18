@@ -20,6 +20,6 @@ class Api::V1::LandingSubjectSerializer < ActiveModel::Serializer
 
   def logos
     return [] if object.logos.empty?
-    object.logos.map{ |l| l.institution.name }
+    object.logos.map{ |l| l.institution&.opco? ? "OPCO" : l.institution&.name }.uniq
   end
 end

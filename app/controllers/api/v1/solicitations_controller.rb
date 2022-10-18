@@ -22,7 +22,7 @@ class Api::V1::SolicitationsController < Api::V1::BaseController
   private
 
   def serializer
-    Api::V1::SolicitationSerializer
+    Api::V1::SolicitationLogoSerializer
   end
 
   def solicitation_params

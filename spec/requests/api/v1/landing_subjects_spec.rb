@@ -32,6 +32,7 @@ RSpec.describe "Landing Subjects API", type: :request do
       get 'Liste des sujets' do
         tags 'Sujets'
         description 'Affiche tous les sujets d’une page d’atterrissage'
+        operationId 'listLandingSubjects'
         parameter name: :landing_id, in: :path, type: :integer, description: 'identifiant de la page d’atterrissage', required: true
         produces 'application/json'
 
@@ -79,6 +80,7 @@ RSpec.describe "Landing Subjects API", type: :request do
       get 'Recherche d’un sujet à partir de son slug' do
         tags 'Sujets'
         description 'Recherche d’un sujet à partir de son slug, équivalent à un mot clé, pour faciliter la récupération d’un sujet spécifique.'
+        operationId 'searchLandingSubject'
         produces 'application/json'
         parameter name: :landing_id, in: :path, type: :integer, description: 'identifiant de la page d’atterrissage', required: true
         parameter name: :slug, in: :query, type: :string, description: 'Slug du sujet', required: false
@@ -150,6 +152,7 @@ RSpec.describe "Landing Subjects API", type: :request do
       get 'Page sujet' do
         tags 'Sujets'
         description 'Affiche le détail d’un formulaire sujet'
+        operationId 'showLandingSubject'
         parameter name: :landing_id, in: :path, type: :integer, description: 'identifiant de la page d’atterrissage', required: true
         parameter name: :id, in: :path, type: :integer, description: 'identifiant du sujet', required: true
         produces 'application/json'
@@ -168,6 +171,11 @@ RSpec.describe "Landing Subjects API", type: :request do
           let(:id) { recrutement_subject.id }
 
           before do |example|
+            logo1 = Logo.create(filename: 'ocapiat', name: 'Ocapiat', institution: create(:opco, name: 'OPCO OCAPIAT'))
+            logo2 = Logo.create(filename: 'uniformation', name: 'Uniformation', institution: create(:opco, name: 'OPCO Uniformation'))
+            recrutement_subject.logos.push(logo1)
+            recrutement_subject.logos.push(logo2)
+
             submit_request(example.metadata)
           end
 
@@ -180,7 +188,7 @@ RSpec.describe "Landing Subjects API", type: :request do
             expect(result_item.keys).to match_array(["id", "title", "slug", "landing_id", "landing_theme_id", "landing_theme_slug", "description", "description_explanation", "requires_siret", "requires_location", "questions_additionnelles", "institutions_partenaires"])
             expect(result_item["title"]).to eq('Recruter un ou plusieurs salariés')
             expect(result_item["landing_theme_slug"]).to eq('recrutement-formation')
-            expect(result_item["institutions_partenaires"]).to eq(['CCI'])
+            expect(result_item["institutions_partenaires"]).to eq(['CCI', 'OPCO'])
           end
         end
       end

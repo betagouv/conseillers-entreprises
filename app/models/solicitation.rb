@@ -139,12 +139,12 @@ class Solicitation < ApplicationRecord
   validates :institution_filters, presence: true, if: -> { subject_with_additional_questions? }
   validates :api_calling_url, presence: true, if: -> { landing&.api? }
 
-  validate if: -> { status_step_contact? || status_step_company? || status_step_description? } do
+  validate if: -> { status_step_contact? || status_step_company? || status_step_description? || landing&.api? } do
     contact_step_required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
   end
-  validate if: -> { status_step_description? } do
+  validate if: -> { status_step_description? || landing&.api? } do
     required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
@@ -154,7 +154,7 @@ class Solicitation < ApplicationRecord
       errors.add(:siret, :must_be_a_valid_siret) unless FormatSiret.siret_is_valid(siret)
     end
   end
-  validates :description, presence: true, allow_blank: false, if: -> { status_in_progress? }
+  validates :description, presence: true, allow_blank: false, if: -> { status_in_progress? || landing&.api? }
 
   def subject_with_additional_questions?
     status_in_progress? && self.subject&.additional_subject_questions&.any?
@@ -507,7 +507,7 @@ class Solicitation < ApplicationRecord
   end
 
   def display_attributes
-    %i[normalized_phone_number institution requested_help_amount location pk_campaign pk_kwd mtm_campaign mtm_kwd]
+    %i[normalized_phone_number institution requested_help_amount location provenance_title provenance_detail]
   end
 
   def normalized_siret
