@@ -2,8 +2,14 @@ namespace :import_prod_to_staging do
   # Il peut arriver qu'un tunnel SSH ait été ouvert, non fermé et bloque tout de manière invisible.
   # Pour le tuer, même s'il est en arrière plan : killall scalingo
 
-  def export_filename
-    @export_filename ||= 'tmp/export_prod.dump'
+  # Documentation : https://doc.scalingo.com/databases/postgresql/dump-restore
+
+  def dump_filename
+    @dump_filename ||= 'tmp/export_prod.dump'
+  end
+
+  def pgsql_filename
+    @pgsql_filename ||= 'tmp/export_prod.pgsql'
   end
 
   def setup_prod_tunnel
@@ -34,8 +40,10 @@ namespace :import_prod_to_staging do
     pw = pg_url[/.*:(.*)@/,1]
     username = pg_url[/\/\/(.*):.*@/,1]
     dbname = username
+    database_url = "postgresql://#{username}:#{pw}@127.0.0.1:10000/#{dbname}"
 
-    sh "PGPASSWORD=#{pw} pg_dump --no-owner --no-acl #{dbname} > #{export_filename}  -h localhost --format c -p 10000 -U #{username}"
+    sh "pg_dump --clean --if-exists --format c --dbname #{database_url} --no-owner --no-privileges --no-comments --exclude-schema 'information_schema' --exclude-schema '^pg_*' --file #{pgsql_filename}"
+
     kill_prod_tunnel
   end
 
@@ -49,8 +57,9 @@ namespace :import_prod_to_staging do
     pw = pg_url[/.*:(.*)@/,1]
     username = pg_url[/\/\/(.*):.*@/,1]
     dbname = username
+    database_url = "postgresql://#{username}:#{pw}@127.0.0.1:10000/#{dbname}"
 
-    sh "PGPASSWORD=#{pw} pg_restore --clean --if-exists --no-owner --no-privileges --format c --no-comments -h localhost -p 10002 --dbname #{dbname} #{export_filename} -U #{username}"
+    sh "pg_restore --clean --if-exists --no-owner --no-privileges --no-comments --dbname #{database_url} #{pgsql_filename}"
 
     kill_staging_tunnel
   end
