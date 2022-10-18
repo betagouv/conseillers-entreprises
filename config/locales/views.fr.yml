@@ -1036,6 +1036,8 @@ fr:
         visits: Visites par un conseiller
       taking_care:
         title: des réponses aux demandes des entreprises sont apportées en moins de 5 jours
+      taking_care_rate_stats:
+        title: Taux de «pris en charge»
       themes:
         subtitle: Une thématique est un regroupement de sujets d’entreprises proches. <br>Le pic que l’on observe au mois de mars 2020 dans la catégorie « Autres typologies de besoins » correspond aux demandes exprimant des difficultés liées au covid-19
         title: Thématiques choisies par les entreprises
@@ -1087,6 +1089,7 @@ fr:
     status_done_no_help: Clôture sans accompagnement
     status_done_not_reachable: Entreprises injoignables
     status_not_for_me: Besoins refusés
+    tacking_care_status: Statut « pris en charge »
     taken_care_after: Plus de 5 jours
     taken_care_before: Moins de 5 jours
     team:
