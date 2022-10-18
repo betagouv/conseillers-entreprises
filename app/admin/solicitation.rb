@@ -14,6 +14,7 @@ ActiveAdmin.register Solicitation do
   scope :status_step_description, group: :completion_incomplete
 
   includes :diagnosis, :landing, :institution, :badges, diagnosis: :company
+  config.sort_order = 'completed_at'
 
   index do
     selectable_column
@@ -59,6 +60,9 @@ ActiveAdmin.register Solicitation do
       if s.provenance_detail.present?
         div "#{t('activerecord.attributes.solicitation.mtm_kwd')} : « #{link_to_tracked_ad(s)} »".html_safe
       end
+      if s.from_relaunch?
+        div "#{t('activerecord.attributes.solicitation.relaunch')} : #{s.relaunch}"
+      end
       if s.institution.present?
         admin_attr(s, :institution)
       end
@@ -94,7 +98,7 @@ ActiveAdmin.register Solicitation do
   filter :code_region, as: :select, collection: -> { Territory.deployed_regions.order(:name).pluck(:name, :code_region) }
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
   filter :mtm_campaign, as: :string
-  filter :relaunch
+  filter :relaunch, as: :string
 
   ## Batch actions
   # Statuses

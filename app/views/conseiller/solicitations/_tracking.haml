@@ -3,3 +3,5 @@
     %li #{t('activerecord.attributes.solicitation.mtm_campaign')} : #{link_to_tracked_campaign(solicitation)}
   - if solicitation.provenance_detail.present?
     %li #{t('activerecord.attributes.solicitation.mtm_kwd')} : « #{link_to_tracked_ad(solicitation)} »
+  - if solicitation.from_relaunch?
+    %li #{t('activerecord.attributes.solicitation.relaunch')} : #{solicitation.relaunch}

@@ -294,8 +294,23 @@ class Solicitation < ApplicationRecord
       .or(where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}"))
   }
 
+  scope :relaunch_equals, -> (query) {
+    where('form_info @> ?', { pk_campaign: query }.to_json)
+  }
+
+  scope :relaunch_starts_with, -> (query) {
+    where("solicitations.form_info::json->>'relaunch' ILIKE ?", "#{query}%")
+  }
+
+  scope :relaunch_ends_with, -> (query) {
+    where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}")
+  }
+
   def self.ransackable_scopes(auth_object = nil)
-    [:mtm_campaign_contains, :mtm_campaign_equals, :mtm_campaign_starts_with, :mtm_campaign_ends_with]
+    [
+      :mtm_campaign_contains, :mtm_campaign_equals, :mtm_campaign_starts_with, :mtm_campaign_ends_with,
+      :relaunch_contains, :relaunch_equals, :relaunch_ends_with, :relaunch_starts_with
+    ]
   end
 
   scope :without_diagnosis, -> {
@@ -487,6 +502,10 @@ class Solicitation < ApplicationRecord
 
   def from_campaign?
     provenance_category == :campaign || provenance_category == :googleads
+  end
+
+  def from_relaunch?
+    relaunch.present?
   end
 
   def provenance_title
