@@ -967,6 +967,8 @@ fr:
         siret: SIRET
   stats:
     archived: Besoins abandonnés
+    done_no_help_status: Statut « cloturé sans aide »
+    done_status: Statut « cloturé avec aide »
     in_deployed_regions: Demandes dans une région déployée
     in_unknown_region: Demandes dans une région indéterminée
     less_than_72h: Moins de 72h
@@ -990,6 +992,8 @@ fr:
         title: Typologie des entreprises utilisatrices du service
       companies_by_naf_code:
         title: Secteurs d’activité des entreprises utilisatrices du service
+      done_rate_stats:
+        title: Taux de « cloturés avec aide »
       exchange_with_expert:
         subtitle_html: Cette statistique n’est disponible que depuis le 01/09/2020 grâce à l’ajout de nouvelles fonctionnalités, permettant un suivi plus fin des besoins.<br>Un besoin correspond en principe à une demande d’entreprise, mais il se peut qu’une même demande exprime plusieurs besoins, d’où l’utilisation du terme plus précis de « besoin » pour mesurer la dernière étape du service.
         title: des besoins d’entreprises transmis ont donné lieu à un échange avec un conseiller
@@ -1037,7 +1041,7 @@ fr:
       taking_care:
         title: des réponses aux demandes des entreprises sont apportées en moins de 5 jours
       taking_care_rate_stats:
-        title: Taux de «pris en charge»
+        title: Taux de « pris en charge »
       themes:
         subtitle: Une thématique est un regroupement de sujets d’entreprises proches. <br>Le pic que l’on observe au mois de mars 2020 dans la catégorie « Autres typologies de besoins » correspond aux demandes exprimant des difficultés liées au covid-19
         title: Thématiques choisies par les entreprises
