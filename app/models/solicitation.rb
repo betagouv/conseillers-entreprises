@@ -179,6 +179,7 @@ class Solicitation < ApplicationRecord
     self.email = formatted_email
     self.siret = params[:siret]
     self.code_region = params[:code_region]
+    self.completed_at = Time.zone.now
   end
 
   def formatted_email
