@@ -22,8 +22,8 @@ module Stats::Matches
       @positioning, @not_positioning = [], []
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        @positioning.push(month_query.status_quo.count)
-        @not_positioning.push(month_query.not_status_quo.count)
+        @positioning.push(month_query.not_status_quo.count)
+        @not_positioning.push(month_query.status_quo.count)
       end
 
       as_series(@positioning, @not_positioning)
@@ -40,11 +40,11 @@ module Stats::Matches
       [
         {
           name: I18n.t('stats.not_positioning'),
-          data: positioning
+          data: not_positioning
         },
         {
           name: I18n.t('stats.positioning'),
-          data: not_positioning
+          data: positioning
         }
       ]
     end
