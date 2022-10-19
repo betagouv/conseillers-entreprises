@@ -15,5 +15,9 @@ module Stats::Matches
     def done_rate_stats
       DoneRateStats.new(@params)
     end
+
+    def done_no_help_rate_stats
+      DoneNoHelpRateStats.new(@params)
+    end
   end
 end
