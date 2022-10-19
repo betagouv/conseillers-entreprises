@@ -74,4 +74,15 @@ class Rack::Attack
   #    {},   # headers
   #    ['']] # body
   # end
+
+  Rack::Attack.blocklist('block bad email') do |req|
+    req.post? && req.params['solicitation'].present? && req.params['solicitation']['email'] == 'foo-bar@example.com'
+  end
+
+  Rack::Attack.blocklisted_responder = lambda do |request|
+    # Using 503 because it may make attacker think that they have successfully
+    # DOSed the site. Rack::Attack returns 403 for blocklists by default
+    Sentry.capture_message("foo-bar@example.com : IP = #{request.ip} ; Remote IP = #{request.ip}")
+    [ 503, {}, ['Blocked']]
+  end
 end
