@@ -5,6 +5,7 @@
 #  id                               :bigint(8)        not null, primary key
 #  banned                           :boolean          default(FALSE)
 #  code_region                      :integer
+#  completed_at                     :datetime
 #  created_in_deployed_region       :boolean          default(TRUE)
 #  description                      :string
 #  email                            :string
@@ -61,8 +62,6 @@ class Solicitation < ApplicationRecord
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_many :matches, through: :diagnosis, inverse_of: :solicitation
   has_many :needs, through: :diagnosis, inverse_of: :solicitation
-  # TODO supprimer old_badges
-  has_and_belongs_to_many :old_badges, -> { distinct }, class_name: 'Badge', after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
   belongs_to :institution, inverse_of: :solicitations, optional: true
   has_many :badge_badgeables, as: :badgeable
   has_many :badges, through: :badge_badgeables, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
@@ -138,6 +137,7 @@ class Solicitation < ApplicationRecord
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
   validates :institution_filters, presence: true, if: -> { subject_with_additional_questions? }
   validates :api_calling_url, presence: true, if: -> { landing&.api? }
+  validates :completed_at, presence: true, if: -> { step_complete? }
 
   validate if: -> { status_step_contact? || status_step_company? || status_step_description? || landing&.api? } do
     contact_step_required_fields.each do |attr|
@@ -179,6 +179,7 @@ class Solicitation < ApplicationRecord
     self.email = formatted_email
     self.siret = params[:siret]
     self.code_region = params[:code_region]
+    self.completed_at = Time.zone.now
   end
 
   def formatted_email
@@ -227,6 +228,7 @@ class Solicitation < ApplicationRecord
         .or(email_contains(query))
         .or(mtm_kwd_contains(query))
         .or(mtm_campaign_contains(query))
+        .or(relaunch_contains(query))
     end
   end
 
@@ -268,6 +270,11 @@ class Solicitation < ApplicationRecord
       .or(where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%"))
   }
 
+  scope :relaunch_contains, -> (query) {
+    where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}%")
+      .or(where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}%"))
+  }
+
   # Pour ransack, en admin
   scope :mtm_campaign_equals, -> (query) {
     where('form_info @> ?', { pk_campaign: query }.to_json)
@@ -284,8 +291,23 @@ class Solicitation < ApplicationRecord
       .or(where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}"))
   }
 
+  scope :relaunch_equals, -> (query) {
+    where('form_info @> ?', { pk_campaign: query }.to_json)
+  }
+
+  scope :relaunch_starts_with, -> (query) {
+    where("solicitations.form_info::json->>'relaunch' ILIKE ?", "#{query}%")
+  }
+
+  scope :relaunch_ends_with, -> (query) {
+    where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}")
+  }
+
   def self.ransackable_scopes(auth_object = nil)
-    [:mtm_campaign_contains, :mtm_campaign_equals, :mtm_campaign_starts_with, :mtm_campaign_ends_with]
+    [
+      :mtm_campaign_contains, :mtm_campaign_equals, :mtm_campaign_starts_with, :mtm_campaign_ends_with,
+      :relaunch_contains, :relaunch_equals, :relaunch_ends_with, :relaunch_starts_with
+    ]
   end
 
   scope :without_diagnosis, -> {
@@ -389,7 +411,7 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid mtm_campaign mtm_kwd api_calling_url]
+  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid mtm_campaign mtm_kwd api_calling_url relaunch]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##
@@ -479,6 +501,10 @@ class Solicitation < ApplicationRecord
     provenance_category == :campaign || provenance_category == :googleads
   end
 
+  def from_relaunch?
+    relaunch.present?
+  end
+
   def provenance_title
     if from_iframe?
       landing.slug
@@ -507,7 +533,7 @@ class Solicitation < ApplicationRecord
   end
 
   def display_attributes
-    %i[normalized_phone_number institution requested_help_amount location provenance_title provenance_detail]
+    %i[normalized_phone_number institution requested_help_amount location provenance_title provenance_detail relaunch]
   end
 
   def normalized_siret

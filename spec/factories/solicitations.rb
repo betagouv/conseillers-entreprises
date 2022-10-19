@@ -11,6 +11,7 @@ FactoryBot.define do
     siret { Faker::Company.french_siret_number }
     code_region { 11 }
     status { :in_progress }
+    completed_at { Time.zone.now }
 
     trait :with_diagnosis do
       diagnosis { build :diagnosis }

@@ -397,6 +397,7 @@ fr:
         provenance_category: Type de source
         provenance_detail: Détail de la source
         provenance_title: Intitulé de la source
+        relaunch: Relance
         requested_help_amount: Montant de l’aide demandée
         siret: SIRET
         slug: Slug
