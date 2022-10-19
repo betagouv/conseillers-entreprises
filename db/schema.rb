@@ -531,7 +531,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_083611) do
     t.integer "status", default: 0
     t.uuid "uuid"
     t.datetime "completed_at", precision: nil
-    t.string "relaunch"
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["email"], name: "index_solicitations_on_email"
     t.index ["institution_id"], name: "index_solicitations_on_institution_id"
