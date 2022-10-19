@@ -686,6 +686,7 @@ fr:
     company_naf: Code NAF
     company_name: Nom de l’entreprise
     company_satisfaction: Satisfaction
+    completed_at: Date de complétion
     contacted_expert: Expert contacté
     contacts:
       one: Personne rencontrée

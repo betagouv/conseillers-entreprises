@@ -14,7 +14,6 @@ ActiveAdmin.register Solicitation do
   scope :status_step_description, group: :completion_incomplete
 
   includes :diagnosis, :landing, :institution, :badges, diagnosis: :company
-  config.sort_order = 'completed_at'
 
   index do
     selectable_column
@@ -99,6 +98,7 @@ ActiveAdmin.register Solicitation do
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
   filter :mtm_campaign, as: :string
   filter :relaunch, as: :string
+  filter :completed_at
 
   ## Batch actions
   # Statuses
@@ -170,6 +170,7 @@ ActiveAdmin.register Solicitation do
       row(:status) { human_attribute_status_tag solicitation, :status }
       row :diagnosis
       row :created_at
+      row :completed_at
       row :updated_at
     end
   end
