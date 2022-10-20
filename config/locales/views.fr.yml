@@ -693,7 +693,7 @@ fr:
       unarchive: Désarchiver
     collections:
       abandoned: Expirées
-      archived: Expirées
+      archived: Archivées
       done: Clôturées
       not_for_me: Refusées
       quo: Boite de réception
@@ -701,7 +701,7 @@ fr:
       taking_care: Prises en charge
     collections_single:
       abandoned: Expirée
-      archived: Expirée
+      archived: Archivée
       done: Clôturée
       not_for_me: Refusée
       quo: Boite de réception
