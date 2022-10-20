@@ -34,10 +34,7 @@ module IframePrefix
   end
 
   def query_params
-    saved_params = session[:solicitation_form_info] || {}
-    # pas de session dans les iframe, on recupere les params dans l'url
-    query_params = view_params.slice(*Solicitation::FORM_INFO_KEYS + [:siret] + AdditionalSubjectQuestion.pluck(:key))
-    saved_params.with_indifferent_access.merge!(query_params)
+    view_params.slice(*Solicitation::FORM_INFO_KEYS + [:siret] + AdditionalSubjectQuestion.pluck(:key))
   end
 
   def view_params
