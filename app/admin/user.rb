@@ -137,7 +137,7 @@ ActiveAdmin.register User do
       end
       resource.managed_antennes.each do |a|
         row :manager do
-          a.name
+          div admin_link_to(a)
         end
       end
     end
