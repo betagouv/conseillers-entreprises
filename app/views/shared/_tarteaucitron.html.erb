@@ -79,4 +79,9 @@
       cookiesLink.onclick = function() { tarteaucitron.userInterface.openPanel();return false };
     }
   });
+  // focus sur le lien Cookie quand on ferme la modale TAC
+  window.addEventListener('tac.close_panel', function() {
+    const cookiesLink = document.getElementById("open-cookies-box")
+    cookiesLink.focus();
+  })
 <% end -%>
