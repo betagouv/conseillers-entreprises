@@ -17,6 +17,10 @@ module SitemapGenerator
     static_pages = [
       { url: Rails.application.routes.url_helpers.comment_ca_marche_url, title: I18n.t('about.comment_ca_marche.title') },
       { url: Rails.application.routes.url_helpers.public_index_url, title: I18n.t('usage_stats') },
+      { url: Rails.application.routes.url_helpers.accessibilite_url, title: I18n.t('about.accessibilite.title') },
+      { url: Rails.application.routes.url_helpers.mentions_legales_url, title: I18n.t('about.mentions_legales.title') },
+      { url: Rails.application.routes.url_helpers.mentions_d_information_url, title: I18n.t('about.mentions_d_information.title') },
+      { url: Rails.application.routes.url_helpers.cgu_url, title: I18n.t('cgu') },
       { url: ENV['BLOG_URL'], title: I18n.t('about.blog.title') },
     ]
     static_pages.each_with_index do |page, idx|
