@@ -41,6 +41,8 @@
         %li.fr-footer__bottom-item
           %button.link.fr-footer__bottom-link{ id: 'open-cookies-box', 'aria-label': t('.open_cookies') }
             = t('.cookies')
+        %li.fr-footer__bottom-item
+          = link_to t('sitemap.sitemap.title'), sitemap_path, class: 'fr-footer__bottom-link'
         - if policy(Stats::All).team?
           %li.fr-footer__bottom-item
             = link_to t('usage_team_stats'), team_index_path, class: 'fr-footer__bottom-link'
