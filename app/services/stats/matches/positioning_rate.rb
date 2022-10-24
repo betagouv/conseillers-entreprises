@@ -31,7 +31,7 @@ module Stats::Matches
 
     def count
       build_series
-      percentage_two_numbers(@not_positioning, @positioning)
+      percentage_two_numbers(@positioning, @not_positioning)
     end
 
     private
