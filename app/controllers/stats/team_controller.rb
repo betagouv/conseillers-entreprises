@@ -25,9 +25,14 @@ module Stats
       @stats = Stats::Matches::All.new(stats_params)
       @charts_names = [
         :transmitted_less_than_72h_stats, :positioning_rate, :taking_care_rate_stats, :done_rate_stats,
-        :done_no_help_rate_stats, :done_not_reachable_rate_stats
+        :done_no_help_rate_stats, :done_not_reachable_rate_stats, :not_for_me_rate_stats
       ]
       render :index
+    end
+
+    def search_antennes
+      institution = Institution.find(params.permit(:institution_id)[:institution_id])
+      render json: institution.antennes.not_deleted.order(:name).as_json()
     end
 
     private

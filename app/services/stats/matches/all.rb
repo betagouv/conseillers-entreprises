@@ -23,5 +23,9 @@ module Stats::Matches
     def done_not_reachable_rate_stats
       DoneNotReachableRateStats.new(@params)
     end
+
+    def not_for_me_rate_stats
+      NotForMeRateStats.new(@params)
+    end
   end
 end

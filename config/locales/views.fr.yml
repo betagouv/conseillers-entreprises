@@ -976,6 +976,7 @@ fr:
       title: Notre mesure d’impact phare
     more_than_72h: Plus de 72h
     not_archived: Besoins non abandonnés
+    not_for_me_status: Statut « pas pour moi »
     not_positioning: L’expert ne s’est pas positionné
     not_reachable_status: Statut « cloturé entreprise non joignable »
     other_status: Autres status
@@ -1027,6 +1028,8 @@ fr:
         title: de besoins clôturés faute d’avoir pu joindre l’entreprise
       needs_not_for_me:
         title: de besoins refusés
+      not_for_me_rate_stats:
+        title: Taux « pas pour moi »
       positioning_rate:
         title: Taux de positionnement
       solicitations:
