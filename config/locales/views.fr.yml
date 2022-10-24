@@ -1031,7 +1031,7 @@ fr:
       needs:
         title: Besoins identifiés
       needs_abandoned:
-        subtitle: Le besoin est considéré comme abandonné lorsque aucun conseiller ne s’est positionné au bout de 30 jours. Il est resté sans réponse malgré les relances et le suivi qualité dont il a fait l’objet.
+        subtitle: Le besoin est considéré comme abandonné lorsque aucun conseiller ne s’est positionné au bout de 45 jours ou 10 jours après l'envoi d'un mail de relance. Il est resté sans réponse malgré les relances et le suivi qualité dont il a fait l’objet.
         title: de besoins abandonnés
       needs_done:
         subtitle: La notion d’aide proposée correspond à une aide financière, à la mobilisation d’un accompagnement public ou à plus largement à des conseils visant à répondre à la demande exprimée par l’entreprise. Par exemple, les conseils juridiques dispensés par un conseiller en droit du travail en réponse à une demande de l’entreprise entre dans la catégorie « aide proposée ».
