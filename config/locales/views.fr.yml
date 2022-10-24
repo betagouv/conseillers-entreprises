@@ -977,6 +977,7 @@ fr:
     more_than_72h: Plus de 72h
     not_archived: Besoins non abandonnés
     not_positioning: L’expert ne s’est pas positionné
+    not_reachable_status: Statut « cloturé entreprise non joignable »
     other_status: Autres status
     out_of_deployed_regions: Demandes hors régions déployées
     positioning: L’expert s’est positionné
@@ -992,10 +993,12 @@ fr:
         title: Typologie des entreprises utilisatrices du service
       companies_by_naf_code:
         title: Secteurs d’activité des entreprises utilisatrices du service
-      done_rate_stats:
-        title: Taux de « cloturées avec aide »
       done_no_help_rate_stats:
         title: Taux de « cloturées sans aide »
+      done_not_reachable_rate_stats:
+        title: Taux de « entreprise non joignable »
+      done_rate_stats:
+        title: Taux de « cloturées avec aide »
       exchange_with_expert:
         subtitle_html: Cette statistique n’est disponible que depuis le 01/09/2020 grâce à l’ajout de nouvelles fonctionnalités, permettant un suivi plus fin des besoins.<br>Un besoin correspond en principe à une demande d’entreprise, mais il se peut qu’une même demande exprime plusieurs besoins, d’où l’utilisation du terme plus précis de « besoin » pour mesurer la dernière étape du service.
         title: des besoins d’entreprises transmis ont donné lieu à un échange avec un conseiller
@@ -1096,7 +1099,6 @@ fr:
     status_done_not_reachable: Entreprises injoignables
     status_not_for_me: Besoins refusés
     tacking_care_status: Statut « pris en charge »
-    done_no_help_status: Statut « cloturé sans aide »
     taken_care_after: Plus de 5 jours
     taken_care_before: Moins de 5 jours
     team:

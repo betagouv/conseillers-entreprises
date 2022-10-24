@@ -19,5 +19,9 @@ module Stats::Matches
     def done_no_help_rate_stats
       DoneNoHelpRateStats.new(@params)
     end
+
+    def done_not_reachable_rate_stats
+      DoneNotReachableRateStats.new(@params)
+    end
   end
 end
