@@ -1063,6 +1063,7 @@ fr:
       keywords: Mots clés
       region: Région
       search: Chercher
+      select_institution: Selectionnez une institution
       start_date: Date de début
     stats_table:
       activity:
