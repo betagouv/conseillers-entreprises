@@ -28,7 +28,8 @@
       },
       subtitle: {
         text: subtitle,
-        align: 'left'
+        align: 'left',
+        y: 10
       },
       credits: {
         enabled: false
