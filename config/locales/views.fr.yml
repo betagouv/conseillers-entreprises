@@ -1034,6 +1034,9 @@ fr:
       not_for_me_rate_stats:
         subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
         title: de besoins refusés par l’institution
+      not_positioning_rate:
+        subtitle: L’expert n’a donné aucune indication sur le besoin transmis.
+        title: de besoins restés sans réponse de l’institution
       positioning_rate:
         subtitle: L’expert s’est positionné pour indiquer prendre en charge ou refuser le besoin.
         title: Taux de positionnement

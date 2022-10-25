@@ -25,7 +25,7 @@ module Stats
       @stats = Stats::Matches::All.new(stats_params)
       @charts_names = [
         :transmitted_less_than_72h_stats, :positioning_rate, :taking_care_rate_stats, :done_rate_stats,
-        :done_no_help_rate_stats, :done_not_reachable_rate_stats, :not_for_me_rate_stats
+        :done_no_help_rate_stats, :done_not_reachable_rate_stats, :not_for_me_rate_stats, :not_positioning_rate
       ]
       render :index
     end
