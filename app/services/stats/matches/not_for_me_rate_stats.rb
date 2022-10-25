@@ -2,19 +2,14 @@ module Stats::Matches
   # Taux de mises en relation refusées sur la totalité des mises en relation transmises
   class NotForMeRateStats
     include ::Stats::BaseStats
+    include ::Stats::FiltersStats
 
     def main_query
       Match.joins(:need).where.not(need: { status: :diagnosis_not_complete })
     end
 
     def filtered(query)
-      if territory.present?
-        query.merge! query.in_region(territory)
-      end
-      if institution.present?
-        query.merge! query.joins(expert: :institution).where(experts: { institutions: institution })
-      end
-      query
+      filtered_matches(query)
     end
 
     def build_series
