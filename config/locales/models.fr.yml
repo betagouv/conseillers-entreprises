@@ -379,8 +379,8 @@ fr:
         query: Requête
         user: Utilisateur
       solicitation:
-        ab_testing: A/B test
         api_calling_url: Url d’appel
+        completion: Complétion
         email: E-mail
         full_name: Prénom et nom
         institution_filters: Questions additionnelles
