@@ -33,6 +33,10 @@ module Stats::Matches
       percentage_two_numbers(@not_reachable_status, @other_status)
     end
 
+    def subtitle
+      I18n.t('stats.series.done_not_reachable_rate_stats.subtitle')
+    end
+
     private
 
     def as_series(not_reachable_status, other_status)

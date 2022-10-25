@@ -29,6 +29,10 @@ module Stats::Matches
       percentage_two_numbers(@positioning, @not_positioning)
     end
 
+    def subtitle
+      I18n.t('stats.series.positioning_rate.subtitle')
+    end
+
     private
 
     def as_series(positioning, not_positioning)

@@ -33,6 +33,10 @@ module Stats::Matches
       percentage_two_numbers(@not_for_me_status, @other_status)
     end
 
+    def subtitle
+      I18n.t('stats.series.not_for_me_rate_stats.subtitle')
+    end
+
     private
 
     def as_series(not_for_me_status, other_status)

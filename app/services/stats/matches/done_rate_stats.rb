@@ -33,6 +33,10 @@ module Stats::Matches
       percentage_two_numbers(@done_status, @other_status)
     end
 
+    def subtitle
+      I18n.t('stats.series.done_rate_stats.subtitle')
+    end
+
     private
 
     def as_series(done_status, other_status)

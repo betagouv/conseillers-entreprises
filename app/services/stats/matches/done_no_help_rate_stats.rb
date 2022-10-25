@@ -33,6 +33,10 @@ module Stats::Matches
       percentage_two_numbers(@done_no_help, @other_status)
     end
 
+    def subtitle
+      I18n.t('stats.series.done_no_help_rate_stats.subtitle')
+    end
+
     private
 
     def as_series(done_no_help, other_status)

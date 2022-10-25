@@ -33,6 +33,10 @@ module Stats::Matches
       percentage_two_numbers(@tacking_care_status, @other_status)
     end
 
+    def subtitle
+      I18n.t('stats.series.taking_care_rate_stats.subtitle')
+    end
+
     private
 
     def as_series(tacking_care_status, other_status)
