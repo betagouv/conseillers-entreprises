@@ -3,9 +3,6 @@ require './config/boot'
 require './config/environment'
 
 module Clockwork
-  every(1.day, 'revoke_api_keys', at: ('2:00'), if: -> (t) { t.day == 1 }) do
-    ApiKeysManagement.delay.batch_revoke
-  end
   every(1.week, 'send_app_administrators_statistics_email', at: 'Monday 07:30') do
     AdminMailersService.delay.send_statistics_email
   end
@@ -18,14 +15,23 @@ module Clockwork
   every(1.week, 'anonymize_old_diagnoses', at: 'sunday 5:00') do
     `rake anonymize_old_diagnoses`
   end
+  every(1.day, 'revoke_api_keys', at: ('2:00'), if: -> (t) { t.day == 1 }) do
+    ApiKeysManagement.delay.batch_revoke
+  end
   every(1.day, 'archive_old_needs', at: '02:11') do
     NeedsService.delay.archive_old_needs
+  end
+  every(1.day, 'auto_archive_old_matches', at: ('2:41')) do
+    `rake auto_archive_old_matches`
   end
   every(1.day, 'abandon_needs', at: '03:11') do
     NeedsService.delay.abandon_needs
   end
-  every(1.day, 'send_failed_jobs_email', at: '10:00') do
-    AdminMailersService.delay.send_failed_jobs
+  every(1.day, 'update_solicitations_code_region', at: ('3:41')) do
+    `rake update_solicitations_code_region`
+  end
+  every(1.day, 'purge_csv_exports', at: ('4:11')) do
+    CsvExport.delay.purge_later
   end
   every(1.day, 'send_retention_emails', at: ('4:41')) do
     CompanyMailerService.delay.send_retention_emails
@@ -33,11 +39,8 @@ module Clockwork
   every(1.day, 'send_satisfaction_emails', at: ('5:41')) do
     CompanyMailerService.delay.send_satisfaction_emails
   end
-  every(1.day, 'update_solicitations_code_region', at: ('3:41')) do
-    `rake update_solicitations_code_region`
-  end
-  every(1.day, 'auto_archive_old_matches', at: ('2:41')) do
-    `rake auto_archive_old_matches`
+  every(1.day, 'send_failed_jobs_email', at: '10:00') do
+    AdminMailersService.delay.send_failed_jobs
   end
   every(1.day, 'relaunch_solicitations', at: ('12:00')) do
     SolicitationsRelaunchService.delay.perform
