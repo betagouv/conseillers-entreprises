@@ -67,7 +67,7 @@ module Reminders
 
     def render_collection(action)
       @active_experts = PositionningRate::Collection.new(territory_experts).send(action)
-        .includes(:antenne, :reminder_feedbacks)
+        .includes(:antenne, :reminder_feedbacks, :users, :received_needs)
         .most_needs_quo_first
         .page params[:page]
 

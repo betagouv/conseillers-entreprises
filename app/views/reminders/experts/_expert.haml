@@ -59,6 +59,10 @@
           = link_to path, class: 'fr-tag' do
             .bold= count
             .fr-ml-1v= t(name, scope: 'needs.collections').downcase
+        - archived_needs = expert.needs_archived
+        %span.fr-tag
+          .bold= archived_needs.size
+          .fr-ml-1v= t(:archived, scope: 'needs.collections').downcase
 
     %hr
     %div{ id: "display-feedbacks-#{expert.id}" }
