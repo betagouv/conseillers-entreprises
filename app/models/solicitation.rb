@@ -303,10 +303,15 @@ class Solicitation < ApplicationRecord
     where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}")
   }
 
+  scope :completion_eq, -> (query) do
+    return self unless ['step_complete', 'step_incomplete'].include?(query)
+    self.send(query)
+  end
+
   def self.ransackable_scopes(auth_object = nil)
     [
       :mtm_campaign_contains, :mtm_campaign_equals, :mtm_campaign_starts_with, :mtm_campaign_ends_with,
-      :relaunch_contains, :relaunch_equals, :relaunch_ends_with, :relaunch_starts_with
+      :relaunch_contains, :relaunch_equals, :relaunch_ends_with, :relaunch_starts_with, :completion_eq
     ]
   end
 
