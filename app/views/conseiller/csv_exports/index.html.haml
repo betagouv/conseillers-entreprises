@@ -1,0 +1,11 @@
+- meta title: t('.title')
+
+- content_for :header, render('header', title: t('.title'))
+- content_for :menu, render('menu')
+
+.fr-container
+  %ul
+    - @exports.each do |export|
+      %li
+        = link_to download_conseiller_csv_export_path(export, format: :csv), class: 'fr-tile__link' do
+          = export.filename

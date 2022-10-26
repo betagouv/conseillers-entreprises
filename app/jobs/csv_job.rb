@@ -2,10 +2,16 @@
 
 class CsvJob < ApplicationJob
   def perform(model, ransack_params, user)
-    klass = model.constantize
-    relation = klass.ransack(ransack_params).result
-    file = relation.export_csv.build_file
-    AdminMailer.send_csv(model, ransack_params, file, user).deliver_now
-    file.unlink
+    ActiveRecord::Base.transaction do
+      klass = model.constantize
+      relation = klass.ransack(ransack_params).result
+      result = relation.export_csv
+      file = result.build_file
+      user.csv_exports.attach(io: File.open(file.path),
+                              key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
+                              filename: result.filename,
+                              content_type: 'application/csv')
+      file.unlink
+    end
   end
 end

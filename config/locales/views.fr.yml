@@ -99,6 +99,7 @@ fr:
       antennes_needs: Demandes des antennes
       badges: Tags
       close: Fermer
+      csv_exports: Exports csv
       diagnoses: Analyses
       invite: Inviter des utilisateurs
       main_menu: Menu principal
@@ -213,6 +214,11 @@ fr:
     thank_you:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
   conseiller:
+    csv_exports:
+      index:
+        title: Exports csv
+      menu:
+        csv_exports: Exports csv
     solicitations:
       ban_facility:
         marked_as_banned: Email et entreprise ont été exclus

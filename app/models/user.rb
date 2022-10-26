@@ -70,6 +70,7 @@ class User < ApplicationRecord
   belongs_to :inviter, class_name: 'User', inverse_of: :invitees, optional: true
   has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter, counter_cache: :invitations_count
   has_many :supported_territories, class_name: 'Territory', foreign_key: 'support_contact_id', inverse_of: :support_contact
+  has_many_attached :csv_exports
 
   # :rights / roles
   has_many :user_rights, inverse_of: :user
