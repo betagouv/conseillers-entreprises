@@ -37,11 +37,11 @@ module PositionningRate
     end
 
     def received_matches_count
-      @received_matches_count ||= received_matches.count
+      @received_matches_count ||= received_matches.size
     end
 
     def received_quo_matches_count
-      @received_quo_matches_count ||= received_matches.status_quo.count
+      @received_quo_matches_count ||= received_matches.status_quo.size
     end
   end
 end
