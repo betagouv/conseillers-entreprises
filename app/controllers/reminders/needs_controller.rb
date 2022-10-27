@@ -72,7 +72,8 @@ module Reminders
       end
       @action = name
       @needs = @needs
-        .includes(:subject, :feedbacks, :company, :solicitation, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
+        .joins(:matches, :experts)
+        .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
         .order(:created_at)
         .page(params[:page])
 
