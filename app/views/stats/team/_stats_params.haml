@@ -1,6 +1,10 @@
-.fr-grid-row.fr-py-3w.fr-mb-3w.white-bg#stats-params
-  .fr-col-12.fr-col-md-6.fr-col-offset-md-3{ data: { controller: 'stats' } }
-    = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
+= form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
+  .fr-grid-row.fr-py-3w.fr-mb-3w.white-bg#stats-params{ data: { controller: 'stats' } }
+    .fr-col-12.fr-col-md-6.fr-p-2w
+      .fr-input-group
+        = f.label :start_date, t('stats.stats_params.start_date'), class: 'fr-label'
+        .fr-input-wrap
+          = f.date_field :start_date, { value: stats.params.start_date, class: 'fr-input' }
       .fr-select-group
         = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
         = f.collection_select :territory, Territory.regions.order(:name), :id, :name, { selected: params[:territory],
@@ -15,6 +19,11 @@
         = f.label :antenne, t('activerecord.models.antenne.one'), class: 'fr-label'
         = f.collection_select :antenne, antennes_collection, :id, :name, { selected: params[:antenne],
         include_blank: antenne_placeholder }, class: "fr-select", data: { 'stats-target': 'antennes' }
+    .fr-col-12.fr-col-md-6.fr-p-2w
+      .fr-input-group
+        = f.label :end_date, t('stats.stats_params.end_date'), class: 'fr-label'
+        .fr-input-wrap
+          = f.date_field :end_date, { value: stats.params.end_date, class: 'fr-input' }
       .fr-select-group
         = f.label :iframe, t('stats.stats_params.iframes'), class: 'fr-label'
         = f.collection_select :iframe, Landing.not_archived.iframe.order(:title), :id, :title, { selected: params[:iframe],
@@ -25,14 +34,7 @@
       .fr-input-group
         = f.label :mtm_kwd, t('stats.stats_params.keywords'), class: 'fr-label'
         = f.text_field :mtm_kwd, value: stats.params.mtm_kwd, class: 'fr-input'
-      .fr-input-group
-        = f.label :start_date, t('stats.stats_params.start_date'), class: 'fr-label'
-        .fr-input-wrap
-          = f.date_field :start_date, { value: stats.params.start_date, class: 'fr-input' }
-      .fr-input-group
-        = f.label :end_date, t('stats.stats_params.end_date'), class: 'fr-label'
-        .fr-input-wrap
-          = f.date_field :end_date, { value: stats.params.end_date, class: 'fr-input' }
+    .fr-col-12.fr-p-2w
       .fr-input-group
         = f.submit t('stats.stats_params.search'), class: 'fr-btn'
         - if stats.params.table.count > 2
