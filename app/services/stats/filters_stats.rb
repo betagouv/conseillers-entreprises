@@ -4,7 +4,8 @@ module Stats
       query.merge! territory.needs if territory.present?
       query.merge! antenne_or_institution.received_needs if antenne_or_institution.present?
       query.merge! Need.joins(:subject).where(subject: subject) if subject.present?
-      query.merge! Need.joins(solicitation: :landing).where(solicitations: { landings: iframe }) if iframe.present?
+      query.merge! Need.joins(solicitation: :landing)
+        .where(solicitations: { landings: { integration: integration } }) if integration.present?
       if mtm_campaign.present?
         query.merge! Need.joins(:solicitation)
           .where(pk_campaign_query, "%#{mtm_campaign}%")
@@ -22,7 +23,7 @@ module Stats
       query.merge! Solicitation.in_regions(territory.code_region) if territory.present?
       query.merge! antenne_or_institution.received_solicitations if antenne_or_institution.present?
       query.merge! Solicitation.joins(landing_subject: :subject).where(subjects: subject) if subject.present?
-      query.merge! Solicitation.joins(:landing).where(landings: iframe) if iframe.present?
+      query.merge! Solicitation.joins(:landing).where(landings: { integration: integration }) if integration.present?
       if mtm_campaign.present?
         query.merge! Solicitation.where(pk_campaign_query, "%#{mtm_campaign}%")
           .or(Solicitation.where(mtm_campaign_query, "%#{mtm_campaign}%"))
@@ -37,10 +38,10 @@ module Stats
     def filtered_companies(query)
       query.merge!(territory.companies) if territory.present?
       query.merge! antenne_or_institution.received_diagnoses if antenne_or_institution.present?
-      query.merge! Company.joins(facilities: { diagnoses: { solicitation: { landing_subject: :subject } } }).where(landing_subjects: { subjects: subject }) if subject.present?
-      if iframe.present?
-        query.merge! Company.joins(facilities: { diagnoses: :solicitation }).where(solicitations: { landings: iframe })
-      end
+      query.merge! Company.joins(facilities: { diagnoses: { solicitation: { landing_subject: :subject } } })
+        .where(landing_subjects: { subjects: subject }) if subject.present?
+      query.merge! Company.joins(facilities: { diagnoses: { solicitation: :landing } })
+        .where(solicitations: { landings: { integration: integration } }) if integration.present?
       if mtm_campaign.present?
         query.merge! Company.joins(facilities: { diagnoses: :solicitation })
           .where(pk_campaign_query, "%#{mtm_campaign}%")
@@ -61,7 +62,8 @@ module Stats
         query.merge! query.joins(expert: :institution).where(experts: { institutions: institution })
       end
       query.merge! Match.joins(:subject).where(subjects: subject) if subject.present?
-      query.merge! Match.joins(need: { solicitation: :landing }).where(solicitations: { landings: iframe }) if iframe.present?
+      query.merge! Match.joins(need: { solicitation: :landing })
+        .where(solicitations: { landings: { integration: integration } }) if integration.present?
       if mtm_campaign.present?
         query.merge! Match.joins(need: :solicitation)
           .where(pk_campaign_query, "%#{mtm_campaign}%")

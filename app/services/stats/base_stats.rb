@@ -6,7 +6,7 @@ module Stats
   end
 
   module BaseStats
-    attr_reader :territory, :institution, :antenne, :subject, :iframe, :mtm_campaign, :mtm_kwd, :start_date, :end_date
+    attr_reader :territory, :institution, :antenne, :subject, :integration, :mtm_campaign, :mtm_kwd, :start_date, :end_date
 
     def initialize(params)
       params = OpenStruct.new(params)
@@ -14,7 +14,7 @@ module Stats
       @institution = Institution.find_by(id: params.institution) if params.institution.present?
       @antenne = Antenne.find_by(id: params.antenne) if params.antenne.present?
       @subject = Subject.find_by(id: params.subject) if params.subject.present?
-      @iframe = Landing.find_by(id: params.iframe) if params.iframe.present?
+      @integration = params.integration
       @mtm_campaign = params.mtm_campaign
       @mtm_kwd = params.mtm_kwd
       @start_date = params.start_date.to_time || (Time.zone.now.beginning_of_day - 6.months)
