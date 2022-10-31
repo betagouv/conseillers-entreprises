@@ -1,6 +1,7 @@
 module Stats
   class TeamController < BaseController
     before_action :authorize_team
+    before_action :get_institutions_antennes, except: %i[search_antennes]
 
     def index
       redirect_to action: :public, params: stats_params
@@ -39,6 +40,11 @@ module Stats
 
     def authorize_team
       authorize Stats::All, :team?
+    end
+
+    def get_institutions_antennes
+      @institution_antennes = params[:institution].present? ?
+                                Institution.find(params[:institution]).antennes.not_deleted : []
     end
   end
 end
