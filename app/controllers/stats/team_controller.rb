@@ -31,9 +31,13 @@ module Stats
       render :index
     end
 
-    def search_antennes
+    def institution_filters
       institution = Institution.find(params.permit(:institution_id)[:institution_id])
-      render json: institution.antennes.not_deleted.order(:name).as_json
+      response = {
+        antennes: institution.antennes.not_deleted.order(:name),
+        subjects: institution.subjects.not_archived.order(:label)
+      }
+      render json: response.as_json
     end
 
     private

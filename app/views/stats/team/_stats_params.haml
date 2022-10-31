@@ -17,7 +17,7 @@
       .fr-select-group
         = f.label :institution, t('activerecord.models.institution.one'), class: 'fr-label'
         = f.collection_select :institution, Institution.not_deleted.order(:name), :id, :name, { selected: params[:institution],
-        include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#searchAntennes', 'stats-target': 'institution' }
+        include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#institutionFilters', 'stats-target': 'institution' }
       .fr-select-group
         - antenne_placeholder = params[:institution].present? ? t('all.feminine') : t('stats.stats_params.select_institution')
         = f.label :antenne, t('activerecord.models.antenne.one'), class: 'fr-label'
@@ -26,7 +26,7 @@
       .fr-select-group
         = f.label :subject, t('activerecord.models.subject.one'), class: 'fr-label'
         = f.collection_select :subject, Subject.not_archived.order(:label), :id, :label, { selected: params[:subject],
-        include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subject' }
+        include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
     .fr-col-12.fr-col-md-4.fr-p-2w
       .fr-select-group
         = f.label :iframe, t('stats.stats_params.iframes'), class: 'fr-label'

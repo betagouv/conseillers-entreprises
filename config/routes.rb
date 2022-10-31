@@ -302,7 +302,7 @@ Rails.application.routes.draw do
         get :public, path: 'public'
         get :quality, path: 'suivi-qualite'
         get :matches, path: 'mises-en-relation'
-        get :search_antennes
+        get :institution_filters
       end
     end
   end

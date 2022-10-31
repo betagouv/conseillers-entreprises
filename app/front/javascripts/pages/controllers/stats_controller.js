@@ -1,13 +1,17 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ['institution', 'antennes']
+  static targets = ['institution', 'antennes', 'subjects']
 
-  async searchAntennes() {
-    await fetch(`/stats/equipe/search_antennes?institution_id=${this.institution}`)
+  async institutionFilters() {
+    await fetch(`/stats/equipe/institution_filters?institution_id=${this.institution}`)
       .then((response) => response.json())
-      .then((data) =>
-        this.updateAntennesOptions(data));
+      .then((data) => this.updateFilters(data));
+  }
+
+  updateFilters(data) {
+    this.updateAntennesOptions(data.antennes);
+    this.updateSubjectsOptions(data.subjects);
   }
 
   updateAntennesOptions(antennes) {
@@ -21,6 +25,20 @@ export default class extends Controller {
       option.value = antenne.id;
       option.innerHTML = antenne.name;
       this.antennesTarget.appendChild(option);
+    });
+  }
+
+  updateSubjectsOptions(subjects) {
+    this.subjectsTarget.innerHTML = "";
+    let option = document.createElement("option");
+    option.value = '';
+    option.innerHTML = 'Tous';
+    this.subjectsTarget.appendChild(option);
+    subjects.forEach((subject) => {
+      const option = document.createElement("option");
+      option.value = subject.id;
+      option.innerHTML = subject.label;
+      this.subjectsTarget.appendChild(option);
     });
   }
 
