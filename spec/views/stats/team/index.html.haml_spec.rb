@@ -13,6 +13,7 @@ RSpec.describe 'stats/team/index', type: :view do
     it "displays correctly quality stats" do
       assign(:stats, Stats::Quality::All.new({ start_date: start_date, end_date: end_date }))
       assign(:charts_names, [:needs_done, :needs_done_no_help, :needs_done_not_reachable, :needs_not_for_me, :needs_abandoned])
+      assign(:institution_antennes, [])
 
       render
 
@@ -22,6 +23,7 @@ RSpec.describe 'stats/team/index', type: :view do
     it "displays correctly matches stats" do
       assign(:stats, Stats::Matches::All.new({ start_date: start_date, end_date: end_date }))
       assign(:charts_names, [:transmitted_less_than_72h_stats])
+      assign(:institution_antennes, [])
 
       render
 

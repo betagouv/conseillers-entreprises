@@ -1,7 +1,7 @@
 module Stats
   class TeamController < BaseController
     before_action :authorize_team
-    before_action :get_institutions_antennes, except: %i[search_antennes]
+    before_action :get_institution_antennes, except: %i[search_antennes]
 
     def index
       redirect_to action: :public, params: stats_params
@@ -33,7 +33,7 @@ module Stats
 
     def search_antennes
       institution = Institution.find(params.permit(:institution_id)[:institution_id])
-      render json: institution.antennes.not_deleted.order(:name).as_json()
+      render json: institution.antennes.not_deleted.order(:name).as_json
     end
 
     private
@@ -42,7 +42,7 @@ module Stats
       authorize Stats::All, :team?
     end
 
-    def get_institutions_antennes
+    def get_institution_antennes
       @institution_antennes = params[:institution].present? ?
                                 Institution.find(params[:institution]).antennes.not_deleted : []
     end

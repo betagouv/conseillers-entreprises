@@ -8,7 +8,7 @@ module Stats::Matches
     end
 
     def filtered(query)
-      filtered_matches(query)
+      filtered_solicitations(query)
     end
 
     def build_series
