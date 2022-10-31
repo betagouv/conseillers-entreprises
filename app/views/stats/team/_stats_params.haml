@@ -27,7 +27,6 @@
         = f.label :subject, t('activerecord.models.subject.one'), class: 'fr-label'
         = f.collection_select :subject, Subject.not_archived.order(:label), :id, :label, { selected: params[:subject],
         include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subject' }
-
     .fr-col-12.fr-col-md-4.fr-p-2w
       .fr-select-group
         = f.label :iframe, t('stats.stats_params.iframes'), class: 'fr-label'
@@ -39,7 +38,6 @@
       .fr-input-group
         = f.label :mtm_kwd, t('stats.stats_params.keywords'), class: 'fr-label'
         = f.text_field :mtm_kwd, value: stats.params.mtm_kwd, class: 'fr-input'
-
     .fr-col-12.fr-p-2w
       .fr-input-group
         = f.submit t('stats.stats_params.search'), class: 'fr-btn'
