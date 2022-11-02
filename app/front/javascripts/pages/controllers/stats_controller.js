@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ['institution', 'antennes', 'subjects']
 
   async institutionFilters() {
-    await fetch(`/stats/equipe/institution_filters?institution_id=${this.institution}`)
+    await fetch(`/stats/equipe/institution_filters?institution_id=${this.institutionTarget.value}`)
       .then((response) => response.json())
       .then((data) => this.updateFilters(data));
   }
@@ -40,9 +40,5 @@ export default class extends Controller {
       option.innerHTML = subject.label;
       this.subjectsTarget.appendChild(option);
     });
-  }
-
-  get institution() {
-    return this.institutionTarget.value
   }
 }
