@@ -37,6 +37,10 @@ module Stats::Matches
       I18n.t('stats.series.taking_care_rate_stats.subtitle')
     end
 
+    def colors
+      matches_colors
+    end
+
     private
 
     def as_series(tacking_care_status, other_status)

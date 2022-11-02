@@ -35,6 +35,10 @@ module Stats::Matches
       I18n.t('stats.series.not_positioning_rate.subtitle')
     end
 
+    def colors
+      matches_colors
+    end
+
     private
 
     def as_series(not_positioning, positioning)

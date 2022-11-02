@@ -37,6 +37,10 @@ module Stats::Matches
       I18n.t('stats.series.done_not_reachable_rate_stats.subtitle')
     end
 
+    def colors
+      matches_colors
+    end
+
     private
 
     def as_series(not_reachable_status, other_status)

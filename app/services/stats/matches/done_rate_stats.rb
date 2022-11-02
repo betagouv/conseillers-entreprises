@@ -37,6 +37,10 @@ module Stats::Matches
       I18n.t('stats.series.done_rate_stats.subtitle')
     end
 
+    def colors
+      matches_colors
+    end
+
     private
 
     def as_series(done_status, other_status)

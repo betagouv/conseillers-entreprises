@@ -87,6 +87,10 @@ module Stats
       'percentage-column-chart'
     end
 
+    def matches_colors
+      %w[#E18B76 #8D533E]
+    end
+
     ## Overrides
     #
     def subtitle

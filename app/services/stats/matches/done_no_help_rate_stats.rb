@@ -37,6 +37,10 @@ module Stats::Matches
       I18n.t('stats.series.done_no_help_rate_stats.subtitle')
     end
 
+    def colors
+      matches_colors
+    end
+
     private
 
     def as_series(done_no_help, other_status)
