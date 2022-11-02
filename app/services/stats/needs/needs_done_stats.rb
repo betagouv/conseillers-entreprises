@@ -1,4 +1,4 @@
-module Stats::Quality
+module Stats::Needs
   class NeedsDoneStats
     include ::Stats::BaseStats
     include ::Stats::FiltersStats

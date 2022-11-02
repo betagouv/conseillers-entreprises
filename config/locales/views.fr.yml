@@ -1116,10 +1116,9 @@ fr:
     team:
       index:
         title: Statistiques équipe
-      tabs:
-        matches: Mises en relation
-        public: Stats publiques
-        quality: Suivi qualité
+      matches: Pilotage par partenaire
+      needs: Pilotage par besoins
+      public: Statistiques publiques
     with_diagnosis: Demandes transmises
     without_diagnosis: Demandes non transmises
   step_number: Étape %{actual} sur %{total}

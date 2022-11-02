@@ -1,4 +1,4 @@
-module Stats::Matches
+module Stats::Needs
   class TransmittedLessThan72hStats
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
