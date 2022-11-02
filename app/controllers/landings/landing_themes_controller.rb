@@ -1,6 +1,4 @@
 class Landings::LandingThemesController < Landings::BaseController
-  before_action :save_query_params
-
   def show
     @landing_theme = LandingTheme.not_archived.find_by(slug: params[:slug])
     redirect_to root_path and return if @landing_theme.nil?
