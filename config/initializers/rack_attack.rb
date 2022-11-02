@@ -1,4 +1,9 @@
 class Rack::Attack
+  class Request < ::Rack::Request
+    def remote_ip
+      @remote_ip ||= (env['action_dispatch.remote_ip'] || ip).to_s
+    end
+  end
   ### Configure Cache ###
 
   # If you don't want to use Rails.cache (Rack::Attack's default), then
@@ -76,13 +81,14 @@ class Rack::Attack
   # end
 
   Rack::Attack.blocklist('block bad email') do |req|
-    req.post? && req.params['solicitation'].present? && req.params['solicitation']['email'] == 'foo-bar@example.com'
+    (req.post? && req.params['solicitation'].present? && req.params['solicitation']['email'] == 'foo-bar@example.com') ||
+      req.ip == '137.117.65.40'
   end
 
   Rack::Attack.blocklisted_responder = lambda do |request|
     # Using 503 because it may make attacker think that they have successfully
     # DOSed the site. Rack::Attack returns 403 for blocklists by default
-    Sentry.capture_message("foo-bar@example.com : IP = #{request.ip} ; Remote IP = #{request.ip}")
+    Sentry.capture_message("foo-bar@example.com : IP = #{request.ip} ; Remote IP = #{request.remote_ip}")
     [ 503, {}, ['Blocked']]
   end
 end
