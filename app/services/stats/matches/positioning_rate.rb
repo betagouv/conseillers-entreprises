@@ -4,7 +4,7 @@ module Stats::Matches
     include ::Stats::FiltersStats
 
     def main_query
-      Match.joins(:need).where.not(need: { status: :diagnosis_not_complete })
+      Match.sent
     end
 
     def filtered(query)
