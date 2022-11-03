@@ -20,7 +20,7 @@
             %ul.fr-links-group
               = active_link_to comment_ca_marche_path, class: 'fr-link', wrap_tag: :li do
                 = t('about.comment_ca_marche.title')
-              = active_link_to root_path, class: 'fr-link', wrap_tag: :li do
+              = link_to root_path, class: 'fr-link', wrap_tag: :li do
                 = t('company_contact')
               = active_link_to tutoriels_path, class: 'fr-link', wrap_tag: :li do
                 %span.ri-tools-line.fr-mr-1w{ 'aria-hidden': 'true' }
