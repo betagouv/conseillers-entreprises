@@ -1,4 +1,9 @@
-- meta title: t('.meta_title'), description: t('.meta_description')
+- if flash.alert.present?
+  - meta title: t('errors.page_title', title: t('.meta_title'))
+- else
+  - meta title: t('.meta_title')
+- meta description: t('.meta_description')
+
 .fr-container
   .fr-grid-row.fr-grid-row--center.fr-grid-row--gutters.fr-mb-5w
     .fr-col.fr-col-lg-6

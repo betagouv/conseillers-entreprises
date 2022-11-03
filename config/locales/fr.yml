@@ -175,6 +175,7 @@ fr:
       wrong_length:
         one: ne fait pas la bonne longueur (doit comporter un seul caractère)
         other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
+    page_title: Erreur - %{title}
     template:
       body: 'Veuillez vérifier les champs suivants : '
       header:
