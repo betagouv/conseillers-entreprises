@@ -21,8 +21,8 @@ module Reminders
       render_collection(:pending_rate)
     end
 
-    def quo
-      retrieve_needs(@expert, :quo, view: :quo)
+    def quo_active
+      retrieve_needs(@expert, :quo_active, view: :quo)
     end
 
     def taking_care
@@ -37,8 +37,8 @@ module Reminders
       retrieve_needs(@expert, :not_for_me, view: :quo)
     end
 
-    def abandoned
-      retrieve_needs(@expert, :abandoned, view: :quo)
+    def quo_abandoned
+      retrieve_needs(@expert, :quo_abandoned, view: :quo)
     end
 
     def show

@@ -699,19 +699,19 @@ fr:
       subjet_achived: Le besoin a été archivé
       unarchive: Désarchiver
     collections:
-      abandoned: Expirées
       archived: Archivées
       done: Clôturées
       not_for_me: Refusées
-      quo: Boite de réception
+      quo_abandoned: Expirées
+      quo_active: Boite de réception
       search: Recherche
       taking_care: Prises en charge
     collections_single:
-      abandoned: Expirée
       archived: Archivée
       done: Clôturée
       not_for_me: Refusée
-      quo: Boite de réception
+      quo_abandoned: Expirée
+      quo_active: Boite de réception
       taking_care: Prise en charge
     empty_placeholder:
       title: Aucune demande

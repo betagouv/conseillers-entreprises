@@ -5,11 +5,11 @@ class Manager::NeedsController < ApplicationController
   layout 'side_menu'
 
   def index
-    redirect_to action: :quo
+    redirect_to action: :quo_active
   end
 
-  def quo
-    antenne_retrieve_needs(retrieve_recipient, :quo, order: :asc)
+  def quo_active
+    antenne_retrieve_needs(retrieve_recipient, :quo_active, order: :asc)
   end
 
   def taking_care
@@ -24,8 +24,8 @@ class Manager::NeedsController < ApplicationController
     antenne_retrieve_needs(retrieve_recipient, :not_for_me)
   end
 
-  def abandoned
-    antenne_retrieve_needs(retrieve_recipient, :abandoned)
+  def quo_abandoned
+    antenne_retrieve_needs(retrieve_recipient, :quo_abandoned)
   end
 
   private

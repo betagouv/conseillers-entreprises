@@ -19,11 +19,11 @@ class NeedsController < ApplicationController
   # TODO: Another issue is that the collections in /besoins/ are actually collections of diagnoses.
   # All of this is #1278.
   def index
-    redirect_to action: :quo
+    redirect_to action: :quo_active
   end
 
-  def quo
-    retrieve_needs(current_user, :quo, order: :asc)
+  def quo_active
+    retrieve_needs(current_user, :quo_active, order: :asc)
   end
 
   def taking_care
@@ -38,8 +38,8 @@ class NeedsController < ApplicationController
     retrieve_needs(current_user, :not_for_me)
   end
 
-  def abandoned
-    retrieve_needs(current_user, :abandoned)
+  def quo_abandoned
+    retrieve_needs(current_user, :quo_abandoned)
   end
 
   def search
@@ -73,7 +73,7 @@ class NeedsController < ApplicationController
     authorize @need
     if @need.status_diagnosis_not_complete?
       flash[:alert] = t('.diagnosis_not_completed')
-      redirect_to quo_needs_path
+      redirect_to quo_active_needs_path
     else
       @origin = params[:origin]
       @matches = @need.matches.order(:created_at)

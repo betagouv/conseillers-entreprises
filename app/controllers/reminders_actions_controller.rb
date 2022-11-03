@@ -20,7 +20,7 @@ class RemindersActionsController < ApplicationController
 
   def send_last_chance_email
     @need.reminders_actions.create(category: :last_chance)
-    @needs_quo = @need.matches.status_quo
+    @needs_quo = @need.matches.with_status_quo_active
     @needs_quo.each do |match|
       ExpertMailer.last_chance(match.expert, @need, current_user).deliver_later
     end

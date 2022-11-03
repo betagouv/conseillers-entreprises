@@ -1,7 +1,7 @@
 .fr-my-4w.reminders.card
   .card__header
     %h2.fr-h4.fr-card__title
-      = link_to expert.full_name.presence, quo_reminders_expert_path(expert), class: 'fr-card__link'
+      = link_to expert.full_name.presence, quo_active_reminders_expert_path(expert), class: 'fr-card__link'
     .fr-grid-row
       .fr-col-7.fr-pb-2v
         %ul.list-unstyled.card-expert__list

@@ -108,6 +108,16 @@ class Match < ApplicationRecord
     where(status: [:done, :done_no_help, :done_not_reachable])
   end
 
+  scope :with_status_quo_active, -> do
+    range = Range.new(Need::REMINDERS_DAYS[:abandon]&.days&.ago, nil)
+    status_quo.where(created_at: range)
+  end
+
+  scope :with_status_quo_abandoned, -> do
+    range = Range.new(nil, Need::REMINDERS_DAYS[:abandon]&.days&.ago)
+    status_quo.where(created_at: range)
+  end
+
   # Pour ransacker, en admin
   scope :solicitation_created_at_gteq_datetime, -> (val) do
     joins(:solicitation).where('solicitations.created_at >= ?', val)

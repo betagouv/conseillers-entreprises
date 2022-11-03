@@ -88,11 +88,11 @@ Rails.application.routes.draw do
   namespace 'manager' do
     resources :needs, only: :index, path: 'besoins-des-antennes' do
       collection do
-        get :quo, path: 'boite-de-reception'
+        get :quo_active, path: 'boite-de-reception'
         get :taking_care, path: 'prises-en-charge'
         get :done, path: 'cloturees'
         get :not_for_me, path: 'refusees'
-        get :abandoned, path: 'expirees'
+        get :quo_abandoned, path: 'expirees'
       end
     end
   end
@@ -144,11 +144,11 @@ Rails.application.routes.draw do
 
   resources :needs, only: %i[index show], path: 'besoins' do
     collection do
-      get :quo, path: 'boite_de_reception'
+      get :quo_active, path: 'boite_de_reception'
       get :taking_care, path: 'prises_en_charge'
       get :done, path: 'cloturees'
       get :not_for_me, path: 'refusees'
-      get :abandoned, path: 'expirees'
+      get :quo_abandoned, path: 'expirees'
 
       get :search, path: 'recherche'
     end
@@ -182,11 +182,11 @@ Rails.application.routes.draw do
         get :pending_rate, path: 'taux-positionnement-restant'
       end
       member do
-        get :quo, path: 'boite_de_reception'
+        get :quo_active, path: 'boite_de_reception'
         get :taking_care, path: 'prises_en_charge'
         get :done, path: 'cloturees'
         get :not_for_me, path: 'refusees'
-        get :abandoned, path: 'expirees'
+        get :quo_abandoned, path: 'expirees'
         post :send_reminder_email
       end
     end

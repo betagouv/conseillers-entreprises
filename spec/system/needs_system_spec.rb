@@ -31,7 +31,7 @@ describe 'needs', type: :system do
     ])
   end
   let!(:need_abandoned) do
-    create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, archived_at: Time.zone.now)], abandoned_email_sent: true)
+    create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, created_at: 46.days.ago)], created_at: 46.days.ago)
   end
 
   describe 'user needs' do
@@ -44,14 +44,14 @@ describe 'needs', type: :system do
       visit '/'
       click_link 'Accès conseillers'
       click_link 'Demandes reçues'
-      expect(page).to have_current_path(quo_needs_path, ignore_query: true)
+      expect(page).to have_current_path(quo_active_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 2)
 
-      expect(side_menu_link(quo_needs_path)).to have_text('2')
+      expect(side_menu_link(quo_active_needs_path)).to have_text('2')
       expect(side_menu_link(taking_care_needs_path)).to have_text('1')
       expect(side_menu_link(done_needs_path)).to have_text('1')
       expect(side_menu_link(not_for_me_needs_path)).to have_text('1')
-      expect(side_menu_link(abandoned_needs_path)).to have_text('1')
+      expect(side_menu_link(quo_abandoned_needs_path)).to have_text('1')
 
       click_link 'Prises en charge'
       expect(page).to have_current_path(taking_care_needs_path, ignore_query: true)
@@ -66,7 +66,7 @@ describe 'needs', type: :system do
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 
       click_link 'Expirées'
-      expect(page).to have_current_path(abandoned_needs_path, ignore_query: true)
+      expect(page).to have_current_path(quo_abandoned_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 
       click_link 'Boite de réception'

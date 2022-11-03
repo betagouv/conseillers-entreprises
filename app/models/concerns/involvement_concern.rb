@@ -12,6 +12,14 @@ module InvolvementConcern
       .distinct
   end
 
+  def needs_quo_active
+    received_needs
+      .where(matches: received_matches.with_status_quo_active)
+      .where(matches: { archived_at: nil })
+      .archived(false)
+      .distinct
+  end
+
   def needs_taking_care
     received_needs
       .where(matches: received_matches.status_taking_care)
@@ -43,8 +51,12 @@ module InvolvementConcern
       .distinct
   end
 
-  def needs_abandoned
-    received_needs.abandoned.distinct
+  def needs_quo_abandoned
+    received_needs
+      .where(matches: received_matches.with_status_quo_abandoned)
+      .where(matches: { archived_at: nil })
+      .archived(false)
+      .distinct
   end
 
   def needs_others_taking_care
