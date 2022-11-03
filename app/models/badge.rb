@@ -17,7 +17,7 @@ class Badge < ApplicationRecord
 
   ## Associations
   #
-  has_many :badge_badgeables
+  has_many :badge_badgeables, dependent: :destroy
   has_many :solicitations, through: :badge_badgeables, source_type: 'Solicitation', source: :badgeable
   has_many :needs, through: :badge_badgeables, source_type: 'Need', source: :badgeable
 
