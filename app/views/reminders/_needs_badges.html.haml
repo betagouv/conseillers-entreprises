@@ -2,7 +2,7 @@
   .badges-list{ id: "need-#{need.id}-badges", 'data-badges-target': 'list' }
     - need.badges.each do |badge|
       = badge_label(badge)
-  .hide.badges-form{ 'data-badges-target': 'form' }
+  .hide.badges{ 'data-badges-target': 'form', id: "need-#{need.id}-form-badges" }
     = form_with model: need, url: update_badges_reminders_need_path(need), method: :post, id: "need-#{need.id}-form-badges" do |f|
       = f.select(:badge_ids, options_from_collection_for_select(Badge.category_needs, :id, :title, need.badge_ids), {}, { multiple: true, class: 'clearable ui search selection dropdown badges' })
 

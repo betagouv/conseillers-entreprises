@@ -3,7 +3,7 @@
   - html += "#{badge_label(badge)}"
 
 var $div = $('#need-#{@need.id}-badges')
-var $form = $('.badges-form')
+var $form = $('#need-#{@need.id}-form-badges')
 
 if ($div.length) {
 $div.html('#{html.html_safe}')
