@@ -10,10 +10,8 @@ module CsvExport
 
   def self.purge_later
     User.admin.with_attached_csv_exports.find_each do |user|
-      if user.csv_exports.attached?
-        user.csv_exports.each do |export|
-          export.purge_later if export.created_at < 1.week.ago
-        end
+      user.csv_exports.each do |export|
+        export.purge_later if export.created_at < 1.week.ago
       end
     end
   end

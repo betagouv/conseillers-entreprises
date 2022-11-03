@@ -91,6 +91,8 @@ ActiveAdmin.register Solicitation do
   remove_filter :updated_at
   remove_filter :institution
   remove_filter :created_in_deployed_region
+  remove_filter :badge_badgeables
+  remove_filter :institution_filters
   filter :landing, as: :select, collection: -> { Landing.order(:slug).pluck(:slug, :id) }
   filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }
   filter :landing_subject, as: :select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }

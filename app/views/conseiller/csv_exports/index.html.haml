@@ -3,9 +3,18 @@
 - content_for :header, render('header', title: t('.title'))
 - content_for :menu, render('menu')
 
-.fr-container
-  %ul
-    - @exports.each do |export|
-      %li
-        = link_to download_conseiller_csv_export_path(export, format: :csv), class: 'fr-tile__link' do
-          = export.filename
+- if @exports.any?
+  .fr-downloads-group.fr-downloads-group--bordered
+    %ul
+      - @exports.each do |export|
+        %li
+          .fr-download
+            %p
+              = link_to download_conseiller_csv_export_path(export, format: :csv), class: 'fr-download__link', download: '' do
+                = export.filename
+                %span.fr-download__detail
+                  CSV -
+                  = export.byte_size.to_fs(:human_size)
+- else
+  .fr-container
+    %p= t('.no_export')

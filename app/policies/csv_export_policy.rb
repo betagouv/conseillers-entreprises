@@ -4,6 +4,6 @@ class CsvExportPolicy < ApplicationPolicy
   end
 
   def download?
-    @user&.is_admin?
+    @user&.is_admin? && @user.csv_exports.include?(@record)
   end
 end
