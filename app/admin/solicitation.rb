@@ -13,7 +13,7 @@ ActiveAdmin.register Solicitation do
   scope :status_step_company, group: :completion_incomplete
   scope :status_step_description, group: :completion_incomplete
 
-  includes :diagnosis, :landing, :institution, :badges, diagnosis: :company
+  includes :diagnosis, :landing, :institution, :badges, :landing_subject, needs: :subject, diagnosis: :company
 
   index do
     selectable_column
