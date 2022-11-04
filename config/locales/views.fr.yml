@@ -13,9 +13,11 @@ fr:
       join_us: Vous souhaitez rejoindre le partenariat ?
       long_title: Place des Entreprises, comment ça marche ?
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
-      meta_title: Comment ça marche | Place des Entreprises
+      meta_title: Comment ça marche
       partners: 'Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
       pde_testimonial: Témoignage d’un chef d’entreprise.
+      pde_testimonial_transcription: Transcription textuelle de la vidéo du témoignage d’un chef d’entreprise.
+      read_transcription: Lire la transcription
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
     index_testimonials:
@@ -791,9 +793,12 @@ fr:
       expert_contacts_you_html: "<span class='blue'>Le conseiller vous contacte</span> directement pour vous aider sous 5 jours*."
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Place des Entreprises</a>
       pde_presentation: Présentation du service Place des Entreprises
+      pde_presentation_transcription: Transcription textuelle de la vidéo de présentation du service Place des Entreprises
+      read_transcription: Lire la transcription
       select_expert_description: Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
     navbar:
       close: Fermer
+      extend: Agrandir
       link_to_blog: Lien vers le blog de Place des Entreprises - lien externe
       menu: Menu
     newsletter:
@@ -1180,3 +1185,4 @@ fr:
       next: Page suivante
       previous: Page précédente
       truncate: "…"
+  youtube_video: Vidéo youtube

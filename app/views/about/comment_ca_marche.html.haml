@@ -32,13 +32,31 @@
   .fr-container
     = render 'index_testimonials'
 
-.fr-container--fluid.section-grey
+.fr-container--fluid.section-grey.fr-py-7w
   .fr-container
     .fr-grid-row
       .fr-col-12.fr-col-md-8.fr-col-offset-md-2
         .fr-content-media
-          .fr-responsive-vid.youtube_player{ autoplay: "0", height: "100%", loading: "0", loop: "0", rel: "0", showinfo: "1", theme: "light", videoid: "QuCt9NvHBPU", width: "100%" }
+          .fr-responsive-vid.youtube_player{ autoplay: "0", height: "100%", loading: "0", loop: "0", rel: "0", showinfo: "1", theme: "light", videoid: "QuCt9NvHBPU", width: "100%", title: [t('youtube_video'), t('.pde_testimonial')].join(' : ') }
           .fr-content-media__caption= t('.pde_testimonial')
+
+        .fr-transcription
+          %button.fr-transcription__btn{ 'aria-controls': 'fr-transcription-collapse-pde-testimonial', 'aria-expanded': 'false' }= t('.read_transcription')
+          .fr-collapse#fr-transcription-collapse-pde-testimonial
+            %dialog.fr-modal#fr-transcription-modal-pde-testimonial{ role: 'dialog' }
+              .fr-container.fr-container--fluid.fr-container-md
+                .fr-grid-row.fr-grid-row--center
+                  .fr-col-12.fr-col-md-10.fr-col-lg-8
+                    .fr-modal__body
+                      .fr-modal__header
+                        %button.fr-btn--close.fr-btn{ 'aria-controls': 'fr-transcription-modal-pde-testimonial', title: t('pages.navbar.close') }
+                          = t('pages.navbar.close')
+                      .fr-modal__content
+                        Lalala
+                      .fr-transcription__footer
+                        .fr-transcription__actions-group
+                          %button.fr-btn.fr-btn--fullscreen{ 'aria-controls': 'fr-transcription-modal-pde-testimonial', 'data-fr-opened': 'false', title: t('.pde_testimonial_transcription') }
+                            = t('pages.navbar.extend')
 
 .fr-container.text-center.fr-py-6w
   %h2= t('.join_us')
