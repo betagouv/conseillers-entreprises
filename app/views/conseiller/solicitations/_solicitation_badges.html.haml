@@ -2,8 +2,8 @@
   .badges-list{ id: "solicitation-#{solicitation.id}-badges", 'data-badges-target': 'list' }
     - solicitation.badges.each do |badge|
       = badge_label(badge)
-  .hide.badges{ 'data-badges-target': 'form' }
-    = form_with model: solicitation, url: update_badges_conseiller_solicitation_path(solicitation), method: :post, id: "solicitation-#{solicitation.id}-form-badges" do |f|
+  .hide.badges{ 'data-badges-target': 'form', id: "solicitation-#{solicitation.id}-form-badges" }
+    = form_with model: solicitation, url: update_badges_conseiller_solicitation_path(solicitation), method: :post do |f|
       = f.select(:badge_ids, options_from_collection_for_select(Badge.category_solicitations, :id, :title, solicitation.badge_ids), {}, { multiple: true, class: 'clearable ui search selection dropdown badges' })
 
       = f.submit t('ok'), class: 'fr-btn fr-btn--sm'
