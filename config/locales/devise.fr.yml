@@ -86,6 +86,7 @@ fr:
     sessions:
       already_signed_out: Déconnecté.
       new:
+        all_fields_are_mandatory: Tous les champs sont obligatoires.
         email: E-mail personnel
         how_to_sign_up_html: |
           <h2>Qui sont les conseillers utilisant Place des Entreprises ?</h2>
