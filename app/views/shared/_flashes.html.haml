@@ -8,5 +8,9 @@
             = message
       - when 'alert'
         .fr-alert.fr-alert--error
-          %p.fr-alert__title
-            = message
+          - if action_name == 'new' && controller_name == 'sessions' # display 'aria-describedby' for login form
+            %p.fr-alert__title{ 'aria-describedby': 'user_email user_password' }
+              = message
+          - else
+            %p.fr-alert__title
+              = message
