@@ -14,12 +14,12 @@
           = f.label :email, class: 'fr-label' do
             = t('.email')
             %span.fr-hint-text= t('.email_help')
-          = f.email_field :email, class: 'fr-input', autofocus: true, required: true
+          = f.email_field :email, class: 'fr-input', autofocus: true, required: true, autocomplete: 'email'
         .fr-input-group
           = f.label :password, class: 'fr-label' do
             = t('activerecord.attributes.user.password')
             %span.fr-hint-text= t('.password_help')
-          = f.password_field :password, class: 'fr-input', autocomplete: 'off', required: true
+          = f.password_field :password, class: 'fr-input', autocomplete: 'current-password', required: true
           = link_to new_password_path(resource_name) do
             = t('devise.forgot_password')
         - if devise_mapping.rememberable?
