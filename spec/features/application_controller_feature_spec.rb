@@ -26,15 +26,37 @@ describe 'ApplicationController specific features', type: :feature do
   describe 'general navigation' do
     login_user
 
-    it 'shows no errors' do
-      visit '/besoins'
-      visit '/mon_compte'
-      click_link 'Mot de passe'
-      click_link 'Antenne'
-      click_link 'Domaines d’intervention'
-      click_link 'Tutoriel'
-      visit 'entreprises/search'
-      expect(page.html).to include 'Demandes reçues'
+    context 'user is not admin' do
+      it 'shows no errors' do
+        visit '/besoins'
+        visit '/mon_compte'
+        click_link 'Mot de passe'
+        click_link 'Antenne'
+        click_link 'Domaines d’intervention'
+        click_link 'Tutoriel'
+        visit 'entreprises/search'
+        expect(page.html).to include 'Demandes reçues'
+        expect(page.html).not_to include 'Administration'
+        expect(page.html).not_to include 'Annuaire'
+        expect(page.html).not_to include 'Tags'
+        expect(page.html).not_to include 'Exports csv'
+        expect(page.html).not_to include 'Outils partenaires'
+        expect(page.html).not_to include 'Inviter des utilisateurs'
+      end
+    end
+
+    context 'user is admin' do
+      before { current_user.user_rights.create(category: 'admin') }
+
+      it 'shows no errors' do
+        visit '/mon_compte'
+        expect(page.html).to include 'Annuaire'
+        click_link 'Annuaire'
+        click_link 'Tags'
+        click_link 'Exports csv'
+        click_link 'Outils partenaires'
+        click_link 'Inviter des utilisateurs'
+      end
     end
   end
 

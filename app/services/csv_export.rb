@@ -8,6 +8,14 @@ module CsvExport
     exporter_klass.new(relation, options).export
   end
 
+  def self.purge_later
+    User.admin.with_attached_csv_exports.find_each do |user|
+      user.csv_exports.each do |export|
+        export.purge_later if export.created_at < 1.week.ago
+      end
+    end
+  end
+
   ## Helper method
   # Just call <Relation>.export_csv(<options>)
   module RecordExtension

@@ -78,6 +78,11 @@ Rails.application.routes.draw do
         get 'abandonnees/page/:page', action: :canceled
       end
     end
+    resources :csv_exports, path: 'exports-csv', only: [:index] do
+      member do
+        get :download
+      end
+    end
   end
 
   namespace 'manager' do
