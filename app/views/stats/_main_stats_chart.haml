@@ -2,16 +2,15 @@
 
 .fr-container.main-stat
   .header
-    .incipit
+    %h2.incipit
       %span.ri-award-fill{ 'aria-hidden': 'true' }
       = t('.title')
-    %h2
-      %br
+    .header_content
       - if data.count.present?
         %span.highlight= data.count
       %span= t("stats.series.#{name}.title")
 
-    %p= I18n.t("stats.series.#{name}.subtitle_html").html_safe
+    = I18n.t("stats.series.#{name}.subtitle_html").html_safe
 
   %p{ id: chart_name,
     'data-chart': data.chart,
@@ -21,3 +20,22 @@
     'data-format': data.format.to_json.html_safe,
     'data-subtitle': data.subtitle.to_json.html_safe,
     'data-colors': data.colors.to_json.html_safe }
+
+  %section.fr-accordion
+    %h3.fr-accordion__title
+      %button.fr-accordion__btn{ 'aria-expanded': "false", 'aria-controls': 'accordion-main-stat' } Description détaillée
+    .fr-collapse#accordion-main-stat
+      .fr-table
+        %table
+          %caption= t("stats.series.#{name}.title")
+          %thead
+            %tr
+              %th{ scope: "col" } Mois
+              - data.all_months.each do |month|
+                %th{ scope: "col" }= I18n.l(month, format: :month)
+          %tbody
+            - data.series.each do |serie|
+              %tr
+                %th= serie[:name]
+                - serie[:data].each do |data|
+                  %th= data

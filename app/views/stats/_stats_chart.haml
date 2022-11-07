@@ -15,3 +15,22 @@
       'data-format': data.format.to_json.html_safe,
       'data-subtitle': data.subtitle.to_json.html_safe,
       'data-colors': data.colors.to_json.html_safe }
+
+    %section.fr-accordion
+      %h3.fr-accordion__title
+        %button.fr-accordion__btn{ 'aria-expanded': "false", 'aria-controls': "accordion-#{name}" } Description détaillée
+      .fr-collapse{ id: "accordion-#{name}" }
+        .fr-table
+          %table
+            %caption= t("stats.series.#{name}.title_table")
+            %thead
+              %tr
+                %th{ scope: "col" } Mois
+                - data.all_months.each do |month|
+                  %th{ scope: "col" }= I18n.l(month, format: :month)
+            %tbody
+              - data.series.each do |serie|
+                %tr
+                  %th= serie[:name]
+                  - serie[:data].each do |data|
+                    %th= data
