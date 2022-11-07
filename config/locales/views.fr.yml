@@ -1070,6 +1070,7 @@ fr:
       positioning_rate:
         subtitle: L’expert s’est positionné pour indiquer prendre en charge ou refuser le besoin.
         title: Taux de positionnement
+        title_table: Taux de positionnement
       solicitations:
         series: Demandes déposées
         title: demandes déposées par les entreprises
