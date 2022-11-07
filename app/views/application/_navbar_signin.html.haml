@@ -16,13 +16,13 @@
               %button.fr-btn--menu.fr-btn#fr-btn-menu-mobile-2{ 'aria-controls': 'modal-870', 'aria-haspopup': 'menu', 'data-fr-opened': 'false', title: t("application.navbar.menu") }
                 = t("application.navbar.menu")
         .fr-header__tools
-          .fr-header__tools-links
+          %nav.fr-header__tools-links{ role: 'navigation' }
             %ul.fr-links-group
               %li
                 = active_link_to comment_ca_marche_path, class: 'fr-link' do
                   = t('about.comment_ca_marche.title')
               %li
-                = link_to root_path, class: 'fr-link', wrap_tag: :li do
+                = link_to root_path, class: 'fr-link' do
                   = t('company_contact')
               %li
                 = active_link_to tutoriels_path, class: 'fr-link' do
@@ -36,5 +36,5 @@
   .fr-header__menu.fr-modal#modal-870{ 'aria-labelledby': 'fr-btn-menu-mobile-2' }
     .fr-container
       %button.fr-link--close.fr-link{ 'aria-controls': 'modal-870' }= t("application.navbar.close")
-      .fr-header__menu-links
+      %nav.fr-header__menu-links{ role: 'navigation' }
 
