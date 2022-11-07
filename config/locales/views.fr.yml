@@ -1006,6 +1006,7 @@ fr:
     series:
       advisors:
         title: Conseillers publics
+        title_table: Nombre de conseillers publics
       companies_by_employees:
         ministats: Entreprises aidées
         title: Typologie des entreprises utilisatrices du service
@@ -1035,23 +1036,31 @@ fr:
         title_table: Nombre de besoins d’entreprises Ayant donné lieu à un échange avec un conseiller depuis l'ouverture du service
       experts:
         title: Experts
+        title_table: Nombre d'experts
       matches:
         title: Mises en relation
+        title_table: Nombre de mises en relation
       needs:
         title: Besoins identifiés
+        title_table: Nombre de besoins identifiés
       needs_abandoned:
         subtitle: Le besoin est considéré comme abandonné lorsque aucun conseiller ne s’est positionné au bout de 45 jours ou 10 jours après l'envoi d'un mail de relance. Il est resté sans réponse malgré les relances et le suivi qualité dont il a fait l’objet.
         title: de besoins abandonnés
+        title_table: Nombre de besoins abandonnés
       needs_done:
         subtitle: La notion d’aide proposée correspond à une aide financière, à la mobilisation d’un accompagnement public ou à plus largement à des conseils visant à répondre à la demande exprimée par l’entreprise. Par exemple, les conseils juridiques dispensés par un conseiller en droit du travail en réponse à une demande de l’entreprise entre dans la catégorie « aide proposée ».
         title: de besoins clôturés grâce à une aide proposée
+        title_table: Nombre de besoins clôturés grâce à une aide proposée
       needs_done_no_help:
         subtitle: La clôture sans accompagnement signifie que l’entreprise a bien été rappelée par au moins un conseiller, mais que celui-ci n’a finalement pas pu l’aider au regard de sa situation particulière.
         title: de besoins clôturés sans aide disponible
+        title_table: Nombre de besoins clôturés sans aide disponible
       needs_done_not_reachable:
         title: de besoins clôturés faute d’avoir pu joindre l’entreprise
+        title_table: Nombre de besoins clôturés faute d’avoir pu joindre l’entreprise
       needs_not_for_me:
         title: de besoins refusés
+        title_table: Nombre de besoins refusés
       not_for_me_rate_stats:
         subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
         title: de besoins refusés par l’institution
