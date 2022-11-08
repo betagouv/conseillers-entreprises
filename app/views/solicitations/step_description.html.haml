@@ -1,11 +1,7 @@
-:ruby
-  meta title: @solicitation.landing_subject.meta_title.presence || @solicitation.landing_subject.title.presence || @solicitation.landing_subject.landing_theme.meta_title,
-    description: @solicitation.landing_subject.meta_description.presence || @solicitation.landing_subject.description.presence || @solicitation.landing_subject.landing_theme.meta_description
-
-- content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
+- content_for :header, render('solicitations/header', landing: @landing, landing_subject: @landing_subject, step_data: @step_data)
 
 - content_for :form_header do
-  = render 'solicitations/steps', current_status: :step_description
+  = render 'solicitations/steps', step_data: @step_data
 
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.fr-pb-3w

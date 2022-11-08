@@ -3,9 +3,25 @@ class SolicitationsController < PagesController
 
   layout 'solicitation_form', except: [:form_complete]
 
+  before_action :set_steps
+
+  TEMPLATES = {
+    new: :step_contact,
+    create: :step_contact,
+    step_contact: :step_contact,
+    update_step_contact: :step_contact,
+    search_company: :step_company,
+    search_facility: :step_company,
+    step_company: :step_company,
+    step_company_search: :step_company,
+    update_step_company: :step_company,
+    step_description: :step_description,
+    update_step_description: :step_description
+  }
+
   def new
     @solicitation = @landing.solicitations.new(landing_subject: @landing_subject)
-    render :step_contact
+    render current_template
   end
 
   def create
@@ -15,14 +31,14 @@ class SolicitationsController < PagesController
       redirect_to retrieve_company_step_path
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
-      render :step_contact
+      render current_template
     end
   end
 
   def search_company
     # si l'utilisateur a utilisé l'autocompletion
     if siret_is_set?
-      update_solicitation_from_step(:step_company, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+      update_solicitation_from_step(current_template, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
     elsif siren_is_set?
       redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-formulaire' }.merge(search_params)
       redirect_to redirect_path and return
@@ -62,11 +78,11 @@ class SolicitationsController < PagesController
   end
 
   def update_step_contact
-    update_solicitation_from_step(:step_contact, retrieve_company_step_path)
+    update_solicitation_from_step(current_template, retrieve_company_step_path)
   end
 
   def update_step_company
-    update_solicitation_from_step(:step_company, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+    update_solicitation_from_step(current_template, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
   def step_description
@@ -74,7 +90,7 @@ class SolicitationsController < PagesController
   end
 
   def update_step_description
-    update_solicitation_from_step(:step_description, form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+    update_solicitation_from_step(current_template, form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
   # Redirection vers la bonne étape de sollicitation
@@ -141,5 +157,18 @@ class SolicitationsController < PagesController
 
   def siret_params_present?
     params[:solicitation].present? && solicitation_params[:siret].present?
+  end
+
+  def current_template
+    TEMPLATES[self.action_name.to_sym]
+  end
+
+  def set_steps
+    current_status = current_template
+    @step_data = {
+      current_status: current_status,
+      current_step: Solicitation.incompleted_statuses.find_index(current_status.to_s) + 1,
+      total_steps: Solicitation.incompleted_statuses.count
+    }
   end
 end
