@@ -2,11 +2,11 @@
   %ul.list-unstyled.fr-pl-1v
     - antenne.managers.each do |manager|
       %li
-        %span.picto.ri-nurse-fill{ 'aria-hidden': 'true' }
+        %span.picto.ri-nurse-fill{ 'aria-hidden': true }
         = t('.manager_name', name: manager.full_name)
       %li
-        %span.picto.ri-mail-fill{ 'aria-hidden': 'true' }
+        %span.picto.ri-mail-fill{ 'aria-hidden': true }
         = mail_to manager.email, manager.email, class: 'break-word'
       %li
-        %span.picto.ri-phone-fill{ 'aria-hidden': 'true' }
+        %span.picto.ri-phone-fill{ 'aria-hidden': true }
         = link_to(manager.phone_number, "tel:#{manager.phone_number}")

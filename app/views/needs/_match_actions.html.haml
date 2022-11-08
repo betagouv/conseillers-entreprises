@@ -12,7 +12,7 @@
   - elsif match.status_taking_care?
     .fr-grid-row
       .green-box.alert-box.take_care.fr-col
-        %span.ri-phone-line.icon{ 'aria-hidden': 'true' }
+        %span.ri-phone-line.icon{ 'aria-hidden': true }
         .content
           - if match.diagnosis.visitee.phone_number.present?
             - link_to_phone = match.diagnosis.visitee.phone_number
@@ -33,7 +33,7 @@
         %li.fr-col-12.fr-col-md-4
           .fr-col.close-need-box.block-button
             .icon.green
-              %span.ri-checkbox-circle-fill{ 'aria-hidden': 'true' }
+              %span.ri-checkbox-circle-fill{ 'aria-hidden': true }
             .content
               %h3.fr-card__title.fr-mb-2v= t('.help_provided.title')
               %p.fr-card__description= t('.help_provided.content')
@@ -43,7 +43,7 @@
         %li.fr-col-12.fr-col-md-4
           .fr-col.close-need-box.block-button
             .icon.blue-dark
-              %span.ri-checkbox-circle-fill{ 'aria-hidden': 'true' }
+              %span.ri-checkbox-circle-fill{ 'aria-hidden': true }
             .content
               %h3.fr-card__title= t('.not_reachable.title')
               %p.fr-card__description= t('.not_reachable.content')
@@ -53,7 +53,7 @@
         %li.fr-col-12.fr-col-md-4
           .fr-col.close-need-box.block-button
             .icon.orange
-              %span.ri-checkbox-circle-fill{ 'aria-hidden': 'true' }
+              %span.ri-checkbox-circle-fill{ 'aria-hidden': true }
             .content
               %h3.fr-card__title= t('.no_help.title')
               %p.fr-card__description= t('.no_help.content')
@@ -64,7 +64,7 @@
   - elsif match.status_done? || match.status_done_no_help? || match.status_done_not_reachable?
     .fr-grid-row.green-box
       .fr-col-12.alert-box.take_care
-        %span.ri-checkbox-circle-fill.icon{ 'aria-hidden': 'true' }
+        %span.ri-checkbox-circle-fill.icon{ 'aria-hidden': true }
         .content
           %p.explanations= t('.its_done')
         = form_with(model: match, url: match_path(match)) do |f|
@@ -78,7 +78,7 @@
   - elsif match.status_not_for_me?
     .fr-grid-row.orange-box
       .fr-col-12.alert-box.take_care.fr-col
-        %span.ri-file-forbid-line.icon{ 'aria-hidden': 'true' }
+        %span.ri-file-forbid-line.icon{ 'aria-hidden': true }
         .content
           %p.explanations= t('.need_canceled')
         = form_with(model: match, url: match_path(match)) do |f|
