@@ -56,7 +56,7 @@
                 = t('reminders.index.title')
           %ul.fr-nav__list
             = active_link_to tutoriels_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
-              %span.ri-tools-line.fr-mr-1w
+              %span.ri-tools-line.fr-mr-1w{ 'aria-hidden': 'true' }
               = t('user_pages.tutoriels.title')
             %li.fr-nav__item.fr-nav__item--align-right
               %button.fr-nav__btn{ 'aria-controls': "fr-nav-item-account", 'aria-expanded': "false", data: { controller: 'fr-dropdown', action: 'click->fr-dropdown#collapse' } }
@@ -65,28 +65,28 @@
                 %ul.fr-menu__list
                   - if policy(User).admin?
                     = active_link_to admin_root_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-                      %span.ri-auction-line.fr-mr-1w
+                      %span.ri-auction-line.fr-mr-1w{ 'aria-hidden': 'true' }
                       = t('.admin')
                     = active_link_to institutions_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-                      %span.ri-government-line.fr-mr-1w
+                      %span.ri-government-line.fr-mr-1w{ 'aria-hidden': 'true' }
                       = t('.annuaire')
                     = active_link_to badges_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-                      %span.ri-price-tag-3-line.fr-mr-1w
+                      %span.ri-price-tag-3-line.fr-mr-1w{ 'aria-hidden': 'true' }
                       = t('.badges')
                     = active_link_to conseiller_csv_exports_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
                       %span.ri-folder-download-line.fr-mr-1w
                       = t('.csv_exports')
                     = active_link_to inserts_partner_tools_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-                      %span.ri-pencil-ruler-2-line.fr-mr-1w
+                      %span.ri-pencil-ruler-2-line.fr-mr-1w{ 'aria-hidden': 'true' }
                       = t('.partner_tools')
                     = active_link_to new_user_invitation_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-                      %span.ri-user-add-line.fr-mr-1w
+                      %span.ri-user-add-line.fr-mr-1w{ 'aria-hidden': 'true' }
                       = t('.invite')
                   = active_link_to user_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-                    %span.ri-user-line.fr-mr-1w
+                    %span.ri-user-line.fr-mr-1w{ 'aria-hidden': 'true' }
                     = t('.profile')
                   = active_link_to destroy_user_session_path, method: :delete, rel: :nofollow, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-                    %span.ri-logout-box-r-line.fr-mr-1w
+                    %span.ri-logout-box-r-line.fr-mr-1w{ 'aria-hidden': 'true' }
                     = t('.sign_out')
 
 - else
