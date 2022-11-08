@@ -36,7 +36,7 @@ describe 'Pages', type: :system do
     expect(page).to have_select 'territory'
     expect(page).not_to have_select 'institution'
     find_by_id('start_date').set "2021-03-01"
-    click_button 'Chercher'
+    click_button 'Filtrer'
     expect(page).to have_select 'territory'
   end
 end

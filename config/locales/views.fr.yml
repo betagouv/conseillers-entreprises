@@ -1068,9 +1068,9 @@ fr:
       campaign: Campagne
       clear_search: Réinitialiser la recherche
       end_date: Date de fin
+      filter: Filtrer
       keywords: Détail de la source
       region: Région
-      search: Chercher
       select_institution: Selectionnez une institution
       start_date: Date de début
     stats_table:
