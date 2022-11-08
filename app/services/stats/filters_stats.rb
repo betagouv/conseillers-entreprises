@@ -48,7 +48,7 @@ module Stats
           .or(Company.joins(facilities: { diagnoses: :solicitation }).where(mtm_campaign_query, "%#{mtm_campaign}%"))
       end
       if mtm_kwd.present?
-        query.merge! Company.joins(facilities: { diagnoses: :solicitation }).where(pk_kwd_query, "%#{pk_kwd}%")
+        query.merge! Company.joins(facilities: { diagnoses: :solicitation }).where(pk_kwd_query, "%#{mtm_kwd}%")
         query.merge! Company.joins(facilities: { diagnoses: :solicitation }).where(mtm_kwd_query, "%#{mtm_kwd}%")
       end
       query
