@@ -9,6 +9,6 @@
               %span.label.grey-blue= t(need.status, scope: 'needs.collections_single')
           %h2.fr-h4.fr-card__title
             = link_to need.subject, need_path(need), class: 'fr-card__link'
-          .fr-card__desc
-            .fr-text--lg= need.company.name
+          %p.fr-card__desc
+            %span.fr-text--lg= need.company.name
             = need.facility.commune_name
