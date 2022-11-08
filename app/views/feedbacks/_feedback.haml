@@ -3,9 +3,9 @@
 
 .feedback{ id: "feedback-#{feedback.id}" }
   .author
-    %span.icon{ class: (mine ? 'ri-chat-1-fill blue-pde' : 'ri-chat-1-line'), 'aria-hidden': 'true' }
+    %span.icon{ class: (mine ? 'ri-chat-1-fill blue' : 'ri-chat-1-line'), 'aria-hidden': 'true' }
     %p
-      %b{ class: (mine ? 'blue-pde' : 'js-simple-tooltip blue'), "data-simpletooltip-content-id" => "tooltip-feedback-#{feedback.id}" }
+      %b{ class: (mine ? 'blue' : 'js-simple-tooltip blue'), "data-simpletooltip-content-id" => "tooltip-feedback-#{feedback.id}" }
         = feedback.user.full_name
     .date= I18n.l(feedback.created_at, format: :long)
     - if policy(feedback).destroy?
