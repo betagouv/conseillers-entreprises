@@ -3,7 +3,7 @@ class SolicitationsController < PagesController
 
   layout 'solicitation_form', except: [:form_complete]
 
-  before_action :set_steps
+  before_action :set_steps, except: [:form_complete]
 
   TEMPLATES = {
     new: :step_contact,
@@ -165,10 +165,11 @@ class SolicitationsController < PagesController
 
   def set_steps
     current_status = current_template
+    statuses = Solicitation.incompleted_statuses
     @step_data = {
       current_status: current_status,
-      current_step: Solicitation.incompleted_statuses.find_index(current_status.to_s) + 1,
-      total_steps: Solicitation.incompleted_statuses.count
+      current_step: statuses.find_index(current_status.to_s) + 1,
+      total_steps: statuses.count
     }
   end
 end
