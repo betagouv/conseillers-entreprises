@@ -300,8 +300,9 @@ Rails.application.routes.draw do
     resources :team, only: :index, path: 'equipe' do
       collection do
         get :public, path: 'public'
-        get :quality, path: 'suivi-qualite'
+        get :needs, path: 'besoins'
         get :matches, path: 'mises-en-relation'
+        get :institution_filters
       end
     end
   end

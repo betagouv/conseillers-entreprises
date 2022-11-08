@@ -4,6 +4,7 @@ fr:
     meta: Métadonnée
   all:
     feminine: Toutes
+    masculin: Tous
   all_choices: Tout
   api_pde:
     errors:

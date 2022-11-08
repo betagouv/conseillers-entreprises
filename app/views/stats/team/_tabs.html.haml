@@ -6,18 +6,18 @@
           %h2.fr-tile__title
             = active_link_to public_team_index_path, class: 'fr-tile__link' do
               %span.ri-bar-chart-fill.tile__icon.fr-mr-2v
-              = t('.public')
+              = t('stats.team.public')
     .fr-col-12.fr-col-md-4
       .fr-tile.fr-enlarge-link
         .fr-tile__body
           %h2.fr-tile__title
-            = active_link_to quality_team_index_path, class: 'fr-tile__link' do
-              %span.ri-award-fill.tile__icon.fr-mr-2v
-              = t('.quality')
+            = active_link_to needs_team_index_path, class: 'fr-tile__link' do
+              %span.ri-file-copy-2-line.tile__icon.fr-mr-2v
+              = t('stats.team.needs')
     .fr-col-12.fr-col-md-4
       .fr-tile.fr-enlarge-link
         .fr-tile__body
           %h2.fr-tile__title
             = active_link_to matches_team_index_path, class: 'fr-tile__link' do
               %span.ri-group-line.tile__icon.fr-mr-2v
-              = t('.matches')
+              = t('stats.team.matches')

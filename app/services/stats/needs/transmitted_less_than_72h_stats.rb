@@ -1,19 +1,14 @@
-module Stats::Matches
+module Stats::Needs
   class TransmittedLessThan72hStats
     include ::Stats::BaseStats
+    include ::Stats::FiltersStats
 
     def main_query
       Solicitation.joins(diagnosis: :needs).status_processed.where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)
-      if territory.present?
-        query.merge! query.by_possible_region(territory.id)
-      end
-      if institution.present?
-        query.merge! institution.received_needs
-      end
-      query
+      filtered_solicitations(query)
     end
 
     def build_series

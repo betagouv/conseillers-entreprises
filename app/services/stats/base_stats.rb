@@ -6,13 +6,15 @@ module Stats
   end
 
   module BaseStats
-    attr_reader :territory, :institution, :iframe, :mtm_campaign, :mtm_kwd, :start_date, :end_date
+    attr_reader :territory, :institution, :antenne, :subject, :integration, :mtm_campaign, :mtm_kwd, :start_date, :end_date
 
     def initialize(params)
       params = OpenStruct.new(params)
       @territory = Territory.find_by(id: params.territory) if params.territory.present?
       @institution = Institution.find_by(id: params.institution) if params.institution.present?
-      @iframe = Landing.find_by(id: params.iframe) if params.iframe.present?
+      @antenne = Antenne.find_by(id: params.antenne) if params.antenne.present?
+      @subject = Subject.find_by(id: params.subject) if params.subject.present?
+      @integration = params.integration
       @mtm_campaign = params.mtm_campaign
       @mtm_kwd = params.mtm_kwd
       @start_date = params.start_date.to_time || (Time.zone.now.beginning_of_day - 6.months)
@@ -83,6 +85,10 @@ module Stats
 
     def chart
       'percentage-column-chart'
+    end
+
+    def matches_colors
+      %w[#E18B76 #8D533E]
     end
 
     ## Overrides

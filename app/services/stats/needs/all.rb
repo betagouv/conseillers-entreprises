@@ -1,4 +1,4 @@
-module Stats::Quality
+module Stats::Needs
   class All < Stats::All
     def needs_done
       NeedsDoneStats.new(@params)
@@ -18,6 +18,10 @@ module Stats::Quality
 
     def needs_abandoned
       NeedsAbandonedStats.new(@params)
+    end
+
+    def transmitted_less_than_72h_stats
+      TransmittedLessThan72hStats.new(@params)
     end
   end
 end

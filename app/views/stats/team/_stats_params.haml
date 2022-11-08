@@ -1,24 +1,6 @@
-.fr-grid-row.fr-py-3w.fr-mb-3w.white-bg#stats-params
-  .fr-col-12.fr-col-md-6.fr-col-offset-md-3
-    = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
-      .fr-select-group
-        = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
-        = f.collection_select :territory, Territory.regions.order(:name), :id, :name, { selected: params[:territory],
-          include_blank: t('all.feminine') }, class: "fr-select"
-      .fr-select-group
-        = f.label :institution, t('activerecord.models.institution.one'), class: 'fr-label'
-        = f.collection_select :institution, Institution.not_deleted.order(:name), :id, :name, { selected: params[:institution],
-        include_blank: t('all.feminine') }, class: "fr-select"
-      .fr-select-group
-        = f.label :iframe, t('stats.stats_params.iframes'), class: 'fr-label'
-        = f.collection_select :iframe, Landing.not_archived.iframe.order(:title), :id, :title, { selected: params[:iframe],
-        include_blank: t('all.feminine') }, class: "fr-select"
-      .fr-input-group
-        = f.label :mtm_campaign, t('stats.stats_params.campaign'), class: 'fr-label'
-        = f.text_field :mtm_campaign, value: stats.params.mtm_campaign, class: 'fr-input'
-      .fr-input-group
-        = f.label :mtm_kwd, t('stats.stats_params.keywords'), class: 'fr-label'
-        = f.text_field :mtm_kwd, value: stats.params.mtm_kwd, class: 'fr-input'
+= form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
+  .fr-grid-row.fr-py-3w.fr-mb-3w.white-bg#stats-params{ data: { controller: 'stats' } }
+    .fr-col-12.fr-col-md-4.fr-p-2w
       .fr-input-group
         = f.label :start_date, t('stats.stats_params.start_date'), class: 'fr-label'
         .fr-input-wrap
@@ -27,7 +9,37 @@
         = f.label :end_date, t('stats.stats_params.end_date'), class: 'fr-label'
         .fr-input-wrap
           = f.date_field :end_date, { value: stats.params.end_date, class: 'fr-input' }
+      .fr-select-group
+        = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
+        = f.collection_select :territory, Territory.regions.order(:name), :id, :name, { selected: params[:territory],
+          include_blank: t('all.feminine') }, class: "fr-select"
+    .fr-col-12.fr-col-md-4.fr-p-2w
+      .fr-select-group
+        = f.label :institution, t('activerecord.models.institution.one'), class: 'fr-label'
+        = f.collection_select :institution, Institution.not_deleted.order(:name), :id, :name, { selected: params[:institution],
+        include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#institutionFilters', 'stats-target': 'institution' }
+      .fr-select-group
+        - antenne_placeholder = params[:institution].present? ? t('all.feminine') : t('stats.stats_params.select_institution')
+        = f.label :antenne, t('activerecord.models.antenne.one'), class: 'fr-label'
+        = f.collection_select :antenne, institution_antennes, :id, :name, { selected: params[:antenne],
+        include_blank: antenne_placeholder }, class: "fr-select", data: { 'stats-target': 'antennes' }
+      .fr-select-group
+        = f.label :subject, t('activerecord.models.subject.one'), class: 'fr-label'
+        = f.collection_select :subject, Subject.not_archived.order(:label), :id, :label, { selected: params[:subject],
+        include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
+    .fr-col-12.fr-col-md-4.fr-p-2w
+      .fr-select-group
+        = f.label :integration, t('activerecord.attributes.landing.integration'), class: 'fr-label'
+        = f.select :integration, Landing.integrations.map { |i| [I18n.t(i.first, scope: 'activerecord.attributes.landing/integrations'), i.first] },
+        { selected: params[:integration], include_blank: t('all.feminine') }, class: "fr-select"
       .fr-input-group
-        = f.submit t('stats.stats_params.search'), class: 'fr-btn'
+        = f.label :mtm_campaign, t('stats.stats_params.campaign'), class: 'fr-label'
+        = f.text_field :mtm_campaign, value: stats.params.mtm_campaign, class: 'fr-input'
+      .fr-input-group
+        = f.label :mtm_kwd, t('stats.stats_params.keywords'), class: 'fr-label'
+        = f.text_field :mtm_kwd, value: stats.params.mtm_kwd, class: 'fr-input'
+    .fr-col-12.fr-p-2w
+      .fr-input-group
+        = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
         - if stats.params.table.count > 2
           = link_to t('stats.stats_params.clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--secondary'

@@ -967,6 +967,8 @@ fr:
         siret: SIRET
   stats:
     archived: Besoins abandonnés
+    done_no_help_status: Statut « cloturé sans aide »
+    done_status: Statut « cloturé avec aide »
     in_deployed_regions: Demandes dans une région déployée
     in_unknown_region: Demandes dans une région indéterminée
     less_than_72h: Moins de 72h
@@ -974,7 +976,9 @@ fr:
       title: Notre mesure d’impact phare
     more_than_72h: Plus de 72h
     not_archived: Besoins non abandonnés
+    not_for_me_status: Statut « pas pour moi »
     not_positioning: L’expert ne s’est pas positionné
+    not_reachable_status: Statut « cloturé entreprise non joignable »
     other_status: Autres status
     out_of_deployed_regions: Demandes hors régions déployées
     positioning: L’expert s’est positionné
@@ -990,6 +994,15 @@ fr:
         title: Typologie des entreprises utilisatrices du service
       companies_by_naf_code:
         title: Secteurs d’activité des entreprises utilisatrices du service
+      done_no_help_rate_stats:
+        subtitle: Le besoin a été pris en charge par un expert, mais l’échange téléphonique n’a pu aboutir à une proposition d’aide (critères non remplis, situation spécifique...).
+        title: de besoins clôturés sans aide possible de l’institution
+      done_not_reachable_rate_stats:
+        subtitle: L’expert n’a pas réussi à joindre l’entreprise malgré deux tentatives. En laissant ses coordonnées, l’entreprise peut néanmoins le rappeler.
+        title: de besoins clôturés par l’institution sans avoir pu joindre l’entreprise
+      done_rate_stats:
+        subtitle: Le besoin a été pris en charge par un expert et une aide a pu être proposée à l’entreprise. L’aide s’entend au sens large (conseils, accompagnement technique, aide financière).
+        title: de besoins clôturés par une aide proposée par l’institution
       exchange_with_expert:
         subtitle_html: Cette statistique n’est disponible que depuis le 01/09/2020 grâce à l’ajout de nouvelles fonctionnalités, permettant un suivi plus fin des besoins.<br>Un besoin correspond en principe à une demande d’entreprise, mais il se peut qu’une même demande exprime plusieurs besoins, d’où l’utilisation du terme plus précis de « besoin » pour mesurer la dernière étape du service.
         title: des besoins d’entreprises transmis ont donné lieu à un échange avec un conseiller
@@ -1018,7 +1031,14 @@ fr:
         title: de besoins clôturés faute d’avoir pu joindre l’entreprise
       needs_not_for_me:
         title: de besoins refusés
+      not_for_me_rate_stats:
+        subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
+        title: de besoins refusés par l’institution
+      not_positioning_rate:
+        subtitle: L’expert n’a donné aucune indication sur le besoin transmis.
+        title: de besoins restés sans réponse de l’institution
       positioning_rate:
+        subtitle: L’expert s’est positionné pour indiquer prendre en charge ou refuser le besoin.
         title: Taux de positionnement
       solicitations:
         series: Demandes déposées
@@ -1036,6 +1056,9 @@ fr:
         visits: Visites par un conseiller
       taking_care:
         title: des réponses aux demandes des entreprises sont apportées en moins de 5 jours
+      taking_care_rate_stats:
+        subtitle: Le besoin a été pris en charge par un expert, mais n’a pas encore été cloturé après l’appel de l’entreprise.
+        title: de besoins en cours de prise en charge par l’institution
       themes:
         subtitle: Une thématique est un regroupement de sujets d’entreprises proches. <br>Le pic que l’on observe au mois de mars 2020 dans la catégorie « Autres typologies de besoins » correspond aux demandes exprimant des difficultés liées au covid-19
         title: Thématiques choisies par les entreprises
@@ -1045,10 +1068,10 @@ fr:
       campaign: Campagne
       clear_search: Réinitialiser la recherche
       end_date: Date de fin
-      iframes: Iframe
-      keywords: Mots clés
+      filter: Filtrer
+      keywords: Détail de la source
       region: Région
-      search: Chercher
+      select_institution: Selectionnez une institution
       start_date: Date de début
     stats_table:
       activity:
@@ -1087,15 +1110,15 @@ fr:
     status_done_no_help: Clôture sans accompagnement
     status_done_not_reachable: Entreprises injoignables
     status_not_for_me: Besoins refusés
+    tacking_care_status: Statut « pris en charge »
     taken_care_after: Plus de 5 jours
     taken_care_before: Moins de 5 jours
     team:
       index:
         title: Statistiques équipe
-      tabs:
-        matches: Mises en relation
-        public: Stats publiques
-        quality: Suivi qualité
+      matches: Pilotage par partenaire
+      needs: Pilotage par besoins
+      public: Statistiques publiques
     with_diagnosis: Demandes transmises
     without_diagnosis: Demandes non transmises
   step_number: Étape %{actual} sur %{total}
