@@ -21,22 +21,25 @@
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3
     = form_with(model: @solicitation, url: path, local: true, html: { honeypot: true }) do |f|
-      = f.hidden_field :landing_subject_id
-      = f.hidden_field :landing_id
-      - @solicitation.contact_step_required_fields.each do |field|
-        .fr-mb-2w
-          - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
-          = f.label field, class: 'fr-label'
-          - if help.present?
-            %span.fr-hint-text= help
-          = f.text_field field,
-            placeholder: t("solicitations.creation_form.placeholder.#{field}"),
-            type: Solicitation::FIELD_TYPES[field],
-            required: true,
-            class: 'fr-input white-bg'
+      %fieldset.fr-fieldset{ 'aria-labelledby': "form-legend" }
+        %legend.fr-fieldset__legend#form-legend= t('solicitations.creation_form.all_fields_compulsary')
+        = f.hidden_field :landing_subject_id
+        = f.hidden_field :landing_id
+        - @solicitation.contact_step_required_fields.each do |field|
+          .fr-fieldset__element
+            .fr-input-group
+              - help = t("attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
+              = f.label field, class: 'fr-label'
+              - if help.present?
+                %span.fr-hint-text= help
+              = f.text_field field,
+                type: Solicitation::FIELD_TYPES[field],
+                required: true,
+                class: 'fr-input white-bg',
+                autocomplete: Solicitation::AUTOCOMPLETE_TYPES[field]
 
-        - if @solicitation.errors.present?
-          .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
+          - if @solicitation.errors.present?
+            .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
 
       .submit-buttons
         = render 'solicitations/next_button'
