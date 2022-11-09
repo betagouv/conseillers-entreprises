@@ -5,24 +5,28 @@
 
 .fr-container--fluid.section-grey.fr-py-4w#section-thankyou
   .fr-container
-    - if in_iframe?
-      .thank_you_iframe
-        %h1.fr-h2= t('.title')
-        .fr-text--lg= t('.iframe_message_html')
-        .logo-pde= image_tag 'logo-PDE.svg', alt: t('logos.pde')
-        .fr-py-4w.text-center
-          %h2.fr-h4= t('iframe.partners_logo')
-          = render 'landings/landings/logos', landing_subject: @landing_subject
+    .fr-grid-row
+      .fr-col-12.fr-col-md-6.fr-col-offset-md-3
+        - if in_iframe?
+          .thank_you_iframe
+            .fr-my-8w
+              %h1.fr-h2= t('.title')
+              .fr-text--lg= t('.iframe_message_html')
+            .logo-pde= image_tag 'logo-PDE.svg', alt: t('logos.pde')
+            .fr-py-4w.text-center
+              %h2.fr-h4= t('iframe.partners_logo')
+              = render 'landings/landings/logos', landing_subject: @landing_subject
 
-    - else
-      %h1.fr-h2= t('.title')
-      - if @solicitation.institution
-        %p.fr-text--lg= t('.message_with_institution', institution: @solicitation.institution.name)
-        = render 'matomo_partner_contact'
-      - else
-        %p.fr-text--lg= t('.message_html')
-      - if @landing_subject.logos.present?
-        = render 'landings/landings/logos', landing_subject: @landing_subject
+        - else
+          .fr-my-8w
+            %h1.fr-h2= t('.title')
+            - if @solicitation.institution
+              %p.fr-text--lg= t('.message_with_institution', institution: @solicitation.institution.name)
+              = render 'matomo_partner_contact'
+            - else
+              %p.fr-text--lg= t('.message_html')
+          - if @landing_subject.logos.present?
+            = render 'landings/landings/logos', landing_subject: @landing_subject
 
 - unless in_iframe?
   .fr-container--fluid.section-light-grey
