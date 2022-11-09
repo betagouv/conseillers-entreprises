@@ -7,22 +7,21 @@
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.fr-pb-3w
     = form_with(model: @solicitation, url: update_step_description_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
       = f.hidden_field :status
-      %fieldset.fr-fieldset{ 'aria-labelledby': "form-legend" }
+      - if @solicitation.landing_subject&.description_explanation.present?
+        .fr-highlight.fr-mb-6w
+          .highlight__header
+            = image_tag('info-alert.png', alt: '')
+            %p.fr-pl-2w= t('solicitations.creation_form.better_taking_care')
+          = h(@solicitation.landing_subject&.description_explanation&.html_safe)
 
-        - if @solicitation.landing_subject&.description_explanation.present?
-          .fr-highlight.fr-mb-6w
-            .highlight__header
-              = image_tag('info-alert.png', alt: '')
-              %p.fr-pl-2w= t('solicitations.creation_form.better_taking_care')
-            = h(@solicitation.landing_subject&.description_explanation&.html_safe)
-
+      %fieldset.fr-fieldset
         .fr-fieldset__element
           .fr-input-group
             = f.label 'description', t('solicitations.creation_form.description'), class: 'fr-label bold'
             = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description_html"), rows: 6, required: true, class: 'fr-input white-bg'
 
-            - if @solicitation.errors.present?
-              .fr-error-text= @solicitation.errors.full_messages_for(:description).to_sentence
+          - if @solicitation.errors.present?
+            .fr-error-text= @solicitation.errors.full_messages_for(:description).to_sentence
 
       = f.fields_for :institution_filters, @solicitation.institution_filters do |ff|
         - key = ff.object.key

@@ -467,7 +467,7 @@ class Solicitation < ApplicationRecord
 
   AUTOCOMPLETE_TYPES = {
     full_name: 'name',
-    phone_number: 'tel-local',
+    phone_number: 'tel',
     email: 'email'
   }
 
