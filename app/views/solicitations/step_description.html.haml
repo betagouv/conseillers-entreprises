@@ -7,35 +7,38 @@
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.fr-pb-3w
     = form_with(model: @solicitation, url: update_step_description_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
       = f.hidden_field :status
+      %fieldset.fr-fieldset{ 'aria-labelledby': "form-legend" }
 
-      .fr-input-group
-        = f.label 'description', t('solicitations.creation_form.description'), class: 'fr-label bold'
         - if @solicitation.landing_subject&.description_explanation.present?
-          .explanation.fr-mt-2w
-            %div
+          .fr-highlight.fr-mb-6w
+            .highlight__header
               = image_tag('info-alert.png', alt: '')
-              %span
-                = t('solicitations.creation_form.better_taking_care')
-            %div= h(@solicitation.landing_subject&.description_explanation&.html_safe)
-        = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description"), rows: 6, required: true, class: 'fr-input white-bg'
+              %p.fr-pl-2w= t('solicitations.creation_form.better_taking_care')
+            = h(@solicitation.landing_subject&.description_explanation&.html_safe)
 
-        - if @solicitation.errors.present?
-          .fr-error-text= @solicitation.errors.full_messages_for(:description).to_sentence
+        .fr-fieldset__element
+          .fr-input-group
+            = f.label 'description', t('solicitations.creation_form.description'), class: 'fr-label bold'
+            = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description_html"), rows: 6, required: true, class: 'fr-input white-bg'
+
+            - if @solicitation.errors.present?
+              .fr-error-text= @solicitation.errors.full_messages_for(:description).to_sentence
 
       = f.fields_for :institution_filters, @solicitation.institution_filters do |ff|
         - key = ff.object.key
-        .fr-form-group.radios.additional_questions
-          %fieldset.fr-fieldset
-            %legend= I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, key])
-            .fr-fieldset__content
-              = ff.hidden_field :id
-              = ff.hidden_field :additional_subject_question_id
-              .fr-radio-group
-                = ff.radio_button :filter_value, true, required: true
-                = ff.label :filter_value, I18n.t(:answer_yes, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('yes').titleize), value: true, class: 'fr-label'
-              .fr-radio-group.fr-ml-2w
-                = ff.radio_button :filter_value, false, required: true
-                = ff.label :filter_value, I18n.t(:answer_no, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
+        %fieldset.fr-fieldset{ 'aria-labelledby': "#{key}-legend" }
+          = ff.hidden_field :id
+          = ff.hidden_field :additional_subject_question_id
+          %legend.fr-fieldset__legend{ id: "#{key}-legend" }= I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, key])
+          .fr-fieldset__element.fr-fieldset__element--inline
+            .fr-radio-group
+              = ff.radio_button :filter_value, true, required: true
+              = ff.label :filter_value, I18n.t(:answer_yes, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('yes').titleize), value: true, class: 'fr-label'
+          .fr-fieldset__element.fr-fieldset__element--inline
+            .fr-radio-group
+              = ff.radio_button :filter_value, false, required: true
+              = ff.label :filter_value, I18n.t(:answer_no, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
+
 
       .form__group.submit-buttons
         = render 'previous_button', path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')

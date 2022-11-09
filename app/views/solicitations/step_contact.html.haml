@@ -2,15 +2,15 @@
 
 - content_for :form_header do
   - if @landing_subject&.form_description.present?
-    %h2.fr-h3.title-icon
-      %span= t('solicitations.creation_form.accompaniments')
-    .fr-pl-3w= sanitize @landing_subject&.form_description&.html_safe
-    .contact-delay.fr-my-5w
-      %span.ri-phone-fill.blue{ 'aria-hidden': 'true' }
-      %p.fr-m-0
-        = t('solicitations.creation_form.five_days_contact_html')
-        %span.fr-text--sm
-          = t('solicitations.creation_form.average_delays')
+    .fr-mb-8w
+      %h2.fr-h3= t('solicitations.creation_form.accompaniments')
+      = sanitize @landing_subject&.form_description&.html_safe
+      .contact-delay.fr-mt-4w
+        %span.ri-phone-fill.blue{ 'aria-hidden': 'true' }
+        %p.fr-m-0
+          = t('solicitations.creation_form.five_days_contact_html')
+          %span.fr-text--sm
+            = t('solicitations.creation_form.average_delays')
     = render 'solicitations/steps', step_data: @step_data
 
 - if @solicitation.persisted?
@@ -21,8 +21,9 @@
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3
     = form_with(model: @solicitation, url: path, local: true, html: { honeypot: true }) do |f|
-      %fieldset.fr-fieldset{ 'aria-labelledby': "form-legend" }
-        %legend.fr-fieldset__legend#form-legend= t('solicitations.creation_form.all_fields_compulsary')
+      %fieldset.fr-fieldset
+        .fr-fieldset__element
+          .fr-hint-text.fr-text--bold= t('solicitations.creation_form.all_fields_compulsary')
         = f.hidden_field :landing_subject_id
         = f.hidden_field :landing_id
         - @solicitation.contact_step_required_fields.each do |field|
