@@ -109,13 +109,11 @@ class Match < ApplicationRecord
   end
 
   scope :with_status_quo_active, -> do
-    range = Range.new(Need::REMINDERS_DAYS[:abandon]&.days&.ago, nil)
-    status_quo.where(created_at: range)
+    status_quo.where(created_at: Need::REMINDERS_DAYS[:abandon]&.days&.ago..)
   end
 
   scope :with_status_quo_abandoned, -> do
-    range = Range.new(nil, Need::REMINDERS_DAYS[:abandon]&.days&.ago)
-    status_quo.where(created_at: range)
+    status_quo.where(created_at: ..Need::REMINDERS_DAYS[:abandon]&.days&.ago)
   end
 
   # Pour ransacker, en admin
