@@ -97,7 +97,8 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'webmock'
-  gem 'axe-matchers', require: false
+  gem 'axe-core-rspec', require: false
+  gem 'axe-core-capybara', require: false
   gem 'simplecov', require: false
   gem 'rspec-retry'
 end
