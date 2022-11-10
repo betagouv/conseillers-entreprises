@@ -5,9 +5,9 @@ class SitemapController < PagesController
     @site_map = SitemapGenerator.perform
     respond_with(@site_map) do |format|
       format.html do
-        # @breadcrumbs = []
-        # @breadcrumbs << [ "Accueil", root_path ]
-        # @breadcrumbs << [ "Plan du site", sitemap_path ]
+        @breadcrumbs = []
+        @breadcrumbs << [ "Accueil", root_path ]
+        @breadcrumbs << [ "Plan du site", sitemap_path ]
       end
       format.xml { render layout: false }
     end
