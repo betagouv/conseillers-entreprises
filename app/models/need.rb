@@ -232,6 +232,16 @@ class Need < ApplicationRecord
     where(status: [:done, :done_no_help, :done_not_reachable])
   end
 
+  scope :quo_active, -> do
+    range = Range.new(Need::REMINDERS_DAYS[:abandon]&.days&.ago, nil)
+    status_quo.matches_created_at(range)
+  end
+
+  scope :quo_abandoned, -> do
+    range = Range.new(nil, Need::REMINDERS_DAYS[:abandon]&.days&.ago)
+    status_quo.matches_created_at(range)
+  end
+
   scope :for_facility, -> (facility) do
     joins(diagnosis: :facility).where(diagnoses: { facility: facility })
   end

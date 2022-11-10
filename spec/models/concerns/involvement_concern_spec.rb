@@ -15,6 +15,9 @@ RSpec.describe InvolvementConcern do
     let!(:need_quo) do
       create(:need, matches: [create(:match, expert: current_expert, status: :quo)])
     end
+    let!(:need_quo_abandonned) do
+      create(:need, matches: [create(:match, expert: current_expert, status: :quo, created_at: 46.days.ago)])
+    end
     let!(:need_not_for_me) do
       create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, status: :not_for_me)])
     end
@@ -45,6 +48,12 @@ RSpec.describe InvolvementConcern do
 
     describe 'needs_quo' do
       subject { user.needs_quo }
+
+      it { is_expected.to match_array([need_quo, need_other_taking_care, need_other_done, need_quo_abandonned]) }
+    end
+
+    describe 'needs_quo_active' do
+      subject { user.needs_quo_active }
 
       it { is_expected.to match_array([need_quo, need_other_taking_care, need_other_done]) }
     end
@@ -87,21 +96,11 @@ RSpec.describe InvolvementConcern do
 
       it { is_expected.to match_array([need_archived, need_quo_expert_match_archived]) }
     end
-  end
 
-  describe 'needs_abandoned' do
-    # Besoin marqué abandonné             ok
-    # Besoin marqué abandonné et archivé  ko
-    # Besoin pas marqué abandonné         ko
-    let(:match1) { create :match, expert: current_expert }
-    let!(:need1) { create :need, diagnosis: diagnosis, abandoned_email_sent: true, matches: [match1] }
-    let(:match2) { create :match, expert: current_expert, matches: [match2] }
-    let!(:need2) { create :need, diagnosis: diagnosis }
-    let(:match3) { create :match, expert: current_expert, matches: [match3], abandoned_email_sent: true, archived_at: Time.now }
-    let!(:need3) { create :need, diagnosis: diagnosis }
+    describe 'needs_quo_abandoned' do
+      subject { user.needs_quo_abandoned }
 
-    subject { user.needs_abandoned }
-
-    it { is_expected.to match_array([need1]) }
+      it { is_expected.to match_array([need_quo_abandonned]) }
+    end
   end
 end

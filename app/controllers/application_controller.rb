@@ -19,7 +19,7 @@ class ApplicationController < SharedController
     elsif resource_or_scope.is_admin?
       path = conseiller_solicitations_path
     else
-      path = quo_needs_path
+      path = quo_active_needs_path
     end
     stored_location_for(resource_or_scope) || path
   end

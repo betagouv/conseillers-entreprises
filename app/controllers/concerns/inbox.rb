@@ -4,7 +4,7 @@ module Inbox
   private
 
   def inbox_collection_names
-    %i[quo taking_care done not_for_me abandoned]
+    %i[quo_active taking_care done not_for_me quo_abandoned]
   end
 
   # Common render method for collection actions
