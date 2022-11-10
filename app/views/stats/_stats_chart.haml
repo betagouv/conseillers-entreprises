@@ -4,8 +4,8 @@
   .card__content.white-bg.fr-p-3w
     %h2
       - if data.count.present?
-        %span= data.count
-      %span= t("stats.series.#{name}.title")
+        %span= number_with_delimiter(data.count, locale: :fr)
+      = t("stats.series.#{name}.title")
 
     %p.fr-m-0{ id: chart_name,
       'data-chart': data.chart,

@@ -1017,12 +1017,15 @@ fr:
       done_no_help_rate_stats:
         subtitle: Le besoin a été pris en charge par un expert, mais l’échange téléphonique n’a pu aboutir à une proposition d’aide (critères non remplis, situation spécifique...).
         title: de besoins clôturés sans aide possible de l’institution
+        title_table: Nombre de besoins clôturés sans aide possible de l’institution
       done_not_reachable_rate_stats:
         subtitle: L’expert n’a pas réussi à joindre l’entreprise malgré deux tentatives. En laissant ses coordonnées, l’entreprise peut néanmoins le rappeler.
         title: de besoins clôturés par l’institution sans avoir pu joindre l’entreprise
+        title_table: Nombre de besoins clôturés par l’institution sans avoir pu joindre l’entreprise
       done_rate_stats:
         subtitle: Le besoin a été pris en charge par un expert et une aide a pu être proposée à l’entreprise. L’aide s’entend au sens large (conseils, accompagnement technique, aide financière).
         title: de besoins clôturés par une aide proposée par l’institution
+        title_table: Nombre de besoins clôturés par une aide proposée par l’institution
       exchange_with_expert:
         subtitle_html: Cette statistique n’est disponible que depuis le 01/09/2020 grâce à l’ajout de nouvelles fonctionnalités, permettant un suivi plus fin des besoins.<br>Un besoin correspond en principe à une demande d’entreprise, mais il se peut qu’une même demande exprime plusieurs besoins, d’où l’utilisation du terme plus précis de « besoin » pour mesurer la dernière étape du service.
         title: des besoins d’entreprises transmis ont donné lieu à un échange avec un conseiller
@@ -1033,7 +1036,7 @@ fr:
         series: besoins suivis d'un échange avec un conseiller
         subtitle_html: "<p>La promesse du service Place des Entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p><p>Le nombre total de besoins donnant lieu à un échange avec un conseiller s’analyse au regard du déploiement progressif du service, région par région.</p>"
         title: besoins d’entreprises ont donné lieu à un échange avec un conseiller depuis l'ouverture du service
-        title_table: Nombre de besoins d’entreprises Ayant donné lieu à un échange avec un conseiller depuis l'ouverture du service
+        title_table: Nombre de besoins d’entreprises ayant donné lieu à un échange avec un conseiller depuis l'ouverture du service
       experts:
         title: Experts
         title_table: Nombre d'experts
@@ -1064,9 +1067,11 @@ fr:
       not_for_me_rate_stats:
         subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
         title: de besoins refusés par l’institution
+        title_table: Nombre de besoins refusés par l’institution
       not_positioning_rate:
         subtitle: L’expert n’a donné aucune indication sur le besoin transmis.
         title: de besoins restés sans réponse de l’institution
+        title_table: Nombre de besoins restés sans réponse de l’institution
       positioning_rate:
         subtitle: L’expert s’est positionné pour indiquer prendre en charge ou refuser le besoin.
         title: Taux de positionnement
@@ -1094,6 +1099,7 @@ fr:
       taking_care_rate_stats:
         subtitle: Le besoin a été pris en charge par un expert, mais n’a pas encore été cloturé après l’appel de l’entreprise.
         title: de besoins en cours de prise en charge par l’institution
+        title_table: Nombre de besoin en cours de prise en charge
       themes:
         subtitle: Une thématique est un regroupement de sujets d’entreprises proches. <br>Le pic que l’on observe au mois de mars 2020 dans la catégorie « Autres typologies de besoins » correspond aux demandes exprimant des difficultés liées au covid-19
         title: Thématiques choisies par les entreprises
