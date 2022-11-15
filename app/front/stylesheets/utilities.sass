@@ -132,3 +132,13 @@ a.fr-breadcrumb__item a.break-word, .fr-prose a.break-word, [class*=" fr-"] a.br
 
   100%
     transform: rotate(360deg)
+
+button.link
+  &:hover
+    background: none
+    background-image: var(--underline-img), var(--underline-img)
+    background-position: var(--underline-x) calc(100% - 0.16em), var(--underline-x) calc(100% - 0.16em)
+    background-repeat: no-repeat, no-repeat
+    transition: background-size 0s
+    background-size: var(--underline-hover-width) 0.125em, var(--underline-idle-width) 0.0625em
+    --underline-hover-width: var(--underline-max-width)

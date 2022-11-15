@@ -37,7 +37,7 @@
             %span{ title: t('.solicitation_doublon_explanation') } D
           - if solicitation.from_banned_company?
             %span{ title: t('.solicitation_banned_facility_explanation') }
-              %i.ri-flag-fill
+              %span.ri-flag-fill{ 'aria-hidden': 'true' }
         - needs_historic = Need.for_emails_and_sirets([solicitation.email], solicitation.valid_sirets).with_siret
         - if needs_historic.any?
           .meta__items

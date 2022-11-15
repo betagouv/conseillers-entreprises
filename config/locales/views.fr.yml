@@ -13,9 +13,11 @@ fr:
       join_us: Vous souhaitez rejoindre le partenariat ?
       long_title: Place des Entreprises, comment ça marche ?
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
-      meta_title: Comment ça marche | Place des Entreprises
+      meta_title: Comment ça marche
       partners: 'Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
       pde_testimonial: Témoignage d’un chef d’entreprise.
+      pde_testimonial_transcription: Transcription textuelle de la vidéo du témoignage d’un chef d’entreprise.
+      read_transcription: Lire la transcription
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
     index_testimonials:
@@ -427,7 +429,7 @@ fr:
         how-it-works: Comment ça marche
         meta:
           description: 'TPE & PME vous avez un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
-          title: Place des Entreprises - Conseils et aides publiques
+          title: Page d’accueil | Place des Entreprises - Conseils et aides publiques
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
@@ -791,14 +793,18 @@ fr:
       expert_contacts_you_html: "<span class='blue'>Le conseiller vous contacte</span> directement pour vous aider sous 5 jours*."
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Place des Entreprises</a>
       pde_presentation: Présentation du service Place des Entreprises
+      pde_presentation_transcription: Transcription textuelle de la vidéo de présentation du service Place des Entreprises
+      read_transcription: Lire la transcription
       select_expert_description: Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
     navbar:
       close: Fermer
+      extend: Agrandir
       link_to_blog: Lien vers le blog de Place des Entreprises - lien externe
       menu: Menu
     newsletter:
+      email_format: 'Format attendu : nom@domaine.fr'
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
-      newsletter_legal: Vous pouvez vous désinscrire à tout moment avec le lien de désinscription dans la newsletter
+      newsletter_legal_html: Vous pouvez vous désinscrire à tout moment avec le lien de désinscription dans la <span lang='en'>newsletter</span>
       placeholder_email: Votre adresse email
       received_news: 'Découvrez les nouveaux accompagnements publics :'
       subscribe: S’abonner
@@ -896,6 +902,17 @@ fr:
     breadcrumb:
       see_breadcrumb: Voir le fil d’Ariane
       you_are_here: 'Vous êtes ici :'
+    skiplinks:
+      content: Contenu
+      fast_access: Accès rapide
+      footer: Pied de page
+      menu: Menu
+  sitemap:
+    sitemap:
+      meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
+      meta_title: Plan du site
+      subtitle: Retrouvez ici une vision synthétique de l’ensemble des contenus de Place des Entreprises
+      title: Plan du site
   solicitations:
     company_tile:
       choose_my_facility: Sélectionner un établissement
@@ -989,66 +1006,88 @@ fr:
     series:
       advisors:
         title: Conseillers publics
+        title_table: Nombre de conseillers publics
       companies_by_employees:
         ministats: Entreprises aidées
         title: Typologie des entreprises utilisatrices du service
+        title_table: Typologie des entreprises utilisatrices du service
       companies_by_naf_code:
         title: Secteurs d’activité des entreprises utilisatrices du service
+        title_table: Secteurs d’activité des entreprises utilisatrices du service
       done_no_help_rate_stats:
         subtitle: Le besoin a été pris en charge par un expert, mais l’échange téléphonique n’a pu aboutir à une proposition d’aide (critères non remplis, situation spécifique...).
         title: de besoins clôturés sans aide possible de l’institution
+        title_table: Nombre de besoins clôturés sans aide possible de l’institution
       done_not_reachable_rate_stats:
         subtitle: L’expert n’a pas réussi à joindre l’entreprise malgré deux tentatives. En laissant ses coordonnées, l’entreprise peut néanmoins le rappeler.
         title: de besoins clôturés par l’institution sans avoir pu joindre l’entreprise
+        title_table: Nombre de besoins clôturés par l’institution sans avoir pu joindre l’entreprise
       done_rate_stats:
         subtitle: Le besoin a été pris en charge par un expert et une aide a pu être proposée à l’entreprise. L’aide s’entend au sens large (conseils, accompagnement technique, aide financière).
         title: de besoins clôturés par une aide proposée par l’institution
+        title_table: Nombre de besoins clôturés par une aide proposée par l’institution
       exchange_with_expert:
         subtitle_html: Cette statistique n’est disponible que depuis le 01/09/2020 grâce à l’ajout de nouvelles fonctionnalités, permettant un suivi plus fin des besoins.<br>Un besoin correspond en principe à une demande d’entreprise, mais il se peut qu’une même demande exprime plusieurs besoins, d’où l’utilisation du terme plus précis de « besoin » pour mesurer la dernière étape du service.
         title: des besoins d’entreprises transmis ont donné lieu à un échange avec un conseiller
+        title_table: Nombre de besoins d’entreprises transmis ayant donné lieu à un échange avec un conseiller
         with_exchange: Avec échange
         without_exchange: Sans échange
       exchange_with_expert_column:
         series: besoins suivis d'un échange avec un conseiller
         subtitle_html: "<p>La promesse du service Place des Entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p><p>Le nombre total de besoins donnant lieu à un échange avec un conseiller s’analyse au regard du déploiement progressif du service, région par région.</p>"
         title: besoins d’entreprises ont donné lieu à un échange avec un conseiller depuis l'ouverture du service
+        title_table: Nombre de besoins d’entreprises ayant donné lieu à un échange avec un conseiller depuis l'ouverture du service
       experts:
         title: Experts
+        title_table: Nombre d'experts
       matches:
         title: Mises en relation
+        title_table: Nombre de mises en relation
       needs:
         title: Besoins identifiés
+        title_table: Nombre de besoins identifiés
       needs_abandoned:
-        subtitle: Le besoin est considéré comme abandonné lorsque aucun conseiller ne s’est positionné au bout de 30 jours. Il est resté sans réponse malgré les relances et le suivi qualité dont il a fait l’objet.
+        subtitle: Le besoin est considéré comme abandonné lorsque aucun conseiller ne s’est positionné au bout de 45 jours ou 10 jours après l'envoi d'un mail de relance. Il est resté sans réponse malgré les relances et le suivi qualité dont il a fait l’objet.
         title: de besoins abandonnés
+        title_table: Nombre de besoins abandonnés
       needs_done:
         subtitle: La notion d’aide proposée correspond à une aide financière, à la mobilisation d’un accompagnement public ou à plus largement à des conseils visant à répondre à la demande exprimée par l’entreprise. Par exemple, les conseils juridiques dispensés par un conseiller en droit du travail en réponse à une demande de l’entreprise entre dans la catégorie « aide proposée ».
         title: de besoins clôturés grâce à une aide proposée
+        title_table: Nombre de besoins clôturés grâce à une aide proposée
       needs_done_no_help:
         subtitle: La clôture sans accompagnement signifie que l’entreprise a bien été rappelée par au moins un conseiller, mais que celui-ci n’a finalement pas pu l’aider au regard de sa situation particulière.
         title: de besoins clôturés sans aide disponible
+        title_table: Nombre de besoins clôturés sans aide disponible
       needs_done_not_reachable:
         title: de besoins clôturés faute d’avoir pu joindre l’entreprise
+        title_table: Nombre de besoins clôturés faute d’avoir pu joindre l’entreprise
       needs_not_for_me:
         title: de besoins refusés
+        title_table: Nombre de besoins refusés
       not_for_me_rate_stats:
         subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
         title: de besoins refusés par l’institution
+        title_table: Nombre de besoins refusés par l’institution
       not_positioning_rate:
         subtitle: L’expert n’a donné aucune indication sur le besoin transmis.
         title: de besoins restés sans réponse de l’institution
+        title_table: Nombre de besoins restés sans réponse de l’institution
       positioning_rate:
         subtitle: L’expert s’est positionné pour indiquer prendre en charge ou refuser le besoin.
         title: Taux de positionnement
+        title_table: Taux de positionnement
       solicitations:
         series: Demandes déposées
         title: demandes déposées par les entreprises
+        title_table: Nombre de demandes déposées par les entreprises
       solicitations_diagnoses:
         subtitle_html: Pour le bon fonctionnement du service, seules les demandes qualifiées sont transmises. Les demandes sans aucun élément de contexte, avec des erreurs de siret ou touchant à la création d’entreprise, ne peuvent pas être transmises. <br/>Un taux élevé signifie que nous parvenons à obtenir des demandes de qualité, pouvant être facilement prise en charge par les conseillers. Un taux faible signifie que les demandes sont peu contextualisées ou comportent des erreurs rendant difficile leur traitement
         title: de demandes en région(s) déployée(s) sont transmises aux conseillers
+        title_table: Nombre de demandes en région(s) déployée(s) transmises aux conseillers
       solicitations_in_deployed_regions:
         subtitle_html: 'Le service est déployé région par région, afin de constituer un carnet d’adresses rassemblant l’ensemble des partenaires publics et parapublics chargés d’accompagner les entreprises sur le territoire. La stratégie d’acquisition des besoins des TPE & PME suit ce déploiement régional progressif. Néanmoins, il arrive que des sollicitations soient déposées par des entreprises situées dans des régions non encore déployées.<br/>Précaution : cette statistique n’a de sens pour l’activité globale du service. Le filtre région ne fonctionne donc pas ici.'
         title: de demandes proviennent de régions où le service est ouvert
+        title_table: Origine géographique des demandes
       source: Analyses d’entreprises
       source_category:
         direct: Sollicitations d’entreprises
@@ -1056,14 +1095,18 @@ fr:
         visits: Visites par un conseiller
       taking_care:
         title: des réponses aux demandes des entreprises sont apportées en moins de 5 jours
+        title_table: Délai de réponses aux demandes des entreprises
       taking_care_rate_stats:
         subtitle: Le besoin a été pris en charge par un expert, mais n’a pas encore été cloturé après l’appel de l’entreprise.
         title: de besoins en cours de prise en charge par l’institution
+        title_table: Nombre de besoin en cours de prise en charge
       themes:
         subtitle: Une thématique est un regroupement de sujets d’entreprises proches. <br>Le pic que l’on observe au mois de mars 2020 dans la catégorie « Autres typologies de besoins » correspond aux demandes exprimant des difficultés liées au covid-19
         title: Thématiques choisies par les entreprises
+        title_table: Thématiques choisies par les entreprises
       transmitted_less_than_72h_stats:
         title: de sollicitations transmises en moins de 72H parmi l’ensemble des sollicitations transmises
+        title_table: Délai de transmission des sollicitations
     stats_params:
       campaign: Campagne
       clear_search: Réinitialiser la recherche
@@ -1168,3 +1211,4 @@ fr:
       next: Page suivante
       previous: Page précédente
       truncate: "…"
+  youtube_video: Vidéo youtube

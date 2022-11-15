@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@gouvfr/dsfr": "1.7.2",
+    "@gouvfr/dsfr": "1.8.1",
     "@rails/ujs": "^6.0.3-4",
     "@rails/webpacker": "5.4.2",
     "@sentry/webpack-plugin": "^1.14.2",

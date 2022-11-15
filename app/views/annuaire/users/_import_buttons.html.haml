@@ -1,13 +1,13 @@
 .fr-mb-3w
   %span.fr-ml-2w
     = link_to institution_users_path(format: 'csv', antenne_id: params[:antenne_id].presence, region_id: params[:region_id].presence) do
-      %span.ri-download-2-line.fr-mr-1w
+      %span.ri-download-2-line.fr-mr-1w{ 'aria-hidden': 'true' }
       = t('download_csv')
   %span.fr-ml-2w
     = link_to institution_users_path(format: 'xlsx', antenne_id: params[:antenne_id].presence, region_id: params[:region_id].presence) do
-      %span.ri-download-2-line.fr-mr-1w
+      %span.ri-download-2-line.fr-mr-1w{ 'aria-hidden': 'true' }
       = t('download_xls')
   %span.fr-ml-2w
     = link_to import_institution_users_path do
-      %span.ri-upload-2-line.fr-mr-1w
+      %span.ri-upload-2-line.fr-mr-1w{ 'aria-hidden': 'true' }
       = t('import')

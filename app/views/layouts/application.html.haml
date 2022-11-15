@@ -3,12 +3,13 @@
   = render 'head'
 
   %body
+    = render 'shared/skiplinks'
     = render 'navbar'
     = render 'bandeau_info'
     = render 'environment_ribbon'
     = render 'user_impersonate'
 
-    %main.fr-py-5w
+    %main.fr-py-5w#content{ role: 'main' }
       = render 'shared/flashes'
 
       = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts (e.g. side_menu)

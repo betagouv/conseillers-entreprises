@@ -8,28 +8,28 @@
           %li= t('.expert_creation_date', date: I18n.l(expert.created_at.to_date, format: :long))
           - if expert.job.present?
             %li
-              %span.picto.ri-contacts-book-line
+              %span.picto.ri-contacts-book-line{ 'aria-hidden': 'true' }
               = expert.job
           - if expert.phone_number.present?
             %li
-              %span.picto.ri-phone-line
+              %span.picto.ri-phone-line{ 'aria-hidden': 'true' }
               = link_to(expert.phone_number, "tel:#{expert.phone_number}")
           - if expert.email.present?
             %li
-              %span.picto.ri-mail-line
+              %span.picto.ri-mail-line{ 'aria-hidden': 'true' }
               = mail_to expert.email, expert.email, class: 'break-word'
       .fr-col-5
         - expert.antenne.managers.each do |manager|
           %ul.list-unstyled.card-expert__list
             %li
-              %span.picto.ri-nurse-fill
+              %span.picto.ri-nurse-fill{ 'aria-hidden': 'true' }
               = t('.manager_name', name: manager.full_name)
             %li
-              %span.picto.ri-mail-fill
+              %span.picto.ri-mail-fill{ 'aria-hidden': 'true' }
               = mail_to manager.email, manager.email, class: 'break-word'
             - if manager.phone_number.present?
               %li
-                %span.picto.ri-phone-fill
+                %span.picto.ri-phone-fill{ 'aria-hidden': 'true' }
                 = link_to(manager.phone_number, "tel:#{manager.phone_number}")
     - if expert.users.many?
       .fr-grid-row

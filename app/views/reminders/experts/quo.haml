@@ -12,14 +12,14 @@
               %ul.list-unstyled.fr-pl-1v
                 - if @expert.job.present?
                   %li
-                    %span.picto.ri-contacts-book-line
+                    %span.picto.ri-contacts-book-line{ 'aria-hidden': 'true' }
                     = @expert.job
                 - if @expert.phone_number.present?
                   %li
-                    %span.picto.ri-phone-line
+                    %span.picto.ri-phone-line{ 'aria-hidden': 'true' }
                     = link_to(@expert.phone_number, "tel:#{@expert.phone_number}")
                 %li
-                  %span.picto.ri-mail-line
+                  %span.picto.ri-mail-line{ 'aria-hidden': 'true' }
                   = mail_to @expert.email, @expert.email, class: 'break-word'
             .fr-col-md-8
               %div{ id: "display-feedbacks-#{@expert.id}" }

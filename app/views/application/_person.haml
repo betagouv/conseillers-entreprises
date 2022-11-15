@@ -9,13 +9,13 @@
       %li= suffix
     - if job.present?
       %li
-        %span.picto.ri-contacts-book-line
+        %span.picto.ri-contacts-book-line{ 'aria-hidden': 'true' }
         = job
     - if phone_number.present?
       %li
-        %span.picto.ri-phone-line
+        %span.picto.ri-phone-line{ 'aria-hidden': 'true' }
         = link_to(phone_number, "tel:#{phone_number}")
     - if email.present?
       %li
-        %span.picto.ri-mail-line
+        %span.picto.ri-mail-line{ 'aria-hidden': 'true' }
         = mail_to email, email

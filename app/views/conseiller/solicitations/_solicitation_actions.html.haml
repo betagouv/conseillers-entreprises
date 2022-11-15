@@ -5,7 +5,7 @@
         .ui.item.error-425-bg
           - error_text = solicitation.prepare_diagnosis_errors.full_messages.to_sentence
           .ui.icon{ data: { tooltip: error_text, variation: 'fixed' } }
-            %span.ri-error-warning-line
+            %span.ri-error-warning-line{ 'aria-hidden': 'true' }
             = t('.prepare_diagnosis_errors', count: solicitation.prepare_diagnosis_errors.count)
         .ui.item.dropdown.success-main-525-bg
           = t('.prepare_diagnosis_retry')

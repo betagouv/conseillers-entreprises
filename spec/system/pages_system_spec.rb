@@ -7,7 +7,6 @@ describe 'Pages', type: :system do
   before do
     create_home_landing
     # todo : tester empahsis + page contactez-nous ?
-    # create :landing, slug: 'relance', home_title: 'Test Landing'
     create_base_dummy_data
   end
 
@@ -38,5 +37,7 @@ describe 'Pages', type: :system do
     find_by_id('start_date').set "2021-03-01"
     click_button 'Filtrer'
     expect(page).to have_select 'territory'
+    click_link 'Plan du site'
+    expect(page).to have_content(Landing.first.title)
   end
 end

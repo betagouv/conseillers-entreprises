@@ -11,18 +11,27 @@ describe 'landings', type: :feature, js: true do
   describe '/' do
     before { visit '/' }
 
-    it { is_expected.to be_accessible }
+    it do
+      is_expected.to be_accessible
+      is_expected.to have_skiplinks_ids
+    end
   end
 
   describe '/aide-entreprise/:landing_slug' do
     before { visit "/aide-entreprise/#{Landing.last.slug}" }
 
-    it { is_expected.to be_accessible }
+    it do
+      is_expected.to be_accessible
+      is_expected.to have_skiplinks_ids
+    end
   end
 
   describe '/aide-entreprise/:landing_slug/theme/:slug' do
     before { visit "/aide-entreprise/#{landing.slug}/theme/#{landing_theme.slug}" }
 
-    it { is_expected.to be_accessible }
+    it do
+      is_expected.to be_accessible
+      is_expected.to have_skiplinks_ids
+    end
   end
 end

@@ -23,7 +23,7 @@
     %ul.list-unstyled.fr-mb-3w
       - experts_subjects.each do |expert_subject|
         %li.fr-mb-2v
-          %span.ri-checkbox-line.green
+          %span.ri-checkbox-line.green{ 'aria-hidden': 'true' }
           %b= expert_subject.subject
           %br
           = expert_subject.institution_subject.description
@@ -42,7 +42,7 @@
         %ul.list-unstyled.fr-mb-3w
           - institutions_subjects.each do |institution_subject|
             %li.fr-mb-2v
-              %span.ri-checkbox-blank-line
+              %span.ri-checkbox-blank-line{ 'aria-hidden': 'true' }
               %b= institution_subject.subject
               %br
               = institution_subject.description

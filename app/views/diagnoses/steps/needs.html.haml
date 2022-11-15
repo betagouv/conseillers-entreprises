@@ -23,7 +23,7 @@
             .ui.segment.secondary.title{ class: active_class }
               %h2.fr-text--lead
                 = theme
-                %span.ri-arrow-right-s-fill.float-right
+                %span.ri-arrow-right-s-fill.float-right{ 'aria-hidden': 'true' }
             .ui.content.subjects.basic.segments.fr-py-2w{ class: active_class }
               - all_needs = @diagnosis.needs
               - subjects.each do |subject|
@@ -58,7 +58,7 @@
 
       .bottom_actions.flex
         = link_to contact_diagnosis_path, class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbolinks: false } do
-          %span.ri-arrow-left-line.fr-mr-1w
+          %span.ri-arrow-left-line.fr-mr-1w{ 'aria-hidden': 'true' }
           = t('previous_step')
 
         = render 'next_step', diagnosis_form: diagnosis_form

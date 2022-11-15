@@ -5,7 +5,7 @@
     = f.email_field :email, class: 'fr-input', disabled: 'disabled'
   - if @expert.team?
     %p.fr-mb-3w
-      %span.blue.ri-information-fill
+      %span.blue.ri-information-fill{ 'aria-hidden': 'true' }
       = t('.team_email_explanation_html', email: ENV['APPLICATION_EMAIL'])
 
   .required.fr-input-group
@@ -17,7 +17,7 @@
     = f.text_field :full_name, placeholder: t('attributes.placeholder.team_name'), class: 'fr-input',
       autocomplete: 'off', required: true
   %p.fr-mb-3w
-    %span.blue.ri-information-fill
+    %span.blue.ri-information-fill{ 'aria-hidden': 'true' }
     = t('.team_name_explanation')
 
   .required.fr-input-group
@@ -35,7 +35,7 @@
         %b= @expert.institution.name
   - if @expert.antenne != @user.antenne
     %p
-      %span.orange.ri-information-fill
+      %span.orange.ri-information-fill{ 'aria-hidden': 'true' }
       = t('.different_antenne_warning_html', email: ENV['APPLICATION_EMAIL'])
 
   .fr-mb-3w
@@ -46,9 +46,9 @@
           %li.fr-mb-1v
             %span.fr-m-0.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-member-#{member.id}" }
               - if member == @user
-                %span.blue.ri-user-fill{ title: t('users.thats_you') }
+                %span.blue.ri-user-fill{ title: t('users.thats_you'), 'aria-hidden': 'true' }
               - else
-                %span.ri-user-fill
+                %span.ri-user-fill{ 'aria-hidden': 'true' }
               = member.full_name
             .hidden{ id: "tooltip-member-#{member.id}" }
               = person_block(member)

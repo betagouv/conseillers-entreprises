@@ -17,6 +17,9 @@ describe 'about', type: :feature, js: true do
   describe '/stats' do
     before { visit '/stats' }
 
-    it { is_expected.to be_accessible }
+    it do
+      is_expected.to be_accessible
+      is_expected.to have_skiplinks_ids
+    end
   end
 end

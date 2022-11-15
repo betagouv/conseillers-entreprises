@@ -13,7 +13,7 @@
           %button.fr-btn.fr-btn--secondary.fr-btn--sm{ data: { content: prefill[:content], action: "feedback-form#prefill" } }
             = prefill[:label]
         %button.fr-link{ data: { action: "feedback-form#reset" } }
-          %span.ri.ri-close-circle-line
+          %span.ri.ri-close-circle-line{ 'aria-hidden': 'true' }
           %span= t('.reset')
     = form.text_area :description, placeholder: placeholder, class: 'fr-input', rows: 2, required: true, id: "feedback-text-#{feedback.feedbackable_id}", data: { 'feedback-form-target': "prefilledField" }
     = form.button :submit, class: 'fr-btn btn-blue', id: "feedback-submit-#{feedback.feedbackable_id}" do

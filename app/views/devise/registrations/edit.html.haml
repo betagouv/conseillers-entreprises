@@ -5,7 +5,7 @@
       = f.label :email, class: 'fr-label'
       = f.email_field :email, disabled: true, class: 'fr-input'
     %p
-      %span.blue.ri-information-fill
+      %span.blue.ri-information-fill{ 'aria-hidden': 'true' }
       = t('.contact_us_to_change_email_html', email: ENV['APPLICATION_EMAIL'])
 
     = render 'devise/shared/user_fields', form: f
