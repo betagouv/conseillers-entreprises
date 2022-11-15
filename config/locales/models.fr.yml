@@ -678,6 +678,7 @@ fr:
     antenne_experts:
       one: Expert
       other: Experts
+    antenne_region: Région de l’antenne
     antenne_territorial_level: Niveau de l’antenne
     antenne_territories: Territoire de l’antenne
     archived_at: Date d’archivage
@@ -721,6 +722,7 @@ fr:
     email: E-mail
     expert: Expert
     expert_antenne: Antenne de l’expert
+    expert_email: Email de l’expert
     expert_institution: Institution de l’expert
     expert_subject: Domaine d’intervention
     experts:

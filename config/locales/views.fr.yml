@@ -828,6 +828,9 @@ fr:
       placeholder_email: Votre adresse email
       received_news: 'Découvrez les nouveaux accompagnements publics :'
       subscribe: S’abonner
+  panier_critique_exporter:
+    file_name: export-panier-critique
+    worksheet_title: Experts panier critique
   partner_tools:
     inserts:
       alt: 'Place des Entreprises ; TPE et PME : accédez gratuitement à tous les accompagnements publics. Déposez votre demande, le bon conseiller vous appelle.'
