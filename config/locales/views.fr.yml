@@ -93,6 +93,9 @@ fr:
       info: L’application du partenaire qui nous fournit les données entreprise connaît actuellement des ralentissements. Vous pourriez avoir des difficultés à accéder aux informations des entreprises. Toutes nos excuses pour la gêne occasionnée.
     footer:
       service_description: Aider ensemble les TPE & PME dans leurs projets, leurs difficultés et leurs transformations.
+    modal:
+      see_expert_coordinates: Voir les coordonnées de l'équipe
+      see_person_coordinates: Voir les coordonnées de la personne
     navbar:
       account: Compte
       admin: Administration
@@ -112,6 +115,8 @@ fr:
       root_path_title: Accueil Place des Entreprises
       sign_out: Déconnexion
     pde_partnership_mention: Ce service public de mise en relation est proposé par Place des Entreprises.
+    person_modal:
+      manager_name: 'Responsable : %{name}'
   at_your_disposal: Nous restons à votre disposition pour tout complément d’informations.
   attributes:
     is_global_zone: Territoire national
@@ -699,8 +704,6 @@ fr:
       add_other_experts: Rechercher d’autres experts à mettre en relation
       ambulance_explanation: Notifier un nouveau conseiller référencé, quel que soit le partenaire, le sujet ou le territoire
       no_expert_found: Aucun résultat
-    antenne_manager:
-      manager_name: 'Responsables : %{name}'
     archive:
       archive: Archiver
       archive_done: Besoin de l’entreprise %{company} archivé

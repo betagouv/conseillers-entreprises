@@ -62,3 +62,19 @@ input[type="submit" i]
 .fr-btn.fr-btn--secondary.fr-btn-green
   box-shadow: inset 0 0 0 1px $green
   color: $green
+
+button.fr-link
+  background-image: linear-gradient(0deg, currentColor, currentColor), linear-gradient(0deg, currentColor, currentColor)
+  background-image: var(--underline-img), var(--underline-img)
+  background-position: calc(100% * 0) 100%, calc(100% * 0) calc(100% - 0.0625em)
+  background-position: var(--underline-x) 100%, var(--underline-x) calc(100% - 0.0625em)
+  background-repeat: no-repeat, no-repeat
+  transition: background-size 0s
+  background-size: 0 0.125em, 100% 0.0625em
+  background-size: var(--underline-hover-width) 0.125em, var(--underline-idle-width) 0.0625em
+  --hover-tint: var(--idle)
+  --active-tint: var(--active)
+  &:hover
+    --underline-hover-width: var(--underline-max-width)
+    background-color: var(--hover-tint)
+    color: var(--blue-france-sun-113-625)

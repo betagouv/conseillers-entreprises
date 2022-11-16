@@ -3,8 +3,9 @@
     - if prefix.present?
       %li.blue
         %b= prefix
-    %li.name
-      %b= name.presence
+    - unless defined?(name_outside)
+      %li.name
+        %b= name.presence
     - if suffix.present?
       %li= suffix
     - if job.present?
@@ -14,8 +15,8 @@
     - if phone_number.present?
       %li
         %span.picto.ri-phone-line{ 'aria-hidden': 'true' }
-        = link_to(phone_number, "tel:#{phone_number}")
+        = link_to(phone_number, "tel:#{phone_number}", class: 'fr-link')
     - if email.present?
       %li
         %span.picto.ri-mail-line{ 'aria-hidden': 'true' }
-        = mail_to email, email
+        = mail_to email, email, class: 'fr-link'

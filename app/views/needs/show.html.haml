@@ -36,12 +36,10 @@
               %h2.fr-text--lg.fr-mb-1w.blue= t('.transmitted_by')
               %div
                 - if @need.advisor.present?
-                  %div
-                    %p
-                      %b.js-simple-tooltip.fr-mt-1w{ 'data-simpletooltip-content-id': "tooltip-advisor-#{@need.advisor.id}", tabindex: "0" }
-                        #{@need.advisor.full_name}
-                  .hidden{ id: "tooltip-advisor-#{@need.advisor.id}" }
-                    = person_block(@need.advisor)
+                  %button.fr-link{ 'aria-controls': "modal-user-#{@need.advisor.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
+                    = @need.advisor.full_name
+                  = render 'application/person_modal', person: @need.advisor
+
                 - else
                   = t('.blank_advisor')
 

@@ -3,15 +3,14 @@
     .fr-col-sm-1.fr-col-1.col-icon
       = expert_status_icon(match)
     .fr-col-sm-8.fr-col-11
-      %div
-        %p
-          %b.blue.js-simple-tooltip{ 'data-simpletooltip-content-id': "tooltip-match-#{match.id}", tabindex: "0" }
-            #{match.expert.full_name}
-          = " - " + match.expert.antenne.name
-      .hidden{ id: "tooltip-match-#{match.id}" }
-        = person_block(match.expert)
-        - if (defined? origin) && origin == 'reminders' && policy(match.expert.antenne).show_manager?
-          = render 'antenne_manager', antenne: match.expert.antenne
+      %button.fr-link{ 'aria-controls': "modal-expert-#{match.expert.id}", 'data-fr-opened': 'false', title: t('application.modal.see_expert_coordinates') }
+        = match.expert.full_name
+      = " - " + match.expert.antenne.name
+
+      - if (defined? origin) && origin == 'reminders' && policy(match.expert.antenne).show_manager?
+        = render 'application/person_modal', person: match.expert, managers_antenne: match.expert.antenne
+      - else
+        = render 'application/person_modal', person: match.expert
 
     .fr-col-sm-3.fr-col.col-label.match-admin-actions
       .status-label
