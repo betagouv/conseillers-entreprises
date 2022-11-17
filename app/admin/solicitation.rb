@@ -105,6 +105,17 @@ ActiveAdmin.register Solicitation do
   filter :created_at
   filter :completed_at
 
+  controller do
+    before_action only: :index do
+
+      # Mettre filtre solicitation complète par défaut, pour faciliter export
+      if params[:commit].blank? && params[:q].blank?
+        extra_params = { "q": { "completion_eq": "step_complete" }}
+        params.merge! extra_params
+      end
+    end
+  end
+
   ## Batch actions
   # Statuses
   Solicitation.statuses.each_key do |status|
