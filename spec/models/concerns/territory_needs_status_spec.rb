@@ -98,6 +98,5 @@ RSpec.describe TerritoryNeedsStatus do
 
       it { is_expected.to match_array([need_quo_abandoned_inside]) }
     end
-
   end
 end
