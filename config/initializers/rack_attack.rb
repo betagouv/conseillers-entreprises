@@ -81,8 +81,10 @@ class Rack::Attack
   # end
 
   Rack::Attack.blocklist('block bad email') do |req|
+    ips = ['137.117.65.40', '20.168.217.16', '172.174.64.146']
+    remote_ips = ['172.174.64.0']
     (req.post? && req.params['solicitation'].present? && req.params['solicitation']['email'] == 'foo-bar@example.com') ||
-      req.ip == '137.117.65.40' || req.ip == '20.168.217.16'
+    ips.include?(req.ip) || remote_ips.include?(req.remote_ip)
   end
 
   Rack::Attack.blocklisted_responder = lambda do |request|
