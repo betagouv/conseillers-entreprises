@@ -1,0 +1,15 @@
+= render 'mailers/header'
+
+%p= t('mailers.hello')
+
+%p= t('.your_solicitation_html', subject: @solicitation.subject)
+
+%p= t('.incomplete_step_explanation')
+
+%p= link_to t('.continue'), redirect_to_solicitation_step_solicitation_url(@solicitation.uuid, relaunch: 'sollicitation-etape-entreprise')
+
+%p= t('.service_explanation_html')
+
+%p= t('mailers.cordially')
+
+%p= t('mailers.place_des_entreprises_team')

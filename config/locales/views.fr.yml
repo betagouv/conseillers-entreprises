@@ -509,12 +509,18 @@ fr:
         question_one_html: "<p>Est-ce que vous avez bien été recontacté par au moins un conseiller ? <a href='%{link_yes}' target='_blank' class='response-button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='response-button no'>Non</a></p>"
         subject: Avez-vous bien été rappelé ?
         tank_you: Merci pour votre confiance,
-      solicitation_relaunch:
-        continue: Reprendre ma demande
-        continue_your_solicitation: 'Pour finaliser votre demande, il vous suffit d’indiquer votre problématique et ses principaux éléments de contexte en cliquant sur le lien ci-dessous :'
-        service_explanation_html: Place des Entreprises est un <strong>service public</strong> des ministères de l’Économie et du Travail qui vous permet d’échanger <strong>avec LE conseiller qui peut vous aider parmi plus de 40 institutions compétentes</strong>.
+      solicitation_relaunch_company:
+        continue: Finaliser ma demande d’aide
+        incomplete_step_explanation: 'Nous avons besoin de votre SIRET ou SIREN pour vous fournir un conseil de proximité et sur mesure. Vous pouvez trouver votre SIRET en renseignant le nom de votre entreprise ci-dessous :'
+        service_explanation_html: Place des Entreprises est un <strong>service public</strong> du ministère de l’Économie qui vous permet d’échanger gratuitement <strong>avec LE conseiller qui peut vous aider parmi plus de 40 institutions compétentes</strong>.
         subject: Votre demande au sujet de «%{subject}»
-        your_solicitation_html: Vous avez entamé une demande concernant le sujet «<strong>%{subject}</strong>» sur le site Place des Entreprises.
+        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet «<strong>%{subject}</strong>» sur le site Place des Entreprises.
+      solicitation_relaunch_description:
+        continue: Finaliser ma demande d’aide
+        incomplete_step_explanation: Vous pouvez expliquer votre problématique avec quelques éléments de contexte pour bénéficier d’un conseil sur mesure.
+        service_explanation_html: Place des Entreprises est un <strong>service public</strong> du ministère de l’Économie qui vous permet d’échanger gratuitement <strong>avec LE conseiller qui peut vous aider parmi plus de 40 institutions compétentes</strong>.
+        subject: Votre demande au sujet de «%{subject}»
+        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet «<strong>%{subject}</strong>» sur le site Place des Entreprises.
     cordially: Bien cordialement,
     email_sent: L’email a bien été envoyé
     emails_sent:

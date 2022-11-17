@@ -8,7 +8,11 @@ class SolicitationsRelaunchService
 
   def self.send_emails(solicitations)
     solicitations.each do |solicitation|
-      CompanyMailer.solicitation_relaunch(solicitation).deliver_later
+      if solicitation.status_step_company?
+        CompanyMailer.solicitation_relaunch_company(solicitation).deliver_later
+      elsif solicitation.status_step_description?
+        CompanyMailer.solicitation_relaunch_description(solicitation).deliver_later
+      end
     end
   end
 
