@@ -107,10 +107,9 @@ ActiveAdmin.register Solicitation do
 
   controller do
     before_action only: :index do
-
       # Mettre filtre solicitation complète par défaut, pour faciliter export
       if params[:commit].blank? && params[:q].blank?
-        extra_params = { "q": { "completion_eq": "step_complete" }}
+        extra_params = { q: { completion_eq: "step_complete" } }
         params.merge! extra_params
       end
     end
