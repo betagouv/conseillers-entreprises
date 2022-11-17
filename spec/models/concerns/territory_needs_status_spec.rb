@@ -50,6 +50,12 @@ RSpec.describe TerritoryNeedsStatus do
     let!(:need_archived_outside) do
       create(:need, matches: [create(:match, expert: expert_outside, status: :quo)], archived_at: Time.zone.now)
     end
+    let!(:need_quo_abandoned_inside) do
+      create(:need, matches: [create(:match, expert: expert_inside, status: :quo, created_at: 46.days.ago)])
+    end
+    let!(:need_quo_abandoned_outside) do
+      create(:need, matches: [create(:match, expert: expert_outside, status: :quo, created_at: 46.days.ago)])
+    end
 
     describe 'needs_taking_care' do
       subject { antenne_inside_regional.territory_needs_taking_care }
@@ -59,6 +65,12 @@ RSpec.describe TerritoryNeedsStatus do
 
     describe 'needs_quo' do
       subject { antenne_inside_regional.territory_needs_quo }
+
+      it { is_expected.to match_array([need_quo_inside, need_quo_abandoned_inside]) }
+    end
+
+    describe 'needs_quo_active' do
+      subject { antenne_inside_regional.territory_needs_quo_active }
 
       it { is_expected.to match_array([need_quo_inside]) }
     end
@@ -80,18 +92,11 @@ RSpec.describe TerritoryNeedsStatus do
 
       it { is_expected.to match_array([need_archived_inside]) }
     end
-  end
 
-  describe 'needs_abandoned' do
-    # Besoin avec l'email d'abandon envoyé     ok
-    # Besoin sans l'email d'abandon envoyé     ko
-    let!(:match2) { create :match, expert: expert_inside, need: need1 }
-    let(:need1) { create :need, diagnosis: diagnosis, abandoned_email_sent: true }
-    let!(:match4) { create :match, expert: expert_inside, need: need2 }
-    let(:need2) { create(:need, diagnosis: diagnosis) }
+    describe 'needs_quo_abandoned' do
+      subject { antenne_inside_regional.territory_needs_quo_abandoned }
 
-    subject { antenne_inside_regional.territory_needs_abandoned }
-
-    it { is_expected.to match_array([need1]) }
+      it { is_expected.to match_array([need_quo_abandoned_inside]) }
+    end
   end
 end

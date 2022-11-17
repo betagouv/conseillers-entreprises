@@ -26,7 +26,7 @@ describe 'ApplicationController specific features', type: :feature do
   describe 'general navigation' do
     login_user
 
-    context 'user is not admin' do
+    context 'user is simple user' do
       it 'shows no errors' do
         visit '/besoins'
         visit '/mon_compte'
@@ -42,6 +42,17 @@ describe 'ApplicationController specific features', type: :feature do
         expect(page.html).not_to include 'Exports csv'
         expect(page.html).not_to include 'Outils partenaires'
         expect(page.html).not_to include 'Inviter des utilisateurs'
+      end
+    end
+
+    context 'user is manager' do
+      before { current_user.user_rights.create(category: 'manager') }
+
+      it 'shows no errors' do
+        visit '/besoins'
+        visit '/manager/besoins-des-antennes'
+        visit '/export-des-donnees'
+        expect(page.html).to include 'Demandes reçues'
       end
     end
 

@@ -27,7 +27,11 @@ class CompanyMailerPreview < ActionMailer::Preview
     CompanyMailer.abandoned_need(Diagnosis.completed.from_solicitation.sample.needs.sample)
   end
 
-  def solicitation_relaunch
-    CompanyMailer.solicitation_relaunch(Solicitation.status_step_company.where.not(uuid: nil).sample)
+  def solicitation_relaunch_company
+    CompanyMailer.solicitation_relaunch_company(Solicitation.status_step_company.where.not(uuid: nil).sample)
+  end
+
+  def solicitation_relaunch_description
+    CompanyMailer.solicitation_relaunch_description(Solicitation.status_step_description.where.not(uuid: nil).sample)
   end
 end
