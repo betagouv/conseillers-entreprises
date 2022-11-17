@@ -1,3 +1,17 @@
+:css
+  .btn-wrapper  {
+    text-align: center;
+  }
+  .response-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 1rem auto;
+    color: #fff;
+    background-color: rgb(0, 0, 145);
+    text-decoration: none;
+    font-weight: bold;
+  }
+
 = render 'mailers/header'
 
 %p= t('mailers.hello')
@@ -6,7 +20,8 @@
 
 %p= t('.incomplete_step_explanation')
 
-%p= link_to t('.continue'), redirect_to_solicitation_step_solicitation_url(@solicitation.uuid, relaunch: 'sollicitation-etape-entreprise')
+.btn-wrapper
+  = t('.continue_button_html', redirect_link: redirect_to_solicitation_step_solicitation_url(@solicitation.uuid, relaunch: 'sollicitation-etape-entreprise'))
 
 %p= t('.service_explanation_html')
 
