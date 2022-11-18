@@ -925,6 +925,7 @@ fr:
       nombre_etablissements_ouverts: 'Nombre d’établissements ouverts : %{count}'
     creation_form:
       accompaniments: 'Accompagnements proposés :'
+      all_fields_compulsary: Sauf mention contraire, tous les champs sont obligatoires.
       average_delays: "(Délai moyen de prise en charge)"
       better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
       buttons:
@@ -936,15 +937,13 @@ fr:
       empty_result_help_html: La recherche de votre entreprise n’a pas été concluante ? Renseignez manuellement votre numéro de SIRET ici ou effectuez une <a href=%{path}> nouvelle recherche</a>.
       find_my_facility: Recherchez votre entreprise (SIRET, SIREN, nom...)
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"
+      form_complete: Demande envoyée
       give_my_opinion_alt: Je donne mon avis
       give_my_opinion_title: Je donne mon avis sur cette démarche
       legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l'Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place de Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
       placeholder:
-        description: Décrivez votre demande.
-        email: marie.dupont@exemple.fr
-        full_name: 'ex : Marie Dupont'
+        description_html: Bonjour, Je suis....
         location: Hauts-de-France ; région de Milly-la-forêt ; 91260…
-        phone_number: 'ex: 06 12 34 56 78'
         siret: 123 456 789 00010
       search_facility_placeholder: 'ex : "Boucherie Sanzot" ou "130 025 265 00013"'
       siret: Votre numéro SIRET

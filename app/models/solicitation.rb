@@ -465,6 +465,12 @@ class Solicitation < ApplicationRecord
     location: 'text'
   }
 
+  AUTOCOMPLETE_TYPES = {
+    full_name: 'name',
+    phone_number: 'tel',
+    email: 'email'
+  }
+
   ## Preselection
   #
   def preselected_subject

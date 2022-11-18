@@ -12,7 +12,7 @@
             %td= badge_label(badge)
             %td
               = link_to edit_badge_path(badge), title: t('.edit') do
-                %span.ri-pencil-line
+                %span.ri-pencil-line{ 'aria-hidden': 'true' }
             %td
               = link_to badge_path(badge), title: t('.delete'), method: :delete, data: { confirm: t('.confirm_delete') } do
-                %span.ri-delete-bin-line
+                %span.ri-delete-bin-line{ 'aria-hidden': 'true' }

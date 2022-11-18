@@ -1,40 +1,37 @@
-:ruby
-  meta title: @solicitation.landing_subject.meta_title.presence || @solicitation.landing_subject.title.presence || @solicitation.landing_subject.landing_theme.meta_title,
-    description: @solicitation.landing_subject.meta_description.presence || @solicitation.landing_subject.description.presence || @solicitation.landing_subject.landing_theme.meta_description
-
-- content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
+- content_for :header, render('solicitations/header', landing: @landing, landing_subject: @landing_subject, step_data: @step_data)
 
 - content_for :form_header do
-  = render 'solicitations/steps', current_status: :step_company
+  = render 'solicitations/steps', step_data: @step_data
 
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.multistep-form.fr-pb-3w
     - if @solicitation.company_step_is_siret?
       .fr-mb-4w
         .fr-callout
-          %p.fr-callout__text= t("solicitations.creation_form.empty_result_help_html", path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+          %p.fr-callout__text.fr-text--sm= t("solicitations.creation_form.empty_result_help_html", path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
 
     = form_with(model: @solicitation, url: update_step_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
+      %fieldset.fr-fieldset
+        - @solicitation.company_step_required_fields.each do |field|
+          .fr-fieldset__element
+            .fr-input-group
+              - if field == :siret
+                = f.label :siret, t("solicitations.creation_form.siret"), class: 'fr-label'
+                %span.fr-hint-text= t('attributes.help.no_creation_html')
+                = f.text_field :siret, placeholder: t("solicitations.creation_form.placeholder.#{field}"), class: 'fr-input white-bg', minlength: '9', maxlength: '18'
+              - else
+                - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
+                = f.label field, class: 'fr-label'
+                - if help.present?
+                  %span.fr-hint-text= help
+                = f.text_field field,
+                  placeholder: t("solicitations.creation_form.placeholder.#{field}"),
+                  type: Solicitation::FIELD_TYPES[field],
+                  required: true,
+                  class: 'fr-input white-bg'
 
-      - @solicitation.company_step_required_fields.each do |field|
-        .fr-mb-2w
-          - if field == :siret
-            = f.label :siret, t("solicitations.creation_form.siret"), class: 'fr-label'
-            = f.text_field :siret, placeholder: t("solicitations.creation_form.placeholder.#{field}"), class: 'fr-input white-bg', minlength: '9', maxlength: '18'
-            %span.fr-hint-text= t('attributes.help.no_creation_html')
-          - else
-            - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
-            = f.label field, class: 'fr-label'
-            - if help.present?
-              %span.fr-hint-text= help
-            = f.text_field field,
-              placeholder: t("solicitations.creation_form.placeholder.#{field}"),
-              type: Solicitation::FIELD_TYPES[field],
-              required: true,
-              class: 'fr-input white-bg'
-
-        - if @solicitation.errors.present?
-          .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
+          - if @solicitation.errors.present?
+            .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
 
       .submit-buttons
         = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
