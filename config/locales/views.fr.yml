@@ -1187,6 +1187,7 @@ fr:
       emails: Réceptionner les emails
       explanation_emails: Je glisse l'email de Place des Entreprises dans ma boîte de réception. Les prochains emails @beta.gouv.fr arriveront ainsi directement dans ma boite de réception !
       need_steps: Les 4 étapes de la prise en charge d’un besoin
+      pde_tutorial_transcription: Transcription textuelle de la vidéo tutorielle de Place des Entreprises.
       question_emails: Je ne reçois pas les mails de Place des entreprises, que faire ?
       read_transcription: Lire la transcription
       step_1: Je me positionne sur le besoin de l’entreprise adressé sur mon champ de compétences, en cliquant sur le bouton de prise en charge ou de refus.
