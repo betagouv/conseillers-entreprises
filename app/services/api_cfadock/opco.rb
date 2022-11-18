@@ -27,8 +27,8 @@ module ApiCfadock
 
     def initialize(siret)
       @siret = siret
-      @http_response = HTTP.get(url)
       begin
+        @http_response = HTTP.get(url)
         @data = @http_response.parse(:json)
       rescue StandardError => e
         @error = e
