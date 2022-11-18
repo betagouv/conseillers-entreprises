@@ -7,11 +7,29 @@
     .fr-col-12.fr-col-lg-10
       .fr-content-media
         .fr-responsive-vid
-          %iframe.fr-responsive-vid__player{ :allow => "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture", :allowfullscreen => "", :src => "https://tube.nocturlab.fr/videos/embed/9287324a-fe16-4f34-93ce-3780d88fce63", :title => "vidéo de présentation du service" }
+          %iframe.fr-responsive-vid__player{ allow: "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture", allowfullscreen: "", src: "https://tube.nocturlab.fr/videos/embed/9287324a-fe16-4f34-93ce-3780d88fce63", title: t('.video_title') }
     .fr-col-12
       %p.bold= t('.available_on_html',
         youtube_link: link_to(t('.youtube'), 'https://youtu.be/0RR4Z4gwljc', title: "#{t('.youtube_video_title')}"),
         dailymotion_link: link_to(t('.dailymotion'), 'https://dai.ly/x8bu8ye', title: "#{t('.dailymotion_video_title')}"))
+      .fr-transcription
+        %button.fr-transcription__btn{ 'aria-controls': 'fr-transcription-collapse-pde-tutorial', 'aria-expanded': 'false' }= t('.read_transcription')
+        .fr-collapse#fr-transcription-collapse-pde-tutorial
+          %dialog.fr-modal#fr-transcription-modal-pde-tutorial{ role: 'dialog' }
+            .fr-container.fr-container--fluid.fr-container-md
+              .fr-grid-row.fr-grid-row--center
+                .fr-col-12.fr-col-md-10.fr-col-lg-8
+                  .fr-modal__body
+                    .fr-modal__header
+                      %button.fr-btn--close.fr-btn{ 'aria-controls': 'fr-transcription-modal-pde-tutorial', title: t('pages.navbar.close') }
+                        = t('pages.navbar.close')
+                    .fr-modal__content
+                      = render 'transcription_pde_tutorial'
+                    .fr-transcription__footer
+                      .fr-transcription__actions-group
+                        %button.fr-btn.fr-btn--fullscreen{ 'aria-controls': 'fr-transcription-modal-pde-tutorial', 'data-fr-opened': 'false', title: t('.pde_testimonial_transcription') }
+                          = t('pages.navbar.extend')
+
   .fr-grid-row
     .fr-col-12
       %h2.fr-mb-4w= t('.need_steps')

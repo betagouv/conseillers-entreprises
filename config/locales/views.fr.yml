@@ -1188,11 +1188,13 @@ fr:
       explanation_emails: Je glisse l'email de Place des Entreprises dans ma boîte de réception. Les prochains emails @beta.gouv.fr arriveront ainsi directement dans ma boite de réception !
       need_steps: Les 4 étapes de la prise en charge d’un besoin
       question_emails: Je ne reçois pas les mails de Place des entreprises, que faire ?
+      read_transcription: Lire la transcription
       step_1: Je me positionne sur le besoin de l’entreprise adressé sur mon champ de compétences, en cliquant sur le bouton de prise en charge ou de refus.
       step_2: Lorsque j’ai cliqué sur le bouton vert de prise en charge, j’appelle le chef d’entreprise pour préciser avec lui sa problématique et identifier l’aide ou l’accompagnement que ma structure peut lui proposer.
       step_3: Après l’appel, je clôture mon intervention en fonction de la réponse apportée ou de l’impossibilité de joindre le chef d’entreprise (n’oubliez pas de laisser vos coordonnées sur le répondeur ou par mail).
       step_4: Je laisse un commentaire pour les autres experts notifiés afin qu’ils puissent intervenir de manière complémentaire et pertinente par rapport à mon action.
       title: Tutoriel
+      video_title: Vidéo de d'explication du fonctionnement de Place des Entreprises
       youtube: Youtube
       youtube_video_title: Lien vers la video tutoriel sur Youtube - ouvre une nouvelle fenêtre
   users:
