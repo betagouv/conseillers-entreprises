@@ -13,10 +13,7 @@ describe 'needs', type: :feature, js: true do
       visit '/besoins/boite_de_reception'
     end
 
-    it do
-      is_expected.to be_accessible
-      is_expected.to have_skiplinks_ids
-    end
+    it { is_expected.to be_accessible }
   end
 
   describe '/besoins/:need' do
@@ -25,37 +22,25 @@ describe 'needs', type: :feature, js: true do
     context 'match quo' do
       let(:a_match) { create :match, expert: current_user.experts.first, status: :quo }
 
-      it do
-        is_expected.to be_accessible
-        is_expected.to have_skiplinks_ids
-      end
+      it { is_expected.to be_accessible }
     end
 
     context 'match taking_care' do
       let(:a_match) { create :match, expert: current_user.experts.first, status: :taking_care }
 
-      it do
-        is_expected.to be_accessible
-        is_expected.to have_skiplinks_ids
-      end
+      it { is_expected.to be_accessible }
     end
 
     context 'match done' do
       let(:a_match) { create :match, expert: current_user.experts.first, status: :done }
 
-      it do
-        is_expected.to be_accessible
-        is_expected.to have_skiplinks_ids
-      end
+      it { is_expected.to be_accessible }
     end
 
     context 'match not_for_me' do
       let(:a_match) { create :match, expert: current_user.experts.first, status: :not_for_me }
 
-      it do
-        is_expected.to be_accessible
-        is_expected.to have_skiplinks_ids
-      end
+      it { is_expected.to be_accessible }
     end
   end
 
@@ -72,10 +57,7 @@ describe 'needs', type: :feature, js: true do
 
     before { visit "/contacts/#{visitee.id}/historique-des-besoins" }
 
-    it do
-      is_expected.to be_accessible
-      is_expected.to have_skiplinks_ids
-    end
+    it { is_expected.to be_accessible }
   end
 
   describe '/besoins/:id' do
@@ -99,10 +81,7 @@ describe 'needs', type: :feature, js: true do
         visit "/besoins/#{need.id}"
       end
 
-      it do
-        is_expected.to be_accessible
-        is_expected.to have_skiplinks_ids
-      end
+      it { is_expected.to be_accessible }
     end
 
     describe 'with status_taking_care need' do
@@ -111,10 +90,7 @@ describe 'needs', type: :feature, js: true do
         visit "/besoins/#{need.id}"
       end
 
-      it do
-        is_expected.to be_accessible
-        is_expected.to have_skiplinks_ids
-      end
+      it { is_expected.to be_accessible }
     end
 
     describe 'with status_not_for_me need' do
@@ -123,10 +99,7 @@ describe 'needs', type: :feature, js: true do
         visit "/besoins/#{need.id}"
       end
 
-      it do
-        is_expected.to be_accessible
-        is_expected.to have_skiplinks_ids
-      end
+      it { is_expected.to be_accessible }
     end
   end
 end

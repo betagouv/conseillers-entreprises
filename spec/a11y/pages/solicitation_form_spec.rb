@@ -33,7 +33,6 @@ describe 'solicitation_form', type: :feature, js: true do
       # First step
       visit "/aide-entreprise/#{landing.slug}/demande/#{landing_subject.slug}"
       is_expected.to be_accessible
-      is_expected.to have_skiplinks_ids
       fill_in 'Prénom et nom', with: 'Mariane'
       fill_in 'E-mail', with: 'user@example.com'
       fill_in 'Téléphone', with: '0123456789'
@@ -41,21 +40,17 @@ describe 'solicitation_form', type: :feature, js: true do
       # Second step
       ## Search company
       is_expected.to be_accessible
-      is_expected.to have_skiplinks_ids
       fill_in 'Recherchez votre entreprise (SIRET, SIREN, nom...)', with: query
       click_button 'Suivant'
       # ## Search Facility
       is_expected.to be_accessible
-      is_expected.to have_skiplinks_ids
       click_button "#{query} - Octo Technology"
       # Third step
       is_expected.to be_accessible
-      is_expected.to have_skiplinks_ids
       fill_in 'Description', with: 'Ceci n\'est pas un test'
       click_button 'Envoyer ma demande'
       # Thank's step
       is_expected.to be_accessible
-      is_expected.to have_skiplinks_ids
     end
   end
 end
