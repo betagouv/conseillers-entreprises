@@ -57,6 +57,11 @@
           stacking: 'percent'
         }
       },
+      legend: {
+        itemHiddenStyle: {
+          color: '#565656'
+        }
+      },
       series: series
     });
   }
