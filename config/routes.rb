@@ -83,6 +83,9 @@ Rails.application.routes.draw do
         get :download
       end
     end
+    controller :sitemap do
+      get :sitemap
+    end
   end
 
   namespace 'manager' do

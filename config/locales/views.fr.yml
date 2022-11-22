@@ -227,6 +227,10 @@ fr:
         title: Exports csv
       menu:
         csv_exports: Exports csv
+    sitemap:
+      sitemap:
+        general: Générale
+        title: Plan du site
     solicitations:
       ban_facility:
         marked_as_banned: Email et entreprise ont été exclus
