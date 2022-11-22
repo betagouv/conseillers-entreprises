@@ -3,7 +3,8 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'webmock/rspec'
 require "pundit/rspec"
-require 'axe/rspec'
+require 'axe-rspec'
+require 'axe-capybara'
 require 'active_support/testing/time_helpers'
 require 'capybara/rspec'
 require 'matchers/matcher_skiplinks_ids_spec'

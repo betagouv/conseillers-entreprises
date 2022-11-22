@@ -11,8 +11,8 @@
         %li= facility.naf_libelle
       %li= t('companies.company.inscrit_rcs_yes_no', response: facility.company.inscrit_rcs ? t('yes') : t('no'))
       %li= t('companies.company.inscrit_rm_yes_no', response: facility.company.inscrit_rm ? t('yes') : t('no'))
-      %li= link_to t('.more_informations'), company_path(facility.id), class: 'bold blue', data: { turbolinks: false }
+      %li= link_to t('.more_informations'), company_path(facility.id), class: 'bold fr-link', data: { turbolinks: false }
       - if defined?(facility_needs) && facility_needs.present? && policy(facility).show_needs_history? && facility_needs.any?
-        %li= link_to t('.needs_historic'), needs_company_path(facility), class: 'bold blue'
+        %li= link_to t('.needs_historic'), needs_company_path(facility), class: 'bold fr-link'
     - if defined?(contact_needs) && contact_needs.present? && policy(need.diagnosis.visitee).show_needs_history? && contact_needs.any? && facility_needs.blank?
-      %li= link_to t('.needs_historic'), needs_historic_contact_path(need.diagnosis.visitee), class: 'bold blue'
+      %li= link_to t('.needs_historic'), needs_historic_contact_path(need.diagnosis.visitee), class: 'bold fr-link'

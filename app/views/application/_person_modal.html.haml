@@ -1,0 +1,30 @@
+:ruby
+  type = person.model_name.element
+
+%dialog.fr-modal{ id: "modal-#{type}-#{person.id}", 'aria-labelledby': "modal-#{type}-#{person.id}-title", role: 'dialog' }
+  .fr-container.fr-container--fluid.fr-container-md
+    .fr-grid-row.fr-grid-row--center
+      .fr-col-12.fr-col-md-8.fr-col-lg-6
+        .fr-modal__body
+          .fr-modal__header
+            %button.fr-btn--close.fr-btn{ 'aria-controls': "modal-#{type}-#{person.id}", title: t('application.navbar.close') }
+              = t('application.navbar.close')
+          .fr-modal__content
+            %h1.fr-modal__title{ id: "modal-#{type}-#{person.id}-title" }
+              %span.fr-icon-arrow-right-line.fr-icon--lg{ 'aria-hidden': true }
+              = person.full_name
+            = person_block(person, name_outside: true)
+            - if defined?(managers_antenne)
+              %hr.fr-mt-3w
+              .block-infos
+                %ul.list-unstyled.fr-pl-1v
+                  - managers_antenne.managers.each do |manager|
+                    %li
+                      %span.picto.ri-nurse-fill{ 'aria-hidden': true }
+                      = t('.manager_name', name: manager.full_name)
+                    %li
+                      %span.picto.ri-mail-fill{ 'aria-hidden': true }
+                      = mail_to manager.email, manager.email, class: 'break-word'
+                    %li
+                      %span.picto.ri-phone-fill{ 'aria-hidden': true }
+                      = link_to(manager.phone_number, "tel:#{manager.phone_number}")

@@ -6,15 +6,15 @@
 .fr-highlight.fr-mb-6w
   %ul.list-unstyled.fr-p-0
     - @user.antenne.advisors.not_deleted.each do |advisor|
-      %li.fr-mb-1v
-        %span.fr-m-0.js-simple-tooltip{ 'data-simpletooltip-content-id': "tooltip-advisor-#{advisor.id}" }
-          - if advisor == @user
-            %span.ri-user-fill.blue{ title: t('users.thats_you'), 'aria-hidden': 'true' }
-          - else
-            %span.ri-user-fill{ 'aria-hidden': 'true' }
-          = advisor.full_name
-        .hidden{ id: "tooltip-advisor-#{advisor.id}" }
-          = person_block(advisor)
+      %li.fr-mb-1v.person-list-item
+        - if advisor == @user
+          %span.ri-user-fill.blue{ title: t('users.thats_you'), 'aria-hidden': 'true' }
+        - else
+          %span.ri-user-fill.fr-mr-1v{ 'aria-hidden': 'true' }
+        = advisor.full_name
+        %button.fr-btn.fr-icon-question-line.fr-btn--tertiary.fr-btn--sm.fr-ml-2v{ 'aria-controls': "modal-user-#{advisor.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
+
+        = render 'application/person_modal', person: advisor
 
 %h2.fr-h5= t('attributes.teams.other')
 .fr-highlight
