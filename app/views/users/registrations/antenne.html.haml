@@ -12,7 +12,7 @@
         - else
           %span.ri-user-fill.fr-mr-1v{ 'aria-hidden': 'true' }
         = advisor.full_name
-        %button.fr-btn.fr-icon-question-line.fr-btn--tertiary.fr-btn--sm.fr-ml-2v{ 'aria-controls': "modal-user-#{advisor.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
+        %button.fr-btn.fr-icon-question-line.fr-btn--tertiary-no-outline  .fr-btn--sm.fr-ml-2v{ 'aria-controls': "modal-user-#{advisor.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
 
         = render 'application/person_modal', person: advisor
 
