@@ -6,11 +6,15 @@
         = f.collection_select :territory, Territory.regions.order(:name), :id, :name, { selected: params[:territory],
           include_blank: t('all.feminine') }, class: "fr-select"
       .fr-input-group
-        = f.label :start_date, t('stats.stats_params.start_date'), class: 'fr-label'
+        = f.label :start_date, class: 'fr-label' do
+          = t('stats.stats_params.start_date')
+          %span.fr-hint-text= t('.datepicker_format')
         .fr-input-wrap
           = f.date_field :start_date, { value: stats.params.start_date, class: 'fr-input' }
       .fr-input-group
-        = f.label :end_date, t('stats.stats_params.end_date'), class: 'fr-label'
+        = f.label :end_date, class: 'fr-label' do
+          = t('stats.stats_params.end_date')
+          %span.fr-hint-text= t('.datepicker_format')
         .fr-input-wrap
           = f.date_field :end_date, { value: stats.params.end_date, class: 'fr-input' }
       .fr-input-group
