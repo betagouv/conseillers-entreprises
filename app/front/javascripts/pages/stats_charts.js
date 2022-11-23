@@ -40,7 +40,9 @@
         },
         column: {
           stacking: 'normal'
-        }
+        },
+        itemMarginTop: 5,
+        itemMarginBottom: 5
       },
       tooltip: {
         pointFormat: format

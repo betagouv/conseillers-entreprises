@@ -55,7 +55,9 @@
       plotOptions: {
         column: {
           stacking: 'percent'
-        }
+        },
+        itemMarginTop: 5,
+        itemMarginBottom: 5
       },
       legend: {
         itemHiddenStyle: {
