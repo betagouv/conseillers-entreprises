@@ -36,10 +36,9 @@
               %h2.fr-text--lg.fr-mb-1w.blue= t('.transmitted_by')
               %div
                 - if @need.advisor.present?
-                  %button.fr-link{ 'aria-controls': "modal-user-#{@need.advisor.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
-                    = @need.advisor.full_name
+                  = @need.advisor.full_name
+                  %button.fr-icon-information-line.fr-btn--tertiary-no-outline{ 'aria-controls': "modal-user-#{@need.advisor.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
                   = render 'application/person_modal', person: @need.advisor
-
                 - else
                   = t('.blank_advisor')
 
