@@ -2,8 +2,8 @@
   %nav.fr-container{ 'aria-label': t('.fast_access'), role: 'navigation' }
     %ul.fr-skiplinks__list
       %li
-        = link_to t('.content'), '#content', class: 'fr-link'
+        = link_to t('.content'), '#content', class: 'fr-link', data: { turbolinks: false }
       %li
-        = link_to t('.menu'), '#header-navigation', class: 'fr-link'
+        = link_to t('.menu'), '#header-navigation', class: 'fr-link', data: { turbolinks: false }
       %li
-        = link_to t('.footer'), '#footer', class: 'fr-link'
+        = link_to t('.footer'), '#footer', class: 'fr-link', data: { turbolinks: false }

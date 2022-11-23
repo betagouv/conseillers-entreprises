@@ -10,9 +10,6 @@ describe 'pages', type: :feature, js: true do
   describe '/tutoriels' do
     before { visit '/tutoriels' }
 
-    it do
-      is_expected.to be_accessible
-      is_expected.to have_skiplinks_ids
-    end
+    it { is_expected.to be_accessible }
   end
 end

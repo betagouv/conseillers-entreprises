@@ -56,7 +56,10 @@
         max: max_value
       },
       legend: {
-        enabled: true
+        enabled: true,
+        itemHiddenStyle: {
+          color: '#565656'
+        }
       },
       series: series
     })

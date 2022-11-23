@@ -11,10 +11,7 @@ describe 'landings', type: :feature, js: true do
   describe '/' do
     before { visit '/' }
 
-    it do
-      is_expected.to be_accessible
-      is_expected.to have_skiplinks_ids
-    end
+    it { is_expected.to be_accessible }
   end
 
   describe '/aide-entreprise/:landing_slug' do
@@ -22,7 +19,6 @@ describe 'landings', type: :feature, js: true do
 
     it do
       is_expected.to be_accessible
-      is_expected.to have_skiplinks_ids
     end
   end
 
@@ -31,7 +27,6 @@ describe 'landings', type: :feature, js: true do
 
     it do
       is_expected.to be_accessible
-      is_expected.to have_skiplinks_ids
     end
   end
 end
