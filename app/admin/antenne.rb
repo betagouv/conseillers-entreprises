@@ -82,7 +82,13 @@ ActiveAdmin.register Antenne do
         div admin_link_to(a, :communes)
         div intervention_zone_description(a)
       end
-      row(:territorial_level)
+      row(:territorial_level) do |a|
+        div a.territorial_level
+        if a.regional?
+          span I18n.t('active_admin.antennes.territorial_antennes')
+          a.territorial_antennes
+        end
+      end
       row(:community) do |a|
         div admin_link_to(a, :advisors)
         div admin_link_to(a, :experts)
