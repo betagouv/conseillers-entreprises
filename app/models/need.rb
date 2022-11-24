@@ -130,14 +130,9 @@ class Need < ApplicationRecord
       diagnosis_completed
         .archived(false)
         .in_reminders_range(action)
-        .reminding_may_help
+        .status_quo
         .without_action(action)
     end
-  end
-
-  scope :reminding_may_help, -> do
-    where(status: %i[quo done_no_help done_not_reachable])
-      .with_some_matches_in_status(:quo)
   end
 
   scope :without_action, -> (category) do
