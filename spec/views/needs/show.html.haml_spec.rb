@@ -11,6 +11,7 @@ RSpec.describe 'needs/show' do
   let(:assignments) do
     enable_pundit(view, current_user)
     assign(:need, need)
+    assign(:facility, need.facility)
     assign(:matches, matches)
     render
   end
