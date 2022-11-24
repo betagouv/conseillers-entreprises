@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Annuaire::SearchController, type: :controller do
+RSpec.describe Annuaire::SearchController do
   login_admin
 
   describe 'POST #search' do

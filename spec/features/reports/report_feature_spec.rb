@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'reports', type: :feature do
+describe 'reports' do
   describe 'index' do
     login_user
     let!(:antenne1) { create :antenne, name: "Antenne A", managers: [current_user] }

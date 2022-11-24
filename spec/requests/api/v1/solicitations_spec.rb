@@ -1,7 +1,7 @@
 require "rails_helper"
 require 'swagger_helper'
 
-RSpec.describe "Solicitations API", type: :request do
+RSpec.describe "Solicitations API" do
   let(:institution) { create(:institution, name: 'Institution Partenaire') }
   let(:Authorization) { "Bearer token=#{find_token(institution)}" }
   let(:landing_01) { create_base_landing(institution) }

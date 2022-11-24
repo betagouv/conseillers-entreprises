@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'the signin process', type: :feature do
+describe 'the signin process' do
   let!(:user) { create :user, email: 'user@example.com', password: 'yX*4Ubo_xPW!u' }
 
   before do

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'send generic emails', type: :feature do
+describe 'send generic emails' do
   let!(:solicitation) { create :solicitation, full_name: "Top Entreprise" }
 
   login_admin

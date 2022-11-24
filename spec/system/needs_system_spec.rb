@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'system_helper'
 
-describe 'needs', type: :system do
+describe 'needs' do
   let(:user) { create :user }
   let!(:current_expert) { create :expert, users: [user] }
   let(:other_expert) { create :expert }

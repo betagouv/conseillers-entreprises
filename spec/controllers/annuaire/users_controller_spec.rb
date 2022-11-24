@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Annuaire::UsersController, type: :controller do
+RSpec.describe Annuaire::UsersController do
   login_admin
 
   describe 'GET #index' do

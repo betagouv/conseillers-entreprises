@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Institution, type: :model do
+RSpec.describe Institution do
   it do
     is_expected.to have_many :experts
     is_expected.to validate_presence_of :name

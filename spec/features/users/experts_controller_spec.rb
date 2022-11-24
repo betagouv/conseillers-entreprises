@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'experts', type: :feature do
+describe 'experts' do
   describe 'expert update' do
     let(:other_user) { create :user }
     let(:team) { create :expert, users: [other_user, current_user] }

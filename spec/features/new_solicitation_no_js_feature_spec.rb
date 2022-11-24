@@ -5,7 +5,7 @@ require 'api_helper'
 
 # Tests SANS js =========================================
 
-describe 'New Solicitation', type: :feature do
+describe 'New Solicitation' do
   let(:pde_subject) { create :subject }
   let!(:landing) { create :landing, slug: 'accueil', title: 'Test Landing' }
   let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }

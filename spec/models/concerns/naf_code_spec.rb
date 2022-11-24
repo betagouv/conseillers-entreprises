@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe NafCode, type: :model do
+RSpec.describe NafCode do
   describe 'naf_libelle' do
     subject { described_class::naf_libelle(naf_code, level) }
 

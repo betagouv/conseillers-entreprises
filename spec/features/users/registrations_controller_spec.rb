@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'registrations', type: :feature do
+describe 'registrations' do
   describe 'profile update' do
     login_user
 

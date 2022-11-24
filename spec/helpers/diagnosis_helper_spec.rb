@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe DiagnosisHelper, type: :helper do
+describe DiagnosisHelper do
   describe 'html_classes_for_step' do
     subject { helper.html_classes_for_step(displayed_step, current_page_step, diagnosis_step) }
 

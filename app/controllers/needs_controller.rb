@@ -111,7 +111,7 @@ class NeedsController < ApplicationController
     @need.archive!
     flash[:notice] = t('.subjet_achived')
     redirect_back fallback_location: diagnosis_path(@need.diagnosis),
-                  notice: t('needs.archive.archive_done', company: @need.company.name)
+                  notice: t('.archive_done', company: @need.company.name)
   end
 
   def unarchive

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'stats/public/index', type: :view do
+RSpec.describe 'stats/public/index' do
   describe "index" do
     let(:need00) { create :need }
     let(:need01) { create :need_with_matches }

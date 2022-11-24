@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Territory, type: :model do
+RSpec.describe Territory do
   describe 'validations' do
     it do
       is_expected.to have_and_belong_to_many :communes

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'admin panel', type: :feature do
+describe 'admin panel' do
   login_user
 
   describe 'user access to panel' do

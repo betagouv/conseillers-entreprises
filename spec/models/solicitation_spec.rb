@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Solicitation, type: :model do
+RSpec.describe Solicitation do
   describe 'associations' do
     it { is_expected.to have_one :diagnosis }
   end

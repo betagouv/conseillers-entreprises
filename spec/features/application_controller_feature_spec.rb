@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'ApplicationController specific features', type: :feature do
+describe 'ApplicationController specific features' do
   describe 'authenticate_admin!' do
     login_user
 

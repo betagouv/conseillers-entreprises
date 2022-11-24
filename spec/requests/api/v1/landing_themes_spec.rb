@@ -1,7 +1,7 @@
 require "rails_helper"
 require 'swagger_helper'
 
-RSpec.describe "Landing Themes API", type: :request do
+RSpec.describe "Landing Themes API" do
   let(:institution) { create(:institution) }
   let(:Authorization) { "Bearer token=#{find_token(institution)}" }
   let(:landing_01) { create_base_landing(institution) }

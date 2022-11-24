@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Landings::LandingsController, type: :controller do
+RSpec.describe Landings::LandingsController do
   describe 'GET #show' do
     before do
       create :landing, slug: 'accueil'

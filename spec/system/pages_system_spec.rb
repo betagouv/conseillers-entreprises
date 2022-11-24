@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'system_helper'
 
-describe 'Pages', type: :system do
+describe 'Pages' do
   before do
     create_home_landing
     # todo : tester empahsis + page contactez-nous ?

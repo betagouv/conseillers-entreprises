@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ExpertSubject, type: :model do
+RSpec.describe ExpertSubject do
   describe 'validations' do
     it do
       is_expected.to belong_to :expert

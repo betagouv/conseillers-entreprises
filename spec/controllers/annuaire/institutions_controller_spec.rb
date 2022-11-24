@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Annuaire::InstitutionsController, type: :controller do
+RSpec.describe Annuaire::InstitutionsController do
   login_admin
 
   describe 'GET #index' do

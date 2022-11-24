@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Antenne, type: :model do
+RSpec.describe Antenne do
   describe 'relations' do
     describe 'expert' do
       let(:active_expert) { create :expert }

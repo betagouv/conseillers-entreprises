@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'reminders experts', type: :feature do
+describe 'reminders experts' do
   describe 'show expert reminder' do
     let!(:expert_critical_rate_01) { create :expert }
     let!(:expert_critical_rate_02) { create :expert }
@@ -40,7 +40,7 @@ describe 'reminders experts', type: :feature do
 
     login_admin
 
-    it 'works' do
+    it 'displays experts' do
       visit reminders_path
       expect(page.html).to include 'Relances'
       expect(page.html).to include 'Par expert'

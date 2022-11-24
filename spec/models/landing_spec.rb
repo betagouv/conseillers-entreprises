@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Landing, type: :model do
+RSpec.describe Landing do
   describe 'validations' do
     it do
       is_expected.to have_many(:landing_themes)

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Commune, type: :model do
+RSpec.describe Commune do
   describe 'city code uniqueness' do
     subject { build :commune, insee_code: insee_code }
 

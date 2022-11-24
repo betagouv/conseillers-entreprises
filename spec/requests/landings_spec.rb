@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Landings", type: :request do
+RSpec.describe "Landings" do
   describe "redirections" do
     context "locales landings" do
       context "home landing" do

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Facility, type: :model do
+RSpec.describe Facility do
   describe 'associations' do
     it do
       is_expected.to belong_to :company

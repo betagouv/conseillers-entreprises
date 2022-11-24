@@ -664,6 +664,9 @@ Performance/UriDefaultParser:
 Rails/ActionFilter:
   Enabled: true
 
+Rails/ActionOrder:
+  Enabled: false
+
 Rails/ActiveRecordAliases:
   Enabled: true
 
@@ -817,9 +820,12 @@ RSpec/ContextWording:
 
 RSpec/DescribeClass:
   Exclude:
-    - spec/tasks/**/*
+    - spec/**/*
 
 RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/FactoryBot/ConsistentParenthesesStyle:
   Enabled: false
 
 RSpec/FilePath:
@@ -850,6 +856,9 @@ RSpec/VariableName:
     - ^Authorization
 
 RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/SortMetadata:
   Enabled: false
 
 Security/Eval:

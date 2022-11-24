@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'api_helper'
 
-RSpec.describe BadgesController, type: :controller do
+RSpec.describe BadgesController do
   login_admin
 
   describe 'GET #solicitations' do
