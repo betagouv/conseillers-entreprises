@@ -1,18 +1,6 @@
 class SolicitationMailerPreview < ActionMailer::Preview
-  def bad_quality_difficulties
-    SolicitationMailer.bad_quality_difficulties(random_solicitation)
-  end
-
   def bad_quality
     SolicitationMailer.bad_quality(random_solicitation)
-  end
-
-  def out_of_region
-    SolicitationMailer.out_of_region(random_solicitation)
-  end
-
-  def employee_labor_law
-    SolicitationMailer.employee_labor_law(random_solicitation)
   end
 
   def particular_retirement

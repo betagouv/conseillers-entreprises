@@ -598,24 +598,11 @@ fr:
         the_problem: Quelle est votre problématique ?
         upon_receipt: Dès la réception de ces éléments de contexte, nous transmettons votre demande au(x) conseiller(s) compétent(s) sur votre territoire pour vous aider, parmi plus de 40 partenaires publics et parapublics.
         you_activity: Quelle est votre activité ?
-      bad_quality_difficulties:
-        amount: le montant de votre besoin de trésorerie
-        bank_demand: si vous avez demandé un prêt garanti par l’État à votre banque (important)
-        for_better_taking_care: 'Pour la bonne prise en charge de votre demande, nous avons besoin de contexte. Merci d''indiquer :'
-        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) pour <b>%{subject_label}</b>.
-        origin: l’origine des problèmes selon vous
-        tax_contribution: si vous souhaitez étaler vos cotisations sociales et/ou une dette fiscale
-        upon_receipt: Dès réception de ces éléments de contexte, nous transmettons votre demande aux conseillers compétents pour vous aider sur votre territoire. Ces conseillers vous rappelleront directement.
       creation:
         cci_initiative_html: 'Nous vous invitons également à contacter les conseillers de la <b>Chambre de Commerce et d’Industrie</b> et du <b>réseau Initiative</b> proches de chez vous. Des conseillers en création peuvent vous accompagner pour financer et lancer votre projet d’entreprise :'
         funding_resources: 'Vous retrouverez toutes les sources de financement possibles pour votre projet sur le site de Bpifrance ou de la Banque de France :'
         no_creation: Ce service public ne s’adresse actuellement qu’aux entreprises déjà existantes.
         solicitation_subject: pour votre entreprise en création ou tout juste lancée
-      employee_labor_law:
-        contact_dreets_html: En tant que salarié(e), nous vous invitons à contacter le service de renseignement en droit du travail de la <a href='https://dreets.gouv.fr/'>Direction régionale de l’économie, de l’emploi, du travail et des solidarités</a> (DREETS).
-        dreets_phone_number_html: Vous pouvez composer le <b>0806 000 126</b> [prix d’un appel local - pas de surcoût] du lundi au vendredi, de 8h45 à 11h30 et de 13h45 à 16h30.
-        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant le <b>droit du travail</b>. Il s'agit cependant d'un service public destiné aux chefs d'entreprises. Nous ne sommes donc pas en mesure de vous apporter une réponse.
-        other_informations: 'Vous trouverez également des informations en droit du travail sur :'
       footer:
         linkedin:
           link_html: Linkedin - %{link}
@@ -639,15 +626,6 @@ fr:
         no_new_element: En l’absence d’élément nouveau, nous ne pouvons réaliser de nouvelle mise en relation vers ce dernier.
         quality_monitoring: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller.
         taking_care_by_experts: Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.
-      out_of_region:
-        banque_de_france_html: 'Les conseillers TPE-PME de la Banque de France peuvent également vous orienter vers la bonne personne en fonction de votre demande : <a href=''https://entreprises.banque-france.fr''>https://entreprises.banque-france.fr</a>'
-        calendar_html: 'Comme indiqué sur le site, le déploiement national se poursuit à grande vitesse ! Le calendrier est en ligne : %{link_to_calendar}.'
-        cci_html: 'CCI : <a href=''https://www.cci.fr/web/organisation-du-reseau/annuaire''>https://www.cci.fr</a>'
-        cma_html: 'CMA : <a href=''https://www.artisanat.fr/reseau-des-cma/un-reseau-de-proximite/annuaire-des-cma''>https://www.artisanat.fr</a>'
-        contact_cma_cci: 'En attendant, n’hésitez pas à contacter les conseillers de la Chambre de Commerce et d’Industrie ou de la Chambre des Métiers et de l’Artisanat proches de chez vous. Voici leurs coordonnées :'
-        intro_html: Vous avez déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service). Cependant <b>le service n'est pas encore disponible dans votre région</b>.
-        newsletter: la newsletter
-        nl_subscription_html: Pour être informé de l’ouverture du service public Place des Entreprises dans votre région, inscrivez-vous à %{link}.
       particular_retirement:
         for_companies: Il s’agit néanmoins d’un service public destiné aux chefs d’entreprises.
         no_responses: Nous ne sommes donc pas en mesure malheureusement de vous apporter une réponse.
@@ -979,13 +957,10 @@ fr:
     solicitation_actions:
       emails:
         bad_quality: Mauvaise qualité générique
-        bad_quality_difficulties: Mauvaise qualité difficultés
         creation: Création
-        employee_labor_law: Salarié Droit du travail
         independent_tva: SIE - TVA et autres
         intermediary: Intermédiaire
         moderation: Modération
-        out_of_region: Hors région
         particular_retirement: Retraite
         recruitment_foreign_worker: Travailleur étranger
         siret: SIRET
