@@ -6,7 +6,7 @@ ActiveAdmin.register Antenne do
   controller do
     include SoftDeletable::ActiveAdminResourceController
     def scoped_collection
-      # Note: Don’t `includes` lots of related tables, as this causes massive leaks in ActiveAdmin.
+      # NOTE: Don’t `includes` lots of related tables, as this causes massive leaks in ActiveAdmin.
       # Preferring N+1 queries fasten x2 index display
       super.includes :institution, :advisors, :experts
     end

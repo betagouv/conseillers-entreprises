@@ -227,9 +227,9 @@ RSpec.describe Solicitation do
     let!(:solicitation_without_diagnosis) { create :solicitation, siret: 'wrong siret', code_region: nil }
     let!(:solicitation_with_diagnosis_no_region) { create :solicitation, :with_diagnosis, siret: 'wrong siret', code_region: nil }
 
-    before {
+    before do
       territory1.communes = [solicitation1.diagnosis.facility.commune]
-    }
+    end
 
     subject { described_class.by_possible_region(possible_region) }
 
@@ -257,62 +257,62 @@ RSpec.describe Solicitation do
     let(:siret) { '13000601800019' }
     let(:email) { 'hubertine@example.com' }
 
-    let!(:parent_siret_solicitation) {
+    let!(:parent_siret_solicitation) do
       create :solicitation,
              siret: siret,
              landing_subject: landing_subject,
              created_at: 2.weeks.ago,
              status: 'processed'
-    }
+    end
 
-    let!(:parent_email_solicitation) {
+    let!(:parent_email_solicitation) do
       create :solicitation,
              email: email,
              landing_subject: landing_subject,
              created_at: 2.weeks.ago,
              status: 'processed'
-    }
+    end
 
-    let!(:other_siret_solicitation) {
+    let!(:other_siret_solicitation) do
       create :solicitation,
              siret: '98765432100099',
              landing_subject: landing_subject,
              created_at: 2.weeks.ago,
              status: 'processed'
-    }
+    end
 
-    let!(:too_old_solicitation) {
+    let!(:too_old_solicitation) do
       create :solicitation,
              email: email,
              siret: siret,
              landing_subject: landing_subject,
              created_at: 6.weeks.ago,
              status: 'processed'
-    }
+    end
 
-    let!(:other_subject_solicitation) {
+    let!(:other_subject_solicitation) do
       create :solicitation,
              email: email,
              siret: siret,
              landing_subject: create(:landing_subject),
              created_at: 2.weeks.ago,
              status: 'processed'
-    }
+    end
 
-    let!(:no_match_solicitation) {
+    let!(:no_match_solicitation) do
       create :solicitation,
              email: email,
              siret: siret,
              landing_subject: landing_subject,
              created_at: 2.weeks.ago
-    }
+    end
 
-    let!(:child_solicitation) {
+    let!(:child_solicitation) do
       create :solicitation,
              siret: siret,
              email: email,
              landing_subject: landing_subject
-    }
+    end
 
     it 'displays only parent_solicitations' do
       expect(child_solicitation.recent_matched_solicitations).to match_array([parent_siret_solicitation, parent_email_solicitation])
@@ -323,33 +323,33 @@ RSpec.describe Solicitation do
     let(:siret) { '13000601800019' }
     let(:email) { 'hubertine@example.com' }
 
-    let!(:same_siret_solicitation) {
+    let!(:same_siret_solicitation) do
       create :solicitation,
              siret: siret
-    }
+    end
 
-    let!(:same_email_solicitation) {
+    let!(:same_email_solicitation) do
       create :solicitation,
              email: email
-    }
+    end
 
-    let!(:same_siret_with_matched_solicitation) {
+    let!(:same_siret_with_matched_solicitation) do
       create :solicitation,
              siret: siret,
              status: :processed,
              diagnosis: create(:diagnosis_completed)
-    }
+    end
 
-    let!(:other_siret_solicitation) {
+    let!(:other_siret_solicitation) do
       create :solicitation,
              siret: '98765432100099'
-    }
+    end
 
-    let!(:solicitation) {
+    let!(:solicitation) do
       create :solicitation,
              siret: siret,
              email: email
-    }
+    end
 
     it 'displays only doublon solicitations' do
       expect(solicitation.doublon_solicitations).to match_array([same_siret_solicitation, same_email_solicitation])

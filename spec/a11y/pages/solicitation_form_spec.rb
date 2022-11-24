@@ -10,10 +10,10 @@ describe 'solicitation_form', type: :feature, js: true do
     let(:pde_subject) { create :subject }
     let!(:landing) { create :landing, slug: 'accueil', title: 'Test Landing' }
     let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
-    let!(:landing_subject) {
+    let!(:landing_subject) do
       create :landing_subject, landing_theme: landing_theme, subject: pde_subject,
                                     title: "Super sujet", description: "Description LS", requires_siret: true
-    }
+    end
     let!(:additional_question_1) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_poste_cadre' }
     let!(:additional_question_2) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
     let(:siret) { '41816609600069' }

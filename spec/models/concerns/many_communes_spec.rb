@@ -53,10 +53,10 @@ RSpec.describe ManyCommunes do
       end
 
       context 'with previous values' do
-        before {
+        before do
           territory.communes = [create(:commune, insee_code: '10001'), create(:commune, insee_code: '10002')]
           territory.insee_codes = raw_codes
-        }
+        end
 
         let(:raw_codes) { '10002, 10003' }
 

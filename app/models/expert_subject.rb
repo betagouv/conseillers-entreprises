@@ -107,10 +107,10 @@ class ExpertSubject < ApplicationRecord
   end
 
   def csv_description=(value)
-    if value.downcase.in? ['x', I18n.t('yes')]
-      self.intervention_criteria = ''
+    self.intervention_criteria = if value.downcase.in? ['x', I18n.t('yes')]
+      ''
     else
-      self.intervention_criteria = value
+      value
     end
   end
 end

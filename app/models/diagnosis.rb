@@ -179,7 +179,7 @@ class Diagnosis < ApplicationRecord
   end
 
   def step_completed_has_matches
-    # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
+    # NOTE: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
     # On regarde qu'il n'y ait aucun besoin sans match
     if step_completed? && (needs.empty? || needs&.map(&:matches)&.any?{ |m| m.empty? })
       errors.add(:base, :cant_send_need_without_matches)

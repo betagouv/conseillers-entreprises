@@ -103,10 +103,10 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
 
         landing.solicitations_from_landing_slug.each do |sol|
           landing_option = sol.landing_option
-          if landing_option.present?
-            landing_subject = retrieve_landing_subject(landing_option) || landing_theme.landing_subjects.first
+          landing_subject = if landing_option.present?
+            retrieve_landing_subject(landing_option) || landing_theme.landing_subjects.first
           else
-            landing_subject = landing_theme.landing_subjects.first
+            landing_theme.landing_subjects.first
           end
 
           sol.update(

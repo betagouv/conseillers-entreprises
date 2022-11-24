@@ -11,7 +11,7 @@ module CreateDiagnosis
       [
         apply_institution_filters(expert_subjects),
         apply_match_filters(expert_subjects)
-      ].inject(:&)
+      ].reduce(:&)
     end
 
     def apply_institution_filters(expert_subjects)
@@ -65,7 +65,7 @@ module CreateDiagnosis
       if !match_filter.subject.nil? && need.subject == match_filter.subject
         base_filters << accepting_subject(match_filter)
       end
-      base_filters.inject(:&)
+      base_filters.reduce(:&)
     end
 
     # Ancienneté
@@ -74,7 +74,7 @@ module CreateDiagnosis
       [
         accepting_min_years_of_existence(match_filter),
         accepting_max_years_of_existence(match_filter)
-      ].inject(:&)
+      ].reduce(:&)
     end
 
     def accepting_min_years_of_existence(match_filter)
@@ -101,7 +101,7 @@ module CreateDiagnosis
       [
         accepting_effectif_min(match_filter),
         accepting_effectif_max(match_filter)
-      ].inject(:&)
+      ].reduce(:&)
     end
 
     def accepting_effectif_min(match_filter)

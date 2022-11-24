@@ -14,14 +14,14 @@ RSpec.describe Feedback do
     let(:expert_no_help) { create :expert }
     let(:expert_done) { create :expert }
     let(:expert_not_reachable) { create :expert, users: [user3] }
-    let!(:matches) {
+    let!(:matches) do
       [
         create(:match, expert: expert_taking_care, status: 'taking_care'),
         create(:match, expert: expert_no_help, status: 'done_no_help'),
         create(:match, expert: expert_not_reachable, status: 'done_not_reachable'),
         create(:match, expert: expert_done, status: 'done')
       ]
-    }
+    end
     let(:need) { create :need, advisor: advisor, matches: matches }
     let(:feedback) { create :feedback, :for_need, feedbackable: need, user: author }
 

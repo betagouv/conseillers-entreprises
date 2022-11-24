@@ -41,7 +41,7 @@ module ApiConsumption::Models
     end
 
     def naf_libelle
-      @naf_libelle ||= NafCode::naf_libelle(NafCode::level2_code(naf_code_complet), 'level2')
+      @naf_libelle ||= NafCode.naf_libelle(NafCode.level2_code(naf_code_complet), 'level2')
     end
 
     def readable_locality

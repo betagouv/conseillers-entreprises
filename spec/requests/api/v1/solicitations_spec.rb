@@ -12,7 +12,7 @@ RSpec.describe "Solicitations API" do
   let(:siret) { 13002526500013 }
   let(:token) { '1234' }
   let(:api_entreprise_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
-  let(:base_solicitation) {
+  let(:base_solicitation) do
     {
       landing_id: landing_01.id,
       landing_subject_id: recrutement_subject.id,
@@ -27,7 +27,7 @@ RSpec.describe "Solicitations API" do
         { question_id: apprentissage_question.id, answer: false },
       ],
     }
-  }
+  end
 
   # Génération automatique des exemples dans la doc
   after do |example|

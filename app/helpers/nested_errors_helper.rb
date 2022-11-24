@@ -31,7 +31,6 @@ module NestedErrorsHelper
         nested_errors_messages(value, level + 1)
       when ActiveRecord::Relation
         value.map { |object| nested_errors_messages(object, level + 1) }
-      else nil
       end
     end
       .compact

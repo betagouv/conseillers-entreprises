@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe NafCode do
   describe 'naf_libelle' do
-    subject { described_class::naf_libelle(naf_code, level) }
+    subject { described_class.naf_libelle(naf_code, level) }
 
     context 'valid code no level' do
-      subject { described_class::naf_libelle(naf_code) }
+      subject { described_class.naf_libelle(naf_code) }
 
       let(:naf_code) { 'GI' }
 
@@ -28,7 +28,7 @@ RSpec.describe NafCode do
   end
 
   describe 'code_a10' do
-    subject { described_class::code_a10 naf_code }
+    subject { described_class.code_a10 naf_code }
 
     context 'valid code' do
       let(:naf_code) { '6202A' }

@@ -269,7 +269,8 @@ class User < ApplicationRecord
     end
   end
 
-  def email_required? # Override from Devise::Validatable
+  # Override from Devise::Validatable
+  def email_required?
     !deleted?
   end
 

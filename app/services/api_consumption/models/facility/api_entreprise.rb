@@ -24,7 +24,7 @@ module ApiConsumption::Models
     end
 
     def naf_code_a10
-      @naf_code_a10 ||= NafCode::code_a10(naf)
+      @naf_code_a10 ||= NafCode.code_a10(naf)
     end
 
     def naf_libelle

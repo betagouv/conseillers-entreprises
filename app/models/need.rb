@@ -261,7 +261,7 @@ class Need < ApplicationRecord
   end
 
   scope :in_antennes_perimeters, -> (antennes) do
-    Need.where(id: antennes.collect(&:perimeter_received_needs).flatten)
+    Need.where(id: antennes.map(&:perimeter_received_needs).flatten)
   end
 
   ## Search
@@ -344,28 +344,26 @@ class Need < ApplicationRecord
 
     # no matches yet
     if matches.empty? || !diagnosis.step_completed?
-      result = :diagnosis_not_complete
+      :diagnosis_not_complete
 
     # at least one match done:
     elsif matches_status.include?(:done)
-      result = :done
+      :done
     elsif matches_status.include?(:done_no_help)
-      result = :done_no_help
+      :done_no_help
     elsif matches_status.include?(:done_not_reachable)
-      result = :done_not_reachable
+      :done_not_reachable
 
     # at least one match not closed
     elsif matches_status.include?(:taking_care)
-      result = :taking_care
+      :taking_care
     elsif matches_status.include?(:quo)
-      result = :quo
+      :quo
 
     # all matches rejected
     else
-      result = :not_for_me
+      :not_for_me
     end
-
-    result
   end
 
   def touch_after_badges_update(_badge)

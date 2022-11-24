@@ -12,15 +12,15 @@ describe UnusedUsersService do
       # Utilisateur invité depuis moins de 7 mois, invitation non accepté ko
       let!(:user_2) { create :user, invitation_accepted_at: nil }
       # Utilisateur invité depuis plus de 7 mois, invitation accepté ko
-      let!(:user_3) {
+      let!(:user_3) do
         create :user, :invitation_accepted, created_at: seven_months_ago,
                invitation_sent_at: seven_months_ago
-      }
+      end
       # Utilisateur invité depuis plus de 7 mois, invitation non accepté ok
-      let!(:user_4) {
+      let!(:user_4) do
         create :user, invitation_accepted_at: nil, created_at: seven_months_ago,
                invitation_sent_at: seven_months_ago, encrypted_password: ''
-      }
+      end
       let!(:expert_4) { user_4.personal_skillsets.first }
 
       before { described_class.delete_users }
@@ -32,10 +32,10 @@ describe UnusedUsersService do
     end
 
     describe 'delete experts_subjects if needed' do
-      let!(:user_1) {
+      let!(:user_1) do
         create :user, invitation_accepted_at: nil, created_at: seven_months_ago,
                invitation_sent_at: seven_months_ago, encrypted_password: ''
-      }
+      end
       let!(:expert_1) { user_1.personal_skillsets.first }
       let!(:expert_subject) { create :expert_subject, expert: expert_1 }
 
@@ -49,10 +49,10 @@ describe UnusedUsersService do
     end
 
     describe 'don’t delete expert and users with matches' do
-      let!(:user_1) {
+      let!(:user_1) do
         create :user, invitation_accepted_at: nil, created_at: seven_months_ago,
                invitation_sent_at: seven_months_ago, encrypted_password: ''
-      }
+      end
       let!(:expert_1) { user_1.personal_skillsets.first }
       let!(:a_match) { create :match, expert: expert_1 }
 
@@ -68,10 +68,10 @@ describe UnusedUsersService do
     end
 
     describe 'Delete expert and users with pending matches' do
-      let!(:user_1) {
+      let!(:user_1) do
         create :user, invitation_accepted_at: nil, created_at: seven_months_ago,
                invitation_sent_at: seven_months_ago, encrypted_password: ''
-      }
+      end
       let!(:expert_1) { user_1.personal_skillsets.first }
       let!(:a_match) { create :match, expert: expert_1 }
 

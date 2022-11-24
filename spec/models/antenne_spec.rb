@@ -146,30 +146,30 @@ RSpec.describe Antenne do
     let(:expert_regional_antenne_i1) { create :expert_with_users, antenne: regional_antenne_i1 }
     let(:expert_local_antenne_i2) { create :expert_with_users, antenne: local_antenne_i2 }
 
-    let!(:need_regional_antenne_i1) {
+    let!(:need_regional_antenne_i1) do
       create :need,
              matches: [create(:match, expert: expert_regional_antenne_i1)],
              diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1))
-    }
-    let!(:need_local_antenne_i1) {
+    end
+    let!(:need_local_antenne_i1) do
       create :need,
              matches: [create(:match, expert: expert_local_antenne_i1)],
              diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1))
-    }
-    let!(:need_other_local_antenne_i1) {
+    end
+    let!(:need_other_local_antenne_i1) do
       create :need,
              matches: [create(:match, expert: expert_other_local_antenne_i1)],
              diagnosis: create(:diagnosis, facility: create(:facility, commune: commune2))
-    }
-    let!(:need_random_local_antenne_i1) {
+    end
+    let!(:need_random_local_antenne_i1) do
       create :need,
              matches: [create(:match, expert: create(:expert, antenne: random_local_antenne_i1))]
-    }
-    let!(:need_local_antenne_i2) {
+    end
+    let!(:need_local_antenne_i2) do
       create :need,
              matches: [create(:match, expert: expert_local_antenne_i2)],
              diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1))
-    }
+    end
 
     before do
       # Je sais pas pourquoi, mais changer le statut a la creation fonctionne pas pour le 2e need

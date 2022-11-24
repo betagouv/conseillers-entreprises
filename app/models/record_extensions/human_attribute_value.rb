@@ -49,10 +49,10 @@ module RecordExtensions
       # => {"in_progress"=>"réouverte", "processed"=>"clôturée", "canceled"=>"annulée"}
       def human_attribute_values(enum_name, options = {})
         mapping = self.send(enum_name.to_s.pluralize)
-        if options.delete(:raw_values)
-          enum_values = mapping.values
+        enum_values = if options.delete(:raw_values)
+          mapping.values
         else
-          enum_values = mapping.keys
+          mapping.keys
         end
         enum_values.index_with{ |value| human_attribute_value(enum_name, value, options.dup) }
       end

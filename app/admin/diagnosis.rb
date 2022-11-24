@@ -39,7 +39,7 @@ ActiveAdmin.register Diagnosis do
     end
   end
 
-  filter :step, as: :select, collection: Diagnosis::steps
+  filter :step, as: :select, collection: Diagnosis.steps
   filter :created_at
   filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :content

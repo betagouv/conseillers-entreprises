@@ -26,7 +26,7 @@ module ApiConsumption::Models
     end
 
     def naf_libelle
-      @naf_libelle ||= NafCode::naf_libelle(NafCode::level2_code(activite_principale), 'level2')
+      @naf_libelle ||= NafCode.naf_libelle(NafCode.level2_code(activite_principale), 'level2')
     end
   end
 end

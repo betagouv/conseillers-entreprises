@@ -11,10 +11,10 @@ module PositionningRate
     end
 
     def rate
-      if received_matches_count == 0 || received_quo_matches_count == 0
-        @member_rate ||= 0
+      @member_rate ||= if received_matches_count == 0 || received_quo_matches_count == 0
+        0
       else
-        @member_rate ||= (received_quo_matches_count.to_f / received_matches_count)
+        (received_quo_matches_count.to_f / received_matches_count)
       end
     end
 

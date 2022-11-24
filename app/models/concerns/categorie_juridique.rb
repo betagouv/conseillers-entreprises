@@ -4,7 +4,7 @@ module CategorieJuridique
   extend ActiveSupport::Concern
 
   def categorie_juridique
-    CategorieJuridique::description(self.legal_form_code)
+    CategorieJuridique.description(self.legal_form_code)
   end
 
   def self.description(legal_form_code, niveau = 1)
