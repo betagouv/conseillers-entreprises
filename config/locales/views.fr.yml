@@ -179,11 +179,6 @@ fr:
       region_implantation: Région d’implantation
       siret: SIRET
       tranche_effectif_salarie_etablissement: Tranche d’effectif de salariés de l’établissement
-    facility_infos:
-      company: Entreprise
-      more_informations: Plus d'informations
-      needs_historic: Historique des besoins
-      workforce: 'Tranche effectif : %{range}'
     mandataire:
       dirigeant: Est-ce un dirigeant ?
       fonction: Fonction
@@ -767,13 +762,17 @@ fr:
       all_needs: Toutes les demandes
       blank_advisor: "-"
       comments: Discussion entre experts
+      company: Entreprise
       diagnosis_not_completed: Analyse non terminée, vous ne pouvez pas accéder à la page du besoin.
+      more_informations: Plus d'informations
+      needs_historic: Historique des besoins
       no_comment: Aucun commentaire
       no_match: Aucun expert de notifié
       person_company_contact: Contact entreprise
       title: Visite de la société « %{company} »
       transmitted_by: Demande transmise par
       warning_comments: Attention ! Cette discussion n’est pas visible par l’entreprise.
+      workforce: 'Tranche effectif : %{range}'
     unarchive:
       subject_unarchived: Besoin désarchivé
   newsletters:

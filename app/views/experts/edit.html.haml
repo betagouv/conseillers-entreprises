@@ -48,8 +48,8 @@
               %span.blue.ri-user-fill{ title: t('users.thats_you'), 'aria-hidden': 'true' }
             - else
               %span.ri-user-fill{ 'aria-hidden': 'true' }
-            = member.full_name
-            %button.fr-btn.fr-icon-information-line.fr-btn--tertiary-no-outline.fr-btn--sm{ 'aria-controls': "modal-user-#{member.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
+            %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag{ 'aria-controls': "modal-user-#{member.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
+              = member.full_name
 
             = render 'application/person_modal', person: member
 
