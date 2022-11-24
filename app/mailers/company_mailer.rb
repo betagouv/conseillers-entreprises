@@ -15,10 +15,13 @@ class CompanyMailer < ApplicationMailer
   def notify_taking_care(match)
     @match = match
     @diagnosis = match.diagnosis
-    mail(
-      to: @diagnosis.visitee.email_with_display_name,
-      subject: t('mailers.company_mailer.notify_taking_care.subject')
-    )
+    # Cas des vieilles données effacées
+    if @diagnosis.visitee.email.present?
+      mail(
+        to: @diagnosis.visitee.email_with_display_name,
+        subject: t('mailers.company_mailer.notify_taking_care.subject')
+      )
+    end
   end
 
   def notify_not_reachable(match)
