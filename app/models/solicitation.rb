@@ -73,6 +73,8 @@ class Solicitation < ApplicationRecord
 
   paginates_per 50
 
+  GENERIC_EMAILS_TYPES = %i[bad_quality particular_retirement creation siret moderation independent_tva intermediary recruitment_foreign_worker no_expert carsat tns_training]
+
   ## Status
   #
 
@@ -378,8 +380,6 @@ class Solicitation < ApplicationRecord
   }
 
   scope :banned, -> { where(banned: true) }
-
-  GENERIC_EMAILS_TYPES = %i[bad_quality particular_retirement creation siret moderation independent_tva intermediary recruitment_foreign_worker]
 
   def doublon_solicitations
     Solicitation.where(status: [:in_progress])

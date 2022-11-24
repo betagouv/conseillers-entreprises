@@ -31,6 +31,18 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.recruitment_foreign_worker(random_solicitation)
   end
 
+  def no_expert
+    SolicitationMailer.no_expert(random_solicitation)
+  end
+
+  def carsat
+    SolicitationMailer.carsat(random_solicitation)
+  end
+
+  def tns_training
+    SolicitationMailer.tns_training(random_solicitation)
+  end
+
   private
 
   def random_solicitation

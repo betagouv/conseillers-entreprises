@@ -35,4 +35,16 @@ class SolicitationMailer < ApplicationMailer
   def recruitment_foreign_worker(solicitation)
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
+
+  def no_expert(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
+
+  def carsat(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
+
+  def tns_training(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
 end

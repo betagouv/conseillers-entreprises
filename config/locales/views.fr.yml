@@ -598,6 +598,13 @@ fr:
         the_problem: Quelle est votre problématique ?
         upon_receipt: Dès la réception de ces éléments de contexte, nous transmettons votre demande au(x) conseiller(s) compétent(s) sur votre territoire pour vous aider, parmi plus de 40 partenaires publics et parapublics.
         you_activity: Quelle est votre activité ?
+      carsat:
+        duerp_html: 'Document unique d’évaluation des risques professionnels (DUERP) : <br />Toutes activités : <a href=''https://www.inrs.fr/demarche/evaluation-risques-professionnels''>https://www.inrs.fr/demarche/evaluation-risques-professionnels</a> <br />Spécifique au bâtiment : <a href=''https://www.preventionbtp.fr''>https://www.preventionbtp.fr</a>'
+        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant votre retraite ou les risques professionnels.
+        no_carsat_in_region_html: Malheureusement, <strong>l'organisme compétent, la CARSAT, n’est pas encore partenaire du service dans votre région</strong>. Nous vous invitons à <strong>la contacter au 3960</strong>.
+        purchases_html: 'Subventions liées aux formations ou aux achats de matériels : sur <a href=''https://www.ameli.fr/''>le site Ameli</a>, choisir le département, puis « Entreprise » dans le bandeau du haut puis le sigle Euros « aides financières TPE PME » dans le bandeau de droite.'
+        retirement_html: 'Retraite : <a href=''https://www.lassuranceretraite.fr''>www.lassuranceretraite.fr</a>'
+        useful_links: 'Liens utiles :'
       creation:
         cci_initiative_html: 'Nous vous invitons également à contacter les conseillers de la <b>Chambre de Commerce et d’Industrie</b> et du <b>réseau Initiative</b> proches de chez vous. Des conseillers en création peuvent vous accompagner pour financer et lancer votre projet d’entreprise :'
         funding_resources: 'Vous retrouverez toutes les sources de financement possibles pour votre projet sur le site de Bpifrance ou de la Banque de France :'
@@ -626,6 +633,13 @@ fr:
         no_new_element: En l’absence d’élément nouveau, nous ne pouvons réaliser de nouvelle mise en relation vers ce dernier.
         quality_monitoring: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller.
         taking_care_by_experts: Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.
+      no_expert:
+        erp_html: 'pour votre établissement recevant du public (ERP) : <a href=''https://entreprendre.service-public.fr/vosdroits/F32351''>https://entreprendre.service-public.fr/vosdroits/F32351</a>'
+        independent_html: 'pour vos formalités en tant qu’indépendant : <a href=''https://www.autoentrepreneur.urssaf.fr/portail/accueil.html''>https://www.autoentrepreneur.urssaf.fr/portail/accueil.html</a> et votre avis de situation : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
+        no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
+        personal_services_html: 'pour devenir un service à la personne : <a href=''https://www.servicesalapersonne.gouv.fr''>https://www.servicesalapersonne.gouv.fr</a>'
+        service_improvement: C'est en détectant de nouvelles problématiques que nous pouvons améliorer ce service. Nous faisons notre maximum pour compléter l’expertise.
+        useful_links: 'Liens utiles :'
       particular_retirement:
         for_companies: Il s’agit néanmoins d’un service public destiné aux chefs d’entreprises.
         no_responses: Nous ne sommes donc pas en mesure malheureusement de vous apporter une réponse.
@@ -640,6 +654,13 @@ fr:
         siret_error: Il semble cependant qu’il y ait une erreur sur votre numéro de Siret. Pourriez-vous nous le faire parvenir à nouveau ?
         siret_infos_html: 'Le numéro de Siret comporte <b>14 chiffres</b>. Si vous ne le connaissez pas, vous le trouverez facilement ici : <a href=''https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises''>https://annuaire-entreprises.data.gouv.fr</a>'
         solicitation_transmission: Dès réception de ces éléments, nous transmettons votre demande au(x) conseiller(s) compétent(s) pour vous aider sur votre territoire. Ce(s) conseiller(s) vous rappelleront directement.
+      tns_training:
+        artisans_html: "<strong>pour les artisans</strong> : <a href='https://www.fafcea.com/'>https://www.fafcea.com/</a>"
+        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant le financement de votre formation.
+        liberal_professions_html: "<strong>pour les professions libérales</strong> : <a href='https://www.fifpl.fr/'>https://www.fifpl.fr/</a>"
+        no_expert: Malheureusement nous n’avons pas encore d'expert en mesure de répondre à votre problématique.
+        tradespeople_html: "<strong>pour les commerçants</strong> : <a href='https://communication-agefice.fr'>https://communication-agefice.fr</a>"
+        useful_links: 'Selon votre statut social de Travailleur Non Salarié, 3 organismes sont compétents :'
     team_pde: L’équipe Place des Entreprises
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service de mise en relation.
@@ -957,13 +978,16 @@ fr:
     solicitation_actions:
       emails:
         bad_quality: Mauvaise qualité générique
+        carsat: CARSAT
         creation: Création
         independent_tva: SIE - TVA et autres
         intermediary: Intermédiaire
         moderation: Modération
+        no_expert: Pas d’expert
         particular_retirement: Retraite
         recruitment_foreign_worker: Travailleur étranger
         siret: SIRET
+        tns_training: Formation TNS du dirigeant
   stats:
     archived: Besoins abandonnés
     done_no_help_status: Statut « cloturé sans aide »
