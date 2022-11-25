@@ -6,7 +6,7 @@ describe SolicitationModification::Create do
     let(:landing) { create :landing, slug: 'accueil', title: 'Test Landing' }
     let!(:landing_subject) { create :landing_subject, requires_siret: true }
 
-    let(:base_params) {
+    let(:base_params) do
       {
         landing_subject_id: landing_subject.id,
         landing_id: landing.id,
@@ -17,7 +17,7 @@ describe SolicitationModification::Create do
         description: "Ma demande",
         code_region: nil
       }
-    }
+    end
     let(:service) { described_class.new(params).call! }
 
     context 'with deployed code region' do
@@ -61,7 +61,7 @@ describe SolicitationModification::Create do
     let(:landing) { create :landing, slug: 'accueil', title: 'Test Landing' }
     let!(:landing_subject) { create :landing_subject, requires_siret: true }
 
-    let(:base_params) {
+    let(:base_params) do
       {
         landing_subject_id: landing_subject.id,
         landing_id: landing.id,
@@ -72,7 +72,7 @@ describe SolicitationModification::Create do
         description: "Ma demande",
         code_region: nil
       }
-    }
+    end
     let(:service) { described_class.new(params).call }
 
     context 'with deployed code region' do

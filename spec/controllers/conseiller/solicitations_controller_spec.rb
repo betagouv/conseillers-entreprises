@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Conseiller::SolicitationsController, type: :controller do
+RSpec.describe Conseiller::SolicitationsController do
   login_admin
 
   describe 'index pages' do

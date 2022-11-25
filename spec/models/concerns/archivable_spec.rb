@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Archivable, type: :model do
+RSpec.describe Archivable do
   describe 'scopes' do
     describe 'archive' do
       let(:diagnosis) { create :diagnosis }

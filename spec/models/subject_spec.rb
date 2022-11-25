@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Subject, type: :model do
+RSpec.describe Subject do
   describe 'associations' do
     it do
       is_expected.to have_many(:institutions_subjects)

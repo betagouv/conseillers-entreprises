@@ -17,7 +17,7 @@ RSpec.describe ApiConsumption::Models::Facility::ApiInsee do
 
   describe 'code_region' do
     context '2 caracters departement' do
-      let!(:params) {
+      let!(:params) do
       {
         "adresseEtablissement" =>
          {
@@ -37,7 +37,7 @@ RSpec.describe ApiConsumption::Models::Facility::ApiInsee do
           "libellePaysEtrangerEtablissement" => nil
          },
       }
-    }
+    end
 
       it 'returns correct code region' do
         expect(described_class.new(params).code_region).to eq('94')
@@ -45,7 +45,7 @@ RSpec.describe ApiConsumption::Models::Facility::ApiInsee do
     end
 
     context 'dom-tom departement' do
-      let!(:params) {
+      let!(:params) do
       {
         "adresseEtablissement" =>
          {
@@ -65,7 +65,7 @@ RSpec.describe ApiConsumption::Models::Facility::ApiInsee do
           "libellePaysEtrangerEtablissement" => nil
          },
       }
-    }
+    end
 
       it 'returns correct code region' do
         expect(described_class.new(params).code_region).to eq('2')

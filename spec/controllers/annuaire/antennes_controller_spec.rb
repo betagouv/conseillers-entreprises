@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Annuaire::AntennesController, type: :controller do
+RSpec.describe Annuaire::AntennesController do
   login_admin
 
   describe 'GET #index' do

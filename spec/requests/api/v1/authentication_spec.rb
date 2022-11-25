@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Authentication API", type: :request do
+RSpec.describe "Authentication API" do
   describe "when no token" do
     it 'returns error' do
       get "/api/v1/landings"

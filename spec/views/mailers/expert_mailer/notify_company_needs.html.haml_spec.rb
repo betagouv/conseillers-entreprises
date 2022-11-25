@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'mailers/expert_mailer/notify_company_needs', type: :view do
+RSpec.describe 'mailers/expert_mailer/notify_company_needs' do
   context 'hash with several information' do
     let(:contact) { create :contact }
     let(:user) { create :user }

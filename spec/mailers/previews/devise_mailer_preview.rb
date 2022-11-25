@@ -2,7 +2,7 @@ class DeviseMailerPreview < ActionMailer::Preview
   def invitation_instructions
     user = User.not_deleted.sample
     user.inviter = User.all.sample
-    CustomDeviseMailer::invitation_instructions(user, 'faketoken')
+    CustomDeviseMailer.invitation_instructions(user, 'faketoken')
   end
 
   def reset_password_instructions

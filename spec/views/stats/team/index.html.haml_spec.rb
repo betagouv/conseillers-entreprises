@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'stats/team/index', type: :view do
+RSpec.describe 'stats/team/index' do
   context 'with default params' do
     let(:need00) { create :need }
     let(:need01) { create :need_with_matches }

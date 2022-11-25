@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Contact, type: :model do
+RSpec.describe Contact do
   describe 'associations' do
     it do
       is_expected.to belong_to :company

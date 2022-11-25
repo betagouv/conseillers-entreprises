@@ -350,28 +350,28 @@ Lint/EmptyWhen:
   Enabled: true
 
 Lint/EnsureReturn:
-  Enabled: false
+  Enabled: true
 
 Lint/FlipFlop:
-  Enabled: false
+  Enabled: true
 
 Lint/FloatOutOfRange:
-  Enabled: false
+  Enabled: true
 
 Lint/FormatParameterMismatch:
-  Enabled: false
+  Enabled: true
 
 Lint/SuppressedException:
-  Enabled: false
+  Enabled: true
 
 Lint/ImplicitStringConcatenation:
-  Enabled: false
+  Enabled: true
 
 Lint/IneffectiveAccessModifier:
   Enabled: false
 
 Lint/InheritException:
-  Enabled: false
+  Enabled: true
 
 Lint/InterpolationCheck:
   Enabled: true
@@ -664,6 +664,9 @@ Performance/UriDefaultParser:
 Rails/ActionFilter:
   Enabled: true
 
+Rails/ActionOrder:
+  Enabled: false
+
 Rails/ActiveRecordAliases:
   Enabled: true
 
@@ -817,9 +820,12 @@ RSpec/ContextWording:
 
 RSpec/DescribeClass:
   Exclude:
-    - spec/tasks/**/*
+    - spec/**/*
 
 RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/FactoryBot/ConsistentParenthesesStyle:
   Enabled: false
 
 RSpec/FilePath:
@@ -852,6 +858,9 @@ RSpec/VariableName:
 RSpec/NestedGroups:
   Enabled: false
 
+RSpec/SortMetadata:
+  Enabled: false
+
 Security/Eval:
   Enabled: true
 
@@ -868,55 +877,55 @@ Security/YAMLLoad:
   Enabled: true
 
 Style/Alias:
-  Enabled: false
+  Enabled: true
 
 Style/AndOr:
-  Enabled: false
+  Enabled: true
 
 Style/ArrayJoin:
-  Enabled: false
+  Enabled: true
 
 Style/AsciiComments:
   Enabled: false
 
 Style/Attr:
-  Enabled: false
+  Enabled: true
 
 Style/AutoResourceCleanup:
-  Enabled: false
+  Enabled: true
 
 Style/BarePercentLiterals:
-  Enabled: false
+  Enabled: true
 
 Style/BeginBlock:
-  Enabled: false
+  Enabled: true
 
 Style/BlockComments:
-  Enabled: false
+  Enabled: true
 
 Style/BlockDelimiters:
-  Enabled: false
+  Enabled: true
 
 Style/CaseEquality:
-  Enabled: false
+  Enabled: true
 
 Style/CharacterLiteral:
-  Enabled: false
+  Enabled: true
 
 Style/ClassAndModuleChildren:
   Enabled: false
 
 Style/ClassCheck:
-  Enabled: false
+  Enabled: true
 
 Style/ClassMethods:
-  Enabled: false
+  Enabled: true
 
 Style/ClassVars:
-  Enabled: false
+  Enabled: true
 
 Style/CollectionMethods:
-  Enabled: false
+  Enabled: true
 
 Style/ColonMethodCall:
   Enabled: false
@@ -970,28 +979,28 @@ Style/EmptyCaseCondition:
   Enabled: false
 
 Style/EmptyElse:
-  Enabled: false
+  Enabled: true
 
 Style/EmptyLambdaParameter:
   Enabled: true
 
 Style/EmptyLiteral:
-  Enabled: false
+  Enabled: true
 
 Style/EmptyMethod:
-  Enabled: false
+  Enabled: true
 
 Style/Encoding:
-  Enabled: false
+  Enabled: true
 
 Style/EndBlock:
   Enabled: true
 
 Style/EvalWithLocation:
-  Enabled: false
+  Enabled: true
 
 Style/EvenOdd:
-  Enabled: false
+  Enabled: true
 
 Style/ExpandPathArguments:
   Enabled: true
@@ -1003,7 +1012,7 @@ Style/FetchEnvVar:
   Enabled: false
 
 Style/For:
-  Enabled: false
+  Enabled: true
 
 Style/FormatString:
   Enabled: false
@@ -1015,7 +1024,7 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/GlobalVars:
-  Enabled: false
+  Enabled: true
 
 Style/GuardClause:
   Enabled: false
@@ -1054,7 +1063,7 @@ Style/ImplicitRuntimeError:
   Enabled: false
 
 Style/InfiniteLoop:
-  Enabled: false
+  Enabled: true
 
 Style/InlineComment:
   Enabled: false

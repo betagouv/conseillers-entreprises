@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Diagnosis, type: :model do
+RSpec.describe Diagnosis do
   it do
     is_expected.to have_many :needs
     is_expected.to belong_to :facility

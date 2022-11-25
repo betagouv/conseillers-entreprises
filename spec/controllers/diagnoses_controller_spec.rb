@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-RSpec.describe DiagnosesController, type: :controller do
+RSpec.describe DiagnosesController do
   login_admin
 
   let(:diagnosis) { create :diagnosis, advisor: advisor }

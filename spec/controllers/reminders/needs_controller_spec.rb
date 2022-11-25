@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Reminders::NeedsController, type: :controller do
+RSpec.describe Reminders::NeedsController do
   login_admin
 
   describe 'POST #send_abandoned_email' do

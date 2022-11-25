@@ -12,14 +12,14 @@ class ApplicationController < SharedController
 
   ## Devise overrides
   def after_sign_in_path_for(resource_or_scope)
-    if resource_or_scope.sign_in_count == 1
-      path = tutoriels_path
+    path = if resource_or_scope.sign_in_count == 1
+      tutoriels_path
     elsif resource_or_scope.is_manager?
-      path = reports_path
+      reports_path
     elsif resource_or_scope.is_admin?
-      path = conseiller_solicitations_path
+      conseiller_solicitations_path
     else
-      path = quo_active_needs_path
+      quo_active_needs_path
     end
     stored_location_for(resource_or_scope) || path
   end

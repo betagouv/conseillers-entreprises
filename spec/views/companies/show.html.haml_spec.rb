@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'companies/show', type: :view do
+RSpec.describe 'companies/show' do
   login_user
 
   let(:company_json) do

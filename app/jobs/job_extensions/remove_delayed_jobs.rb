@@ -11,10 +11,10 @@ module JobExtensions
 
       # Find which jobs to strike
       locked_jobs = Delayed::Job.where(locked_by: lock_name)
-      if block.present?
-        removed_jobs = locked_jobs.filter(&block)
+      removed_jobs = if block.present?
+        locked_jobs.filter(&block)
       else
-        removed_jobs = locked_jobs
+        locked_jobs
       end
       # implementation caveat:
       # * locked_jobs is an ActiveRecord::Relation, queried each time.

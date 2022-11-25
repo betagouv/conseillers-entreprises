@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'needs/show', type: :view do
+RSpec.describe 'needs/show' do
   login_user
   let(:need) { create :need_with_matches, status: :quo }
   let(:matches) { need.matches }

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe InstitutionSubject, type: :model do
+RSpec.describe InstitutionSubject do
   describe 'validations' do
     it do
       is_expected.to belong_to :subject

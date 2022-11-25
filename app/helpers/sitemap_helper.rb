@@ -6,10 +6,10 @@ module SitemapHelper
       e = elt.last
 
       html << "<li>"
-      if e[:href] == true
-        html << link_to(e[:title], e[:loc])
+      html << if e[:href] == true
+        link_to(e[:title], e[:loc])
       else
-        html << e[:title]
+        e[:title]
       end
       html << "</li>"
 

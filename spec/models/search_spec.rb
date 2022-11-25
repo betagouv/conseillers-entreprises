@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Search, type: :model do
+RSpec.describe Search do
   describe 'associations' do
     it { is_expected.to belong_to :user }
   end

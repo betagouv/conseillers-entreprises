@@ -48,10 +48,10 @@ module SolicitationHelper
   end
 
   def link_to_diagnosis(diagnosis)
-    if diagnosis.step_completed?
-      text = t('helpers.solicitation.view_completed_analysis')
+    text = if diagnosis.step_completed?
+      t('helpers.solicitation.view_completed_analysis')
     else
-      text = t('helpers.solicitation.analysis_in_progress', step: diagnosis.human_attribute_value(:step))
+      t('helpers.solicitation.analysis_in_progress', step: diagnosis.human_attribute_value(:step))
     end
 
     link_to text, diagnosis, class: 'ui item'

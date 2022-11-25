@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Match, type: :model do
+RSpec.describe Match do
   describe 'expert uniqueness for each need' do
     subject(:match) { build :match, need: need, expert: expert }
 

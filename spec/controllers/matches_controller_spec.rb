@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe MatchesController, type: :controller do
+RSpec.describe MatchesController do
   describe 'PUT #update' do
     login_user
     subject(:request) { put :update, xhr: true, params: params }

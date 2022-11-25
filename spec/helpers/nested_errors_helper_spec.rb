@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe NestedErrorsHelper, type: :helper do
+describe NestedErrorsHelper do
   describe 'nested_errors_messages' do
     subject { helper.nested_errors_messages(object) }
 

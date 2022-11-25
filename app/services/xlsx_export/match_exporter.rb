@@ -72,10 +72,10 @@ module XlsxExport
               object.send(val)
             end
           end, height: 30)
-          if count_needs.even?
-            sheet.rows[count_rows].style = @gray_bg
+          sheet.rows[count_rows].style = if count_needs.even?
+            @gray_bg
           else
-            sheet.rows[count_rows].style = @align_center
+            @align_center
           end
           count_rows += 1
         end

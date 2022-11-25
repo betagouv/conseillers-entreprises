@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'SharedController features', type: :feature do
+describe 'SharedController features' do
   describe 'render_error' do
     login_admin
 

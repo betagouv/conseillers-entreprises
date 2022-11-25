@@ -36,7 +36,7 @@ module Stats::Public
     end
 
     def category_name(category)
-      NafCode::naf_libelle(category, 'a10')
+      NafCode.naf_libelle(category, 'a10')
     end
 
     def all_categories

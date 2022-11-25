@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe SharedController, type: :controller do
+RSpec.describe SharedController do
   describe '#sanitize_params' do
     subject { described_class.new.send(:sanitize_params, params) }
 

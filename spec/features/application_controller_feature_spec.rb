@@ -2,15 +2,15 @@
 
 require 'rails_helper'
 
-describe 'ApplicationController specific features', type: :feature do
+describe 'ApplicationController specific features' do
   describe 'authenticate_admin!' do
     login_user
 
     context 'user is not admin' do
       it do
-        expect {
+        expect do
           visit '/admin'
-        }.to raise_error ActionController::RoutingError
+        end.to raise_error ActionController::RoutingError
       end
     end
 

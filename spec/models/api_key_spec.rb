@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ApiKey, type: :model do
+RSpec.describe ApiKey do
   describe 'scopes' do
     describe 'active' do
       subject { described_class.active }

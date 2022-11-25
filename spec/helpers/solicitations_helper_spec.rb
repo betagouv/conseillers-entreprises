@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe SolicitationHelper, type: :helper do
+describe SolicitationHelper do
   describe 'display_region' do
     context 'without region filter' do
       let(:region) { create :territory, :region }

@@ -12,7 +12,7 @@ module ImagesHelper
   end
 
   def landing_and_theme_logos(landing_or_theme)
-    logos = landing_or_theme.landing_subjects.collect(&:logos).flatten.uniq.sort_by(&:name)
+    logos = landing_or_theme.landing_subjects.map(&:logos).flatten.uniq.sort_by(&:name)
     display_all_logos(logos, 'institutions/')
   end
 

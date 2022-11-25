@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe CompaniesHelper, type: :helper do
+describe CompaniesHelper do
   describe 'date_from_timestamp' do
     subject { helper.date_from_timestamp timestamp }
 

@@ -9,7 +9,7 @@ module SolicitationModification
         formated_siret,
         formated_form_info,
         formated_institution_filters
-      ].inject(&:merge)
+      ].reduce(&:merge)
     end
 
     private

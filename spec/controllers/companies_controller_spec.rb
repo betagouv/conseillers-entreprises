@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'api_helper'
 
-RSpec.describe CompaniesController, type: :controller do
+RSpec.describe CompaniesController do
   login_user
 
   describe 'GET #show_with_siret' do

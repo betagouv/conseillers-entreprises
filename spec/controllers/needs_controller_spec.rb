@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe NeedsController, type: :controller do
+RSpec.describe NeedsController do
   login_user
 
   describe 'needs inboxes' do

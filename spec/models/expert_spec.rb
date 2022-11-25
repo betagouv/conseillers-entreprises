@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Expert, type: :model do
+RSpec.describe Expert do
   describe 'associations' do
     it do
       is_expected.to belong_to :antenne

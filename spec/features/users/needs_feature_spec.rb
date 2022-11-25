@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'needs', type: :feature do
+describe 'needs' do
   describe 'need display' do
     let(:expert) { create :expert, users: [current_user] }
     let!(:match) { create :match, expert: expert }
