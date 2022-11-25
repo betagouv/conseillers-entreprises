@@ -18,7 +18,7 @@ module Stats
       @mtm_campaign = params.mtm_campaign
       @mtm_kwd = params.mtm_kwd
       @start_date = params.start_date.to_time || (Time.zone.now.beginning_of_day - 6.months)
-      @end_date = params.end_date.to_time.end_of_day || Time.zone.now.end_of_day
+      @end_date = params.end_date.to_time&.end_of_day || Time.zone.now.end_of_day
     end
 
     def date_group_attribute

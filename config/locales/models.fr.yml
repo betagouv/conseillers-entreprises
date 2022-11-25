@@ -10,6 +10,7 @@ fr:
     antennes:
       deep_soft_deleted: Antennes, experts et utilisateurs supprimés avec succès
       deleted: Antennes supprimées avec succès
+      territorial_antennes: 'Antennes du territoire : '
     duplicate_user:
       new_user_details: Coordonnées du nouvel utilisateur
     expert:
