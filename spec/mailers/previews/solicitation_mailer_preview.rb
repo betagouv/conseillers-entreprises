@@ -1,18 +1,6 @@
 class SolicitationMailerPreview < ActionMailer::Preview
-  def bad_quality_difficulties
-    SolicitationMailer.bad_quality_difficulties(random_solicitation)
-  end
-
   def bad_quality
     SolicitationMailer.bad_quality(random_solicitation)
-  end
-
-  def out_of_region
-    SolicitationMailer.out_of_region(random_solicitation)
-  end
-
-  def employee_labor_law
-    SolicitationMailer.employee_labor_law(random_solicitation)
   end
 
   def particular_retirement
@@ -41,6 +29,18 @@ class SolicitationMailerPreview < ActionMailer::Preview
 
   def recruitment_foreign_worker
     SolicitationMailer.recruitment_foreign_worker(random_solicitation)
+  end
+
+  def no_expert
+    SolicitationMailer.no_expert(random_solicitation)
+  end
+
+  def carsat
+    SolicitationMailer.carsat(random_solicitation)
+  end
+
+  def tns_training
+    SolicitationMailer.tns_training(random_solicitation)
   end
 
   private
