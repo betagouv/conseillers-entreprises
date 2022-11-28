@@ -12,7 +12,7 @@
         - if mine
           %b= user.full_name
         - else
-          %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag{ 'aria-controls': "modal-user-#{user.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
+          %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag.custom-modal-tag--blue{ 'aria-controls': "modal-user-#{user.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
             = user.full_name
 
         = " - #{user.antenne}"
