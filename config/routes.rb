@@ -171,6 +171,7 @@ Rails.application.routes.draw do
       post :poke
       post :recall
       post :archive
+      post :last_chance
       post :send_last_chance_email
     end
   end

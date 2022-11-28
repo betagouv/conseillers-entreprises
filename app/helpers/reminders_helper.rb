@@ -24,7 +24,7 @@ module RemindersHelper
   end
 
   def with_action
-    %i[poke recall archive not_for_me]
+    %i[poke recall archive not_for_me last_chance]
   end
 
   def with_archive_action

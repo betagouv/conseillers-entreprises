@@ -883,6 +883,7 @@ fr:
           recall: J’appelle les experts qui ne se sont pas positionnés
         mark_done:
           archive: Archiver
+          last_chance: Expert relancé
           poke: Expert relancé
         name:
           archive: Abandonnés
