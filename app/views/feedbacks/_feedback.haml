@@ -8,18 +8,20 @@
       %span.icon{ class: (mine ? 'ri-chat-1-fill blue' : 'ri-chat-1-line'), 'aria-hidden': 'true' }
     .author-data
       .date= I18n.l(feedback.created_at, format: :long)
-      %p
-        %b.blue
-          = [user.full_name, user.antenne].join(' - ')
-          - unless mine
-            %button.fr-btn.fr-icon-question-line.fr-btn--tertiary.fr-btn--sm{ 'aria-controls': "modal-user-#{user.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
+      %p.author-name
+        - if mine
+          %b= user.full_name
+        - else
+          %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag.custom-modal-tag--blue{ 'aria-controls': "modal-user-#{user.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
+            = user.full_name
+
+        = " - #{user.antenne}"
 
     = render 'application/person_modal', person: user
 
     - if policy(feedback).destroy?
       = form_with(model: feedback, url: feedback_path(feedback), method: :delete, class: 'delete-form',
       data: { confirm: t('.delete') }, remote: true) do |f|
-        = f.button :submit, name: :status, title: t('.delete_comment'), class: 'btn-unstyled', id: "delete-feedback-#{feedback.id}" do
-          %span.ri-delete-bin-line.red{ 'aria-hidden': 'true' }
+        = f.button :submit, name: :status, title: t('.delete_comment'), class: 'fr-icon-delete-line red fr-btn fr-btn--tertiary-no-outline fr-btn--sm', id: "delete-feedback-#{feedback.id}"
 
   .content= simple_format(auto_link(feedback.description))

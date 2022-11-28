@@ -12,36 +12,48 @@
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
         = need_general_context(@need)
     .fr-col-md-4.order-minus-one.bp-sm
-      .fr-grid-row.fr-grid-row--gutter.fr-grid-row--middle.fr-mb-2w
-        .fr-container.fr-p-0
-          .fr-grid-row
-            .fr-col-lg-2.fr-grid-row--center.picto-person-block
-              %span.ri-map-pin-user-line{ 'aria-hidden': true }
-            .fr-col-lg-10
-              %h2.fr-text--lg.fr-m-0.blue= t('.person_company_contact')
-              = person_block(@need.visitee, job: nil)
-      .fr-grid-row.fr-grid-row--gutter.fr-grid-row--middle.fr-mb-2w
-        .fr-container.fr-p-0
-          .fr-grid-row.fr-mt-2v
-            .fr-col-lg-2.fr-grid-row--center.picto-person-block
-              %span.ri-building-4-line{ 'aria-hidden': true }
-            .fr-col-lg-10
-              = render 'companies/facility_infos', facility: @need.facility, need: @need, facility_needs: @facility_needs, contact_needs: @contact_needs
-      .fr-grid-row.fr-grid-row--gutter.fr-grid-row--middle
-        .fr-container.fr-p-0
-          .fr-grid-row
-            .fr-col-lg-2.fr-grid-row--center.picto-person-block
-              %span.ri-mail-send-line{ 'aria-hidden': true }
-            .fr-col-lg-10.infos-transmitted-by.fr-pl-1v
-              %h2.fr-text--lg.fr-mb-1w.blue= t('.transmitted_by')
-              %div
-                - if @need.advisor.present?
-                  %button.fr-link{ 'aria-controls': "modal-user-#{@need.advisor.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
-                    = @need.advisor.full_name
-                  = render 'application/person_modal', person: @need.advisor
 
-                - else
-                  = t('.blank_advisor')
+      .fr-grid-row.need-metadata
+        .fr-col-lg-2.need-metadata--picto
+          %span.ri-map-pin-user-line{ 'aria-hidden': true }
+        .fr-col-lg-10.need-metadata--info
+          %h2.need-metadata--title= t('.person_company_contact')
+          = person_block(@need.visitee, job: nil)
+
+      .fr-grid-row.need-metadata
+        .fr-col-lg-2.need-metadata--picto
+          %span.ri-building-4-line{ 'aria-hidden': true }
+        .fr-col-lg-10.need-metadata--info
+          %h2.need-metadata--title= t('.company')
+          .block-infos
+            %ul.list-unstyled.fr-pl-1v
+              %li.name
+                %b= @facility.company.name
+              %li= @facility.readable_locality
+              %li= t('.workforce', range: Effectif::CodeEffectif.new(@facility.code_effectif).intitule_effectif)
+              - if @facility.siret.present?
+                %li #{t('attributes.siret')} : #{@facility.siret}
+                - if @facility.naf_libelle.present?
+                  %li= @facility.naf_libelle
+                %li= t('companies.company.inscrit_rcs_yes_no', response: @facility.company.inscrit_rcs ? t('yes') : t('no'))
+                %li= t('companies.company.inscrit_rm_yes_no', response: @facility.company.inscrit_rm ? t('yes') : t('no'))
+                %li.fr-mt-2v= link_to t('.more_informations'), company_path(@facility.id), class: 'fr-link', data: { turbolinks: false }
+                - if defined?(@facility_needs) && @facility_needs.present? && policy(@facility).show_needs_history? && @facility_needs.any?
+                  %li= link_to t('.needs_historic'), needs_company_path(@facility), class: 'fr-link'
+              - if defined?(@contact_needs) && @contact_needs.present? && policy(@need.diagnosis.visitee).show_needs_history? && @contact_needs.any? && @facility_needs.blank?
+                %li= link_to t('.needs_historic'), needs_historic_contact_path(@need.diagnosis.visitee), class: 'fr-link'
+
+      .fr-grid-row.need-metadata
+        .fr-col-lg-2.need-metadata--picto
+          %span.ri-mail-send-line{ 'aria-hidden': true }
+        .fr-col-lg-10.need-metadata--info
+          %h2.need-metadata--title= t('.transmitted_by')
+          %div
+            - if @need.advisor.present?
+              %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag{ 'aria-controls': "modal-user-#{@need.advisor.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }= @need.advisor.full_name
+              = render 'application/person_modal', person: @need.advisor
+            - else
+              = t('.blank_advisor')
 
 - if policy(@need).show_need_actions?
   .lighter-blue-bg

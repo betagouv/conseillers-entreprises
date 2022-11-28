@@ -9,7 +9,6 @@
       margin-bottom: 0
   .name
     font-size: 1.1rem
-    margin-bottom: 0.5rem
   .picto
     font-size: 1.5rem
     margin-right: 1rem
@@ -22,11 +21,6 @@
     .picto
       font-size: 1rem
       margin-right: 0.5rem
-
-.picto-person-block
-  margin-top: 0.6rem
-  font-size: 2rem
-  color: $blue
 
 hr.separation
   height: 1px
@@ -74,6 +68,10 @@ hr.separation
     align-items: center
   .author-data
     margin: 0 1rem
+  .author-name
+    display: flex
+    align-items: center
+    margin-top: 0.5rem
   .date
     line-height: 0.5rem
     @media (max-width: $bp-sm)
@@ -95,7 +93,8 @@ hr.separation
       bottom: 0
       border: 1px solid $grey-light
       border-width: 0 0 0 1px
-
+  .fr-icon-delete-line
+    padding-top: 1.2rem
 
 .feedbacks-form
   label
