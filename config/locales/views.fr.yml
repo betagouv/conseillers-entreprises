@@ -885,6 +885,7 @@ fr:
           archive: Archiver
           last_chance: Expert relancé
           poke: Expert relancé
+          recall: Expert rappelé
         name:
           archive: Abandonnés
           last_chance: En cours d’abandon
