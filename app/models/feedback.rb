@@ -66,7 +66,7 @@ class Feedback < ApplicationRecord
     # don’t notify experts without help (not_for_me, done, done_no_help)
     experts_to_notify.reject! do |e|
       expert_match = e.received_matches.find_by(need: self.need)
-      expert_match&.status_not_for_me? || expert_match&.status_done_no_help?
+      expert_match&.status_not_for_me? || expert_match&.status_done_no_help? || expert_match&.status_done?
     end
 
     if self.user.is_admin?

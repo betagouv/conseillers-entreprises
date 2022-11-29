@@ -33,7 +33,7 @@ RSpec.describe Feedback do
       let!(:feedback3) { create :feedback, :for_need, feedbackable: need, user: user3 }
       let(:author) { user3 }
 
-      it { is_expected.to match_array [expert_done, expert_taking_care, user2, advisor] }
+      it { is_expected.to match_array [expert_taking_care, user2, advisor] }
     end
 
     context 'when some experts arent positioned yet' do
@@ -51,7 +51,7 @@ RSpec.describe Feedback do
         let(:author) { advisor }
 
         it 'don’t notify experts not positioned' do
-          is_expected.to match_array [expert_done, expert_taking_care, expert_not_reachable]
+          is_expected.to match_array [expert_taking_care, expert_not_reachable]
         end
       end
 
@@ -59,7 +59,7 @@ RSpec.describe Feedback do
         let(:author) { create :user, :admin }
 
         it 'notify all experts but not the advisor' do
-          is_expected.to match_array [expert_done, expert_taking_care, expert_not_reachable, expert_quo]
+          is_expected.to match_array [expert_taking_care, expert_not_reachable, expert_quo]
         end
       end
     end
