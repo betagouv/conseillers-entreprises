@@ -58,7 +58,6 @@ class Feedback < ApplicationRecord
 
     # prefer expert emails to individual users
     users_to_notify -= experts_to_notify.flat_map(&:users)
-
     # don’t notify the author themselves
     users_to_notify.delete(self.user)
     experts_to_notify -= self.user.experts
@@ -66,15 +65,17 @@ class Feedback < ApplicationRecord
     # don’t notify experts without help (not_for_me, done, done_no_help)
     experts_to_notify.reject! do |e|
       expert_match = e.received_matches.find_by(need: self.need)
-      expert_match&.status_not_for_me? || expert_match&.status_done_no_help? || expert_match&.status_done?
+      expert_match&.status_not_for_me? || expert_match&.status_done_no_help? || expert_match&.status_done? || expert_match&.status_quo?
     end
 
     if self.user.is_admin?
       # Don't notify advisor, it's an admin
       users_to_notify.delete(self.need.advisor)
     else
-      # don’t notify experts who aren't positioned yet (taking_car, done, done_no_help, done_not_reachable)
-      experts_to_notify.reject! { |e| e.received_matches.find_by(need: self.need)&.status_quo? }
+      # don’t notify experts who aren't positioned yet (taking_care, done, done_no_help, done_not_reachable)
+      experts_to_notify.reject! do |e|
+        e.received_matches.find_by(need: self.need)&.status_quo?
+      end
     end
 
     # mix users and experts
