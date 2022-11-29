@@ -2,10 +2,10 @@
   %table
     %thead
       %tr
-        %th= Institution.model_name.human
-        %th= Institution.human_attribute_name(:subjects)
-        %th= Institution.human_attribute_name(:antennes)
-        %th= Institution.human_attribute_name(:advisors)
+        %th{ scope: "col" }= Institution.model_name.human
+        %th{ scope: "col" }= Institution.human_attribute_name(:subjects)
+        %th{ scope: "col" }= Institution.human_attribute_name(:antennes)
+        %th{ scope: "col" }= Institution.human_attribute_name(:advisors)
     %tbody
       - institutions.preload(:logo).each do |institution|
         %tr
