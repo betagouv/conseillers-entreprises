@@ -930,7 +930,7 @@ fr:
       nombre_etablissements_ouverts: 'Nombre d’établissements ouverts : %{count}'
     creation_form:
       accompaniments: 'Accompagnements proposés :'
-      all_fields_compulsary: Sauf mention contraire, tous les champs sont obligatoires.
+      all_fields_compulsary: Tous les champs sont obligatoires.
       average_delays: "(Délai moyen de prise en charge)"
       better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
       buttons:
