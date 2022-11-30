@@ -15,9 +15,9 @@
   %table.fr-table
     %thead
       %tr
-        %th
+        %th{ scope: "col" }
         - result.rows.first.each_key do |header|
-          %th= header
+          %th{ scope: "col" }= header
     %tbody
       - result.rows.each_with_index do |row, index|
         - object = result.objects[index]

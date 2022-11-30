@@ -2,9 +2,9 @@
   %table
     %thead
       %tr
-        %th
-        %th= InstitutionSubject.human_attribute_name(:subject)
-        %th= InstitutionSubject.human_attribute_name(:description)
+        %th{ scope: "col" }
+        %th{ scope: "col" }= InstitutionSubject.human_attribute_name(:subject)
+        %th{ scope: "col" }= InstitutionSubject.human_attribute_name(:description)
     %tbody
       -# We’re building a three-column table, but the cells in the first and second columns span over multiple rows
         We’re grouping themes, and then subjects, together.

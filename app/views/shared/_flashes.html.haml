@@ -5,12 +5,12 @@
       - when 'notice'
         .fr-alert.fr-alert--success
           %h2.fr-alert__title
-            = message
+            = message.html_safe
       - when 'alert'
         .fr-alert.fr-alert--error
           - if action_name == 'new' && controller_name == 'sessions' # display 'aria-describedby' for login form
             %h2.fr-alert__title{ 'aria-describedby': 'user_email user_password' }
-              = message
+              = message.html_safe
           - else
             %h2.fr-alert__title
-              = message
+              = message.html_safe

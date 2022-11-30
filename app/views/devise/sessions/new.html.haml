@@ -22,7 +22,7 @@
                 = t('activerecord.attributes.user.password')
                 %span.fr-hint-text= t('.password_help')
               = f.password_field :password, class: 'fr-input', autocomplete: 'current-password', required: true
-              = link_to new_password_path(resource_name) do
+              = link_to new_password_path(resource_name), class: 'fr-link fr-mt-2w' do
                 = t('devise.forgot_password')
             - if devise_mapping.rememberable?
               .fr-checkbox-group

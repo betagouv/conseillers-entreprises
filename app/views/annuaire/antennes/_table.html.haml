@@ -2,10 +2,10 @@
   %table
     %thead
       %tr
-        %th
-        %th= Antenne.human_attribute_name(:advisors, count: 2)
-        %th= Antenne.human_attribute_name(:intervention_zone)
-        %th= Antenne.human_attribute_name(:managers)
+        %th{ scope: "col" }
+        %th{ scope: "col" }= Antenne.human_attribute_name(:advisors, count: 2)
+        %th{ scope: "col" }= Antenne.human_attribute_name(:intervention_zone)
+        %th{ scope: "col" }= Antenne.human_attribute_name(:managers)
     %tbody
       - antennes.each do |antenne|
         - highlighted_ids = flash[:table_highlighted_ids]
