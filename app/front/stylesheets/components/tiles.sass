@@ -19,6 +19,8 @@
       grid-template-columns: repeat(2, 1fr)
       .fr-tile:hover
         background-color: $white
+      @media (max-width: 570px)
+        grid-template-columns: repeat(1, 1fr)
   .fr-tile__body
     text-align: left
   .theme-card
