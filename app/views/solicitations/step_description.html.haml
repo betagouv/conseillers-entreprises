@@ -26,9 +26,9 @@
       = f.fields_for :institution_filters, @solicitation.institution_filters do |ff|
         - key = ff.object.key
         %fieldset.fr-fieldset{ 'aria-labelledby': "#{key}-legend" }
+          %legend.fr-fieldset__legend{ id: "#{key}-legend" }= I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, key])
           = ff.hidden_field :id
           = ff.hidden_field :additional_subject_question_id
-          %legend.fr-fieldset__legend{ id: "#{key}-legend" }= I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, key])
           .fr-fieldset__element.fr-fieldset__element--inline
             .fr-radio-group
               = ff.radio_button :filter_value, true, required: true
