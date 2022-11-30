@@ -40,9 +40,7 @@
         },
         column: {
           stacking: 'normal'
-        },
-        itemMarginTop: 5,
-        itemMarginBottom: 5
+        }
       },
       tooltip: {
         pointFormat: format
@@ -61,7 +59,9 @@
         enabled: true,
         itemHiddenStyle: {
           color: '#565656'
-        }
+        },
+        itemMarginTop: 10,
+        itemMarginBottom: 10
       },
       series: series
     })
