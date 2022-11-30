@@ -22,8 +22,8 @@
             = f.hidden_field :code_region, data: { 'pages-siret-autocomplete-target': 'codeRegionField' }
             = f.hidden_field :siret, data: { 'pages-siret-autocomplete-target': 'siretField' }
 
-          .fr-my-3w.text-center.hidden{ data: { 'pages-siret-autocomplete-target': 'noResultLink' } }
-            = link_to t('solicitations.creation_form.buttons.manual_step_company'), step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'), class: 'fr-link'
+            .fr-my-3w.text-center.hidden{ data: { 'pages-siret-autocomplete-target': 'noResultLink' } }
+              = link_to t('solicitations.creation_form.buttons.manual_step_company'), step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'), class: 'fr-link'
 
       .submit-buttons
         = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
