@@ -162,8 +162,12 @@ fr:
           answer_no: 10 000 euros et plus
           answer_yes: moins de 10 000 euros
           label: Quel est le montant qu’il reste à financer pour votre projet (hors apport et prêt bancaire) ?
+        outside_europe:
+          label: Votre projet concerne-t-il un pays hors de l’Union européenne (27 pays) ?
         recrutement_en_apprentissage:
           label: Souhaitez-vous recruter en apprentissage ?
+        recrutement_handicape:
+          label: Êtes-vous ouvert aux candidatures de personnes en situation de handicap avec l’aide d’un conseiller dédié ?
         recrutement_poste_cadre:
           label: Souhaitez-vous recruter sur un poste de cadre ?
       antenne:
