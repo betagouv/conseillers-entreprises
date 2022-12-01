@@ -1,0 +1,10 @@
+<%= javascript_tag nonce: true do -%>
+    window.addEventListener('turbolinks:load', function() {
+      const firstCardLink = document.getElementsByClassName("fr-card__link")[0]
+      if (firstCardLink) {
+        firstCardLink.focus();
+      } else {
+        document.getElementById("no-results").focus()
+      }
+    })
+<% end -%>
