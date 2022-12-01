@@ -43,15 +43,4 @@ RSpec.describe RemindersActionsController do
       expect(response).to redirect_to not_for_me_reminders_needs_path
     end
   end
-
-  describe 'POST #send_last_chance_email' do
-    let(:need) { create :need_with_matches }
-
-    it do
-      post :send_last_chance_email, params: { id: need.id }
-      expect(need.reminders_actions.pluck(:category)).to match_array ['last_chance']
-      expect(ActionMailer::Base.deliveries.count).to eq 1
-      expect(response).to redirect_to last_chance_reminders_needs_path
-    end
-  end
 end

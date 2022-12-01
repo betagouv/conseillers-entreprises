@@ -3,7 +3,7 @@ module Reminders
     before_action :setup_territory_filters
     before_action :find_current_territory
     before_action :collections_counts
-    before_action :find_need, only: %i[send_abandoned_email send_reminder_email]
+    before_action :find_need, only: %i[send_abandoned_email send_reminder_email send_last_chance_email]
 
     def index
       redirect_to action: :poke
@@ -37,14 +37,30 @@ module Reminders
     end
 
     def send_reminder_email
-      @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_send'),
-                                  feedbackable_type: 'Need', feedbackable_id: @need.id)
+      reminded_teams = []
       @need.matches.status_quo.each do |match|
+        reminded_teams << "#{match.expert.full_name} (#{match.expert.institution.name})"
         ExpertMailer.positioning_rate_reminders(match.expert, current_user).deliver_later
       end
+      @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_send', teams: reminded_teams.to_sentence),
+                                  feedbackable_type: 'Need', feedbackable_id: @need.id)
       respond_to do |format|
-        format.js
+        format.js { render template: 'reminders/needs/add_feedback', layout: false }
         format.html { redirect_to critical_rate_reminders_experts_path, notice: t('mailers.email_sent') }
+      end
+    end
+
+    def send_last_chance_email
+      reminded_teams = []
+      @need.matches.with_status_quo_active.each do |match|
+        reminded_teams << "#{match.expert.full_name} (#{match.expert.institution.name})"
+        ExpertMailer.last_chance(match.expert, @need, current_user).deliver_later
+      end
+      @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_send', teams: reminded_teams.to_sentence),
+                                  feedbackable_type: 'Need', feedbackable_id: @need.id)
+      respond_to do |format|
+        format.js { render template: 'reminders/needs/add_feedback', layout: false }
+        format.html { redirect_to last_chance_reminders_needs_path, notice: t('mailers.email_sent') }
       end
     end
 

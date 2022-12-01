@@ -53,8 +53,26 @@ RSpec.describe Reminders::NeedsController do
 
     before { post :send_reminder_email, params: { id: need.id } }
 
-    it 'send email only for quo match' do
+    it 'send email only for quo match and add a feedback' do
       expect(ActionMailer::Base.deliveries.count).to eq 1
+      expect(Feedback.where(feedbackable_id: match1.need.id).count).to eq 1
+    end
+  end
+
+  describe 'POST #send_last_chance_email' do
+    let!(:need) { create :need }
+    let!(:match1) { create :match, status: :quo, need: need }
+    let!(:match2) { create :match, status: :done, need: need }
+    let!(:match3) { create :match, status: :taking_care, need: need }
+    let!(:match4) { create :match, status: :done_no_help, need: need }
+    let!(:match5) { create :match, status: :done_not_reachable, need: need }
+    let!(:match6) { create :match, status: :not_for_me, need: need }
+
+    before { post :send_last_chance_email, params: { id: need.id } }
+
+    it 'send email only for quo match and add a feedback' do
+      expect(ActionMailer::Base.deliveries.count).to eq 1
+      expect(Feedback.where(feedbackable_id: match1.need.id).count).to eq 1
     end
   end
 
