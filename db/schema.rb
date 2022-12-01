@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_12_083611) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_01_161046) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_083611) do
     t.bigint "subject_id"
     t.string "key"
     t.integer "position"
+    t.index ["subject_id", "key"], name: "additional_subject_question_subject_key_index", unique: true
     t.index ["subject_id"], name: "index_additional_subject_questions_on_subject_id"
   end
 
