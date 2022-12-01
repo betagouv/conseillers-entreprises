@@ -1119,6 +1119,8 @@ fr:
       transmitted_less_than_72h_stats:
         title: de sollicitations transmises en moins de 72H parmi l’ensemble des sollicitations transmises
         title_table: Délai de transmission des sollicitations
+    stats_chart:
+      months: Mois
     stats_params:
       campaign: Campagne
       clear_search: Réinitialiser la recherche
