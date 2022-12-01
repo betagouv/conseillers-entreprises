@@ -9,6 +9,7 @@
 #
 # Indexes
 #
+#  additional_subject_question_subject_key_index     (subject_id,key) UNIQUE
 #  index_additional_subject_questions_on_subject_id  (subject_id)
 #
 class AdditionalSubjectQuestion < ApplicationRecord
@@ -20,4 +21,5 @@ class AdditionalSubjectQuestion < ApplicationRecord
   ## Validations
   #
   validates :key, presence: true
+  validates :key, uniqueness: { scope: :subject_id }
 end
