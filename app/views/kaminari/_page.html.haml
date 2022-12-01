@@ -1,6 +1,6 @@
 - if page.current?
   %li
-    %a.fr-pagination__link{ 'aria-current': t('.page'), title: t('.page_number', number: page) }
+    %a.fr-pagination__link{ 'aria-current': t('.page').downcase, title: t('.page_number', number: page) }
       = page
 - else
   %li

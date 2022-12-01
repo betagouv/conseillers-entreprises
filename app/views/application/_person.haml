@@ -15,7 +15,7 @@
     - if phone_number.present?
       %li
         %span.picto.ri-phone-line{ 'aria-hidden': 'true' }
-        = link_to(phone_number, "tel:#{phone_number}", class: 'fr-link')
+        = link_to(phone_number, "tel:#{ERB::Util.url_encode(phone_number)}", class: 'fr-link')
     - if email.present?
       %li
         %span.picto.ri-mail-line{ 'aria-hidden': 'true' }

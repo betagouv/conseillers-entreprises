@@ -40,7 +40,7 @@
                       = need_form.fields_for :institution_filters, filter do |filter_form|
                         - key = filter_form.object.key
                         .fr-form-group.additional_questions
-                          %fielset.fr-fieldset.fr-fieldset--inline
+                          %fieldset.fr-fieldset.fr-fieldset--inline
                             %legend.fr-fieldset__legend.fr-text--regular= I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, key])
                             .fr-fieldset__content
                               = filter_form.hidden_field :id
