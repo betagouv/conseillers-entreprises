@@ -313,6 +313,7 @@ class Solicitation < ApplicationRecord
   def self.ransackable_scopes(auth_object = nil)
     [
       :mtm_campaign_contains, :mtm_campaign_equals, :mtm_campaign_starts_with, :mtm_campaign_ends_with,
+      :mtm_kwd_contains, :mtm_kwd_equals, :mtm_kwd_starts_with, :mtm_kwd_ends_with,
       :relaunch_contains, :relaunch_equals, :relaunch_ends_with, :relaunch_starts_with, :completion_eq
     ]
   end
