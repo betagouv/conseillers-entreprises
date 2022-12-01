@@ -85,5 +85,20 @@ describe UnusedUsersService do
         expect(Expert.all).not_to include(expert_1)
       end
     end
+
+    describe 'don’t delete managers' do
+      let!(:user_manager) do
+        create :user, :manager, invitation_accepted_at: nil, created_at: seven_months_ago,
+               invitation_sent_at: seven_months_ago, encrypted_password: ''
+      end
+      let!(:expert) { user_manager.personal_skillsets.first }
+
+      before { described_class.delete_users }
+
+      it 'keep only active users' do
+        expect(User.all).to match_array([user_manager])
+        expect(Expert.all).to match_array([expert])
+      end
+    end
   end
 end

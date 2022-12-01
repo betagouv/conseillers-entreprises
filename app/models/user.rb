@@ -73,7 +73,7 @@ class User < ApplicationRecord
   has_many_attached :csv_exports
 
   # :rights / roles
-  has_many :user_rights, inverse_of: :user
+  has_many :user_rights, inverse_of: :user, dependent: :destroy
   has_many :user_rights_manager, ->{ category_manager }, class_name: 'UserRight', inverse_of: :user
   has_many :user_rights_admin, ->{ category_admin }, class_name: 'UserRight', inverse_of: :user
   has_many :managed_antennes, through: :user_rights_manager, source: :antenne, inverse_of: :managers

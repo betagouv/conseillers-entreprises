@@ -6,6 +6,7 @@ class UnusedUsersService
       # Don't write 'invitation_sent_at:  ..7.months.ago' because there is an error on ruby_parser used by Brakeman
       users = User.where(invitation_accepted_at: nil, invitation_sent_at: 10.years.ago..7.months.ago, encrypted_password: '')
       users.each do |user|
+        next if user.is_manager?
         # On ne supprime que les utilisateurs avec un expert solo et sans MER envoyée
         expert = user.personal_skillsets.first
         next if expert.present? && (expert.received_matches.any?)
@@ -25,6 +26,7 @@ class UnusedUsersService
           end
         end
         begin
+          user.user_rights.destroy_all
           user.delete
         rescue
           user.soft_delete
