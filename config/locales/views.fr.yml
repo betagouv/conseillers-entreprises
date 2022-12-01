@@ -1127,6 +1127,7 @@ fr:
         title_table: Délai de transmission des sollicitations
     stats_chart:
       months: Mois
+      sum: Total
     stats_params:
       campaign: Campagne
       clear_search: Réinitialiser la recherche
