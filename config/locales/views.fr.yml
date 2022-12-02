@@ -889,7 +889,7 @@ fr:
           poke: À relancer
           recall: À rappeler
       send_last_chance_email:
-        email_send: Email de la dernière chance envoyé
+        email_send: Email de la dernière chance envoyé à %{teams}
       send_reminder_email:
         email_send: Email de relance envoyé à %{teams}
     needs_badges:
