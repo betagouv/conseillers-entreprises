@@ -13,18 +13,14 @@ class RemindersActionsController < ApplicationController
     redirect_to recall_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
   end
 
+  def last_chance
+    @need.reminders_actions.create(category: :last_chance)
+    redirect_to last_chance_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
+  end
+
   def archive
     @need.archive!
     redirect_to not_for_me_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
-  end
-
-  def send_last_chance_email
-    @need.reminders_actions.create(category: :last_chance)
-    @needs_quo = @need.matches.with_status_quo_active
-    @needs_quo.each do |match|
-      ExpertMailer.last_chance(match.expert, @need, current_user).deliver_later
-    end
-    redirect_to last_chance_reminders_needs_path, notice: t('mailers.emails_sent', count: @needs_quo.count)
   end
 
   private

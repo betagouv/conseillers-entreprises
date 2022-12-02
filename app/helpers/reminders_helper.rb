@@ -24,7 +24,7 @@ module RemindersHelper
   end
 
   def with_action
-    %i[poke recall archive not_for_me]
+    %i[poke recall archive not_for_me last_chance]
   end
 
   def with_archive_action
@@ -40,7 +40,7 @@ module RemindersHelper
 
   def email_button(action, need)
     button = if with_last_chance_email.include? action
-      form_builder(send_last_chance_email_reminders_action_path(need), t('reminders.send_last_chance_email'), need, { local: true })
+      form_builder(send_last_chance_email_reminders_need_path(need), t('reminders.send_last_chance_email'), need)
     elsif with_abandoned_email.include? action
       if need.abandoned_email_sent
         p_tag_builder(t('reminders.abandoned_need_email_sent'))

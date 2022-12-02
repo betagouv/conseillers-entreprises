@@ -171,7 +171,7 @@ Rails.application.routes.draw do
       post :poke
       post :recall
       post :archive
-      post :send_last_chance_email
+      post :last_chance
     end
   end
 
@@ -198,6 +198,7 @@ Rails.application.routes.draw do
         post :send_abandoned_email
         post :update_badges
         post :send_reminder_email
+        post :send_last_chance_email
       end
       collection do
         get :poke, path: 'a-relancer'

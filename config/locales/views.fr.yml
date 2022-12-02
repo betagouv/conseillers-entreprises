@@ -527,10 +527,6 @@ fr:
         your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet «<strong>%{subject}</strong>» sur le site Place des Entreprises.
     cordially: Bien cordialement,
     email_sent: L’email a bien été envoyé
-    emails_sent:
-      one: 1 email envoyé
-      other: "%{count} emails envoyés"
-      zero: Aucun email envoyé
     expert_mailer:
       first_notification_help:
         answer: C’est un nouveau service public financé par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
@@ -883,15 +879,19 @@ fr:
           recall: J’appelle les experts qui ne se sont pas positionnés
         mark_done:
           archive: Archiver
+          last_chance: Expert relancé
           poke: Expert relancé
+          recall: Expert rappelé
         name:
           archive: Abandonnés
           last_chance: En cours d’abandon
           not_for_me: Refusés
           poke: À relancer
           recall: À rappeler
+      send_last_chance_email:
+        email_send: Email de la dernière chance envoyé à %{teams}
       send_reminder_email:
-        email_send: Email de relance envoyé
+        email_send: Email de relance envoyé à %{teams}
     needs_badges:
       add_remove_badges: Ajouter ou retirer un tag
     section:
