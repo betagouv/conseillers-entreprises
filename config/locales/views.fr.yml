@@ -1045,7 +1045,7 @@ fr:
         with_exchange: Avec échange
         without_exchange: Sans échange
       exchange_with_expert_column:
-        series: besoins suivis d'un échange avec un conseiller
+        series: Besoins suivis d'un échange avec un conseiller
         subtitle_html: "<p>La promesse du service Place des Entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p><p>Le nombre total de besoins donnant lieu à un échange avec un conseiller s’analyse au regard du déploiement progressif du service, région par région.</p>"
         title: besoins d’entreprises ont donné lieu à un échange avec un conseiller depuis l'ouverture du service
         title_table: Nombre de besoins d’entreprises ayant donné lieu à un échange avec un conseiller depuis l'ouverture du service
