@@ -30,7 +30,7 @@
           %caption= t("stats.series.#{name}.title_table")
           %thead
             %tr
-              %th{ scope: "row", id: "#{chart_name}-#{t('.months')}" }= t('stats.stats_chart.months')
+              %th{ scope: "row", id: "#{chart_name}-#{t('stats.stats_chart.months')}" }= t('stats.stats_chart.months')
               - months = []
               - data.all_months.each do |month|
                 - month_formated = I18n.l(month, format: :month)
