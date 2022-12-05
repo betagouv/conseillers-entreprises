@@ -27,14 +27,14 @@
               %tr
                 %th{ scope: "row", id: "#{chart_name}-#{t('.months')}" }= t('.months')
                 - months = []
-                - data.all_months.each do |month|
+                - data.all_months.reverse_each do |month|
                   - month_formated = I18n.l(month, format: :month)
                   - months << month_formated
                   %th{ scope: "col", id: "#{chart_name}-#{month_formated.parameterize}" }= month_formated
                 - total_col_id = "#{chart_name}-#{t('.sum')}"
                 %th{ scope: "col", id: total_col_id }= t('.sum')
             %tbody
-              - data.series.each do |serie|
+              - data.series.reverse_each do |serie|
                 %tr
                   - row_id = "#{chart_name}-#{serie[:name].parameterize}"
                   %th{ scope: 'row', id: row_id }= serie[:name]
