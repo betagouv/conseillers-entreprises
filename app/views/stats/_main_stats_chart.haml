@@ -30,12 +30,16 @@
           %caption= t("stats.series.#{name}.title_table")
           %thead
             %tr
-              %th{ scope: "col" } Mois
+              %th{ scope: "row", id: "#{chart_name}-#{t('stats.stats_chart.months')}" }= t('stats.stats_chart.months')
+              - months = []
               - data.all_months.each do |month|
-                %th{ scope: "col" }= I18n.l(month, format: :month)
+                - month_formated = I18n.l(month, format: :month)
+                - months << month_formated
+                %th{ scope: "col", id: "#{chart_name}-#{month_formated.parameterize}" }= month_formated
           %tbody
             - data.series.each do |serie|
               %tr
-                %th= serie[:name]
-                - serie[:data].each do |data|
-                  %th= data
+                %th{ scope: 'row', id: "#{chart_name}-#{serie[:name].parameterize}" }= serie[:name]
+                - serie[:data].each_with_index do |data, index|
+                  - next if months[index].nil?
+                  %th{ headers: "#{chart_name}-#{serie[:name].parameterize} #{chart_name}-#{months[index]&.parameterize}" }= data
