@@ -173,6 +173,7 @@ fr:
       commune_implantation: Commune d’implantation
       date_creation_etablissement: Date de création de l’établissement
       date_mise_a_jour: Date de mise à jour
+      idcc: IDCC
       naf: Code NAF
       opco: Opco
       pays_implantation: Pays d’implantation

@@ -15,6 +15,7 @@ module ApiConsumption::Models
         :adresse,
         :diffusable_commercialement,
         :opcoSiren,
+        :idcc,
         :effectifs
       ]
     end
