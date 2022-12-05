@@ -1,5 +1,9 @@
 module Stats::Matches
   class All < Stats::All
+    def needs_transmitted
+      ::Stats::Needs::TransmittedNeedsStats.new(@params)
+    end
+
     def positioning_rate
       PositioningRate.new(@params)
     end
