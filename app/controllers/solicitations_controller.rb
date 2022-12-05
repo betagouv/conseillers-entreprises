@@ -5,6 +5,8 @@ class SolicitationsController < PagesController
 
   before_action :set_steps, except: [:form_complete]
 
+  # On peut naviguer dans le formulaire, donc on ne peut se fier au status de la solicitation en cours
+  # Ex : sol statut description, mais qui revient à contact_step
   TEMPLATES = {
     new: :step_contact,
     create: :step_contact,
@@ -160,7 +162,11 @@ class SolicitationsController < PagesController
   end
 
   def current_template
-    TEMPLATES[self.action_name.to_sym]
+    if self.action_name == 'redirect_to_solicitation_step'
+      @solicitation.status.to_sym
+    else
+      TEMPLATES[self.action_name.to_sym]
+    end
   end
 
   def set_steps
