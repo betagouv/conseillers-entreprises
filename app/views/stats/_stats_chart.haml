@@ -18,7 +18,7 @@
 
     %section.fr-accordion
       %h3.fr-accordion__title
-        %button.fr-accordion__btn{ 'aria-expanded': "false", 'aria-controls': "accordion-#{name}" } Description détaillée
+        %button.fr-accordion__btn{ 'aria-expanded': "false", 'aria-controls': "accordion-#{name}" }= t('.detailed_description')
       .fr-collapse{ id: "accordion-#{name}" }
         .fr-table
           %table
@@ -31,10 +31,15 @@
                   - month_formated = I18n.l(month, format: :month)
                   - months << month_formated
                   %th{ scope: "col", id: "#{chart_name}-#{month_formated.parameterize}" }= month_formated
+                - total_col_id = "#{chart_name}-#{t('.sum')}"
+                %th{ scope: "col", id: total_col_id }= t('.sum')
             %tbody
               - data.series.each do |serie|
                 %tr
-                  %th{ scope: 'row', id: "#{chart_name}-#{serie[:name].parameterize}" }= serie[:name]
+                  - row_id = "#{chart_name}-#{serie[:name].parameterize}"
+                  %th{ scope: 'row', id: row_id }= serie[:name]
                   - serie[:data].each_with_index do |data, index|
                     - next if months[index].nil?
-                    %th{ headers: "#{chart_name}-#{serie[:name].parameterize} #{chart_name}-#{months[index]&.parameterize}" }= data
+                    %th{ headers: "#{row_id} #{chart_name}-#{months[index]&.parameterize}" }
+                      = data
+                  %th{ headers: "#{row_id} #{total_col_id}" }= serie[:data].sum

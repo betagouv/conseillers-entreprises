@@ -1126,6 +1126,7 @@ fr:
         title: de sollicitations transmises en moins de 72H parmi l’ensemble des sollicitations transmises
         title_table: Délai de transmission des sollicitations
     stats_chart:
+      detailed_description: Description détaillée
       months: Mois
       sum: Total
     stats_params:
