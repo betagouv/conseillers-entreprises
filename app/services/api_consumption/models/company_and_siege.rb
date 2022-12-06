@@ -1,18 +1,11 @@
 module ApiConsumption::Models
   class CompanyAndSiege < Base
-    def self.fields
-      [
-        :entreprise,
-        :etablissement_siege,
-      ]
-    end
-
     def company
-      ApiConsumption::Models::Company.new(entreprise)
+      raise 'mising'
     end
 
     def siege_facility
-      ApiConsumption::Models::Facility::ApiEntreprise.new(etablissement_siege)
+      raise 'mising'
     end
   end
 end

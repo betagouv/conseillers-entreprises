@@ -1,5 +1,5 @@
 module ApiConsumption::Agregators
-  class CompanyAndSiege
+  class Company
     REQUESTS = [
       ApiEntreprise::EntrepriseEffectifMensuel::Base,
       ApiEntreprise::EntrepriseRcs::Base,
@@ -12,11 +12,14 @@ module ApiConsumption::Agregators
     end
 
     def item_params
-      base_hash = ApiEntreprise::Entreprise::Base.new(@siren).call
       REQUESTS.each_with_object(base_hash) do |request, hash|
         response = request.new(@siren).call
         hash["entreprise"].deep_merge! response
       end
+    end
+
+    def base_hash
+      @base_hash ||= ApiEntreprise::Entreprise::Base.new(@siren).call
     end
   end
 end

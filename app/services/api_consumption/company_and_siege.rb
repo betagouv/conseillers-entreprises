@@ -12,11 +12,11 @@ module ApiConsumption
     private
 
     def model
-      ApiConsumption::Models::CompanyAndSiege
+      ApiConsumption::Models::CompanyAndSiege::ApiEntreprise
     end
 
     def params
-      ApiConsumption::Agregators::CompanyAndSiege.new(@siren, @options).item_params
+      ApiConsumption::Agregators::Company.new(@siren, @options).item_params
     end
   end
 end

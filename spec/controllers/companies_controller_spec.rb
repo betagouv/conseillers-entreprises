@@ -18,7 +18,7 @@ RSpec.describe CompaniesController do
         allow(api_facility).to receive(:call)
 
         company_and_siege_adapter_json = JSON.parse(file_fixture('api_company_and_siege_adapter.json').read)
-        company_instance = ApiConsumption::Models::CompanyAndSiege.new(company_and_siege_adapter_json)
+        company_instance = ApiConsumption::Models::CompanyAndSiege::ApiEntreprise.new(company_and_siege_adapter_json)
         api_company = ApiConsumption::Company.new(siret)
         allow(ApiConsumption::CompanyAndSiege).to receive(:new).with(siren) { api_company }
         allow(api_company).to receive(:call) { company_instance }
@@ -61,7 +61,7 @@ RSpec.describe CompaniesController do
       allow(api_facility).to receive(:call)
 
       company_and_siege_adapter_json = JSON.parse(file_fixture('api_company_and_siege_adapter.json').read)
-      company_instance = ApiConsumption::Models::CompanyAndSiege.new(company_and_siege_adapter_json)
+      company_instance = ApiConsumption::Models::CompanyAndSiege::ApiEntreprise.new(company_and_siege_adapter_json)
       api_company = ApiConsumption::Company.new(siret)
       allow(ApiConsumption::CompanyAndSiege).to receive(:new).with(siren) { api_company }
       allow(api_company).to receive(:call) { company_instance }
