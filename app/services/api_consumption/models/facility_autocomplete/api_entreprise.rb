@@ -8,6 +8,10 @@ module ApiConsumption::Models
       ApiConsumption::Models::Facility::ApiEntreprise.new(etablissement_siege)
     end
 
+    def etablissement
+      facility
+    end
+
     def lieu
       @lieu ||= facility&.adresse['l6']
     end
