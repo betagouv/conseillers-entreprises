@@ -12,9 +12,9 @@ fr:
     '32': Hauts-de-France
     '4': La Réunion
     '44': Grand Est
-    '5': Mayotte
     '52': Pays de la Loire
     '53': Bretagne
+    '6': Mayotte
     '75': Nouvelle-Aquitaine
     '76': Occitanie
     '84': Auvergne-Rhône-Alpes
@@ -32,9 +32,9 @@ fr:
     '32': hauts-de-france
     '4': la-reunion
     '44': grand-est
-    '5': mayotte
     '52': pays-de-la-loire
     '53': bretagne
+    '6': mayotte
     '75': nouvelle-aquitaine
     '76': occitanie
     '84': auvergne-rhone-alpes
@@ -54,7 +54,7 @@ fr:
     ile-de-france: 11
     la-reunion: 4
     martinique: 2
-    mayotte: 5
+    mayotte: 6
     normandy: 28
     nouvelle-aquitaine: 75
     occitanie: 76
