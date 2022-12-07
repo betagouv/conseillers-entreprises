@@ -606,6 +606,11 @@ fr:
         funding_resources: 'Vous retrouverez toutes les sources de financement possibles pour votre projet sur le site de Bpifrance ou de la Banque de France :'
         no_creation: Ce service public ne s’adresse actuellement qu’aux entreprises déjà existantes.
         solicitation_subject: pour votre entreprise en création ou tout juste lancée
+      employee_labor_law:
+        contact_dreets_html: En tant que salarié(e), nous vous invitons à contacter le service de renseignement en droit du travail de la <a href='https://dreets.gouv.fr/'>Direction régionale de l’économie, de l’emploi, du travail et des solidarités</a> (DREETS).
+        dreets_phone_number_html: Vous pouvez composer le <b>0806 000 126</b> [prix d’un appel local - pas de surcoût] du lundi au vendredi, de 8h45 à 11h30 et de 13h45 à 16h30.
+        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant le <b>droit du travail</b>. Il s'agit cependant d'un service public destiné aux chefs d'entreprises. Nous ne sommes donc pas en mesure de vous apporter une réponse.
+        other_informations: 'Vous trouverez également des informations en droit du travail sur :'
       footer:
         linkedin:
           link_html: Linkedin - %{link}
@@ -984,6 +989,7 @@ fr:
         bad_quality: Mauvaise qualité générique
         carsat: CARSAT
         creation: Création
+        employee_labor_law: Salarié Droit du travail
         independent_tva: SIE - TVA et autres
         intermediary: Intermédiaire
         moderation: Modération
