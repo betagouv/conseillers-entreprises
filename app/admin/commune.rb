@@ -12,6 +12,9 @@ ActiveAdmin.register Commune do
     column(:territories) do |c|
       div admin_link_to(c, :territories)
     end
+    column(:regions) do |c|
+      div admin_link_to(c, :regions, list: true)
+    end
     column(:community) do |c|
       div admin_link_to(c, :antennes)
       div admin_link_to(c, :advisors)
@@ -41,6 +44,10 @@ ActiveAdmin.register Commune do
       row :insee_code
       row(:territories) do |c|
         safe_join(c.territories.map { |t| link_to t, admin_territory_path(t) }, ', '.html_safe)
+      end
+      row(:regions) do |c|
+        c.regions.pluck(:name)
+        # safe_join(c.regions.map { |t| link_to t, admin_territory_path(t) }, ', '.html_safe)
       end
       row(:antennes) do |c|
         safe_join(c.antennes.map { |a| link_to a, admin_antenne_path(a) }, ', '.html_safe)
