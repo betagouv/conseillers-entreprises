@@ -76,23 +76,18 @@ RSpec.describe CompaniesController do
   describe 'GET #search' do
     let(:siret) { '41816609600069' }
     let(:siren) { siret[0,9] }
-    let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{query}" }
-    let(:fixture_file) { 'api_insee_sirets_by_siren_many.json' }
-    let(:siret_api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{siret}" }
-    let(:siret_fixture_file) { 'api_insee_siret.json' }
+    let(:token) { '1234' }
 
+    let(:base_url) { 'https://entreprise.api.gouv.fr/v2/entreprises' }
+    let(:url) { "#{base_url}/#{siren}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
     let(:query) { siren }
 
     before do
-      authorize_insee_token
-      stub_request(:get, api_url).to_return(
-        body: file_fixture(fixture_file)
-      )
-      # a la selection d'une option, la valeur de l'input est remplacée par le siret, une rech automatique est lancee
-      stub_request(:get, siret_api_url).to_return(
-        body: file_fixture(siret_fixture_file)
-      )
-    end
+    ENV['API_ENTREPRISE_TOKEN'] = token
+    stub_request(:get, url).to_return(
+      body: file_fixture('api_entreprise_get_entreprise.json')
+    )
+  end
 
     it do
       get :search, params: { query: siren }

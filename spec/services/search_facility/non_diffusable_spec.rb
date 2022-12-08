@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'api_helper'
 
-RSpec.describe SearchFacility do
+RSpec.describe SearchFacility::NonDiffusable do
   let(:search_params) { { query: "#{query}" } }
 
   describe 'from_full_text_or_siren' do
