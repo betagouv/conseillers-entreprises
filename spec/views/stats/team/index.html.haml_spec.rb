@@ -13,7 +13,7 @@ RSpec.describe 'stats/team/index' do
     it "displays correctly public stats" do
       assign(:stats, Stats::Public::All.new({ start_date: start_date, end_date: end_date }))
       assign(:charts_names, [
-        :solicitations, :solicitations_in_deployed_regions, :solicitations_diagnoses,
+        :solicitations, :solicitations_diagnoses,
         :exchange_with_expert, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code
       ])
       assign(:institution_antennes, [])

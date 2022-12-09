@@ -30,5 +30,9 @@ module Stats::Public
     def chart
       'stats-chart'
     end
+
+    def subtitle
+      I18n.t('stats.series.solicitations.subtitle_html')
+    end
   end
 end

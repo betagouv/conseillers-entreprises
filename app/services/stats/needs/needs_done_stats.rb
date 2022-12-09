@@ -4,12 +4,13 @@ module Stats::Needs
     include ::Stats::FiltersStats
 
     def main_query
-      Need.diagnosis_completed.where(created_at: @start_date..@end_date)
+      Need.joins(:diagnosis)
+        .merge(Diagnosis.from_solicitation.completed)
+        .where(created_at: @start_date..@end_date)
     end
 
     def build_series
-      query = main_query
-      query = filtered_needs(query)
+      query = filtered_main_query
 
       @needs_done = []
       @needs_other_status = []
@@ -28,6 +29,18 @@ module Stats::Needs
     def count
       build_series
       percentage_two_numbers(@needs_done, @needs_other_status)
+    end
+
+    def filtered_main_query
+      filtered_needs(main_query)
+    end
+
+    def secondary_count
+      filtered_main_query.status_done.size
+    end
+
+    def subtitle
+      I18n.t('stats.series.needs_done.subtitle')
     end
 
     private

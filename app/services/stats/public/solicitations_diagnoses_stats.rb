@@ -6,13 +6,11 @@ module Stats::Public
     def main_query
       Solicitation
         .step_complete
-        .in_deployed_regions
         .where(created_at: @start_date..@end_date)
     end
 
     def build_series
-      query = main_query
-      query = filtered_solicitations(query)
+      query = filtered_main_query
 
       @with_diagnosis = []
       @without_diagnosis = []
@@ -26,6 +24,14 @@ module Stats::Public
       end
 
       as_series(@with_diagnosis, @without_diagnosis)
+    end
+
+    def filtered_main_query
+      filtered_solicitations(main_query)
+    end
+
+    def secondary_count
+      filtered_main_query.joins(:diagnosis).merge(Diagnosis.completed).size
     end
 
     def count
