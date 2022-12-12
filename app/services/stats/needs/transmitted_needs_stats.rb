@@ -26,6 +26,10 @@ module Stats::Needs
       'line-chart'
     end
 
+    def count
+      filtered_needs(main_query).size
+    end
+
     private
 
     def as_series(needs)
