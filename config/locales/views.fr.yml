@@ -1084,6 +1084,7 @@ fr:
         title_table: Nombre de besoins refusés
       needs_transmitted:
         title: Besoins transmis
+        title_table: Besoins transmis
       not_for_me_rate_stats:
         subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
         title: de besoins refusés par l’institution
