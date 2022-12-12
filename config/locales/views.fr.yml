@@ -250,8 +250,8 @@ fr:
         needs_historic: 'Historique de l’entreprise :'
         siret: 'Siret :'
         solicitation_banned_facility_explanation: Entreprise et email exclus (spam)
-        solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres demandes récemment'
-        solicitation_relance_explanation: 'Relance suspectée: une mise en relation pour la même entreprise sur le même sujet a été faite il y a moins de 3 semaines'
+        solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres demandes récemment'
+        solicitation_relance_explanation: 'Relance suspectée : une mise en relation pour la même entreprise sur le même sujet a été faite il y a moins de 3 semaines'
         source: 'Page d’atterrissage :'
       solicitation_actions:
         ban_facility: Exclure l’entreprise
@@ -350,7 +350,7 @@ fr:
   experts:
     edit:
       antenne_and_institution: Structure
-      different_antenne_warning_html: 'Attention : cette antenne est différente de l’antenne à laquelle est rattachée votre compte utilisateur.<br/> C’est peut-être une erreur ; <a href="mailto:%{email}">contactez-nous</a> pour la modifier.'
+      different_antenne_warning_html: 'Attention : cette antenne est différente de l’antenne à laquelle est rattaché votre compte utilisateur.<br/> C’est peut-être une erreur ; <a href="mailto:%{email}">contactez-nous</a> pour la modifier.'
       team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Place des Entreprises.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
       team_members: Membres de l’équipe
       team_name_explanation: C’est le nom d’équipe qui sera indiqué au conseiller pour vous envoyer des besoins. Votre antenne et votre structure figurent automatiquement, ne les précisez pas dans le nom d’équipe.
@@ -381,7 +381,7 @@ fr:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise et nous avons convenu d’un rendez-vous le 23/11. »'
       need_reminder:
         placeholder: " "
-      prefill: 'Préremplissage :'
+      prefill: 'Préremplissage :'
       reset: Réinitialiser
       solicitation:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui mais il n’a pas répondu. »'
@@ -631,7 +631,7 @@ fr:
       intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service).
       intro_with_subject_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) %{solicitation_subject}.
       moderation:
-        no_new_element: En l’absence d’élément nouveau, nous ne pouvons réaliser de nouvelle mise en relation vers ce dernier.
+        no_new_element: En l’absence d’élément nouveau, nous ne pouvons réaliser de nouvelles mises en relation vers ce dernier.
         quality_monitoring: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller.
         taking_care_by_experts: Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.
       no_expert:
@@ -950,7 +950,7 @@ fr:
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"
       form_complete: Demande envoyée
       give_my_opinion_alt: Je donne mon avis
-      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l'Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place de Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
+      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l'Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place des Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
       placeholder:
         description_html: Bonjour, Je suis....
         location: Hauts-de-France ; région de Milly-la-forêt ; 91260…
@@ -1120,7 +1120,7 @@ fr:
       taking_care_rate_stats:
         subtitle: Le besoin a été pris en charge par un expert, mais n’a pas encore été cloturé après l’appel de l’entreprise.
         title: de besoins en cours de prise en charge par l’institution
-        title_table: Nombre de besoin en cours de prise en charge
+        title_table: Nombre de besoins en cours de prise en charge
       themes:
         subtitle: Une thématique est un regroupement de sujets d’entreprises proches. <br>Le pic que l’on observe au mois de mars 2020 dans la catégorie « Autres typologies de besoins » correspond aux demandes exprimant des difficultés liées au covid-19
         title: Thématiques choisies par les entreprises
@@ -1196,7 +1196,7 @@ fr:
   user_pages:
     tutoriels:
       at_your_service: Une équipe à votre service !
-      at_your_service_1: Pour vous proposer un outil simple et intuitif, qui vous permettre d’échanger avec d’autres experts au sein de différentes institutions.
+      at_your_service_1: Pour vous proposer un outil simple et intuitif, qui vous permettra d’échanger avec d’autres experts au sein de différentes institutions.
       at_your_service_2: Être à votre écoute pour améliorer la qualité et la nature des besoins d’entreprises que vous souhaitez recevoir.
       at_your_service_3: Assurer le suivi des besoins restés sans réponse ou refusés, afin qu’aucune entreprise ne reste sans réponse.
       available_on_html: La vidéo est également visible sur %{youtube_link} et %{dailymotion_link}.
