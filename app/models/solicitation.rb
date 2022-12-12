@@ -80,13 +80,14 @@ class Solicitation < ApplicationRecord
 
   enum status: {
     step_contact: 0, step_company: 1, step_description: 2,
-    in_progress: 3, processed: 4, canceled: 5
+    in_progress: 3, processed: 4, canceled: 5, step_verification: 6
   }, _prefix: true
 
   aasm :status, column: :status, enum: true do
     state :step_contact, initial: true
     state :step_company
     state :step_description
+    state :step_verification
     state :in_progress
     state :processed
     state :canceled
@@ -99,8 +100,12 @@ class Solicitation < ApplicationRecord
       transitions from: [:step_company], to: :step_description, if: -> { company_step_required_fields.all?{ |attr| self.public_send(attr).present? } }
     end
 
+    event :go_to_step_verification do
+      transitions from: [:step_description], to: :step_verification, if: -> { description.present? && !from_api? }
+    end
+
     event :complete, before: :format_solicitation do
-      transitions from: [:step_description], to: :in_progress, guard: -> { description.present? }
+      transitions from: [:step_description, :step_verification], to: :in_progress, guard: -> { description.present? }
     end
 
     event :process do
@@ -120,7 +125,7 @@ class Solicitation < ApplicationRecord
   end
 
   def self.incompleted_statuses
-    %w[step_contact step_company step_description]
+    %w[step_contact step_company step_description step_verification]
   end
 
   def self.completed_statuses

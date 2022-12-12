@@ -1,9 +1,9 @@
 class SolicitationsController < PagesController
   include IframePrefix
 
-  layout 'solicitation_form', except: [:form_complete]
+  layout 'solicitation_form', except: %i[form_complete step_verification]
 
-  before_action :set_steps, except: [:form_complete]
+  before_action :set_steps, except: %i[form_complete]
 
   # On peut naviguer dans le formulaire, donc on ne peut se fier au status de la solicitation en cours
   # Ex : sol statut description, mais qui revient à contact_step
@@ -18,7 +18,9 @@ class SolicitationsController < PagesController
     step_company_search: :step_company,
     update_step_company: :step_company,
     step_description: :step_description,
-    update_step_description: :step_description
+    update_step_description: :step_description,
+    step_verification: :step_verification,
+    update_step_verification: :step_verification
   }
 
   def new
@@ -92,8 +94,18 @@ class SolicitationsController < PagesController
   end
 
   def update_step_description
+    update_solicitation_from_step(current_template, step_verification_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+  end
+
+  def step_verification
+    @company = SearchFacility::NonDiffusable.new(query: @solicitation.siret).from_siret[:items].first
+  end
+
+  def update_step_verification
     update_solicitation_from_step(current_template, form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
+
+  def form_complete; end
 
   # Redirection vers la bonne étape de sollicitation
   # Utilisé par les emails de relance pour les sollicitations incomplètes
@@ -114,7 +126,7 @@ class SolicitationsController < PagesController
     sanitized_params = sanitize_params(solicitation_params)
     @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
     if @solicitation.errors.empty?
-      if step == :step_description
+      if step == :step_validation
         @landing_subject = @solicitation.landing_subject
         CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
         @solicitation.delay.prepare_diagnosis(nil)
