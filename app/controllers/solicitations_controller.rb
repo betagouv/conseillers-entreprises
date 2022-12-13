@@ -45,7 +45,7 @@ class SolicitationsController < PagesController
       redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-formulaire' }.merge(search_params)
       redirect_to redirect_path and return
     else
-      result = SearchFacility.new(search_params).from_full_text_or_siren
+      result = SearchFacility::NonDiffusable.new(search_params).from_full_text_or_siren
       respond_to do |format|
         format.html do
           if result[:error].blank?
@@ -63,7 +63,7 @@ class SolicitationsController < PagesController
   end
 
   def search_facility
-    result = SearchFacility.new(search_params).from_siren
+    result = SearchFacility::NonDiffusable.new(search_params).from_siren
     respond_to do |format|
       format.html do
         if result[:error].blank?

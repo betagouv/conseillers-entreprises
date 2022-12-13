@@ -175,6 +175,7 @@ fr:
       wrong_length:
         one: ne fait pas la bonne longueur (doit comporter un seul caractère)
         other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
+    missing_inherited_method: Méthode manquante dans la classe enfant
     page_title: Erreur - %{title}
     template:
       body: 'Veuillez vérifier les champs suivants : '

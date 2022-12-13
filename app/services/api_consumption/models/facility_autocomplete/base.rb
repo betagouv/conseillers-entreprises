@@ -8,11 +8,11 @@ module ApiConsumption::Models
     end
 
     def company
-      # a renseigner dans les models qui héritent de celui-ci
+      raise I18n.l('errors.missing_inherited_method')
     end
 
     def facility
-      # a renseigner dans les models qui héritent de celui-ci
+      raise I18n.l('errors.missing_inherited_method')
     end
 
     def siret
@@ -32,11 +32,11 @@ module ApiConsumption::Models
     end
 
     def lieu
-      # A renseigner dans les models qui héritent de celui-ci
+      raise I18n.l('errors.missing_inherited_method')
     end
 
     def code_region
-      # A renseigner dans les models qui héritent de celui-ci
+      raise I18n.l('errors.missing_inherited_method')
     end
 
     def un_seul_etablissement

@@ -18,7 +18,7 @@ RSpec.describe 'companies/show' do
   before do
     assign :diagnosis, build(:diagnosis)
     assign :facility, ApiConsumption::Models::Facility::ApiEntreprise.new(facility_json)
-    assign :company, ApiConsumption::Models::Company.new(company_json)
+    assign :company, ApiConsumption::Models::Company::ApiEntreprise.new(company_json)
     assign :diagnoses, diagnoses
     render
   end

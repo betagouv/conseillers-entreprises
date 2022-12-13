@@ -1,11 +1,15 @@
 module ApiConsumption::Models
   class FacilityAutocomplete::ApiEntreprise < FacilityAutocomplete::Base
     def company
-      ApiConsumption::Models::Company.new(entreprise)
+      ApiConsumption::Models::Company::ApiEntreprise.new(entreprise)
     end
 
     def facility
       ApiConsumption::Models::Facility::ApiEntreprise.new(etablissement_siege)
+    end
+
+    def etablissement
+      facility
     end
 
     def lieu

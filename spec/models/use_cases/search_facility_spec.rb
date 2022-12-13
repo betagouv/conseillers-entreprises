@@ -18,7 +18,7 @@ describe UseCases::SearchFacility do
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
       company_adapter_json = JSON.parse(file_fixture('api_company_adapter.json').read)
-      company_instance = ApiConsumption::Models::Company.new(company_adapter_json)
+      company_instance = ApiConsumption::Models::Company::ApiEntreprise.new(company_adapter_json)
       api_company = ApiConsumption::Company.new(siret)
       allow(ApiConsumption::Company).to receive(:new).with(siret[0,9], {}) { api_company }
       allow(api_company).to receive(:call) { company_instance }
