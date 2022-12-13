@@ -52,22 +52,15 @@ class Feedback < ApplicationRecord
   # Notify experts of this need
   # don't send an email to their personal address
   def persons_to_notify
-    # all the users and experts involved
-    users_to_notify = ([self.need.advisor] + self.need.feedbacks.map(&:user)).uniq
-    experts_to_notify = self.need.matches.where(status: [:taking_care, :done_not_reachable]).map(&:expert)
-
-    # prefer expert emails to individual users
-    users_to_notify -= experts_to_notify.flat_map(&:users)
+    users_and_experts_to_notify = self.need.matches.where(status: [:taking_care, :done_not_reachable]).map(&:expert)
 
     # don’t notify the author themselves
-    users_to_notify.delete(self.user)
-    experts_to_notify -= self.user.experts
+    users_and_experts_to_notify -= self.user.experts
 
-    # Don't notify advisor if the author is an admin too
-    users_to_notify.delete(self.need.advisor) if self.user.is_admin?
+    # Notify the advisor only if he's not the author or the author is not an admin
+    users_and_experts_to_notify << self.need.advisor if (!self.user.is_admin? && self.user != self.need.advisor)
 
-    # mix users and experts
-    users_to_notify + experts_to_notify
+    users_and_experts_to_notify
   end
 
   def need

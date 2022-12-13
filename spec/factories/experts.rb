@@ -8,7 +8,7 @@ FactoryBot.define do
     association :antenne
 
     factory :expert_with_users do
-      users { [build(:user, email: email)] }
+      users { [build(:user, :invitation_accepted, email: email)] }
     end
   end
 end

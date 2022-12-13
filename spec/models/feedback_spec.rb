@@ -27,6 +27,8 @@ RSpec.describe Feedback do
     end
     let(:need) { create :need, advisor: advisor, matches: matches }
     let(:feedback) { create :feedback, :for_need, feedbackable: need, user: author }
+    let!(:feedback_done) { create :feedback, :for_need, feedbackable: need, user: expert_done.users.first }
+    let!(:feedback_tacking_care) { create :feedback, :for_need, feedbackable: need, user: expert_taking_care.users.first }
 
     subject { feedback.persons_to_notify }
 
