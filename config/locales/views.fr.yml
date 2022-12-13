@@ -1082,6 +1082,9 @@ fr:
       needs_not_for_me:
         title: de besoins refusés
         title_table: Nombre de besoins refusés
+      needs_transmitted:
+        title: Besoins transmis
+        title_table: Besoins transmis
       not_for_me_rate_stats:
         subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
         title: de besoins refusés par l’institution
@@ -1125,8 +1128,12 @@ fr:
       transmitted_less_than_72h_stats:
         title: de sollicitations transmises en moins de 72H parmi l’ensemble des sollicitations transmises
         title_table: Délai de transmission des sollicitations
+      transmitted_needs:
+        title: Besoins transmis
     stats_chart:
+      detailed_description: Description détaillée
       months: Mois
+      sum: Total
     stats_params:
       campaign: Campagne
       clear_search: Réinitialiser la recherche
