@@ -3,6 +3,10 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.bad_quality(random_solicitation)
   end
 
+  def employee_labor_law
+    SolicitationMailer.employee_labor_law(random_solicitation)
+  end
+
   def particular_retirement
     SolicitationMailer.particular_retirement(random_solicitation)
   end

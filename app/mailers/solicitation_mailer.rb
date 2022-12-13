@@ -8,6 +8,10 @@ class SolicitationMailer < ApplicationMailer
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 
+  def employee_labor_law(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
+
   def moderation(solicitation)
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
