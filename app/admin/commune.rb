@@ -24,6 +24,8 @@ ActiveAdmin.register Commune do
   end
 
   filter :insee_code
+  filter :regions, as: :ajax_select, collection: -> { Territory.regions.pluck(:name, :id) },
+  data: { url: :admin_territories_path, search_fields: [:name] }
   filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :antennes, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
 
@@ -46,8 +48,7 @@ ActiveAdmin.register Commune do
         safe_join(c.territories.map { |t| link_to t, admin_territory_path(t) }, ', '.html_safe)
       end
       row(:regions) do |c|
-        c.regions.pluck(:name)
-        # safe_join(c.regions.map { |t| link_to t, admin_territory_path(t) }, ', '.html_safe)
+        safe_join(c.regions.map { |t| link_to t, admin_territory_path(t) }, ', '.html_safe)
       end
       row(:antennes) do |c|
         safe_join(c.antennes.map { |a| link_to a, admin_antenne_path(a) }, ', '.html_safe)
