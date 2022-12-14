@@ -32,8 +32,8 @@ module Stats::Public
       ExchangeWithExpertStats.new(@params)
     end
 
-    def needs_done
-      Stats::Needs::NeedsDoneStats.new(@params)
+    def needs_done_from_exchange
+      NeedsDoneStats.new(@params)
     end
   end
 end

@@ -16,7 +16,7 @@
     - cache("stats_charts-#{@stats}", expires_in: 1.hour) do
       = render 'stats_params', stats: @stats
       .fr-grid-row.fr-grid-row--gutters#stats-charts
-        - names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :needs_done, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
+        - names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :needs_done_from_exchange, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
         - names.each do |name|
           - data = @stats.send(name.to_sym)
           = render 'stats/stats_chart', data: data, name: name

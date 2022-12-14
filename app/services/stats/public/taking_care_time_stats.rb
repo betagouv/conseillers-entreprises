@@ -7,14 +7,14 @@ module Stats::Public
       Solicitation
         .step_complete
         .joins(diagnosis: [needs: :matches])
-        .where(created_at: @start_date..@end_date)
-        .merge(Need.where.not(status: [:diagnosis_not_complete, :quo]))
+        .where(completed_at: @start_date..@end_date)
+        .merge(Need.with_exchange)
         .distinct
     end
 
     def group_by_date(query)
       query.preload(:matches).group_by do |solicitation|
-        solicitation.matches.pluck(:taken_care_of_at).compact.min&.between?(solicitation.created_at, solicitation.created_at + 5.days)
+        solicitation.matches.pluck(:taken_care_of_at).compact.min&.between?(solicitation.completed_at, solicitation.completed_at + 5.days)
       end
     end
 
@@ -25,12 +25,12 @@ module Stats::Public
 
     def taken_care_before(query)
       return [] if query[true].nil?
-      query[true].group_by_month(&:created_at).map { |_, v| v.size }
+      query[true].group_by_month(&:completed_at).map { |_, v| v.size }
     end
 
     def taken_care_after(query)
       return [] if query[false].nil?
-      query[false].group_by_month(&:created_at).map { |_, v| v.size }
+      query[false].group_by_month(&:completed_at).map { |_, v| v.size }
     end
 
     def build_series

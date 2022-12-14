@@ -3,6 +3,12 @@ module Stats::Public
   class ExchangeWithExpertColumnStats
     include ::Stats::BaseStats
 
+    def initialize(params)
+      params = OpenStruct.new(params)
+      @start_date = Time.zone.now.beginning_of_month - 11.months
+      @end_date = Time.zone.now.end_of_day
+    end
+
     def main_query
       Need.joins(:diagnosis)
         .merge(Diagnosis.from_solicitation.completed)

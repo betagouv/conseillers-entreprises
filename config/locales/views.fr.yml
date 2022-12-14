@@ -1049,7 +1049,7 @@ fr:
       exchange_with_expert_column:
         series: Besoins suivis d'un échange avec un conseiller
         subtitle_html: "<p>La promesse du service Place des Entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p>"
-        title: besoins d’entreprises ont donné lieu à un échange avec un conseiller depuis l'ouverture du service
+        title: besoins d’entreprises ont donné lieu à un échange avec un conseiller
         title_table: Nombre de besoins d’entreprises ayant donné lieu à un échange avec un conseiller depuis l'ouverture du service
       experts:
         title: Experts
@@ -1067,6 +1067,10 @@ fr:
       needs_done:
         subtitle: Une clôture par « une aide proposée » signifie qu’un conseiller a pu proposer par téléphone un conseil, un accompagnement technique ou une aide financière au chef d’entreprise pour répondre à sa problématique.
         title: des besoins transmis sont clôturés par une aide proposée, soit %{secondary_count} besoins
+        title_table: Nombre de besoins clôturés grâce à une aide proposée
+      needs_done_from_exchange:
+        subtitle: Une clôture par « une aide proposée » signifie qu’un conseiller a pu proposer par téléphone un conseil, un accompagnement technique ou une aide financière au chef d’entreprise pour répondre à sa problématique.
+        title: des besoins ayant donné lieu à un échange sont clôturés par une aide proposée, soit %{secondary_count} besoins
         title_table: Nombre de besoins clôturés grâce à une aide proposée
       needs_done_no_help:
         subtitle: La clôture sans accompagnement signifie que l’entreprise a bien été rappelée par au moins un conseiller, mais que celui-ci n’a finalement pas pu l’aider au regard de sa situation particulière.
@@ -1108,14 +1112,14 @@ fr:
         title: Analyses d’entreprises
         visits: Visites par un conseiller
       taking_care:
-        title: des réponses aux besoins des entreprises sont apportées en moins de 5 jours
+        title: des échanges ont lieu dans les 5 jours après transmission du besoin
         title_table: Délai de réponses aux besoins des entreprises
       taking_care_rate_stats:
         subtitle: Le besoin a été pris en charge par un expert, mais n’a pas encore été cloturé après l’appel de l’entreprise.
         title: de besoins en cours de prise en charge par l’institution
         title_table: Nombre de besoins en cours de prise en charge
       themes:
-        subtitle: Une thématique est un regroupement de sujets d’entreprises proches. <br>Le pic que l’on observe au mois de mars 2020 dans la catégorie « Autres typologies de besoins » correspond aux demandes exprimant des difficultés liées au covid-19
+        subtitle: Une thématique est un regroupement de sujets d’entreprises proches.
         title: Thématiques choisies par les entreprises
         title_table: Thématiques choisies par les entreprises
       transmitted_less_than_72h_stats:
