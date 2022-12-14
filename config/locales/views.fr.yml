@@ -1049,7 +1049,7 @@ fr:
       exchange_with_expert_column:
         series: Besoins suivis d'un échange avec un conseiller
         subtitle_html: "<p>La promesse du service Place des Entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p>"
-        title: besoins d’entreprises ont donné lieu à un échange avec un conseiller depuis l'ouverture du service
+        title: besoins d’entreprises ont donné lieu à un échange avec un conseiller
         title_table: Nombre de besoins d’entreprises ayant donné lieu à un échange avec un conseiller depuis l'ouverture du service
       experts:
         title: Experts
