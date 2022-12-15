@@ -81,8 +81,8 @@ class Rack::Attack
   # end
 
   Rack::Attack.blocklist('block bad email') do |req|
-    ips = ['137.117.65.40', '20.168.217.16', '172.174.64.146', '13.84.52.121']
-    remote_ips = ['172.174.64.0', '13.84.52.0', '20.225.181.0', '20.225.181.119']
+    ips = ['137.117.65.40', '20.168.217.16', '172.174.64.146', '13.84.52.121', '20.245.167.249']
+    remote_ips = ['172.174.64.0', '13.84.52.0', '20.225.181.0', '20.225.181.119', '20.245.167.0']
     (req.post? && req.params['solicitation'].present? && req.params['solicitation']['email'] == 'foo-bar@example.com') ||
     ips.include?(req.ip) || remote_ips.include?(req.remote_ip)
   end
