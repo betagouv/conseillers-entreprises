@@ -2,8 +2,10 @@ namespace :update_solicitations_code_region do
   desc 'update solicitations code_region from diagnosis'
   task from_diagnosis: :environment do
     days_count = 7
+    start_at = days_count.days.ago
+    end_at = Time.zone.now
     puts '## Mise a jour des sollicitations a partir des analyses'
-    solicitations_to_update = Solicitation.where(created_at: days_count.days.ago..Time.zone.now).where(code_region: nil)
+    solicitations_to_update = Solicitation.where(created_at: start_at..end_at).where(code_region: [nil,0])
     puts "Sollicitations sans code region des #{days_count} derniers jours : #{solicitations_to_update.count}"
     total = 0
     solicitations_to_update.joins(:diagnosis).find_each do |solicitation|
@@ -14,7 +16,7 @@ namespace :update_solicitations_code_region do
       end
     end
     puts "#{total} sollicitations mises a jour"
-    puts "Sollicitations restant sans code region : #{Solicitation.where(created_at: days_count.days.ago..Time.zone.now).where(code_region: nil).count}"
+    puts "Sollicitations restant sans code region : #{Solicitation.where(created_at: start_at..end_at).where(code_region: [nil,0]).count}"
   end
 
   desc 'update solicitations code_region from API entreprise'
