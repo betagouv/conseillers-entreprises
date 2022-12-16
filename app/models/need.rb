@@ -204,7 +204,7 @@ class Need < ApplicationRecord
   end
 
   scope :without_exchange, -> do
-    where(status: [:not_for_me, :done_not_reachable, :quo])
+    where(status: [:not_for_me, :done_not_reachable, :quo, :taking_care])
   end
 
   scope :for_reminders, -> do
@@ -212,7 +212,7 @@ class Need < ApplicationRecord
   end
 
   scope :with_exchange, -> do
-    where(status: [:taking_care, :done, :done_no_help])
+    where(status: [:done, :done_no_help])
   end
 
   scope :in_progress, -> do
