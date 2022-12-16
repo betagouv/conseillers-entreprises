@@ -191,7 +191,7 @@ class Solicitation < ApplicationRecord
 
   def set_siret_and_region
     params = { code_region: self.code_region, siret: self.siret }
-    return params if self.code_region.present?
+    return params if (self.code_region.present? && self.code_region != 0)
     siret_or_siren = FormatSiret.clean_siret(siret)
     # Solicitation with a valid SIREN -> find siret
     if FormatSiret.siren_is_valid(siret_or_siren)
