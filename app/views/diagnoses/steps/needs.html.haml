@@ -18,20 +18,18 @@
       - @themes.each do |theme|
         - subjects = theme.subjects.for_interview
         - if subjects.present?
-          - active_class = 'active' if @diagnosis.themes.include?(theme)
-          .ui.segments.shadow-less.accordion.theme
-            .ui.segment.secondary.title{ class: active_class }
-              %h2.fr-text--lead
+          %section.fr-accordion
+            %h2.fr-accordion__title
+              %button.fr-accordion__btn{ 'aria-controls': "accordion-#{theme.id}", 'aria-expanded': @diagnosis.themes.include?(theme).to_s, type: 'button' }
                 = theme
-                %span.ri-arrow-right-s-fill.float-right{ 'aria-hidden': 'true' }
-            .ui.content.subjects.basic.segments.fr-py-2w{ class: active_class }
+            .fr-collapse{ id: "accordion-#{theme.id}" }
               - all_needs = @diagnosis.needs
               - subjects.each do |subject|
                 - need = all_needs.where(subject: subject).first_or_initialize
-                .fr-checkbox-group.subject
+                .fr-checkbox-group.subject.fr-mt-3v
                   = diagnosis_form.fields_for :needs, need do |need_form|
                     = need_form.check_box :_destroy, { checked: need.persisted?, data: { action: "change->diagnosis-needs-step#autoUncheck", 'diagnosis-needs-step-target': "checkboxes" } }, '0', '1'
-                    = need_form.label :_destroy, subject, class: 'fr-label'
+                    = need_form.label :_destroy, subject, class: 'fr-label '
                     = need_form.hidden_field :subject_id
                     -# Institution filters
                     - additional_subject_questions = AdditionalSubjectQuestion.where(subject: subject)
@@ -39,7 +37,7 @@
                       - filter = need.institution_filters.where(additional_subject_question: question).first_or_initialize
                       = need_form.fields_for :institution_filters, filter do |filter_form|
                         - key = filter_form.object.key
-                        .fr-form-group.additional_questions
+                        .fr-form-group.additional_questions.fr-mt-2v
                           %fieldset.fr-fieldset.fr-fieldset--inline
                             %legend.fr-fieldset__legend.fr-text--regular= I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, key])
                             .fr-fieldset__content
@@ -56,7 +54,7 @@
               .fr-mt-2w
                 = render 'next_step', diagnosis_form: diagnosis_form
 
-      .bottom_actions.flex
+      .bottom_actions.fr-mt-10v
         = link_to contact_diagnosis_path, class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbolinks: false } do
           %span.ri-arrow-left-line.fr-mr-1w{ 'aria-hidden': 'true' }
           = t('previous_step')
