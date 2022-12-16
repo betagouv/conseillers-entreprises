@@ -67,9 +67,9 @@ ActiveAdmin.register Expert do
 
   before_action :only => :index do
     @antennes_collection = if params[:q].present? && params[:q][:antenne_institution_id_eq].present?
-      Antenne.where(institution_id: params[:q][:antenne_institution_id_eq])
+      Antenne.active.where(institution_id: params[:q][:antenne_institution_id_eq])
     else
-      Antenne.all
+      Antenne.active
     end
   end
 
