@@ -6,7 +6,7 @@
       - if data.count.present?
         %span= number_with_delimiter(data.count, locale: :fr)
       - if data.secondary_count.present?
-        = t("stats.series.#{name}.title", secondary_count: data.secondary_count)
+        = t('title', scope: ['stats', 'series', name], secondary_count: data.secondary_count)
       - else
         = t("stats.series.#{name}.title")
 
