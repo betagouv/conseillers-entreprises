@@ -11,7 +11,7 @@
           %p.fr-callout__text.fr-text--sm= t("solicitations.creation_form.empty_result_help_html", path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
 
     = form_with(model: @solicitation, url: update_step_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
-      %fieldset.fr-fieldset
+      .fr-fieldset
         - @solicitation.company_step_required_fields.each do |field|
           .fr-fieldset__element
             .fr-input-group

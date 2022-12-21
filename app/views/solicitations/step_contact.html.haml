@@ -21,7 +21,7 @@
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3
     = form_with(model: @solicitation, url: path, local: true, html: { honeypot: true }) do |f|
-      %fieldset.fr-fieldset
+      .fr-fieldset
         .fr-fieldset__element
           %p.fr-hint-text.fr-text--bold= t('solicitations.creation_form.all_fields_compulsary')
         = f.hidden_field :landing_subject_id

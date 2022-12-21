@@ -11,7 +11,7 @@
         %h2= t('api_requests.embraced_error_html', message: @error_message, url: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
 
     = form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, method: :get) do |f|
-      %fieldset.fr-fieldset
+      .fr-fieldset
         .fr-fieldset__element
           .fr-input-group.siret-autocomplete{ 'data-controller': "pages-siret-autocomplete" }
             = label_tag "query", t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
