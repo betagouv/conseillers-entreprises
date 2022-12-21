@@ -792,14 +792,14 @@ fr:
       frequently_questions: Questions fréquentes
     footer:
       cookies: Gestion des cookies
-      github_title: Page Github de Place des Entreprises - nouvelle fenêtre
-      link_to_beta_gouv: Lien vers le site de Beta.gouv.fr - nouvelle fenêtre
-      linkedin_title: Page Linkedin de Place des Entreprises - nouvelle fenêtre
+      github_title: Page Github de Place des Entreprises
+      link_to_beta_gouv: Lien vers le site de Beta.gouv.fr
+      linkedin_title: Page Linkedin de Place des Entreprises
       open_cookies: Ouvre la fenêtre de gestion des cookies
       service_presentation: Présentation du service (PDF 438 ko)
       service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Place des Entreprises
       startup_d_etat: Une startup d’État de beta.gouv
-      twitter_title: Compte twitter de Place des Entreprises - nouvelle fenêtre
+      twitter_title: Compte twitter de Place des Entreprises
     how_it_works:
       choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
@@ -1192,6 +1192,7 @@ fr:
     with_diagnosis: Demandes transmises
     without_diagnosis: Demandes non transmises
   step_number: Étape %{actual} sur %{total}
+  to_new_window: ouvre une nouvelle fenêtre
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:

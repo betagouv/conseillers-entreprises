@@ -8,7 +8,7 @@
 
 <div class="fr-container--fluid section-grey fr-py-7w">
   <div class="fr-container container-medium">
-    <p>Cette page n’est pas une page d’aide, mais une déclaration de conformité au RGAA (<a title="Référentiel général d’amélioration de l’accessibilité (RGAA) - Nouvelle fenêtre" href="https://www.numerique.gouv.fr/publications/rgaa-accessibilite/" target="_blank" rel="noopener">Référentiel général d'accessibilité pour les administrations</a>) 4.0 qui vise à définir le niveau d’accessibilité général constaté sur le site conformément à la réglementation. Cette page est obligatoire pour être conforme au RGAA 4.0.</p>
+    <p>Cette page n’est pas une page d’aide, mais une déclaration de conformité au RGAA (<a title="<%= to_new_window_title('Référentiel général d’amélioration de l’accessibilité (RGAA)')%>" href="https://www.numerique.gouv.fr/publications/rgaa-accessibilite/" target="_blank" rel="noopener">Référentiel général d'accessibilité pour les administrations</a>) 4.0 qui vise à définir le niveau d’accessibilité général constaté sur le site conformément à la réglementation. Cette page est obligatoire pour être conforme au RGAA 4.0.</p>
 
     <h2>Qu’est-ce que l’accessibilité numérique ?</h2>
 
@@ -38,8 +38,10 @@
     <h3>Défenseur des droits</h3>
     <p>Cette procédure est à utiliser dans le cas suivant : vous avez signalé au responsable du site internet un défaut d’accessibilité qui vous empêche d’accéder à un contenu ou à un des services du portail et vous n’avez pas obtenu de réponse satisfaisante.</p>
     <ul>
-      <li>Écrire un message au Défenseur des droits (<a title="https://formulaire.defenseurdesdroits.fr/ - Nouvelle fenêtre" href="https://formulaire.defenseurdesdroits.fr/" target="_blank" rel="noopener">https://formulaire.defenseurdesdroits.fr/</a>)</li>
-      <li>Contacter le délégué du Défenseur des droits dans votre région (<a title="https://www.defenseurdesdroits.fr/saisir/delegues - Nouvelle fenêtre" href="https://www.defenseurdesdroits.fr/saisir/delegues" target="_blank" rel="noopener">https://www.defenseurdesdroits.fr/saisir/delegues</a>)</li>
+      <% write_link = "https://formulaire.defenseurdesdroits.fr" %>
+      <li>Écrire un message au Défenseur des droits (<a title="<%= to_new_window_title(write_link)%>" href=<%=write_link%> target="_blank" rel="noopener"><%=write_link%></a>)</li>
+      <% contact_link = "https://www.defenseurdesdroits.fr/saisir/delegues" %>
+      <li>Contacter le délégué du Défenseur des droits dans votre région (<a title="<%= to_new_window_title(contact_link)%>" href=<%=contact_link%> target="_blank" rel="noopener"><%=contact_link%></a>)</li>
       <li>Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre) à&nbsp;:<br>
         Défenseur des droits<br>
         Libre réponse 71120<br>

@@ -30,4 +30,8 @@ module ApplicationHelper
   def canonical_base_url
     raw ENV['HOST_NAME']
   end
+
+  def to_new_window_title(title)
+    [title, t('to_new_window')].join(' - ')
+  end
 end

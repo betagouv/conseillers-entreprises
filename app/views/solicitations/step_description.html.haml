@@ -14,7 +14,7 @@
             %p.fr-pl-2w= t('solicitations.creation_form.better_taking_care')
           = h(@solicitation.landing_subject&.description_explanation&.html_safe)
 
-      %fieldset.fr-fieldset
+      .fr-fieldset
         .fr-fieldset__element
           .fr-input-group
             = f.label 'description', t('solicitations.creation_form.description'), class: 'fr-label bold'
