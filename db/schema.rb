@@ -370,6 +370,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_104919) do
     t.datetime "updated_at", null: false
     t.boolean "display_region_logo", default: false
     t.datetime "archived_at", precision: nil
+    t.text "description_prefill"
     t.index ["archived_at"], name: "index_landing_subjects_on_archived_at"
     t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
     t.index ["slug"], name: "index_landing_subjects_on_slug", unique: true

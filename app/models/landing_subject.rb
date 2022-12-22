@@ -6,6 +6,7 @@
 #  archived_at                    :datetime
 #  description                    :text
 #  description_explanation        :text
+#  description_prefill            :text
 #  display_region_logo            :boolean          default(FALSE)
 #  form_description               :text
 #  form_title                     :string

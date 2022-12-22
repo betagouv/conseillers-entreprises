@@ -78,6 +78,7 @@ ActiveAdmin.register LandingTheme do
             row(:subject) { |ls| admin_link_to ls.subject }
             row(:description) { |ls| ls.description.html_safe }
             row(:description_explanation) { |ls| ls.description_explanation.html_safe }
+            row(:description_prefill) { |ls| ls.description_prefill.html_safe }
             row :form_title
             row(:form_description) { |ls| ls.form_description.html_safe }
             row :requires_location
@@ -96,7 +97,7 @@ ActiveAdmin.register LandingTheme do
   ## Form
   #
   landing_subjects_attributes = [
-    :id, :title, :slug, :subject_id, :description, :description_explanation, :form_title, :form_description,
+    :id, :title, :slug, :subject_id, :description, :description_explanation, :description_prefill, :form_title, :form_description,
     :meta_title, :logo_ids, :meta_description, :requires_location, :requires_requested_help_amount, :requires_siret, :archived_at,
     :display_region_logo, :position, :_destroy, logo_ids: []
   ]
@@ -125,6 +126,7 @@ ActiveAdmin.register LandingTheme do
         ls.input :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
         ls.input :description, as: :quill_editor
         ls.input :description_explanation, as: :quill_editor
+        ls.input :description_prefill
         ls.input :form_title
         ls.input :requires_location
         ls.input :requires_requested_help_amount
