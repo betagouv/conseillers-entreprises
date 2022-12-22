@@ -17,6 +17,8 @@ RSpec.describe 'stats/public/index' do
       render
 
       expect(rendered).to have_content("Statistiques d’utilisation")
+      expect(rendered).to have_selector('.fr-col-12.card.stats', count: 8)
+      expect(rendered).to have_selector('.fr-container.main-stat', count: 1)
     end
   end
 end

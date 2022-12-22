@@ -3,22 +3,20 @@ module Stats::Public
   class ExchangeWithExpertColumnStats
     include ::Stats::BaseStats
 
+    def initialize(params)
+      params = OpenStruct.new(params)
+      @start_date = Time.zone.now.beginning_of_month - 11.months
+      @end_date = Time.zone.now.end_of_day
+    end
+
     def main_query
       Need.joins(:diagnosis)
         .merge(Diagnosis.from_solicitation.completed)
         .with_exchange
     end
 
+    # Stat principale, on ne filtre pas
     def filtered(query)
-      if territory.present?
-        query.merge! territory.needs
-      end
-      if institution.present?
-        query.merge! institution.received_needs
-      end
-      if start_date.present?
-        query.merge! query.where(created_at: @start_date..@end_date)
-      end
       query
     end
 
@@ -44,6 +42,10 @@ module Stats::Public
 
     def format
       'Total : <b>{point.stackTotal}</b>'
+    end
+
+    def colors
+      %w[#000091]
     end
   end
 end

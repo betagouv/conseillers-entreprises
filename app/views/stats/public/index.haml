@@ -11,12 +11,12 @@
   - cache("stats_charts-#{@main_stat}", expires_in: 1.hour) do
     = render 'stats/main_stats_chart', data: @main_stat, name: :exchange_with_expert_column
 
-.fr-container--fluid.fr-py-7w.section-grey#section-stats
+.fr-container--fluid.fr-py-12w.section-grey#section-stats
   .fr-container
     - cache("stats_charts-#{@stats}", expires_in: 1.hour) do
       = render 'stats_params', stats: @stats
       .fr-grid-row.fr-grid-row--gutters#stats-charts
-        - names = [:solicitations, :solicitations_in_deployed_regions, :solicitations_diagnoses, :exchange_with_expert, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
+        - names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :needs_done_from_exchange, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
         - names.each do |name|
           - data = @stats.send(name.to_sym)
           = render 'stats/stats_chart', data: data, name: name

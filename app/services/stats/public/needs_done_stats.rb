@@ -1,4 +1,4 @@
-module Stats::Needs
+module Stats::Public
   class NeedsDoneStats
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
@@ -7,6 +7,7 @@ module Stats::Needs
       Need.joins(:diagnosis)
         .merge(Diagnosis.from_solicitation.completed)
         .where(created_at: @start_date..@end_date)
+        .with_exchange
     end
 
     def build_series

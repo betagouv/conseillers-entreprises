@@ -4,7 +4,7 @@ module Stats::Public
     include ::Stats::FiltersStats
 
     def main_query
-      Solicitation.step_complete.where(created_at: @start_date..@end_date)
+      Solicitation.step_complete.where(completed_at: @start_date..@end_date)
     end
 
     def filtered(query)
@@ -29,6 +29,19 @@ module Stats::Public
 
     def chart
       'stats-chart'
+    end
+
+    def subtitle
+      I18n.t('stats.series.solicitations.subtitle_html')
+    end
+
+    def date_group_attribute
+      'completed_at'
+    end
+
+    def grouped_by_month(query)
+      # Ici les mois sont en UTC
+      query.group("DATE_TRUNC('month', #{query.model.name.pluralize}.completed_at)")
     end
   end
 end

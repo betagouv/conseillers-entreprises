@@ -12,8 +12,7 @@ module Stats::Public
     end
 
     def build_series
-      query = main_query
-      query = filtered_needs(query)
+      query = filtered_main_query
 
       @needs_with_exchange = []
       @needs_without_exchange = []
@@ -28,12 +27,20 @@ module Stats::Public
     end
 
     def subtitle
-      I18n.t('stats.series.exchange_with_expert.subtitle_html')
+      nil
     end
 
     def count
       build_series
       percentage_two_numbers(@needs_with_exchange, @needs_without_exchange)
+    end
+
+    def filtered_main_query
+      filtered_needs(main_query)
+    end
+
+    def secondary_count
+      filtered_main_query.with_exchange.size
     end
 
     # def format

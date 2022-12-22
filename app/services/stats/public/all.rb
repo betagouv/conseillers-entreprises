@@ -32,8 +32,8 @@ module Stats::Public
       ExchangeWithExpertStats.new(@params)
     end
 
-    def solicitations_in_deployed_regions
-      SolicitationsInDeployedRegionsStats.new(@params)
+    def needs_done_from_exchange
+      NeedsDoneStats.new(@params)
     end
   end
 end

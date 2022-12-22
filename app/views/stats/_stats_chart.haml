@@ -5,7 +5,10 @@
     %h2
       - if data.count.present?
         %span= number_with_delimiter(data.count, locale: :fr)
-      = t("stats.series.#{name}.title")
+      - if data.secondary_count.present?
+        = t('title', scope: ['stats', 'series', name], secondary_count: data.secondary_count)
+      - else
+        = t('title', scope: ['stats', 'series', name])
 
     %p.fr-m-0{ id: chart_name,
       'data-chart': data.chart,

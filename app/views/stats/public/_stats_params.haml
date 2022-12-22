@@ -1,6 +1,8 @@
 .fr-grid-row.fr-py-3w.fr-mb-3w.white-bg#stats-params
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3
-    = form_with url: public_index_path, method: :get, skip_enforcing_utf8: true, local: true do |f|
+    %h2= t('stats.stats_params.title')
+    - path = { controller: "stats/public", action: "index", anchor: 'stats-charts' }
+    = form_with url: path, method: :get, skip_enforcing_utf8: true, local: true do |f|
       .fr-select-group
         = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
         = f.collection_select :territory, Territory.regions.order(:name), :id, :name, { selected: params[:territory],

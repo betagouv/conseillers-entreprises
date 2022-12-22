@@ -34,13 +34,15 @@ module Stats
     end
 
     def build_series
-      query = main_query
-      query = filtered(query)
-      query = grouped_by_month(query)
+      query = grouped_by_month(filtered_main_query)
       query = grouped_by_category(query)
       results = categorized_results(query)
       results = full_results(results)
       as_series(results)
+    end
+
+    def filtered_main_query
+      filtered(main_query)
     end
 
     def max_value
@@ -68,6 +70,10 @@ module Stats
 
     def count
       @count ||= filtered(main_query).size
+    end
+
+    def secondary_count
+      nil
     end
 
     def percentage_two_numbers(measured, others)
