@@ -2,13 +2,14 @@
 #
 # Table name: institutions_subjects
 #
-#  id             :bigint(8)        not null, primary key
-#  description    :string
-#  optional       :boolean          default(FALSE)
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  institution_id :bigint(8)
-#  subject_id     :bigint(8)
+#  id                 :bigint(8)        not null, primary key
+#  description        :string
+#  optional           :boolean          default(FALSE)
+#  public_description :text
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  institution_id     :bigint(8)
+#  subject_id         :bigint(8)
 #
 # Indexes
 #

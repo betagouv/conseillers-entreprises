@@ -414,8 +414,6 @@ fr:
       uncategorisable_label: Inclassables
       uncategorisable_value: uncategorisable
       view_completed_analysis: Voir l’analyse réalisée
-  iframe:
-    partners_logo: 'Les partenaires du service susceptibles de vous rappeler :'
   kaminari:
     page:
       page: Page
@@ -970,6 +968,7 @@ fr:
       iframe_message_html: "<p>Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME. </p> <p>Un conseiller va vous appeler dans les <strong>5 jours</strong> ouvrés (en moyenne).</p> <p>Merci pour votre confiance !</p>"
       message_html: Votre demande a bien été envoyée. Le conseiller qui peut vous aider vous appelle dans les <b>5 jours</b> (délai moyen de prise en charge).
       message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
+      partners_that_may_call: 'Ils sont susceptibles de vous rappeler :'
       title: Merci !
     header:
       canceled: abandonnées

@@ -18,6 +18,7 @@
 #  fk_rails_...  (institution_id => institutions.id)
 #
 class Logo < ApplicationRecord
+  # Todo : remove
   has_and_belongs_to_many :landing_subjects, inverse_of: :logos
   belongs_to :institution, optional: true
 

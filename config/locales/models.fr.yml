@@ -795,6 +795,7 @@ fr:
       job: Conseiller entreprise, Chargé de mission…
       phone_number: 06 12 34 56 78
       team_name: Équipe formation, Cellule-conseil aux entreprises…
+    public_description: Description publique
     received_matches:
       one: Mise en relation reçue
       other: Mises en relation reçues

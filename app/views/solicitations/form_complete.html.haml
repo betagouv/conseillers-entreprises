@@ -14,7 +14,8 @@
               .fr-text--lg= t('.iframe_message_html')
             .logo-pde= image_tag 'logo-PDE.svg', alt: t('logos.pde')
             .fr-py-4w.text-center
-              %h2.fr-h4= t('iframe.partners_logo')
+              %h2.fr-h4= t('.partners_that_may_call')
+              / Todo : généraliser tiles aux iframes ?
               = render 'landings/landings/logos', landing_subject: @landing_subject
 
         - else
@@ -26,7 +27,9 @@
             - else
               %p.fr-text--lg= t('.message_html')
           - if @landing_subject.logos.present?
-            = render 'landings/landings/logos', landing_subject: @landing_subject
+            .fr-py-4w.text-center
+              %h2.fr-h4= t('.partners_that_may_call')
+              = render partial: 'institutions_tiles', collection: @landing_subject.logo_institutions, as: :institution, locals: { subject: @landing_subject.subject }
 
 - unless in_iframe?
   .fr-container--fluid.section-light-grey

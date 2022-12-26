@@ -96,6 +96,7 @@ ActiveAdmin.register Institution do
         column(:theme)
         column(:subject)
         column(:description)
+        column(:public_description)
         column(:optional)
         column(:archived_at) { |is| is.subject.archived_at }
       end
@@ -106,7 +107,7 @@ ActiveAdmin.register Institution do
   #
   permit_params :name, :display_logo, :slug, :show_on_list, :code_region, :siren,
                 antenne_ids: [], category_ids: [],
-                institutions_subjects_attributes: %i[id description subject_id optional _create _update _destroy]
+                institutions_subjects_attributes: %i[id description public_description subject_id optional _create _update _destroy]
 
   form do |f|
     f.inputs do
@@ -132,6 +133,7 @@ ActiveAdmin.register Institution do
       collection = option_groups_from_collection_for_select(themes, :subjects_ordered_for_interview, :label, :id, :label, sub_f.object&.subject&.id)
       sub_f.input :subject, collection: collection
       sub_f.input :description
+      sub_f.input :public_description
       sub_f.input :optional
     end
 
