@@ -201,6 +201,9 @@ describe 'New Solicitation', js: true, flaky: true do
           stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{siren}").to_return(
             body: file_fixture('api_insee_sirets_by_siren_many.json')
           )
+          stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{siret}").to_return(
+            body: file_fixture('api_insee_siret.json')
+          )
         end
 
         it do
