@@ -247,7 +247,7 @@ fr:
         description: 'Description :'
         email: 'Email :'
         landing_subjects: 'Aides demandées :'
-        needs_historic: 'Historique de l’entreprise :'
+        needs_historic: 'Historique de l’entreprise :'
         siret: 'Siret :'
         solicitation_banned_facility_explanation: Entreprise et email exclus (spam)
         solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres demandes récemment'
