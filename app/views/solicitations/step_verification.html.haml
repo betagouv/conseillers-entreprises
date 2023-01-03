@@ -41,11 +41,11 @@
           .fr-tile__body
             %ul.list-unstyled
               %li.fr-tile__title= @solicitation.subject.label
-              %li= @solicitation.description
-            = link_to step_description_solicitation_path(@solicitation.uuid), class: 'blue',
-             title: t('.edit_description') do
-              %span.ri-edit-line
-              = t('.edit')
+              %li.fr-mt-3v= simple_format @solicitation.description
+              - @solicitation.institution_filters.each do |filter|
+                %li.institution_filter #{t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])} #{tag.strong(t(filter.filter_value, scope: [:boolean, :text]))}
+            = link_to step_description_solicitation_path(@solicitation.uuid), class: 'blue', title: t('.edit_description') do
+              %span.ri-edit-line= t('.edit')
 
     = form_with(model: @solicitation, url: update_step_verification_solicitation_path(@solicitation.uuid), local: true,
       html: { honeypot: true, class: 'fr-mt-10v' }) do |f|
