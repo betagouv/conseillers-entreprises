@@ -7,46 +7,127 @@
 <%= render 'pages/breadcrumbs', title: t('.title') %>
 
 <div class="fr-container--fluid section-grey fr-py-7w">
-  <div class="fr-container container-medium">
-    <p>Cette page n’est pas une page d’aide, mais une déclaration de conformité au RGAA (<a title="<%= to_new_window_title('Référentiel général d’amélioration de l’accessibilité (RGAA)')%>" href="https://www.numerique.gouv.fr/publications/rgaa-accessibilite/" target="_blank" rel="noopener">Référentiel général d'accessibilité pour les administrations</a>) 4.0 qui vise à définir le niveau d’accessibilité général constaté sur le site conformément à la réglementation. Cette page est obligatoire pour être conforme au RGAA 4.0.</p>
+  <div class="fr-container">
+    <div class="fr-grid-row">
+      <div class="fr-col-12 fr-col-md-8 fr-col-offset-md-2">
+        <p>Cette page n’est pas une page d’aide, mais une déclaration de conformité au RGAA (<a title="<%= to_new_window_title('Référentiel général d’amélioration de l’accessibilité (RGAA)')%>" href="https://www.numerique.gouv.fr/publications/rgaa-accessibilite/" target="_blank" rel="noopener">Référentiel général d'accessibilité pour les administrations</a>) 4.0 qui vise à définir le niveau d’accessibilité général constaté sur le site conformément à la réglementation.</p>
+        <p>Cette page est obligatoire pour être conforme au RGAA 4.0.</p>
 
-    <h2>Qu’est-ce que l’accessibilité numérique ?</h2>
+        <h2>Qu’est-ce que l’accessibilité numérique ?</h2>
 
-    <p>Un site web accessible est un site qui permet à tous les internautes d’accéder à ses contenus sans difficulté, y compris aux personnes qui présentent un handicap et utilisent des logiciels ou matériels spécialisés.</p>
-    <p>Un site accessible permet par exemple de :</p>
-    <ul>
-      <li>Naviguer avec des synthèses vocales ou des plages braille (notamment utilisées par les internautes aveugles ou malvoyants).</li>
-      <li>Personnaliser l’affichage du site selon ses besoins (grossissement des caractères, modification des couleurs, etc.).</li>
-      <li>Naviguer sans utiliser la souris, avec le clavier uniquement ou via un écran tactile.</li>
-    </ul>
+        <p>Un site web accessible est un site qui permet à tous les internautes d’accéder à ses contenus sans difficulté, y compris aux personnes qui présentent un handicap et utilisent des logiciels ou matériels spécialisés.</p>
+        <p>Un site accessible permet par exemple de :</p>
+        <ul>
+          <li>Naviguer avec des synthèses vocales ou des plages braille (notamment utilisées par les internautes aveugles ou malvoyants).</li>
+          <li>Personnaliser l’affichage du site selon ses besoins (grossissement des caractères, modification des couleurs, etc.).</li>
+          <li>Naviguer sans utiliser la souris, avec le clavier uniquement ou via un écran tactile.</li>
+        </ul>
 
-    <h2>Déclaration d’accessibilité</h2>
+        <h2 class="fr-mt-3w">Déclaration d’accessibilité</h2>
 
-    <p>Place des Entreprises s’engage à rendre son site internet accessible conformément à l’article 47 de la loi n° 2005-102 du 11 février 2005.</p>
+        <p>Place des Entreprises s’engage à rendre son site internet accessible conformément à l’article 47 de la loi n° 2005-102 du 11 février 2005.</p>
 
-    <h3>État de conformité</h3>
-    <p>Malgré l'attention portée à l'accessibilité de notre service, le site Place des Entreprises est non conforme avec le RGAA 4.0.</p>
-    <p>On considère qu'un site est "non conforme" en terme d'accessibilité tant que le niveau de conformité au RGAA est inconnu. Cela signifie qu'aucun audit auprès d'un cabinet d'expert en charge de mesurer le taux de conformité n'a encore été effectué.</p>
-    <p>Un audit de conformité est planifié en août 2022. Les corrections seront prises en compte suite à l’audit.</p>
+        <h3>État de conformité</h3>
+        <p>Le site <a href='https://place-des-entreprises.beta.gouv.fr'>place-des-entreprises.beta.gouv.fr</a> est partiellement conforme avec le référentiel général d’amélioration de l’accessibilité (RGAA), version 4.1 en raison des non-conformités et des dérogations énumérées ci-dessous.</p>
 
-    <h3>Droit à la compensation</h3>
-    <p>Dans l’attente d’une mise en conformité totale, vous pouvez obtenir une version accessible des documents ou des informations qui y seraient contenues en envoyant un courriel à <a href="mailto:contact@place-des-entreprises.beta.gouv.fr?subject=<%= ERB::Util.url_encode("Droit à la compensation") %>">contact@place-des-entreprises.beta.gouv.fr</a> en indiquant le nom du document concerné et/ou les informations que vous souhaiteriez obtenir. Les informations demandées vous seront transmises dans les meilleurs délais.</p>
+        <h3>Résultats des tests</h3>
 
-    <h3>Amélioration et contact</h3>
-    <p>Vous pouvez nous aider à améliorer l’accessibilité du site en nous signalant les problèmes éventuels que vous rencontrez. Pour ce faire, envoyez-nous un courriel à <a href="mailto:contact@place-des-entreprises.beta.gouv.fr?subject=<%= ERB::Util.url_encode("Amélioration de l’accessibilité") %>">contact@place-des-entreprises.beta.gouv.fr</a>.</p>
+        <p>L’audit de conformité réalisé par Maroua OURI (de SMILE) en décembre 2022 révèle que <b>91,43%</b> des critères du RGAA version 4.1 sont respectés.</p>
 
-    <h3>Défenseur des droits</h3>
-    <p>Cette procédure est à utiliser dans le cas suivant : vous avez signalé au responsable du site internet un défaut d’accessibilité qui vous empêche d’accéder à un contenu ou à un des services du portail et vous n’avez pas obtenu de réponse satisfaisante.</p>
-    <ul>
-      <% write_link = "https://formulaire.defenseurdesdroits.fr" %>
-      <li>Écrire un message au Défenseur des droits (<a title="<%= to_new_window_title(write_link)%>" href=<%=write_link%> target="_blank" rel="noopener"><%=write_link%></a>)</li>
-      <% contact_link = "https://www.defenseurdesdroits.fr/saisir/delegues" %>
-      <li>Contacter le délégué du Défenseur des droits dans votre région (<a title="<%= to_new_window_title(contact_link)%>" href=<%=contact_link%> target="_blank" rel="noopener"><%=contact_link%></a>)</li>
-      <li>Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre) à&nbsp;:<br>
-        Défenseur des droits<br>
-        Libre réponse 71120<br>
-        75342&nbsp;Paris CEDEX 07
-      </li>
-    </ul>
+        <h3>Contenus non accessibles</h3>
+
+        <h4>Non-conformité</h4>
+        <p>Des anomalies vont pénaliser les utilisateurs en situation de handicap, naviguant ou non à l’aide de technologies d’assistance.</p>
+        <p>Les non-conformités les plus bloquantes pour les utilisateurs concernent :</p>
+        <ul>
+          <li>Textes avec contraste insuffisant,</li>
+          <li>Vidéo sans sous-titres directement incrusté (les sous-titres sont accessibles via les paramètres des lecteurs vidéo),</li>
+          <li>Cellules de tableaux insérées comme entêtes de tableau,</li>
+          <li>Cellules de tableaux reliées avec les attributs d’un tableau complexe,</li>
+          <li>Erreurs de validation de code,</li>
+          <li>Des contenus avec une structuration (titres et intertitres, paragraphes) incorrecte, ou insuffisante pour une navigation efficace avec un lecteur d’écran.</li>
+        </ul>
+
+        <h4 class="fr-mt-2w">Contenu non soumis à l’obligation d’accessibilité</h4>
+        <p>Contenus tiers :</p>
+        <ul>
+          <li>Composant de gestion des cookies (Tarte au citron),</li>
+          <li>Lecteurs vidéo (youtube, peertube...),</li>
+          <li>Statistiques : diagrammes dynamiques avec affichage des informations au clic ou au survol,</li>
+          <li>Texte en image (Je donne mon avis).</li>
+        </ul>
+
+        <h3 class="fr-mt-3w">Établissement de cette déclaration d’accessibilité</h3>
+        <p>Cette déclaration a été établie le 24/08/2022 et mise à jour le 21/12/2022.</p>
+
+        <h4>Technologies utilisées au sein du site Place des Entreprises</h4>
+        <ul>
+          <li>Ruby on Rails</li>
+          <li>HTML 5</li>
+          <li>CSS</li>
+          <li>Javascript</li>
+        </ul>
+        <% url="https://github.com/betagouv/place-des-entreprises" %>
+        <p>Lien vers le code source : <a href="<%= url %>" title="<%= to_new_window_title(url)%>" target="_blank" rel='noopener'><%= url %></a></p>
+
+        <h4>Environnement de test</h4>
+        <p>Les vérifications de restitution de contenus ont été réalisées sur la base de la combinaison fournie par la base de référence du RGAA 4.1, avec les versions suivantes :</p>
+        <ul>
+          <li>Agent utilisateur: Firefox</li>
+          <li>Technologie d'assistance: NVDA</li>
+        </ul>
+
+        <h4 class="fr-mt-2w">Outils pour évaluer l’accessibilité</h4>
+        <ul>
+          <li>Wave</li>
+          <li>WCAG color contrast checker</li>
+          <li>Headings maps</li>
+          <li>Web developper toolbar</li>
+          <li>Inspecteur du navigateur</li>
+          <li>Validateur en ligne du W3C</li>
+          <li>Stylus</li>
+        </ul>
+
+        <h4 class="fr-mt-2w">Pages du site ayant fait l’objet de la vérification de conformité</h4>
+
+        <% pages = [
+          {title: 'Page d’accueil', url: 'https://place-des-entreprises.beta.gouv.fr/'},
+          {title: 'Page mentions d’information', url: 'https://place-des-entreprises.beta.gouv.fr/mentions_d_information'},
+          {title: 'Page mentions légales', url: 'https://place-des-entreprises.beta.gouv.fr/mentions_legales'},
+          {title: 'Page accessibilité', url: 'https://place-des-entreprises.beta.gouv.fr/accessibilite'},
+          {title: 'Connexion conseiller', url: 'https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in'},
+          {title: 'Page comment ça marche', url: 'https://place-des-entreprises.beta.gouv.fr/comment_ca_marche'},
+          {title: 'Page statistiques', url: 'https://place-des-entreprises.beta.gouv.fr/stats'},
+          {title: 'Page thématique', url: 'https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/environnement-transition-ecologique'},
+          {title: 'Pages dépôt de sollicitation - étape 1', url: 'https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/demarche-ecologie'},
+        ] %>
+        <ol>
+          <% pages.each do |page| %>
+            <li><a href="<%= page[:url] %>" title="<%= to_new_window_title(page[:title])%>" target="_blank" rel='noopener'><%= page[:title] %></a></li>
+          <% end %>
+          <li>Pages dépôt de sollicitation - étapes suivantes</li>
+        </ol>
+
+        <h3 class="fr-mt-3w">Droit à la compensation</h3>
+        <p>Si vous n’arrivez pas à accéder à un contenu ou à une fonctionnalité, vous pouvez obtenir une version accessible des documents ou des informations qui y seraient contenues en envoyant un courriel à <a href="mailto:contact@place-des-entreprises.beta.gouv.fr?subject=<%= ERB::Util.url_encode("Droit à la compensation") %>">contact@place-des-entreprises.beta.gouv.fr</a> en indiquant le nom du document concerné et/ou les informations que vous souhaiteriez obtenir. Les informations demandées vous seront transmises dans les meilleurs délais.</p>
+
+        <h3>Amélioration et contact</h3>
+        <p>Vous pouvez nous aider à améliorer l’accessibilité du site en nous signalant les problèmes éventuels que vous rencontrez. Pour ce faire, envoyez-nous un courriel à <a href="mailto:contact@place-des-entreprises.beta.gouv.fr?subject=<%= ERB::Util.url_encode("Amélioration de l’accessibilité") %>">contact@place-des-entreprises.beta.gouv.fr</a>.</p>
+
+        <h3>Voies de recours</h3>
+        <p>Cette procédure est à utiliser dans le cas suivant : vous avez signalé au responsable du site internet un défaut d’accessibilité qui vous empêche d’accéder à un contenu ou à un des services du portail et vous n’avez pas obtenu de réponse satisfaisante.</p>
+        <ul>
+          <% write_link = "https://formulaire.defenseurdesdroits.fr" %>
+          <li>Écrire un message au Défenseur des droits (<a title="<%= to_new_window_title(write_link)%>" href=<%=write_link%> target="_blank" rel="noopener"><%=write_link%></a>)</li>
+          <% contact_link = "https://www.defenseurdesdroits.fr/saisir/delegues" %>
+          <li>Contacter le délégué du Défenseur des droits dans votre région (<a title="<%= to_new_window_title(contact_link)%>" href=<%=contact_link%> target="_blank" rel="noopener"><%=contact_link%></a>)</li>
+          <li>Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre) à&nbsp;:<br>
+            Défenseur des droits<br>
+            Libre réponse 71120<br>
+            75342&nbsp;Paris CEDEX 07
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

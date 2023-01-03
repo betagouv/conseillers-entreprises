@@ -30,7 +30,7 @@ describe 'Pages' do
     click_link 'Conditions d’utilisation'
     click_link 'Mentions d\'information'
     click_link 'Mentions légales'
-    click_link 'Accessibilité : non conforme'
+    click_link 'Accessibilité : partiellement conforme'
     click_link 'Statistiques'
     expect(page).to have_select 'territory'
     expect(page).not_to have_select 'institution'
