@@ -1,9 +1,9 @@
 class SolicitationsController < PagesController
   include IframePrefix
 
-  layout 'solicitation_form', except: %i[form_complete step_verification]
+  layout 'solicitation_form', except: [:form_complete]
 
-  before_action :set_steps, except: %i[form_complete]
+  before_action :set_steps, except: [:form_complete]
 
   # On peut naviguer dans le formulaire, donc on ne peut se fier au status de la solicitation en cours
   # Ex : sol statut description, mais qui revient à contact_step

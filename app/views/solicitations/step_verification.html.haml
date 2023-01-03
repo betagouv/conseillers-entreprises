@@ -1,13 +1,17 @@
-= render 'pages/breadcrumbs', landing: @solicitation.landing, landing_theme: @landing_subject.landing_theme, landing_subject: @landing_subject
+- content_for :header, render('solicitations/header', landing: @landing, landing_subject: @landing_subject, step_data: @step_data)
 
-.fr-container--fluid.section-grey.fr-py-4w#step-verification
+- content_for :form_header do
+  = render 'solicitations/steps', step_data: @step_data
+
+.fr-container.section-grey.fr-py-4w#step-verification
   .fr-container
     .fr-grid-row
       .fr-col-12
         %h1.fr-h3= @landing_subject.title
-        %p.subtitle= t('.solicitation_verification')
+        .fr-alert.fr-alert--warning
+          %p= t('.solicitation_verification')
 
-    .fr-grid-row
+    .fr-grid-row.fr-mt-7w
       %h2.fr-h6= t('.my_coordinates')
     .fr-grid-row
       .fr-col-12

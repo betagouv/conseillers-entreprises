@@ -962,7 +962,7 @@ fr:
         step_company: Votre entreprise
         step_contact: Vos coordonnées
         step_description: Votre demande
-        step_verification: Vérification
+        step_verification: Confirmation
       submit_in_progress: Envoi en cours...
     form_complete:
       iframe_message_html: "<p>Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME. </p> <p>Un conseiller va vous appeler dans les <strong>5 jours</strong> ouvrés (en moyenne).</p> <p>Merci pour votre confiance !</p>"
@@ -1007,7 +1007,7 @@ fr:
       my_company: Mon entreprise
       my_coordinates: Mes coordonnées
       my_solicitation: Ma demande
-      solicitation_verification: Vérifiez que votre demande est complète. Contient-elle toutes les informations nécessaire ?
+      solicitation_verification: Merci de vérifiez votre demande avant de l’envoyer aux conseillers.
   stats:
     archived: Besoins abandonnés
     done_no_help_status: Statut « cloturé sans aide »
