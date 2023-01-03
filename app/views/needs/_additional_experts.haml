@@ -5,7 +5,7 @@
   .content
     = form_with url: additional_experts_need_path(need), remote: true, method: :get do |f|
       .fr-search-bar
-        %span.ri-user-add-fill.blue.info-icon{ title: t('.ambulance_explanation'), 'aria-hidden': true }
+        %span.ri-user-add-fill.blue.info-icon{ title: t('.ambulance_explanation'), 'aria-hidden': 'true' }
         = f.hidden_field :need, value: need.id, class: 'fr-label'
         = f.search_field :query, value: local_assigns[:query], autofocus: local_assigns[:query].present?,
         class: 'fr-input', required: true, minlength: 3, placeholder: t('.add_other_experts')
@@ -25,7 +25,7 @@
                 %ul.list-unstyled
                   - expert.experts_subjects.each do |expert_subject|
                     %li.fr-text--sm.fr-text--alt.fr-m-0
-                      %span.ri-arrow-right-s-line{ 'aria-hidden': true }
+                      %span.ri-arrow-right-s-line{ 'aria-hidden': 'true' }
                       = expert_subject.institution_subject.description
                       - if expert_subject.intervention_criteria.present?
                         = " / #{expert_subject.intervention_criteria}"
