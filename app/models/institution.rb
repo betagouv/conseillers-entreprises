@@ -5,7 +5,7 @@
 #  id           :bigint(8)        not null, primary key
 #  code_region  :integer
 #  deleted_at   :datetime
-#  display_logo :boolean          default(FALSE)
+#  display_logo :boolean          default(TRUE)
 #  name         :string           not null
 #  show_on_list :boolean          default(FALSE)
 #  siren        :text
@@ -32,7 +32,7 @@ class Institution < ApplicationRecord
   has_many :institutions_subjects, inverse_of: :institution
   has_many :landings, inverse_of: :institution
   has_many :solicitations, inverse_of: :institution
-  has_and_belongs_to_many :categories # Une institution peut avoir plusieurs categories a la fois, donc enum trop limitante
+  has_and_belongs_to_many :categories # Une institution peut avoir plusieurs categories a la fois, donc une enum serait trop limitante
   has_one :logo, inverse_of: :institution
   has_many :facilities, inverse_of: :opco
   has_many :institution_filters, dependent: :destroy, as: :institution_filtrable, inverse_of: :institution_filtrable
@@ -73,7 +73,8 @@ class Institution < ApplicationRecord
 
   ## Scopes
   #
-  scope :ordered_logos, -> { not_deleted.joins(:logo).where(display_logo: true).order(:name) }
+  scope :with_logo, -> { joins(:logo).where(display_logo: true) }
+  scope :ordered_logos, -> { not_deleted.with_logo.order(:name) }
   scope :opco, -> { active.joins(:categories).where(categories: { label: 'opco' }) }
   scope :expert_provider, -> { active.joins(:categories).where(categories: { label: 'expert_provider' }) }
   scope :acquisition, -> { active.joins(:categories).where(categories: { label: 'acquisition' }) }

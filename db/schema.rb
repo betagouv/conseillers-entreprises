@@ -320,7 +320,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_104919) do
     t.boolean "show_on_list", default: false
     t.datetime "deleted_at", precision: nil
     t.integer "code_region"
-    t.boolean "display_logo", default: false
+    t.boolean "display_logo", default: true
     t.text "siren"
     t.index ["code_region"], name: "index_institutions_on_code_region"
     t.index ["deleted_at"], name: "index_institutions_on_deleted_at"
@@ -377,13 +377,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_104919) do
     t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
     t.index ["slug"], name: "index_landing_subjects_on_slug", unique: true
     t.index ["subject_id"], name: "index_landing_subjects_on_subject_id"
-  end
-
-  create_table "landing_subjects_logos", force: :cascade do |t|
-    t.bigint "logo_id"
-    t.bigint "landing_subject_id"
-    t.index ["landing_subject_id"], name: "index_landing_subjects_logos_on_landing_subject_id"
-    t.index ["logo_id"], name: "index_landing_subjects_logos_on_logo_id"
   end
 
   create_table "landing_themes", force: :cascade do |t|

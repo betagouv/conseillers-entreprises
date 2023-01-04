@@ -56,7 +56,7 @@
   - unless in_iframe?
     .fr-container--fluid.section-light-grey
       = render 'pages/how_it_works'
-    - if @landing_subject.logos.present?
+    - if @landing_subject.solicitable_institutions.with_logo.any?
       .fr-container.fr-py-3w
         %h2.text-dark-grey.text-center.text-normal.fr-text--lead
           = t('logos.title')

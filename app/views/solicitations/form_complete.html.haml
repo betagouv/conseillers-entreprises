@@ -6,7 +6,7 @@
 .fr-container--fluid.section-grey.fr-py-4w#section-thankyou
   .fr-container
     .fr-grid-row
-      .fr-col-12.fr-col-md-6.fr-col-offset-md-3
+      .fr-col-12.fr-col-md-8.fr-col-offset-md-2
         - if in_iframe?
           .thank_you_iframe
             .fr-my-8w
@@ -20,16 +20,17 @@
 
         - else
           .fr-my-8w
-            %h1.fr-h2= t('.title')
-            - if @solicitation.institution
-              %p.fr-text--lg= t('.message_with_institution', institution: @solicitation.institution.name)
-              = render 'solicitations/matomo_events/matomo_partner_contact'
-            - else
-              %p.fr-text--lg= t('.message_html')
-          - if @landing_subject.logos.present?
+            .fr-alert.fr-alert--success.white-bg
+              %h1.fr-alert__title= t('.title')
+              - if @solicitation.institution
+                %p= t('.message_with_institution', institution: @solicitation.institution.name)
+                = render 'solicitations/matomo_events/matomo_partner_contact'
+              - else
+                %p= t('.message_html')
+          - if @displayable_institutions.any?
             .fr-py-4w.text-center
               %h2.fr-h4= t('.partners_that_may_call')
-              = render partial: 'institutions_tiles', collection: @landing_subject.logo_institutions, as: :institution, locals: { subject: @landing_subject.subject }
+              = render partial: 'institutions_tiles', collection: @displayable_institutions, as: :institution, locals: { subject: @landing_subject.subject }
 
 - unless in_iframe?
   .fr-container--fluid.section-light-grey

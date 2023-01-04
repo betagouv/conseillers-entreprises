@@ -6,6 +6,7 @@
 #  archived_at                    :datetime
 #  description                    :text
 #  description_explanation        :text
+#  description_prefill            :text
 #  display_region_logo            :boolean          default(FALSE)
 #  form_description               :text
 #  form_title                     :string
@@ -47,12 +48,8 @@ class LandingSubject < ApplicationRecord
   has_many :solicitations, inverse_of: :landing_subject, dependent: :restrict_with_exception
   has_many :additional_subject_questions, through: :subject
 
-  # Todo : remove ?
-  has_and_belongs_to_many :logos, -> { order(:name) }, inverse_of: :landing_subjects
-  has_many :logo_institutions, through: :logos, class_name: 'Institution', source: :institution
-
   has_many :institutions_subjects, through: :subject
-  has_many :solicitable_institutions, through: :institutions_subjects, class_name: 'Institution', source: :institution
+  has_many :solicitable_institutions, -> { active }, through: :institutions_subjects, class_name: 'Institution', source: :institution
 
   ## Scopes
   #
