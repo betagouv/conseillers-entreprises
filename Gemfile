@@ -58,7 +58,7 @@ gem 'activeadmin_blaze_theme'
 gem 'activeadmin_quill_editor'
 gem 'http'
 gem 'jbuilder'
-gem 'turbolinks'
+gem 'turbo-rails'
 gem 'rails-i18n'
 gem 'honeypot-captcha'
 gem 'kaminari'
@@ -143,3 +143,6 @@ group :development do
   # Performance
   gem 'scout_apm'
 end
+
+# Use Redis for Action Cable
+gem "redis", "~> 4.0"
