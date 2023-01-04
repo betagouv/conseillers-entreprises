@@ -13,10 +13,15 @@
 
 .fr-container--fluid.fr-py-12w.section-grey#section-stats
   .fr-container
-    - cache("stats_charts-#{@stats}", expires_in: 1.hour) do
-      = render 'stats_params', stats: @stats
-      .fr-grid-row.fr-grid-row--gutters#stats-charts
-        - names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :needs_done_from_exchange, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
-        - names.each do |name|
-          - data = @stats.send(name.to_sym)
-          = render 'stats/stats_chart', data: data, name: name
+    -# - cache("stats_charts-#{@stats}", expires_in: 1.hour) do
+    = render 'stats_params', stats: @stats_params
+    .fr-grid-row.fr-grid-row--gutters#stats-charts
+      - names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :needs_done_from_exchange, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
+      - names.each do |name|
+        .fr-col-12.card.stats
+          = turbo_frame_tag name, src: polymorphic_path([name, :public_index]), loading: :lazy do
+            Chargement...
+        -# - names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :needs_done_from_exchange, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
+        -# - names.each do |name|
+        -#   - data = @stats.send(name.to_sym)
+        -#   = render 'stats/stats_chart', data: data, name: name

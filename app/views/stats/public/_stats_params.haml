@@ -12,14 +12,15 @@
           = t('stats.stats_params.start_date')
           %span.fr-hint-text= t('.datepicker_format')
         .fr-input-wrap
-          = f.date_field :start_date, { value: stats.params.start_date, class: 'fr-input' }
+          = f.date_field :start_date, { value: stats[:start_date], class: 'fr-input' }
       .fr-input-group
         = f.label :end_date, class: 'fr-label' do
           = t('stats.stats_params.end_date')
           %span.fr-hint-text= t('.datepicker_format')
         .fr-input-wrap
-          = f.date_field :end_date, { value: stats.params.end_date, class: 'fr-input' }
+          = f.date_field :end_date, { value: stats[:end_date], class: 'fr-input' }
       .fr-input-group
         = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
-        - if stats.params.table.count > 2
-          = link_to t('stats.stats_params.clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--secondary'
+        -# TODO
+        -# - if stats.params.table.count > 2
+        -#   = link_to t('stats.stats_params.clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--secondary'

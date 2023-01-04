@@ -1,5 +1,6 @@
 (function () {
   addEventListener('DOMContentLoaded', setupPercentageColumnCharts)
+  addEventListener('turbo:frame-render', setupPercentageColumnCharts)
 
   function setupPercentageColumnCharts () {
     const percentageColumnCharts = document.querySelectorAll("[data-chart='percentage-column-chart']")
