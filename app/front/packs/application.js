@@ -17,9 +17,9 @@
 // Compatibilité navigateurs anciens dont IE11
 import "core-js/stable";
 import "whatwg-fetch";
+import "@hotwired/turbo-rails";
 
 require("@rails/ujs").start();
-require("turbolinks").start();
 require('remixicon/fonts/remixicon.css')
 require('@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.css')
 require('@gouvfr/dsfr/dist/dsfr/dsfr.css')

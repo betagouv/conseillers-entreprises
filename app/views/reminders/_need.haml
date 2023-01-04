@@ -20,7 +20,7 @@
           .item
             ⁃ #{expert.antenne.to_s}
             - if PositionningRate::Member.new(expert).critical_rate?
-              = link_to reminders_expert_path(expert), class: 'picto', data: { turbolinks: false } do
+              = link_to reminders_expert_path(expert), class: 'picto', data: { turbo: false } do
                 %span.ri-vip-crown-2-fill{ title: t('.critical_rate_expert'), 'aria-hidden': 'true' }
       .card__feedbacks
         %div{ id: "display-feedbacks-#{need.id}" }

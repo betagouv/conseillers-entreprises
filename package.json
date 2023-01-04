@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@gouvfr/dsfr": "1.8.1",
+    "@hotwired/turbo-rails": "^7.2.4",
     "@rails/ujs": "^6.0.3-4",
     "@rails/webpacker": "5.4.2",
     "@sentry/webpack-plugin": "^1.14.2",
@@ -13,7 +14,6 @@
     "remixicon": "^2.5.0",
     "stimulus": "^2.0.0",
     "trim-newlines": "^3.0.1",
-    "turbolinks": "^5.2.0",
     "whatwg-fetch": "^3.5.0"
   },
   "devDependencies": {

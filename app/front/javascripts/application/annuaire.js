@@ -1,5 +1,5 @@
 (function () {
-  addEventListener('turbolinks:load', function() {
+  addEventListener('turbo:load', function() {
     let subjectCells = document.querySelectorAll('tr.subjects th')
     if (subjectCells.length != 0) {
       const themeRowHeight = document.querySelector('tr').offsetHeight

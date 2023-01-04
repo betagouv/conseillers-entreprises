@@ -1,5 +1,5 @@
 (function () {
-  addEventListener('turbolinks:load', setupCheckboxesGroups)
+  addEventListener('turbo:load', setupCheckboxesGroups)
   addEventListener('DOMContentLoaded', setupCheckboxesGroups)
 
   const checkboxes_attribute = 'data-checkboxes-require-one-with'
