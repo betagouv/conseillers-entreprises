@@ -33,8 +33,10 @@
               - if @company.present?
                 %li.fr-tile__title #{@company.entreprise[:denominationUniteLegale].presence || @company.entreprise[:nomUniteLegale].presence} - #{@solicitation.siret}
                 %li= NafCode.naf_libelle(NafCode.level2_code(@company.etablissement[:periodesEtablissement][0]['activitePrincipaleEtablissement']), 'level2')
-              - else
+              - elsif @solicitation.siret.present?
                 %li.fr-tile__title= @solicitation.siret
+              - else
+                %li.tile__title= t('.location') + @solicitation.location
             = link_to step_company_solicitation_path(@solicitation.uuid), class: 'blue', title: t('.edit_company') do
               %span.ri-edit-line= t('.edit')
 
