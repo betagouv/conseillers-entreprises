@@ -126,7 +126,7 @@ class SolicitationsController < PagesController
     sanitized_params = sanitize_params(solicitation_params)
     @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
     if @solicitation.errors.empty?
-      if step == :step_validation
+      if step == :step_verification
         @landing_subject = @solicitation.landing_subject
         CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
         @solicitation.delay.prepare_diagnosis(nil)
