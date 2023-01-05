@@ -39,11 +39,11 @@ describe CompanyMailerService do
     # Analyse de plus de 6 mois KO
     let!(:need_9) { create :need_with_matches, created_at: seven_months_ago }
 
-    xit 'enqueues 3 mailer job' do
+    it 'enqueues 3 mailer job' do
       expect(ActionMailer::Base.deliveries.count).to eq 3
     end
 
-    xit 'updates retention_email_sent' do
+    it 'updates retention_email_sent' do
       expect(need_2.diagnosis.reload.retention_email_sent).to be true
       expect(need_3.diagnosis.reload.retention_email_sent).to be true
       expect(need_4.diagnosis.reload.retention_email_sent).to be true
