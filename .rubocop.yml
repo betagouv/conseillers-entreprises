@@ -850,6 +850,9 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/MessageSpies:
   Enabled: false
 
+RSpec/PendingWithoutReason:
+  Enabled: false
+
 RSpec/VariableName:
   EnforcedStyle: snake_case
   AllowedPatterns:
