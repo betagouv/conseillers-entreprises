@@ -19,7 +19,7 @@
       - names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :needs_done_from_exchange, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
       - names.each do |name|
         .fr-col-12.card.stats
-          = turbo_frame_tag name, src: polymorphic_path([name, :public_index]), loading: :lazy do
+          = turbo_frame_tag name, src: polymorphic_path([name, :public_index]) do
             Chargement...
         -# - names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :needs_done_from_exchange, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
         -# - names.each do |name|

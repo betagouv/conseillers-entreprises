@@ -3,7 +3,6 @@
   addEventListener('turbo:frame-render', setupStatsCharts)
 
   function setupStatsCharts () {
-    console.log('bonjour')
     const statCharts = document.querySelectorAll("[data-chart='stats-chart']")
 
     for (let i = 0; i < statCharts.length; i++) {
