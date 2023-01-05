@@ -8,15 +8,15 @@
     .fr-grid-row
       .fr-col-12.fr-col-md-8.fr-col-offset-md-2
         - if in_iframe?
-          .thank_you_iframe
-            .fr-my-8w
-              %h1.fr-h2= t('.title')
-              .fr-text--lg= t('.iframe_message_html')
-            .logo-pde= image_tag 'logo-PDE.svg', alt: t('logos.pde')
+          .fr-my-8w
+            .fr-alert.fr-alert--success.white-bg
+              %h1.fr-alert__title= t('.title')
+            .thank_you_iframe.fr-my-8w
+              %p= t('.iframe_message_html')
+              .logo-pde= image_tag 'logo-PDE.svg', alt: t('logos.pde')
             .fr-py-4w.text-center
               %h2.fr-h4= t('.partners_that_may_call')
-              / Todo : généraliser tiles aux iframes ?
-              = render 'landings/landings/logos', landing_subject: @landing_subject
+              = render partial: 'institutions_tiles', collection: @displayable_institutions, as: :institution, locals: { subject: @landing_subject.subject }
 
         - else
           .fr-my-8w
