@@ -58,7 +58,7 @@ module StatusHelper
 
   def status_icon(status)
     classes = ['icon'] + STATUS_ICONS[status.to_sym]
-    tag.i(class: classes.join(' '))
+    tag.span(class: classes.join(' '), aria: { hidden: "true" })
   end
 
   def expert_status_icon(match)
@@ -69,6 +69,6 @@ module StatusHelper
       EXPERTS_ICONS[match.status.to_sym]
     end
     classes << STATUS_COLORS[match.status.to_sym]
-    tag.span('', class: classes.join(' '))
+    tag.span('', class: classes.join(' '), aria: { hidden: "true" })
   end
 end

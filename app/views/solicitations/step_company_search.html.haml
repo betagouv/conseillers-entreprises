@@ -7,7 +7,7 @@
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.multistep-form.fr-pb-3w
 
     - if @error_message.present?
-      .fr-alert.fr-alert--error.fr-mb-6w
+      .fr-alert.fr-alert--error.fr-mb-6w{ role: "alert" }
         %h2= t('api_requests.embraced_error_html', message: @error_message, url: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
 
     = form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, method: :get) do |f|

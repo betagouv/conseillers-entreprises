@@ -15,14 +15,14 @@
 
       .fr-grid-row.need-metadata
         .fr-col-lg-2.need-metadata--picto
-          %span.ri-map-pin-user-line{ 'aria-hidden': true }
+          %span.ri-map-pin-user-line{ 'aria-hidden': 'true' }
         .fr-col-lg-10.need-metadata--info
           %h2.need-metadata--title= t('.person_company_contact')
           = person_block(@need.visitee, job: nil)
 
       .fr-grid-row.need-metadata
         .fr-col-lg-2.need-metadata--picto
-          %span.ri-building-4-line{ 'aria-hidden': true }
+          %span.ri-building-4-line{ 'aria-hidden': 'true' }
         .fr-col-lg-10.need-metadata--info
           %h2.need-metadata--title= t('.company')
           .block-infos
@@ -45,7 +45,7 @@
 
       .fr-grid-row.need-metadata
         .fr-col-lg-2.need-metadata--picto
-          %span.ri-mail-send-line{ 'aria-hidden': true }
+          %span.ri-mail-send-line{ 'aria-hidden': 'true' }
         .fr-col-lg-10.need-metadata--info
           %h2.need-metadata--title= t('.transmitted_by')
           %div
