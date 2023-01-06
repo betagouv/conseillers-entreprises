@@ -38,8 +38,8 @@ class ChangeLandingSubjectLogos < ActiveRecord::Migration[7.0]
     Institution.find_by(slug: 'dreets').institutions_subjects.where(subject_id: 123).update_all(description: "Les conseillers des DREETS vous aident sur la mise en place de l'activité partielle.")
 
     # Faire un point général sur sa stratégie, adapter son activité au nouveau contexte
-    Institution.find_by(slug: 'cci').institutions_subjects.where(subject_id: 46).update_all(description: "Les conseillers de la CCI vous aident sur la stratégie de l'entreprise.")
-    Institution.find_by(slug: 'cma').institutions_subjects.where(subject_id: 46).update_all(description: "Les conseillers de la CMA vous aident sur la stratégie de l'entreprise.")
+    Institution.find_by(slug: 'cci').institutions_subjects.where(subject_id: 46).update_all(description: "Les conseillers de la CCI vous aident à évaluer et questionner votre stratégie d'entreprise.")
+    Institution.find_by(slug: 'cma').institutions_subjects.where(subject_id: 46).update_all(description: "Les conseillers de la CMA vous aident à évaluer et questionner votre stratégie d'entreprise.")
 
     # Développer une nouvelle offre de produits ou de services
     Institution.find_by(slug: 'cci').institutions_subjects.where(subject_id: 48).update_all(description: "Les conseillers de la CCI vous aident à développer à un nouveau produit ou service.")
@@ -55,7 +55,7 @@ class ChangeLandingSubjectLogos < ActiveRecord::Migration[7.0]
     Institution.find_by(slug: 'cma').institutions_subjects.where(subject_id: 51).update_all(description: "Les conseillers de la CMA vous aident à développer votre projet à l'international.")
     Institution.find_by(slug: 'douanes').institutions_subjects.where(subject_id: 51).update_all(description: "Les conseillers des Douanes vous aident sur vos formalités aux frontières hors Union européenne, pour l'export et l'import de marchandises.")
     Institution.find_by(slug: 'dgfip').institutions_subjects.where(subject_id: 51).update_all(description: "Les conseillers de la DGFIP vous aident sur vos questions de fiscalité et de TVA à l'international.")
-    Institution.find_by(slug: 'reseau-des-conseillers-du-commerce-exterieur').institutions_subjects.where(subject_id: 51).update_all(description: "Les conseillers du réseau du CCEF proposent un partage d'exéprience et des contacts avec d'autres dirigeants présents à l'étranger.")
+    Institution.find_by(slug: 'reseau-des-conseillers-du-commerce-exterieur').institutions_subjects.where(subject_id: 51).update_all(description: "Les conseillers du réseau du CCEF vous aident à rencontrer d'autres dirigeants présents à l'étranger pour bénéficier de leurs exépriences.")
 
     # Réaliser un projet foncier ou immobilier
     Institution.find_by(slug: 'cci').institutions_subjects.where(subject_id: 53).update_all(description: "Les conseillers de la CCI vous aident à l'implantation ou au déménagement de votre entreprise.")
@@ -63,8 +63,8 @@ class ChangeLandingSubjectLogos < ActiveRecord::Migration[7.0]
 
     # Réaliser un projet d'innovation
     Institution.find_by(slug: 'bpifrance').institutions_subjects.where(subject_id: 54).update_all(description: "Les conseillers de Bpifrance vous aident à financer votre innovation.")
-    Institution.find_by(slug: 'cci').institutions_subjects.where(subject_id: 54).update_all(description: "Les conseillers de la CCI vous accompagnent dans votre innovation.")
-    Institution.find_by(slug: 'cma').institutions_subjects.where(subject_id: 54).update_all(description: "Les conseillers de la CMA vous accompagnent dans votre innovation.")
+    Institution.find_by(slug: 'cci').institutions_subjects.where(subject_id: 54).update_all(description: "Les conseillers de la CCI vous aident à développer votre projet d'innovation.")
+    Institution.find_by(slug: 'cma').institutions_subjects.where(subject_id: 54).update_all(description: "Les conseillers de la CMA vous aident à développer votre projet d'innovation.")
     Institution.find_by(slug: 'initiative-france').institutions_subjects.where(subject_id: 54).update_all(description: "Les conseillers du réseau Initiative vous aident à financer votre innivation.")
     Institution.find_by(slug: 'inpi').institutions_subjects.where(subject_id: 54).update_all(description: "Les conseillers de l'INPI vous aident à protéger votre innovation.")
     Institution.find_by(slug: 'dgfip').institutions_subjects.where(subject_id: 54).update_all(description: "Les conseillers de la DGFIP vous aident à comprendre les avantages fiscaux liés à l'innovation.")
@@ -76,8 +76,8 @@ class ChangeLandingSubjectLogos < ActiveRecord::Migration[7.0]
     Institution.find_by(slug: 'banque_de_france').institutions_subjects.where(subject_id: 55).update_all(description: "Les conseillers de la Banque de France vous accompagnent sur votre plan de financement.")
     Institution.find_by(slug: 'bpifrance').institutions_subjects.where(subject_id: 55).update_all(description: "Les conseillers de Bpifrance vous aident à financer vos nouveaux investissements.")
     Institution.find_by(slug: 'carsat').institutions_subjects.where(subject_id: 55).update_all(description: "Les conseillers de la CARSAT vous aident à financer vos investissements qui améliorent la prévention des risques professionnels.")
-    Institution.find_by(slug: 'cci').institutions_subjects.where(subject_id: 55).update_all(description: "Les conseillers de la CCI vous aident à financer vos projets grâce aux aides locales.")
-    Institution.find_by(slug: 'cma').institutions_subjects.where(subject_id: 55).update_all(description: "Les conseillers de la CMA vous aident à financer vos projets grâce aux aides locales.")
+    Institution.find_by(slug: 'cci').institutions_subjects.where(subject_id: 55).update_all(description: "Les conseillers de la CCI vous aident à identifier les financements possibles pour votre projet.")
+    Institution.find_by(slug: 'cma').institutions_subjects.where(subject_id: 55).update_all(description: "Les conseillers de la CMA vous aident à identifier les financements possibles pour votre projet.")
     Institution.find_by(slug: 'initiative-france').institutions_subjects.where(subject_id: 55).update_all(description: "Les conseillers du réseau Initiative vous aident à financer vos nouveaux investissements.")
     Institution.find_by(slug: 'adie').institutions_subjects.where(subject_id: 55).update_all(description: "Les conseillers de l'Adie vous aident à financer vos projets non soutenus par les banques.")
 
