@@ -99,6 +99,14 @@ ActiveAdmin.register Institution do
         column(:archived_at) { |is| is.subject.archived_at }
       end
     end
+
+    attributes_table title: I18n.t('activerecord.models.institution_filter.other') do
+      table_for institution.institution_filters do
+        column(:label) { |filter| I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key]) }
+        column(:key)
+        column(:filter_value)
+      end
+    end
   end
 
   ## Form

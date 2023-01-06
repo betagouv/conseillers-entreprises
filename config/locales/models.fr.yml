@@ -568,6 +568,9 @@ fr:
       institution_subject:
         one: Compétence d’institution
         other: Compétences d’institutions
+      institution_filter:
+        one: Filtre de l'institution
+        other: Filtres de l'institution
       landing:
         one: Landing
         other: Landings
@@ -736,6 +739,8 @@ fr:
     feedbacks:
       one: Commentaire
       other: Commentaires
+    filter_value: Valeur du filtre
+    key: Identifiant
     find_my_facility: Votre numéro SIRET
     flags: Options
     full_name: Prénom et nom
