@@ -171,10 +171,10 @@ RSpec.describe "Landing Subjects API" do
           let(:id) { recrutement_subject.id }
 
           before do |example|
-            logo1 = Logo.create(filename: 'ocapiat', name: 'Ocapiat', institution: create(:opco, name: 'OPCO OCAPIAT'))
-            logo2 = Logo.create(filename: 'uniformation', name: 'Uniformation', institution: create(:opco, name: 'OPCO Uniformation'))
-            recrutement_subject.logos.push(logo1)
-            recrutement_subject.logos.push(logo2)
+            opco_1 = create(:opco, name: 'OPCO OCAPIAT', logo: Logo.create(filename: 'ocapiat', name: 'Ocapiat'))
+            opco_2 = create(:opco, name: 'OPCO Uniformation', logo: Logo.create(filename: 'uniformation', name: 'Uniformation'))
+            opco_1.institutions_subjects.create(subject: recrutement_subject.subject)
+            opco_2.institutions_subjects.create(subject: recrutement_subject.subject)
 
             submit_request(example.metadata)
           end
