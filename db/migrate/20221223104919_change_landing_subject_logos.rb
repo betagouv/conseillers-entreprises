@@ -1,6 +1,8 @@
 class ChangeLandingSubjectLogos < ActiveRecord::Migration[7.0]
   def up
     change_column_default :institutions, :display_logo, from: false, to: true
+    remove_column :institutions_subjects, :optional, :boolean, default: false
+
     # Recruter un ou plusieurs salariés
     InstitutionSubject.where(subject_id: 44).joins(:institution).merge(Institution.opco).update_all(description: "Les conseillers des OPCO vous aident sur le recrutement en alternance selon votre secteur d'activité.")
     Institution.find_by(slug: 'apec').institutions_subjects.where(subject_id: 44).update_all(description: "Les conseillers de l'Apec vous aident sur le recrutement de compétences de cadres.")
@@ -182,6 +184,7 @@ class ChangeLandingSubjectLogos < ActiveRecord::Migration[7.0]
 
   def down
     change_column_default :institutions, :display_logo, from: true, to: false
+    add_column :institutions_subjects, :optional, :boolean, default: false
 
     ## Modification schema institution <-> landing_subject
     create_table :landing_subjects_logos do |t|

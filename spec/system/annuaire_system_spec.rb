@@ -161,19 +161,5 @@ describe 'annuaire', js: true, flaky: true do
         expect(page).to have_css('.yellow', count: 0)
       end
     end
-
-    describe 'optional institution_subject' do
-      let!(:optional_institution_subject) { create :institution_subject, institution: institution, optional: true }
-
-      it 'display users without warning for optional institution subjects' do
-        visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
-
-        expect(page).to have_selector 'h1', text: institution.name
-        expect(page).to have_css('.fr-table--c-annuaire', count: 1)
-        expect(page).to have_css('.td-header.td-user', count: 1)
-        expect(page).to have_css('.red.ri-error-warning-line', count: 0)
-        expect(page).to have_css('.yellow', count: 0)
-      end
-    end
   end
 end

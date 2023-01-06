@@ -27,7 +27,7 @@ module AnnuaireHelper
   def detect_anomalies(experts_count, institution_subject, antenne, experts)
     experts_communes = experts.filter_map(&:communes).compact.flatten
     # No experts on the subject
-    anomalie_less = experts_count == 0 && !institution_subject.optional
+    anomalie_less = experts_count == 0
     # Experts with specific zone on the subject but no coverage of the whole antenna
     anomalie_more_specific = (antenne && experts_count > 1) &&
       experts_communes.present? &&

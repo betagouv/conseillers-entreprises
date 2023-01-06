@@ -335,7 +335,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_104919) do
     t.bigint "subject_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.boolean "optional", default: false
     t.index ["institution_id"], name: "index_institutions_subjects_on_institution_id"
     t.index ["subject_id", "institution_id", "description"], name: "unique_institution_subject_in_institution", unique: true
     t.index ["subject_id"], name: "index_institutions_subjects_on_subject_id"
