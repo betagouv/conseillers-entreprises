@@ -247,7 +247,7 @@ fr:
         description: 'Description :'
         email: 'Email :'
         landing_subjects: 'Aides demandées :'
-        needs_historic: 'Historique de l’entreprise :'
+        needs_historic: 'Historique de l’entreprise :'
         siret: 'Siret :'
         solicitation_banned_facility_explanation: Entreprise et email exclus (spam)
         solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres demandes récemment'
@@ -962,6 +962,7 @@ fr:
         step_company: Votre entreprise
         step_contact: Vos coordonnées
         step_description: Votre demande
+        step_verification: Confirmation
       submit_in_progress: Envoi en cours...
     form_complete:
       iframe_message_html: "<p>Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME. </p> <p>Un conseiller va vous appeler dans les <strong>5 jours</strong> ouvrés (en moyenne).</p> <p>Merci pour votre confiance !</p>"
@@ -998,6 +999,16 @@ fr:
         recruitment_foreign_worker: Travailleur étranger
         siret: SIRET
         tns_training: Formation TNS du dirigeant
+    step_verification:
+      edit: " Modifier"
+      edit_company: Modifier mon entreprise
+      edit_coordinates: Modifier mes coordonnées
+      edit_description: Modifier ma demande
+      location: Localisation : 
+      my_company: Mon entreprise
+      my_coordinates: Mes coordonnées
+      my_solicitation: Ma demande
+      solicitation_verification: Merci de vérifiez votre demande avant de l’envoyer aux conseillers.
   stats:
     archived: Besoins abandonnés
     done_no_help_status: Statut « cloturé sans aide »

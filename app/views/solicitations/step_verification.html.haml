@@ -1,0 +1,59 @@
+- content_for :header, render('solicitations/header', landing: @landing, landing_subject: @landing_subject, step_data: @step_data)
+
+- content_for :form_header do
+  = render 'solicitations/steps', step_data: @step_data
+
+.fr-container.section-grey.fr-py-4w#step-verification
+  .fr-container
+    .fr-grid-row
+      .fr-col-12
+        %h1.fr-h3= @landing_subject.title
+        .fr-alert.fr-alert--warning
+          %p= t('.solicitation_verification')
+
+    .fr-grid-row.fr-mt-7w
+      %h2.fr-h6= t('.my_coordinates')
+    .fr-grid-row
+      .fr-col-12
+        .fr-tile.fr-tile--horizontal
+          .fr-tile__body
+            %ul.list-unstyled
+              %li.fr-tile__title= @solicitation.full_name
+              %li= @solicitation.phone_number
+              %li= @solicitation.email
+            = link_to step_contact_solicitation_path(@solicitation.uuid), class: 'blue', title: t('.edit_coordinates') do
+              %span.ri-edit-line= t('.edit')
+
+    .fr-grid-row.fr-mt-10v
+      %h2.fr-h6= t('.my_company')
+      .fr-col-12
+        .fr-tile.fr-tile--horizontal
+          .fr-tile__body
+            %ul.list-unstyled
+              - if @company.present?
+                %li.fr-tile__title #{@company.entreprise[:denominationUniteLegale].presence || @company.entreprise[:nomUniteLegale].presence} - #{@solicitation.siret}
+                %li= NafCode.naf_libelle(NafCode.level2_code(@company.etablissement[:periodesEtablissement][0]['activitePrincipaleEtablissement']), 'level2')
+              - elsif @solicitation.siret.present?
+                %li.fr-tile__title= @solicitation.siret
+              - else
+                %li.tile__title= t('.location') + @solicitation.location
+            = link_to step_company_solicitation_path(@solicitation.uuid), class: 'blue', title: t('.edit_company') do
+              %span.ri-edit-line= t('.edit')
+
+    .fr-grid-row.fr-mt-10v
+      %h2.fr-h6= t('.my_solicitation')
+      .fr-col-12
+        .fr-tile.fr-tile--horizontal
+          .fr-tile__body
+            %ul.list-unstyled
+              %li.fr-tile__title= @solicitation.subject.label
+              %li.fr-mt-3v= simple_format @solicitation.description
+              - @solicitation.institution_filters.each do |filter|
+                %li.institution_filter #{t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])} #{tag.strong(t(filter.filter_value, scope: [:boolean, :text]))}
+            = link_to step_description_solicitation_path(@solicitation.uuid), class: 'blue', title: t('.edit_description') do
+              %span.ri-edit-line= t('.edit')
+
+    = form_with(model: @solicitation, url: update_step_verification_solicitation_path(@solicitation.uuid), local: true,
+      html: { honeypot: true, class: 'fr-mt-10v' }) do |f|
+      = f.hidden_field :uuid
+      = f.submit t('solicitations.creation_form.buttons.send'), class: 'fr-btn', data: { disable_with: t('solicitations.creation_form.submit_in_progress') }

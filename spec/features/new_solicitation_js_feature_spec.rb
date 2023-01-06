@@ -75,9 +75,21 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_true", checked: false, visible: :hidden)
           expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_false", checked: true, visible: :hidden)
 
+          click_button 'Suivant'
+          expect(solicitation.reload.step_verification?).to be true
+          expect(solicitation.reload.completed_at).to be_nil
+          expect(page).to have_content('Merci de vérifiez votre demande avant de l’envoyer aux conseillers.')
+          expect(page).to have_content(solicitation.full_name)
+          expect(page).to have_content(solicitation.phone_number)
+          expect(page).to have_content(solicitation.email)
+          expect(page).to have_content(solicitation.siret)
+          expect(page).to have_content(solicitation.subject.label)
+          expect(page).to have_content(solicitation.description)
+
           click_button 'Envoyer ma demande'
           expect(page).to have_content('Merci')
           expect(solicitation.reload.status_in_progress?).to be true
+          expect(solicitation.reload.completed_at).not_to be_nil
         end
       end
 
@@ -159,11 +171,23 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
-
           fill_in 'Description', with: 'Ceci n\'est pas un test'
+
+          click_button 'Suivant'
+          expect(solicitation.reload.step_verification?).to be true
+          expect(solicitation.reload.completed_at).to be_nil
+          expect(page).to have_content('Merci de vérifiez votre demande avant de l’envoyer aux conseillers.')
+          expect(page).to have_content(solicitation.full_name)
+          expect(page).to have_content(solicitation.phone_number)
+          expect(page).to have_content(solicitation.email)
+          expect(page).to have_content(solicitation.siret)
+          expect(page).to have_content(solicitation.subject.label)
+          expect(page).to have_content(solicitation.description)
+
           click_button 'Envoyer ma demande'
           expect(page).to have_content('Merci')
           expect(solicitation.reload.status_in_progress?).to be true
+          expect(solicitation.reload.completed_at).not_to be_nil
         end
       end
 
@@ -176,6 +200,9 @@ describe 'New Solicitation', js: true, flaky: true do
           # additional api call
           stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{siren}").to_return(
             body: file_fixture('api_insee_sirets_by_siren_many.json')
+          )
+          stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{siret}").to_return(
+            body: file_fixture('api_insee_siret.json')
           )
         end
 
@@ -206,8 +233,21 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
+          click_button 'Suivant'
 
           fill_in 'Description', with: 'Ceci n\'est pas un test'
+
+          click_button 'Suivant'
+          expect(solicitation.reload.step_verification?).to be true
+          expect(solicitation.reload.completed_at).to be_nil
+          expect(page).to have_content('Merci de vérifiez votre demande avant de l’envoyer aux conseillers.')
+          expect(page).to have_content(solicitation.full_name)
+          expect(page).to have_content(solicitation.phone_number)
+          expect(page).to have_content(solicitation.email)
+          expect(page).to have_content(solicitation.siret)
+          expect(page).to have_content(solicitation.subject.label)
+          expect(page).to have_content(solicitation.description)
+
           click_button 'Envoyer ma demande'
           expect(page).to have_content('Merci')
           expect(solicitation.reload.status_in_progress?).to be true
@@ -256,6 +296,18 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.status_step_description?).to be true
 
           fill_in 'Description', with: 'Ceci n\'est pas un test'
+
+          click_button 'Suivant'
+          expect(solicitation.reload.step_verification?).to be true
+          expect(solicitation.reload.completed_at).to be_nil
+          expect(page).to have_content('Merci de vérifiez votre demande avant de l’envoyer aux conseillers.')
+          expect(page).to have_content(solicitation.full_name)
+          expect(page).to have_content(solicitation.phone_number)
+          expect(page).to have_content(solicitation.email)
+          expect(page).to have_content(solicitation.siret)
+          expect(page).to have_content(solicitation.subject.label)
+          expect(page).to have_content(solicitation.description)
+
           click_button 'Envoyer ma demande'
           expect(page).to have_content('Merci')
           expect(solicitation.reload.code_region).to eq 11
