@@ -267,6 +267,7 @@ fr:
         landing_theme: Thématiques de landing
       landing_subject:
         description_explanation: Explications de la description
+        description_prefill: Préremplissage de la description
         display_region_logo: Logo de la région
         form_description: Description du formulaire
         form_title: Titre du formulaire
