@@ -565,12 +565,12 @@ fr:
       institution:
         one: Institution
         other: Institutions
-      institution_subject:
-        one: Compétence d’institution
-        other: Compétences d’institutions
       institution_filter:
         one: Filtre de l'institution
         other: Filtres de l'institution
+      institution_subject:
+        one: Compétence d’institution
+        other: Compétences d’institutions
       landing:
         one: Landing
         other: Landings
@@ -740,7 +740,6 @@ fr:
       one: Commentaire
       other: Commentaires
     filter_value: Valeur du filtre
-    key: Identifiant
     find_my_facility: Votre numéro SIRET
     flags: Options
     full_name: Prénom et nom
@@ -759,6 +758,7 @@ fr:
     intitule_effectif: Effectif
     is_abandoned: Abandonné
     is_archived: Archivé
+    key: Identifiant
     label: Intitulé
     landing_subject_title: Option choisie sur le site
     landing_subjects: Sujets de landing
