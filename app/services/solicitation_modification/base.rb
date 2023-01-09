@@ -44,7 +44,7 @@ module SolicitationModification
 
     # on gère automatiquement les étapes du formulaire de création d'une solicitation
     def manage_completion_step
-      return if @solicitation.step_complete?
+      return if @solicitation.step_complete? || @solicitation.step_verification?
       next_possible_events = @solicitation.aasm(:status).events(permitted: true).map(&:name)
       @solicitation.send(next_possible_events.first) unless next_possible_events.empty?
     end

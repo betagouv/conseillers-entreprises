@@ -1002,7 +1002,7 @@ fr:
         siret: SIRET
         tns_training: Formation TNS du dirigeant
     step_verification:
-      edit: " Modifier"
+      edit: Modifier
       edit_company: Modifier mon entreprise
       edit_coordinates: Modifier mes coordonnées
       edit_description: Modifier ma demande
