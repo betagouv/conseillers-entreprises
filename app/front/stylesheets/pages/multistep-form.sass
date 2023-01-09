@@ -50,9 +50,12 @@
     padding-bottom: 2px
 
 #step-verification .fr-tile__body
-  flex-direction: row
-  align-items: center
-  justify-content: space-between
+  .fr-grid-row
+    width: 100%
+    .step_link
+      display: flex
+      justify-content: center
+      align-items: center
   .institution_filter
     margin-top: 1rem
     list-style: inside
