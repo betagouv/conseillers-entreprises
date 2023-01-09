@@ -1,7 +1,7 @@
 = turbo_frame_tag name do
   - chart_name = "chart-#{name}"
 
-  .card__content.white-bg.fr-p-3w
+  .card__content.white-bg.fr-p-3w{ data: { controller: 'stats-loader' } }
     %h2
       - if data.count.present?
         %span= number_with_delimiter(data.count, locale: :fr)
@@ -11,6 +11,7 @@
         = t('title', scope: ['stats', 'series', name])
 
     %p.fr-m-0{ id: chart_name,
+      'data-stats-loader-target': 'graph',
       'data-chart': data.chart,
       'data-months': data.all_months.map{ |d| I18n.l(d, format: :month) }.to_json.html_safe,
       'data-max-value': data.max_value,
@@ -21,21 +22,21 @@
 
     %section.fr-accordion
       %h3.fr-accordion__title
-        %button.fr-accordion__btn{ 'aria-expanded': "false", 'aria-controls': "accordion-#{name}" }= t('.detailed_description')
+        %button.fr-accordion__btn{ 'aria-expanded': "false", 'aria-controls': "accordion-#{name}" }= t('stats.stats_chart.detailed_description')
       .fr-collapse{ id: "accordion-#{name}" }
         .fr-table
           %table
             %caption= t("stats.series.#{name}.title_table")
             %thead
               %tr
-                %th{ scope: "row", id: "#{chart_name}-#{t('.months')}" }= t('.months')
+                %th{ scope: "row", id: "#{chart_name}-#{t('stats.stats_chart.months')}" }= t('stats.stats_chart.months')
                 - months = []
                 - data.all_months.reverse_each do |month|
                   - month_formated = I18n.l(month, format: :month)
                   - months << month_formated
                   %th{ scope: "col", id: "#{chart_name}-#{month_formated.parameterize}" }= month_formated
-                - total_col_id = "#{chart_name}-#{t('.sum')}"
-                %th{ scope: "col", id: total_col_id }= t('.sum')
+                - total_col_id = "#{chart_name}-#{t('stats.stats_chart.sum')}"
+                %th{ scope: "col", id: total_col_id }= t('stats.stats_chart.sum')
             %tbody
               - data.series.reverse_each do |serie|
                 %tr
