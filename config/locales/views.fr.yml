@@ -47,6 +47,8 @@ fr:
       diagnosis_in_progress: " (En cours)"
       id: Sollicitation %{id}
   admin:
+    job_rescheduled: Job re-planifié
+    jobs_rescheduled: Jobs re-planifiés
     reassign_matches:
       reassign_matches:
         save: Enregistrer

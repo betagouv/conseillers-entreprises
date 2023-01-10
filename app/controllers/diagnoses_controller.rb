@@ -3,7 +3,7 @@
 class DiagnosesController < ApplicationController
   before_action :retrieve_diagnosis, only: %i[show archive unarchive]
 
-  layout 'side_menu', except: %i[new]
+  layout 'side_menu', except: %i[new create]
 
   def index
     retrieve_diagnoses(current_user, false, :in_progress)

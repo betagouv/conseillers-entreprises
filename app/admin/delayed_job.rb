@@ -41,7 +41,7 @@ ActiveAdmin.register Delayed::Backend::ActiveRecord::Job, as: 'Jobs' do
     batch_action_collection.find(ids).each do |job|
       job.update(run_at: job.created_at, attempts: 0, failed_at: nil)
     end
-    redirect_back fallback_location: collection_path, notice: 'Jobs re-planifiés'
+    redirect_back fallback_location: collection_path, notice: t('admin.jobs_rescheduled')
   end
 
   # Show
@@ -58,6 +58,6 @@ ActiveAdmin.register Delayed::Backend::ActiveRecord::Job, as: 'Jobs' do
   member_action :retry, method: :post do
     job = resource
     job.update(run_at: job.created_at, attempts: 0, failed_at: nil)
-    redirect_back fallback_location: collection_path, notice: 'Job re-planifié'
+    redirect_back fallback_location: collection_path, notice: t('admin.job_rescheduled')
   end
 end
