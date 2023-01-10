@@ -8,35 +8,67 @@ module Stats
     end
 
     def solicitations
-      render_partial(Stats::Public::All.new(session[:public_stats_params]).solicitations, 'solicitations')
+      name = 'solicitations'
+      data = Rails.cache.fetch(['public-stats', name, session[:public_stats_params]], expires_in: 6.hour) do
+        Stats::Public::All.new(session[:public_stats_params]).solicitations
+      end
+      render_partial(data, name)
     end
 
     def solicitations_diagnoses
-      render_partial(Stats::Public::All.new(session[:public_stats_params]).solicitations_diagnoses, 'solicitations_diagnoses')
+      name = 'solicitations_diagnoses'
+      data = Rails.cache.fetch(['public-stats', name, session[:public_stats_params]], expires_in: 6.hour) do
+        Stats::Public::All.new(session[:public_stats_params]).solicitations_diagnoses
+      end
+      render_partial(data, name)
     end
 
     def exchange_with_expert
-      render_partial(Stats::Public::All.new(session[:public_stats_params]).exchange_with_expert, 'exchange_with_expert')
+      name = 'exchange_with_expert'
+      data = Rails.cache.fetch(['public-stats', name, session[:public_stats_params]], expires_in: 6.hour) do
+        Stats::Public::All.new(session[:public_stats_params]).exchange_with_expert
+      end
+      render_partial(data, name)
     end
 
     def needs_done_from_exchange
-      render_partial(Stats::Public::All.new(session[:public_stats_params]).needs_done_from_exchange, 'needs_done_from_exchange')
+      name = 'needs_done_from_exchange'
+      data = Rails.cache.fetch(['public-stats', name, session[:public_stats_params]], expires_in: 6.hour) do
+        Stats::Public::All.new(session[:public_stats_params]).needs_done_from_exchange
+      end
+      render_partial(data, name)
     end
 
     def taking_care
-      render_partial(Stats::Public::All.new(session[:public_stats_params]).taking_care, 'taking_care')
+      name = 'taking_care'
+      data = Rails.cache.fetch(['public-stats', name, session[:public_stats_params]], expires_in: 6.hour) do
+        Stats::Public::All.new(session[:public_stats_params]).taking_care
+      end
+      render_partial(data, name)
     end
 
     def themes
-      render_partial(Stats::Public::All.new(session[:public_stats_params]).themes, 'themes')
+      name = 'themes'
+      data = Rails.cache.fetch(['public-stats', name, session[:public_stats_params]], expires_in: 6.hour) do
+        Stats::Public::All.new(session[:public_stats_params]).themes
+      end
+      render_partial(data, name)
     end
 
     def companies_by_employees
-      render_partial(Stats::Public::All.new(session[:public_stats_params]).companies_by_employees, 'companies_by_employees')
+      name = 'companies_by_employees'
+      data = Rails.cache.fetch(['public-stats', name, session[:public_stats_params]], expires_in: 6.hour) do
+        Stats::Public::All.new(session[:public_stats_params]).companies_by_employees
+      end
+      render_partial(data, name)
     end
 
     def companies_by_naf_code
-      render_partial(Stats::Public::All.new(session[:public_stats_params]).companies_by_naf_code, 'companies_by_naf_code')
+      name = 'companies_by_naf_code'
+      data = Rails.cache.fetch(['public-stats', name, session[:public_stats_params]], expires_in: 6.hour) do
+        Stats::Public::All.new(session[:public_stats_params]).companies_by_naf_code
+      end
+      render_partial(data, name)
     end
 
     private
