@@ -1031,6 +1031,8 @@ fr:
         title: Statistiques d’utilisation
       stats_params:
         datepicker_format: 'Format attendu : JJ/MM/AAAA'
+      skeleton_card:
+        loading: "Graphique en cours de chargement..."
     series:
       advisors:
         title: Conseillers publics
