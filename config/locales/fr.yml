@@ -272,6 +272,7 @@ fr:
       admin: "%Y-%m-%d %H:%M"
       default: "%d %B %Y %Hh %Mmin %Ss"
       fr: "%d/%m/%Y %H:%M"
+      hours: "%H:%M:%S"
       long: "%A %d %B %Y %Hh%M"
       long_sentence: "%A %d %B %Y à %Hh%M"
       sentence: "%d %B %Y"
