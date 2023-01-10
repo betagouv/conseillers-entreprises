@@ -109,6 +109,7 @@ class SolicitationsController < PagesController
 
   def form_complete
     @displayable_institutions = @landing_subject.solicitable_institutions.with_logo.order(:name)
+    @opco = @landing_subject.solicitable_institutions.opco.any? ? @landing_subject.solicitable_institutions.opco.first : nil
   end
 
   # Redirection vers la bonne étape de sollicitation

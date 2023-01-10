@@ -14,9 +14,7 @@
             .thank_you_iframe.fr-my-8w
               %p= t('.iframe_message_html')
               .logo-pde= image_tag 'logo-PDE.svg', alt: t('logos.pde')
-            .fr-py-4w.text-center
-              %h2.fr-h4= t('.partners_that_may_call')
-              = render partial: 'institutions_tiles', collection: @displayable_institutions, as: :institution, locals: { subject: @landing_subject.subject }
+            = render 'institutions_tiles_block', institutions: @displayable_institutions, subject: @landing_subject.subject, opco: @opco
 
         - else
           .fr-my-8w
@@ -27,10 +25,7 @@
                 = render 'solicitations/matomo_events/matomo_partner_contact'
               - else
                 %p= t('.message_html')
-          - if @displayable_institutions.any?
-            .fr-py-4w.text-center
-              %h2.fr-h4= t('.partners_that_may_call')
-              = render partial: 'institutions_tiles', collection: @displayable_institutions, as: :institution, locals: { subject: @landing_subject.subject }
+          = render 'institutions_tiles_block', institutions: @displayable_institutions, subject: @landing_subject.subject, opco: @opco
 
 - unless in_iframe?
   .fr-container.fr-py-4w.text-center.je-donne-mon-avis
