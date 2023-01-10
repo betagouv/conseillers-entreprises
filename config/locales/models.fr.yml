@@ -84,6 +84,7 @@ fr:
       sent: Mises en relation envoyées
       status_step_company: Étape entreprise
       status_step_description: Étape description
+      status_step_verification: Étape vérification
       step_complete: Terminées
       step_incomplete: Incomplètes
       support_experts: Support
@@ -414,6 +415,7 @@ fr:
         step_company: Étape entreprise
         step_contact: Étape contact
         step_description: Étape description
+        step_verification: Étape vérification
       solicitation/statuses/action:
         canceled: Abandonner
         in_progress: Réinitialiser
