@@ -19,7 +19,6 @@ class Api::V1::LandingSubjectSerializer < ActiveModel::Serializer
   end
 
   def solicitable_institutions
-    # @landing_subject.solicitable_institutions.with_logo.order(:name)
     return [] if object.solicitable_institutions.with_logo.empty?
     object.solicitable_institutions.with_logo.order(:name).map{ |i| i.opco? ? "OPCO" : i.name }.uniq
   end

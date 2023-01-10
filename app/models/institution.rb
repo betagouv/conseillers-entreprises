@@ -74,7 +74,7 @@ class Institution < ApplicationRecord
   ## Scopes
   #
   scope :with_logo, -> { joins(:logo).where(display_logo: true) }
-  scope :ordered_logos, -> { not_deleted.with_logo.order(:name) }
+  scope :ordered_logos, -> { active.with_logo.order(:name) }
   scope :opco, -> { active.joins(:categories).where(categories: { label: 'opco' }) }
   scope :expert_provider, -> { active.joins(:categories).where(categories: { label: 'expert_provider' }) }
   scope :acquisition, -> { active.joins(:categories).where(categories: { label: 'acquisition' }) }

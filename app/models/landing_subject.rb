@@ -46,7 +46,6 @@ class LandingSubject < ApplicationRecord
   has_many :landings, through: :landing_theme, inverse_of: :landing_subjects
   has_many :solicitations, inverse_of: :landing_subject, dependent: :restrict_with_exception
   has_many :additional_subject_questions, through: :subject
-
   has_many :institutions_subjects, through: :subject
   has_many :solicitable_institutions, -> { active }, through: :institutions_subjects, class_name: 'Institution', source: :institution
 
