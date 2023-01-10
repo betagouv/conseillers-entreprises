@@ -69,7 +69,7 @@ namespace :anonymize do
   end
 
   def anonymized
-    I18n.t('attribdump_importutes.anonymized')
+    I18n.t('attributes.anonymized')
   end
 
   task all: %i[batch_anonymize_data pseudonymize_data]
