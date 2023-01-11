@@ -32,11 +32,11 @@
           .fr-fieldset__element.fr-fieldset__element--inline
             .fr-radio-group
               = ff.radio_button :filter_value, true, required: true
-              = ff.label :filter_value, I18n.t(:answer_yes, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('yes').titleize), value: true, class: 'fr-label'
+              = ff.label :filter_value, I18n.t('true', scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('yes').titleize), value: true, class: 'fr-label'
           .fr-fieldset__element.fr-fieldset__element--inline
             .fr-radio-group
               = ff.radio_button :filter_value, false, required: true
-              = ff.label :filter_value, I18n.t(:answer_no, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
+              = ff.label :filter_value, I18n.t('false', scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
 
       .form__group.submit-buttons
         = render 'previous_button', path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
