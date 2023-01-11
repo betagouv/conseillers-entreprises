@@ -1035,10 +1035,10 @@ fr:
       index:
         meta_description: Le service public Place des Entreprises permet aux TPE & PME d’être appelées par le bon conseiller pour répondre à leur demande. L’activité du service est mesurée à partir de statistiques publiques.
         title: Statistiques d’utilisation
+      skeleton_card:
+        loading: Graphique en cours de chargement...
       stats_params:
         datepicker_format: 'Format attendu : JJ/MM/AAAA'
-      skeleton_card:
-        loading: "Graphique en cours de chargement..."
     series:
       advisors:
         title: Conseillers publics
