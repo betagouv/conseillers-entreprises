@@ -44,11 +44,12 @@ class Expert < ApplicationRecord
   has_many :received_quo_matches, -> { sent.status_quo.distinct }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
   has_many :reminder_feedbacks, -> { where(category: :expert_reminder) }, class_name: :Feedback, dependent: :destroy, as: :feedbackable, inverse_of: :feedbackable
 
-  ## Validations
+  ## Validations & callbacks
   #
   validates :email, presence: true, unless: :deleted?
   validates :full_name, presence: true
   validates_associated :experts_subjects, on: :import
+  after_update :synchronize_single_member, if: :personal_skillset?
 
   ## “Through” Associations
   #
@@ -231,6 +232,12 @@ class Expert < ApplicationRecord
       users.each { |user| user.soft_delete }
       update_columns(SoftDeletable.persons_attributes)
     end
+  end
+
+  ## Updates
+  #
+  def synchronize_single_member
+    users.first.update_columns(self.user_personal_skillsets_shared_attributes)
   end
 
   ## Reminders

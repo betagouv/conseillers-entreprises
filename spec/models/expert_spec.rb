@@ -288,4 +288,49 @@ RSpec.describe Expert do
       expect(described_class.most_needs_quo_first).to match_array [expert_with_lots_inbox, expert_with_few_inbox]
     end
   end
+
+  describe 'synchronize_single_member' do
+    let(:antenne_1) { create :antenne }
+    let(:antenne_2) { create :antenne }
+    let(:user) { create :user, email: 'bob@email.com', full_name: 'Bob', antenne: antenne_1, experts: [] }
+    let!(:personal_skillset) { user.personal_skillsets.first }
+    let(:team) { create :expert, email: 'team@email.com', full_name: 'Team', antenne: antenne_1 }
+
+    context 'personal_skillsets expert' do
+      before do
+        team.users << user
+        personal_skillset.update(full_name: 'Robert', antenne: antenne_2)
+      end
+
+      it 'automatically synchronizes the info in the personal skillsets' do
+        expect(personal_skillset.reload.full_name).to eq 'Robert'
+        expect(user.reload.full_name).to eq 'Robert'
+        expect(team.reload.full_name).not_to eq 'Robert'
+
+        expect(personal_skillset.email).to eq 'bob@email.com'
+        expect(user.email).to eq 'bob@email.com'
+        expect(team.email).not_to eq 'bob@email.com'
+
+        expect(personal_skillset.antenne).to eq antenne_2
+        expect(user.antenne).to eq antenne_2
+        expect(team.antenne).to eq antenne_1
+      end
+    end
+
+    context 'team expert' do
+      before do
+        team.update(full_name: 'Tim', email: 'tim@mail.com', antenne: antenne_2)
+      end
+
+      it 'doesnt change user info' do
+        expect(team.reload.full_name).to eq 'Tim'
+        expect(personal_skillset.reload.full_name).not_to eq 'Tim'
+        expect(user.reload.full_name).not_to eq 'Tim'
+
+        expect(team.antenne).to eq antenne_2
+        expect(personal_skillset.antenne).to eq antenne_1
+        expect(user.antenne).to eq antenne_1
+      end
+    end
+  end
 end

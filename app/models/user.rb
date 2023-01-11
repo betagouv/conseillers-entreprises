@@ -286,15 +286,10 @@ class User < ApplicationRecord
     experts.personal_skillsets
   end
 
-  def attributes_shared_with_personal_skills
-    shared_attributes = %w[email full_name phone_number job antenne_id]
-    self.attributes.slice(*shared_attributes)
-  end
-
   def create_personal_skillset_if_needed
     return if personal_skillsets.present?
 
-    self.experts.create!(self.attributes_shared_with_personal_skills)
+    self.experts.create!(self.user_personal_skillsets_shared_attributes)
   end
 
   # Bizarrement, qq utilisateurs sont créés sans personal_skillsets (investigation en cours)
@@ -302,9 +297,9 @@ class User < ApplicationRecord
     user_personal_skillsets = personal_skillsets.presence ||
       self.experts.where(full_name: self.full_name).or(self.experts.where(email: self.email))
     if user_personal_skillsets.present?
-      user_personal_skillsets.update_all(self.attributes_shared_with_personal_skills)
+      user_personal_skillsets.update_all(self.user_personal_skillsets_shared_attributes)
     else
-      self.experts.create!(self.attributes_shared_with_personal_skills)
+      self.experts.create!(self.user_personal_skillsets_shared_attributes)
     end
   end
 
