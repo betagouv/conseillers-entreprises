@@ -1,24 +1,3 @@
-(function () {
-  addEventListener('DOMContentLoaded', setupPercentageColumnCharts)
-
-  function setupPercentageColumnCharts () {
-    const percentageColumnCharts = document.querySelectorAll("[data-chart='percentage-column-chart']")
-    for (let i = 0; i < percentageColumnCharts.length; i++) {
-      const chart = percentageColumnCharts[i];
-      console.log(chart.id)
-      console.log(chart)
-      const container = chart.id;
-      const months = JSON.parse(chart.dataset.months);
-      const maxValue = chart.dataset.maxValue;
-      const series = JSON.parse(chart.dataset.series);
-      const colors = JSON.parse(chart.dataset.colors);
-      const format = JSON.parse(chart.dataset.format);
-      const subtitle = JSON.parse(chart.dataset.subtitle);
-      statsCharts(container, months, maxValue, series, colors, format, subtitle);
-    }
-  }
-})()
-
 export function percentageStatsCharts (container, months, max_value, series, colors, format, subtitle) {
   Highcharts.chart(container, {
     colors: colors,

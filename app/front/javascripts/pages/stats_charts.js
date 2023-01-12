@@ -1,21 +1,3 @@
-addEventListener('DOMContentLoaded', setupStatsCharts)
-
-function setupStatsCharts () {
-  const statCharts = document.querySelectorAll("[data-chart='stats-chart']")
-
-  for (let i = 0; i < statCharts.length; i++) {
-    const chart = statCharts[i];
-    const container = chart.id;
-    const months = JSON.parse(chart.dataset.months);
-    const maxValue = chart.dataset.maxValue;
-    const series = JSON.parse(chart.dataset.series);
-    const colors = JSON.parse(chart.dataset.colors);
-    const format = JSON.parse(chart.dataset.format);
-    const subtitle = JSON.parse(chart.dataset.subtitle);
-    simpleStatsCharts(container, months, maxValue, series, colors, format, subtitle);
-  }
-}
-
 export function simpleStatsCharts (container, months, max_value, series, colors, format, subtitle) {
   Highcharts.chart(container, {
     colors: colors,

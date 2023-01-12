@@ -1,7 +1,7 @@
 = turbo_frame_tag name do
   - chart_name = "chart-#{name}"
 
-  .card__content.white-bg.fr-p-3w{ data: { controller: 'stats-loader' } }
+  .card__content.white-bg.fr-p-3w{ data: { controller: 'stats-charts' } }
     %h2
       - if data.count.present?
         %span= number_with_delimiter(data.count, locale: :fr)
@@ -11,7 +11,8 @@
         = t('title', scope: ['stats', 'series', name])
 
     %p.fr-m-0{ id: chart_name,
-      'data-stats-loader-target': 'graph',
+      'data-stats-charts-target': 'graph',
+      'data-type': data.chart,
       'data-chart': data.chart,
       'data-months': data.all_months.map{ |d| I18n.l(d, format: :month) }.to_json.html_safe,
       'data-max-value': data.max_value,
