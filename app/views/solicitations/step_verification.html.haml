@@ -79,5 +79,4 @@
         = f.hidden_field :uuid
         = f.submit t('solicitations.creation_form.buttons.send'), class: 'fr-btn', data: { disable_with: t('solicitations.creation_form.submit_in_progress') }
 
-:javascript
-  _paq.push(['trackEvent', 'step_verification', 'success'])
+= render 'solicitations/matomo_events/matomo_verification_step'
