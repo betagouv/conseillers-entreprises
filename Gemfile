@@ -125,7 +125,6 @@ group :development do
   gem 'annotate'
   gem 'letter_opener_web'
   gem 'rails_real_favicon'
-  gem 'pp_sql'
   gem 'bullet'
 
   gem 'spring', ">=3.0.0"
