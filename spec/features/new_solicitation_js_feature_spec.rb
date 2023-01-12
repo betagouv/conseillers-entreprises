@@ -78,7 +78,7 @@ describe 'New Solicitation', js: true, flaky: true do
           click_button 'Suivant'
           expect(solicitation.reload.step_verification?).to be true
           expect(solicitation.reload.completed_at).to be_nil
-          expect(page).to have_content('Merci de vérifiez votre demande avant de l’envoyer aux conseillers.')
+          expect(page).to have_content(I18n.t('solicitations.step_verification.summary_before_sending'))
           expect(page).to have_content(solicitation.full_name)
           expect(page).to have_content(solicitation.phone_number)
           expect(page).to have_content(solicitation.email)
@@ -176,7 +176,7 @@ describe 'New Solicitation', js: true, flaky: true do
           click_button 'Suivant'
           expect(solicitation.reload.step_verification?).to be true
           expect(solicitation.reload.completed_at).to be_nil
-          expect(page).to have_content('Merci de vérifiez votre demande avant de l’envoyer aux conseillers.')
+          expect(page).to have_content(I18n.t('solicitations.step_verification.summary_before_sending'))
           expect(page).to have_content(solicitation.full_name)
           expect(page).to have_content(solicitation.phone_number)
           expect(page).to have_content(solicitation.email)
@@ -240,7 +240,7 @@ describe 'New Solicitation', js: true, flaky: true do
           click_button 'Suivant'
           expect(solicitation.reload.step_verification?).to be true
           expect(solicitation.reload.completed_at).to be_nil
-          expect(page).to have_content('Merci de vérifiez votre demande avant de l’envoyer aux conseillers.')
+          expect(page).to have_content(I18n.t('solicitations.step_verification.summary_before_sending'))
           expect(page).to have_content(solicitation.full_name)
           expect(page).to have_content(solicitation.phone_number)
           expect(page).to have_content(solicitation.email)
@@ -300,7 +300,7 @@ describe 'New Solicitation', js: true, flaky: true do
           click_button 'Suivant'
           expect(solicitation.reload.step_verification?).to be true
           expect(solicitation.reload.completed_at).to be_nil
-          expect(page).to have_content('Merci de vérifiez votre demande avant de l’envoyer aux conseillers.')
+          expect(page).to have_content(I18n.t('solicitations.step_verification.summary_before_sending'))
           expect(page).to have_content(solicitation.full_name)
           expect(page).to have_content(solicitation.phone_number)
           expect(page).to have_content(solicitation.email)
