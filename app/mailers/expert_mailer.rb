@@ -45,6 +45,8 @@ class ExpertMailer < ApplicationMailer
 
   def positioning_rate_reminders(expert, support_user)
     @expert = expert
+    return if @expert.deleted?
+
     @support_user = support_user
 
     mail(
@@ -56,6 +58,8 @@ class ExpertMailer < ApplicationMailer
 
   def last_chance(expert, need, support_user)
     @expert = expert
+    return if @expert.deleted?
+
     @need = need
     @support_user = support_user
 
