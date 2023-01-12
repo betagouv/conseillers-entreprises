@@ -938,13 +938,14 @@ fr:
       accompaniments: 'Accompagnements proposés :'
       all_fields_compulsary: Tous les champs sont obligatoires.
       average_delays: "(Délai moyen de prise en charge)"
-      better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
+      better_taking_care: 'Pour vous aider, les conseillers ont besoin d’éléments de contexte :'
       buttons:
         manual_step_company: Je ne trouve pas mon entreprise
         next: Suivant
         previous: Précédent
         send: Envoyer ma demande
-      description: Description de votre demande
+      description: Merci de compléter votre message aux conseillers.
+      description_helper: N’hésitez pas à ajouter toute information qui vous semblerait pertinente.
       empty_result_help_html: La recherche de votre entreprise n’a pas été concluante ? Renseignez manuellement votre numéro de SIRET ici ou effectuez une <a href=%{path}> nouvelle recherche</a>.
       find_my_facility: Recherchez votre entreprise (SIRET, SIREN, nom...)
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"

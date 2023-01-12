@@ -17,7 +17,9 @@
       .fr-fieldset{ data: { controller: 'prefill-textarea', 'prefill-textarea-target': 'dataSource', content: h(@solicitation.landing_subject&.description_prefill&.html_safe) } }
         .fr-fieldset__element
           .fr-input-group
-            = f.label 'description', t('solicitations.creation_form.description'), class: 'fr-label bold'
+            = f.label 'description', class: 'fr-label' do
+              .bold= t('solicitations.creation_form.description')
+              %span.fr-hint-text= t('solicitations.creation_form.description_helper')
             = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description_html"), rows: 12, required: true, class: 'fr-input white-bg', data: { 'prefill-textarea-target': 'destinationField' }
 
           - if @solicitation.errors.present?
