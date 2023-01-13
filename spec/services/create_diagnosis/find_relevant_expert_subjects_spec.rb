@@ -54,10 +54,17 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
 
       let!(:tresorerie_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, effectif_max: 20, subject_id: tresorerie_subject.id }
+      let(:match_filter_01) { create :match_filter, effectif_max: 20, subjects: [tresorerie_subject] }
       let!(:es_01) { create :expert_subject }
 
       before { es_01.expert.antenne.match_filters << match_filter_01 }
+
+      context 'matching nothing' do
+        let(:need_subject) { create :subject }
+        let(:facility) { create :facility, code_effectif: '12' }
+
+        it { is_expected.to match_array [es_temoin, es_01] }
+      end
 
       context 'matching subject only' do
         let(:facility) { create :facility, code_effectif: '12' }
@@ -79,13 +86,6 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
         it { is_expected.to match_array [es_temoin, es_01] }
       end
-
-      context 'matching nothing' do
-        let(:need_subject) { create :subject }
-        let(:facility) { create :facility, code_effectif: '12' }
-
-        it { is_expected.to match_array [es_temoin, es_01] }
-      end
     end
 
     context 'code naf && subject' do
@@ -93,7 +93,7 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
 
       let!(:difficulte_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, accepted_naf_codes: ['1101Z', '1102A', '1102B'], subject_id: difficulte_subject.id }
+      let(:match_filter_01) { create :match_filter, accepted_naf_codes: ['1101Z', '1102A', '1102B'], subjects: [difficulte_subject] }
       let!(:es_01) { create :expert_subject }
 
       before { es_01.expert.antenne.match_filters << match_filter_01 }
@@ -135,7 +135,7 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
 
       let!(:difficulte_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, accepted_legal_forms: %w[4 6], subject_id: difficulte_subject.id }
+      let(:match_filter_01) { create :match_filter, accepted_legal_forms: %w[4 6], subjects: [difficulte_subject] }
       let!(:es_01) { create :expert_subject }
 
       before { es_01.expert.antenne.match_filters << match_filter_01 }
@@ -211,6 +211,133 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
         let(:facility) { create :facility, code_effectif: '11', company: create(:company, date_de_creation: 4.years.ago) }
 
         it { is_expected.to match_array [es_temoin, es_01] }
+      end
+    end
+
+    context 'many subjects filter' do
+      let(:diagnosis) { create :diagnosis, facility: facility }
+      let(:facility) { create :facility, company: create(:company, date_de_creation: date_de_creation_company) }
+
+      let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
+
+      let!(:difficulte_subject) { create :subject }
+      let!(:rh_subject) { create :subject }
+      let(:match_filter_01) { create :match_filter, min_years_of_existence: 3, subjects: [difficulte_subject, rh_subject] }
+
+      let!(:es_01) { create :expert_subject }
+
+      before do
+        es_01.expert.antenne.match_filters << match_filter_01
+      end
+
+      context 'subject with criteria ok' do
+        let(:need_subject) { difficulte_subject }
+        let(:date_de_creation_company) { 4.years.ago }
+
+        it { is_expected.to match_array [es_temoin, es_01] }
+      end
+
+      context 'subject with criteria ko' do
+        let(:need_subject) { difficulte_subject }
+        let(:date_de_creation_company) { 1.year.ago }
+
+        it { is_expected.to match_array [es_temoin] }
+      end
+
+      context 'only min_years_of_existence criteria matching' do
+        let(:need_subject) { create(:subject) }
+        let(:date_de_creation_company) { 4.years.ago }
+
+        it { is_expected.to match_array [es_temoin, es_01] }
+      end
+
+      context 'no criteria matching' do
+        let(:need_subject) { create(:subject) }
+        let(:date_de_creation_company) { 1.year.ago }
+
+        it { is_expected.to match_array [es_temoin, es_01] }
+      end
+    end
+
+    context 'BPI like' do
+      let(:diagnosis) { create :diagnosis, facility: facility }
+      let!(:facility) { create :facility, code_effectif: code_effectif, company: create(:company, date_de_creation: date_de_creation_company) }
+
+      let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
+
+      let!(:rh_subject) { create :subject }
+      let!(:eau_subject) { create :subject }
+      let!(:energie_subject) { create :subject }
+      let(:match_filter_01) { create :match_filter, min_years_of_existence: 3, subjects: [rh_subject] }
+      let(:match_filter_02) { create :match_filter, min_years_of_existence: 3, effectif_max: 50, subjects: [eau_subject, energie_subject] }
+
+      let!(:es_01) { create :expert_subject }
+
+      before do
+        es_01.expert.antenne.match_filters << match_filter_01
+        es_01.expert.antenne.match_filters << match_filter_02
+      end
+
+      context 'with non filtered subject' do
+        context 'other subject + 1 year existence + effectif 50' do
+          let(:need_subject) { create(:subject) }
+          let(:date_de_creation_company) { 1.year.ago }
+          let(:code_effectif) { '21' }
+
+          it { is_expected.to match_array [es_temoin, es_01] }
+        end
+      end
+
+      context 'with non environmental subject' do
+        context 'rh_subject + 1 year existence + effectif 40' do
+          let(:need_subject) { rh_subject }
+          let(:date_de_creation_company) { 1.year.ago }
+          let(:code_effectif) { '12' }
+
+          it { is_expected.to match_array [es_temoin] }
+        end
+
+        context 'rh_subject + 1 year existence + effectif 50' do
+          let(:need_subject) { rh_subject }
+          let(:date_de_creation_company) { 1.year.ago }
+          let(:code_effectif) { '21' }
+
+          it { is_expected.to match_array [es_temoin] }
+        end
+
+        context 'rh_subject + 5 year existence + effectif 50' do
+          let(:need_subject) { rh_subject }
+          let(:date_de_creation_company) { 5.years.ago }
+          let(:code_effectif) { '21' }
+
+          it { is_expected.to match_array [es_temoin, es_01] }
+        end
+      end
+
+      context 'with environmental subject' do
+        context 'eau subject + 1 year existence + effectif 40' do
+          let(:need_subject) { eau_subject }
+          let(:date_de_creation_company) { 1.year.ago }
+          let(:code_effectif) { '12' }
+
+          it { is_expected.to match_array [es_temoin] }
+        end
+
+        context 'eau subject + 5 year existence + effectif 40' do
+          let(:need_subject) { eau_subject }
+          let(:date_de_creation_company) { 5.years.ago }
+          let(:code_effectif) { '12' }
+
+          it { is_expected.to match_array [es_temoin, es_01] }
+        end
+
+        context 'eau subject + 5 year existence + effectif 50' do
+          let(:need_subject) { eau_subject }
+          let(:date_de_creation_company) { 5.years.ago }
+          let(:code_effectif) { '21' }
+
+          it { is_expected.to match_array [es_temoin] }
+        end
       end
     end
   end

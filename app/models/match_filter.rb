@@ -12,24 +12,20 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  antenne_id             :bigint(8)
-#  subject_id             :bigint(8)
 #
 # Indexes
 #
 #  index_match_filters_on_antenne_id  (antenne_id)
-#  index_match_filters_on_subject_id  (subject_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (antenne_id => antennes.id)
-#  fk_rails_...  (subject_id => subjects.id)
 #
 class MatchFilter < ApplicationRecord
   ## Associations
   #
-  belongs_to :institution, optional: true
   belongs_to :antenne, optional: true
-  belongs_to :subject, optional: true
+  has_and_belongs_to_many :subjects
 
   has_many :experts, through: :antenne, source: :experts, inverse_of: :match_filters
   has_many :experts_subjects, through: :experts, inverse_of: :match_filters
