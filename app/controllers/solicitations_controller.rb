@@ -129,6 +129,7 @@ class SolicitationsController < PagesController
     @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
     if @solicitation.errors.empty?
       if step == :step_verification
+        @solicitation.complete!
         @landing_subject = @solicitation.landing_subject
         CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
         @solicitation.delay.prepare_diagnosis(nil)

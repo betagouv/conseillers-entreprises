@@ -308,7 +308,7 @@ Lint/BinaryOperatorWithIdenticalOperands:
   Enabled: false
 
 Lint/BooleanSymbol:
-  Enabled: true
+  Enabled: false
 
 Lint/CircularArgumentReference:
   Enabled: true

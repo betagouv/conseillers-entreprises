@@ -1,4 +1,4 @@
-// fonction utilisées dans les vues directement
+// fonctions utilisées dans les vues directement
 document.addEventListener("DOMContentLoaded", function() {
   const clickOnLanding = document.getElementsByClassName("click-on-landing")
   if (clickOnLanding.length !== 0) {

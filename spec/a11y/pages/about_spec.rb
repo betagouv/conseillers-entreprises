@@ -8,13 +8,13 @@ describe 'about', type: :feature, js: true do
   describe '/cgu' do
     before { visit '/cgu' }
 
-    it it { is_expected.to be_accessible }
+    it { is_expected.to be_accessible }
   end
 
   describe '/mentions_d_information' do
     before { visit '/mentions_d_information' }
 
-    it it { is_expected.to be_accessible }
+    it { is_expected.to be_accessible }
   end
 
   describe '/comment_ca_marche' do
@@ -23,18 +23,18 @@ describe 'about', type: :feature, js: true do
       visit '/comment_ca_marche'
     end
 
-    it it { is_expected.to be_accessible }
+    it { is_expected.to be_accessible }
   end
 
   describe '/mentions_legales' do
     before { visit '/mentions_legales' }
 
-    it it { is_expected.to be_accessible }
+    it { is_expected.to be_accessible }
   end
 
   describe '/accessibilite' do
     before { visit '/accessibilite' }
 
-    it it { is_expected.to be_accessible }
+    it { is_expected.to be_accessible }
   end
 end

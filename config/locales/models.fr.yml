@@ -84,6 +84,7 @@ fr:
       sent: Mises en relation envoyées
       status_step_company: Étape entreprise
       status_step_description: Étape description
+      status_step_verification: Étape vérification
       step_complete: Terminées
       step_incomplete: Incomplètes
       support_experts: Support
@@ -159,9 +160,9 @@ fr:
         formee_est_salariee_de_lentreprise:
           label: La personne que vous souhaitez former est-elle salariée de votre entreprise ?
         moins_de_10k_restant_a_financer:
-          answer_no: 10 000 euros et plus
-          answer_yes: moins de 10 000 euros
+          'false': 10 000 euros et plus
           label: Quel est le montant qu’il reste à financer pour votre projet (hors apport et prêt bancaire) ?
+          'true': moins de 10 000 euros
         outside_europe:
           label: Votre projet concerne-t-il un pays hors de l’Union européenne (27 pays) ?
         recrutement_en_apprentissage:
@@ -414,6 +415,7 @@ fr:
         step_company: Étape entreprise
         step_contact: Étape contact
         step_description: Étape description
+        step_verification: Étape vérification
       solicitation/statuses/action:
         canceled: Abandonner
         in_progress: Réinitialiser
