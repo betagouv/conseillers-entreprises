@@ -67,7 +67,7 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
 
-          fill_in 'Description', with: 'Ceci n\'est pas un test'
+          fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
           # radio button sur 'Oui' pour recrutement_poste_cadre
           expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_true', checked: true, visible: :hidden)
           expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_false', checked: false, visible: :hidden)
@@ -119,7 +119,7 @@ describe 'New Solicitation', js: true, flaky: true do
 
           click_button 'Suivant'
           expect(solicitation.reload.siret).to eq query
-          expect(page).to have_field('Description')
+          expect(page).to have_field(I18n.t('solicitations.creation_form.description'))
 
           click_link 'Précédent'
           expect(solicitation.reload.siret).to eq query
@@ -171,7 +171,7 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
-          fill_in 'Description', with: 'Ceci n\'est pas un test'
+          fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
 
           click_button 'Suivant'
           expect(solicitation.reload.step_verification?).to be true
@@ -235,7 +235,7 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.status_step_description?).to be true
           click_button 'Suivant'
 
-          fill_in 'Description', with: 'Ceci n\'est pas un test'
+          fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
 
           click_button 'Suivant'
           expect(solicitation.reload.step_verification?).to be true
@@ -295,7 +295,7 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.code_region).to be_nil
           expect(solicitation.status_step_description?).to be true
 
-          fill_in 'Description', with: 'Ceci n\'est pas un test'
+          fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
 
           click_button 'Suivant'
           expect(solicitation.reload.step_verification?).to be true

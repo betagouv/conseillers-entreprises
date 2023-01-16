@@ -47,7 +47,7 @@ describe 'solicitation_form', type: :feature, js: true do
       click_button "#{query} - Octo Technology"
       # Third step
       is_expected.to be_accessible
-      fill_in 'Description', with: 'Ceci n\'est pas un test'
+      fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
       choose 'Oui', name: 'solicitation[institution_filters_attributes][0][filter_value]', allow_label_click: true
       choose 'Oui', name: 'solicitation[institution_filters_attributes][1][filter_value]', allow_label_click: true
       click_button 'Suivant'

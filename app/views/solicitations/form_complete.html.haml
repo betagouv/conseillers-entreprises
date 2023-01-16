@@ -6,33 +6,28 @@
 .fr-container--fluid.section-grey.fr-py-4w#section-thankyou
   .fr-container
     .fr-grid-row
-      .fr-col-12.fr-col-md-6.fr-col-offset-md-3
+      .fr-col-12.fr-col-md-8.fr-col-offset-md-2
         - if in_iframe?
-          .thank_you_iframe
-            .fr-my-8w
-              %h1.fr-h2= t('.title')
-              .fr-text--lg= t('.iframe_message_html')
-            .logo-pde= image_tag 'logo-PDE.svg', alt: t('logos.pde')
-            .fr-py-4w.text-center
-              %h2.fr-h4= t('iframe.partners_logo')
-              = render 'landings/landings/logos', landing_subject: @landing_subject
+          .fr-my-8w
+            .fr-alert.fr-alert--success.white-bg
+              %h1.fr-alert__title= t('.title')
+            .thank_you_iframe.fr-my-8w
+              %p= t('.iframe_message_html')
+              .logo-pde= image_tag 'logo-PDE.svg', alt: t('logos.pde')
+            = render 'institutions_tiles_block', institutions: @displayable_institutions, subject: @landing_subject.subject, opco: @opco
 
         - else
           .fr-my-8w
-            %h1.fr-h2= t('.title')
-            - if @solicitation.institution
-              %p.fr-text--lg= t('.message_with_institution', institution: @solicitation.institution.name)
-              = render 'solicitations/matomo_events/matomo_partner_contact'
-            - else
-              %p.fr-text--lg= t('.message_html')
-          - if @landing_subject.logos.present?
-            = render 'landings/landings/logos', landing_subject: @landing_subject
+            .fr-alert.fr-alert--success.white-bg
+              %h1.fr-alert__title= t('.title')
+              - if @solicitation.institution
+                %p= t('.message_with_institution', institution: @solicitation.institution.name)
+                = render 'solicitations/matomo_events/matomo_partner_contact'
+              - else
+                %p= t('.message_html')
+          = render 'institutions_tiles_block', institutions: @displayable_institutions, subject: @landing_subject.subject, opco: @opco
 
 - unless in_iframe?
-  .fr-container--fluid.section-light-grey
-    .fr-container.fr-py-4w
-      = render 'newsletter', email: @solicitation.email
-
   .fr-container.fr-py-4w.text-center.je-donne-mon-avis
     %a{ href: "https://voxusagers.numerique.gouv.fr/Demarches/2666?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=217cc9ca5ab6c2999a02839fdd402d01", target: '_blank' }
       %img{ alt: t('solicitations.creation_form.give_my_opinion_alt'), src: "https://voxusagers.numerique.gouv.fr/static/bouton-blanc.svg" }

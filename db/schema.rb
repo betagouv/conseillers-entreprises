@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_01_161046) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_23_104919) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -320,7 +320,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_01_161046) do
     t.boolean "show_on_list", default: false
     t.datetime "deleted_at", precision: nil
     t.integer "code_region"
-    t.boolean "display_logo", default: false
+    t.boolean "display_logo", default: true
     t.text "siren"
     t.index ["code_region"], name: "index_institutions_on_code_region"
     t.index ["deleted_at"], name: "index_institutions_on_deleted_at"
@@ -335,7 +335,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_01_161046) do
     t.bigint "subject_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.boolean "optional", default: false
     t.index ["institution_id"], name: "index_institutions_subjects_on_institution_id"
     t.index ["subject_id", "institution_id", "description"], name: "unique_institution_subject_in_institution", unique: true
     t.index ["subject_id"], name: "index_institutions_subjects_on_subject_id"
@@ -371,17 +370,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_01_161046) do
     t.datetime "updated_at", null: false
     t.boolean "display_region_logo", default: false
     t.datetime "archived_at", precision: nil
+    t.text "description_prefill"
     t.index ["archived_at"], name: "index_landing_subjects_on_archived_at"
     t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
     t.index ["slug"], name: "index_landing_subjects_on_slug", unique: true
     t.index ["subject_id"], name: "index_landing_subjects_on_subject_id"
-  end
-
-  create_table "landing_subjects_logos", force: :cascade do |t|
-    t.bigint "logo_id"
-    t.bigint "landing_subject_id"
-    t.index ["landing_subject_id"], name: "index_landing_subjects_logos_on_landing_subject_id"
-    t.index ["logo_id"], name: "index_landing_subjects_logos_on_logo_id"
   end
 
   create_table "landing_themes", force: :cascade do |t|

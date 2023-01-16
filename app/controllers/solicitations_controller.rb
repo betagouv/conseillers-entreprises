@@ -1,7 +1,7 @@
 class SolicitationsController < PagesController
   include IframePrefix
 
-  layout 'solicitation_form', except: [:form_complete]
+  layout 'solicitation_form'
 
   before_action :set_steps, except: [:form_complete]
 
@@ -107,7 +107,10 @@ class SolicitationsController < PagesController
     update_solicitation_from_step(current_template, form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
-  def form_complete; end
+  def form_complete
+    @displayable_institutions = @landing_subject.solicitable_institutions.with_logo.order(:name)
+    @opco = @landing_subject.solicitable_institutions.opco.any? ? @landing_subject.solicitable_institutions.opco.first : nil
+  end
 
   # Redirection vers la bonne étape de sollicitation
   # Utilisé par les emails de relance pour les sollicitations incomplètes

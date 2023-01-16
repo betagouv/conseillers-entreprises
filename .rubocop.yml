@@ -1385,6 +1385,7 @@ I18n/RailsI18n:
   Exclude:
     - 'lib/tasks/*.rake'
     - 'spec/**/*'
+    - 'db/migrate/*'
 
 I18n/RailsI18n/DecorateStringFormattingUsingInterpolation:
   Enabled: false

@@ -4,7 +4,6 @@
 #
 #  id             :bigint(8)        not null, primary key
 #  description    :string
-#  optional       :boolean          default(FALSE)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  institution_id :bigint(8)
