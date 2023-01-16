@@ -54,7 +54,7 @@ ActiveAdmin.register LandingTheme do
       row :title
       row :page_title
       row :slug
-      row(:description) { |ls| ls.description.html_safe }
+      row(:description) { |ls| ls.description&.html_safe }
       row :archived_at
       row :created_at
       row :updated_at
@@ -76,11 +76,11 @@ ActiveAdmin.register LandingTheme do
             row :title
             row :archived_at
             row(:subject) { |ls| admin_link_to ls.subject }
-            row(:description) { |ls| ls.description.html_safe }
-            row(:description_explanation) { |ls| ls.description_explanation.html_safe }
-            row(:description_prefill) { |ls| ls.description_prefill.html_safe }
+            row(:description) { |ls| ls.description&.html_safe }
+            row(:description_explanation) { |ls| ls.description_explanation&.html_safe }
+            row(:description_prefill) { |ls| ls.description_prefill&.html_safe }
             row :form_title
-            row(:form_description) { |ls| ls.form_description.html_safe }
+            row(:form_description) { |ls| ls.form_description&.html_safe }
             row :requires_location
             row :requires_requested_help_amount
             row :requires_siret
