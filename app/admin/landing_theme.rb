@@ -132,7 +132,6 @@ ActiveAdmin.register LandingTheme do
         ls.input :requires_requested_help_amount
         ls.input :requires_siret
         ls.input :form_description, as: :quill_editor
-        ls.input :logos, as: :ajax_select, data: { url: :admin_logos_path, search_fields: [:name] }
         ls.input :display_region_logo
         ls.input :meta_title
         ls.input :meta_description
