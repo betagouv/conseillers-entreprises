@@ -1,6 +1,5 @@
 module Stats
   class PublicController < BaseController
-    before_action :stats_params
     def index
       @stats_params = stats_params
       session[:public_stats_params] = @stats_params
