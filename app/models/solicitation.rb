@@ -93,19 +93,19 @@ class Solicitation < ApplicationRecord
     state :canceled
 
     event :go_to_step_company do
-      transitions from: [:step_contact], to: :step_company, if: -> { contact_step_required_fields.all?{ |attr| self.public_send(attr).present? } }
+      transitions from: [:step_contact], to: :step_company
     end
 
     event :go_to_step_description do
-      transitions from: [:step_company], to: :step_description, if: -> { company_step_required_fields.all?{ |attr| self.public_send(attr).present? } }
+      transitions from: [:step_company], to: :step_description
     end
 
     event :go_to_step_verification do
-      transitions from: [:step_description], to: :step_verification, if: -> { description.present? && !from_api? }
+      transitions from: [:step_description], to: :step_verification
     end
 
     event :complete, before: :format_solicitation do
-      transitions from: [:step_description, :step_verification], to: :in_progress, guard: -> { description.present? }
+      transitions from: [:step_description, :step_verification], to: :in_progress
     end
 
     event :process do
