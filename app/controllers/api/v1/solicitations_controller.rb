@@ -1,8 +1,9 @@
 class Api::V1::SolicitationsController < Api::V1::BaseController
   def create
     begin
-      @solicitation = SolicitationModification::CreateFromApi.new(sanitize_params(solicitation_params)).call!
-      if @solicitation.persisted?
+      params = format_params(sanitize_params(solicitation_params))
+      @solicitation = Solicitation.new(params)
+      if @solicitation.complete!
         render json: @solicitation, serializer: serializer, status: 200
       else
         errors = @solicitation.errors.map{ |e| { source: I18n.t(e.attribute, scope: [:activerecord, :attributes, :solicitation]), message: e.message } }
@@ -30,5 +31,12 @@ class Api::V1::SolicitationsController < Api::V1::BaseController
       .permit(:landing_id, :landing_subject_id, :description, :code_region, :api_calling_url,
               *Solicitation::FIELD_TYPES.keys,
               questions_additionnelles: [:question_id, :answer]).merge(status: :step_description)
+  end
+
+  def format_params(params)
+    return params if params[:questions_additionnelles].nil?
+    formatted_questions_additionnelles = params.delete(:questions_additionnelles).map{ |question| { additional_subject_question_id: question['question_id'], filter_value: question['answer'] } }
+    params
+      .merge(institution_filters_attributes: formatted_questions_additionnelles)
   end
 end
