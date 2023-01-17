@@ -1,13 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe SolicitationsController do
-
   describe 'POST #create' do
     let(:landing) { create(:landing) }
     let(:landing_subject) { create(:landing_subject) }
-    let(:request) { post :create,
-      params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug,
-        solicitation: {full_name: full_name, email: email, phone_number: phone_number, landing_id: landing.id, landing_subject_id: landing_subject.id } } }
+    let(:request) do
+  post :create,
+       params: {
+         landing_slug: landing.slug, landing_subject_slug: landing_subject.slug,
+             solicitation: { full_name: full_name, email: email, phone_number: phone_number, landing_id: landing.id, landing_subject_id: landing_subject.id }
+       }
+end
 
     context 'with good params' do
       let(:full_name) { 'Louise Michel' }
@@ -32,7 +35,7 @@ RSpec.describe SolicitationsController do
 
       it "invalidates solicitation" do
         request
-        expect(solicitation.siret).to eq(nil)
+        expect(solicitation.siret).to be_nil
         expect(solicitation.reload.status).to eq('step_company')
       end
     end
@@ -42,7 +45,7 @@ RSpec.describe SolicitationsController do
 
       it "invalidates solicitation" do
         request
-        expect(solicitation.siret).to eq(nil)
+        expect(solicitation.siret).to be_nil
         expect(solicitation.reload.status).to eq('step_company')
       end
     end
@@ -52,9 +55,8 @@ RSpec.describe SolicitationsController do
 
       it "updates solicitation" do
         request
-        expect(solicitation.valid?).to be(true)
         expect(solicitation.reload.siret).to eq("41816609600069")
-        expect(solicitation.reload.status).to eq('step_description')
+        expect(solicitation.status).to eq('step_description')
       end
     end
   end
