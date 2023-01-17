@@ -8,7 +8,8 @@ require 'axe-capybara'
 require 'active_support/testing/time_helpers'
 require 'capybara/rspec'
 require 'matchers/matcher_skiplinks_ids_spec'
-# require 'rspec/retry'
+require 'w3c_validators'
+
 include Pundit::Authorization
 
 RSpec.configure do |config|
