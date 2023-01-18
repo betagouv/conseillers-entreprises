@@ -12,7 +12,7 @@ namespace :anonymize do
     Need.where(created_at: start_date..end_date).in_batches.update_all(content: anonymized)
     Solicitation.where(created_at: start_date..end_date).in_batches.update_all(email: nil, phone_number: anonymized, full_name: anonymized, siret: nil, description: anonymized)
     Expert.active.where(updated_at: start_date..end_date).in_batches.update_all(email: 'anonymized@gouv.fr', phone_number: anonymized, full_name: anonymized)
-    User.active.where(updated_at: start_date..end_date).in_batches.update_all(email: 'anonymized@gouv.fr', phone_number: anonymized, full_name: anonymized, current_sign_in_ip: nil, last_sign_in_ip: nil)
+    User.active.where.not(id: User.admin).where(updated_at: start_date..end_date).in_batches.update_all(email: 'anonymized@gouv.fr', phone_number: anonymized, full_name: anonymized, current_sign_in_ip: nil, last_sign_in_ip: nil)
     p "end batch_anonymize_data - #{I18n.l(Time.zone.now, format: :hours)}"
   end
 
@@ -36,7 +36,7 @@ namespace :anonymize do
     Solicitation.where(created_at: start_date..end_date).find_each{ |record| record.update_columns(email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, full_name: Faker::Name.name, siret: Faker::Company.french_siret_number, description: Faker::Lorem.paragraph) }
 
     updated_experts_id = []
-    users = User.active.where(updated_at: start_date..end_date)
+    users = User.active.where.not(id: User.admin).where(updated_at: start_date..end_date)
     p "User count : #{users.size} - start: #{I18n.l(Time.zone.now, format: :hours)}"
     users.find_each do |record|
       name = Faker::Name.name
