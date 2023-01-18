@@ -8,9 +8,7 @@ describe 'devise', type: :feature, js: true do
   describe '/mon_compte/sign_in' do
     before { visit '/mon_compte/sign_in' }
 
-    it do
-      is_expected.to be_accessible
-    end
+    it { is_expected.to be_accessible }
   end
 
   describe '/mon_compte' do
