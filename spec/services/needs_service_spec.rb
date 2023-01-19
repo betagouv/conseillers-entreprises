@@ -29,9 +29,13 @@ describe NeedsService do
   describe 'abandon_needs' do
     context 'without last chance email' do
       # Besoin quo done_no_help done_not_reachable de moins de 45 jours   ko
+      # Besoin quo done_no_help done_not_reachable de moins de 45 jours   ko
       # Besoin quo done_no_help done_not_reachable de plus de 45 jours    ok
       # Besoin done de moins de 45 jours                                  ko
       # Besoin done de plus de 45 jours                                   ko
+      # Besoin done_no_help de moins de 45 jours                          ko
+      # Besoin done_not_reachable de moins de 45 jours                    ko
+
       let!(:need1) { create :need, matches: [match1] }
       let(:match1) { create :match, status: :quo }
       let!(:need2) { create :need, matches: [match2], created_at: 45.days.ago }
@@ -40,6 +44,10 @@ describe NeedsService do
       let(:match3) { create :match, status: :done }
       let!(:need4) { create :need, matches: [match4], created_at: 45.days.ago }
       let(:match4) { create :match, status: :done, created_at: 45.days.ago }
+      let!(:need5) { create :need, matches: [match5] }
+      let(:match5) { create :match, status: :done_no_help }
+      let!(:need6) { create :need, matches: [match6] }
+      let(:match6) { create :match, status: :done_not_reachable }
 
       before { described_class.abandon_needs }
 
@@ -48,15 +56,18 @@ describe NeedsService do
         expect(need2.reload.abandoned_email_sent).to be true
         expect(need3.reload.abandoned_email_sent).to be false
         expect(need4.reload.abandoned_email_sent).to be false
+        expect(need5.reload.abandoned_email_sent).to be false
+        expect(need6.reload.abandoned_email_sent).to be false
         expect(ActionMailer::Base.deliveries.count).to eq 1
       end
     end
 
     context 'with last chance email' do
-      # Besoin quo done_no_help done_not_reachable de moins de 10 jours après le mail  ko
-      # Besoin quo done_no_help done_not_reachable de plus de 10 jours après le mail   ok
+      # Besoin quo de moins de 10 jours après le mail  ko
+      # Besoin quo de plus de 10 jours après le mail   ok
       # Besoin done de moins de 40 jours de moins de 10 jours après le mail            ko
       # Besoin done de plus de 40 jours de plus de 10 jours après le mail              ko
+
       let!(:need1) { create :need, matches: [match1], reminders_actions: [reminders_actions1] }
       let(:reminders_actions1) { create :reminders_action, category: 'last_chance' }
       let(:match1) { create :match, status: :quo }
