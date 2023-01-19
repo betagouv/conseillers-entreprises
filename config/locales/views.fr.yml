@@ -636,12 +636,14 @@ fr:
         quality_monitoring: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller.
         taking_care_by_experts: Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.
       no_expert:
-        erp_html: 'pour votre établissement recevant du public (ERP) : <a href=''https://entreprendre.service-public.fr/vosdroits/F32351''>https://entreprendre.service-public.fr/vosdroits/F32351</a>'
-        independent_html: 'pour vos formalités en tant qu’indépendant : <a href=''https://www.autoentrepreneur.urssaf.fr/portail/accueil.html''>https://www.autoentrepreneur.urssaf.fr/portail/accueil.html</a> et votre avis de situation : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
+        erp_html: 'pour votre établissement recevant du public (ERP)  : <a href=''https://entreprendre.service-public.fr/vosdroits/F32351''>https://entreprendre.service-public.fr/vosdroits/F32351</a><br>et son accessibilité :<a href=''https://www.demarches-simplifiees.fr/commencer/demande-d-information-accessibilite-erp-place-des-''>https://www.demarches-simplifiees.fr/commencer/demande-d-information-accessibilite-erp-place-des-</a>'
+        independent_html: 'pour être conseillé sur vos formalités en tant qu’autoentrepreneur : <a href=''https://www.autoentrepreneur.urssaf.fr/portail/accueil.html''>https://www.autoentrepreneur.urssaf.fr/portail/accueil.html</a><br>et votre avis de situation : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
+        inpi_html: 'pour réaliser vos formalités d’entreprises : <a href=''https://procedures.inpi.fr''>https://procedures.inpi.fr</a>'
+        kbis_html: 'et votre extrait Kbis : <a href=''https://entreprendre.service-public.fr/vosdroits/R54758''>https://entreprendre.service-public.fr/vosdroits/R54758</a>'
         no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
         personal_services_html: 'pour devenir un service à la personne : <a href=''https://www.servicesalapersonne.gouv.fr''>https://www.servicesalapersonne.gouv.fr</a>'
-        service_improvement: C'est en détectant de nouvelles problématiques que nous pouvons améliorer ce service. Nous faisons notre maximum pour compléter l’expertise.
-        useful_links: 'Liens utiles :'
+        service_improvement_html: C’est en détectant de nouvelles problématiques que nous pouvons améliorer ce service public.<strong> Nous faisons notre maximum pour compléter l’expertise</strong>.
+        useful_links: 'Liens utiles selon votre démarche :'
       particular_retirement:
         for_companies: Il s’agit néanmoins d’un service public destiné aux chefs d’entreprises.
         no_responses: Nous ne sommes donc pas en mesure malheureusement de vous apporter une réponse.
