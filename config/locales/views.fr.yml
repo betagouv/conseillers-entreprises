@@ -1005,6 +1005,7 @@ fr:
         siret: SIRET
         tns_training: Formation TNS du dirigeant
     step_verification:
+      check_your_demand: Merci de relire votre demande avant de l’envoyer aux conseillers
       edit: Modifier
       edit_company: Modifier mon entreprise
       edit_coordinates: Modifier mes coordonnées
