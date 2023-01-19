@@ -47,7 +47,7 @@ class AddDescriptionPrefillToLandingSubjects < ActiveRecord::Migration[7.0]
         { slug: "resoudre-des-difficultes-financieres-liees-a-l-augmentation-des-prix-de-l-energie", prefill: "Bonjour,\r\n\r\nMon entreprise a une activité de ...\r\n\r\nJe rencontre actuellement des difficultés car...\r\n\r\nLe montant de mon besoin de trésorerie s’élève à ...\r\n\r\nMerci d'avance pour votre appel" },
         { slug: "resoudre-un-differend-avec-votre-fournisseur-d-energie", prefill: "Bonjour,\r\n\r\nMon entreprise a une activité de ...\r\n\r\nJe rencontre actuellement un différend avec ...\r\n\r\n Ce différend date de ...\r\n\r\nLe montant de la créance s'élève à...\r\n\r\nMerci d'avance pour votre appel" },
       ].each do |item|
-        LandingSubject.find_by(slug: item[:slug]).update(description_prefill: item[:prefill])
+        LandingSubject.find_by(slug: item[:slug])&.update(description_prefill: item[:prefill])
       end
     end
   end
