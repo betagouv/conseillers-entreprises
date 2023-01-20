@@ -113,7 +113,7 @@ class SolicitationsController < PagesController
   # Step description
   #
   def step_description
-    build_institution_filters unless @solicitation.institution_filters.present?
+    build_institution_filters if @solicitation.institution_filters.blank?
   end
 
   def update_step_description
@@ -122,7 +122,7 @@ class SolicitationsController < PagesController
       redirect_to step_verification_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
-      build_institution_filters unless @solicitation.institution_filters.present?
+      build_institution_filters if @solicitation.institution_filters.blank?
       render :step_description
     end
   end
