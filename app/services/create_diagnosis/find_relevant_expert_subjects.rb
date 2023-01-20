@@ -14,6 +14,16 @@ module CreateDiagnosis
       ].reduce(:&)
     end
 
+    def apply_base_query
+      ExpertSubject
+        .joins(:not_deleted_expert)
+        .in_commune(facility.commune)
+        .of_subject(need.subject)
+        .of_institution(institutions)
+        .in_company_registres(company)
+        .without_irrelevant_opcos(facility)
+    end
+
     def apply_institution_filters(expert_subjects)
       need.institution_filters.each do |need_filter|
         need_question_id = need_filter.additional_subject_question_id
@@ -29,24 +39,15 @@ module CreateDiagnosis
       expert_subjects
     end
 
-    def apply_base_query
-      ExpertSubject
-        .joins(:not_deleted_expert)
-        .in_commune(facility.commune)
-        .of_subject(need.subject)
-        .of_institution(institutions)
-        .in_company_registres(company)
-        .without_irrelevant_opcos(facility)
-    end
-
     def apply_match_filters(expert_subjects)
-      ids_to_keep = []
-      expert_subjects.each do |es|
-        if es.match_filters.empty? || es.match_filters.any?{ |mf| accepting(mf) }
-          ids_to_keep << es.id
-        end
+      expert_subjects.select do |es|
+        # On retire les filtres sur les sujets autres que celui du besoin
+        examined_match_filters = es.match_filters.reject{ |mf| other_subject_filter?(mf) }
+        # On garde les experts_subjects
+        #- qui n'ont pas de filtres
+        #- ou bien où au moins un filtre passe
+        examined_match_filters.empty? || examined_match_filters.any?{ |mf| accepting(mf) }
       end
-      expert_subjects.where(id: ids_to_keep)
     end
 
     private
@@ -54,18 +55,19 @@ module CreateDiagnosis
     # Specific filters -------------------------------
 
     def accepting(match_filter)
-      return true if match_filter.subject.present? && need.subject != match_filter.subject
       base_filters = [
         accepting_years_of_existence(match_filter),
         accepting_effectif(match_filter),
         accepting_naf_codes(match_filter),
         accepting_legal_forms_codes(match_filter)
       ]
-      # Don't verify subject if match_filter is not the same as need subject
-      if !match_filter.subject.nil? && need.subject == match_filter.subject
-        base_filters << accepting_subject(match_filter)
-      end
       base_filters.reduce(:&)
+    end
+
+    # Sujet
+
+    def other_subject_filter?(match_filter)
+      match_filter.subjects.any? && match_filter.subjects.exclude?(need.subject)
     end
 
     # Ancienneté
@@ -87,12 +89,6 @@ module CreateDiagnosis
       return true if match_filter.max_years_of_existence.blank?
       return false if company.date_de_creation.blank?
       company.date_de_creation.after?(match_filter.max_years_of_existence.years.ago)
-    end
-
-    # Sujet
-
-    def accepting_subject(match_filter)
-      need.subject == match_filter.subject
     end
 
     # Effectif

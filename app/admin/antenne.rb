@@ -115,7 +115,7 @@ ActiveAdmin.register Antenne do
             row :max_years_of_existence
             row :effectif_min
             row :effectif_max
-            row :subject
+            row :subjects
             row :accepted_legal_forms
             row :raw_accepted_naf_codes
           end
@@ -126,7 +126,10 @@ ActiveAdmin.register Antenne do
 
   ## Form
   #
-  match_filters_attributes = [ :id, :min_years_of_existence, :max_years_of_existence, :effectif_max, :effectif_min, :subject_id, :raw_accepted_naf_codes, :raw_accepted_legal_forms, :_destroy ]
+  match_filters_attributes = [
+    :id, :min_years_of_existence, :max_years_of_existence, :effectif_max, :effectif_min,
+    :subjects, :raw_accepted_naf_codes, :raw_accepted_legal_forms, :_destroy
+  ]
   permit_params :name, :institution_id, :insee_codes, :territorial_level,
                 advisor_ids: [], expert_ids: [], manager_ids: [], match_filters_attributes: match_filters_attributes
 
@@ -170,15 +173,15 @@ ActiveAdmin.register Antenne do
 
     f.inputs do
       f.has_many :match_filters, allow_destroy: true, new_record: true do |mf|
+        if resource.institution.present?
+          mf.input :subjects, as: :ajax_select, collection: resource.institution.subjects, data: { url: :admin_subjects_path, search_fields: [:label] }
+        else
+          mf.input :subjects, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
+        end
         mf.input :min_years_of_existence
         mf.input :max_years_of_existence
         mf.input :effectif_min
         mf.input :effectif_max
-        if resource.institution.present?
-          mf.input :subject, as: :select, collection: resource.institution.subjects.map{ |s| [s.label, s.id] }
-        else
-          mf.input :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
-        end
         mf.input :raw_accepted_legal_forms
         mf.input :raw_accepted_naf_codes, as: :text
       end

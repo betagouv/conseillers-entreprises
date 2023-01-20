@@ -38,6 +38,7 @@ class Subject < ApplicationRecord
   has_many :landing_subjects, inverse_of: :subject
   has_many :institutions_subjects, inverse_of: :subject
   has_many :additional_subject_questions, inverse_of: :subject
+  has_and_belongs_to_many :match_filters
 
   ## Validations
   #
