@@ -15,10 +15,29 @@ RSpec.describe Solicitation do
     it { is_expected.to validate_presence_of :phone_number }
     it { is_expected.to validate_presence_of :email }
 
-    context 'in_progress' do
-      subject { described_class.new(status: :in_progress) }
+    context 'validate_description' do
+      let(:landing_subject) { create :landing_subject, description_prefill: "Préremplissage" }
 
-      it { is_expected.to validate_presence_of :description }
+      subject { build :solicitation, status: 'step_verification', description: description, landing_subject: landing_subject }
+
+      context 'with empty description' do
+        let(:description) { ' ' }
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context 'with non completed description' do
+        context
+        let(:description) { landing_subject.description_prefill }
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context 'with edited description' do
+        let(:description) { 'edited description' }
+
+        it { is_expected.to be_valid }
+      end
     end
 
     describe 'siret field' do

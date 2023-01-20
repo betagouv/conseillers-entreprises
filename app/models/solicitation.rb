@@ -161,7 +161,9 @@ class Solicitation < ApplicationRecord
       errors.add(:siret, :must_be_a_valid_siret) unless FormatSiret.siret_is_valid(siret)
     end
   end
-  validates :description, presence: true, allow_blank: false, if: -> { status_in_progress? || landing&.api? }
+  validate if: -> { status_step_verification? || landing&.api? } do
+    errors.add(:description, :blank) if (description.blank? || description == landing_subject&.description_prefill)
+  end
 
   def subject_with_additional_questions?
     status_in_progress? && self.subject&.additional_subject_questions&.any?
