@@ -1,5 +1,5 @@
 module SolicitationModification
-  class FormatParams
+  class FormatQueryParams
     def initialize(params)
       @params = params
     end
