@@ -947,8 +947,7 @@ fr:
         next: Suivant
         previous: Précédent
         send: Envoyer ma demande
-      description: Merci de compléter votre message aux conseillers.
-      description_helper: N’hésitez pas à ajouter toute information qui vous semblerait pertinente.
+      description: Quelle est votre demande ?
       empty_result_help_html: La recherche de votre entreprise n’a pas été concluante ? Renseignez manuellement votre numéro de SIRET ici ou effectuez une <a href=%{path}> nouvelle recherche</a>.
       find_my_facility: Recherchez votre entreprise (SIRET, SIREN, nom...)
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"
