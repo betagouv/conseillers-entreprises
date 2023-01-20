@@ -5,6 +5,8 @@ export default class extends Controller {
 
   connect() {
     let content = this.dataSourceTarget.dataset.content;
-    this.destinationFieldTarget.value = content
+    if (content != '') {
+      this.destinationFieldTarget.value = content
+    }
   }
 }
