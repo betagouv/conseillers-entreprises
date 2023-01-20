@@ -19,7 +19,6 @@
           .fr-input-group
             = f.label 'description', class: 'fr-label' do
               .bold= t('solicitations.creation_form.description')
-              %span.fr-hint-text= t('solicitations.creation_form.description_helper')
             = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description_html"), rows: 12, required: true, autofocus: true, class: 'fr-input white-bg', data: { 'prefill-textarea-target': 'destinationField' }
 
           - if @solicitation.errors.present?

@@ -128,7 +128,7 @@ ActiveAdmin.register Antenne do
   #
   match_filters_attributes = [
     :id, :min_years_of_existence, :max_years_of_existence, :effectif_max, :effectif_min,
-    :subjects, :raw_accepted_naf_codes, :raw_accepted_legal_forms, :_destroy
+    :raw_accepted_naf_codes, :raw_accepted_legal_forms, :_destroy, subject_ids: []
   ]
   permit_params :name, :institution_id, :insee_codes, :territorial_level,
                 advisor_ids: [], expert_ids: [], manager_ids: [], match_filters_attributes: match_filters_attributes
