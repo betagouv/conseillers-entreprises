@@ -31,7 +31,7 @@ class SolicitationsController < PagesController
   end
 
   def create
-    sanitized_params = sanitize_params(solicitation_params).merge(SolicitationModification::FormatParams.new(query_params).call)
+    sanitized_params = sanitize_params(solicitation_params).merge(SolicitationModification::FormatQueryParams.new(query_params).call)
     @solicitation = SolicitationModification::Create.new(sanitized_params).call!
     if @solicitation.persisted?
       redirect_to retrieve_company_step_path
@@ -113,7 +113,7 @@ class SolicitationsController < PagesController
   # Step description
   #
   def step_description
-    build_institution_filters
+    build_institution_filters unless @solicitation.institution_filters.present?
   end
 
   def update_step_description
@@ -122,7 +122,7 @@ class SolicitationsController < PagesController
       redirect_to step_verification_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
-      build_institution_filters
+      build_institution_filters unless @solicitation.institution_filters.present?
       render :step_description
     end
   end
