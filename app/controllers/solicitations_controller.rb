@@ -130,21 +130,19 @@ class SolicitationsController < PagesController
   # Step verification
   #
   def step_verification
-    if @solicitation.siret.present?
-      @company = SearchFacility::NonDiffusable.new(query: @solicitation.siret).from_siret[:items].first
-    end
+    # if @solicitation.siret.present?
+    #   @company = SearchFacility::NonDiffusable.new(query: @solicitation.siret).from_siret[:items].first
+    # end
   end
 
   def update_step_verification
-    if @solicitation.complete!
+    if @solicitation.may_complete?
+      @solicitation.complete!
       @solicitation.delay.prepare_diagnosis(nil)
       CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
-      @landing_subject = @solicitation.landing_subject
-      redirect_to form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
-    else
-      flash.alert = @solicitation.errors.full_messages.to_sentence
-      render :step_verification
     end
+    @landing_subject = @solicitation.landing_subject
+    redirect_to form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
   end
 
   def form_complete
