@@ -400,6 +400,12 @@ class Solicitation < ApplicationRecord
     banned? || Solicitation.from_same_company(self).banned.any?
   end
 
+  def from_no_register_company?
+    company = self&.facility&.company
+    return false if company.nil?
+    !company.inscrit_rcs && !company.inscrit_rm
+  end
+
   def recent_matched_solicitations
     Solicitation.processed
       .where.not(id: self.id)

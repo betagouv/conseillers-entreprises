@@ -84,7 +84,7 @@
   .meta__warnings
     display: flex
     justify-content: flex-end
-    span
+    span.meta__warnings__item
       padding: 1px 6px
       border: 3px solid $orange
       border-radius: 50%
@@ -93,6 +93,8 @@
       background-color: $orange-lighter
       cursor: help
       margin-bottom: 1rem
+      min-width: 30px
+      text-align: center
       &:not(:last-child)
         margin-right: 0.25rem
   .logo-institution img
