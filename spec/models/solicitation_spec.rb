@@ -374,4 +374,42 @@ RSpec.describe Solicitation do
       expect(solicitation.doublon_solicitations).to match_array([same_siret_solicitation, same_email_solicitation])
     end
   end
+
+  describe 'from_no_register_company?' do
+    let!(:facility) { create :facility, company: company }
+    let(:solicitation) { create :solicitation, diagnosis: create(:diagnosis, facility: facility) }
+
+    subject { solicitation.from_no_register_company? }
+
+    context 'rcs and rm company' do
+      let(:company) { create :company, inscrit_rcs: true, inscrit_rm: true }
+
+      it { is_expected.to be false }
+    end
+
+    context 'rcs company' do
+      let(:company) { create :company, inscrit_rcs: true, inscrit_rm: false }
+
+      it { is_expected.to be false }
+    end
+
+    context 'rm company' do
+      let(:company) { create :company, inscrit_rcs: false, inscrit_rm: true }
+
+      it { is_expected.to be false }
+    end
+
+    context 'neither rcs nor rm company' do
+      let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false }
+
+      it { is_expected.to be true }
+    end
+
+    context 'no company' do
+      let(:solicitation) { create :solicitation }
+      let(:company) { create :company }
+
+      it { is_expected.to be false }
+    end
+  end
 end
