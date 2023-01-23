@@ -1,4 +1,4 @@
-<%= javascript_tag 'data-turbolinks-eval': false, nonce: true do -%>
+<%= javascript_tag 'data-turbo-eval': false, nonce: true do -%>
   var _paq = _paq || [];
   // Configure Matomo analytics
   _paq.push(['trackPageView']);
@@ -14,9 +14,9 @@
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
   })();
 
-  // Send Matomo a new event when navigating to a new page using Turbolinks
+  // Send Matomo a new event when navigating to a new page using turbo
   // (see https://developer.matomo.org/guides/spa-tracking)
-  addEventListener('turbolinks:load', function(event) {
+  addEventListener('turbo:load', function(event) {
     var isInitialLoad = (window.gMatomoPreviousPageUrl === undefined);
     if (!isInitialLoad) {
       _paq.push(['setReferrerUrl', window.gMatomoPreviousPageUrl]);

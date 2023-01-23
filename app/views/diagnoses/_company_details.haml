@@ -13,10 +13,10 @@
       %li
         #{t('attributes.code_effectif')} : #{t('codes_effectif' + '.' + diagnosis.facility.code_effectif)}
     %li
-      = link_to "#{t('attributes.siret')} : #{diagnosis.facility.siret}", company_path(diagnosis.facility), data: { turbolinks: false }
+      = link_to "#{t('attributes.siret')} : #{diagnosis.facility.siret}", company_path(diagnosis.facility), data: { turbo: false }
     .ui.hidden.divider
     %li
-      = link_to t('.company_details'), company_path(diagnosis.facility), data: { turbolinks: false }
+      = link_to t('.company_details'), company_path(diagnosis.facility), data: { turbo: false }
   - else
     %li
       = t('.need_without_siret')

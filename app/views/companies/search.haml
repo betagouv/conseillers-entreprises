@@ -12,7 +12,7 @@
           .fr-mb-2w
             .fr-tile.company-search-tile.fr-enlarge-link.fr-tile--horizontal
               .fr-tile__body
-                %h4.fr-tile__title= link_to etablissement.nom.upcase, show_with_siret_companies_path(etablissement.siret, params.permit(:solicitation).slice(:solicitation)), data: { turbolinks: false }
+                %h4.fr-tile__title= link_to etablissement.nom.upcase, show_with_siret_companies_path(etablissement.siret, params.permit(:solicitation).slice(:solicitation)), data: { turbo: false }
                 %p.fr-tile__desc= etablissement.lieu
                 %p.fr-tile__desc
                   %span.ri-file-fill.icon{ 'aria-hidden': 'true' }

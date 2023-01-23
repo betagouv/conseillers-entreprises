@@ -5,7 +5,7 @@
 
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.fr-pb-3w
-    = form_with(model: @solicitation, url: update_step_description_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
+    = form_with(model: @solicitation, url: update_step_description_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true, data: { turbo: false } }) do |f|
       = f.hidden_field :status
       - if @solicitation.landing_subject&.description_explanation.present?
         .fr-highlight.fr-mb-6w

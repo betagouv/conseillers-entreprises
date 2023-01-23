@@ -44,7 +44,7 @@
         %p.fr-callout__text= t('.before_sending_emails')
 
       .bottom_actions.flex
-        = link_to needs_diagnosis_path(@diagnosis), class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbolinks: false } do
+        = link_to needs_diagnosis_path(@diagnosis), class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbo: false } do
           %span.ri-arrow-left-line.fr-mr-1w{ 'aria-hidden': 'true' }
           = t('previous_step')
 

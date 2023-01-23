@@ -1,6 +1,6 @@
 - meta title: t('.title'), description: t('.meta_description')
 - content_for :head do
-  - javascript_include_tag 'highcharts', data: { turbolinks_track: 'reload' }
+  - javascript_include_tag 'highcharts', data: { 'turbo-track': 'reload' }
 
 .fr-container.fr-py-7w.fr-mt-3v
   %h1= t('.title')
@@ -13,10 +13,10 @@
 
 .fr-container--fluid.fr-py-12w.section-grey#section-stats
   .fr-container
-    - cache("stats_charts-#{@stats}", expires_in: 1.hour) do
-      = render 'stats_params', stats: @stats
-      .fr-grid-row.fr-grid-row--gutters#stats-charts
-        - names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :needs_done_from_exchange, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
-        - names.each do |name|
-          - data = @stats.send(name.to_sym)
-          = render 'stats/stats_chart', data: data, name: name
+    = render 'stats_params', stats: @stats_params
+    .fr-grid-row.fr-grid-row--gutters#stats-charts
+      - names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :needs_done_from_exchange, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
+      - names.each do |name|
+        .fr-col-12.card.stats
+          = turbo_frame_tag name, stats_params: @stats_params, src: polymorphic_path([name, :public_index]) do
+            = render 'skeleton_card'
