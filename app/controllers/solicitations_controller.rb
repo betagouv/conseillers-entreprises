@@ -131,9 +131,9 @@ class SolicitationsController < PagesController
   # Step verification
   #
   def step_verification
-    if @solicitation.siret.present?
-      @company = SearchFacility::NonDiffusable.new(query: @solicitation.siret).from_siret[:items].first
-    end
+    # if @solicitation.siret.present?
+    #   @company = SearchFacility::NonDiffusable.new(query: @solicitation.siret).from_siret[:items].first
+    # end
   end
 
   def update_step_verification
