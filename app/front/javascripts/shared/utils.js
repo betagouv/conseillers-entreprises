@@ -17,12 +17,3 @@ export function debounce (fn, delay) {
     }, delay)
   }
 }
-
-// Scroll jusqu'a l'ID si il y a un parametre 'anchor'
-(function () {
-  addEventListener('turbo:load', function() {
-    const queryString = window.location.search
-    const anchor = new URLSearchParams(queryString).get('anchor')
-    document.getElementById(anchor).scrollIntoView()
-  })
-})()
