@@ -941,6 +941,7 @@ fr:
     creation_form:
       accompaniments: 'Accompagnements proposés :'
       all_fields_compulsary: Tous les champs sont obligatoires.
+      already_submitted_solicitation: Cette demande a déjà été envoyée aux conseillers.
       average_delays: "(Délai moyen de prise en charge)"
       better_taking_care: 'Pour vous aider, les conseillers ont besoin d’éléments de contexte :'
       buttons:
