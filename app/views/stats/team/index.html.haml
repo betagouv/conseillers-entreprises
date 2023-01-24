@@ -9,7 +9,7 @@
 
 .fr-container--fluid.fr-py-7w.section-grey#section-stats
   .fr-container
-    = render 'tabs'
+    = render 'tabs', permit_params: @permit_params
     = render 'stats_params', stats: @stats, institution_antennes: @institution_antennes
     .fr-grid-row.fr-grid-row--gutters#stats-charts
       = render 'stats/stats_charts', stats: @stats, charts_names: @charts_names

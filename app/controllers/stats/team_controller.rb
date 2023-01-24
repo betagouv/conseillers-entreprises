@@ -1,6 +1,7 @@
 module Stats
   class TeamController < BaseController
     before_action :authorize_team
+    before_action :permit_params
     before_action :get_institution_antennes, except: %i[search_antennes]
 
     def index
@@ -41,6 +42,10 @@ module Stats
     end
 
     private
+
+    def permit_params
+      @permit_params = PERMIT_PARAMS
+    end
 
     def authorize_team
       authorize Stats::All, :team?
