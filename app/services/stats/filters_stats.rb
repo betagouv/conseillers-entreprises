@@ -6,6 +6,7 @@ module Stats
       query.merge! Need.joins(:subject).where(subject: subject) if subject.present?
       query.merge! Need.joins(solicitation: :landing)
         .where(solicitations: { landings: { integration: integration } }) if integration.present?
+      query.merge! Need.joins(subject: :theme).where(subject: { theme: theme }) if theme.present?
       if mtm_campaign.present?
         query.merge! Need.joins(:solicitation)
           .where(pk_campaign_query, "%#{mtm_campaign}%")
@@ -24,6 +25,7 @@ module Stats
       query.merge! antenne_or_institution.received_solicitations if antenne_or_institution.present?
       query.merge! Solicitation.joins(landing_subject: :subject).where(subjects: subject) if subject.present?
       query.merge! Solicitation.joins(:landing).where(landings: { integration: integration }) if integration.present?
+      query.merge! Solicitation.joins(landing_subject: { subject: :theme }).where(subjects: { themes: theme }) if theme.present?
       if mtm_campaign.present?
         query.merge! Solicitation.where(pk_campaign_query, "%#{mtm_campaign}%")
           .or(Solicitation.where(mtm_campaign_query, "%#{mtm_campaign}%"))
@@ -42,6 +44,8 @@ module Stats
         .where(landing_subjects: { subjects: subject }) if subject.present?
       query.merge! Company.joins(facilities: { diagnoses: { solicitation: :landing } })
         .where(solicitations: { landings: { integration: integration } }) if integration.present?
+      query.merge! Company.joins(facilities: { diagnoses: { solicitation: { landing_subject: { subject: :theme } } } })
+        .where(landing_subjects: { subjects: { theme: theme } }) if theme.present?
       if mtm_campaign.present?
         query.merge! Company.joins(facilities: { diagnoses: :solicitation })
           .where(pk_campaign_query, "%#{mtm_campaign}%")
@@ -64,6 +68,7 @@ module Stats
       query.merge! Match.joins(:subject).where(subjects: subject) if subject.present?
       query.merge! Match.joins(need: { solicitation: :landing })
         .where(solicitations: { landings: { integration: integration } }) if integration.present?
+      query.merge! Match.joins(subject: :theme).where(subjects: { theme: theme }) if theme.present?
       if mtm_campaign.present?
         query.merge! Match.joins(need: :solicitation)
           .where(pk_campaign_query, "%#{mtm_campaign}%")

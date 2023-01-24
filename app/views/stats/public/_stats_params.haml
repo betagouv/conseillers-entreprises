@@ -8,6 +8,10 @@
         = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
         = f.collection_select :territory, Territory.regions.order(:name), :id, :name, { selected: params[:territory],
           include_blank: t('all.feminine') }, class: "fr-select"
+      .fr-select-group
+        = f.label :theme, t('stats.stats_params.theme'), class: 'fr-label'
+        = f.collection_select :theme, Theme.for_interview.order(:label), :id, :label, { selected: params[:theme],
+          include_blank: t('all.feminine') }, class: "fr-select"
       .fr-input-group
         = f.label :start_date, class: 'fr-label' do
           = t('stats.stats_params.start_date')
