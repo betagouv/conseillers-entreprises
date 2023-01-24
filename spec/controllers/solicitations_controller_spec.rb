@@ -6,10 +6,10 @@ RSpec.describe SolicitationsController do
     let(:landing_subject) { create(:landing_subject) }
     let(:request) do
     post :create,
-        params: {
-          landing_slug: landing.slug, landing_subject_slug: landing_subject.slug,
-              solicitation: { full_name: full_name, email: email, phone_number: phone_number, landing_id: landing.id, landing_subject_id: landing_subject.id }
-        }
+         params: {
+           landing_slug: landing.slug, landing_subject_slug: landing_subject.slug,
+               solicitation: { full_name: full_name, email: email, phone_number: phone_number, landing_id: landing.id, landing_subject_id: landing_subject.id }
+         }
   end
 
     context 'with good params' do

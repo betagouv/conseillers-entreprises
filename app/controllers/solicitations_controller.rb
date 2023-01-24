@@ -131,9 +131,9 @@ class SolicitationsController < PagesController
   # Step verification
   #
   def step_verification
-    # if @solicitation.siret.present?
-    #   @company = SearchFacility::NonDiffusable.new(query: @solicitation.siret).from_siret[:items].first
-    # end
+    if @solicitation.siret.present?
+      @company = SearchFacility::NonDiffusable.new(query: @solicitation.siret).from_siret[:items].first
+    end
   end
 
   def update_step_verification
@@ -201,7 +201,6 @@ class SolicitationsController < PagesController
   end
 
   def current_template    # byebug@solicitation.status_in_progress
-
     if self.action_name == 'redirect_to_solicitation_step'
       @solicitation.status.to_sym
     else
