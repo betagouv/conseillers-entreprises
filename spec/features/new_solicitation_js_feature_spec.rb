@@ -32,13 +32,24 @@ describe 'New Solicitation', js: true, flaky: true do
         let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
         let(:fixture_file) { 'api_insee_siret.json' }
         let(:query) { siret }
+        let(:other_siret) { '13000918600011' }
         let!(:additional_question_1) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_poste_cadre' }
         let!(:additional_question_2) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
+
+        before do
+          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?q=zzzzzz")
+            .to_return(status: 200, body: '{"results": []}', headers: {})
+
+          stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{other_siret}")
+            .to_return(status: 400, body: file_fixture('api_insee_siret_400.json'))
+        end
 
         it do
           visit '/?recrutement_poste_cadre=true&recrutement_en_apprentissage=false'
           click_link 'Test Landing Theme'
           click_link 'Super sujet'
+
+          # Etape contact
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'E-mail', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
@@ -50,6 +61,7 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.full_name).to eq 'Hubertine Auclerc'
           expect(solicitation.status_step_company?).to be true
 
+          # Retour étape contact
           click_link 'Précédent'
           expect(solicitation.reload.status_step_company?).to be true
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc Superstar'
@@ -57,6 +69,20 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.reload.status_step_company?).to be true
           expect(solicitation.full_name).to eq 'Hubertine Auclerc Superstar'
 
+          # Etape entreprise
+          fill_in 'Recherchez votre entreprise', with: "zzzzzz"
+          click_button 'Suivant'
+          expect(page).to have_link('Je ne trouve pas mon entreprise')
+          click_link 'Je ne trouve pas mon entreprise'
+          fill_in 'Votre numéro SIRET', with: other_siret
+          click_button 'Suivant'
+          expect(solicitation.reload.siret).to eq other_siret
+          expect(solicitation.code_region).to be_nil
+          expect(solicitation.status_step_description?).to be true
+
+          # Retour étape entreprise
+          click_link 'Précédent'
+          expect(solicitation.status_step_description?).to be true
           fill_in 'Recherchez votre entreprise', with: query
           option = find(".autocomplete__option", match: :first)
           expect(option).to have_content('Octo Technology')
@@ -67,6 +93,7 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
 
+          # Etape description
           fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
           # radio button sur 'Oui' pour recrutement_poste_cadre
           expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_true', checked: true, visible: :hidden)
@@ -76,8 +103,20 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_false", checked: true, visible: :hidden)
 
           click_button 'Suivant'
+
           expect(solicitation.reload.step_verification?).to be true
-          expect(solicitation.reload.completed_at).to be_nil
+          expect(solicitation.completed_at).to be_nil
+
+          # Retour étape contact
+          click_link("Modifier", match: :first)
+          expect(page).to have_content("Vos coordonnées")
+          click_button 'Suivant'
+          expect(page).to have_content("Votre entreprise")
+          click_button 'Suivant'
+          expect(page).to have_content("Votre demande")
+          click_button 'Suivant'
+
+          # Etape vérification
           expect(page).to have_content(I18n.t('solicitations.step_verification.summary_before_sending'))
           expect(page).to have_content(solicitation.full_name)
           expect(page).to have_content(solicitation.phone_number)
@@ -89,7 +128,7 @@ describe 'New Solicitation', js: true, flaky: true do
           click_button 'Envoyer ma demande'
           expect(page).to have_content('Merci')
           expect(solicitation.reload.status_in_progress?).to be true
-          expect(solicitation.reload.completed_at).not_to be_nil
+          expect(solicitation.completed_at).not_to be_nil
         end
       end
 

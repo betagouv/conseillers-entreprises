@@ -4,6 +4,7 @@ class SolicitationsController < PagesController
   layout 'solicitation_form'
 
   before_action :set_steps, except: [:form_complete]
+  before_action :prevent_completed_solicitation_modification, except: [:new, :create, :form_complete]
 
   # On peut naviguer dans le formulaire, donc on ne peut se fier au status de la solicitation en cours
   # Ex : sol statut description, mais qui revient à contact_step
@@ -23,26 +24,40 @@ class SolicitationsController < PagesController
     update_step_verification: :step_verification
   }
 
+  # Step contact
+  #
   def new
     @solicitation = @landing.solicitations.new(landing_subject: @landing_subject)
-    render current_template
+    render :step_contact
   end
 
   def create
-    sanitized_params = sanitize_params(solicitation_params).merge(SolicitationModification::FormatParams.new(query_params).call)
+    sanitized_params = sanitize_params(solicitation_params).merge(SolicitationModification::FormatQueryParams.new(query_params).call)
     @solicitation = SolicitationModification::Create.new(sanitized_params).call!
     if @solicitation.persisted?
       redirect_to retrieve_company_step_path
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
-      render current_template
+      render :step_contact
     end
   end
 
+  def update_step_contact
+    @solicitation.go_to_step_company if @solicitation.may_go_to_step_company?
+    if @solicitation.update(sanitize_params(solicitation_params))
+      redirect_to retrieve_company_step_path
+    else
+      flash.alert = @solicitation.errors.full_messages.to_sentence
+      render :step_contact
+    end
+  end
+
+  # Step company
+  #
   def search_company
     # si l'utilisateur a utilisé l'autocompletion
     if siret_is_set?
-      update_solicitation_from_step(current_template, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+      update_step_company_method
     elsif siren_is_set?
       redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-formulaire' }.merge(search_params)
       redirect_to redirect_path and return
@@ -81,22 +96,40 @@ class SolicitationsController < PagesController
     end
   end
 
-  def update_step_contact
-    update_solicitation_from_step(current_template, retrieve_company_step_path)
-  end
-
   def update_step_company
-    update_solicitation_from_step(current_template, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+    update_step_company_method
   end
 
+  def update_step_company_method
+    @solicitation.go_to_step_description if @solicitation.may_go_to_step_description?
+    sanitized_params = sanitize_params(solicitation_params)
+    if @solicitation.update(sanitized_params)
+      redirect_to step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+    else
+      flash.alert = @solicitation.errors.full_messages.to_sentence
+      render :step_company
+    end
+  end
+
+  # Step description
+  #
   def step_description
-    build_institution_filters
+    build_institution_filters if @solicitation.institution_filters.blank?
   end
 
   def update_step_description
-    update_solicitation_from_step(current_template, step_verification_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+    @solicitation.go_to_step_verification if @solicitation.may_go_to_step_verification?
+    if @solicitation.update(sanitize_params(solicitation_params))
+      redirect_to step_verification_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+    else
+      flash.alert = @solicitation.errors.full_messages.to_sentence
+      build_institution_filters if @solicitation.institution_filters.blank?
+      render :step_description
+    end
   end
 
+  # Step verification
+  #
   def step_verification
     if @solicitation.siret.present?
       @company = SearchFacility::NonDiffusable.new(query: @solicitation.siret).from_siret[:items].first
@@ -104,7 +137,13 @@ class SolicitationsController < PagesController
   end
 
   def update_step_verification
-    update_solicitation_from_step(current_template, form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+    if @solicitation.may_complete?
+      @solicitation.complete!
+      @solicitation.delay.prepare_diagnosis(nil)
+      CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
+    end
+    @landing_subject = @solicitation.landing_subject
+    redirect_to form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
   end
 
   def form_complete
@@ -126,24 +165,6 @@ class SolicitationsController < PagesController
   end
 
   private
-
-  def update_solicitation_from_step(step, next_step_path)
-    sanitized_params = sanitize_params(solicitation_params)
-    @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
-    if @solicitation.errors.empty?
-      if step == :step_verification
-        @solicitation.complete!
-        @landing_subject = @solicitation.landing_subject
-        CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
-        @solicitation.delay.prepare_diagnosis(nil)
-      end
-      redirect_to next_step_path
-    else
-      flash.alert = @solicitation.errors.full_messages.to_sentence
-      build_institution_filters if step == :step_description
-      render step
-    end
-  end
 
   def solicitation_params
     params.require(:solicitation)
@@ -179,7 +200,7 @@ class SolicitationsController < PagesController
     params[:solicitation].present? && solicitation_params[:siret].present?
   end
 
-  def current_template
+  def current_template    # byebug@solicitation.status_in_progress
     if self.action_name == 'redirect_to_solicitation_step'
       @solicitation.status.to_sym
     else
@@ -195,5 +216,12 @@ class SolicitationsController < PagesController
       current_step: statuses.find_index(current_status.to_s) + 1,
       total_steps: statuses.count
     }
+  end
+
+  def prevent_completed_solicitation_modification
+    if @solicitation.status_in_progress?
+      flash.alert = I18n.t('solicitations.creation_form.already_submitted_solicitation')
+      redirect_to root_path
+    end
   end
 end
