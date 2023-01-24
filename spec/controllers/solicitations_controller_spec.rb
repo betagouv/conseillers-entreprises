@@ -5,12 +5,12 @@ RSpec.describe SolicitationsController do
     let(:landing) { create(:landing) }
     let(:landing_subject) { create(:landing_subject) }
     let(:request) do
-  post :create,
-       params: {
-         landing_slug: landing.slug, landing_subject_slug: landing_subject.slug,
-             solicitation: { full_name: full_name, email: email, phone_number: phone_number, landing_id: landing.id, landing_subject_id: landing_subject.id }
-       }
-end
+    post :create,
+        params: {
+          landing_slug: landing.slug, landing_subject_slug: landing_subject.slug,
+              solicitation: { full_name: full_name, email: email, phone_number: phone_number, landing_id: landing.id, landing_subject_id: landing_subject.id }
+        }
+  end
 
     context 'with good params' do
       let(:full_name) { 'Louise Michel' }
@@ -57,6 +57,34 @@ end
         request
         expect(solicitation.reload.siret).to eq("41816609600069")
         expect(solicitation.status).to eq('step_description')
+      end
+    end
+  end
+
+  describe 'prevent_completed_solicitation_modification' do
+    let(:solicitation) { create :solicitation, status: 'in_progress' }
+
+    context 'update_contact' do
+      it 'redirects to homepage' do
+        patch :update_step_contact, params: { uuid: solicitation.uuid, solicitation: { full_name: 'Modified !' } }
+        expect(response).to redirect_to(root_path)
+        expect(solicitation.reload.full_name).not_to eq('Modified !')
+      end
+    end
+
+    context 'update_company' do
+      it 'redirects to homepage' do
+        patch :update_step_company, params: { uuid: solicitation.uuid, solicitation: { siret: '48475292800057' } }
+        expect(response).to redirect_to(root_path)
+        expect(solicitation.reload.siret).not_to eq('48475292800057')
+      end
+    end
+
+    context 'update_description' do
+      it 'redirects to homepage' do
+        patch :update_step_company, params: { uuid: solicitation.uuid, solicitation: { description: 'Ah AH modifié!' } }
+        expect(response).to redirect_to(root_path)
+        expect(solicitation.reload.description).not_to eq('Ah AH modifié!')
       end
     end
   end

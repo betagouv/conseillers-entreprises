@@ -4,6 +4,7 @@ class SolicitationsController < PagesController
   layout 'solicitation_form'
 
   before_action :set_steps, except: [:form_complete]
+  before_action :prevent_completed_solicitation_modification, except: [:new, :create, :form_complete]
 
   # On peut naviguer dans le formulaire, donc on ne peut se fier au status de la solicitation en cours
   # Ex : sol statut description, mais qui revient à contact_step
@@ -130,9 +131,9 @@ class SolicitationsController < PagesController
   # Step verification
   #
   def step_verification
-    # if @solicitation.siret.present?
-    #   @company = SearchFacility::NonDiffusable.new(query: @solicitation.siret).from_siret[:items].first
-    # end
+    if @solicitation.siret.present?
+      @company = SearchFacility::NonDiffusable.new(query: @solicitation.siret).from_siret[:items].first
+    end
   end
 
   def update_step_verification
@@ -199,7 +200,8 @@ class SolicitationsController < PagesController
     params[:solicitation].present? && solicitation_params[:siret].present?
   end
 
-  def current_template
+  def current_template    # byebug@solicitation.status_in_progress
+
     if self.action_name == 'redirect_to_solicitation_step'
       @solicitation.status.to_sym
     else
@@ -215,5 +217,12 @@ class SolicitationsController < PagesController
       current_step: statuses.find_index(current_status.to_s) + 1,
       total_steps: statuses.count
     }
+  end
+
+  def prevent_completed_solicitation_modification
+    if @solicitation.status_in_progress?
+      flash.alert = I18n.t('solicitations.creation_form.already_submitted_solicitation')
+      redirect_to root_path
+    end
   end
 end
