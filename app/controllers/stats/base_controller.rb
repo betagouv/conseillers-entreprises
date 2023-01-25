@@ -1,17 +1,14 @@
 module Stats
   class BaseController < PagesController
-    helper_method :permit_params
+    include StatsHelper
 
     private
 
-    def permit_params
-      params.permit(Stats::BaseStats::FILTER_PARAMS)
-    end
-
     def stats_params
-      permit_params[:start_date] ||= 6.months.ago.beginning_of_month.to_date
-      permit_params[:end_date] ||= Date.today
-      permit_params
+      stats_params = stats_filter_params
+      stats_params[:start_date] ||= 6.months.ago.beginning_of_month.to_date
+      stats_params[:end_date] ||= Date.today
+      stats_params
     end
   end
 end
