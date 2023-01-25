@@ -6,8 +6,10 @@ module Stats
   end
 
   module BaseStats
-    attr_reader :territory, :institution, :antenne, :subject, :integration, :mtm_campaign, :mtm_kwd, :start_date,
-                :end_date, :theme
+
+    FILTER_PARAMS = [:territory, :institution, :antenne, :subject, :integration, :mtm_campaign, :mtm_kwd, :start_date,
+      :end_date, :theme]
+    attr_reader(*FILTER_PARAMS)
 
     def initialize(params)
       params = OpenStruct.new(params)
