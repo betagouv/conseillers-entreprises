@@ -17,3 +17,15 @@ export function debounce (fn, delay) {
     }, delay)
   }
 }
+
+// Scroll jusqu'à l'ID s'il y a un parametre 'anchor', utilisé dans les stats
+(function () {
+  addEventListener('turbo:load', function() {
+    const queryString = window.location.search
+    const anchor = new URLSearchParams(queryString).get('anchor')
+    console.log(anchor)
+    if (anchor !== null) {
+      document.getElementById(anchor).scrollIntoView()
+    }
+  })
+})()
