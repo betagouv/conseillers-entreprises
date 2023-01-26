@@ -423,8 +423,8 @@ class Solicitation < ApplicationRecord
     clean_siret = FormatSiret.clean_siret(self.siret)
     sirets << clean_siret if FormatSiret.siret_is_valid(clean_siret)
 
-    contact = Contact.find_by(email: self.email)
-    sirets << contact.company.facilities.pluck(:siret) if contact.present?
+    contacts = Contact.where(email: self.email)
+    sirets << contacts.map{ |contact| contact.company.facilities.pluck(:siret) }.flatten.uniq if contacts.any?
     sirets.flatten.compact.uniq
   end
 

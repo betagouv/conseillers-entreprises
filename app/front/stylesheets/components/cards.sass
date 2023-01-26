@@ -69,6 +69,9 @@
   .card__info
     display: flex
     justify-content: space-between
+  .card__fields
+    flex-shrink: 0
+    margin-right: 1.5rem
   .card__description
     margin-bottom: 1rem
     .card__description__content
@@ -81,6 +84,8 @@
     text-align: right
     .meta__items
       margin-bottom: 1rem
+      a:not(:last-child)
+        margin-right: 0.25rem
   .meta__warnings
     display: flex
     justify-content: flex-end
