@@ -1,5 +1,7 @@
 <%= javascript_tag nonce: true do -%>
+console.log('in _matomo_company_contact_success.html')
   if (typeof _paq !== 'undefined') {
+    console.log('push it')
     _paq.push(['trackEvent', 'contact-entreprise', "success"]);
   }
 <% end -%>
