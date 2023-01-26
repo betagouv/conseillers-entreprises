@@ -8,7 +8,7 @@ defaults:
   working_directory: ~/place-des-entreprises
   docker:
     - image: cimg/ruby:3.1.2-browsers
-    - image: circleci/postgres:13.5
+    - image: cimg/postgres:13.5
       environment:
         POSTGRES_USER: place_des_entreprises_test
         POSTGRES_PASSWORD: place_des_entreprises_test
