@@ -1163,6 +1163,7 @@ fr:
       region: Région
       select_institution: Selectionnez une institution
       start_date: Date de début
+      theme: Thématique
       title: 'Sélectionnez vos filtres :'
     stats_table:
       activity:

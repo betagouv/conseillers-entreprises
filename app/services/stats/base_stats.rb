@@ -6,7 +6,11 @@ module Stats
   end
 
   module BaseStats
-    attr_reader :territory, :institution, :antenne, :subject, :integration, :mtm_campaign, :mtm_kwd, :start_date, :end_date
+    FILTER_PARAMS = [
+      :territory, :institution, :antenne, :subject, :integration, :mtm_campaign, :mtm_kwd,
+      :start_date, :end_date, :theme
+    ]
+    attr_reader(*FILTER_PARAMS)
 
     def initialize(params)
       params = OpenStruct.new(params)
@@ -17,8 +21,9 @@ module Stats
       @integration = params.integration
       @mtm_campaign = params.mtm_campaign
       @mtm_kwd = params.mtm_kwd
-      @start_date = params.start_date.to_time || (Time.zone.now.beginning_of_day - 6.months)
-      @end_date = params.end_date.to_time&.end_of_day || Time.zone.now.end_of_day
+      @theme = Theme.find_by(id: params.theme) if params.theme.present?
+      @start_date = params.start_date&.to_time || (Time.zone.now.beginning_of_day - 6.months)
+      @end_date = params.end_date&.to_time&.end_of_day || Time.zone.now.end_of_day
     end
 
     def date_group_attribute

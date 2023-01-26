@@ -17,7 +17,6 @@ RSpec.describe 'stats/team/index' do
         :exchange_with_expert, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code
       ])
       assign(:institution_antennes, [])
-      assign(:action_name, 'public')
       allow(view).to receive(:action_name).and_return("public")
 
       render

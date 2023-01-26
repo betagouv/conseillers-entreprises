@@ -13,6 +13,10 @@
         = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
         = f.collection_select :territory, Territory.regions.order(:name), :id, :name, { selected: params[:territory],
           include_blank: t('all.feminine') }, class: "fr-select"
+      .fr-select-group
+        = f.label :integration, t('activerecord.attributes.landing.integration'), class: 'fr-label'
+        = f.select :integration, Landing.integrations.map { |i| [I18n.t(i.first, scope: 'activerecord.attributes.landing/integrations'), i.first] },
+        { selected: params[:integration], include_blank: t('all.feminine') }, class: "fr-select"
     .fr-col-12.fr-col-md-4.fr-p-2w
       .fr-select-group
         = f.label :institution, t('activerecord.models.institution.one'), class: 'fr-label'
@@ -24,14 +28,15 @@
         = f.collection_select :antenne, institution_antennes, :id, :name, { selected: params[:antenne],
         include_blank: antenne_placeholder }, class: "fr-select", data: { 'stats-target': 'antennes' }
       .fr-select-group
+        = f.label :theme, t('stats.stats_params.theme'), class: 'fr-label'
+        = f.collection_select :theme, Theme.for_interview.order(:label), :id, :label, { selected: params[:theme],
+          include_blank: t('all.feminine') }, class: "fr-select"
+      .fr-select-group
         = f.label :subject, t('activerecord.models.subject.one'), class: 'fr-label'
         = f.collection_select :subject, Subject.not_archived.order(:label), :id, :label, { selected: params[:subject],
         include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
     .fr-col-12.fr-col-md-4.fr-p-2w
-      .fr-select-group
-        = f.label :integration, t('activerecord.attributes.landing.integration'), class: 'fr-label'
-        = f.select :integration, Landing.integrations.map { |i| [I18n.t(i.first, scope: 'activerecord.attributes.landing/integrations'), i.first] },
-        { selected: params[:integration], include_blank: t('all.feminine') }, class: "fr-select"
+
       .fr-input-group
         = f.label :mtm_campaign, t('stats.stats_params.campaign'), class: 'fr-label'
         = f.text_field :mtm_campaign, value: stats.params.mtm_campaign, class: 'fr-input'
