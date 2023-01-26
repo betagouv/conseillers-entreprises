@@ -47,6 +47,7 @@ gem 'aasm'
 gem 'active_model_serializers', '~> 0.10'
 gem 'rswag-api'
 gem 'rswag-ui'
+gem 'faker'
 
 # Charts
 gem 'highcharts-rails'
@@ -109,7 +110,6 @@ end
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'rspec-rails'
   gem 'rspec_junit_formatter', require: false
   gem 'parallel_tests'
