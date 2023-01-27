@@ -1,10 +1,8 @@
 <%= javascript_tag nonce: true do -%>
   document.addEventListener("google_ads_loaded", function() {
-    console.log("google_ads_loaded")
     gtag('event', 'conversion', {'send_to': 'AW-415474841/azrUCOHdwrMCEJnJjsYB'})
   })
   document.addEventListener("facebookpixel_loaded", function() {
-    console.log("facebookpixel_loaded")
     fbq('track', 'conversion')
   })
 <% end %>
