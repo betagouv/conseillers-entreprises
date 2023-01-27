@@ -1,5 +1,5 @@
 // fonctions utilisées dans les vues directement
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('turbo:load', function() {
   const clickOnLanding = document.getElementsByClassName("click-on-landing")
   if (clickOnLanding.length !== 0) {
     Array.from(clickOnLanding).forEach(function (item) {

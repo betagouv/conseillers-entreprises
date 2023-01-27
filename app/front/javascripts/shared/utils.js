@@ -23,7 +23,6 @@ export function debounce (fn, delay) {
   addEventListener('turbo:load', function() {
     const queryString = window.location.search
     const anchor = new URLSearchParams(queryString).get('anchor')
-    console.log(anchor)
     if (anchor !== null) {
       document.getElementById(anchor).scrollIntoView()
     }
