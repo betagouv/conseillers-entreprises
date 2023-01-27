@@ -1,4 +1,6 @@
 class Landings::LandingsController < Landings::BaseController
+  before_action :save_query_params
+
   def home
     @landing = Landing.accueil
     @landing_themes = Rails.cache.fetch('landing_themes', expires_in: 3.minutes) do

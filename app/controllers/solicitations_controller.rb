@@ -35,6 +35,7 @@ class SolicitationsController < PagesController
     sanitized_params = sanitize_params(solicitation_params).merge(SolicitationModification::FormatQueryParams.new(query_params).call)
     @solicitation = SolicitationModification::Create.new(sanitized_params).call!
     if @solicitation.persisted?
+      session.delete(:solicitation_form_info)
       redirect_to retrieve_company_step_path
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
