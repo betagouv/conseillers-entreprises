@@ -54,6 +54,7 @@ class Match < ApplicationRecord
   validates :expert, uniqueness: { scope: :need_id }
   after_update :update_taken_care_of_at
   after_update :update_closed_at
+  after_update :auto_close_other_pole_emploi_matches
 
   ## Through Associations
   #
@@ -222,6 +223,17 @@ class Match < ApplicationRecord
 
     if (status_quo? || status_taking_care?) && closed_at
       update_columns closed_at: nil
+    end
+  end
+
+  def auto_close_other_pole_emploi_matches
+    pole_emploi = Institution.find_by(slug: 'pole-emploi')
+    return if pole_emploi.nil?
+    other_pole_emploi_matches = self.need.matches.joins(:expert_institution)
+      .where(expert: { antenne: Antenne.where(institution_id: pole_emploi.id) })
+      .where.not(id: self.id)
+    if self.expert_institution == pole_emploi && other_pole_emploi_matches.any?
+      other_pole_emploi_matches.update_all(status: 'not_for_me')
     end
   end
 end
