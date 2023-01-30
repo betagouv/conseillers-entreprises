@@ -33,6 +33,16 @@ ActiveAdmin.register Solicitation do
         end
       end
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
+
+      ul class: 'mb-1' do
+        s.institution_filters.each do |filter|
+          answer = I18n.t(
+            filter.filter_value, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key],
+            default: I18n.t(filter.filter_value, scope: [:boolean, :text])
+          )
+          li "- #{I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])} #{tag.strong(answer)} <br>".html_safe
+        end
+      end
       div raw diagnosis_link(s.diagnosis)
       div raw needs_links(s.needs) if s.needs.present? && s.diagnosis.step_completed?
     end
