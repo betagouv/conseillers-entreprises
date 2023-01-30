@@ -20,8 +20,6 @@ class SolicitationsController < PagesController
     update_step_company: :step_company,
     step_description: :step_description,
     update_step_description: :step_description,
-    step_verification: :step_verification,
-    update_step_verification: :step_verification
   }
 
   # Step contact
@@ -119,32 +117,16 @@ class SolicitationsController < PagesController
   end
 
   def update_step_description
-    @solicitation.go_to_step_verification if @solicitation.may_go_to_step_verification?
-    if @solicitation.update(sanitize_params(solicitation_params))
-      redirect_to step_verification_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
-    else
-      flash.alert = @solicitation.errors.full_messages.to_sentence
-      build_institution_filters if @solicitation.institution_filters.blank?
-      render :step_description
-    end
-  end
-
-  # Step verification
-  #
-  def step_verification
-    if @solicitation.siret.present?
-      @company = SearchFacility::NonDiffusable.new(query: @solicitation.siret).from_siret[:items].first
-    end
-  end
-
-  def update_step_verification
-    if @solicitation.may_complete?
+    if @solicitation.update(sanitize_params(solicitation_params)) && @solicitation.may_complete?
       @solicitation.complete!
       @solicitation.delay.prepare_diagnosis(nil)
       CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
+      redirect_to form_complete_solicitation_path(@solicitation.uuid)
+    else
+      flash.now.alert = @solicitation.errors.full_messages.to_sentence
+      build_institution_filters if @solicitation.institution_filters.blank?
+      render :step_description
     end
-    @landing_subject = @solicitation.landing_subject
-    redirect_to form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
   end
 
   def form_complete
