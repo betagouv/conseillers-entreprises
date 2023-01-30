@@ -36,12 +36,11 @@ ActiveAdmin.register Solicitation do
 
       ul class: 'mb-1' do
         s.institution_filters.each do |filter|
-          if t(filter.key, scope: [:activerecord, :attributes, :additional_subject_questions]).has_key?(:true)
-            answere = I18n.t(filter.filter_value, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])
-          else
-            answere = I18n.t(filter.filter_value, scope: [:boolean, :text])
-            li "- #{I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])} #{tag.strong(answere)} <br>".html_safe
-          end
+          answer = I18n.t(
+            filter.filter_value, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key],
+            default: I18n.t(filter.filter_value, scope: [:boolean, :text])
+           )
+          li "- #{I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])} #{tag.strong(answer)} <br>".html_safe
         end
       end
       div raw diagnosis_link(s.diagnosis)
