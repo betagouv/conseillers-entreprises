@@ -84,6 +84,53 @@ RSpec.describe Match do
     end
   end
 
+  describe 'auto_close_other_pole_emploi_matches' do
+    let(:need) { create :need }
+    let(:pole_emploi) { create :institution, name: 'Pole Emploi', slug: 'pole-emploi' }
+    let!(:match_pe_01) do
+      create :match, need: need, status: :quo,
+      expert: create(:expert, antenne: create(:antenne, institution: pole_emploi))
+    end
+    let!(:match_02) do
+      create :match, need: need, status: :quo,
+      expert: create(:expert, antenne: create(:antenne, institution: institution))
+    end
+    let!(:match_03) { create :match, need: need, status: :quo }
+
+    context 'pole emploi taking care' do
+      before { match_pe_01.update status: :taking_care }
+
+      context 'with 2 pole_emploi matches' do
+        let(:institution) { pole_emploi }
+
+        it 'doesnt changes current match status' do
+          expect(match_pe_01.reload.status).to eq('taking_care')
+        end
+
+        it 'changes other pole emploi match status' do
+          expect(match_02.reload.status).to eq('not_for_me')
+        end
+
+        it 'doesnt change other match status' do
+          expect(match_03.reload.status).to eq('quo')
+        end
+      end
+
+      context 'with 1 pole_emploi match' do
+        let(:institution) { create :institution }
+
+        it 'doesnt change match status' do
+          expect(match_pe_01.reload.status).to eq('taking_care')
+        end
+
+        it 'doesnt change other matches status' do
+          expect(match_03.reload.status).to eq('quo')
+          expect(match_02.reload.status).to eq('quo')
+        end
+      end
+    end
+  end
+
   describe 'defaults' do
     let(:match) { create :match }
 
