@@ -85,7 +85,7 @@
                   = active_link_to user_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
                     %span.ri-user-line.fr-mr-1w{ 'aria-hidden': 'true' }
                     = t('.profile')
-                  = active_link_to destroy_user_session_path, method: :delete, rel: :nofollow, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
+                  = button_to destroy_user_session_path, method: :delete, data: { turbo: false }, local: true, rel: :nofollow, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
                     %span.ri-logout-box-r-line.fr-mr-1w{ 'aria-hidden': 'true' }
                     = t('.sign_out')
 
