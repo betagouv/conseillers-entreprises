@@ -6,7 +6,7 @@ module Stats::Matches
     include ::Stats::FiltersStats
 
     def main_query
-      Match.sent
+      Match.sent.where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)
