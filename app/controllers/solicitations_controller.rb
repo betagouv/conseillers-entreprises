@@ -117,8 +117,8 @@ class SolicitationsController < PagesController
   end
 
   def update_step_description
-    if @solicitation.update(sanitize_params(solicitation_params)) && @solicitation.may_complete?
-      @solicitation.complete!
+    @solicitation.complete if @solicitation.may_complete?
+    if @solicitation.update(sanitize_params(solicitation_params))
       @solicitation.delay.prepare_diagnosis(nil)
       CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
       redirect_to form_complete_solicitation_path(@solicitation.uuid)

@@ -100,7 +100,7 @@ class Solicitation < ApplicationRecord
     end
 
     event :complete, before: :format_solicitation do
-      transitions from: [:step_description], to: :in_progress, guard: :validate_presence_of_description
+      transitions from: [:step_description], to: :in_progress
     end
 
     event :process do
@@ -157,13 +157,8 @@ class Solicitation < ApplicationRecord
     end
   end
 
-  def validate_presence_of_description
-    if (description.blank? || description == landing_subject&.description_prefill) && !landing.api?
-      errors.add(:description, :blank)
-      false
-    else
-      true
-    end
+  validate if: -> { status_in_progress? || landing&.api? } do
+    errors.add(:description, :blank) if (description.blank? || description == landing_subject&.description_prefill)
   end
 
   def subject_with_additional_questions?
