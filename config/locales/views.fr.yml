@@ -971,7 +971,6 @@ fr:
       submit_in_progress: Envoi en cours...
     form_complete:
       iframe_message_html: Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME.
-      message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
       process_description_step_1_html: Nous allons <b> identifier le bon conseiller </b> près de chez vous.
       process_description_step_1_iframe_html: Place des Entreprises va <b> identifier le bon conseiller </b> près de chez vous.
       process_description_step_2_html: Le conseiller vous <b>contactera par téléphone</b> dans les 5 jours (délai moyen de prise en charge).
