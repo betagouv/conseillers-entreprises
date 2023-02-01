@@ -17,8 +17,9 @@ RSpec.describe Solicitation do
 
     context 'validate_description' do
       let(:landing_subject) { create :landing_subject, description_prefill: "Préremplissage" }
+      let(:solicitation) { create :solicitation, status: 'step_description', description: description, landing_subject: landing_subject }
 
-      subject { build :solicitation, status: 'step_verification', description: description, landing_subject: landing_subject }
+      subject { build :solicitation, status: 'in_progress', description: description, landing_subject: landing_subject }
 
       context 'with empty description' do
         let(:description) { ' ' }

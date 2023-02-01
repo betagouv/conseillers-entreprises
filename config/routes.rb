@@ -276,8 +276,6 @@ Rails.application.routes.draw do
       patch :update_step_company
       get :step_description, path: 'description'
       patch :update_step_description
-      get :step_verification, path: 'verification'
-      patch :update_step_verification
       get :form_complete, path: 'merci'
       get :redirect_to_solicitation_step, path: 'continuer'
     end

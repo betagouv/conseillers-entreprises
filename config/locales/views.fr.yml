@@ -1008,17 +1008,6 @@ fr:
         recruitment_foreign_worker: Travailleur étranger
         siret: SIRET
         tns_training: Formation TNS du dirigeant
-    step_verification:
-      check_your_demand: Merci de relire votre demande avant de l’envoyer aux conseillers
-      edit: Modifier
-      edit_company: Modifier mon entreprise
-      edit_coordinates: Modifier mes coordonnées
-      edit_description: Modifier ma demande
-      location: Localisation : 
-      my_company: Mon entreprise
-      my_coordinates: Mes coordonnées
-      my_solicitation: Ma demande
-      summary_before_sending: Récapitulatif de votre demande avant son envoi
   stats:
     archived: Besoins abandonnés
     done_no_help_status: Statut « cloturé sans aide »

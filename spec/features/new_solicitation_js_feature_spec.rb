@@ -101,31 +101,8 @@ describe 'New Solicitation', js: true, flaky: true do
           # radio button sur 'Non' pour recrutement_en_apprentissage
           expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_true", checked: false, visible: :hidden)
           expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_false", checked: true, visible: :hidden)
-
-          click_button 'Suivant'
-
-          expect(solicitation.reload.step_verification?).to be true
-          expect(solicitation.completed_at).to be_nil
-
-          # Retour étape contact
-          click_link("Modifier", match: :first)
-          expect(page).to have_content("Vos coordonnées")
-          click_button 'Suivant'
-          expect(page).to have_content("Votre entreprise")
-          click_button 'Suivant'
-          expect(page).to have_content("Votre demande")
-          click_button 'Suivant'
-
-          # Etape vérification
-          expect(page).to have_content(I18n.t('solicitations.step_verification.summary_before_sending'))
-          expect(page).to have_content(solicitation.full_name)
-          expect(page).to have_content(solicitation.phone_number)
-          expect(page).to have_content(solicitation.email)
-          expect(page).to have_content(solicitation.siret)
-          expect(page).to have_content(solicitation.subject.label)
-          expect(page).to have_content(solicitation.description)
-
           click_button 'Envoyer ma demande'
+
           expect(page).to have_content('Merci')
           expect(solicitation.reload.status_in_progress?).to be true
           expect(solicitation.completed_at).not_to be_nil
@@ -211,19 +188,8 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
           fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
-
-          click_button 'Suivant'
-          expect(solicitation.reload.step_verification?).to be true
-          expect(solicitation.reload.completed_at).to be_nil
-          expect(page).to have_content(I18n.t('solicitations.step_verification.summary_before_sending'))
-          expect(page).to have_content(solicitation.full_name)
-          expect(page).to have_content(solicitation.phone_number)
-          expect(page).to have_content(solicitation.email)
-          expect(page).to have_content(solicitation.siret)
-          expect(page).to have_content(solicitation.subject.label)
-          expect(page).to have_content(solicitation.description)
-
           click_button 'Envoyer ma demande'
+
           expect(page).to have_content('Merci')
           expect(solicitation.reload.status_in_progress?).to be true
           expect(solicitation.reload.completed_at).not_to be_nil
@@ -272,22 +238,9 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
-          click_button 'Suivant'
-
           fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
-
-          click_button 'Suivant'
-          expect(solicitation.reload.step_verification?).to be true
-          expect(solicitation.reload.completed_at).to be_nil
-          expect(page).to have_content(I18n.t('solicitations.step_verification.summary_before_sending'))
-          expect(page).to have_content(solicitation.full_name)
-          expect(page).to have_content(solicitation.phone_number)
-          expect(page).to have_content(solicitation.email)
-          expect(page).to have_content(solicitation.siret)
-          expect(page).to have_content(solicitation.subject.label)
-          expect(page).to have_content(solicitation.description)
-
           click_button 'Envoyer ma demande'
+
           expect(page).to have_content('Merci')
           expect(solicitation.reload.status_in_progress?).to be true
         end
@@ -333,21 +286,9 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.reload.siret).to eq "41816609600069"
           expect(solicitation.code_region).to be_nil
           expect(solicitation.status_step_description?).to be true
-
           fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
-
-          click_button 'Suivant'
-          expect(solicitation.reload.step_verification?).to be true
-          expect(solicitation.reload.completed_at).to be_nil
-          expect(page).to have_content(I18n.t('solicitations.step_verification.summary_before_sending'))
-          expect(page).to have_content(solicitation.full_name)
-          expect(page).to have_content(solicitation.phone_number)
-          expect(page).to have_content(solicitation.email)
-          expect(page).to have_content(solicitation.siret)
-          expect(page).to have_content(solicitation.subject.label)
-          expect(page).to have_content(solicitation.description)
-
           click_button 'Envoyer ma demande'
+
           expect(page).to have_content('Merci')
           expect(solicitation.reload.code_region).to eq 11
           expect(solicitation.reload.status_in_progress?).to be true

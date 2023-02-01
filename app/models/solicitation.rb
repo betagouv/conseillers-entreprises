@@ -80,14 +80,13 @@ class Solicitation < ApplicationRecord
 
   enum status: {
     step_contact: 0, step_company: 1, step_description: 2,
-    in_progress: 3, processed: 4, canceled: 5, step_verification: 6
+    in_progress: 3, processed: 4, canceled: 5
   }, _prefix: true
 
   aasm :status, column: :status, enum: true do
     state :step_contact, initial: true
     state :step_company
     state :step_description
-    state :step_verification
     state :in_progress
     state :processed
     state :canceled
@@ -100,12 +99,8 @@ class Solicitation < ApplicationRecord
       transitions from: [:step_company], to: :step_description
     end
 
-    event :go_to_step_verification do
-      transitions from: [:step_description], to: :step_verification
-    end
-
     event :complete, before: :format_solicitation do
-      transitions from: [:step_description, :step_verification], to: :in_progress
+      transitions from: [:step_description], to: :in_progress
     end
 
     event :process do
@@ -125,7 +120,7 @@ class Solicitation < ApplicationRecord
   end
 
   def self.incompleted_statuses
-    %w[step_contact step_company step_description step_verification]
+    %w[step_contact step_company step_description]
   end
 
   def self.completed_statuses
@@ -161,7 +156,8 @@ class Solicitation < ApplicationRecord
       errors.add(:siret, :must_be_a_valid_siret) unless FormatSiret.siret_is_valid(siret)
     end
   end
-  validate if: -> { status_step_verification? || landing&.api? } do
+
+  validate if: -> { status_in_progress? || landing&.api? } do
     errors.add(:description, :blank) if (description.blank? || description == landing_subject&.description_prefill)
   end
 
