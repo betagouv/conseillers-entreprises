@@ -970,9 +970,12 @@ fr:
         step_verification: Récapitulatif avant envoi
       submit_in_progress: Envoi en cours...
     form_complete:
-      iframe_message_html: "<p>Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME. </p> <p>Un conseiller va vous appeler dans les <strong>5 jours</strong> ouvrés (en moyenne).</p> <p>Merci pour votre confiance !</p>"
-      message_html: Votre demande a bien été envoyée. Le conseiller qui peut vous aider vous appelle dans les <b>5 jours</b> (délai moyen de prise en charge).
+      iframe_message_html: Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME.
       message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
+      process_description_step_1_html: Nous allons <b> identifier le bon conseiller </b> près de chez vous.
+      process_description_step_1_iframe_html: Place des Entreprises va <b> identifier le bon conseiller </b> près de chez vous.
+      process_description_step_2_html: Le conseiller vous <b>contactera par téléphone</b> dans les 5 jours (délai moyen de prise en charge).
+      process_description_title: Et maintenant ?
       title: Merci pour votre demande
     header:
       canceled: abandonnées
@@ -983,7 +986,7 @@ fr:
     institutions_opco_tile:
       opco_name: OPCO
     institutions_tiles_block:
-      partners_that_may_call: 'Les conseillers susceptibles de vous rappeler :'
+      partners_that_may_call: 'Les conseillers compétents sur ce sujet :'
     search_company:
       select_your_company: 'Sélectionnez votre entreprise :'
     search_facility:
