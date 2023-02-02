@@ -18,5 +18,5 @@
   - expert_collections_count.each do |name, count|
     = menu_link_with_count(count, [name, :reminders, :experts], class: 'item', title: t(name, scope: [:reminders, :experts, :scopes, :instruction])) do
       = t(name, scope: 'reminders.experts.scopes.name')
-      %i= t(name, scope: 'reminders.experts.scopes.detail')
+      %span{ class: "fr-ml-1v reminders-icon #{t(name, scope: 'reminders.experts.scopes.icon')}", 'aria-hidden': true }
 

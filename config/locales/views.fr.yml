@@ -859,18 +859,18 @@ fr:
       index:
         title: Relances par experts
       scopes:
-        detail:
-          critical_rate: "(< 30%)"
-          pending_rate: "(> 60%)"
-          worrying_rate: "(< 60%)"
+        icon:
+          many_pending_needs: ri-heavy-showers-line
+          medium_pending_needs: ri-cloudy-line
+          one_pending_need: ri-sun-line
         instruction:
-          critical_rate: J’appelle le responsable d’antenne pour faire un point et essayer de comprendre. (Si la région vient d’ouvrir, s’adresser d’abord aux experts)
-          pending_rate: Je fais un mail d’information aux experts dont le volume des besoins en attente est conséquent
-          worrying_rate: Je fais un mail d’information au responsable d’antenne
+          many_pending_needs: Plus de 5 besoins en attente, dont les 2 plus anciens remontent à 15 jours
+          medium_pending_needs: Entre 2 et 5 besoins en attente, dont les 2 plus anciens remontent à 15 jours
+          one_pending_need: Un besoin en attente, dont le dernier cloturé date de plus de 3 mois
         name:
-          critical_rate: Critique
-          pending_rate: Restant
-          worrying_rate: À surveiller
+          many_pending_needs: Plus de 5 besoins en attente
+          medium_pending_needs: Plus de 2 besoins en attente
+          one_pending_need: Nouveaux besoins depuis 3 mois
       send_reminder_email:
         email_send: Email de relance envoyé
     index:
