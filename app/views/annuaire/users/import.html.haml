@@ -7,9 +7,7 @@
 - if @result.present?
   = render 'import_errors', result: @result
 
-= form_with url: import_institution_users_path, local: true do |f|
+= form_with url: import_institution_users_path, local: true, data: { turbo: false } do |f|
   .fr-input-group.fr-mt-6w
     = f.file_field :file, accept: 'text/csv', required: true, class: ''
   = f.submit t('submit'), class: 'fr-btn'
-
-
