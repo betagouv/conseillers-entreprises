@@ -138,12 +138,14 @@ class SolicitationsController < PagesController
   # Utilisé par les emails de relance pour les sollicitations incomplètes
   def redirect_to_solicitation_step
     solicitation = Solicitation.find_by(uuid: params[:uuid])
-    solicitation.update(relaunch: params.require(:relaunch))
+    solicitation.update(relaunch: params.require(:relaunch)) if params[:relaunch].present?
     case solicitation.status
     when 'step_company'
       redirect_to step_company_search_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
     when 'step_description'
       redirect_to step_description_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
+    else
+      redirect_to step_contact_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
     end
   end
 
@@ -183,7 +185,7 @@ class SolicitationsController < PagesController
     params[:solicitation].present? && solicitation_params[:siret].present?
   end
 
-  def current_template    # byebug@solicitation.status_in_progress
+  def current_template
     if self.action_name == 'redirect_to_solicitation_step'
       @solicitation.status.to_sym
     else
@@ -192,6 +194,8 @@ class SolicitationsController < PagesController
   end
 
   def set_steps
+    # Cas des personnes retrouvant le lien alors que leur demande est gérée
+    return if @solicitation.step_complete?
     current_status = current_template
     statuses = Solicitation.incompleted_statuses
     @step_data = {
@@ -202,7 +206,7 @@ class SolicitationsController < PagesController
   end
 
   def prevent_completed_solicitation_modification
-    if @solicitation.status_in_progress?
+    if @solicitation.step_complete?
       flash.alert = I18n.t('solicitations.creation_form.already_submitted_solicitation')
       redirect_to root_path
     end
