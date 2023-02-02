@@ -35,6 +35,7 @@ RSpec.configure do |config|
   config.include PunditSpecHelper, type: :view
   config.include ApiSpecHelper, type: :request
   config.include SplitHelper
+  config.extend RemindersSpecHelper
 
   config.infer_spec_type_from_file_location!
 
