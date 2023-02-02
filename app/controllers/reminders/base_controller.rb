@@ -17,7 +17,7 @@ module Reminders
     end
 
     def experts_collection_names
-      %i[critical_rate worrying_rate pending_rate]
+      %i[many_pending_needs medium_pending_needs one_pending_need]
     end
 
     def collections_counts
@@ -28,7 +28,7 @@ module Reminders
         collection_status_name.index_with { |name| territory_needs.archived(false).where(status: name).size }
       end
       @expert_collections_count = Rails.cache.fetch(['expert_reminders_need', territory_needs]) do
-        experts_collection_names.index_with { |name| PositionningRate::Collection.new(territory_experts).send(name).distinct.size }
+        experts_collection_names.index_with { |name| territory_experts.send(name).distinct.size }
       end
     end
 

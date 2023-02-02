@@ -2,23 +2,23 @@ module Reminders
   class ExpertsController < BaseController
     include Inbox
     helper_method :inbox_collections_counts
-    before_action :setup_territory_filters, :find_current_territory, :collections_counts, only: %i[index show critical_rate worrying_rate pending_rate]
-    before_action :retrieve_expert, except: %i[index critical_rate worrying_rate pending_rate]
+    before_action :setup_territory_filters, :find_current_territory, :collections_counts, only: %i[index show many_pending_needs medium_pending_needs one_pending_need]
+    before_action :retrieve_expert, except: %i[index many_pending_needs medium_pending_needs one_pending_need]
 
     def index
-      redirect_to action: :critical_rate
+      redirect_to action: :many_pending_needs
     end
 
-    def critical_rate
-      render_collection(:critical_rate)
+    def many_pending_needs
+      render_collection(:many_pending_needs)
     end
 
-    def worrying_rate
-      render_collection(:worrying_rate)
+    def medium_pending_needs
+      render_collection(:medium_pending_needs)
     end
 
-    def pending_rate
-      render_collection(:pending_rate)
+    def one_pending_need
+      render_collection(:one_pending_need)
     end
 
     def quo_active
@@ -66,7 +66,7 @@ module Reminders
     end
 
     def render_collection(action)
-      @active_experts = PositionningRate::Collection.new(territory_experts).send(action)
+      @active_experts = territory_experts.send(action)
         .includes(:antenne, :reminder_feedbacks, :users, :received_needs)
         .most_needs_quo_first
         .page params[:page]
