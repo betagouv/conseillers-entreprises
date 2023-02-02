@@ -7,24 +7,31 @@
   .fr-container
     .fr-grid-row
       .fr-col-12.fr-col-md-8.fr-col-offset-md-2
-        - if in_iframe?
-          .fr-my-8w
-            .fr-alert.fr-alert--success.white-bg
+        .fr-my-4w
+          - if in_iframe?
+            .fr-alert.fr-alert--success.white-bg.fr-mb-4w
               %h1.fr-alert__title= t('.title')
-            .thank_you_iframe.fr-my-8w
               %p= t('.iframe_message_html')
+            .thank_you_iframe.fr-mb-6w
               .logo-pde= image_tag 'logo-PDE.svg', alt: t('logos.pde')
-            = render 'institutions_tiles_block', institutions: @displayable_institutions, subject: @landing_subject.subject, opco: @opco
-
-        - else
-          .fr-my-8w
-            .fr-alert.fr-alert--success.white-bg
+          - else
+            .fr-alert.fr-alert--success.white-bg.fr-mb-6w
               %h1.fr-alert__title= t('.title')
-              - if @solicitation.institution
-                %p= t('.message_with_institution', institution: @solicitation.institution.name)
-                = render 'solicitations/matomo_events/matomo_partner_contact'
-              - else
-                %p= t('.message_html')
+
+          .process_description.fr-mb-6w
+            %h2= t('.process_description_title')
+            %ul
+              %li
+                %span.icon.ri-arrow-right-line{ 'aria-hidden': 'true' }
+                %span
+                  - if in_iframe?
+                    = t('.process_description_step_1_iframe_html')
+                  - else
+                    = t('.process_description_step_1_html')
+              %li
+                %span.icon.ri-arrow-right-line{ 'aria-hidden': 'true' }
+                %span= t('.process_description_step_2_html')
+
           = render 'institutions_tiles_block', institutions: @displayable_institutions, subject: @landing_subject.subject, opco: @opco
 
 - unless in_iframe?

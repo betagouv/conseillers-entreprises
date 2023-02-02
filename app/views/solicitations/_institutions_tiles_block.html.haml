@@ -1,6 +1,6 @@
 - if institutions.any? || opco.present?
-  .fr-py-4w.text-center
-    %h2.fr-h4= t('.partners_that_may_call')
+  .fr-mb-4w
+    %h3.fr-h4= t('.partners_that_may_call')
     = render partial: 'institutions_tiles', collection: institutions, as: :institution, locals: { subject: subject }
     - if opco.present?
       = render partial: 'institutions_opco_tile', locals: { description: opco.institutions_subjects.find_by(subject: subject).description }
