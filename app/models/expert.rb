@@ -43,6 +43,7 @@ class Expert < ApplicationRecord
   has_many :not_received_matches, -> { not_sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
   has_many :received_quo_matches, -> { sent.status_quo.distinct }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
   has_many :reminder_feedbacks, -> { where(category: :expert_reminder) }, class_name: :Feedback, dependent: :destroy, as: :feedbackable, inverse_of: :feedbackable
+  has_many :reminders_registers, inverse_of: :expert
 
   ## Validations & callbacks
   #
@@ -127,14 +128,15 @@ class Expert < ApplicationRecord
       .distinct
   end
 
-  # referent a relancer = avec besoin dans boite reception vieux de + de X jours
+  # referent avec besoin dans boite reception vieux de + de X jours
   # Utilisation d'arel pour plaire a brakeman
   scope :with_old_needs_in_inbox, -> do
     joins(:received_quo_matches)
       .merge(Match
         .where(archived_at: nil)
-        .where(Match.arel_table[:created_at].lt(Need::REMINDERS_DAYS[:poke].days.ago))
+        .where(Match.arel_table[:created_at].lt(RemindersRegister::MATCHES_AGE[:quo]))
         .joins(:need).where(need: { archived_at: nil }))
+      .distinct
   end
 
   # Pas besoin de distinct avec cette méthode
