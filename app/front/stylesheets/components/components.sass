@@ -62,7 +62,7 @@ hr.separation
     margin-top: 0.7rem
 
 .feedback
-  margin-bottom: 3rem
+  margin-bottom: 2rem
   .author
     display: flex
     align-items: center
@@ -71,9 +71,10 @@ hr.separation
   .author-name
     display: flex
     align-items: center
-    margin-top: 0.5rem
+    margin-top: 0.15rem
   .date
     line-height: 0.5rem
+    font-size: 0.75rem
     @media (max-width: $bp-sm)
       line-height: 1.5rem
   .icon
@@ -81,7 +82,7 @@ hr.separation
   .delete-form
     display: flex
   .content
-    margin: 0.5rem 0rem 0rem 3rem
+    margin-left: 3rem
     position: relative
     &::before
       content: ""
@@ -95,6 +96,8 @@ hr.separation
       border-width: 0 0 0 1px
   .fr-icon-delete-line
     padding-top: 1.2rem
+  button.fr-tag.custom-modal-tag.custom-modal-tag--blue
+    background-color: transparent
 
 .feedbacks-form
   label
