@@ -140,7 +140,7 @@ group :development do
   gem "rails-erd"
 
   # Performance
-  gem 'scout_apm'
+  gem "rorvswild"
 end
 
 # Use Redis for Action Cable
