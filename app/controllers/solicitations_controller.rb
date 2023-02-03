@@ -195,7 +195,7 @@ class SolicitationsController < PagesController
 
   def set_steps
     # Cas des personnes retrouvant le lien alors que leur demande est gérée
-    return if @solicitation.step_complete?
+    return if @solicitation&.step_complete?
     current_status = current_template
     statuses = Solicitation.incompleted_statuses
     @step_data = {
