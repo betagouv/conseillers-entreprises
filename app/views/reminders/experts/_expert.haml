@@ -10,6 +10,10 @@
             %li
               %span.picto.ri-contacts-book-line{ 'aria-hidden': 'true' }
               = expert.job
+          - if expert.antenne.present?
+            %li
+              %span.picto.ri-government-line{ 'aria-hidden': 'true' }
+              = expert.antenne.name
           - if expert.phone_number.present?
             %li
               %span.picto.ri-phone-line{ 'aria-hidden': 'true' }
@@ -35,11 +39,10 @@
       .fr-grid-row
         .fr-col-7
           .fr-accordion__title
-            %button.fr-accordion__btn{ 'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false' }
+            %button.fr-accordion__btn.fr-btn.fr-btn--secondary.fr-btn--sm{ 'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false' }
               = t('.team_composition')
           .fr-collapse.team-members{ id: "accordion-#{expert.id}" }
-            - expert.users.each do |user|
-              = person_block(user, compact: true)
+            = render partial: 'user_admin_view', collection: expert.users, as: :user
   .fr-card__body
     - cache ["received_matches", expert, expert.received_matches] do
       .card-expert__subtitle= t('.matches_total')

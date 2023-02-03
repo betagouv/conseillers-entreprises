@@ -1,0 +1,19 @@
+.block-infos.compact
+  %ul.list-unstyled.fr-pl-1v
+    %li.name
+      %b
+        = link_to user.full_name.presence, admin_user_path(user), title: t('admin_link')
+        - if user.invitation_not_accepted?
+          %span.picto.ri-mail-forbid-line{ 'aria-hidden': 'true' }
+    - if user.job.present?
+      %li
+        %span.picto.ri-contacts-book-line{ 'aria-hidden': 'true' }
+        = user.job
+    - if user.phone_number.present?
+      %li
+        %span.picto.ri-phone-line{ 'aria-hidden': 'true' }
+        = link_to(user.phone_number, "tel:#{ERB::Util.url_encode(user.phone_number)}", class: 'fr-link')
+    - if user.email.present?
+      %li
+        %span.picto.ri-mail-line{ 'aria-hidden': 'true' }
+        = mail_to user.email, user.email, class: 'fr-link'
