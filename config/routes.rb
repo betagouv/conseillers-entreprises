@@ -169,7 +169,6 @@ Rails.application.routes.draw do
   resources :reminders_actions, only: [] do
     member do
       post :poke
-      post :recall
       post :archive
       post :last_chance
     end
@@ -202,7 +201,6 @@ Rails.application.routes.draw do
       end
       collection do
         get :poke, path: 'sans-reponse'
-        get :recall, path: 'a-rappeler'
         get :last_chance, path: 'risque-abandon'
         get :archive, path: 'abandonnes'
         get :not_for_me, path: 'refuses'

@@ -880,24 +880,20 @@ fr:
           archive: J+%{days} et refusés
           last_chance: J+%{days}
           poke: J+%{days}
-          recall: J+%{days}
         instruction:
           archive: Je fais un mail d’échec à l’entreprise
           last_chance: j’envoie le mail de la dernière chance aux experts, puis le besoin sera automatiquement abandonné
           not_for_me: Besoins avec toutes les mises en relation refusées
           poke: Je mets un commentaire sur la fiche pour relancer la dynamique
-          recall: J’appelle les experts qui ne se sont pas positionnés
         mark_done:
           archive: Archiver
           last_chance: Experts relancés
           poke: Experts relancés
-          recall: Expert rappelé
         name:
           archive: Abandonnés
           last_chance: Risque d’abandon
           not_for_me: Refusés
           poke: Sans réponse
-          recall: À rappeler
       send_last_chance_email:
         email_send: Email de la dernière chance envoyé à %{teams}
       send_reminder_email:

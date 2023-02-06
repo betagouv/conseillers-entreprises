@@ -102,7 +102,6 @@ class Need < ApplicationRecord
   ARCHIVE_DELAY = 6.months
   REMINDERS_DAYS = {
     poke: 9,
-    recall: 14,
     last_chance: 21,
     abandon: 45
   }

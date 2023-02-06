@@ -9,7 +9,7 @@ module Reminders
     private
 
     def collection_action_names
-      %i[poke recall last_chance]
+      %i[poke last_chance]
     end
 
     def collection_status_name

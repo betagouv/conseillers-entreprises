@@ -15,7 +15,7 @@ class AdminMailerPreview < ActionMailer::Preview
     reminders_counts = {
       counts: {
         poke: 18,
-        recall: 9,
+        last_chance: 9,
         archive: 20
       }
     }

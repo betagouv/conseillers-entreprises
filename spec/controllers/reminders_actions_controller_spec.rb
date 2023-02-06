@@ -14,16 +14,6 @@ RSpec.describe RemindersActionsController do
     end
   end
 
-  describe 'POST #recall' do
-    let(:need) { create :need_with_matches }
-
-    it do
-      post :recall, params: { id: need.id }
-      expect(need.reminders_actions.pluck(:category)).to match_array ['recall']
-      expect(response).to redirect_to recall_reminders_needs_path
-    end
-  end
-
   describe 'POST #last_chance' do
     let(:need) { create :need_with_matches }
 
