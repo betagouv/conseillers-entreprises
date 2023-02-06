@@ -889,14 +889,14 @@ fr:
           recall: J’appelle les experts qui ne se sont pas positionnés
         mark_done:
           archive: Archiver
-          last_chance: Expert relancé
-          poke: Expert relancé
+          last_chance: Experts relancés
+          poke: Experts relancés
           recall: Expert rappelé
         name:
           archive: Abandonnés
-          last_chance: En cours d’abandon
+          last_chance: Risque d’abandon
           not_for_me: Refusés
-          poke: À relancer
+          poke: Sans réponse
           recall: À rappeler
       send_last_chance_email:
         email_send: Email de la dernière chance envoyé à %{teams}
@@ -908,9 +908,8 @@ fr:
       experts: Par expert
       needs: Par besoin
       needs_by_statut: Par statut du besoin
-    send_abandoned_need_email: Envoyer l’email d’échec
+    send_abandoned_need_email: Envoyer l’email d’échec au dirigeant
     send_last_chance_email: Envoyer l’email de la dernière chance
-    send_reminder_email_email: Envoyer l’email de relance
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
   reports:

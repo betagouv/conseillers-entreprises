@@ -201,9 +201,9 @@ Rails.application.routes.draw do
         post :send_last_chance_email
       end
       collection do
-        get :poke, path: 'a-relancer'
+        get :poke, path: 'sans-reponse'
         get :recall, path: 'a-rappeler'
-        get :last_chance, path: 'vont-etre-abandonne'
+        get :last_chance, path: 'risque-abandon'
         get :archive, path: 'abandonnes'
         get :not_for_me, path: 'refuses'
       end

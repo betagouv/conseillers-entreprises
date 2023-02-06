@@ -371,21 +371,21 @@ RSpec.describe Need do
   end
 
   describe 'paniers relance' do
-    describe 'besoins à relancer (J+7)' do
+    describe 'besoins à relancer (J+9)' do
       # - besoins restés sans réponse (=sans positionnement, personne a cliqué sur les boutons "je prends en charge" ou "je refuse") à plus 7 jours après les mises en relation ;
       # - besoins avec une mise en relation clôturée par « pas d’aide disponible » et « non joignable » ET pour lesquels des experts n’ont toujours pas répondu à plus de 7 jours.
 
       describe 'contraintes de délais' do
         # DELAIS
-        # - besoin créé il y a 06 jours, sans positionnement     ko
-        # - besoin créé il y a 07 jours, sans positionnement     ok
+        # - besoin créé il y a 08 jours, sans positionnement     ko
+        # - besoin créé il y a 09 jours, sans positionnement     ok
         # - besoin créé il y a 13 jours, sans positionnement     ok
         # - besoin créé il y a 14 jours, sans positionnement     ko
 
         let(:reference_date) { Time.zone.now.beginning_of_day }
 
-        let!(:need1) { travel_to(reference_date - 6.days)  { create :need_with_matches } }
-        let!(:need2) { travel_to(reference_date - 7.days)  { create :need_with_matches } }
+        let!(:need1) { travel_to(reference_date - 8.days)  { create :need_with_matches } }
+        let!(:need2) { travel_to(reference_date - 9.days)  { create :need_with_matches } }
         let!(:need3) { travel_to(reference_date - 13.days) { create :need_with_matches } }
         let!(:need4) { travel_to(reference_date - 14.days) { create :need_with_matches } }
 
@@ -395,21 +395,21 @@ RSpec.describe Need do
       end
 
       describe 'contraintes de Reminder Action' do
-        # - besoin créé il y a 07 jours, sans positionnement, pas marqué "traité", avec commentaire  ok
-        # - besoin créé il y a 07 jours, sans positionnement, marqué "traité"                        ko
-        # - besoin créé il y a 07 jours, avec positionnement, pas marqué "traité"                    ko
-        # - besoin créé il y a 07 jours, avec positionnement, marqué "traité"                        ko
+        # - besoin créé il y a 09 jours, sans positionnement, pas marqué "traité", avec commentaire  ok
+        # - besoin créé il y a 09 jours, sans positionnement, marqué "traité"                        ko
+        # - besoin créé il y a 09 jours, avec positionnement, pas marqué "traité"                    ko
+        # - besoin créé il y a 09 jours, avec positionnement, marqué "traité"                        ko
 
-        let(:seven_days_ago) { Time.zone.now.beginning_of_day - 7.days }
+        let(:poke_days_ago) { Time.zone.now.beginning_of_day - 9.days }
 
-        let!(:need1) { travel_to(seven_days_ago) { create :need_with_matches } }
+        let!(:need1) { travel_to(poke_days_ago) { create :need_with_matches } }
         let!(:feedback1) { create :feedback, :for_need, feedbackable: need1 }
-        let!(:need2) { travel_to(seven_days_ago) { create :need_with_matches } }
+        let!(:need2) { travel_to(poke_days_ago) { create :need_with_matches } }
         let!(:reminders_action2) { create :reminders_action, category: :poke, need: need2 }
-        let!(:need3) { travel_to(seven_days_ago) { create :need_with_matches } }
-        let!(:need3_match) { travel_to(seven_days_ago) { create :match, need: need3, status: :taking_care } }
-        let!(:need4) { travel_to(seven_days_ago) { create :need_with_matches } }
-        let!(:need4_match) { travel_to(seven_days_ago) { create :match, need: need4, status: :taking_care } }
+        let!(:need3) { travel_to(poke_days_ago) { create :need_with_matches } }
+        let!(:need3_match) { travel_to(poke_days_ago) { create :match, need: need3, status: :taking_care } }
+        let!(:need4) { travel_to(poke_days_ago) { create :need_with_matches } }
+        let!(:need4_match) { travel_to(poke_days_ago) { create :match, need: need4, status: :taking_care } }
         let!(:reminders_action4) { create :reminders_action, category: :poke, need: need4 }
 
         it 'retourne les besoins sans Reminder Action' do
@@ -418,24 +418,24 @@ RSpec.describe Need do
       end
 
       describe 'contraintes de relations' do
-        # - besoin créé il y a 07 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
-        # - besoin créé il y a 07 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ko
-        # - besoin créé il y a 07 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ko
-        # - besoin créé il y a 07 jours, avec 1 commentaire                                                     ok
-        # - besoin créé il y a 07 jours, sans positionnement                                                    ok
+        # - besoin créé il y a 09 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
+        # - besoin créé il y a 09 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ko
+        # - besoin créé il y a 09 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ko
+        # - besoin créé il y a 09 jours, avec 1 commentaire                                                     ok
+        # - besoin créé il y a 09 jours, sans positionnement                                                    ok
 
-        let(:seven_days_ago) { Time.zone.now.beginning_of_day - 7.days }
+        let(:poke_days_ago) { Time.zone.now.beginning_of_day - 9.days }
 
-        let!(:need1) { travel_to(seven_days_ago) { create :need_with_matches } }
-        let!(:need1_match) { travel_to(seven_days_ago) { create :match, need: need1, status: :not_for_me } }
-        let!(:need2) { travel_to(seven_days_ago) { create :need_with_matches } }
-        let!(:need2_match) { travel_to(seven_days_ago) { create :match, need: need2, status: :done_no_help } }
-        let!(:need3) { travel_to(seven_days_ago) { create :need_with_matches } }
-        let!(:need3_match) { travel_to(seven_days_ago) { create :match, need: need3, status: :done_not_reachable } }
-        let!(:need4) { travel_to(seven_days_ago) { create :need_with_matches } }
+        let!(:need1) { travel_to(poke_days_ago) { create :need_with_matches } }
+        let!(:need1_match) { travel_to(poke_days_ago) { create :match, need: need1, status: :not_for_me } }
+        let!(:need2) { travel_to(poke_days_ago) { create :need_with_matches } }
+        let!(:need2_match) { travel_to(poke_days_ago) { create :match, need: need2, status: :done_no_help } }
+        let!(:need3) { travel_to(poke_days_ago) { create :need_with_matches } }
+        let!(:need3_match) { travel_to(poke_days_ago) { create :match, need: need3, status: :done_not_reachable } }
+        let!(:need4) { travel_to(poke_days_ago) { create :need_with_matches } }
         let!(:feedback4) { create :feedback, :for_need, feedbackable: need4 }
-        let!(:need5) { travel_to(seven_days_ago) { create :need_with_matches } }
-        let!(:need5_match) { travel_to(seven_days_ago) { create :match, need: need5, status: :quo } }
+        let!(:need5) { travel_to(poke_days_ago) { create :need_with_matches } }
+        let!(:need5_match) { travel_to(poke_days_ago) { create :match, need: need5, status: :quo } }
 
         it 'retourne les besoins avec certaines relations' do
           expect(described_class.reminders_to(:poke)).to match_array [need1, need4, need5]

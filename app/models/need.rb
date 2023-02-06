@@ -101,7 +101,7 @@ class Need < ApplicationRecord
   NO_ACTIVITY_DELAY = 14.days
   ARCHIVE_DELAY = 6.months
   REMINDERS_DAYS = {
-    poke: 7,
+    poke: 9,
     recall: 14,
     last_chance: 21,
     abandon: 45
@@ -126,11 +126,11 @@ class Need < ApplicationRecord
         .status_not_for_me
 
       query1.or(query2)
-    else # :poke, :recall and :last_chance
+    else # :poke and :last_chance
       diagnosis_completed
         .archived(false)
-        .in_reminders_range(action)
         .status_quo
+        .in_reminders_range(action)
         .without_action(action)
     end
   end
