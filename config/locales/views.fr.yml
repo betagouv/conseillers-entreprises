@@ -120,6 +120,8 @@ fr:
     pde_partnership_mention: Ce service public de mise en relation est proposé par Place des Entreprises.
     person_modal:
       manager_name: 'Responsable : %{name}'
+    user_admin_view:
+      invitation_not_accepted: Cette personne n'a pas encore accepté son invitation
   at_your_disposal: Nous restons à votre disposition pour tout complément d’informations.
   attributes:
     is_global_zone: Territoire national
@@ -850,7 +852,7 @@ fr:
         manager_name: 'Responsable : %{name}'
         matches_total: Demandes depuis le début
         received_matches: reçues
-        see_remaining_feedbacks: Voir les commentaires + anciens (%{count})
+        see_remaining_feedbacks: Voir les commentaires plus anciens (%{count})
         send_reminders_email: Envoyer l’email de relance
         team_composition: Composition de l'équipe
       index:

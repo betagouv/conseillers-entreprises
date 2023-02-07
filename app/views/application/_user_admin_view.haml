@@ -2,9 +2,9 @@
   %ul.list-unstyled.fr-pl-1v
     %li.name
       %b
-        = link_to user.full_name.presence, admin_user_path(user), title: t('admin_link')
+        = link_to user.full_name, admin_user_path(user), title: t('admin_link')
         - if user.invitation_not_accepted?
-          %span.picto.ri-mail-forbid-line{ 'aria-hidden': 'true' }
+          %span.picto.ri-mail-forbid-line{ 'aria-hidden': 'true', title: t('.invitation_not_accepted') }
     - if user.job.present?
       %li
         %span.picto.ri-contacts-book-line{ 'aria-hidden': 'true' }
