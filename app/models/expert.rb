@@ -124,7 +124,7 @@ class Expert < ApplicationRecord
   # Utilisé pour les mails de relance
   scope :with_active_matches, -> do
     joins(:received_matches)
-      .merge(Match.status_quo)
+      .merge(Match.archived(false).status_quo)
       .distinct
   end
 
@@ -185,6 +185,10 @@ class Expert < ApplicationRecord
       .or(Expert.joins(antenne: :institution).where('antennes.name ILIKE ?', "%#{query}%"))
       .or(Expert.joins(antenne: :institution).where('institutions.name ILIKE ?', "%#{query}%"))
   end
+
+  scope :many_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.many_pending_needs_basket) }
+  scope :medium_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.medium_pending_needs_basket) }
+  scope :one_pending_need, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.one_pending_need_basket) }
 
   ## Team stuff
   def personal_skillset?
