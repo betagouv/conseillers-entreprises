@@ -38,20 +38,20 @@ module Inbox
   end
 
   def inbox_collections_counts(recipient)
-    @inbox_collections_counts = Rails.cache.fetch([recipient.received_needs, recipient.received_needs.pluck(:updated_at).max]) do
+    @inbox_collections_counts = Rails.cache.fetch([recipient.received_needs.pluck(:updated_at).max, recipient.received_needs.quo_active.pluck(:created_at).max]) do
       inbox_collection_names.index_with { |name| recipient.send("needs_#{name}").distinct.size }
     end
   end
 
   def antenne_inbox_collections_counts(recipient)
     @inbox_collections_counts = if recipient.is_a?(Antenne)
-      Rails.cache.fetch([recipient.perimeter_received_needs, recipient.perimeter_received_needs.pluck(:updated_at).max]) do
+      Rails.cache.fetch([recipient.perimeter_received_needs.pluck(:updated_at).max, recipient.perimeter_received_needs.quo_active.pluck(:created_at).max]) do
         inbox_collection_names.index_with do |name|
           recipient.perimeter_received_needs.merge!(recipient.send("territory_needs_#{name}")).distinct.size
         end
       end
     else
-      Rails.cache.fetch([Need.in_antennes_perimeters(recipient), Need.in_antennes_perimeters(recipient).pluck(:updated_at).max]) do
+      Rails.cache.fetch([Need.in_antennes_perimeters(recipient).pluck(:updated_at).max, Need.in_antennes_perimeters(recipient).quo_active.pluck(:created_at).max]) do
         inbox_collection_names.index_with do |name|
           Need.in_antennes_perimeters(recipient).merge!(Need.where(id: recipient.map { |a| a.send("territory_needs_#{name}") }.flatten)).size
         end
