@@ -141,6 +141,7 @@ group :development do
 
   # Performance
   gem "rorvswild"
+  gem 'scout_apm'
 end
 
 # Use Redis for Action Cable

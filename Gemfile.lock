@@ -544,6 +544,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    scout_apm (5.3.3)
+      parser
     selectize-rails (0.12.6)
     selenium-webdriver (4.7.1)
       rexml (~> 3.2, >= 3.2.5)
@@ -733,6 +735,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   sassc-rails
+  scout_apm
   selenium-webdriver
   sentry-delayed_job
   sentry-rails
