@@ -4,7 +4,7 @@
 - else
   -# If the recipient never received anything, display a welcome message.
   .ui.icon.info.message
-    %span.icon.ri-inbox-fill{ 'aria-hidden': 'true' }
+    %span.fr-mr-2w.icon.ri-inbox-fill{ 'aria-hidden': 'true' }
     .content
       %p.header= t('.welcome_title')
       - emails = recipient.experts.pluck(:email)
