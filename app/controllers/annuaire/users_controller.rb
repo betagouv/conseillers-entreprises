@@ -52,7 +52,7 @@ module  Annuaire
         session[:highlighted_antennes_ids] = Antenne.where(advisors: @result.objects).ids
         redirect_to action: :index
       else
-        render :import
+        render :import, status: :unprocessable_entity
       end
     end
 
