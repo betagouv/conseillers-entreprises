@@ -97,6 +97,24 @@ RSpec.describe Match do
     end
     let!(:match_03) { create :match, need: need, status: :quo }
 
+    context 'pole emploi refusing' do
+      let(:institution) { pole_emploi }
+
+      before { match_pe_01.update status: :not_for_me }
+
+      it 'doesnt changes current match status' do
+        expect(match_pe_01.reload.status).to eq('not_for_me')
+      end
+
+      it 'doesnt change other pole emploi match status' do
+        expect(match_02.reload.status).to eq('quo')
+      end
+
+      it 'doesnt change other match status' do
+        expect(match_03.reload.status).to eq('quo')
+      end
+    end
+
     context 'pole emploi taking care' do
       before { match_pe_01.update status: :taking_care }
 
