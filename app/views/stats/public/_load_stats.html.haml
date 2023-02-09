@@ -32,7 +32,7 @@
               %tr
                 %th{ scope: "row", id: "#{chart_name}-#{t('stats.stats_chart.months')}" }= t('stats.stats_chart.months')
                 - months = []
-                - data.all_months.reverse_each do |month|
+                - data.all_months.each do |month|
                   - month_formated = I18n.l(month, format: :month)
                   - months << month_formated
                   %th{ scope: "col", id: "#{chart_name}-#{month_formated.parameterize}" }= month_formated
