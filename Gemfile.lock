@@ -472,6 +472,7 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.5)
+    rorvswild (1.6.0)
     rspec-core (3.12.0)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.1)
@@ -720,6 +721,7 @@ DEPENDENCIES
   rails_real_favicon
   recipient_interceptor
   redis (~> 4.0)
+  rorvswild
   rspec-rails
   rspec-retry
   rspec_junit_formatter

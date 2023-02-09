@@ -140,6 +140,7 @@ group :development do
   gem "rails-erd"
 
   # Performance
+  gem "rorvswild"
   gem 'scout_apm'
 end
 
