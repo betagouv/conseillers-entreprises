@@ -15,7 +15,7 @@ RSpec.describe Reminders::ExpertsController do
 
       it do
         request
-        expect(assigns(:active_experts)).to match_array([expert_with_many_old_quo_needs])
+        expect(assigns(:active_experts)).to match_array([expert_with_many_old_quo_matches])
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe Reminders::ExpertsController do
 
       it do
         request
-        expect(assigns(:active_experts)).to match_array([expert_with_medium_old_quo_needs])
+        expect(assigns(:active_experts)).to match_array([expert_with_medium_old_quo_matches])
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe Reminders::ExpertsController do
 
       it do
         request
-        expect(assigns(:active_experts)).to match_array([expert_with_one_quo_need, expert_with_one_old_quo_need])
+        expect(assigns(:active_experts)).to match_array([expert_with_one_quo_match_1, expert_with_one_old_quo_match])
       end
     end
   end
