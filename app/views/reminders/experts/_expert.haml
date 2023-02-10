@@ -61,7 +61,8 @@
           .fr-ml-1v= t(:archived, scope: 'needs.collections').downcase
 
     %hr
-    %div{ id: "display-feedbacks-#{expert.id}" }
+    = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
+    .fr-mt-3w{ id: "display-feedbacks-#{expert.id}" }
       - feedbacks = expert.reminder_feedbacks.order(created_at: :desc)
       = render partial: 'feedbacks/feedback', collection: feedbacks.limit(2)
       -# On affiche les 2 premiers commentaires, les autres sont dépliables
@@ -73,7 +74,6 @@
             = t('.see_remaining_feedbacks', count: remaining_feedbacks.size)
         .fr-collapse.fr-pt-2w{ id: "hidden-feedbacks-#{expert.id}" }
           = render partial: 'feedbacks/feedback', collection: remaining_feedbacks
-    = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
 
   .card__footer
     = form_with model: expert, url: send_reminder_email_reminders_expert_path(expert), method: :post do |f|
