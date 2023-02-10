@@ -13,10 +13,6 @@ module Reminders
       render_collection(:poke, :action)
     end
 
-    def recall
-      render_collection(:recall, :action)
-    end
-
     def last_chance
       render_collection(:last_chance, :action)
     end

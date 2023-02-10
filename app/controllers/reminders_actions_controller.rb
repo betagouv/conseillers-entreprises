@@ -8,11 +8,6 @@ class RemindersActionsController < ApplicationController
     redirect_to poke_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
   end
 
-  def recall
-    @need.reminders_actions.create(category: :recall)
-    redirect_to recall_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
-  end
-
   def last_chance
     @need.reminders_actions.create(category: :last_chance)
     redirect_to last_chance_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)

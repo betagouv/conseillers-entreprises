@@ -266,7 +266,7 @@ RSpec.describe Expert do
     let!(:expert_with_recent_needs_in_inbox) { create :expert }
     let!(:expert_with_old_needs_in_inbox) { create :expert }
     let!(:recent_match) { create :match, expert: expert_with_recent_needs_in_inbox }
-    let!(:old_match) { create :match, expert: expert_with_old_needs_in_inbox, created_at: 8.days.ago }
+    let!(:old_match) { create :match, expert: expert_with_old_needs_in_inbox, created_at: 10.days.ago }
 
     it 'displays only expert with old needs in inbox' do
       expect(described_class.with_old_needs_in_inbox).to match_array [expert_with_old_needs_in_inbox]

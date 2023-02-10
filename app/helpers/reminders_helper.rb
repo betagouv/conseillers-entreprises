@@ -4,12 +4,16 @@ module RemindersHelper
     #  si c'est en cours d'abandon afficher le mail de derniere chance
     #  si "pas pour moi" envoyer l'email d'echec
     html = ""
-    html << email_button(action, need)
+    html << email_button(action, need) if with_email.include? action
     html << action_button(action, need) if with_action.include? action
     html
   end
 
   private
+
+  def with_email
+    %i[last_chance archive not_for_me]
+  end
 
   def with_last_chance_email
     %i[last_chance]
@@ -19,12 +23,8 @@ module RemindersHelper
     %i[archive not_for_me]
   end
 
-  def with_reminder_email
-    %i[poke recall]
-  end
-
   def with_action
-    %i[poke recall archive not_for_me last_chance]
+    %i[poke archive not_for_me last_chance]
   end
 
   def with_archive_action
@@ -47,8 +47,6 @@ module RemindersHelper
       else
         form_builder(send_abandoned_email_reminders_need_path(need), t('reminders.send_abandoned_need_email'), need)
       end
-    elsif with_reminder_email.include? action
-      form_builder(send_reminder_email_reminders_need_path(need), t('reminders.send_reminder_email_email'), need)
     end
     tag.div(button, id: "reminder-email-#{need.id}",)
   end

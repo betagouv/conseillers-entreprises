@@ -239,14 +239,4 @@ class Expert < ApplicationRecord
   def synchronize_single_member
     users.first.update_columns(self.user_personal_skillsets_shared_attributes)
   end
-
-  ## Reminders
-  #
-  def reminders_needs_to_call_back
-    self.received_needs
-      .status_quo
-      .where.not(matches: received_matches.status_not_for_me)
-      .archived(false)
-      .without_action(:recall)
-  end
 end

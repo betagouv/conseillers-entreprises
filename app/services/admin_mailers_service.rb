@@ -29,7 +29,7 @@ class AdminMailersService
     end
 
     def reminders_counts
-      counts = %i[poke recall last_chance].index_with do |name|
+      counts = %i[poke last_chance].index_with do |name|
         Need.reminders_to(name).human_count
       end
 
