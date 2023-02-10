@@ -91,6 +91,9 @@ gem 'rack-attack'
 # Storage
 gem "aws-sdk-s3", require: false
 
+# Performance
+gem "rorvswild"
+
 group :test do
   gem 'capybara'
   gem 'rails-controller-testing'
@@ -138,9 +141,6 @@ group :development do
   gem 'rubocop-i18n', require: false
   gem 'brakeman', require: false
   gem "rails-erd"
-
-  # Performance
-  gem "rorvswild"
   gem 'scout_apm'
 end
 
