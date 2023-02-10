@@ -11,7 +11,7 @@ RSpec.describe SearchFacility::Diffusable do
     let(:token) { '1234' }
 
     context 'from_siren' do
-      let(:base_url) { 'https://entreprise.api.gouv.fr/v2/entreprises' }
+      let(:base_url) { 'https://entreprise.api.gouv.fr/v3/entreprises' }
       let(:api_url) { "#{base_url}/#{query}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
 
       let(:query) { '418166096' }
@@ -36,9 +36,9 @@ RSpec.describe SearchFacility::Diffusable do
     end
 
     context 'from_siret' do
-      let(:base_url) { 'https://entreprise.api.gouv.fr/v2/etablissements' }
+      let(:base_url) { 'https://entreprise.api.gouv.fr/v3/etablissements' }
       let(:api_url) { "#{base_url}/#{query}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
-      let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v2/entreprises/#{query[0,9]}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+      let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v3/entreprises/#{query[0,9]}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
 
       let(:query) { '41816609600069' }
 

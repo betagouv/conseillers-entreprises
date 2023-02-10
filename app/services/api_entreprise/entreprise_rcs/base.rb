@@ -17,14 +17,14 @@ module ApiEntreprise::EntrepriseRcs
   end
 
   class Request < ApiEntreprise::Request
-    def error_message
-      @error&.message || @data['error'] || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
-    end
-
     private
 
     def url_key
-      @url_key ||= 'extraits_rcs_infogreffe/'
+      @url_key ||= 'infogreffe/rcs/unites_legales/'
+    end
+
+    def specific_url
+      @specific_url ||= "#{url_key}#{@siren_or_siret}/extrait_kbis"
     end
   end
 

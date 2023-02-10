@@ -250,7 +250,7 @@ describe 'New Solicitation', js: true, flaky: true do
         let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
         let(:fixture_file) { 'api_insee_siret.json' }
         let(:query) { '41816609600069' }
-        let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{query}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+        let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v3/etablissements/#{query}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
 
         before do
           stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?q=toto")

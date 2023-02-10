@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ApiEntreprise::Entreprise::Base do
   let(:api_company) { described_class.new(siren).call }
-  let(:base_url) { 'https://entreprise.api.gouv.fr/v2/entreprises' }
+  let(:base_url) { 'https://entreprise.api.gouv.fr/v3/entreprises' }
 
   before { Rails.cache.clear }
 

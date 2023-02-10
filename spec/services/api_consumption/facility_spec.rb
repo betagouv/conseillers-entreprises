@@ -23,7 +23,7 @@ RSpec.describe ApiConsumption::Facility do
 
   describe 'call' do
     let(:api_facility) { described_class.new(siret).call }
-    let(:api_ets_base_url) { 'https://entreprise.api.gouv.fr/v2/etablissements' }
+    let(:api_ets_base_url) { 'https://entreprise.api.gouv.fr/v3/etablissements' }
     let(:cfadock_base_url) { 'https://www.cfadock.fr/api/opcos?siret=' }
 
     before { Rails.cache.clear }
@@ -36,7 +36,7 @@ RSpec.describe ApiConsumption::Facility do
         searched_date = Time.zone.now.months_ago(6)
         [searched_date.year, searched_date.strftime("%m")].join("/")
       end
-      let(:effectifs_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/#{searched_date}/etablissement/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+      let(:effectifs_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/#{searched_date}/etablissement/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
       before do
         ENV['API_ENTREPRISE_TOKEN'] = token

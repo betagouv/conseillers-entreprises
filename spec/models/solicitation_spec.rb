@@ -95,7 +95,7 @@ RSpec.describe Solicitation do
       let(:email) { 'contact..machin@truc.fr' }
 
       context 'with all fields to be formatted' do
-        let(:api_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+        let(:api_url) { "https://entreprise.api.gouv.fr/v3/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
         let(:solicitation) { create :solicitation, siret: siret, code_region: nil, email: email, status: :step_description }
 
         before do
@@ -129,7 +129,7 @@ RSpec.describe Solicitation do
     describe 'set_siret_and_region' do
       let(:token) { '1234' }
       let(:siret) { '41816609600069' }
-      let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+      let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v3/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
 
       context 'with valid siret' do
         let(:solicitation) { create :solicitation, siret: siret, code_region: nil, status: :step_description }

@@ -23,13 +23,17 @@ module ApiEntreprise::EtablissementEffectifMensuel
 
     private
 
+    def version
+      'v2'
+    end
+
     def url_key
       @url_key ||= 'effectifs_mensuels_acoss_covid/'
     end
 
     # effectifs_mensuels_acoss_covid/Année/Mois/etablissement/SiretDeL’entreprise
-    def url
-      @url ||= "#{base_url}#{url_key}#{search_year}/#{search_month}/etablissement/#{@siren_or_siret}?#{request_params}"
+    def specific_url
+      @specific_url ||= "#{url_key}#{search_year}/#{search_month}/etablissement/#{@siren_or_siret}"
     end
 
     def searched_date
