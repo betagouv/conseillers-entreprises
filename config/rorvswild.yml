@@ -21,4 +21,5 @@ production:
   #   - Sidekiq
   # logger: log/rorvswild.log # By default it uses Rails.logger or Logger.new(STDOUT)
 
-
+development:
+  widget: bottom-right
