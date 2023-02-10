@@ -85,6 +85,7 @@ jobs:
           environment:
             DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_e\
               ntreprises_test"
+            RORVSWILD_KEY: 'rorvswild'
           name: Create DB
           command: bundle exec rake db:create db:schema:load db:migrate RAILS_ENV=test
       - run:
@@ -94,7 +95,6 @@ jobs:
             APPLICATION_EMAIL: "contact@mailrandom.fr"
             TEST_ERROR_RENDERING: "false"
             CI: 'true'
-            RORVSWILD_KEY: 'rorvswild'
           name: Run Tests, Split by Timings
           command: |
             bundle exec rspec --profile 10 \
