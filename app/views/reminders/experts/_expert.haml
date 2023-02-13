@@ -78,3 +78,5 @@
   .card__footer
     = form_with model: expert, url: send_reminder_email_reminders_expert_path(expert), method: :post do |f|
       = f.submit t('.send_reminders_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'
+    = form_with model: expert, url: process_register_reminders_expert_path(expert), method: :post, local: true, data: { turbo: false } do |f|
+      = f.submit t('.process'), class: 'fr-btn fr-mr-2v'

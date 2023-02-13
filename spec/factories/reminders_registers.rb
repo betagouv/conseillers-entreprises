@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :reminders_register do
-    category { 1 }
-    basket { 1 }
+    basket { nil }
     expert { nil }
   end
 end

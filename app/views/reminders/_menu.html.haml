@@ -14,7 +14,7 @@
 .fr-sidemenu__title.fr-mt-4w
   = t('reminders.section.experts')
 
-%ul.fr-sidemenu__list
+%ul.fr-sidemenu__list#experts-reminders-menu
   - expert_collections_count.each do |name, count|
     = menu_link_with_count(count, [name, :reminders, :experts], class: 'item', title: t(name, scope: [:reminders, :experts, :scopes, :instruction])) do
       = t(name, scope: 'reminders.experts.scopes.name')

@@ -852,6 +852,7 @@ fr:
         expert_creation_date: Inscription le %{date}
         manager_name: 'Responsable : %{name}'
         matches_total: Demandes depuis le début
+        process: Traité
         received_matches: reçues
         see_remaining_feedbacks: Voir les commentaires plus anciens (%{count})
         send_reminders_email: Envoyer l’email de relance
@@ -860,17 +861,23 @@ fr:
         title: Relances par experts
       scopes:
         icon:
+          inputs: ri-login-circle-line
           many_pending_needs: ri-heavy-showers-line
           medium_pending_needs: ri-cloudy-line
           one_pending_need: ri-sun-line
+          outputs: ri-logout-circle-r-line
         instruction:
+          inputs: Experts n’étant pas dans les relances la semaine dernière
           many_pending_needs: Plus de 5 besoins en attente, dont les 2 plus anciens remontent à 15 jours
           medium_pending_needs: Entre 2 et 5 besoins en attente, dont les 2 plus anciens remontent à 15 jours
           one_pending_need: Un besoin en attente, dont le dernier cloturé date de plus de 3 mois
+          outputs: Experts présents la semaine dernière dans les relances et ayant traité tous ces besoins
         name:
+          inputs: Entrées
           many_pending_needs: Plus de 5 besoins en attente
           medium_pending_needs: Plus de 2 besoins en attente
           one_pending_need: Nouveaux besoins depuis 3 mois
+          outputs: Sorties
       send_reminder_email:
         email_send: Email de relance envoyé
     index:

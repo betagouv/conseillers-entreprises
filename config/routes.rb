@@ -179,6 +179,8 @@ Rails.application.routes.draw do
 
     resources :experts, only: %i[index show], path: 'experts' do
       collection do
+        get :inputs, path: 'arrivees'
+        get :outputs, path: 'departs'
         get :many_pending_needs, path: 'superieur-a-cinq-besoins'
         get :medium_pending_needs, path: 'entre-deux-et-cinq-besoins'
         get :one_pending_need, path: 'un-seul-besoin'
@@ -190,6 +192,7 @@ Rails.application.routes.draw do
         get :not_for_me, path: 'refusees'
         get :quo_abandoned, path: 'expirees'
         post :send_reminder_email
+        post :process_register
       end
     end
     resources :needs, path: 'besoins', only: %i[index] do

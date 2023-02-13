@@ -141,7 +141,7 @@ class Expert < ApplicationRecord
 
   # Pas besoin de distinct avec cette méthode
   scope :most_needs_quo_first, -> do
-    joins(:received_quo_matches)
+    left_outer_joins(:received_quo_matches)
       .group(:id)
       .order('COUNT(matches.id) DESC')
   end
@@ -186,9 +186,11 @@ class Expert < ApplicationRecord
       .or(Expert.joins(antenne: :institution).where('institutions.name ILIKE ?', "%#{query}%"))
   end
 
-  scope :many_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.many_pending_needs_basket) }
-  scope :medium_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.medium_pending_needs_basket) }
-  scope :one_pending_need, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.one_pending_need_basket) }
+  scope :many_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.many_pending_needs_basket) }
+  scope :medium_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.medium_pending_needs_basket) }
+  scope :one_pending_need, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.one_pending_need_basket) }
+  scope :inputs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_input_category) }
+  scope :outputs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_output_category) }
 
   ## Team stuff
   def personal_skillset?

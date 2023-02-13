@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Reminders::ExpertsController do
   login_admin
 
-  describe 'relaunch tabs' do
+  describe 'relaunch by duration' do
     create_experts_for_reminders
 
     before { RemindersService.create_reminders_registers }
@@ -35,6 +35,36 @@ RSpec.describe Reminders::ExpertsController do
         request
         expect(assigns(:active_experts)).to match_array([expert_with_one_quo_match_1, expert_with_one_old_quo_match])
       end
+    end
+  end
+
+  describe 'input and output' do
+    create_registers_for_reminders
+
+    before { RemindersService.create_reminders_registers }
+
+    describe '#GET inputs' do
+      subject(:request) { get :inputs }
+
+      it do
+        request
+        expect(assigns(:active_experts)).to match_array([expert_input])
+      end
+    end
+
+    describe '#GET outputs' do
+      subject(:request) { get :outputs }
+
+      it do
+        request
+        expect(assigns(:active_experts)).to match_array([expert_output])
+      end
+    end
+
+    describe '#POST process_register' do
+      before { post :process_register, params: { id: expert_input.id } }
+
+      it { expect(expert_input.reload.reminders_registers.last.processed).to be true }
     end
   end
 end

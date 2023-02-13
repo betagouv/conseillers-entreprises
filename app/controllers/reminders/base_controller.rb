@@ -17,7 +17,7 @@ module Reminders
     end
 
     def experts_collection_names
-      %i[many_pending_needs medium_pending_needs one_pending_need]
+      %i[inputs many_pending_needs medium_pending_needs one_pending_need outputs]
     end
 
     def collections_counts

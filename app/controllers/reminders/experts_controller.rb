@@ -2,8 +2,8 @@ module Reminders
   class ExpertsController < BaseController
     include Inbox
     helper_method :inbox_collections_counts
-    before_action :setup_territory_filters, :find_current_territory, :collections_counts, only: %i[index show many_pending_needs medium_pending_needs one_pending_need]
-    before_action :retrieve_expert, except: %i[index many_pending_needs medium_pending_needs one_pending_need]
+    before_action :setup_territory_filters, :find_current_territory, :collections_counts, only: %i[index show many_pending_needs medium_pending_needs one_pending_need inputs outputs]
+    before_action :retrieve_expert, except: %i[index many_pending_needs medium_pending_needs one_pending_need inputs outputs]
 
     def index
       redirect_to action: :many_pending_needs
@@ -19,6 +19,19 @@ module Reminders
 
     def one_pending_need
       render_collection(:one_pending_need)
+    end
+
+    def inputs
+      render_collection(:inputs)
+    end
+
+    def outputs
+      render_collection(:outputs)
+    end
+
+    def process_register
+      @expert.reminders_registers.current_input_category.first.update(processed: true)
+      redirect_to action: :inputs
     end
 
     def quo_active
