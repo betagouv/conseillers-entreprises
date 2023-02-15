@@ -1,6 +1,4 @@
 class CancelSolicitationWithEmail
-  attr_reader :base_faq
-
   def initialize(solicitation, email_type)
     @solicitation = solicitation
     @email_type = email_type

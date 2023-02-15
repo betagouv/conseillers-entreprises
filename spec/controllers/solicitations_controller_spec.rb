@@ -98,13 +98,34 @@ RSpec.describe SolicitationsController do
       let(:status) { :step_company }
       let(:siret) { nil }
 
+      it 'redirects properly' do
+        expect(request).to redirect_to(step_company_search_solicitation_path(solicitation.uuid, anchor: 'section-formulaire'))
+      end
+
       it 'returns http success' do
         expect(response).to be_successful
       end
     end
 
     context 'step_description solicitation' do
-      let!(:solicitation) { create :solicitation, full_name: "JJ Goldman", email: 'test@example.com', phone_number: 'xx', completed_at: nil, status: :step_description, siret: '41816609600069' }
+      let(:status) { :step_description }
+      let(:siret) { '41816609600069' }
+
+      it 'redirects properly' do
+        expect(request).to redirect_to(step_description_solicitation_path(solicitation.uuid, anchor: 'section-formulaire'))
+      end
+
+      it 'returns http success' do
+        expect(response).to be_successful
+      end
+    end
+
+    context 'bad_quality solicitation' do
+      let!(:solicitation) { create :solicitation, full_name: "JJ Goldman", email: 'test@example.com', phone_number: 'xx', status: 'canceled', siret: '41816609600069', description: 'Decription insuffisante' }
+
+      it 'redirects properly' do
+        expect(request).to redirect_to(step_description_solicitation_path(solicitation.uuid, anchor: 'section-formulaire'))
+      end
 
       it 'returns http success' do
         expect(response).to be_successful

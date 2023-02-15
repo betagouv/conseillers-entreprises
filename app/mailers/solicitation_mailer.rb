@@ -5,6 +5,7 @@ class SolicitationMailer < ApplicationMailer
   default from: SENDER, template_path: 'mailers/solicitation_mailer'
 
   def bad_quality(solicitation)
+    @solicitation = solicitation
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 

@@ -101,6 +101,8 @@ class Solicitation < ApplicationRecord
 
     event :complete, before: :format_solicitation do
       transitions from: [:step_description], to: :in_progress
+      # cas des mauvaises qualités modifiés par le chef d'entreprise
+      transitions from: [:canceled], to: :in_progress
     end
 
     event :process do
@@ -127,8 +129,16 @@ class Solicitation < ApplicationRecord
     %w[in_progress processed canceled]
   end
 
+  def self.unmodifiable_statuses
+    %w[in_progress processed]
+  end
+
   def step_complete?
     self.class.completed_statuses.include?(status)
+  end
+
+  def step_unmodifiable?
+    self.class.unmodifiable_statuses.include?(status)
   end
 
   ## Validations
