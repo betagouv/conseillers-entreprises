@@ -51,7 +51,7 @@
               = active_link_to conseiller_solicitations_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
                 %span.ri-message-2-line.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('solicitations.index.title')
-              = active_link_to reminders_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
+              = active_link_to inputs_reminders_experts_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
                 %span.ri-feedback-line.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('reminders.index.title')
           %ul.fr-nav__list
