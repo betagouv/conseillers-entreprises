@@ -54,6 +54,8 @@ class LandingSubject < ApplicationRecord
   #
   scope :ordered_for_landing, -> { order(:position, :id) }
 
+  before_save :autoclean_textareas
+
   validate :unique_required_field_if_siret
 
   def to_s
@@ -89,6 +91,15 @@ class LandingSubject < ApplicationRecord
     if (requires_siret == true) && (required_fields.length > 1)
       errors.add(:base, "ne peut être coché en même temps que d'autres champs")
       landing_theme.errors.add(:base, "ne peut être coché en même temps que d'autres champs")
+    end
+  end
+
+  private
+
+  def autoclean_textareas
+    cleanable_fields = %i[description description_explanation description_prefill form_description]
+    cleanable_fields.each do |attribute_name|
+      self[attribute_name] = self[attribute_name].gsub('<p><br></p>','') if self[attribute_name].present?
     end
   end
 end
