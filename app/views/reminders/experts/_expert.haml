@@ -1,5 +1,5 @@
 .fr-my-4w.reminders.card
-  .card__header
+  .card__header{ class: "#{expert.last_reminder_register.basket}" }
     %h2.fr-h4.fr-card__title
       = link_to expert.full_name.presence, quo_active_reminders_expert_path(expert), class: 'fr-card__link'
     .fr-grid-row
@@ -39,7 +39,7 @@
       .fr-grid-row
         .fr-col-7
           .fr-accordion__title
-            %button.fr-accordion__btn.fr-btn.fr-btn--secondary.fr-btn--sm{ 'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false' }
+            %button.fr-accordion__btn.fr-btn.fr-btn--secondary.fr-btn--sm.fr-p-2v{ 'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false' }
               = t('.team_composition')
           .fr-collapse.team-members{ id: "accordion-#{expert.id}" }
             = render partial: 'user_admin_view', collection: expert.users, as: :user

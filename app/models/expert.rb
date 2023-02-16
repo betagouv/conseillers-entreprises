@@ -192,6 +192,10 @@ class Expert < ApplicationRecord
   scope :inputs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_input_category) }
   scope :outputs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_output_category) }
 
+  def last_reminder_register
+    reminders_registers.order(:created_at).last
+  end
+
   ## Team stuff
   def personal_skillset?
     users.size == 1 &&
