@@ -61,6 +61,7 @@ class ExpertMailer < ApplicationMailer
     return if @expert.deleted?
 
     @need = need
+    @match = @expert.received_matches.find_by(need: @need)
     @support_user = support_user
 
     mail(
