@@ -75,7 +75,7 @@ ActiveAdmin.register Subject do
   end
 
   sidebar I18n.t('active_admin.subject.copy_experts_title'), only: :show do
-    div p I18n.t('active_admin.subject.copy_experts_details')
+    div I18n.t('active_admin.subject.copy_experts_details')
     form_for :copy_from_other, url: { action: :copy_from_other }, method: :put do |f|
       f.select :subject_to_copy_from, options_from_collection_for_select(Subject.archived(false), :id, :label)
 
