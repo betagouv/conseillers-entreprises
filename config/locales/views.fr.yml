@@ -883,8 +883,8 @@ fr:
     index:
       title: Relances
     need:
-      abandoned_need_email_sent: Email d’echec envoyé
-      critical_rate_expert: Cet expert se trouve aussi dans le panier taux de positionnement critique
+      abandoned_need_email_sent: Email d’échec envoyé
+      many_pending_needs: Cet expert est présent dans le paniers « plus de 5 besoins en attentes »
     needs:
       scopes:
         detail:

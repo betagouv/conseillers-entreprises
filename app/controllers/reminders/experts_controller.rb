@@ -55,7 +55,7 @@ module Reminders
     end
 
     def show
-      @action = :critical_rate
+      @action = :many_pending_needs
     end
 
     def send_reminder_email
@@ -64,7 +64,7 @@ module Reminders
       @feedback = Feedback.create(user: current_user, category: :expert_reminder, description: t('.email_send'), feedbackable_type: 'Expert', feedbackable_id: @expert.id)
       respond_to do |format|
         format.js
-        format.html { redirect_to critical_rate_reminders_experts_path, notice: t('mailers.email_sent') }
+        format.html { redirect_to many_pending_needs_reminders_experts_path, notice: t('mailers.email_sent') }
       end
     end
 

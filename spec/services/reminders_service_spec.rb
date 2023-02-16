@@ -26,7 +26,7 @@ describe RemindersService do
 
       before do
         described_class.create_reminders_registers
-        expert_input_processed.reminders_registers.last.update(processed: true )
+        expert_input_processed.reminders_registers.last.update(processed: true)
       end
 
       describe 'remainder category' do
