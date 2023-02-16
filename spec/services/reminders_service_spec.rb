@@ -24,10 +24,13 @@ describe RemindersService do
     describe 'current week category' do
       create_registers_for_reminders
 
-      before { described_class.create_reminders_registers }
+      before do
+        described_class.create_reminders_registers
+        expert_input_processed.reminders_registers.last.update(processed: true )
+      end
 
       describe 'remainder category' do
-        it { expect(RemindersRegister.current_remainder_category.map(&:expert).uniq).to match_array [expert_remainder, expert_input_processed] }
+        it { expect(RemindersRegister.current_remainder_category.map(&:expert)).to match_array [expert_remainder, expert_input_processed] }
       end
 
       describe 'input category' do

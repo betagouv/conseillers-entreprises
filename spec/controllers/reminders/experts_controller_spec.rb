@@ -32,7 +32,10 @@ RSpec.describe Reminders::ExpertsController do
   describe 'input and output' do
     create_registers_for_reminders
 
-    before { RemindersService.create_reminders_registers }
+    before do
+      RemindersService.create_reminders_registers
+      expert_input_processed.reminders_registers.last.update(processed: true )
+    end
 
     describe '#GET inputs' do
       before { get :inputs }
