@@ -53,6 +53,7 @@ fr:
       reassign_matches:
         save: Enregistrer
         select_user: Utilisateur pour la réatribution des mises en relation
+  admin_link: Lien admin
   annuaire:
     base:
       import_errors:
@@ -119,6 +120,8 @@ fr:
     pde_partnership_mention: Ce service public de mise en relation est proposé par Place des Entreprises.
     person_modal:
       manager_name: 'Responsable : %{name}'
+    user_admin_view:
+      invitation_not_accepted: Cette personne n'a pas encore accepté son invitation
   at_your_disposal: Nous restons à votre disposition pour tout complément d’informations.
   attributes:
     is_global_zone: Territoire national
@@ -848,8 +851,8 @@ fr:
         expert_creation_date: Inscription le %{date}
         manager_name: 'Responsable : %{name}'
         matches_total: Demandes depuis le début
-        positionning_rate: Taux de positionnement sur 60 jours
         received_matches: reçues
+        see_remaining_feedbacks: Voir les commentaires plus anciens (%{count})
         send_reminders_email: Envoyer l’email de relance
         team_composition: Composition de l'équipe
       index:

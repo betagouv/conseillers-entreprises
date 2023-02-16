@@ -10,6 +10,10 @@
             %li
               %span.picto.ri-contacts-book-line{ 'aria-hidden': 'true' }
               = expert.job
+          - if expert.antenne.present?
+            %li
+              %span.picto.ri-government-line{ 'aria-hidden': 'true' }
+              = expert.antenne.name
           - if expert.phone_number.present?
             %li
               %span.picto.ri-phone-line{ 'aria-hidden': 'true' }
@@ -35,19 +39,11 @@
       .fr-grid-row
         .fr-col-7
           .fr-accordion__title
-            %button.fr-accordion__btn{ 'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false' }
+            %button.fr-accordion__btn.fr-btn.fr-btn--secondary.fr-btn--sm{ 'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false' }
               = t('.team_composition')
           .fr-collapse.team-members{ id: "accordion-#{expert.id}" }
-            - expert.users.each do |user|
-              = person_block(user, compact: true)
+            = render partial: 'user_admin_view', collection: expert.users, as: :user
   .fr-card__body
-    - cache ["positionning_rate", expert, expert.received_quo_matches] do
-      .fr-grid-row
-        .fr-col-7
-          .card-expert__subtitle= t('.positionning_rate')
-        .fr-col-5
-          = expert_positionning_rate_tag(expert)
-
     - cache ["received_matches", expert, expert.received_matches] do
       .card-expert__subtitle= t('.matches_total')
       .fr-tags-group
@@ -65,9 +61,19 @@
           .fr-ml-1v= t(:archived, scope: 'needs.collections').downcase
 
     %hr
-    %div{ id: "display-feedbacks-#{expert.id}" }
-      = render partial: 'feedbacks/feedback', collection: expert.reminder_feedbacks.order(:created_at)
     = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
+    .fr-mt-3w{ id: "display-feedbacks-#{expert.id}" }
+      - feedbacks = expert.reminder_feedbacks.order(created_at: :desc)
+      = render partial: 'feedbacks/feedback', collection: feedbacks.limit(2)
+      -# On affiche les 2 premiers commentaires, les autres sont dépliables
+      - if expert.reminder_feedbacks.size > 2
+        - remaining_feedbacks = feedbacks.offset(2)
+        %section.fr-accordion
+          %h4.fr-accordion__title
+          %button.fr-accordion__btn.fr-text--sm{ aria: { expanded: "false", controls: "hidden-feedbacks-#{expert.id}" } }
+            = t('.see_remaining_feedbacks', count: remaining_feedbacks.size)
+        .fr-collapse.fr-pt-2w{ id: "hidden-feedbacks-#{expert.id}" }
+          = render partial: 'feedbacks/feedback', collection: remaining_feedbacks
 
   .card__footer
     = form_with model: expert, url: send_reminder_email_reminders_expert_path(expert), method: :post do |f|
