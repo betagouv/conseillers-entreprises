@@ -17,7 +17,10 @@
 // Compatibilité navigateurs anciens dont IE11
 import "core-js/stable";
 import "whatwg-fetch";
-import "@hotwired/turbo-rails";
+// Prevent Turbo to be load twice
+if (!window.Turbo) {
+  import("@hotwired/turbo-rails");
+}
 
 require("@rails/ujs").start();
 require('remixicon/fonts/remixicon.css')
