@@ -5,7 +5,7 @@ module.exports = {
     jquery: true,
   },
   extends: ["eslint:recommended"],
-  parser: "babel-eslint",
+  parser: "@babel/eslint-parser",
   parserOptions: {
     ecmaVersion: 12,
     sourceType: "module",

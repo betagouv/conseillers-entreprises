@@ -315,6 +315,8 @@ Lint/CircularArgumentReference:
 
 Lint/Debugger:
   Enabled: true
+  Exclude:
+    - 'lib/tasks/*'
 
 Lint/DeprecatedClassMethods:
   Enabled: true

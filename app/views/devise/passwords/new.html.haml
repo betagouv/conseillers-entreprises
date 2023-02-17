@@ -6,9 +6,10 @@
       = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post, data: { turbo: false } } do |f|
         = render "devise/shared/error_messages", resource: resource
         .fr-input-group
-          = f.label :email, class: 'fr-label'
+          = f.label :email, class: 'fr-label' do
+            = t('devise.sessions.new.email')
+            %span.fr-hint-text= t('devise.sessions.new.email_help')
           = f.email_field :email, class: 'fr-input', autofocus: true
         %p= t('.password_unknown_description')
         .fr-mt-3w
           = f.submit t('.send_me_reset_password_instructions'), class: 'fr-btn'
-
