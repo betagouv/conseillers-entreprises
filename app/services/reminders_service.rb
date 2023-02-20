@@ -17,19 +17,20 @@ class RemindersService
   private
 
   def self.select_basket(expert)
-    old_needs = expert.received_quo_matches.with_status_quo_active.where(created_at: ..RemindersRegister::MATCHES_AGE[:quo])
-    quo_matches_size = expert.received_quo_matches.with_status_quo_active.size
+    quo_active_matches = expert.received_quo_matches.with_status_quo_active
+    old_needs = quo_active_matches.where(created_at: ..RemindersRegister::MATCHES_AGE[:quo])
+    quo_active_matches_size = quo_active_matches.size
     # Panier avec plus de 5 besoins en attentes dont 2 superieur à 15 jours
     basket = if (old_needs.size >= RemindersRegister::MATCHES_COUNT[:quo]) &&
-      (quo_matches_size > RemindersRegister::MATCHES_COUNT[:many])
+      (quo_active_matches_size > RemindersRegister::MATCHES_COUNT[:many])
       :many_pending_needs
     # Panier entre 2 et 5 besoins en attentes dont 2 superieur à 15 jours
     elsif (old_needs.size >= RemindersRegister::MATCHES_COUNT[:quo]) &&
-               (quo_matches_size >= RemindersRegister::MATCHES_COUNT[:medium]) &&
-               (quo_matches_size <= RemindersRegister::MATCHES_COUNT[:many])
+               (quo_active_matches_size >= RemindersRegister::MATCHES_COUNT[:medium]) &&
+               (quo_active_matches_size <= RemindersRegister::MATCHES_COUNT[:many])
       :medium_pending_needs
     # Panier avec un besoin en attente et le dernier besoin cloturé est vieux de 3 mois
-    elsif (old_needs.size < RemindersRegister::MATCHES_COUNT[:medium] && expert.received_quo_matches.with_status_quo_active.present?) &&
+    elsif (old_needs.size < RemindersRegister::MATCHES_COUNT[:medium] && quo_active_matches.present?) &&
                (last_closed_need_at(expert).present? && (last_closed_need_at(expert) <= RemindersRegister::MATCHES_AGE[:done]))
       :one_pending_need
     end
@@ -47,7 +48,7 @@ class RemindersService
   end
 
   def self.last_closed_need_at(expert)
-    expert.received_matches.where(status: [:done, :done_no_help, :done_not_reachable, :not_for_me]).pluck(:created_at).max
+    expert.received_matches.done.pluck(:created_at).max
   end
 
   def self.build_output_basket(experts)

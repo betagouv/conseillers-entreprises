@@ -29,11 +29,6 @@ module Reminders
       render_collection(:outputs)
     end
 
-    def process_register
-      @expert.reminders_registers.current_input_category.first.update(processed: true)
-      redirect_to action: :inputs
-    end
-
     def quo_active
       retrieve_needs(@expert, :quo_active, view: :quo)
     end

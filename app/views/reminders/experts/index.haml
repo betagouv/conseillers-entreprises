@@ -9,6 +9,6 @@
 = render 'shared/territory_choice', territories: @territories
 
 %div
-  = render partial: 'expert', collection: @active_experts
+  = render partial: 'expert', collection: @active_experts, locals: { action: @action }
 
 = paginate @active_experts

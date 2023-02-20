@@ -5,7 +5,6 @@
 #  id         :bigint(8)        not null, primary key
 #  basket     :integer
 #  category   :integer          default("remainder"), not null
-#  processed  :boolean          default(FALSE), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  expert_id  :bigint(8)        not null

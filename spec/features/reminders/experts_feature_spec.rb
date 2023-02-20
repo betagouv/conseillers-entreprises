@@ -20,7 +20,7 @@ describe 'reminders experts', js: true do
       page.click_link(href: "/relances/experts/entre-deux-et-cinq-besoins")
       expect(page).to have_css('.card', count: 1)
       expect(page).to be_accessible
-      page.click_link(href: "/relances/experts/un-seul-besoin")
+      page.click_link(href: "/relances/experts/un-besoin-recent")
       expect(page).to have_css('.card', count: 2)
       expect(page).to be_accessible
     end

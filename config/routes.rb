@@ -183,7 +183,7 @@ Rails.application.routes.draw do
         get :outputs, path: 'departs'
         get :many_pending_needs, path: 'superieur-a-cinq-besoins'
         get :medium_pending_needs, path: 'entre-deux-et-cinq-besoins'
-        get :one_pending_need, path: 'un-seul-besoin'
+        get :one_pending_need, path: 'un-besoin-recent'
       end
       member do
         get :quo_active, path: 'boite_de_reception'
@@ -192,7 +192,6 @@ Rails.application.routes.draw do
         get :not_for_me, path: 'refusees'
         get :quo_abandoned, path: 'expirees'
         post :send_reminder_email
-        post :process_register
       end
     end
     resources :needs, path: 'besoins', only: %i[index] do
@@ -209,6 +208,7 @@ Rails.application.routes.draw do
         get :not_for_me, path: 'refuses'
       end
     end
+    resources :reminders_registers, only: :update
   end
 
   scope :annuaire, module: :annuaire do

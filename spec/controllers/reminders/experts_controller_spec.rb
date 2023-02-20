@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Reminders::ExpertsController do
   login_admin
 
-  describe 'relaunch by duration' do
+  describe 'Currents baskets' do
     create_experts_for_reminders
 
     before { RemindersService.create_reminders_registers }
@@ -47,12 +47,6 @@ RSpec.describe Reminders::ExpertsController do
       before { get :outputs }
 
       it { expect(assigns(:active_experts)).to match_array([expert_output]) }
-    end
-
-    describe '#POST process_register' do
-      before { post :process_register, params: { id: expert_input.id } }
-
-      it { expect(expert_input.reload.reminders_registers.last.processed).to be true }
     end
   end
 end
