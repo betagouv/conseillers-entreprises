@@ -11,6 +11,14 @@
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
         = need_general_context(@need)
+        - if @need.institution_filters.any?
+          %hr
+          - @need.institution_filters.each do |filter|
+            - answer = I18n.t(filter.filter_value, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key], default: I18n.t(filter.filter_value, scope: [:boolean, :text]))
+            %li
+              = I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])
+              %strong= answer
+
     .fr-col-md-4.order-minus-one.bp-sm
 
       .fr-grid-row.need-metadata
