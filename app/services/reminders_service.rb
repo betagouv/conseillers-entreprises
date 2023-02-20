@@ -3,13 +3,15 @@
 class RemindersService
   def self.create_reminders_registers
     experts_with_quo_needs = Expert.with_active_matches
-    experts_with_quo_needs.each do |expert|
-      basket = select_basket(expert)
-      category = select_category(expert)
-      next if basket.nil? || category.nil?
-      RemindersRegister.create(expert: expert, basket: basket, category: category)
+    ActiveRecord::Base.transaction do
+      experts_with_quo_needs.each do |expert|
+        basket = select_basket(expert)
+        category = select_category(expert)
+        next if basket.nil? || category.nil?
+        RemindersRegister.create!(expert: expert, basket: basket, category: category)
+      end
+      build_output_basket(experts_with_quo_needs)
     end
-    build_output_basket(experts_with_quo_needs)
   end
 
   private
@@ -51,7 +53,7 @@ class RemindersService
   def self.build_output_basket(experts)
     last_week_reminders_registers = RemindersRegister.where(created_at: 8.days.ago..)
     Expert.where(id: last_week_reminders_registers.map(&:expert).pluck(:id)).where.not(id: experts.ids).each do |expert|
-      RemindersRegister.create(expert: expert, category: :output)
+      RemindersRegister.create!(expert: expert, category: :output)
     end
   end
 end
