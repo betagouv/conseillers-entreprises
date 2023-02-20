@@ -128,6 +128,11 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  if ENV['STAGING_ENV'].present? && ENV['STAGING_ENV'] == 'true'
+    # Let Faker load its :en text
+    config.i18n.enforce_available_locales = false
+  end
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
