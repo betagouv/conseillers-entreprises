@@ -862,7 +862,7 @@ fr:
       scopes:
         icon:
           inputs: ri-login-circle-line
-          many_pending_needs: ri-heavy-showers-line
+          many_pending_needs: ri-thunderstorms-line
           medium_pending_needs: ri-cloudy-line
           one_pending_need: ri-sun-line
           outputs: ri-logout-circle-r-line
