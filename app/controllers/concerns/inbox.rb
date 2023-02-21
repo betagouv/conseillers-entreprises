@@ -38,7 +38,7 @@ module Inbox
   end
 
   def inbox_collections_counts(recipient)
-    @inbox_collections_counts = Rails.cache.fetch([recipient.received_needs.pluck(:updated_at).max, recipient.received_needs.quo_active.pluck(:created_at).max]) do
+    @inbox_collections_counts = Rails.cache.fetch([recipient.received_matches.pluck(:updated_at).max, recipient.received_needs.quo_active.pluck(:created_at).max]) do
       inbox_collection_names.index_with { |name| recipient.send("needs_#{name}").distinct.size }
     end
   end
