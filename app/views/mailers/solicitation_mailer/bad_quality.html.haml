@@ -2,19 +2,23 @@
 
 %p= t('mailers.hello')
 
-%p= t('.intro_html', link_to_root: link_to(t('app_name'), root_url))
+%p= t('.intro_html', link_to_root: link_to(t('app_name'), root_url), solicitation_subject: @solicitation.landing_subject.title)
 
 %p= t('.for_better_taking_care_html')
 
-%ul
-  %li= t('.treasury_html')
-  %li= t('.recruitment_html')
-  %li= t('.investment_html')
+- if @solicitation.landing_subject.description_explanation.present?
+  = @solicitation.landing_subject.description_explanation.html_safe
+- else
+  %ul
+    %li= t('.treasury_html')
+    %li= t('.recruitment_html')
+    %li= t('.investment_html')
 
 %p= t('.upon_receipt')
 
-%p= t('mailers.thanks_for_your_trust')
+.btn-wrapper
+  = t('.complete_solicitation_html', redirect_link: redirect_to_solicitation_step_solicitation_url(@solicitation.uuid, relaunch: 'sollicitation-mauvaise-qualité'))
 
-%p= t('mailers.cordially')
+%p= t('mailers.thanks_for_your_trust')
 
 = render 'mailers/solicitation_mailer/footer'

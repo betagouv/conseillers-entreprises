@@ -3,72 +3,94 @@ class SolicitationsController < PagesController
 
   layout 'solicitation_form'
 
-  before_action :set_steps, except: [:form_complete]
   before_action :prevent_completed_solicitation_modification, except: [:new, :create, :form_complete]
-
-  # On peut naviguer dans le formulaire, donc on ne peut se fier au status de la solicitation en cours
-  # Ex : sol statut description, mais qui revient à contact_step
-  TEMPLATES = {
-    new: :step_contact,
-    create: :step_contact,
-    step_contact: :step_contact,
-    update_step_contact: :step_contact,
-    search_company: :step_company,
-    search_facility: :step_company,
-    step_company: :step_company,
-    step_company_search: :step_company,
-    update_step_company: :step_company,
-    step_description: :step_description,
-    update_step_description: :step_description,
-  }
 
   # Step contact
   #
   def new
-    @solicitation = @landing.solicitations.new(landing_subject: @landing_subject)
-    render :step_contact
-  end
-
-  def create
-    sanitized_params = sanitize_params(solicitation_params).merge(SolicitationModification::FormatQueryParams.new(query_params).call)
-    @solicitation = SolicitationModification::Create.new(sanitized_params).call!
-    if @solicitation.persisted?
-      session.delete(:solicitation_form_info)
-      redirect_to retrieve_company_step_path
-    else
-      flash.alert = @solicitation.errors.full_messages.to_sentence
+    with_step_data(step: :step_contact) do
+      @solicitation = @landing.solicitations.new(landing_subject: @landing_subject)
       render :step_contact
     end
   end
 
+  def create
+    with_step_data(step: :step_contact) do
+      sanitized_params = sanitize_params(solicitation_params).merge(SolicitationModification::FormatQueryParams.new(query_params).call)
+      @solicitation = SolicitationModification::Create.new(sanitized_params).call!
+      if @solicitation.persisted?
+        session.delete(:solicitation_form_info)
+        redirect_to retrieve_company_step_path
+      else
+        flash.alert = @solicitation.errors.full_messages.to_sentence
+        render :step_contact
+      end
+    end
+  end
+
+  def step_contact
+    with_step_data { render :step_contact }
+  end
+
   def update_step_contact
-    @solicitation.go_to_step_company if @solicitation.may_go_to_step_company?
-    if @solicitation.update(sanitize_params(solicitation_params))
-      redirect_to retrieve_company_step_path
-    else
-      flash.alert = @solicitation.errors.full_messages.to_sentence
-      render :step_contact
+    with_step_data do
+      @solicitation.go_to_step_company if @solicitation.may_go_to_step_company?
+      if @solicitation.update(sanitize_params(solicitation_params))
+        redirect_to retrieve_company_step_path
+      else
+        flash.alert = @solicitation.errors.full_messages.to_sentence
+        render :step_contact
+      end
     end
   end
 
   # Step company
   #
+  def step_company
+    with_step_data { render :step_company }
+  end
+
+  def step_company_search
+    with_step_data(step: :step_company) { render :step_company_search }
+  end
+
   def search_company
-    # si l'utilisateur a utilisé l'autocompletion
-    if siret_is_set?
-      update_step_company_method
-    elsif siren_is_set?
-      redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-formulaire' }.merge(search_params)
-      redirect_to redirect_path and return
-    else
-      result = SearchFacility::NonDiffusable.new(search_params).from_full_text_or_siren
+    with_step_data(step: :step_company) do
+      # si l'utilisateur a utilisé l'autocompletion
+      if siret_is_set?
+        update_step_company_method
+      elsif siren_is_set?
+        redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-formulaire' }.merge(search_params)
+        redirect_to redirect_path and return
+      else
+        result = SearchFacility::NonDiffusable.new(search_params).from_full_text_or_siren
+        respond_to do |format|
+          format.html do
+            if result[:error].blank?
+              @companies = result[:items]
+            else
+              @error_message = result[:error]
+              render 'step_company_search' and return
+            end
+          end
+          format.json do
+            render json: result.as_json
+          end
+        end
+      end
+    end
+  end
+
+  def search_facility
+    with_step_data(step: :step_company) do
+      result = SearchFacility::NonDiffusable.new(search_params).from_siren
       respond_to do |format|
         format.html do
           if result[:error].blank?
-            @companies = result[:items]
+            @facilities = result[:items]
           else
             @error_message = result[:error]
-            render 'step_company_search' and return
+            render 'step_company_search'
           end
         end
         format.json do
@@ -78,25 +100,8 @@ class SolicitationsController < PagesController
     end
   end
 
-  def search_facility
-    result = SearchFacility::NonDiffusable.new(search_params).from_siren
-    respond_to do |format|
-      format.html do
-        if result[:error].blank?
-          @facilities = result[:items]
-        else
-          @error_message = result[:error]
-          render 'step_company_search'
-        end
-      end
-      format.json do
-        render json: result.as_json
-      end
-    end
-  end
-
   def update_step_company
-    update_step_company_method
+    with_step_data(step: :step_company) { update_step_company_method }
   end
 
   def update_step_company_method
@@ -113,19 +118,21 @@ class SolicitationsController < PagesController
   # Step description
   #
   def step_description
-    build_institution_filters if @solicitation.institution_filters.blank?
+    with_step_data { build_institution_filters if @solicitation.institution_filters.blank? }
   end
 
   def update_step_description
-    @solicitation.complete if @solicitation.may_complete?
-    if @solicitation.update(sanitize_params(solicitation_params))
-      @solicitation.delay.prepare_diagnosis(nil)
-      CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
-      redirect_to form_complete_solicitation_path(@solicitation.uuid)
-    else
-      flash.now.alert = @solicitation.errors.full_messages.to_sentence
-      build_institution_filters if @solicitation.institution_filters.blank?
-      render :step_description
+    with_step_data do
+      @solicitation.complete if @solicitation.may_complete?
+      if @solicitation.update(sanitize_params(solicitation_params))
+        @solicitation.delay.prepare_diagnosis(nil)
+        CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
+        redirect_to form_complete_solicitation_path(@solicitation.uuid)
+      else
+        flash.now.alert = @solicitation.errors.full_messages.to_sentence
+        build_institution_filters if @solicitation.institution_filters.blank?
+        render :step_description
+      end
     end
   end
 
@@ -142,7 +149,8 @@ class SolicitationsController < PagesController
     case solicitation.status
     when 'step_company'
       redirect_to step_company_search_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
-    when 'step_description'
+    # canceled : mail mauvaise qualité à modifier
+    when 'step_description','canceled'
       redirect_to step_description_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
     else
       redirect_to step_contact_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
@@ -185,28 +193,25 @@ class SolicitationsController < PagesController
     params[:solicitation].present? && solicitation_params[:siret].present?
   end
 
-  def current_template
-    if self.action_name == 'redirect_to_solicitation_step'
-      @solicitation.status.to_sym
-    else
-      TEMPLATES[self.action_name.to_sym]
-    end
+  def with_step_data(step: nil)
+    step ||= self.action_name.gsub('update_', '').to_sym
+    set_steps(step)
+    yield
   end
 
-  def set_steps
+  def set_steps(current_view_step)
     # Cas des personnes retrouvant le lien alors que leur demande est gérée
-    return if @solicitation&.step_complete?
-    current_status = current_template
+    return if @solicitation&.step_unmodifiable?
     statuses = Solicitation.incompleted_statuses
     @step_data = {
-      current_status: current_status,
-      current_step: statuses.find_index(current_status.to_s) + 1,
+      current_status: current_view_step,
+      current_step: statuses.find_index(current_view_step.to_s) + 1,
       total_steps: statuses.count
     }
   end
 
   def prevent_completed_solicitation_modification
-    if @solicitation.step_complete?
+    if @solicitation&.step_unmodifiable?
       flash.alert = I18n.t('solicitations.creation_form.already_submitted_solicitation')
       redirect_to root_path
     end

@@ -275,7 +275,7 @@ Rails.application.routes.draw do
       get :step_description, path: 'description'
       patch :update_step_description
       get :form_complete, path: 'merci'
-      get :redirect_to_solicitation_step, path: 'continuer'
+      get :redirect_to_solicitation_step, path: 'reprendre'
     end
   end
   # New et create custom pour concerver des url avec les landings et faciliter gestion des iframes

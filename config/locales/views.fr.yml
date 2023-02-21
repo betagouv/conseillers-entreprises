@@ -593,12 +593,13 @@ fr:
       subject: Votre demande sur Place des Entreprises
     solicitation_mailer:
       bad_quality:
-        for_better_taking_care_html: 'Pour pouvoir vous aider, <strong>les conseillers ont besoin d''éléments de contexte</strong> :'
-        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service).
+        complete_solicitation_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Compléter ma demande</a>"
+        for_better_taking_care_html: 'Pour pouvoir vous aider, les conseillers ont impérativement besoin d’éléments de contexte :'
+        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site partenaire) pour <strong>"%{solicitation_subject}"</strong>.
         investment_html: "<strong>pour votre projet d’investissement :</strong> type d’investissement, but et montant du besoin"
         recruitment_html: "<strong>pour votre projet de recrutement :</strong> contexte du recrutement et type de contrat"
         treasury_html: "<strong>pour votre problème de trésorerie :</strong> contexte des difficultés et montant du besoin"
-        upon_receipt: Dès la réception de ces éléments, nous transmettons votre demande au(x) conseiller(s) compétent(s) près de chez vous.
+        upon_receipt: 'Nous vous invitons à compléter votre demande pour qu’elle soit transmise :'
       carsat:
         duerp_html: 'Document unique d’évaluation des risques professionnels (DUERP) : <br />Toutes activités : <a href=''https://www.inrs.fr/demarche/evaluation-risques-professionnels''>https://www.inrs.fr/demarche/evaluation-risques-professionnels</a> <br />Spécifique au bâtiment : <a href=''https://www.preventionbtp.fr''>https://www.preventionbtp.fr</a>'
         intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant votre retraite ou les risques professionnels.

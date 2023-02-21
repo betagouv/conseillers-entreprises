@@ -58,6 +58,7 @@ class Solicitation < ApplicationRecord
   has_one :diagnosis, inverse_of: :solicitation
   has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
   has_one :facility, through: :diagnosis, source: :facility, inverse_of: :diagnoses
+  has_one :visitee, through: :diagnosis, source: :visitee, inverse_of: :diagnoses
 
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_many :matches, through: :diagnosis, inverse_of: :solicitation
@@ -70,6 +71,8 @@ class Solicitation < ApplicationRecord
 
   before_create :set_uuid
   before_create :set_institution_from_landing
+
+  after_update :update_diagnosis
 
   paginates_per 50
 
@@ -101,6 +104,8 @@ class Solicitation < ApplicationRecord
 
     event :complete, before: :format_solicitation do
       transitions from: [:step_description], to: :in_progress
+      # cas des mauvaises qualités modifiés par le chef d'entreprise
+      transitions from: [:canceled], to: :in_progress
     end
 
     event :process do
@@ -127,8 +132,16 @@ class Solicitation < ApplicationRecord
     %w[in_progress processed canceled]
   end
 
+  def self.unmodifiable_statuses
+    %w[in_progress processed]
+  end
+
   def step_complete?
     self.class.completed_statuses.include?(status)
+  end
+
+  def step_unmodifiable?
+    self.class.unmodifiable_statuses.include?(status)
   end
 
   ## Validations
@@ -409,6 +422,17 @@ class Solicitation < ApplicationRecord
       .where(landing_subject_id: self.landing_subject_id)
       .from_same_company(self)
       .uniq
+  end
+
+  def update_diagnosis
+    return if diagnosis.nil?
+    return if status_processed?
+    diagnosis.update(content: self.description) if description_previously_changed?
+    visitee.update(
+      email: email,
+      full_name: full_name,
+      phone_number: phone_number
+    ) if (email_previously_changed? || full_name_previously_changed? || phone_number_previously_changed?) && visitee.present?
   end
 
   # Trouver les sirets probables des solicitations pour identifier relances et doublons
