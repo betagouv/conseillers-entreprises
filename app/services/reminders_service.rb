@@ -31,7 +31,7 @@ class RemindersService
       :medium_pending_needs
     # Panier avec un besoin en attente et le dernier besoin cloturé est vieux de 3 mois
     elsif (old_needs.size < RemindersRegister::MATCHES_COUNT[:medium] && quo_active_matches.present?) &&
-               (last_closed_need_at(expert).present? && (last_closed_need_at(expert) <= RemindersRegister::MATCHES_AGE[:done]))
+               (last_closed_match_at(expert).present? && (last_closed_match_at(expert) <= RemindersRegister::MATCHES_AGE[:done]))
       :one_pending_need
     end
   end
@@ -47,7 +47,7 @@ class RemindersService
     end
   end
 
-  def self.last_closed_need_at(expert)
+  def self.last_closed_match_at(expert)
     expert.received_matches.done.pluck(:created_at).max
   end
 
