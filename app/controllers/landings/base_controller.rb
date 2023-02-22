@@ -4,6 +4,6 @@ class Landings::BaseController < PagesController
   private
 
   def save_query_params
-    session[:solicitation_form_info] = query_params if query_params.present?
+    (query_params.presence)
   end
 end
