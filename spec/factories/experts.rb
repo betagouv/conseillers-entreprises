@@ -10,5 +10,11 @@ FactoryBot.define do
     factory :expert_with_users do
       users { [build(:user, :invitation_accepted, email: email)] }
     end
+
+    trait :with_reminders_register do
+      after(:create) do |expert, _|
+        create :reminders_register, expert: expert, created_at: RemindersRegister::TIME_GENERATION.ago, category: :remainder
+      end
+    end
   end
 end

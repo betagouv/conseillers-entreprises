@@ -42,7 +42,7 @@ module Reminders
                                   feedbackable_type: 'Need', feedbackable_id: @need.id)
       respond_to do |format|
         format.js { render template: 'reminders/needs/add_feedback', layout: false }
-        format.html { redirect_to critical_rate_reminders_experts_path, notice: t('mailers.email_sent') }
+        format.html { redirect_to many_pending_needs_reminders_experts_path, notice: t('mailers.email_sent') }
       end
     end
 

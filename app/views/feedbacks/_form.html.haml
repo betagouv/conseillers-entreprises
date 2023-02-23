@@ -1,8 +1,8 @@
-= form_with model: feedback, id: "feedback-form-#{feedback.feedbackable_id}-#{Time.now.to_i}", data: { controller: "feedback-form" },
+= form_with model: feedback, data: { controller: "feedback-form" },
   class: "feedbacks-form feedback-form-#{feedback.feedbackable_id} #{'from_alert_box' if local_assigns[:from_alert_box].present?} " do |form|
-  = form.hidden_field :feedbackable_id
-  = form.hidden_field :feedbackable_type
-  = form.hidden_field :category
+  = form.hidden_field :feedbackable_id, id: "feedbackable-id-#{feedback.feedbackable_id}"
+  = form.hidden_field :feedbackable_type, id: "feedbackable-type-#{feedback.feedbackable_id}"
+  = form.hidden_field :category, id: "feedbackable-category-#{feedback.feedbackable_id}"
   .fr-input-group
     - placeholder = local_assigns[:placeholder].presence || t("feedbacks.form.#{feedback.category.underscore}.placeholder")
     = form.label :description, t('.title'), class: 'fr-label', for: "feedback-text-#{feedback.feedbackable_id}"
