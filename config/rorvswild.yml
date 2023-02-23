@@ -1,6 +1,8 @@
 production:
   api_key: <%= ENV.fetch('RORVSWILD_KEY') %>
-  # ignore_requests: # Do not monitor the following actions
+  ignore_exceptions:
+    - !ruby/regexp /.*/ # Ignore all errors# ignore_requests:
+  # Do not monitor the following actions
   #   - SecretController#index
   # ignore_jobs: # Do not monitor the following jobs
   #   - SecretJob
@@ -23,3 +25,6 @@ production:
 
 development:
   widget: bottom-right
+
+production:
+  api_key: API_KEY

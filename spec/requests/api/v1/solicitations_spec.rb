@@ -85,7 +85,7 @@ RSpec.describe "Solicitations API" do
             expect(response).to have_http_status(:ok)
             data = JSON.parse(response.body)['data']
 
-            expect(data['institutions_partenaires']).to eq(['CCI', 'OPCO'])
+            expect(data['institutions_partenaires']).to eq(['CCI', 'OPérateur de COmpétences (OPCO)'])
           end
 
           it 'creates a solicitation' do
