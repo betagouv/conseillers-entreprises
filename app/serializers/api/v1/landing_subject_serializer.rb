@@ -20,7 +20,7 @@ class Api::V1::LandingSubjectSerializer < ActiveModel::Serializer
 
   def solicitable_institutions
     return [] if object.solicitable_institutions.with_logo.empty?
-    partenaires = object.solicitable_institutions.with_logo.order(:name).pluck(:name).uniq
+    partenaires = object.solicitable_institutions.with_logo.order(:name).reject{ |i| i.opco? }.pluck(:name).uniq
     partenaires << I18n.t('attributes.opco') if object.solicitable_institutions.opco.any?
     partenaires
   end

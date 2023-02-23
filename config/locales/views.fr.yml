@@ -981,8 +981,6 @@ fr:
       processed: mises en relation
     index:
       title: Sollicitations
-    institutions_opco_tile:
-      opco_name: OPCO
     institutions_tiles_block:
       partners_that_may_call: 'Les conseillers compétents sur ce sujet :'
     search_company:
