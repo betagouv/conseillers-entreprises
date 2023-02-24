@@ -23,14 +23,14 @@ RSpec.describe ApiConsumption::Facility do
 
   describe 'call' do
     let(:api_facility) { described_class.new(siret).call }
-    let(:api_ets_base_url) { 'https://entreprise.api.gouv.fr/v3/etablissements' }
+    let(:api_ets_base_url) { 'https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/diffusibles' }
     let(:cfadock_base_url) { 'https://www.cfadock.fr/api/opcos?siret=' }
 
     before { Rails.cache.clear }
 
     context 'SIRET exists' do
       let(:token) { '1234' }
-      let(:api_ets_url) { "#{api_ets_base_url}/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+      let(:api_ets_url) { "#{api_ets_base_url}/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
       let(:cfadock_url) { "#{cfadock_base_url}#{siret}" }
       let(:searched_date) do
         searched_date = Time.zone.now.months_ago(6)
@@ -41,7 +41,7 @@ RSpec.describe ApiConsumption::Facility do
       before do
         ENV['API_ENTREPRISE_TOKEN'] = token
         stub_request(:get, api_ets_url).to_return(
-          body: file_fixture('api_entreprise_get_etablissement.json')
+          body: file_fixture('api_entreprise_etablissement.json')
         )
         stub_request(:get, cfadock_url).to_return(
           body: file_fixture('api_cfadock_get_opco.json')

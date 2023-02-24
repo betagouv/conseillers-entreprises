@@ -7,7 +7,7 @@ class CompaniesController < ApplicationController
     if siret_is_set?
       redirect_to show_with_siret_companies_path(params[:siret], solicitation: @current_solicitation&.id)
     else
-      # save_search(search_params[:query])
+
       result = SearchFacility::Diffusable.new(search_params).from_full_text_or_siren if search_params.present?
       respond_to do |format|
         format.html do

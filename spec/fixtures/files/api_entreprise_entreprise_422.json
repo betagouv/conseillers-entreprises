@@ -1,0 +1,11 @@
+{
+  "errors": [
+    {
+      "code": "00302",
+      "title": "Entité non traitable",
+      "detail": "Le numéro de siret n'est pas correctement formatté",
+      "source": { "parameter": "siret" },
+      "meta": {}
+    }
+  ]
+}

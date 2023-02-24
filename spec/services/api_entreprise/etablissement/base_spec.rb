@@ -3,20 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe ApiEntreprise::Etablissement::Base do
-  let(:facility) { described_class.new(siren).call }
-  let(:base_url) { 'https://entreprise.api.gouv.fr/v3/etablissements' }
+  let(:facility) { described_class.new(siret).call[:etablissement] }
+  let(:base_url) { 'https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/diffusibles' }
+  let(:url) { "#{base_url}/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
   before { Rails.cache.clear }
 
   context 'SIREN number exists' do
     let(:token) { '1234' }
-    let(:siren) { '41816609600069' }
-    let(:url) { "#{base_url}/41816609600069?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+    let(:siret) { '41816609600069' }
 
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
       stub_request(:get, url).to_return(
-        body: file_fixture('api_entreprise_get_etablissement.json')
+        body: file_fixture('api_entreprise_etablissement.json')
       )
     end
 
@@ -25,10 +25,9 @@ RSpec.describe ApiEntreprise::Etablissement::Base do
     end
   end
 
-  context 'SIREN is missing' do
+  context 'SIRET is missing' do
     let(:token) { '1234' }
-    let(:siren) { '' }
-    let(:url) { "#{base_url}/?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+    let(:siret) { '' }
 
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
@@ -42,10 +41,9 @@ RSpec.describe ApiEntreprise::Etablissement::Base do
     end
   end
 
-  context 'SIREN does not exist' do
+  context 'SIRET does not exist' do
     let(:token) { '1234' }
-    let(:siren) { '' }
-    let(:url) { "#{base_url}/?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+    let(:siret) { '12345678901234' }
 
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
@@ -62,8 +60,7 @@ RSpec.describe ApiEntreprise::Etablissement::Base do
 
   context 'Token is unauthorized' do
     let(:token) { '' }
-    let(:siren) { '12345678901234' }
-    let(:url) { "#{base_url}/12345678901234?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=" }
+    let(:siret) { '41816609600069' }
 
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token

@@ -1,18 +1,19 @@
 module ApiConsumption
   class Facility
+    # options : model / base_key / request_keys
     def initialize(siret, options = {})
       @siret = siret
       @options = options
     end
 
     def call
-      model.new(params)
+      model.new(params["etablissement"])
     end
 
     private
 
     def model
-      ApiConsumption::Models::Facility::ApiEntreprise
+      @options&.dig(:model) || ApiConsumption::Models::Facility::ApiEntreprise
     end
 
     def params

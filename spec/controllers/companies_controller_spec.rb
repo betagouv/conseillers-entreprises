@@ -31,8 +31,8 @@ RSpec.describe CompaniesController do
     end
 
     context 'when the api is down' do
-      let(:base_url) { 'https://entreprise.api.gouv.fr/v3/etablissements' }
-      let(:url) { "#{base_url}/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+      let(:base_url) { 'https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/diffusibles' }
+      let(:url) { "#{base_url}/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
       let(:token) { '1234' }
 
       before do

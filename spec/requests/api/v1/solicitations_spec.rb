@@ -11,7 +11,7 @@ RSpec.describe "Solicitations API" do
   let!(:apprentissage_question) { create_apprentissage_question(recrutement_subject.subject) }
   let(:siret) { 13002526500013 }
   let(:token) { '1234' }
-  let(:api_entreprise_url) { "https://entreprise.api.gouv.fr/v3/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
+  let(:api_entreprise_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/diffusibles/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
   let(:base_solicitation) do
     {
       landing_id: landing_01.id,
@@ -76,7 +76,7 @@ RSpec.describe "Solicitations API" do
 
             ENV['API_ENTREPRISE_TOKEN'] = token
             stub_request(:get, api_entreprise_url).to_return(
-              body: file_fixture('api_entreprise_get_etablissement.json')
+              body: file_fixture('api_entreprise_etablissement.json')
             )
             submit_request(example.metadata)
           end
@@ -137,7 +137,7 @@ RSpec.describe "Solicitations API" do
             before do |example|
               ENV['API_ENTREPRISE_TOKEN'] = token
               stub_request(:get, api_entreprise_url).to_return(
-                body: file_fixture('api_entreprise_get_etablissement.json')
+                body: file_fixture('api_entreprise_etablissement.json')
               )
               submit_request(example.metadata)
             end
@@ -188,7 +188,7 @@ RSpec.describe "Solicitations API" do
             before do |example|
               ENV['API_ENTREPRISE_TOKEN'] = token
               stub_request(:get, api_entreprise_url).to_return(
-                body: file_fixture('api_entreprise_get_etablissement.json')
+                body: file_fixture('api_entreprise_etablissement.json')
               )
               submit_request(example.metadata)
             end
@@ -216,7 +216,7 @@ RSpec.describe "Solicitations API" do
             before do |example|
               ENV['API_ENTREPRISE_TOKEN'] = token
               stub_request(:get, api_entreprise_url).to_return(
-                body: file_fixture('api_entreprise_get_etablissement.json')
+                body: file_fixture('api_entreprise_etablissement.json')
               )
               submit_request(example.metadata)
             end

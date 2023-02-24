@@ -1,5 +1,11 @@
 {
   "errors": [
-    "Votre token n'est pas valide ou n'est pas renseigné"
+    {
+      "code": "00101",
+      "title": "Interdit",
+      "detail": "Votre token n'est pas valide ou n'est pas renseigné",
+      "source": { "parameter": "token" },
+      "meta": {}
+    }
   ]
 }

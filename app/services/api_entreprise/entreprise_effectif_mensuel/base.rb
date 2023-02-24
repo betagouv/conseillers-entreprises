@@ -48,6 +48,16 @@ module ApiEntreprise::EntrepriseEffectifMensuel
     def search_year
       searched_date.year
     end
+
+    # A garder tant qu'on est en v2
+    def request_params
+      {
+        token: token,
+        context: 'PlaceDesEntreprises',
+        recipient: 'PlaceDesEntreprises',
+        object: 'PlaceDesEntreprises',
+      }.to_query
+    end
   end
 
   class Responder < ApiEntreprise::Responder

@@ -45,7 +45,7 @@ RSpec.describe SearchFacility::Diffusable do
       before do
         ENV['API_ENTREPRISE_TOKEN'] = token
         stub_request(:get, api_url).to_return(
-          body: file_fixture('api_entreprise_get_etablissement.json')
+          body: file_fixture('api_entreprise_etablissement.json')
         )
         stub_request(:get, entreprise_api_url).to_return(
           body: file_fixture('api_entreprise_get_entreprise.json')

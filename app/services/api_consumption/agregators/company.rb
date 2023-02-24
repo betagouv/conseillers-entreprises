@@ -1,10 +1,11 @@
 module ApiConsumption::Agregators
   class Company
-    REQUESTS = [
-      ApiEntreprise::EntrepriseEffectifMensuel::Base,
-      ApiEntreprise::EntrepriseRcs::Base,
-      ApiEntreprise::EntrepriseRm::Base,
-    ]
+    REQUESTS = {
+      api_entreprise_entreprise: ApiEntreprise::Entreprise::Base,
+      api_entreprise_effectifs_mensuels: ApiEntreprise::EntrepriseEffectifMensuel::Base,
+      api_entreprise_rcs: ApiEntreprise::EntrepriseRcs::Base,
+      api_entreprise_rm: ApiEntreprise::EntrepriseRm::Base,
+    }
 
     def initialize(siren, options = {})
       @siren = siren
@@ -18,8 +19,22 @@ module ApiConsumption::Agregators
       end
     end
 
+    private
+
+    def base_key
+      @options&.dig(:base_key) || :api_entreprise_entreprise
+    end
+
     def base_hash
-      @base_hash ||= ApiEntreprise::Entreprise::Base.new(@siren).call
+      @base_hash ||= REQUESTS[base_key].new(@siren).call
+    end
+
+    def request_keys
+      @options&.dig(:request_keys) || [:api_entreprise_effectifs_mensuels, :api_entreprise_rcs, :api_entreprise_rm]
+    end
+
+    def requests
+      REQUESTS.select{ |k,v| request_keys.include?(k) }.values
     end
   end
 end

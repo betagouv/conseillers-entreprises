@@ -35,6 +35,16 @@ module ApiEntreprise::EntrepriseEffectifAnnuel
     def specific_url
       @specific_url ||= "#{url_key}#{@siren_or_siret}"
     end
+
+    # A garder tant qu'on est en v2
+    def request_params
+      {
+        token: token,
+        context: 'PlaceDesEntreprises',
+        recipient: 'PlaceDesEntreprises',
+        object: 'PlaceDesEntreprises',
+      }.to_query
+    end
   end
 
   class Responder < ApiEntreprise::Responder
