@@ -15,18 +15,17 @@
 = form_with url: request.fullpath, method: :get, local: true do |f|
   .fr-search-bar.fr-search-bar--lg#header-search{ role: 'search' }
     = f.label :query, class: 'fr-label'
-    = f.search_field :query, value: params[:query], class: 'fr-input', placeholder: t('.search_placeholder')
+    = f.search_field :query, value: session[:solicitations_query], class: 'fr-input', placeholder: t('.search_placeholder')
     = f.submit t('.search'), class: 'fr-btn', title: t('.search')
     .results
-  - if params[:query].present?
-    = link_to t('.clear_search'), request.fullpath.split('?').first, id: 'clear-search'
+  - if session[:solicitations_query].present?
+    = link_to t('.clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
 
 = paginate @solicitations
 
 - if @solicitations.present?
   = render(partial: 'solicitation', collection: @solicitations, cached: -> (solicitation) { [solicitation, Badge.all] })
-- elsif params[:query].present?
-  .ui.divider.hidden
+- elsif session[:solicitations_query].present?
   = t('.no_result')
 - else
   .ui.divider.hidden

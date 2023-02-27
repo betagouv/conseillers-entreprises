@@ -2,7 +2,7 @@ class Conseiller::SolicitationsController < ApplicationController
   include TerritoryFiltrable
 
   before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis, :ban_facility]
-  before_action :authorize_index_solicitation, :set_category_content, :setup_territory_filters, :count_solicitations, only: [:index, :processed, :canceled]
+  before_action :authorize_index_solicitation, :set_category_content, :setup_territory_filters, :set_session_query, :count_solicitations, only: [:index, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
 
   layout 'side_menu'
@@ -88,7 +88,7 @@ class Conseiller::SolicitationsController < ApplicationController
   def ordered_solicitations(status)
     solicitations = Solicitation.where(status: status).order(:completed_at)
     solicitations = solicitations.by_possible_region(territory_id) if territory_id.present?
-    solicitations.omnisearch(params[:query]).distinct
+    solicitations.omnisearch(session[:solicitations_query]).distinct
       .includes(:badge_badgeables, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne }, landing_subject: :subject, institution: :logo).page(params[:page])
   end
 
@@ -128,5 +128,13 @@ class Conseiller::SolicitationsController < ApplicationController
   # nom de variable spécifique pour ne pas parasiter les autres filtres région
   def territory_session_param
     :s_territory
+  end
+
+  def set_session_query
+    session[:solicitations_query] = if params[:query].present?
+      params[:query]
+    elsif params[:reset_query].present?
+      ''
+    end
   end
 end
