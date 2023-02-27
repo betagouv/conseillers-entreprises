@@ -3,14 +3,12 @@
 - content_for :header, render('header', title: t('.header', status: @status))
 - content_for :menu, render('menu', count: @count_solicitations)
 
-= form_with url: request.path, method: :get, skip_enforcing_utf8: true, data: { remote: 'false' }, class: '' do
+= form_with url: request.path, method: :get, skip_enforcing_utf8: true, data: { remote: 'false' }, class: 'fr-mb-2w' do
   - options = { include_blank: t('all_choices'), class: 'fr-select' }
   = label_tag(:territory, t('.filter'), class: 'fr-label')
   = select_tag(:territory,
   options_for_select(possible_territories_options, (params[:territory] || session[:s_territory])),
   options.dup)
-
-%p= collection_count @solicitations
 
 = form_with url: request.fullpath, method: :get, local: true do |f|
   .fr-search-bar.fr-search-bar--lg#header-search{ role: 'search' }
@@ -20,6 +18,8 @@
     .results
   - if session[:solicitations_query].present?
     = link_to t('.clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
+
+%p= collection_count @solicitations
 
 = paginate @solicitations
 
