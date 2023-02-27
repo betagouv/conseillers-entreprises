@@ -27,7 +27,7 @@ module Reminders
       @collections_by_status_counts = Rails.cache.fetch(['reminders_need_by_status', territory_needs]) do
         collection_status_name.index_with { |name| territory_needs.archived(false).where(status: name).size }
       end
-      @expert_collections_count = Rails.cache.fetch(['expert_reminders_need', territory_needs]) do
+      @expert_collections_count = Rails.cache.fetch(['expert_reminders_need', territory_needs, RemindersRegister.current_remainder_category.pluck(:updated_at).max]) do
         experts_collection_names.index_with { |name| territory_experts.send(name).distinct.size }
       end
     end
