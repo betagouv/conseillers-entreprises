@@ -28,8 +28,8 @@
 - elsif session[:solicitations_query].present?
   = t('.no_result')
 - else
-  .ui.divider.hidden
-  .ui.fluid.image= image_tag('no-solicitation.gif')
-
+  .fr-container.fr-mt-10v
+    .fr-grid-row
+      .fr-col-offset-3.fr-col-6= image_tag('no-solicitation.gif', class: 'fr-responsive-img')
 = paginate @solicitations
 
