@@ -5,22 +5,18 @@
 
 = form_with url: request.path, method: :get, skip_enforcing_utf8: true, data: { remote: 'false' }, class: '' do
   - options = { include_blank: t('all_choices'), class: 'fr-select' }
-  .two.fields
-    .field
-      = label_tag(:territory, t('.filter'), class: 'fr-label')
-      = select_tag(:territory,
-      options_for_select(possible_territories_options, (params[:territory] || session[:s_territory])),
-      options.dup)
+  = label_tag(:territory, t('.filter'), class: 'fr-label')
+  = select_tag(:territory,
+  options_for_select(possible_territories_options, (params[:territory] || session[:s_territory])),
+  options.dup)
 
 %p= collection_count @solicitations
 
-.ui.divider.hidden
 = form_with url: request.fullpath, method: :get, local: true do |f|
-  .ui.search.solicitation
-    .ui.input.left.icon.fluid.action
-      %span.ri-search-line.icon{ 'aria-hidden': 'true' }
-      = f.text_field :query, value: params[:query], class: 'prompt', placeholder: t('.search_placeholder')
-      %button.ui.button.primary{ type: 'submit' }= t('.search')
+  .fr-search-bar.fr-search-bar--lg#header-search{ role: 'search' }
+    = f.label :query, class: 'fr-label'
+    = f.search_field :query, value: params[:query], class: 'fr-input', placeholder: t('.search_placeholder')
+    = f.submit t('.search'), class: 'fr-btn', title: t('.search')
     .results
   - if params[:query].present?
     = link_to t('.clear_search'), request.fullpath.split('?').first, id: 'clear-search'
