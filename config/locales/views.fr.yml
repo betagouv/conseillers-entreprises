@@ -753,6 +753,7 @@ fr:
         title: Une aide proposée
       its_done: C’est terminé, merci pour votre intervention ! Laissez un commentaire pour les autres experts.
       need_canceled: Vous avez décliné cette demande. Merci d’indiquer pourquoi, afin de nous aider à améliorer le service. Votre retour est précieux !
+      need_canceled_short: Vous avez décliné cette demande.
       no_help:
         content: Mon organisme n’est pas en mesure d’accompagner l’entreprise.
         title: Pas d’aide disponible
