@@ -80,7 +80,12 @@
       .fr-col-12.alert-box.take_care.fr-col
         %span.ri-file-forbid-line.icon{ 'aria-hidden': 'true' }
         .content
-          %p.explanations= t('.need_canceled')
+          - feedbacks = Feedback.category_need.where(feedbackable: match.need, user: current_user)
+          -# Affiche un message plus court si l’expert a refusé et a laissé un message après pour expliquer
+          - if feedbacks.any? && match.closed_at && feedbacks.pluck(:created_at).max > match.closed_at
+            %p.explanations= t('.need_canceled_short')
+          - else
+            %p.explanations= t('.need_canceled')
         = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :quo, class: 'gray-link' do
             = t('.cancel')

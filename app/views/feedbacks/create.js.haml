@@ -13,4 +13,6 @@ var form = document.getElementsByClassName('from_alert_box');
 if (form.length > 0) {
 form[0].insertAdjacentHTML('beforebegin', "#{j I18n.t('feedbacks.form.thank_you_html').html_safe}");
 form[0].parentNode.removeChild(form[0]);
+text = document.getElementsByClassName('explanations');
+text[0].innerHTML = "#{j I18n.t('needs.match_actions.need_canceled_short')}";
 }
