@@ -3,12 +3,8 @@
     %caption= t('.information')
     %tbody
       %tr
-        %td= t('.raison_sociale')
-        %td= entreprise.raison_sociale
-      - if entreprise.nom_commercial != entreprise.raison_sociale
-        %tr
-          %td= t('.nom_commercial')
-          %td= entreprise.nom_commercial
+        %td= t('.denomination')
+        %td= entreprise.name
       %tr
         %td= t('.categorie_entreprise')
         %td= entreprise.categorie_entreprise
@@ -19,32 +15,24 @@
       %tr
         %td= t('.siren')
         %td= entreprise.siren
-      %tr
-        %td= t('.capital_social')
-        %td #{entreprise.capital_social} €
-      %tr
-        %td= t('.numero_tva_intracommunautaire')
-        %td= entreprise.numero_tva_intracommunautaire
+      -# %tr
+      -#   %td= t('.capital_social')
+      -#   %td #{entreprise.capital_social} €
+      -# %tr
+      -#   %td= t('.numero_tva_intracommunautaire')
+      -#   %td= entreprise.numero_tva_intracommunautaire
       %tr
         %td= t('.forme_juridique')
-        %td= entreprise.forme_juridique
-      %tr
-        %td= t('.procedure_collective')
-        %td= entreprise.procedure_collective.to_b ? t('yes') : t('no')
+        %td= entreprise.forme_juridique_libelle
+      -# %tr
+      -#   %td= t('.procedure_collective')
+      -#   %td= entreprise.procedure_collective.to_b ? t('yes') : t('no')
       %tr
         %td= t('.date_creation')
         %td= date_from_timestamp(entreprise.date_creation)
-      - if entreprise.nom.present?
-        %tr
-          %td= t('.nom')
-          %td= entreprise.nom
-      - if entreprise.prenom.present?
-        %tr
-          %td= t('.prenom')
-          %td= entreprise.prenom
       %tr
         %td= t('.date_radiation')
-        %td= date_from_timestamp(entreprise.date_radiation)
+        %td= date_from_timestamp(entreprise.date_cessation)
       %tr
         %td= t('.inscrit_rcs')
         %td= t(entreprise.inscrit_rcs, scope: [:boolean, :text])

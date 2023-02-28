@@ -19,11 +19,11 @@
     %section.fr-mb-6w
       = render partial: 'facility', locals: { etablissement: @facility, caption: t('.facility') }
 
-    - if !@facility.siege_social
+    - if @siege_facility.present?
       %section.fr-mb-6w
         %h2= t('.siege_social')
         = render partial: 'facility', locals: { etablissement: @siege_facility, caption: t('.siege_social') }
 
-    %section.fr-mb-6w
-      - @company.mandataires_sociaux.each do |person|
-        = render partial: 'mandataire', locals: { person: person }
+    -# %section.fr-mb-6w
+    -#   - @company.mandataires_sociaux.each do |person|
+    -#     = render partial: 'mandataire', locals: { person: person }

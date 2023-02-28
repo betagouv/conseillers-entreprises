@@ -11,15 +11,15 @@ RSpec.describe SearchFacility::Diffusable do
     let(:token) { '1234' }
 
     context 'from_siren' do
-      let(:base_url) { 'https://entreprise.api.gouv.fr/v3/entreprises' }
-      let(:api_url) { "#{base_url}/#{query}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+      let(:suffix_url) { "context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
+      let(:entreprise_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/#{query}?#{suffix_url}" }
 
       let(:query) { '418166096' }
 
       before do
         ENV['API_ENTREPRISE_TOKEN'] = token
-        stub_request(:get, api_url).to_return(
-          body: file_fixture('api_entreprise_get_entreprise.json')
+        stub_request(:get, entreprise_url).to_return(
+          body: file_fixture('api_entreprise_entreprise.json')
         )
       end
 
@@ -37,18 +37,18 @@ RSpec.describe SearchFacility::Diffusable do
 
     context 'from_siret' do
       let(:base_url) { 'https://entreprise.api.gouv.fr/v3/etablissements' }
-      let(:api_url) { "#{base_url}/#{query}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
-      let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v3/entreprises/#{query[0,9]}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
-
+      let(:suffix_url) { "context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
+      let(:etablissement_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{query}?#{suffix_url}" }
+      let(:entreprise_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/#{query[0..8]}?#{suffix_url}" }
       let(:query) { '41816609600069' }
 
       before do
         ENV['API_ENTREPRISE_TOKEN'] = token
-        stub_request(:get, api_url).to_return(
+        stub_request(:get, etablissement_url).to_return(
           body: file_fixture('api_entreprise_etablissement.json')
         )
-        stub_request(:get, entreprise_api_url).to_return(
-          body: file_fixture('api_entreprise_get_entreprise.json')
+        stub_request(:get, entreprise_url).to_return(
+          body: file_fixture('api_entreprise_entreprise.json')
         )
       end
 

@@ -23,7 +23,7 @@ RSpec.describe ApiConsumption::Facility do
 
   describe 'call' do
     let(:api_facility) { described_class.new(siret).call }
-    let(:api_ets_base_url) { 'https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/diffusibles' }
+    let(:api_ets_base_url) { 'https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements' }
     let(:cfadock_base_url) { 'https://www.cfadock.fr/api/opcos?siret=' }
 
     before { Rails.cache.clear }
@@ -47,7 +47,7 @@ RSpec.describe ApiConsumption::Facility do
           body: file_fixture('api_cfadock_get_opco.json')
         )
         stub_request(:get, effectifs_url).to_return(
-          body: file_fixture('api_entreprise_effectifs.json')
+          body: file_fixture('api_entreprise_effectifs_etablissement.json')
         )
       end
 

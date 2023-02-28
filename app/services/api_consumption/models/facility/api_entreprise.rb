@@ -11,6 +11,7 @@ module ApiConsumption::Models
         :tranche_effectif_salarie,
         :diffusable_commercialement,
         :date_creation,
+        :date_derniere_mise_a_jour,
         :unite_legale,
         :adresse,
         :opcoSiren, # a partir d'ici, données agglomérées d'autres appels API

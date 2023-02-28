@@ -16,6 +16,10 @@ module ApiConsumption::Models
       @code_region ||= I18n.t(code_departement, scope: 'department_code_to_region_code')
     end
 
+    def libelle_region
+      @libelle_region ||= I18n.t(code_region, scope: 'regions_codes_to_libelles')
+    end
+
     def commune
       @commune ||= Commune.find_or_create_by insee_code: insee_code
     end

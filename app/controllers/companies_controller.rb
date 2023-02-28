@@ -72,9 +72,10 @@ class CompaniesController < ApplicationController
   def search_facility_informations(siret)
     begin
       @facility = ApiConsumption::Facility.new(siret).call
-      company_and_siege = ApiConsumption::CompanyAndSiege.new(siret[0,9]).call
-      @company = company_and_siege.company
-      @siege_facility = company_and_siege.siege_facility
+      @company = ApiConsumption::Company.new(siret[0,9]).call
+      unless @facility.siege_social
+        @siege_facility = ApiConsumption::Facility.new(@company.siret_siege_social).call
+      end
     rescue ApiEntreprise::ApiEntrepriseError => e
       @message = I18n.t("api_requests.generic_error")
     end

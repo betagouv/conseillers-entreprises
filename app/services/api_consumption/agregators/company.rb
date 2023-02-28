@@ -13,7 +13,7 @@ module ApiConsumption::Agregators
     end
 
     def item_params
-      REQUESTS.each_with_object(base_hash) do |request, hash|
+      requests.each_with_object(base_hash.with_indifferent_access) do |request, hash|
         response = request.new(@siren).call
         hash["entreprise"].deep_merge! response
       end

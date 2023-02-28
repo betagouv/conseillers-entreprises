@@ -14,16 +14,16 @@ module ApiEntreprise::Etablissement
   class Request < ApiEntreprise::Request
     private
 
-    # /v3/insee/sirene/etablissements/diffusibles
+    # /v3/insee/sirene/etablissements
     def url_key
-      @url_key ||= "insee/sirene/etablissements/diffusibles/"
+      @url_key ||= "insee/sirene/etablissements/"
     end
   end
 
   class Responder < ApiEntreprise::Responder
     def format_data
       return {
-        etablissement: @http_request.data["data"],
+        etablissement: @http_request.data["data"].merge(@http_request.data["meta"]),
         links: @http_request.data["links"],
         meta: @http_request.data["meta"]
       }

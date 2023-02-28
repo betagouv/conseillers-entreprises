@@ -4,10 +4,8 @@ require 'rails_helper'
 
 RSpec.describe ApiEntreprise::Etablissement::Base do
   let(:facility) { described_class.new(siret).call[:etablissement] }
-  let(:base_url) { 'https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/diffusibles' }
+  let(:base_url) { 'https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements' }
   let(:url) { "#{base_url}/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
-
-  before { Rails.cache.clear }
 
   context 'SIREN number exists' do
     let(:token) { '1234' }
@@ -49,7 +47,7 @@ RSpec.describe ApiEntreprise::Etablissement::Base do
       ENV['API_ENTREPRISE_TOKEN'] = token
       stub_request(:get, url).to_return(
         status: 500,
-        body: file_fixture('api_entreprise_get_entreprise.json')
+        body: file_fixture('api_entreprise_500.json')
       )
     end
 

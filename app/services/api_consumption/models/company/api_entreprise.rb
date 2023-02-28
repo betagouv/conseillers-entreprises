@@ -3,37 +3,32 @@ module ApiConsumption::Models
     def self.fields
       [
         :siren,
-        :capital_social,
-        :numero_tva_intracommunautaire,
-        :forme_juridique,
-        :forme_juridique_code,
-        :nom_commercial,
-        :procedure_collective,
-        :enseigne,
-        :libelle_naf_entreprise,
-        :naf_entreprise,
-        :raison_sociale,
         :siret_siege_social,
-        :code_effectif_entreprise,
-        :date_creation,
-        :nom,
-        :prenom,
-        :date_radiation,
         :categorie_entreprise,
-        :tranche_effectif_salarie_entreprise,
-        :mandataires_sociaux,
-        :etat_administratif,
         :diffusable_commercialement,
+        :type,
+        :personne_morale_attributs,
+        :personne_physique_attributs,
+        :forme_juridique,
+        :activite_principale,
+        :tranche_effectif_salarie,
+        :etat_administratif,
+        :economie_sociale_et_solidaire,
+        :date_cessation,
+        :date_creation,
         :rcs,
         :rm,
-        :effectifs,
-        :nombre_etablissements_ouverts
+        :effectifs
       ]
     end
 
     def name
-      company_name = nom_commercial.presence || raison_sociale.presence || nom_complet.presence || nom_raison_sociale.presence
-      company_name.present? ? company_name.titleize : nil
+      case type
+      when "personne_morale"
+        personne_morale_name
+      when "personne_physique"
+        personne_physique_name
+      end
     end
 
     def inscrit_rcs
@@ -44,6 +39,10 @@ module ApiConsumption::Models
     def inscrit_rm
       return false if rm.blank?
       rm["error"].nil?
+    end
+
+    def forme_juridique_libelle
+      forme_juridique["libelle"]
     end
 
     def date_de_creation
@@ -59,19 +58,33 @@ module ApiConsumption::Models
     end
 
     def effectif
-      @effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).effectif
+      @effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie).effectif
     end
 
     def code_effectif
-      @code_effectif ||= (@code_effectif_entreprise || Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).code_effectif)
+      @code_effectif ||= (@code_effectif_entreprise || Effectif::Format.new(effectifs, tranche_effectif_salarie).code_effectif)
     end
 
     def tranche_effectif
-      @tranche_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).intitule_effectif
+      @tranche_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie).intitule_effectif
     end
 
     def annee_effectif
-      @annee_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).annee_effectif
+      @annee_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie).annee_effectif
+    end
+
+    private
+
+    def personne_morale_name
+      raison_sociale = personne_morale_attributs["raison_sociale"]
+      sigle = personne_morale_attributs["sigle"]
+      [raison_sociale, sigle].compact.join(" - ")
+    end
+
+    def personne_physique_namepersonne_physique_attributs
+      prenom = personne_physique_attributs["prenom_usuel"]
+      nom = personne_physique_attributs["nom_usage"]
+      [prenom, nom].compact.join(" ")
     end
   end
 end

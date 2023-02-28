@@ -1,0 +1,72 @@
+{
+  "data": {
+    "siren": "418166096",
+    "date_extrait": "27 FEVRIER 2023",
+    "date_radiation": null,
+    "date_immatriculation": "1998-03-27",
+    "mandataires_sociaux": [
+      {
+        "type": "personne_physique",
+        "nom": "ROUX",
+        "prenom": "OLIVIER",
+        "fonction": "PRESIDENT",
+        "date_naissance": "1980-07"
+      },
+      {
+        "type": "personne_morale",
+        "numero_identification": null,
+        "fonction": "COMMISSAIRE AUX COMPTES TITULAIRE",
+        "raison_sociale": "KPMG - SOCIETE ANONYME"
+      }
+    ],
+    "observations": [
+      {
+        "numero": "12197",
+        "libelle": "LA SOCIETE NE CONSERVE AUCUNE ACTIVITE A SON ANCIEN SIEGE",
+        "date": "2000-02-23"
+      }
+    ],
+    "nom_commercial": "OCTO-TECHNOLOGY",
+    "etablissement_principal": {
+      "activite": "LA CONCEPTION LE DEVELOPPEMENT ET LA MISE EN OEUVRE D'INFORMATION ET D'APPLICATIONS PAR LE CONSEIL ET LA MISE EN OEUVRE INNOVANTE D'EXPERTISES TECHNOLOGIQUES ET METHODOLOGIQUES ; LA CONCEPTION LE DEVELOPPEMENT ET LA DISTRIBUTION DE SOLUTIONS LOGICIELLES ; L'ACCOMPAGNEMENT TECHNOLOGIQUE METHODOLOGIQUE ET CULTUREL POUR LA REALISATION DE PRODUITS LOGICIELS INNOVANTS ET POUR LA TRANSFORMATION DIGITALE DES PRATIQUES, PROCESSUS ET ORGANISATIONS DES ENTREPRISES LA FORMATION DANS LE DOMAINE DES EXPERTISES TECHNOLOGIQUES ET METHODOLOGIQUES.",
+      "origine_fonds": "CREATION",
+      "mode_exploitation": "EXPLOITATION DIRECTE",
+      "code_ape": "6202A"
+    },
+    "capital": { "montant": 509525.3, "devise": "", "code_devise": "" },
+    "greffe": { "valeur": "PARIS", "code": "7501" },
+    "personne_morale": {
+      "forme_juridique": {
+        "valeur": "SOCIETE PAR ACTIONS SIMPLIFIEE",
+        "code": "SASh"
+      },
+      "denomination": "OCTO-TECHNOLOGY",
+      "date_cloture_exercice_comptable": "8-31",
+      "date_fin_de_vie": "2097-03-26"
+    },
+    "personne_physique": {
+      "adresse": {
+        "nom_postal": "",
+        "numero": "",
+        "type": "",
+        "voie": "",
+        "ligne_1": "",
+        "ligne_2": "",
+        "localite": "",
+        "code_postal": "",
+        "bureau_distributeur": "",
+        "pays": ""
+      },
+      "nationalite": { "valeur": "", "code": "" },
+      "nom": "",
+      "prenom": "",
+      "naissance": {
+        "pays": { "valeur": "", "code": "" },
+        "date": "",
+        "lieu": ""
+      }
+    }
+  },
+  "links": {},
+  "meta": {}
+}

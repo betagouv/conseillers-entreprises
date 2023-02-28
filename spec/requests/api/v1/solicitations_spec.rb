@@ -11,7 +11,7 @@ RSpec.describe "Solicitations API" do
   let!(:apprentissage_question) { create_apprentissage_question(recrutement_subject.subject) }
   let(:siret) { 13002526500013 }
   let(:token) { '1234' }
-  let(:api_entreprise_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/diffusibles/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
+  let(:api_entreprise_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
   let(:base_solicitation) do
     {
       landing_id: landing_01.id,

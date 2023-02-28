@@ -156,8 +156,9 @@ fr:
     company:
       capital_social: Capital social
       categorie_entreprise: Catégorie de l’entreprise
+      date_cessation: Date de cessation
       date_creation: Date de création
-      date_radiation: Date de radiation
+      denomination: Dénomination
       diffusable_commercialement: Diffusable commercialement
       forme_juridique: Forme juridique
       information: Informations sur l’entreprise
@@ -170,7 +171,6 @@ fr:
       numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
       prenom: Prénom
       procedure_collective: En cours de procedure collective ?
-      raison_sociale: Raison Sociale
       siren: SIREN
       tranche_effectif_salarie_entreprise: Tranche d’effectif de salariés de l’entreprise
     facility:
