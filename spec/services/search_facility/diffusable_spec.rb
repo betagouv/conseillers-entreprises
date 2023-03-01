@@ -13,23 +13,28 @@ RSpec.describe SearchFacility::Diffusable do
     context 'from_siren' do
       let(:suffix_url) { "context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
       let(:entreprise_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/#{query}?#{suffix_url}" }
+      let(:etablissement_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret_siege}?#{suffix_url}" }
 
       let(:query) { '418166096' }
+      let(:siret_siege) { '41816609600069' }
 
       before do
         ENV['API_ENTREPRISE_TOKEN'] = token
         stub_request(:get, entreprise_url).to_return(
           body: file_fixture('api_entreprise_entreprise.json')
         )
+        stub_request(:get, etablissement_url).to_return(
+          body: file_fixture('api_entreprise_etablissement.json')
+        )
       end
 
       it 'displays correct proposition' do
         expect(data.size).to eq(1)
-        expect(data[0]["siret"]).to eq("41816609600051")
+        expect(data[0]["siret"]).to eq("41816609600069")
         expect(data[0]["siren"]).to eq("418166096")
-        expect(data[0]["nom"]).to eq("Octo Technology")
+        expect(data[0]["nom"]).to eq("OCTO-TECHNOLOGY")
         expect(data[0]["activite"]).to eq("Conseil en systèmes et logiciels informatiques")
-        expect(data[0]["lieu"]).to eq("75008 PARIS")
+        expect(data[0]["lieu"]).to eq("75002")
         expect(data[0]["code_region"]).to eq("11")
         expect(data[0]["nombre_etablissements_ouverts"]).to eq(1)
       end
@@ -56,9 +61,9 @@ RSpec.describe SearchFacility::Diffusable do
         expect(data.size).to eq(1)
         expect(data[0]["siret"]).to eq("41816609600069")
         expect(data[0]["siren"]).to eq("418166096")
-        expect(data[0]["nom"]).to eq("Octo Technology")
+        expect(data[0]["nom"]).to eq("OCTO-TECHNOLOGY")
         expect(data[0]["activite"]).to eq("Conseil en systèmes et logiciels informatiques")
-        expect(data[0]["lieu"]).to eq("75002 PARIS 2")
+        expect(data[0]["lieu"]).to eq("75002")
         expect(data[0]["code_region"]).to eq("11")
         expect(data[0]["nombre_etablissements_ouverts"]).to eq(1)
       end

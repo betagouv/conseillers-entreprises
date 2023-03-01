@@ -3,66 +3,52 @@
 require 'rails_helper'
 
 describe UseCases::SearchFacility do
-  let(:legal_form_code) { '5710' }
-  let(:naf_code) { '6202A' }
-  let(:facility_code_effectif) { '32' }
-  let(:facility_effectif) { 412.6 }
-  let(:company_code_effectif) { '32' }
+  let!(:opco) { create :opco, siren: "851296632" }
   let(:siret) { '41816609600051' }
-  let(:siren) { '418166096' }
+  let(:siren) { siret[0..8] }
   let(:token) { '1234' }
-  let(:inscrit_rcs) { true }
-  let(:inscrit_rm) { true }
+
+  let(:suffix_url) { "context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
+  let(:entreprise_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/#{siren}?#{suffix_url}" }
+  let(:effectif_entreprise_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/2022/09/entreprise/#{siren}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
+  let(:rcs_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/extrait_kbis?#{suffix_url}" }
+  let(:rm_url) { "https://entreprise.api.gouv.fr/v3/cma_france/rnm/unites_legales/#{siren}?#{suffix_url}" }
+  let(:mandataires_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/mandataires_sociaux?#{suffix_url}" }
+  let(:etablissement_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret}?#{suffix_url}" }
+  let(:effectif_etablissement_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/2022/09/etablissement/#{siret}?#{suffix_url}" }
+  let(:opco_url) { "https://www.cfadock.fr/api/opcos?siret=#{siret}" }
 
   describe 'with_siret_and_save' do
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
-      company_adapter_json = JSON.parse(file_fixture('api_company_adapter.json').read)
-      company_instance = ApiConsumption::Models::Company::ApiEntreprise.new(company_adapter_json)
-      api_company = ApiConsumption::Company.new(siret)
-      allow(ApiConsumption::Company).to receive(:new).with(siret[0,9], {}) { api_company }
-      allow(api_company).to receive(:call) { company_instance }
-
-      ## Etablissement
-      cfadock_json = JSON.parse(file_fixture('api_cfadock_get_opco.json').read)
-      # Je sais pas pourquoi, mais sans appel préalable à la classe,
-      # rspec considere ApiCfadock::Responder comme non instancié
-      ApiCfadock::Opco
-      api_cfadock_responder = ApiCfadock::Responder.new(cfadock_json)
-      allow(ApiCfadock::Opco.new(siret)).to receive(:call) { api_cfadock_responder }
-      facility_adapter_json = JSON.parse(file_fixture('api_facility_adapter.json').read)
-      facility_instance = ApiConsumption::Models::Facility::ApiEntreprise.new(facility_adapter_json)
-      api_facility = ApiConsumption::Facility.new(siret)
-      allow(ApiConsumption::Facility).to receive(:new).with(siret, {}) { api_facility }
-      allow(api_facility).to receive(:call) { facility_instance }
+      stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_entreprise.json'))
+      stub_request(:get, effectif_entreprise_url).to_return(body: file_fixture('api_entreprise_effectifs_entreprise.json'))
+      stub_request(:get, rcs_url).to_return(body: file_fixture('api_entreprise_rcs.json'))
+      stub_request(:get, rm_url).to_return(body: file_fixture('api_entreprise_rm.json'))
+      stub_request(:get, mandataires_url).to_return(body: file_fixture('api_entreprise_mandataires_sociaux.json'))
+      stub_request(:get, etablissement_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
+      stub_request(:get, effectif_etablissement_url).to_return(body: file_fixture('api_entreprise_effectifs_etablissement.json'))
+      stub_request(:get, opco_url).to_return(body: file_fixture('api_cfadock_opco.json'))
     end
 
     context 'first call' do
-      let!(:opco) { create :opco, siren: "851296632" }
-
       before do
         described_class.with_siret_and_save siret
-      end
-
-      it 'calls external service' do
-        expect(ApiConsumption::Company).to have_received(:new).with(siren, {})
-        expect(ApiConsumption::Facility).to have_received(:new).with(siret, {})
       end
 
       it 'sets company and facility' do
         company = Company.last
         facility = Facility.last
         expect(company.siren).to eq siren
-        expect(company.legal_form_code).to eq legal_form_code
-        expect(company.code_effectif).to eq company_code_effectif
-        expect(company.inscrit_rcs).to eq inscrit_rcs
-        expect(company.inscrit_rm).to eq inscrit_rm
+        expect(company.legal_form_code).to eq '5710'
+        expect(company.code_effectif).to eq '41'
+        expect(company.inscrit_rcs).to be true
+        expect(company.inscrit_rm).to be true
 
         expect(facility.reload.siret).to eq siret
         expect(facility.commune.insee_code).to eq '75102'
-        expect(facility.naf_code).to eq naf_code
-        # Bug todo : si on commente ou puts autour du `described_class.with_siret_and_save siret` ça marche, sinon ça fail
-        # expect(facility.code_effectif).to eq facility_code_effectif
+        expect(facility.naf_code).to eq '62.02A'
+        expect(facility.code_effectif).to eq '32'
         expect(facility.opco).to eq opco
       end
     end

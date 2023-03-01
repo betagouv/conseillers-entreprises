@@ -166,11 +166,6 @@ fr:
       inscrit_rcs_yes_no: 'Inscrit au RCS : %{response}'
       inscrit_rm: Inscrit au RM
       inscrit_rm_yes_no: 'Inscrit au RM : %{response}'
-      nom: Nom
-      nom_commercial: Nom Commercial
-      numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
-      prenom: Prénom
-      procedure_collective: En cours de procedure collective ?
       siren: SIREN
       tranche_effectif_salarie_entreprise: Tranche d’effectif de salariés de l’entreprise
     facility:
@@ -181,19 +176,17 @@ fr:
       idcc: IDCC
       naf: Code NAF
       opco: Opco
-      pays_implantation: Pays d’implantation
       region_implantation: Région d’implantation
       siret: SIRET
       tranche_effectif_salarie_etablissement: Tranche d’effectif de salariés de l’établissement
     mandataire:
-      dirigeant: Est-ce un dirigeant ?
+      date_naissance: Date de naissance
       fonction: Fonction
       identifiant: Identifiant
       mandataires_sociaux: Mandataires sociaux
       nom: Nom
       personne_morale: Personne morale
       raison_sociale: Raison Sociale
-      date_naissance: Date de naissance
     needs:
       back_to_company: Voir la fiche entreprise
       company_contacts_needs: 'Liste des besoins pour les contacts de cette entreprise :'

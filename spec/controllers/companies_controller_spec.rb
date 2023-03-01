@@ -23,10 +23,10 @@ RSpec.describe CompaniesController do
       before do
         ENV['API_ENTREPRISE_TOKEN'] = token
         stub_request(:get, etablissement_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
-        stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
+        stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_entreprise.json'))
         stub_request(:get, effectif_etablissement_url).to_return(body: file_fixture('api_entreprise_effectifs_etablissement.json'))
         stub_request(:get, effectif_entreprise_url).to_return(body: file_fixture('api_entreprise_effectifs_entreprise.json'))
-        stub_request(:get, opco_url).to_return(body: file_fixture('api_cfadock_get_opco.json'))
+        stub_request(:get, opco_url).to_return(body: file_fixture('api_cfadock_opco.json'))
         stub_request(:get, rcs_url).to_return(body: file_fixture('api_entreprise_rcs.json'))
         stub_request(:get, rm_url).to_return(body: file_fixture('api_entreprise_rm.json'))
       end
@@ -60,7 +60,7 @@ RSpec.describe CompaniesController do
       stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
       stub_request(:get, effectif_etablissement_url).to_return(body: file_fixture('api_entreprise_effectifs_etablissement.json'))
       stub_request(:get, effectif_entreprise_url).to_return(body: file_fixture('api_entreprise_effectifs_entreprise.json'))
-      stub_request(:get, opco_url).to_return(body: file_fixture('api_cfadock_get_opco.json'))
+      stub_request(:get, opco_url).to_return(body: file_fixture('api_cfadock_opco.json'))
       stub_request(:get, rcs_url).to_return(body: file_fixture('api_entreprise_rcs.json'))
       stub_request(:get, rm_url).to_return(body: file_fixture('api_entreprise_rm.json'))
     end

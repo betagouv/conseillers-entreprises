@@ -46,6 +46,10 @@ module ApiConsumption::Models
       forme_juridique["libelle"]
     end
 
+    def forme_juridique_code
+      forme_juridique["code"]
+    end
+
     def date_de_creation
       I18n.l(Time.strptime(date_creation.to_s, '%s').in_time_zone.to_date)
     end
@@ -74,6 +78,10 @@ module ApiConsumption::Models
       @annee_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie).annee_effectif
     end
 
+    def capital_social
+      @capital_social ||= rcs&.dig('capital', 'montant')
+    end
+
     private
 
     def personne_morale_name
@@ -84,7 +92,7 @@ module ApiConsumption::Models
 
     def personne_physique_name
       prenom = personne_physique_attributs["prenom_usuel"]
-      nom = personne_physique_attributs["nom_usage"]
+      nom = personne_physique_attributs["nom_usage"] || personne_physique_attributs["nom_naissance"]
       [prenom, nom].compact.join(" ")
     end
   end

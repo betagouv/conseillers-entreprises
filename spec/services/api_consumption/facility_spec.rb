@@ -44,7 +44,7 @@ RSpec.describe ApiConsumption::Facility do
           body: file_fixture('api_entreprise_etablissement.json')
         )
         stub_request(:get, cfadock_url).to_return(
-          body: file_fixture('api_cfadock_get_opco.json')
+          body: file_fixture('api_cfadock_opco.json')
         )
         stub_request(:get, effectifs_url).to_return(
           body: file_fixture('api_entreprise_effectifs_etablissement.json')

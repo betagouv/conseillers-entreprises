@@ -11,27 +11,21 @@
       %tr
         %td= t('.tranche_effectif_salarie_entreprise')
         %td= [entreprise.tranche_effectif, annee_effectif(entreprise.annee_effectif) ].join(' ')
-
       %tr
         %td= t('.siren')
         %td= entreprise.siren
-      -# %tr
-      -#   %td= t('.capital_social')
-      -#   %td #{entreprise.capital_social} €
-      -# %tr
-      -#   %td= t('.numero_tva_intracommunautaire')
-      -#   %td= entreprise.numero_tva_intracommunautaire
+      - if entreprise.capital_social
+        %tr
+          %td= t('.capital_social')
+          %td #{entreprise.capital_social} €
       %tr
         %td= t('.forme_juridique')
         %td= entreprise.forme_juridique_libelle
-      -# %tr
-      -#   %td= t('.procedure_collective')
-      -#   %td= entreprise.procedure_collective.to_b ? t('yes') : t('no')
       %tr
         %td= t('.date_creation')
         %td= date_from_timestamp(entreprise.date_creation)
       %tr
-        %td= t('.date_radiation')
+        %td= t('.date_cessation')
         %td= date_from_timestamp(entreprise.date_cessation)
       %tr
         %td= t('.inscrit_rcs')

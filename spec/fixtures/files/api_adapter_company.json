@@ -1,0 +1,159 @@
+{
+  "entreprise": {
+    "siren": "418166096",
+    "siret_siege_social": "41816609600069",
+    "categorie_entreprise": "GE",
+    "diffusable_commercialement": true,
+    "type": "personne_morale",
+    "personne_morale_attributs": {
+      "raison_sociale": "OCTO-TECHNOLOGY",
+      "sigle": null
+    },
+    "personne_physique_attributs": {
+      "pseudonyme": null,
+      "prenom_usuel": null,
+      "prenom_1": null,
+      "prenom_2": null,
+      "prenom_3": null,
+      "prenom_4": null,
+      "nom_usage": null,
+      "nom_naissance": null,
+      "sexe": null
+    },
+    "forme_juridique": {
+      "code": "5710",
+      "libelle": "SAS, société par actions simplifiée"
+    },
+    "activite_principale": {
+      "code": "62.02A",
+      "nomenclature": "NAFRev2",
+      "libelle": "Conseil en systèmes et logiciels informatiques"
+    },
+    "tranche_effectif_salarie": {
+      "de": 500,
+      "a": 999,
+      "code": "41",
+      "date_reference": "2020",
+      "intitule": "500 à 999 salariés"
+    },
+    "etat_administratif": "A",
+    "economie_sociale_et_solidaire": false,
+    "date_cessation": null,
+    "date_creation": 891381600,
+    "effectifs": {
+      "annee": "2022",
+      "mois": "09",
+      "effectifs_mensuels": "895.02"
+    },
+    "rcs": {
+      "siren": "418166096",
+      "date_extrait": "28 FEVRIER 2023",
+      "date_radiation": null,
+      "date_immatriculation": "1998-03-27",
+      "mandataires_sociaux": [
+        {
+          "type": "personne_physique",
+          "nom": "ROUX",
+          "prenom": "OLIVIER",
+          "fonction": "PRESIDENT",
+          "date_naissance": "1980-07"
+        },
+        {
+          "type": "personne_morale",
+          "numero_identification": null,
+          "fonction": "COMMISSAIRE AUX COMPTES TITULAIRE",
+          "raison_sociale": "KPMG - SOCIETE ANONYME"
+        }
+      ],
+      "observations": [
+        {
+          "numero": "12197",
+          "libelle": "LA SOCIETE NE CONSERVE AUCUNE ACTIVITE A SON ANCIEN SIEGE",
+          "date": "2000-02-23"
+        }
+      ],
+      "nom_commercial": "OCTO-TECHNOLOGY",
+      "etablissement_principal": {
+        "activite": "LA CONCEPTION LE DEVELOPPEMENT ET LA MISE EN OEUVRE D'INFORMATION ET D'APPLICATIONS PAR LE CONSEIL ET LA MISE EN OEUVRE INNOVANTE D'EXPERTISES TECHNOLOGIQUES ET METHODOLOGIQUES ; LA CONCEPTION LE DEVELOPPEMENT ET LA DISTRIBUTION DE SOLUTIONS LOGICIELLES ; L'ACCOMPAGNEMENT TECHNOLOGIQUE METHODOLOGIQUE ET CULTUREL POUR LA REALISATION DE PRODUITS LOGICIELS INNOVANTS ET POUR LA TRANSFORMATION DIGITALE DES PRATIQUES, PROCESSUS ET ORGANISATIONS DES ENTREPRISES LA FORMATION DANS LE DOMAINE DES EXPERTISES TECHNOLOGIQUES ET METHODOLOGIQUES.",
+        "origine_fonds": "CREATION",
+        "mode_exploitation": "EXPLOITATION DIRECTE",
+        "code_ape": "6202A"
+      },
+      "capital": { "montant": 509525.3, "devise": "", "code_devise": "" },
+      "greffe": { "valeur": "PARIS", "code": "7501" },
+      "personne_morale": {
+        "forme_juridique": {
+          "valeur": "SOCIETE PAR ACTIONS SIMPLIFIEE",
+          "code": "SASh"
+        },
+        "denomination": "OCTO-TECHNOLOGY",
+        "date_cloture_exercice_comptable": "8-31",
+        "date_fin_de_vie": "2097-03-26"
+      },
+      "personne_physique": {
+        "adresse": {
+          "nom_postal": "",
+          "numero": "",
+          "type": "",
+          "voie": "",
+          "ligne_1": "",
+          "ligne_2": "",
+          "localite": "",
+          "code_postal": "",
+          "bureau_distributeur": "",
+          "pays": ""
+        },
+        "nationalite": { "valeur": "", "code": "" },
+        "nom": "",
+        "prenom": "",
+        "naissance": {
+          "pays": { "valeur": "", "code": "" },
+          "date": "",
+          "lieu": ""
+        }
+      }
+    },
+    "rm": {
+      "error": "Entité non trouvée : L'identifiant indiqué n'existe pas, n'est pas connu ou ne comporte aucune information pour cet appel."
+    },
+    "mandataires_sociaux": [
+      {
+        "data": {
+          "fonction": "PRESIDENT",
+          "nom": "ROUX",
+          "type": "personne_physique",
+          "prenom": "OLIVIER",
+          "date_naissance": "1980-07-09",
+          "date_naissance_timestamp": 331941600,
+          "lieu_naissance": "PARIS",
+          "pays_naissance": "FRANCE",
+          "code_pays_naissance": "FR",
+          "nationalite": "FRANCAISE",
+          "code_nationalite": "FR"
+        },
+        "links": {},
+        "meta": {}
+      },
+      {
+        "data": {
+          "numero_identification": null,
+          "type": "personne_morale",
+          "fonction": "COMMISSAIRE AUX COMPTES TITULAIRE",
+          "raison_sociale": "KPMG - SOCIETE ANONYME",
+          "code_greffe": null,
+          "libelle_greffe": null
+        },
+        "links": {},
+        "meta": {}
+      }
+    ]
+  },
+  "links": {
+    "siege_social": "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/41816609600069",
+    "siege_social_adresse": "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/41816609600069/adresse"
+  },
+  "meta": {
+    "date_derniere_mise_a_jour": 1661724000,
+    "redirect_from_siren": null
+  }
+}
