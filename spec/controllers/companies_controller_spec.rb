@@ -5,32 +5,37 @@ require 'api_helper'
 
 RSpec.describe CompaniesController do
   login_user
+  let(:effectif_date) { Time.zone.now.months_ago(6) }
+  let(:year) { effectif_date.year }
+  let(:month) { effectif_date.strftime("%m") }
 
   let(:siret) { '41816609600069' }
   let(:siren) { siret[0,9] }
+  let(:token) { '1234' }
   let(:suffix_url) { "context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
   let(:etablissement_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret}?#{suffix_url}" }
   let(:entreprise_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/#{siren}?#{suffix_url}" }
-  let(:effectif_etablissement_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/2022/08/etablissement/#{siret}?#{suffix_url}" }
-  let(:effectif_entreprise_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/2022/08/entreprise/#{siren}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
+  let(:effectif_etablissement_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/#{year}/#{month}/etablissement/#{siret}?#{suffix_url}" }
+  let(:effectif_entreprise_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/#{year}/#{month}/entreprise/#{siren}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
   let(:opco_url) { "https://www.cfadock.fr/api/opcos?siret=#{siret}" }
   let(:rcs_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/extrait_kbis?#{suffix_url}" }
   let(:rm_url) { "https://entreprise.api.gouv.fr/v3/cma_france/rnm/unites_legales/#{siren}?#{suffix_url}" }
-  let(:token) { '1234' }
+  let(:mandataires_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/mandataires_sociaux?#{suffix_url}" }
+
+  before do
+    ENV['API_ENTREPRISE_TOKEN'] = token
+    stub_request(:get, etablissement_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
+    stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
+    stub_request(:get, effectif_etablissement_url).to_return(body: file_fixture('api_entreprise_effectifs_etablissement.json'))
+    stub_request(:get, effectif_entreprise_url).to_return(body: file_fixture('api_entreprise_effectifs_entreprise.json'))
+    stub_request(:get, opco_url).to_return(body: file_fixture('api_cfadock_opco.json'))
+    stub_request(:get, rcs_url).to_return(body: file_fixture('api_entreprise_rcs.json'))
+    stub_request(:get, rm_url).to_return(body: file_fixture('api_entreprise_rm.json'))
+    stub_request(:get, mandataires_url).to_return(body: file_fixture('api_entreprise_mandataires_sociaux.json'))
+  end
 
   describe 'GET #show_with_siret' do
     context 'when the api is up' do
-      before do
-        ENV['API_ENTREPRISE_TOKEN'] = token
-        stub_request(:get, etablissement_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
-        stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_entreprise.json'))
-        stub_request(:get, effectif_etablissement_url).to_return(body: file_fixture('api_entreprise_effectifs_etablissement.json'))
-        stub_request(:get, effectif_entreprise_url).to_return(body: file_fixture('api_entreprise_effectifs_entreprise.json'))
-        stub_request(:get, opco_url).to_return(body: file_fixture('api_cfadock_opco.json'))
-        stub_request(:get, rcs_url).to_return(body: file_fixture('api_entreprise_rcs.json'))
-        stub_request(:get, rm_url).to_return(body: file_fixture('api_entreprise_rm.json'))
-      end
-
       it do
         get :show_with_siret, params: { siret: siret }
         expect(response).to be_successful
@@ -40,7 +45,6 @@ RSpec.describe CompaniesController do
     context 'when the api is down' do
       before do
         body = file_fixture('api_entreprise_500.json').read
-        ENV['API_ENTREPRISE_TOKEN'] = token
         stub_request(:get, etablissement_url).to_return(status: 502, body: body)
       end
 
@@ -54,17 +58,6 @@ RSpec.describe CompaniesController do
   describe 'GET #show' do
     let(:facility) { create :facility, siret: siret }
 
-    before do
-      ENV['API_ENTREPRISE_TOKEN'] = token
-      stub_request(:get, etablissement_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
-      stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
-      stub_request(:get, effectif_etablissement_url).to_return(body: file_fixture('api_entreprise_effectifs_etablissement.json'))
-      stub_request(:get, effectif_entreprise_url).to_return(body: file_fixture('api_entreprise_effectifs_entreprise.json'))
-      stub_request(:get, opco_url).to_return(body: file_fixture('api_cfadock_opco.json'))
-      stub_request(:get, rcs_url).to_return(body: file_fixture('api_entreprise_rcs.json'))
-      stub_request(:get, rm_url).to_return(body: file_fixture('api_entreprise_rm.json'))
-    end
-
     it do
       get :show, params: { id: facility.id }
       expect(response).to be_successful
@@ -72,11 +65,6 @@ RSpec.describe CompaniesController do
   end
 
   describe 'GET #search' do
-    before do
-      ENV['API_ENTREPRISE_TOKEN'] = token
-      stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
-    end
-
     it do
       get :search, params: { query: siren }
       expect(response).to be_successful
