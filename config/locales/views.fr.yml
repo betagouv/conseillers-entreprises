@@ -193,6 +193,7 @@ fr:
       nom: Nom
       personne_morale: Personne morale
       raison_sociale: Raison Sociale
+      date_naissance: Date de naissance
     needs:
       back_to_company: Voir la fiche entreprise
       company_contacts_needs: 'Liste des besoins pour les contacts de cette entreprise :'

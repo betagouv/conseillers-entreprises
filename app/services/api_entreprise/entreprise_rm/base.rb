@@ -26,7 +26,7 @@ module ApiEntreprise::EntrepriseRm
 
   class Responder < ApiEntreprise::Responder
     def format_data
-      { "rm" => @http_request.data }
+      { "rm" => @http_request.data['data'] }
     end
   end
 end

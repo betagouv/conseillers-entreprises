@@ -18,7 +18,8 @@ module ApiConsumption::Models
         :date_creation,
         :rcs,
         :rm,
-        :effectifs
+        :effectifs,
+        :mandataires_sociaux
       ]
     end
 
@@ -81,7 +82,7 @@ module ApiConsumption::Models
       [raison_sociale, sigle].compact.join(" - ")
     end
 
-    def personne_physique_namepersonne_physique_attributs
+    def personne_physique_name
       prenom = personne_physique_attributs["prenom_usuel"]
       nom = personne_physique_attributs["nom_usage"]
       [prenom, nom].compact.join(" ")

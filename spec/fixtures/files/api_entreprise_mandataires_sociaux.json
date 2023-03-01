@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "data": {
+        "fonction": "PRESIDENT",
+        "nom": "ROUX",
+        "type": "personne_physique",
+        "prenom": "OLIVIER",
+        "date_naissance": "1980-07-09",
+        "date_naissance_timestamp": 331941600,
+        "lieu_naissance": "PARIS",
+        "pays_naissance": "FRANCE",
+        "code_pays_naissance": "FR",
+        "nationalite": "FRANCAISE",
+        "code_nationalite": "FR"
+      },
+      "links": {},
+      "meta": {}
+    },
+    {
+      "data": {
+        "numero_identification": null,
+        "type": "personne_morale",
+        "fonction": "COMMISSAIRE AUX COMPTES TITULAIRE",
+        "raison_sociale": "KPMG - SOCIETE ANONYME",
+        "code_greffe": null,
+        "libelle_greffe": null
+      },
+      "links": {},
+      "meta": {}
+    }
+  ],
+  "meta": {
+    "personnes_physiques_count": 1,
+    "personnes_morales_count": 1,
+    "count": 2
+  },
+  "links": {}
+}

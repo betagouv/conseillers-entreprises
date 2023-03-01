@@ -5,6 +5,7 @@ module ApiConsumption::Agregators
       api_entreprise_effectifs_mensuels: ApiEntreprise::EntrepriseEffectifMensuel::Base,
       api_entreprise_rcs: ApiEntreprise::EntrepriseRcs::Base,
       api_entreprise_rm: ApiEntreprise::EntrepriseRm::Base,
+      api_entreprise_mandataires_sociaux: ApiEntreprise::EntrepriseMandatairesSociaux::Base,
     }
 
     def initialize(siren, options = {})
@@ -30,7 +31,7 @@ module ApiConsumption::Agregators
     end
 
     def request_keys
-      @options&.dig(:request_keys) || [:api_entreprise_effectifs_mensuels, :api_entreprise_rcs, :api_entreprise_rm]
+      @options&.dig(:request_keys) || [:api_entreprise_effectifs_mensuels, :api_entreprise_rcs, :api_entreprise_rm, :api_entreprise_mandataires_sociaux]
     end
 
     def requests
