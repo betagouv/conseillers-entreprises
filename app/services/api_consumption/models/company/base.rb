@@ -1,5 +1,5 @@
 module ApiConsumption::Models
-  class Company < Base
+  class Company::Base < Base
     def name
       raise 'mising'
     end

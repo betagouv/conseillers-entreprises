@@ -1,5 +1,5 @@
 module ApiConsumption::Models
-  class Company::ApiEntreprise < Company
+  class Company::ApiEntreprise < Company::Base
     def self.fields
       [
         :siren,

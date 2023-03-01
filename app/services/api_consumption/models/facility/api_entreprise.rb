@@ -1,5 +1,5 @@
 module ApiConsumption::Models
-  class Facility::ApiEntreprise < Facility
+  class Facility::ApiEntreprise < Facility::Base
     def self.fields
       [
         :siret,

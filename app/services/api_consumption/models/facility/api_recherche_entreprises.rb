@@ -1,5 +1,5 @@
 module ApiConsumption::Models
-  class Facility::ApiRechercheEntreprises < Facility
+  class Facility::ApiRechercheEntreprises < Facility::Base
     def self.fields
       [
         :activite_principale,

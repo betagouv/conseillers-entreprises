@@ -1,5 +1,5 @@
 module ApiConsumption::Models
-  class Facility < Base
+  class Facility::Base < Base
     def insee_code
       raise 'missing'
     end
