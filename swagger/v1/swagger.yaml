@@ -42,11 +42,11 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 1357
+                    - id: 33
                       title: Recruter un ou plusieurs salariés
                       slug: recruter
-                      landing_id: 1304
-                      landing_theme_id: 1323
+                      landing_id: 34
+                      landing_theme_id: 38
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>S’informer sur les aides à l'embauche
                         des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
@@ -59,23 +59,24 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles:
-                      - id: 329
+                      - id: 25
                         key: recrutement_poste_cadre
                         position: 1
-                        question: Souhaitez-vous recruter sur un poste de cadre ?
+                        question: Souhaitez-vous recruter sur un poste d’expert, de
+                          spécialiste ou d’encadrement ?
                         question_type: boolean
-                      - id: 330
+                      - id: 26
                         key: recrutement_en_apprentissage
                         position: 2
                         question: Souhaitez-vous recruter en apprentissage ?
                         question_type: boolean
                       institutions_partenaires:
-                      - CCI
-                    - id: 1358
+                      - Chambre de Commerce et d'Industrie (CCI)
+                    - id: 34
                       title: Mettre en place un projet de formation
                       slug: former
-                      landing_id: 1304
-                      landing_theme_id: 1323
+                      landing_id: 34
+                      landing_theme_id: 38
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>Choisir la bonne formation</li><li>Trouver
                         votre OPCO, financer la formation</li><li>Mettre en place
@@ -134,11 +135,11 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 1360
+                      id: 36
                       title: Recruter un ou plusieurs salariés
                       slug: recruter
-                      landing_id: 1306
-                      landing_theme_id: 1325
+                      landing_id: 36
+                      landing_theme_id: 40
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>S’informer sur les aides à l'embauche
                         des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
@@ -151,18 +152,19 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles:
-                      - id: 331
+                      - id: 27
                         key: recrutement_poste_cadre
                         position: 1
-                        question: Souhaitez-vous recruter sur un poste de cadre ?
+                        question: Souhaitez-vous recruter sur un poste d’expert, de
+                          spécialiste ou d’encadrement ?
                         question_type: boolean
-                      - id: 332
+                      - id: 28
                         key: recrutement_en_apprentissage
                         position: 2
                         question: Souhaitez-vous recruter en apprentissage ?
                         question_type: boolean
                       institutions_partenaires:
-                      - CCI
+                      - Chambre de Commerce et d'Industrie (CCI)
               schema:
                 type: object
                 properties:
@@ -229,11 +231,11 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 1366
+                      id: 42
                       title: Recruter un ou plusieurs salariés
                       slug: recruter
-                      landing_id: 1309
-                      landing_theme_id: 1328
+                      landing_id: 39
+                      landing_theme_id: 43
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>S’informer sur les aides à l'embauche
                         des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
@@ -246,19 +248,20 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles:
-                      - id: 337
+                      - id: 33
                         key: recrutement_poste_cadre
                         position: 1
-                        question: Souhaitez-vous recruter sur un poste de cadre ?
+                        question: Souhaitez-vous recruter sur un poste d’expert, de
+                          spécialiste ou d’encadrement ?
                         question_type: boolean
-                      - id: 338
+                      - id: 34
                         key: recrutement_en_apprentissage
                         position: 2
                         question: Souhaitez-vous recruter en apprentissage ?
                         question_type: boolean
                       institutions_partenaires:
-                      - CCI
-                      - OPCO
+                      - Chambre de Commerce et d'Industrie (CCI)
+                      - OPérateur de COmpétences (OPCO)
               schema:
                 type: object
                 properties:
@@ -289,7 +292,7 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 1329
+                    - id: 44
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -297,11 +300,11 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 1368
+                      - id: 44
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_id: 1310
-                        landing_theme_id: 1329
+                        landing_id: 40
+                        landing_theme_id: 44
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -312,11 +315,11 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 1369
+                      - id: 45
                         title: Gestion de l’eau
                         slug: eau
-                        landing_id: 1310
-                        landing_theme_id: 1329
+                        landing_id: 40
+                        landing_theme_id: 44
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -329,7 +332,7 @@ paths:
                           en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                    - id: 1331
+                    - id: 46
                       title: Recruter ou former vos salariés, améliorer l’organisation
                         du travail
                       slug: recrutement-formation
@@ -382,7 +385,7 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 1334
+                      id: 49
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -390,11 +393,11 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 1374
+                      - id: 50
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_id: 1313
-                        landing_theme_id: 1334
+                        landing_id: 43
+                        landing_theme_id: 49
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -405,11 +408,11 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 1375
+                      - id: 51
                         title: Gestion de l’eau
                         slug: eau
-                        landing_id: 1313
-                        landing_theme_id: 1334
+                        landing_id: 43
+                        landing_theme_id: 49
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -451,19 +454,19 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 1314
+                    - id: 44
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com
                       landing_themes:
-                      - id: 1335
+                      - id: 50
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 1336
+                      - id: 51
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -528,19 +531,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 1317
+                      id: 47
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com
                       landing_themes:
-                      - id: 1341
+                      - id: 56
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 1342
+                      - id: 57
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -615,19 +618,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 1320
+                      id: 50
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com
                       landing_themes:
-                      - id: 1347
+                      - id: 62
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 1348
+                      - id: 63
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -666,8 +669,8 @@ paths:
                   value:
                     data:
                       institutions_partenaires:
-                      - CCI
-                      - OPCO
+                      - Chambre de Commerce et d'Industrie (CCI)
+                      - OPérateur de COmpétences (OPCO)
               schema:
                 type: object
                 properties:
