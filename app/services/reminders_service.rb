@@ -26,7 +26,7 @@ class RemindersService
       :many_pending_needs
     # Panier entre 2 et 5 besoins en attentes dont 2 superieur à 15 jours
     elsif (old_needs.size >= RemindersRegister::MATCHES_COUNT[:quo]) &&
-               (quo_active_matches_size >= RemindersRegister::MATCHES_COUNT[:medium]) &&
+               (quo_active_matches_size > RemindersRegister::MATCHES_COUNT[:medium]) &&
                (quo_active_matches_size <= RemindersRegister::MATCHES_COUNT[:many])
       :medium_pending_needs
     # Panier avec un besoin en attente et le dernier besoin cloturé est vieux de 3 mois
