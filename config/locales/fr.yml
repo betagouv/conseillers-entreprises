@@ -11,6 +11,9 @@ fr:
       not_found: n’existe pas ou est invalide
       parameter_missing: le paramètre est manquant
       unrecognized: malformés ou inconnus
+      parsing:
+        source: Erreur de parsing
+        message: Les données envoyées sont mal formattées
     query_parameters: paramètres de requête
   api_requests:
     blank_query: Champs de recherche vide
@@ -41,7 +44,7 @@ fr:
     - ven
     - sam
     abbr_month_names:
-    - 
+    -
     - jan.
     - fév.
     - mar.
@@ -70,7 +73,7 @@ fr:
       month_name: "%B"
       short: "%e %b"
     month_names:
-    - 
+    -
     - janvier
     - février
     - mars

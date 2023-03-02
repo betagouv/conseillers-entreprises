@@ -31,6 +31,12 @@ class Api::V1::BaseController < ActionController::API
     render_error_payload(errors: errors, status: 404)
   end
 
+  def parsing_error(e)
+    render_error_payload(errors: [
+      { source: I18n.t('api_pde.errors.parsing.source'), message: I18n.t('api_pde.errors.parsing.message') }
+    ])
+  end
+
   def current_institution
     @current_institution
   end

@@ -12,6 +12,8 @@ class Api::V1::SolicitationsController < Api::V1::BaseController
     rescue ActionController::ParameterMissing => e
       errors = [{ source: e.param, message: I18n.t('api_pde.errors.parameter_missing') }]
       render_error_payload(errors: errors, status: :bad_request)
+    rescue ActionDispatch::Http::Parameters::ParseError => e
+      parsing_error(e)
     rescue Exception => e
       errors = [{ source: e.class.name, message: e.message }]
       render_error_payload(errors: errors, status: :unprocessable_entity)
