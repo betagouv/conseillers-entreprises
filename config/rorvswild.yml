@@ -25,6 +25,3 @@ production:
 
 development:
   widget: bottom-right
-
-production:
-  api_key: API_KEY
