@@ -206,6 +206,15 @@ fr:
         full_name: Prénom et Nom de la personne rencontrée
         job: Fonction de la personne rencontrée
         phone_number: Numéro de téléphone de la personne rencontrée
+      email_retention:
+        email_subject: Sujet de l’email
+        first_paragraph: Premier paragraphe
+        first_subject: Premier sujet proposé
+        first_subject_label: Texte du bouton du premier sujet
+        second_subject: Deuxième sujet proposé
+        second_subject_label: Texte du bouton du deuxième sujet
+        subject: Sujet initial
+        waiting_time: délai (en mois)
       expert:
         full_name: Nom de l’équipe
         is_global_zone: Global
