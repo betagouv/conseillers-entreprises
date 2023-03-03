@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_30_094948) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_01_154133) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -498,6 +498,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_30_094948) do
     t.index ["need_id"], name: "index_reminders_actions_on_need_id"
   end
 
+  create_table "reminders_registers", force: :cascade do |t|
+    t.integer "category", default: 0, null: false
+    t.integer "basket"
+    t.bigint "expert_id", null: false
+    t.boolean "processed", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expert_id"], name: "index_reminders_registers_on_expert_id"
+  end
+
   create_table "searches", id: :serial, force: :cascade do |t|
     t.string "query", null: false
     t.bigint "user_id", null: false
@@ -664,6 +674,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_30_094948) do
   add_foreign_key "needs", "subjects"
   add_foreign_key "quarterly_reports", "antennes"
   add_foreign_key "reminders_actions", "needs"
+  add_foreign_key "reminders_registers", "experts"
   add_foreign_key "searches", "users"
   add_foreign_key "solicitations", "institutions"
   add_foreign_key "solicitations", "landing_subjects"

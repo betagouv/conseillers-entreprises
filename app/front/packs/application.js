@@ -17,7 +17,7 @@
 // Compatibilité navigateurs anciens dont IE11
 import "core-js/stable";
 import "whatwg-fetch";
-// Prevent Turbo to be load twice
+// Prevent Turbo to be loaded twice
 if (!window.Turbo) {
   import("@hotwired/turbo-rails");
 }

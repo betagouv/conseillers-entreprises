@@ -10,6 +10,9 @@ fr:
     errors:
       not_found: n’existe pas ou est invalide
       parameter_missing: le paramètre est manquant
+      parsing:
+        message: Les données envoyées sont mal formattées
+        source: Erreur de parsing
       unrecognized: malformés ou inconnus
     query_parameters: paramètres de requête
   api_requests:

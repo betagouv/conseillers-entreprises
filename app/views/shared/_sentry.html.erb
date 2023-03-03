@@ -1,7 +1,10 @@
 <%= javascript_tag nonce: true do -%>
   Sentry.init({
     dsn: "<%= ENV['SENTRY_DSN'] %>",
-    ignoreErrors: ['Non-Error promise rejection captured'],
-    tracesSampleRate: .3
+    ignoreErrors: [
+      'Non-Error promise rejection captured'
+    ],
+    tracesSampleRate: .3,
+    send_modules: false
   });
 <% end -%>

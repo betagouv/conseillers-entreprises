@@ -34,7 +34,7 @@ module ApiSpecHelper
       description_explanation: "<ul><li>le type de poste</li><li>si l'offre est déjà connue de Pôle emploi</li><li>si vous envisagez de recruter une personne en situation de handicap</li></ul>",
       requires_siret: true,
       requires_requested_help_amount: false)
-    cci = create(:institution, name: 'CCI', logo: Logo.create(filename: 'cci', name: 'Cci'))
+    cci = create(:institution, name: "Chambre de Commerce et d'Industrie (CCI)", logo: Logo.create(filename: 'cci', name: 'Cci'))
     cci.institutions_subjects.create(subject: recrutement_subject.subject)
     recrutement_subject
   end
