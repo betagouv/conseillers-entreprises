@@ -92,7 +92,6 @@ Rails.application.configure do
       password: ENV['SENDINBLUE_SMTP_KEY'],
       address: 'smtp-relay.sendinblue.com',
       port: '587',
-      tls: true,
       authentication: 'cram_md5'
     }
   elsif ENV['MAILTRAP_USER_NAME'].present? && ENV['FEATURE_SEND_STAGING_EMAILS'].to_b
