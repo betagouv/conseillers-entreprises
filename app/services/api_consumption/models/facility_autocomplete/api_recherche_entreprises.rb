@@ -1,19 +1,18 @@
 module ApiConsumption::Models
   class FacilityAutocomplete::ApiRechercheEntreprises < FacilityAutocomplete::Base
+    def self.fields
+      [
+        :entreprise,
+        :etablissement_siege,
+      ]
+    end
+
     def company
       ApiConsumption::Models::Company::ApiRechercheEntreprises.new(entreprise)
     end
 
     def facility
       ApiConsumption::Models::Facility::ApiRechercheEntreprises.new(etablissement_siege)
-    end
-
-    def lieu
-      @lieu ||= facility&.readable_locality
-    end
-
-    def code_region
-      @code_region ||= facility&.code_region
     end
 
     def nombre_etablissements_ouverts

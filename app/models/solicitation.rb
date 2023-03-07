@@ -222,10 +222,9 @@ class Solicitation < ApplicationRecord
     # Solicitation with a valid SIRET
     if FormatSiret.siret_is_valid(siret_or_siren)
       begin
-        etablissement_data = ApiEntreprise::Etablissement::Base.new(siret_or_siren).call
-        return params if etablissement_data.blank?
-        params[:code_region] = ApiConsumption::Models::Facility::ApiEntreprise.new(etablissement_data).code_region
-        params[:siret] = siret_or_siren
+        etablissement_data = ApiConsumption::Facility.new(siret_or_siren, { request_keys: [] }).call
+        params[:code_region] = etablissement_data.code_region
+        params[:siret] = etablissement_data.siret
       rescue ApiEntreprise::ApiEntrepriseError => e
         return params
       end

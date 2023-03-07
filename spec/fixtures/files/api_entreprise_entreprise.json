@@ -1,0 +1,52 @@
+{
+  "data": {
+    "siren": "418166096",
+    "siret_siege_social": "41816609600069",
+    "categorie_entreprise": "GE",
+    "diffusable_commercialement": true,
+    "type": "personne_morale",
+    "personne_morale_attributs": {
+      "raison_sociale": "OCTO-TECHNOLOGY",
+      "sigle": null
+    },
+    "personne_physique_attributs": {
+      "pseudonyme": null,
+      "prenom_usuel": null,
+      "prenom_1": null,
+      "prenom_2": null,
+      "prenom_3": null,
+      "prenom_4": null,
+      "nom_usage": null,
+      "nom_naissance": null,
+      "sexe": null
+    },
+    "forme_juridique": {
+      "code": "5710",
+      "libelle": "SAS, société par actions simplifiée"
+    },
+    "activite_principale": {
+      "code": "62.02A",
+      "nomenclature": "NAFRev2",
+      "libelle": "Conseil en systèmes et logiciels informatiques"
+    },
+    "tranche_effectif_salarie": {
+      "de": 500,
+      "a": 999,
+      "code": "41",
+      "date_reference": "2020",
+      "intitule": "500 à 999 salariés"
+    },
+    "etat_administratif": "A",
+    "economie_sociale_et_solidaire": false,
+    "date_cessation": null,
+    "date_creation": 891381600
+  },
+  "links": {
+    "siege_social": "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/41816609600069",
+    "siege_social_adresse": "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/41816609600069/adresse"
+  },
+  "meta": {
+    "date_derniere_mise_a_jour": 1661724000,
+    "redirect_from_siren": null
+  }
+}

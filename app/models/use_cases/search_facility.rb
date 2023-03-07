@@ -33,7 +33,7 @@ module UseCases
         facility.update!(
           company: company,
           commune: api_facility.commune,
-          naf_code: api_facility.naf,
+          naf_code: api_facility.naf_code,
           readable_locality: api_facility.readable_locality,
           code_effectif: api_facility.code_effectif,
           effectif: api_facility.effectif,

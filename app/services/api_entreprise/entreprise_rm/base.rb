@@ -17,20 +17,16 @@ module ApiEntreprise::EntrepriseRm
   end
 
   class Request < ApiEntreprise::Request
-    def error_message
-      @error&.message || @data['error'] || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
-    end
-
     private
 
     def url_key
-      @url_key ||= 'entreprises_artisanales_cma/'
+      @url_key ||= 'cma_france/rnm/unites_legales/'
     end
   end
 
   class Responder < ApiEntreprise::Responder
     def format_data
-      { "rm" => @http_request.data }
+      { "rm" => @http_request.data['data'] }
     end
   end
 end

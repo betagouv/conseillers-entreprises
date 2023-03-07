@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ApiEntreprise::EntrepriseRcs
+module ApiEntreprise::EntrepriseMandatairesSociaux
   class Base < ApiEntreprise::Base
     def request
       Request.new(@siren_or_siret, @options)
@@ -12,7 +12,7 @@ module ApiEntreprise::EntrepriseRcs
 
     # Retourne hash vide en cas d'erreur
     def handle_error(http_request)
-      return { "rcs" => { "error" => http_request.error_message } }
+      return { "mandataires sociaux" => { "error" => http_request.error_message } }
     end
   end
 
@@ -23,14 +23,15 @@ module ApiEntreprise::EntrepriseRcs
       @url_key ||= 'infogreffe/rcs/unites_legales/'
     end
 
+    # infogreffe/rcs/unites_legales/{siren}/mandataires_sociaux
     def specific_url
-      @specific_url ||= "#{url_key}#{@siren_or_siret}/extrait_kbis"
+      @specific_url ||= "#{url_key}#{@siren_or_siret}/mandataires_sociaux"
     end
   end
 
   class Responder < ApiEntreprise::Responder
     def format_data
-      { "rcs" => @http_request.data['data'] }
+      { "mandataires_sociaux" => @http_request.data['data'] }
     end
   end
 end

@@ -1,10 +1,10 @@
 module ApiConsumption::Agregators
   class Facility
-    REQUESTS = [
-      ApiEntreprise::Etablissement::Base,
-      ApiEntreprise::EtablissementEffectifMensuel::Base,
-      ApiCfadock::Opco
-    ]
+    REQUESTS = {
+      api_entreprise_etablissement: ApiEntreprise::Etablissement::Base,
+      api_entreprise_effectifs: ApiEntreprise::EtablissementEffectifMensuel::Base,
+      opco: ApiCfadock::Opco
+    }
 
     def initialize(siret, options = {})
       @siret = siret
@@ -12,10 +12,28 @@ module ApiConsumption::Agregators
     end
 
     def item_params
-      REQUESTS.each_with_object({}) do |request, hash|
+      requests.each_with_object(base_hash.with_indifferent_access) do |request, hash|
         response = request.new(@siret).call
-        hash.deep_merge! response
+        hash["etablissement"].deep_merge! response
       end
+    end
+
+    private
+
+    def base_key
+      @options&.dig(:base_key) || :api_entreprise_etablissement
+    end
+
+    def base_hash
+      @base_hash ||= REQUESTS[base_key].new(@siret).call
+    end
+
+    def request_keys
+      @options&.dig(:request_keys) || [:api_entreprise_effectifs, :opco]
+    end
+
+    def requests
+      REQUESTS.select{ |k,v| request_keys.include?(k) }.values
     end
   end
 end

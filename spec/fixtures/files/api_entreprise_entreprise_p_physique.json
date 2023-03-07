@@ -1,0 +1,49 @@
+{
+  "data": {
+    "siren": "900432394",
+    "siret_siege_social": "90043239400030",
+    "categorie_entreprise": null,
+    "diffusable_commercialement": true,
+    "type": "personne_physique",
+    "personne_morale_attributs": { "raison_sociale": null, "sigle": null },
+    "personne_physique_attributs": {
+      "pseudonyme": null,
+      "prenom_usuel": "LUDIVINE",
+      "prenom_1": "LUDIVINE",
+      "prenom_2": null,
+      "prenom_3": null,
+      "prenom_4": null,
+      "nom_usage": null,
+      "nom_naissance": "BACLET",
+      "sexe": "F"
+    },
+    "forme_juridique": {
+      "code": "1000",
+      "libelle": "Entrepreneur individuel"
+    },
+    "activite_principale": {
+      "code": "82.11Z",
+      "nomenclature": "NAFRev2",
+      "libelle": "Services administratifs combinés de bureau"
+    },
+    "tranche_effectif_salarie": {
+      "de": null,
+      "a": null,
+      "code": null,
+      "date_reference": null,
+      "intitule": null
+    },
+    "etat_administratif": "A",
+    "economie_sociale_et_solidaire": null,
+    "date_cessation": null,
+    "date_creation": 1623708000
+  },
+  "links": {
+    "siege_social": "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/90043239400030",
+    "siege_social_adresse": "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/90043239400030/adresse"
+  },
+  "meta": {
+    "date_derniere_mise_a_jour": 1646434800,
+    "redirect_from_siren": null
+  }
+}
