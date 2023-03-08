@@ -34,7 +34,7 @@ describe RemindersService do
       end
 
       describe 'input category' do
-        it { expect(RemindersRegister.current_input_category.map(&:expert)).to match_array [expert_input] }
+        it { expect(RemindersRegister.current_input_category.map(&:expert)).to match_array [expert_input, expert_remainder_not_processed] }
       end
 
       describe 'output category' do

@@ -40,7 +40,7 @@ RSpec.describe Reminders::ExpertsController do
     describe '#GET inputs' do
       before { get :inputs }
 
-      it { expect(assigns(:active_experts)).to match_array([expert_input]) }
+      it { expect(assigns(:active_experts)).to match_array([expert_input, expert_remainder_not_processed]) }
     end
 
     describe '#GET outputs' do

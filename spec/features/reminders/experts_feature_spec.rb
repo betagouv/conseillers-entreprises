@@ -39,7 +39,7 @@ describe 'reminders experts', js: true do
       expect(page.html).to include 'Relances'
       expect(page.html).to include 'Par expert'
       page.click_link(href: "/relances/experts/arrivees")
-      expect(page).to have_css('.card', count: 1)
+      expect(page).to have_css('.card', count: 2)
       expect(page).to be_accessible
       page.click_link(href: "/relances/experts/departs")
       expect(page).to have_css('.card', count: 1)
