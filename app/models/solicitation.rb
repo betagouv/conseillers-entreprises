@@ -449,7 +449,8 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid mtm_campaign mtm_kwd api_calling_url relaunch]
+  MATOMO_KEYS = %i[pk_campaign pk_kwd mtm_campaign mtm_kwd]
+  FORM_INFO_KEYS = MATOMO_KEYS + %i[gclid api_calling_url relaunch]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##
