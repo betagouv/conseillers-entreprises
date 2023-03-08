@@ -43,5 +43,5 @@ class RemindersRegister < ApplicationRecord
     .distinct
 }
   scope :current_input_category, -> { input_category.where(created_at: TIME_GENERATION.ago.., processed: false) }
-  scope :current_output_category, -> { output_category.where(created_at: TIME_GENERATION.ago..) }
+  scope :current_output_category, -> { output_category.where(processed: false) }
 end

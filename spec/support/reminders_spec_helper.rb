@@ -77,8 +77,18 @@ module RemindersSpecHelper
     let!(:expert_input_processed_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :quo, expert: expert_input_processed } }
 
     # Expert sortant pas vu
+    let!(:expert_output_not_seen) { create :expert_with_users }
+    let!(:rg_expert_output_not_seen) { create :reminders_register, created_at: RemindersRegister::TIME_GENERATION.ago, expert: expert_output_not_seen }
+    let!(:expert_output_not_seen_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :done, expert: expert_output_not_seen } }
+
+    # Expert sortant present depuis longtemps pas vu
+    let!(:old_expert_output_not_seen) { create :expert_with_users }
+    let!(:rg_old_expert_output_not_seen) { create :reminders_register, created_at: 1.month.ago, category: :output, expert: old_expert_output_not_seen }
+    let!(:old_expert_output_not_seen_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :done, expert: old_expert_output_not_seen } }
+
+    # Expert sortant vu
     let!(:expert_output) { create :expert_with_users }
-    let!(:rg_expert_output) { create :reminders_register, created_at: RemindersRegister::TIME_GENERATION.ago, expert: expert_output }
+    let!(:rg_expert_output) { create :reminders_register, created_at: RemindersRegister::TIME_GENERATION.ago, expert: expert_output, processed: true }
     let!(:expert_output_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :done, expert: expert_output } }
   end
 end

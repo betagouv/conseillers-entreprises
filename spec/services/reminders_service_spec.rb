@@ -38,7 +38,7 @@ describe RemindersService do
       end
 
       describe 'output category' do
-        it { expect(RemindersRegister.current_output_category.map(&:expert)).to match_array [expert_output] }
+        it { expect(RemindersRegister.current_output_category.map(&:expert)).to match_array [expert_output_not_seen, old_expert_output_not_seen] }
       end
     end
   end

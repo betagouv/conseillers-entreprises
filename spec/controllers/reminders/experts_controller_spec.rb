@@ -46,7 +46,7 @@ RSpec.describe Reminders::ExpertsController do
     describe '#GET outputs' do
       before { get :outputs }
 
-      it { expect(assigns(:active_experts)).to match_array([expert_output]) }
+      it { expect(assigns(:active_experts)).to match_array([expert_output_not_seen, old_expert_output_not_seen]) }
     end
   end
 end

@@ -55,7 +55,7 @@ class RemindersService
   end
 
   def self.build_output_basket(experts)
-    last_week_reminders_registers = RemindersRegister.where(created_at: 8.days.ago..)
+    last_week_reminders_registers = RemindersRegister.where(created_at: 8.days.ago.., processed: false)
     Expert.where(id: last_week_reminders_registers.map(&:expert).pluck(:id)).where.not(id: experts.ids).each do |expert|
       RemindersRegister.create!(expert: expert, category: :output)
     end
