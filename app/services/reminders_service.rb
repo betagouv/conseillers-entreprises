@@ -2,7 +2,7 @@
 
 class RemindersService
   def self.create_reminders_registers
-    experts_with_quo_needs = Expert.with_active_matches
+    experts_with_quo_needs = Expert.not_deleted.with_active_matches
     ActiveRecord::Base.transaction do
       experts_with_quo_needs.each do |expert|
         basket = select_basket(expert)
@@ -39,13 +39,13 @@ class RemindersService
   def self.select_category(expert)
     # S'il n'y a pas de reminders_register la semaine passée ou qu'il y en a un pas vu
     if (expert.reminders_registers.blank? || (expert.reminders_registers.last.present? &&
-      !expert.reminders_registers.last.created_at.between?(8.days.ago, Time.zone.now))) ||
-      (expert.reminders_registers.last.present? && expert.reminders_registers.last.created_at.between?(8.days.ago, Time.zone.now) &&
+      !expert.reminders_registers.last.created_at.between?(13.hours.ago, Time.zone.now))) ||
+      (expert.reminders_registers.last.present? && expert.reminders_registers.last.created_at.between?(13.hours.ago, Time.zone.now) &&
         !expert.reminders_registers.last.processed?)
       :input
     # Si il y a deja un reminders_register datant de la semaine passée et qu'il est vu
     elsif expert.reminders_registers.last.present? &&
-      expert.reminders_registers.last.created_at.between?(8.days.ago, Time.zone.now)
+      expert.reminders_registers.last.created_at.between?(13.hours.ago, Time.zone.now)
       :remainder
     end
   end
@@ -55,7 +55,7 @@ class RemindersService
   end
 
   def self.build_output_basket(experts)
-    last_week_reminders_registers = RemindersRegister.where(created_at: 8.days.ago.., processed: false)
+    last_week_reminders_registers = RemindersRegister.where(created_at: 13.hours.ago.., processed: false)
     Expert.where(id: last_week_reminders_registers.map(&:expert).pluck(:id)).where.not(id: experts.ids).each do |expert|
       RemindersRegister.create!(expert: expert, category: :output)
     end
