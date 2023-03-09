@@ -32,7 +32,7 @@ class RemindersRegister < ApplicationRecord
     medium: 2
   }
 
-  TIME_GENERATION = 1.week
+  TIME_GENERATION = 12.hours
 
   enum category: { remainder: 0, input: 1, output: 2 }, _suffix: true
   enum basket: { many_pending_needs: 0, medium_pending_needs: 1, one_pending_need: 2 }, _suffix: true
