@@ -93,7 +93,6 @@ class NeedsController < ApplicationController
       .where.not(id: @need.experts)
       .limit(20)
       .includes(:antenne, experts_subjects: :institution_subject)
-      byebug
   end
 
   def add_match
