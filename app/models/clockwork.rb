@@ -54,7 +54,6 @@ module Clockwork
     every(1.day, 'send_quarterly_reports_emails', at: '08:00', if: -> (t) { t.day == 15 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
       QuarterlyReportService.delay(queue: :low_priority).send_emails
     end
-    every(1.day, 'reminders_registers', at: '00:00') { RemindersService.create_reminders_registers }
-    every(1.day, 'reminders_registers', at: '12:00') { RemindersService.create_reminders_registers }
+    every(1.day, 'reminders_registers', :at => ['01:00', '13:00']) { RemindersService.delay(queue: :low_priority).create_reminders_registers }
   end
 end
