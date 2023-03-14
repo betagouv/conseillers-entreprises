@@ -196,6 +196,14 @@ class Expert < ApplicationRecord
     reminders_registers.order(:created_at).last
   end
 
+  def input_register
+    reminders_registers.current_input_category.first
+  end
+
+  def output_register
+    reminders_registers.current_output_category.first
+  end
+
   ## Team stuff
   def personal_skillset?
     users.size == 1 &&

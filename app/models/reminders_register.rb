@@ -40,4 +40,8 @@ class RemindersRegister < ApplicationRecord
   def self.last_run_number
     RemindersRegister.pluck(:run_number).max
   end
+
+  def current_reminder_register
+    expert.reminders_registers.current_input_category.first
+  end
 end
