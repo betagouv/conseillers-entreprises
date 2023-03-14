@@ -397,6 +397,13 @@ class Solicitation < ApplicationRecord
 
   scope :banned, -> { where(banned: true) }
 
+  def self.apply_filters(params)
+    klass = self
+    klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
+    klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
+    klass.all
+  end
+
   def doublon_solicitations
     Solicitation.where(status: [:in_progress])
       .where.not(id: self.id)

@@ -3,29 +3,32 @@
 - content_for :header, render('header', title: t('.header', status: @status))
 - content_for :menu, render('menu', count: @count_solicitations)
 
-= form_with url: request.path, method: :get, skip_enforcing_utf8: true, data: { remote: 'false' }, class: 'fr-mb-2w' do
-  - options = { include_blank: t('all_choices'), class: 'fr-select' }
-  = label_tag(:territory, t('.filter'), class: 'fr-label')
-  = select_tag(:territory,
-  options_for_select(possible_territories_options, (params[:territory] || session[:s_territory])),
-  options.dup)
+= form_with url: request.path, method: :get, skip_enforcing_utf8: true, local: true, class: 'fr-mb-2w' do |f|
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col-md-6.fr-col-12
+      - options = { include_blank: t('all_choices'), class: 'fr-select' }
+      = f.label :by_region, t('attributes.region'), class: 'fr-label'
+      = f.select(:by_region,
+        options_for_select(possible_territories_options, sol_search_params[:by_region]),
+        options.dup, { class: 'fr-select' })
+    .fr-col-md-6.fr-col-12
+      .fr-input-group
+        = f.label :omnisearch, t('.omnisearch'), class: 'fr-label'
+        = f.search_field :omnisearch, value: sol_search_params[:omnisearch], class: 'fr-input', placeholder: t('.search_placeholder')
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col-md-6.fr-col-12
+      %p= collection_count @solicitations
+    .fr-col-md-6.fr-col-12.text-right
+      - if sol_search_params.present?
+        = link_to t('.clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
+      = f.submit t('.search'), class: 'fr-btn', title: t('.search')
 
-= form_with url: request.fullpath, method: :get, local: true do |f|
-  .fr-search-bar.fr-search-bar--lg#header-search{ role: 'search' }
-    = f.label :query, class: 'fr-label'
-    = f.search_field :query, value: session[:solicitations_query], class: 'fr-input', placeholder: t('.search_placeholder')
-    = f.submit t('.search'), class: 'fr-btn', title: t('.search')
-    .results
-  - if session[:solicitations_query].present?
-    = link_to t('.clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
-
-%p= collection_count @solicitations
 
 = paginate @solicitations
 
 - if @solicitations.present?
   = render(partial: 'solicitation', collection: @solicitations, cached: -> (solicitation) { [solicitation, Badge.all] })
-- elsif session[:solicitations_query].present?
+- elsif sol_search_params.present?
   = t('.no_result')
 - else
   .fr-container.fr-mt-10v

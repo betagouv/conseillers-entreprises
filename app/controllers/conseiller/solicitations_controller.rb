@@ -1,9 +1,6 @@
 class Conseiller::SolicitationsController < ApplicationController
-  include TerritoryFiltrable
-
+  before_action :authorize_index_solicitation, :persist_search_params, :set_category_content, :count_solicitations, only: [:index, :processed, :canceled]
   before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis, :ban_facility]
-  before_action :authorize_index_solicitation, :set_category_content, :setup_territory_filters, :set_session_query, :count_solicitations, only: [:index, :processed, :canceled]
-  before_action :authorize_update_solicitation, only: [:update_status]
 
   layout 'side_menu'
 
@@ -42,6 +39,7 @@ class Conseiller::SolicitationsController < ApplicationController
   end
 
   def update_status
+    authorize @solicitation, :update?
     status = params[:status]
     @solicitation.update(status: status)
     if @solicitation.valid?
@@ -86,18 +84,31 @@ class Conseiller::SolicitationsController < ApplicationController
   private
 
   def ordered_solicitations(status)
-    solicitations = Solicitation.where(status: status).order(:completed_at)
-    solicitations = solicitations.by_possible_region(territory_id) if territory_id.present?
-    solicitations.omnisearch(session[:solicitations_query]).distinct
-      .includes(:badge_badgeables, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne }, landing_subject: :subject, institution: :logo).page(params[:page])
+    Solicitation
+      .includes(:badge_badgeables, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne }, landing_subject: :subject, institution: :logo)
+      .where(status: status)
+      .apply_filters(sol_search_params)
+      .order(:completed_at)
+      .page(params[:page])
   end
+
+  def sol_search_params
+    session[:sol_search_params]&.with_indifferent_access
+  end
+  helper_method :sol_search_params
 
   def authorize_index_solicitation
     authorize Solicitation, :index?
   end
 
-  def authorize_update_solicitation
-    authorize @solicitation, :update?
+  def persist_search_params
+    session[:sol_search_params] ||= {}
+    search_params = params.slice(:omnisearch, :by_region).permit!
+    if params[:reset_query].present?
+      session[:sol_search_params] = {}
+    else
+      session[:sol_search_params] = session[:sol_search_params].merge(search_params)
+    end
   end
 
   def find_solicitation
@@ -123,18 +134,5 @@ class Conseiller::SolicitationsController < ApplicationController
       {
         in_progress: ordered_solicitations(:in_progress).total_count
       }
-  end
-
-  # nom de variable spécifique pour ne pas parasiter les autres filtres région
-  def territory_session_param
-    :s_territory
-  end
-
-  def set_session_query
-    session[:solicitations_query] = if params[:query].present?
-      params[:query]
-    elsif params[:reset_query].present?
-      ''
-    end
   end
 end

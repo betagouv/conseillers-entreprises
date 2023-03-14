@@ -232,9 +232,9 @@ fr:
         marked_as_unbanned: Email et entreprise ont été réintégrés
       index:
         clear_search: Réinitialiser la recherche
-        filter: Filtrer
         header: Sollicitations %{status}
         no_result: Il n'y a pas de résultat pour cette recherche.
+        omnisearch: Recherche libre (Tag, aide demandée...)
         search: Rechercher
         search_placeholder: Tag, aide demandée…
         title: Sollicitations
