@@ -88,6 +88,7 @@ class NeedsController < ApplicationController
     @query = params.require('query')&.strip
 
     @experts = Expert.omnisearch(@query)
+      .active
       .with_subjects
       .where.not(id: @need.experts)
       .limit(20)
