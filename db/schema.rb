@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_01_154133) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_13_104410) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -505,7 +505,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_01_154133) do
     t.boolean "processed", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "run_number", null: false
     t.index ["expert_id"], name: "index_reminders_registers_on_expert_id"
+    t.index ["run_number", "expert_id"], name: "index_reminders_registers_on_run_number_and_expert_id", unique: true
   end
 
   create_table "searches", id: :serial, force: :cascade do |t|

@@ -134,7 +134,7 @@ class Expert < ApplicationRecord
     joins(:received_quo_matches)
       .merge(Match
         .where(archived_at: nil)
-        .where(Match.arel_table[:created_at].lt(RemindersRegister::MATCHES_AGE[:quo]))
+        .where(Match.arel_table[:created_at].lt(RemindersService::MATCHES_AGE[:quo]))
         .joins(:need).where(need: { archived_at: nil }))
       .distinct
   end
@@ -194,6 +194,14 @@ class Expert < ApplicationRecord
 
   def last_reminder_register
     reminders_registers.order(:created_at).last
+  end
+
+  def input_register
+    reminders_registers.current_input_category.first
+  end
+
+  def output_register
+    reminders_registers.current_output_category.first
   end
 
   ## Team stuff
