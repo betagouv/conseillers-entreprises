@@ -401,7 +401,7 @@ class Solicitation < ApplicationRecord
     klass = self
     klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
     klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
-    klass.all
+    klass
   end
 
   def doublon_solicitations
