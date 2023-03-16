@@ -34,7 +34,7 @@ RSpec.describe SearchFacility::All do
         expect(data[0]["siren"]).to eq("418166096")
         expect(data[0]["nom"]).to eq("OCTO-TECHNOLOGY")
         expect(data[0]["activite"]).to eq("Conseil en systèmes et logiciels informatiques")
-        expect(data[0]["lieu"]).to eq("75002")
+        expect(data[0]["lieu"]).to eq("75002 PARIS 2")
         expect(data[0]["code_region"]).to eq("11")
         expect(data[0]["nombre_etablissements_ouverts"]).to eq(1)
       end
@@ -63,7 +63,7 @@ RSpec.describe SearchFacility::All do
         expect(data[0]["siren"]).to eq("418166096")
         expect(data[0]["nom"]).to eq("OCTO-TECHNOLOGY")
         expect(data[0]["activite"]).to eq("Conseil en systèmes et logiciels informatiques")
-        expect(data[0]["lieu"]).to eq("75002")
+        expect(data[0]["lieu"]).to eq("75002 PARIS 2")
         expect(data[0]["code_region"]).to eq("11")
         expect(data[0]["nombre_etablissements_ouverts"]).to eq(1)
       end
