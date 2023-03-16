@@ -13,7 +13,7 @@ class RemindersService
   }
 
   def self.create_reminders_registers
-    experts_with_active_matches = Expert.not_deleted.with_active_matches
+    experts_with_active_matches = Expert.not_deleted.with_users.with_active_matches
     last_run_number = RemindersRegister.last_run_number
     current_run = last_run_number + 1
     ActiveRecord::Base.transaction do
