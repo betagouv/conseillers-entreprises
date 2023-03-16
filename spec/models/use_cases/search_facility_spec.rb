@@ -50,6 +50,7 @@ describe UseCases::SearchFacility do
         expect(facility.naf_code).to eq '62.02A'
         expect(facility.code_effectif).to eq '32'
         expect(facility.opco).to eq opco
+        expect(facility.readable_locality).to eq '75002 PARIS 2'
       end
     end
 
