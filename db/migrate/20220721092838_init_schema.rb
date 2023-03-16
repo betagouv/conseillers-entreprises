@@ -1,16 +1,12 @@
-class InitSchema < ActiveRecord::Migration[5.0]
+class InitSchema < ActiveRecord::Migration[7.0]
   def up
     # These are extensions that must be enabled in order to support this database
     enable_extension "plpgsql"
-    create_enum :actions_categories, [
-      "poke",
-      "recall",
-      "warn",
-    ], force: :cascade
     create_enum :feedbacks_categories, [
       "need",
-      "reminder",
+      "need_reminder",
       "solicitation",
+      "expert_reminder",
     ], force: :cascade
     create_enum :match_status, [
       "quo",
@@ -29,23 +25,57 @@ class InitSchema < ActiveRecord::Migration[5.0]
       "done_no_help",
       "done_not_reachable",
     ], force: :cascade
-    create_enum :user_roles, [
-      "advisor",
-      "admin",
-      "antenne_manager",
+    create_enum :quarterly_reports_categories, [
+      "matches",
+      "stats",
     ], force: :cascade
+    create_enum :territorial_level, [
+      "local",
+      "regional",
+      "national",
+    ], force: :cascade
+    create_table "active_storage_attachments" do |t|
+      t.string "name", null: false
+      t.string "record_type", null: false
+      t.bigint "record_id", null: false
+      t.bigint "blob_id", null: false
+      t.datetime "created_at", precision: nil, null: false
+      t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+      t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+    end
+    create_table "active_storage_blobs" do |t|
+      t.string "key", null: false
+      t.string "filename", null: false
+      t.string "content_type"
+      t.text "metadata"
+      t.string "service_name", null: false
+      t.bigint "byte_size", null: false
+      t.string "checksum", null: false
+      t.datetime "created_at", precision: nil, null: false
+      t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+    end
+    create_table "active_storage_variant_records" do |t|
+      t.bigint "blob_id", null: false
+      t.string "variation_digest", null: false
+      t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+    end
+    create_table "additional_subject_questions" do |t|
+      t.bigint "subject_id"
+      t.string "key"
+      t.integer "position"
+      t.index ["subject_id"], name: "index_additional_subject_questions_on_subject_id"
+    end
     create_table "antennes", id: :serial do |t|
       t.string "name"
       t.bigint "institution_id", null: false
       t.datetime "created_at", precision: nil, null: false
       t.datetime "updated_at", precision: nil, null: false
       t.datetime "deleted_at", precision: nil
-      t.string "manager_full_name"
-      t.string "manager_email"
-      t.string "manager_phone"
+      t.enum "territorial_level", default: "local", null: false, enum_type: "territorial_level"
       t.index ["deleted_at"], name: "index_antennes_on_deleted_at"
       t.index ["institution_id"], name: "index_antennes_on_institution_id"
-      t.index ["name", "institution_id"], name: "index_antennes_on_name_and_institution_id", unique: true
+      t.index ["name", "deleted_at", "institution_id"], name: "index_antennes_on_name_and_deleted_at_and_institution_id"
+      t.index ["territorial_level"], name: "index_antennes_on_territorial_level"
       t.index ["updated_at"], name: "index_antennes_on_updated_at"
     end
     create_table "antennes_communes", id: false do |t|
@@ -64,10 +94,10 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.bigint "badge_id", null: false
       t.bigint "solicitation_id", null: false
     end
-    create_table "categories" do |t|
+    create_table "categories", id: :serial do |t|
       t.string "label", null: false
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "created_at", precision: nil, null: false
+      t.datetime "updated_at", precision: nil, null: false
     end
     create_table "categories_institutions", id: false do |t|
       t.bigint "institution_id", null: false
@@ -166,7 +196,6 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.boolean "is_global_zone", default: false
       t.text "reminders_notes"
       t.datetime "deleted_at", precision: nil
-      t.jsonb "flags", default: {}
       t.index ["antenne_id"], name: "index_experts_on_antenne_id"
       t.index ["deleted_at"], name: "index_experts_on_deleted_at"
       t.index ["email"], name: "index_experts_on_email"
@@ -216,6 +245,17 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable_type_and_feedbackable_id"
       t.index ["user_id"], name: "index_feedbacks_on_user_id"
     end
+    create_table "institution_filters" do |t|
+      t.bigint "additional_subject_question_id"
+      t.string "institution_filtrable_type"
+      t.bigint "institution_filtrable_id"
+      t.boolean "filter_value"
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
+      t.index ["additional_subject_question_id"], name: "index_institution_filters_on_additional_subject_question_id"
+      t.index ["institution_filtrable_id", "institution_filtrable_type", "additional_subject_question_id"], name: "institution_filtrable_additional_subject_question_index", unique: true
+      t.index ["institution_filtrable_type", "institution_filtrable_id"], name: "index_institution_filters_on_institution_filtrable"
+    end
     create_table "institutions", id: :serial do |t|
       t.string "name", null: false
       t.datetime "created_at", precision: nil, null: false
@@ -244,16 +284,16 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.index ["subject_id"], name: "index_institutions_subjects_on_subject_id"
       t.index ["updated_at"], name: "index_institutions_subjects_on_updated_at"
     end
-    create_table "landing_joint_themes" do |t|
+    create_table "landing_joint_themes", id: :serial do |t|
       t.bigint "landing_id"
       t.bigint "landing_theme_id"
       t.integer "position"
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "created_at", precision: nil, null: false
+      t.datetime "updated_at", precision: nil, null: false
       t.index ["landing_id"], name: "index_landing_joint_themes_on_landing_id"
       t.index ["landing_theme_id"], name: "index_landing_joint_themes_on_landing_theme_id"
     end
-    create_table "landing_subjects" do |t|
+    create_table "landing_subjects", id: :serial do |t|
       t.bigint "landing_theme_id", null: false
       t.bigint "subject_id", null: false
       t.string "title"
@@ -266,28 +306,32 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.text "form_description"
       t.text "description_explanation"
       t.boolean "requires_siret", default: false, null: false
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "created_at", precision: nil, null: false
+      t.datetime "updated_at", precision: nil, null: false
       t.boolean "display_region_logo", default: false
+      t.datetime "archived_at", precision: nil
+      t.index ["archived_at"], name: "index_landing_subjects_on_archived_at"
       t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
       t.index ["slug"], name: "index_landing_subjects_on_slug", unique: true
       t.index ["subject_id"], name: "index_landing_subjects_on_subject_id"
     end
-    create_table "landing_subjects_logos" do |t|
+    create_table "landing_subjects_logos", id: :serial do |t|
       t.bigint "logo_id"
       t.bigint "landing_subject_id"
       t.index ["landing_subject_id"], name: "index_landing_subjects_logos_on_landing_subject_id"
       t.index ["logo_id"], name: "index_landing_subjects_logos_on_logo_id"
     end
-    create_table "landing_themes" do |t|
+    create_table "landing_themes", id: :serial do |t|
       t.string "title"
       t.string "page_title"
       t.string "slug"
       t.text "description"
       t.string "meta_title"
       t.string "meta_description"
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "created_at", precision: nil, null: false
+      t.datetime "updated_at", precision: nil, null: false
+      t.datetime "archived_at", precision: nil
+      t.index ["archived_at"], name: "index_landing_themes_on_archived_at"
       t.index ["slug"], name: "index_landing_themes_on_slug", unique: true
     end
     create_table "landings", id: :serial do |t|
@@ -299,7 +343,6 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.string "meta_title"
       t.string "meta_description"
       t.string "title"
-      t.string "logos"
       t.string "custom_css"
       t.string "partner_url"
       t.boolean "emphasis", default: false
@@ -308,26 +351,30 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.boolean "iframe", default: false
       t.integer "iframe_category", default: 1
       t.boolean "display_pde_partnership_mention", default: false
+      t.datetime "archived_at", precision: nil
+      t.index ["archived_at"], name: "index_landings_on_archived_at"
       t.index ["institution_id"], name: "index_landings_on_institution_id"
       t.index ["slug"], name: "index_landings_on_slug", unique: true
     end
-    create_table "logos" do |t|
+    create_table "logos", id: :serial do |t|
       t.string "filename"
       t.string "name"
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "created_at", precision: nil, null: false
+      t.datetime "updated_at", precision: nil, null: false
       t.bigint "institution_id"
       t.index ["institution_id"], name: "index_logos_on_institution_id"
     end
-    create_table "match_filters" do |t|
+    create_table "match_filters", id: :serial do |t|
       t.string "accepted_naf_codes", array: true
       t.integer "effectif_min"
       t.integer "effectif_max"
       t.integer "min_years_of_existence"
       t.bigint "subject_id"
       t.bigint "antenne_id"
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "created_at", precision: nil, null: false
+      t.datetime "updated_at", precision: nil, null: false
+      t.integer "max_years_of_existence"
+      t.string "accepted_legal_forms", array: true
       t.index ["antenne_id"], name: "index_match_filters_on_antenne_id"
       t.index ["subject_id"], name: "index_match_filters_on_subject_id"
     end
@@ -338,7 +385,7 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.datetime "taken_care_of_at", precision: nil
       t.datetime "closed_at", precision: nil
       t.bigint "expert_id"
-      t.bigint "subject_id"
+      t.bigint "subject_id", null: false
       t.enum "status", default: "quo", null: false, enum_type: "match_status"
       t.datetime "archived_at", precision: nil
       t.index ["expert_id", "need_id"], name: "index_matches_on_expert_id_and_need_id", unique: true, where: "(expert_id <> NULL::bigint)"
@@ -357,18 +404,28 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.datetime "archived_at", precision: nil
       t.boolean "satisfaction_email_sent", default: false, null: false
       t.enum "status", default: "diagnosis_not_complete", null: false, enum_type: "need_status"
+      t.boolean "abandoned_email_sent", default: false
       t.index ["archived_at"], name: "index_needs_on_archived_at"
       t.index ["diagnosis_id"], name: "index_needs_on_diagnosis_id"
       t.index ["status"], name: "index_needs_on_status"
       t.index ["subject_id", "diagnosis_id"], name: "index_needs_on_subject_id_and_diagnosis_id", unique: true
       t.index ["subject_id"], name: "index_needs_on_subject_id"
     end
-    create_table "reminders_actions", id: :serial do |t|
-      t.bigint "need_id", null: false
-      t.enum "category", null: false, enum_type: "actions_categories"
+    create_table "quarterly_reports" do |t|
+      t.date "start_date"
+      t.date "end_date"
+      t.bigint "antenne_id", null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
-      t.index ["category"], name: "index_reminders_actions_on_category"
+      t.enum "category", enum_type: "quarterly_reports_categories"
+      t.index ["antenne_id"], name: "index_quarterly_reports_on_antenne_id"
+      t.index ["category"], name: "index_quarterly_reports_on_category"
+    end
+    create_table "reminders_actions", id: :serial do |t|
+      t.bigint "need_id", null: false
+      t.datetime "created_at", precision: nil, null: false
+      t.datetime "updated_at", precision: nil, null: false
+      t.integer "category", null: false
       t.index ["need_id", "category"], name: "index_reminders_actions_on_need_id_and_category", unique: true
       t.index ["need_id"], name: "index_reminders_actions_on_need_id"
     end
@@ -389,7 +446,6 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.datetime "created_at", precision: nil, null: false
       t.datetime "updated_at", precision: nil, null: false
       t.string "siret"
-      t.integer "status", default: 0
       t.string "full_name"
       t.string "landing_slug"
       t.jsonb "prepare_diagnosis_errors_details", default: {}
@@ -400,12 +456,17 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.boolean "created_in_deployed_region", default: false
       t.bigint "landing_id"
       t.bigint "landing_subject_id"
+      t.boolean "banned", default: false
+      t.integer "status", default: 0
+      t.uuid "uuid"
       t.index ["code_region"], name: "index_solicitations_on_code_region"
       t.index ["email"], name: "index_solicitations_on_email"
       t.index ["institution_id"], name: "index_solicitations_on_institution_id"
       t.index ["landing_id"], name: "index_solicitations_on_landing_id"
       t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
       t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"
+      t.index ["status"], name: "index_solicitations_on_status"
+      t.index ["uuid"], name: "index_solicitations_on_uuid"
     end
     create_table "subjects", id: :serial do |t|
       t.string "label", null: false
@@ -442,6 +503,16 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.index ["label"], name: "index_themes_on_label", unique: true
       t.index ["updated_at"], name: "index_themes_on_updated_at"
     end
+    create_table "user_rights" do |t|
+      t.bigint "antenne_id"
+      t.bigint "user_id", null: false
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
+      t.integer "category", null: false
+      t.index ["antenne_id"], name: "index_user_rights_on_antenne_id"
+      t.index ["user_id", "antenne_id", "category"], name: "index_user_rights_on_user_id_and_antenne_id_and_category", unique: true
+      t.index ["user_id"], name: "index_user_rights_on_user_id"
+    end
     create_table "users", id: :serial do |t|
       t.string "email", default: ""
       t.string "encrypted_password", default: "", null: false
@@ -467,9 +538,7 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.bigint "inviter_id"
       t.integer "invitations_count", default: 0
       t.datetime "deleted_at", precision: nil
-      t.jsonb "flags", default: {}
       t.datetime "cgu_accepted_at", precision: nil
-      t.enum "role", default: "advisor", null: false, enum_type: "user_roles"
       t.index ["antenne_id"], name: "index_users_on_antenne_id"
       t.index ["deleted_at"], name: "index_users_on_deleted_at"
       t.index ["email"], name: "index_users_on_email", unique: true, where: "((email)::text <> NULL::text)"
@@ -478,6 +547,8 @@ class InitSchema < ActiveRecord::Migration[5.0]
       t.index ["inviter_id"], name: "index_users_on_inviter_id"
       t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     end
+    add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+    add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
     add_foreign_key "antennes", "institutions"
     add_foreign_key "antennes_communes", "antennes"
     add_foreign_key "antennes_communes", "communes"
@@ -513,12 +584,15 @@ class InitSchema < ActiveRecord::Migration[5.0]
     add_foreign_key "matches", "subjects"
     add_foreign_key "needs", "diagnoses"
     add_foreign_key "needs", "subjects"
+    add_foreign_key "quarterly_reports", "antennes"
     add_foreign_key "reminders_actions", "needs"
     add_foreign_key "searches", "users"
     add_foreign_key "solicitations", "institutions"
     add_foreign_key "solicitations", "landing_subjects"
     add_foreign_key "solicitations", "landings"
     add_foreign_key "subjects", "themes"
+    add_foreign_key "user_rights", "antennes"
+    add_foreign_key "user_rights", "users"
     add_foreign_key "users", "antennes"
     add_foreign_key "users", "users", column: "inviter_id"
   end
