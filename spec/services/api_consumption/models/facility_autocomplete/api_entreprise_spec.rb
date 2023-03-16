@@ -28,7 +28,7 @@ RSpec.describe ApiConsumption::Models::FacilityAutocomplete::ApiEntreprise do
           'siren' => "418166096",
           'nom' => "OCTO-TECHNOLOGY",
           'activite' => "Conseil en systèmes et logiciels informatiques",
-          'lieu' => "75002",
+          'lieu' => "75002 PARIS 2",
           'code_region' => "11",
         })
       end

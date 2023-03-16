@@ -57,7 +57,7 @@ module ApiConsumption::Models
     end
 
     def libelle_commune
-      adresse&.dig('localite')
+      adresse['libelle_commune']
     end
   end
 end
