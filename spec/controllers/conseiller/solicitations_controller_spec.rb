@@ -27,7 +27,7 @@ RSpec.describe Conseiller::SolicitationsController do
         let(:badge) { create(:badge, title: 'avis équipe') }
         let!(:solicitation_with_badge) { create(:solicitation, status: :in_progress, badges: [badge]) }
 
-        subject(:request) { get :index, params: { query: 'avis équipe' } }
+        subject(:request) { get :index, params: { omnisearch: 'avis équipe' } }
 
         before { request }
 
