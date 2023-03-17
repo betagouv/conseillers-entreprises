@@ -9,6 +9,11 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def index
     @solicitations = ordered_solicitations(:in_progress)
+    # emails = @solicitations.map(&:email)
+    # sirets = @solicitations.map(&:siret)
+    # sirets = sirets | Facility.for_contacts(emails).pluck(:siret)
+    # facilities = get_associated_facilities(emails, sirets)
+    # @facilities = {}
     @status = t('solicitations.header.index')
   end
 
@@ -128,5 +133,14 @@ class Conseiller::SolicitationsController < ApplicationController
   # nom de variable spécifique pour ne pas parasiter les autres filtres région
   def territory_session_param
     :s_territory
+  end
+
+  def get_associated_facilities(emails, sirets)
+    Facility
+      .joins(diagnoses: :solicitation)
+      .where(diagnoses: { step: :completed })
+      .for_contacts(emails)
+      .or(Facility.where(siret: sirets))
+      .distinct
   end
 end

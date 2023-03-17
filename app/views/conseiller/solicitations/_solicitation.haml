@@ -1,3 +1,4 @@
+- puts "@@@@@@@@@@@@@@@@@@ BEGIN @@@@@@@@@@@@@@"
 .card-solicitation.fr-my-4w.card{ id: solicitation.id }
   .card__header
     .card__title
@@ -40,7 +41,7 @@
               %span.ri-flag-fill{ 'aria-hidden': 'true' }
           - if solicitation.from_no_register_company?
             %span.meta__warnings__item{ title: t('.solicitation_no_register_company_explanation') } ?
-        - needs_historic = Need.for_emails_and_sirets([solicitation.email], solicitation.valid_sirets).with_siret
+        - needs_historic = Need.for_emails_and_sirets_2([solicitation.email], solicitation.valid_sirets).with_siret.to_a
         - if needs_historic.any?
           .meta__items
             .item= t('.needs_historic')
@@ -57,3 +58,4 @@
       = render 'feedbacks/form', feedback: solicitation.feedbacks.new(category: :solicitation)
   .card__footer
     = render 'solicitation_actions', solicitation: solicitation
+- puts "@@@@@@@@@@@@@@@@@@ END @@@@@@@@@@@@@@"

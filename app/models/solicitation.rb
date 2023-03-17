@@ -448,6 +448,16 @@ class Solicitation < ApplicationRecord
     sirets.flatten.compact.uniq
   end
 
+  def valid_sirets_2
+    sirets = []
+    sirets << self.facility.siret if self.facility.present?
+
+    clean_siret = FormatSiret.clean_siret(self.siret)
+    sirets << clean_siret if FormatSiret.siret_is_valid(clean_siret)
+
+    sirets | Facility.for_contacts(email).pluck(:siret)
+  end
+
   ## JSON Accessors
   #
   FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid mtm_campaign mtm_kwd api_calling_url relaunch]
