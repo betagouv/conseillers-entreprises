@@ -79,6 +79,7 @@ module RemindersSpecHelper
 
     # Expert entrant vu
     let!(:expert_input_processed) { create :expert_with_users }
+    let!(:rg_expert_input_processed) { create :reminders_register, expert: expert_input_processed, category: :input, processed: true, run_number: 1 }
     let!(:expert_input_processed_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :quo, expert: expert_input_processed } }
 
     # Expert sortant pas vu

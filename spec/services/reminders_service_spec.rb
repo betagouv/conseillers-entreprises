@@ -24,10 +24,7 @@ describe RemindersService do
     describe 'categories' do
       create_registers_for_reminders
 
-      before do
-        described_class.create_reminders_registers
-        expert_input_processed.reminders_registers.last.update(processed: true)
-      end
+      before { described_class.create_reminders_registers }
 
       describe 'remainder category' do
         it { expect(RemindersRegister.current_remainder_category.map(&:expert)).to match_array [expert_remainder, expert_input_processed, expert_remainder_category] }
