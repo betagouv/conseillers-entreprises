@@ -222,10 +222,9 @@ class Solicitation < ApplicationRecord
     # Solicitation with a valid SIRET
     if FormatSiret.siret_is_valid(siret_or_siren)
       begin
-        etablissement_data = ApiEntreprise::Etablissement::Base.new(siret_or_siren).call
-        return params if etablissement_data.blank?
-        params[:code_region] = ApiConsumption::Models::Facility::ApiEntreprise.new(etablissement_data).code_region
-        params[:siret] = siret_or_siren
+        etablissement_data = ApiConsumption::Facility.new(siret_or_siren, { request_keys: [] }).call
+        params[:code_region] = etablissement_data.code_region
+        params[:siret] = etablissement_data.siret
       rescue ApiEntreprise::ApiEntrepriseError => e
         return params
       end
@@ -398,6 +397,13 @@ class Solicitation < ApplicationRecord
 
   scope :banned, -> { where(banned: true) }
 
+  def self.apply_filters(params)
+    klass = self
+    klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
+    klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
+    klass.all
+  end
+
   def doublon_solicitations
     Solicitation.where(status: [:in_progress])
       .where.not(id: self.id)
@@ -460,7 +466,8 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid mtm_campaign mtm_kwd api_calling_url relaunch]
+  MATOMO_KEYS = %i[pk_campaign pk_kwd mtm_campaign mtm_kwd]
+  FORM_INFO_KEYS = MATOMO_KEYS + %i[gclid api_calling_url relaunch]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##

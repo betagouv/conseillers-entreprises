@@ -15,9 +15,6 @@ module Clockwork
   every(1.week, 'anonymize_old_diagnoses', at: 'sunday 5:00') do
     `rake anonymize_old_diagnoses`
   end
-  every(1.week, 'reminders_registers', at: 'sunday 3:00') do
-    RemindersService.create_reminders_registers
-  end
   every(1.day, 'revoke_api_keys', at: ('2:00'), if: -> (t) { t.day == 1 }) do
     ApiKeysManagement.delay.batch_revoke
   end
@@ -57,5 +54,6 @@ module Clockwork
     every(1.day, 'send_quarterly_reports_emails', at: '08:00', if: -> (t) { t.day == 15 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
       QuarterlyReportService.delay(queue: :low_priority).send_emails
     end
+    every(1.day, 'reminders_registers', :at => ['01:00', '13:00']) { RemindersService.delay(queue: :low_priority).create_reminders_registers }
   end
 end

@@ -2,25 +2,26 @@
   %table
     %caption= t('.mandataires_sociaux')
     %tbody
-      - if person['type'] == 'PM'
+      - if mandataire['type'] == 'personne_morale'
         %tr
           %td{ colspan: 2 }= t('.personne_morale')
-      - if person['raison_sociale'].present?
+      - if mandataire['raison_sociale'].present?
         %tr
           %td= t('.raison_sociale')
-          %td= person['raison_sociale'].humanize
-      - if person['prenom'].present? && person['nom'].present?
+          %td= mandataire['raison_sociale'].humanize
+      - if mandataire['prenom'].present? && mandataire['nom'].present?
         %tr
           %td= t('.nom')
-          %td #{person['prenom'].humanize} #{person['nom'].humanize}
-      - if person['fonction'].present?
+          %td #{mandataire['prenom'].humanize} #{mandataire['nom'].humanize}
+      - if mandataire['fonction'].present?
         %tr
           %td= t('.fonction')
-          %td= person['fonction'].humanize
-      %tr
-        %td= t('.dirigeant')
-        %td= person['dirigeant'].to_b ? t('yes') : t('no')
-      - if person['identifiant'].present?
+          %td= mandataire['fonction'].humanize
+      - if mandataire['identifiant'].present?
         %tr
           %td= t('.identifiant')
-          %td= person['identifiant']
+          %td= mandataire['identifiant']
+      - if mandataire['date_naissance_timestamp'].present?
+        %tr
+          %td= t('.date_naissance')
+          %td= date_from_timestamp(mandataire['date_naissance_timestamp'])

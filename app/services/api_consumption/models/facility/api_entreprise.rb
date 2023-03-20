@@ -1,77 +1,63 @@
 module ApiConsumption::Models
-  class Facility::ApiEntreprise < Facility
+  class Facility::ApiEntreprise < Facility::Base
     def self.fields
       [
-        :siege_social,
         :siret,
-        :naf,
-        :libelle_naf,
-        :date_mise_a_jour,
-        :tranche_effectif_salarie_etablissement,
-        :date_creation_etablissement,
-        :region_implantation,
-        :commune_implantation,
-        :pays_implantation,
-        :adresse,
+        :siege_social,
+        :etat_administratif,
+        :date_fermeture,
+        :enseigne,
+        :activite_principale,
+        :tranche_effectif_salarie,
         :diffusable_commercialement,
-        :opcoSiren,
+        :date_creation,
+        :date_derniere_mise_a_jour,
+        :unite_legale,
+        :adresse,
+        :opcoSiren, # a partir d'ici, données agglomérées d'autres appels API
         :idcc,
         :effectifs
       ]
     end
 
     def insee_code
-      @insee_code ||= commune_implantation['code']
+      @insee_code ||= adresse&.dig('code_commune')
+    end
+
+    def naf_code
+      @naf_code ||= activite_principale['code']
     end
 
     def naf_code_a10
-      @naf_code_a10 ||= NafCode.code_a10(naf)
+      @naf_code_a10 ||= NafCode.code_a10(naf_code)
     end
 
     def naf_libelle
-      @naf_libelle ||= libelle_naf
+      @naf_libelle ||= activite_principale['libelle']
     end
 
     def effectif
-      @effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_etablissement).effectif
+      @effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie).effectif
     end
 
     def code_effectif
-      @code_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_etablissement).code_effectif
+      @code_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie).code_effectif
     end
 
     def tranche_effectif
-      @tranche_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_etablissement).intitule_effectif
+      @tranche_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie).intitule_effectif
     end
 
     def annee_effectif
-      @annee_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_etablissement).annee_effectif
+      @annee_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie).annee_effectif
     end
 
-    def readable_locality
-      code_postal = adresse&.dig('code_postal')
-      localite = adresse&.dig('localite')
-      [code_postal, localite].compact_blank.join(' ').presence
+    def code_postal
+      adresse&.dig('code_postal')
     end
 
-    def region
-      @region ||= region_implantation['value']
-    end
-
-    def code_region
-      @code_region ||= region_implantation['code']
-    end
-
-    def pays
-      @pays ||= pays_implantation['value']
-    end
-
-    def opco
-      @opco ||= Institution.opco.find_by(siren: opcoSiren)
-    end
-
-    def commune
-      @commune ||= Commune.find_or_create_by insee_code: insee_code
+    def libelle_commune
+      adresse['libelle_commune']
     end
   end
 end

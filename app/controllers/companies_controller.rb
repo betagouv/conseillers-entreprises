@@ -7,8 +7,8 @@ class CompaniesController < ApplicationController
     if siret_is_set?
       redirect_to show_with_siret_companies_path(params[:siret], solicitation: @current_solicitation&.id)
     else
-      # save_search(search_params[:query])
-      result = SearchFacility::Diffusable.new(search_params).from_full_text_or_siren if search_params.present?
+
+      result = SearchFacility::All.new(search_params).from_full_text_or_siren if search_params.present?
       respond_to do |format|
         format.html do
           if result.present?
@@ -72,9 +72,10 @@ class CompaniesController < ApplicationController
   def search_facility_informations(siret)
     begin
       @facility = ApiConsumption::Facility.new(siret).call
-      company_and_siege = ApiConsumption::CompanyAndSiege.new(siret[0,9]).call
-      @company = company_and_siege.company
-      @siege_facility = company_and_siege.siege_facility
+      @company = ApiConsumption::Company.new(siret[0,9]).call
+      unless @facility.siege_social
+        @siege_facility = ApiConsumption::Facility.new(@company.siret_siege_social).call
+      end
     rescue ApiEntreprise::ApiEntrepriseError => e
       @message = I18n.t("api_requests.generic_error")
     end

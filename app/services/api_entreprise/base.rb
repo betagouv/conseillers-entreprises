@@ -48,7 +48,7 @@ module ApiEntreprise
     def initialize(siren_or_siret, options = {})
       @siren_or_siret = siren_or_siret
       @options = options
-      @http_response = HTTP.get(url)
+      @http_response = HTTP.auth("Bearer #{token}").get(url)
       begin
         @data = @http_response.parse(:json)
       rescue StandardError => e
@@ -61,7 +61,11 @@ module ApiEntreprise
     end
 
     def error_message
-      @error&.message || @data['errors']&.join('\n') || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
+      @error&.message || data_error_message || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
+    end
+
+    def data_error_message
+      [@data['errors']&.first&.dig("title"), @data['errors']&.first&.dig("detail")].join(' : ')
     end
 
     private
@@ -70,31 +74,36 @@ module ApiEntreprise
       @token ||= ENV.fetch('API_ENTREPRISE_TOKEN')
     end
 
+    def version
+      @version ||= 'v3'
+    end
+
     def base_url
-      @base_url ||= "https://entreprise.api.gouv.fr/v2/"
+      @base_url ||= "https://entreprise.api.gouv.fr/#{version}/"
     end
 
     def url_key
       @url_key ||= ""
     end
 
+    def specific_url
+      [url_key, @siren_or_siret].join
+    end
+
     def url
-      @url ||= "#{base_url}#{url_key}#{@siren_or_siret}?#{request_params}"
+      @url ||= "#{base_url}#{specific_url}?#{request_params}"
     end
 
     def request_params
       {
-        token: token,
         context: 'PlaceDesEntreprises',
-        recipient: 'PlaceDesEntreprises',
+        recipient: '13002526500013',
         object: 'PlaceDesEntreprises'
       }.to_query
     end
   end
 
   class Responder
-    # attr_reader :data
-
     def initialize(http_request)
       @http_request = http_request
     end

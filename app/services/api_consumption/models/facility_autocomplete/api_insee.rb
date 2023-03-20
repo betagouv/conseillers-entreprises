@@ -20,14 +20,6 @@ module ApiConsumption::Models
       @facility ||= ::ApiConsumption::Models::Facility::ApiInsee.new(etablissement)
     end
 
-    def lieu
-      @lieu ||= facility&.readable_locality
-    end
-
-    def code_region
-      @code_region ||= facility&.code_region
-    end
-
     def nombre_etablissements_ouverts
       nombre_etablissements_ouverts
     end

@@ -156,8 +156,9 @@ fr:
     company:
       capital_social: Capital social
       categorie_entreprise: Catégorie de l’entreprise
+      date_cessation: Date de cessation
       date_creation: Date de création
-      date_radiation: Date de radiation
+      denomination: Dénomination
       diffusable_commercialement: Diffusable commercialement
       forme_juridique: Forme juridique
       information: Informations sur l’entreprise
@@ -165,12 +166,6 @@ fr:
       inscrit_rcs_yes_no: 'Inscrit au RCS : %{response}'
       inscrit_rm: Inscrit au RM
       inscrit_rm_yes_no: 'Inscrit au RM : %{response}'
-      nom: Nom
-      nom_commercial: Nom Commercial
-      numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
-      prenom: Prénom
-      procedure_collective: En cours de procedure collective ?
-      raison_sociale: Raison Sociale
       siren: SIREN
       tranche_effectif_salarie_entreprise: Tranche d’effectif de salariés de l’entreprise
     facility:
@@ -181,12 +176,11 @@ fr:
       idcc: IDCC
       naf: Code NAF
       opco: Opco
-      pays_implantation: Pays d’implantation
       region_implantation: Région d’implantation
       siret: SIRET
       tranche_effectif_salarie_etablissement: Tranche d’effectif de salariés de l’établissement
     mandataire:
-      dirigeant: Est-ce un dirigeant ?
+      date_naissance: Date de naissance
       fonction: Fonction
       identifiant: Identifiant
       mandataires_sociaux: Mandataires sociaux
@@ -238,9 +232,9 @@ fr:
         marked_as_unbanned: Email et entreprise ont été réintégrés
       index:
         clear_search: Réinitialiser la recherche
-        filter: Filtrer
         header: Sollicitations %{status}
         no_result: Il n'y a pas de résultat pour cette recherche.
+        omnisearch: Recherche libre (Email, tag, aide demandée...)
         search: Rechercher
         search_placeholder: Tag, aide demandée…
         title: Sollicitations
@@ -642,11 +636,11 @@ fr:
         taking_care_by_experts: Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.
       no_expert:
         erp_html: 'pour votre établissement recevant du public (ERP)  : <a href=''https://entreprendre.service-public.fr/vosdroits/F32351''>https://entreprendre.service-public.fr/vosdroits/F32351</a><br>et son accessibilité :<a href=''https://www.demarches-simplifiees.fr/commencer/demande-d-information-accessibilite-erp-place-des-''>https://www.demarches-simplifiees.fr/commencer/demande-d-information-accessibilite-erp-place-des-</a>'
-        independent_html: 'pour être conseillé sur vos formalités en tant qu’autoentrepreneur : <a href=''https://www.autoentrepreneur.urssaf.fr/portail/accueil.html''>https://www.autoentrepreneur.urssaf.fr/portail/accueil.html</a><br>et votre avis de situation : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
-        inpi_html: 'pour réaliser vos formalités d’entreprises : <a href=''https://procedures.inpi.fr''>https://procedures.inpi.fr</a>'
-        kbis_html: 'et votre extrait Kbis : <a href=''https://entreprendre.service-public.fr/vosdroits/F21000''>https://entreprendre.service-public.fr/vosdroits/F21000</a>'
+        independent_html: 'pour être conseillé sur vos formalités en tant qu’<b>autoentrepreneur</b> : <a href=''https://www.autoentrepreneur.urssaf.fr/portail/accueil.html''>https://www.autoentrepreneur.urssaf.fr/portail/accueil.html</a> et obtenir votre avis de situation : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
+        inpi_html: 'pour réaliser vos formalités d’entreprises : <a href=''https://procedures.inpi.fr''>https://procedures.inpi.fr</a> et obtenir votre extrait Kbis : <a href=''https://entreprendre.service-public.fr/vosdroits/F21000''>https://entreprendre.service-public.fr/vosdroits/F21000</a>'
         no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
         personal_services_html: 'pour devenir un service à la personne : <a href=''https://www.servicesalapersonne.gouv.fr''>https://www.servicesalapersonne.gouv.fr</a>'
+        profession_liberale_html: 'pour être conseillé sur vos formalités en tant que <b>profession libérale</b> : <a href=''https://www.oniffpl.fr/vos-oriffs''>https://www.oniffpl.fr/vos-oriffs</a>'
         service_improvement_html: C’est en détectant de nouvelles problématiques que nous pouvons améliorer ce service public.<strong> Nous faisons notre maximum pour compléter l’expertise</strong>.
         useful_links: 'Liens utiles selon votre démarche :'
       particular_retirement:
@@ -853,7 +847,7 @@ fr:
         expert_creation_date: Inscription le %{date}
         manager_name: 'Responsable : %{name}'
         matches_total: Demandes depuis le début
-        process: Traité
+        process: Vu
         received_matches: reçues
         see_remaining_feedbacks: Voir les commentaires plus anciens (%{count})
         send_reminders_email: Envoyer l’email de relance

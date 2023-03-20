@@ -13,7 +13,7 @@ FactoryBot.define do
 
     trait :with_reminders_register do
       after(:create) do |expert, _|
-        create :reminders_register, expert: expert, created_at: RemindersRegister::TIME_GENERATION.ago, category: :remainder
+        create :reminders_register, expert: expert, run_number: RemindersRegister.last_run_number.presence || 0, category: :remainder, processed: true
       end
     end
   end

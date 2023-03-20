@@ -23,13 +23,27 @@ module ApiEntreprise::EntrepriseEffectifAnnuel
 
     private
 
+    def version
+      'v2'
+    end
+
     def url_key
       @url_key ||= 'effectifs_annuels_acoss_covid/'
     end
 
     # effectifs_annuels_acoss_covid/SirenDeL’entreprise
-    def url
-      @url ||= "#{base_url}#{url_key}#{@siren_or_siret}?#{request_params}"
+    def specific_url
+      @specific_url ||= "#{url_key}#{@siren_or_siret}"
+    end
+
+    # A garder tant qu'on est en v2
+    def request_params
+      {
+        token: token,
+        context: 'PlaceDesEntreprises',
+        recipient: 'PlaceDesEntreprises',
+        object: 'PlaceDesEntreprises',
+      }.to_query
     end
   end
 

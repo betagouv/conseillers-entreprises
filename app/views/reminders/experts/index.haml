@@ -9,6 +9,11 @@
 = render 'shared/territory_choice', territories: @territories
 
 %div
-  = render partial: 'expert', collection: @active_experts, locals: { action: @action }
+  - if @active_experts.blank? && @action == :inputs
+    .fr-container.fr-mt-10v
+      .fr-grid-row
+        .fr-col-offset-3.fr-col-6= image_tag('no-reminders.gif', class: 'fr-responsive-img')
+  - else
+    = render partial: 'expert', collection: @active_experts, locals: { action: @action }
 
 = paginate @active_experts

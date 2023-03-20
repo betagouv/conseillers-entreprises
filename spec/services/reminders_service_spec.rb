@@ -21,7 +21,7 @@ describe RemindersService do
       end
     end
 
-    describe 'current week category' do
+    describe 'categories' do
       create_registers_for_reminders
 
       before do
@@ -30,15 +30,15 @@ describe RemindersService do
       end
 
       describe 'remainder category' do
-        it { expect(RemindersRegister.current_remainder_category.map(&:expert)).to match_array [expert_remainder, expert_input_processed] }
+        it { expect(RemindersRegister.current_remainder_category.map(&:expert)).to match_array [expert_remainder, expert_input_processed, expert_remainder_category] }
       end
 
       describe 'input category' do
-        it { expect(RemindersRegister.current_input_category.map(&:expert)).to match_array [expert_input] }
+        it { expect(RemindersRegister.current_input_category.map(&:expert)).to match_array [expert_input, expert_remainder_not_processed] }
       end
 
       describe 'output category' do
-        it { expect(RemindersRegister.current_output_category.map(&:expert)).to match_array [expert_output] }
+        it { expect(RemindersRegister.current_output_category.map(&:expert)).to match_array [expert_output_not_seen, old_expert_output_not_seen] }
       end
     end
   end

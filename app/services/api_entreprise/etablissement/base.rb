@@ -14,28 +14,19 @@ module ApiEntreprise::Etablissement
   class Request < ApiEntreprise::Request
     private
 
+    # /v3/insee/sirene/etablissements
     def url_key
-      @url_key ||= "etablissements/"
-    end
-
-    def request_params
-      {
-        token: token,
-        context: 'PlaceDesEntreprises',
-        recipient: 'PlaceDesEntreprises',
-        object: 'PlaceDesEntreprises',
-        non_diffusables: non_diffusables
-      }.to_query
-    end
-
-    def non_diffusables
-      @options[:non_diffusables] || true
+      @url_key ||= "insee/sirene/etablissements/"
     end
   end
 
   class Responder < ApiEntreprise::Responder
     def format_data
-      @http_request.data["etablissement"]
+      return {
+        etablissement: @http_request.data["data"].merge(@http_request.data["meta"]),
+        links: @http_request.data["links"],
+        meta: @http_request.data["meta"]
+      }
     end
   end
 end

@@ -7,25 +7,22 @@
         %td= etablissement.siret
       %tr
         %td= t('.naf')
-        %td #{etablissement.naf} - #{etablissement.naf_libelle}
+        %td #{etablissement.naf_code} - #{etablissement.naf_libelle}
       %tr
         %td= t('.date_mise_a_jour')
-        %td= date_from_timestamp(etablissement.date_mise_a_jour)
+        %td= date_from_timestamp(etablissement.date_derniere_mise_a_jour)
       %tr
         %td= t('.tranche_effectif_salarie_etablissement')
         %td= [etablissement.tranche_effectif, annee_effectif(etablissement.annee_effectif) ].join(' ')
       %tr
         %td= t('.date_creation_etablissement')
-        %td= date_from_timestamp(etablissement.date_creation_etablissement)
+        %td= date_from_timestamp(etablissement.date_creation)
       %tr
         %td= t('.region_implantation')
-        %td= etablissement.region
+        %td= etablissement.libelle_region
       %tr
         %td= t('.commune_implantation')
         %td= etablissement.commune
-      %tr
-        %td= t('.pays_implantation')
-        %td= etablissement.pays
       %tr
         %td= t('.idcc')
         %td= etablissement.idcc
@@ -35,7 +32,7 @@
       %tr
         %td= t('.adresse')
         %td
-          - adresse = etablissement.adresse
+          - adresse = etablissement.adresse["acheminement_postal"]
           - (1..7).each do |i|
             - if adresse["l#{i}"].present?
               %p= adresse["l#{i}"]

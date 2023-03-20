@@ -95,13 +95,13 @@ RSpec.describe Solicitation do
       let(:email) { 'contact..machin@truc.fr' }
 
       context 'with all fields to be formatted' do
-        let(:api_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+        let(:api_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
         let(:solicitation) { create :solicitation, siret: siret, code_region: nil, email: email, status: :step_description }
 
         before do
           ENV['API_ENTREPRISE_TOKEN'] = token
           stub_request(:get, api_url).to_return(
-            body: file_fixture('api_entreprise_get_etablissement.json')
+            body: file_fixture('api_entreprise_etablissement.json')
           )
           solicitation.complete
         end
@@ -129,7 +129,7 @@ RSpec.describe Solicitation do
     describe 'set_siret_and_region' do
       let(:token) { '1234' }
       let(:siret) { '41816609600069' }
-      let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+      let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
       context 'with valid siret' do
         let(:solicitation) { create :solicitation, siret: siret, code_region: nil, status: :step_description }
@@ -137,7 +137,7 @@ RSpec.describe Solicitation do
         before do
           ENV['API_ENTREPRISE_TOKEN'] = token
           stub_request(:get, entreprise_api_url).to_return(
-            body: file_fixture('api_entreprise_get_etablissement.json')
+            body: file_fixture('api_entreprise_etablissement.json')
           )
           solicitation.complete
         end

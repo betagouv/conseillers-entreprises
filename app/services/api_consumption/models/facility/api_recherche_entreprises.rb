@@ -1,5 +1,5 @@
 module ApiConsumption::Models
-  class Facility::ApiRechercheEntreprises < Facility
+  class Facility::ApiRechercheEntreprises < Facility::Base
     def self.fields
       [
         :activite_principale,
@@ -44,16 +44,8 @@ module ApiConsumption::Models
       @naf_libelle ||= NafCode.naf_libelle(NafCode.level2_code(naf_code_complet), 'level2')
     end
 
-    def readable_locality
-      [code_postal, libelle_commune].compact_blank.join(' ').presence
-    end
-
-    def code_region
-      @code_region ||= I18n.t(departement, scope: 'department_code_to_region_code')
-    end
-
-    def commune
-      @commune ||= Commune.find_or_create_by insee_code: insee_code
+    def code_departement
+      departement
     end
   end
 end

@@ -15,13 +15,18 @@ RSpec.describe ApiConsumption::Models::FacilityAutocomplete::ApiEntreprise do
     end
 
     context 'with params' do
-      let(:params) { JSON.parse(file_fixture('api_entreprise_entreprise_request_data.json').read) }
+      let(:params) do
+        {
+          "entreprise" => JSON.parse(file_fixture('api_entreprise_entreprise.json').read)["data"],
+          "etablissement" => JSON.parse(file_fixture('api_entreprise_etablissement.json').read)["data"]
+        }
+      end
 
       it 'returns the right fields' do
         expect(api_model.as_json).to include({
           'siret' => "41816609600069",
           'siren' => "418166096",
-          'nom' => "Octo Technology",
+          'nom' => "OCTO-TECHNOLOGY",
           'activite' => "Conseil en systèmes et logiciels informatiques",
           'lieu' => "75002 PARIS 2",
           'code_region' => "11",

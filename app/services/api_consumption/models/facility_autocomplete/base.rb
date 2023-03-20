@@ -3,7 +3,7 @@ module ApiConsumption::Models
     def self.fields
       [
         :entreprise,
-        :etablissement_siege,
+        :etablissement,
       ]
     end
 
@@ -32,11 +32,11 @@ module ApiConsumption::Models
     end
 
     def lieu
-      raise I18n.l('errors.missing_inherited_method')
+      @lieu ||= facility&.readable_locality
     end
 
     def code_region
-      raise I18n.l('errors.missing_inherited_method')
+      @code_region ||= facility&.code_region
     end
 
     def un_seul_etablissement

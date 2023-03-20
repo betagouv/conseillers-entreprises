@@ -58,22 +58,42 @@ module RemindersSpecHelper
   end
 
   def create_registers_for_reminders
-    # Expert deja présent la semaine passée et avec encore des besoins en attentes
+    # Expert deja présent la semaine passée, vu, et avec encore des besoins en attentes
     let!(:expert_remainder) { create :expert_with_users }
-    let!(:rg_expert_remainder) { create :reminders_register, created_at: RemindersRegister::TIME_GENERATION.ago, expert: expert_remainder, category: :input }
+    let!(:rg_expert_remainder) { create :reminders_register, expert: expert_remainder, category: :input, processed: true, run_number: 1 }
     let!(:expert_remainder_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :quo, expert: expert_remainder } }
 
-    # Expert entrant dans les relances
+    # Expert deja présent la semaine passée dans les inputs, pas vu, et avec encore des besoins en attentes
+    let!(:expert_remainder_not_processed) { create :expert_with_users }
+    let!(:rg_expert_remainder_not_processed) { create :reminders_register, expert: expert_remainder_not_processed, category: :input, run_number: 1 }
+    let!(:expert_remainder_not_processed_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :quo, expert: expert_remainder_not_processed } }
+
+    # Expert deja présent la semaine passée dans les paniers, pas vu, et avec encore des besoins en attentes
+    let!(:expert_remainder_category) { create :expert_with_users }
+    let!(:rg_expert_remainder_category) { create :reminders_register, expert: expert_remainder_category, category: :remainder, run_number: 1 }
+    let!(:expert_remainder_category_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :quo, expert: expert_remainder_category } }
+
+    # Expert entrant dans les relances pas vu
     let!(:expert_input) { create :expert_with_users, reminders_registers: [] }
     let!(:expert_input_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :quo, expert: expert_input } }
 
-    # Expert entrant mais traité
+    # Expert entrant vu
     let!(:expert_input_processed) { create :expert_with_users }
     let!(:expert_input_processed_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :quo, expert: expert_input_processed } }
 
-    # Expert sortant
+    # Expert sortant pas vu
+    let!(:expert_output_not_seen) { create :expert_with_users }
+    let!(:rg_expert_output_not_seen) { create :reminders_register, expert: expert_output_not_seen, run_number: 1 }
+    let!(:expert_output_not_seen_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :done, expert: expert_output_not_seen } }
+
+    # Expert sortant present depuis longtemps pas vu
+    let!(:old_expert_output_not_seen) { create :expert_with_users }
+    let!(:rg_old_expert_output_not_seen) { create :reminders_register, created_at: 1.month.ago, category: :output, expert: old_expert_output_not_seen, run_number: 1 }
+    let!(:old_expert_output_not_seen_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :done, expert: old_expert_output_not_seen } }
+
+    # Expert sortant vu
     let!(:expert_output) { create :expert_with_users }
-    let!(:rg_expert_output) { create :reminders_register, created_at: RemindersRegister::TIME_GENERATION.ago, expert: expert_output }
+    let!(:rg_expert_output) { create :reminders_register, expert: expert_output, processed: true, run_number: 1 }
     let!(:expert_output_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :done, expert: expert_output } }
   end
 end
