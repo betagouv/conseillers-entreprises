@@ -42,7 +42,7 @@ describe 'reminders experts', js: true do
       expect(page).to have_css('.card', count: 2)
       expect(page).to be_accessible
       page.click_link(href: "/relances/experts/departs")
-      expect(page).to have_css('.card', count: 2)
+      expect(page).to have_css('.card', count: 3)
       expect(page).to be_accessible
     end
   end

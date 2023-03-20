@@ -91,9 +91,14 @@ module RemindersSpecHelper
     let!(:rg_old_expert_output_not_seen) { create :reminders_register, created_at: 1.month.ago, category: :output, expert: old_expert_output_not_seen, run_number: 1 }
     let!(:old_expert_output_not_seen_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :done, expert: old_expert_output_not_seen } }
 
-    # Expert sortant vu
+    # Expert dans les sorties sortant vu
     let!(:expert_output) { create :expert_with_users }
-    let!(:rg_expert_output) { create :reminders_register, expert: expert_output, processed: true, run_number: 1 }
+    let!(:rg_expert_output) { create :reminders_register, expert: expert_output, processed: true, category: :output, run_number: 1 }
     let!(:expert_output_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :done, expert: expert_output } }
+
+    # Expert dans les entrées sortant vu
+    let!(:expert_input_to_output) { create :expert_with_users }
+    let!(:rg_expert_input_to_output) { create :reminders_register, expert: expert_input_to_output, processed: true, category: :input, run_number: 1 }
+    let!(:expert_input_to_output_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :done, expert: expert_input_to_output } }
   end
 end
