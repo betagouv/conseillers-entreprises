@@ -448,10 +448,8 @@ class Solicitation < ApplicationRecord
 
     clean_siret = FormatSiret.clean_siret(self.siret)
     sirets << clean_siret if FormatSiret.siret_is_valid(clean_siret)
-
-    contacts = Contact.where(email: self.email)
-    sirets << contacts.map{ |contact| contact.company.facilities.pluck(:siret) }.flatten.uniq if contacts.any?
-    sirets.flatten.compact.uniq
+    # concaténation qui supprime les doublons
+    sirets | Facility.for_contacts(email).pluck(:siret)
   end
 
   ## JSON Accessors

@@ -40,7 +40,8 @@
               %span.ri-flag-fill{ 'aria-hidden': 'true' }
           - if solicitation.from_no_register_company?
             %span.meta__warnings__item{ title: t('.solicitation_no_register_company_explanation') } ?
-        - needs_historic = Need.for_emails_and_sirets([solicitation.email], solicitation.valid_sirets).with_siret
+          -# to_a pour forcer le chargement des needs et éviter une nouvelle requête + bas
+        - needs_historic = Need.for_emails_and_sirets([solicitation.email], solicitation.valid_sirets).with_siret.to_a
         - if needs_historic.any?
           .meta__items
             .item= t('.needs_historic')
