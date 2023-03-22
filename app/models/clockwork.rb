@@ -4,10 +4,10 @@ require './config/environment'
 
 module Clockwork
   every(1.week, 'send_app_administrators_statistics_email', at: 'Monday 07:30') do
-    AdminMailersService.delay.send_statistics_email
+    AdminMailersService.delay(queue: :low_priority).send_statistics_email
   end
   every(1.week, 'send_experts_reminders', at: 'Tuesday 9:00') do
-    ExpertReminderService.delay.send_reminders
+    ExpertReminderService.delay(queue: :low_priority).send_reminders
   end
   every(1.week, 'delete_unused_users', at: 'sunday 9:00') do
     UnusedUsersService.delay.delete_users
@@ -43,10 +43,10 @@ module Clockwork
     RetentionService.delay(queue: :low_priority).send_emails
   end
   every(1.day, 'send_failed_jobs_email', at: '10:00') do
-    AdminMailersService.delay.send_failed_jobs
+    AdminMailersService.delay(queue: :low_priority).send_failed_jobs
   end
   every(1.day, 'relaunch_solicitations', at: ('12:00')) do
-    SolicitationsRelaunchService.delay.perform
+    SolicitationsRelaunchService.delay(queue: :low_priority).perform
   end
   if Rails.env == 'production'
     every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 14 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
