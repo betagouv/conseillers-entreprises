@@ -6,7 +6,7 @@ ActiveAdmin.register EmailRetention do
   index do
     selectable_column
     id_column
-    column :delay
+    column :waiting_time
     column :subject
     column :first_subject
     column :second_subject
@@ -16,10 +16,10 @@ ActiveAdmin.register EmailRetention do
   #
   show do
     attributes_table do
-      row :delay
+      row :waiting_time
       row :subject
       row :email_subject
-      row(:first_paragraph) { |er| er.first_paragraph&.html_safe }
+      row(:first_paragraph) { |er| er.first_paragraph.html_safe }
       row :first_subject
       row :first_subject_label
       row :second_subject
@@ -27,7 +27,7 @@ ActiveAdmin.register EmailRetention do
     end
     panel 'email' do
       div I18n.t('mailers.hello')
-      div email_retention.first_paragraph&.html_safe
+      div email_retention.first_paragraph.html_safe
       div I18n.t('mailers.company_mailer.intelligent_retention.and_you').html_safe
       div link_to email_retention.first_subject_label, new_solicitation_url(Landing.accueil, Landing.accueil.landing_subjects.joins(:subject).find_by(subject: email_retention.first_subject))
       div link_to email_retention.second_subject_label, new_solicitation_url(Landing.accueil, Landing.accueil.landing_subjects.joins(:subject).find_by(subject: email_retention.second_subject))
@@ -39,13 +39,13 @@ ActiveAdmin.register EmailRetention do
   ## Form
   #
   permit_params :subject_id, :first_subject_id, :first_subject_label, :second_subject_id, :second_subject_label, :email_subject,
-                :first_paragraph, :delay
+                :first_paragraph, :waiting_time
 
   themes = Theme.all.ordered_for_interview
 
   form do |f|
     f.inputs do
-      f.input :delay
+      f.input :waiting_time
       f.input :email_subject, as: :string
       f.input :subject_id, as: :select, collection: option_groups_from_collection_for_select(themes, :subjects_ordered_for_interview, :label, :id, :label, f.object&.subject&.id)
       f.input :first_paragraph, as: :quill_editor

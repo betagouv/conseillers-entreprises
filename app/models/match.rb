@@ -101,6 +101,10 @@ class Match < ApplicationRecord
     where(status: [:quo, :taking_care])
   end
 
+  scope :with_exchange, -> do
+    where(status: [:done, :done_no_help])
+  end
+
   scope :done, -> do
     where(status: [:done, :done_no_help, :done_not_reachable, :not_for_me])
   end

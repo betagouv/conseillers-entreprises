@@ -34,4 +34,8 @@ class CompanyMailerPreview < ActionMailer::Preview
   def solicitation_relaunch_description
     CompanyMailer.solicitation_relaunch_description(Solicitation.status_step_description.where.not(uuid: nil).sample)
   end
+
+  def intelligent_retention
+    CompanyMailer.intelligent_retention(Need.where(status: :done).where.associated(:solicitation).sample, EmailRetention.all.sample)
+  end
 end
