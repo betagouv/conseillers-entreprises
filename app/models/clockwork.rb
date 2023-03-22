@@ -39,6 +39,9 @@ module Clockwork
   every(1.day, 'send_satisfaction_emails', at: ('5:41')) do
     CompanyMailerService.delay.send_satisfaction_emails
   end
+  every(1.day, 'inteligent_retention', at: ('06:30')) do
+    RetentionService.delay(queue: :low_priority).send_emails
+  end
   every(1.day, 'send_failed_jobs_email', at: '10:00') do
     AdminMailersService.delay.send_failed_jobs
   end
