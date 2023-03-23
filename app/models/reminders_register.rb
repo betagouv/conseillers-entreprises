@@ -6,13 +6,15 @@
 #  basket     :integer
 #  category   :integer          default("remainder"), not null
 #  processed  :boolean          default(FALSE), not null
+#  run_number :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  expert_id  :bigint(8)        not null
 #
 # Indexes
 #
-#  index_reminders_registers_on_expert_id  (expert_id)
+#  index_reminders_registers_on_expert_id                 (expert_id)
+#  index_reminders_registers_on_run_number_and_expert_id  (run_number,expert_id) UNIQUE
 #
 # Foreign Keys
 #

@@ -41,11 +41,11 @@
               %span.ri-flag-fill{ 'aria-hidden': 'true' }
           - if solicitation.from_no_register_company?
             %span.meta__warnings__item{ title: t('.solicitation_no_register_company_explanation') } ?
-        - needs_historic = Need.for_emails_and_sirets_2([solicitation.email], solicitation.valid_sirets).with_siret.to_a
-        - if needs_historic.any?
+        -# - needs_historic = Need.for_emails_and_sirets_2([solicitation.email], solicitation.valid_sirets).with_siret.to_a
+        - if solicitations_facilites[solicitation.id].any?
           .meta__items
             .item= t('.needs_historic')
-            - needs_historic.map{ |n| n.facility }.uniq.each do |facility|
+            - solicitations_facilites[solicitation.id].each do |facility|
               = link_to facility.company.name, needs_company_path(facility)
         - if solicitation.institution.present?
           .logo-institution= institution_image(solicitation.institution.logo&.filename)

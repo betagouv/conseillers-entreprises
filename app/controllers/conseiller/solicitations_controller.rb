@@ -8,12 +8,9 @@ class Conseiller::SolicitationsController < ApplicationController
   layout 'side_menu'
 
   def index
-    @solicitations = ordered_solicitations(:in_progress)
-    # emails = @solicitations.map(&:email)
-    # sirets = @solicitations.map(&:siret)
-    # sirets = sirets | Facility.for_contacts(emails).pluck(:siret)
-    # facilities = get_associated_facilities(emails, sirets)
-    # @facilities = {}
+    @solicitations = ordered_solicitations(:in_progress).includes(:facility)
+    # @solicitations_facilites = @solicitations.each_with_object({}) { |s, h| h[s.id] = get_associated_facilities(s.email, s.siret).to_a }
+    @solicitations_facilites = @solicitations.map { |s| [s.id, get_associated_facilities(s.email, s.siret).to_a] }.to_h
     @status = t('solicitations.header.index')
   end
 

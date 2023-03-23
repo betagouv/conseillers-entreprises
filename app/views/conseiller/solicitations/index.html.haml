@@ -28,7 +28,9 @@
 = paginate @solicitations
 
 - if @solicitations.present?
-  = render(partial: 'solicitation', collection: @solicitations, cached: -> (solicitation) { [solicitation, Badge.all] })
+  -# - @solicitations.each do |solicitation|
+  -#   = render 'solicitation', solicitation: solicitation, solicitation_facilites: @solicitations_facilites[solicitation.id], cached: -> (solicitation) { [solicitation, Badge.all] }
+  = render(partial: 'solicitation', collection: @solicitations, locals: {solicitations_facilites: @solicitations_facilites}, cached: -> (solicitation) { [solicitation, Badge.all] })
 - elsif params[:query].present?
   .ui.divider.hidden
   = t('.no_result')
