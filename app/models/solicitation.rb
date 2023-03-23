@@ -427,7 +427,7 @@ class Solicitation < ApplicationRecord
       .created_between(3.weeks.ago, Time.zone.now)
       .where(landing_subject_id: self.landing_subject_id)
       .from_same_company(self)
-      .uniq
+      .distinct
   end
 
   def update_diagnosis

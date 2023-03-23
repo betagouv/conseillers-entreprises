@@ -41,12 +41,17 @@
           - if solicitation.from_no_register_company?
             %span.meta__warnings__item{ title: t('.solicitation_no_register_company_explanation') } ?
           -# to_a pour forcer le chargement des needs et éviter une nouvelle requête + bas
-        - needs_historic = Need.for_emails_and_sirets([solicitation.email], solicitation.valid_sirets).with_siret.to_a
-        - if needs_historic.any?
+        - if @linked_facilities[solicitation.id].any?
           .meta__items
             .item= t('.needs_historic')
-            - needs_historic.map{ |n| n.facility }.uniq.each do |facility|
+            - @linked_facilities[solicitation.id].each do |facility|
               = link_to facility.company.name, needs_company_path(facility)
+        -# - needs_historic = Need.for_emails_and_sirets([solicitation.email], solicitation.valid_sirets).with_siret.to_a
+        -# - if needs_historic.any?
+        -#   .meta__items
+        -#     .item= t('.needs_historic')
+        -#     - needs_historic.map{ |n| n.facility }.uniq.each do |facility|
+        -#       = link_to facility.company.name, needs_company_path(facility)
         - if solicitation.institution.present?
           .logo-institution= institution_image(solicitation.institution.logo&.filename)
     .card__description

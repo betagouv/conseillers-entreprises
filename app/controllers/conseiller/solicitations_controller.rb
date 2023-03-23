@@ -6,7 +6,30 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def index
     @solicitations = ordered_solicitations(:in_progress)
+    # emails = @solicitations.map(&:email)
+    # sirets = @solicitations.map(&:siret)
+    # sirets = sirets | Facility.for_contacts(emails).pluck(:siret)
+    # facilities = get_associated_facilities(emails, sirets)
+    p "BEGIN ======================================="
+    # @linked_facilities = {}
+    # @solicitations.select(:id, :email, :siret, :landing_id, :landing_subject_id, :institution_id).each do |sol|
+    #   @linked_facilities[sol.id] = get_associated_facilities(sol.email, sol.siret)
+    # end
+    @linked_facilities = @solicitations.each_with_object({}) do |sol, hash|
+      hash[sol.id] = get_associated_facilities(sol.email, sol.siret)
+    end
+    p "END =============================="
+    # byebug
     @status = t('solicitations.header.index')
+  end
+
+  def get_associated_facilities(emails, sirets)
+    Facility
+      .joins(diagnoses: :solicitation)
+      .where(diagnoses: { step: :completed })
+      .for_contacts(emails)
+      .or(Facility.where(diagnoses: { step: :completed }).where(siret: sirets))
+      .distinct
   end
 
   def processed
