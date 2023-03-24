@@ -18,9 +18,7 @@ describe CsvExport::UserExporter, CsvExport do
   end
 
   describe 'with teams' do
-    let!(:expert) { create :expert, antenne: antenne, users: [user], full_name: 'Team 1', email: 'team@team.com', phone_number: '0987654321' }
-
-    before { expert.communes.push(create(:commune, insee_code: '22101')) }
+    let!(:expert) { create :expert, antenne: antenne, users: [user], full_name: 'Team 1', email: 'team@team.com', phone_number: '0987654321', communes: [create(:commune, insee_code: '22101')] }
 
     subject { User.relevant_for_skills.export_csv(include_expert_team: true).csv }
 
