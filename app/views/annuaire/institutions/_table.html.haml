@@ -18,8 +18,8 @@
                 - institution.institutions_subjects.group_by(&:theme).each do |theme, institutions_subjects|
                   %li #{theme.label} (#{institutions_subjects.size})
           %td.fr-enlarge-link
-            = link_to [institution, :antennes] do
+            = link_to institution_antennes_path(institution, region_id: params[:region_id].presence) do
               = antennes_count(institution)
           %td.fr-enlarge-link
-            = link_to [institution, :users] do
+            = link_to institution_users_path(institution, region_id: params[:region_id].presence) do
               = advisors_count(institution)

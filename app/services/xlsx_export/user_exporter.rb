@@ -32,12 +32,13 @@ module XlsxExport
       {
         team_full_name: -> { relevant_expert.full_name if relevant_expert.team? },
         team_email: -> { relevant_expert.email if relevant_expert.team? },
-        team_phone_number: -> { relevant_expert.phone_number if relevant_expert.team? }
+        team_phone_number: -> { relevant_expert.phone_number if relevant_expert.team? },
+        team_custom_communes: -> { relevant_expert.communes.pluck(:insee_code).join(', ') if (relevant_expert.team? && relevant_expert.custom_communes?) },
       }
     end
 
     def headers
-      ['', '', '', I18n.t('export_xls.phone_instructions'), '', I18n.t('export_xls.team_email'), '', '', I18n.t('export_xls.subjects_instructions')]
+      ['', '', '', I18n.t('export_xls.phone_instructions'), '', I18n.t('export_xls.team_email'), '', '', '', I18n.t('export_xls.subjects_instructions')]
     end
 
     def fields_for_subjects
@@ -127,6 +128,7 @@ module XlsxExport
           sheet.rows[i].cells[5].style = @green_bg
           sheet.rows[i].cells[6].style = @green_bg
           sheet.rows[i].cells[7].style = @green_bg
+          sheet.rows[i].cells[8].style = @green_bg
         end
       end
       sheet
@@ -135,19 +137,21 @@ module XlsxExport
     def apply_style(sheet, attributes)
       # Style
       sheet.merge_cells('A1:C1')
-      sheet.merge_cells('F1:H1')
+      sheet.merge_cells('F1:I1')
       sheet.merge_cells('B3:E3')
-      sheet.merge_cells('F3:H3')
-      sheet.merge_cells('I1:K1')
+      sheet.merge_cells('F3:I3')
+      sheet.merge_cells('J1:L1')
       sheet.rows[0].cells[4].style = @text_red
       sheet.rows[0].cells[8].style = @text_red
       sheet.rows[0].cells[5].style = @green_bg_bold
       sheet.rows[1].cells[5].style = @green_bg_bold
       sheet.rows[1].cells[6].style = @green_bg_bold
       sheet.rows[1].cells[7].style = @green_bg_bold
+      sheet.rows[1].cells[8].style = @green_bg_bold
       sheet.col_style 5, @green_bg, row_offset: 2
       sheet.col_style 6, @green_bg, row_offset: 2
       sheet.col_style 7, @green_bg, row_offset: 2
+      sheet.col_style 8, @green_bg, row_offset: 2
       sheet.rows[2].cells[5].style = @green_bg_italic
 
       attributes.keys.each_index do |i|
