@@ -6,7 +6,14 @@
     collections_by_status_counts: @collections_by_status_counts)
 
 = paginate @active_experts
-= render 'shared/territory_choice', territories: @territories
+= form_with url: request.path, method: :get, skip_enforcing_utf8: true, data: { remote: false }, class: '' do
+  - options = { include_blank: t('all_choices'), class: 'fr-select' }
+  .two.fields
+    .field
+      = label_tag(:territory, t('.region'), class: 'fr-label')
+      = select_tag(:territory,
+        options_from_collection_for_select(territories, :id, :name, params[:territory] || session[:territory]),
+        options.dup)
 
 %div
   - if @active_experts.blank? && @action == :inputs
