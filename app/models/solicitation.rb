@@ -391,7 +391,7 @@ class Solicitation < ApplicationRecord
   # Solicitations similaires
   #
   scope :from_same_company, -> (solicitation) {
-    where(siret: solicitation.valid_sirets)
+    where(siret: solicitation.valid_sirets_2)
       .or(where(email: solicitation.email))
   }
 

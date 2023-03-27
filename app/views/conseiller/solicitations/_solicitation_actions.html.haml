@@ -47,6 +47,3 @@
     .ui.menu
       = status_action_link(solicitation, 'canceled', %w[item]) if solicitation.may_cancel?
       .item.show-feedbacks-form{ 'data-feedbackable': "#{solicitation.id}" }= t('feedbacks.add')
-      - banning_action = solicitation.from_banned_company? ? t('.unban_facility') : t('.ban_facility')
-      = link_to banning_action, ban_facility_conseiller_solicitation_path(solicitation), method: :post, class: 'item'
-

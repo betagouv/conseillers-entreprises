@@ -6,22 +6,20 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def index
     @solicitations = ordered_solicitations(:in_progress)
-    # emails = @solicitations.map(&:email)
-    # sirets = @solicitations.map(&:siret)
-    # sirets = sirets | Facility.for_contacts(emails).pluck(:siret)
-    # facilities = get_associated_facilities(emails, sirets)
-    # @facilities = {}
+    @facilities = get_and_format_facilities
     @status = t('solicitations.header.index')
   end
 
   def processed
     @solicitations = ordered_solicitations(:processed)
+    @facilities = get_and_format_facilities
     @status = t('solicitations.header.processed')
     render :index
   end
 
   def canceled
     @solicitations = ordered_solicitations(:canceled)
+    @facilities = get_and_format_facilities
     @status = t('solicitations.header.canceled')
     render :index
   end
@@ -145,12 +143,43 @@ class Conseiller::SolicitationsController < ApplicationController
     :s_territory
   end
 
-  def get_associated_facilities(emails, sirets)
+  def get_facilities_for_email_and_sirets(emails, sirets)
     Facility
-      .joins(diagnoses: :solicitation)
-      .where(diagnoses: { step: :completed })
-      .for_contacts(emails)
-      .or(Facility.where(siret: sirets))
+      .select('facilities.*, companies.name AS company_name, contacts.email AS contact_email')
+      .joins(:diagnoses, company: :contacts)
+      .where(diagnoses: { step: 5 })
+      .where(contacts: {email: emails})
+      .or(Facility.where(diagnoses: { step: 5 }).where(siret: sirets))
       .distinct
+  end
+
+  def prepare_emails_sirets_and_solicitations
+    emails, sirets = [], []
+    solicitations = {}
+    @solicitations.each do |solicitation|
+      emails << solicitation.email
+      sirets << solicitation.siret
+      solicitations[solicitation.siret] = solicitation.id
+      solicitations[solicitation.email] = solicitation.id
+    end
+    sirets = (sirets.flatten | Facility.for_contacts(emails).pluck(:siret)).compact_blank
+
+    return emails, sirets, solicitations
+  end
+
+  def get_and_format_facilities
+    emails, sirets, solicitations = prepare_emails_sirets_and_solicitations
+    facilities = get_facilities_for_email_and_sirets(emails, sirets)
+    formatted_facilities = {}
+    facilities.each do |facility|
+      if solicitations[facility.siret].present?
+        formatted_facilities[solicitations[facility.siret]] = {id: facility.id, company_name: facility.company_name}
+      end
+      if solicitations[facility.contact_email].present?
+        formatted_facilities[solicitations[facility.contact_email]] = {id: facility.id, company_name: facility.company_name}
+      end
+    end
+
+    formatted_facilities
   end
 end

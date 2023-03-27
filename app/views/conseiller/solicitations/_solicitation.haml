@@ -1,4 +1,3 @@
-- puts "@@@@@@@@@@@@@@@@@@ BEGIN @@@@@@@@@@@@@@"
 .card-solicitation.fr-my-4w.card{ id: solicitation.id }
   .card__header
     .card__title
@@ -36,17 +35,14 @@
             %span.meta__warnings__item{ title: t('.solicitation_relance_explanation') } R
           - if solicitation.doublon_solicitations.any?
             %span.meta__warnings__item{ title: t('.solicitation_doublon_explanation') } D
-          - if solicitation.from_banned_company?
-            %span.meta__warnings__item{ title: t('.solicitation_banned_facility_explanation') }
-              %span.ri-flag-fill{ 'aria-hidden': 'true' }
           - if solicitation.from_no_register_company?
             %span.meta__warnings__item{ title: t('.solicitation_no_register_company_explanation') } ?
-        - needs_historic = Need.for_emails_and_sirets_2([solicitation.email], solicitation.valid_sirets).with_siret.to_a
-        - if needs_historic.any?
+
+        - if @facilities[solicitation.id]
           .meta__items
             .item= t('.needs_historic')
-            - needs_historic.map{ |n| n.facility }.uniq.each do |facility|
-              = link_to facility.company.name, needs_company_path(facility)
+            = link_to @facilities[solicitation.id][:company_name], needs_company_path(@facilities[solicitation.id])
+
         - if solicitation.institution.present?
           .logo-institution= institution_image(solicitation.institution.logo&.filename)
     .card__description
@@ -58,4 +54,3 @@
       = render 'feedbacks/form', feedback: solicitation.feedbacks.new(category: :solicitation)
   .card__footer
     = render 'solicitation_actions', solicitation: solicitation
-- puts "@@@@@@@@@@@@@@@@@@ END @@@@@@@@@@@@@@"
