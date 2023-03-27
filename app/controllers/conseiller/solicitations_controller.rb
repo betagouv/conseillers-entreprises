@@ -173,10 +173,10 @@ class Conseiller::SolicitationsController < ApplicationController
     formatted_facilities = {}
     facilities.each do |facility|
       if solicitations[facility.siret].present?
-        formatted_facilities[solicitations[facility.siret]] = {id: facility.id, company_name: facility.company_name}
+        formatted_facilities[solicitations[facility.siret]] = { id: facility.id, company_name: facility.company_name }
       end
       if solicitations[facility.contact_email].present?
-        formatted_facilities[solicitations[facility.contact_email]] = {id: facility.id, company_name: facility.company_name}
+        formatted_facilities[solicitations[facility.contact_email]] = { id: facility.id, company_name: facility.company_name }
       end
     end
 
