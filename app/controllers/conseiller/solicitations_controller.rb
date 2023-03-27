@@ -148,7 +148,7 @@ class Conseiller::SolicitationsController < ApplicationController
       .select('facilities.*, companies.name AS company_name, contacts.email AS contact_email')
       .joins(:diagnoses, company: :contacts)
       .where(diagnoses: { step: 5 })
-      .where(contacts: {email: emails})
+      .where(contacts: { email: emails })
       .or(Facility.where(diagnoses: { step: 5 }).where(siret: sirets))
       .distinct
   end

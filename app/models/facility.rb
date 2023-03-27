@@ -63,9 +63,8 @@ class Facility < ApplicationRecord
   end
 
   scope :for_contacts, -> (emails = []) do
-    joins(company: :contacts).where(contacts: {email: emails})
+    joins(company: :contacts).where(contacts: { email: emails })
   end
-
 
   ## insee_code / commune helpers
   # TODO: insee_code should be just a column in facility, and we should drop the Commune model entirely.
