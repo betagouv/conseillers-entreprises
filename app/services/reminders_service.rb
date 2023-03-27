@@ -14,7 +14,7 @@ class RemindersService
 
   def self.create_reminders_registers
     experts_with_active_matches = Expert.not_deleted.with_users.with_active_matches
-    last_run_number = RemindersRegister.last_run_number
+    last_run_number = RemindersRegister.last_run_number.presence || 0
     current_run = last_run_number + 1
     ActiveRecord::Base.transaction do
       experts_with_active_matches.each do |expert|
@@ -67,7 +67,8 @@ class RemindersService
   end
 
   def self.build_output_basket(experts, last_run_number, current_run)
-    last_run_reminders_registers = RemindersRegister.where(run_number: last_run_number, processed: false)
+    last_run_reminders_registers = RemindersRegister.where(category: :output, processed: false)
+      .or(RemindersRegister.where(run_number: last_run_number, category: [:input, :remainder]))
     Expert.where(id: last_run_reminders_registers.map(&:expert).pluck(:id)).where.not(id: experts.ids).each do |expert|
       next if expert.reminders_registers.current_output_category.any?
       RemindersRegister.create!(expert: expert, category: :output, run_number: current_run)
