@@ -553,6 +553,14 @@ fr:
         call_me: Si jamais vous ne recevez pas les besoins par mail, appelez-moi pour que nous regardions ensemble.
         needs_quo_html: Je me permets de vous écrire car vous avez <strong>%{count} besoins d’entreprise</strong> en attente de votre positionnement sur Place des Entreprises. Vous pouvez les retrouver facilement en vous connectant sur votre %{account_link}.
         user_account: compte utilisateur
+      re_engagement:
+        ask_questions: N’hésitez pas à venir poser vos questions.
+        at_your_service: Je me tiens également à votre disposition par téléphone.
+        find_it_here_html: 'Vous pouvez le retrouver ici : <a href=''%{url}''>%{url}</a>'
+        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service Place des Entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque mardi à 14H30</strong> sur ce lien de visio : <a href=''https://webinaire.numerique.gouv.fr''> https://webinaire.numerique.gouv.fr</a>.'
+        its_been_a_while: Cela n’était pas arrivé depuis un bon moment !
+        subject: Service public Place des Entreprises - Nous vous accompagnons !
+        you_received_need_html: Vous venez de recevoir un besoin de l’entreprise <strong>%{company}</strong> sur le sujet %{subject}.
       remind_involvement:
         needs_for_you: 'Ces entreprises ont besoin de vous :'
         needs_quo: 'Besoins restés sans réponse : quelle est votre position ?'
@@ -847,9 +855,11 @@ fr:
         matches_total: Demandes depuis le début
         process: Vu
         received_matches: reçues
-        see_remaining_feedbacks: Voir les commentaires plus anciens (%{count})
+        send_one_pending_need_email: Envoyer l’email de réengagement
         send_reminders_email: Envoyer l’email de relance
         team_composition: Composition de l'équipe
+      expert_feedbacks:
+        see_remaining_feedbacks: Voir les commentaires plus anciens (%{count})
       index:
         title: Relances par experts
       scopes:
@@ -918,6 +928,7 @@ fr:
       no_export_available: L’export de données et votre rapport trimestriels ne sont pas encore disponibles pour cette antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
       title: Export des données
   republique_francaise_html: République <br /> Française
+  see_you_soon: À très vite !
   shared:
     breadcrumb:
       see_breadcrumb: Voir le fil d’Ariane

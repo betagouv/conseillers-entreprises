@@ -62,23 +62,15 @@
 
     %hr
     = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
-    .fr-mt-3w
-      %div{ id: "display-feedbacks-#{expert.id}" }
-      - feedbacks = expert.reminder_feedbacks.order(created_at: :desc)
-      = render partial: 'feedbacks/feedback', collection: feedbacks.limit(2)
-      -# On affiche les 2 premiers commentaires, les autres sont dépliables
-      - if expert.reminder_feedbacks.size > 2
-        - remaining_feedbacks = feedbacks.offset(2)
-        %section.fr-accordion
-          %h4.fr-accordion__title
-          %button.fr-accordion__btn.fr-text--sm{ aria: { expanded: "false", controls: "hidden-feedbacks-#{expert.id}" } }
-            = t('.see_remaining_feedbacks', count: remaining_feedbacks.size)
-        .fr-collapse.fr-pt-2w{ id: "hidden-feedbacks-#{expert.id}" }
-          = render partial: 'feedbacks/feedback', collection: remaining_feedbacks
+    = render 'expert_feedbacks', expert: expert
 
   .card__footer
-    = form_with model: expert, url: send_reminder_email_reminders_expert_path(expert), method: :post do |f|
-      = f.submit t('.send_reminders_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'
+    - if action == :one_pending_need
+      = form_with model: expert, url: send_re_engagement_email_reminders_expert_path(expert), method: :post, data: { turbo: true }, format: :turbo_stream do |f|
+        = f.submit t('.send_one_pending_need_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'
+    - else
+      = form_with model: expert, url: send_reminder_email_reminders_expert_path(expert), method: :post do |f|
+        = f.submit t('.send_reminders_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'
     - if action == :inputs || action == :outputs
       - reminders_register = (action == :inputs) ? expert.input_register : expert.output_register
       = form_with model: expert, url: reminders_reminders_register_path(reminders_register), method: :patch, local: true, data: { turbo: false } do |f|
