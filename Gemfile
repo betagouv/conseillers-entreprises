@@ -48,6 +48,7 @@ gem 'active_model_serializers', '~> 0.10'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'faker'
+gem 'scenic'
 
 # Charts
 gem 'highcharts-rails'

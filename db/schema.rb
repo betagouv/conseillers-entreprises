@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_13_104410) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_28_132342) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -686,4 +686,49 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_104410) do
   add_foreign_key "user_rights", "users"
   add_foreign_key "users", "antennes"
   add_foreign_key "users", "users", column: "inviter_id"
+
+  create_view "needs_by_region", materialized: true, sql_definition: <<-SQL
+      SELECT territories.code_region,
+      territories.name,
+      count(DISTINCT needs.id) AS needs_count,
+      count(DISTINCT needs.id) FILTER (WHERE (needs.status = 'done'::need_status)) AS needs_done_count,
+      count(DISTINCT needs.id) FILTER (WHERE (needs.status = 'done_no_help'::need_status)) AS needs_done_no_help_count,
+      count(DISTINCT needs.id) FILTER (WHERE (needs.status = 'done_not_reachable'::need_status)) AS needs_done_not_reachable_count,
+      count(DISTINCT needs.id) FILTER (WHERE (needs.status = 'not_for_me'::need_status)) AS needs_not_for_me_count
+     FROM (((((((((((territories
+       JOIN communes_territories ON ((communes_territories.territory_id = territories.id)))
+       JOIN communes ON ((communes.id = communes_territories.commune_id)))
+       JOIN antennes_communes ON ((antennes_communes.commune_id = communes.id)))
+       JOIN antennes ON ((antennes.id = antennes_communes.antenne_id)))
+       JOIN institutions ON ((institutions.id = antennes.institution_id)))
+       JOIN experts ON (((experts.deleted_at IS NULL) AND (experts.antenne_id = antennes.id))))
+       JOIN matches ON (((matches.id IN ( SELECT matches_1.id
+             FROM ((matches matches_1
+               JOIN needs needs_1 ON ((needs_1.id = matches_1.need_id)))
+               JOIN diagnoses ON ((diagnoses.id = needs_1.diagnosis_id)))
+            WHERE (diagnoses.step = 5))) AND (matches.expert_id = experts.id))))
+       JOIN needs ON ((needs.id = matches.need_id)))
+       JOIN subjects ON ((subjects.id = needs.subject_id)))
+       JOIN matches matches_needs ON ((matches_needs.need_id = needs.id)))
+       JOIN themes ON ((themes.id = subjects.theme_id)))
+    WHERE (((institutions.slug)::text = ANY ((ARRAY['cci'::character varying, 'cma'::character varying, 'banque_de_france'::character varying, 'urssaf'::character varying, 'dgfip'::character varying, 'dreets'::character varying, 'pole-emploi'::character varying, 'carsat'::character varying, 'aract'::character varying, 'initiative-france'::character varying])::text[])) AND (antennes.territorial_level <> 'national'::territorial_level) AND ((themes.label)::text <> ALL ((ARRAY['Général'::character varying, 'Support'::character varying, 'Brexit'::character varying])::text[])) AND (matches.taken_care_of_at >= '2022-01-01 00:00:00'::timestamp without time zone) AND (matches.taken_care_of_at < '2023-01-01 00:00:00'::timestamp without time zone) AND (needs.status = ANY (ARRAY['done'::need_status, 'done_no_help'::need_status, 'done_not_reachable'::need_status, 'not_for_me'::need_status])))
+    GROUP BY territories.id;
+  SQL
+  create_view "users_by_region", materialized: true, sql_definition: <<-SQL
+      SELECT territories.code_region,
+      territories.name,
+      count(DISTINCT users.id) AS users
+     FROM (((((((((territories
+       JOIN communes_territories ON ((communes_territories.territory_id = territories.id)))
+       JOIN communes ON ((communes.id = communes_territories.commune_id)))
+       JOIN antennes_communes ON ((antennes_communes.commune_id = communes.id)))
+       JOIN antennes ON ((antennes.id = antennes_communes.antenne_id)))
+       JOIN institutions ON ((institutions.id = antennes.institution_id)))
+       JOIN experts ON (((experts.deleted_at IS NULL) AND (experts.antenne_id = antennes.id))))
+       JOIN experts_users ON ((experts_users.expert_id = experts.id)))
+       JOIN users ON (((users.deleted_at IS NULL) AND (users.id = experts_users.user_id))))
+       LEFT JOIN user_rights ON ((user_rights.user_id = users.id)))
+    WHERE (((institutions.slug)::text = ANY ((ARRAY['cci'::character varying, 'cma'::character varying, 'banque_de_france'::character varying, 'urssaf'::character varying, 'dgfip'::character varying, 'dreets'::character varying, 'pole-emploi'::character varying, 'carsat'::character varying, 'aract'::character varying, 'initiative-france'::character varying])::text[])) AND (antennes.territorial_level <> 'national'::territorial_level) AND (users.deleted_at IS NULL) AND (user_rights.id IS NULL))
+    GROUP BY territories.id;
+  SQL
 end

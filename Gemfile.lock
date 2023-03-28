@@ -549,6 +549,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    scenic (1.7.0)
+      activerecord (>= 4.0.0)
+      railties (>= 4.0.0)
     scout_apm (5.3.3)
       parser
     selectize-rails (0.12.6)
@@ -740,6 +743,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   sassc-rails
+  scenic
   scout_apm
   selenium-webdriver
   sentry-delayed_job
