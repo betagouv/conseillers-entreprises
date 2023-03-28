@@ -58,8 +58,10 @@ module Reminders
       ExpertMailer.positioning_rate_reminders(@expert, current_user).deliver_later
       @feedback = Feedback.create(user: current_user, category: :expert_reminder, description: t('.email_send'), feedbackable_type: 'Expert', feedbackable_id: @expert.id)
       respond_to do |format|
-        format.js
-        format.html { redirect_back fallback_location: many_pending_needs_reminders_experts_path, notice: t('mailers.email_sent') }
+        format.html { redirect_back fallback_location: many_pending_need_reminders_experts_path }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update("display-feedbacks-#{expert.id}", partial: "reminders/experts/expert_feedbacks", locals: { expert: expert })
+        end
       end
     end
 

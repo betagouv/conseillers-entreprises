@@ -66,10 +66,10 @@
 
   .card__footer
     - if action == :one_pending_need
-      = form_with model: expert, url: send_re_engagement_email_reminders_expert_path(expert), method: :post, data: { turbo: true }, format: :turbo_stream do |f|
+      = form_with model: expert, url: send_re_engagement_email_reminders_expert_path(expert), method: :post, data: { turbo: true } do |f|
         = f.submit t('.send_one_pending_need_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'
     - else
-      = form_with model: expert, url: send_reminder_email_reminders_expert_path(expert), method: :post do |f|
+      = form_with model: expert, url: send_reminder_email_reminders_expert_path(expert), method: :post, data: { turbo: true } do |f|
         = f.submit t('.send_reminders_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'
     - if action == :inputs || action == :outputs
       - reminders_register = (action == :inputs) ? expert.input_register : expert.output_register
