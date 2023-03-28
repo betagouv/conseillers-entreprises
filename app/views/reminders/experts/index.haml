@@ -6,14 +6,21 @@
     collections_by_status_counts: @collections_by_status_counts)
 
 = paginate @active_experts
-= form_with url: request.path, method: :get, skip_enforcing_utf8: true, data: { remote: false }, class: '' do
-  - options = { include_blank: t('all_choices'), class: 'fr-select' }
-  .two.fields
-    .field
-      = label_tag(:territory, t('.region'), class: 'fr-label')
-      = select_tag(:territory,
-        options_from_collection_for_select(territories, :id, :name, params[:territory] || session[:territory]),
-        options.dup)
+= form_with url: request.path, method: :get, skip_enforcing_utf8: true, data: { remote: false }, class: '' do |f|
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col-md-6.fr-col-12
+      .fr-input-group
+        - options = { include_blank: t('all_choices'), class: 'fr-select' }
+        = f.label(:by_region, t('attributes.region'), class: 'fr-label')
+        = f.select(:by_region,
+          options_for_select(@possible_territories_options, relance_expert_params[:by_region]),
+          options.dup, { class: 'fr-select' })
+    .fr-col-md-6.fr-col-12.text-right
+      .fr-input-group
+        - if relance_expert_params.present?
+          = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
+        = f.submit t('search'), class: 'fr-btn', title: t('search')
+
 
 %div
   - if @active_experts.blank? && @action == :inputs

@@ -8,7 +8,6 @@ fr:
           Si vous avez pu échanger par téléphone avec le dirigeant, n’oubliez pas après le bouton de « Je m’en charge » de cliquer sur « Aide proposée » ou « Pas d’aide » pour clôturer.
           Je me tiens à votre disposition si vous avez des questions.
           Bien à vous
-
         label: Rappel
       '2':
         content: |
@@ -18,7 +17,6 @@ fr:
           Merci d’avance pour votre retour.
           Je reste à votre disposition,
           Bonne journée
-
         label: Incertain
       '3':
         content: Bonjour, si vous avez pu apporter une aide ou des conseils au dirigeant, n’oubliez pas après le bouton de « prise en charge » de cliquer sur « Aide proposée » pour éviter les relances. Je me suis permis de le faire pour vous sur ce besoin. Je reste à votre disposition si vous avez des questions. Bien à vous
