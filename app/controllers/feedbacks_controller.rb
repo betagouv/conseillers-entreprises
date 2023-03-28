@@ -18,13 +18,11 @@ class FeedbacksController < ApplicationController
 
   def destroy
     feedback = retrieve_feedback
-    if feedback.nil?
-      # Delete HTML content if the feedback is already destroy
-      @feedback_id = params[:id]
-    else
-      @feedback_id = feedback.id
-      authorize feedback
-      feedback.destroy!
+    authorize feedback
+    feedback.destroy!
+    respond_to do |format|
+      format.html { redirect_back fallback_location: reminders_expert_path }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove("feedback-#{feedback.id}") }
     end
   end
 

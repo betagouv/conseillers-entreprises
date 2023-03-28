@@ -2,8 +2,8 @@ var noComment = document.getElementById('no-comment')
 if (noComment != null) { noComment.parentNode.removeChild(noComment) }
 
 - feedback_html = render 'feedbacks/feedback', feedback: @feedback
-var element = document.getElementById('display-feedbacks-#{@feedback.feedbackable_id}')
-if (element != null) {
-element.insertAdjacentHTML('beforeend', "#{j feedback_html}");
-document.querySelector('.feedback-form-#{@feedback.feedbackable_id}').reset()
+  var element = document.getElementById('display-feedbacks-#{@feedback.feedbackable_id}')
+  if (element != null) {
+  element.insertAdjacentHTML('beforeend', "#{j feedback_html}");
+  document.querySelector('.feedback-form-#{@feedback.feedbackable_id}').reset()
 }
