@@ -78,7 +78,7 @@ ActiveAdmin.register Expert do
   filter :email
   filter :phone_number
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
+  filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
   filter :antenne, as: :ajax_select, collection: -> { @antennes_collection.pluck(:name, :id) }, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :antenne_territories, as: :ajax_select, collection: -> { Territory.bassins_emploi.pluck(:name, :id) },
          data: { url: :admin_territories_path, search_fields: [:name] }

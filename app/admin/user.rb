@@ -64,7 +64,7 @@ ActiveAdmin.register User do
   filter :full_name
   filter :email
   filter :job
-  filter :regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
+  filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :created_at

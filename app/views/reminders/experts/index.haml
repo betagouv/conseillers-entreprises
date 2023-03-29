@@ -14,7 +14,7 @@
         = f.label(:by_region, t('attributes.region'), class: 'fr-label')
         = f.select(:by_region,
           options_for_select(@possible_territories_options, relance_expert_params[:by_region]),
-          options.dup, { class: 'fr-select', data: { 'action': 'change->direct-submit#submit' } })
+          options.dup, { class: 'fr-select', data: { action: 'change->direct-submit#submit' } })
 
 %div
   - if @active_experts.blank? && @action == :inputs
