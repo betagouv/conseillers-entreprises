@@ -88,6 +88,7 @@ ActiveAdmin.register Expert do
   ## CSV
   #
   csv do
+    column :id
     column :full_name
     column :job
     column :email

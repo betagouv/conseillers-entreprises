@@ -125,9 +125,11 @@ class SolicitationsController < PagesController
     with_step_data do
       @solicitation.complete if @solicitation.may_complete?
       if @solicitation.update(sanitize_params(solicitation_params))
-        @solicitation.delay.prepare_diagnosis(nil)
-        CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
-        redirect_to form_complete_solicitation_path(@solicitation.uuid)
+        ActiveRecord::Base.transaction do
+          @solicitation.delay.prepare_diagnosis(nil)
+          CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
+          redirect_to form_complete_solicitation_path(@solicitation.uuid)
+        end
       else
         flash.now.alert = @solicitation.errors.full_messages.to_sentence
         build_institution_filters if @solicitation.institution_filters.blank?

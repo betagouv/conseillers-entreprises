@@ -32,6 +32,7 @@ module CsvExport
         real_theme: :theme,
         real_subject: :subject,
         match_id: :id,
+        expert_id: :expert_id,
         expert: :expert,
         expert_antenne: :expert_antenne,
         expert_institution: :expert_institution,

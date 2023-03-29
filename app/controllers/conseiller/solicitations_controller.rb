@@ -23,6 +23,7 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def show
     authorize @solicitation
+    reset_session
     nb_per_page = Solicitation.page(1).limit_value
     case @solicitation.status
     when 'canceled'
@@ -104,10 +105,14 @@ class Conseiller::SolicitationsController < ApplicationController
     session[:sol_search_params] ||= {}
     search_params = params.slice(:omnisearch, :by_region).permit!
     if params[:reset_query].present?
-      session[:sol_search_params] = {}
+      reset_session
     else
       session[:sol_search_params] = session[:sol_search_params].merge(search_params)
     end
+  end
+
+  def reset_session
+    session[:sol_search_params] = {}
   end
 
   def find_solicitation

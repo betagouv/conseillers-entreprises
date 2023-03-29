@@ -75,6 +75,7 @@ ActiveAdmin.register User do
   ## CSV
   #
   csv do
+    column :id
     column :full_name
     column :email
     column :phone_number

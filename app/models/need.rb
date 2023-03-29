@@ -331,7 +331,7 @@ class Need < ApplicationRecord
   end
 
   def display_time
-    solicitation&.created_at || diagnosis.created_at
+    solicitation&.completed_at || diagnosis.created_at
   end
 
   def display_date

@@ -4,7 +4,7 @@
       .fr-card.fr-card--horizontal.fr-enlarge-link
         .fr-card__body
           %p.fr-card__detail
-            = I18n.l(need.display_date, format: :long)
+            = I18n.l(need.created_at, format: :long)
             - if params[:query].present?
               %span.label.grey-blue= t(need.status, scope: 'needs.collections_single')
           %h2.fr-h4.fr-card__title

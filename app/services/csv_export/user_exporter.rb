@@ -31,6 +31,7 @@ module CsvExport
 
     def fields_for_team
       {
+        team_id: -> { relevant_expert.id if relevant_expert.team? },
         team_full_name: -> { relevant_expert.full_name if relevant_expert.team? },
         team_email: -> { relevant_expert.email if relevant_expert.team? },
         team_phone_number: -> { relevant_expert.phone_number if relevant_expert.team? },
