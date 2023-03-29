@@ -59,7 +59,7 @@ module CsvExport
         commune: -> { diagnosis&.facility&.commune },
         facility_regions: -> { region&.name },
         company_name: -> { diagnosis&.company&.name },
-        company_categorie_juridique: -> { diagnosis&.company.categorie_juridique },
+        company_categorie_juridique: -> { diagnosis&.company&.categorie_juridique },
         company_naf: -> { diagnosis&.facility&.naf_code },
         company_effectif: -> { Effectif::CodeEffectif.new(diagnosis&.facility&.code_effectif).intitule_effectif },
         inscrit_rcs: -> { diagnosis&.company&.inscrit_rcs ? I18n.t('boolean.text.true') : I18n.t('boolean.text.false') },
