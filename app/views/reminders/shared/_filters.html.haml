@@ -1,0 +1,9 @@
+= form_with url: request.path, method: :get, skip_enforcing_utf8: true, data: { remote: false, controller: 'direct-submit' }, class: '' do |f|
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col-md-6.fr-col-12
+      .fr-input-group
+        - options = { include_blank: t('all_choices'), class: 'fr-select' }
+        = f.label(:by_region, t('attributes.region'), class: 'fr-label')
+        = f.select(:by_region,
+          options_for_select(possible_territories_options, reminders_filter_params[:by_region]),
+          options.dup, { class: 'fr-select', data: { action: 'change->direct-submit#submit' } })

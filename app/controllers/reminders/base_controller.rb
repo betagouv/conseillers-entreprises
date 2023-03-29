@@ -1,7 +1,5 @@
 module Reminders
   class BaseController < ApplicationController
-    include TerritoryFiltrable
-
     before_action :authenticate_admin!
 
     layout 'side_menu'
@@ -32,12 +30,36 @@ module Reminders
       end
     end
 
+    # Filtering
+    #
     def territory_needs
-      @territory.present? ? @territory.needs : Need.all
+      @territory_needs ||= Need.apply_filters(reminders_filter_params)
     end
 
     def territory_experts
-      @territory.present? ? @territory.all_experts : Expert.all
+      @territory_experts ||= Expert.apply_filters(reminders_filter_params)
+    end
+
+    def reminders_filter_params
+      session[:reminders_filter_params]&.with_indifferent_access || {}
+    end
+    helper_method :reminders_filter_params
+
+    def persist_filter_params
+      session[:reminders_filter_params] ||= {}
+      search_params = params.slice(:by_region).permit!
+      if params[:reset_query].present?
+        session[:reminders_filter_params] = {}
+      else
+        session[:reminders_filter_params] = session[:reminders_filter_params].merge(search_params)
+      end
+    end
+
+    def setup_territory_filters
+      @possible_territories_options = Territory.deployed_regions.pluck(:name, :id)
+      @possible_territories_options.push(
+        [ t('helpers.expert.national_perimeter.label'), t('helpers.expert.national_perimeter.value') ],
+      )
     end
   end
 end

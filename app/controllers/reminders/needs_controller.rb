@@ -1,8 +1,6 @@
 module Reminders
   class NeedsController < BaseController
-    before_action :setup_territory_filters
-    before_action :find_current_territory
-    before_action :collections_counts
+    before_action :persist_filter_params, :setup_territory_filters, :collections_counts
     before_action :find_need, only: %i[send_abandoned_email send_reminder_email send_last_chance_email]
 
     def index

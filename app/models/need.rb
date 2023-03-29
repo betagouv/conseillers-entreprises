@@ -265,8 +265,8 @@ class Need < ApplicationRecord
     Need.where(id: antenne.perimeter_received_needs)
   end
 
-  scope :by_region, -> (region) do
-    joins(facility: :commune).merge(Commune.by_region(region))
+  scope :by_region, -> (region_id) do
+    joins(facility: :commune).merge(Commune.by_region(region_id))
   end
 
   scope :in_antennes_perimeters, -> (antennes) do
@@ -310,6 +310,12 @@ class Need < ApplicationRecord
 
   def self.arel_facility_contains(query)
     Facility.arel_table[:readable_locality].matches("%#{query}%")
+  end
+
+  def self.apply_filters(params)
+    klass = self
+    klass = klass.by_region(params[:by_region]) if params[:by_region].present?
+    klass.all
   end
 
   ##
