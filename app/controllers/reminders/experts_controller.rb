@@ -54,13 +54,17 @@ module Reminders
     end
 
     def send_reminder_email
-      @expert = Expert.find(params.permit(:id)[:id])
-      ExpertMailer.positioning_rate_reminders(@expert, current_user).deliver_later
-      @feedback = Feedback.create(user: current_user, category: :expert_reminder, description: t('.email_send'), feedbackable_type: 'Expert', feedbackable_id: @expert.id)
+      expert = Expert.find(params.permit(:id)[:id])
+      ExpertMailer.positioning_rate_reminders(expert, current_user).deliver_later
+      Feedback.create(user: current_user, category: :expert_reminder, description: t('.email_send'),
+                      feedbackable_type: 'Expert', feedbackable_id: expert.id)
+
       respond_to do |format|
-        format.html { redirect_back fallback_location: many_pending_need_reminders_experts_path }
         format.turbo_stream do
-          render turbo_stream: turbo_stream.update("display-feedbacks-#{expert.id}", partial: "reminders/experts/expert_feedbacks", locals: { expert: expert })
+          render turbo_stream: turbo_stream.update("display-feedbacks-#{expert.id}",
+                                                   partial: "reminders/experts/expert_feedbacks",
+                                                   locals: { expert: expert })
+          format.html { redirect_back fallback_location: many_pending_need_reminders_experts_path }
         end
       end
     end
@@ -69,11 +73,14 @@ module Reminders
       expert = Expert.find(params.permit(:id)[:id])
       need = expert.received_quo_matches.first.need
       ExpertMailer.re_engagement(expert, current_user, need).deliver_later
-      Feedback.create(user: current_user, category: :expert_reminder, description: t('.re_engagement_email_send'), feedbackable_type: 'Expert', feedbackable_id: expert.id)
+      Feedback.create(user: current_user, category: :expert_reminder, description: t('.re_engagement_email_send'),
+                      feedbackable_type: 'Expert', feedbackable_id: expert.id)
 
       respond_to do |format|
         format.turbo_stream do
-          render turbo_stream: turbo_stream.update("display-feedbacks-#{expert.id}", partial: "reminders/experts/expert_feedbacks", locals: { expert: expert })
+          render turbo_stream: turbo_stream.update("display-feedbacks-#{expert.id}",
+                                                   partial: "reminders/experts/expert_feedbacks",
+                                                   locals: { expert: expert })
         end
         format.html { redirect_to one_pending_need_reminders_experts_path }
       end

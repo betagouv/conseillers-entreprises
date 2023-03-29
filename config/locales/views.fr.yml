@@ -881,6 +881,8 @@ fr:
           medium_pending_needs: Plus de 2 besoins en attente
           one_pending_need: Nouveaux besoins depuis 3 mois
           outputs: Sorties
+      send_re_engagement_email:
+        re_engagement_email_send: Email de ré-engagement envoyé
       send_reminder_email:
         email_send: Email de relance envoyé
     index:
