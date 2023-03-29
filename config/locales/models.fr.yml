@@ -467,10 +467,10 @@ fr:
         reset_password_token: Le lien de renouvellement du mot de passe
         roles: Rôles
         sign_in_count: Connexions
-        team_id: Id de l’équipe
         team_custom_communes: Territoire spécifique
         team_email: E-mail de l’équipe
         team_full_name: Nom de l’équipe
+        team_id: Id de l’équipe
         team_job: Fonction de l’équipe
         team_phone_number: Téléphone de l’équipe
         user_rights: rôles
