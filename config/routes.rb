@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/documentation-api'
   mount Rswag::Api::Engine => '/documentation-api'
   # ActiveAdmin
-  ActiveAdmin.routes(self)
+  ActiveAdmin.routes(self) rescue ActiveAdmin::DatabaseHitDuringLoad
 
   # Impersonate
   mount UserImpersonate::Engine, at: '/impersonate', as: 'impersonate_engine'
