@@ -35,7 +35,7 @@ class CreateEmailRetention < ActiveRecord::Migration[7.0]
         {
           waiting_time: 4,
           email_subject: 'Recruter et former',
-          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>financer un projet</strong>.</p><p>D’autres dirigeants cherchant comme vous à financer un projet ont également utilisé ce service pour recruter et faire un point sur leur stratégie.</p>',
+          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>financer un projet</strong>.</p><p>D’autres dirigeants cherchant comme vous à financer leur projet ont également utilisé ce service pour recruter et faire un point sur leur stratégie.</p>',
           subject: finance_projet,
           first_subject: recruter,
           first_subject_label: 'Recruter un salarié',
@@ -45,7 +45,7 @@ class CreateEmailRetention < ActiveRecord::Migration[7.0]
         {
           waiting_time: 4,
           email_subject: 'Financer un nouveau projet et être conseillé en droit du travail',
-          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>recruter</strong>.</p><p>D’autres dirigeants cherchant comme vous à recruter un projet ont également utilisé ce service pour fincancer un nouveau projet et être conseillé en droit du travail.</p>',
+          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>recruter</strong>.</p><p>D’autres dirigeants cherchant comme vous à recruter ont également utilisé ce service pour financer un nouveau projet et être conseillé en droit du travail.</p>',
           subject: recruter,
           first_subject: finance_projet,
           first_subject_label: 'Financer un nouveau projet',
@@ -65,7 +65,7 @@ class CreateEmailRetention < ActiveRecord::Migration[7.0]
         {
           waiting_time: 4,
           email_subject: 'Trouver de nouveaux clients et développer votre activité à l’international',
-          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>améliorer votre visibilité sur internet</strong>.</p><p>D’autres dirigeants cherchant comme vous à améliorer votre visibilité sur internet ont également utilisé ce service pour trouver de nouveaux clients et développer leur activité à l’international.</p>',
+          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>améliorer votre visibilité sur internet</strong>.</p><p>D’autres dirigeants cherchant comme vous à améliorer leur visibilité sur internet ont également utilisé ce service pour trouver de nouveaux clients et développer leur activité à l’international.</p>',
           subject: visibilite_internet,
           first_subject: trouver_clients,
           first_subject_label: 'Trouver de nouveaux clients',
@@ -85,7 +85,7 @@ class CreateEmailRetention < ActiveRecord::Migration[7.0]
         {
           waiting_time: 4,
           email_subject: 'Financer un nouveau projet et adapter son activité à la transition écologique',
-          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>amélioration les conditions de travail de vos salariés</strong>.</p><p>D’autres dirigeants cherchant comme vous à amélioration les conditions de travail de leur salariés ont également utilisé ce service pour financer un nouveau projet et adapter leur activité à la transition écologique.</p>',
+          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>améliorer les conditions de travail de vos salariés</strong>.</p><p>D’autres dirigeants cherchant comme vous à améliorer les conditions de travail de leurs salariés ont également utilisé ce service pour financer un nouveau projet et adapter leur activité à la transition écologique.</p>',
           subject: conditions_travail,
           first_subject: finance_projet,
           first_subject_label: 'Financer un nouveau projet',
@@ -95,7 +95,7 @@ class CreateEmailRetention < ActiveRecord::Migration[7.0]
         {
           waiting_time: 4,
           email_subject: 'Financer un nouveau projet et développer votre stratégie RSE',
-          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>améliorer votre gestion de l’énergie</strong>.</p><p>D’autres dirigeants cherchant comme vous à amélioration les conditions de travail de leur salariés ont également utilisé ce service pour financer un nouveau projet et développer leur stratégie RSE.</p>',
+          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>améliorer votre gestion de l’énergie</strong>.</p><p>D’autres dirigeants cherchant comme vous à améliorer leur gestion de l’énergie ont également utilisé ce service pour financer un nouveau projet et développer leur stratégie RSE.</p>',
           subject: gestion_energie,
           first_subject: finance_projet,
           first_subject_label: 'Financer un nouveau projet',
@@ -105,7 +105,7 @@ class CreateEmailRetention < ActiveRecord::Migration[7.0]
         {
           waiting_time: 4,
           email_subject: 'Former un salarié et développer votre activité à l’international',
-          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>réaliser un projet d’innovation</strong>.</p><p>D’autres dirigeants cherchant comme vous à amélioration les conditions de travail de leur salariés ont également utilisé ce service pour former un ou plusieurs salariés et développer leur activité à l’international.</p>',
+          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>réaliser un projet d’innovation</strong>.</p><p>D’autres dirigeants cherchant comme vous à réaliser un projet d’innovation ont également utilisé ce service pour former un ou plusieurs salariés et développer leur activité à l’international.</p>',
           subject: projet_innovation,
           first_subject: former,
           first_subject_label: 'Former un salarié',
@@ -115,10 +115,10 @@ class CreateEmailRetention < ActiveRecord::Migration[7.0]
         {
           waiting_time: 4,
           email_subject: 'Amélioration les conditions de travail et inclure le handicap dans votre entreprise',
-          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>être conseillé en droit du travail</strong>.</p><p>D’autres dirigeants cherchant comme vous à amélioration les conditions de travail de leur salariés ont également utilisé ce service pour amélioration les conditions de travail de leurs salariés et inclure le handicap dans votre entreprise.</p>',
+          first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>être conseillé en droit du travail</strong>.</p><p>D’autres dirigeants cherchant comme vous à être conseillé en droit du travail ont également utilisé ce service pour améliorer les conditions de travail de leurs salariés et inclure le handicap dans leur entreprise.</p>',
           subject: droit_travail,
           first_subject: conditions_travail,
-          first_subject_label: 'Amélioration les conditions de travail',
+          first_subject_label: 'Améliorer les conditions de travail',
           second_subject: inclure_handicap,
           second_subject_label: 'Inclure le handicap dans votre entreprise'
         }

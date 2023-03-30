@@ -9,7 +9,7 @@
 %p= t('.and_you')
 
 .buttons-group
-  - campaign = '?' + { mtm_campaign: 'rentention2', mtm_kwd: "rentention2-#{@email_retention.subject.label.parameterize}" }.to_query
+  - campaign = '?' + { mtm_campaign: 'retention2', mtm_kwd: "retention2-#{@email_retention.subject.label.parameterize}" }.to_query
   .button
     = link_to @email_retention.first_subject_label, new_solicitation_url(Landing.accueil, Landing.accueil.landing_subjects.joins(:subject).find_by(subject: @email_retention.first_subject)) + campaign
   .button
