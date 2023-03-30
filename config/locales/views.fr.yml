@@ -248,7 +248,6 @@ fr:
         landing_subjects: 'Aides demandées :'
         needs_historic: 'Historique de l’entreprise :'
         siret: 'Siret :'
-        solicitation_banned_facility_explanation: Entreprise et email exclus (spam)
         solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres demandes récemment'
         solicitation_no_register_company_explanation: Entreprise ni RCS ni RM
         solicitation_relance_explanation: 'Relance suspectée : une mise en relation pour la même entreprise sur le même sujet a été faite il y a moins de 3 semaines'

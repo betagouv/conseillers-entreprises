@@ -6,40 +6,20 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def index
     @solicitations = ordered_solicitations(:in_progress)
-    # emails = @solicitations.map(&:email)
-    # sirets = @solicitations.map(&:siret)
-    # sirets = sirets | Facility.for_contacts(emails).pluck(:siret)
-    # facilities = get_associated_facilities(emails, sirets)
-    p "BEGIN ======================================="
-    # @linked_facilities = {}
-    # @solicitations.select(:id, :email, :siret, :landing_id, :landing_subject_id, :institution_id).each do |sol|
-    #   @linked_facilities[sol.id] = get_associated_facilities(sol.email, sol.siret)
-    # end
-    @linked_facilities = @solicitations.each_with_object({}) do |sol, hash|
-      hash[sol.id] = get_associated_facilities(sol.email, sol.siret)
-    end
-    p "END =============================="
-    # byebug
+    @facilities = get_and_format_facilities
     @status = t('solicitations.header.index')
-  end
-
-  def get_associated_facilities(emails, sirets)
-    Facility
-      .joins(diagnoses: :solicitation)
-      .where(diagnoses: { step: :completed })
-      .for_contacts(emails)
-      .or(Facility.where(diagnoses: { step: :completed }).where(siret: sirets))
-      .distinct
   end
 
   def processed
     @solicitations = ordered_solicitations(:processed)
+    @facilities = get_and_format_facilities
     @status = t('solicitations.header.processed')
     render :index
   end
 
   def canceled
     @solicitations = ordered_solicitations(:canceled)
+    @facilities = get_and_format_facilities
     @status = t('solicitations.header.canceled')
     render :index
   end
@@ -161,5 +141,42 @@ class Conseiller::SolicitationsController < ApplicationController
       {
         in_progress: ordered_solicitations(:in_progress).total_count
       }
+  end
+
+  def get_and_format_facilities
+    emails, sirets, solicitations = prepare_emails_sirets_and_solicitations
+    facilities = get_facilities_for_email_and_sirets(emails, sirets)
+    return facilities.each_with_object({}) do |facility, hash|
+      solicitation_id = solicitations[facility.siret] || solicitations[facility.contact_email]
+      if solicitation_id.present?
+        hash[solicitation_id] = [] if hash[solicitation_id].nil?
+        hash[solicitation_id] << { id: facility.id, company_name: facility.company_name }
+      end
+    end
+  end
+
+  # Facilities en lien avec les solicitations
+  # Préparation des données dans le controller pour améliorer les performances
+  def prepare_emails_sirets_and_solicitations
+    emails, sirets = [], []
+    solicitations_hash = @solicitations.each_with_object({}) do |solicitation, hash|
+      emails << solicitation.email
+      sirets << solicitation.siret
+      hash[solicitation.siret] = solicitation.id
+      hash[solicitation.email] = solicitation.id
+    end
+    sirets = (sirets.flatten | Facility.for_contacts(emails).pluck(:siret)).compact_blank
+
+    return emails, sirets, solicitations_hash
+  end
+
+  def get_facilities_for_email_and_sirets(emails, sirets)
+    Facility
+      .select('facilities.*, companies.name AS company_name, contacts.email AS contact_email')
+      .joins(:diagnoses, company: :contacts)
+      .where(diagnoses: { step: 5 })
+      .where(contacts: { email: emails })
+      .or(Facility.where(diagnoses: { step: 5 }).where(siret: sirets))
+      .distinct
   end
 end

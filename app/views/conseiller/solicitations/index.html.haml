@@ -27,7 +27,7 @@
 = paginate @solicitations
 
 - if @solicitations.present?
-  = render(partial: 'solicitation', collection: @solicitations, cached: -> (solicitation) { [solicitation, Badge.all] })
+  = render(partial: 'solicitation', collection: @solicitations, locals: { facilities: @facilities }, cached: -> (solicitation) { [solicitation, Badge.all] })
 - elsif sol_search_params.present?
   = t('.no_result')
 - else
