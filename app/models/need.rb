@@ -7,6 +7,7 @@
 #  archived_at             :datetime
 #  content                 :text
 #  matches_count           :integer
+#  retention_sent_at       :datetime
 #  satisfaction_email_sent :boolean          default(FALSE), not null
 #  status                  :enum             default("diagnosis_not_complete"), not null
 #  created_at              :datetime         not null

@@ -75,15 +75,6 @@ class Conseiller::SolicitationsController < ApplicationController
     end
   end
 
-  def ban_facility
-    if Ban::Solicitation.new(@solicitation).toggle
-      flash.notice = @solicitation.banned? ? t('.marked_as_banned') : t('.marked_as_unbanned')
-    else
-      flash.alert = @solicitation.errors.full_messages.to_sentence
-    end
-    redirect_to action: :index
-  end
-
   private
 
   def ordered_solicitations(status)

@@ -3,7 +3,6 @@
 # Table name: solicitations
 #
 #  id                               :bigint(8)        not null, primary key
-#  banned                           :boolean          default(FALSE)
 #  code_region                      :integer
 #  completed_at                     :datetime
 #  created_in_deployed_region       :boolean          default(TRUE)
@@ -395,8 +394,6 @@ class Solicitation < ApplicationRecord
       .or(where(email: solicitation.email))
   }
 
-  scope :banned, -> { where(banned: true) }
-
   def self.apply_filters(params)
     klass = self
     klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
@@ -409,10 +406,6 @@ class Solicitation < ApplicationRecord
       .where.not(id: self.id)
       .from_same_company(self)
       .uniq
-  end
-
-  def from_banned_company?
-    banned? || Solicitation.from_same_company(self).banned.any?
   end
 
   def from_no_register_company?

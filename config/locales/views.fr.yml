@@ -227,9 +227,6 @@ fr:
         general: Liens rapides
         title: Plan du site
     solicitations:
-      ban_facility:
-        marked_as_banned: Email et entreprise ont été exclus
-        marked_as_unbanned: Email et entreprise ont été réintégrés
       index:
         clear_search: Réinitialiser la recherche
         header: Sollicitations %{status}
