@@ -174,11 +174,12 @@ class Expert < ApplicationRecord
     Territory.find(region_id).territorial_experts
   }
 
-  scope :by_possible_region, -> (region_id) {
+  # param peut être un id de Territory ou une clé correspondant à un scope ("with_national_perimeter" par ex)
+  scope :by_possible_region, -> (param) {
     begin
-      by_region(region_id)
+      by_region(param)
     rescue ActiveRecord::RecordNotFound => e
-      self.send(region_id)
+      self.send(param)
     end
   }
 
