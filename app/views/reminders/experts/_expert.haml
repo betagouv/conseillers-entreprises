@@ -35,7 +35,7 @@
               %li
                 %span.picto.ri-phone-fill{ 'aria-hidden': 'true' }
                 = link_to(manager.phone_number, "tel:#{manager.phone_number}")
-    - if expert.users.many?
+    - if expert.team?
       .fr-grid-row
         .fr-col-7
           .fr-accordion__title
