@@ -19,7 +19,7 @@ class CompanyMailer < ApplicationMailer
     if @diagnosis.visitee.email.present?
       mail(
         to: @diagnosis.visitee.email_with_display_name,
-        subject: t('mailers.company_mailer.notify_taking_care.subject')
+        subject: t('mailers.company_mailer.notify_taking_care.subject', subject: @diagnosis.solicitation.landing_subject.title)
       )
     end
   end

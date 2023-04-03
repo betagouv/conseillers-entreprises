@@ -497,9 +497,9 @@ fr:
         recall: N’hésitez pas à la ou le rappeler directement.
         subject: Un conseiller a tenté de vous joindre
       notify_taking_care:
-        content_by_expert_html: "<p>Elle est prise en charge par un conseiller ou une conseillère de %{expert_antenne}, qui va vous appeler rapidement. <strong>N’oubliez pas de consulter votre messagerie vocale et vos mails</strong>.</p>"
-        intro_from_solicitation_html: "<p>Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne :</p>"
-        subject: Votre demande a été prise en charge
+        content_by_expert_html: "Votre demande vient d’être prise en charge par <strong>un conseiller ou une conseillère de %{expert_antenne}</strong>. Si vous êtes injoignable, n’oubliez pas de consulter votre messagerie vocale et vos mails."
+        intro_from_solicitation_html: "Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne :"
+        subject: Prise en charge de votre demande « %{subject} »
       retention:
         intro_html: "<p>Vous avez utilisé le service public Place des Entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait le sujet :</p>"
         list_html: 'Plus de 40 partenaires publics sont réunis dans ce service pour vous accompagner sur de nombreux sujets : <ul><li>recrutement</li><li>formation</li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
