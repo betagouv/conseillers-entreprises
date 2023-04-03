@@ -476,6 +476,7 @@ fr:
         reminders: 'Côté relances, voici où nous en sommes :'
         see_you_next_week: À la semaine prochaine pour de nouvelles aventures !
         subject: "[Place des Entreprises] Bon lundi ! Voici les statistiques d’utilisation !"
+    best_regards: Bien cordialement,
     company_mailer:
       abandoned_need:
         no_experts: Nous avons transmis votre demande au sein de notre réseau de partenaires institutionnels publics et parapublics. Malheureusement et malgré nos efforts de relance, nous avons le regret de vous informer qu’aucun de nos partenaires n’est en mesure de vous accompagner pour votre demande.
@@ -526,7 +527,7 @@ fr:
         service_explanation_html: Place des Entreprises est un <strong>service public</strong> du ministère de l’Économie qui vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 institutions compétentes.
         subject: Votre demande à propos de «%{subject}»
         your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet «<strong>%{subject}</strong>» sur le site Place des Entreprises.
-    cordially: Bien cordialement,
+    cordially: Cordialement,
     email_sent: L’email a bien été envoyé
     expert_mailer:
       first_notification_help:
