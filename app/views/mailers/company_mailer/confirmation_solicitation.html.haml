@@ -9,7 +9,14 @@
 - else
   %p= t('.content_html')
 
+%p
+  %strong= @solicitation.landing_subject.title
+
 = t('.informations_html')
+
+%ul
+  - @solicitation.landing_subject.solicitable_institutions_names.each do |institution_name|
+    %li= institution_name
 
 %p= t('mailers.thank_you_to_used_our_service')
 

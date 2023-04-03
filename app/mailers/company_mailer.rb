@@ -8,7 +8,7 @@ class CompanyMailer < ApplicationMailer
     @solicitation = solicitation
     mail(
       to: @solicitation.email,
-      subject: t('mailers.company_mailer.confirmation_solicitation.subject')
+      subject: t('mailers.company_mailer.confirmation_solicitation.subject', subject: solicitation.landing_subject.title)
     )
   end
 
