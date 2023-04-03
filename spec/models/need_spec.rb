@@ -305,6 +305,29 @@ RSpec.describe Need do
         end
       end
     end
+
+    describe 'min_closed_with_help_at' do
+      subject { described_class.min_closed_with_help_at(date_range) }
+
+      let(:date_range) { 12.days.ago..8.days.ago }
+      let(:done_closed_10_days_ago) { create :need_with_matches }
+      let(:done_no_help_closed_10_days_ago) { create :need_with_matches }
+      let(:done_not_reachable_closed_10_days_ago) { create :need_with_matches }
+      let(:taking_care_closed_10_days_ago) { create :need_with_matches }
+      let(:not_for_me_10_days_ago) { create :need_with_matches }
+      let(:closed_20_days_ago) { create :need_with_matches }
+
+      before do
+        travel_to(10.days.ago) { done_closed_10_days_ago.reload.matches.first.update(status: :done) }
+        travel_to(10.days.ago) { done_no_help_closed_10_days_ago.reload.matches.first.update(status: :done_no_help) }
+        travel_to(10.days.ago) { done_not_reachable_closed_10_days_ago.reload.matches.first.update(status: :done_not_reachable) }
+        travel_to(10.days.ago) { taking_care_closed_10_days_ago.reload.matches.first.update(status: :taking_care) }
+        travel_to(10.days.ago) { not_for_me_10_days_ago.reload.matches.first.update(status: :not_for_me) }
+        travel_to(20.days.ago) { closed_20_days_ago.reload.matches.first.update(status: :done) }
+      end
+
+      it { is_expected.to match_array [done_closed_10_days_ago, done_no_help_closed_10_days_ago] }
+    end
   end
 
   describe 'no_activity' do
