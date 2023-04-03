@@ -963,10 +963,10 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@gouvfr/dsfr@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.8.1.tgz#2484eb8ad9a73b5f01c5f41f49146d1aa8a71b7b"
-  integrity sha512-XpVFdvhtalA5jSAhzzNaMd+/Hvf8Ef9jCdAZhuukEEMo2/cWvCgzz9tfbE+9QTJDIVP+EwJ7aCGWcXUSWkOHJg==
+"@gouvfr/dsfr@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.9.0.tgz#5d6b97328b8c239d0d4383708a5fa59fd5290e4c"
+  integrity sha512-CWckBrvCL28QV2K1+GK/AjW40aGHmd1oXnCSFRD4iRhsIgXkE/+t6pH24L+6BKVBCSYfp2RTGAgRwVN06PqGMw==
 
 "@hotwired/turbo-rails@^7.2.4":
   version "7.2.5"
