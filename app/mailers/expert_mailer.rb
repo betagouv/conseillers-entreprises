@@ -58,9 +58,9 @@ class ExpertMailer < ApplicationMailer
 
   def re_engagement(expert, support_user, need)
     @expert = expert
-    @need = need
     return if @expert.deleted?
 
+    @need = need
     @support_user = support_user
 
     mail(
