@@ -387,6 +387,10 @@ fr:
       anomalie_less: Aucun expert pour ce sujet
       anomalie_more_specific: "%{count} experts sur ce sujet avec des territoires spécifiques qui ne couvrent pas l’antenne"
       experts_on_subject: "%{count} experts sur ce sujet"
+    expert:
+      national_perimeter:
+        label: Périmètre national
+        value: with_national_perimeter
     page_entries_info:
       many_pages_html: "<strong>%{total}</strong> %{name} (affichage de %{start} à %{end})"
       more_pages:

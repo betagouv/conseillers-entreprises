@@ -35,7 +35,7 @@
               %li
                 %span.picto.ri-phone-fill{ 'aria-hidden': 'true' }
                 = link_to(manager.phone_number, "tel:#{manager.phone_number}")
-    - if expert.users.many?
+    - if expert.team?
       .fr-grid-row
         .fr-col-7
           .fr-accordion__title
@@ -62,7 +62,8 @@
 
     %hr
     = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
-    .fr-mt-3w{ id: "display-feedbacks-#{expert.id}" }
+    .fr-mt-3w
+      %div{ id: "display-feedbacks-#{expert.id}" }
       - feedbacks = expert.reminder_feedbacks.order(created_at: :desc)
       = render partial: 'feedbacks/feedback', collection: feedbacks.limit(2)
       -# On affiche les 2 premiers commentaires, les autres sont dépliables

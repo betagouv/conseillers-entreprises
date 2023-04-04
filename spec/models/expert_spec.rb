@@ -97,6 +97,16 @@ RSpec.describe Expert do
     end
   end
 
+  describe 'geographical notions' do
+    let(:local_expert) { create :expert, antenne: create(:antenne, :local) }
+    let(:national_expert) { create :expert, antenne: create(:antenne, :national) }
+    let(:global_expert) { create :expert, is_global_zone: true }
+
+    subject { described_class.with_national_perimeter }
+
+    it { is_expected.to match_array([national_expert, global_expert]) }
+  end
+
   describe 'update user with personal_skillset' do
     let(:user) { create :user, email: 'user@example' }
 

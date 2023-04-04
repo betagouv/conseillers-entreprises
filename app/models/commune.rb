@@ -35,7 +35,7 @@ class Commune < ApplicationRecord
   has_many :antenne_experts, through: :antennes, source: :experts, inverse_of: :antenne_communes
   has_many :advisors, through: :antennes, inverse_of: :antenne_communes
 
-  scope :by_region, -> (region) { joins(:regions).where(regions: { id: region.id }) }
+  scope :by_region, -> (region_id) { joins(:regions).where(regions: { id: region_id }) }
 
   ##
   #

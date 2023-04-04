@@ -6,10 +6,10 @@
     collections_by_status_counts: @collections_by_status_counts)
 
 = paginate @active_experts
-= render 'shared/territory_choice', territories: @territories
+= render 'reminders/shared/filters', possible_territories_options: @possible_territories_options
 
 %div
-  - if @active_experts.blank? && @action == :inputs
+  - if @active_experts.empty? && @action == :inputs
     .fr-container.fr-mt-10v
       .fr-grid-row
         .fr-col-offset-3.fr-col-6= image_tag('no-reminders.gif', class: 'fr-responsive-img')

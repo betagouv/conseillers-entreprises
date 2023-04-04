@@ -2,7 +2,7 @@ module Reminders
   class ExpertsController < BaseController
     include Inbox
     helper_method :inbox_collections_counts
-    before_action :setup_territory_filters, :find_current_territory, :collections_counts, only: %i[index show many_pending_needs medium_pending_needs one_pending_need inputs outputs]
+    before_action :persist_filter_params, :setup_territory_filters, :collections_counts, only: %i[index show many_pending_needs medium_pending_needs one_pending_need inputs outputs]
     before_action :retrieve_expert, except: %i[index many_pending_needs medium_pending_needs one_pending_need inputs outputs]
 
     def index
@@ -65,17 +65,14 @@ module Reminders
 
     private
 
-    def safe_params
-      params.permit(:id)
-    end
-
     def retrieve_expert
-      @expert = Expert.find(safe_params[:id])
+      @expert = Expert.find(params.permit(:id)[:id])
     end
 
     def render_collection(action)
-      @active_experts = territory_experts.send(action)
-        .includes(:antenne, :reminder_feedbacks, :users, :received_needs)
+      @active_experts = territory_experts
+        .includes(:reminder_feedbacks, :users, :received_needs)
+        .send(action)
         .most_needs_quo_first
         .page params[:page]
 

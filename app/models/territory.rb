@@ -66,9 +66,13 @@ class Territory < ApplicationRecord
     deployed_at.present? && deployed_at < Time.zone.now
   end
 
-  def all_experts
+  def territorial_experts
     Expert.where(id: direct_experts)
       .or(Expert.where(id: antenne_experts).where(id: Expert.without_custom_communes)) # Experts of the antennes on this Territory, who don’t override their Antenne zone.
+  end
+
+  def all_experts
+    territorial_experts
       .or(Expert.with_global_zone)
   end
 end

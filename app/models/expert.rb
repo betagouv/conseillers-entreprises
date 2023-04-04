@@ -56,12 +56,13 @@ class Expert < ApplicationRecord
   #
   # :communes
   has_many :territories, -> { distinct.bassins_emploi }, through: :communes, inverse_of: :direct_experts
+  has_many :direct_regions, -> { distinct.regions }, through: :communes, source: :territories, inverse_of: :direct_experts
 
   # :antenne
   has_one :institution, through: :antenne, source: :institution, inverse_of: :experts
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :antenne_experts
   has_many :antenne_territories, -> { distinct }, through: :antenne, source: :territories, inverse_of: :antenne_experts
-  has_many :regions, -> { distinct.regions }, through: :antenne, inverse_of: :antenne_experts
+  has_many :antenne_regions, -> { distinct.regions }, through: :antenne, source: :regions, inverse_of: :antenne_experts
   has_many :match_filters, through: :antenne, source: :match_filters, inverse_of: :experts
 
   # :received_matches
@@ -153,6 +154,8 @@ class Expert < ApplicationRecord
       .order('institutions.name', 'antennes.name', :full_name)
   end
 
+  # Geographical methods
+  #
   scope :with_custom_communes, -> do
     # The naive “joins(:communes).distinct” is way more complex.
     where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
@@ -162,6 +165,23 @@ class Expert < ApplicationRecord
   scope :with_global_zone, -> do
     where(is_global_zone: true)
   end
+
+  scope :with_national_perimeter, -> do
+    joins(:antenne).with_global_zone.or(joins(:antenne).merge(Antenne.territorial_level_national))
+  end
+
+  scope :by_region, -> (region_id) {
+    Territory.find(region_id).territorial_experts
+  }
+
+  # param peut être un id de Territory ou une clé correspondant à un scope ("with_national_perimeter" par ex)
+  scope :by_possible_region, -> (param) {
+    begin
+      by_region(param)
+    rescue ActiveRecord::RecordNotFound => e
+      self.send(param)
+    end
+  }
 
   scope :without_subjects, -> do
     where.missing(:experts_subjects)
@@ -191,6 +211,12 @@ class Expert < ApplicationRecord
   scope :one_pending_need, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.one_pending_need_basket) }
   scope :inputs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_input_category) }
   scope :outputs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_output_category) }
+
+  def self.apply_filters(params)
+    klass = self
+    klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
+    klass.all
+  end
 
   def last_reminder_register
     reminders_registers.order(:created_at).last
