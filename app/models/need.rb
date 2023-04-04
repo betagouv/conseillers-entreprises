@@ -176,8 +176,6 @@ class Need < ApplicationRecord
   # For Reminders, find Needs without taking care since NO_ACTIVITY_DELAY
   scope :no_activity, -> { joins(:matches).where("matches.created_at < ?", NO_ACTIVITY_DELAY.ago) }
 
-  scope :abandoned_email_not_sent, -> { where(abandoned_email_sent: false) }
-
   scope :with_some_matches_in_status, -> (status) do
     # status can be an array
     needs_with_matches = Need.unscoped
@@ -334,6 +332,10 @@ class Need < ApplicationRecord
 
   def has_action?(action)
     reminders_actions.find_by(category: action).present?
+  end
+
+  def is_abandoned?
+    has_action?('abandon')
   end
 
   def quo_experts

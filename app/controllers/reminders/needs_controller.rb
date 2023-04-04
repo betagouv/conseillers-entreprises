@@ -21,11 +21,12 @@ module Reminders
 
     def send_abandoned_email
       ActiveRecord::Base.transaction do
-        @need.update(abandoned_email_sent: true)
+        @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_sent'),
+                                    feedbackable_type: 'Need', feedbackable_id: @need.id)
         CompanyMailer.abandoned_need(@need).deliver_later
       end
       respond_to do |format|
-        format.js
+        format.js { render template: 'reminders/needs/add_feedback', layout: false }
         format.html { redirect_to abandon_reminders_needs_path, notice: t('mailers.email_sent') }
       end
     end

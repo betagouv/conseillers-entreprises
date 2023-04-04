@@ -852,7 +852,6 @@ fr:
     matches_file_name: export-mises-en-relation-%{antenne}-%{year}T%{number}.xlsx
     stats_file_name: export-stats-%{antenne}-%{year}T%{number}.xlsx
   reminders:
-    abandoned_need_email_sent: Email d’échec envoyé
     experts:
       expert:
         expert_creation_date: Inscription le %{date}
@@ -893,7 +892,6 @@ fr:
     index:
       title: Relances
     need:
-      abandoned_need_email_sent: Email d’échec envoyé
       many_pending_needs: Cet expert est présent dans le paniers « plus de 5 besoins en attentes »
     needs:
       scopes:
@@ -914,6 +912,8 @@ fr:
           abandon: Refusés
           last_chance: Risque d’abandon
           poke: Sans réponse
+      send_abandoned_email:
+        email_sent: Email d’échec envoyé au dirigeant
       send_last_chance_email:
         email_send: Email de la dernière chance envoyé à %{teams}
     needs_badges:

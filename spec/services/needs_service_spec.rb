@@ -52,12 +52,12 @@ describe NeedsService do
       before { described_class.abandon_needs }
 
       it 'abandon only old needs without help and send' do
-        expect(need1.reload.abandoned_email_sent).to be false
-        expect(need2.reload.abandoned_email_sent).to be true
-        expect(need3.reload.abandoned_email_sent).to be false
-        expect(need4.reload.abandoned_email_sent).to be false
-        expect(need5.reload.abandoned_email_sent).to be false
-        expect(need6.reload.abandoned_email_sent).to be false
+        expect(need1.reload.is_abandoned?).to be false
+        expect(need2.reload.is_abandoned?).to be true
+        expect(need3.reload.is_abandoned?).to be false
+        expect(need4.reload.is_abandoned?).to be false
+        expect(need5.reload.is_abandoned?).to be false
+        expect(need6.reload.is_abandoned?).to be false
         expect(ActionMailer::Base.deliveries.count).to eq 1
       end
     end
@@ -84,10 +84,10 @@ describe NeedsService do
       before { described_class.abandon_needs }
 
       it 'abandon only old needs without help and send' do
-        expect(need1.reload.abandoned_email_sent).to be false
-        expect(need2.reload.abandoned_email_sent).to be true
-        expect(need3.reload.abandoned_email_sent).to be false
-        expect(need4.reload.abandoned_email_sent).to be false
+        expect(need1.reload.is_abandoned?).to be false
+        expect(need2.reload.is_abandoned?).to be true
+        expect(need3.reload.is_abandoned?).to be false
+        expect(need4.reload.is_abandoned?).to be false
         expect(ActionMailer::Base.deliveries.count).to eq 1
       end
     end
