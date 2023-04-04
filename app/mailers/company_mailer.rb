@@ -29,7 +29,7 @@ class CompanyMailer < ApplicationMailer
     @diagnosis = match.diagnosis
     mail(
       to: @diagnosis.visitee.email_with_display_name,
-      subject: t('mailers.company_mailer.notify_not_reachable.subject')
+      subject: t('mailers.company_mailer.notify_not_reachable.subject', subject: @diagnosis.solicitation.landing_subject.title)
     )
   end
 

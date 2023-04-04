@@ -494,13 +494,8 @@ fr:
         thanks_for_your_patience: Nous vous remercions pour votre patience.
         we_continue_to_follow_up_html: Nous avons relancé le conseiller compétent pour votre demande. Nous continuons d’<strong>assurer son suivi</strong> pour vous apporter une réponse dans les meilleurs délais.
       notify_not_reachable:
-        content_by_expert_html: "<p>Elle a été prise en charge par une conseillère ou un conseiller de %{expert_antenne}, qui a tenté de vous joindre par téléphone. <strong>Nous vous invitons à consulter votre messagerie vocale et vos mails</strong>.</p>"
-        recall: N’hésitez pas à la ou le rappeler directement.
-        subject: Un conseiller a tenté de vous joindre
-      notify_not_reachable:
-        content_by_expert_html: "<p>Elle a été prise en charge par une conseillère ou un conseiller de %{expert_antenne}, qui a tenté de vous joindre par téléphone. <strong>Nous vous invitons à consulter votre messagerie vocale et vos mails</strong>.</p>"
-        recall: N’hésitez pas à la ou le rappeler directement.
-        subject: Un conseiller a tenté de vous joindre
+        content_by_expert_html: "<strong>Un conseiller ou une conseillère de %{expert_antenne}</strong> a tenté de vous joindre par téléphone. Nous vous invitons à consulter votre messagerie vocale et vos mails pour le rappeler."
+        subject: Appel manqué pour votre demande « %{subject} »
       notify_taking_care:
         content_by_expert_html: Votre demande vient d’être prise en charge par <strong>un conseiller ou une conseillère de %{expert_antenne}</strong>. Si vous êtes injoignable, n’oubliez pas de consulter votre messagerie vocale et vos mails.
         intro_from_solicitation_html: 'Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne :'
