@@ -22,8 +22,6 @@ describe UseCases::SearchFacility do
   let(:effectif_etablissement_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/#{searched_date}/etablissement/#{siret}?#{suffix_url}" }
   let(:opco_url) { "https://www.cfadock.fr/api/opcos?siret=#{siret}" }
 
-
-
   describe 'with_siret_and_save' do
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
