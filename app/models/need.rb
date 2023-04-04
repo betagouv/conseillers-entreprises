@@ -7,6 +7,7 @@
 #  archived_at             :datetime
 #  content                 :text
 #  matches_count           :integer
+#  retention_sent_at       :datetime
 #  satisfaction_email_sent :boolean          default(FALSE), not null
 #  status                  :enum             default("diagnosis_not_complete"), not null
 #  created_at              :datetime         not null
@@ -245,10 +246,19 @@ class Need < ApplicationRecord
   end
 
   scope :for_emails_and_sirets, -> (emails, sirets = []) do
-    Need.diagnosis_completed.joins(:diagnosis, :solicitation, :facility).scoping do
-      Need.where(diagnosis: { solicitations: { email: emails } })
-        .or(Need.where(diagnosis: { facilities: { siret: sirets.compact } }))
-    end
+    # Need.diagnosis_completed.joins(:diagnosis, :solicitation, :facility).scoping do
+    #   Need.where(diagnosis: { solicitations: { email: emails } })
+    #     .or(Need.where(diagnosis: { facilities: { siret: sirets.compact } }))
+    # end
+    Need
+      .diagnosis_completed
+      .joins('
+        INNER JOIN "diagnoses" ON "diagnoses"."id" = "needs"."diagnosis_id"
+        INNER JOIN "facilities" ON "facilities"."id" = "diagnoses"."facility_id"
+        INNER JOIN "solicitations" ON "solicitations"."id" = "diagnoses"."solicitation_id"
+      ')
+      .where(solicitations: { email: emails })
+      .or(Need.diagnosis_completed.where(diagnosis: { facilities: { siret: sirets.compact } }))
   end
 
   scope :in_antenne_perimeters, -> (antenne) do

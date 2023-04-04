@@ -266,22 +266,22 @@ RSpec.describe Need do
         let(:siret) { '42322944200011' }
         let(:other_facility) { create :facility, siret: '32242373200021' }
         #  Besoin avec le meme email OK
-        let(:diagnosis_1) { create :diagnosis, solicitation: solicitation }
+        let(:diagnosis_1) { create :diagnosis, solicitation: solicitation, visitee: create(:contact, email: email) }
         let!(:need_1) { create :need_with_matches, diagnosis: diagnosis_1 }
         # Besoin avec le même email et le même siret OK
-        let(:diagnosis_2) { create :diagnosis, solicitation: solicitation2, facility: facility }
+        let(:diagnosis_2) { create :diagnosis, solicitation: solicitation2, facility: facility, visitee: create(:contact, email: email) }
         let!(:need_2) { create :need_with_matches, diagnosis: diagnosis_2 }
         # Besoin avec un autre email KO
-        let(:diagnosis_3) { create :diagnosis, solicitation: other_email_solicitation }
+        let(:diagnosis_3) { create :diagnosis, solicitation: other_email_solicitation, visitee: create(:contact, email: other_email) }
         let!(:need_3) { create :need_with_matches, diagnosis: diagnosis_3 }
         # Besoin avec un autre email et siret KO
-        let(:diagnosis_4) { create :diagnosis, solicitation: other_email_solicitation2, facility: other_facility }
+        let(:diagnosis_4) { create :diagnosis, solicitation: other_email_solicitation2, facility: other_facility, visitee: create(:contact, email: other_email) }
         let!(:need_4) { create :need_with_matches, diagnosis: diagnosis_4 }
         # Besoin avec le même email mais sans MER KO
-        let(:diagnosis_5) { create :diagnosis, solicitation: solicitation3 }
+        let(:diagnosis_5) { create :diagnosis, solicitation: solicitation3, visitee: create(:contact, email: email) }
         let!(:need_5) { create :need, diagnosis: diagnosis_5 }
         # Besoin avec le même siret mais sans MER KO
-        let(:diagnosis_6) { create :diagnosis, solicitation: solicitation5, facility: facility }
+        let(:diagnosis_6) { create :diagnosis, solicitation: solicitation5, facility: facility, visitee: create(:contact, email: email) }
         let!(:need_6) { create :need, diagnosis: diagnosis_6 }
 
         subject { described_class.for_emails_and_sirets([email], [siret]) }

@@ -1,22 +1,25 @@
 class Conseiller::SolicitationsController < ApplicationController
   before_action :authorize_index_solicitation, :persist_search_params, :set_category_content, :count_solicitations, only: [:index, :processed, :canceled]
-  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis, :ban_facility]
+  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis]
 
   layout 'side_menu'
 
   def index
     @solicitations = ordered_solicitations(:in_progress)
+    @facilities = get_and_format_facilities
     @status = t('solicitations.header.index')
   end
 
   def processed
     @solicitations = ordered_solicitations(:processed)
+    @facilities = get_and_format_facilities
     @status = t('solicitations.header.processed')
     render :index
   end
 
   def canceled
     @solicitations = ordered_solicitations(:canceled)
+    @facilities = get_and_format_facilities
     @status = t('solicitations.header.canceled')
     render :index
   end
@@ -70,15 +73,6 @@ class Conseiller::SolicitationsController < ApplicationController
       flash.alert = @solicitation.prepare_diagnosis_errors.full_messages.to_sentence
       redirect_to [:conseiller, @solicitation]
     end
-  end
-
-  def ban_facility
-    if Ban::Solicitation.new(@solicitation).toggle
-      flash.notice = @solicitation.banned? ? t('.marked_as_banned') : t('.marked_as_unbanned')
-    else
-      flash.alert = @solicitation.errors.full_messages.to_sentence
-    end
-    redirect_to action: :index
   end
 
   private
@@ -138,5 +132,42 @@ class Conseiller::SolicitationsController < ApplicationController
       {
         in_progress: ordered_solicitations(:in_progress).total_count
       }
+  end
+
+  def get_and_format_facilities
+    emails, sirets, solicitations = prepare_emails_sirets_and_solicitations
+    facilities = get_facilities_for_email_and_sirets(emails, sirets)
+    return facilities.each_with_object({}) do |facility, hash|
+      solicitation_id = solicitations[facility.siret] || solicitations[facility.contact_email]
+      if solicitation_id.present?
+        hash[solicitation_id] = [] if hash[solicitation_id].nil?
+        hash[solicitation_id] << { id: facility.id, company_name: facility.company_name }
+      end
+    end
+  end
+
+  # Facilities en lien avec les solicitations
+  # Préparation des données dans le controller pour améliorer les performances
+  def prepare_emails_sirets_and_solicitations
+    emails, sirets = [], []
+    solicitations_hash = @solicitations.each_with_object({}) do |solicitation, hash|
+      emails << solicitation.email
+      sirets << solicitation.siret
+      hash[solicitation.siret] = solicitation.id
+      hash[solicitation.email] = solicitation.id
+    end
+    sirets = (sirets.flatten | Facility.for_contacts(emails).pluck(:siret)).compact_blank
+
+    return emails, sirets, solicitations_hash
+  end
+
+  def get_facilities_for_email_and_sirets(emails, sirets)
+    Facility
+      .select('facilities.*, companies.name AS company_name, contacts.email AS contact_email')
+      .joins(:diagnoses, company: :contacts)
+      .where(diagnoses: { step: 5 })
+      .where(contacts: { email: emails })
+      .or(Facility.where(diagnoses: { step: 5 }).where(siret: sirets))
+      .distinct
   end
 end

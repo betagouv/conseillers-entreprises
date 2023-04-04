@@ -227,9 +227,6 @@ fr:
         general: Liens rapides
         title: Plan du site
     solicitations:
-      ban_facility:
-        marked_as_banned: Email et entreprise ont été exclus
-        marked_as_unbanned: Email et entreprise ont été réintégrés
       index:
         clear_search: Réinitialiser la recherche
         header: Sollicitations %{status}
@@ -248,13 +245,11 @@ fr:
         landing_subjects: 'Aides demandées :'
         needs_historic: 'Historique de l’entreprise :'
         siret: 'Siret :'
-        solicitation_banned_facility_explanation: Entreprise et email exclus (spam)
         solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres demandes récemment'
         solicitation_no_register_company_explanation: Entreprise ni RCS ni RM
         solicitation_relance_explanation: 'Relance suspectée : une mise en relation pour la même entreprise sur le même sujet a été faite il y a moins de 3 semaines'
         source: 'Page d’atterrissage :'
       solicitation_actions:
-        ban_facility: Exclure l’entreprise
         prepare_diagnosis_errors:
           one: Erreur à la préparation
           other: "%{count} erreurs à préparation"
@@ -263,7 +258,6 @@ fr:
         start_auto_diagnosis: Analyse automatique
         start_diagnosis: Démarrer une analyse
         start_manual_diagnosis: Analyse manuelle
-        unban_facility: Réintégrer l’entreprise
       solicitation_badges:
         add_remove_badges: Ajouter / Enlever des tags
   contacts:

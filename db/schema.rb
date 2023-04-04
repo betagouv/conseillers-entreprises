@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_13_104410) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_30_102514) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -234,6 +234,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_104410) do
     t.index ["facility_id"], name: "index_diagnoses_on_facility_id"
     t.index ["solicitation_id"], name: "index_diagnoses_on_solicitation_id"
     t.index ["visitee_id"], name: "index_diagnoses_on_visitee_id"
+  end
+
+  create_table "email_retentions", force: :cascade do |t|
+    t.bigint "subject_id", null: false
+    t.bigint "first_subject_id", null: false
+    t.string "first_subject_label", null: false
+    t.bigint "second_subject_id", null: false
+    t.string "second_subject_label", null: false
+    t.string "email_subject", null: false
+    t.text "first_paragraph", null: false
+    t.integer "delay", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["first_subject_id"], name: "index_email_retentions_on_first_subject_id"
+    t.index ["second_subject_id"], name: "index_email_retentions_on_second_subject_id"
+    t.index ["subject_id"], name: "index_email_retentions_on_subject_id", unique: true
   end
 
   create_table "experts", force: :cascade do |t|
@@ -471,6 +487,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_104410) do
     t.boolean "satisfaction_email_sent", default: false, null: false
     t.enum "status", default: "diagnosis_not_complete", null: false, enum_type: "need_status"
     t.boolean "abandoned_email_sent", default: false
+    t.datetime "retention_sent_at", precision: nil
     t.index ["archived_at"], name: "index_needs_on_archived_at"
     t.index ["diagnosis_id"], name: "index_needs_on_diagnosis_id"
     t.index ["status"], name: "index_needs_on_status"
@@ -538,7 +555,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_104410) do
     t.boolean "created_in_deployed_region", default: true
     t.bigint "landing_id"
     t.bigint "landing_subject_id"
-    t.boolean "banned", default: false
     t.integer "status", default: 0
     t.uuid "uuid"
     t.datetime "completed_at", precision: nil
@@ -653,6 +669,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_104410) do
   add_foreign_key "diagnoses", "facilities"
   add_foreign_key "diagnoses", "solicitations"
   add_foreign_key "diagnoses", "users", column: "advisor_id"
+  add_foreign_key "email_retentions", "subjects"
+  add_foreign_key "email_retentions", "subjects", column: "first_subject_id"
+  add_foreign_key "email_retentions", "subjects", column: "second_subject_id"
   add_foreign_key "experts", "antennes"
   add_foreign_key "experts_subjects", "experts"
   add_foreign_key "experts_subjects", "institutions_subjects"

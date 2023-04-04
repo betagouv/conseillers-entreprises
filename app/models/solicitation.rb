@@ -3,7 +3,6 @@
 # Table name: solicitations
 #
 #  id                               :bigint(8)        not null, primary key
-#  banned                           :boolean          default(FALSE)
 #  code_region                      :integer
 #  completed_at                     :datetime
 #  created_in_deployed_region       :boolean          default(TRUE)
@@ -74,7 +73,7 @@ class Solicitation < ApplicationRecord
 
   after_update :update_diagnosis
 
-  paginates_per 50
+  paginates_per 25
 
   GENERIC_EMAILS_TYPES = %i[bad_quality particular_retirement creation employee_labor_law siret moderation independent_tva intermediary recruitment_foreign_worker no_expert carsat tns_training]
 
@@ -395,8 +394,6 @@ class Solicitation < ApplicationRecord
       .or(where(email: solicitation.email))
   }
 
-  scope :banned, -> { where(banned: true) }
-
   def self.apply_filters(params)
     klass = self
     klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
@@ -411,10 +408,6 @@ class Solicitation < ApplicationRecord
       .uniq
   end
 
-  def from_banned_company?
-    banned? || Solicitation.from_same_company(self).banned.any?
-  end
-
   def from_no_register_company?
     company = self&.facility&.company
     return false if company.nil?
@@ -427,7 +420,7 @@ class Solicitation < ApplicationRecord
       .created_between(3.weeks.ago, Time.zone.now)
       .where(landing_subject_id: self.landing_subject_id)
       .from_same_company(self)
-      .uniq
+      .distinct
   end
 
   def update_diagnosis
@@ -448,10 +441,8 @@ class Solicitation < ApplicationRecord
 
     clean_siret = FormatSiret.clean_siret(self.siret)
     sirets << clean_siret if FormatSiret.siret_is_valid(clean_siret)
-
-    contacts = Contact.where(email: self.email)
-    sirets << contacts.map{ |contact| contact.company.facilities.pluck(:siret) }.flatten.uniq if contacts.any?
-    sirets.flatten.compact.uniq
+    # concaténation qui supprime les doublons
+    sirets | Facility.for_contacts(email).pluck(:siret)
   end
 
   ## JSON Accessors

@@ -35,17 +35,13 @@
             %span.meta__warnings__item{ title: t('.solicitation_relance_explanation') } R
           - if solicitation.doublon_solicitations.any?
             %span.meta__warnings__item{ title: t('.solicitation_doublon_explanation') } D
-          - if solicitation.from_banned_company?
-            %span.meta__warnings__item{ title: t('.solicitation_banned_facility_explanation') }
-              %span.ri-flag-fill{ 'aria-hidden': 'true' }
           - if solicitation.from_no_register_company?
             %span.meta__warnings__item{ title: t('.solicitation_no_register_company_explanation') } ?
-        - needs_historic = Need.for_emails_and_sirets([solicitation.email], solicitation.valid_sirets).with_siret
-        - if needs_historic.any?
+        - if facilities[solicitation.id].present?
           .meta__items
             .item= t('.needs_historic')
-            - needs_historic.map{ |n| n.facility }.uniq.each do |facility|
-              = link_to facility.company.name, needs_company_path(facility)
+            - facilities[solicitation.id].each do |facility|
+              = link_to facility[:company_name], needs_company_path(facility[:id])
         - if solicitation.institution.present?
           .logo-institution= institution_image(solicitation.institution.logo&.filename)
     .card__description
