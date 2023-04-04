@@ -1,6 +1,6 @@
 class Conseiller::SolicitationsController < ApplicationController
   before_action :authorize_index_solicitation, :persist_search_params, :set_category_content, :count_solicitations, only: [:index, :processed, :canceled]
-  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis, :ban_facility]
+  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis]
 
   layout 'side_menu'
 

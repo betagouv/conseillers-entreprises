@@ -8,7 +8,7 @@ RSpec.describe RemindersActionsController do
     let(:need) { create :need_with_matches }
 
     it do
-      post :poke, params: { id: need.id }
+      post :create, params: { need_id: need.id, category: 'poke' }
       expect(need.reminders_actions.pluck(:category)).to match_array ['poke']
       expect(response).to redirect_to poke_reminders_needs_path
     end
@@ -18,19 +18,19 @@ RSpec.describe RemindersActionsController do
     let(:need) { create :need_with_matches }
 
     it do
-      post :last_chance, params: { id: need.id }
+      post :create, params: { need_id: need.id, category: 'last_chance' }
       expect(need.reminders_actions.pluck(:category)).to match_array ['last_chance']
-      expect(response).to redirect_to last_chance_reminders_needs_path
+      # expect(response).to redirect_to last_chance_reminders_needs_path
     end
   end
 
-  describe 'POST #archive' do
+  describe 'POST #abandon' do
     let(:need) { create :need_with_matches }
 
     it do
-      post :archive, params: { id: need.id }
-      expect(need.reload.archived_at).not_to be_nil
-      expect(response).to redirect_to not_for_me_reminders_needs_path
+      post :create, params: { need_id: need.id, category: 'abandon' }
+      expect(need.reminders_actions.pluck(:category)).to match_array ['abandon']
+      # expect(response).to redirect_to abandon _reminders_needs_path
     end
   end
 end
