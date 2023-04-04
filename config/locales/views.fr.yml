@@ -916,8 +916,6 @@ fr:
           poke: Sans réponse
       send_last_chance_email:
         email_send: Email de la dernière chance envoyé à %{teams}
-      send_reminder_email:
-        email_send: Email de relance envoyé à %{teams}
     needs_badges:
       add_remove_badges: Ajouter ou retirer un tag
     section:

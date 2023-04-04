@@ -1,7 +1,7 @@
 module Reminders
   class NeedsController < BaseController
     before_action :persist_filter_params, :setup_territory_filters, :collections_counts
-    before_action :find_need, only: %i[send_abandoned_email send_reminder_email send_last_chance_email]
+    before_action :find_need, only: %i[send_abandoned_email send_last_chance_email]
 
     def index
       redirect_to action: :poke
@@ -27,20 +27,6 @@ module Reminders
       respond_to do |format|
         format.js
         format.html { redirect_to abandon_reminders_needs_path, notice: t('mailers.email_sent') }
-      end
-    end
-
-    def send_reminder_email
-      reminded_teams = []
-      @need.matches.status_quo.each do |match|
-        reminded_teams << "#{match.expert.full_name} (#{match.expert.institution.name})"
-        ExpertMailer.positioning_rate_reminders(match.expert, current_user).deliver_later
-      end
-      @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_send', teams: reminded_teams.to_sentence),
-                                  feedbackable_type: 'Need', feedbackable_id: @need.id)
-      respond_to do |format|
-        format.js { render template: 'reminders/needs/add_feedback', layout: false }
-        format.html { redirect_to many_pending_needs_reminders_experts_path, notice: t('mailers.email_sent') }
       end
     end
 
