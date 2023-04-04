@@ -5,10 +5,10 @@ class RemindersActionsController < ApplicationController
     reminders_action = RemindersAction.new(reminders_action_params)
     if reminders_action.save
       flash.notice = t('reminders_actions.processed_need', company: reminders_action.need.company.name)
-      redirect_back(fallback_location: poke_reminders_needs_path)
+      redirect_back_or_to(poke_reminders_needs_path)
     else
       flash.alert = reminders_action.errors.full_messages.to_sentence
-      redirect_back(fallback_location: poke_reminders_needs_path)
+      redirect_back_or_to(poke_reminders_needs_path)
     end
   end
 
