@@ -73,4 +73,9 @@ class CompanyMailer < ApplicationMailer
 
     mail(to: @need.solicitation.email, subject: @email_retention.email_subject)
   end
+
+  def not_yet_supported(solicitation)
+    @solicitation = solicitation
+    mail(to: @solicitation.email, subject: t('mailers.company_mailer.not_yet_supported.subject', subject: solicitation.landing_subject.subject))
+  end
 end
