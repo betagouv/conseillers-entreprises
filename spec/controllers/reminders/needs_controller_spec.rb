@@ -16,7 +16,7 @@ RSpec.describe Reminders::NeedsController do
     end
   end
 
-  describe 'GET #not_for_me' do
+  describe 'GET #abandon' do
     # - besoin avec 1 positionnement « refusé », et autres MER sans réponse           ko
     # - besoin avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ko
     # - besoin avec 1 cloture « injoignable », et autres MER sans réponse             ko
@@ -35,7 +35,7 @@ RSpec.describe Reminders::NeedsController do
     let!(:need5) { create :need, archived_at: Time.now }
     let!(:need5_match) { create :match, need: need5, status: :not_for_me }
 
-    before { get :not_for_me }
+    before { get :abandon }
 
     it 'display only not_for_me needs' do
       expect(assigns(:needs)).to match_array [need4]
