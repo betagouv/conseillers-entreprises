@@ -115,17 +115,12 @@ class Need < ApplicationRecord
   scope :diagnosis_completed, -> { where.not(status: :diagnosis_not_complete) }
 
   scope :reminders_to, -> (action) do
-    if action == :archive
-      query1 = diagnosis_completed
+    if action == :abandon
+      diagnosis_completed
         .archived(false)
-        .in_reminders_range(action)
-        .with_matches_only_in_status([:quo, :not_for_me])
+        .where(status: :not_for_me)
+        .without_action(action)
 
-      query2 = diagnosis_completed
-        .archived(false)
-        .status_not_for_me
-
-      query1.or(query2)
     else # :poke and :last_chance
       diagnosis_completed
         .archived(false)
@@ -181,9 +176,7 @@ class Need < ApplicationRecord
   # For Reminders, find Needs without taking care since NO_ACTIVITY_DELAY
   scope :no_activity, -> { joins(:matches).where("matches.created_at < ?", NO_ACTIVITY_DELAY.ago) }
 
-  scope :abandoned, -> { where(abandoned_email_sent: true) }
-
-  scope :not_abandoned, -> { where(abandoned_email_sent: false) }
+  scope :abandoned_email_not_sent, -> { where(abandoned_email_sent: false) }
 
   scope :with_some_matches_in_status, -> (status) do
     # status can be an array

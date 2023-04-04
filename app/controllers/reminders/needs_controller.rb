@@ -8,15 +8,15 @@ module Reminders
     end
 
     def poke
-      render_collection(:poke, :action)
+      render_collection(:poke)
     end
 
     def last_chance
-      render_collection(:last_chance, :action)
+      render_collection(:last_chance)
     end
 
-    def not_for_me
-      render_collection(:not_for_me, :status)
+    def abandon
+      render_collection(:abandon)
     end
 
     def send_abandoned_email
@@ -73,15 +73,10 @@ module Reminders
       @need = Need.find(params.permit(:id)[:id])
     end
 
-    def render_collection(name, category)
-      case category
-      when :action
-        @needs = territory_needs.reminders_to(name)
-      when :status
-        @needs = territory_needs.where(status: name).archived(false)
-      end
-      @action = name
-      @needs = @needs
+    def render_collection(action)
+      @action = action
+      @needs = territory_needs
+        .reminders_to(action)
         .joins(:matches, :experts)
         .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
         .distinct

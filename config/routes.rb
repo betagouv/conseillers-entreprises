@@ -164,14 +164,7 @@ Rails.application.routes.draw do
 
   resources :matches, only: %i[update]
   resources :feedbacks, only: %i[create destroy]
-
-  resources :reminders_actions, only: [] do
-    member do
-      post :poke
-      post :archive
-      post :last_chance
-    end
-  end
+  resources :reminders_actions, only: %i[create]
 
   namespace :reminders, path: 'relances' do
     get '/', to: redirect('/relances/besoins')
@@ -204,8 +197,7 @@ Rails.application.routes.draw do
       collection do
         get :poke, path: 'sans-reponse'
         get :last_chance, path: 'risque-abandon'
-        get :archive, path: 'abandonnes'
-        get :not_for_me, path: 'refuses'
+        get :abandon, path: 'refuses'
       end
     end
     resources :reminders_registers, only: :update

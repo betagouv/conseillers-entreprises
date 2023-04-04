@@ -19,8 +19,9 @@
 #
 class RemindersAction < ApplicationRecord
   enum category: {
-    poke: 1, # J+9
+    poke: 1,        # J+9
     last_chance: 3, # J+21
+    abandon: 4,     # J+45
   }, _prefix: true
 
   ## Associations

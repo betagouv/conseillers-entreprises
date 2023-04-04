@@ -9,7 +9,7 @@ class NeedsService
   def self.abandon_needs
     Need.archived(false)
       .status_quo
-      .not_abandoned
+      .abandoned_email_not_sent
       .where(created_at: ..Need::REMINDERS_DAYS[:last_chance].days.ago).each do |need|
       # Envoie de l'email d'abandon a l’entreprise si :
       # le besoin a aucun email envoyé et qu'il a plus de 45 jours
