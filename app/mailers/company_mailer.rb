@@ -66,4 +66,11 @@ class CompanyMailer < ApplicationMailer
     @solicitation = solicitation
     mail(to: @solicitation.email, subject: t('mailers.company_mailer.solicitation_relaunch_description.subject', subject: solicitation.subject))
   end
+
+  def intelligent_retention(need, email_retention)
+    @need = need
+    @email_retention = email_retention
+
+    mail(to: @need.solicitation.email, subject: @email_retention.email_subject)
+  end
 end

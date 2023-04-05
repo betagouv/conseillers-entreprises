@@ -244,7 +244,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_102514) do
     t.string "second_subject_label", null: false
     t.string "email_subject", null: false
     t.text "first_paragraph", null: false
-    t.integer "delay", null: false
+    t.integer "waiting_time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["first_subject_id"], name: "index_email_retentions_on_first_subject_id"

@@ -171,6 +171,13 @@ class Need < ApplicationRecord
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
 
+  scope :min_closed_with_help_at, -> (range) do
+    joins(:matches)
+      .merge(Match.with_exchange)
+      .group(:id)
+      .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
+  end
+
   # For Reminders, find Needs without taking care since NO_ACTIVITY_DELAY
   scope :no_activity, -> { joins(:matches).where("matches.created_at < ?", NO_ACTIVITY_DELAY.ago) }
 

@@ -487,6 +487,10 @@ fr:
         content_html: Nous avons bien reçu votre demande déposée sur le site Place des Entreprises.
         informations_html: "<p>Votre demande va être transmise au(x) conseiller(s) compétent(s) sur votre territoire pour vous aider.</p><p>Vous serez informé(e) par mail de la prise en charge de votre demande et appelé(e) directement par le(s) conseiller(s), dans les <strong>5 jours ouvrés</strong> en moyenne.</p>"
         subject: Nous avons bien reçu votre demande
+      intelligent_retention:
+        and_you: Et vous, souhaitez-vous être aidé par un conseiller sur ces sujets ?
+        explanation_html: 'Place des Entreprises est un service des ministères de l’Economie et du Travail avec un objectif : faciliter la vie des petites entreprises.<br>Lorsqu''un chef d’entreprise dépose sa demande, le service sélectionne pour lui les conseillers compétents parmi plus de 40 institutions publiques.'
+        why_this_message: Pourquoi recevez-vous ce message ?
       notify_not_reachable:
         content_by_expert_html: "<p>Elle a été prise en charge par une conseillère ou un conseiller de %{expert_antenne}, qui a tenté de vous joindre par téléphone. <strong>Nous vous invitons à consulter votre messagerie vocale et vos mails</strong>.</p>"
         recall: N’hésitez pas à la ou le rappeler directement.
