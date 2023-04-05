@@ -9,23 +9,14 @@ RSpec.describe InvolvementConcern do
   let(:diagnosis) { create :diagnosis_completed }
 
   describe 'InvolvementConcern' do
-    let!(:need_taking_care) do
-      create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, status: :taking_care)])
-    end
     let!(:need_quo) do
       create(:need, matches: [create(:match, expert: current_expert, status: :quo)])
     end
-    let!(:need_quo_abandonned) do
-      create(:need, matches: [create(:match, expert: current_expert, status: :quo, created_at: 46.days.ago)])
-    end
-    let!(:need_not_for_me) do
-      create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, status: :not_for_me)])
-    end
-    let!(:need_done) do
-      create(:need, matches: [create(:match, expert: current_expert, status: :done)])
-    end
-    let!(:need_archived) do
-      create(:need, matches: [create(:match, expert: current_expert, status: :quo)], archived_at: Time.zone.now)
+    let!(:need_other_refused) do
+      create(:need, matches: [
+        create(:match, expert: current_expert, status: :quo),
+        create(:match, expert: other_expert, status: :not_for_me)
+      ])
     end
     let!(:need_other_taking_care) do
       create(:need, diagnosis: diagnosis, matches: [
@@ -39,6 +30,33 @@ RSpec.describe InvolvementConcern do
         create(:match, expert: other_expert, status: :done)
       ])
     end
+    let!(:need_taking_care) do
+      create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, status: :taking_care)])
+    end
+    let!(:need_quo_old) do
+      create(:need, matches: [create(:match, expert: current_expert, status: :quo, created_at: 46.days.ago)])
+    end
+    let!(:need_other_done_old) do
+      create(:need, matches: [
+        create(:match, expert: current_expert, status: :quo, created_at: 46.days.ago),
+        create(:match, expert: other_expert, status: :done, created_at: 46.days.ago)
+      ])
+    end
+    let!(:need_other_refused_old) do
+      create(:need, matches: [
+        create(:match, expert: current_expert, status: :quo, created_at: 46.days.ago),
+        create(:match, expert: other_expert, status: :not_for_me, created_at: 46.days.ago)
+      ])
+    end
+    let!(:need_not_for_me) do
+      create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, status: :not_for_me)])
+    end
+    let!(:need_done) do
+      create(:need, matches: [create(:match, expert: current_expert, status: :done)])
+    end
+    let!(:need_archived) do
+      create(:need, matches: [create(:match, expert: current_expert, status: :quo)], archived_at: Time.zone.now)
+    end
 
     describe 'needs_taking_care' do
       subject { user.needs_taking_care }
@@ -49,13 +67,13 @@ RSpec.describe InvolvementConcern do
     describe 'needs_quo' do
       subject { user.needs_quo }
 
-      it { is_expected.to match_array([need_quo, need_other_taking_care, need_other_done, need_quo_abandonned]) }
+      it { is_expected.to match_array([need_quo, need_other_taking_care, need_other_done, need_other_refused, need_quo_old, need_other_done_old, need_other_refused_old]) }
     end
 
     describe 'needs_quo_active' do
       subject { user.needs_quo_active }
 
-      it { is_expected.to match_array([need_quo, need_other_taking_care, need_other_done]) }
+      it { is_expected.to match_array([need_quo, need_other_taking_care, need_other_done, need_other_refused]) }
     end
 
     describe 'needs_others_taking_care' do
@@ -97,10 +115,10 @@ RSpec.describe InvolvementConcern do
       it { is_expected.to match_array([need_archived, need_quo_expert_match_archived]) }
     end
 
-    describe 'needs_quo_abandoned' do
-      subject { user.needs_quo_abandoned }
+    describe 'needs_expired' do
+      subject { user.needs_expired }
 
-      it { is_expected.to match_array([need_quo_abandonned]) }
+      it { is_expected.to match_array([need_quo_old, need_other_done_old, need_other_refused_old]) }
     end
   end
 end

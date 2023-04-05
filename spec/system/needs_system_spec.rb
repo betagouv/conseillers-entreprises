@@ -51,7 +51,7 @@ describe 'needs' do
       expect(side_menu_link(taking_care_needs_path)).to have_text('1')
       expect(side_menu_link(done_needs_path)).to have_text('1')
       expect(side_menu_link(not_for_me_needs_path)).to have_text('1')
-      expect(side_menu_link(quo_abandoned_needs_path)).to have_text('1')
+      expect(side_menu_link(expired_needs_path)).to have_text('1')
 
       click_link 'Prises en charge'
       expect(page).to have_current_path(taking_care_needs_path, ignore_query: true)
@@ -66,7 +66,7 @@ describe 'needs' do
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 
       click_link 'Expirées'
-      expect(page).to have_current_path(quo_abandoned_needs_path, ignore_query: true)
+      expect(page).to have_current_path(expired_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 
       click_link 'Boite de réception'

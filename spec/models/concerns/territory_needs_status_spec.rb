@@ -50,10 +50,10 @@ RSpec.describe TerritoryNeedsStatus do
     let!(:need_archived_outside) do
       create(:need, matches: [create(:match, expert: expert_outside, status: :quo)], archived_at: Time.zone.now)
     end
-    let!(:need_quo_abandoned_inside) do
+    let!(:need_expired_inside) do
       create(:need, matches: [create(:match, expert: expert_inside, status: :quo, created_at: 46.days.ago)])
     end
-    let!(:need_quo_abandoned_outside) do
+    let!(:need_expired_outside) do
       create(:need, matches: [create(:match, expert: expert_outside, status: :quo, created_at: 46.days.ago)])
     end
 
@@ -66,7 +66,7 @@ RSpec.describe TerritoryNeedsStatus do
     describe 'needs_quo' do
       subject { antenne_inside_regional.territory_needs_quo }
 
-      it { is_expected.to match_array([need_quo_inside, need_quo_abandoned_inside]) }
+      it { is_expected.to match_array([need_quo_inside, need_expired_inside]) }
     end
 
     describe 'needs_quo_active' do
@@ -93,10 +93,10 @@ RSpec.describe TerritoryNeedsStatus do
       it { is_expected.to match_array([need_archived_inside]) }
     end
 
-    describe 'needs_quo_abandoned' do
-      subject { antenne_inside_regional.territory_needs_quo_abandoned }
+    describe 'needs_expired' do
+      subject { antenne_inside_regional.territory_needs_expired }
 
-      it { is_expected.to match_array([need_quo_abandoned_inside]) }
+      it { is_expected.to match_array([need_expired_inside]) }
     end
   end
 end

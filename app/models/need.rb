@@ -230,7 +230,7 @@ class Need < ApplicationRecord
     status_quo.matches_created_at(range)
   end
 
-  scope :quo_abandoned, -> do
+  scope :expired, -> do
     range = Range.new(nil, Need::REMINDERS_DAYS[:abandon]&.days&.ago)
     status_quo.matches_created_at(range)
   end

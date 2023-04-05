@@ -38,8 +38,8 @@ class NeedsController < ApplicationController
     retrieve_needs(current_user, :not_for_me)
   end
 
-  def quo_abandoned
-    retrieve_needs(current_user, :quo_abandoned)
+  def expired
+    retrieve_needs(current_user, :expired)
   end
 
   def search

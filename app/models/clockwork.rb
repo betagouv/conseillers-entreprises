@@ -21,9 +21,6 @@ module Clockwork
   every(1.day, 'archive_old_needs', at: '02:11') do
     NeedsService.delay.archive_old_needs
   end
-  every(1.day, 'auto_archive_old_matches', at: ('2:41')) do
-    `rake auto_archive_old_matches`
-  end
   every(1.day, 'abandon_needs', at: '03:11') do
     NeedsService.delay.abandon_needs
   end
