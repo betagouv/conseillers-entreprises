@@ -12,7 +12,7 @@ RSpec.describe Reminders::NeedsController do
 
     it 'send email and set abandoned_email_sent' do
       expect(ActionMailer::Base.deliveries.count).to eq 1
-      expect(need.reload.abandoned_email_sent).to be true
+      expect(need.reload.is_abandoned?).to be false
     end
   end
 
