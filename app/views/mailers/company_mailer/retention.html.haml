@@ -4,9 +4,9 @@
 
 %p= t('mailers.hello')
 
-= t('.intro_html', company: @need.diagnosis.company.name)
+%p= t('.intro_html', company: @need.diagnosis.company.name)
 
-%blockquote
+%p
   %strong= @need.subject.label
 
 %p= t('.remind')
@@ -17,7 +17,7 @@
 
 %p= t('mailers.thanks_for_your_trust')
 
-%p= t('mailers.nice_day')
+%p= t('mailers.cordially')
 
 %p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)
 

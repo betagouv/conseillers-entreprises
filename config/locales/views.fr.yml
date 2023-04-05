@@ -501,19 +501,17 @@ fr:
         intro_from_solicitation_html: 'Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne :'
         subject: Prise en charge de votre demande « %{subject} »
       retention:
-        intro_html: "<p>Vous avez utilisé le service public Place des Entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait le sujet :</p>"
+        intro_html: 'Vous avez utilisé le service public Place des Entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait :'
         list_html: 'Plus de 40 partenaires publics sont réunis dans ce service pour vous accompagner sur de nombreux sujets : <ul><li>recrutement</li><li>formation</li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
         outro: Si vous souhaitez être accompagné(e), n’hésitez pas à déposer une demande.
         remind: Pour rappel, Place des Entreprises est un service de mise en relation pour les TPE & PME. Il vous permet d’échanger avec LE conseiller qui peut vous aider.
         send_solicitation: Échanger avec un conseiller
         subject: Avez-vous besoin d’aide ?
       satisfaction:
-        follow_us: Suivre le service sur LinkedIn
-        intro_html: 'Vous avez utilisé le service public Place des Entreprises pour votre entreprise <i>%{company}</i>. Votre demande concernait le sujet :'
-        linkedin_news: Ne loupez pas l’actualité des aides et accompagnements publics !
-        outro: Votre avis est important pour nous aider à améliorer ce nouveau service public.
-        question_one_html: "<p>Est-ce que vous avez bien été recontacté par au moins un conseiller ? <a href='%{link_yes}' target='_blank' class='response-button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='response-button no'>Non</a></p>"
-        subject: Avez-vous bien été rappelé ?
+        intro_html: 'Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concernait :'
+        outro: Votre avis est important pour nous aider à améliorer ce service public de mise en relation.
+        question_one_html: Avez-vous été rappelé(e) par un conseiller ou une conseillère ? <a href='%{link_yes}' target='_blank' class='response-button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='response-button no'>Non</a>
+        subject: Suivi de votre demande « %{subject} »
         tank_you: Merci pour votre confiance,
       solicitation_relaunch_company:
         continue_button_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Finaliser ma demande d’aide</a>"
@@ -588,7 +586,6 @@ fr:
     hello: Bonjour,
     hello_name: Bonjour %{name},
     hope_to_helped: En espérant que ces informations vous soient utiles,
-    nice_day: Bonne journée,
     place_des_entreprises_team: L’équipe Place des Entreprises.
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
     see_diagnosis: Voir la demande

@@ -12,7 +12,7 @@
 %p
   %strong= @solicitation.landing_subject.title
 
-= t('.informations_html')
+%p= t('.informations_html')
 
 %ul
   - @solicitation.landing_subject.solicitable_institutions_names.each do |institution_name|
