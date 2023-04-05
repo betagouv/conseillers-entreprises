@@ -114,7 +114,7 @@ class CreateEmailRetention < ActiveRecord::Migration[7.0]
         },
         {
           waiting_time: 4,
-          email_subject: 'Amélioration les conditions de travail et inclure le handicap dans votre entreprise',
+          email_subject: 'Améliorer les conditions de travail et inclure le handicap dans votre entreprise',
           first_paragraph: '<p>Il y a quelques mois vous avez utilisé le service public Place des Entreprises pour <strong>être conseillé en droit du travail</strong>.</p><p>D’autres dirigeants cherchant comme vous à être conseillé en droit du travail ont également utilisé ce service pour améliorer les conditions de travail de leurs salariés et inclure le handicap dans leur entreprise.</p>',
           subject: droit_travail,
           first_subject: conditions_travail,
