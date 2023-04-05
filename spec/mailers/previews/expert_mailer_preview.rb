@@ -37,6 +37,12 @@ class ExpertMailerPreview < ActionMailer::Preview
     ExpertMailer.last_chance(expert, need, User.support_users.sample)
   end
 
+  def re_engagement
+    expert = active_expert
+    need = expert.received_needs.sample
+    ExpertMailer.re_engagement(expert, User.support_users.sample, need)
+  end
+
   private
 
   def active_expert

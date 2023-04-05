@@ -191,6 +191,7 @@ Rails.application.routes.draw do
         get :not_for_me, path: 'refusees'
         get :quo_abandoned, path: 'expirees'
         post :send_reminder_email
+        post :send_re_engagement_email
       end
     end
     resources :needs, path: 'besoins', only: %i[index] do

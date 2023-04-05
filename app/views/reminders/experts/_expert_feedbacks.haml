@@ -1,0 +1,12 @@
+= turbo_frame_tag "display-feedbacks-#{expert.id}" do
+  - feedbacks = expert.reminder_feedbacks.order(created_at: :desc)
+  = render partial: 'feedbacks/feedback', collection: feedbacks.limit(2)
+  -# On affiche les 2 premiers commentaires, les autres sont dépliables
+  - if expert.reminder_feedbacks.size > 2
+    - remaining_feedbacks = feedbacks.offset(2)
+    %section.fr-accordion
+      %h4.fr-accordion__title
+      %button.fr-accordion__btn.fr-text--sm{ aria: { expanded: "false", controls: "hidden-feedbacks-#{expert.id}" } }
+        = t('.see_remaining_feedbacks', count: remaining_feedbacks.size)
+    .fr-collapse.fr-pt-2w{ id: "hidden-feedbacks-#{expert.id}" }
+      = render partial: 'feedbacks/feedback', collection: remaining_feedbacks

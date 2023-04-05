@@ -56,6 +56,20 @@ class ExpertMailer < ApplicationMailer
     )
   end
 
+  def re_engagement(expert, support_user, need)
+    @expert = expert
+    return if @expert.deleted?
+
+    @need = need
+    @support_user = support_user
+
+    mail(
+      to: @expert.email_with_display_name,
+      reply_to: @support_user.email_with_display_name,
+      subject: t('mailers.expert_mailer.re_engagement.subject')
+    )
+  end
+
   def last_chance(expert, need, support_user)
     @expert = expert
     return if @expert.deleted?
