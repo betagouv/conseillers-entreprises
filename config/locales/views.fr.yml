@@ -559,6 +559,7 @@ fr:
         find_it_here_html: 'Vous pouvez le retrouver ici : <a href=''%{url}''>%{url}</a>'
         if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service Place des Entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque mardi à 14H30</strong> sur ce lien de visio : <a href=''https://webinaire.numerique.gouv.fr''> https://webinaire.numerique.gouv.fr</a>.'
         its_been_a_while: Cela n’était pas arrivé depuis un bon moment !
+        position_yourself: Nous vous invitons à vous positionner sur ce besoin à l'aide des boutons de prise en charge ou de refus.
         subject: Service public Place des Entreprises - Nous vous accompagnons !
         you_received_need_html: Vous venez de recevoir un besoin de l’entreprise <strong>%{company}</strong> sur le sujet "%{subject}".
       remind_involvement:
