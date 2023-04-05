@@ -62,7 +62,8 @@
 
     %hr
     = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
-    = render 'expert_feedbacks', expert: expert
+    .fr-mt-3w
+      = render 'expert_feedbacks', expert: expert
 
   .card__footer
     - if action == :one_pending_need

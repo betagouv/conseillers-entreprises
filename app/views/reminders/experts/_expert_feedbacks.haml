@@ -1,4 +1,4 @@
-= turbo_frame_tag "display-feedbacks-#{expert.id}", class: 'fr-mt-3w' do
+= turbo_frame_tag "display-feedbacks-#{expert.id}" do
   - feedbacks = expert.reminder_feedbacks.order(created_at: :desc)
   = render partial: 'feedbacks/feedback', collection: feedbacks.limit(2)
   -# On affiche les 2 premiers commentaires, les autres sont dépliables
