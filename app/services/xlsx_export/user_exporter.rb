@@ -92,8 +92,8 @@ module XlsxExport
       third_row[1] = I18n.t('export_xls.email_instructions')
       third_row[2..4] = third_row[2..4].map { |v| v = '' }
       third_row[5] = I18n.t('export_xls.teams_instructions')
-      third_row[6..7] = third_row[6..7].map { |v| v = '' }
-      index = 8
+      third_row[6..8] = third_row[6..8].map { |v| v = '' }
+      index = 9
       @options[:institutions_subjects].each do |is|
         third_row[index] = is.description
         index += 1
