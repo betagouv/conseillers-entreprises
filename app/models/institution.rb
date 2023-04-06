@@ -115,7 +115,7 @@ class Institution < ApplicationRecord
 
   def advisors_in_region(region_id)
     advisors
-      .left_joins(:regions, :experts)
+      .left_joins(:antenne_regions, :experts)
       .where(antennes: { territories: { id: [region_id] } })
       .or(self.antennes.where(experts: { is_global_zone: true }))
       .distinct
