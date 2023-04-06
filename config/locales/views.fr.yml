@@ -488,7 +488,7 @@ fr:
         content_html: 'Nous avons bien reçu votre demande déposée sur le site Place des Entreprises.<br>Elle concerne :'
         informations_html: 'Vous serez informé(e) par mail de sa prise en charge par un conseiller dans les 5 jours en moyenne.<br>Le(s) partenaire(s) pouvant vous rappeler sont :'
         subject: Confirmation de votre demande « %{subject} »
-      not_yet_supported:
+      not_yet_taken_care:
         intro_from_solicitation_html: 'Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne :'
         subject: Suivi de votre demande « %{subject} »
         thanks_for_your_patience: Nous vous remercions pour votre patience.

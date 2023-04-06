@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-describe NotYetSupportedEmailService do
-  let(:some_days_ago) { NotYetSupportedEmailService::WAITING_TIME.ago }
+describe NotYetTakenCareEmailService do
+  let(:some_days_ago) { NotYetTakenCareEmailService::WAITING_TIME.ago }
   # solicitation sans diagnosis KO
   let!(:solicitation_without_diagnosis) { create :solicitation, status: :processed, created_at: some_days_ago }
   # solicitation avec need done KO

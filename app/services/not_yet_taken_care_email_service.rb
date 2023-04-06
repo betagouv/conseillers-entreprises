@@ -1,9 +1,9 @@
-class NotYetSupportedEmailService
+class NotYetTakenCareEmailService
   WAITING_TIME = 9.days
 
   def call
     retrieve_solicitations.each do |solicitation|
-      CompanyMailer.not_yet_supported(solicitation).deliver_later
+      CompanyMailer.not_yet_taken_care(solicitation).deliver_later
     end
   end
 

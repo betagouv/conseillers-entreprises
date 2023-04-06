@@ -39,7 +39,7 @@ class CompanyMailerPreview < ActionMailer::Preview
     CompanyMailer.intelligent_retention(Need.where(status: :done).where.associated(:solicitation).sample, EmailRetention.all.sample)
   end
 
-  def not_yet_supported
-    CompanyMailer.not_yet_supported(Diagnosis.completed.sample.solicitation)
+  def not_yet_taken_care
+    CompanyMailer.not_yet_taken_care(Diagnosis.completed.sample.solicitation)
   end
 end
