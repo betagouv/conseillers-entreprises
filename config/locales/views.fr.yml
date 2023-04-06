@@ -1229,13 +1229,13 @@ fr:
       dailymotion: Dailymotion
       dailymotion_video_title: Lien vers la video tutoriel sur Dailymotion - ouvre une nouvelle fenêtre
       emails: Réceptionner les emails
-      notifications_title: Comprendre les notifications
-      notifications_question: Quand recevez-vous une notification ?
+      explanation_emails: Je glisse l'email de Place des Entreprises dans ma boîte de réception. Les prochains emails @beta.gouv.fr arriveront ainsi directement dans ma boite de réception !
+      need_steps: Les 4 étapes de la prise en charge d’un besoin
       notifications_explanations_1_html: À l’arrivée d’une <b>nouvelle demande</b> d’une entreprise sur mon territoire
       notifications_explanations_2_html: Si vous avez des demandes en attente en réponse, vous recevrez également :<ul><li>un <b>récapitulatif hebdomadaire</b> tous les mardis regroupant toutes les demandes en attente</li><li>une <b>relance de “la dernière chance”</b> 3 semaines après réception d’une demande</li><li>un <b>mail de rappel</b> manuellement déclenché par un membre de l’équipe</li></ul>
       notifications_explanations_3_html: Lorsque la demande est clôturée, vous ne recevez plus de notification.
-      explanation_emails: Je glisse l'email de Place des Entreprises dans ma boîte de réception. Les prochains emails @beta.gouv.fr arriveront ainsi directement dans ma boite de réception !
-      need_steps: Les 4 étapes de la prise en charge d’un besoin
+      notifications_question: Quand recevez-vous une notification ?
+      notifications_title: Comprendre les notifications
       pde_tutorial_transcription: Transcription textuelle de la vidéo tutorielle de Place des Entreprises.
       question_emails: Je ne reçois pas les mails de Place des entreprises, que faire ?
       read_transcription: Lire la transcription
