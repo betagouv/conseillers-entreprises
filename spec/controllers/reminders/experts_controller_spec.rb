@@ -59,7 +59,7 @@ RSpec.describe Reminders::ExpertsController do
     let!(:match5) { create :match, status: :done_not_reachable, need: need }
     let!(:match6) { create :match, status: :not_for_me, need: need }
 
-    before { post :send_reminder_email, params: { id: match1.expert_id } }
+    before { post :send_reminder_email, format: :turbo_stream, params: { id: match1.expert_id } }
 
     it 'send email only for quo match and add a feedback' do
       expect(ActionMailer::Base.deliveries.count).to eq 1
