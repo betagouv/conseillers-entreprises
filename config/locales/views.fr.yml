@@ -725,16 +725,16 @@ fr:
     collections:
       archived: Archivées
       done: Clôturées
-      not_for_me: Refusées
       expired: Expirées
+      not_for_me: Refusées
       quo_active: Boite de réception
       search: Recherche
       taking_care: Prises en charge
     collections_single:
       archived: Archivée
       done: Clôturée
-      not_for_me: Refusée
       expired: Expirée
+      not_for_me: Refusée
       quo_active: Boite de réception
       taking_care: Prise en charge
     empty_placeholder:

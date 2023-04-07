@@ -18,8 +18,8 @@ module Clockwork
   every(1.day, 'revoke_api_keys', at: ('2:00'), if: -> (t) { t.day == 1 }) do
     ApiKeysManagement.delay.batch_revoke
   end
-  every(1.day, 'archive_old_needs', at: '02:11') do
-    NeedsService.delay.archive_old_needs
+  every(1.day, 'archive_expired_matches', at: '02:11') do
+    NeedsService.delay.archive_expired_matches
   end
   every(1.day, 'abandon_needs', at: '03:11') do
     NeedsService.delay.abandon_needs
