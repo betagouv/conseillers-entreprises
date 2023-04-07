@@ -24,6 +24,8 @@
 @import 'activeadmin/quill_editor_input'
 
 .status_tag
+  &:not(:last-child)
+    margin-bottom: 0.25rem
   &.ok
     background: #03bd5b
   &.warning
@@ -50,6 +52,8 @@
   &.processed
     background: #03bd5b
   &.canceled
+    background: #932419
+  &.abandonné
     background: #932419
 
 .textarea-monospace
