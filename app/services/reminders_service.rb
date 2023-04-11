@@ -67,10 +67,15 @@ class RemindersService
   end
 
   def self.build_output_basket(experts, last_run_number, current_run)
-    last_run_reminders_registers = RemindersRegister.where(category: :output, processed: false)
-      .or(RemindersRegister.where(run_number: last_run_number, category: [:input, :remainder]))
-    Expert.where(id: last_run_reminders_registers.map(&:expert).pluck(:id)).where.not(id: experts.ids).each do |expert|
-      next if expert.reminders_registers.current_output_category.any?
+    experts_in_last_run = RemindersRegister.where(run_number: last_run_number, category: [:input, :remainder]).map(&:expert)
+    experts_in_current_run = RemindersRegister.where(run_number: current_run).map(&:expert)
+    # expert qui etaient dans les paniers mais ne le sont plus
+    no_longer_in_reminders = experts_in_last_run - experts_in_current_run
+    # plus les experts qui sont encore dans les sorties et pas "vu"
+    in_outputs_not_processed = RemindersRegister.where(run_number: last_run_number, category: :output, processed: false).map(&:expert)
+    expert_for_outputs = no_longer_in_reminders | in_outputs_not_processed
+
+    expert_for_outputs.each do |expert|
       RemindersRegister.create!(expert: expert, category: :output, run_number: current_run)
     end
   end
