@@ -14,6 +14,10 @@ describe 'annuaire', js: true, flaky: true do
   end
 
   context 'annuaire/institutions' do
+    let(:region) { create :territory, :region }
+    let(:commune) { create :commune, regions: [region] }
+    let!(:antenne) { create :antenne, institution: institution, communes: [commune] }
+
     it 'displays all institution' do
       visit 'annuaire/institutions'
 
@@ -21,6 +25,10 @@ describe 'annuaire', js: true, flaky: true do
       expect(page).to have_css('.fr-table--c-annuaire', count: 1)
       # There is 2 'tr' for institutions and one for headers but FactoryBot create another institution when we create 'antenne'
       expect(page).to have_css('tr', count: 4)
+
+      select(region.name, from: 'region_id')
+      click_button 'Chercher'
+      expect(page).to have_css('tr', count: 2)
     end
   end
 
