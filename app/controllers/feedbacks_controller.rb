@@ -18,6 +18,7 @@ class FeedbacksController < ApplicationController
 
   def destroy
     feedback = retrieve_feedback
+    return if feedback.nil?
     authorize feedback
     feedback.destroy!
     respond_to do |format|
