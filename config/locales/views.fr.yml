@@ -896,7 +896,6 @@ fr:
     needs:
       scopes:
         detail:
-          abandon: Refusés
           last_chance: J+%{days}
           poke: J+%{days}
         instruction:
