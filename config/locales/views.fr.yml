@@ -676,6 +676,12 @@ fr:
       needs_by_statut: Par statut du besoin
     send_abandoned_need_email: Envoyer l’email d’échec au dirigeant
     send_last_chance_email: Envoyer l’email de la dernière chance
+    shared:
+      filters:
+        search_placeholder: "Utilisateur, équipe, antenne..."
+        search: "Rechercher"
+        clear_search: "Réinitialiser la recherche"
+        omnisearch: "Rechercher un utilisateur, expert, antenne..."
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
   reports:

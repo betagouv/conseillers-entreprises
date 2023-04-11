@@ -6,7 +6,7 @@
     collections_by_status_counts: @collections_by_status_counts)
 
 = paginate @active_experts
-= render 'reminders/shared/filters', possible_territories_options: @possible_territories_options
+= render 'reminders/shared/filters', possible_territories_options: @possible_territories_options, active_experts: @active_experts
 
 %div
   - if @active_experts.empty? && @action == :inputs

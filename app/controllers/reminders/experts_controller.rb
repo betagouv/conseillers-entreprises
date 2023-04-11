@@ -4,6 +4,7 @@ module Reminders
     helper_method :inbox_collections_counts
     before_action :persist_filter_params, :setup_territory_filters, :collections_counts, only: %i[index show many_pending_needs medium_pending_needs one_pending_need inputs outputs]
     before_action :retrieve_expert, except: %i[index many_pending_needs medium_pending_needs one_pending_need inputs outputs]
+    before_action :authorize_index_reminders, :persist_search_params, only: [:index, :many_pending_needs, :medium_pending_needs, :one_pending_need, :inputs, :outputs]
 
     def index
       redirect_to action: :many_pending_needs
@@ -93,14 +94,34 @@ module Reminders
     end
 
     def render_collection(action)
-      @active_experts = territory_experts
+      @active_experts = Expert
         .includes(:reminder_feedbacks, :users, :received_needs)
         .send(action)
+        .apply_filters(reminders_filter_params)
         .most_needs_quo_first
         .page params[:page]
 
       @action = action
       render :index
+    end
+
+    def persist_search_params
+      session[:reminders_filter_params] ||= {}
+      search_params = params.slice(:omnisearch, :by_region).permit!
+      if params[:reset_query].present?
+        reset_session
+      else
+        session[:reminders_filter_params] = session[:reminders_filter_params].merge(search_params)
+      end
+    end
+
+    def reset_session
+      session[:reminders_filter_params] = {}
+    end
+
+    def authorize_index_reminders
+
+      authorize Reminders::ExpertsController, :index?
     end
   end
 end

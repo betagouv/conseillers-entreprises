@@ -62,12 +62,11 @@ module Reminders
 
     def render_collection(action)
       @action = action
-      @needs = territory_needs
-        .reminders_to(action)
+      @needs = Need.where(created_at: ...Date.new(2023, 1, 1)).reminders_to(:abandon)
         .joins(:matches, :experts)
         .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
-        .distinct
-        .order(:created_at)
+        .distinct.count
+        .order(:created_at).count
         .page(params[:page])
 
       render :index

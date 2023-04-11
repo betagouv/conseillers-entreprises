@@ -200,10 +200,11 @@ class Expert < ApplicationRecord
   end
 
   scope :omnisearch, -> (query) do
-    joins(antenne: :institution)
+    joins(:reminders_registers, :users, antenne: :institution)
       .where('experts.full_name ILIKE ?', "%#{query}%")
-      .or(Expert.joins(antenne: :institution).where('antennes.name ILIKE ?', "%#{query}%"))
-      .or(Expert.joins(antenne: :institution).where('institutions.name ILIKE ?', "%#{query}%"))
+      .or(Expert.joins(:reminders_registers, :users, antenne: :institution).where('users.full_name ILIKE ?', "%#{query}%"))
+      .or(Expert.joins(:reminders_registers, :users, antenne: :institution).where('antennes.name ILIKE ?', "%#{query}%"))
+      .or(Expert.joins(:reminders_registers, :users, antenne: :institution).where('institutions.name ILIKE ?', "%#{query}%"))
   end
 
   scope :many_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.many_pending_needs_basket) }
@@ -215,6 +216,7 @@ class Expert < ApplicationRecord
   def self.apply_filters(params)
     klass = self
     klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
+    klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
     klass.all
   end
 
@@ -229,6 +231,8 @@ class Expert < ApplicationRecord
   def output_register
     reminders_registers.current_output_category.first
   end
+
+
 
   ## Team stuff
   def personal_skillset?
