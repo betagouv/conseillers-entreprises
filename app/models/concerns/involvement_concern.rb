@@ -51,9 +51,9 @@ module InvolvementConcern
       .distinct
   end
 
-  def needs_quo_abandoned
+  def needs_expired
     received_needs
-      .where(matches: received_matches.with_status_quo_abandoned)
+      .where(matches: received_matches.with_status_expired)
       .where(matches: { archived_at: nil })
       .archived(false)
       .distinct

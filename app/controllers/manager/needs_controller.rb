@@ -24,8 +24,8 @@ class Manager::NeedsController < ApplicationController
     antenne_retrieve_needs(retrieve_recipient, :not_for_me)
   end
 
-  def quo_abandoned
-    antenne_retrieve_needs(retrieve_recipient, :quo_abandoned)
+  def expired
+    antenne_retrieve_needs(retrieve_recipient, :expired)
   end
 
   private

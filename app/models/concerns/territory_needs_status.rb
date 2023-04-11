@@ -50,9 +50,9 @@ module TerritoryNeedsStatus
       .distinct
   end
 
-  def territory_needs_quo_abandoned
+  def territory_needs_expired
     perimeter_received_needs
-      .where(matches: perimeter_received_matches_from_needs(perimeter_received_needs).with_status_quo_abandoned)
+      .where(matches: perimeter_received_matches_from_needs(perimeter_received_needs).with_status_expired)
       .where(matches: { archived_at: nil })
       .archived(false)
       .distinct

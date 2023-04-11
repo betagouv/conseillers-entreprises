@@ -94,7 +94,7 @@ Rails.application.routes.draw do
         get :taking_care, path: 'prises-en-charge'
         get :done, path: 'cloturees'
         get :not_for_me, path: 'refusees'
-        get :quo_abandoned, path: 'expirees'
+        get :expired, path: 'expirees'
       end
     end
   end
@@ -150,7 +150,7 @@ Rails.application.routes.draw do
       get :taking_care, path: 'prises_en_charge'
       get :done, path: 'cloturees'
       get :not_for_me, path: 'refusees'
-      get :quo_abandoned, path: 'expirees'
+      get :expired, path: 'expirees'
 
       get :search, path: 'recherche'
     end
@@ -164,14 +164,7 @@ Rails.application.routes.draw do
 
   resources :matches, only: %i[update]
   resources :feedbacks, only: %i[create destroy]
-
-  resources :reminders_actions, only: [] do
-    member do
-      post :poke
-      post :archive
-      post :last_chance
-    end
-  end
+  resources :reminders_actions, only: %i[create]
 
   namespace :reminders, path: 'relances' do
     get '/', to: redirect('/relances/besoins')
@@ -189,23 +182,21 @@ Rails.application.routes.draw do
         get :taking_care, path: 'prises_en_charge'
         get :done, path: 'cloturees'
         get :not_for_me, path: 'refusees'
-        get :quo_abandoned, path: 'expirees'
+        get :expired, path: 'expirees'
         post :send_reminder_email
         post :send_re_engagement_email
       end
     end
     resources :needs, path: 'besoins', only: %i[index] do
       member do
-        post :send_abandoned_email
         post :update_badges
-        post :send_reminder_email
+        post :send_abandoned_email
         post :send_last_chance_email
       end
       collection do
         get :poke, path: 'sans-reponse'
         get :last_chance, path: 'risque-abandon'
-        get :archive, path: 'abandonnes'
-        get :not_for_me, path: 'refuses'
+        get :abandon, path: 'refuses'
       end
     end
     resources :reminders_registers, only: :update

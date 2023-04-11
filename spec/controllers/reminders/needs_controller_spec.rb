@@ -12,11 +12,11 @@ RSpec.describe Reminders::NeedsController do
 
     it 'send email and set abandoned_email_sent' do
       expect(ActionMailer::Base.deliveries.count).to eq 1
-      expect(need.reload.abandoned_email_sent).to be true
+      expect(need.reload.is_abandoned?).to be false
     end
   end
 
-  describe 'GET #not_for_me' do
+  describe 'GET #abandon' do
     # - besoin avec 1 positionnement « refusé », et autres MER sans réponse           ko
     # - besoin avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ko
     # - besoin avec 1 cloture « injoignable », et autres MER sans réponse             ko
@@ -35,27 +35,10 @@ RSpec.describe Reminders::NeedsController do
     let!(:need5) { create :need, archived_at: Time.now }
     let!(:need5_match) { create :match, need: need5, status: :not_for_me }
 
-    before { get :not_for_me }
+    before { get :abandon }
 
     it 'display only not_for_me needs' do
       expect(assigns(:needs)).to match_array [need4]
-    end
-  end
-
-  describe '#send_reminder_email' do
-    let!(:need) { create :need }
-    let!(:match1) { create :match, status: :quo, need: need }
-    let!(:match2) { create :match, status: :done, need: need }
-    let!(:match3) { create :match, status: :taking_care, need: need }
-    let!(:match4) { create :match, status: :done_no_help, need: need }
-    let!(:match5) { create :match, status: :done_not_reachable, need: need }
-    let!(:match6) { create :match, status: :not_for_me, need: need }
-
-    before { post :send_reminder_email, params: { id: need.id } }
-
-    it 'send email only for quo match and add a feedback' do
-      expect(ActionMailer::Base.deliveries.count).to eq 1
-      expect(Feedback.where(feedbackable_id: match1.need.id).count).to eq 1
     end
   end
 

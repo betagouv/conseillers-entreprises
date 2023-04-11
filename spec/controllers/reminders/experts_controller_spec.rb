@@ -49,4 +49,21 @@ RSpec.describe Reminders::ExpertsController do
       it { expect(assigns(:active_experts)).to match_array([expert_output_not_seen, old_expert_output_not_seen, expert_input_to_output]) }
     end
   end
+
+  describe '#send_reminder_email' do
+    let!(:need) { create :need }
+    let!(:match1) { create :match, status: :quo, need: need }
+    let!(:match2) { create :match, status: :done, need: need }
+    let!(:match3) { create :match, status: :taking_care, need: need }
+    let!(:match4) { create :match, status: :done_no_help, need: need }
+    let!(:match5) { create :match, status: :done_not_reachable, need: need }
+    let!(:match6) { create :match, status: :not_for_me, need: need }
+
+    before { post :send_reminder_email, format: :turbo_stream, params: { id: match1.expert_id } }
+
+    it 'send email only for quo match and add a feedback' do
+      expect(ActionMailer::Base.deliveries.count).to eq 1
+      expect(Feedback.where(feedbackable_id: match1.expert_id).count).to eq 1
+    end
+  end
 end

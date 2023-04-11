@@ -1,46 +1,33 @@
 module Reminders
   class NeedsController < BaseController
     before_action :persist_filter_params, :setup_territory_filters, :collections_counts
-    before_action :find_need, only: %i[send_abandoned_email send_reminder_email send_last_chance_email]
+    before_action :find_need, only: %i[send_abandoned_email send_last_chance_email]
 
     def index
       redirect_to action: :poke
     end
 
     def poke
-      render_collection(:poke, :action)
+      render_collection(:poke)
     end
 
     def last_chance
-      render_collection(:last_chance, :action)
+      render_collection(:last_chance)
     end
 
-    def not_for_me
-      render_collection(:not_for_me, :status)
+    def abandon
+      render_collection(:abandon)
     end
 
     def send_abandoned_email
       ActiveRecord::Base.transaction do
-        @need.update(abandoned_email_sent: true)
+        @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_sent'),
+                                    feedbackable_type: 'Need', feedbackable_id: @need.id)
         CompanyMailer.abandoned_need(@need).deliver_later
       end
       respond_to do |format|
-        format.js
-        format.html { redirect_to archive_reminders_needs_path, notice: t('mailers.email_sent') }
-      end
-    end
-
-    def send_reminder_email
-      reminded_teams = []
-      @need.matches.status_quo.each do |match|
-        reminded_teams << "#{match.expert.full_name} (#{match.expert.institution.name})"
-        ExpertMailer.positioning_rate_reminders(match.expert, current_user).deliver_later
-      end
-      @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_send', teams: reminded_teams.to_sentence),
-                                  feedbackable_type: 'Need', feedbackable_id: @need.id)
-      respond_to do |format|
         format.js { render template: 'reminders/needs/add_feedback', layout: false }
-        format.html { redirect_to many_pending_needs_reminders_experts_path, notice: t('mailers.email_sent') }
+        format.html { redirect_to abandon_reminders_needs_path, notice: t('mailers.email_sent') }
       end
     end
 
@@ -73,15 +60,10 @@ module Reminders
       @need = Need.find(params.permit(:id)[:id])
     end
 
-    def render_collection(name, category)
-      case category
-      when :action
-        @needs = territory_needs.reminders_to(name)
-      when :status
-        @needs = territory_needs.where(status: name).archived(false)
-      end
-      @action = name
-      @needs = @needs
+    def render_collection(action)
+      @action = action
+      @needs = territory_needs
+        .reminders_to(action)
         .joins(:matches, :experts)
         .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
         .distinct

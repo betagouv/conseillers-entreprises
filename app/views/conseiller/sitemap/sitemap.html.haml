@@ -14,7 +14,7 @@
     %li
       = link_to t('needs.collections.not_for_me'), not_for_me_needs_path
     %li
-      = link_to t('needs.collections.quo_abandoned'), quo_abandoned_needs_path
+      = link_to t('needs.collections.expired'), expired_needs_path
     - if policy(User).manager?
       %li
         = link_to current_user.managed_antennes.many? ? t('application.navbar.antennes_needs') : t('application.navbar.antenne_needs'), manager_needs_path

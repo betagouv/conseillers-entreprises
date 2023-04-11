@@ -117,7 +117,7 @@ class Match < ApplicationRecord
     status_quo.where(created_at: Need::REMINDERS_DAYS[:abandon]&.days&.ago..)
   end
 
-  scope :with_status_quo_abandoned, -> do
+  scope :with_status_expired, -> do
     status_quo.where(created_at: ..Need::REMINDERS_DAYS[:abandon]&.days&.ago)
   end
 
