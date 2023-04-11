@@ -33,6 +33,9 @@ module Clockwork
   every(1.day, 'send_retention_emails', at: ('4:41')) do
     CompanyMailerService.delay.send_retention_emails
   end
+  every(1.day, 'not_supported_solicitations', at: ('5:00')) do
+    NotYetTakenCareEmailService.new.delay.call
+  end
   every(1.day, 'send_satisfaction_emails', at: ('5:41')) do
     CompanyMailerService.delay.send_satisfaction_emails
   end

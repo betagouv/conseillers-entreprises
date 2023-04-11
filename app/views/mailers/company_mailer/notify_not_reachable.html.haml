@@ -2,18 +2,17 @@
 
 %p= t('mailers.hello')
 
-= t('mailers.company_mailer.notify_taking_care.intro_from_solicitation_html', company: @diagnosis.company.name)
+%p= t('mailers.company_mailer.notify_taking_care.intro_from_solicitation_html', company: @diagnosis.company.name)
 
-%blockquote
+%p
   %strong= @match.need.subject.label
 
-= t('.content_by_expert_html', expert_antenne: @match.expert.antenne.name)
-
-%p= t('.recall')
+%p= t('.content_by_expert_html', expert_antenne: @match.expert.antenne.name)
 
 %p= t('mailers.thank_you_to_used_our_service')
 
-%p= t('mailers.nice_day')
+%p= t('mailers.cordially')
 
 - link_to_root = link_to t('app_name'), root_url(mtm_campaign: 'retention', mtm_kwd: 'sequence-mail-pde')
+
 %p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)

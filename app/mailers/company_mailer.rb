@@ -8,7 +8,7 @@ class CompanyMailer < ApplicationMailer
     @solicitation = solicitation
     mail(
       to: @solicitation.email,
-      subject: t('mailers.company_mailer.confirmation_solicitation.subject')
+      subject: t('mailers.company_mailer.confirmation_solicitation.subject', subject: solicitation.landing_subject.title)
     )
   end
 
@@ -19,7 +19,7 @@ class CompanyMailer < ApplicationMailer
     if @diagnosis.visitee.email.present?
       mail(
         to: @diagnosis.visitee.email_with_display_name,
-        subject: t('mailers.company_mailer.notify_taking_care.subject')
+        subject: t('mailers.company_mailer.notify_taking_care.subject', subject: @diagnosis.solicitation.landing_subject.title)
       )
     end
   end
@@ -29,7 +29,7 @@ class CompanyMailer < ApplicationMailer
     @diagnosis = match.diagnosis
     mail(
       to: @diagnosis.visitee.email_with_display_name,
-      subject: t('mailers.company_mailer.notify_not_reachable.subject')
+      subject: t('mailers.company_mailer.notify_not_reachable.subject', subject: @diagnosis.solicitation.landing_subject.title)
     )
   end
 
@@ -38,7 +38,7 @@ class CompanyMailer < ApplicationMailer
     @email_token = Digest::SHA256.hexdigest(@need.diagnosis.visitee.email)
     mail(
       to: @need.diagnosis.visitee.email_with_display_name,
-      subject: t('mailers.company_mailer.satisfaction.subject')
+      subject: t('mailers.company_mailer.satisfaction.subject', subject: @need.solicitation.landing_subject.title)
     )
   end
 
@@ -72,5 +72,10 @@ class CompanyMailer < ApplicationMailer
     @email_retention = email_retention
 
     mail(to: @need.solicitation.email, subject: @email_retention.email_subject)
+  end
+
+  def not_yet_taken_care(solicitation)
+    @solicitation = solicitation
+    mail(to: @solicitation.email, subject: t('mailers.company_mailer.not_yet_taken_care.subject', subject: solicitation.landing_subject.subject))
   end
 end

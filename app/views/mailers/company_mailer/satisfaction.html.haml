@@ -3,6 +3,7 @@
     padding: 0.25em 1em;
     color: #fff;
     margin: 0 0.6em;
+    border-radius: 2px;
   }
   .no {
     background-color: #b92a1c;
@@ -15,12 +16,12 @@
 
 %p= t('mailers.hello')
 
-= t('.intro_html', company: @need.company.name)
+%p= t('.intro_html', company: @need.company.name)
 
-%blockquote
+%p
   %strong= @need.subject.label
 
-= t('.question_one_html',
+%p= t('.question_one_html',
   link_yes: new_company_satisfactions_url(besoin: @need.id, token: @email_token, response: 'yes'),
   link_no: new_company_satisfactions_url(besoin: @need.id, token: @email_token, response: 'no'))
 
@@ -28,10 +29,8 @@
 
 %p= t('.tank_you')
 
+%p= t('mailers.cordially')
+
 - link_to_root = link_to t('app_name'), root_url(mtm_campaign: 'retention', mtm_kwd: 'sequence-mail-pde')
+
 %p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)
-
-%p.margin-top-2= t('.linkedin_news')
-
-.button
-  = link_to t('.follow_us'), 'https://www.linkedin.com/company/place-des-entreprises/?mtm_campaign=Page%20LinkedIn%20-%20PE'

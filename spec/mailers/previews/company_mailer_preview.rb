@@ -1,10 +1,10 @@
 class CompanyMailerPreview < ActionMailer::Preview
   def confirmation_solicitation_from_pde
-    CompanyMailer.confirmation_solicitation(Solicitation.where(institution: nil).sample)
+    CompanyMailer.confirmation_solicitation(Solicitation.where(institution: nil).where.associated(:landing_subject).sample)
   end
 
   def confirmation_solicitation_from_iframe
-    CompanyMailer.confirmation_solicitation(Solicitation.where.not(institution: nil).sample)
+    CompanyMailer.confirmation_solicitation(Solicitation.where.not(institution: nil).where.associated(:landing_subject).sample)
   end
 
   def taking_care_solicitation
@@ -37,5 +37,9 @@ class CompanyMailerPreview < ActionMailer::Preview
 
   def intelligent_retention
     CompanyMailer.intelligent_retention(Need.where(status: :done).where.associated(:solicitation).sample, EmailRetention.all.sample)
+  end
+
+  def not_yet_taken_care
+    CompanyMailer.not_yet_taken_care(Diagnosis.completed.sample.solicitation)
   end
 end

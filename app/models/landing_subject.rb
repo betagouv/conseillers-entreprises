@@ -94,6 +94,13 @@ class LandingSubject < ApplicationRecord
     end
   end
 
+  def solicitable_institutions_names
+    return [] if solicitable_institutions.with_logo.empty?
+    partenaires = solicitable_institutions.with_logo.order(:name).reject{ |i| i.opco? }.pluck(:name).uniq
+    partenaires << I18n.t('attributes.opco') if solicitable_institutions.opco.any?
+    partenaires
+  end
+
   private
 
   def autoclean_textareas
