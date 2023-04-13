@@ -55,6 +55,7 @@ fr:
     scopes:
       acquisition: Acquisition
       active: Actifs
+      active_invitation_not_accepted: Invitations pas encore acceptées
       admin: Admins
       all: Tout
       api: API
@@ -71,7 +72,6 @@ fr:
       iframe: Iframe
       intern: Interne
       invitation_not_accepted: Invitations pas encore acceptées
-      active_invitation_not_accepted: Invitations pas encore acceptées
       is_archived: Archivés
       managers: Responsables d’antenne
       managers_not_invited: Responsables non invités
