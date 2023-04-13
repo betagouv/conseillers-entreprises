@@ -16,4 +16,10 @@ module ScriptsSnippetsHelper
       render 'shared/tarteaucitron'
     end
   end
+
+  def tarteaucitron_script_application
+    if Rails.env.production?
+      render 'application/tarteaucitron'
+    end
+  end
 end
