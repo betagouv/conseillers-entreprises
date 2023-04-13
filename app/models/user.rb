@@ -114,6 +114,7 @@ class User < ApplicationRecord
   scope :not_invited, -> { not_deleted.where(invitation_sent_at: nil) }
   scope :managers_not_invited, -> { not_deleted.managers.where(invitation_sent_at: nil) }
   # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
+  scope :active_invitation_not_accepted, -> { invitation_not_accepted.active }
 
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
