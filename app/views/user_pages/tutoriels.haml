@@ -7,10 +7,9 @@
     .fr-col-12.fr-col-lg-10
       .fr-content-media
         .fr-responsive-vid
-          %iframe.fr-responsive-vid__player{ allow: "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture", allowfullscreen: "", src: "https://tube.nocturlab.fr/videos/embed/9287324a-fe16-4f34-93ce-3780d88fce63", title: t('.video_title') }
+          .youtube_player{ autoplay: "0", controls: "1", height: "100%", loading: "1", loop: "0", rel: "1", showinfo: "0", videoid: "0RR4Z4gwljc", width: "100%" }
     .fr-col-12
       %p.bold= t('.available_on_html',
-        youtube_link: link_to(t('.youtube'), 'https://youtu.be/0RR4Z4gwljc', title: "#{t('.youtube_video_title')}", target: '_blank', rel: 'noopener'),
         dailymotion_link: link_to(t('.dailymotion'), 'https://dai.ly/x8bu8ye', title: "#{t('.dailymotion_video_title')}", target: '_blank', rel: 'noopener'))
       .fr-transcription
         %button.fr-transcription__btn{ 'aria-controls': 'fr-transcription-collapse-pde-tutorial', 'aria-expanded': 'false' }= t('.read_transcription')

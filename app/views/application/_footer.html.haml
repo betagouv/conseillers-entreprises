@@ -30,3 +30,6 @@
           = link_to t('conseiller.sitemap.sitemap.title'), conseiller_sitemap_path, class: 'fr-footer__bottom-link'
         %li.fr-footer__bottom-item
           = link_to t('about.accessibilite.footer_title'), accessibilite_path, class: 'fr-footer__bottom-link'
+        %li.fr-footer__bottom-item
+          %button.link.fr-footer__bottom-link{ id: 'open-cookies-box', 'aria-label': t('.open_cookies') }
+            = t('.cookies')
