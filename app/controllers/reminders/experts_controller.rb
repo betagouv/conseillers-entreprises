@@ -94,8 +94,10 @@ module Reminders
     end
 
     def render_collection(action)
-      @active_experts = territory_experts
-        .includes(:reminder_feedbacks, :users, :received_needs)
+      @active_experts = Expert
+        .apply_filters(reminders_filter_params)
+        .includes(:received_needs)
+        .left_joins(:reminder_feedbacks, :users)
         .send(action)
         .most_needs_quo_first
         .page params[:page]

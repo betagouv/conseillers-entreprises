@@ -207,6 +207,12 @@ class Expert < ApplicationRecord
       .or(Expert.joins(antenne: :institution).where('institutions.name ILIKE ?', "%#{query}%"))
   end
 
+  scope :by_full_name, -> (query) do
+    joins(:users, :received_quo_matches)
+      .where('experts.full_name ILIKE ?', "%#{query}%")
+      .or(Expert.joins(:users, :received_quo_matches).merge(User.by_name(query)))
+  end
+
   scope :many_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.many_pending_needs_basket) }
   scope :medium_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.medium_pending_needs_basket) }
   scope :one_pending_need, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.one_pending_need_basket) }
@@ -216,6 +222,7 @@ class Expert < ApplicationRecord
   def self.apply_filters(params)
     klass = self
     klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
+    klass = klass.by_full_name(params[:by_full_name]) if params[:by_full_name].present?
     klass.all
   end
 

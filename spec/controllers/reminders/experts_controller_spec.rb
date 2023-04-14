@@ -38,9 +38,17 @@ RSpec.describe Reminders::ExpertsController do
     end
 
     describe '#GET inputs' do
-      before { get :inputs }
+      context 'without search params' do
+        before { get :inputs }
 
-      it { expect(assigns(:active_experts)).to contain_exactly(expert_input, expert_remainder_not_processed) }
+        it { expect(assigns(:active_experts)).to contain_exactly(expert_input, expert_remainder_not_processed) }
+      end
+
+      context 'with search params' do
+        before { get :inputs, params: { by_full_name: expert_input.full_name } }
+
+        it { expect(assigns(:active_experts)).to contain_exactly(expert_input) }
+      end
     end
 
     describe '#GET outputs' do

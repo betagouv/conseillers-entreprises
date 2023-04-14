@@ -40,7 +40,7 @@ module Reminders
 
     def persist_filter_params
       session[:reminders_filter_params] ||= {}
-      search_params = params.slice(:by_region).permit!
+      search_params = params.slice(:by_region, :by_full_name).permit!
       if params[:reset_query].present?
         session[:reminders_filter_params] = {}
       else
