@@ -44,7 +44,7 @@
           .fr-collapse.team-members{ id: "accordion-#{expert.id}" }
             = render partial: 'user_admin_view', collection: expert.users, as: :user
   .fr-card__body
-    - cache ["received_matches", expert, expert.received_matches] do
+    - cache ["received_matches", expert, expert.received_matches, expert.needs_quo_active] do
       .card-expert__subtitle= t('.matches_total')
       .fr-tags-group
         .fr-tag

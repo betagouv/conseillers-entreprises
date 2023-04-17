@@ -26,7 +26,7 @@ ActiveAdmin.register User do
 
   scope :managers_not_invited, group: :invitations
   scope :not_invited, group: :invitations
-  scope :invitation_not_accepted, group: :invitations
+  scope :active_invitation_not_accepted, group: :invitations
 
   index do
     selectable_column

@@ -55,6 +55,7 @@ fr:
     scopes:
       acquisition: Acquisition
       active: Actifs
+      active_invitation_not_accepted: Invitations pas encore acceptées
       admin: Admins
       all: Tout
       api: API
