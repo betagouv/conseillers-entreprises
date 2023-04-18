@@ -168,6 +168,6 @@ class Conseiller::SolicitationsController < ApplicationController
       .where(diagnoses: { step: 5 })
       .where(contacts: { email: emails })
       .or(Facility.where(diagnoses: { step: 5 }).where(siret: sirets))
-      .distinct
+      .uniq
   end
 end
