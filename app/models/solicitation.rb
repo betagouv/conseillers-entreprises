@@ -242,6 +242,7 @@ class Solicitation < ApplicationRecord
         .or(description_contains(query))
         .or(name_contains(query))
         .or(email_contains(query))
+        .or(siret_contains(query))
         .or(mtm_kwd_contains(query))
         .or(mtm_campaign_contains(query))
         .or(relaunch_contains(query))
@@ -274,6 +275,10 @@ class Solicitation < ApplicationRecord
 
   scope :email_contains, -> (query) do
     where('solicitations.email ILIKE ?', "%#{query}%")
+  end
+
+  scope :siret_contains, -> (query) do
+    where('solicitations.siret ILIKE ?', "%#{query}%")
   end
 
   scope :mtm_kwd_contains, -> (query) {

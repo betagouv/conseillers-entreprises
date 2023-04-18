@@ -237,6 +237,15 @@ RSpec.describe Solicitation do
     it { is_expected.to match_array [solicitation] }
   end
 
+  describe '#siret_contains' do
+    let(:solicitation) { create :solicitation, siret: '11000101300017' }
+    let!(:solicitation2) { create :solicitation, siret: '89233420200017' }
+
+    subject { described_class.siret_contains('110001013') }
+
+    it { is_expected.to match_array [solicitation] }
+  end
+
   describe "#by_possible_region" do
     let(:territory1) { create :territory, :region, code_region: Territory.deployed_codes_regions.first }
     # - solicitation avec facility dans une region déployé
