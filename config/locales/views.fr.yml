@@ -527,6 +527,8 @@ fr:
       your_turn_html: C’est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
     search:
       clear_search: Réinitialiser la recherche
+      created_since: Date de début
+      created_until: Date de fin
       omnisearch: Rechercher par entreprise, contact, description...
       search: Rechercher
       search_placeholder: Rechercher par entreprise, contact, description...

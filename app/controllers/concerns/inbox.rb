@@ -17,7 +17,7 @@ module Inbox
       .send("needs_#{collection_name}") # See InvolvementConcern
       .includes(:company, :advisor, :subject, :solicitation, :facility)
       .order(created_at: order)
-      .apply_filters(params)
+      .apply_filters(needs_search_params)
       .page params[:page]
     render view
   end

@@ -7,7 +7,14 @@
     .fr-col-md-6.fr-col-12
       .fr-input-group
         = f.label :omnisearch, t('.omnisearch'), class: 'fr-label'
-        = f.search_field :omnisearch, value: params[:omnisearch], class: 'fr-input', placeholder: t('.search_placeholder')
+        = f.search_field :omnisearch, value: needs_search_params[:omnisearch], class: 'fr-input', placeholder: t('.search_placeholder')
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col-md-6.fr-col-12
+      = f.label :created_since, t('.created_since'), class: 'fr-label'
+      = f.date_field :created_since, value: needs_search_params[:created_since], class: 'fr-input'
+    .fr-col-md-6.fr-col-12
+      = f.label :created_until, t('.created_until'), class: 'fr-label'
+      = f.date_field :created_until, value: needs_search_params[:created_until], class: 'fr-input'
   .fr-grid-row.fr-grid-row--gutters
     .fr-col-md-6.fr-col-12
       %p= collection_count needs

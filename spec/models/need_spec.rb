@@ -328,6 +328,44 @@ RSpec.describe Need do
 
       it { is_expected.to contain_exactly(done_closed_10_days_ago, done_no_help_closed_10_days_ago) }
     end
+
+    describe 'by_subject' do
+      let(:a_subject) { create :subject }
+      let(:need_1) { create :need_with_matches, subject: a_subject }
+      let(:need_2) { create :need_with_matches }
+
+      subject { described_class.by_subject(a_subject.id) }
+
+      context 'with no match' do
+        it { is_expected.to contain_exactly(need_1) }
+      end
+    end
+
+    describe 'created_since' do
+      let(:date1) { Time.zone.now.strftime('%Y-%m-%e') }
+      let(:date2) { 2.days.ago.strftime('%Y-%m-%e') }
+      let(:date3) { 3.days.ago.strftime('%Y-%m-%e') }
+      let!(:need_1) { create :need_with_matches, created_at: date1 }
+      let!(:need_2) { create :need_with_matches, created_at: date2 }
+      let!(:need_3) { create :need_with_matches, created_at: date3 }
+
+      subject { described_class.created_since(date2) }
+
+      it { is_expected.to contain_exactly(need_1, need_2) }
+    end
+
+    describe 'created_until' do
+      let(:date1) { Time.zone.now.strftime('%Y-%m-%e') }
+      let(:date2) { 2.days.ago.strftime('%Y-%m-%e') }
+      let(:date3) { 3.days.ago.strftime('%Y-%m-%e') }
+      let!(:need_1) { create :need_with_matches, created_at: date1 }
+      let!(:need_2) { create :need_with_matches, created_at: date2 }
+      let!(:need_3) { create :need_with_matches, created_at: date3 }
+
+      subject { described_class.created_until(date2) }
+
+      it { is_expected.to contain_exactly(need_2, need_3) }
+    end
   end
 
   describe 'no_activity' do

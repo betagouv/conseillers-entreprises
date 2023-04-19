@@ -69,7 +69,7 @@ module SolicitationHelper
 
   def possible_themes_subjects_collection
     themes = current_user.themes.ordered_for_interview.uniq
-    option_groups_from_collection_for_select(themes, :subjects_ordered_for_interview, :label, :id, -> (subject) { "#{subject.label} (#{current_user.needs_quo_active.where(subject: subject).size})" }, params[:by_subject])
+    option_groups_from_collection_for_select(themes, :subjects_ordered_for_interview, :label, :id, -> (subject) { "#{subject.label} (#{current_user.needs_quo_active.where(subject: subject).size})" }, needs_search_params[:by_subject])
   end
 
   def display_region(region, territory_params)
