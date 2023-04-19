@@ -45,6 +45,8 @@ class Need < ApplicationRecord
       not_for_me: 'not_for_me'
   }, _prefix: true
 
+  paginates_per 25
+
   ## Associations
   #
   belongs_to :diagnosis, inverse_of: :needs, touch: true
