@@ -72,6 +72,7 @@ class Expert < ApplicationRecord
   # :experts_subjects
   has_many :institutions_subjects, through: :experts_subjects, inverse_of: :experts
   has_many :subjects, through: :experts_subjects, inverse_of: :experts
+  has_many :themes, through: :experts_subjects, inverse_of: :experts
 
   ##
   #

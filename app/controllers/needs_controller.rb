@@ -42,19 +42,6 @@ class NeedsController < ApplicationController
     retrieve_needs(current_user, :expired)
   end
 
-  def search
-    @recipient = current_user
-    inbox_collections_counts(@recipient)
-    @needs = @recipient
-      .received_needs
-      .omnisearch(search_params[:query])
-      .includes(:company, :advisor, :subject)
-      .order(created_at: :desc)
-      .page(params[:page])
-    @collection_name = 'search'
-    render :index
-  end
-
   private
 
   def retrieve_user

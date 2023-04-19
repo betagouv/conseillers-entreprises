@@ -267,6 +267,10 @@ class Need < ApplicationRecord
     joins(facility: :commune).merge(Commune.by_region(region_id))
   end
 
+  scope :by_subject, -> (subject_id) do
+    where(subject_id: subject_id)
+  end
+
   scope :in_antennes_perimeters, -> (antennes) do
     Need.where(id: antennes.map(&:perimeter_received_needs).flatten)
   end
@@ -313,6 +317,8 @@ class Need < ApplicationRecord
   def self.apply_filters(params)
     klass = self
     klass = klass.by_region(params[:by_region]) if params[:by_region].present?
+    klass = klass.by_subject(params[:by_subject]) if params[:by_subject].present?
+    klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
     klass.all
   end
 

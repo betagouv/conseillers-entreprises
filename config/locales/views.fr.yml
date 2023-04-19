@@ -526,8 +526,10 @@ fr:
       validate: Valider
       your_turn_html: C’est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
     search:
-      clear_search: Réinitialiser
-      search_placeholder: Rechercher par entreprise, contact, description, sujet...
+      clear_search: Réinitialiser la recherche
+      omnisearch: Rechercher par entreprise, contact, description...
+      search: Rechercher
+      search_placeholder: Rechercher par entreprise, contact, description...
     show:
       all_experts: Experts notifiés
       all_needs: Toutes les demandes

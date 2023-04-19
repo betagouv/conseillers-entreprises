@@ -32,6 +32,7 @@ class Theme < ApplicationRecord
   has_many :diagnoses, through: :needs, inverse_of: :themes
   has_many :matches, through: :subjects, inverse_of: :theme
   has_many :institutions_subjects, through: :subjects, inverse_of: :theme
+  has_many :advisors, through: :institutions_subjects, inverse_of: :theme
 
   # :institutions_subjects
   has_many :institutions, through: :institutions_subjects, inverse_of: :themes

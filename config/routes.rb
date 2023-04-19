@@ -151,8 +151,6 @@ Rails.application.routes.draw do
       get :done, path: 'cloturees'
       get :not_for_me, path: 'refusees'
       get :expired, path: 'expirees'
-
-      get :search, path: 'recherche'
     end
     member do
       get :additional_experts
