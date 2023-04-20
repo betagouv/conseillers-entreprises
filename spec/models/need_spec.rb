@@ -133,7 +133,7 @@ RSpec.describe Need do
           create :match, need: need, status: :done
         end
 
-        it { is_expected.to match_array [need] }
+        it { is_expected.to contain_exactly(need) }
       end
     end
 
@@ -157,7 +157,7 @@ RSpec.describe Need do
           create :match, status: :not_for_me, need: need3
         end
 
-        it { is_expected.to match_array [need1] }
+        it { is_expected.to contain_exactly(need1) }
       end
     end
 
@@ -176,7 +176,7 @@ RSpec.describe Need do
         let(:need3) { create  :need, subject: s3 }
         let(:need4) { create  :need, subject: s4 }
 
-        it { is_expected.to match_array [need1, need2, need3, need4] }
+        it { is_expected.to contain_exactly(need1, need2, need3, need4) }
       end
     end
 
@@ -206,7 +206,7 @@ RSpec.describe Need do
         ]
       end
 
-      it { is_expected.to match_array [need1, need2] }
+      it { is_expected.to contain_exactly(need1, need2) }
     end
 
     describe 'without_action' do
@@ -227,12 +227,12 @@ RSpec.describe Need do
 
       it 'expect to have needs without poke action' do
         expect(described_class.without_action(:poke))
-          .to match_array [need1, need3]
+          .to contain_exactly(need1, need3)
       end
 
       it 'expect to have needs without last_chance action' do
         expect(described_class.without_action(:last_chance))
-          .to match_array [need1, need2]
+          .to contain_exactly(need1, need2)
       end
     end
 
@@ -242,11 +242,11 @@ RSpec.describe Need do
       let!(:feedback2) { create :feedback, :for_need, feedbackable: need }
 
       it 'return only feedbacks for reminders' do
-        expect(need.reminder_feedbacks).to match_array [feedback1]
+        expect(need.reminder_feedbacks).to contain_exactly(feedback1)
       end
 
       it 'return only feedbacks for diagnosis page' do
-        expect(need.feedbacks).to match_array [feedback2]
+        expect(need.feedbacks).to contain_exactly(feedback2)
       end
     end
 
@@ -287,7 +287,7 @@ RSpec.describe Need do
         subject { described_class.for_emails_and_sirets([email], [siret]) }
 
         it 'return needs historic for email and siret' do
-          is_expected.to match_array [need_1, need_2]
+          is_expected.to contain_exactly(need_1, need_2)
         end
       end
 
@@ -301,7 +301,7 @@ RSpec.describe Need do
         subject { described_class.for_emails_and_sirets([email], [siret]) }
 
         it 'not return need with' do
-          is_expected.to match_array [need]
+          is_expected.to contain_exactly(need)
         end
       end
     end
@@ -326,7 +326,7 @@ RSpec.describe Need do
         travel_to(20.days.ago) { closed_20_days_ago.reload.matches.first.update(status: :done) }
       end
 
-      it { is_expected.to match_array [done_closed_10_days_ago, done_no_help_closed_10_days_ago] }
+      it { is_expected.to contain_exactly(done_closed_10_days_ago, done_no_help_closed_10_days_ago) }
     end
   end
 
@@ -338,12 +338,12 @@ RSpec.describe Need do
     it do
       expect(need.no_activity?).to be false
       expect(old_need.no_activity?).to be true
-      expect(described_class.no_activity).to match_array([old_need])
+      expect(described_class.no_activity).to contain_exactly(old_need)
 
       travel_to(2.months.from_now) do
         expect(need.no_activity?).to be true
         expect(old_need.no_activity?).to be true
-        expect(described_class.no_activity).to match_array([need, old_need])
+        expect(described_class.no_activity).to contain_exactly(need, old_need)
       end
     end
   end
@@ -413,7 +413,7 @@ RSpec.describe Need do
         let!(:need4) { travel_to(reference_date - 21.days) { create :need_with_matches } }
 
         it 'retourne les besoins dans la bonne période' do
-          expect(described_class.reminders_to(:poke)).to match_array [need2, need3]
+          expect(described_class.reminders_to(:poke)).to contain_exactly(need2, need3)
         end
       end
 
@@ -436,7 +436,7 @@ RSpec.describe Need do
         let!(:reminders_action4) { create :reminders_action, category: :poke, need: need4 }
 
         it 'retourne les besoins sans Reminder Action' do
-          expect(described_class.reminders_to(:poke)).to match_array [need1]
+          expect(described_class.reminders_to(:poke)).to contain_exactly(need1)
         end
       end
 
@@ -461,7 +461,7 @@ RSpec.describe Need do
         let!(:need5_match) { travel_to(poke_days_ago) { create :match, need: need5, status: :quo } }
 
         it 'retourne les besoins avec certaines relations' do
-          expect(described_class.reminders_to(:poke)).to match_array [need1, need4, need5]
+          expect(described_class.reminders_to(:poke)).to contain_exactly(need1, need4, need5)
         end
       end
     end
@@ -483,7 +483,7 @@ RSpec.describe Need do
         let!(:need3) { travel_to(reference_date - 30.days) { create :need_with_matches } }
 
         it 'retourne les besoins dans la bonne période' do
-          expect(described_class.reminders_to(:last_chance)).to match_array [need2, need3]
+          expect(described_class.reminders_to(:last_chance)).to contain_exactly(need2, need3)
         end
       end
 
@@ -509,7 +509,7 @@ RSpec.describe Need do
         let!(:reminders_action7) { create :reminders_action, category: :last_chance, need: need6 }
 
         it 'retourne les besoins sans Reminder Action' do
-          expect(described_class.reminders_to(:last_chance)).to match_array [need1, need2]
+          expect(described_class.reminders_to(:last_chance)).to contain_exactly(need1, need2)
         end
       end
 
@@ -531,7 +531,7 @@ RSpec.describe Need do
         let!(:need4_match) { travel_to(twenty_one_days_ago) { create :match, need: need4, status: :quo } }
 
         it 'retourne les besoins avec certains status' do
-          expect(described_class.reminders_to(:last_chance)).to match_array [need4]
+          expect(described_class.reminders_to(:last_chance)).to contain_exactly(need4)
         end
       end
     end
@@ -547,7 +547,7 @@ RSpec.describe Need do
       subject { described_class.in_reminders_range(:poke) }
 
       it 'expect to have needs between 10 and 30 days' do
-        is_expected.to match_array [mid_need]
+        is_expected.to contain_exactly(mid_need)
       end
     end
   end
@@ -562,15 +562,15 @@ RSpec.describe Need do
     let(:need4) { create :need, content: "li li", diagnosis: diagnosis1 }
 
     it 'searches content' do
-      expect(described_class.omnisearch("la")).to match_array [need1, need2]
+      expect(described_class.omnisearch("la")).to contain_exactly(need1, need2)
     end
 
     it 'searches subject' do
-      expect(described_class.omnisearch("sujet un")).to match_array [need3]
+      expect(described_class.omnisearch("sujet un")).to contain_exactly(need3)
     end
 
     it 'searches multiple fields' do
-      expect(described_class.omnisearch("deux")).to match_array [need2, need3, need4]
+      expect(described_class.omnisearch("deux")).to contain_exactly(need2, need3, need4)
     end
   end
 end

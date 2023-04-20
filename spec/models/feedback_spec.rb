@@ -40,14 +40,14 @@ RSpec.describe Feedback do
       let!(:feedback3) { create :feedback, :for_need, feedbackable: need, user: author }
       let(:author) { create :user, experts: [author_match.expert] }
 
-      it { is_expected.to match_array [expert_taking_care, advisor, expert_not_reachable] }
+      it { is_expected.to contain_exactly(expert_taking_care, advisor, expert_not_reachable) }
     end
 
     context 'when author is an admin' do
       let!(:author) { create :user, :admin }
 
       it 'Don’t notify advisor' do
-        is_expected.to match_array [expert_taking_care, expert_not_reachable]
+        is_expected.to contain_exactly(expert_taking_care, expert_not_reachable)
       end
     end
   end

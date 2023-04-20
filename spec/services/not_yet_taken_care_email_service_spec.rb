@@ -51,6 +51,6 @@ describe NotYetTakenCareEmailService do
   describe 'retrieve_solicitations' do
     subject { described_class.new.send(:retrieve_solicitations) }
 
-    it { is_expected.to match_array [solicitation_quo_in_time] }
+    it { is_expected.to contain_exactly(solicitation_quo_in_time) }
   end
 end

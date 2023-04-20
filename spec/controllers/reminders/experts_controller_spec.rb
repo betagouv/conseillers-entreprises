@@ -13,19 +13,19 @@ RSpec.describe Reminders::ExpertsController do
     describe '#GET many_pending_needs' do
       before { get :many_pending_needs }
 
-      it { expect(assigns(:active_experts)).to match_array([expert_with_many_old_quo_matches]) }
+      it { expect(assigns(:active_experts)).to contain_exactly(expert_with_many_old_quo_matches) }
     end
 
     describe '#GET medium_pending_needs' do
       before { get :medium_pending_needs }
 
-      it { expect(assigns(:active_experts)).to match_array([expert_with_medium_old_quo_matches]) }
+      it { expect(assigns(:active_experts)).to contain_exactly(expert_with_medium_old_quo_matches) }
     end
 
     describe '#GET one_pending_need' do
       before { get :one_pending_need }
 
-      it { expect(assigns(:active_experts)).to match_array([expert_with_one_quo_match_1, expert_with_one_old_quo_match]) }
+      it { expect(assigns(:active_experts)).to contain_exactly(expert_with_one_quo_match_1, expert_with_one_old_quo_match) }
     end
   end
 
@@ -40,13 +40,13 @@ RSpec.describe Reminders::ExpertsController do
     describe '#GET inputs' do
       before { get :inputs }
 
-      it { expect(assigns(:active_experts)).to match_array([expert_input, expert_remainder_not_processed]) }
+      it { expect(assigns(:active_experts)).to contain_exactly(expert_input, expert_remainder_not_processed) }
     end
 
     describe '#GET outputs' do
       before { get :outputs }
 
-      it { expect(assigns(:active_experts)).to match_array([expert_output_not_seen, old_expert_output_not_seen, expert_input_to_output]) }
+      it { expect(assigns(:active_experts)).to contain_exactly(expert_output_not_seen, old_expert_output_not_seen, expert_input_to_output) }
     end
   end
 

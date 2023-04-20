@@ -25,7 +25,7 @@ describe CsvImport::UserImporter, CsvImport do
     it do
       expect(institution.experts.teams.count).to eq 0
       expect(result).to be_success
-      expect(institution.advisors.pluck(:email)).to match_array(['marie.dupont@antenne.com', 'mario.dupont@antenne.com'])
+      expect(institution.advisors.pluck(:email)).to contain_exactly('marie.dupont@antenne.com', 'mario.dupont@antenne.com')
     end
   end
 
@@ -45,7 +45,7 @@ describe CsvImport::UserImporter, CsvImport do
         team = institution.experts.teams.first
         expect(team.email).to eq 'equipe@antenne.com'
         expect(team.job).to be_nil
-        expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com', 'mario.dupont@antenne.com'])
+        expect(team.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com', 'mario.dupont@antenne.com')
       end
     end
 
@@ -62,7 +62,7 @@ describe CsvImport::UserImporter, CsvImport do
         expect(institution.experts.teams.count).to eq 1
         team = institution.experts.teams.first
         expect(team.phone_number).to eq '09 87 65 43 21'
-        expect(team.users.pluck(:phone_number)).to match_array(['01 23 45 67 89'])
+        expect(team.users.pluck(:phone_number)).to contain_exactly('01 23 45 67 89')
       end
     end
 
@@ -79,7 +79,7 @@ describe CsvImport::UserImporter, CsvImport do
         expect(institution.experts.teams.count).to eq 1
         team = institution.experts.teams.first
         expect(team.email).to eq 'equipe@antenne.com'
-        expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com'])
+        expect(team.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com')
       end
     end
 
@@ -96,7 +96,7 @@ describe CsvImport::UserImporter, CsvImport do
         expect(institution.experts.teams.count).to eq 1
         team = institution.experts.teams.first
         expect(team.email).to eq 'equipe@antenne.com'
-        expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com'])
+        expect(team.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com')
       end
     end
 
@@ -108,7 +108,7 @@ describe CsvImport::UserImporter, CsvImport do
         expect(institution.experts.teams.count).to eq 1
         team = institution.experts.teams.first
         expect(team.email).to eq 'equipe@antenne.com'
-        expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com'])
+        expect(team.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com')
       end
     end
   end
@@ -128,7 +128,7 @@ describe CsvImport::UserImporter, CsvImport do
       team = institution.experts.teams.first
       expect(team.email).to eq 'equipe@antenne.com'
       expect(team.job).to be_nil
-      expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com', 'mario.dupont@antenne.com'])
+      expect(team.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com', 'mario.dupont@antenne.com')
     end
   end
 
@@ -243,7 +243,7 @@ describe CsvImport::UserImporter, CsvImport do
         team = Expert.teams.first
         expect(team.users.count).to eq 4
         expect(team.experts_subjects.count).to eq 1
-        expect(team.institutions_subjects.pluck(:description)).to match_array ['Second IS']
+        expect(team.institutions_subjects.pluck(:description)).to contain_exactly('Second IS')
       end
     end
   end
@@ -284,7 +284,7 @@ describe CsvImport::UserImporter, CsvImport do
         expect(first_error[:error]).to eq :invalid
         invalid_experts = first_error[:value]
         expect(invalid_experts).not_to be_nil
-        expect(invalid_experts.flat_map{ |e| e.errors.details }).to match_array [{ :'experts_subjects.institution_subject' => [{ error: :blank }] }]
+        expect(invalid_experts.flat_map{ |e| e.errors.details }).to contain_exactly({ :'experts_subjects.institution_subject' => [{ error: :blank }] })
       end
     end
 
@@ -304,7 +304,7 @@ describe CsvImport::UserImporter, CsvImport do
         team = Expert.teams.first
         expect(team.users.count).to eq 4
         expect(team.experts_subjects.count).to eq 2
-        expect(team.institutions_subjects.pluck(:description)).to match_array ['First IS', 'Second IS']
+        expect(team.institutions_subjects.pluck(:description)).to contain_exactly('First IS', 'Second IS')
       end
     end
   end
@@ -340,7 +340,7 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).not_to be_success
-        expect(result.header_errors.map(&:message)).to match_array ['The Subject']
+        expect(result.header_errors.map(&:message)).to contain_exactly('The Subject')
       end
     end
   end
@@ -359,7 +359,7 @@ describe CsvImport::UserImporter, CsvImport do
     it do
       expect(result).to be_success
       existing_user.reload
-      expect(result.objects).to match_array [existing_user]
+      expect(result.objects).to contain_exactly(existing_user)
       expect(existing_user.full_name).to eq 'Marie Dupont'
       expect(existing_user.institution).to eq institution
       expect(other_antenne.reload.advisors).to be_empty
@@ -380,7 +380,7 @@ describe CsvImport::UserImporter, CsvImport do
     it do
       expect(result).to be_success
       existing_user.reload
-      expect(result.objects).to match_array [existing_user]
+      expect(result.objects).to contain_exactly(existing_user)
       expect(existing_user.full_name).to eq 'Marie Dupont'
       expect(existing_user.institution).to eq institution
       expect(other_antenne.reload.advisors).to be_empty
@@ -411,7 +411,7 @@ describe CsvImport::UserImporter, CsvImport do
       expect(team.experts_subjects.count).to eq 2
       expect(result).to be_success
       expect(team.experts_subjects.count).to eq 1
-      expect(team.institutions_subjects.pluck(:description)).to match_array ['Second IS']
+      expect(team.institutions_subjects.pluck(:description)).to contain_exactly('Second IS')
     end
   end
 

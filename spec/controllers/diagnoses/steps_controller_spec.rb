@@ -91,7 +91,7 @@ RSpec.describe Diagnoses::StepsController do
         need.reload
         expect(diagnosis.step).to eq 'completed'
         expect(need.status).to eq 'quo'
-        expect(diagnosis.matches.pluck(:status)).to match_array ['quo']
+        expect(diagnosis.matches.pluck(:status)).to contain_exactly('quo')
       }
     end
 

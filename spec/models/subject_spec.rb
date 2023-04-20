@@ -55,7 +55,7 @@ RSpec.describe Subject do
       let(:q0) { create :subject, interview_sort_order: 0 }
       let(:qnil) { create :subject, interview_sort_order: nil }
 
-      it { is_expected.to match_array [q0, q1, q2, q3, qnil] }
+      it { is_expected.to contain_exactly(q0, q1, q2, q3, qnil) }
     end
 
     describe 'for_interview' do
@@ -68,7 +68,7 @@ RSpec.describe Subject do
         create :subject, is_support: true
       end
 
-      it { is_expected.to match_array [q] }
+      it { is_expected.to contain_exactly(q) }
     end
   end
 
@@ -80,7 +80,7 @@ RSpec.describe Subject do
 
       let!(:q2) { create :subject, is_support: true }
 
-      it { is_expected.to match_array [q2] }
+      it { is_expected.to contain_exactly(q2) }
     end
   end
 

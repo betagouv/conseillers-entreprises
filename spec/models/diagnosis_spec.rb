@@ -169,7 +169,7 @@ RSpec.describe Diagnosis do
           create :match, need: need, expert: expert, subject: need.subject
         end
 
-        it { is_expected.to match_array [diagnosis] }
+        it { is_expected.to contain_exactly(diagnosis) }
       end
 
       describe 'min_closed_at' do
@@ -186,7 +186,7 @@ RSpec.describe Diagnosis do
           travel_to(20.days.ago) { closed_20_days_ago.reload.matches.first.update(status: :done) }
         end
 
-        it { is_expected.to match_array [closed_10_days_ago] }
+        it { is_expected.to contain_exactly(closed_10_days_ago) }
       end
     end
   end

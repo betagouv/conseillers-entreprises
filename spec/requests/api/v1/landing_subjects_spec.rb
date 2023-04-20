@@ -66,7 +66,7 @@ RSpec.describe "Landing Subjects API" do
 
           it 'returns a valid 200 response' do |example|
             expect(response).to have_http_status(:ok)
-            result = JSON.parse(response.body)
+            result = response.parsed_body
             expect(result.size).to eq(2)
             expect(result['data'].size).to eq(2)
           end
@@ -103,7 +103,7 @@ RSpec.describe "Landing Subjects API" do
 
           it 'returns a valid 200 response' do |example|
             expect(response).to have_http_status(:ok)
-            result = JSON.parse(response.body)
+            result = response.parsed_body
             expect(result.size).to eq(1)
 
             result_item = result['data']
@@ -181,11 +181,11 @@ RSpec.describe "Landing Subjects API" do
 
           it 'returns a valid 200 response' do |example|
             expect(response).to have_http_status(:ok)
-            result = JSON.parse(response.body)
+            result = response.parsed_body
             expect(result.size).to eq(1)
 
             result_item = result['data']
-            expect(result_item.keys).to match_array(["id", "title", "slug", "landing_id", "landing_theme_id", "landing_theme_slug", "description", "description_explanation", "requires_siret", "requires_location", "questions_additionnelles", "institutions_partenaires"])
+            expect(result_item.keys).to contain_exactly("id", "title", "slug", "landing_id", "landing_theme_id", "landing_theme_slug", "description", "description_explanation", "requires_siret", "requires_location", "questions_additionnelles", "institutions_partenaires")
             expect(result_item["title"]).to eq('Recruter un ou plusieurs salariés')
             expect(result_item["landing_theme_slug"]).to eq('recrutement-formation')
             expect(result_item["institutions_partenaires"]).to eq(["Chambre de Commerce et d'Industrie (CCI)", 'OPérateur de COmpétences (OPCO)'])

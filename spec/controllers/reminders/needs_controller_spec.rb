@@ -38,7 +38,7 @@ RSpec.describe Reminders::NeedsController do
     before { get :abandon }
 
     it 'display only not_for_me needs' do
-      expect(assigns(:needs)).to match_array [need4]
+      expect(assigns(:needs)).to contain_exactly(need4)
     end
   end
 
@@ -67,6 +67,6 @@ RSpec.describe Reminders::NeedsController do
 
     before { request }
 
-    it { expect(need.badges).to match_array([badge]) }
+    it { expect(need.badges).to contain_exactly(badge) }
   end
 end

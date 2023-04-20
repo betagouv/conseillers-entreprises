@@ -14,7 +14,7 @@ RSpec.describe BadgesController do
 
     it 'displays only badges for solicitations' do
       request
-      expect(assigns(:badges)).to match_array [solicitations_badge]
+      expect(assigns(:badges)).to contain_exactly(solicitations_badge)
     end
   end
 
@@ -26,7 +26,7 @@ RSpec.describe BadgesController do
 
     it 'displays only badges for needs' do
       request
-      expect(assigns(:badges)).to match_array [needs_badge]
+      expect(assigns(:badges)).to contain_exactly(needs_badge)
     end
   end
 

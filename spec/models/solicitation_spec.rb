@@ -176,7 +176,7 @@ RSpec.describe Solicitation do
 
     subject { described_class.have_badge('test') }
 
-    it { is_expected.to match_array [solicitation] }
+    it { is_expected.to contain_exactly(solicitation) }
   end
 
   describe '#have_landing_subject' do
@@ -186,7 +186,7 @@ RSpec.describe Solicitation do
 
     subject { described_class.have_landing_subject('subjec') }
 
-    it { is_expected.to match_array [solicitation] }
+    it { is_expected.to contain_exactly(solicitation) }
   end
 
   describe '#have_landing_theme' do
@@ -197,7 +197,7 @@ RSpec.describe Solicitation do
 
     subject { described_class.have_landing_theme('them') }
 
-    it { is_expected.to match_array [solicitation] }
+    it { is_expected.to contain_exactly(solicitation) }
   end
 
   describe '#description_contains' do
@@ -206,7 +206,7 @@ RSpec.describe Solicitation do
 
     subject { described_class.description_contains('test') }
 
-    it { is_expected.to match_array [solicitation] }
+    it { is_expected.to contain_exactly(solicitation) }
   end
 
   describe '#have_landing' do
@@ -216,7 +216,7 @@ RSpec.describe Solicitation do
 
     subject { described_class.have_landing('anding-slu') }
 
-    it { is_expected.to match_array [solicitation] }
+    it { is_expected.to contain_exactly(solicitation) }
   end
 
   describe '#name_contains' do
@@ -225,7 +225,7 @@ RSpec.describe Solicitation do
 
     subject { described_class.name_contains('Pink') }
 
-    it { is_expected.to match_array [solicitation] }
+    it { is_expected.to contain_exactly(solicitation) }
   end
 
   describe '#email_contains' do
@@ -234,7 +234,7 @@ RSpec.describe Solicitation do
 
     subject { described_class.email_contains('kingju') }
 
-    it { is_expected.to match_array [solicitation] }
+    it { is_expected.to contain_exactly(solicitation) }
   end
 
   describe '#siret_contains' do
@@ -243,7 +243,7 @@ RSpec.describe Solicitation do
 
     subject { described_class.siret_contains('110001013') }
 
-    it { is_expected.to match_array [solicitation] }
+    it { is_expected.to contain_exactly(solicitation) }
   end
 
   describe "#by_possible_region" do
@@ -265,19 +265,19 @@ RSpec.describe Solicitation do
     context 'filter by existing territory' do
       let(:possible_region) { territory1.id }
 
-      it { is_expected.to match_array [solicitation1] }
+      it { is_expected.to contain_exactly(solicitation1) }
     end
 
     context 'filter by diagnoses problem' do
       let(:possible_region) { 'uncategorisable' }
 
-      it { is_expected.to match_array [solicitation_without_diagnosis, solicitation_with_diagnosis_no_region] }
+      it { is_expected.to contain_exactly(solicitation_without_diagnosis, solicitation_with_diagnosis_no_region) }
     end
 
     context 'filter by out_of_deployed_territories' do
       let(:possible_region) { 'out_of_deployed_territories' }
 
-      it { is_expected.to match_array [solicitation2] }
+      it { is_expected.to contain_exactly(solicitation2) }
     end
   end
 
@@ -344,7 +344,7 @@ RSpec.describe Solicitation do
     end
 
     it 'displays only parent_solicitations' do
-      expect(child_solicitation.recent_matched_solicitations).to match_array([parent_siret_solicitation, parent_email_solicitation])
+      expect(child_solicitation.recent_matched_solicitations).to contain_exactly(parent_siret_solicitation, parent_email_solicitation)
     end
   end
 
@@ -381,7 +381,7 @@ RSpec.describe Solicitation do
     end
 
     it 'displays only doublon solicitations' do
-      expect(solicitation.doublon_solicitations).to match_array([same_siret_solicitation, same_email_solicitation])
+      expect(solicitation.doublon_solicitations).to contain_exactly(same_siret_solicitation, same_email_solicitation)
     end
   end
 
