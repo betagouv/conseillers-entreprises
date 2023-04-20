@@ -529,6 +529,7 @@ fr:
       clear_search: Réinitialiser la recherche
       created_since: Date de début
       created_until: Date de fin
+      more_filters: Voir plus de filtres
       omnisearch: Rechercher par entreprise, contact, description...
       search: Rechercher
       search_placeholder: Rechercher par entreprise, contact, description...
