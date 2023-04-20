@@ -3,6 +3,10 @@ class InstitutionPolicy < ApplicationPolicy
     admin?
   end
 
+  def index_better?
+    admin?
+  end
+
   def show?
     admin?
   end

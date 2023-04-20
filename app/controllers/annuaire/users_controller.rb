@@ -1,10 +1,34 @@
 module  Annuaire
   class UsersController < BaseController
     before_action :retrieve_institution
-    before_action :retrieve_antenne, only: :index
-    before_action :retrieve_users, only: :index
+    before_action :retrieve_antenne, only: [:index, :index_better]
+    before_action :retrieve_users, only: [:index, :index_better]
 
     def index
+      institutions_subjects_by_theme = @institution.institutions_subjects
+        .preload(:subject, :theme, :experts_subjects, :not_deleted_experts)
+        .group_by(&:theme)
+      institutions_subjects_exportable = institutions_subjects_by_theme.values.flatten
+
+      @grouped_subjects = institutions_subjects_by_theme.transform_values{ |is| is.group_by(&:subject) }
+
+      @not_invited_users = not_invited_users
+
+      respond_to do |format|
+        format.html
+        format.csv do
+          result = @users.export_csv(include_expert_team: true, institutions_subjects: institutions_subjects_exportable)
+          send_data result.csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{result.filename}.csv"
+        end
+        format.xlsx do
+          xlsx_filename = "#{(@antenne || @institution).name.parameterize}-#{@users.model_name.human.pluralize.parameterize}.xlsx"
+          result = @users.export_xlsx(include_expert_team: true, institutions_subjects: institutions_subjects_exportable)
+          send_data result.xlsx.to_stream.read, type: "application/xlsx", filename: xlsx_filename
+        end
+      end
+    end
+
+    def index_better
       institutions_subjects_by_theme = @institution.institutions_subjects
         .preload(:subject, :theme, :experts_subjects, :not_deleted_experts)
         .group_by(&:theme)
