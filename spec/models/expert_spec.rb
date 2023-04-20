@@ -104,7 +104,7 @@ RSpec.describe Expert do
 
     subject { described_class.with_national_perimeter }
 
-    it { is_expected.to match_array([national_expert, global_expert]) }
+    it { is_expected.to contain_exactly(national_expert, global_expert) }
   end
 
   describe 'update user with personal_skillset' do
@@ -279,7 +279,7 @@ RSpec.describe Expert do
     let!(:old_match) { create :match, expert: expert_with_old_needs_in_inbox, created_at: 16.days.ago }
 
     it 'displays only expert with old needs in inbox' do
-      expect(described_class.with_old_needs_in_inbox).to match_array [expert_with_old_needs_in_inbox]
+      expect(described_class.with_old_needs_in_inbox).to contain_exactly(expert_with_old_needs_in_inbox)
     end
   end
 

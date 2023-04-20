@@ -37,7 +37,7 @@ RSpec.describe ExpertSubject do
         let(:the_subject) { need.subject }
         let(:communes) { [need.facility.commune] }
 
-        it{ is_expected.to match_array [expert_subject] }
+        it{ is_expected.to contain_exactly(expert_subject) }
       end
     end
 
@@ -55,7 +55,7 @@ RSpec.describe ExpertSubject do
                institution_subject: create(:institution_subject, institution: other_institution)
       end
 
-      it{ is_expected.to match_array [expert_subject] }
+      it{ is_expected.to contain_exactly(expert_subject) }
     end
 
     describe 'not_of_institution' do
@@ -72,7 +72,7 @@ RSpec.describe ExpertSubject do
                institution_subject: create(:institution_subject, institution: other_institution)
       end
 
-      it{ is_expected.to match_array [other_expert_subject] }
+      it{ is_expected.to contain_exactly(other_expert_subject) }
     end
 
     describe 'without_irrelevant_opcos' do
@@ -92,7 +92,7 @@ RSpec.describe ExpertSubject do
       context 'when facility opco exists' do
         let(:facility) { create :facility, opco: opco }
 
-        it { is_expected.to match_array [expert_subject] }
+        it { is_expected.to contain_exactly(expert_subject) }
       end
 
       context 'when facility has no opco' do
@@ -122,25 +122,25 @@ RSpec.describe ExpertSubject do
       context 'when company is rcs & rm' do
         let(:company) { create :company, inscrit_rcs: true, inscrit_rm: true }
 
-        it{ is_expected.to match_array [expert_subject_cci, expert_subject_cma, expert_subject_other] }
+        it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_other) }
       end
 
       context 'when company is only rcs' do
         let(:company) { create :company, inscrit_rcs: true, inscrit_rm: false }
 
-        it{ is_expected.to match_array [expert_subject_cci, expert_subject_other] }
+        it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_other) }
       end
 
       context 'when company is only rm' do
         let(:company) { create :company, inscrit_rcs: false, inscrit_rm: true }
 
-        it{ is_expected.to match_array [expert_subject_cma, expert_subject_other] }
+        it{ is_expected.to contain_exactly(expert_subject_cma, expert_subject_other) }
       end
 
       context 'when company is none' do
         let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false }
 
-        it{ is_expected.to match_array [expert_subject_cci, expert_subject_cma, expert_subject_other] }
+        it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_other) }
       end
     end
   end

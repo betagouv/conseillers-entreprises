@@ -134,7 +134,7 @@ RSpec.describe NeedPolicy, type: :policy do
       let(:user) { create :user, :admin }
 
       it 'allows access to all needs' do
-        expect(need_scope.to_a).to match_array([need, other_need])
+        expect(need_scope.to_a).to contain_exactly(need, other_need)
       end
     end
 
@@ -142,7 +142,7 @@ RSpec.describe NeedPolicy, type: :policy do
       let(:user) { need.contacted_users.first }
 
       it 'allows a limited subset of needs' do
-        expect(need_scope.to_a).to match_array([need])
+        expect(need_scope.to_a).to contain_exactly(need)
       end
     end
   end

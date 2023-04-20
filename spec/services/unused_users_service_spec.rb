@@ -26,7 +26,7 @@ describe UnusedUsersService do
       before { described_class.delete_users }
 
       it 'keep only active users' do
-        expect(User.all).to match_array([user_1, user_2, user_3])
+        expect(User.all).to contain_exactly(user_1, user_2, user_3)
         expect(Expert.all).not_to include(expert_4)
       end
     end
@@ -96,8 +96,8 @@ describe UnusedUsersService do
       before { described_class.delete_users }
 
       it 'keep only active users' do
-        expect(User.all).to match_array([user_manager])
-        expect(Expert.all).to match_array([expert])
+        expect(User.all).to contain_exactly(user_manager)
+        expect(Expert.all).to contain_exactly(expert)
       end
     end
   end

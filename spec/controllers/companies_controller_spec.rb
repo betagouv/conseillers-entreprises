@@ -103,8 +103,8 @@ RSpec.describe CompaniesController do
       before { request }
 
       it 'content user matches only' do
-        expect(assigns(:needs_in_progress)).to match_array [quo_need, done_need2]
-        expect(assigns(:needs_done)).to match_array [done_need]
+        expect(assigns(:needs_in_progress)).to contain_exactly(quo_need, done_need2)
+        expect(assigns(:needs_done)).to contain_exactly(done_need)
       end
     end
 
@@ -115,8 +115,8 @@ RSpec.describe CompaniesController do
       end
 
       it 'content all needs' do
-        expect(assigns(:needs_in_progress)).to match_array [quo_need, another_quo_need]
-        expect(assigns(:needs_done)).to match_array [done_need, another_done_need, done_need2]
+        expect(assigns(:needs_in_progress)).to contain_exactly(quo_need, another_quo_need)
+        expect(assigns(:needs_done)).to contain_exactly(done_need, another_done_need, done_need2)
       end
     end
   end

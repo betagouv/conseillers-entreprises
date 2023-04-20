@@ -10,7 +10,7 @@ RSpec.describe ApiKey do
       let!(:active_key) { create :api_key, valid_until: ApiKey::LIFETIME.since }
       let!(:revoked_key) { create :api_key, valid_until: 1.month.ago }
 
-      it { is_expected.to match_array([active_key]) }
+      it { is_expected.to contain_exactly(active_key) }
     end
   end
 

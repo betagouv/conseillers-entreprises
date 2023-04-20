@@ -3,6 +3,7 @@ require:
   - rubocop-performance
   - rubocop-rails
   - rubocop-i18n
+  - rubocop-capybara
 
 AllCops:
   TargetRubyVersion: 2.7
@@ -799,6 +800,9 @@ Rails/TransactionExitStatement:
   Exclude:
     - "app/models/concerns/diagnosis_creation.rb"
 
+Rails/ThreeStateBooleanColumn:
+  Enabled: false
+
 Rails/UniqBeforePluck:
   Enabled: true
 
@@ -835,6 +839,9 @@ RSpec/FilePath:
     - spec/helpers/*
 
 RSpec/ImplicitSubject:
+  Enabled: false
+
+RSpec/IndexedLet:
   Enabled: false
 
 RSpec/LeadingSubject:

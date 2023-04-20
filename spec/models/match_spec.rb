@@ -169,7 +169,7 @@ RSpec.describe Match do
 
       before { create :match, updated_at: 4.days.ago }
 
-      it { is_expected.to match_array [match_updated_two_weeks_ago] }
+      it { is_expected.to contain_exactly(match_updated_two_weeks_ago) }
     end
 
     describe 'sent' do
@@ -183,7 +183,7 @@ RSpec.describe Match do
         match2.diagnosis.update(step: :needs)
       end
 
-      it { is_expected.to match_array [match1] }
+      it { is_expected.to contain_exactly(match1) }
     end
   end
 end

@@ -83,7 +83,7 @@ RSpec.describe "Solicitations API" do
 
           it 'returns a valid 200 response' do |example|
             expect(response).to have_http_status(:ok)
-            data = JSON.parse(response.body)['data']
+            data = response.parsed_body['data']
 
             expect(data['institutions_partenaires']).to eq(["Chambre de Commerce et d'Industrie (CCI)", 'OPérateur de COmpétences (OPCO)'])
           end
@@ -116,7 +116,7 @@ RSpec.describe "Solicitations API" do
 
             it 'returns a 400 response' do |example|
               expect(response).to have_http_status(:bad_request)
-              result = JSON.parse(response.body)
+              result = response.parsed_body
 
               expect(result["errors"].first["source"]).to eq('solicitation')
               expect(result["errors"].first["message"]).to eq('le paramètre est manquant')
@@ -144,7 +144,7 @@ RSpec.describe "Solicitations API" do
 
             it 'returns calling_url error' do
               expect(response).to have_http_status(:unprocessable_entity)
-              result = JSON.parse(response.body)
+              result = response.parsed_body
               expect(result["errors"].first["source"]).to eq('Url d’appel')
               expect(result["errors"].first["message"]).to eq('doit être rempli(e)')
             end
@@ -166,7 +166,7 @@ RSpec.describe "Solicitations API" do
             end
 
             it 'returns siret error' do
-              result = JSON.parse(response.body)
+              result = response.parsed_body
               expect(response).to have_http_status(:unprocessable_entity)
               expect(result["errors"].first["source"]).to eq('SIRET')
               expect(result["errors"].first["message"]).to eq('doit être un numéro à 14 chiffres valide')
@@ -195,7 +195,7 @@ RSpec.describe "Solicitations API" do
 
             it 'returns insitution_filters error' do |example|
               expect(response).to have_http_status(:unprocessable_entity)
-              result = JSON.parse(response.body)
+              result = response.parsed_body
               expect(result["errors"].first["source"]).to eq('Questions additionnelles')
               expect(result["errors"].first["message"]).to eq('doit être rempli(e)')
             end
@@ -223,7 +223,7 @@ RSpec.describe "Solicitations API" do
 
             it 'returns insitution_filters error' do |example|
               expect(response).to have_http_status(:unprocessable_entity)
-              result = JSON.parse(response.body)
+              result = response.parsed_body
               expect(result["errors"].first["source"]).to eq('Page d’atterrissage')
               expect(result["errors"].first["message"]).to eq('doit être rempli(e)')
             end

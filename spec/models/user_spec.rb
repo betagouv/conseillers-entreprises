@@ -30,7 +30,7 @@ RSpec.describe User do
       before { user.reload }
 
       it 'return only not deleted experts' do
-        is_expected.to match_array [active_expert, user.personal_skillsets.first]
+        is_expected.to contain_exactly(active_expert, user.personal_skillsets.first)
       end
     end
   end
@@ -85,7 +85,7 @@ RSpec.describe User do
         create :user, searches: [(create :search, created_at: 2.months.ago)]
 
         last_30_days = (30.days.ago)..Time.zone.now
-        expect(described_class.active_searchers(last_30_days)).to match_array [searcher]
+        expect(described_class.active_searchers(last_30_days)).to contain_exactly(searcher)
       end
     end
 
@@ -96,8 +96,8 @@ RSpec.describe User do
 
         last_30_days = (30.days.ago)..Time.zone.now
 
-        expect(described_class.active_diagnosers(last_30_days, 3)).to match_array [diagnoser]
-        expect(described_class.active_diagnosers(last_30_days, 4)).to match_array []
+        expect(described_class.active_diagnosers(last_30_days, 3)).to contain_exactly(diagnoser)
+        expect(described_class.active_diagnosers(last_30_days, 4)).to be_empty
       end
     end
 
@@ -110,8 +110,8 @@ RSpec.describe User do
 
         last_30_days = (30.days.ago)..Time.zone.now
 
-        expect(described_class.active_answered(last_30_days, ['taking_care','done'])).to match_array [active_user]
-        expect(described_class.active_answered(last_30_days, ['not_for_me'])).to match_array []
+        expect(described_class.active_answered(last_30_days, ['taking_care','done'])).to contain_exactly(active_user)
+        expect(described_class.active_answered(last_30_days, ['not_for_me'])).to be_empty
       end
     end
 
@@ -132,8 +132,8 @@ RSpec.describe User do
       subject(:relevant_users_for_skills) { described_class.relevant_for_skills }
 
       it {
-        expect(relevant_users_for_skills.ids).to match_array [user.id, user.id]
-        expect(relevant_users_for_skills.map(&:relevant_expert)).to match_array [expert1, expert2]
+        expect(relevant_users_for_skills.ids).to contain_exactly(user.id, user.id)
+        expect(relevant_users_for_skills.map(&:relevant_expert)).to contain_exactly(expert1, expert2)
       }
     end
 
@@ -149,13 +149,13 @@ RSpec.describe User do
       context 'admin' do
         let(:scope) { :admin }
 
-        it{ is_expected.to match_array [user_admin, user_poly] }
+        it{ is_expected.to contain_exactly(user_admin, user_poly) }
       end
 
       context 'manager' do
         let(:scope) { :managers }
 
-        it{ is_expected.to match_array [user_manager, user_poly] }
+        it{ is_expected.to contain_exactly(user_manager, user_poly) }
       end
     end
   end
@@ -326,8 +326,8 @@ RSpec.describe User do
         expect(new_user.job).to eq old_user.job
         expect(new_user.antenne).to eq old_user.antenne
         expect(new_user.antenne.experts.count).to eq 2
-        expect(new_user.experts.map { |e| e.subjects }.flatten).to match_array [a_subject]
-        expect(new_user.relevant_experts).to match_array [expert]
+        expect(new_user.experts.map { |e| e.subjects }.flatten).to contain_exactly(a_subject)
+        expect(new_user.relevant_experts).to contain_exactly(expert)
         expect(new_user.user_rights.count).to eq 1
       end
     end
@@ -344,10 +344,10 @@ RSpec.describe User do
         expect(new_user.phone_number).to eq '03 03 03 03 03'
         expect(new_user.job).to eq old_user.job
         expect(new_user.antenne).to eq old_user.antenne
-        expect(new_user.experts.map { |e| e.subjects }.flatten).to match_array [a_subject]
-        expect(new_user.relevant_experts).to match_array [new_user.personal_skillsets.first]
+        expect(new_user.experts.map { |e| e.subjects }.flatten).to contain_exactly(a_subject)
+        expect(new_user.relevant_experts).to contain_exactly(new_user.personal_skillsets.first)
         expect(new_user.user_rights.count).to eq 1
-        expect(new_user.relevant_experts.map(&:communes).flatten).to match_array [commune]
+        expect(new_user.relevant_experts.map(&:communes).flatten).to contain_exactly(commune)
       end
     end
   end

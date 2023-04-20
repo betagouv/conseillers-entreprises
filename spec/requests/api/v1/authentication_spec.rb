@@ -13,7 +13,7 @@ RSpec.describe "Authentication API" do
   describe "when wrong token" do
     it 'returns error' do
       get "/api/v1/landings", headers: { 'Authorization' => "Bearer token=daladirladada" }
-      json = JSON.parse(response.body)
+      json = response.parsed_body
 
       expect(response).not_to be_successful
       expect(response).to have_http_status(:not_found)
@@ -30,7 +30,7 @@ RSpec.describe "Authentication API" do
 
     it 'returns error' do
       get "/api/v1/landings", headers: { 'Authorization' => "Bearer token=#{token}" }
-      json = JSON.parse(response.body)
+      json = response.parsed_body
 
       expect(response).not_to be_successful
       expect(response).to have_http_status(:not_found)

@@ -38,7 +38,7 @@ RSpec.describe Antenne do
         let(:same_antenne_manager) { create :user, :manager, antenne: antenne }
 
         it 'lets antenne have multiple intern managers' do
-          expect(antenne.managers).to match_array([manager_antenne, same_antenne_manager])
+          expect(antenne.managers).to contain_exactly(manager_antenne, same_antenne_manager)
           expect(same_antenne_manager.antenne).to eq antenne
           expect(manager_antenne.antenne).to eq antenne
         end
@@ -50,7 +50,7 @@ RSpec.describe Antenne do
         before { other_antenne_user.managed_antennes.push antenne }
 
         it 'lets antenne have multiple intern and extern managers' do
-          expect(antenne.managers).to match_array([manager_antenne, other_antenne_user])
+          expect(antenne.managers).to contain_exactly(manager_antenne, other_antenne_user)
           expect(other_antenne_user.antenne).not_to eq antenne
           expect(manager_antenne.antenne).to eq antenne
         end
@@ -108,7 +108,7 @@ RSpec.describe Antenne do
                            diagnosis: build(:diagnosis, advisor: user))
       end
 
-      it { is_expected.to match_array [match] }
+      it { is_expected.to contain_exactly(match) }
     end
   end
 
@@ -125,7 +125,7 @@ RSpec.describe Antenne do
       let(:expert) { build :expert, antenne: antenne }
       let!(:match) { create :match, expert: expert }
 
-      it { is_expected.to match_array [match] }
+      it { is_expected.to contain_exactly(match) }
     end
   end
 
@@ -178,16 +178,16 @@ RSpec.describe Antenne do
     end
 
     it 'displays only antenne needs for local antennes' do
-      expect(local_antenne_i1.perimeter_received_needs).to match_array [need_local_antenne_i1]
-      expect(other_local_antenne_i1.perimeter_received_needs).to match_array [need_other_local_antenne_i1]
+      expect(local_antenne_i1.perimeter_received_needs).to contain_exactly(need_local_antenne_i1)
+      expect(other_local_antenne_i1.perimeter_received_needs).to contain_exactly(need_other_local_antenne_i1)
     end
 
     it 'displays regional and antenne needs for regional antenne' do
-      expect(regional_antenne_i1.perimeter_received_needs).to match_array [need_regional_antenne_i1, need_local_antenne_i1, need_other_local_antenne_i1]
+      expect(regional_antenne_i1.perimeter_received_needs).to contain_exactly(need_regional_antenne_i1, need_local_antenne_i1, need_other_local_antenne_i1)
     end
 
     it 'displays institution needs for national antenne' do
-      expect(national_antenne_i1.perimeter_received_needs).to match_array [need_regional_antenne_i1, need_local_antenne_i1, need_other_local_antenne_i1, need_random_local_antenne_i1]
+      expect(national_antenne_i1.perimeter_received_needs).to contain_exactly(need_regional_antenne_i1, need_local_antenne_i1, need_other_local_antenne_i1, need_random_local_antenne_i1)
     end
   end
 
@@ -226,16 +226,16 @@ RSpec.describe Antenne do
     let!(:local_antenne_i2_match) { create :match, need: need2, expert: expert_local_antenne_i2 }
 
     it 'displays only antenne matches for local antennes' do
-      expect(local_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to match_array [local_antenne_i1_match]
-      expect(other_local_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to match_array [other_local_antenne_i1_match]
+      expect(local_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to contain_exactly(local_antenne_i1_match)
+      expect(other_local_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to contain_exactly(other_local_antenne_i1_match)
     end
 
     it 'displays regional and antenne matches for regional antenne' do
-      expect(regional_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to match_array [regional_antenne_i1_match, local_antenne_i1_match, other_local_antenne_i1_match]
+      expect(regional_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to contain_exactly(regional_antenne_i1_match, local_antenne_i1_match, other_local_antenne_i1_match)
     end
 
     it 'displays institution matches for national antenne' do
-      expect(national_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to match_array [regional_antenne_i1_match, regional_antenne2_i1_match, local_antenne_i1_match, other_local_antenne_i1_match, random_local_antenne_i1_match]
+      expect(national_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to contain_exactly(regional_antenne_i1_match, regional_antenne2_i1_match, local_antenne_i1_match, other_local_antenne_i1_match, random_local_antenne_i1_match)
     end
   end
 
@@ -253,7 +253,7 @@ RSpec.describe Antenne do
 
     before { [a1, a2, a3, a4] }
 
-    it { is_expected.to match_array [a1, a4] }
+    it { is_expected.to contain_exactly(a1, a4) }
   end
 
   describe 'regional_antenne' do
@@ -276,8 +276,8 @@ RSpec.describe Antenne do
     end
 
     it "returns correct local antennes" do
-      expect(regional_antenne1.territorial_antennes).to match_array([local_antenne1, other_local_antenne1])
-      expect(local_antenne1.territorial_antennes).to match_array([])
+      expect(regional_antenne1.territorial_antennes).to contain_exactly(local_antenne1, other_local_antenne1)
+      expect(local_antenne1.territorial_antennes).to be_empty
     end
   end
 

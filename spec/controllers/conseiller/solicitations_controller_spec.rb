@@ -60,6 +60,6 @@ RSpec.describe Conseiller::SolicitationsController do
 
     before { request }
 
-    it { expect(solicitation.badges).to match_array([badge]) }
+    it { expect(solicitation.badges).to contain_exactly(badge) }
   end
 end

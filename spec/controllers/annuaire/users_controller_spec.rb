@@ -24,7 +24,7 @@ RSpec.describe Annuaire::UsersController do
 
       it 'return all users for the user antenne' do
         request
-        expect(assigns(:users)).to match_array([user_1, user_1_same_antenne])
+        expect(assigns(:users)).to contain_exactly(user_1, user_1_same_antenne)
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe Annuaire::UsersController do
 
       it 'return all users for the antenne' do
         request
-        expect(assigns(:users)).to match_array([user_1, user_1_same_antenne])
+        expect(assigns(:users)).to contain_exactly(user_1, user_1_same_antenne)
       end
     end
 
@@ -42,7 +42,7 @@ RSpec.describe Annuaire::UsersController do
 
       it 'return all users for the institution' do
         request
-        expect(assigns(:users)).to match_array([user_1, user_1_same_antenne, user_2])
+        expect(assigns(:users)).to contain_exactly(user_1, user_1_same_antenne, user_2)
       end
     end
 
@@ -51,7 +51,7 @@ RSpec.describe Annuaire::UsersController do
 
       it 'return users for the selected region' do
         request
-        expect(assigns(:users)).to match_array([user_1, user_1_same_antenne])
+        expect(assigns(:users)).to contain_exactly(user_1, user_1_same_antenne)
       end
     end
   end

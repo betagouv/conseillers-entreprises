@@ -14,7 +14,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
     it do
       expect(result).not_to be_success
-      expect(result.header_errors.map(&:message)).to match_array ["Unclosed quoted field in line 1."]
+      expect(result.header_errors.map(&:message)).to contain_exactly("Unclosed quoted field in line 1.")
     end
   end
 
@@ -171,7 +171,7 @@ describe CsvImport::AntenneImporter, CsvImport do
         expect(result).to be_success
         expect(Antenne.find_by(name: 'Parabolique').insee_codes).to eq '00001'
         expect(Antenne.find_by(name: 'Parabolique').managers.size).to eq 1
-        expect(Antenne.find_by(name: 'Parabolique').managers).to match_array [existing_user]
+        expect(Antenne.find_by(name: 'Parabolique').managers).to contain_exactly(existing_user)
       end
     end
 

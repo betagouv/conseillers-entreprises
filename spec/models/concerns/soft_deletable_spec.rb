@@ -37,7 +37,7 @@ RSpec.describe SoftDeletable do
           expect(user_2.reload.deleted?).to be false
           expect(ps_2.reload.deleted?).to be false
           expect(user_3.reload.deleted?).to be false
-          expect(team_1.reload.users).to match_array [user_2, user_3]
+          expect(team_1.reload.users).to contain_exactly(user_2, user_3)
           expect(team_1.reload.deleted?).to be false
         end
       end
@@ -75,7 +75,7 @@ RSpec.describe SoftDeletable do
           expect(user_2.reload.deleted?).to be false
           expect(ps_2.reload.deleted?).to be false
           expect(user_3.reload.deleted?).to be false
-          expect(expert_1.reload.users).to match_array [user_2, user_3]
+          expect(expert_1.reload.users).to contain_exactly(user_2, user_3)
           expect(expert_1.reload.deleted?).to be false
         end
       end
@@ -160,7 +160,7 @@ RSpec.describe SoftDeletable do
           expect(team_2.reload.deleted?).to be false
           expect(user_3.reload.deleted?).to be false
           expect(personal_skillset_3.reload.deleted?).to be false
-          expect(team_2.reload.users).to match_array [user_2, user_3]
+          expect(team_2.reload.users).to contain_exactly(user_2, user_3)
         end
       end
     end
@@ -242,7 +242,7 @@ RSpec.describe SoftDeletable do
           expect(team_2.reload.deleted?).to be false
           expect(user_3.reload.deleted?).to be false
           expect(personal_skillset_3.reload.deleted?).to be false
-          expect(team_2.reload.users).to match_array [user_3]
+          expect(team_2.reload.users).to contain_exactly(user_3)
         end
       end
     end

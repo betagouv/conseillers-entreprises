@@ -65,7 +65,7 @@ RSpec.describe "Landing Themes API" do
 
           it 'returns a valid 200 response' do |example|
             expect(response).to have_http_status(:ok)
-            result = JSON.parse(response.body)
+            result = response.parsed_body
             expect(result.size).to eq(2)
             expect(result['data'].size).to eq(2)
           end
@@ -109,11 +109,11 @@ RSpec.describe "Landing Themes API" do
 
           it 'returns a valid 200 response' do |example|
             expect(response).to have_http_status(:ok)
-            result = JSON.parse(response.body)
+            result = response.parsed_body
             expect(result.size).to eq(2)
 
             result_item = result['data']
-            expect(result_item.keys).to match_array(["id", "title", "slug", "description", "landing_subjects"])
+            expect(result_item.keys).to contain_exactly("id", "title", "slug", "description", "landing_subjects")
             expect(result_item["title"]).to eq('Environnement, transition écologique & RSE')
             expect(result_item["landing_subjects"].size).to eq(2)
           end

@@ -60,43 +60,43 @@ RSpec.describe TerritoryNeedsStatus do
     describe 'needs_taking_care' do
       subject { antenne_inside_regional.territory_needs_taking_care }
 
-      it { is_expected.to match_array([need_taking_care_inside]) }
+      it { is_expected.to contain_exactly(need_taking_care_inside) }
     end
 
     describe 'needs_quo' do
       subject { antenne_inside_regional.territory_needs_quo }
 
-      it { is_expected.to match_array([need_quo_inside, need_expired_inside]) }
+      it { is_expected.to contain_exactly(need_quo_inside, need_expired_inside) }
     end
 
     describe 'needs_quo_active' do
       subject { antenne_inside_regional.territory_needs_quo_active }
 
-      it { is_expected.to match_array([need_quo_inside]) }
+      it { is_expected.to contain_exactly(need_quo_inside) }
     end
 
     describe 'needs_not_for_me' do
       subject { antenne_inside_regional.territory_needs_not_for_me }
 
-      it { is_expected.to match_array([need_not_for_me_inside]) }
+      it { is_expected.to contain_exactly(need_not_for_me_inside) }
     end
 
     describe 'needs_done' do
       subject { antenne_inside_regional.territory_needs_done }
 
-      it { is_expected.to match_array([need_done_inside]) }
+      it { is_expected.to contain_exactly(need_done_inside) }
     end
 
     describe 'needs_archived' do
       subject { antenne_inside_regional.territory_needs_archived }
 
-      it { is_expected.to match_array([need_archived_inside]) }
+      it { is_expected.to contain_exactly(need_archived_inside) }
     end
 
     describe 'needs_expired' do
       subject { antenne_inside_regional.territory_needs_expired }
 
-      it { is_expected.to match_array([need_expired_inside]) }
+      it { is_expected.to contain_exactly(need_expired_inside) }
     end
   end
 end
