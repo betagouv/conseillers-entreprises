@@ -129,6 +129,7 @@ group :development do
   gem 'letter_opener_web'
   gem 'rails_real_favicon'
   gem 'bullet'
+  gem 'squasher'
 
   gem 'spring', ">=3.0.0"
   gem 'spring-commands-rspec'

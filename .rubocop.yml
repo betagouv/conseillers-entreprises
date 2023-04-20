@@ -1389,6 +1389,14 @@ I18n/RailsI18n:
     - 'spec/**/*'
     - 'db/migrate/*'
 
+I18n/RailsI18n/DecorateString:
+  Enabled: true
+  Exclude:
+    - 'bin/squasher'
+    - 'spec/**/*'
+    - 'lib/**/*'
+    - 'db/migrate/*'
+
 I18n/RailsI18n/DecorateStringFormattingUsingInterpolation:
   Enabled: false
 

@@ -598,6 +598,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    squasher (0.7.1)
     sysexits (1.2.0)
     temple (0.10.0)
     terminal-table (3.0.2)
@@ -752,6 +753,7 @@ DEPENDENCIES
   spring (>= 3.0.0)
   spring-commands-parallel-tests
   spring-commands-rspec
+  squasher
   terser
   turbo-rails
   user_impersonate2
