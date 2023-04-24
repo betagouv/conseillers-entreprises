@@ -10,7 +10,7 @@
         = f.search_field :omnisearch, value: needs_search_params[:omnisearch], class: 'fr-input', placeholder: t('.search_placeholder')
 
   .fr-accordion.box-shadow-none.fr-my-2v
-    %h3.fr-accordion__title
+    %h2.fr-accordion__title
       - accordion_opened = needs_search_params[:created_since].present? || needs_search_params[:created_until].present?
       %button.fr-accordion__btn.fr-btn.fr-btn--secondary.fr-btn--sm.fr-p-2v{ type: 'button', aria: { controls: "accordion-inbox", expanded: "#{accordion_opened}" }, data: { turbo: 'false' } }= t('.more_filters')
     .fr-collapse#accordion-inbox
