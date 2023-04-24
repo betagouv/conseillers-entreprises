@@ -15,6 +15,16 @@ namespace :staging do
 
     @need = Need.find(12683)
 
+    unless @need.visitee.full_name == 'François Cagette'
+      transform_visitee
+      transform_company
+      transform_facility
+      transform_diagnosis
+      transform_matches
+      transform_feedbacks
+      add_denis_sauveur
+    end
+
     def transform_visitee
       visitee = @need.visitee
       visitee.update({
@@ -142,14 +152,6 @@ namespace :staging do
       })
       expert.antenne.update(name: 'Métropole Démo')
     end
-
-    transform_visitee
-    transform_company
-    transform_facility
-    transform_diagnosis
-    transform_matches
-    transform_feedbacks
-    add_denis_sauveur
   end
 
   desc 'import anonymized production data in development db'
