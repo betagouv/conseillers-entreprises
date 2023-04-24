@@ -32,16 +32,17 @@ Rails.application.configure do
   }
 
   # Recommendation of https://www.zaproxy.org/docs/alerts/10015/
+  # MaJ par les defaults de Rails 7
   config.action_dispatch.default_headers = {
     'Cache-Control' => 'no-cache, no-store, must-revalidate',
     'Expires' => '0',
     'Pragma' => 'no-cache',
     'X-Content-Type-Options' => 'nosniff',
     'X-Download-Options' => "noopen",
-    'X-Frame-Options' => 'deny',
+    'X-Frame-Options' => 'SAMEORIGIN',
     'X-Permitted-Cross-Domain-Policies' => 'none',
     'Strict-Transport-Security' => 'max-age=31536000; includeSubDomains; preload',
-    'X-XSS-Protection' => '1; mode=block',
+    'X-XSS-Protection' => '0',
     'Referrer-Policy' => "strict-origin-when-cross-origin"
   }
 
