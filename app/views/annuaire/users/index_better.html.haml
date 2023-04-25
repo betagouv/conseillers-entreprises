@@ -1,0 +1,15 @@
+- meta title: @institution.name
+- content_for :header, render('header', institution: @institution, antenne: @antenne)
+- content_for :menu, render('menu', institution: @institution)
+
+= render 'annuaire/search/form'
+
+= render 'import_buttons'
+
+- if @not_invited_users.present?
+  = form_with url: send_invitations_institution_users_path, local: true do |f|
+    = f.hidden_field :users_ids, value: @not_invited_users.map(&:id)
+    = f.hidden_field :slug, value: params[:institution_slug]
+    = f.submit t('.send_invitations', count: @not_invited_users.length), class: 'fr-btn fr-mb-2w fr-ml-2w'
+
+= render 'table_better', grouped_subjects: @grouped_subjects, users: @users, antenne: @antenne
