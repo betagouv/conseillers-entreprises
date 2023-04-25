@@ -1,4 +1,4 @@
-- if recipient.received_needs.exists?
+- if recipient.received_needs.exists? || current_user.is_manager?
   .fr-callout#no-results{ tabindex: "0" }
     %h3.fr-callout__title= t('.title')
 - else
