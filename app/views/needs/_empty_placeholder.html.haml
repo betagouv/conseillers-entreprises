@@ -1,12 +1,12 @@
 - if recipient.received_needs.exists?
-  .ui.message#no-results{ tabindex: "0" }
-    %p.content.header= t('.title')
+  .fr-callout#no-results{ tabindex: "0" }
+    %h3.fr-callout__title= t('.title')
 - else
   -# If the recipient never received anything, display a welcome message.
-  .ui.icon.info.message
-    %span.fr-mr-2w.icon.ri-inbox-fill{ 'aria-hidden': 'true' }
-    .content
-      %p.header= t('.welcome_title')
-      - emails = recipient.experts.pluck(:email)
-      %p= t('.welcome_subtitle_emails', emails: emails.to_sentence, count: emails.size)
-      %p= t('.welcome_help_html', mailto_link: mailto_contact_us(t('contact_us').capitalize))
+  .fr-callout.fr-fi-information-line
+    %h3.fr-callout__title= t('.welcome_title')
+    - emails = recipient.experts.pluck(:email)
+    %p.fr-callout__text
+      = t('.welcome_subtitle_emails', emails: emails.to_sentence, count: emails.size)
+    %p.fr-callout__text.fr-mt-2v
+      = t('.welcome_help_html', mailto_link: mailto_contact_us(t('contact_us').capitalize))
