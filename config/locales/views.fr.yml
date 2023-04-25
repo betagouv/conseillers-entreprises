@@ -532,7 +532,7 @@ fr:
       more_filters: Voir plus de filtres
       omnisearch: Rechercher par entreprise, contact, description...
       search: Rechercher
-      search_placeholder: Rechercher par entreprise, contact, description...
+      search_placeholder: "Ex : La mie tendre, Lucie Martin, plomberie, financement..."
     show:
       all_experts: Experts notifiés
       all_needs: Toutes les demandes
