@@ -33,8 +33,8 @@ class ApiKey < ApplicationRecord
 
   ## Callbacks
   #
-  before_create :generate_token_hmac_digest
-  before_create :calculate_valid_until
+  before_save :generate_token_hmac_digest
+  before_save :calculate_valid_until
 
   # Virtual attribute for raw token value, allowing us to respond with the
   # API key's non-hashed token value. but only directly after creation.
