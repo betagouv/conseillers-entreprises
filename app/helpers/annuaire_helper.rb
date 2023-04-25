@@ -10,6 +10,17 @@ module AnnuaireHelper
     end
   end
 
+  def build_better_count_experts_cell(count)
+    anomalie_less = (count == 0)
+    alert_classe =  ('red' if anomalie_less)
+
+    title, icon = set_title_and_icon(count, anomalie_less, nil, nil)
+
+    tag.th(class: "right aligned #{alert_classe}", title: title) do
+      tag.span { count.to_s } + icon.presence
+    end
+  end
+
   def build_user_name_cell(user, antenne)
     html = link_to(user.full_name, edit_admin_expert_path(user.relevant_expert), title: t('annuaire_helper.build_user_name_cell.edit_expert', expert_name: user.relevant_expert.full_name, antenne: antenne))
     html << tag.span(class: 'ri-mail-add-fill blue fr-ml-1v', aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.not_invited')) if user.invitation_sent_at.nil?
