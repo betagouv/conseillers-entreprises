@@ -12,5 +12,5 @@
             .fr-modal__content
               %h1#fr-modal-title-modal-1.fr-modal__title
                 %span.fr-fi-arrow-right-line.fr-fi--lg>
-                = t('annuaire.users.table_better.missing_territories')
+                = t('.missing_territories', count: subject[:missing_territories].size)
               %p.text-dark-grey= subject[:missing_territories].split(',').join(' ')

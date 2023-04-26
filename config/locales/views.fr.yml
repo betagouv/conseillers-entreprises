@@ -88,6 +88,10 @@ fr:
           other: "%{count} experts régionaux sur ce sujet"
       table_better:
         missing_territories: Territoires manquants
+      missing_territories:
+        missing_territories:
+          one: "Un territoire manquant"
+          other: "%{count} territoires manquants"
   annuaire_helper:
     build_user_name_cell:
       antenne_manager: Responsables d’antenne.
