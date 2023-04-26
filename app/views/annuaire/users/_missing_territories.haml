@@ -1,0 +1,16 @@
+%th.right.aligned.red{ colspan: 1 }
+  %button.fr-btn.fr-btn--tertiary-no-outline.red{ 'aria-controls': "fr-modal-subject-#{subject[:id]}", 'data-fr-opened': 'false' }
+    = subject[:missing_territories].size
+    %span.ri-map-2-line.fr-ml-1v
+  %dialog.fr-modal{ 'aria-labelledby': "fr-modal-subject-#{subject[:id]}", role: 'dialog', id: "fr-modal-subject-#{subject[:id]}" }
+    .fr-container.fr-container--fluid.fr-container-md
+      .fr-grid-row.fr-grid-row--center
+        .fr-col-12.fr-col-md-8.fr-col-lg-6
+          .fr-modal__body
+            .fr-modal__header
+              %button.fr-link--close.fr-link{ 'aria-controls': "fr-modal-subject-#{subject[:id]}", title: "Fermer la fenêtre modale" } Fermer
+            .fr-modal__content
+              %h1#fr-modal-title-modal-1.fr-modal__title
+                %span.fr-fi-arrow-right-line.fr-fi--lg>
+                = t('annuaire.users.table_better.missing_territories')
+              %p.text-dark-grey= subject[:missing_territories].split(',').join(' ')

@@ -122,6 +122,7 @@ module  Annuaire
             label: 'Développement commercial',
             subjects: [
               {
+                id: 39,
                 label: 'Faire un point général sur sa stratégie, adapter son activité au nouveau contexte',
                 expert_in_subject_count: 1,
                 subject_managed_by_other_territorial_level: false, # local, regional, national
@@ -130,6 +131,7 @@ module  Annuaire
                 ]
               },
               {
+                id: 48,
                 label: "Développer une nouvelle offre de produits ou de services",
                 expert_in_subject_count: 0,
                 subject_managed_by_other_territorial_level: false, # local, regional, national
@@ -138,6 +140,7 @@ module  Annuaire
                 ]
               },
               {
+                id: 49,
                 label: 'Trouver de nouveaux clients et élargir son réseau professionnel',
                 expert_in_subject_count: 0,
                 subject_managed_by_other_territorial_level: true, # local, regional, national
@@ -152,6 +155,7 @@ module  Annuaire
             label: 'Ressources humaines',
             subjects: [
               {
+                id: 44,
                 label: 'Recruter un ou plusieurs salariés',
                 expert_in_subject_count: 1,
                 subject_managed_by_other_territorial_level: true, # local, regional, national
@@ -192,7 +196,7 @@ module  Annuaire
                     invitation_sent_at: 'Mon, 03 Apr 2023 11:49:15.507415000 CEST +02:00',
                     has_specific_territories: false
                   }
-                  ],
+                ],
                 # ici, manque les precisions expert subject (genre "Industrie et commerce de moins de 3 ans")
                 has_subject: [true, true, false, false, false] # à voir si pas de soucis d'ordre et de nombre de subjects par themes
               },

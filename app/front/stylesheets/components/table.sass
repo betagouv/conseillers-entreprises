@@ -37,7 +37,9 @@
       background: $orange-lighter
       color: $orange
   th, td.td-header
-    position: sticky
+    //Je pense que ça sert a ce que le header reste en haut de la page quand on scroll,
+    // mais ça bug avec l'ouverture de la modal des codes insee manquants
+    //position: sticky
     top: 0
     border-left: 0.125rem solid $grey
     border-bottom: 0.125rem solid $grey

@@ -72,6 +72,8 @@ fr:
         send_invitations:
           one: Envoyer une invitation
           other: Envoyer les %{count} invitations
+      index_better:
+        send_invitations: Envoyer les invitations
       send_invitations:
         invitations_no_sent: Aucune invitation envoyée
         invitations_sent:
@@ -84,6 +86,8 @@ fr:
         regional_experts_on_subject:
           one: "%{count} expert régional sur ce sujet"
           other: "%{count} experts régionaux sur ce sujet"
+      table_better:
+        missing_territories: Territoires manquants
   annuaire_helper:
     build_user_name_cell:
       antenne_manager: Responsables d’antenne.

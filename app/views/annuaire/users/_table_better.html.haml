@@ -23,10 +23,13 @@
           = build_better_count_experts_cell(subject[:expert_in_subject_count])
           -# TODO : integration subject_managed_by_other_territorial_level
       %tr.missing-territories-count
-        %th{ colspan: 3 } Territoires manquants
+        %th{ colspan: 3 }= t('.missing_territories')
         - subjects.each do |subject|
-          %th{ colspan: 1, title: subject[:missing_territories] }= subject[:missing_territories].size
-
+          - if subject[:missing_territories].blank?
+            %th{ colspan: 1 }
+              0
+          - else
+            = render 'missing_territories', subject: subject
         -# - if local_assigns[:antenne] && antenne.regional_antenne.present?
         -#   %tr.regional-users-count
         -#     %th{ colspan: 3 }= antenne.regional_antenne.name
