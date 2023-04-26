@@ -43,7 +43,6 @@
         -#           class: '' }
         -#             = regional_count
 
-
     %tbody
       -# `users` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
         We’ll group by Antenne and by Expert team, and span the first two columns as needed.
@@ -51,6 +50,30 @@
         - antenne_users_ids = antenne[:experts].flat_map{|e| e[:users]}.flat_map{|u| u[:id]}
         - highlighted_ids = flash[:table_highlighted_ids] || []
         - highlighted_class = (highlighted_ids & antenne_users_ids).any? ? 'blue' : ''
+
+        - antenne[:experts].each_with_index do |expert, expert_index|
+          - expert[:users].each_with_index do |user, user_index|
+            %tr
+              - if expert_index == 0 && user_index == 0
+                - users_count = antenne[:experts].flat_map{|e| e[:users]}.size
+                %td.td-header{ rowspan: users_count }
+                  = link_to antenne[:name], admin_antenne_path(antenne[:id])
+              - if user_index == 0
+                %td.td-header{ rowspan: expert[:users].size }
+                  = link_to expert[:name], admin_expert_path(expert[:id])
+              %td.td-header
+                = build_user_name_cell2(user, antenne)
+
+            -#
+            -# - if user_index == 0
+            -#   %td.td-header{ rowspan: expert[:users].size }
+            -#     = expert[:name]
+            -#
+            -# - unless user_index == 0
+            -#   %tr
+            -#
+            -# %td.td-header{ rowspan: 1 }
+            -#   = user[:name]
 
         -# - teams.each_with_index do |key_and_value, index_in_antenne|
         -#   - users = key_and_value.last
