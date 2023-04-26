@@ -29,6 +29,7 @@ module  Annuaire
     end
 
     def index_better
+      flash[:table_highlighted_ids] = [6786]
       @data = annuaire_utilisateurs_hash
       @not_invited_users = not_invited_users
 
@@ -183,15 +184,15 @@ module  Annuaire
         antennes: [
           {
             id: 2,
-            name: "CCI 22 Côtes d'Armor",
+            name: "Antenne 1",
             experts: [
               {
                 id: 458,
-                name: nil,
+                name: 'antenne 1 expert 1',
                 users: [ # penser à ajouter les users qui ont une appartenance à l'antenne via la table user_rights
                   {
                     id: 234,
-                    name: 'Amina ABOUKHAR',
+                    name: 'antenne 1 expert 1 user 1',
                     responsable: 'false',
                     invitation_sent_at: 'Mon, 03 Apr 2023 11:49:15.507415000 CEST +02:00',
                     has_specific_territories: false
@@ -202,25 +203,25 @@ module  Annuaire
               },
               {
                 id: 765765,
-                name: 'Equipe CFE',
+                name: 'antenne 1 expert 2',
                 users: [ # penser à ajouter les users qui ont une appartenance à l'antenne via la table user_rights
                   {
                     id: 6786,
-                    name: 'Peter Parker',
+                    name: 'antenne 1 expert 2 user 1',
                     responsable: true,
                     invitation_sent_at: nil,
                     has_specific_territories: true
                   },
                   {
                     id: 6889,
-                    name: 'Clark Kent',
+                    name: 'antenne 1 expert 2 user 2',
                     responsable: true,
                     invitation_sent_at: 'Mon, 03 Apr 2023 11:49:15.507415000 CEST +02:00',
                     has_specific_territories: false
                   },
                   {
                     id: 9875,
-                    name: 'Bruce Bannon',
+                    name: 'antenne 1 expert 2 user 3',
                     responsable: false,
                     invitation_sent_at: 'Mon, 03 Apr 2023 11:49:15.507415000 CEST +02:00',
                     has_specific_territories: false
@@ -232,35 +233,35 @@ module  Annuaire
           },
           {
             id: 'id',
-            name: 'name',
+            name: 'Antenne 2',
             experts: [
               {
                 id: 'id',
-                name: 'name',
+                name: 'antenne 2 expert 1',
                 users: [ # penser à ajouter les users qui ont une appartenance à l'antenne via la table user_rights
                   {
                     id: 'id',
-                    name: 'name',
+                    name: 'antenne 2 expert 1 user 1',
                     responsable: 'boolean',
                     invitation_sent_at: 'datetime',
                     has_specific_territories: 'boolean'
                   }
                 ],
-                has_subject: [true, true, false] # à voir si pas de soucis d'ordre et de nombre de subjects par themes
+                has_subject: [true, true, false, true, false  ] # à voir si pas de soucis d'ordre et de nombre de subjects par themes
               },
               {
                 id: 'id',
-                name: 'name',
+                name: 'antenne 2 expert 2',
                 users: [ # penser à ajouter les users qui ont une appartenance à l'antenne via la table user_rights
                   {
                     id: 'id',
-                    name: 'name',
+                    name: 'antenne 2 expert 2 user 1',
                     responsable: 'boolean',
                     invitation_sent_at: 'datetime',
                     has_specific_territories: 'boolean'
                   }
                 ],
-                has_subject: [true, true, false] # à voir si pas de soucis d'ordre et de nombre de subjects par themes
+                has_subject: [true, true, false, true, false  ] # à voir si pas de soucis d'ordre et de nombre de subjects par themes
               }
             ]
           }

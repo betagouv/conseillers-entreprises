@@ -44,17 +44,16 @@
         -#             = regional_count
 
     %tbody
-      -# `users` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
-        We’ll group by Antenne and by Expert team, and span the first two columns as needed.
       - @data[:antennes].each do |antenne|
-        - antenne_users_ids = antenne[:experts].flat_map{|e| e[:users]}.flat_map{|u| u[:id]}
         - highlighted_ids = flash[:table_highlighted_ids] || []
-        - highlighted_class = (highlighted_ids & antenne_users_ids).any? ? 'blue' : ''
-
         - antenne[:experts].each_with_index do |expert, expert_index|
           - expert[:users].each_with_index do |user, user_index|
-            %tr
-              - if expert_index == 0 && user_index == 0
+            - highlighted_class = highlighted_ids&.include?(user[:id]) ? 'blue' : ''
+            - antenne_first_row = expert_index == 0 && user_index == 0
+            - antenne_separation_class = antenne_first_row ? 'tr--distinct' : ''
+
+            %tr{ class: [antenne_separation_class, highlighted_class].compact.join(" ") }
+              - if antenne_first_row
                 - users_count = antenne[:experts].flat_map{|e| e[:users]}.size
                 %td.td-header{ rowspan: users_count }
                   = link_to antenne[:name], admin_antenne_path(antenne[:id])
@@ -63,6 +62,11 @@
                   = link_to expert[:name], admin_expert_path(expert[:id])
               %td.td-header
                 = build_user_name_cell2(user, antenne)
+
+              - expert[:has_subject].each do |has_subject|
+                %td{ class: "#{'yellow' if has_subject}"}
+                  - if has_subject
+                    = t('boolean.text.true')
 
             -#
             -# - if user_index == 0
