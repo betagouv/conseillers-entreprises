@@ -163,7 +163,22 @@ ActiveAdmin.register Solicitation do
   show title: :to_s do
     panel I18n.t('attributes.description') do
       div(admin_link_to(solicitation.landing) || solicitation.landing_slug)
+      subject_slug = solicitation.landing_subject&.slug
+      if subject_slug.present?
+        div t('activerecord.attributes.solicitation.landing_subject') + ' : ' do
+          div status_tag subject_slug
+        end
+      end
       blockquote simple_format(solicitation.description)
+      ul class: 'mb-1' do
+        solicitation.institution_filters.each do |filter|
+          answer = I18n.t(
+            filter.filter_value, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key],
+            default: I18n.t(filter.filter_value, scope: [:boolean, :text])
+          )
+          li "#{I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])} #{tag.strong(answer)} <br>".html_safe
+        end
+      end
     end
 
     attributes_table title: t('attributes.coordinates') do
