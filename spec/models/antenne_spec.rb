@@ -296,4 +296,20 @@ RSpec.describe Antenne do
       expect(local_antenne1.regional?).to be false
     end
   end
+
+  describe 'refresh_geometry' do
+    let(:commune1) { create :commune, :geometry}
+    let(:commune2) { create :commune, :geometry}
+    let(:antenne) { create :antenne }
+
+    it 'updates the geometry' do
+      expect(antenne.wkb_geometry).not_to be_nil
+
+      antenne.communes = [commune1]
+      expect(antenne.wkb_geometry.area).to eq 1
+
+      antenne.communes = [commune1, commune2]
+      expect(antenne.wkb_geometry.area).to eq 2
+    end
+  end
 end

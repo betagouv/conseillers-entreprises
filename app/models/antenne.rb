@@ -85,7 +85,7 @@ class Antenne < ApplicationRecord
 
   ## Callbacks
   #
-  after_create :check_territorial_level
+  after_create :check_territorial_level, :refresh_geometry
 
   ##
   #
@@ -235,6 +235,36 @@ class Antenne < ApplicationRecord
     self.transaction do
       experts.each { |e| e.deep_soft_delete }
       update_columns(deleted_at: Time.zone.now)
+    end
+  end
+
+  ## Refresh geometry when communes are changed
+  #
+  def communes=(new_communes)
+    super
+    refresh_geometry
+  end
+
+  def refresh_geometry
+    self.update(wkb_geometry: communes_union_geometry)
+  end
+
+  def communes_union_geometry
+    communes_relation = if self.persisted?
+      communes
+    else
+      Commune.where(id: communes.map(&:id)) # We can’t use self.communes to chain scopes if self is not persisted yet
+    end
+
+    result = communes_relation
+      .join_geometry
+      .reselect('ST_Union("geo_communes_2022"."wkb_geometry") AS "union_geometry"')
+      .load
+
+    if communes.present?
+      result.first['union_geometry']
+    else
+      'POLYGON EMPTY'
     end
   end
 end
