@@ -247,7 +247,7 @@ RSpec.describe Solicitation do
   end
 
   describe "#by_possible_region" do
-    let(:territory1) { create :territory, :region, code_region: Territory.deployed_codes_regions.first }
+    let(:territory1) { Territory.deployed_regions.first }
     # - solicitation avec facility dans une region déployé
     let!(:solicitation1) { create :solicitation, :with_diagnosis, code_region: territory1.code_region }
     # - solicitation avec facility dans territoire non déployé

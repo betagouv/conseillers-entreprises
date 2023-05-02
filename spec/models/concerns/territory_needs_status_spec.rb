@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe TerritoryNeedsStatus do
   let(:institution) { create :institution }
-  let!(:region_1) { create :territory, :region, code_region: 52 }
-  let!(:region_2) { create :territory, :region, code_region: 11 }
+  let!(:region_1) { create :territory, :region, code_region: 998 }
+  let!(:region_2) { create :territory, :region, code_region: 999 }
   let!(:commune_1) { create :commune, insee_code: '72026', regions: [region_1] }
   let!(:commune_2) { create :commune, insee_code: '72039', regions: [region_1] }
   let!(:commune_3) { create :commune, insee_code: '94068', regions: [region_2] }
