@@ -97,9 +97,48 @@ Place des Entreprises est déployé sur la plateforme PAAS de [Scalingo](https:/
 
 Le domaine `beta.gouv.fr` est enregistré chez OVH et géré par la DINUM. La gestion du sous-domaine `place-des-entreprises.` est déléguée à l’équipe Place des Entreprises, chez [AlwaysData](https://www.alwaysdata.com/fr/). 
 
+## Cartographie
+
+### Ajout des données geographiques des territoires
+
+Les contours des communes et des régions sont gardés en base ; ça nous permet de représenter les zones d’intervention relativement simplement.
+
+```
+# Téléchargement des données
+# Note: geo.data.gouv.fr n’est, en principe, plus maintenu même si les contours 2023 sont aussi disponibles.
+# Dans les faits, les données sont issues de la base [Admin Express de l’IGN](https://geoservices.ign.fr/adminexpress), version « COG CARTO » (Code Officiel Géographique).
+# L’avantage du jeu de données etalab est qu’il est simplifié à 1000m et donc plus facile à utiliser pour nous. 
+# À terme, l’IGN devrait proposer sur sa future (mais bientôt disponible) géoplateforme des jeux de données équivalents. 
+wget http://etalab-datasets.geo.data.gouv.fr/contours-administratifs/2022/geojson/communes-1000m.geojson
+wget http://etalab-datasets.geo.data.gouv.fr/contours-administratifs/2022/geojson/regions-1000m.geojson
+
+# Conversion en SQL
+ogr2ogr communes-1000m.sql communes-1000m.geojson -makevalid -nln geo_communes_2022
+ogr2ogr regions-1000m.sql regions-1000m.geojson -makevalid -nln geo_regions_2022
+
+# Import en base:
+## - En développement local:
+psql place-des-entreprises-development < communes-1000m.sql
+psql place-des-entreprises-development < regions-1000m.sql
+
+## - Sur staging:
+scalingo -a reso-staging db-tunnel SCALINGO_POSTGRESQL_URL
+psql reso-staging < communes-1000m.sql
+psql reso-staging < regions-1000m.sql
+
+## - En production
+scalingo -a reso-production db-tunnel SCALINGO_POSTGRESQL_URL
+psql reso-production < communes-1000m.sql
+psql reso-production < regions-1000m.sql
+
+# Ajout d’un index
+psql -d place-des-entreprises-development -c "CREATE INDEX geo_communes_2022_code ON geo_communes_2022(code text_ops);"
+psql -d place-des-entreprises-development -c "CREATE INDEX geo_regions_2022_code ON geo_regions_2022(code text_ops);"
+```
+
 ## Services externes
  
-### Au sein de l’admistration
+### Au sein de l’administration
 
 Place des Entreprises récupère les données publiques des entreprises sur `entreprise.data.gouv.fr` et sur `API-entreprises`, des plateformes maintenues par la [mission etalab](https://www.etalab.gouv.fr/plateformes) de la DINUM.
 
