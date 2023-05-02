@@ -37,6 +37,11 @@ class Commune < ApplicationRecord
 
   scope :by_region, -> (region_id) { joins(:regions).where(regions: { id: region_id }) }
 
+  scope :join_geometry, -> do
+    joins('JOIN "geo_communes_2022" ON "communes"."insee_code" = "geo_communes_2022"."code"')
+      .select('"communes".*', '"geo_communes_2022"."wkb_geometry"')
+  end
+
   ##
   #
   def all_experts

@@ -52,6 +52,11 @@ class Territory < ApplicationRecord
 
   scope :with_support, -> { where.not(support_contact_id: nil) }
 
+  scope :join_geometry, -> do
+    joins('JOIN "geo_regions_2022" ON "territories"."code_region"::text = "geo_regions_2022"."code"')
+      .select('"territories".*', '"geo_regions_2022"."wkb_geometry"')
+  end
+
   def self.deployed_codes_regions
     deployed_regions.pluck(:code_region)
   end

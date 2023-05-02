@@ -38,4 +38,16 @@ RSpec.describe Commune do
 
     it { is_expected.to contain_exactly(expert_direct, expert_via_antenne, global_expert) }
   end
+
+  describe 'join_geometry' do
+    let!(:commune1) { create :commune, :geometry }
+
+    it 'finds the geometry' do
+      commune = Commune.where(id: commune1.id).join_geometry.first
+
+      expect(commune).not_to be_nil
+      expect(commune.wkb_geometry).not_to be_empty
+      expect(commune.wkb_geometry.area).to eq 1
+    end
+  end
 end
