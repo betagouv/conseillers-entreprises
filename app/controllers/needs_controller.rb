@@ -4,6 +4,7 @@ class NeedsController < ApplicationController
   include Inbox
   before_action :retrieve_user, except: %i[index]
   before_action :retrieve_need, only: %i[show archive unarchive]
+  before_action :persist_search_params, only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired]
 
   layout 'side_menu', except: :show
 
@@ -42,32 +43,8 @@ class NeedsController < ApplicationController
     retrieve_needs(current_user, :expired)
   end
 
-  def search
-    @recipient = current_user
-    inbox_collections_counts(@recipient)
-    @needs = @recipient
-      .received_needs
-      .omnisearch(search_params[:query])
-      .includes(:company, :advisor, :subject)
-      .order(created_at: :desc)
-      .page(params[:page])
-    @collection_name = 'search'
-    render :index
-  end
-
-  private
-
-  def retrieve_user
-    @user = current_user
-  end
-
-  def search_params
-    params.permit(:query)
-  end
-
   ## Instance actions
   #
-  public
 
   def show
     authorize @need
@@ -125,11 +102,34 @@ class NeedsController < ApplicationController
 
   private
 
+  def needs_search_params
+    session[:needs_search_params]&.with_indifferent_access || {}
+  end
+  helper_method :needs_search_params
+
+  def authorize_index_solicitation
+    authorize Need, :index?
+  end
+
+  def persist_search_params
+    session[:needs_search_params] ||= {}
+    search_params = params.slice(:omnisearch, :by_subject, :created_since, :created_until).permit!
+    if params[:reset_query].present?
+      session.delete(:needs_search_params)
+    else
+      session[:needs_search_params] = session[:needs_search_params].merge(search_params)
+    end
+  end
+
   def retrieve_diagnosis
     Diagnosis.find(params.require(:id))
   end
 
   def retrieve_need
     @need = Need.find(params.require(:id))
+  end
+
+  def retrieve_user
+    @user = current_user
   end
 end

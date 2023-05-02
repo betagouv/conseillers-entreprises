@@ -45,6 +45,8 @@ class Need < ApplicationRecord
       not_for_me: 'not_for_me'
   }, _prefix: true
 
+  paginates_per 25
+
   ## Associations
   #
   belongs_to :diagnosis, inverse_of: :needs, touch: true
@@ -267,6 +269,18 @@ class Need < ApplicationRecord
     joins(facility: :commune).merge(Commune.by_region(region_id))
   end
 
+  scope :by_subject, -> (subject_id) do
+    where(subject_id: subject_id)
+  end
+
+  scope :created_since, -> (date) do
+    where(created_at: Date.new(*date.split('-').map(&:to_i)).beginning_of_day..)
+  end
+
+  scope :created_until, -> (date) do
+    where(created_at: ..Date.new(*date.split('-').map(&:to_i)).end_of_day)
+  end
+
   scope :in_antennes_perimeters, -> (antennes) do
     Need.where(id: antennes.map(&:perimeter_received_needs).flatten)
   end
@@ -312,7 +326,10 @@ class Need < ApplicationRecord
 
   def self.apply_filters(params)
     klass = self
-    klass = klass.by_region(params[:by_region]) if params[:by_region].present?
+    klass = klass.by_subject(params[:by_subject]) if params[:by_subject].present?
+    klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
+    klass = klass.created_since(params[:created_since]) if params[:created_since].present?
+    klass = klass.created_until(params[:created_until]) if params[:created_until].present?
     klass.all
   end
 

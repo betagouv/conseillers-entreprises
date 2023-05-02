@@ -1,7 +1,33 @@
-.fr-mb-3w
-  = form_with url: search_needs_path, method: :get, local: true, class: 'fr-search-bar fr-search-bar--lg fr-mb-2v' do
-    = label_tag :query, t('.search_placeholder'), class: 'fr-label'
-    = search_field_tag :query, params[:query], placeholder: t('search'), class: "fr-input", required: true
-    = button_tag t('search'), class: 'fr-btn'
-  - if params[:query].present?
-    = link_to t('.clear_search'), needs_path, id: 'clear-search', class: 'fr-link fr-icon-close-line fr-link--icon-left'
+= form_with url: request.path, method: :get, skip_enforcing_utf8: true, local: true, class: 'fr-mb-2w' do |f|
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col-md-6.fr-col-12
+      - options = { include_blank: t('all.masculin'), class: 'fr-select' }
+      = f.label :by_subject, t('attributes.subject'), class: 'fr-label'
+      = f.select :by_subject, possible_themes_subjects_collection, options.dup, { class: 'fr-select' }
+    .fr-col-md-6.fr-col-12
+      .fr-input-group
+        = f.label :omnisearch, t('.omnisearch'), class: 'fr-label'
+        = f.search_field :omnisearch, value: needs_search_params[:omnisearch], class: 'fr-input', placeholder: t('.search_placeholder')
+
+  .fr-accordion.box-shadow-none.fr-my-2v
+    %h2.fr-accordion__title
+      - accordion_opened = needs_search_params[:created_since].present? || needs_search_params[:created_until].present?
+      %button.fr-accordion__btn.fr-btn.fr-btn--secondary.fr-btn--sm.fr-p-2v{ type: 'button', aria: { controls: "accordion-inbox", expanded: "#{accordion_opened}" }, data: { turbo: 'false' } }= t('.more_filters')
+    .fr-collapse#accordion-inbox
+      .fr-grid-row.fr-grid-row--gutters
+        .fr-col-md-6.fr-col-12
+          = f.label :created_since, t('.created_since'), class: 'fr-label'
+          = f.date_field :created_since, value: needs_search_params[:created_since], class: 'fr-input'
+        .fr-col-md-6.fr-col-12
+          = f.label :created_until, t('.created_until'), class: 'fr-label'
+          = f.date_field :created_until, value: needs_search_params[:created_until], class: 'fr-input'
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col-md-6.fr-col-12
+      - if needs_search_params.present?
+        %p= search_collection_count needs
+      - else
+        %p= collection_count needs
+    .fr-col-md-6.fr-col-12.text-right
+      - if needs_search_params.present?
+        = link_to t('.clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
+      = f.submit t('.search'), class: 'fr-btn', title: t('.search')
