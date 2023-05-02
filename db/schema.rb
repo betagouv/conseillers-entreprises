@@ -592,9 +592,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_092930) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "bassin_emploi", default: false, null: false
     t.bigint "support_contact_id"
-    t.integer "code_region"
+    t.string "code_region"
     t.datetime "deployed_at", precision: nil
-    t.index ["code_region"], name: "index_territories_on_code_region"
+    t.index ["code_region"], name: "index_territories_on_code_region", unique: true
     t.index ["support_contact_id"], name: "index_territories_on_support_contact_id"
   end
 

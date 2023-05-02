@@ -4,7 +4,7 @@
 #
 #  id                 :bigint(8)        not null, primary key
 #  bassin_emploi      :boolean          default(FALSE), not null
-#  code_region        :integer
+#  code_region        :string
 #  deployed_at        :datetime
 #  name               :string
 #  created_at         :datetime         not null
@@ -13,7 +13,7 @@
 #
 # Indexes
 #
-#  index_territories_on_code_region         (code_region)
+#  index_territories_on_code_region         (code_region) UNIQUE
 #  index_territories_on_support_contact_id  (support_contact_id)
 #
 
