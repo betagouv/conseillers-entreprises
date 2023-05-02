@@ -395,6 +395,7 @@ fr:
         value: with_national_perimeter
     page_entries_info:
       many_pages_html: "<strong>%{total}</strong> %{name} (affichage de %{start} à %{end})"
+      many_search_pages_html: "<strong>%{total}</strong> Résultats trouvés (affichage de %{start} à %{end})"
       more_pages:
         display_entries: "<b>%{total}</b> %{entry_name} (affichage de %{first} à %{last})"
       one_page:
@@ -404,6 +405,7 @@ fr:
           zero: Aucune %{entry_name}
     page_infos:
       collection_count_html: "<strong>%{size}</strong> %{name}"
+      searched_collection_count_html: "<strong>%{size}</strong> Résultats trouvés"
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       localisation_html: 'Localisation : <strong>%{region}</strong>'
@@ -532,7 +534,7 @@ fr:
       more_filters: Voir plus de filtres
       omnisearch: Rechercher par entreprise, contact, description...
       search: Rechercher
-      search_placeholder: "Ex : La mie tendre, Lucie Martin, plomberie, financement..."
+      search_placeholder: 'Ex : La mie tendre, Lucie Martin, plomberie, financement...'
     show:
       all_experts: Experts notifiés
       all_needs: Toutes les demandes

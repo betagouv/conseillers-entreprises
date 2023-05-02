@@ -23,7 +23,10 @@
           = f.date_field :created_until, value: needs_search_params[:created_until], class: 'fr-input'
   .fr-grid-row.fr-grid-row--gutters
     .fr-col-md-6.fr-col-12
-      %p= collection_count needs
+      - if needs_search_params.present?
+        %p= search_collection_count needs
+      - else
+        %p= collection_count needs
     .fr-col-md-6.fr-col-12.text-right
       - if needs_search_params.present?
         = link_to t('.clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'

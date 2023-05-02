@@ -15,4 +15,17 @@ module PageInfosHelper
         name: collection_name)
     end
   end
+
+  def search_collection_count(collection)
+    collection_size = collection.total_count
+
+    if collection.total_pages < 2
+      t('helpers.page_infos.searched_collection_count_html', size: collection_size)
+    else
+      t('helpers.page_entries_info.many_pages_html',
+        total: collection_size,
+        start: collection.offset_value + 1,
+        end: collection.offset_value + collection.length)
+    end
+  end
 end
