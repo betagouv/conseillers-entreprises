@@ -27,5 +27,11 @@ class CompanySatisfaction < ApplicationRecord
   has_many :matches, through: :need, inverse_of: :need
   has_many :facility_regions, through: :need, inverse_of: :needs
 
+  # Satisfaction pour les MER avec aide proposée
+  has_many :done_matches, -> { status_done }, class_name: 'Match', through: :need, inverse_of: :need, source: :matches
+  has_many :done_experts, class_name: 'Expert', through: :done_matches, source: :expert
+  has_many :done_antennes, class_name: 'Antenne', through: :done_experts, source: :antenne
+  has_many :done_institutions, class_name: 'Institution', through: :done_antennes, source: :institution
+
   validates :contacted_by_expert, :useful_exchange, inclusion: { in: [true, false] }
 end

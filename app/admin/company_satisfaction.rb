@@ -33,9 +33,11 @@ ActiveAdmin.register CompanySatisfaction do
   end
 
   filter :contacted_by_expert
+  filter :created_at
   filter :useful_exchange
-  filter :landing, as: :select, collection: -> { Landing.pluck(:slug, :id) }
+  filter :landing, as: :select, collection: -> { Landing.order(:slug).pluck(:slug, :id) }
   filter :subject, collection: -> { Subject.order(:interview_sort_order) }
+  filter :done_institutions, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :facility_regions, collection: -> { Territory.regions.order(:name) }
 
   ## CSV

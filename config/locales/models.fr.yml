@@ -731,6 +731,7 @@ fr:
     diagnosis_id: Id de l’analyse
     diagnosis_regions: Région
     display_logo: Afficher le logo sur la page d’accueil, la page de remerciement et la liste des partenaires
+    done_institutions: Institution ayant clôturé avec aide
     effectif: Effectif
     email: E-mail
     expert: Expert
