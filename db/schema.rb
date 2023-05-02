@@ -13,6 +13,7 @@
 ActiveRecord::Schema[7.0].define(version: 2023_05_15_092930) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
 
   create_enum :feedbacks_categories, [
     "need",
