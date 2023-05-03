@@ -74,8 +74,6 @@ ActiveAdmin.register Match do
   filter :status, as: :select, collection: collection, label: I18n.t('attributes.status')
   filter :archived_in, as: :boolean, label: I18n.t('attributes.is_archived')
 
-  filter :updated_at
-
   filter :solicitation_created_at, as: :date_range
   filter :solicitation_mtm_campaign, as: :string
 
