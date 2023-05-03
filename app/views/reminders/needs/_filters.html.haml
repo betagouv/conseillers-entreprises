@@ -1,0 +1,16 @@
+= form_with url: request.path, method: :get, skip_enforcing_utf8: true, local: true, class: 'fr-mb-2w' do |f|
+  .fr-search-bar.fr-search-bar--lg{ role: "search" }
+    - options = { include_blank: t('all.feminine'), class: 'fr-select' }
+    = f.label :by_region, t('attributes.region'), class: 'fr-label'
+    = f.select(:by_region,
+        options_for_select(possible_territories_options, reminders_filter_params[:by_region]),
+        options.dup, { class: 'fr-select fr-m-0' })
+    = f.submit t('.search'), class: 'fr-btn', title: t('.search')
+
+.fr-grid-row
+  .fr-col-12.text-right
+    - if reminders_filter_params.present?
+      = link_to t('search.clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
+  .fr-col-md-6.fr-col-12
+    - if defined? active_experts
+      %p= collection_count active_experts

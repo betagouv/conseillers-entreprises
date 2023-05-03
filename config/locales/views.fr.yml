@@ -628,8 +628,14 @@ fr:
         team_composition: Composition de l'équipe
       expert_feedbacks:
         see_remaining_feedbacks: Voir les commentaires plus anciens (%{count})
+      filters:
+        by_full_name: Par nom d’expert ou d’utilisateur
+        search: Rechercher
+        search_placeholder: Equipe Entreprise, Michel Martin...
       index:
-        title: Relances par experts
+        title: Paniers qualité
+      navbar:
+        title: Paniers qualité
       scopes:
         icon:
           inputs: ri-login-circle-line
@@ -658,6 +664,10 @@ fr:
     need:
       many_pending_needs: Cet expert est présent dans le paniers « plus de 5 besoins en attentes »
     needs:
+      filters:
+        search: Rechercher
+      navbar:
+        title: Relances
       scopes:
         detail:
           last_chance: J+%{days}
@@ -681,17 +691,8 @@ fr:
         email_send: Email de la dernière chance envoyé à %{teams}
     needs_badges:
       add_remove_badges: Ajouter ou retirer un tag
-    section:
-      experts: Par expert
-      needs: Par besoin
-      needs_by_statut: Par statut du besoin
     send_abandoned_need_email: Envoyer l’email d’échec au dirigeant
     send_last_chance_email: Envoyer l’email de la dernière chance
-    shared:
-      filters:
-        by_full_name: Par nom d’expert ou d’utilisateur
-        search: Rechercher
-        search_placeholder: Equipe Entreprise, Michel Martin...
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
   reports:

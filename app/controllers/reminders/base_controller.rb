@@ -14,15 +14,6 @@ module Reminders
       %i[inputs many_pending_needs medium_pending_needs one_pending_need outputs]
     end
 
-    def collections_counts
-      @collections_by_reminders_actions_count = Rails.cache.fetch(['reminders_need', territory_needs]) do
-        collection_action_names.index_with { |name| territory_needs.reminders_to(name).size }
-      end
-      @expert_collections_count = Rails.cache.fetch(['expert_reminders_need', territory_needs, RemindersRegister.current_remainder_category.pluck(:updated_at).max]) do
-        experts_collection_names.index_with { |name| territory_experts.send(name).distinct.size }
-      end
-    end
-
     # Filtering
     #
     def territory_needs
@@ -51,7 +42,7 @@ module Reminders
     def setup_territory_filters
       @possible_territories_options = Territory.deployed_regions.pluck(:name, :id)
       @possible_territories_options.push(
-        [ t('helpers.expert.national_perimeter.label'), t('helpers.expert.national_perimeter.value') ],
+        [ t('helpers.expert.national_perimeter.label'), t('helpers.expert.national_perimeter.value') ]
       )
     end
   end

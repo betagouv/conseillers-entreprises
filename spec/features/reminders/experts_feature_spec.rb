@@ -11,9 +11,9 @@ describe 'reminders experts', js: true do
     before { RemindersService.create_reminders_registers }
 
     it 'displays experts and opens expert BAL' do
-      visit reminders_path
+      visit inputs_reminders_experts_path
       expect(page.html).to include 'Relances'
-      expect(page.html).to include 'Par expert'
+      expect(page.html).to include 'Paniers qualité'
       page.click_link(href: "/relances/experts/superieur-a-cinq-besoins")
       expect(page).to have_css('.card', count: 1)
       expect(page).to be_accessible
@@ -35,9 +35,9 @@ describe 'reminders experts', js: true do
 
     context 'reminders_path' do
       it 'displays page' do
-        visit reminders_path
+        visit inputs_reminders_experts_path
         expect(page.html).to include 'Relances'
-        expect(page.html).to include 'Par expert'
+        expect(page.html).to include 'Paniers qualité'
       end
     end
 

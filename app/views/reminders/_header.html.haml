@@ -1,8 +1,8 @@
 %h1
-  = t('reminders.index.title')
+  = title
 
-- pages = [{ title: t('reminders.index.title'), path: reminders_path },
-           { title: t(section, scope: 'reminders.section'), path: polymorphic_path([:reminders, section]) }]
+- pages = [{ title: t(section, scope: 'reminders.section'), path: polymorphic_path([:reminders, section]) }]
+
 - pages << { title: t(scope, scope: [:reminders, section, :scopes, :name]), path: polymorphic_path([scope, :reminders, section]) } if defined?(scope)
 - pages << { title: expert, path: many_pending_needs_reminders_experts_path(expert) } if defined?(expert)
 - current_page = pages.last[:title]

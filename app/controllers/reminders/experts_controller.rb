@@ -105,5 +105,11 @@ module Reminders
       @action = action
       render :index
     end
+
+    def collections_counts
+      @expert_collections_count = Rails.cache.fetch(['expert_reminders_need', territory_needs, RemindersRegister.current_remainder_category.pluck(:updated_at).max]) do
+        experts_collection_names.index_with { |name| territory_experts.send(name).distinct.size }
+      end
+    end
   end
 end

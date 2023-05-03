@@ -72,5 +72,11 @@ module Reminders
 
       render :index
     end
+
+    def collections_counts
+      @collections_by_reminders_actions_count = Rails.cache.fetch(['reminders_need', territory_needs]) do
+        collection_action_names.index_with { |name| territory_needs.reminders_to(name).size }
+      end
+    end
   end
 end
