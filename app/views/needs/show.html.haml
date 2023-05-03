@@ -11,16 +11,23 @@
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
         = need_general_context(@need)
-        - if @need.institution_filters.any?
+        - if @need.institution_filters.any? || @need.solicitation.landing.is_entreprendre_landing
           %hr
-          - @need.institution_filters.each do |filter|
-            - answer = I18n.t(filter.filter_value, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key], default: I18n.t(filter.filter_value, scope: [:boolean, :text]))
-            %li
-              = I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])
-              %strong= answer
+          .need-description__meta.fr-text--sm
+            - if @need.institution_filters.any?
+              %ul
+                - @need.institution_filters.each do |filter|
+                  - answer = I18n.t(filter.filter_value, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key], default: I18n.t(filter.filter_value, scope: [:boolean, :text]))
+                  %li
+                    = I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])
+                    %strong= answer
+            - if @need.solicitation.landing.is_entreprendre_landing
+              %div
+                = t('.dila_page_source')
+                %br
+                = link_to @need.solicitation.api_calling_url, @need.solicitation.api_calling_url, title: "#{to_new_window_title(t('.dila_page_source_title'))}", target: '_blank', rel: 'noopener'
 
     .fr-col-md-4.order-minus-one.bp-sm
-
       .fr-grid-row.need-metadata
         .fr-col-lg-2.need-metadata--picto
           %span.ri-map-pin-user-line{ 'aria-hidden': 'true' }
