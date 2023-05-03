@@ -691,6 +691,9 @@ fr:
         email_send: Email de la dernière chance envoyé à %{teams}
     needs_badges:
       add_remove_badges: Ajouter ou retirer un tag
+    section:
+      experts: Paniers qualité
+      needs: relances
     send_abandoned_need_email: Envoyer l’email d’échec au dirigeant
     send_last_chance_email: Envoyer l’email de la dernière chance
   reminders_actions:
