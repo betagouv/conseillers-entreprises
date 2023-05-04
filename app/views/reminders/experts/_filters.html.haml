@@ -16,5 +16,5 @@
         %p= collection_count active_experts
     .fr-col-md-6.fr-col-12.text-right
       - if reminders_filter_params.present?
-        = link_to t('search.clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
-      = f.submit t('.search'), class: 'fr-btn', title: t('.search')
+        = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
+      = f.submit t('search'), class: 'fr-btn', title: t('.search')

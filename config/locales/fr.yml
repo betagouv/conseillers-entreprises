@@ -31,6 +31,7 @@ fr:
       'false': non
       'true': oui
   cgu: Conditions d’utilisation
+  clear_search: Réinitialiser la recherche
   company_contact: Chefs d’entreprises, cliquez ici
   contact_us: contactez-nous
   cta_button: Échanger avec un conseiller
