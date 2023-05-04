@@ -342,9 +342,9 @@ RSpec.describe Need do
     end
 
     describe 'created_since' do
-      let(:date1) { Time.zone.now.strftime('%Y-%m-%e') }
-      let(:date2) { 2.days.ago.strftime('%Y-%m-%e') }
-      let(:date3) { 3.days.ago.strftime('%Y-%m-%e') }
+      let(:date1) { Time.zone.now.strftime('%Y-%m-%d') }
+      let(:date2) { 2.days.ago.strftime('%Y-%m-%d') }
+      let(:date3) { 3.days.ago.strftime('%Y-%m-%d') }
       let!(:need_1) { create :need_with_matches, created_at: date1 }
       let!(:need_2) { create :need_with_matches, created_at: date2 }
       let!(:need_3) { create :need_with_matches, created_at: date3 }
@@ -355,9 +355,9 @@ RSpec.describe Need do
     end
 
     describe 'created_until' do
-      let(:date1) { Time.zone.now.strftime('%Y-%m-%e') }
-      let(:date2) { 2.days.ago.strftime('%Y-%m-%e') }
-      let(:date3) { 3.days.ago.strftime('%Y-%m-%e') }
+      let(:date1) { Time.zone.now.strftime('%Y-%m-%d') }
+      let(:date2) { 2.days.ago.strftime('%Y-%m-%d') }
+      let(:date3) { 3.days.ago.strftime('%Y-%m-%d') }
       let!(:need_1) { create :need_with_matches, created_at: date1 }
       let!(:need_2) { create :need_with_matches, created_at: date2 }
       let!(:need_3) { create :need_with_matches, created_at: date3 }
