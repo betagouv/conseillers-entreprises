@@ -202,6 +202,46 @@ RSpec.describe "Solicitations API" do
           end
         end
 
+        context 'Mauvaises questions additionnelles' do
+          response '200', 'Solicitation créée meme avec de mauvais id de questions additionnelles' do
+              schema type: :object,
+                     properties: {
+                       data: {
+                         type: :array,
+                         items: {
+                           '$ref': "#/components/schemas/solicitation_created"
+                         }
+                       }
+                     }
+
+              let(:siret) { 13002526500013 }
+              let(:solicitation) do
+    {
+      solicitation: base_solicitation.merge({
+        questions_additionnelles: [
+          { question_id: 333, answer: true },
+          { question_id: 444, answer: false },
+        ]
+      })
+    }
+  end
+
+              before do |example|
+                ENV['API_ENTREPRISE_TOKEN'] = token
+                stub_request(:get, api_entreprise_url).to_return(
+                  body: file_fixture('api_entreprise_etablissement.json')
+                )
+                submit_request(example.metadata)
+              end
+
+              it 'creates a solicitation' do
+                new_solicitation = Solicitation.last
+                expect(new_solicitation.institution_filters.first.additional_subject_question_id).to eq(cadre_question.id)
+                expect(new_solicitation.institution_filters.last.additional_subject_question_id).to eq(apprentissage_question.id)
+              end
+            end
+        end
+
         context 'Mauvaise landing' do
           response '422', 'Page introuvable' do
             schema errors: {
