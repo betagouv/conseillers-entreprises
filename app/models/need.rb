@@ -326,6 +326,7 @@ class Need < ApplicationRecord
 
   def self.apply_filters(params)
     klass = self
+    klass = klass.by_region(params[:by_region]) if params[:by_region].present?
     klass = klass.by_subject(params[:by_subject]) if params[:by_subject].present?
     klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
     klass = klass.created_since(params[:created_since]) if params[:created_since].present?

@@ -10,7 +10,7 @@ describe 'reminders experts', js: true do
 
     before { RemindersService.create_reminders_registers }
 
-    it 'displays experts' do
+    it 'displays experts and opens expert BAL' do
       visit reminders_path
       expect(page.html).to include 'Relances'
       expect(page.html).to include 'Par expert'
@@ -23,6 +23,8 @@ describe 'reminders experts', js: true do
       page.click_link(href: "/relances/experts/un-besoin-recent")
       expect(page).to have_css('.card', count: 2)
       expect(page).to be_accessible
+      click_link("1 boite de réception", match: :first)
+      expect(page).to have_text("Boite de réception")
     end
   end
 

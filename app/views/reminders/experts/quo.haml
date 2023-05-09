@@ -28,5 +28,6 @@
 
 - content_for :header, render('reminders/header', section: :experts, expert: @expert)
 - content_for :menu, render('expert_menu', expert: @expert, collections_counts: @inbox_collections_counts)
+- content_for :search, render('needs/search', needs: @needs)
 
 = render 'reminders/needs', received_needs: @needs, action: @action
