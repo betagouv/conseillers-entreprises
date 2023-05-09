@@ -1,6 +1,10 @@
 module Inbox
   extend ActiveSupport::Concern
 
+  included do
+    helper_method :needs_search_params
+  end
+
   private
 
   def inbox_collection_names
@@ -51,6 +55,20 @@ module Inbox
       inbox_collection_names.index_with do |name|
         Need.in_antennes_perimeters(recipient).merge!(Need.where(id: recipient.map { |a| a.send("territory_needs_#{name}") }.flatten)).size
       end
+    end
+  end
+
+  def needs_search_params
+    session[:needs_search_params]&.with_indifferent_access || {}
+  end
+
+  def persist_search_params
+    session[:needs_search_params] ||= {}
+    search_params = params.slice(:omnisearch, :by_subject, :created_since, :created_until).permit!
+    if params[:reset_query].present?
+      session.delete(:needs_search_params)
+    else
+      session[:needs_search_params] = session[:needs_search_params].merge(search_params)
     end
   end
 end

@@ -102,23 +102,8 @@ class NeedsController < ApplicationController
 
   private
 
-  def needs_search_params
-    session[:needs_search_params]&.with_indifferent_access || {}
-  end
-  helper_method :needs_search_params
-
   def authorize_index_solicitation
     authorize Need, :index?
-  end
-
-  def persist_search_params
-    session[:needs_search_params] ||= {}
-    search_params = params.slice(:omnisearch, :by_subject, :created_since, :created_until).permit!
-    if params[:reset_query].present?
-      session.delete(:needs_search_params)
-    else
-      session[:needs_search_params] = session[:needs_search_params].merge(search_params)
-    end
   end
 
   def retrieve_diagnosis
