@@ -96,7 +96,8 @@ module Reminders
     def render_collection(action)
       @active_experts = filtered_experts
         .includes(:received_needs)
-        .left_joins(:reminder_feedbacks, :users)
+        .joins(:users)
+        .left_joins(:reminder_feedbacks)
         .send(action)
         .most_needs_quo_first
         .page params[:page]
