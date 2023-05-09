@@ -16,12 +16,12 @@ module Reminders
 
     # Filtering
     #
-    def territory_needs
-      @territory_needs ||= Need.apply_filters(reminders_filter_params)
+    def filtered_needs
+      @filtered_needs ||= Need.apply_filters(reminders_filter_params)
     end
 
-    def territory_experts
-      @territory_experts ||= Expert.apply_filters(reminders_filter_params)
+    def filtered_experts
+      @filtered_experts ||= Expert.apply_filters(reminders_filter_params)
     end
 
     def reminders_filter_params

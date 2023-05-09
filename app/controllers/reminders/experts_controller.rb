@@ -94,8 +94,7 @@ module Reminders
     end
 
     def render_collection(action)
-      @active_experts = Expert
-        .apply_filters(reminders_filter_params)
+      @active_experts = filtered_experts
         .includes(:received_needs)
         .left_joins(:reminder_feedbacks, :users)
         .send(action)
@@ -107,8 +106,8 @@ module Reminders
     end
 
     def collections_counts
-      @expert_collections_count = Rails.cache.fetch(['expert_reminders_need', territory_needs, RemindersRegister.current_remainder_category.pluck(:updated_at).max]) do
-        experts_collection_names.index_with { |name| territory_experts.send(name).distinct.size }
+      @expert_collections_count = Rails.cache.fetch(['expert_reminders_need', filtered_needs, RemindersRegister.current_remainder_category.pluck(:updated_at).max]) do
+        experts_collection_names.index_with { |name| filtered_experts.send(name).distinct.size }
       end
     end
   end

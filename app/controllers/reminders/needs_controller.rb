@@ -62,7 +62,7 @@ module Reminders
 
     def render_collection(action)
       @action = action
-      @needs = territory_needs
+      @needs = filtered_needs
         .reminders_to(action)
         .joins(:matches, :experts)
         .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
@@ -74,8 +74,8 @@ module Reminders
     end
 
     def collections_counts
-      @collections_by_reminders_actions_count = Rails.cache.fetch(['reminders_need', territory_needs]) do
-        collection_action_names.index_with { |name| territory_needs.reminders_to(name).size }
+      @collections_by_reminders_actions_count = Rails.cache.fetch(['reminders_need', filtered_needs]) do
+        collection_action_names.index_with { |name| filtered_needs.reminders_to(name).size }
       end
     end
   end
