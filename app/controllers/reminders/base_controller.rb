@@ -16,14 +16,6 @@ module Reminders
 
     # Filtering
     #
-    def filtered_needs
-      @filtered_needs ||= Need.apply_filters(reminders_filter_params)
-    end
-
-    def filtered_experts
-      @filtered_experts ||= Expert.apply_filters(reminders_filter_params)
-    end
-
     def reminders_filter_params
       session[:reminders_filter_params]&.with_indifferent_access || {}
     end

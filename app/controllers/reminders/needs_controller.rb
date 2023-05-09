@@ -78,5 +78,9 @@ module Reminders
         collection_action_names.index_with { |name| filtered_needs.reminders_to(name).size }
       end
     end
+
+    def filtered_needs
+      @filtered_needs ||= Need.apply_filters(reminders_filter_params)
+    end
   end
 end
