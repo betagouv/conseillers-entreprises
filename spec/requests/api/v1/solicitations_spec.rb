@@ -203,43 +203,42 @@ RSpec.describe "Solicitations API" do
         end
 
         context 'Mauvaises questions additionnelles' do
-          response '200', 'Solicitation créée meme avec de mauvais id de questions additionnelles' do
-              schema type: :object,
-                     properties: {
-                       data: {
-                         type: :array,
-                         items: {
-                           '$ref': "#/components/schemas/solicitation_created"
-                         }
-                       }
-                     }
-
-              let(:siret) { 13002526500013 }
-              let(:solicitation) do
-    {
-      solicitation: base_solicitation.merge({
-        questions_additionnelles: [
-          { question_id: 333, answer: true },
-          { question_id: 444, answer: false },
-        ]
-      })
-    }
-  end
-
-              before do |example|
-                ENV['API_ENTREPRISE_TOKEN'] = token
-                stub_request(:get, api_entreprise_url).to_return(
-                  body: file_fixture('api_entreprise_etablissement.json')
-                )
-                submit_request(example.metadata)
-              end
-
-              it 'creates a solicitation' do
-                new_solicitation = Solicitation.last
-                expect(new_solicitation.institution_filters.first.additional_subject_question_id).to eq(cadre_question.id)
-                expect(new_solicitation.institution_filters.last.additional_subject_question_id).to eq(apprentissage_question.id)
-              end
+          response '422', 'Solicitation créée meme avec de mauvais id de questions additionnelles' do
+            schema errors: {
+              type: :array,
+                    items: {
+                      '$ref': "#/components/schemas/error"
+                    }
+            }
+            let(:siret) { 13002526500013 }
+            let(:other_question_01) { create :additional_subject_question }
+            let(:other_question_02) { create :additional_subject_question }
+            let(:solicitation) do
+              {
+                solicitation: base_solicitation.merge({
+                  questions_additionnelles: [
+                    { question_id: other_question_01.id, answer: true },
+                    { question_id: other_question_02.id, answer: false },
+                  ]
+                })
+              }
             end
+
+            before do |example|
+              ENV['API_ENTREPRISE_TOKEN'] = token
+              stub_request(:get, api_entreprise_url).to_return(
+                body: file_fixture('api_entreprise_etablissement.json')
+              )
+              submit_request(example.metadata)
+            end
+
+            it 'returns insitution_filters error' do |example|
+              expect(response).to have_http_status(:unprocessable_entity)
+              result = response.parsed_body
+              expect(result["errors"].first["source"]).to eq('Questions additionnelles')
+              expect(result["errors"].first["message"]).to eq('doivent correspondre aux questions du sujet de la demande')
+            end
+          end
         end
 
         context 'Mauvaise landing' do

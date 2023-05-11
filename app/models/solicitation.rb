@@ -150,6 +150,7 @@ class Solicitation < ApplicationRecord
   validates :landing_subject, presence: true, allow_blank: false, if: -> { created_at.nil? || created_at > "20201101".to_date }
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
   validates :institution_filters, presence: true, if: -> { subject_with_additional_questions? }
+  validate :correct_institution_filters, if: -> { subject_with_additional_questions? }
   validates :api_calling_url, presence: true, if: -> { landing&.api? }
   validates :completed_at, presence: true, if: -> { step_complete? }
 
@@ -175,6 +176,12 @@ class Solicitation < ApplicationRecord
 
   def subject_with_additional_questions?
     status_in_progress? && self.subject&.additional_subject_questions&.any?
+  end
+
+  def correct_institution_filters
+    if (self.institution_filters.to_set{ |f| f.additional_subject_question_id } != self.subject&.additional_subject_question_ids.to_set)
+      errors.add(:institution_filters, :incorrect)
+    end
   end
 
   ## Callbacks
