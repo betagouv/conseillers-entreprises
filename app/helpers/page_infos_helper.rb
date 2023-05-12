@@ -22,7 +22,7 @@ module PageInfosHelper
     if collection.total_pages < 2
       t('helpers.page_infos.searched_collection_count_html', size: collection_size)
     else
-      t('helpers.page_entries_info.many_pages_html',
+      t('helpers.page_entries_info.many_search_pages_html',
         total: collection_size,
         start: collection.offset_value + 1,
         end: collection.offset_value + collection.length)
