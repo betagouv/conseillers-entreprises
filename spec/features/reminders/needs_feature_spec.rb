@@ -16,11 +16,11 @@ describe 'reminders needs', js: true do
     it 'displays experts' do
       visit poke_reminders_needs_path
       expect(page.html).to include 'Relances'
-      expect(page.html).to include 'Par besoin'
       click_link(href: "/relances/besoins/sans-reponse")
       expect(page).to have_content(need2.company.name)
       expect(page).to have_css('.card', count: 2)
       select(region.name, from: 'by_region')
+      click_button 'Rechercher'
       expect(page).not_to have_content(need2.company.name)
       expect(page).to have_css('.card', count: 1)
     end
