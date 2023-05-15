@@ -1,4 +1,5 @@
-- meta title: @expert.full_name
+- title = @expert.full_name
+- meta title: title
 
 - content_for :callout do
   .fr-callout.fr-callout--c-expert
@@ -26,7 +27,7 @@
                 = render partial: 'feedbacks/feedback', collection: @expert.reminder_feedbacks.order(:created_at)
               = render 'feedbacks/form', feedback: @expert.reminder_feedbacks.new
 
-- content_for :header, render('reminders/header', section: :experts, expert: @expert)
+- content_for :header, render('reminders/header', title: title, section: :experts, expert: @expert)
 - content_for :menu, render('expert_menu', expert: @expert, collections_counts: @inbox_collections_counts)
 - content_for :search, render('needs/search', needs: @needs)
 

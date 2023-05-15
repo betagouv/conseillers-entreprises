@@ -1,9 +1,7 @@
 - meta title: t('reminders.index.title')
-- content_for :header, render('reminders/header', section: :needs, scope: (@action.presence || @status.presence))
-- content_for :menu, render('reminders/menu', collections_by_reminders_actions_count: @collections_by_reminders_actions_count,
-                                              expert_collections_count: @expert_collections_count,
-                                              collections_by_status_counts: @collections_by_status_counts)
+- content_for :header, render('reminders/header', title: t('reminders.index.title'), section: :needs, scope: @action.presence)
+- content_for :menu, render('menu', collections_by_reminders_actions_count: @collections_by_reminders_actions_count)
 
-= render 'reminders/shared/filters', possible_territories_options: @possible_territories_options
+= render 'filters', possible_territories_options: @possible_territories_options
 
 = render 'reminders/needs', received_needs: @needs, action: @action
