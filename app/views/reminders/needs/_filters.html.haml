@@ -11,6 +11,3 @@
   .fr-col-12.text-right
     - if reminders_filter_params.present?
       = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
-  .fr-col-md-6.fr-col-12
-    - if defined? active_experts
-      %p= collection_count active_experts

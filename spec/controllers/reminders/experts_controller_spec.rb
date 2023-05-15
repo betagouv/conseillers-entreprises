@@ -56,6 +56,12 @@ RSpec.describe Reminders::ExpertsController do
 
       it { expect(assigns(:active_experts)).to contain_exactly(expert_output_not_seen, old_expert_output_not_seen, expert_input_to_output) }
     end
+
+    describe '#GET expired_needs' do
+      before { get :expired_needs }
+
+      it { expect(assigns(:active_experts)).to contain_exactly(expert_remainder_to_expired) }
+    end
   end
 
   describe '#send_reminder_email' do

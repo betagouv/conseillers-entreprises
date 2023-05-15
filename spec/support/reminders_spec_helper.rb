@@ -101,5 +101,10 @@ module RemindersSpecHelper
     let!(:expert_input_to_output) { create :expert_with_users }
     let!(:rg_expert_input_to_output) { create :reminders_register, expert: expert_input_to_output, processed: true, category: :input, run_number: 1 }
     let!(:expert_input_to_output_needs) { travel_to(16.days.ago) { create_list :match, 6, status: :done, expert: expert_input_to_output } }
+
+    # Expert deja présent la semaine passée, vu, et avec expirations des besoins, qui le fait sortir des paniers
+    let!(:expert_remainder_to_expired) { create :expert_with_users }
+    let!(:rg_expert_remainder_to_expired) { create :reminders_register, expert: expert_remainder_to_expired, category: :input, processed: true, run_number: 1 }
+    let!(:expert_remainder_to_expired_needs) { travel_to(46.days.ago) { create_list :match, 3, status: :quo, expert: expert_remainder_to_expired } }
   end
 end
