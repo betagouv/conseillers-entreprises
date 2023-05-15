@@ -20,7 +20,8 @@ describe 'reminders needs', js: true do
       expect(page).to have_content(need2.company.name)
       expect(page).to have_css('.card', count: 2)
       select(region.name, from: 'by_region')
-      click_button 'Rechercher'
+      # Trying to get rid of flaky test
+      page.find_button('Rechercher').execute_script('this.click()')
       expect(page).not_to have_content(need2.company.name)
       expect(page).to have_css('.card', count: 1)
     end
