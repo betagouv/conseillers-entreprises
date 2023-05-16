@@ -171,6 +171,7 @@ Rails.application.routes.draw do
       collection do
         get :inputs, path: 'arrivees'
         get :outputs, path: 'departs'
+        get :expired_needs, path: 'expires'
         get :many_pending_needs, path: 'superieur-a-cinq-besoins'
         get :medium_pending_needs, path: 'entre-deux-et-cinq-besoins'
         get :one_pending_need, path: 'un-besoin-recent'

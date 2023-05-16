@@ -2,14 +2,15 @@
 #
 # Table name: reminders_registers
 #
-#  id         :bigint(8)        not null, primary key
-#  basket     :integer
-#  category   :integer          default("remainder"), not null
-#  processed  :boolean          default(FALSE), not null
-#  run_number :integer          not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  expert_id  :bigint(8)        not null
+#  id            :bigint(8)        not null, primary key
+#  basket        :integer
+#  category      :integer          default("remainder"), not null
+#  expired_count :integer          default(0)
+#  processed     :boolean          default(FALSE), not null
+#  run_number    :integer          not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  expert_id     :bigint(8)        not null
 #
 # Indexes
 #
@@ -25,7 +26,7 @@ class RemindersRegister < ApplicationRecord
 
   validates :run_number, presence: true, uniqueness: { scope: :expert_id }
 
-  enum category: { remainder: 0, input: 1, output: 2 }, _suffix: true
+  enum category: { remainder: 0, input: 1, output: 2, expired_needs: 3 }, _suffix: true
   enum basket: { many_pending_needs: 0, medium_pending_needs: 1, one_pending_need: 2 }, _suffix: true
 
   # current_remainder_category = dans les paniers sauf inputs et outputs
@@ -36,6 +37,7 @@ class RemindersRegister < ApplicationRecord
   }
   scope :current_input_category, -> { input_category.where(run_number: RemindersRegister.last_run_number, processed: false) }
   scope :current_output_category, -> { output_category.where(run_number: RemindersRegister.last_run_number, processed: false) }
+  scope :current_expired_category, -> { expired_needs_category.where(run_number: RemindersRegister.last_run_number, processed: false) }
 
   def self.last_run_number
     RemindersRegister.pluck(:run_number).max

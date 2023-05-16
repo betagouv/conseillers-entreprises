@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module PageInfosHelper
+  # TODO : collection.total_count lourd car reconstruit toute la requête ? A passer en param?
   def collection_count(collection)
     collection_size = collection.total_count
     collection_name = collection.model_name.human(count: collection_size)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_04_155558) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_15_092930) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -523,6 +523,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_04_155558) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "run_number", null: false
+    t.integer "expired_count", default: 0
     t.index ["expert_id"], name: "index_reminders_registers_on_expert_id"
     t.index ["run_number", "expert_id"], name: "index_reminders_registers_on_run_number_and_expert_id", unique: true
   end

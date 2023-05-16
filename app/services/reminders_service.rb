@@ -21,7 +21,9 @@ class RemindersService
         basket = select_basket(expert)
         category = select_category(expert, last_run_number)
         next if basket.nil? || category.nil?
-        RemindersRegister.create!(expert: expert, basket: basket, category: category, run_number: current_run)
+        RemindersRegister.create!(expert: expert, basket: basket,
+                                  category: category, run_number: current_run,
+                                  expired_count: expert.received_quo_matches.with_status_expired.size)
       end
       build_output_basket(experts_with_active_matches, last_run_number, current_run)
     end
@@ -44,7 +46,6 @@ class RemindersService
                (quo_matches_size <= MATCHES_COUNT[:many])
       :medium_pending_needs
     # Panier avec un vieux besoin en attente et le dernier besoin cloturé est vieux de 3 mois
-    # Note Claire : ici, pourquoi ` && quo_matches.present?` ? `old_matches.size == 1` ?
     elsif (old_matches.size < MATCHES_COUNT[:medium] && quo_matches.present?) &&
                (last_closed_match_at(expert).present? && (last_closed_match_at(expert) <= MATCHES_AGE[:done]))
       :one_pending_need
@@ -76,7 +77,14 @@ class RemindersService
     expert_for_outputs = no_longer_in_reminders | in_outputs_not_processed
 
     expert_for_outputs.each do |expert|
-      RemindersRegister.create!(expert: expert, category: :output, run_number: current_run)
+      last_run_register = expert.reminders_registers.find_by(run_number: last_run_number)
+      current_expired_count = expert.received_quo_matches.with_status_expired.size
+      # On considère que la sortie est due a l'expiration des besoins si au moins un besoin a expiré
+      if last_run_register.present? && current_expired_count > last_run_register.expired_count
+        RemindersRegister.create!(expert: expert, category: :expired_needs, run_number: current_run)
+      else
+        RemindersRegister.create!(expert: expert, category: :output, run_number: current_run)
+      end
     end
   end
 end
