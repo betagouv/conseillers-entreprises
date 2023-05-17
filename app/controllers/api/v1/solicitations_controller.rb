@@ -50,7 +50,7 @@ class Api::V1::SolicitationsController < Api::V1::BaseController
 
     formatted_questions_additionnelles.each_with_index do |hash, index|
       true_additional_subject_question = AdditionalSubjectQuestion.find_by(subject_id: subject.id, position: index + 1)
-      hash[:additional_subject_question_id] = true_additional_subject_question.id
+      hash[:additional_subject_question_id] = true_additional_subject_question.id if true_additional_subject_question.present?
     end
     formatted_questions_additionnelles
   end

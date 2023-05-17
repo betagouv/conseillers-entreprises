@@ -21,12 +21,12 @@ module CsvExport
       CSV.generate do |csv|
         csv << match_attributes.keys.map{ |attr| @matches.klass.human_attribute_name(attr, default: attr) }
 
-        sort_relation(@solicitations).each do |object|
+        sort_relation(@solicitations).find_each do |object|
           row = solicitation_attributes.values
           write_row(csv, row, object)
         end
 
-        matches_exporter.sort_relation(@matches).each do |object|
+        matches_exporter.sort_relation(@matches).find_each do |object|
           row = match_attributes.values
           write_row(csv, row, object)
         end
