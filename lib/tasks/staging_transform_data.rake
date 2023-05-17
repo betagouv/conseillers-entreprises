@@ -2,7 +2,7 @@ namespace :staging do
   desc 'Simplify API keys'
   task simplify_api_keys: :environment do
     # on ne manipule pas les données si on est en prod
-    if (Rails.env.production? && ((ENV.fetch('STAGING_ENV', false)) == true))
+    if (Rails.env.production? && ((ENV.fetch('STAGING_ENV', 'false')) == 'true'))
       ApiKey.find_each do |key|
         key.update(token: '123456789')
       end
@@ -12,7 +12,7 @@ namespace :staging do
   desc 'Transform data for demo'
   task transform_data_for_demo: :environment do
     # on ne manipule pas les données si on est en prod
-    if (Rails.env.production? && ((ENV.fetch('STAGING_ENV', false)) == true))
+    if (Rails.env.production? && ((ENV.fetch('STAGING_ENV', 'false')) == 'true'))
 
       @need = Need.find(12683)
 
@@ -156,6 +156,6 @@ namespace :staging do
     end
   end
 
-  desc 'import anonymized production data in development db'
+  desc 'transform data for staging'
   task transform_data: %w[transform_data_for_demo simplify_api_keys]
 end
