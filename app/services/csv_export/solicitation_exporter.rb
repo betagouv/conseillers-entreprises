@@ -20,15 +20,33 @@ module CsvExport
 
       CSV.generate do |csv|
         csv << match_attributes.keys.map{ |attr| @matches.klass.human_attribute_name(attr, default: attr) }
+        solicitation_row = solicitation_attributes.values
 
-        sort_relation(@solicitations).find_each do |object|
-          row = solicitation_attributes.values
-          write_row(csv, row, object)
+        sorted_solicitation_relation = sort_relation(@solicitations)
+        while sorted_solicitation_relation.count > 0
+          object = sorted_solicitation_relation.shift
+          csv << solicitation_row.map do |val|
+            if val.respond_to? :call
+              lambda = val
+              object.instance_exec(&lambda)
+            else
+              object.send(val)
+            end
+          end
         end
 
-        matches_exporter.sort_relation(@matches).find_each do |object|
-          row = match_attributes.values
-          write_row(csv, row, object)
+        match_row = match_attributes.values
+        sorted_match_relation = matches_exporter.sort_relation(@matches)
+        while sorted_match_relation.count > 0
+          object = sorted_match_relation.shift
+          csv << match_row.map do |val|
+            if val.respond_to? :call
+              lambda = val
+              object.instance_exec(&lambda)
+            else
+              object.send(val)
+            end
+          end
         end
       end
     end
