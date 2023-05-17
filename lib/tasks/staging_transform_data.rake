@@ -128,7 +128,7 @@ namespace :staging do
       full_name: 'Pierrette Brindy',
       email: 'pierrette.brindy@dgfip.finances.gouv.fr',
       phone_number: '0605040302'
-      })
+    })
 
     feedback = Feedback.find(8883)
     feedback.update(description: "L'entreprise a obtenu une avance remboursable du fonds de relance de la CAHC de 10 000 €.")
