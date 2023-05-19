@@ -29,7 +29,7 @@ describe RemindersService do
           expect(RemindersRegister.current_remainder_category.map(&:expert)).to contain_exactly(expert_remainder, expert_input_processed, expert_remainder_category)
           expect(RemindersRegister.current_input_category.map(&:expert)).to contain_exactly(expert_input, expert_remainder_not_processed)
           expect(RemindersRegister.current_output_category.map(&:expert)).to contain_exactly(expert_output_not_seen, old_expert_output_not_seen, expert_input_to_output)
-          expect(RemindersRegister.current_expired_category.map(&:expert)).to contain_exactly(expert_remainder_to_expired)
+          expect(RemindersRegister.current_expired_need_category.map(&:expert)).to contain_exactly(expert_remainder_to_expired)
         end
       end
     end

@@ -37,7 +37,7 @@ class RemindersRegister < ApplicationRecord
   }
   scope :current_input_category, -> { input_category.where(run_number: RemindersRegister.last_run_number, processed: false) }
   scope :current_output_category, -> { output_category.where(run_number: RemindersRegister.last_run_number, processed: false) }
-  scope :current_expired_category, -> { expired_needs_category.where(run_number: RemindersRegister.last_run_number, processed: false) }
+  scope :current_expired_need_category, -> { expired_needs_category.where(run_number: RemindersRegister.last_run_number, processed: false) }
 
   def self.last_run_number
     RemindersRegister.pluck(:run_number).max
