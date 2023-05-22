@@ -68,19 +68,23 @@ class RemindersService
   end
 
   def self.build_output_basket(experts, last_run_number, current_run)
-    experts_in_last_run = RemindersRegister.where(run_number: last_run_number, category: [:input, :remainder]).map(&:expert)
+    last_run_reminder_needs = RemindersRegister.where(run_number: last_run_number)
+    experts_in_last_run = last_run_reminder_needs.where(category: [:input, :remainder]).map(&:expert)
     experts_in_current_run = RemindersRegister.where(run_number: current_run).map(&:expert)
     # expert qui etaient dans les paniers mais ne le sont plus
     no_longer_in_reminders = experts_in_last_run - experts_in_current_run
     # plus les experts qui sont encore dans les sorties et pas "vu"
-    in_outputs_not_processed = RemindersRegister.where(run_number: last_run_number, category: :output, processed: false).map(&:expert)
-    expert_for_outputs = no_longer_in_reminders | in_outputs_not_processed
+    in_outputs_not_processed = last_run_reminder_needs.where(category: :output, processed: false).map(&:expert)
+    in_expired_needs_not_processed = last_run_reminder_needs.where(category: :expired_needs, processed: false).map(&:expert)
+    expert_for_outputs = no_longer_in_reminders | in_outputs_not_processed | in_expired_needs_not_processed
 
     expert_for_outputs.each do |expert|
       last_run_register = expert.reminders_registers.find_by(run_number: last_run_number)
       current_expired_count = expert.received_quo_matches.with_status_expired.size
       # On considère que la sortie est due a l'expiration des besoins si au moins un besoin a expiré
-      if last_run_register.present? && current_expired_count > last_run_register.expired_count
+      if last_run_register.present? && (
+        (current_expired_count > last_run_register.expired_count) || (current_expired_count == last_run_register.expired_count && in_expired_needs_not_processed.include?(expert))
+      )
         RemindersRegister.create!(expert: expert, category: :expired_needs, run_number: current_run)
       else
         RemindersRegister.create!(expert: expert, category: :output, run_number: current_run)
