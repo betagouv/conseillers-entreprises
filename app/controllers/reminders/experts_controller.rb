@@ -100,12 +100,10 @@ module Reminders
     def render_collection(action)
       @active_experts = filtered_experts
         .includes(:received_needs)
-        .joins(:users)
-        .left_joins(:reminder_feedbacks)
+        .preload(:reminder_feedbacks, :users)
         .send(action)
         .most_needs_quo_first
         .page params[:page]
-
       @action = action
       render :index
     end
