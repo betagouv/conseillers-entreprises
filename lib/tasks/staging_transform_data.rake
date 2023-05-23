@@ -10,20 +10,21 @@ namespace :staging do
   desc 'Transform data for demo'
   task transform_data_for_demo: :environment do
     # on ne manipule pas les données si on est en prod
-    if (Rails.env.production? && ((ENV.fetch('STAGING_ENV', 'false')) == 'true'))
+    # if (Rails.env.production? && ((ENV.fetch('STAGING_ENV', 'false')) == 'true'))
+    p "yop oh"
 
-      @need = Need.find(12683)
+    @need = Need.find(12683)
 
-      unless @need.visitee.full_name == 'François Cagette'
-        transform_visitee
-        transform_company
-        transform_facility
-        transform_diagnosis
-        transform_matches
-        transform_feedbacks
-        add_denis_sauveur
-      end
+    unless @need.visitee.full_name == 'François Cagette'
+      transform_visitee
+      transform_company
+      transform_facility
+      transform_diagnosis
+      transform_matches
+      transform_feedbacks
+      add_denis_sauveur
     end
+    # end
   end
 
   def transform_visitee
@@ -77,6 +78,7 @@ namespace :staging do
     match.update(status: 'done_no_help')
     expert = match.expert
     expert.update({
+      full_name: 'Equipe Correspondants Tpe Pas De Calais',
       email: 'tpme_62@banque-france.fr',
       phone_number: '0605040302'
     })
@@ -84,8 +86,8 @@ namespace :staging do
     match = Match.find(12027)
     expert = match.expert
     expert.update({
-      full_name: 'Ewan Diaw',
-      email: 'e.diaw@artois.cci.fr',
+      full_name: 'Djamal Humette',
+      email: 'd.humette@artois.cci.fr',
       phone_number: '0605040302'
     })
 
@@ -112,8 +114,8 @@ namespace :staging do
     feedback = Feedback.find(8685)
     feedback.update(description: "Entreprise en plan de continuation. Refus de PGE avec échec de la médiation du crédit. Orienté vers la saisine du CODEFI Pas de Calais.")
     feedback.user.update({
-      full_name: 'Aïssa NOUANGA',
-      email: 'aissa.nouanga@banque-france.fr',
+      full_name: 'Hortense Fagault',
+      email: 'hortense.fagault@banque-france.fr',
       phone_number: '0605040302'
     })
 
@@ -131,8 +133,8 @@ namespace :staging do
     feedback = Feedback.find(8883)
     feedback.update(description: "L'entreprise a obtenu une avance remboursable du fonds de relance de la CAHC de 10 000 €.")
     feedback.user.update({
-      full_name: 'Ewan Diaw',
-      email: 'e.diaw@artois.cci.fr',
+      full_name: 'Djamal Humette',
+      email: 'd.humette@artois.cci.fr',
       phone_number: '0605040302'
     })
 
