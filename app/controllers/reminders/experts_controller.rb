@@ -76,7 +76,7 @@ module Reminders
 
     def send_re_engagement_email
       expert = Expert.find(params.permit(:id)[:id])
-      need = expert.received_quo_matches.first.need
+      need = expert.received_quo_matches.with_status_quo_active.first.need
       ExpertMailer.re_engagement(expert, current_user, need).deliver_later
       Feedback.create(user: current_user, category: :expert_reminder, description: t('.re_engagement_email_send'),
                       feedbackable_type: 'Expert', feedbackable_id: expert.id)

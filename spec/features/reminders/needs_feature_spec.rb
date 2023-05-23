@@ -22,7 +22,8 @@ describe 'reminders needs', js: true do
       select(region.name, from: 'by_region')
       # Trying to get rid of flaky test
       page.find_button('Rechercher').execute_script('this.click()')
-      expect(page).not_to have_content(need2.company.name)
+      page.find_by_id('clear-search')
+      expect(page).to have_no_content(need2.company.name)
       expect(page).to have_css('.card', count: 1)
     end
   end
