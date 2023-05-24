@@ -13,7 +13,7 @@
 #
 # Indexes
 #
-#  index_territories_on_code_region         (code_region)
+#  index_territories_on_code_region         (code_region) UNIQUE
 #  index_territories_on_support_contact_id  (support_contact_id)
 #
 

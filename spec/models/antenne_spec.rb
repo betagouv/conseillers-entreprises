@@ -132,7 +132,7 @@ RSpec.describe Antenne do
   describe 'perimeter_received_needs' do
     let(:commune1) { create :commune }
     let(:commune2) { create :commune }
-    let!(:region) { create :territory, :region, code_region: Territory.deployed_codes_regions.first, communes: [commune1, commune2] }
+    let!(:region) { create :territory, :region, code_region: 999, communes: [commune1, commune2] }
     let(:institution1) { create :institution, name: 'Institution 1' }
     let(:national_antenne_i1) { create :antenne, :national, institution: institution1 }
     let(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, communes: [commune1, commune2] }
@@ -196,8 +196,8 @@ RSpec.describe Antenne do
     let(:commune2) { create :commune }
     let(:commune3) { create :commune }
     let(:institution1) { create :institution, name: 'Institution 1' }
-    let!(:region) { create :territory, :region, code_region: Territory.deployed_codes_regions.first, communes: [commune1, commune2] }
-    let!(:region2) { create :territory, :region, code_region: Territory.deployed_codes_regions.second, communes: [commune3] }
+    let!(:region) { create :territory, :region, code_region: 998, communes: [commune1, commune2] }
+    let!(:region2) { create :territory, :region, code_region: 999, communes: [commune3] }
 
     let(:national_antenne_i1) { create :antenne, :national, institution: institution1 }
     let(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, communes: [commune1, commune2] }
@@ -259,7 +259,7 @@ RSpec.describe Antenne do
   describe 'regional_antenne' do
     let(:commune1) { create :commune }
     let(:commune2) { create :commune }
-    let!(:region) { create :territory, :region, code_region: Territory.deployed_codes_regions.first, communes: [commune1, commune2] }
+    let!(:region) { create :territory, :region, code_region: 999, communes: [commune1, commune2] }
     let(:institution1) { create :institution, name: 'Institution 1' }
     let!(:regional_antenne1) { create :antenne, :regional, institution: institution1, communes: [commune1, commune2] }
     let!(:local_antenne1) { create :antenne, :local, institution: institution1, communes: [commune1] }
@@ -284,7 +284,7 @@ RSpec.describe Antenne do
   describe 'check_territorial_level callback' do
     let!(:commune1) { create :commune }
     let!(:commune2) { create :commune }
-    let!(:region) { create :territory, :region, code_region: Territory.deployed_codes_regions.first, communes: [commune1, commune2] }
+    let!(:region) { create :territory, :region, code_region: 999, communes: [commune1, commune2] }
     let!(:regional_antenne1) { create :antenne, communes: [commune1, commune2] }
     let!(:local_antenne1) { create :antenne, communes: [commune1] }
 

@@ -83,6 +83,9 @@ GEM
     activerecord (7.0.4.3)
       activemodel (= 7.0.4.3)
       activesupport (= 7.0.4.3)
+    activerecord-postgis-adapter (8.0.1)
+      activerecord (~> 7.0.0)
+      rgeo-activerecord (~> 7.0.0)
     activerecord-postgres_enum (2.0.1)
       activerecord (>= 5.2)
       pg
@@ -474,6 +477,10 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.2.5)
+    rgeo (3.0.0)
+    rgeo-activerecord (7.0.1)
+      activerecord (>= 5.0)
+      rgeo (>= 1.0.0)
     rorvswild (1.6.2)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
@@ -669,6 +676,7 @@ DEPENDENCIES
   activeadmin-ajax_filter
   activeadmin_blaze_theme
   activeadmin_quill_editor
+  activerecord-postgis-adapter
   activerecord-postgres_enum
   acts_as_list
   annotate

@@ -6,7 +6,7 @@ FactoryBot.define do
 
     trait :region do
       bassin_emploi { false }
-      code_region { 32 }
+      sequence(:code_region) { |n| "#{n}" }
     end
   end
 end

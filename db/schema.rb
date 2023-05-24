@@ -13,6 +13,7 @@
 ActiveRecord::Schema[7.0].define(version: 2023_05_15_092930) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
 
   create_enum :feedbacks_categories, [
     "need",
@@ -569,6 +570,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_092930) do
     t.index ["uuid"], name: "index_solicitations_on_uuid"
   end
 
+  create_table "subject_covers", force: :cascade do |t|
+    t.bigint "antenne_id", null: false
+    t.bigint "institution_subject_id", null: false
+    t.string "cover"
+    t.integer "anomalie"
+    t.json "anomalie_details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["antenne_id"], name: "index_subject_covers_on_antenne_id"
+    t.index ["institution_subject_id"], name: "index_subject_covers_on_institution_subject_id"
+  end
+
   create_table "subjects", id: :serial, force: :cascade do |t|
     t.string "label", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -593,7 +606,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_092930) do
     t.bigint "support_contact_id"
     t.integer "code_region"
     t.datetime "deployed_at", precision: nil
-    t.index ["code_region"], name: "index_territories_on_code_region"
+    t.index ["code_region"], name: "index_territories_on_code_region", unique: true
     t.index ["support_contact_id"], name: "index_territories_on_support_contact_id"
   end
 
@@ -701,6 +714,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_092930) do
   add_foreign_key "solicitations", "institutions"
   add_foreign_key "solicitations", "landing_subjects"
   add_foreign_key "solicitations", "landings"
+  add_foreign_key "subject_covers", "antennes"
+  add_foreign_key "subject_covers", "institutions_subjects"
   add_foreign_key "subjects", "themes"
   add_foreign_key "user_rights", "antennes"
   add_foreign_key "user_rights", "users"
