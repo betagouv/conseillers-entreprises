@@ -358,7 +358,7 @@ fr:
       instructions_html: En tant qu’expert sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos domaines d’intervention.
       others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a> (%{email}). Vous êtes susceptible de n'intervenir que sur une partie de ces domaines.
   export_xls:
-    email_instructions: Les adresses mails individuels sont indispensables à la création des comptes utilisateurs et l’accès à l’interface Place des Entreprises. Si des conseillers sont partis, merci de mettre en rouge les lignes en question pour que nous supprimions leurs comptes utilisateurs.
+    email_instructions: Les adresses mails individuelles sont indispensables à la création des comptes utilisateurs et l’accès à l’interface Place des Entreprises. Si des conseillers sont partis, merci de mettre en rouge les lignes en question pour que nous supprimions leurs comptes utilisateurs.
     phone_instructions: |-
       Un numéro différent par conseiller
       Pas de standard téléphonique
