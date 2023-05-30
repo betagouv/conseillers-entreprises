@@ -1,0 +1,670 @@
+{
+  "updatedAt": "2023-05-13T07:19:58+02:00",
+  "id": "63ab0dc2cbb26e4362019707",
+  "formality": {
+    "siren": "418166096",
+    "content": {
+      "formeExerciceActivitePrincipale": "COMMERCIALE",
+      "natureCreation": {
+        "dateCreation": "1998-03-27",
+        "societeEtrangere": false,
+        "formeJuridique": "5710",
+        "microEntreprise": false,
+        "etablieEnFrance": true,
+        "salarieEnFrance": true,
+        "relieeEntrepriseAgricole": false,
+        "entrepriseAgricole": false,
+        "eirl": false
+      },
+      "personneMorale": {
+        "beneficiairesEffectifs": [
+          {
+            "beneficiaire": {
+              "descriptionPersonne": {
+                "dateDeNaissance": "1980-07",
+                "nom": "Roux",
+                "prenoms": ["OLIVIER"],
+                "nationalite": "Française"
+              },
+              "adresseDomicile": {}
+            },
+            "modalite": {
+              "detentionPartDirecte": false,
+              "detentionPartDirecteRdd": 0.0,
+              "partsDirectesPleinePropriete": 0.0,
+              "partsDirectesNuePropriete": 0.0,
+              "detentionPartIndirecte": false,
+              "detentionPartIndirecteRdd": 0.0,
+              "partsIndirectesIndivision": 0.0,
+              "partsIndirectesIndivisionPleinePropriete": 0.0,
+              "partsIndirectesIndivisionNuePropriete": 0.0,
+              "partsIndirectesPersonnesMorales": 0.0,
+              "partsIndirectesPmoralesPleinePropriete": 0.0,
+              "partsIndirectesPmoralesNuePropriete": 0.0,
+              "detentionPartTotale": 0.0,
+              "detentionVoteDirecte": false,
+              "detentionVoteDirecteRdd": 0.0,
+              "voteDirectePleinePropriete": 0.0,
+              "voteDirecteNuePropriete": 0.0,
+              "voteDirecteUsufruit": 0.0,
+              "detentionVoteIndirecte": false,
+              "detentionVoteIndirecteRdd": 0.0,
+              "voteIndirecteIndivision": 0.0,
+              "voteIndirecteIndivisionPleinePropriete": 0.0,
+              "voteIndirecteIndivisionNuePropriete": 0.0,
+              "voteIndirecteIndivisionUsufruit": 0.0,
+              "voteIndirectePersonnesMorales": 0.0,
+              "voteIndirectePmoralesPleinePropriete": 0.0,
+              "voteIndirectePmoralesNuePropriete": 0.0,
+              "voteIndirectePmoralesUsufruit": 0.0,
+              "vocationTitulaireDirectePleineProprieteRdd": false,
+              "vocationTitulaireDirectePleinePropriete": 0.0,
+              "vocationTitulaireDirecteNuePropriete": 0.0,
+              "vocationTitulaireIndirecteIndivision": 0.0,
+              "vocationTitulaireIndirectePleineProprieteRdd": false,
+              "vocationTitulaireIndirectePleinePropriete": 0.0,
+              "vocationTitulaireIndirecteNuePropriete": 0.0,
+              "vocationTitulaireIndirectePersonnesMorales": 0.0,
+              "vocationTitulaireIndirectePmoralesPleinePropriete": 0.0,
+              "vocationTitulaireIndirectePmoralesNuePropriete": 0.0,
+              "detentionVoteTotal": 0.0,
+              "detentionPouvoirDecisionAG": false,
+              "detentionPouvoirNommageMembresConseilAdmin": false,
+              "detentionAutresMoyensControle": false,
+              "beneficiaireRepresentantLegal": true,
+              "representantLegalPlacementSansGestionDelegue": false,
+              "societeGestion": {}
+            }
+          }
+        ],
+        "adresseEntreprise": {
+          "adresse": {
+            "pays": "FRANCE",
+            "codePays": "FRA",
+            "codePostal": "75002",
+            "commune": "PARIS 2",
+            "codeInseeCommune": "75102",
+            "typeVoie": "AV",
+            "voie": "DE L OPERA",
+            "numVoie": "34"
+          }
+        },
+        "etablissementPrincipal": {
+          "descriptionEtablissement": {
+            "rolePourEntreprise": "2",
+            "siret": "41816609600069",
+            "indicateurEtablissementPrincipal": true
+          },
+          "adresse": {
+            "pays": "FRANCE",
+            "codePays": "FRA",
+            "codePostal": "75002",
+            "commune": "PARIS 2",
+            "codeInseeCommune": "75102",
+            "typeVoie": "AV",
+            "voie": "DE L OPERA",
+            "numVoie": "34"
+          },
+          "activites": [
+            {
+              "categoryCode": "02080901",
+              "indicateurPrincipal": true,
+              "indicateurProlongement": false,
+              "dateDebut": "2016-11-28",
+              "formeExercice": "COMMERCIALE",
+              "categorisationActivite1": "02",
+              "categorisationActivite2": "08",
+              "categorisationActivite3": "09",
+              "categorisationActivite4": "01",
+              "descriptionDetaillee": "Conseil en systèmes et logiciels informatiques",
+              "indicateurActiviteeApe": true,
+              "rolePrincipalPourEntreprise": true,
+              "codeApe": "6202A",
+              "activiteRattacheeEirl": false
+            }
+          ],
+          "nomsDeDomaine": []
+        },
+        "autresEtablissements": [
+          {
+            "descriptionEtablissement": {
+              "rolePourEntreprise": "14",
+              "siret": "41816609600010",
+              "indicateurEtablissementPrincipal": false,
+              "dateEffetFermeture": "1999-06-23"
+            },
+            "adresse": {
+              "pays": "FRANCE",
+              "codePays": "FRA",
+              "codePostal": "92150",
+              "commune": "SURESNES",
+              "codeInseeCommune": "92073",
+              "typeVoie": "RUE",
+              "voie": "DE VERDUN",
+              "numVoie": "51"
+            },
+            "activites": [
+              {
+                "indicateurPrincipal": true,
+                "indicateurProlongement": false,
+                "dateDebut": "1998-04-01",
+                "dateFin": "1999-06-23",
+                "descriptionDetaillee": "Conseil en systèmes et logiciels informatiques",
+                "indicateurActiviteeApe": true,
+                "rolePrincipalPourEntreprise": false,
+                "codeApe": "6202A",
+                "activiteRattacheeEirl": false
+              }
+            ],
+            "nomsDeDomaine": []
+          },
+          {
+            "descriptionEtablissement": {
+              "rolePourEntreprise": "14",
+              "siret": "41816609600028",
+              "indicateurEtablissementPrincipal": false,
+              "dateEffetFermeture": "1999-12-31"
+            },
+            "adresse": {
+              "pays": "FRANCE",
+              "codePays": "FRA",
+              "codePostal": "92300",
+              "commune": "LEVALLOIS-PERRET",
+              "codeInseeCommune": "92044",
+              "typeVoie": "RUE",
+              "voie": "MARIUS AUFAN",
+              "numVoie": "28",
+              "complementLocalisation": "26"
+            },
+            "activites": [
+              {
+                "indicateurPrincipal": true,
+                "indicateurProlongement": false,
+                "dateDebut": "1999-04-01",
+                "dateFin": "1999-12-31",
+                "descriptionDetaillee": "Conseil en systèmes et logiciels informatiques",
+                "indicateurActiviteeApe": true,
+                "rolePrincipalPourEntreprise": false,
+                "codeApe": "6202A",
+                "activiteRattacheeEirl": false
+              }
+            ],
+            "nomsDeDomaine": []
+          },
+          {
+            "descriptionEtablissement": {
+              "rolePourEntreprise": "14",
+              "siret": "41816609600036",
+              "indicateurEtablissementPrincipal": false,
+              "dateEffetFermeture": "2002-03-20"
+            },
+            "adresse": {
+              "pays": "FRANCE",
+              "codePays": "FRA",
+              "codePostal": "75116",
+              "commune": "PARIS 16",
+              "codeInseeCommune": "75116",
+              "typeVoie": "RUE",
+              "voie": "KEPLER",
+              "numVoie": "3"
+            },
+            "activites": [
+              {
+                "indicateurPrincipal": true,
+                "indicateurProlongement": false,
+                "dateDebut": "1999-12-20",
+                "dateFin": "2002-03-20",
+                "descriptionDetaillee": "Conseil en systèmes et logiciels informatiques",
+                "indicateurActiviteeApe": true,
+                "rolePrincipalPourEntreprise": false,
+                "codeApe": "6202A",
+                "activiteRattacheeEirl": false
+              }
+            ],
+            "nomsDeDomaine": []
+          },
+          {
+            "descriptionEtablissement": {
+              "rolePourEntreprise": "14",
+              "siret": "41816609600044",
+              "indicateurEtablissementPrincipal": false,
+              "dateEffetFermeture": "2005-02-17"
+            },
+            "adresse": {
+              "pays": "FRANCE",
+              "codePays": "FRA",
+              "codePostal": "75008",
+              "commune": "PARIS 8",
+              "codeInseeCommune": "75108",
+              "typeVoie": "RUE",
+              "voie": "LA BOETIE",
+              "numVoie": "62"
+            },
+            "activites": [
+              {
+                "indicateurPrincipal": true,
+                "indicateurProlongement": false,
+                "dateDebut": "2002-03-20",
+                "dateFin": "2005-02-17",
+                "descriptionDetaillee": "Conseil en systèmes et logiciels informatiques",
+                "indicateurActiviteeApe": true,
+                "rolePrincipalPourEntreprise": false,
+                "codeApe": "6202A",
+                "activiteRattacheeEirl": false
+              }
+            ],
+            "nomsDeDomaine": []
+          },
+          {
+            "descriptionEtablissement": {
+              "rolePourEntreprise": "14",
+              "siret": "41816609600051",
+              "indicateurEtablissementPrincipal": false,
+              "dateEffetFermeture": "2016-11-28"
+            },
+            "adresse": {
+              "pays": "FRANCE",
+              "codePays": "FRA",
+              "codePostal": "75008",
+              "commune": "PARIS 8",
+              "codeInseeCommune": "75108",
+              "typeVoie": "AV",
+              "voie": "DES CHAMPS ELYSEES",
+              "numVoie": "50"
+            },
+            "activites": [
+              {
+                "categoryCode": "02080901",
+                "indicateurPrincipal": true,
+                "indicateurProlongement": false,
+                "dateDebut": "2005-02-17",
+                "dateFin": "2016-11-28",
+                "formeExercice": "COMMERCIALE",
+                "categorisationActivite1": "02",
+                "categorisationActivite2": "08",
+                "categorisationActivite3": "09",
+                "categorisationActivite4": "01",
+                "descriptionDetaillee": "Conseil en systèmes et logiciels informatiques",
+                "indicateurActiviteeApe": true,
+                "rolePrincipalPourEntreprise": false,
+                "codeApe": "6202A",
+                "activiteRattacheeEirl": false
+              }
+            ],
+            "nomsDeDomaine": []
+          },
+          {
+            "descriptionEtablissement": {
+              "rolePourEntreprise": "4",
+              "pays": "FRANCE",
+              "codePays": "FRA",
+              "siret": "41816609600077",
+              "activiteNonSedentaire": false,
+              "indicateurEtablissementPrincipal": false
+            },
+            "domiciliataire": {},
+            "adresse": {
+              "pays": "FRANCE",
+              "codePays": "FRA",
+              "codePostal": "75001",
+              "commune": "PARIS 1",
+              "codeInseeCommune": "75101",
+              "typeVoie": "RUE",
+              "voie": "DU BOULOI",
+              "numVoie": "4",
+              "indiceRepetition": "B",
+              "complementLocalisation": "4-4-2 BIS",
+              "caracteristiques": { "ambulant": false }
+            },
+            "activites": [
+              {
+                "categoryCode": "07050105",
+                "indicateurPrincipal": false,
+                "indicateurProlongement": false,
+                "dateDebut": "2022-02-14",
+                "indicateurNonSedentaire": false,
+                "formeExercice": "LIBERALE_REGLEMENTEE",
+                "categorisationActivite1": "07",
+                "categorisationActivite2": "05",
+                "categorisationActivite3": "01",
+                "categorisationActivite4": "05",
+                "descriptionDetaillee": "Ingénierie",
+                "indicateurActiviteeApe": false,
+                "indicateurArtisteAuteur": false,
+                "indicateurMarinProfessionnel": false,
+                "rolePrincipalPourEntreprise": false,
+                "codeApe": "6202A",
+                "activiteRattacheeEirl": false
+              },
+              {
+                "categoryCode": "07050400",
+                "indicateurPrincipal": true,
+                "indicateurProlongement": false,
+                "dateDebut": "2022-02-14",
+                "indicateurNonSedentaire": false,
+                "formeExercice": "COMMERCIALE",
+                "categorisationActivite1": "07",
+                "categorisationActivite2": "05",
+                "categorisationActivite3": "04",
+                "categorisationActivite4": "00",
+                "descriptionDetaillee": "Ingénierie",
+                "indicateurActiviteeApe": false,
+                "indicateurArtisteAuteur": false,
+                "indicateurMarinProfessionnel": false,
+                "rolePrincipalPourEntreprise": false,
+                "codeApe": "6202A",
+                "activiteRattacheeEirl": false
+              }
+            ],
+            "nomsDeDomaine": [],
+            "registreAnterieur": {
+              "raa": { "estPresent": false },
+              "rnm": { "estPresent": false },
+              "rncs": {
+                "estPresent": true,
+                "dateDebut": "2022-02-14T00:00:00+01:00"
+              }
+            }
+          }
+        ],
+        "detailCessationEntreprise": { "repreneurs": [] },
+        "observations": {
+          "rcs": [
+            {
+              "idObservation": 5,
+              "numObservation": "2000B031625",
+              "dateAjout": "2000-02-23",
+              "texte": "LA SOCIETE NE CONSERVE AUCUNE ACTIVITE A SON ANCIEN SIEGE ",
+              "dateGreffe": "1998-03-27",
+              "etatObs": "Ajout",
+              "dateDerModif": "2020-12-02"
+            }
+          ]
+        },
+        "identite": {
+          "entreprise": {
+            "siren": "418166096",
+            "denomination": "OCTO-TECHNOLOGY",
+            "formeJuridique": "5710",
+            "nicSiege": "00069",
+            "codeApe": "6202A",
+            "indicateurAssocieUnique": false,
+            "dateImmat": "1998-03-27T00:00:00+01:00"
+          },
+          "description": {
+            "objet": "La conception le développement et la mise en oeuvre d'information et d'applications par le conseil et la mise en oeuvre innovante d'expertises technologiques et méthodologiques , la conception le développement et la distribution de solutions logicielles , l'accompagnement technologique méthodologique et culturel pour la réalisation de produits logiciels innovants et pour la transformation digitale des pratiques, processus et organisations des entreprises la formation dans le domaine des expertises technologiques et méthodologiques.",
+            "duree": 99,
+            "ess": false,
+            "capitalVariable": false,
+            "montantCapital": 509525.3,
+            "deviseCapital": "EUR",
+            "indicateurOrigineFusionScission": false,
+            "indicateurAssocieUniqueDirigeant": false
+          },
+          "nomsDeDomaine": [],
+          "entreprisesIntervenant": []
+        },
+        "composition": {
+          "pouvoirs": [
+            {
+              "individu": {
+                "descriptionPersonne": {
+                  "dateDeNaissance": "1972-01",
+                  "nom": "Cinquin",
+                  "prenoms": ["LUDOVIC"],
+                  "nationalite": "Française",
+                  "situationMatrimoniale": "1"
+                },
+                "adresseDomicile": {
+                  "pays": "FRANCE",
+                  "codePays": "FRA",
+                  "codePostal": "75012",
+                  "commune": "Paris",
+                  "codeInseeCommune": "75112"
+                }
+              },
+              "indicateurActifAgricole": false
+            },
+            {
+              "individu": {
+                "descriptionPersonne": {
+                  "dateDeNaissance": "1972-01",
+                  "role": "63",
+                  "nom": "CINQUIN",
+                  "prenoms": ["LUDOVIC"],
+                  "nationalite": "Française",
+                  "situationMatrimoniale": "1"
+                },
+                "adresseDomicile": {
+                  "pays": "FRANCE",
+                  "codePays": "FRA",
+                  "codePostal": "92300",
+                  "commune": "Levallois Perret",
+                  "codeInseeCommune": "92044"
+                }
+              },
+              "indicateurActifAgricole": false
+            },
+            {
+              "individu": {
+                "descriptionPersonne": {
+                  "dateDeNaissance": "1980-07",
+                  "role": "63",
+                  "nom": "Roux",
+                  "prenoms": ["OLIVIER"],
+                  "nationalite": "Française",
+                  "situationMatrimoniale": "1"
+                },
+                "adresseDomicile": {
+                  "pays": "FRANCE",
+                  "codePays": "FRA",
+                  "codePostal": "78800",
+                  "commune": "Houilles",
+                  "codeInseeCommune": "78311"
+                }
+              },
+              "indicateurActifAgricole": false
+            },
+            {
+              "individu": {
+                "descriptionPersonne": {
+                  "dateDeNaissance": "1972-01",
+                  "nom": "Cinquin",
+                  "prenoms": ["LUDOVIC"],
+                  "nationalite": "Française",
+                  "situationMatrimoniale": "1"
+                },
+                "adresseDomicile": {
+                  "pays": "FRANCE",
+                  "codePays": "FRA",
+                  "codePostal": "75002",
+                  "commune": "Paris",
+                  "codeInseeCommune": "75102"
+                }
+              },
+              "indicateurActifAgricole": false
+            },
+            {
+              "entreprise": {
+                "roleEntreprise": "71",
+                "denomination": "KPMG",
+                "formeJuridique": "Société anonyme"
+              },
+              "adresseEntreprise": {
+                "pays": "FRANCE",
+                "codePays": "FRA",
+                "codePostal": "92066",
+                "commune": "Paris la Défense CEDEX",
+                "codeInseeCommune": "92050",
+                "voie": "2 avenue Gambetta Tour Eqho "
+              },
+              "representant": {
+                "descriptionPersonne": {},
+                "adresseDomicile": {}
+              },
+              "indicateurActifAgricole": false
+            },
+            {
+              "individu": {
+                "descriptionPersonne": {
+                  "dateDeNaissance": "1965-03",
+                  "role": "61",
+                  "nom": "Girard",
+                  "prenoms": ["OLIVIER"],
+                  "nationalite": "Française",
+                  "situationMatrimoniale": "1"
+                },
+                "adresseDomicile": {
+                  "pays": "FRANCE",
+                  "codePays": "FRA",
+                  "codePostal": "78150",
+                  "commune": "Le Chesnay",
+                  "codeInseeCommune": "78158"
+                }
+              },
+              "indicateurActifAgricole": false
+            },
+            {
+              "individu": {
+                "descriptionPersonne": {
+                  "dateDeNaissance": "1961-04",
+                  "role": "64",
+                  "nom": "Bokobza",
+                  "prenoms": ["JEAN-PIERRE"],
+                  "nationalite": "Française",
+                  "situationMatrimoniale": "1"
+                },
+                "adresseDomicile": {
+                  "pays": "FRANCE",
+                  "codePays": "FRA",
+                  "codePostal": "75116",
+                  "commune": "Paris",
+                  "codeInseeCommune": "75116"
+                }
+              },
+              "indicateurActifAgricole": false
+            },
+            {
+              "individu": {
+                "descriptionPersonne": {
+                  "dateDeNaissance": "1961-03",
+                  "role": "64",
+                  "nom": "Campbell",
+                  "prenoms": ["ALLAN"],
+                  "nationalite": "Britannique",
+                  "situationMatrimoniale": "1"
+                },
+                "adresseDomicile": {
+                  "pays": "FRANCE",
+                  "codePays": "FRA",
+                  "codePostal": "78160",
+                  "commune": "Marly-le-Roi",
+                  "codeInseeCommune": "78372"
+                }
+              },
+              "indicateurActifAgricole": false
+            },
+            {
+              "individu": {
+                "descriptionPersonne": {
+                  "dateDeNaissance": "1959-02",
+                  "role": "72",
+                  "nom": "Simon",
+                  "prenoms": ["JEAN-LOUIS"],
+                  "nationalite": "Française",
+                  "situationMatrimoniale": "1"
+                },
+                "adresseDomicile": {
+                  "pays": "FRANCE",
+                  "codePays": "FRA",
+                  "codePostal": "92400",
+                  "commune": "Courbevoie",
+                  "codeInseeCommune": "92026"
+                }
+              },
+              "indicateurActifAgricole": false
+            },
+            {
+              "individu": {
+                "descriptionPersonne": {
+                  "dateDeNaissance": "1967-03",
+                  "role": "64",
+                  "nom": "Ben Mahmoud",
+                  "prenoms": ["SIHEM"],
+                  "nomUsage": "Jouini",
+                  "nationalite": "Française",
+                  "situationMatrimoniale": "1"
+                },
+                "adresseDomicile": {
+                  "pays": "FRANCE",
+                  "codePays": "FRA",
+                  "codePostal": "75007",
+                  "commune": "Paris",
+                  "codeInseeCommune": "75107"
+                }
+              },
+              "indicateurActifAgricole": false
+            },
+            {
+              "entreprise": {
+                "roleEntreprise": "71",
+                "siren": "784824153",
+                "denomination": "MAZARS",
+                "formeJuridique": "Société anonyme"
+              },
+              "adresseEntreprise": {
+                "pays": "FRANCE",
+                "codePays": "FRA",
+                "codePostal": "92400",
+                "commune": "Courbevoie",
+                "codeInseeCommune": "92026",
+                "voie": "61 rue Henri Regnault "
+              },
+              "representant": {
+                "descriptionPersonne": {},
+                "adresseDomicile": {}
+              },
+              "indicateurActifAgricole": false
+            },
+            {
+              "individu": {
+                "descriptionPersonne": {
+                  "dateDeNaissance": "1980-07",
+                  "nom": "Roux",
+                  "prenoms": ["OLIVIER"],
+                  "nationalite": "Française",
+                  "situationMatrimoniale": "1"
+                },
+                "adresseDomicile": {
+                  "pays": "FRANCE",
+                  "codePays": "FRA",
+                  "codePostal": "78290",
+                  "commune": "Croissy-Sur-Seine",
+                  "codeInseeCommune": "78190"
+                }
+              },
+              "indicateurActifAgricole": false
+            }
+          ]
+        },
+        "structureEntreprise": {
+          "indicateurPrincipalIdemSiege": true,
+          "aucuneActivite": false
+        }
+      },
+      "registreAnterieur": {
+        "raa": { "estPresent": false },
+        "rnm": { "estPresent": false },
+        "rncs": {
+          "estPresent": true,
+          "dateImmatriculation": "1998-03-27T00:00:00+01:00"
+        }
+      }
+    },
+    "typePersonne": "M",
+    "diffusionCommerciale": true,
+    "historique": [],
+    "formeJuridique": "5710"
+  },
+  "siren": "418166096"
+}

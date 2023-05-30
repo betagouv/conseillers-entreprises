@@ -31,6 +31,8 @@
 
       .card__meta
         .meta__warnings
+          - if solicitation.facility&.company&.forme_exercice&.present?
+            %span.meta__warnings__item= solicitation.facility.company.forme_exercice
           - if solicitation.recent_matched_solicitations.any?
             %span.meta__warnings__item{ title: t('.solicitation_relance_explanation') } R
           - if solicitation.doublon_solicitations.any?

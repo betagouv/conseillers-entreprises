@@ -19,7 +19,9 @@ module UseCases
           code_effectif: api_company.code_effectif,
           effectif: api_company.effectif,
           inscrit_rcs: api_company.inscrit_rcs,
-          inscrit_rm: api_company.inscrit_rm
+          inscrit_rm: api_company.inscrit_rm,
+          forme_exercice: api_company.forme_exercice,
+          activite_liberale: api_company.activite_liberale
         )
         company
       end

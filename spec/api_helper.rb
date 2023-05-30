@@ -8,3 +8,13 @@ def authorize_insee_token
       body: "{ 'token1234' }".to_json
     )
 end
+
+def authorize_rne_token
+  ENV['RNE_USERNAME'] = 'rene nereux'
+  ENV['RNE_PASSWORD'] = 'p4ssw0rd'
+  stub_request(:post, 'https://registre-national-entreprises.inpi.fr/api/sso/login')
+    .with(body: { username: 'rene nereux', password: 'p4ssw0rd' })
+    .to_return(
+      body: "{ 'token1234' }".to_json
+    )
+end

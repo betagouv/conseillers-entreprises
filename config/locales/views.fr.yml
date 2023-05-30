@@ -156,12 +156,15 @@ fr:
   come_back_to_home: Retour à l’accueil
   companies:
     company:
+      activite_liberale: Activité libérale
+      activite_liberale_yes_no: 'Activité libérale : %{response}'
       capital_social: Capital social
       categorie_entreprise: Catégorie de l’entreprise
       date_cessation: Date de cessation
       date_creation: Date de création
       denomination: Dénomination
       diffusable_commercialement: Diffusable commercialement
+      forme_exercice: Forme d'activité
       forme_juridique: Forme juridique
       information: Informations sur l’entreprise
       inscrit_rcs: Inscrit au RCS

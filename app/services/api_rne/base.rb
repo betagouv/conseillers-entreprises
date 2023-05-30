@@ -13,10 +13,6 @@ module ApiRne
         http_request = request
         if http_request.success?
           responder(http_request).call
-        elsif http_request.not_found?
-          raise ApiRneError, I18n.t('api_requests.non_diffusible_error')
-        elsif http_request.unavailable_api?
-          raise UnavailableApiError, I18n.t('api_requests.generic_error')
         else
           handle_error(http_request)
         end
@@ -32,8 +28,7 @@ module ApiRne
     end
 
     def handle_error(http_request)
-      Sentry.capture_message(http_request.error_message)
-      raise ApiRneError, I18n.t('api_requests.generic_error')
+      return { "rne" => { "error" => http_request.error_message } }
     end
 
     def id_key
@@ -66,23 +61,11 @@ module ApiRne
     end
 
     def success?
-      @error.nil? && response_status.success?
-    end
-
-    def unavailable_api?
-      response_status.internal_server_error? || response_status.bad_gateway? || response_status.service_unavailable?
-    end
-
-    def not_found?
-      response_status.not_found?
-    end
-
-    def response_status
-      @http_response.status
+      @error.nil? && @http_response.status.success?
     end
 
     def error_message
-      @error&.message || @data['message'] || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
+      @error&.message || @data["message"] || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
     end
 
     private
@@ -111,11 +94,6 @@ module ApiRne
 
     def format_data
       @http_request.data
-    end
-
-    def check_if_foreign_facility(etablissement)
-      foreign_country = etablissement['adresseEtablissement']["libellePaysEtrangerEtablissement"]
-      raise ApiRneError, I18n.t('api_requests.foreign_facility', country: foreign_country.capitalize) if foreign_country.present?
     end
   end
 

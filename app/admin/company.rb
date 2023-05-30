@@ -17,6 +17,9 @@ ActiveAdmin.register Company do
       if c.code_effectif?
         div admin_attr(c, :code_effectif), title: c.intitule_effectif
       end
+      if c.forme_exercice?
+        div admin_attr(c, :forme_exercice), title: c.forme_exercice
+      end
     end
     column :created_at
     column(:facilities) do |c|

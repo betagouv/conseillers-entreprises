@@ -19,7 +19,8 @@ module ApiConsumption::Models
         :rcs,
         :rm,
         :effectifs,
-        :mandataires_sociaux
+        :mandataires_sociaux,
+        :forme_exercice,
       ]
     end
 
@@ -80,6 +81,11 @@ module ApiConsumption::Models
 
     def capital_social
       @capital_social ||= rcs&.dig('capital', 'montant')
+    end
+
+    def activite_liberale
+      return true if forme_exercice == ("INDEPENDANTE" || "LIBERALE_REGLEMENTEE")
+      false
     end
 
     private
