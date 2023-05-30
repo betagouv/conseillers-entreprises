@@ -236,12 +236,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :partner_tools, only: %i[], path: 'outils-partenaires' do
-    collection do
-      get :inserts, path: 'encarts'
-    end
-  end
-
   namespace :emails do
     controller :solicitations do
       post :send_generic_email, as: :solicitation_generic
