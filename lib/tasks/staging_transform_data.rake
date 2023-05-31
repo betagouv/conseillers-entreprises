@@ -3,9 +3,7 @@ namespace :staging do
   task simplify_api_keys: :environment do
     # on ne manipule pas les données si on est en prod
     if (Rails.env.production? && ((ENV.fetch('STAGING_ENV', 'false')) == 'true'))
-      ApiKey.find_each do |key|
-        key.update(token: '123456789')
-      end
+      ApiKey.find(4).update(token: '123456789')
     end
   end
 
