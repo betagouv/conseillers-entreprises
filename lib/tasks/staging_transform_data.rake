@@ -10,21 +10,19 @@ namespace :staging do
   desc 'Transform data for demo'
   task transform_data_for_demo: :environment do
     # on ne manipule pas les données si on est en prod
-    # if (Rails.env.production? && ((ENV.fetch('STAGING_ENV', 'false')) == 'true'))
-    p "yop oh"
+    if (Rails.env.production? && ((ENV.fetch('STAGING_ENV', 'false')) == 'true'))
+      @need = Need.find(12683)
 
-    @need = Need.find(12683)
-
-    unless @need.visitee.full_name == 'François Cagette'
-      transform_visitee
-      transform_company
-      transform_facility
-      transform_diagnosis
-      transform_matches
-      transform_feedbacks
-      add_denis_sauveur
+      unless @need.visitee.full_name == 'François Cagette'
+        transform_visitee
+        transform_company
+        transform_facility
+        transform_diagnosis
+        transform_matches
+        transform_feedbacks
+        add_denis_sauveur
+      end
     end
-    # end
   end
 
   def transform_visitee
@@ -95,8 +93,8 @@ namespace :staging do
     match.update(status: 'not_for_me')
     expert = match.expert
     expert.update({
-      full_name: 'Brigitte Tonneau',
-      email: 'brigitte.tonneau@hautsdefrance.fr',
+      full_name: 'Brigitte Tonot',
+      email: 'brigitte.tonot@hautsdefrance.fr',
       phone_number: '0605040302'
     })
 
@@ -114,8 +112,8 @@ namespace :staging do
     feedback = Feedback.find(8685)
     feedback.update(description: "Entreprise en plan de continuation. Refus de PGE avec échec de la médiation du crédit. Orienté vers la saisine du CODEFI Pas de Calais.")
     feedback.user.update({
-      full_name: 'Hortense Fagault',
-      email: 'hortense.fagault@banque-france.fr',
+      full_name: 'Latifa Gault',
+      email: 'latifa.gault@banque-france.fr',
       phone_number: '0605040302'
     })
 
