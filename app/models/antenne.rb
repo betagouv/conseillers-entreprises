@@ -6,6 +6,7 @@
 #  deleted_at        :datetime
 #  name              :string
 #  territorial_level :enum             default("local"), not null
+#  wkb_geometry      :geometry         geometry, 4326
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  institution_id    :bigint(8)        not null
@@ -17,6 +18,7 @@
 #  index_antennes_on_name_and_deleted_at_and_institution_id  (name,deleted_at,institution_id)
 #  index_antennes_on_territorial_level                       (territorial_level)
 #  index_antennes_on_updated_at                              (updated_at)
+#  index_antennes_on_wkb_geometry                            (wkb_geometry) USING gist
 #
 # Foreign Keys
 #

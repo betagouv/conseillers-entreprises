@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202305330101234) do
+ActiveRecord::Schema[7.0].define(version: 202305330162122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -95,11 +95,13 @@ ActiveRecord::Schema[7.0].define(version: 202305330101234) do
     t.datetime "updated_at", precision: nil, null: false
     t.datetime "deleted_at", precision: nil
     t.enum "territorial_level", default: "local", null: false, enum_type: "territorial_level"
+    t.geometry "wkb_geometry", limit: {:srid=>4326, :type=>"geometry"}
     t.index ["deleted_at"], name: "index_antennes_on_deleted_at"
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
     t.index ["name", "deleted_at", "institution_id"], name: "index_antennes_on_name_and_deleted_at_and_institution_id"
     t.index ["territorial_level"], name: "index_antennes_on_territorial_level"
     t.index ["updated_at"], name: "index_antennes_on_updated_at"
+    t.index ["wkb_geometry"], name: "index_antennes_on_wkb_geometry", using: :gist
   end
 
   create_table "antennes_communes", id: false, force: :cascade do |t|
