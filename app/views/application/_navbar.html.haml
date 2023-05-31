@@ -39,10 +39,6 @@
               = active_link_to manager_needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-inbox-fill.fr-mr-1w{ 'aria-hidden': 'true' }
                 = current_user.managed_antennes.many? ? t('.antennes_needs') : t('.antenne_needs')
-            - if policy(Diagnosis).index?
-              = active_link_to diagnoses_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
-                %span.ri-list-check.fr-mr-1w{ 'aria-hidden': 'true' }
-                = t('.diagnoses')
             - if policy(:report).show_navbar?
               = active_link_to reports_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-file-text-line.fr-mr-1w{ 'aria-hidden': 'true' }
