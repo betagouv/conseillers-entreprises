@@ -1,11 +1,25 @@
-namespace :update_solicitations_code_region do
+namespace :rattrapage_analyse do
+  desc 'relaunch diagnosis if missed'
+  task relaunch_diagnosis: :environment do
+    set_params
+    puts '## Relance des analyses des sollicitations'
+    solicitations_to_update = no_diagnosis_solicitations
+    puts "Sollicitations sans analyses des #{@days_count} derniers jours : #{solicitations_to_update.count}"
+    total = 0
+    solicitations_to_update.find_each do |solicitation|
+      solicitation.prepare_diagnosis(nil)
+      total += 1 if solicitation.diagnosis.present?
+    end
+    puts "#{total} sollicitations mises a jour"
+    puts "Sollicitations restant sans analyses : #{no_diagnosis_solicitations.size}"
+  end
+
   desc 'update solicitations code_region from diagnosis'
-  task from_diagnosis: :environment do
+  task update_code_region_from_diagnosis: :environment do
     set_params
     puts '## Mise a jour des sollicitations a partir des analyses'
-    solicitations_to_update = retrieve_solicitations.joins(:diagnosis)
+    solicitations_to_update = no_code_region_solicitations.joins(:diagnosis)
     puts "Sollicitations sans code region des #{@days_count} derniers jours : #{solicitations_to_update.count}"
-    pp solicitations_to_update
     total = 0
     solicitations_to_update.find_each do |solicitation|
       code_region = solicitation.diagnosis_regions&.first&.code_region
@@ -15,16 +29,15 @@ namespace :update_solicitations_code_region do
       end
     end
     puts "#{total} sollicitations mises a jour"
-    puts "Sollicitations restant sans code region : #{retrieve_solicitations.size}"
+    puts "Sollicitations restant sans code region : #{no_code_region_solicitations.size}"
   end
 
   desc 'update solicitations code_region from API entreprise'
-  task from_api_entreprise: :environment do
+  task update_code_region_from_api_entreprise: :environment do
     set_params
     puts '## Mise a jour des sollicitations a partir d API entreprise'
-    solicitations_to_update = retrieve_solicitations.where.not(siret: [nil, ""])
+    solicitations_to_update = no_code_region_solicitations.where.not(siret: [nil, ""])
     puts "Sollicitations sans code region : #{solicitations_to_update.count}"
-    pp solicitations_to_update
 
     total = 0
     # Sur API Entreprise, droit à 2000 requêtes par tranche de 10 minutes par IP
@@ -47,14 +60,14 @@ namespace :update_solicitations_code_region do
       end
     end
     puts "#{total} sollicitations mises à jour"
-    puts "Sollicitations restant sans code region : #{retrieve_solicitations.size}"
+    puts "Sollicitations restant sans code region : #{no_code_region_solicitations.size}"
   end
 
-  task all: %i[from_diagnosis from_api_entreprise]
+  task all: %i[relaunch_diagnosis update_code_region_from_diagnosis update_code_region_from_api_entreprise]
 end
 
-desc 'update solicitations code_region'
-task update_solicitations_code_region: %w[update_solicitations_code_region:all]
+desc 'Rattrapage analyse'
+task rattrapage_analyse: %w[rattrapage_analyse:all]
 
 def set_params
   @days_count = 7
@@ -62,7 +75,15 @@ def set_params
   @end_at = Time.zone.now
 end
 
-def retrieve_solicitations
+def no_diagnosis_solicitations
+  Solicitation
+    .where(created_at: @start_at..@end_at)
+    .status_in_progress
+    .without_diagnosis
+    .where.not(siret: [nil, ""])
+end
+
+def no_code_region_solicitations
   Solicitation
     .where(created_at: @start_at..@end_at)
     .where(code_region: [nil,0])
