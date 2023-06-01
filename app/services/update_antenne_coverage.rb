@@ -4,8 +4,11 @@ class UpdateAntenneCoverage
   end
 
   def call
+    p '===================='
+    p "start"
+    start = Time.now
     antenne_communes = @antenne.communes.pluck(:insee_code)
-
+    p "Antenne : #{@antenne.name}"
     institution_subjects = @antenne.institution.institutions_subjects
     institution_subjects.each do |institution_subject|
       subject_hash = antenne_communes.each_with_object({}) do |insee_code, hash|
@@ -14,6 +17,8 @@ class UpdateAntenneCoverage
       end
       register_coverage(institution_subject, subject_hash)
     end
+    p '------------------------'
+    p "Duration : #{Time.now - start}"
     # TODO : if antenne.regional / antenne.national -> update children
   end
 

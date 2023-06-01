@@ -86,6 +86,7 @@ class Antenne < ApplicationRecord
   ## Callbacks
   #
   after_create :check_territorial_level
+  after_save :update_coverage
 
   ##
   #
@@ -170,6 +171,21 @@ class Antenne < ApplicationRecord
     same_region_antennes.select do |a|
       !a.regional? && Utilities::Arrays.included_in?(a.commune_ids, commune_ids)
     end
+  end
+
+  def update_coverage
+    if self.regional?
+      call_update_antenne_coverage(self)
+      self.territorial_antennes.each { |ta| call_update_antenne_coverage(ta) }
+    elsif self.regional_antenne.present?
+       self.regional_antenne.territorial_antennes.each { |ta| call_update_antenne_coverage(ta) }
+    else
+      call_update_antenne_coverage(self)
+    end
+  end
+
+  def call_update_antenne_coverage(antenne)
+    UpdateAntenneCoverage.new(antenne).delay(queue: :low_priority).call
   end
 
   ## Périmètre d'exercice :
