@@ -1,6 +1,6 @@
 require 'benchmark'
 
-class UpdateAntenneCoverage
+class UpdateAntenneCoverageOld
   def initialize(antenne)
     @antenne = antenne
   end
@@ -11,18 +11,10 @@ class UpdateAntenneCoverage
 
       institution_subjects = @antenne.institution.institutions_subjects
       institution_subjects.each do |institution_subject|
-        subject_hash = antenne_communes.index_with {[]}
-        experts_without_specific_territories = get_experts_without_specific_territories(antenne_communes, institution_subject)
-        experts_with_specific_territories = get_experts_with_specific_territories(antenne_communes, institution_subject)
-
-        experts_without_specific_territories.each do |expert|
-          subject_hash[expert.insee_code] << expert.id
+        subject_hash = antenne_communes.each_with_object({}) do |insee_code, hash|
+          code_experts = get_experts_for_insee_code(insee_code, institution_subject)
+          hash[insee_code] = code_experts.pluck(:id)
         end
-
-        experts_with_specific_territories.each do |expert|
-          subject_hash[expert.insee_code] << expert.id
-        end
-
         register_coverage(institution_subject, subject_hash)
       end
       # TODO : if antenne.regional / antenne.national -> update children
@@ -32,20 +24,15 @@ class UpdateAntenneCoverage
 
   private
 
-  def get_experts_without_specific_territories(insee_codes, institution_subject)
-    institution_subject.not_deleted_experts
-      .select('experts.id, experts.antenne_id, communes.insee_code AS insee_code')
-      .joins(antenne: :communes)
+  def get_experts_for_insee_code(insee_code, institution_subject)
+    subject_experts = institution_subject.not_deleted_experts
+    subject_experts
+      .select('experts.id, experts.antenne_id')
       .where(antenne_id: all_potential_antennes_ids)
-      .where(communes: { insee_code: insee_codes })
-  end
-
-  def get_experts_with_specific_territories(insee_codes, institution_subject)
-    institution_subject.not_deleted_experts
-      .select('experts.id, experts.antenne_id, communes.insee_code AS insee_code')
-      .joins(:communes)
-      .where(antenne_id: all_potential_antennes_ids)
-      .where(communes: { insee_code: insee_codes })
+      .without_custom_communes
+      .or(subject_experts
+          .left_outer_joins(:communes)
+          .where(communes: { insee_code: insee_code }))
   end
 
   def register_coverage(institution_subject, subject_hash)
