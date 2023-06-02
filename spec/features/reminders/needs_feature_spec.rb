@@ -23,8 +23,10 @@ describe 'reminders needs', js: true do
       expect(page).to have_css('.card', count: 2)
       select(region.name, from: 'by_region')
       # Trying to get rid of flaky test
+      p "expected count : 1"
       page.find_button('Rechercher').execute_script('this.click()')
       page.find_by_id('clear-search')
+      p "given count : #{Need.by_region(region).distinct.size}"
       expect(page).to have_no_content(need2.company.name, wait: 10)
       expect(page).to have_css('.card', count: 1)
     end
