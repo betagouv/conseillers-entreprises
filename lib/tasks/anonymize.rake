@@ -11,8 +11,8 @@ namespace :anonymize do
     Feedback.where(created_at: start_date..end_date).in_batches.update_all(description: anonymized)
     Need.where(created_at: start_date..end_date).in_batches.update_all(content: anonymized)
     Solicitation.where(created_at: start_date..end_date).in_batches.update_all(email: nil, phone_number: anonymized, full_name: anonymized, siret: nil, description: anonymized)
-    Expert.active.where(updated_at: start_date..end_date).in_batches.update_all(email: 'anonymized@gouv.fr', phone_number: anonymized, full_name: anonymized)
-    User.active.where.not(id: User.admin).where(updated_at: start_date..end_date).in_batches.update_all(email: 'anonymized@gouv.fr', phone_number: anonymized, full_name: anonymized, current_sign_in_ip: nil, last_sign_in_ip: nil)
+    Expert.active.where.not(id: experts_to_keep.pluck(:id)).where(updated_at: start_date..end_date).in_batches.update_all(email: 'anonymized@gouv.fr', phone_number: anonymized, full_name: anonymized)
+    User.active.where.not(id: users_to_keep.pluck(:id)).where(updated_at: start_date..end_date).in_batches.update_all(email: 'anonymized@gouv.fr', phone_number: anonymized, full_name: anonymized, current_sign_in_ip: nil, last_sign_in_ip: nil)
     p "end batch_anonymize_data - #{I18n.l(Time.zone.now, format: :hours)}"
   end
 
@@ -36,7 +36,7 @@ namespace :anonymize do
     Solicitation.where(created_at: start_date..end_date).find_each{ |record| record.update_columns(email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, full_name: Faker::Name.name, siret: Faker::Company.french_siret_number, description: Faker::Lorem.paragraph) }
 
     updated_experts_id = []
-    users = User.active.where.not(id: User.admin).where(updated_at: start_date..end_date)
+    users = User.active.where.not(id: users_to_keep.pluck(:id)).where(updated_at: start_date..end_date)
     p "User count : #{users.size} - start: #{I18n.l(Time.zone.now, format: :hours)}"
     users.find_each do |record|
       name = Faker::Name.name
@@ -52,6 +52,7 @@ namespace :anonymize do
     remaining_experts = Expert.active
       .where(updated_at: start_date..end_date)
       .where.not(id: updated_experts_id.flatten.uniq)
+      .where.not(id: experts_to_keep.pluck(:id))
     p "Remaining Experts count : #{remaining_experts.size}  - start: #{I18n.l(Time.zone.now, format: :hours)}"
     remaining_experts.find_each{ |record| record.update_columns(email: Faker::Internet.email, phone_number: Faker::PhoneNumber.phone_number, full_name: Faker::Team.name) }
     p "end pseudonymize_data - #{I18n.l(Time.zone.now, format: :hours)}"
@@ -70,6 +71,16 @@ namespace :anonymize do
 
   def anonymized
     I18n.t('attributes.anonymized')
+  end
+
+  def users_to_keep
+    # Admin + Denis Sauveur
+    ids =
+      @users_to_keep ||= User.admin + User.where(id: 1392)
+  end
+
+  def experts_to_keep
+    @experts_to_keep ||= Expert.joins(:users).where(users: { id: users_to_keep.pluck(:id) })
   end
 
   task all: %i[batch_anonymize_data pseudonymize_data]
