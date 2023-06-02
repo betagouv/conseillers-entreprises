@@ -114,6 +114,11 @@ RSpec.describe ExpertSubject do
         create :expert_subject,
                institution_subject: create(:institution_subject, institution: create(:institution, name: 'cma'))
       end
+      let!(:expert_subject_unapl) do
+        create :expert_subject,
+               institution_subject: create(:institution_subject, institution: create(:institution, name: 'unapl'))
+      end
+
       let!(:expert_subject_other) do
         create :expert_subject,
                institution_subject: create(:institution_subject, institution: create(:institution, name: 'other'))
@@ -141,6 +146,12 @@ RSpec.describe ExpertSubject do
         let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false }
 
         it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_other) }
+      end
+
+      context 'when company is liberal' do
+        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false, activite_liberale: true }
+
+        it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_unapl, expert_subject_other) }
       end
     end
   end
