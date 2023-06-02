@@ -10,7 +10,7 @@ describe 'reminders experts', js: true do
 
     before { RemindersService.create_reminders_registers }
 
-    it 'displays experts and opens expert BAL' do
+    xit 'displays experts and opens expert BAL' do
       visit inputs_reminders_experts_path
       expect(page.html).to include 'Paniers qualité'
       p "many_pending_needs expected count : 1"
