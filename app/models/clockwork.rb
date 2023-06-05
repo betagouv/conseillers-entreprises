@@ -24,8 +24,8 @@ module Clockwork
   every(1.day, 'abandon_needs', at: '03:11') do
     NeedsService.delay.abandon_needs
   end
-  every(1.day, 'update_solicitations_code_region', at: ('3:41')) do
-    `rake update_solicitations_code_region`
+  every(1.day, 'rattrapage_analyse', at: ('3:41')) do
+    `rake rattrapage_analyse`
   end
   every(1.day, 'purge_csv_exports', at: ('4:11')) do
     CsvExport.delay.purge_later
