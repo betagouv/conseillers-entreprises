@@ -4,14 +4,17 @@ class UpdateAntenneCoverage
   end
 
   def call
-    antenne_communes = @antenne.communes.pluck(:insee_code)
-
+    antenne_insee_codes = @antenne.communes.pluck(:insee_code)
     institution_subjects = @antenne.institution.institutions_subjects
+
     institution_subjects.each do |institution_subject|
-      subject_hash = antenne_communes.each_with_object({}) do |insee_code, hash|
-        code_experts = get_experts_for_insee_code(insee_code, institution_subject)
-        hash[insee_code] = code_experts.pluck(:id)
-      end
+      subject_hash = antenne_insee_codes.index_with { [] }
+      experts_without_specific_territories = get_experts_without_specific_territories(antenne_insee_codes, institution_subject)
+      experts_with_specific_territories = get_experts_with_specific_territories(antenne_insee_codes, institution_subject)
+
+      experts_without_specific_territories.each{ |expert| subject_hash[expert.insee_code] << expert.id }
+      experts_with_specific_territories.each{ |expert| subject_hash[expert.insee_code] << expert.id }
+
       register_coverage(institution_subject, subject_hash)
     end
     # TODO : if antenne.regional / antenne.national -> update children
@@ -19,15 +22,20 @@ class UpdateAntenneCoverage
 
   private
 
-  def get_experts_for_insee_code(insee_code, institution_subject)
-    subject_experts = institution_subject.not_deleted_experts
-    subject_experts
-      .select('experts.id, experts.antenne_id')
+  def get_experts_without_specific_territories(insee_codes, institution_subject)
+    institution_subject.not_deleted_experts
+      .select('experts.id, experts.antenne_id, communes.insee_code AS insee_code')
+      .joins(antenne: :communes)
       .where(antenne_id: all_potential_antennes_ids)
-      .without_custom_communes
-      .or(subject_experts
-          .left_outer_joins(:communes)
-          .where(communes: { insee_code: insee_code }))
+      .where(communes: { insee_code: insee_codes })
+  end
+
+  def get_experts_with_specific_territories(insee_codes, institution_subject)
+    institution_subject.not_deleted_experts
+      .select('experts.id, experts.antenne_id, communes.insee_code AS insee_code')
+      .joins(:communes)
+      .where(antenne_id: all_potential_antennes_ids)
+      .where(communes: { insee_code: insee_codes })
   end
 
   def register_coverage(institution_subject, subject_hash)
@@ -35,7 +43,7 @@ class UpdateAntenneCoverage
       no_expert(institution_subject)
     elsif subject_hash.values.any?([])
       missing_insee_codes(institution_subject, subject_hash)
-    elsif subject_hash.values.any?{ |a| a.size > 1 }
+    elsif subject_hash.values.any?{ |a| a.uniq.size > 1 }
       extra_insee_codes(institution_subject, subject_hash)
     else
       good_coverage(institution_subject, subject_hash)
@@ -44,10 +52,7 @@ class UpdateAntenneCoverage
 
   def good_coverage(institution_subject, code_experts_hash)
     all_experts = code_experts_hash.values.flatten.uniq
-    # TODO : first_or_initialize
-    ReferencementCoverage.create(
-      institution_subject: institution_subject,
-      antenne: @antenne,
+    get_rc(institution_subject).update(
       coverage: get_coverage(all_experts),
       anomalie: :no_anomalie,
       anomalie_details: nil
@@ -60,10 +65,7 @@ class UpdateAntenneCoverage
   def missing_insee_codes(institution_subject, code_experts_hash)
     missing_codes = code_experts_hash.select{ |k,v| v.empty? }.keys
     all_experts = code_experts_hash.values.flatten.uniq
-
-    ReferencementCoverage.create(
-      institution_subject: institution_subject,
-      antenne: @antenne,
+    get_rc(institution_subject).update(
       coverage: get_coverage(all_experts),
       anomalie: :missing_insee_codes,
       anomalie_details: {
@@ -80,9 +82,7 @@ class UpdateAntenneCoverage
     extra_codes = extra_objects.keys
     extra_experts = extra_objects.values.flatten.uniq
     all_experts = code_experts_hash.values.flatten.uniq
-    ReferencementCoverage.create(
-      institution_subject: institution_subject,
-      antenne: @antenne,
+    get_rc(institution_subject).update(
       coverage: get_coverage(all_experts),
       anomalie: :extra_insee_codes,
       anomalie_details: {
@@ -93,13 +93,17 @@ class UpdateAntenneCoverage
   end
 
   def no_expert(institution_subject)
-    ReferencementCoverage.create(
-      institution_subject: institution_subject,
-      antenne: @antenne,
+    get_rc(institution_subject).update(
       coverage: nil,
       anomalie: :no_expert,
-      anomalie_details: { missing_insee_codes: @antenne_communes }
+      anomalie_details: nil
     )
+  end
+
+  def get_rc(institution_subject)
+    ReferencementCoverage
+      .where(antenne: @antenne, institution_subject: institution_subject)
+      .first_or_initialize
   end
 
   def get_coverage(experts_ids)
