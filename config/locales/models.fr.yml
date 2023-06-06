@@ -402,6 +402,16 @@ fr:
         not_for_me: Refusé
         quo: Pas de réponse
         taking_care: Pris en charge
+      referencement_coverage:
+        anomalie:
+          extra_insee_codes: Plusieurs experts pour le même sujet
+          missing_insee_codes: Experts manquants dans certaines communes
+          no_anomalie: Pas d’anomalie
+          no_expert: Aucun expert
+        coverage:
+          local: L
+          mixte: L + R
+          regional: R
       search:
         label: Entreprise
         query: Requête

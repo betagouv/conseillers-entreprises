@@ -30,6 +30,17 @@
     &.yellow
       background: #fff9d2
       color: #B58105
+  th.coverage-table-cell
+    color: var(--text-inverted-error)
+    text-align: center
+    &.error-table-cell
+      background-color: var(--error-425-625) !important
+      &:hover
+        background-color: var(--error-425-625-hover) !important
+    &.success-table-cell
+      background: var(--success-425-625) !important
+      &:hover
+        background-color: var(--success-425-625-hover) !important
   th.red, td.red
       background: $red-lighter
       color: $red
