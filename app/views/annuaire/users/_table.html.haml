@@ -16,28 +16,14 @@
           - subjects.each do |subject, institutions_subjects|
             %th{ colspan: institutions_subjects.size, title: subject.label }= subject.label.truncate(30)
       %tr.users-count
-        - grouped_subjects.each_value do |subjects|
-          - subjects.each do |subject, institutions_subjects|
-            - institutions_subjects.each do |institution_subject|
-              - experts = institution_subject.not_deleted_experts.with_users
-              - if session[:annuaire_region_id].present?
-                - experts = experts.joins(:regions).where(territories: { id: session[:annuaire_region_id] }).distinct
-              - if local_assigns[:antenne]
-                - experts &= antenne.experts
-              = build_count_experts_cell(experts, local_assigns[:antenne], institution_subject)
-        - if local_assigns[:antenne] && antenne.regional_antenne.present?
-          %tr.regional-users-count
-            %th{ colspan: 3 }= antenne.regional_antenne.name
-            - grouped_subjects.each_value do |subjects|
-              - subjects.each do |subject, institutions_subjects|
-                - institutions_subjects.each do |institution_subject|
-                  - experts = institution_subject.not_deleted_experts.with_users
-                  - experts &= antenne.regional_antenne&.experts || []
-                  - regional_count = experts.count
-                  %th.right.aligned{ title: t('.regional_experts_on_subject', count: regional_count),
-                  class: '' }
-                    = regional_count
-
+        - if local_assigns[:referencement_coverages]
+          - grouped_subjects.each_value do |subjects|
+            - subjects.each do |subject, institutions_subjects|
+              - institutions_subjects.each do |institution_subject|
+                - referencement_coverage = referencement_coverages.find_by(institution_subject: institution_subject)
+                - alert_classe = referencement_coverage.no_anomalie? ? 'success-table-cell' : 'error-table-cell'
+                %th{ class: "coverage-table-cell #{alert_classe}", title: t(referencement_coverage.anomalie, scope: 'activerecord.attributes.referencement_coverage.anomalie') }
+                  = t(referencement_coverage.coverage, scope: 'activerecord.attributes.referencement_coverage.coverage', default: "?")
 
     %tbody
       -# `users` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)

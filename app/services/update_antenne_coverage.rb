@@ -109,19 +109,20 @@ class UpdateAntenneCoverage
   def get_coverage(experts_ids)
     expert_antenne_ids = Expert.where(id: experts_ids).pluck(:antenne_id).uniq
     if expert_antenne_ids == [@antenne.id]
-      :local
+      @antenne.local? ? :local : :regional
     elsif expert_antenne_ids.include?(@antenne.id)
       :mixte
     else
-      :regional
+      @antenne.local? ? :regional : :local
     end
   end
 
   def all_potential_antennes_ids
     @all_potential_antennes ||= [
       @antenne.id,
-      @antenne.regional_antenne.id,
-      @antenne.institution.antennes.territorial_level_national.pluck(:id)
-    ].flatten
+      @antenne&.regional_antenne&.id,
+      @antenne.institution.antennes.territorial_level_national.pluck(:id),
+      @antenne&.territorial_antennes&.pluck(:id)
+    ].compact.flatten
   end
 end
