@@ -6,4 +6,10 @@ module AnnuaireHelper
     html << tag.span(class: 'ri-map-2-line blue fr-ml-1v', aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.specific_territories')) if user.relevant_expert.communes.any?
     html
   end
+
+  def referencement_coverage_cell_title(referencement_coverage)
+    anomalie_title = t(referencement_coverage.anomalie, scope: 'activerecord.attributes.referencement_coverage/anomalie')
+    details = t('application.modal.see_details')
+    [anomalie_title, details].join(' - ')
+  end
 end

@@ -21,9 +21,13 @@
             - subjects.each do |subject, institutions_subjects|
               - institutions_subjects.each do |institution_subject|
                 - referencement_coverage = referencement_coverages.find_by(institution_subject: institution_subject)
-                - alert_classe = referencement_coverage.no_anomalie? ? 'success-table-cell' : 'error-table-cell'
-                %th{ class: "coverage-table-cell #{alert_classe}", title: t(referencement_coverage.anomalie, scope: 'activerecord.attributes.referencement_coverage.anomalie') }
-                  = t(referencement_coverage.coverage, scope: 'activerecord.attributes.referencement_coverage.coverage', default: "?")
+                - if referencement_coverage.present?
+                  - alert_classe = referencement_coverage.no_anomalie? ? 'success-table-cell' : 'error-table-cell'
+                  %th.coverage-table-cell
+                    %button{ class: "coverage-modal-button #{alert_classe}", 'aria-controls': "modal-coverage-#{referencement_coverage.id}", 'data-fr-opened': 'false', title: referencement_coverage_cell_title(referencement_coverage) }
+                      = t(referencement_coverage.coverage, scope: 'activerecord.attributes.referencement_coverage/coverage.short', default: "?")
+                  = render 'referencement_coverage_modal', referencement_coverage: referencement_coverage
+
 
     %tbody
       -# `users` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
