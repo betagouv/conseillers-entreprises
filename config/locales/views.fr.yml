@@ -96,6 +96,7 @@ fr:
       open_cookies: Ouvre la fenêtre de gestion des cookies
       service_description: Aider ensemble les TPE & PME dans leurs projets, leurs difficultés et leurs transformations.
     modal:
+      see_details: Voir le détail
       see_expert_coordinates: Voir les coordonnées de l'équipe
       see_person_coordinates: Voir les coordonnées de la personne
     navbar:
