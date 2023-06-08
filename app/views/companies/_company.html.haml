@@ -29,7 +29,7 @@
         %td= date_from_timestamp(entreprise.date_cessation)
       %tr
         %td= t('.forme_exercice')
-        %td= entreprise.forme_exercice
+        %td= entreprise.forme_exercice&.humanize
       %tr
         %td= t('.inscrit_rcs')
         %td= t(entreprise.inscrit_rcs, scope: [:boolean, :text])
