@@ -74,5 +74,6 @@
         = f.submit t('.send_reminders_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'
     - if with_reminder_action?(action)
       - reminders_register = get_reminder_register(expert, action)
-      = form_with model: expert, url: reminders_reminders_register_path(reminders_register), method: :patch, local: true, data: { turbo: false } do |f|
-        = f.submit t('.process'), class: 'fr-btn fr-mr-2v'
+      - if reminders_register.present?
+        = form_with model: expert, url: reminders_reminders_register_path(reminders_register), method: :patch, local: true, data: { turbo: false } do |f|
+          = f.submit t('.process'), class: 'fr-btn fr-mr-2v'
