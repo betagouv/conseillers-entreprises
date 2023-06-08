@@ -85,8 +85,8 @@ module Reminders
 
           format.turbo_stream do
             render turbo_stream: turbo_stream.update("display-feedbacks-#{expert.id}",
-                                                    partial: "reminders/experts/expert_feedbacks",
-                                                    locals: { expert: expert })
+                                                     partial: "reminders/experts/expert_feedbacks",
+                                                     locals: { expert: expert })
           end
           format.html { redirect_to one_pending_need_reminders_experts_path }
         else
