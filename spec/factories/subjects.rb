@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :subject do
     label { Faker::Lorem.sentence(word_count: 4) }
     sequence(:slug) { |n| Faker::Lorem.word + n.to_s }
-    association :theme
+    theme
   end
 
   trait :default do

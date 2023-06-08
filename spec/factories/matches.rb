@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :match do
-    association :need
-    association :expert, factory: :expert_with_users
-    association :subject
+    need
+    expert factory: %i[expert_with_users]
+    subject
 
     after(:create) do |match, _|
       match.diagnosis.update(step: :completed, completed_at: Time.zone.now)

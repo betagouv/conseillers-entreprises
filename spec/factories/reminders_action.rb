@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :reminders_action do
-    association :need
+    need
   end
 end

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :api_key do
-    association :institution
+    institution
     sequence(:token) { |n| Faker::Lorem.word + n.to_s }
   end
 end
