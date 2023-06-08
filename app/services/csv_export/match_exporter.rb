@@ -6,7 +6,7 @@ module CsvExport
         solicitation_created_at: -> { I18n.l(solicitation&.created_at, format: :admin) if solicitation.present? },
         solicitation_id: -> { solicitation&.id },
         solicitation_description: -> { solicitation&.description },
-        solicitation_provenance_category: -> { I18n.t(solicitation.provenance_category, scope: %i(solicitation provenance_categories)) if solicitation&.provenance_category&.present? },
+        solicitation_provenance_category: -> { I18n.t(solicitation.provenance_category, scope: %i(solicitation provenance_categories)) if solicitation&.provenance_category.present? },
         solicitation_provenance_title: -> { solicitation&.provenance_title },
         solicitation_provenance_detail: -> { solicitation&.provenance_detail },
         solicitation_gclid: -> { solicitation&.gclid },
@@ -44,8 +44,8 @@ module CsvExport
         need_status: -> { need.human_attribute_value(:status, context: :csv) },
         archived_at: -> { I18n.l(archived_at, format: :admin) if archived_at.present? },
         page_besoin: -> { Rails.application.routes.url_helpers.need_url(self.need) },
-        satisfaction_contacted_by_expert: -> { I18n.t(company_satisfaction.contacted_by_expert, scope: [:boolean, :text]) if company_satisfaction&.present? },
-        satisfaction_useful_exchange: -> { I18n.t(company_satisfaction.useful_exchange, scope: [:boolean, :text]) if company_satisfaction&.present? },
+        satisfaction_contacted_by_expert: -> { I18n.t(company_satisfaction.contacted_by_expert, scope: [:boolean, :text]) if company_satisfaction.present? },
+        satisfaction_useful_exchange: -> { I18n.t(company_satisfaction.useful_exchange, scope: [:boolean, :text]) if company_satisfaction.present? },
         satisfaction_comment: -> { company_satisfaction&.comment },
       }
     end

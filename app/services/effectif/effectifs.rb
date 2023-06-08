@@ -5,7 +5,7 @@ module Effectif
     def initialize(params)
       # si nil est passé, les params par défaut sont pas pris en compte
       @annee = params["annee"]
-      @effectifs = params["effectifs_mensuels"]&.to_f || params["effectifs_annuels"]&.to_f
+      @effectifs = params["effectifs_mensuels"].to_f || params["effectifs_annuels"].to_f
     end
 
     def code_effectif
