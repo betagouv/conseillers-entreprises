@@ -47,7 +47,7 @@ RSpec.describe Feedback do
       let!(:author) { create :user, :admin }
 
       it 'Don’t notify advisor' do
-        is_expected.to contain_exactly(expert_taking_care, expert_not_reachable)
+        is_expected.to contain_exactly(expert_taking_care, expert_not_reachable, expert_quo)
       end
     end
   end
