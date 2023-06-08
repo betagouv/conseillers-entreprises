@@ -76,18 +76,28 @@ module Reminders
 
     def send_re_engagement_email
       expert = Expert.find(params.permit(:id)[:id])
-      need = expert.received_quo_matches.with_status_quo_active.first.need
-      ExpertMailer.re_engagement(expert, current_user, need).deliver_later
-      Feedback.create(user: current_user, category: :expert_reminder, description: t('.re_engagement_email_send'),
-                      feedbackable_type: 'Expert', feedbackable_id: expert.id)
-
+      need = expert.received_quo_matches.with_status_quo_active&.first&.need
       respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.update("display-feedbacks-#{expert.id}",
-                                                   partial: "reminders/experts/expert_feedbacks",
-                                                   locals: { expert: expert })
+        if need.present?
+          ExpertMailer.re_engagement(expert, current_user, need).deliver_later
+          Feedback.create(user: current_user, category: :expert_reminder, description: t('.re_engagement_email_send'),
+                          feedbackable_type: 'Expert', feedbackable_id: expert.id)
+
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.update("display-feedbacks-#{expert.id}",
+                                                    partial: "reminders/experts/expert_feedbacks",
+                                                    locals: { expert: expert })
+          end
+          format.html { redirect_to one_pending_need_reminders_experts_path }
+        else
+          flash.now[:alert] = t('emails.not_sent')
+          format.turbo_stream do
+            render turbo_stream: [
+              turbo_stream.update("flash", partial: "shared/flashes")
+            ]
+          end
+          format.html { render :index, status: :unprocessable_entity }
         end
-        format.html { redirect_to one_pending_need_reminders_experts_path }
       end
     end
 
