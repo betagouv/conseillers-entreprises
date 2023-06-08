@@ -34,6 +34,13 @@ Gemspec/OrderedDependencies:
 Gemspec/RequiredRubyVersion:
   Enabled: true
 
+FactoryBot/FactoryAssociationWithStrategy:
+  Exclude:
+    - 'spec/factories/solicitations.rb'
+
+FactoryBot/CreateList:
+  Enabled: false
+
 Layout/AccessModifierIndentation:
   Enabled: true
 
