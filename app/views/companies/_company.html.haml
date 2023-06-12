@@ -28,11 +28,17 @@
         %td= t('.date_cessation')
         %td= date_from_timestamp(entreprise.date_cessation)
       %tr
+        %td= t('.forme_exercice')
+        %td= entreprise.forme_exercice&.humanize
+      %tr
         %td= t('.inscrit_rcs')
         %td= t(entreprise.inscrit_rcs, scope: [:boolean, :text])
       %tr
         %td= t('.inscrit_rm')
         %td= t(entreprise.inscrit_rm, scope: [:boolean, :text])
+      %tr
+        %td= t('.activite_liberale')
+        %td= t(entreprise.activite_liberale, scope: [:boolean, :text])
       %tr
         %td= t('.diffusable_commercialement')
         %td= t(entreprise.diffusable_commercialement.to_b, scope: [:boolean, :text])

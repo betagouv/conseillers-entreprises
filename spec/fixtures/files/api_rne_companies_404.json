@@ -1,0 +1,7 @@
+{
+  "code": "404",
+  "webserviceCode": "api_company",
+  "errorCode": "company_not_found",
+  "message": "Impossible de trouver la ressource demandée",
+  "type": "notFound"
+}

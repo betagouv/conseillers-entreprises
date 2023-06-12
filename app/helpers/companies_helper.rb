@@ -10,9 +10,12 @@ module CompaniesHelper
     "(#{annee})"
   end
 
-  def inscription_registres(company)
-    rcs = [I18n.t('activerecord.attributes.company.inscrit_rcs'), I18n.t(company.inscrit_rcs.present?, scope: [:boolean, :text])].join(" : ")
-    rm =  [t('activerecord.attributes.company.inscrit_rm'), t(company.inscrit_rm.present?, scope: [:boolean, :text])].join(" : ")
-    [rcs, rm].join(" / ")
+  def inscription_registre(registre, value)
+    label = I18n.t(registre, scope: 'activerecord.attributes.company')
+    t_value = I18n.t(value, scope: [:boolean, :text])
+
+    html = tag.span("#{label} : ", class: 'fr-text--bold')
+    html << t_value
+    html
   end
 end

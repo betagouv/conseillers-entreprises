@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'api_helper'
 
 describe UseCases::SearchFacility do
   let!(:opco) { create :opco, siren: "851296632" }
@@ -21,10 +22,12 @@ describe UseCases::SearchFacility do
   let(:etablissement_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret}?#{suffix_url}" }
   let(:effectif_etablissement_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/#{searched_date}/etablissement/#{siret}?#{suffix_url}" }
   let(:opco_url) { "https://www.cfadock.fr/api/opcos?siret=#{siret}" }
+  let(:rne_companies_url) { "https://registre-national-entreprises.inpi.fr/api/companies/#{siren}" }
 
   describe 'with_siret_and_save' do
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
+      authorize_rne_token
       stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_entreprise.json'))
       stub_request(:get, effectif_entreprise_url).to_return(body: file_fixture('api_entreprise_effectifs_entreprise.json'))
       stub_request(:get, rcs_url).to_return(body: file_fixture('api_entreprise_rcs.json'))
@@ -33,6 +36,7 @@ describe UseCases::SearchFacility do
       stub_request(:get, etablissement_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
       stub_request(:get, effectif_etablissement_url).to_return(body: file_fixture('api_entreprise_effectifs_etablissement.json'))
       stub_request(:get, opco_url).to_return(body: file_fixture('api_cfadock_opco.json'))
+      stub_request(:get, rne_companies_url).to_return(body: file_fixture('api_rne_companies.json'))
     end
 
     context 'first call' do
@@ -48,6 +52,7 @@ describe UseCases::SearchFacility do
         expect(company.code_effectif).to eq '41'
         expect(company.inscrit_rcs).to be true
         expect(company.inscrit_rm).to be true
+        expect(company.forme_exercice).to eq 'COMMERCIALE'
 
         expect(facility.reload.siret).to eq siret
         expect(facility.commune.insee_code).to eq '75102'

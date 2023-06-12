@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_15_092930) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_25_101918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -179,6 +179,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_092930) do
     t.boolean "inscrit_rcs"
     t.boolean "inscrit_rm"
     t.float "effectif"
+    t.string "forme_exercice"
+    t.boolean "activite_liberale", default: false
     t.index ["siren"], name: "index_companies_on_siren", unique: true, where: "((siren)::text <> NULL::text)"
   end
 
@@ -507,6 +509,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_092930) do
     t.index ["category"], name: "index_quarterly_reports_on_category"
   end
 
+  create_table "referencement_coverages", force: :cascade do |t|
+    t.bigint "antenne_id", null: false
+    t.bigint "institution_subject_id", null: false
+    t.string "coverage"
+    t.integer "anomalie"
+    t.json "anomalie_details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["antenne_id"], name: "index_referencement_coverages_on_antenne_id"
+    t.index ["institution_subject_id"], name: "index_referencement_coverages_on_institution_subject_id"
+  end
+
   create_table "reminders_actions", force: :cascade do |t|
     t.bigint "need_id", null: false
     t.datetime "created_at", null: false
@@ -696,6 +710,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_092930) do
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
   add_foreign_key "quarterly_reports", "antennes"
+  add_foreign_key "referencement_coverages", "antennes"
+  add_foreign_key "referencement_coverages", "institutions_subjects"
   add_foreign_key "reminders_actions", "needs"
   add_foreign_key "reminders_registers", "experts"
   add_foreign_key "searches", "users"

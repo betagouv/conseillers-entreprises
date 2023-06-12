@@ -21,9 +21,11 @@ RSpec.describe CompaniesController do
   let(:rcs_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/extrait_kbis?#{suffix_url}" }
   let(:rm_url) { "https://entreprise.api.gouv.fr/v3/cma_france/rnm/unites_legales/#{siren}?#{suffix_url}" }
   let(:mandataires_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/mandataires_sociaux?#{suffix_url}" }
+  let(:rne_companies_url) { "https://registre-national-entreprises.inpi.fr/api/companies/#{siren}" }
 
   before do
     ENV['API_ENTREPRISE_TOKEN'] = token
+    authorize_rne_token
     stub_request(:get, etablissement_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
     stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
     stub_request(:get, effectif_etablissement_url).to_return(body: file_fixture('api_entreprise_effectifs_etablissement.json'))
@@ -32,6 +34,7 @@ RSpec.describe CompaniesController do
     stub_request(:get, rcs_url).to_return(body: file_fixture('api_entreprise_rcs.json'))
     stub_request(:get, rm_url).to_return(body: file_fixture('api_entreprise_rm.json'))
     stub_request(:get, mandataires_url).to_return(body: file_fixture('api_entreprise_mandataires_sociaux.json'))
+    stub_request(:get, rne_companies_url).to_return(body: file_fixture('api_rne_companies.json'))
   end
 
   describe 'GET #show_with_siret' do

@@ -1,7 +1,7 @@
 module ApiConsumption::Models
   class Company::Base < Base
     def name
-      raise 'mising'
+      raise 'A definir dans la classe enfant'
     end
 
     def inscrit_rcs
@@ -19,7 +19,7 @@ module ApiConsumption::Models
     end
 
     def naf_libelle
-      raise 'mising'
+      raise 'A definir dans la classe enfant'
     end
   end
 end
