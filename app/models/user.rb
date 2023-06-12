@@ -235,7 +235,7 @@ class User < ApplicationRecord
   # (We also want Devise.paranoid to be true to prevent user enumeration.)
   def send_reset_password_instructions
     return if self.deleted?
-    if invitation_sent_at.present? && invitation_accepted_at.nil?
+    if !invitation_accepted?
       invite!
     else
       super
