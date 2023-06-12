@@ -256,7 +256,7 @@ fr:
   shared:
     errors:
       '404':
-        message: Cette page n’existe pas, ou vous n’y avez pas accès.
+        message_html: Cette page n’existe pas, ou vous n’y avez pas accès.
         title: Erreur !
       '500':
         message_html: Cette erreur était inattendue…<br/>Nous avons été prévenus de son apparition et nous allons la réparer dès que possible !
