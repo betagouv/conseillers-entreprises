@@ -20,10 +20,10 @@ ActiveAdmin.register CompanySatisfaction do
       admin_link_to(s.landing) || '-'
     end
     column "#{t('activerecord.attributes.solicitation.tracking')}" do |s|
-      if s.solicitation&.campaign&.present?
+      if s.solicitation&.campaign.present?
         div "#{t('activerecord.attributes.solicitation.mtm_campaign')} : #{link_to_tracked_campaign(s.solicitation)}".html_safe
       end
-      if s.solicitation&.provenance_detail&.present?
+      if s.solicitation&.provenance_detail.present?
         div "#{t('activerecord.attributes.solicitation.mtm_kwd')} : « #{link_to_tracked_ad(s.solicitation)} »".html_safe
       end
     end

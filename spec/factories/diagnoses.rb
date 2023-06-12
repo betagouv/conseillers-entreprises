@@ -2,10 +2,10 @@
 
 FactoryBot.define do
   factory :diagnosis do
-    association :advisor, factory: :user
-    association :facility
-    association :solicitation
-    association :visitee, factory: [:contact, :with_phone_number]
+    advisor factory: %i[user]
+    facility
+    solicitation
+    visitee factory: %i[contact with_phone_number]
     content { Faker::Lorem.sentence }
     step { 1 }
     happened_on { 3.days.from_now }

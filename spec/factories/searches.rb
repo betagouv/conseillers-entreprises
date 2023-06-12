@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :search do
-    association :user
+    user
     query { Faker::Lorem.word }
     label { Faker::Lorem.word.capitalize }
   end

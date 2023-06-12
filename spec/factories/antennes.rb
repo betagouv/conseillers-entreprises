@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :antenne do
     name { Faker::Company.unique.name }
-    association :institution
+    institution
     territorial_level { :local }
   end
 

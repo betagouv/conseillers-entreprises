@@ -4,6 +4,7 @@ require:
   - rubocop-rails
   - rubocop-i18n
   - rubocop-capybara
+  - rubocop-factory_bot
 
 AllCops:
   TargetRubyVersion: 2.7
@@ -33,6 +34,16 @@ Gemspec/OrderedDependencies:
 
 Gemspec/RequiredRubyVersion:
   Enabled: true
+
+FactoryBot/ConsistentParenthesesStyle:
+  Enabled: false
+
+FactoryBot/CreateList:
+  Enabled: false
+
+FactoryBot/FactoryAssociationWithStrategy:
+  Exclude:
+    - 'spec/factories/solicitations.rb'
 
 Layout/AccessModifierIndentation:
   Enabled: true
@@ -829,9 +840,6 @@ RSpec/DescribeClass:
     - spec/**/*
 
 RSpec/ExampleLength:
-  Enabled: false
-
-RSpec/FactoryBot/ConsistentParenthesesStyle:
   Enabled: false
 
 RSpec/FilePath:

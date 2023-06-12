@@ -5,7 +5,7 @@ module XlsxExport
         solicitation_created_at: -> { I18n.l(solicitation&.created_at, format: :fr) if solicitation.present? },
         solicitation_id: -> { solicitation&.id },
         solicitation_description: -> { solicitation&.description },
-        solicitation_provenance_category: -> { I18n.t(solicitation.provenance_category, scope: %i(solicitation provenance_categories)) if solicitation&.provenance_category&.present? },
+        solicitation_provenance_category: -> { I18n.t(solicitation.provenance_category, scope: %i(solicitation provenance_categories)) if solicitation&.provenance_category.present? },
         theme: :theme,
         subject: :subject,
         siret: -> { facility.siret },

@@ -27,7 +27,7 @@ describe 'reminders needs', js: true do
       page.find_button('Rechercher').execute_script('this.click()')
       page.find_by_id('clear-search')
       p "real count : #{Need.by_region(region).distinct.size}"
-      expect(page).to have_no_content(need2.company.name, wait: 10)
+      expect(page).not_to have_content(need2.company.name, wait: 10)
       expect(page).to have_css('.card', count: 1)
     end
   end
