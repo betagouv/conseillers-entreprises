@@ -5,7 +5,7 @@ module ApiRne::Token
     # rubocop:enable Style/RedundantInitialize
 
     def call
-      Rails.cache.fetch('rne_token', expires_in: 1.day) do
+      Rails.cache.fetch('rne_token', expires_in: 1.hour) do
         http_request = Request.new
         if http_request.success?
           Responder.new(http_request).call
