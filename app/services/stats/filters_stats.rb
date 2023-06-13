@@ -2,7 +2,7 @@ module Stats
   module FiltersStats
     def filtered_needs(query)
       query.merge! territory.needs if territory.present?
-      query.merge! antenne_or_institution.received_needs if antenne_or_institution.present?
+      query.merge! antenne_or_institution.received_needs_including_from_deleted_experts if antenne_or_institution.present?
       query.merge! Need.joins(:subject).where(subject: subject) if subject.present?
       query.merge! Need.joins(solicitation: :landing)
         .where(solicitations: { landings: { integration: integration } }) if integration.present?
@@ -22,7 +22,7 @@ module Stats
 
     def filtered_solicitations(query)
       query.merge! Solicitation.in_regions(territory.code_region) if territory.present?
-      query.merge! antenne_or_institution.received_solicitations if antenne_or_institution.present?
+      query.merge! antenne_or_institution.received_solicitations_including_from_deleted_experts if antenne_or_institution.present?
       query.merge! Solicitation.joins(landing_subject: :subject).where(subjects: subject) if subject.present?
       query.merge! Solicitation.joins(:landing).where(landings: { integration: integration }) if integration.present?
       query.merge! Solicitation.joins(landing_subject: { subject: :theme }).where(subjects: { themes: theme }) if theme.present?
@@ -39,7 +39,7 @@ module Stats
 
     def filtered_companies(query)
       query.merge!(territory.companies) if territory.present?
-      query.merge! antenne_or_institution.received_diagnoses if antenne_or_institution.present?
+      query.merge! antenne_or_institution.received_diagnoses_including_from_deleted_experts if antenne_or_institution.present?
       query.merge! Company.joins(facilities: { diagnoses: { solicitation: { landing_subject: :subject } } })
         .where(landing_subjects: { subjects: subject }) if subject.present?
       query.merge! Company.joins(facilities: { diagnoses: { solicitation: :landing } })
