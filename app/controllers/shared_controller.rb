@@ -57,7 +57,7 @@ class SharedController < ActionController::Base
     respond_to do |format|
       format.html { render "shared/errors/#{status}", status: status }
       format.js do
-        flash.alert = I18n.t(:message, scope: ['shared', 'errors', status])
+        flash.alert = I18n.t(:message_html, scope: ['shared', 'errors', status])
         render "shared/errors/#{status}"
       end
       format.any { head status }

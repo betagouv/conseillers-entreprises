@@ -28,6 +28,7 @@ module ApiRne
     end
 
     def handle_error(http_request)
+      Sentry.capture_message(["ERREUR API RNE", http_request.error_message].join(' : '))
       return { "rne" => { "error" => http_request.error_message } }
     end
 
