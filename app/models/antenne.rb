@@ -76,10 +76,14 @@ class Antenne < ApplicationRecord
 
   # :experts
   has_many :received_matches, through: :experts, inverse_of: :expert_antenne
-  has_many :received_matches_including_from_deleted_experts, through: :experts_including_deleted, source: :received_matches, inverse_of: :expert_antenne
   has_many :received_needs, through: :experts, inverse_of: :expert_antennes
   has_many :received_diagnoses, through: :experts, inverse_of: :expert_antennes
   has_many :received_solicitations, through: :received_diagnoses, source: :solicitation, inverse_of: :diagnosis
+
+  has_many :received_matches_including_from_deleted_experts, through: :experts_including_deleted, source: :received_matches, inverse_of: :expert_antenne
+  has_many :received_needs_including_from_deleted_experts, through: :experts_including_deleted, source: :received_needs, inverse_of: :expert_antennes
+  has_many :received_diagnoses_including_from_deleted_experts, through: :experts_including_deleted, source: :received_diagnoses, inverse_of: :expert_antennes
+  has_many :received_solicitations_including_from_deleted_experts, through: :received_diagnoses_including_from_deleted_experts, source: :solicitation, inverse_of: :diagnosis
 
   ## Callbacks
   #
