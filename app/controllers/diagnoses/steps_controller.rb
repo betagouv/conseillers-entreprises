@@ -67,6 +67,28 @@ class Diagnoses::StepsController < ApplicationController
     end
   end
 
+  def add_match
+    @need = Need.find(params.require(:need_id))
+    @expert = Expert.find(params.require(:expert_id))
+    @match = Match.new(need: @need, expert: @expert, subject: @need.subject)
+    # respond_to do |format|
+    #   format.turbo_stream do
+    #     helpers.fields model: Diagnosis.new do |f|
+    #       f.fields_for :needs, @need do |need_form|
+    #         html_id = "match-checkboxes-#{@need.id}"
+
+    #         render turbo_stream: turbo_stream.append(html_id,
+    #           partial: "diagnoses/steps/match_checkbox",
+    #           locals: { need_form: need_form,
+    #             match: @match,
+    #             expert_subjects: @expert.experts_subjects
+    #           })
+    #       end
+    #     end
+    #   end
+    # end
+  end
+
   private
 
   def retrieve_diagnosis

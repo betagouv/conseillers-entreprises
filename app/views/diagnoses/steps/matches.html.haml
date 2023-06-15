@@ -14,6 +14,7 @@
         %p= link_to t('.link_to_historic'), needs_historic_contact_path(@diagnosis.visitee), target: :blank, reel: :noopener
 
     = form_with model: @diagnosis,
+      id: 'confirm_matches_form',
       url: update_matches_diagnosis_path(@diagnosis),
       data: { checkboxes_require_one_with: t(".select_at_least_one_expert") },
       local: true do |form|
@@ -27,29 +28,40 @@
         .card-matches.fr-mb-2w
           .card__header
             %h2.fr-text--lead= need.subject
-          - experts_subjects = CreateDiagnosis::FindRelevantExpertSubjects.new(need).call
-          - support_subject = ExpertSubject.support_for(@diagnosis)
-          - if experts_subjects.present?
-            = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects
-          - elsif support_subject.present?
-            .fr-highlight.fr-mt-2w
-              %p= t('.no_expert_subject')
-              %p= t('.you_can_contact_support')
-            = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: support_subject
-          - else
-            .fr-highlight.fr-mt-2w
-              %p= t('.no_expert_subject')
+          #experts_subject_checkboxes
+            - experts_subjects = CreateDiagnosis::FindRelevantExpertSubjects.new(need).call
+            - support_subject = ExpertSubject.support_for(@diagnosis)
+            - if experts_subjects.present?
+              = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects
+            - elsif support_subject.present?
+              .fr-highlight.fr-mt-2w
+                %p= t('.no_expert_subject')
+                %p= t('.you_can_contact_support')
+              = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: support_subject
+            - else
+              .fr-highlight.fr-mt-2w
+                %p= t('.no_expert_subject')
 
-      .fr-callout
-        %p.fr-callout__text= t('.before_sending_emails')
+    .container{ data: { controller: "expert-autocomplete" } }
+      = form_with url: add_match_diagnosis_path, data: { 'expert-autocomplete-target': 'form' } do |add_f|
+        = add_f.hidden_field :need_id, value: @diagnosis.needs.first.id
+        = add_f.hidden_field :expert_id, value: nil, data: { 'expert-autocomplete-target': 'expertField' }
+      .fr-search-bar.siret-autocomplete
+        %span.ri-user-add-fill.blue.info-icon{ title: t('.ambulance_explanation'), 'aria-hidden': 'true' }
+        = label_tag "expert", t('.subtitle'), class: 'fr-label'
+        .loader.hidden{ data: { 'expert-autocomplete-target': 'loader' } }
+        %div{ data: { 'expert-autocomplete-target': "field", 'assistive-hint': t(".expert_assistive_hint"), name: 'omnisearch', 'search-url': conseiller_experts_path } }
 
-      .bottom_actions.flex
-        = link_to needs_diagnosis_path(@diagnosis), class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbo: false } do
-          %span.ri-arrow-left-line.fr-mr-1w{ 'aria-hidden': 'true' }
-          = t('previous_step')
+    .fr-callout
+      %p.fr-callout__text= t('.before_sending_emails')
 
-        - button_classes = []
-        - if @diagnosis.visitee.blank?
-          - button_classes << 'disabled'
-        %button.fr-btn.btn-green#next-step-button{ class: button_classes }
-          = t('.notify_matches')
+    .bottom_actions.flex
+      = link_to needs_diagnosis_path(@diagnosis), class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbo: false } do
+        %span.ri-arrow-left-line.fr-mr-1w{ 'aria-hidden': 'true' }
+        = t('previous_step')
+
+      - button_classes = []
+      - if @diagnosis.visitee.blank?
+        - button_classes << 'disabled'
+      %button.fr-btn.btn-green#next-step-button{ class: button_classes, form: 'confirm_matches_form' }
+        = t('.notify_matches')
