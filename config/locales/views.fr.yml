@@ -208,7 +208,7 @@ fr:
       subtitle: Par SIRET, raison sociale, adresse, activité
     show:
       create_diagnosis: Démarrer une analyse
-      facility: Établissement
+      facility: Établissement concerné
       siege_social: Siège social
   company_satisfactions:
     new:
@@ -555,7 +555,7 @@ fr:
       title: Visite de la société « %{company} »
       transmitted_by: Demande transmise par
       warning_comments: Attention ! Cette discussion n’est pas visible par l’entreprise.
-      workforce: 'Tranche effectif : %{range}'
+      workforce: 'Effectifs de l’établissement : %{range}'
     unarchive:
       subject_unarchived: Besoin désarchivé
   newsletters:
