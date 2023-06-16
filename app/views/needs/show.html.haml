@@ -12,7 +12,7 @@
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
         = need_general_context(@need)
-        - if @need.institution_filters.any? || @need.solicitation.landing&.is_entreprendre_landing
+        - if @need.institution_filters.any? || @need.solicitation&.landing&.is_entreprendre_landing
           %hr
           .need-description__meta.fr-text--sm
             - if @need.institution_filters.any?
