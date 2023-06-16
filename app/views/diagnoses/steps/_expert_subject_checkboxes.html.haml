@@ -15,6 +15,9 @@
                 .fr-col
                   %h3.fr-text.bold.fr-m-0
                     = expert.full_name
+                    - if expert.users.any?{ |user| user.invitation_not_accepted? }
+                      %span.picto.ri-mail-forbid-line{ 'aria-hidden': 'true', title: t('.invitation_not_accepted') }
+
                   .fr-text--sm.fr-m-0= expert.job
                   .fr-text--sm.fr-m-0= expert.antenne
                 .fr-col

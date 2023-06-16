@@ -123,7 +123,7 @@ fr:
     person_modal:
       manager_name: 'Responsable : %{name}'
     user_admin_view:
-      invitation_not_accepted: Cette personne n'a pas encore accepté son invitation
+      invitation_not_accepted: Cette personne n’a pas encore accepté son invitation
   at_your_disposal: Nous restons à votre disposition pour tout complément d’informations.
   attributes:
     is_global_zone: Territoire national
@@ -324,6 +324,8 @@ fr:
         full_name_placeholder: 'ex: Marie Dupont'
         phone_number: Numéro de télephone
         your_contact_in_the_company: 'Contact de l’entreprise %{company_name} :'
+      expert_subject_checkboxes:
+        invitation_not_accepted: Au moins une personne n’a pas encore accepté son invitation
       matches:
         before_sending_emails: En cliquant sur le bouton ci-dessous, les experts sélectionnés seront contactés par e-mail et auront accès à la fiche détaillée du besoin.
         company_needs_historic_title: Cette entreprise a déjà des besoins mis en relation.
