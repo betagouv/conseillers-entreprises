@@ -105,7 +105,7 @@ ActiveAdmin.register Solicitation do
   remove_filter :institution_filters
   filter :landing, as: :select, collection: -> { Landing.order(:slug).pluck(:slug, :id) }
   filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }
-  filter :landing_subject, as: :select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }
+  filter :subject, as: :select, collection: -> { Subject.not_archived.order(:label).pluck(:label, :id) }
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
   filter :completion, as: :select, collection: -> { ['step_complete', 'step_incomplete'].map{ |completion| [I18n.t("active_admin.scopes.#{completion}"), completion] } }
   filter :code_region, as: :select, collection: -> { Territory.deployed_regions.order(:name).pluck(:name, :code_region) }
