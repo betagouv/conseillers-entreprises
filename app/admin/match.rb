@@ -85,7 +85,7 @@ ActiveAdmin.register Match do
          data: { url: :admin_antennes_path, search_fields: [:name] }
 
   filter :theme, collection: -> { Theme.ordered_for_interview }
-  filter :subject, collection: -> { Subject.order(:interview_sort_order) }
+  filter :subject, collection: -> { Subject.not_archived.order(:label) }
 
   filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.deployed_regions.pluck(:name, :id) }

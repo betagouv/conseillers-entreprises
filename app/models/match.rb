@@ -131,23 +131,19 @@ class Match < ApplicationRecord
   end
 
   scope :solicitation_mtm_campaign_contains, -> (query) {
-    joins(:solicitation).merge(Solicitation.pk_campaign_contains(query))
-      .merge(Solicitation.mtm_campaign_contains(query))
+    joins(:solicitation).merge(Solicitation.mtm_campaign_contains(query))
   }
 
   scope :solicitation_mtm_campaign_equals, -> (query) {
-    joins(:solicitation).merge(Solicitation.pk_campaign_equals(query))
-      .merge(Solicitation.mtm_campaign_equals(query))
+    joins(:solicitation).merge(Solicitation.mtm_campaign_equals(query))
   }
 
   scope :solicitation_mtm_campaign_starts_with, -> (query) {
-    joins(:solicitation).merge(Solicitation.pk_campaign_starts_with(query))
-      .merge(Solicitation.mtm_campaign_starts_with(query))
+    joins(:solicitation).merge(Solicitation.mtm_campaign_starts_with(query))
   }
 
   scope :solicitation_mtm_campaign_ends_with, -> (query) {
-    joins(:solicitation).merge(Solicitation.pk_campaign_ends_with,(query))
-      .merge(Solicitation.mtm_campaign_ends_with,(query))
+    joins(:solicitation).merge(Solicitation.mtm_campaign_ends_with,(query))
   }
 
   def self.ransackable_scopes(auth_object = nil)
