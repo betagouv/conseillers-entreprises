@@ -107,6 +107,10 @@ fr:
       without_subjects: Sans compétence
       without_users: Aucun membre
     solicitations:
+      delete: Supprimer la sollicitation
+      delete_confirm: Voulez-vous supprimer cette sollicitation ?
+      deleted: Sollicitation supprimée
+      diagnosis_exists: Une analyse transmise existe, la suppression de la sollicitation n’est pas possible.
       need_show: Fiche besoin : 
       no_siret: SIRET non fourni
     subject:
