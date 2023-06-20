@@ -94,10 +94,10 @@ ActiveAdmin.register Solicitation do
   end
 
   member_action :delete, method: :delete do
-    if resource.diagnosis_completed?
+    if resource.diagnosis.present? && resource.diagnosis_completed?
       redirect_to resource_path, alert: t('active_admin.solicitations.diagnosis_exists')
     else
-      resource.diagnosis.destroy
+      resource.diagnosis&.destroy
       resource.destroy
       redirect_to admin_solicitations_path, notice: t('active_admin.solicitations.deleted')
     end
