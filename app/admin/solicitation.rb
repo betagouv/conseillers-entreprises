@@ -103,7 +103,7 @@ ActiveAdmin.register Solicitation do
     end
   end
 
-  action_item :export_csv, only: :show, method: :post do
+  action_item :delete_solicitation, only: :show, method: :post do
     link_to t('active_admin.solicitations.delete'), delete_admin_solicitation_path(resource), method: :delete, 'data-confirm': t('active_admin.solicitations.delete_confirm')
   end
 
