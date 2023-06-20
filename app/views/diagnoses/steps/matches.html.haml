@@ -14,7 +14,7 @@
         %p= link_to t('.link_to_historic'), needs_historic_contact_path(@diagnosis.visitee), target: :blank, reel: :noopener
 
     = form_with model: @diagnosis,
-      url: update_matches_diagnosis_path(@diagnosis),
+      url: update_matches_diagnosis_path(@diagnosis), id: 'confirm_matches_form',
       data: { checkboxes_require_one_with: t(".select_at_least_one_expert") },
       local: true do |form|
 
@@ -43,7 +43,6 @@
                   %p= t('.no_expert_subject')
               - match = Expert.active.with_active_matches.last.received_matches.last
               = render 'new_expert_subject_checkboxes', form: form, need: need, match: match
-
 
     .container{ data: { controller: "expert-autocomplete" } }
       = form_with url: add_match_diagnosis_path, data: { 'expert-autocomplete-target': 'form', turbo: true } do |add_f|

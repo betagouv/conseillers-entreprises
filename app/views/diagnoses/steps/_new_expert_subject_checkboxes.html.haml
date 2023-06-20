@@ -1,9 +1,9 @@
 .experts_subject_checkbox.fr-p-2w
-  = form.fields_for :needs, need do |need_form|
+  = form_with model: need do |need_form|
     = need_form.hidden_field :id
     .fr-checkbox-group{ id: dom_id(match)}
       - expert = match.expert
-      = need_form.fields_for :matches, match do |match_form|
+      = need_form.fields_for match do |match_form|
         #match-checkbox
           = match_form.hidden_field :expert_id
           = match_form.hidden_field :subject_id
@@ -20,5 +20,3 @@
                   - expert.experts_subjects.each do |expert_subject|
                     = [expert_subject.institution_subject, expert_subject.intervention_criteria].compact.join(' — ')
                     %br
-
-
