@@ -3,10 +3,8 @@
   #antennes
     = render partial: "antennes/antenne", collection: @antennes
 
-  %turbo-frame#antennes2
-
 .fr-container.fr-mt-3w
-  = form_with model: @antenne do |f|
+  = form_with model: @antenne, data: { turbo: true } do |f|
     .fr-input-group
       = f.label :name, class: 'fr-label'
       = f.text_field :name, class: 'fr-input'

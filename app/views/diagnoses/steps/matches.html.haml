@@ -14,7 +14,6 @@
         %p= link_to t('.link_to_historic'), needs_historic_contact_path(@diagnosis.visitee), target: :blank, reel: :noopener
 
     = form_with model: @diagnosis,
-      id: 'confirm_matches_form',
       url: update_matches_diagnosis_path(@diagnosis),
       data: { checkboxes_require_one_with: t(".select_at_least_one_expert") },
       local: true do |form|
@@ -29,21 +28,25 @@
           .card__header
             %h2.fr-text--lead= need.subject
           #experts_subject_checkboxes
-            - experts_subjects = CreateDiagnosis::FindRelevantExpertSubjects.new(need).call
-            - support_subject = ExpertSubject.support_for(@diagnosis)
-            - if experts_subjects.present?
-              = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects
-            - elsif support_subject.present?
-              .fr-highlight.fr-mt-2w
-                %p= t('.no_expert_subject')
-                %p= t('.you_can_contact_support')
-              = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: support_subject
-            - else
-              .fr-highlight.fr-mt-2w
-                %p= t('.no_expert_subject')
+            %div{ id: "match-checkboxes-#{need.id}"}
+              - experts_subjects = CreateDiagnosis::FindRelevantExpertSubjects.new(need).call
+              - support_subject = ExpertSubject.support_for(@diagnosis)
+              - if experts_subjects.present?
+                = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects
+              - elsif support_subject.present?
+                .fr-highlight.fr-mt-2w
+                  %p= t('.no_expert_subject')
+                  %p= t('.you_can_contact_support')
+                = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: support_subject
+              - else
+                .fr-highlight.fr-mt-2w
+                  %p= t('.no_expert_subject')
+              - match = Expert.active.with_active_matches.last.received_matches.last
+              = render 'new_expert_subject_checkboxes', form: form, need: need, match: match
+
 
     .container{ data: { controller: "expert-autocomplete" } }
-      = form_with url: add_match_diagnosis_path, data: { 'expert-autocomplete-target': 'form' } do |add_f|
+      = form_with url: add_match_diagnosis_path, data: { 'expert-autocomplete-target': 'form', turbo: true } do |add_f|
         = add_f.hidden_field :need_id, value: @diagnosis.needs.first.id
         = add_f.hidden_field :expert_id, value: nil, data: { 'expert-autocomplete-target': 'expertField' }
       .fr-search-bar.siret-autocomplete

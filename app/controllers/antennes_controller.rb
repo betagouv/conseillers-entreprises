@@ -11,13 +11,12 @@ class AntennesController < ApplicationController
     @antenne = institution.antennes.create!(params.permit(:name))
 
     respond_to do |format|
-      format.turbo_stream {}
-      # format.turbo_stream do
-      #   render turbo_stream: turbo_stream.append("antennes",
-      #     partial: "antennes/antenne",
-      #     locals: { antenne: antenne }
-      #   )
-      # end
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.append("antennes",
+          partial: "antennes/antenne",
+          locals: { antenne: @antenne }
+        )
+      end
 
       format.html { redirect_to antennes_url }
     end
