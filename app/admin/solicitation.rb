@@ -99,7 +99,7 @@ ActiveAdmin.register Solicitation do
     else
       resource.diagnosis&.destroy
       resource.destroy
-      redirect_to admin_solicitations_path, notice: t('active_admin.solicitations.deleted')
+      redirect_to admin_solicitations_path, notice: t('active_admin.solicitations.deleted.one')
     end
   end
 
@@ -262,5 +262,23 @@ ActiveAdmin.register Solicitation do
       Solicitation.where(id: ids).each { |s| s.badges.delete(badge) }
     end
     redirect_to collection_path, notice: I18n.t('active_admin.badges.modified', action: inputs[:action].gsub('er', 'é'))
+  end
+
+  batch_action(I18n.t('active_admin.solicitations.batch_delete')) do |ids|
+    errors_count = 0
+    batch_action_collection.find(ids).each do |resource|
+      if resource.diagnosis.present? && resource.diagnosis_completed?
+        errors_count += 1
+      else
+        resource.diagnosis&.destroy
+        resource.destroy
+      end
+    end
+    message = if errors_count.positive?
+      { alert: t('active_admin.solicitations.not_deleted', count: errors_count) }
+    else
+      { notice: t('active_admin.solicitations.deleted', count: ids.count) }
+    end
+    redirect_back fallback_location: collection_path, **message
   end
 end

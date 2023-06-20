@@ -107,12 +107,18 @@ fr:
       without_subjects: Sans compétence
       without_users: Aucun membre
     solicitations:
+      batch_delete: Supprimer
       delete: Supprimer la sollicitation
       delete_confirm: Voulez-vous supprimer cette sollicitation ?
-      deleted: Sollicitation supprimée
+      deleted:
+        one: Sollicitation supprimée
+        other: Sollicitations supprimées
       diagnosis_exists: Une analyse transmise existe, la suppression de la sollicitation n’est pas possible.
       need_show: Fiche besoin : 
       no_siret: SIRET non fourni
+      not_deleted:
+        one: Une sollicitation n’a pas été supprimée car une analyse transmise existe.
+        other: "%{count} sollicitations n'ont pas été supprimées car une analyse transmise existe."
     subject:
       copy_experts_button: Copier le référencement
       copy_experts_confirm: Copier le référencement ? Vous ne pourrez pas annuler.
