@@ -32,7 +32,6 @@
     %tbody
       -# `users` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
         We’ll group by Antenne and by Expert team, and span the first two columns as needed.
-      - grouped_users = users.select(:antennes).group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
       - grouped_users.each do |antenne, teams|
         - teams.each_with_index do |key_and_value, index_in_antenne|
           - users = key_and_value.last
