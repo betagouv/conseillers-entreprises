@@ -23,7 +23,10 @@ class UpdateAntenneCoverage
   private
 
   def get_experts_without_specific_territories(insee_codes, institution_subject)
+    with_custom_communes_subquery = institution_subject.not_deleted_experts.with_custom_communes
+
     institution_subject.not_deleted_experts
+      .where.not(id: with_custom_communes_subquery)
       .select('experts.id, experts.antenne_id, communes.insee_code AS insee_code')
       .joins(antenne: :communes)
       .where(antenne_id: all_potential_antennes_ids)
