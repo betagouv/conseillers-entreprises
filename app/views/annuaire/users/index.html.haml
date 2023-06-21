@@ -12,4 +12,4 @@
     = f.hidden_field :slug, value: params[:institution_slug]
     = f.submit t('.send_invitations', count: @not_invited_users.length), class: 'fr-btn fr-mb-2w fr-ml-2w'
 
-= render 'table', grouped_subjects: @grouped_subjects, users: @users, referencement_coverages: @referencement_coverages
+= render 'table', grouped_subjects: @grouped_subjects, grouped_users: @grouped_users, referencement_coverages: @referencement_coverages
