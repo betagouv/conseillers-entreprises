@@ -144,7 +144,7 @@ fr:
       delete: Supprimer l’utilisateur et son expert personnel
       delete_confirmation: Voulez-vous supprimer cet utilisateur ? Cela va aussi supprimer son expert personnel.
       deleted: Utilisateurs supprimés avec succès
-      do_invite: Envoyer l(es) invitation(s)
+      do_invite: Envoyer la ou les invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
       duplicate_territories: Dupliquer les territoires spécifiques
       impersonate: Voir le site comme %{name}
@@ -664,7 +664,7 @@ fr:
     not_for_me_caption_definition: L’expert n’a pas appelé l’entreprise car il sait d’emblée qu’il ne pourra pas l’aider, il refuse le besoin.
     not_for_me_caption_label: Refusé
     not_for_me_rate: Taux de refus
-    percentage: "%"
+    percentage: Pourc.
     positionning_accepted_caption_definition: Taux de besoins pour lesquels les experts ont indiqué prendre en charge, toutes clôtures confondues (aide proposée, injoignage, pas d’aide).
     positionning_accepted_caption_label: Taux de prise en charge
     positionning_accepted_rate: Taux de prise en charge
