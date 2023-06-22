@@ -5,6 +5,8 @@ ActiveAdmin.register Solicitation do
 
   menu priority: 7
 
+  actions :all, :except => [:destroy]
+
   ## Index
   #
   scope :step_complete, default: true
@@ -78,7 +80,7 @@ ActiveAdmin.register Solicitation do
     end
   end
 
-  before_action :only => :index do
+  before_action only: :index do
     @landing_themes = if params[:q].present? && params[:q][:landing_id_eq].present?
       Landing.find(params[:q][:landing_id_eq]).landing_themes
     else
@@ -89,6 +91,20 @@ ActiveAdmin.register Solicitation do
     else
       LandingSubject.all
     end
+  end
+
+  member_action :delete, method: :delete do
+    if resource.diagnosis.present? && resource.diagnosis_completed?
+      redirect_to resource_path, alert: t('active_admin.solicitations.diagnosis_exists')
+    else
+      resource.diagnosis&.destroy
+      resource.destroy
+      redirect_to admin_solicitations_path, notice: t('active_admin.solicitations.deleted.one')
+    end
+  end
+
+  action_item :delete_solicitation, only: :show, method: :post do
+    link_to t('active_admin.solicitations.delete'), delete_admin_solicitation_path(resource), method: :delete, 'data-confirm': t('active_admin.solicitations.delete_confirm')
   end
 
   ## Filters
@@ -246,5 +262,23 @@ ActiveAdmin.register Solicitation do
       Solicitation.where(id: ids).each { |s| s.badges.delete(badge) }
     end
     redirect_to collection_path, notice: I18n.t('active_admin.badges.modified', action: inputs[:action].gsub('er', 'é'))
+  end
+
+  batch_action(I18n.t('active_admin.solicitations.batch_delete')) do |ids|
+    errors_count = 0
+    batch_action_collection.find(ids).each do |resource|
+      if resource.diagnosis.present? && resource.diagnosis_completed?
+        errors_count += 1
+      else
+        resource.diagnosis&.destroy
+        resource.destroy
+      end
+    end
+    message = if errors_count.positive?
+      { alert: t('active_admin.solicitations.not_deleted', count: errors_count) }
+    else
+      { notice: t('active_admin.solicitations.deleted', count: ids.count) }
+    end
+    redirect_back fallback_location: collection_path, **message
   end
 end
