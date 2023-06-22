@@ -23,4 +23,4 @@
                     - referencement_coverage.anomalie_details.each do |k, v|
                       %li
                         %span.bold= [t(k, scope: 'activerecord.attributes.referencement_coverage/anomalie_details'), ':'].join(' ')
-                        = v
+                        = referencement_coverage_anomalie(k, v)
