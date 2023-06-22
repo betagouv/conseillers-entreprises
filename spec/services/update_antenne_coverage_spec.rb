@@ -2,11 +2,6 @@
 
 require 'rails_helper'
 describe UpdateAntenneCoverage do
-  # bonne couverture
-  # missing_insee_codes
-  # extra_insee_codes
-  # no_expert
-
   let(:institution) { create(:institution) }
   let!(:local_antenne) { create(:antenne, :local, institution: institution, communes: communes) }
   let!(:regional_antenne) { create(:antenne, :regional, institution: institution, communes: communes) }
@@ -25,7 +20,7 @@ describe UpdateAntenneCoverage do
 
   subject { described_class.new(local_antenne) }
 
-  context 'local' do
+  context 'local coverage' do
     # ok : un ou plusieurs experts au niveau local couvrent tous les codes insee
     # ok : un ou plusieurs experts au niveau local avec des territoires spécifiques couvrent tous les codes insee
     # ko : pas d'experts sur ce sujet
@@ -124,7 +119,7 @@ describe UpdateAntenneCoverage do
     end
   end
 
-  context 'regional' do
+  context 'regional coverage' do
     # ok : des experts au niveau régional couvrent tout le territoire
     # ok : des experts au niveau régional avec des territoires specifiques couvrent tout le territoire
     # ok : des experts au niveau régional et local avec des territoires spécifique couvrent tout le territoire
