@@ -4,8 +4,7 @@ module CsvExport
     # Il y a un donc un mélange de solicitations et de matchs
     def initialize(relation, options = {})
       solicitations_ids = relation.pluck(:id)
-      @matches = Match.joins(diagnosis: :solicitation)
-                      .where(solicitation: { id: solicitations_ids })
+      @matches = Match.joins(diagnosis: :solicitation).where(solicitation: { id: solicitations_ids })
 
       @solicitations = relation.without_matches
 
