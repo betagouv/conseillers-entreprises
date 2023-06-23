@@ -38,7 +38,7 @@ class Expert < ApplicationRecord
 
   has_and_belongs_to_many :users, -> { not_deleted }, inverse_of: :experts
 
-  has_many :experts_subjects, dependent: :destroy, inverse_of: :expert
+  has_many :experts_subjects, dependent: :destroy, inverse_of: :expert, after_add: :update_antenne_referencement_coverage, after_remove: :update_antenne_referencement_coverage
   has_many :received_matches, -> { sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
   has_many :not_received_matches, -> { not_sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
   has_many :received_quo_matches, -> { sent.status_quo.distinct }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
@@ -50,7 +50,6 @@ class Expert < ApplicationRecord
   validates :email, presence: true, unless: :deleted?
   validates :full_name, presence: true
   validates_associated :experts_subjects, on: :import
-  after_update :synchronize_single_member, if: :personal_skillset?
 
   ## “Through” Associations
   #
@@ -73,6 +72,9 @@ class Expert < ApplicationRecord
   has_many :institutions_subjects, through: :experts_subjects, inverse_of: :experts
   has_many :subjects, through: :experts_subjects, inverse_of: :experts
   has_many :themes, through: :experts_subjects, inverse_of: :experts
+
+  # Callbacks
+  after_update :synchronize_single_member, if: :personal_skillset?
 
   ##
   #
@@ -297,5 +299,9 @@ class Expert < ApplicationRecord
   #
   def synchronize_single_member
     users.first.update_columns(self.user_personal_skillsets_shared_attributes)
+  end
+
+  def update_antenne_referencement_coverage(*args)
+    antenne.update_referencement_coverages
   end
 end
