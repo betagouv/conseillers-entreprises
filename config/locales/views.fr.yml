@@ -749,7 +749,43 @@ fr:
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"
       form_complete: Demande envoyée
       give_my_opinion_alt: Je donne mon avis
-      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l'Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place des Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
+      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l’Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner %{subject_personalisation}, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place des Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
+      legal_notice_personalisation:
+        activite-partielle: sur l’activité partielle
+        agrement-esus: sur les conditions de l’agrément « Entreprise solidaire d’utilité sociale » (ESUS) et ses avantages
+        bilan-rse: dans votre bilan et votre stratégie RSE
+        clients: dans votre relation client
+        conseil-retraite: dans la gestion des départs en retraite
+        dechets: dans le traitement et la valorisation de vos déchets
+        declaration-organisme-formation: sur votre déclaration en tant qu’organisme de formation
+        demarche-ecologie: dans votre démarche de transition écologique (stratégie, éco-conception, labels)
+        diagnostic: sur votre situation économique et financière
+        droit-du-travail: en droit du travail
+        eau: dans la gestion de l’eau
+        energie: dans la gestion de l’énergie
+        financer-projet: dans vos projets d’investissement
+        formalites-entreprise-statut: dans vos formalités d’entreprise
+        former: dans vos projets de formation
+        former-risques-professionnels: dans la prévention des risques professionnels
+        handicap-entreprise: dans l’inclusion du handicap
+        international: dans votre développement à l’international
+        litige: dans la résolution de votre différend
+        nouvelle-offre-produit-service: sur le développement d’un nouveau produit ou service
+        obligations-sante-securite: sur vos obligations en matière de santé et de sécurité
+        organisation-du-travail: dans l’organisation du travail
+        projet-immobilier: dans votre développement à l’international
+        projet-innovation: dans votre projet d’innovation
+        proteger-vos-donnees: dans la protection de vos données
+        qualite-de-vie-au-travail: dans l’amélioration des conditions de travail de vos salariés
+        recruter: dans vos projets de recrutement
+        reduction-impots: dans vos questions fiscales
+        reprendre-entreprise: dans votre projet de reprise
+        strategie: sur votre stratégie d’entreprise
+        transport-mobilite: dans le transport et la mobilité durables de vos salariés
+        tresorerie: sur vos problèmes de trésorerie
+        vendre-entreprise: dans la vente de votre entreprise
+        vendre-sur-internet: à vendre sur internet
+        visibilite-sur-internet: dans votre visibilité sur internet
       placeholder:
         description_html: Bonjour, Je suis....
         location: Hauts-de-France ; région de Milly-la-forêt ; 91260…

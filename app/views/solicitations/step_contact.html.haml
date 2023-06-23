@@ -50,7 +50,8 @@
     .fr-col-12.fr-col-md-8.fr-col-offset-md-2.fr-pb-3w.legal-notice
       = t('solicitations.creation_form.legal_notice_html',
         mailto_link: mail_to('dpo@placedesentreprises.beta.gouv.fr', 'dpo@placedesentreprises.beta.gouv.fr', target: :_blank),
-        informations: link_to(t('about.mentions_d_information.title').downcase, mentions_d_information_url))
+        informations: link_to(t('about.mentions_d_information.title').downcase, mentions_d_information_url),
+        subject_personalisation: t(@landing_subject.slug, scope: 'solicitations.creation_form.legal_notice_personalisation', default: ''))
 
 - content_for :footer do
   - unless in_iframe?
@@ -61,4 +62,4 @@
         %h2.text-dark-grey.text-center.text-normal.fr-text--lead
           = t('logos.title')
         = render 'landings/landings/logos', landing_subject: @landing_subject
-    = render 'iframe_footer', landing: @landing
+  = render 'iframe_footer', landing: @landing
