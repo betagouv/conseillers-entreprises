@@ -6,8 +6,8 @@ describe 'reminders needs', js: true do
   login_admin
 
   context 'show expert reminder by duration' do
-    let(:region) { create :territory, :region, deployed_at: 1.year.ago }
-    let(:region2) { create :territory, :region, deployed_at: 1.year.ago }
+    let(:region) { create :territory, :region, name: "Région-01", code_region: 12345, deployed_at: 1.year.ago }
+    let(:region2) { create :territory, :region, name: "Région-02", code_region: 6789, deployed_at: 1.year.ago }
     let(:commune) { create :commune, regions: [region] }
     let(:commune2) { create :commune, regions: [region2] }
     let!(:need1) { create :need, created_at: 10.days.ago, facility: create(:facility, commune: commune) }
@@ -15,7 +15,7 @@ describe 'reminders needs', js: true do
     let!(:need2) { create :need, created_at: 10.days.ago, facility: create(:facility, commune: commune2) }
     let!(:need2_match) { create :match, need: need2, created_at: 10.days.ago }
 
-    xit 'displays experts' do
+    it 'displays experts' do
       visit poke_reminders_needs_path
       expect(page.html).to include 'Relances'
       click_link(href: "/relances/besoins/sans-reponse")
