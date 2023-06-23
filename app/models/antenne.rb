@@ -255,7 +255,7 @@ class Antenne < ApplicationRecord
       update_antenne_coverage(self)
       self.territorial_antennes.each { |ta| update_antenne_coverage(ta) }
     elsif self.regional_antenne.present?
-       self.regional_antenne.territorial_antennes.each { |ta| update_antenne_coverage(ta) }
+      self.regional_antenne.territorial_antennes.each { |ta| update_antenne_coverage(ta) }
     else
       update_antenne_coverage(self)
     end

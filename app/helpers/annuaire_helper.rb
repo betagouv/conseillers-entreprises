@@ -18,7 +18,7 @@ module AnnuaireHelper
     when 'experts'
       ids = value
       experts = Expert.where(id: value)
-      experts.map{|e| link_to(e.full_name, edit_admin_expert_path(e), title: t('annuaire_helper.build_user_name_cell.edit_expert', expert_name: e.full_name, antenne: e.antenne)) }.join(", ").html_safe
+      experts.map{ |e| link_to(e.full_name, edit_admin_expert_path(e), title: t('annuaire_helper.build_user_name_cell.edit_expert', expert_name: e.full_name, antenne: e.antenne)) }.join(", ").html_safe
     else
       value
     end
