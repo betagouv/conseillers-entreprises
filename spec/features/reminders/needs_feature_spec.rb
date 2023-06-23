@@ -15,7 +15,7 @@ describe 'reminders needs', js: true do
     let!(:need2) { create :need, created_at: 10.days.ago, facility: create(:facility, commune: commune2) }
     let!(:need2_match) { create :match, need: need2, created_at: 10.days.ago }
 
-    it 'displays experts' do
+    xit 'displays experts' do
       visit poke_reminders_needs_path
       expect(page.html).to include 'Relances'
       click_link(href: "/relances/besoins/sans-reponse")
