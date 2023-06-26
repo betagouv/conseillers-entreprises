@@ -54,14 +54,14 @@ module CsvExport
       [
         :need, :diagnosis, :facility, :company, :related_matches,
         :advisor, :expert, :expert_antenne, :expert_institution,
-        :subject, :theme, :solicitation, :company_satisfaction,
-        :facility_regions, solicitation: :badges,
+        :theme, :solicitation, :company_satisfaction,
+        :facility_regions, solicitation: [:badges, :landing_theme, :landing, :subject],
         facility: :commune, diagnosis: :visitee,
       ]
     end
 
     def sort_relation(relation)
-      relation.preload(*preloaded_associations).sort_by{ |m| [(m.solicitation&.created_at || m.created_at), m.created_at] }
+      relation.includes(*preloaded_associations).sort_by{ |m| [(m.solicitation&.created_at || m.created_at), m.created_at] }
     end
   end
 end

@@ -3,9 +3,11 @@ module CsvExport
     # Ici, il s'agit du big fichier qui présente l'historique des solicitations jusqu'aux fin d'histoire.
     # Il y a un donc un mélange de solicitations et de matchs
     def initialize(relation, options = {})
-      matches_id = relation.preload(:matches).map{ |s| s.matches.pluck(:id) }.flatten
-      @matches = Match.where(id: matches_id)
+      solicitations_ids = relation.pluck(:id)
+      @matches = Match.joins(diagnosis: :solicitation).where(solicitation: { id: solicitations_ids })
+
       @solicitations = relation.without_matches
+
       # Pour le nom du fichier
       @relation = @solicitations
 
@@ -19,9 +21,9 @@ module CsvExport
       solicitation_attributes = fields
 
       CSV.generate do |csv|
-        csv << match_attributes.keys.map{ |attr| @matches.klass.human_attribute_name(attr, default: attr) }
-        solicitation_row = solicitation_attributes.values
+        csv << match_attributes.keys.map{ |attr| Match.human_attribute_name(attr, default: attr) }
 
+        solicitation_row = solicitation_attributes.values
         sorted_solicitation_relation = sort_relation(@solicitations)
         while sorted_solicitation_relation.count > 0
           object = sorted_solicitation_relation.shift
@@ -94,12 +96,12 @@ module CsvExport
 
     def preloaded_associations
       [
-        :diagnosis, :facility, :badges, diagnosis: :company, facility: :commune
+        :diagnosis, :facility, :badges, :landing_theme, :landing, :subject, diagnosis: :company, facility: :commune
       ]
     end
 
     def sort_relation(relation)
-      relation.preload(*preloaded_associations).sort_by{ |m| m.created_at }
+      relation.includes(*preloaded_associations).sort_by{ |m| m.created_at }
     end
   end
 end
