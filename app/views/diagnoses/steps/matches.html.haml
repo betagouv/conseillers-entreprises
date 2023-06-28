@@ -3,7 +3,7 @@
 .fr-container
   = render 'header', diagnosis: @diagnosis, current_page_step: 4
 
-  #matches-app
+  #matches-app{ data: { controller: "toggle-block" } }
     - if @company_needs.present?
       .fr-alert.fr-alert--warning.fr-mb-2w{ role: "alert" }
         .fr-alert__title= t('.company_needs_historic_title')
@@ -27,12 +27,13 @@
         .card-matches.fr-mb-2w
           .card__header
             %h2.fr-text--lead= need.subject
-          #experts_subject_checkboxes
-            %div{ id: "match-checkboxes-#{need.id}"}
+          #experts-subject-checkboxes
+            = turbo_frame_tag "match-checkboxes-#{need.id}" do
               - experts_subjects = CreateDiagnosis::FindRelevantExpertSubjects.new(need).call
+              - other_matches = need.matches.where.not(expert_id: [experts_subjects.pluck(:expert_id)])
               - support_subject = ExpertSubject.support_for(@diagnosis)
-              - if experts_subjects.present?
-                = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects
+              - if experts_subjects.present? || other_matches.present?
+                = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects, other_matches: other_matches
               - elsif support_subject.present?
                 .fr-highlight.fr-mt-2w
                   %p= t('.no_expert_subject')
@@ -41,12 +42,12 @@
               - else
                 .fr-highlight.fr-mt-2w
                   %p= t('.no_expert_subject')
-              - match = Expert.active.with_active_matches.last.received_matches.last
-              = render 'new_expert_subject_checkboxes', form: form, need: need, match: match
+          .card__footer.fr-p-2w
+            %button.fr-btn{ title: t('.add_expert'), aria: { expanded: false, controls: "add-expert-form" }, data: { action: 'toggle-block#show', 'item-id': need.id } }= t('.add_expert')
 
-    .container{ data: { controller: "expert-autocomplete" } }
-      = form_with url: add_match_diagnosis_path, data: { 'expert-autocomplete-target': 'form', turbo: true } do |add_f|
-        = add_f.hidden_field :need_id, value: @diagnosis.needs.first.id
+    #add-expert-form.container.hidden{ data: { controller: "expert-autocomplete" } }
+      = form_with url: add_match_diagnosis_path, data: { 'expert-autocomplete-target': 'form', turbo_frame: "match-checkboxes-XXX" } do |add_f|
+        = add_f.hidden_field :need_id, value: nil, data: { 'toggle-block-target': 'itemId' }
         = add_f.hidden_field :expert_id, value: nil, data: { 'expert-autocomplete-target': 'expertField' }
       .fr-search-bar.siret-autocomplete
         %span.ri-user-add-fill.blue.info-icon{ title: t('.ambulance_explanation'), 'aria-hidden': 'true' }

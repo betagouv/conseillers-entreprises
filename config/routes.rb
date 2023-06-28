@@ -100,8 +100,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :antennes
-
   resources :reports, path: 'export-des-donnees', only: :index do
     member do
       get :download

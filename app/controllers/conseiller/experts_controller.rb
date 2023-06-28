@@ -7,13 +7,11 @@ class Conseiller::ExpertsController < ApplicationController
       .limit(20)
       .includes(:antenne, experts_subjects: :institution_subject)
     respond_to do |format|
-      format.html do
-      end
+      format.html
       format.json do
         render json: @experts.as_json
       end
     end
-
   end
 
   private
