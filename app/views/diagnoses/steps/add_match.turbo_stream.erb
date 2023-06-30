@@ -1,7 +1,0 @@
-<%= fields model: @diagnosis do |f| %>
-  <%= f.fields_for :needs, @need do |need_form| %>
-    <%= turbo_stream.append "match-checkboxes-#{@need.id}" do %>
-      <%= render "match_checkbox", need_form: need_form, match: @match, expert_subjects: @expert.experts_subjects %>
-    <% end %>
-  <% end %>
-<% end %>

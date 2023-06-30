@@ -9,7 +9,7 @@ class Conseiller::ExpertsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render json: @experts.as_json
+        render json: @experts, each_serializer: ExpertSerializer
       end
     end
   end

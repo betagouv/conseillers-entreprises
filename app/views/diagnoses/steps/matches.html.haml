@@ -45,15 +45,16 @@
           .card__footer.fr-p-2w
             %button.fr-btn{ title: t('.add_expert'), aria: { expanded: false, controls: "add-expert-form" }, data: { action: 'toggle-block#show', 'item-id': need.id } }= t('.add_expert')
 
-    #add-expert-form.container.hidden{ data: { controller: "expert-autocomplete" } }
+    .hidden.additional-experts.card-matches.fr-my-4w#add-expert-form{ data: { controller: "expert-autocomplete" } }
+      .card__header
+        %h2.fr-text--lead= t('.add_expert')
       = form_with url: add_match_diagnosis_path, data: { 'expert-autocomplete-target': 'form', turbo_frame: "match-checkboxes-XXX" } do |add_f|
-        = add_f.hidden_field :need_id, value: nil, data: { 'toggle-block-target': 'itemId' }
+        = add_f.hidden_field :need_id, value: @diagnosis.needs.first.id, data: { 'toggle-block-target': 'itemId' }
         = add_f.hidden_field :expert_id, value: nil, data: { 'expert-autocomplete-target': 'expertField' }
-      .fr-search-bar.siret-autocomplete
-        %span.ri-user-add-fill.blue.info-icon{ title: t('.ambulance_explanation'), 'aria-hidden': 'true' }
-        = label_tag "expert", t('.subtitle'), class: 'fr-label'
+      .fr-p-2w
+        = label_tag "expert", t('.add_expert_label'), class: 'fr-label'
         .loader.hidden{ data: { 'expert-autocomplete-target': 'loader' } }
-        %div{ data: { 'expert-autocomplete-target': "field", 'assistive-hint': t(".expert_assistive_hint"), name: 'omnisearch', 'search-url': conseiller_experts_path } }
+        %div{ data: { 'expert-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'omnisearch', 'search-url': conseiller_experts_path } }
 
     .fr-callout
       %p.fr-callout__text= t('.before_sending_emails')

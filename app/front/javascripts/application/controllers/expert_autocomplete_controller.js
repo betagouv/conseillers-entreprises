@@ -32,9 +32,8 @@ export default class extends Controller {
         if (results.error) {
           this.manageSourceError(results)
         } else {
-          console.log(results)
-          this.manageSourceSuccess(results)
-          populateResults(results)
+          this.manageSourceSuccess(results.data)
+          populateResults(results.data)
         }
       }, 300),
       onConfirm: (option) => {
@@ -55,7 +54,6 @@ export default class extends Controller {
 
   onConfirm(option) {
     if (option) {
-      console.log("onConfirm")
       this.fillResultField(option);
     }
   }
@@ -74,33 +72,39 @@ export default class extends Controller {
       let data = await response.json();
       return data;
     } catch(err) {
-      this.manageSourceError({error: "error reading not json data"})
+      this.manageSourceError({error: "Problème de réception des données, veuillez réessayer avec d'autres paramètres"})
     }
   }
 
   // Traitement des résultats --------------------------------------------
 
   fillResultField(result) {
-    console.log('fillResultField')
     if (result) {
       this.expertFieldTarget.value = parseInt(result.id)
-      console.log(this.expertFieldTarget.form)
       this.formTarget.requestSubmit()
     }
   }
 
   suggestionTemplate (result) {
-    // console.log("suggestionTemplate")
-    // console.log(result)
-    return (
-      result &&
-      `<strong> ${result.full_name} ("") </strong>
-        <p><span class="small">${result.job || ''}</span> </p>`
-    );
+    if (result) {
+      let expertSubjects = result.experts_subjects.map(es => es.institution_subject_description).join('<br>')
+      return (
+        `<div class="fr-grid-row">
+        <div class="fr-col">
+          <h3 class="fr-m-0">${result.antenne_name}</h3>
+          <div class="fr-text--sm bold fr-m-0">${result.full_name}</div>
+          <div class="fr-text--sm fr-m-0">${result.job || ''}</div>
+        </div>
+        <div class="fr-col">
+          ${expertSubjects}
+        </div>
+        </div>`
+      );
+    }
   }
 
   inputValueTemplate (result) {
     if (!result) return null;
-    return result.full_name;
+    return "";
   }
 }

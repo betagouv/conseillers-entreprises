@@ -87,7 +87,7 @@ export default class extends Controller {
     } catch(err) {
       // eslint-disable-next-line no-undef
       Sentry.captureException(err)
-      this.manageSourceError({error: "error reading not json data"})
+      this.manageSourceError({error: "Problème de réception des données, veuillez réessayer avec d'autres paramètres"})
     }
   }
 

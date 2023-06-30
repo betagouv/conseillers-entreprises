@@ -1,45 +1,25 @@
 .experts_subject_checkbox.fr-p-2w
   = form.fields_for :needs, need do |need_form|
     = need_form.hidden_field :id
+
     - experts_subjects.each do |expert_subject|
       - expert = expert_subject.expert
-      .fr-checkbox-group
-        - match = need.matches.where(expert: expert, subject: expert_subject.subject).first_or_initialize
+      - match = need.matches.where(expert: expert, subject: expert_subject.subject).first_or_initialize
+      .fr-checkbox-group.fr-mb-2v
         = need_form.fields_for :matches, match do |match_form|
           = match_form.hidden_field :expert_id
           = match_form.hidden_field :subject_id
           = match_form.check_box :_destroy, { checked: match.persisted? }, '0', '1'
           = match_form.label :_destroy do
-            .fr-container
-              .fr-grid-row
-                .fr-col
-                  %h3.fr-text.bold.fr-m-0
-                    = expert.full_name
-                    - if expert.users.any?{ |user| user.invitation_not_accepted? }
-                      %span.picto.ri-mail-forbid-line{ 'aria-hidden': 'true', title: t('.invitation_not_accepted') }
-
-                  .fr-text--sm.fr-m-0= expert.job
-                  .fr-text--sm.fr-m-0= expert.antenne
-                .fr-col
-                  = [expert_subject.institution_subject, expert_subject.intervention_criteria].compact.join(' — ')
+            = render 'expert_content', expert: expert, experts_subjects: [expert_subject]
 
     - other_matches.each do |match|
-      .fr-checkbox-group
+      - expert = match.expert
+      .fr-checkbox-group.fr-mb-2v
         = need_form.fields_for :matches, match do |match_form|
-          - expert = match.expert
           = match_form.hidden_field :expert_id
           = match_form.hidden_field :subject_id
           = match_form.check_box :_destroy, { checked: match.persisted? }, '0', '1'
           = match_form.label :_destroy do
-            .fr-container
-              .fr-grid-row
-                .fr-col
-                  %h3.fr-text.bold.fr-m-0
-                    = expert.full_name
-                  .fr-text--sm.fr-m-0= expert.job
-                  .fr-text--sm.fr-m-0= expert.antenne
-                .fr-col
-                  - expert.experts_subjects.each do |expert_subject|
-                    = [expert_subject.institution_subject, expert_subject.intervention_criteria].compact.join(' — ')
-                    %br
+            = render 'expert_content', expert: expert, experts_subjects: expert.experts_subjects
 

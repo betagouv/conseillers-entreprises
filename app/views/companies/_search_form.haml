@@ -10,7 +10,7 @@
       = label_tag "query", t('.subtitle'), class: 'fr-label'
       .loader.hidden{ data: { 'siret-autocomplete-target': 'loader' } }
 
-      %div{ data: { 'siret-autocomplete-target': "field", 'assistive-hint': t(".siret_assistive_hint"), name: 'query', 'default-value': (query || siret), url: search_companies_path } }
+      %div{ data: { 'siret-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'query', 'default-value': (query || siret), url: search_companies_path } }
       = hidden_field_tag :siret, siret, data: { 'siret-autocomplete-target': 'siretField' }
 
     %button.fr-btn.btn-green.fr-mt-2w{ type: 'submit' }= t('search')
