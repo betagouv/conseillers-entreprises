@@ -13,13 +13,14 @@
           = match_form.label :_destroy do
             = render 'expert_content', expert: expert, experts_subjects: [expert_subject]
 
-    - other_matches.each do |match|
-      - expert = match.expert
-      .fr-checkbox-group.fr-mb-2v
-        = need_form.fields_for :matches, match do |match_form|
-          = match_form.hidden_field :expert_id
-          = match_form.hidden_field :subject_id
-          = match_form.check_box :_destroy, { checked: match.persisted? }, '0', '1'
-          = match_form.label :_destroy do
-            = render 'expert_content', expert: expert, experts_subjects: expert.experts_subjects
+    - if defined? other_matches
+      - other_matches.each do |match|
+        - expert = match.expert
+        .fr-checkbox-group.fr-mb-2v
+          = need_form.fields_for :matches, match do |match_form|
+            = match_form.hidden_field :expert_id
+            = match_form.hidden_field :subject_id
+            = match_form.check_box :_destroy, { checked: match.persisted? }, '0', '1'
+            = match_form.label :_destroy do
+              = render 'expert_content', expert: expert, experts_subjects: expert.experts_subjects
 
