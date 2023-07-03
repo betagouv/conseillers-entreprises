@@ -446,11 +446,6 @@ fr:
       index:
         many_antennes_title: Demandes reçues des antennes
         one_antenne_title: Demandes reçues de %{name}
-      search:
-        all_antennes: Toutes
-        clear_search: Réinitialiser le filtre
-        filter: Filtrer
-        select_antenne: Selectionnez une antenne
   matches:
     match:
       change_match_status: Modifier le statut du besoin
@@ -520,6 +515,7 @@ fr:
       omnisearch: Rechercher par entreprise, contact, description...
       search: Rechercher
       search_placeholder: 'Ex : La mie tendre, Lucie Martin, plomberie, financement...'
+      select_antenne: Selectionnez une antenne
     show:
       all_experts: Experts notifiés
       all_needs: Toutes les demandes

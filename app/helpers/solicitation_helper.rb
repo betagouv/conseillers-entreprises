@@ -69,7 +69,12 @@ module SolicitationHelper
 
   def possible_themes_subjects_collection
     themes = current_user.themes.ordered_for_interview.uniq
-    option_groups_from_collection_for_select(themes, :subjects_ordered_for_interview, :label, :id, -> (subject) { "#{subject.label} (#{current_user.needs_quo_active.where(subject: subject).size})" }, needs_search_params[:by_subject])
+    themes_subjects_collection(themes, current_user)
+  end
+
+  def themes_subjects_collection_for_managers
+    themes = current_user.institution.themes.ordered_for_interview.uniq
+    themes_subjects_collection(themes, current_user.antenne)
   end
 
   def display_region(region, territory_params)
@@ -80,5 +85,14 @@ module SolicitationHelper
     tag.div(class: 'item') do
       t('helpers.solicitation.localisation_html', region: region.name)
     end
+  end
+
+  private
+
+  def themes_subjects_collection(themes, recipient)
+    option_groups_from_collection_for_select(themes, :subjects_ordered_for_interview, :label, :id, -> (subject) do
+      count = recipient.needs_quo_active.where(subject: subject).size
+      "#{subject.label} (#{count > 0 ? count : '-'})"
+    end, needs_search_params[:by_subject])
   end
 end

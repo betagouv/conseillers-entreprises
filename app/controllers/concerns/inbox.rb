@@ -37,6 +37,7 @@ module Inbox
       Need.in_antennes_perimeters(@recipient).merge!(Need.where(id: @recipient.map { |a| a.send("territory_needs_#{@collection_name}") }.flatten))
     end
     @needs = @needs.includes(:company, :advisor, :subject)
+      .apply_filters(needs_search_params)
       .order(created_at: order)
       .page params[:page]
     render view
@@ -64,7 +65,7 @@ module Inbox
 
   def persist_search_params
     session[:needs_search_params] ||= {}
-    search_params = params.slice(:omnisearch, :by_subject, :created_since, :created_until).permit!
+    search_params = params.slice(:omnisearch, :by_subject, :created_since, :created_until, :antenne_id).permit!
     if params[:reset_query].present?
       session.delete(:needs_search_params)
     else
