@@ -32,7 +32,6 @@ class InstitutionSubject < ApplicationRecord
   has_many :experts_subjects, dependent: :destroy
   has_many :referencement_coverages, dependent: :destroy, inverse_of: :institution_subject
 
-
   accepts_nested_attributes_for :experts_subjects
 
   # :subject
