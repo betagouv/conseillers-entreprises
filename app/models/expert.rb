@@ -31,7 +31,7 @@ class Expert < ApplicationRecord
 
   ## Associations
   #
-  has_and_belongs_to_many :communes, inverse_of: :direct_experts
+  has_and_belongs_to_many :communes, inverse_of: :direct_experts, after_add: :update_antenne_referencement_coverage, after_remove: :update_antenne_referencement_coverage
   include ManyCommunes
 
   belongs_to :antenne, inverse_of: :experts

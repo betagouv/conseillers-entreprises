@@ -245,11 +245,9 @@ class Antenne < ApplicationRecord
   ## referencement coverage
   #
 
-  # Updated when changed : add/remove communes / add/remove experts / add/remove expert communes / add/remove expert subject /
-  # add/remove institution subject
+  # Updated when changed : add/remove communes - add/remove experts - add/remove expert communes - add/remove expert subject
   def update_referencement_coverages(*args)
     # pour que les tests passent
-    p args
     return unless self.persisted?
     if self.regional?
       update_antenne_coverage(self)
@@ -262,6 +260,6 @@ class Antenne < ApplicationRecord
   end
 
   def update_antenne_coverage(antenne)
-    UpdateAntenneCoverage.new(antenne).delay(queue: :low_priority).call
+    UpdateAntenneCoverage.new(antenne).call
   end
 end

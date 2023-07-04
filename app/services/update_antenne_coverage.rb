@@ -17,7 +17,6 @@ class UpdateAntenneCoverage
 
       register_coverage(institution_subject, subject_hash)
     end
-    # TODO : if antenne.regional / antenne.national -> update children
   end
 
   private

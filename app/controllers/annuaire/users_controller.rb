@@ -5,19 +5,15 @@ module  Annuaire
     before_action :retrieve_users, only: :index
 
     def index
-      puts "============================="
-      time = Benchmark.measure do
-        institutions_subjects_by_theme = @institution.institutions_subjects
-          .includes(:subject, :theme, :experts_subjects, :not_deleted_experts)
-          .group_by(&:theme)
-        institutions_subjects_exportable = institutions_subjects_by_theme.values.flatten
+      institutions_subjects_by_theme = @institution.institutions_subjects
+        .includes(:subject, :theme, :experts_subjects, :not_deleted_experts)
+        .group_by(&:theme)
+      institutions_subjects_exportable = institutions_subjects_by_theme.values.flatten
 
-        @grouped_subjects = institutions_subjects_by_theme.transform_values{ |is| is.group_by(&:subject) }
-        @grouped_users = @users.select(:antennes).group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
+      @grouped_subjects = institutions_subjects_by_theme.transform_values{ |is| is.group_by(&:subject) }
+      @grouped_users = @users.select(:antennes).group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
 
-        @not_invited_users = not_invited_users
-      end
-      puts "END time : #{time} ======================"
+      @not_invited_users = not_invited_users
 
       respond_to do |format|
         format.html

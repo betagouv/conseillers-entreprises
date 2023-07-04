@@ -113,10 +113,22 @@ RSpec.describe Antenne do
         context 'when adding an expert subject' do
           it 'calls update_referencement_coverages' do
             allow(expert).to receive(:update_antenne_referencement_coverage)
-            allow(antenne).to receive(:update_referencement_coverages)
             expert.experts_subjects.create(subject: pde_subject)
             expect(expert).to have_received(:update_antenne_referencement_coverage)
-            # expect(antenne).to have_received(:update_referencement_coverages)
+          end
+        end
+      end
+
+      context 'experts communes updates' do
+        let(:pde_subject) { create :subject }
+        let!(:expert) { create :expert, antenne: antenne }
+        let(:commune) { create :commune }
+
+        context 'when adding an expert commune' do
+          it 'calls update_referencement_coverages' do
+            allow(expert).to receive(:update_antenne_referencement_coverage)
+            expert.communes << commune
+            expect(expert).to have_received(:update_antenne_referencement_coverage)
           end
         end
       end
