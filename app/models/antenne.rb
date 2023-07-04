@@ -56,7 +56,7 @@ class Antenne < ApplicationRecord
   has_many :user_rights_manager, ->{ category_manager }, class_name: 'UserRight', inverse_of: :antenne
   has_many :managers, -> { distinct }, through: :user_rights_manager, source: :user, inverse_of: :managed_antennes
 
-  has_many :referencement_coverages, inverse_of: :antenne
+  has_many :referencement_coverages, dependent: :destroy, inverse_of: :antenne
 
   ## Hooks and Validations
   #
