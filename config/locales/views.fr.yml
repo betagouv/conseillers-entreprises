@@ -328,7 +328,7 @@ fr:
         invitation_not_accepted: Au moins une personne n’a pas encore accepté son invitation
       matches:
         add_expert: Ajouter un ou une expert·e
-        add_expert_label: Rechercher par nom d'équipe, antenne, institution...
+        add_expert_label: Rechercher par nom d’équipe, antenne, institution...
         before_sending_emails: En cliquant sur le bouton ci-dessous, les experts sélectionnés seront contactés par e-mail et auront accès à la fiche détaillée du besoin.
         company_needs_historic_title: Cette entreprise a déjà des besoins mis en relation.
         contact_needs_historic_title: Cette personne a déjà des besoins mis en relation.

@@ -1,11 +1,11 @@
-.experts_subject_checkbox.fr-p-2w
+.experts-subject-checkbox.fr-p-2w
   = form.fields_for :needs, need do |need_form|
     = need_form.hidden_field :id
 
     - experts_subjects.each do |expert_subject|
       - expert = expert_subject.expert
       - match = need.matches.where(expert: expert, subject: expert_subject.subject).first_or_initialize
-      .fr-checkbox-group.fr-mb-2v
+      .fr-checkbox-group.fr-mb-2w
         = need_form.fields_for :matches, match do |match_form|
           = match_form.hidden_field :expert_id
           = match_form.hidden_field :subject_id
@@ -16,7 +16,7 @@
     - if defined? other_matches
       - other_matches.each do |match|
         - expert = match.expert
-        .fr-checkbox-group.fr-mb-2v
+        .fr-checkbox-group.fr-mb-2w
           = need_form.fields_for :matches, match do |match_form|
             = match_form.hidden_field :expert_id
             = match_form.hidden_field :subject_id

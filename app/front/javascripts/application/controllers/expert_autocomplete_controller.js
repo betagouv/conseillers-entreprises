@@ -87,16 +87,18 @@ export default class extends Controller {
 
   suggestionTemplate (result) {
     if (result) {
-      let expertSubjects = result.experts_subjects.map(es => es.institution_subject_description).join('<br>')
+      let expertSubjects = result.experts_subjects.map(es => `<li>${es.institution_subject_description}</li>`).join('')
       return (
         `<div class="fr-grid-row">
         <div class="fr-col">
-          <h3 class="fr-m-0">${result.antenne_name}</h3>
-          <div class="fr-text--sm bold fr-m-0">${result.full_name}</div>
-          <div class="fr-text--sm fr-m-0">${result.job || ''}</div>
+          <h3 class="fr-text--lead fr-m-0">${result.antenne_name}</h3>
+          <p class="fr-text--sm bold fr-m-0">${result.full_name}</p>
+          <p class="fr-text--sm fr-m-0">${result.job || ''}</p>
         </div>
         <div class="fr-col">
-          ${expertSubjects}
+          <ul class="fr-m-0">
+            ${expertSubjects}
+          </ul>
         </div>
         </div>`
       );

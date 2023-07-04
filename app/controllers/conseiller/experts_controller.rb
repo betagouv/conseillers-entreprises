@@ -1,4 +1,6 @@
 class Conseiller::ExpertsController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     @experts = Expert
       .apply_filters(experts_params)
