@@ -4,27 +4,33 @@
 
 .fr-container.reports
   - if @quarters.present?
-    - @quarters.each do |quarter|
-      %section.fr-mt-6w
-      %h2= t('.interval', start_month: I18n.l(quarter.first, format: :month_name), end_month: I18n.l(quarter.last, format: :month_name), year: quarter.last.year).capitalize
-      - matches_report = @antenne.quarterly_reports.category_matches.find_by(start_date: quarter.first)
-      - stats_report = @antenne.quarterly_reports.category_stats.find_by(start_date: quarter.first)
-      - if matches_report.present?
-        .fr-tile.fr-enlarge-link.fr-tile--horizontal.fr-mt-2w
-          .fr-tile__body
-            %h2.fr-h4.fr-tile__title
-              = link_to download_report_path(matches_report, format: :xlsx), class: 'fr-tile__link' do
-                = matches_report.file.filename
-          .fr-tile__img
-            %span.ri-file-download-line{ 'aria-hidden': 'true' }
-      - if stats_report.present?
-        .fr-tile.fr-enlarge-link.fr-tile--horizontal.fr-mt-2w
-          .fr-tile__body
-            %h2.fr-h4.fr-tile__title
-              = link_to download_report_path(stats_report, format: :xlsx), class: 'fr-tile__link' do
-                = stats_report.file.filename
-          .fr-tile__img
-            %span.ri-file-download-line{ 'aria-hidden': 'true' }
+    .fr-table.fr-table--beige-gris-galet
+      %table
+        %caption= t('.caption')
+        %thead
+          %tr
+            %th{ scope: 'col' }= t('.table_title.quarter')
+            %th{ scope: 'col' }= t('.table_title.stats')
+            %th{ scope: 'col' }= t('.table_title.matches')
+        %tbody
+          - @quarters.each do |quarter|
+            - matches_report = @antenne.quarterly_reports.category_matches.find_by(start_date: quarter.first)
+            - stats_report = @antenne.quarterly_reports.category_stats.find_by(start_date: quarter.first)
+            %tr
+              %th{ scope: 'row' } #{t('.interval', start_month: I18n.l(quarter.first, format: :month_name), end_month: I18n.l(quarter.last, format: :month_name), year: quarter.last.year).capitalize}
+              %td.fr-p-3w
+                - if stats_report.present?
+                  .fr-download.fr-m-0.fr-p-0
+                    %p
+                      = link_to download_report_path(stats_report, format: :xlsx), class: 'fr-download__link' do
+                        = stats_report.file.filename.to_s.truncate(30)
+              %td.fr-p-3w
+                - if matches_report.present?
+                  .fr-download.fr-m-0.fr-p-0
+                    %p
+                      = link_to download_report_path(matches_report, format: :xlsx), class: 'fr-download__link' do
+                        = matches_report.file.filename.to_s.truncate(30)
+
   - else
     .fr-alert.fr-alert--info{ role: "alert" }
       %p.fr-alert__title= t('.no_export_available')
