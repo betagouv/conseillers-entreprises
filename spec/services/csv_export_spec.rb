@@ -19,7 +19,7 @@ describe CsvExport do
         travel_back
       end
 
-      it 'delete quarterly_report with date outside of quarters' do
+      it 'delete monthly_report with date outside of months' do
         expect { described_class.purge_later }.not_to change(user.csv_exports, :count)
       end
     end
@@ -35,7 +35,7 @@ describe CsvExport do
         travel_back
       end
 
-      it 'delete quarterly_report with date outside of quarters' do
+      it 'delete monthly_report with date outside of months' do
         expect { described_class.purge_later }.to change(user.csv_exports, :count).by(-1)
       end
     end
