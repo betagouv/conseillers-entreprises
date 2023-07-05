@@ -1,32 +1,19 @@
 import { Controller } from "stimulus";
-import { exists, debounce } from '../utils.js'
+import { debounce } from '../../shared/utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
 
 export default class extends Controller {
-  static targets = [ "field", "loader", "siretField" ]
-
-  connect() {
-    // On préremplit les champs avec le siret s'il est fourni
-    if (exists(this.fieldTarget.dataset.defaultValue)) {
-      const siret = this.fieldTarget.dataset.defaultValue;
-      document.querySelector('#query').value = siret;
-      this.siretFieldTarget.value = parseInt(siret)
-    }
-    this.addListeners()
-  }
-
-  addListeners() {
-    // a surcharger dans les classes enfantes
-  }
+  static targets = [ "field", "loader", "expertField", "form" ]
 
   initialize() {
     this.statusMessage = null;
     this.accessibleAutocomplete = accessibleAutocomplete({
       element: this.fieldTarget,
       id: this.fieldTarget.dataset.name,
-      name: 'query',
+      name: 'expert',
       showNoOptionsFound: true,
       required: true,
+      minLength: 3,
       templates: {
         inputValue: this.inputValueTemplate,
         suggestion: this.suggestionTemplate
@@ -40,13 +27,13 @@ export default class extends Controller {
         return `${baseSentence}. ${contentSelectedOption}`
       },
       source: debounce(async (query, populateResults) => {
-        const results = await this.fetchEtablissements(query);
+        const results = await this.searchResults(query);
         if(!results) return;
         if (results.error) {
           this.manageSourceError(results)
         } else {
-          this.manageSourceSuccess(results.items)
-          populateResults(this.filterResults(results.items))
+          this.manageSourceSuccess(results.data)
+          populateResults(results.data)
         }
       }, 300),
       onConfirm: (option) => {
@@ -62,22 +49,22 @@ export default class extends Controller {
 
   manageSourceSuccess(items) {
     this.loaderTarget.style.display = 'none'
-    this.statusMessage = (items.length == 0) ? "Aucune entreprise trouvée" : null
+    this.statusMessage = (items.length == 0) ? "Aucun résultat trouvé" : null
   }
 
   onConfirm(option) {
     if (option) {
-      this.fillSiretField(option);
+      this.fillResultField(option);
     }
   }
 
   // Récupération des résultats ----------------------------------------------------
 
-  async fetchEtablissements(query) {
+  async searchResults(query) {
     this.loaderTarget.style.display = 'block'
-    let baseUrl = this.fieldTarget.dataset.url
-    let params = `query=${query}`;
-    let response = await fetch(`${baseUrl}.json?${params}`, {
+    let searchUrl = this.fieldTarget.dataset.searchUrl
+    let params = `omnisearch=${query}`;
+    let response = await fetch(`${searchUrl}.json?${params}`, {
       credentials: "same-origin",
     });
     // Au cas où autre chose que du json est renvoyé
@@ -85,52 +72,41 @@ export default class extends Controller {
       let data = await response.json();
       return data;
     } catch(err) {
-      // eslint-disable-next-line no-undef
-      Sentry.captureException(err)
       this.manageSourceError({error: "Problème de réception des données, veuillez réessayer avec d'autres paramètres"})
     }
   }
 
-  filterResults(data) {
-    return data.filter((etablissement) => {
-      // remove Administrations from suggestions
-      return etablissement.activite != "Administration publique générale";
-    });
-  }
-
   // Traitement des résultats --------------------------------------------
 
-  fillSiretField(result) {
+  fillResultField(result) {
     if (result) {
-      let value = result.un_seul_etablissement == true ? result.siret : result.siren
-      this.siretFieldTarget.value = parseInt(value)
+      this.expertFieldTarget.value = parseInt(result.id)
+      this.formTarget.requestSubmit()
     }
   }
 
   suggestionTemplate (result) {
-    if (!result) return
-    if (result.un_seul_etablissement == false) {
+    if (result) {
+      let expertSubjects = result.experts_subjects.map(es => `<li>${es.institution_subject_description}</li>`).join('')
       return (
-        result &&
-        `<strong> ${result.siren} (${result.nom}) </strong>
-          <p><span class="small">${result.activite || ''}</span> </p>`
-      );
-    } else {
-      return (
-        result &&
-        `<strong> ${result.siret} (${result.nom}) </strong>
-          <p><span class="small">${result.activite || ''} - ${result.lieu || ''}</span> </p>`
+        `<div class="fr-grid-row">
+        <div class="fr-col">
+          <h3 class="fr-text--lead fr-m-0">${result.antenne_name}</h3>
+          <p class="fr-text--sm bold fr-m-0">${result.full_name}</p>
+          <p class="fr-text--sm fr-m-0">${result.job || ''}</p>
+        </div>
+        <div class="fr-col">
+          <ul class="fr-m-0">
+            ${expertSubjects}
+          </ul>
+        </div>
+        </div>`
       );
     }
   }
 
   inputValueTemplate (result) {
-    if (!result) return null
-    return (result.un_seul_etablissement == true ? result.siret : result.siren)
-  }
-
-  companyIdentifier(result) {
-    if (!result) return null
-    return (result.un_seul_etablissement == true ? result.siret : result.siren)
+    if (!result) return null;
+    return "";
   }
 }

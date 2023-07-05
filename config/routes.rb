@@ -85,6 +85,7 @@ Rails.application.routes.draw do
     controller :sitemap do
       get :sitemap
     end
+    resources :experts, only: %i[index]
   end
 
   namespace 'manager' do
@@ -124,6 +125,7 @@ Rails.application.routes.draw do
         patch :update_contact
         get :matches, path: 'selection'
         patch :update_matches
+        post :add_match
       end
     end
   end

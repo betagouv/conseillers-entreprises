@@ -222,6 +222,7 @@ class Expert < ApplicationRecord
 
   def self.apply_filters(params)
     klass = self
+    klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
     klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
     klass = klass.by_full_name(params[:by_full_name]) if params[:by_full_name].present?
     klass.all

@@ -67,6 +67,16 @@ class Diagnoses::StepsController < ApplicationController
     end
   end
 
+  def add_match
+    @need = Need.find(params.require(:need_id))
+    @expert = Expert.find(params.require(:expert_id))
+    @match = Match.new(need: @need, expert: @expert, subject: @need.subject)
+    unless @match.save
+      flash.alert = @match.errors.full_messages.to_sentence
+    end
+    render :matches
+  end
+
   private
 
   def retrieve_diagnosis

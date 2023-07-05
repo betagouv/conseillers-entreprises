@@ -19,7 +19,7 @@
             %span.fr-hint-text= t("solicitations.creation_form.search_facility_placeholder")
             .loader.hidden{ data: { 'pages-siret-autocomplete-target': 'loader' } }
 
-            %div{ data: { 'pages-siret-autocomplete-target': "field", 'assistive-hint': t("solicitations.creation_form.siret_assistive_hint"), name: 'query', 'default-value': (params[:query] || @solicitation.siret), url: search_company_solicitation_path(@solicitation.uuid) } }
+            %div{ data: { 'pages-siret-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'query', 'default-value': (params[:query] || @solicitation.siret), url: search_company_solicitation_path(@solicitation.uuid) } }
             = f.hidden_field :code_region, data: { 'pages-siret-autocomplete-target': 'codeRegionField' }
             = f.hidden_field :siret, data: { 'pages-siret-autocomplete-target': 'siretField' }
 
