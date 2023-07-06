@@ -23,7 +23,6 @@
         = link_to t('.clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
       = f.submit t('.search'), class: 'fr-btn', title: t('.search')
 
-
 = paginate @solicitations
 
 - if @solicitations.present?
