@@ -33,7 +33,7 @@ class RemindersService
 
   def self.select_basket(expert)
     quo_matches = expert.received_quo_matches.with_status_quo_active
-    old_matches = quo_matches.where(created_at: ..MATCHES_AGE[:quo])
+    old_matches = quo_matches.where(sent_at: ..MATCHES_AGE[:quo])
     quo_matches_size = quo_matches.size
     has_old_matches = (old_matches.size >= MATCHES_COUNT[:quo])
     # Panier avec plus de 5 besoins en attentes dont 2 superieur à 15 jours
@@ -64,7 +64,7 @@ class RemindersService
   end
 
   def self.last_closed_match_at(expert)
-    expert.received_matches.done.pluck(:created_at).max
+    expert.received_matches.done.pluck(:sent_at).max
   end
 
   def self.build_output_basket(experts, last_run_number, current_run)
