@@ -7,7 +7,7 @@
         %th{ scope: "col" }= Institution.human_attribute_name(:antennes)
         %th{ scope: "col" }= Institution.human_attribute_name(:advisors)
     %tbody
-      - institutions.preload(:logo).each do |institution|
+      - institutions.includes(:logo).each do |institution|
         %tr
           %td.fr-enlarge-link
             = display_image(name: institution.logo&.filename, path: "institutions/") if institution.logo.present?
@@ -20,6 +20,24 @@
           %td.fr-enlarge-link
             = link_to institution_antennes_path(institution, region_id: params[:region_id].presence) do
               = antennes_count(institution)
+              %br
+              = @antennes_count[institution.id]
+              
+              
+              / - if @antennes_count
+              /   = "#{(@antennes_count || {})[institution.id]} #{Antenne.model_name.human(count: (@antennes_count || {})[institution.id] || 0).downcase}"
+              / - else
+              /   = antennes_count(institution)
+            
           %td.fr-enlarge-link
             = link_to institution_users_path(institution, region_id: params[:region_id].presence) do
               = advisors_count(institution)
+              %br
+              = @users_count[institution.id]
+              
+              
+              / - if @users_count
+              /   = "#{(@users_count || {})[institution.id]} #{User.model_name.human(count: (@users_count || {})[institution.id] || 0).downcase}"
+              / - else
+              /   = advisors_count(institution)
+            
