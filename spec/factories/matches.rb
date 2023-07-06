@@ -5,6 +5,7 @@ FactoryBot.define do
     need
     expert factory: %i[expert_with_users]
     subject
+    sent_at { Time.now }
 
     after(:create) do |match, _|
       match.diagnosis.update(step: :completed, completed_at: Time.zone.now)

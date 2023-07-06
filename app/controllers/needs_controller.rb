@@ -78,6 +78,7 @@ class NeedsController < ApplicationController
     @match = Match.create(need: @need, expert: expert, subject: @need.subject)
     if @match.valid?
       ExpertMailer.notify_company_needs(expert, @need).deliver_later
+      @match.update(sent_at: Time.zone.now)
       expert.first_notification_help_email
     else
       flash.alert = @match.errors.full_messages.to_sentence

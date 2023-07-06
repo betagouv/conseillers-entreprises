@@ -26,6 +26,7 @@ ActiveAdmin.register Match do
       div admin_link_to(m)
       human_attribute_status_tag m, :status
       status_tag t('attributes.is_archived'), class: :ok if m.is_archived
+      div admin_attr(m, :sent_at) if m.sent_at.present?
     end
     column :solicitation_created_at do |m|
       if m.solicitation.present?
