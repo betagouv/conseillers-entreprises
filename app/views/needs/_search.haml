@@ -8,9 +8,8 @@
   .fr-grid-row.fr-grid-row--gutters
     .fr-col-md-6.fr-col-12
       - options = { include_blank: t('all.masculin'), class: 'fr-select' }
-      - subjects_collection = current_user.is_manager? ? themes_subjects_collection_for_managers : possible_themes_subjects_collection
       = f.label :by_subject, t('attributes.subject'), class: 'fr-label'
-      = f.select :by_subject, subjects_collection, options.dup, { class: 'fr-select' }
+      = f.select :by_subject, possible_themes_subjects_collection(origin), options.dup, { class: 'fr-select' }
     .fr-col-md-6.fr-col-12
       .fr-input-group
         = f.label :omnisearch, t('.omnisearch'), class: 'fr-label'
