@@ -22,8 +22,6 @@
               = antennes_count(institution)
               %br
               = @antennes_count[institution.id]
-              
-              
               / - if @antennes_count
               /   = "#{(@antennes_count || {})[institution.id]} #{Antenne.model_name.human(count: (@antennes_count || {})[institution.id] || 0).downcase}"
               / - else
@@ -34,10 +32,7 @@
               = advisors_count(institution)
               %br
               = @users_count[institution.id]
-              
-              
               / - if @users_count
               /   = "#{(@users_count || {})[institution.id]} #{User.model_name.human(count: (@users_count || {})[institution.id] || 0).downcase}"
               / - else
               /   = advisors_count(institution)
-            
