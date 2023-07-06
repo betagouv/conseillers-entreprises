@@ -181,6 +181,7 @@ RSpec.describe Match do
       before do
         match1.diagnosis.update(step: :completed)
         match2.diagnosis.update(step: :needs)
+        match2.update(sent_at: nil)
       end
 
       it { is_expected.to contain_exactly(match1) }
