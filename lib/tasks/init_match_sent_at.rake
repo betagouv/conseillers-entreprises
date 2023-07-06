@@ -10,7 +10,7 @@ class InitMatchSentAt
   end
 
   def call
-    @matches.each do | match|
+    @matches.each do |match|
       match.update_columns(sent_at: match.diagnosis.completed_at)
     end
   end

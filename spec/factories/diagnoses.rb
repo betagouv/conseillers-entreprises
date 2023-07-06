@@ -26,7 +26,7 @@ FactoryBot.define do
     after(:create) do |diagnosis, _|
       if diagnosis.matches.present?
         diagnosis.update_columns(step: :completed)
-        diagnosis.matches.each{|m| m.update_columns(sent_at: Time.zone.now) }
+        diagnosis.matches.each{ |m| m.update_columns(sent_at: Time.zone.now) }
       end
     end
   end
