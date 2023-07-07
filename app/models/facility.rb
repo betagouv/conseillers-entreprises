@@ -58,6 +58,8 @@ class Facility < ApplicationRecord
 
   accepts_nested_attributes_for :company
 
+  before_create :sanitize_data
+
   scope :with_siret, -> do
     where.not(siret: nil).where.not(siret: '')
   end
@@ -85,5 +87,11 @@ class Facility < ApplicationRecord
   #
   def to_s
     "#{company.name} (#{commune_name})"
+  end
+
+  private
+
+  def sanitize_data
+    self.naf_code = self.naf_code.delete('.') if self.naf_code.present?
   end
 end
