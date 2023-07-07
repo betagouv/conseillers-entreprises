@@ -92,6 +92,6 @@ class Facility < ApplicationRecord
   private
 
   def sanitize_data
-    self.naf_code = self.naf_code.gsub('.', '')
+    self.naf_code = self.naf_code.delete('.') if self.naf_code.present?
   end
 end
