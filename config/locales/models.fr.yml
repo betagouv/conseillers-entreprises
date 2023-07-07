@@ -541,6 +541,8 @@ fr:
             solicitations: Vous ne pouvez pas supprimer la thématique car des solicitations y font référence
         solicitation:
           attributes:
+            institution_filters:
+              incorrect: doivent correspondre aux questions du sujet de la demande
             siret:
               must_be_a_valid_siret: doit être un numéro à 14 chiffres valide
         territory:
@@ -552,6 +554,9 @@ fr:
             email:
               taken: est déjà inscrit sur Place des Entreprises. Connectez-vous.
     models:
+      additional_subject_question:
+        one: Question additionnelle
+        other: Questions additionnelles
       antenne:
         one: Antenne
         other: Antennes

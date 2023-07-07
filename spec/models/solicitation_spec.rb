@@ -28,7 +28,6 @@ RSpec.describe Solicitation do
       end
 
       context 'with non completed description' do
-        context
         let(:description) { landing_subject.description_prefill }
 
         it { is_expected.not_to be_valid }
@@ -58,6 +57,41 @@ RSpec.describe Solicitation do
         expect(company_solicitation).not_to validate_presence_of :siret
         expect(description_solicitation_with_siret).to validate_presence_of :siret
         expect(description_solicitation_without_siret).not_to validate_presence_of :siret
+      end
+    end
+
+    describe 'correct_institution_filters' do
+      let(:pde_subject) { create :subject }
+      let(:landing_subject) { create :landing_subject, subject: pde_subject }
+      let(:solicitation) { create :solicitation, status: 'step_description', landing_subject: landing_subject }
+
+      before { solicitation.update(status: 'in_progress') }
+
+      context 'with no additional_subject_question' do
+        it { expect(solicitation).to be_valid }
+      end
+
+      context 'with additional_subject_questions' do
+        let!(:additional_subject_question_01) { create :additional_subject_question, subject: pde_subject }
+        let!(:additional_subject_question_02) { create :additional_subject_question, subject: pde_subject }
+
+        context 'with missing institution_filters' do
+          it { expect(solicitation).not_to be_valid }
+        end
+
+        context 'with correct institution_filters' do
+          let!(:institution_filter_01) { create :institution_filter, institution_filtrable: solicitation, additional_subject_question: additional_subject_question_01 }
+          let!(:institution_filter_02) { create :institution_filter, institution_filtrable: solicitation, additional_subject_question: additional_subject_question_02 }
+
+          it { expect(solicitation).to be_valid }
+        end
+
+        context 'with incorrect institution_filters' do
+          let!(:institution_filter_01) { create :institution_filter, institution_filtrable: solicitation, additional_subject_question: create(:additional_subject_question) }
+          let!(:institution_filter_02) { create :institution_filter, institution_filtrable: solicitation, additional_subject_question: create(:additional_subject_question) }
+
+          it { expect(solicitation).not_to be_valid }
+        end
       end
     end
   end
