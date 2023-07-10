@@ -37,10 +37,13 @@ module IframePrefix
     saved_params = session[:solicitation_form_info] || {}
     # pas de session dans les iframe, on recupere les params dans l'url
     query_params = view_params.slice(*Solicitation::FORM_INFO_KEYS + [:siret] + AdditionalSubjectQuestion.pluck(:key))
+    query_params = build_entreprendre_params(query_params)
     # on supprime les params matomo anciens si doublon
     saved_params.except!(*Solicitation::MATOMO_KEYS.map(&:to_s)) if double_matomo_params(saved_params, query_params)
     saved_params.with_indifferent_access.merge!(query_params)
   end
+
+  private
 
   def double_matomo_params(session_params, url_params)
     (session_params.include?('pk_campaign') && url_params.include?('mtm_campaign')) ||
@@ -49,6 +52,26 @@ module IframePrefix
 
   def view_params
     params.permit(:landing_slug, :slug, :siret, *Solicitation::FORM_INFO_KEYS, AdditionalSubjectQuestion.pluck(:key))
+  end
+
+  def build_entreprendre_params(query_params)
+    if from_entreprendre_website(query_params) && no_entreprendre_params(query_params)
+      fiche = request.referer.split('/').last
+      query_params[:api_calling_url] = request.referer
+      query_params[:mtm_kwd] = fiche if fiche.start_with?('F')
+    else
+      query_params[:api_calling_url] = ''
+    end
+    query_params
+  end
+
+  def from_entreprendre_website(query_params)
+    query_params[:mtm_campaign] == 'entreprendre' || query_params[:pk_campaign] == 'entreprendre'
+  end
+
+  def no_entreprendre_params(query_params)
+    kwd = query_params[:mtm_kwd] || query_params[:pk_kwd]
+    kwd.blank? || !kwd.start_with?('F') || query_params[:api_calling_url].blank?
   end
 
   def allow_in_iframe
