@@ -48,6 +48,9 @@ FactoryBot/FactoryAssociationWithStrategy:
 Layout/AccessModifierIndentation:
   Enabled: true
 
+Layout/ArgumentAlignment:
+  Enabled: false
+
 Layout/ArrayAlignment:
   Enabled: true
 
@@ -117,7 +120,7 @@ Layout/EmptyLinesAroundBeginBody:
   Enabled: true
 
 Layout/EmptyLinesAroundBlockBody:
-  Enabled: true
+  Enabled: false
 
 Layout/EmptyLinesAroundClassBody:
   Enabled: true
@@ -148,7 +151,7 @@ Layout/FirstArrayElementLineBreak:
   Enabled: true
 
 Layout/FirstHashElementLineBreak:
-  Enabled: true
+  Enabled: false
 
 Layout/FirstMethodArgumentLineBreak:
   Enabled: false
@@ -199,8 +202,7 @@ Layout/MultilineBlockLayout:
   Enabled: true
 
 Layout/MultilineHashBraceLayout:
-  Enabled: true
-  EnforcedStyle: new_line
+  Enabled: false
 
 Layout/MultilineMethodCallBraceLayout:
   Enabled: true
