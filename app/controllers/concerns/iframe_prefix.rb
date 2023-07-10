@@ -56,9 +56,9 @@ module IframePrefix
 
   def build_entreprendre_params(query_params)
     if from_entreprendre_website(query_params) && no_entreprendre_params(query_params)
-      fiche = request.referer.split('/').last
       query_params[:api_calling_url] = request.referer
-      query_params[:mtm_kwd] = fiche if fiche.start_with?('F')
+      fiche = request.referer&.split('/')&.last
+      query_params[:mtm_kwd] = fiche if (fiche.present? && fiche.start_with?('F'))
     else
       query_params[:api_calling_url] = '' if query_params[:api_calling_url].present?
     end
