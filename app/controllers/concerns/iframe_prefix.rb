@@ -55,12 +55,19 @@ module IframePrefix
   private
 
   def arrival_from_external_website
-    uri = URI(request.referer)
-    base_url = [uri.scheme, uri.host].join('://')
-    p "arrival_from_external_website"
-    p base_url
-    p ENV['HOST_NAME']
-    base_url != ENV['HOST_NAME']
+    p 'REFERER ============================'
+    p request.referer
+    p request
+    if request.referer.present?
+      uri = URI(request.referer)
+      base_url = [uri.scheme, uri.host].join('://')
+      p "arrival_from_external_website"
+      p base_url
+      p ENV['HOST_NAME']
+      base_url != ENV['HOST_NAME']
+    else
+      false
+    end
   end
 
   # def double_matomo_params(session_params, url_params)
