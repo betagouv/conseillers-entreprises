@@ -60,7 +60,7 @@ module IframePrefix
       query_params[:api_calling_url] = request.referer
       query_params[:mtm_kwd] = fiche if fiche.start_with?('F')
     else
-      query_params[:api_calling_url] = ''
+      query_params[:api_calling_url] = '' if query_params[:api_calling_url].present?
     end
     query_params
   end
