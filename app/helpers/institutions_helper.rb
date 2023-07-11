@@ -17,7 +17,7 @@ module InstitutionsHelper
     display_image(name: name, path: "institutions/", extra_params: params)
   end
 
-  def antennes_count(institution)
+  def _antennes_count(institution)
     if params[:region_id].present?
       institution.antennes_in_region(params[:region_id]).not_deleted.human_count
     else
@@ -25,7 +25,7 @@ module InstitutionsHelper
     end
   end
 
-  def advisors_count(institution)
+  def _advisors_count(institution)
     if params[:region_id].present?
       institution.advisors_in_region(params[:region_id]).active.human_count
     else
