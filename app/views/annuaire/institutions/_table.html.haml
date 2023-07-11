@@ -19,11 +19,11 @@
                   %li #{theme.label} (#{institutions_subjects.size})
           %td.fr-enlarge-link
             = link_to institution_antennes_path(institution, region_id: params[:region_id].presence) do
-              = "#{(antennes_count || {})[institution.id] || 0} #{Antenne.model_name.human(count: (antennes_count || {})[institution.id] || 0).downcase}"
+              #{((antennes_count || {})[institution.id] || 0)} #{Antenne.model_name.human(count: (antennes_count || {})[institution.id] || 0).downcase}
               / %br
               / = _antennes_count(institution)
           %td.fr-enlarge-link
             = link_to institution_users_path(institution, region_id: params[:region_id].presence) do
-              = "#{(users_count || {})[institution.id]  || 0} #{User.model_name.human(count: (users_count || {})[institution.id] || 0).downcase}"
+              #{((users_count || {})[institution.id] || 0)} #{User.model_name.human(count: (users_count || {})[institution.id] || 0).downcase}
               / %br
               / = _advisors_count(institution)
