@@ -36,44 +36,26 @@ module IframePrefix
   def query_params
     # pas de session dans les iframe, on recupere les params dans l'url
     query_params = view_params.slice(*Solicitation::FORM_INFO_KEYS + [:siret] + AdditionalSubjectQuestion.pluck(:key))
-
+    # on vide la session si on arrive d'un site externe
     if arrival_from_external_website
       session.delete(:solicitation_form_info)
       query_params = build_entreprendre_params(query_params)
     end
-    # on supprime les params matomo anciens si doublon
-    p 'query_params ========================'
-    p query_params
-
     session_params = session[:solicitation_form_info] || {}
-    # session_params.except!(*Solicitation::MATOMO_KEYS.map(&:to_s)) if double_matomo_params(session_params, query_params)
-    p 'session_params ================================='
-    p session_params
     session_params.with_indifferent_access.merge!(query_params)
   end
 
   private
 
   def arrival_from_external_website
-    p 'REFERER ============================'
-    p request.referer
-    p request
     if request.referer.present?
       uri = URI(request.referer)
       base_url = [uri.scheme, uri.host].join('://')
-      p "arrival_from_external_website"
-      p base_url
-      p ENV['HOST_NAME']
       base_url != ENV['HOST_NAME']
     else
-      false
+      true
     end
   end
-
-  # def double_matomo_params(session_params, url_params)
-  #   (session_params.include?('pk_campaign') && url_params.include?('mtm_campaign')) ||
-  #     (session_params.include?('mtm_campaign') && url_params.include?('pk_campaign'))
-  # end
 
   def view_params
     params.permit(:landing_slug, :slug, :siret, *Solicitation::FORM_INFO_KEYS, AdditionalSubjectQuestion.pluck(:key))
