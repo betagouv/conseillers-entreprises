@@ -28,7 +28,6 @@
                       = t(referencement_coverage.coverage, scope: 'activerecord.attributes.referencement_coverage/coverage.short', default: "?")
                   = render 'referencement_coverage_modal', referencement_coverage: referencement_coverage
 
-
     %tbody
       -# `users` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
         We’ll group by Antenne and by Expert team, and span the first two columns as needed.
