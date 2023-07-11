@@ -847,6 +847,7 @@ fr:
     searches:
       one: Recherche
       other: Recherches
+    sent_at: Envoyé le
     sent_diagnoses:
       one: Analyse réalisée
       other: Analyses réalisées

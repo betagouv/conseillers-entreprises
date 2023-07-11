@@ -75,7 +75,7 @@ class NeedsController < ApplicationController
   def add_match
     @need = retrieve_need
     expert = Expert.find(params.require(:expert))
-    @match = Match.create(need: @need, expert: expert, subject: @need.subject)
+    @match = Match.create(need: @need, expert: expert, subject: @need.subject, sent_at: Time.zone.now)
     if @match.valid?
       ExpertMailer.notify_company_needs(expert, @need).deliver_later
       expert.first_notification_help_email

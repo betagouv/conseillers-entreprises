@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_25_101918) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_05_150741) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -472,6 +472,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_25_101918) do
     t.bigint "subject_id", null: false
     t.enum "status", default: "quo", null: false, enum_type: "match_status"
     t.datetime "archived_at", precision: nil
+    t.datetime "sent_at", precision: nil
     t.index ["expert_id", "need_id"], name: "index_matches_on_expert_id_and_need_id", unique: true, where: "(expert_id <> NULL::bigint)"
     t.index ["expert_id"], name: "index_matches_on_expert_id"
     t.index ["need_id"], name: "index_matches_on_need_id"
@@ -507,18 +508,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_25_101918) do
     t.enum "category", enum_type: "quarterly_reports_categories"
     t.index ["antenne_id"], name: "index_quarterly_reports_on_antenne_id"
     t.index ["category"], name: "index_quarterly_reports_on_category"
-  end
-
-  create_table "referencement_coverages", force: :cascade do |t|
-    t.bigint "antenne_id", null: false
-    t.bigint "institution_subject_id", null: false
-    t.string "coverage"
-    t.integer "anomalie"
-    t.json "anomalie_details"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["antenne_id"], name: "index_referencement_coverages_on_antenne_id"
-    t.index ["institution_subject_id"], name: "index_referencement_coverages_on_institution_subject_id"
   end
 
   create_table "reminders_actions", force: :cascade do |t|
@@ -710,8 +699,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_25_101918) do
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
   add_foreign_key "quarterly_reports", "antennes"
-  add_foreign_key "referencement_coverages", "antennes"
-  add_foreign_key "referencement_coverages", "institutions_subjects"
   add_foreign_key "reminders_actions", "needs"
   add_foreign_key "reminders_registers", "experts"
   add_foreign_key "searches", "users"

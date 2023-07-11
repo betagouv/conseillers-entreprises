@@ -73,7 +73,7 @@ describe UnusedUsersService do
                invitation_sent_at: seven_months_ago, encrypted_password: ''
       end
       let!(:expert_1) { user_1.personal_skillsets.first }
-      let!(:a_match) { create :match, expert: expert_1 }
+      let!(:a_match) { create :match, expert: expert_1, sent_at: nil }
 
       before do
         a_match.diagnosis.update(step: :matches)

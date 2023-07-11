@@ -33,7 +33,7 @@ class ExpertMailer < ApplicationMailer
     return if @expert.deleted?
 
     # On ne relance pas les MER les + recentes
-    @needs_quo = expert.needs_quo.matches_created_at(Range.new(nil, 4.days.ago))
+    @needs_quo = expert.needs_quo.matches_sent_at(Range.new(nil, 4.days.ago))
 
     return if @needs_quo.empty?
 

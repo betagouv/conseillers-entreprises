@@ -438,10 +438,13 @@ RSpec.describe Need do
 
       describe 'contraintes de délais' do
         # DELAIS
-        # - besoin créé il y a 08 jours, sans positionnement     ko
-        # - besoin créé il y a 09 jours, sans positionnement     ok
-        # - besoin créé il y a 20 jours, sans positionnement     ok
-        # - besoin créé il y a 21 jours, sans positionnement     ko
+        # - besoin créé il y a 08 jours, sans positionnement        ko
+        # - besoin créé il y a 09 jours, sans positionnement        ok
+        # - besoin créé il y a 20 jours, sans positionnement        ok
+        # - besoin créé il y a 21 jours, sans positionnement        ko
+        # - besoin créé il y a 10 jrs, ms MER pas envoyée           ko
+        # - besoin créé il y a 15 jrs, ms MER envoyé il y a 8 jrs   ko
+        # - besoin créé il y a 21 jrs, ms MER envoyé il y a 10 jrs  ok
 
         let(:reference_date) { Time.zone.now.beginning_of_day }
 
@@ -449,9 +452,17 @@ RSpec.describe Need do
         let!(:need2) { travel_to(reference_date - 9.days)  { create :need_with_matches } }
         let!(:need3) { travel_to(reference_date - 20.days) { create :need_with_matches } }
         let!(:need4) { travel_to(reference_date - 21.days) { create :need_with_matches } }
+        let!(:need5) { travel_to(reference_date - 8.days)  { create :need_with_unsent_matches } }
+        let!(:need6) { travel_to(reference_date - 15.days) { create :need_with_unsent_matches } }
+        let!(:need7) { travel_to(reference_date - 21.days) { create :need_with_unsent_matches } }
+
+        before do
+          need6.matches.update_all(sent_at: reference_date - 8.days)
+          need7.matches.update_all(sent_at: reference_date - 10.days)
+        end
 
         it 'retourne les besoins dans la bonne période' do
-          expect(described_class.reminders_to(:poke)).to contain_exactly(need2, need3)
+          expect(described_class.reminders_to(:poke)).to contain_exactly(need2, need3, need7)
         end
       end
 

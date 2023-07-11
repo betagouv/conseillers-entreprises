@@ -150,13 +150,13 @@ class Need < ApplicationRecord
 
   scope :in_reminders_range, -> (action) {
     range = reminders_range(action)
-    matches_created_at(range)
+    matches_sent_at(range)
   }
 
-  scope :matches_created_at, -> (range) {
+  scope :matches_sent_at, -> (range) {
     needs_in_range = Need.unscoped
       .joins(:matches)
-      .where(matches: { created_at: range })
+      .where(matches: { sent_at: range })
     # put it in a subquery to avoid duplicate rows, or requiring the join if this scope is composed with others
     where(id: needs_in_range)
   }
@@ -229,12 +229,12 @@ class Need < ApplicationRecord
 
   scope :quo_active, -> do
     range = Range.new(Need::REMINDERS_DAYS[:abandon]&.days&.ago, nil)
-    status_quo.matches_created_at(range)
+    status_quo.matches_sent_at(range)
   end
 
   scope :expired, -> do
     range = Range.new(nil, Need::REMINDERS_DAYS[:abandon]&.days&.ago)
-    status_quo.matches_created_at(range)
+    status_quo.matches_sent_at(range)
   end
 
   scope :for_facility, -> (facility) do
