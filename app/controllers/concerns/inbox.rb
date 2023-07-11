@@ -3,6 +3,7 @@ module Inbox
 
   included do
     helper_method :needs_search_params
+    helper_method :possible_themes_subjects_collection
   end
 
   private
@@ -71,5 +72,25 @@ module Inbox
     else
       session[:needs_search_params] = session[:needs_search_params].merge(search_params)
     end
+  end
+
+  def possible_themes_subjects_collection(origin, collection_name)
+    case origin
+    when :user
+      recipient = current_user
+    when :manager
+      recipient = current_user.antenne
+    when :reminders
+      recipient = Expert.find(params[:id])
+    end
+    hash = { themes: recipient.themes.ordered_for_interview.uniq, subjects: [] }
+
+    hash[:themes].each do |theme|
+      theme.subjects_ordered_for_interview.each do |subject|
+        count = recipient.send("needs_#{collection_name}").where(subject: subject).size
+        hash[:subjects][subject.id] = "#{subject.label} (#{count > 0 ? count : '-'})"
+      end
+    end
+    hash
   end
 end

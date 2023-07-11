@@ -2,7 +2,7 @@
 - meta title: title
 - content_for :header, render('header', collection_name: @collection_name, title: title)
 - content_for :menu, render('menu', collections_counts: @inbox_collections_counts, antenne: @antenne)
-- content_for :search, render('needs/search', needs: @needs, origin: :manager)
+- content_for :search, render('needs/search', needs: @needs, origin: :manager, collection_name: @collection_name)
 
 - if @needs.empty?
   = render 'needs/empty_placeholder', recipient: @recipient
