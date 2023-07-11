@@ -31,7 +31,7 @@ RSpec.describe Landings::LandingThemesController do
         context 'only session params' do
           it do
             request.session[:solicitation_form_info] = { "pk_campaign" => "pk_c", "pk_kwd" => "pk_k" }
-            request.env['HTTP_REFERER'] = 'http://localhost'
+            request.env['HTTP_REFERER'] = ENV['HOST_NAME']
             get :show, params: { landing_slug: landing.slug, slug: landing_theme.slug }
 
             expect(response).to redirect_to({ controller: "landings/landings", action: "show", landing_slug: landing.slug }.merge({ pk_campaign: 'pk_c', pk_kwd: 'pk_k' }))
