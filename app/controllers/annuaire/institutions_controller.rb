@@ -48,10 +48,10 @@ module  Annuaire
           .group('antennes.institution_id')
       else
         User.select('COUNT(DISTINCT users.id) AS users_count, antennes.institution_id AS institution_id')
-        .joins(:antenne)
-        .not_deleted
-        .where(antennes: { deleted_at: nil })
-        .group('antennes.institution_id')
+          .joins(:antenne)
+          .not_deleted
+          .where(antennes: { deleted_at: nil })
+          .group('antennes.institution_id')
       end
 
       @users_count = users_count.each_with_object({}) do |institution, hash|
