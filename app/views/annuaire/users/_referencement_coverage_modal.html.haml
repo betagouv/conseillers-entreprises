@@ -20,7 +20,7 @@
                 %li
                   %span.bold= [t('activerecord.attributes.referencement_coverage.anomalie_details'), ':'].join(' ')
                   %ul
-                    - referencement_coverage.anomalie_details.each do |k, v|
+                    - referencement_coverage.anomalie_details.each do |anomalie_type, value|
                       %li
-                        %span.bold= [t(k, scope: 'activerecord.attributes.referencement_coverage/anomalie_details'), ':'].join(' ')
-                        = referencement_coverage_anomalie(k, v)
+                        %span.bold= [t(anomalie_type, scope: 'activerecord.attributes.referencement_coverage/anomalie_details'), ':'].join(' ')
+                        = referencement_coverage_anomalie(anomalie_type, value)

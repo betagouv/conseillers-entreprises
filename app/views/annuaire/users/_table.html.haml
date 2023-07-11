@@ -16,7 +16,7 @@
           - subjects.each do |subject, institutions_subjects|
             %th{ colspan: institutions_subjects.size, title: subject.label }= subject.label.truncate(30)
       %tr.users-count
-        - if local_assigns[:referencement_coverages]
+        - if referencement_coverages
           - grouped_subjects.each_value do |subjects|
             - subjects.each do |subject, institutions_subjects|
               - institutions_subjects.each do |institution_subject|
