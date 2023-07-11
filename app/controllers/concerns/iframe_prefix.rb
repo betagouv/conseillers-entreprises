@@ -48,9 +48,13 @@ module IframePrefix
   private
 
   def arrival_from_external_website
+    p "arrival_from_external_website"
+    p request.refere
     if request.referer.present?
       uri = URI(request.referer)
       base_url = [uri.scheme, uri.host].join('://')
+      p base_url
+      p ENV['HOST_NAME']
       base_url != ENV['HOST_NAME']
     else
       true

@@ -30,7 +30,9 @@ RSpec.describe Landings::LandingThemesController do
       context 'internal navigation' do
         context 'only session params' do
           it do
+            p "internal navigation only session params"
             request.session[:solicitation_form_info] = { "pk_campaign" => "pk_c", "pk_kwd" => "pk_k" }
+            p ENV['HOST_NAME']
             request.env['HTTP_REFERER'] = ENV['HOST_NAME']
             get :show, params: { landing_slug: landing.slug, slug: landing_theme.slug }
 
