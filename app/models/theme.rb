@@ -38,6 +38,7 @@ class Theme < ApplicationRecord
   has_many :antennes, through: :institutions_subjects, inverse_of: :themes
   has_many :experts_subjects, through: :institutions_subjects, inverse_of: :theme
   has_many :advisors, through: :institutions_subjects, inverse_of: :theme
+  has_many :experts, through: :institutions_subjects, inverse_of: :themes
 
   ## Scopes
   #
