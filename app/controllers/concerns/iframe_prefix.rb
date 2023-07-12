@@ -49,7 +49,7 @@ module IframePrefix
 
   def arrival_from_external_website
     p "arrival_from_external_website"
-    p request.refere
+    p request.referer
     if request.referer.present?
       uri = URI(request.referer)
       base_url = [uri.scheme, uri.host].join('://')
