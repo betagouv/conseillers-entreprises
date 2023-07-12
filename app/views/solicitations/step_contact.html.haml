@@ -18,7 +18,7 @@
 - if @solicitation.persisted?
   - path = update_step_contact_solicitation_path(@solicitation.uuid)
 - else
-  - path = { controller: "/solicitations", action: "create", landing_slug: @landing.slug, landing_subject_slug: @landing_subject.slug }.merge(query_params)
+  - path = { controller: "/solicitations", action: "create", landing_slug: @landing.slug, landing_subject_slug: @landing_subject.slug }.merge(@query_params)
 
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3

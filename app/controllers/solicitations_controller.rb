@@ -3,6 +3,7 @@ class SolicitationsController < PagesController
 
   layout 'solicitation_form'
 
+  before_action :fill_query_params, only: [:new, :create]
   before_action :prevent_completed_solicitation_modification, except: [:new, :create, :form_complete]
   before_action :calculate_needs_count
 
@@ -17,7 +18,7 @@ class SolicitationsController < PagesController
 
   def create
     with_step_data(step: :step_contact) do
-      sanitized_params = sanitize_params(solicitation_params).merge(SolicitationModification::FormatQueryParams.new(query_params).call)
+      sanitized_params = sanitize_params(solicitation_params).merge(SolicitationModification::FormatQueryParams.new(@query_params).call)
       @solicitation = SolicitationModification::Create.new(sanitized_params).call!
       if @solicitation.persisted?
         session.delete(:solicitation_form_info)

@@ -2,7 +2,7 @@
   meta title: @landing_theme.meta_title.presence || @landing_theme.title,
     description: @landing_theme.meta_description.presence || @landing_theme.description
 
-- cache_unless(flash.present?, [@landing_theme, @landing, @landing_subjects, query_params]) do
+- cache_unless(flash.present?, [@landing_theme, @landing, @landing_subjects, @query_params]) do
 
   - unless in_iframe?
     .fr-container.fr-py-7w.fr-mt-3v.landing-banner
@@ -22,12 +22,11 @@
 
   - unless in_iframe?
     #scroll-section
-
   .fr-container--fluid.section-grey.fr-py-7w.landing
     .fr-container.landing-subject-section
       %h2.fr-h3.card-section-header= t('you_wish')
       .fr-grid-row.fr-grid-row--gutters
-        = render partial: 'landings/landing_subjects/card', collection: @landing_subjects, as: :landing_subject, locals: { landing: @landing }
+        = render partial: 'landings/landing_subjects/card', collection: @landing_subjects, as: :landing_subject, locals: { landing: @landing, query_params: @query_params }
 
         - unless in_iframe?
           .text-center.fr-col-12.fr-mt-3w

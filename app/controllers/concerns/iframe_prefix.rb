@@ -6,7 +6,6 @@ module IframePrefix
     prepend_before_action :retrieve_main_objects
     skip_forgery_protection if: -> { in_iframe? }
     after_action :allow_in_iframe, if: -> { in_iframe? }
-    helper_method :query_params
   end
 
   # Pour s'assurer que in_iframe? fonctionne en toutes circonstances
@@ -33,18 +32,18 @@ module IframePrefix
     end
   end
 
-  def query_params
-    saved_params = session[:solicitation_form_info] || {}
-    # pas de session dans les iframe, on recupere les params dans l'url
-    query_params = view_params.slice(*Solicitation::FORM_INFO_KEYS + [:siret] + AdditionalSubjectQuestion.pluck(:key))
-    # on supprime les params matomo anciens si doublon
-    saved_params.except!(*Solicitation::MATOMO_KEYS.map(&:to_s)) if double_matomo_params(saved_params, query_params)
-    saved_params.with_indifferent_access.merge!(query_params)
+  def fill_query_params
+    if arrival_from_external_website
+      session.delete(:solicitation_form_info)
+    end
+    url_params = view_params.slice(*Solicitation::FORM_INFO_KEYS + [:siret] + AdditionalSubjectQuestion.pluck(:key))
+    session_params = session[:solicitation_form_info] || {}
+    @query_params = session_params.with_indifferent_access.merge!(url_params)
+    session[:solicitation_form_info] = @query_params if @query_params.present?
   end
 
-  def double_matomo_params(session_params, url_params)
-    (session_params.include?('pk_campaign') && url_params.include?('mtm_campaign')) ||
-      (session_params.include?('mtm_campaign') && url_params.include?('pk_campaign'))
+  def arrival_from_external_website
+    !(request.referer.present? && request.referer.include?(ENV['HOST_NAME']))
   end
 
   def view_params

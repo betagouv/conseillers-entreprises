@@ -34,7 +34,7 @@
               = simple_format(landing.home_description, { class: 'fr-m-0' }, wrapper_tag: 'p')
             .fr-col-md-3.fr-col-12.display-flex-center
               = link_to t('.discover_measures'), landing, class: 'fr-btn fr-btn--secondary'
-    = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
+    = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing, query_params: @query_params
 
 .fr-container-fluid.section-partners.fr-py-7w.section-light-grey
   .fr-container.text-center

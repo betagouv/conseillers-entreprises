@@ -2,7 +2,7 @@
   %h2.fr-h3= t('you_wish')
 
 .fr-grid-row.fr-grid-row--gutters.landing-theme-container{ class: "#{'in-iframe' if in_iframe?}" }
-  = render partial: 'landings/landing_themes/card', collection: landing_themes, as: :landing_theme, locals: { landing: landing }
+  = render partial: 'landings/landing_themes/card', collection: landing_themes, as: :landing_theme, locals: { landing: landing, query_params: query_params }
 
 - if in_iframe? && landing.landing_themes.not_archived.pluck(:slug).include?('contactez-nous')
   %p.text-center.contact-us
