@@ -10,5 +10,3 @@ def batch_init(matches)
     match.update_columns(sent_at: match.diagnosis.completed_at)
   end
 end
-
-
