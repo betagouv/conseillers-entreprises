@@ -74,21 +74,13 @@ module Inbox
     end
   end
 
-  def possible_themes_subjects_collection(origin, collection_name)
-    case origin
-    when :user
-      recipient = current_user
-    when :manager
-      recipient = current_user.antenne
-    when :reminders
-      recipient = Expert.find(params[:id])
-    end
-    hash = { themes: recipient.themes.ordered_for_interview.uniq, subjects: [] }
-
+  def possible_themes_subjects_collection(collection_name)
+    # Build a hash with themes and subjects covered by recipient_for_search with a counter for needs in current collection
+    hash = { themes: recipient_for_search.themes.ordered_for_interview.uniq, subjects: [] }
     hash[:themes].each do |theme|
       theme.subjects_ordered_for_interview.each do |subject|
-        count = recipient.send("needs_#{collection_name}").where(subject: subject).size
-        hash[:subjects][subject.id] = "#{subject.label} (#{count > 0 ? count : '-'})"
+        count = recipient_for_search.send("needs_#{collection_name}").where(subject: subject).size
+        hash[:subjects][subject.id] = "#{subject.label} (#{count.positive? ? count : '-'})"
       end
     end
     hash

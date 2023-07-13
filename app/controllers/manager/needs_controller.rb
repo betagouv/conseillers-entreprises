@@ -40,4 +40,8 @@ class Manager::NeedsController < ApplicationController
       current_user.managed_antennes
     end
   end
+
+  def recipient_for_search
+    @recipient.many? ? @recipient.first : @recipient
+  end
 end
