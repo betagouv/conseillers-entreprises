@@ -1,9 +1,0 @@
-.ui.hidden.divider
-.ui.aligned.grid
-  .right.aligned.wide.column
-    - if need.archived_at?
-      = form_with(model: need, url: unarchive_need_url(need), local: true, method: :post) do |f|
-        = f.button t('.unarchive'), class: 'ui orange small button fr-m-0'
-    - else
-      = form_with(model: need, url: archive_need_url(need), local: true, method: :post) do |f|
-        = f.button t('.archive'), class: 'ui red small button fr-m-0'

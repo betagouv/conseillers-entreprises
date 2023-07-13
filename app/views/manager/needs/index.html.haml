@@ -5,7 +5,6 @@
 - content_for :search, render('search')
 
 - if @needs.empty?
-  .ui.message
-    .content.header= t('.no_needs')
+  = render 'needs/empty_placeholder', recipient: @recipient
 - else
   = render 'needs/received_needs', received_needs: @needs
