@@ -11,5 +11,4 @@ class InitReferencementCoverages
       UpdateAntenneCoverage.new(ta).call
     end
   end
-
 end
