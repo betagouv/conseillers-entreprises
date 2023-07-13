@@ -7,4 +7,3 @@ task init_match_sent_at: :environment do
     end
   end
 end
-
