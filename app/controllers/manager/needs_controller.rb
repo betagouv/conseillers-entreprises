@@ -42,6 +42,6 @@ class Manager::NeedsController < ApplicationController
   end
 
   def recipient_for_search
-    @recipient.many? ? @recipient.first : @recipient
+    @recipient.is_a?(ActiveRecord::Associations::CollectionProxy) ? @recipient.first : @recipient
   end
 end
