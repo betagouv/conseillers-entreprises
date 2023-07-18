@@ -30,6 +30,23 @@
     &.yellow
       background: #fff9d2
       color: #B58105
+  th.coverage-table-cell
+    color: var(--text-inverted-error)
+    text-align: center
+    cursor: pointer
+    padding: 0
+    .coverage-modal-button
+      padding: 0.75rem
+      text-decoration: underline dotted
+      width: 100%
+      &.error-table-cell
+        background-color: var(--error-425-625) !important
+        &:hover
+          background-color: var(--error-425-625-hover) !important
+      &.success-table-cell
+        background: var(--success-425-625) !important
+        &:hover
+          background-color: var(--success-425-625-hover) !important
   th.red, td.red
       background: $red-lighter
       color: $red

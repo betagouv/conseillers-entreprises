@@ -81,9 +81,6 @@ fr:
         duplicate_user: Dupliquer cet utilisateur
         edit_expert: Modifier %{expert_name} - %{antenne}
         reassign_matches: Réassigner les mises en relation
-        regional_experts_on_subject:
-          one: "%{count} expert régional sur ce sujet"
-          other: "%{count} experts régionaux sur ce sujet"
   annuaire_helper:
     build_user_name_cell:
       antenne_manager: Responsables d’antenne.
@@ -99,6 +96,7 @@ fr:
       open_cookies: Ouvre la fenêtre de gestion des cookies
       service_description: Aider ensemble les TPE & PME dans leurs projets, leurs difficultés et leurs transformations.
     modal:
+      see_details: Voir le détail
       see_expert_coordinates: Voir les coordonnées de l'équipe
       see_person_coordinates: Voir les coordonnées de la personne
     navbar:

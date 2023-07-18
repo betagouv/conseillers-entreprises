@@ -3,10 +3,13 @@
 require 'rails_helper'
 require 'system_helper'
 
-describe 'annuaire', js: true, flaky: true do
+describe 'annuaire', js: true do
   let(:user) { create :user, :admin }
+  let(:region) { create :territory, :region, code_region: 1234 }
+  let(:commune) { create :commune, regions: [region] }
+  let!(:other_commune) { create :commune, regions: [region] }
+  let!(:antenne) { create :antenne, territorial_level: :local, institution: institution, communes: [commune] }
   let(:institution) { create :institution }
-  let!(:antenne) { create :antenne, institution: institution }
   let!(:another_institution) { create :institution }
 
   before do
@@ -14,10 +17,6 @@ describe 'annuaire', js: true, flaky: true do
   end
 
   context 'annuaire/institutions' do
-    let(:region) { create :territory, :region }
-    let(:commune) { create :commune, regions: [region] }
-    let!(:antenne) { create :antenne, institution: institution, communes: [commune] }
-
     it 'displays all institution' do
       visit 'annuaire/institutions'
 
@@ -59,13 +58,16 @@ describe 'annuaire', js: true, flaky: true do
       let!(:institution_subject) { create :institution_subject, institution: institution }
       let!(:expert_subject) { create :expert_subject, institution_subject: institution_subject, expert: expert }
 
+      before { UpdateAntenneCoverage.new(antenne).call }
+
       it 'display users without warning' do
         visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
 
         expect(page).to have_selector 'h1', text: institution.name
         expect(page).to have_css('.fr-table--c-annuaire', count: 1)
         expect(page).to have_css('.td-header.td-user', count: 1)
-        expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
+        expect(page).to have_css('.success-table-cell', count: 1)
+        expect(page).to have_button('L')
       end
     end
 
@@ -81,18 +83,21 @@ describe 'annuaire', js: true, flaky: true do
 
       before do
         antenne.communes = [communes_1, communes_2, communes_3]
-        visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
       end
 
       # Sans zone spécifique
       context 'without specifics territories' do
-        it 'display users with orange warning' do
+        before do
+          UpdateAntenneCoverage.new(antenne).call
+          visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
+        end
+
+        it 'display users with many experts warning' do
           expect(page).to have_selector 'h1', text: institution.name
           expect(page).to have_css('.fr-table--c-annuaire', count: 1)
           expect(page).to have_css('.td-header.td-user', count: 2)
-          expect(page).to have_css('.orange.ri-error-warning-line', count: 1)
-          expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
-          expect(page).to have_css('.yellow', count: 2)
+          expect(page).to have_css('.error-table-cell')
+          expect(page).to have_button('L', title: "Plusieurs experts pour le même sujet - Voir le détail")
         end
       end
 
@@ -101,13 +106,13 @@ describe 'annuaire', js: true, flaky: true do
         before do
           expert.communes = [communes_1]
           expert_2.communes = [communes_2]
+          UpdateAntenneCoverage.new(antenne).call
           visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
         end
 
-        it 'display users with orange warning' do
-          expect(page).to have_css('.orange.ri-map-2-line', count: 1)
-          expect(page).to have_css('.orange.ri-error-warning-line', count: 0)
-          expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
+        it 'display users with missing experts warning' do
+          expect(page).to have_css('.error-table-cell')
+          expect(page).to have_button('L', title: "Experts manquants dans certaines communes - Voir le détail")
         end
       end
 
@@ -116,13 +121,13 @@ describe 'annuaire', js: true, flaky: true do
         before do
           expert.communes = [communes_1]
           expert_2.communes = [communes_2, communes_3]
+          UpdateAntenneCoverage.new(antenne).call
           visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
         end
 
-        it 'display users with orange warning' do
-          expect(page).to have_css('.orange.ri-map-2-line', count: 0)
-          expect(page).to have_css('.orange.ri-error-warning-line', count: 0)
-          expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
+        it 'display users with no warning' do
+          expect(page).to have_css('.success-table-cell', count: 1)
+          expect(page).to have_button('L')
         end
       end
 
@@ -131,13 +136,13 @@ describe 'annuaire', js: true, flaky: true do
         before do
           expert.communes = [communes_1, communes_3]
           expert_2.communes = [communes_2, communes_3]
+          UpdateAntenneCoverage.new(antenne).call
           visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
         end
 
-        it 'display users with orange warning' do
-          expect(page).to have_css('.orange.ri-map-2-line', count: 0)
-          expect(page).to have_css('.orange.ri-error-warning-line', count: 1)
-          expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
+        it 'display users with many experts warning' do
+          expect(page).to have_css('.error-table-cell')
+          expect(page).to have_button('L', title: "Plusieurs experts pour le même sujet - Voir le détail")
         end
       end
 
@@ -145,13 +150,13 @@ describe 'annuaire', js: true, flaky: true do
       context 'experts with specific zone and expert without' do
         before do
           expert.communes = [communes_1]
+          UpdateAntenneCoverage.new(antenne).call
           visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
         end
 
-        it 'display users with orange warning' do
-          expect(page).to have_css('.orange.ri-map-2-line', count: 0)
-          expect(page).to have_css('.orange.ri-error-warning-line', count: 1)
-          expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
+        it 'display users with many experts warning' do
+          expect(page).to have_css('.error-table-cell')
+          expect(page).to have_button('L', title: "Plusieurs experts pour le même sujet - Voir le détail")
         end
       end
     end
@@ -159,14 +164,17 @@ describe 'annuaire', js: true, flaky: true do
     describe 'expert without institution_subject' do
       let!(:institution_subject) { create :institution_subject, institution: institution }
 
-      it 'display users with red warning' do
-        visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
+      before do
+        UpdateAntenneCoverage.new(antenne).call
+      end
 
+      it 'display users with no expert warning' do
+        visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
         expect(page).to have_selector 'h1', text: institution.name
         expect(page).to have_css('.fr-table--c-annuaire', count: 1)
         expect(page).to have_css('.td-header.td-user', count: 1)
-        expect(page).to have_css('.red.ri-error-warning-line', count: 1)
-        expect(page).to have_css('.yellow', count: 0)
+        expect(page).to have_css('.error-table-cell')
+        expect(page).to have_button('?', title: "Aucun expert - Voir le détail")
       end
     end
   end
