@@ -9,8 +9,8 @@ describe 'annuaire', js: true do
   let(:commune) { create :commune, regions: [region] }
   let!(:other_commune) { create :commune, regions: [region] }
   let!(:antenne) { create :antenne, territorial_level: :local, institution: institution, communes: [commune] }
-  let(:institution) { create :institution }
-  let!(:another_institution) { create :institution }
+  let(:institution) { create :institution, :expert_provider }
+  let!(:another_institution) { create :institution, :expert_provider }
 
   before do
     login_as user, scope: :user
@@ -22,8 +22,7 @@ describe 'annuaire', js: true do
 
       expect(page).to have_selector 'h1', text: "Institutions"
       expect(page).to have_css('.fr-table--c-annuaire', count: 1)
-      # There is 2 'tr' for institutions and one for headers but FactoryBot create another institution when we create 'antenne'
-      expect(page).to have_css('tr', count: 4)
+      expect(page).to have_css('tr', count: 3)
 
       select(region.name, from: 'region_id')
       click_button 'Chercher'
