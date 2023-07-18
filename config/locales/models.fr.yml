@@ -673,6 +673,8 @@ fr:
         one: Droit utilisateur
         other: Droits utilisateur
   antenne_stats_exporter:
+    annual_stats_by_antenne: Stats ann. par antenne
+    annual_stats_by_region: Stats ann. par région
     antenne: Antenne
     by_antenne: Par antenne
     by_region: Par région

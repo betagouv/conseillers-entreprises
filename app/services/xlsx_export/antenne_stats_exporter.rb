@@ -11,6 +11,7 @@ module XlsxExport
       wb = p.workbook
       title = wb.styles.add_style bg_color: 'DD', sz: 16, b: true, alignment: { horizontal: :center, vertical: :center }
       needs = @antenne.perimeter_received_needs
+      year_start_date = @start_date.beginning_of_year
 
       # Quarter stats
       wb.add_worksheet(name: I18n.t('antenne_stats_exporter.quarter_stats')) do |sheet|
@@ -34,8 +35,20 @@ module XlsxExport
       # Annual stats
       wb.add_worksheet(name: I18n.t('antenne_stats_exporter.year_stats')) do |sheet|
         sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.from_beginning_of_year', year: @start_date.year)}"], style: title
-        year_start_date = @start_date.beginning_of_year
         XlsxExport::AntenneStatsWorksheetGenerator::Base.new(sheet, @antenne, needs.created_between(year_start_date, @end_date), wb.styles).generate
+      end
+
+      # Annual agglomerate stats
+      if @antenne.national?
+        wb.add_worksheet(name: I18n.t('antenne_stats_exporter.annual_stats_by_region')) do |sheet|
+          sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.from_beginning_of_year', year: @start_date.year)}"], style: title
+          XlsxExport::AntenneStatsWorksheetGenerator::ByRegion.new(sheet, @antenne, needs.created_between(year_start_date, @end_date), wb.styles).generate
+        end
+      elsif @antenne.regional? && @antenne.territorial_antennes.any?
+        wb.add_worksheet(name: I18n.t('antenne_stats_exporter.annual_stats_by_antenne')) do |sheet|
+          sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.from_beginning_of_year', year: @start_date.year)}"], style: title
+          XlsxExport::AntenneStatsWorksheetGenerator::ByAntenne.new(sheet, @antenne, needs.created_between(year_start_date, @end_date), wb.styles).generate
+        end
       end
 
       # Légende
