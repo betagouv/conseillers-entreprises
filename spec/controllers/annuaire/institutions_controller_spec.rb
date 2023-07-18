@@ -22,7 +22,7 @@ RSpec.describe Annuaire::InstitutionsController do
 
     it 'return all institutions' do
       request
-      expect(assigns(:institutions)).to match_array([institution_1, institution_2, institution_3])
+      expect(assigns(:institutions)).to contain_exactly(institution_1, institution_2, institution_3)
     end
   end
 end
