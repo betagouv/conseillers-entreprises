@@ -340,8 +340,9 @@ class Need < ApplicationRecord
     klass = self
     klass = klass.by_region(params[:by_region]) if params[:by_region].present?
     klass = klass.by_subject(params[:by_subject]) if params[:by_subject].present?
-    klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
-    klass = klass.with_pg_search_rank if params[:omnisearch].present?
+    # with_pg_search_rank : pour contrer erreur sur le distinct.
+    # Cf https://github.com/Casecommons/pg_search/issues/238
+    klass = klass.omnisearch(params[:omnisearch]).with_pg_search_rank if params[:omnisearch].present?
     klass = klass.created_since(params[:created_since]) if params[:created_since].present?
     klass = klass.created_until(params[:created_until]) if params[:created_until].present?
     klass.all
