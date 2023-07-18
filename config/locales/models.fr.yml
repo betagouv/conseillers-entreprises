@@ -696,6 +696,7 @@ fr:
     matches: Mises en relation
     needs: Besoins
     needs_count: Nb de besoins
+    needs_percentage: Part des besoins
     not_for_me_caption_definition: L’expert n’a pas appelé l’entreprise car il sait d’emblée qu’il ne pourra pas l’aider, il refuse le besoin.
     not_for_me_caption_label: Refusé
     not_for_me_rate: Taux de refus

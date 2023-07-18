@@ -204,13 +204,14 @@ module XlsxExport
         sheet.add_row [
           I18n.t('antenne_stats_exporter.antenne'),
           I18n.t('antenne_stats_exporter.needs_count'),
+          I18n.t('antenne_stats_exporter.needs_percentage'),
           I18n.t('antenne_stats_exporter.positionning_rate'),
           I18n.t('antenne_stats_exporter.positionning_accepted_rate'),
           I18n.t('antenne_stats_exporter.done_rate')
-        ], style: [@left_header, @right_header, @right_header, @right_header, @right_header]
+        ], style: [@left_header, @right_header, @right_header, @right_header, @right_header, @right_header]
       end
 
-      def add_agglomerate_rows(needs, row_title)
+      def add_agglomerate_rows(needs, ratio, row_title)
         matches = @antenne.perimeter_received_matches_from_needs(needs)
         positionning_size = calculate_positionning_status_size(:positionning, matches)
         positionning_accepted_size = calculate_positionning_status_size(:positionning_accepted, matches)
@@ -218,10 +219,11 @@ module XlsxExport
         sheet.add_row [
           row_title,
           needs.size,
+          ratio,
           calculate_rate(positionning_size, matches),
           calculate_rate(positionning_accepted_size, matches),
           calculate_rate(done_size, matches),
-        ], style: [nil, nil, @rate, @rate, @rate]
+        ], style: [nil, nil, @rate, @rate, @rate, @rate]
       end
 
       def finalise_agglomerate_style
