@@ -605,8 +605,8 @@ RSpec.describe Need do
     let(:subject1) { create :subject, label: "sujet un" }
     let(:subject2) { create :subject, label: "sujet deux" }
     let(:diagnosis1) { create :diagnosis, company: create(:company, name: "Entreprise deux") }
-    let(:contact1) { create :contact, full_name: "Jérôme Luciani"}
-    let(:contact2) { create :contact, full_name: "Amina Jerome"}
+    let(:contact1) { create :contact, full_name: "Jérôme Luciani" }
+    let(:contact2) { create :contact, full_name: "Amina Jerome" }
     let(:need1) { create :need, content: "la la", visitee: contact1 }
     let(:need2) { create :need, content: "la lo", subject: subject2, visitee: contact2 }
     let(:need3) { create :need, content: "lo deux", subject: subject1 }

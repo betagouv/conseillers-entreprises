@@ -111,15 +111,15 @@ class Need < ApplicationRecord
   }
 
   pg_search_scope :omnisearch,
-  against: [:content],
-  associated_against: {
-    visitee: [:full_name, :email],
-    company: [:name, :siren],
-    facility: :readable_locality,
-    subject: :label
-  },
-  using: { tsearch: { prefix: true }},
-  ignoring: :accents
+                  against: [:content],
+                  associated_against: {
+                    visitee: [:full_name, :email],
+                    company: [:name, :siren],
+                    facility: :readable_locality,
+                    subject: :label
+                  },
+                  using: { tsearch: { prefix: true } },
+                  ignoring: :accents
 
   scope :ordered_for_interview, -> do
     left_outer_joins(:subject)
