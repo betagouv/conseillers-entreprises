@@ -4,6 +4,7 @@ module  Annuaire
 
     def index
       authorize Institution, :index?
+      # Compteur ici pour raison de perfs
       get_antennes_count
       get_users_count
     end
@@ -15,7 +16,7 @@ module  Annuaire
     private
 
     def retrieve_institutions
-      @institutions = Institution.includes(:logo, :themes).not_deleted.order(:slug)
+      @institutions = Institution.expert_provider.includes(:logo, :themes).not_deleted.order(:slug)
       @institutions = @institutions.in_region(params[:region_id]) if params[:region_id].present?
     end
 
