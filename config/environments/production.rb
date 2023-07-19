@@ -91,7 +91,7 @@ Rails.application.configure do
     config.action_mailer.smtp_settings = {
       user_name: ENV['SENDINBLUE_USER_NAME'],
       password: ENV['SENDINBLUE_SMTP_KEY'],
-      address: 'smtp-relay.sendinblue.com',
+      address: 'smtp-relay.brevo.com',
       port: '587',
       authentication: 'cram_md5'
     }
