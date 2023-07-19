@@ -4,7 +4,7 @@ module XlsxExport
       def generate
         sheet.add_row
 
-        add_agglomerate_headers
+        add_agglomerate_headers(:region)
 
         Territory.deployed_regions.each do |region|
           needs = @needs.by_region(region.id)

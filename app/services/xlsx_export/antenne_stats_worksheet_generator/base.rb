@@ -200,9 +200,9 @@ module XlsxExport
 
       # Pages résumé
       #
-      def add_agglomerate_headers
+      def add_agglomerate_headers(tab_scope)
         sheet.add_row [
-          I18n.t('antenne_stats_exporter.antenne'),
+          I18n.t(tab_scope, scope: ['antenne_stats_exporter']),
           I18n.t('antenne_stats_exporter.needs_count'),
           I18n.t('antenne_stats_exporter.needs_percentage'),
           I18n.t('antenne_stats_exporter.positionning_rate'),
@@ -211,7 +211,7 @@ module XlsxExport
         ], style: [@left_header, @right_header, @right_header, @right_header, @right_header, @right_header]
       end
 
-      def add_agglomerate_rows(needs, ratio, row_title)
+      def add_agglomerate_rows(needs, ratio=nil, row_title=nil)
         matches = @antenne.perimeter_received_matches_from_needs(needs)
         positionning_size = calculate_positionning_status_size(:positionning, matches)
         positionning_accepted_size = calculate_positionning_status_size(:positionning_accepted, matches)
@@ -231,7 +231,7 @@ module XlsxExport
           'A1:G1',
         ].each { |range| sheet.merge_cells(range) }
 
-        sheet.column_widths 50, 15, 25, 25, 25
+        sheet.column_widths 50, 15, 25, 25, 25, 25
       end
     end
   end

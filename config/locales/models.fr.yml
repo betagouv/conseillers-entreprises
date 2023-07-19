@@ -674,6 +674,7 @@ fr:
         one: Droit utilisateur
         other: Droits utilisateur
   antenne_stats_exporter:
+    annual_national_stats: Repères nationaux
     annual_stats_by_antenne: Stats ann. par antenne
     annual_stats_by_region: Stats ann. par région
     antenne: Antenne
@@ -715,9 +716,11 @@ fr:
     quo_caption_label: En attente de réponse
     quo_rate: Taux de sans réponse
     region: Région
+    subject: Sujet
     subtitle: Analyse statistique des besoins transmis aux experts
     taking_care_caption_definition: Besoins pris en charge par un expert, qui n’a pas encore été clôturé après l’appel de l’entreprise.
     taking_care_caption_label: Pris en charge
+    total: Tous sujets
     year_stats: Stats ann.
     year_stats_by_subject: Stats ann. par sujet
   archivable:

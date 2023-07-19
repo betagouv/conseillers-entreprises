@@ -1,4 +1,4 @@
-- meta title: t('.title')
+- meta title: t('.title', antenne: @antenne.name)
 - content_for :header, render('header', title: t('.title', antenne: @antenne.name))
 - content_for :menu, render('menu', antennes: @antennes, current_antenne: @antenne)
 

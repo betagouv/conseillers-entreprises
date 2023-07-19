@@ -63,6 +63,14 @@ module XlsxExport
         end
       end
 
+      # National stats
+      unless @antenne.national?
+        wb.add_worksheet(name: I18n.t('antenne_stats_exporter.annual_national_stats')) do |sheet|
+          sheet.add_row ["#{@antenne.institution.name} - #{I18n.t('antenne_stats_exporter.from_beginning_of_year', year: @start_date.year)}"], style: title
+          XlsxExport::AntenneStatsWorksheetGenerator::National.new(sheet, @antenne, @antenne.institution.received_needs.created_between(year_start_date, @end_date), wb.styles).generate
+        end
+      end
+
       # Légende
       wb.add_worksheet(name: I18n.t('antenne_stats_exporter.caption_title')) do |sheet|
         sheet.add_row [I18n.t('antenne_stats_exporter.caption_title')], style: title

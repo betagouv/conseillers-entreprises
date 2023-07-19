@@ -4,7 +4,7 @@ module XlsxExport
       def generate
         sheet.add_row
 
-        add_agglomerate_headers
+        add_agglomerate_headers(:antenne)
 
         @antenne.territorial_antennes.each do |local_antenne|
           needs = @needs.joins(:expert_antennes).where(antennes: { id: local_antenne.id })
