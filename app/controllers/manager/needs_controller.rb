@@ -1,6 +1,7 @@
 class Manager::NeedsController < ApplicationController
   include Inbox
   before_action :retrieve_recipient
+  before_action :persist_search_params, only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired]
 
   layout 'side_menu'
 
@@ -38,5 +39,9 @@ class Manager::NeedsController < ApplicationController
     else
       current_user.managed_antennes
     end
+  end
+
+  def recipient_for_search
+    @recipient.is_a?(ActiveRecord::Associations::CollectionProxy) ? @recipient.first : @recipient
   end
 end

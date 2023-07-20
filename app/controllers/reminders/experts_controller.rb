@@ -127,5 +127,9 @@ module Reminders
     def filtered_experts
       @filtered_experts ||= Expert.apply_filters(reminders_filter_params)
     end
+
+    def recipient_for_search
+      @expert
+    end
   end
 end
