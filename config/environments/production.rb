@@ -79,7 +79,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "place_des_entreprises_production"
 
   config.action_mailer.asset_host = ENV['HOST_NAME']
-  # Actually send emails, but use sendinblue in production and Mailtrap in staging
+  # Actually send emails, but use sendinblue/brevo in production and Mailtrap in staging
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -91,7 +91,7 @@ Rails.application.configure do
     config.action_mailer.smtp_settings = {
       user_name: ENV['SENDINBLUE_USER_NAME'],
       password: ENV['SENDINBLUE_SMTP_KEY'],
-      address: 'smtp-relay.sendinblue.com',
+      address: 'smtp-relay.brevo.com',
       port: '587',
       authentication: 'cram_md5'
     }
