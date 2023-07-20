@@ -7,5 +7,9 @@ FactoryBot.define do
     factory :opco do
       categories { [Category.where(label: 'opco').first_or_create] }
     end
+
+    trait :expert_provider do
+      categories { [Category.where(label: 'expert_provider').first_or_create] }
+    end
   end
 end
