@@ -56,6 +56,8 @@ fr:
       acquisition: Acquisition
       active: Actifs
       active_invitation_not_accepted: Invitations pas encore acceptées
+      active_without_subjects: Actifs sans sujets
+      active_without_users: Actifs sans membre
       admin: Admins
       all: Tout
       api: API

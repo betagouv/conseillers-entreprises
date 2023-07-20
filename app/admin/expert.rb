@@ -16,15 +16,10 @@ ActiveAdmin.register Expert do
 
   scope :active, default: true
   scope :deleted
+  scope :with_custom_communes
 
-  scope :support_experts
-  scope :with_custom_communes, group: :referencing
-  scope :without_subjects, group: :referencing
-
-  scope :teams, group: :members
-  scope :personal_skillsets, group: :members
-  scope :relevant_for_skills, group: :members
-  scope :without_users, group: :members
+  scope :active_without_users, group: :debug
+  scope :active_without_subjects, group: :debug
 
   index do
     selectable_column
