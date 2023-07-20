@@ -110,12 +110,17 @@ class Expert < ApplicationRecord
 
   scope :with_users, -> { joins(:users) }
 
+  # On s'appuie sur table de jointure pour éviter les faux positifs
   scope :without_users, -> do
     # Experts without members can’t connect to the app.
     # This is not a normal state, but can happen during referencing
     # before users are actually registered, or when a user is removed.
-    where.missing(:users)
-      .merge(User.unscoped.not_deleted)
+    joins("LEFT JOIN experts_users ON experts.id = experts_users.expert_id")
+      .where(experts_users: { user_id: nil })
+  end
+
+  scope :active_without_users, -> do
+    active.without_users
   end
 
   scope :teams, -> do
@@ -188,6 +193,10 @@ class Expert < ApplicationRecord
 
   scope :without_subjects, -> do
     where.missing(:experts_subjects)
+  end
+
+  scope :active_without_subjects, -> do
+    active.without_subjects
   end
 
   scope :with_subjects, -> do
