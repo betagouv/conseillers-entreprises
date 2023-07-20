@@ -2,7 +2,7 @@
   meta title: @landing.meta_title.presence || @landing.title,
     description: @landing.meta_description.presence
 
-- cache_unless(flash.present?, [@landing, @landing_themes]) do
+- cache_unless(flash.present?, [@landing, @landing_themes, query_params]) do
 
   - unless in_iframe?
     .fr-container-fluid.fr-py-7w.fr-mt-3v.home-banner
