@@ -2,7 +2,7 @@ module ApiConsumption::Agregators
   class Company
     REQUESTS = {
       api_entreprise_entreprise: ApiEntreprise::Entreprise::Base,
-      api_entreprise_effectifs_mensuels: ApiEntreprise::EntrepriseEffectifMensuel::Base,
+      api_entreprise_effectifs_mensuels: ApiEntreprise::EntrepriseEffectifAnnuel::Base,
       api_entreprise_rcs: ApiEntreprise::EntrepriseRcs::Base,
       api_entreprise_rm: ApiEntreprise::EntrepriseRm::Base,
       api_entreprise_mandataires_sociaux: ApiEntreprise::EntrepriseMandatairesSociaux::Base,

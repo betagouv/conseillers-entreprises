@@ -16,7 +16,7 @@ module ApiConsumption::Models
         :adresse,
         :opcoSiren, # a partir d'ici, données agglomérées d'autres appels API
         :idcc,
-        :effectifs
+        :effectifs_etablissement_mensuel
       ]
     end
 
@@ -36,20 +36,28 @@ module ApiConsumption::Models
       @naf_libelle ||= activite_principale['libelle']
     end
 
+    def effectif_regime_general
+      effectifs_etablissement_mensuel_array.select{|hash| hash.values.include?('regime_general')}&.first
+    end
+
+    def effectif_regime_agricole
+      effectifs_etablissement_mensuel_array.select{|hash| hash.values.include?('regime_agricole')}&.first
+    end
+
     def effectif
-      @effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie).effectif
+      @effectif ||= Effectif::Format.new(effectif_regime_general, tranche_effectif_salarie).effectif
     end
 
     def code_effectif
-      @code_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie).code_effectif
+      @code_effectif ||= Effectif::Format.new(effectif_regime_general, tranche_effectif_salarie).code_effectif
     end
 
     def tranche_effectif
-      @tranche_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie).intitule_effectif
+      @tranche_effectif ||= Effectif::Format.new(effectif_regime_general, tranche_effectif_salarie).intitule_effectif
     end
 
     def annee_effectif
-      @annee_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie).annee_effectif
+      @annee_effectif ||= Effectif::Format.new(effectif_regime_general, tranche_effectif_salarie).annee_effectif
     end
 
     def code_postal
@@ -58,6 +66,16 @@ module ApiConsumption::Models
 
     def libelle_commune
       adresse['libelle_commune']
+    end
+
+    private
+
+    def effectifs_etablissement_mensuel_array
+      effectifs_etablissement_mensuel['effectifs_mensuels'] || []
+    end
+
+    def effectifs_etablissement_mensuel_annee
+      effectifs_etablissement_mensuel['annee'] || nil
     end
   end
 end

@@ -12,7 +12,7 @@ module ApiEntreprise::EtablissementEffectifMensuel
 
     # Retourne hash vide en cas d'erreur
     def handle_error(http_request)
-      return { "effectifs-etablissement-mensuel" => { "error" => http_request.error_message } }
+      return { "effectifs_etablissement_mensuel" => { "error" => http_request.error_message } }
     end
   end
 
@@ -25,7 +25,7 @@ module ApiEntreprise::EtablissementEffectifMensuel
 
     # https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/{siret}/effectifs_mensuels/{month}/annee/{year}
     def specific_url
-      @specific_url ||= "#{url_key}/#{@siren_or_siret}/effectifs_mensuels/#{search_month}/annee/#{search_year}"
+      @specific_url ||= "#{url_key}#{@siren_or_siret}/effectifs_mensuels/#{search_month}/annee/#{search_year}"
     end
 
     def searched_date
@@ -44,7 +44,7 @@ module ApiEntreprise::EtablissementEffectifMensuel
 
   class Responder < ApiEntreprise::Responder
     def format_data
-      { "effectifs-etablissement-mensuel" => @http_request.data }
+      { "effectifs_etablissement_mensuel" => @http_request.data['data'] }
     end
   end
 end

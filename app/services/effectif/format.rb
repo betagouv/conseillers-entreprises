@@ -10,7 +10,7 @@ module Effectif
 
     # Si on a des données présentes et + récentes dans @effectifs, on prend cette référence
     def formatter
-      if @effectifs.nil? || @effectifs['error'].present? || (@tranche_effectif.present? && @tranche_effectif["date_reference"] > @effectifs['annee'])
+      if effectifs_empty || tranche_effectif_more_recent_than_effectifs
         EffectifRange.new(@tranche_effectif)
       else
         Effectifs.new(@effectifs)
@@ -31,6 +31,16 @@ module Effectif
 
     def annee_effectif
       formatter.annee_effectif rescue nil
+    end
+
+    private
+
+    def effectifs_empty
+      @effectifs.nil? || @effectifs['value'].nil? || @effectifs['error'].present?
+    end
+
+    def tranche_effectif_more_recent_than_effectifs
+      @tranche_effectif.present? && @tranche_effectif["date_reference"].present? && @tranche_effectif["date_reference"] > @effectifs['annee']
     end
   end
 end
