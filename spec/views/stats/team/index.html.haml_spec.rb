@@ -17,6 +17,7 @@ RSpec.describe 'stats/team/index' do
         :exchange_with_expert, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code
       ])
       assign(:institution_antennes, [])
+      assign(:iframes, Landing.iframe.not_archived.order(:slug))
       allow(view).to receive(:action_name).and_return("public")
 
       render
@@ -32,6 +33,7 @@ RSpec.describe 'stats/team/index' do
         :needs_not_for_me, :needs_abandoned
       ])
       assign(:institution_antennes, [])
+      assign(:iframes, Landing.iframe.not_archived.order(:slug))
       assign(:action_name, 'needs')
       allow(view).to receive(:action_name).and_return("needs")
 
@@ -49,6 +51,7 @@ RSpec.describe 'stats/team/index' do
         :not_positioning_rate
       ])
       assign(:institution_antennes, [])
+      assign(:iframes, Landing.iframe.not_archived.order(:slug))
       allow(view).to receive(:action_name).and_return("matches")
 
       render
