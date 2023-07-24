@@ -96,6 +96,7 @@ jobs:
             TEST_ERROR_RENDERING: "false"
             CI: 'true'
             RORVSWILD_KEY: 'rorvswild'
+            HOST_NAME: 'place_des_entreprises.gouv.fr'
           name: Run Tests, Split by Timings
           command: |
             bundle exec rspec --profile 10 \
