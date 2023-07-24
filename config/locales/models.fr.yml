@@ -262,6 +262,7 @@ fr:
         home_description: Description sur la page d’accueil
         home_sort_order: Position sur la page d’accueil
         home_title: Titre sur la page d’accueil
+        iframe: Iframe
         iframe_category: Type d’iframe
         institution: Institution partenaire
         integration: Type d’intégration
