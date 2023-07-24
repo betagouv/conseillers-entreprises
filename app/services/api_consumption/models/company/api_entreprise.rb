@@ -70,11 +70,11 @@ module ApiConsumption::Models
     end
 
     def effectif_regime_general
-      effectifs_entreprise_annuel_array.select{|hash| hash.values.include?('regime_general')}&.first&.merge({'annee': effectifs_entreprise_annuel_annee}) || {}
+      effectifs_entreprise_annuel_array.select{ |hash| hash.value?('regime_general') }&.first&.merge({ annee: effectifs_entreprise_annuel_annee }) || {}
     end
 
     def effectif_regime_agricole
-      effectifs_entreprise_annuel_array.select{|hash| hash.values.include?('regime_agricole')}&.first&.merge({'annee': effectifs_entreprise_annuel_annee})
+      effectifs_entreprise_annuel_array.select{ |hash| hash.value?('regime_agricole') }&.first&.merge({ annee: effectifs_entreprise_annuel_annee })
     end
 
     def effectif

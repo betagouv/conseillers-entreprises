@@ -37,11 +37,11 @@ module ApiConsumption::Models
     end
 
     def effectif_regime_general
-      effectifs_etablissement_mensuel_array.select{|hash| hash.values.include?('regime_general')}&.first
+      effectifs_etablissement_mensuel_array.select{ |hash| hash.value?('regime_general') }&.first
     end
 
     def effectif_regime_agricole
-      effectifs_etablissement_mensuel_array.select{|hash| hash.values.include?('regime_agricole')}&.first
+      effectifs_etablissement_mensuel_array.select{ |hash| hash.value?('regime_agricole') }&.first
     end
 
     def effectif

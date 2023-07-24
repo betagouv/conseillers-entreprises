@@ -16,7 +16,7 @@ RSpec.describe CompaniesController do
   let(:etablissement_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret}?#{suffix_url}" }
   let(:entreprise_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/#{siren}?#{suffix_url}" }
   let(:effectif_etablissement_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/#{siret}/effectifs_mensuels/#{month}/annee/#{year}?#{suffix_url}" }
-  let(:effectif_entreprise_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/unites_legales/#{siren}/effectifs_annuels/#{year+1}?#{suffix_url}" }
+  let(:effectif_entreprise_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/unites_legales/#{siren}/effectifs_annuels/#{1.year.ago.year}?#{suffix_url}" }
   let(:opco_url) { "https://www.cfadock.fr/api/opcos?siret=#{siret}" }
   let(:rcs_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/extrait_kbis?#{suffix_url}" }
   let(:rm_url) { "https://entreprise.api.gouv.fr/v3/cma_france/rnm/unites_legales/#{siren}?#{suffix_url}" }
