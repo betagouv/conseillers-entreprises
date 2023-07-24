@@ -605,8 +605,10 @@ RSpec.describe Need do
     let(:subject1) { create :subject, label: "sujet un" }
     let(:subject2) { create :subject, label: "sujet deux" }
     let(:diagnosis1) { create :diagnosis, company: create(:company, name: "Entreprise deux") }
-    let(:need1) { create :need, content: "la la" }
-    let(:need2) { create :need, content: "la lo", subject: subject2 }
+    let(:contact1) { create :contact, full_name: "Jérôme Luciani" }
+    let(:contact2) { create :contact, full_name: "Amina Jerome" }
+    let(:need1) { create :need, content: "la la", visitee: contact1 }
+    let(:need2) { create :need, content: "la lo", subject: subject2, visitee: contact2 }
     let(:need3) { create :need, content: "lo deux", subject: subject1 }
     let(:need4) { create :need, content: "li li", diagnosis: diagnosis1 }
 
@@ -620,6 +622,10 @@ RSpec.describe Need do
 
     it 'searches multiple fields' do
       expect(described_class.omnisearch("deux")).to contain_exactly(need2, need3, need4)
+    end
+
+    it 'searches with accent' do
+      expect(described_class.omnisearch("jerome")).to contain_exactly(need1, need2)
     end
   end
 end

@@ -49,6 +49,7 @@ gem 'rswag-api'
 gem 'rswag-ui'
 gem 'faker'
 gem 'activerecord-postgis-adapter'
+gem 'pg_search'
 
 # Charts
 gem 'highcharts-rails'
