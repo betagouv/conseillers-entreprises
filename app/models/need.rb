@@ -297,45 +297,6 @@ class Need < ApplicationRecord
     Need.where(id: antennes.map(&:perimeter_received_needs).flatten)
   end
 
-  ## Search
-  #
-  # scope :omnisearch, -> (query) do
-  #   if query.present?
-  #     eager_load(:subject, :visitee, :company, :facility)
-  #       .where(
-  #         arel_content_contains(query)
-  #         .or(arel_subject_contains(query)
-  #         .or(arel_contact_contains(query)
-  #         .or(arel_company_contains(query)
-  #         .or(arel_facility_contains(query)))))
-  #       )
-  #   end
-  # end
-
-  # scope :arel_content_contains, -> (query) do
-  #   arel_table[:content].matches("%#{query}%")
-  # end
-
-  # def self.arel_subject_contains(query)
-  #   Subject.arel_table[:label].matches("%#{query}%")
-  # end
-
-  # def self.arel_contact_contains(query)
-  #   Contact.arel_table[:full_name].matches("%#{query}%").or(
-  #     Contact.arel_table[:email].matches("%#{query}%")
-  #   )
-  # end
-
-  # def self.arel_company_contains(query)
-  #   Company.arel_table[:name].matches("%#{query}%").or(
-  #     Company.arel_table[:siren].matches("%#{query}%")
-  #   )
-  # end
-
-  # def self.arel_facility_contains(query)
-  #   Facility.arel_table[:readable_locality].matches("%#{query}%")
-  # end
-
   def self.apply_filters(params)
     klass = self
     klass = klass.by_region(params[:by_region]) if params[:by_region].present?
