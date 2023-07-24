@@ -2,6 +2,7 @@ module Stats
   class TeamController < BaseController
     before_action :authorize_team
     before_action :get_institution_antennes, except: %i[search_antennes]
+    before_action :init_filters, except: %i[search_antennes]
 
     def index
       redirect_to action: :public, params: stats_params
@@ -49,6 +50,10 @@ module Stats
     def get_institution_antennes
       @institution_antennes = params[:institution].present? ?
                                 Institution.find(params[:institution]).antennes.not_deleted : []
+    end
+
+    def init_filters
+      @iframes = Landing.iframe.not_archived.order(:slug)
     end
   end
 end

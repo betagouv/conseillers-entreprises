@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ['institution', 'antennes', 'subjects']
+  static targets = ['institution', 'antennes', 'subjects', 'iframes']
 
   async institutionFilters() {
     await fetch(`/stats/equipe/institution_filters?institution_id=${this.institutionTarget.value}`)
@@ -40,5 +40,15 @@ export default class extends Controller {
       option.innerHTML = subject.label;
       this.subjectsTarget.appendChild(option);
     });
+  }
+
+  toggleIframeSelect(data) {
+    let selectedIntegration = data.target.value
+    if (selectedIntegration == 'iframe') {
+      this.iframesTarget.parentElement.style.display = 'block'
+    } else {
+      this.iframesTarget.value = ''
+      this.iframesTarget.parentElement.style.display = 'none'
+    }
   }
 }

@@ -6,6 +6,8 @@ module Stats
       query.merge! Need.joins(:subject).where(subject: subject) if subject.present?
       query.merge! Need.joins(solicitation: :landing)
         .where(solicitations: { landings: { integration: integration } }) if integration.present?
+      query.merge! Need.joins(solicitation: :landing)
+        .where(solicitations: { landings: { id: iframe_id } }) if iframe_id.present?
       query.merge! Need.joins(subject: :theme).where(subject: { theme: theme }) if theme.present?
       if mtm_campaign.present?
         query.merge! Need.joins(:solicitation)
@@ -25,6 +27,7 @@ module Stats
       query.merge! antenne_or_institution.received_solicitations_including_from_deleted_experts if antenne_or_institution.present?
       query.merge! Solicitation.joins(landing_subject: :subject).where(subjects: subject) if subject.present?
       query.merge! Solicitation.joins(:landing).where(landings: { integration: integration }) if integration.present?
+      query.merge! Solicitation.where(landing_id: iframe_id) if iframe_id.present?
       query.merge! Solicitation.joins(landing_subject: { subject: :theme }).where(subjects: { themes: theme }) if theme.present?
       if mtm_campaign.present?
         query.merge! Solicitation.where(pk_campaign_query, "%#{mtm_campaign}%")
