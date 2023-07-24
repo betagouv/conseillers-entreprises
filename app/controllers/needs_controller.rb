@@ -117,4 +117,8 @@ class NeedsController < ApplicationController
   def retrieve_user
     @user = current_user
   end
+
+  def recipient_for_search
+    @user
+  end
 end

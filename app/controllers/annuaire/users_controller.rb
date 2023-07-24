@@ -6,11 +6,12 @@ module  Annuaire
 
     def index
       institutions_subjects_by_theme = @institution.institutions_subjects
-        .preload(:subject, :theme, :experts_subjects, :not_deleted_experts)
+        .includes(:subject, :theme, :experts_subjects, :not_deleted_experts)
         .group_by(&:theme)
       institutions_subjects_exportable = institutions_subjects_by_theme.values.flatten
 
       @grouped_subjects = institutions_subjects_by_theme.transform_values{ |is| is.group_by(&:subject) }
+      @grouped_users = @users.select(:antennes).group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
 
       @not_invited_users = not_invited_users
 
@@ -69,20 +70,21 @@ module  Annuaire
 
     def retrieve_antenne
       @antenne = @institution.antennes.find_by(id: params[:antenne_id]) # may be nil
+      @referencement_coverages = @antenne.referencement_coverages if @antenne.present?
     end
 
     def retrieve_users
-      @users = advisors
+      @users = base_users
         .relevant_for_skills
         .order('antennes.name', 'team_name', 'users.full_name')
-        .preload(:antenne, relevant_expert: [:users, :antenne, :experts_subjects])
+        .preload(:antenne, :user_rights_manager, relevant_expert: [:users, :antenne, :experts_subjects, :communes])
 
       if params[:region_id].present?
         @users = @users.in_region(params[:region_id])
       end
     end
 
-    def advisors
+    def base_users
       if params[:advisor].present?
         searched_advisor = User.find(params[:advisor])
         flash[:table_highlighted_ids] = [searched_advisor.id]

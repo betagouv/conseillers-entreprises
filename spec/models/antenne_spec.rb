@@ -58,6 +58,83 @@ RSpec.describe Antenne do
     end
   end
 
+  describe 'callbacks' do
+    context 'update_referencement_coverages' do
+      let(:antenne) { create :antenne }
+
+      context 'communes updates' do
+        let(:commune) { create :commune }
+
+        context 'when adding commune' do
+          it 'calls update_referencement_coverages' do
+            allow(antenne).to receive(:update_referencement_coverages)
+            antenne.communes << commune
+            expect(antenne).to have_received(:update_referencement_coverages)
+          end
+        end
+
+        context 'when removing commune' do
+          before { antenne.communes << commune }
+
+          it 'calls update_referencement_coverages' do
+            allow(antenne).to receive(:update_referencement_coverages)
+            antenne.communes.delete(commune)
+            expect(antenne).to have_received(:update_referencement_coverages)
+          end
+        end
+      end
+
+      context 'experts updates' do
+        let(:expert) { create :expert }
+
+        context 'when adding expert' do
+          it 'calls update_referencement_coverages' do
+            allow(antenne).to receive(:update_referencement_coverages)
+            antenne.experts << expert
+            expect(antenne).to have_received(:update_referencement_coverages)
+          end
+        end
+
+        context 'when removing expert' do
+          before { antenne.experts << expert }
+
+          it 'calls update_referencement_coverages' do
+            allow(antenne).to receive(:update_referencement_coverages)
+            antenne.experts.destroy(expert)
+            expect(antenne).to have_received(:update_referencement_coverages)
+          end
+        end
+      end
+
+      context 'experts subjects updates' do
+        let(:pde_subject) { create :subject }
+        let!(:expert) { create :expert, antenne: antenne }
+
+        context 'when adding an expert subject' do
+          it 'calls update_referencement_coverages' do
+            allow(expert).to receive(:update_antenne_referencement_coverage)
+            expert.experts_subjects.create(subject: pde_subject)
+            expect(expert).to have_received(:update_antenne_referencement_coverage)
+          end
+        end
+      end
+
+      context 'experts communes updates' do
+        let(:pde_subject) { create :subject }
+        let!(:expert) { create :expert, antenne: antenne }
+        let(:commune) { create :commune }
+
+        context 'when adding an expert commune' do
+          it 'calls update_referencement_coverages' do
+            allow(expert).to receive(:update_antenne_referencement_coverage)
+            expert.communes << commune
+            expect(expert).to have_received(:update_antenne_referencement_coverage)
+          end
+        end
+      end
+    end
+  end
+
   describe 'name code uniqueness' do
     subject { build :antenne, name: name, institution: institution }
 

@@ -1,13 +1,14 @@
 module AnnuaireHelper
-  def build_count_experts_cell(experts, antenne, institution_subject)
-    experts_count = experts.count
-    anomalie_less, anomalie_more_specific, anomalie_more = detect_anomalies(experts_count, institution_subject, antenne, experts)
-    alert_classe = alert_class(anomalie_less, anomalie_more, anomalie_more_specific)
-    title, icon = set_title_and_icon(experts_count, anomalie_less, anomalie_more_specific, anomalie_more)
+  def antennes_count_display(antennes_count, institution_id)
+    count = antennes_count[institution_id] || 0
+    label = Antenne.model_name.human(count: count).downcase
+    [count, label].join(' ')
+  end
 
-    tag.th(class: "right aligned #{alert_classe}", title: title) do
-      tag.span { experts_count.to_s } + icon.presence
-    end
+  def users_count_display(users_count, institution_id)
+    count = users_count[institution_id] || 0
+    label = User.model_name.human(count: count).downcase
+    [count, label].join(' ')
   end
 
   def build_user_name_cell(user, antenne)
@@ -18,42 +19,22 @@ module AnnuaireHelper
     html
   end
 
-  private
-
-  def alert_class(anomalie_less, anomalie_more, anomalie_more_specific)
-    ('red' if anomalie_less) || ('orange' if anomalie_more_specific || anomalie_more)
+  def referencement_coverage_cell_title(referencement_coverage)
+    anomalie_title = t(referencement_coverage.anomalie, scope: 'activerecord.attributes.referencement_coverage/anomalie')
+    details = t('application.modal.see_details')
+    [anomalie_title, details].join(' - ')
   end
 
-  def detect_anomalies(experts_count, institution_subject, antenne, experts)
-    experts_communes = experts.filter_map(&:communes).compact.flatten
-    # No experts on the subject
-    anomalie_less = experts_count == 0
-    # Experts with specific zone on the subject but no coverage of the whole antenna
-    anomalie_more_specific = (antenne && experts_count > 1) &&
-      experts_communes.present? &&
-      !(antenne.communes - experts_communes).empty? &&
-      experts.filter_map(&:communes).exclude?([])
-    # Many Experts on the subject
-    anomalie_more = (antenne && experts_count > 1) &&
-      (experts_communes.size > antenne.communes.size || experts.filter_map(&:communes).include?([]))
-
-    [anomalie_less, anomalie_more_specific, anomalie_more]
-  end
-
-  def set_title_and_icon(experts_count, anomalie_less, anomalie_more_specific, anomalie_more)
-    if anomalie_less
-      title = t('helpers.annuaire.anomalie_less')
-      icon = tag.span(class: 'red ri-error-warning-line fr-ml-1v', aria: { hidden: true })
-    elsif anomalie_more_specific
-      title = t('helpers.annuaire.anomalie_more_specific', count: experts_count)
-      icon = tag.span(class: 'orange ri-map-2-line fr-ml-1v', aria: { hidden: true })
-    elsif anomalie_more
-      title = t('helpers.annuaire.experts_on_subject', count: experts_count)
-      icon = tag.span(class: 'orange ri-error-warning-line fr-ml-1v', aria: { hidden: true })
+  def referencement_coverage_anomalie(anomalie_type, value)
+    case anomalie_type
+    when 'experts'
+      ids = value
+      experts = Expert.where(id: value)
+      experts.map do |e|
+        link_to(e.full_name, edit_admin_expert_path(e), title: t('annuaire_helper.build_user_name_cell.edit_expert', expert_name: e.full_name, antenne: e.antenne))
+      end.join(", ").html_safe
     else
-      title = t('helpers.annuaire.experts_on_subject', count: experts_count)
-      icon = ''
+      value
     end
-    [title, icon]
   end
 end

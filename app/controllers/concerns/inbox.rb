@@ -3,6 +3,7 @@ module Inbox
 
   included do
     helper_method :needs_search_params
+    helper_method :possible_themes_subjects_collection
   end
 
   private
@@ -37,6 +38,7 @@ module Inbox
       Need.in_antennes_perimeters(@recipient).merge!(Need.where(id: @recipient.map { |a| a.send("territory_needs_#{@collection_name}") }.flatten))
     end
     @needs = @needs.includes(:company, :advisor, :subject)
+      .apply_filters(needs_search_params)
       .order(created_at: order)
       .page params[:page]
     render view
@@ -64,11 +66,24 @@ module Inbox
 
   def persist_search_params
     session[:needs_search_params] ||= {}
-    search_params = params.slice(:omnisearch, :by_subject, :created_since, :created_until).permit!
+    search_params = params.slice(:omnisearch, :by_subject, :created_since, :created_until, :antenne_id).permit!
     if params[:reset_query].present?
       session.delete(:needs_search_params)
     else
       session[:needs_search_params] = session[:needs_search_params].merge(search_params)
     end
+  end
+
+  def possible_themes_subjects_collection(collection_name)
+    # Build a hash with themes and subjects covered by recipient_for_search with a counter for needs in current collection
+    # Example: { themes: [theme1, theme2], subjects: { subject1.id => 'subject1 (2)', subject2.id => 'subject2 (1)' } }
+    hash = { themes: recipient_for_search.themes.ordered_for_interview.uniq, subjects: [] }
+    hash[:themes].each do |theme|
+      theme.subjects_ordered_for_interview.each do |subject|
+        count = recipient_for_search.send("needs_#{collection_name}").where(subject: subject).size
+        hash[:subjects][subject.id] = "#{subject.label} (#{count.positive? ? count : '-'})"
+      end
+    end
+    hash
   end
 end

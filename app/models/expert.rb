@@ -31,14 +31,14 @@ class Expert < ApplicationRecord
 
   ## Associations
   #
-  has_and_belongs_to_many :communes, inverse_of: :direct_experts
+  has_and_belongs_to_many :communes, inverse_of: :direct_experts, after_add: :update_antenne_referencement_coverage, after_remove: :update_antenne_referencement_coverage
   include ManyCommunes
 
   belongs_to :antenne, inverse_of: :experts
 
   has_and_belongs_to_many :users, -> { not_deleted }, inverse_of: :experts
 
-  has_many :experts_subjects, dependent: :destroy, inverse_of: :expert
+  has_many :experts_subjects, dependent: :destroy, inverse_of: :expert, after_add: :update_antenne_referencement_coverage, after_remove: :update_antenne_referencement_coverage
   has_many :received_matches, -> { sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
   has_many :not_received_matches, -> { not_sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
   has_many :received_quo_matches, -> { sent.status_quo.distinct }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
@@ -50,7 +50,6 @@ class Expert < ApplicationRecord
   validates :email, presence: true, unless: :deleted?
   validates :full_name, presence: true
   validates_associated :experts_subjects, on: :import
-  after_update :synchronize_single_member, if: :personal_skillset?
 
   ## “Through” Associations
   #
@@ -73,6 +72,9 @@ class Expert < ApplicationRecord
   has_many :institutions_subjects, through: :experts_subjects, inverse_of: :experts
   has_many :subjects, through: :experts_subjects, inverse_of: :experts
   has_many :themes, through: :experts_subjects, inverse_of: :experts
+
+  # Callbacks
+  after_update :synchronize_single_member, if: :personal_skillset?
 
   ##
   #
@@ -108,12 +110,17 @@ class Expert < ApplicationRecord
 
   scope :with_users, -> { joins(:users) }
 
+  # On s'appuie sur table de jointure pour éviter les faux positifs
   scope :without_users, -> do
     # Experts without members can’t connect to the app.
     # This is not a normal state, but can happen during referencing
     # before users are actually registered, or when a user is removed.
-    where.missing(:users)
-      .merge(User.unscoped.not_deleted)
+    joins("LEFT JOIN experts_users ON experts.id = experts_users.expert_id")
+      .where(experts_users: { user_id: nil })
+  end
+
+  scope :active_without_users, -> do
+    active.without_users
   end
 
   scope :teams, -> do
@@ -186,6 +193,10 @@ class Expert < ApplicationRecord
 
   scope :without_subjects, -> do
     where.missing(:experts_subjects)
+  end
+
+  scope :active_without_subjects, -> do
+    active.without_subjects
   end
 
   scope :with_subjects, -> do
@@ -298,5 +309,9 @@ class Expert < ApplicationRecord
   #
   def synchronize_single_member
     users.first.update_columns(self.user_personal_skillsets_shared_attributes)
+  end
+
+  def update_antenne_referencement_coverage(*args)
+    antenne.update_referencement_coverages
   end
 end

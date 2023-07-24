@@ -34,15 +34,11 @@
                 = t('needs.index.title')
                 - cache([current_user, current_user.needs_quo.size]) do
                   - if current_user.needs_quo.exists?
-                    .ui.orange.empty.circular.horizontal.label.fr-ml-1w
+                    %span.ri-mail-unread-fill.orange.fr-ml-1w
             - if policy(User).manager?
               = active_link_to manager_needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-inbox-fill.fr-mr-1w{ 'aria-hidden': 'true' }
                 = current_user.managed_antennes.many? ? t('.antennes_needs') : t('.antenne_needs')
-            - if policy(Diagnosis).index?
-              = active_link_to diagnoses_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
-                %span.ri-list-check.fr-mr-1w{ 'aria-hidden': 'true' }
-                = t('.diagnoses')
             - if policy(:report).show_navbar?
               = active_link_to reports_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-file-text-line.fr-mr-1w{ 'aria-hidden': 'true' }
@@ -79,9 +75,6 @@
                     = active_link_to conseiller_csv_exports_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
                       %span.ri-folder-download-line.fr-mr-1w{ 'aria-hidden': 'true' }
                       = t('.csv_exports')
-                    = active_link_to inserts_partner_tools_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-                      %span.ri-pencil-ruler-2-line.fr-mr-1w{ 'aria-hidden': 'true' }
-                      = t('.partner_tools')
                     = active_link_to new_user_invitation_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
                       %span.ri-user-add-line.fr-mr-1w{ 'aria-hidden': 'true' }
                       = t('.invite')

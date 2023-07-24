@@ -40,7 +40,6 @@ describe 'ApplicationController specific features' do
         expect(page.html).not_to include 'Annuaire'
         expect(page.html).not_to include 'Tags'
         expect(page.html).not_to include 'Exports csv'
-        expect(page.html).not_to include 'Outils partenaires'
         expect(page.html).not_to include 'Inviter des utilisateurs'
       end
     end
@@ -65,7 +64,6 @@ describe 'ApplicationController specific features' do
         click_link 'Annuaire'
         click_link 'Tags'
         click_link 'Exports csv'
-        click_link 'Outils partenaires'
         click_link 'Inviter des utilisateurs'
       end
     end

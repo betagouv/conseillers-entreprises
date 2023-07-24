@@ -8,18 +8,18 @@
 
 # Place des Entreprises - Architecture générale
 
-Contrairement au reste de la documentation, ce chapitre est rédigé en français. Il s’adresse non seulement aux nouveaux membres rejoignant l’équipe, mais aussi aux administrations et services publics partenaires qui souhaiteraient mieux comprendre le fonctionnement de Place des Entreprises. 
+Contrairement au reste de la documentation, ce chapitre est rédigé en français. Il s’adresse non seulement aux nouveaux membres rejoignant l’équipe, mais aussi aux administrations et services publics partenaires qui souhaiteraient mieux comprendre le fonctionnement de Place des Entreprises.
 
 ## Types d’utilisateurs
 
 Place des Entreprises s’adresse a plusieurs classes d’utilisateurs :
 1. En premier lieu, les entrepreneurs qui font appel au service via le formulaire en ligne. Ce sont les cibles premières du service.
 2. En second lieu, les agents des services publics et parapublics enregistrés sur Place des Entreprises. Il disposent d’un compte grâce auquel il peuvent se connecter et voir les demandes des entreprises qui ont besoin de leur aide.
-3. Enfin, les membres de l’équipe Place des Entreprises, qui ont un double rôle: 
+3. Enfin, les membres de l’équipe Place des Entreprises, qui ont un double rôle:
     * l’administration des comptes utilisateurs des agents,
     * et le suivi des mises en relation entre les entrepreneurs et les agents.
 
-## Données 
+## Données
 
 ### Entrepreneurs
 Les entrepreneurs, quand ils déposent une sollicitation sur `https://place-des-entreprises.beta.gouv.fr` fournissent ces informations :
@@ -32,7 +32,7 @@ Une fois la sollicitation de l’entrepreneur reçue et validée, les informatio
 * Données publiques de l’entreprise : raison sociale, forme juridique, tranche d’effectif, capital social, code NAF, adresse, IDCC ;
 * Données sur les gérants : nom et fonction ;
 
-Cette liste n’est pas exhaustive: d’autres informations disponibles dans les bases administratives sont appelées à être utilisées. Ces informations vont servir à sélectionner automatiquement les agents partenaires les plus susceptibles de venir à l’aide de l’entreprise. En particulier, l’adresse de l’établissement permet de choisir, par exemple, la bonne agence Pôle-Emploi. 
+Cette liste n’est pas exhaustive: d’autres informations disponibles dans les bases administratives sont appelées à être utilisées. Ces informations vont servir à sélectionner automatiquement les agents partenaires les plus susceptibles de venir à l’aide de l’entreprise. En particulier, l’adresse de l’établissement permet de choisir, par exemple, la bonne agence Pôle-Emploi.
 
 ### Agents publics et parapublics
 
@@ -40,7 +40,7 @@ De l’autre côté, on trouve donc les informations des agents recensées aupr�
 * Les coordonnées professionelles des agents : nom, fonction, email et téléphone de contact ;
 * Leurs champs de compétence, classée selon les mêmes sujets et catégories que les besoins des entreprises,
 * Leur zone géographique d’intervention, à la commune près.
- 
+
 ## Volumétrie et contraintes
 
 **À date de juin 2021**, Place des Entreprises est déployé dans les Hauts de France, en Île-de-France et en Martinique  .
@@ -80,7 +80,7 @@ Le développement de Place des entreprises est organisé sur [github](https://gi
 
 L’app Ruby est développée principalement sous forme de « [monolithe](https://m.signalvnoise.com/the-majestic-monolith/) ». Il y a très peu de javascript. De manière générale, Place des Entreprises est développée de façon _prudente_: nous utilisons, autant que possible, des technologies qui ont fait leur preuve, et qui sont mises à jour régulièrement.
 
-Nous travaillons de façon agile, par sprints de deux semaines. Le développement logiciel est fait en concertation permanente avec les autres membres de l’équipe. Un aperçu des sujets en cours est visible [directement sur github](https://github.com/betagouv/place-des-entreprises/projects/1). 
+Nous travaillons de façon agile, par sprints de deux semaines. Le développement logiciel est fait en concertation permanente avec les autres membres de l’équipe. Un aperçu des sujets en cours est visible [directement sur github](https://github.com/betagouv/place-des-entreprises/projects/1).
 
 Nous utilisons les outils standard d’audit automatique de qualité de code ([rubocop](https://rubocop.org)) et de sécurité ([brakeman](https://brakemanscanner.org)). Par ailleurs, nous développons, en parallèle des fonctionnalités, les tests associés. Ces tests sont executés de façon automatique avant l’intégration de chaque changement dans le code. Nous utilisons [Circle-CI](https://circleci.com) pour faire tourner ces tests automatiques.
 
@@ -96,21 +96,21 @@ Place des Entreprises est déployé sur la plateforme PAAS de [Scalingo](https:/
 
 ### Nom de domaine
 
-Le domaine `beta.gouv.fr` est enregistré chez OVH et géré par la DINUM. La gestion du sous-domaine `place-des-entreprises.` est déléguée à l’équipe Place des Entreprises, chez [AlwaysData](https://www.alwaysdata.com/fr/). 
+Le domaine `beta.gouv.fr` est enregistré chez OVH et géré par la DINUM. La gestion du sous-domaine `place-des-entreprises.` est déléguée à l’équipe Place des Entreprises, chez [AlwaysData](https://www.alwaysdata.com/fr/).
 
 ## Services externes
- 
+
 ### Au sein de l’admistration
 
 Place des Entreprises récupère les données publiques des entreprises sur `entreprise.data.gouv.fr` et sur `API-entreprises`, des plateformes maintenues par la [mission etalab](https://www.etalab.gouv.fr/plateformes) de la DINUM.
 
-Nous utilisons aussi des outils propres à la communauté betagouv et etalab: 
+Nous utilisons aussi des outils propres à la communauté betagouv et etalab:
 * [sentry.data.gouv.fr/betagouvfr/](https://sentry.data.gouv.fr/betagouvfr/) est un outil standard de monitoring de pannes logicielles; les erreurs et crashes de Place des Entreprises, côté client comme serveur, y sont consignés.
 * [stats.data.gouv.fr](https://stats.data.gouv.fr) est une instance [Matomo](https://matomo.org), un outil libre de mesure d’audience web,  [recommandé par la cnil](https://www.cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience).
- 
+
 ### Services tiers
 
-* [Sendinblue](https://www.sendinblue.com/) nous sert à envoyer les emails de confirmation, d’inscription, de notification… aux différents utilisateurs du service.
+* [Brevo](https://www.brevo.com/) nous sert à envoyer les emails de confirmation, d’inscription, de notification… aux différents utilisateurs du service.
 * [ipinfo.io](https://ipinfo.io/) est utilisé de façon annexe. La géolocalisation IP est utilisée uniquement pour afficher une alerte si l’utilisateur semble se situer dans une région où Place des Entreprises n’est pas encore déployé.
 
 ### Contrôle des accès

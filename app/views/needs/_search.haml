@@ -1,9 +1,15 @@
 = form_with url: request.path, method: :get, skip_enforcing_utf8: true, local: true, class: 'fr-mb-2w' do |f|
+  - if current_user.managed_antennes.many?
+    .fr-grid-row.fr-grid-row--gutters
+      .fr-col
+        = f.label :antenne_id, t('.select_antenne'), class: 'fr-label'
+        = f.collection_select :antenne_id, current_user.managed_antennes.order(:name), :id, :name, { selected: params[:antenne_id] || current_user.managed_antennes.first.id }, class: "fr-select fr-mb-2v"
   .fr-grid-row.fr-grid-row--gutters
     .fr-col-md-6.fr-col-12
       - options = { include_blank: t('all.masculin'), class: 'fr-select' }
+      - collection_for_select = build_collection_for_select(collection_name)
       = f.label :by_subject, t('attributes.subject'), class: 'fr-label'
-      = f.select :by_subject, possible_themes_subjects_collection, options.dup, { class: 'fr-select' }
+      = f.select :by_subject, collection_for_select, options.dup, { class: 'fr-select' }
     .fr-col-md-6.fr-col-12
       .fr-input-group
         = f.label :omnisearch, t('.omnisearch'), class: 'fr-label'

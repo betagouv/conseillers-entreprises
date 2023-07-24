@@ -34,14 +34,14 @@ class Antenne < ApplicationRecord
 
   ## Associations
   #
-  has_and_belongs_to_many :communes, inverse_of: :antennes
+  has_and_belongs_to_many :communes, inverse_of: :antennes, after_add: :update_referencement_coverages, after_remove: :update_referencement_coverages
   include ManyCommunes
   include InvolvementConcern
   include TerritoryNeedsStatus
 
   belongs_to :institution, inverse_of: :antennes
 
-  has_many :experts, -> { not_deleted }, inverse_of: :antenne
+  has_many :experts, -> { not_deleted }, inverse_of: :antenne, after_add: :update_referencement_coverages, after_remove: :update_referencement_coverages
   has_many :experts_including_deleted, class_name: 'Expert', inverse_of: :antenne
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, dependent: :destroy, inverse_of: :antenne
@@ -55,6 +55,8 @@ class Antenne < ApplicationRecord
   has_many :user_rights, inverse_of: :antenne, dependent: :destroy
   has_many :user_rights_manager, ->{ category_manager }, class_name: 'UserRight', inverse_of: :antenne
   has_many :managers, -> { distinct }, through: :user_rights_manager, source: :user, inverse_of: :managed_antennes
+
+  has_many :referencement_coverages, dependent: :destroy, inverse_of: :antenne
 
   ## Hooks and Validations
   #
@@ -84,6 +86,9 @@ class Antenne < ApplicationRecord
   has_many :received_needs_including_from_deleted_experts, through: :experts_including_deleted, source: :received_needs, inverse_of: :expert_antennes
   has_many :received_diagnoses_including_from_deleted_experts, through: :experts_including_deleted, source: :received_diagnoses, inverse_of: :expert_antennes
   has_many :received_solicitations_including_from_deleted_experts, through: :received_diagnoses_including_from_deleted_experts, source: :solicitation, inverse_of: :diagnosis
+
+  # :institution
+  has_many :themes, through: :institution, inverse_of: :antennes
 
   ## Callbacks
   #
@@ -238,5 +243,26 @@ class Antenne < ApplicationRecord
       experts.each { |e| e.deep_soft_delete }
       update_columns(deleted_at: Time.zone.now)
     end
+  end
+
+  ## referencement coverage
+  #
+
+  # Updated when changed : add/remove communes - add/remove experts - add/remove expert communes - add/remove expert subject
+  def update_referencement_coverages(*args)
+    # pour que les tests passent
+    return unless self.persisted?
+    if self.regional?
+      update_antenne_coverage(self)
+      self.territorial_antennes.each { |ta| update_antenne_coverage(ta) }
+    elsif self.regional_antenne.present?
+      self.regional_antenne.territorial_antennes.each { |ta| update_antenne_coverage(ta) }
+    else
+      update_antenne_coverage(self)
+    end
+  end
+
+  def update_antenne_coverage(antenne)
+    UpdateAntenneCoverage.new(antenne).call
   end
 end

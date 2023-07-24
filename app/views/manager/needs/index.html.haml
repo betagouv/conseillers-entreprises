@@ -2,10 +2,9 @@
 - meta title: title
 - content_for :header, render('header', collection_name: @collection_name, title: title)
 - content_for :menu, render('menu', collections_counts: @inbox_collections_counts, antenne: @antenne)
-- content_for :search, render('search')
+- content_for :search, render('needs/search', needs: @needs, collection_name: @collection_name)
 
 - if @needs.empty?
-  .ui.message
-    .content.header= t('.no_needs')
+  = render 'needs/empty_placeholder', recipient: @recipient
 - else
   = render 'needs/received_needs', received_needs: @needs

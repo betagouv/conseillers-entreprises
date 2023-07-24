@@ -1,0 +1,26 @@
+%dialog.fr-modal{ id: "modal-coverage-#{referencement_coverage.id}", 'aria-labelledby': "modal-coverage-#{referencement_coverage.id}-title", role: 'dialog' }
+  .fr-container.fr-container--fluid.fr-container-md
+    .fr-grid-row.fr-grid-row--center
+      .fr-col-12.fr-col-md-8.fr-col-lg-6
+        .fr-modal__body
+          .fr-modal__header
+            %button.fr-btn--close.fr-btn{ 'aria-controls': "modal-coverage-#{referencement_coverage.id}", title: t('application.navbar.close') }
+              = t('application.navbar.close')
+          .fr-modal__content
+            %h1.fr-modal__title{ id: "modal-coverage-#{referencement_coverage.id}-title" }
+              = [referencement_coverage.antenne.name, referencement_coverage.institution_subject.subject.label].join(' - ')
+            %ul
+              %li
+                %span.bold= [t('activerecord.attributes.referencement_coverage.coverage'), ':'].join(' ')
+                = t(referencement_coverage.coverage, scope: 'activerecord.attributes.referencement_coverage/coverage.long')
+              %li
+                %span.bold= [t('activerecord.attributes.referencement_coverage.anomalie'), ':'].join(' ')
+                = t(referencement_coverage.anomalie, scope: 'activerecord.attributes.referencement_coverage/anomalie')
+              - if referencement_coverage.anomalie_details.present?
+                %li
+                  %span.bold= [t('activerecord.attributes.referencement_coverage.anomalie_details'), ':'].join(' ')
+                  %ul
+                    - referencement_coverage.anomalie_details.each do |anomalie_type, value|
+                      %li
+                        %span.bold= [t(anomalie_type, scope: 'activerecord.attributes.referencement_coverage/anomalie_details'), ':'].join(' ')
+                        = referencement_coverage_anomalie(anomalie_type, value)

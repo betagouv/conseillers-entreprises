@@ -81,9 +81,6 @@ fr:
         duplicate_user: Dupliquer cet utilisateur
         edit_expert: Modifier %{expert_name} - %{antenne}
         reassign_matches: Réassigner les mises en relation
-        regional_experts_on_subject:
-          one: "%{count} expert régional sur ce sujet"
-          other: "%{count} experts régionaux sur ce sujet"
   annuaire_helper:
     build_user_name_cell:
       antenne_manager: Responsables d’antenne.
@@ -99,6 +96,7 @@ fr:
       open_cookies: Ouvre la fenêtre de gestion des cookies
       service_description: Aider ensemble les TPE & PME dans leurs projets, leurs difficultés et leurs transformations.
     modal:
+      see_details: Voir le détail
       see_expert_coordinates: Voir les coordonnées de l'équipe
       see_person_coordinates: Voir les coordonnées de la personne
     navbar:
@@ -110,11 +108,9 @@ fr:
       badges: Tags
       close: Fermer
       csv_exports: Exports csv
-      diagnoses: Analyses
       invite: Inviter des utilisateurs
       main_menu: Menu principal
       menu: Menu
-      partner_tools: Outils partenaires
       profile: Profil
       reports: Export des données
       root_path_title: Accueil Place des Entreprises
@@ -300,21 +296,6 @@ fr:
       search_manually: Cas particulier (sans SIRET)
       sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation. SIRET non diffusible, reprise d’entreprise, déménagement…
       title: Saisie manuelle
-    related_diagnoses:
-      diagnosis_related: Analyse associée
-      matches:
-        one: 1 mise en relation
-        other: "%{count} mises en relation"
-        zero: 0 mise en relation
-      needs:
-        one: 1 besoin identifié
-        other: "%{count} besoins identifiés"
-        zero: 0 besoin identifié
-      solicitation_related: Sollicitation associée
-      solicited_at: Sollicitée le %{date}
-      solicited_by_html: 'par %{name} <br/> email : %{email}'
-      visited_at: Visitée le %{date}
-      visited_by_html: 'par %{name} (%{job} - %{antenne}) <br/> email : %{email}'
     steps:
       contact:
         date: Date de la sollicitation
@@ -464,13 +445,7 @@ fr:
     needs:
       index:
         many_antennes_title: Demandes reçues des antennes
-        no_needs: Aucune demande
         one_antenne_title: Demandes reçues de %{name}
-      search:
-        all_antennes: Toutes
-        clear_search: Réinitialiser le filtre
-        filter: Filtrer
-        select_antenne: Selectionnez une antenne
   matches:
     match:
       change_match_status: Modifier le statut du besoin
@@ -482,10 +457,8 @@ fr:
       ambulance_explanation: Notifier un nouveau conseiller référencé, quel que soit le partenaire, le sujet ou le territoire
       no_expert_found: Aucun résultat
     archive:
-      archive: Archiver
       archive_done: Besoin de l’entreprise %{company} archivé
       subjet_achived: Le besoin a été archivé
-      unarchive: Désarchiver
     collections:
       archived: Archivées
       done: Clôturées
@@ -542,6 +515,7 @@ fr:
       omnisearch: Rechercher par entreprise, contact, description...
       search: Rechercher
       search_placeholder: 'Ex : La mie tendre, Lucie Martin, plomberie, financement...'
+      select_antenne: Selectionnez une antenne
     show:
       all_experts: Experts notifiés
       all_needs: Toutes les demandes
@@ -606,17 +580,6 @@ fr:
       placeholder_email: Votre adresse email
       received_news: 'Découvrez les nouveaux accompagnements publics :'
       subscribe: S’abonner
-  partner_tools:
-    inserts:
-      alt: 'Place des Entreprises ; TPE et PME : accédez gratuitement à tous les accompagnements publics. Déposez votre demande, le bon conseiller vous appelle.'
-      code: Code à copier
-      color: Couleur
-      generate: Générer
-      preview: Aperçu
-      title: Générer un encart
-      width: Largeur en pixels
-    menu:
-      inserts: Encarts
   person:
     deleted_person: Compte supprimé
   quarterly_report_service:
