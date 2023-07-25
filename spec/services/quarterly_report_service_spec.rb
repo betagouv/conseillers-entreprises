@@ -3,7 +3,7 @@
 require 'rails_helper'
 describe QuarterlyReportService do
   describe 'last_quarters' do
-    let(:quarters) { described_class.send(:last_quarters, antenne) }
+    let(:quarters) { described_class.new(antenne).send(:last_quarters) }
 
     context 'local antenne' do
       let(:antenne) { create :antenne, :local }
