@@ -13,7 +13,7 @@ describe 'reports' do
     let!(:category_stats2) { create :quarterly_report, :category_stats, antenne: antenne1, start_date: Date.new(2021, 04, 01), end_date: Date.new(2021, 06, 30) }
     let!(:quarters) { antenne1.quarterly_reports.order(start_date: :desc).pluck(:start_date, :end_date).uniq }
 
-    it 'display the list of monthly reports' do
+    it 'display the list of quarterly reports' do
       visit reports_path
       expect(page.html).to include I18n.t('reports.index.title')
       expect(page.html).to include antenne1.name
