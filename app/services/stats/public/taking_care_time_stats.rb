@@ -13,7 +13,7 @@ module Stats::Public
     end
 
     def group_by_date(query)
-      query.preload(:matches).group_by do |solicitation|
+      query.includes(:matches).group_by do |solicitation|
         solicitation.matches.pluck(:taken_care_of_at).compact.min&.between?(solicitation.completed_at, solicitation.completed_at + 5.days)
       end
     end
@@ -23,14 +23,8 @@ module Stats::Public
       group_by_date(query_range)
     end
 
-    def taken_care_before(query)
-      return [] if query[true].nil?
-      query[true].group_by_month(&:completed_at).map { |_, v| v.size }
-    end
-
-    def taken_care_after(query)
-      return [] if query[false].nil?
-      query[false].group_by_month(&:completed_at).map { |_, v| v.size }
+    def series
+      @series ||= build_series
     end
 
     def build_series
@@ -49,13 +43,17 @@ module Stats::Public
       as_series(@taken_care_before, @taken_care_after)
     end
 
+    def max_value
+      100
+    end
+
     def category_order_attribute
       Arel.sql('true')
     end
 
     def count
-      build_series
-      percentage_two_numbers(@taken_care_before, @taken_care_after)
+      series
+      @count ||= percentage_two_numbers(@taken_care_before, @taken_care_after)
     end
 
     private
