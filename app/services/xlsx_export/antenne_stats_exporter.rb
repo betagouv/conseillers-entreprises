@@ -19,9 +19,9 @@ module XlsxExport
         XlsxExport::AntenneStatsWorksheetGenerator::Base.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
       end
 
-      # Months stats by subject
-      wb.add_worksheet(name: I18n.t('antenne_stats_exporter.month_stats_by_subject')) do |sheet|
-        sheet.add_row ["#{@antenne.name} - #{@end_date.year}-#{@start_date.month}"], style: title
+      # Quarter stats by subject
+      wb.add_worksheet(name: I18n.t('antenne_stats_exporter.quarter_stats_by_subject')) do |sheet|
+        sheet.add_row ["#{@antenne.name} - #{@end_date.year}T#{TimeDurationService.find_quarter(@start_date.month)}"], style: title
         XlsxExport::AntenneStatsWorksheetGenerator::BySubject.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
       end
 
