@@ -52,7 +52,7 @@ RSpec.describe ReportPolicy, type: :policy do
     context "grant access if user is an admin" do
       let(:user) { create :user, :admin }
 
-      it { is_expected.not_to permit(user, quarterly_report) }
+      it { is_expected.to permit(user, quarterly_report) }
     end
 
     context "grants access if user is a region manager for his antenne report" do

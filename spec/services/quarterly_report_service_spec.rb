@@ -65,8 +65,8 @@ describe QuarterlyReportService do
     let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 2.years.ago) }
     let!(:quarterly_report_ok) { create :quarterly_report, :category_matches, antenne: antenne, start_date: 3.months.ago }
     let!(:quarterly_report_ko) { create :quarterly_report, :category_matches, antenne: antenne, start_date: 2.years.ago }
-    let(:quarters) { described_class.send(:last_quarters, antenne) }
-    let(:destroy_old_report) { described_class.send(:destroy_old_report_files, antenne, quarters) }
+    let(:quarters) { described_class.new(antenne).send(:last_quarters) }
+    let(:destroy_old_report) { described_class.new(antenne).send(:destroy_old_report_files, quarters) }
 
     before { quarterly_report_ok.update(start_date: quarters.first.first) }
 

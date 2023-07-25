@@ -15,7 +15,7 @@ describe 'reports' do
 
     it 'display the list of quarterly reports' do
       visit reports_path
-      expect(page.html).to include I18n.t('reports.index.title')
+      expect(page.html).to include I18n.t('reports.index.title', antenne: antenne1.name)
       expect(page.html).to include antenne1.name
       expect(page.html).to include antenne2.name
       expect(page).to have_css('.fr-tile', count: 4)

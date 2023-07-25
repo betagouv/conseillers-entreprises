@@ -1,15 +1,14 @@
 class QuarterlyReportService
-
   def initialize(antenne)
     @antenne = antenne
   end
 
   def call
-    quarters = last_quarters(@antenne)
+    quarters = last_quarters
     return if quarters.nil?
     quarters.each do |quarter|
-      generate_matches_files(@antenne, quarter)
-      generate_stats_files(@antenne, quarter)
+      generate_matches_files(quarter)
+      generate_stats_files(quarter)
     end
     destroy_old_report_files(quarters)
   end
@@ -48,10 +47,10 @@ class QuarterlyReportService
 
     ActiveRecord::Base.transaction do
       exporter = XlsxExport::AntenneStatsExporter.new({
-                                                        start_date: quarter.first,
+        start_date: quarter.first,
                                                         end_date: quarter.last,
-                                                        antenne: antenne
-                                                      })
+                                                        antenne: @antenne
+      })
       result = exporter.export
 
       filename = I18n.t('quarterly_report_service.stats_file_name', number: TimeDurationService.find_quarter(quarter.first.month), year: quarter.first.year, antenne: @antenne.name.parameterize)
@@ -67,7 +66,7 @@ class QuarterlyReportService
     @antenne.quarterly_reports.where.not(start_date: quarters.flatten).destroy_all
   end
 
-  def last_quarters(antenne)
+  def last_quarters
     needs = @antenne.perimeter_received_needs
     return if needs.blank?
     first_need_date = needs.minimum(:created_at).to_date
