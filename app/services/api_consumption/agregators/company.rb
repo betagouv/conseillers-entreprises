@@ -2,7 +2,7 @@ module ApiConsumption::Agregators
   class Company
     REQUESTS = {
       api_entreprise_entreprise: ApiEntreprise::Entreprise::Base,
-      api_entreprise_effectifs_mensuels: ApiEntreprise::EntrepriseEffectifAnnuel::Base,
+      api_entreprise_effectifs_annuel: ApiEntreprise::EntrepriseEffectifAnnuel::Base,
       api_entreprise_rcs: ApiEntreprise::EntrepriseRcs::Base,
       api_entreprise_rm: ApiEntreprise::EntrepriseRm::Base,
       api_entreprise_mandataires_sociaux: ApiEntreprise::EntrepriseMandatairesSociaux::Base,
@@ -32,7 +32,7 @@ module ApiConsumption::Agregators
     end
 
     def request_keys
-      @options&.dig(:request_keys) || [:api_entreprise_effectifs_mensuels, :api_entreprise_rcs, :api_entreprise_rm, :api_entreprise_mandataires_sociaux, :api_rne_companies]
+      @options&.dig(:request_keys) || [:api_entreprise_effectifs_annuel, :api_entreprise_rcs, :api_entreprise_rm, :api_entreprise_mandataires_sociaux, :api_rne_companies]
     end
 
     def requests

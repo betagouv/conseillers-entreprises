@@ -20,7 +20,6 @@ describe Effectif::Format do
     end
 
     context 'with missing effectif range' do
-
       let!(:effectifs) { { "regime" => "regime_general", "nature" => "effectif_moyen_annuel", "value" => "412.60", "date_derniere_mise_a_jour" => "2023-03-30", "annee" => "2020" } }
       let(:tranche_effectif) { nil }
 
