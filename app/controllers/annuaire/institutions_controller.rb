@@ -22,7 +22,7 @@ module  Annuaire
 
     def get_antennes_count
       antennes_count = if params[:region_id].present?
-        Antenne.select('COUNT(DISTINCT antennes.id) AS antennes_count, antennes.institution_id AS institution_id')
+        Antenne.select('COUNT(DISTINCT antennes.id) AS antennes_count, antennes.institution_id AS institution_id').group('antennes.institution_id')
           .not_deleted
           .left_joins(:regions, :experts)
           .where(territories: { id: params[:region_id] })
