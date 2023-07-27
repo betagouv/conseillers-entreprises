@@ -6,9 +6,9 @@ class InitReferencementCoverages
   end
 
   def call
-    UpdateAntenneCoverage.new(@antenne).call
+    UpdateAntenneCoverage.new(@antenne).delay.call
     @antenne.territorial_antennes.each do |ta|
-      UpdateAntenneCoverage.new(ta).call
+      UpdateAntenneCoverage.new(ta).delay.call
     end
   end
 end
