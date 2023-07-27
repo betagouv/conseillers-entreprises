@@ -9,10 +9,15 @@
     description: landing_subject.meta_description.presence || landing_subject.description.presence || landing_subject.landing_theme.meta_description
 
 - unless in_iframe?
-  .fr-container.landing.fr-py-3w.fr-mt-3v
-    .landing-header
-      %h1.fr-h3= landing_subject&.form_title.presence || landing_subject.title
-      %p.text-dark-grey.fr-text--lg= t('landings.landings.home.answer')
+  .fr-container.landing.fr-mt-8v.fr-mt-md-14v.fr-mb-2v.fr-mb-md-8v
+    .fr-grid-row.fr-grid-row--center.landing-header
+      .fr-col-12.fr-col-md-8.landing-header__description
+        %h1.fr-h2= landing_subject&.form_title.presence || landing_subject.title
+        - subject_subtitle = t(landing_subject.slug, scope: 'landing_subject_subtitle', default: t('default', scope: 'landing_subject_subtitle'))
+        - count = number_with_delimiter(needs_count, locale: :fr)
+        %p.text-dark-grey.fr-text--lg= t('landings.landings.home.subtitle', count: count, subject: subject_subtitle)
+      .fr-col-12.fr-col-md-4.landing-header__picture
+        = image_tag('home.png', alt: "")
 
 - if show_breadcrumbs?
   = render 'pages/breadcrumbs', landing: landing, landing_theme: landing_subject.landing_theme, landing_subject: landing_subject

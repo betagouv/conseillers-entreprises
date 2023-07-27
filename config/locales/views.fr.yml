@@ -424,6 +424,7 @@ fr:
           description: 'TPE & PME vous avez un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
           title: Page d’accueil | Place des Entreprises - Conseils et aides publiques
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
+        subtitle: 'Service public simple et rapide : %{count} TPE & PME ont déjà été accompagnées cette année par un conseiller %{subject}'
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
         title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
