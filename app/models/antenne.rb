@@ -263,6 +263,6 @@ class Antenne < ApplicationRecord
   end
 
   def update_antenne_coverage(antenne)
-    UpdateAntenneCoverage.new(antenne).call
+    UpdateAntenneCoverage.new(antenne).delay.call
   end
 end
