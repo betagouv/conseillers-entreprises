@@ -12,14 +12,13 @@ module XlsxExport
         end
 
         # Total
-        add_agglomerate_rows(@needs, nil, I18n.t('antenne_stats_exporter.total'))
+        add_agglomerate_rows(@needs, I18n.t('antenne_stats_exporter.total'))
 
         # By subject
         needs_by_subjects.sort_by { |_, needs| -needs.count }.each do |subject_label, needs|
           ratio = calculate_rate(needs.count, @needs)
-          add_agglomerate_rows(needs, ratio, subject_label)
+          add_agglomerate_rows(needs, subject_label, ratio)
         end
-
 
         finalise_agglomerate_style
       end

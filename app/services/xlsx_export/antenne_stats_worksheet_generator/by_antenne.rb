@@ -9,7 +9,7 @@ module XlsxExport
         @antenne.territorial_antennes.each do |local_antenne|
           needs = @needs.joins(:expert_antennes).where(antennes: { id: local_antenne.id })
           ratio = calculate_rate(needs.count, @needs)
-          add_agglomerate_rows(needs, ratio, local_antenne.name)
+          add_agglomerate_rows(needs, local_antenne.name, ratio)
         end
 
         finalise_agglomerate_style

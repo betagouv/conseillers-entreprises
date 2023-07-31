@@ -21,7 +21,7 @@ module XlsxExport
 
       # Months stats by subject
       wb.add_worksheet(name: I18n.t('antenne_stats_exporter.month_stats_by_subject')) do |sheet|
-        sheet.add_row ["#{@antenne.name} - #{@end_date.year}T#{@start_date.month}"], style: title
+        sheet.add_row ["#{@antenne.name} - #{@end_date.year}-#{@start_date.month}"], style: title
         XlsxExport::AntenneStatsWorksheetGenerator::BySubject.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
       end
 
