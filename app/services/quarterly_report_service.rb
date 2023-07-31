@@ -13,6 +13,7 @@ class QuarterlyReportService
     destroy_old_report_files(quarters)
   end
 
+  # Garder dans le service ou appeler directement ?
   def send_emails
     User.managers.each do |user|
       next unless user.managed_antennes.map { |antenne| antenne.quarterly_reports.find_by(start_date: 3.months.ago.beginning_of_month) }.any?
