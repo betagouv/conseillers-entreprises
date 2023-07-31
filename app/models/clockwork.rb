@@ -46,12 +46,12 @@ module Clockwork
     SolicitationsRelaunchService.delay(queue: :low_priority).perform
   end
   if Rails.env == 'production'
-    every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 14 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
+    every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 20 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
       Antenne.find_each do |antenne|
         QuarterlyReportService.new(antenne).delay(queue: :low_priority).call
       end
     end
-    every(1.day, 'send_quarterly_reports_emails', at: '08:00', if: -> (t) { t.day == 15 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
+    every(1.day, 'send_quarterly_reports_emails', at: '08:00', if: -> (t) { t.day == 21 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
       QuarterlyReportService.delay(queue: :low_priority).send_emails
     end
     every(1.day, 'reminders_registers', :at => ['01:00', '13:00']) { RemindersService.delay(queue: :low_priority).create_reminders_registers }
