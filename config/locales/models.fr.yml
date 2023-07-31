@@ -719,6 +719,7 @@ fr:
     taking_care_caption_definition: Besoins pris en charge par un expert, qui n’a pas encore été clôturé après l’appel de l’entreprise.
     taking_care_caption_label: Pris en charge
     year_stats: Stats ann.
+    year_stats_by_subject: Stats ann. par sujet
   archivable:
     archive: Archiver
     archive_done: Archivé
