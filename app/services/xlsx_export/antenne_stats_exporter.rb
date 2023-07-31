@@ -25,7 +25,7 @@ module XlsxExport
           sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.by_region')} - #{@end_date.year}T#{TimeDurationService.find_quarter(@start_date.month)}"], style: title
           XlsxExport::AntenneStatsWorksheetGenerator::ByRegion.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
         end
-      elsif @antenne.regional?
+      elsif @antenne.regional? && @antenne.territorial_antennes.any?
         wb.add_worksheet(name: I18n.t('antenne_stats_exporter.quarter_stats_by_antenne')) do |sheet|
           sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.by_antenne')} - #{@end_date.year}T#{TimeDurationService.find_quarter(@start_date.month)}"], style: title
           XlsxExport::AntenneStatsWorksheetGenerator::ByAntenne.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
