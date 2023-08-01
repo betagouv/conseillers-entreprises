@@ -560,14 +560,6 @@ fr:
       service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Place des Entreprises
       startup_d_etat: Une startup d’État de beta.gouv
       twitter_title: Compte twitter de Place des Entreprises
-    how_it_works_short:
-      quick_description: Une personne vous rappelle dans les 5 jours.
-      quick_title: Rapide
-      human_title: Humain
-      human_description: Vous échangez au téléphone avec une personne experte.
-      personnalise_title: Personnalisé
-      personnalise_description: La réponse est adaptée à votre situation.
-      learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Place des Entreprises</a>
     how_it_works_long:
       choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
@@ -577,6 +569,13 @@ fr:
       pde_presentation_transcription: Transcription textuelle de la vidéo de présentation du service Place des Entreprises
       read_transcription: Lire la transcription
       select_expert_description: Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
+    how_it_works_short:
+      human_description: Vous échangez au téléphone avec une personne experte.
+      human_title: Humain
+      personnalise_description: La réponse est adaptée à votre situation.
+      personnalise_title: Personnalisé
+      quick_description: Une personne vous rappelle dans les 5 jours.
+      quick_title: Rapide
     navbar:
       close: Fermer
       extend: Agrandir
