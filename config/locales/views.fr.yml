@@ -560,7 +560,15 @@ fr:
       service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Place des Entreprises
       startup_d_etat: Une startup d’État de beta.gouv
       twitter_title: Compte twitter de Place des Entreprises
-    how_it_works:
+    how_it_works_short:
+      quick_description: Une personne vous rappelle dans les 5 jours.
+      quick_title: Rapide
+      human_title: Humain
+      human_description: Vous échangez au téléphone avec une personne experte.
+      personnalise_title: Personnalisé
+      personnalise_description: La réponse est adaptée à votre situation.
+      learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Place des Entreprises</a>
+    how_it_works_long:
       choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
       expert_contacts_you_html: "<span class='blue'>Le conseiller vous contacte</span> directement pour vous aider sous 5 jours*."
@@ -699,7 +707,7 @@ fr:
       choose_my_facility: Sélectionner un établissement
       nombre_etablissements_ouverts: 'Nombre d’établissements ouverts : %{count}'
     creation_form:
-      accompaniments: 'Accompagnements proposés :'
+      accompaniments: 'Des conseillers vous accompagnent pour :'
       all_fields_compulsary: Tous les champs sont obligatoires.
       already_submitted_solicitation: Cette demande a déjà été envoyée aux conseillers.
       average_delays: "(Délai moyen de prise en charge)"
@@ -715,7 +723,7 @@ fr:
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"
       form_complete: Demande envoyée
       give_my_opinion_alt: Je donne mon avis
-      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l’Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner %{subject_personalisation}, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place des Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
+      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l’Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner %{subject_personalisation}, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez nous contacter par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris. Pour en savoir plus, consultez les %{informations}.</p>"
       legal_notice_personalisation:
         activite-partielle: sur l’activité partielle
         agrement-esus: sur les conditions de l’agrément « Entreprise solidaire d’utilité sociale » (ESUS) et ses avantages

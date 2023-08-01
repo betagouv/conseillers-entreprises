@@ -27,7 +27,7 @@
           .emphasis.fr-grid-row
             .fr-col-md-1.fr-col-3.display-flex-center
               - if landing.main_logo
-                = display_image(name: landing.main_logo)
+                = display_logo(name: landing.main_logo)
             .fr-col-md-3.fr-col-9.display-flex-center
               = simple_format("#{landing.title} : ", {}, wrapper_tag: 'h2')
             .fr-col-md-5.fr-col-12.fr-my-md-0.fr-my-2w.display-flex-center

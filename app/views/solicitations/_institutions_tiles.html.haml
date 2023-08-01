@@ -5,5 +5,5 @@
         %h3.fr-tile__title= institution.name
         %p.fr-tile__desc= institution.institutions_subjects.find_by(subject: subject).description
       .fr-tile__img
-        = display_image(name: institution.logo&.filename, path: "institutions/", extra_params: { class: "fr-responsive-img", alt: "" })
+        = display_logo(name: institution.logo&.filename, path: "institutions/", extra_params: { class: "fr-responsive-img", alt: "" })
         / L’alternative de l’image (attribut alt) doit rester vide car l’image est illustrative et ne doit pas être restituée aux technologies d’assistance

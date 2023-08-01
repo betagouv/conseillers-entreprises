@@ -10,7 +10,7 @@
       - institutions.each do |institution|
         %tr
           %td.fr-enlarge-link
-            = display_image(name: institution.logo&.filename, path: "institutions/") if institution.logo.present?
+            = display_logo(name: institution.logo&.filename, path: "institutions/") if institution.logo.present?
             = link_to institution.name, institution_users_path(institution, region_id: params[:region_id].presence), class: 'fr-text--lg'
           %td.fr-enlarge-link
             = link_to [institution, :subjects] do

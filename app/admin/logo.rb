@@ -11,7 +11,7 @@ ActiveAdmin.register Logo do
     end
     column :filename
     column :image, class: 'logo' do |l|
-      display_image(name: l.filename, path: "institutions/")
+      display_logo(name: l.filename, path: "institutions/")
     end
     column :institution
     actions dropdown: true
@@ -25,7 +25,7 @@ ActiveAdmin.register Logo do
       row :filename
       row :institution
       row :image, class: 'logo' do |l|
-        display_image(name: l.filename, path: "institutions/")
+        display_logo(name: l.filename, path: "institutions/")
       end
     end
   end

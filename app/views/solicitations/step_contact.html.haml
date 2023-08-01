@@ -49,7 +49,7 @@
 
 - content_for :form_footer do
   .fr-grid-row
-    .fr-col-12.fr-col-md-6.fr-col-offset-md-3.fr-pb-3w.legal-notice
+    .fr-col-12.fr-pb-3w.legal-notice
       = t('solicitations.creation_form.legal_notice_html',
         mailto_link: mail_to('dpo@placedesentreprises.beta.gouv.fr', 'dpo@placedesentreprises.beta.gouv.fr', target: :_blank),
         informations: link_to(t('about.mentions_d_information.title').downcase, mentions_d_information_url),
@@ -58,10 +58,22 @@
 - content_for :footer do
   - unless in_iframe?
     .fr-container--fluid.section-light-grey
-      = render 'pages/how_it_works'
+      = render 'pages/how_it_works_short'
+    - temoignage = TemoignageGenerator.new(@landing_subject.slug)
+    - if temoignage.in_corpus?
+      .fr-container.fr-my-8w.temoignage
+        %figure.fr-quote.fr-quote--column
+          %blockquote
+            %p= temoignage.content
+          %figcaption
+            %p.fr-quote__author= temoignage.author
+            .fr-quote__image
+              = image_tag(temoignage.picture_path, class: 'fr-responsive-img')
+
     - if @landing_subject.solicitable_institutions.with_logo.any?
-      .fr-container.fr-py-3w
-        %h2.text-dark-grey.text-center.text-normal.fr-text--lead
-          = t('logos.title')
-        = render 'landings/landings/logos', landing_subject: @landing_subject
+      .section-light-grey.fr-pt-8w.fr-pb-5w
+        .fr-container
+          %h2.text-dark-grey.text-center.text-normal.fr-text--lead
+            = t('logos.title')
+          = render 'landings/landings/logos', landing_subject: @landing_subject
   = render 'iframe_footer', landing: @landing
