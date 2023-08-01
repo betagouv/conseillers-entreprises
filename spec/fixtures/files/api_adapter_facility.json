@@ -90,10 +90,26 @@
     },
     "date_derniere_mise_a_jour": 1661724000,
     "redirect_from_siret": null,
-    "effectifs": {
-      "annee": "2022",
-      "mois": "09",
-      "effectifs_mensuels": "746.72"
+    "effectifs_etablissement_mensuel": {
+      "siret": "41816609600069",
+      "effectifs_mensuels": [
+        {
+          "regime": "regime_general",
+          "annee": "2023",
+          "mois": "05",
+          "nature": "effectif_moyen_mensuel",
+          "value": 745.82,
+          "date_derniere_mise_a_jour": "2023-06-20"
+        },
+        {
+          "regime": "regime_agricole",
+          "annee": "2023",
+          "mois": "05",
+          "nature": "effectif_moyen_mensuel",
+          "value": null,
+          "date_derniere_mise_a_jour": null
+        }
+      ]
     },
     "idcc": 1486,
     "opcoName": "ATLAS",

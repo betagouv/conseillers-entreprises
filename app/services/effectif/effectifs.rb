@@ -5,7 +5,7 @@ module Effectif
     def initialize(params)
       # si nil est passé, les params par défaut sont pas pris en compte
       @annee = params["annee"]
-      @effectifs = params["effectifs_mensuels"].to_f || params["effectifs_annuels"].to_f
+      @effectifs = params["value"].to_f
     end
 
     def code_effectif
@@ -26,7 +26,7 @@ module Effectif
       return nil if @effectifs.blank?
       code = nil
       CodeEffectif::RANGES.each do |range|
-        if @effectifs >= range[:min] && @effectifs <= range[:max]
+        if @effectifs.to_i >= range[:min] && @effectifs.to_i <= range[:max]
           code = range[:code]
           break
         end

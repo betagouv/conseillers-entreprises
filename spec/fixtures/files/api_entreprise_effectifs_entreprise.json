@@ -1,6 +1,22 @@
 {
-  "siren": "418166096",
-  "annee": "2022",
-  "mois": "08",
-  "effectifs_mensuels": "898.81"
+  "data": {
+    "siren": "418166096",
+    "annee": "2022",
+    "effectifs_annuel": [
+      {
+        "regime": "regime_agricole",
+        "nature": "effectif_moyen_annuel",
+        "value": null,
+        "date_derniere_mise_a_jour": null
+      },
+      {
+        "regime": "regime_general",
+        "nature": "effectif_moyen_annuel",
+        "value": 862.89,
+        "date_derniere_mise_a_jour": "2023-03-30"
+      }
+    ]
+  },
+  "links": {},
+  "meta": {}
 }

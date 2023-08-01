@@ -8,19 +8,17 @@ describe UseCases::SearchFacility do
   let(:siret) { '41816609600051' }
   let(:siren) { siret[0..8] }
   let(:token) { '1234' }
-  let(:searched_date) do
-    searched_date = Time.zone.now.months_ago(6)
-    [searched_date.year, searched_date.strftime("%m")].join("/")
-  end
+  let(:searched_month) { Time.zone.now.months_ago(2).strftime("%m") }
+  let(:searched_year) { Time.zone.now.months_ago(2).year }
 
   let(:suffix_url) { "context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
   let(:entreprise_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/#{siren}?#{suffix_url}" }
-  let(:effectif_entreprise_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/#{searched_date}/entreprise/#{siren}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=#{token}" }
+  let(:effectif_entreprise_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/unites_legales/#{siren}/effectifs_annuels/#{1.year.ago.year}?#{suffix_url}" }
   let(:rcs_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/extrait_kbis?#{suffix_url}" }
   let(:rm_url) { "https://entreprise.api.gouv.fr/v3/cma_france/rnm/unites_legales/#{siren}?#{suffix_url}" }
   let(:mandataires_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/mandataires_sociaux?#{suffix_url}" }
   let(:etablissement_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret}?#{suffix_url}" }
-  let(:effectif_etablissement_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/#{searched_date}/etablissement/#{siret}?#{suffix_url}" }
+  let(:effectif_etablissement_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/#{siret}/effectifs_mensuels/#{searched_month}/annee/#{searched_year}?#{suffix_url}" }
   let(:opco_url) { "https://www.cfadock.fr/api/opcos?siret=#{siret}" }
   let(:rne_companies_url) { "https://registre-national-entreprises.inpi.fr/api/companies/#{siren}" }
 
@@ -57,7 +55,7 @@ describe UseCases::SearchFacility do
         expect(facility.reload.siret).to eq siret
         expect(facility.commune.insee_code).to eq '75102'
         expect(facility.naf_code).to eq '6202A'
-        expect(facility.code_effectif).to eq '32'
+        expect(facility.code_effectif).to eq '41'
         expect(facility.opco).to eq opco
         expect(facility.readable_locality).to eq '75002 PARIS 2'
       end

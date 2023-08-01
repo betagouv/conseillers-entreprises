@@ -40,10 +40,23 @@
     "economie_sociale_et_solidaire": false,
     "date_cessation": null,
     "date_creation": 891381600,
-    "effectifs": {
+    "effectifs_entreprise_annuel": {
+      "siren": "418166096",
       "annee": "2022",
-      "mois": "09",
-      "effectifs_mensuels": "895.02"
+      "effectifs_annuel": [
+        {
+          "regime": "regime_agricole",
+          "nature": "effectif_moyen_annuel",
+          "value": null,
+          "date_derniere_mise_a_jour": null
+        },
+        {
+          "regime": "regime_general",
+          "nature": "effectif_moyen_annuel",
+          "value": 862.89,
+          "date_derniere_mise_a_jour": "2023-03-30"
+        }
+      ]
     },
     "rcs": {
       "siren": "418166096",
