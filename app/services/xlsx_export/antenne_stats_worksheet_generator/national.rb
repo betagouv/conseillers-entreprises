@@ -7,7 +7,7 @@ module XlsxExport
         add_agglomerate_headers(:subject)
 
         needs_by_subjects = {}
-        @antenne.institution.subjects.each do |subject|
+        @needs.map(&:subject).each do |subject|
           needs_by_subjects[subject.label] = @needs.where(subject: subject)
         end
 
