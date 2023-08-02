@@ -75,7 +75,7 @@ class Solicitation < ApplicationRecord
 
   paginates_per 25
 
-  GENERIC_EMAILS_TYPES = %i[bad_quality particular_retirement creation employee_labor_law siret moderation independent_tva intermediary recruitment_foreign_worker no_expert carsat tns_training]
+  GENERIC_EMAILS_TYPES = %i[bad_quality creation employee_labor_law siret moderation independent_tva intermediary recruitment_foreign_worker no_expert no_expert_juridique carsat tns_training]
 
   ## Status
   #
