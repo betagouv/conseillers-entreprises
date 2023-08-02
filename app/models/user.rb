@@ -116,6 +116,14 @@ class User < ApplicationRecord
   scope :managers_not_invited, -> { not_deleted.managers.where(invitation_sent_at: nil) }
   # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
   scope :active_invitation_not_accepted, -> { invitation_not_accepted.active }
+  scope :old_active_invitation_not_accepted, -> do
+    active_invitation_not_accepted
+      .where(invitation_sent_at: ..6.months.ago)
+  end
+  scope :recent_active_invitation_not_accepted, -> do
+   active_invitation_not_accepted
+     .where(invitation_sent_at: 6.months.ago..)
+ end
 
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
