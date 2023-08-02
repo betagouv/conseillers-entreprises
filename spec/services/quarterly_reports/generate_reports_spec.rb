@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-describe QuarterlyReportService do
+describe QuarterlyReports::GenerateReports do
   describe 'last_quarters' do
     let(:quarters) { described_class.new(antenne).send(:last_quarters) }
 
