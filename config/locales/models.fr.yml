@@ -810,6 +810,7 @@ fr:
       phone_number_html: 'Exemple : 06 12 34 56 78'
     insee_codes: Codes communes
     institution: Institution
+    institution_antenne: Institution / Antenne
     institutions_subjects: Domaines de l’institution
     intervention_zone: Zone d’intervention
     interview_sort_order: Ordre dans le questionnaire
