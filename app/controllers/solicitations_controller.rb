@@ -221,10 +221,12 @@ class SolicitationsController < PagesController
   end
 
   def calculate_needs_count
-    @needs_count ||= Need
-      .by_subject(@landing_subject.subject)
-      .min_closed_at(1.year.ago..Date.today)
-      .pluck(:id)
-      .size
+    Rails.cache.fetch(@landing_subject.subject, expires_in: 12.hours) do
+      @needs_count ||= Need
+        .by_subject(@landing_subject.subject)
+        .min_closed_at(1.year.ago..Date.today)
+        .pluck(:id)
+        .size
+    end
   end
 end

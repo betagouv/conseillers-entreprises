@@ -60,7 +60,7 @@
     .fr-container--fluid.section-light-grey
       = render 'pages/how_it_works_short'
     - temoignage = TemoignageGenerator.new(@landing_subject.slug)
-    - if temoignage.in_corpus?
+    - if temoignage.published?
       .fr-container.fr-my-8w.temoignage
         %figure.fr-quote.fr-quote--column
           %blockquote

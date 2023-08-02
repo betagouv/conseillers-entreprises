@@ -9,8 +9,8 @@ class TemoignageGenerator
     @entry ||= I18n.t(@subject, scope: 'temoignages')
   end
 
-  def in_corpus?
-    entry.present? && entry.is_a?(Hash)
+  def published?
+    entry.present? && entry.is_a?(Hash) && (entry[:published] == true)
   end
 
   def author
