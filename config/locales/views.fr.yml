@@ -417,13 +417,14 @@ fr:
         iframe_and_api_fields: Champs partagés iframe & API
         iframe_fields: Champs iframe
       home:
-        answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
+        answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
         discover_measures: Découvrir les mesures
         how-it-works: Comment ça marche
         meta:
           description: 'TPE & PME vous avez un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
           title: Page d’accueil | Place des Entreprises - Conseils et aides publiques
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
+        subtitle: 'Service public simple et rapide : %{count} TPE & PME ont déjà été accompagnées cette année par un conseiller %{subject}'
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
         title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
@@ -559,7 +560,7 @@ fr:
       service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Place des Entreprises
       startup_d_etat: Une startup d’État de beta.gouv
       twitter_title: Compte twitter de Place des Entreprises
-    how_it_works:
+    how_it_works_long:
       choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
       expert_contacts_you_html: "<span class='blue'>Le conseiller vous contacte</span> directement pour vous aider sous 5 jours*."
@@ -568,6 +569,13 @@ fr:
       pde_presentation_transcription: Transcription textuelle de la vidéo de présentation du service Place des Entreprises
       read_transcription: Lire la transcription
       select_expert_description: Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
+    how_it_works_short:
+      human_description: Vous échangez au téléphone avec une personne experte.
+      human_title: Humain
+      personnalise_description: La réponse est adaptée à votre situation.
+      personnalise_title: Personnalisé
+      quick_description: Une personne vous rappelle dans les 5 jours.
+      quick_title: Rapide
     navbar:
       close: Fermer
       extend: Agrandir
@@ -698,7 +706,7 @@ fr:
       choose_my_facility: Sélectionner un établissement
       nombre_etablissements_ouverts: 'Nombre d’établissements ouverts : %{count}'
     creation_form:
-      accompaniments: 'Accompagnements proposés :'
+      accompaniments: 'Des conseillers vous accompagnent pour :'
       all_fields_compulsary: Tous les champs sont obligatoires.
       already_submitted_solicitation: Cette demande a déjà été envoyée aux conseillers.
       average_delays: "(Délai moyen de prise en charge)"
@@ -714,7 +722,7 @@ fr:
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"
       form_complete: Demande envoyée
       give_my_opinion_alt: Je donne mon avis
-      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l’Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner %{subject_personalisation}, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place des Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
+      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l’Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner %{subject_personalisation}, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez nous contacter par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris. Pour en savoir plus, consultez les %{informations}.</p>"
       legal_notice_personalisation:
         activite-partielle: sur l’activité partielle
         agrement-esus: sur les conditions de l’agrément « Entreprise solidaire d’utilité sociale » (ESUS) et ses avantages

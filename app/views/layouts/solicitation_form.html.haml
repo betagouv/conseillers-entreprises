@@ -1,13 +1,14 @@
 - content_for :content do
   = yield :header
   - if content_for?(:form_header)
-    .fr-container--fluid.section-grey.multistep-form.fr-py-7w#section-formulaire
+    .fr-container--fluid.multistep-form.fr-py-7w#section-formulaire
       .fr-container
         .fr-grid-row
           .fr-col-12.fr-col-md-6.fr-col-offset-md-3
             = yield :form_header
   .fr-container--fluid.section-grey.multistep-form
     .fr-container
+      = yield :step_data
       = yield
   .fr-container--fluid.section-grey.multistep-form
     .fr-container

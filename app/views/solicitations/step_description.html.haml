@@ -1,6 +1,6 @@
-- content_for :header, render('solicitations/header', landing: @landing, landing_subject: @landing_subject, step_data: @step_data)
+- content_for :header, render('solicitations/header', landing: @landing, landing_subject: @landing_subject, step_data: @step_data, needs_count: @needs_count)
 
-- content_for :form_header do
+- content_for :step_data do
   = render 'solicitations/steps', step_data: @step_data
 
 .fr-grid-row

@@ -1,0 +1,91 @@
+---
+fr:
+  temoignages:
+    activite-partielle: temoignage manquant
+    agrement-esus:
+      picture: valeurs-sociales.jpeg
+      content: « Suite à ma demande, j’ai été rapidement contacté pour avoir toutes les informations nécessaires pour comprendre l’agrément Esus. J’ai été satisfaite des réponses qui m’ont été apportées. J’ai échangé avec une conseillère qui a été très à l’écoute de ma situation et a su m’éclairer sur le fonctionnement d’une entreprise ESS par rapport à mon activité d’accueil éducatif et inclusif pour les jeunes en difficultés. »
+      author: Habi Soumaré, fondatrice de Valeurs Sociales Parten’air, Essonne (91)
+      published: true
+    bilan-rse: temoignage manquant
+    clients:
+      picture: codetics.jpeg
+      content: « Le service fut d’une très grande aide. J’ai été mis en relation avec les bonnes personnes. Le conseiller de la Chambre de Commerce qui m’a rappelé a bien compris mon besoin et mon produit. Différentes pistes m’ont été proposées et je suis en train de mettre en place les solutions envisagées. »
+      author: Kevin Vavelin, dirigeant de Codetics, Loiret (45)
+      published: true
+    conseil-retraite: temoignage manquant
+    dechets:
+      picture: mathieu-vettese.jpg
+      content: « Pour mon projet de valorisation de chutes de bois, j’ai été recontacté par la Chambre des Métiers dont l’un des collaborateurs est venu dans mon atelier de menuiserie et d’ébénisterie afin de comprendre la nature de mon activité. Il m’a accompagné dans la création de mon dossier d’obtention du chèque vert de la région. La bonne orientation et la réactivité obtenue grâce au service est particulièrement appréciable, j’ai été rappelé dès le lendemain du dépôt de ma demande. »
+      author: Mathieu Vettese, designer mobilier et ébéniste, Yvelines (78)
+      published: true
+    declaration-organisme-formation: temoignage manquant
+    demarche-ecologie: temoignage manquant
+    diagnostic: temoignage manquant
+    droit-du-travail: temoignage manquant
+    eau:
+    energie:
+      picture: vieux-four.jpg
+      content: « J’ai sollicité le service car nous souhaitions remplacer notre vieux four au fioul. Une conseillère de la Chambre des Métiers et de l’Artisanat a réalisé sur place un diagnostic pour la transition écologique de notre boulangerie. Elle a axé son analyse sur les avantages d’un four électrique (baisse de la consommation d’énergie, des pains invendus...) et mobilisé une aide financière de la région. Elle nous a aussi aidé sur la nouvelle réglementation des biodéchets. »
+      author: Romain Leichtnam, gérant de la Boulangerie du Vieux Four, Gironde (33)
+      published: true
+    financer-projet:
+      picture: plat-o-repas.jpg
+      content: « Je développe une activité de traiteur dans l’évènementiel et de portage de repas à destination des personnes âgées. J’ai utilisé le service car je souhaitais réaliser des investissements pour rénover le laboratoire et créer un espace boutique épicerie fine plus adapté pour recevoir les clients.  Un conseiller de la CCI est venu sur place et a mobilisé une aide de la communauté d’agglomération (Action cœur de ville), ainsi qu’une aide régionale pour le soutien à la reprise. Il m’a enfin conseillé sur les questions d’accessibilité des locaux. »
+      author: Morgan Jacquemard, dirigeant de Plat’O Repas, Oise (60)
+      published: true
+    formalites-entreprise-statut: temoignage manquant
+    former: temoignage manquant
+    former-risques-professionnels: temoignage manquant
+    handicap-entreprise:
+      picture: eurofins.jpg
+      content: « Nous avons d’abord été contactés par le Cap emploi 69, qui nous a accompagné concernant le recrutement de salariés en situation de handicap, ainsi qu’au sujet de l’aménagement de postes au sein de l’entreprise. L’Agefiph nous a également rappelés et partagé des informations pour la rédaction de notre plan d’action, tout en offrant un accompagnement global sur ce sujet pour notre politique RH. »
+      author: Laura Zanette, assistante RH mission handicap à Eurofins Biologie Médicale, Rhône (69)
+      published: true
+    international:
+      picture: france-konjacs.jpg
+      content: « Je développe une filière de konjac 100% française en partenariat avec une entreprise japonaise. Les Douanes m’ont orienté vers ce service en m’indiquant qu’il me permettrait de poser mes questions concernant le développement de mon activité. J’ai été rappelée et renseignée par la Chambre de Commerce, ainsi que par les services de l’INPI, qui m’ont reçue et ont permis à France Konjac d’entrer dans leur dispositif d’accompagnement des entreprises innovantes. J’ai depuis déposé plusieurs demandes et à chaque fois j’ai été très satisfaite des prises de contact qui ont suivi. »
+      author: Nhung Nguyen-Deroche, fondatrice de France-Konjac, Maine-et-Loire (49)
+      published: true
+    litige:
+      picture: excelhemp.jpg
+      content: « Nous avons rencontré des difficultés avec les banques lors de la création de l’entreprise, difficultés liées à notre domaine d’activité. Le contact avec le service a été facile et les réponses apportées d’une grande aide. Ils nous ont orienté vers le bon interlocuteur et les difficultés ont été levées rapidement. »
+      author: Olivier Vermeersch, co-fondateur d’Excelhemp, Seine-et-Marne (77)
+      published: true
+    nouvelle-offre-produit-service:
+      picture: biere-qui-roule.jpg
+      content: « La Bière qui roule est une micro brasserie ambulante. J’ai utilisé le service afin de construire de nouvelles offres et de nouveaux partenariats autour de l’animation-brassage de bière lors d’évènements publics ou privés. Des interlocuteurs qualifiés m’ont contacté pour m’accompagner dans ma démarche de développement. Faire vivre son entreprise est un sacré parcours, j’ai apprécié pouvoir bénéficier de diverses aides au soutien de mon concept ! »
+      author: Nicolas Lalau, Dirigeant de La Bière qui roule, Nord (59)
+      published: true
+    obligations-sante-securite:
+      picture: chill-and-bliss.jpg
+      content: « Je suis très satisfaite de l’aide apportée par ce service. La réponse à ma demande a été rapide et on m’a donné les renseignements dont j’avais besoin. J’ai été aiguillée vers les interlocuteurs adéquats pour mettre en place le document unique d’évalutation des risques professionnels dans mon restaurant. »
+      author: Guilaine Guilbault, gérante de Chill & Bliss, Morbihan (56)
+      published: true
+    organisation-du-travail: temoignage manquant
+    preparer-le-depart-ou-la-reconversion-de-salaries: temoignage manquant
+    projet-immobilier: temoignage manquant
+    projet-innovation:
+      picture: data-officer-ai.jpg
+      content: « J’ai utilisé le service pour avoir un accompagnement sur le statut “Jeune Entreprise Innovante (JEI)”. Il nous semblait intéressant que notre startup puisse bénéficier de ce statut avantageux. Un expert fiscaliste de la Direction générale des Finances publiques a vérifié avec nous que les conditions étaient bien remplies. À l’aide d’un exemple anonymisé, il nous a ensuite expliqué comment rédiger un dossier justificatif de dépenses en Recherche et Développement. »
+      author: Pierre-Jean Hellaudais, président de Data.Officer.ai, Val-de-Marne (94)
+      published: true
+    proteger-vos-donnees:
+      picture: atlantique-expertise-maritime.png
+      content: "« L’accompagnement s’est bien passé, le conseiller CCI avec lequel j’ai été mis en relation s’était renseigné au sujet de mon entreprise et de son site en amont de notre échange. J’ai particulièrement apprécié la précision du conseil : il m’a transmis des informations claires qui me permettront de protéger et mettre en conformité les données de mon entreprise. »"
+      author: Kévin Henaf, gérant d’Atlantique Expertise Maritime, Charente-Maritime (17)
+      published: false
+    qualite-de-vie-au-travail: pour améliorer les conditions de travail de leurs salariés.
+    recruter:
+      picture: paint-me-up.jpg
+      content: « J’ai été satisfait de l’accompagnement que j’ai reçu pour le recrutement d’un étudiant. Mon contact chez Pôle emploi m’a fourni des informations claires sur les aides disponibles et m’a guidé dans les démarches pour le recrutement. Cela m’a permis de gagner du temps, chose très utile lorsque l’on est seul à gérer son entreprise. »
+      author: Bryce Poyac, gérant de Paint me up, Seine-et-Marne (77)
+      published: true
+    reduction-impots: temoignage manquant
+    reprendre-entreprise: temoignage manquant
+    strategie: temoignage manquant
+    transport-mobilite: temoignage manquant
+    tresorerie: temoignage manquant
+    vendre-entreprise: temoignage manquant
+    vendre-sur-internet: temoignage manquant
+    visibilite-sur-internet: temoignage manquant

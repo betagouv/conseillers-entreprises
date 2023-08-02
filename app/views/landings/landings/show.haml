@@ -12,7 +12,7 @@
             .home-title
               .heading
                 - if @landing.main_logo
-                  = display_image(name: @landing.main_logo, extra_params: { class: 'fr-mr-2w' })
+                  = display_logo(name: @landing.main_logo, extra_params: { class: 'fr-mr-2w' })
                 %h1.fr-m-0= @landing.title
               %p.fr-mt-3w= t('landings.landings.home.answer')
               .fr-grid-row#links
@@ -32,7 +32,7 @@
 
   - unless in_iframe?
     .fr-container-fluid.section-grey.landing
-      = render 'pages/how_it_works'
+      = render 'pages/how_it_works_short'
 
     .fr-container.fr-py-7w
       = render 'logos', landing: @landing

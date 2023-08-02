@@ -1,9 +1,11 @@
-.fr-stepper.fr-mb-0
-  %h2.fr-stepper__title
-    %span.fr-stepper__state= t('step_number', actual: step_data[:current_step], total: step_data[:total_steps])
-    = t("solicitations.creation_form.steps.#{step_data[:current_status]}")
-  .fr-stepper__steps{ 'data-fr-current-step': step_data[:current_step], 'data-fr-steps': step_data[:total_steps] }
-  - if step_data[:current_step] < step_data[:total_steps]
-    %p.fr-stepper__details
-      %span.fr-text--bold Étape suivante :
-      = t("solicitations.creation_form.steps.#{Solicitation.incompleted_statuses[step_data[:current_step]]}")
+.fr-grid-row.fr-py-7w
+  .fr-col-12.fr-col-md-6.fr-col-offset-md-3
+    .fr-stepper.fr-mb-0
+      %h2.fr-stepper__title
+        %span.fr-stepper__state= t('step_number', actual: step_data[:current_step], total: step_data[:total_steps])
+        = t("solicitations.creation_form.steps.#{step_data[:current_status]}")
+      .fr-stepper__steps{ 'data-fr-current-step': step_data[:current_step], 'data-fr-steps': step_data[:total_steps] }
+      - if step_data[:current_step] < step_data[:total_steps]
+        %p.fr-stepper__details
+          %span.fr-text--bold Étape suivante :
+          = t("solicitations.creation_form.steps.#{Solicitation.incompleted_statuses[step_data[:current_step]]}")

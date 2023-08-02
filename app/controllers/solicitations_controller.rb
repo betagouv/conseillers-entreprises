@@ -4,6 +4,7 @@ class SolicitationsController < PagesController
   layout 'solicitation_form'
 
   before_action :prevent_completed_solicitation_modification, except: [:new, :create, :form_complete]
+  before_action :calculate_needs_count
 
   # Step contact
   #
@@ -216,6 +217,16 @@ class SolicitationsController < PagesController
     if @solicitation&.step_unmodifiable?
       flash.alert = I18n.t('solicitations.creation_form.already_submitted_solicitation')
       redirect_to root_path
+    end
+  end
+
+  def calculate_needs_count
+    Rails.cache.fetch(@landing_subject.subject, expires_in: 12.hours) do
+      @needs_count ||= Need
+        .by_subject(@landing_subject.subject)
+        .min_closed_at(1.year.ago..Date.today)
+        .pluck(:id)
+        .size
     end
   end
 end

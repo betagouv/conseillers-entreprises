@@ -1,7 +1,7 @@
 module ImagesHelper
   EXTENSIONS = %w[png svg jpg jpeg]
 
-  def display_image(name: "", path: "", extra_params: {})
+  def display_logo(name: "", path: "", extra_params: {})
     return if name.blank?
     slug = name.parameterize
     possible_paths = EXTENSIONS.map{ |e| "#{path}#{slug}.#{e}" }
@@ -24,6 +24,6 @@ module ImagesHelper
   private
 
   def display_all_logos(logos, path)
-    logos.map { |l| display_image(name: l.filename, path: path) }.join.html_safe
+    logos.map { |l| display_logo(name: l.filename, path: path) }.join.html_safe
   end
 end
