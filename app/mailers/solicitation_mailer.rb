@@ -25,10 +25,6 @@ class SolicitationMailer < ApplicationMailer
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 
-  def particular_retirement(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
   def independent_tva(solicitation)
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
@@ -42,6 +38,10 @@ class SolicitationMailer < ApplicationMailer
   end
 
   def no_expert(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
+
+  def no_expert_juridique(solicitation)
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 

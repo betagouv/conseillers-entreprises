@@ -7,8 +7,8 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.employee_labor_law(random_solicitation)
   end
 
-  def particular_retirement
-    SolicitationMailer.particular_retirement(random_solicitation)
+  def no_expert_juridique
+    SolicitationMailer.no_expert_juridique(random_solicitation)
   end
 
   def creation

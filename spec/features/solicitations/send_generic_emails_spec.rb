@@ -23,8 +23,8 @@ describe 'send generic emails' do
     expect(page.html).to include I18n.t('emails.sent')
   end
 
-  it 'send particular_retirement email' do
-    click_link I18n.t('solicitations.solicitation_actions.emails.particular_retirement')
+  it 'send no_expert_juridique email' do
+    click_link I18n.t('solicitations.solicitation_actions.emails.no_expert_juridique')
     expect(page.html).to include I18n.t('emails.sent')
   end
 

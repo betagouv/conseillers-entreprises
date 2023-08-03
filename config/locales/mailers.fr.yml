@@ -207,11 +207,12 @@ fr:
         profession_liberale_html: 'pour être conseillé sur vos formalités en tant que <b>profession libérale</b> : <a href=''https://www.oniffpl.fr/vos-oriffs''>https://www.oniffpl.fr/vos-oriffs</a>'
         service_improvement_html: C’est en détectant de nouvelles problématiques que nous pouvons améliorer ce service public.<strong> Nous faisons notre maximum pour compléter l’expertise</strong>.
         useful_links: 'Liens utiles selon votre démarche :'
-      particular_retirement:
-        for_companies: Il s’agit néanmoins d’un service public destiné aux chefs d’entreprises.
-        no_responses: Nous ne sommes donc pas en mesure malheureusement de vous apporter une réponse.
-        phone_contact_html: Nous vous invitons à <b>contacter le 3960</b> pour avoir directement un conseiller concernant votre retraite.
-        solicitation_subject: concernant vos droits à la retraite
+      no_expert_juridique:
+        avocat_html: "<b>Permanence gratuite d’avocat(e)</b> : <a href='https://www.service-public.fr/particuliers/vosdroits/F20706'>https://www.service-public.fr/particuliers/vosdroits/F20706</a>"
+        no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique juridique dans votre secteur d’activité.
+        point_acces_droits_html: "<b>Point d’accès au droit</b> : <a href='https://www.justice.fr/themes/acces-droit-point-justice'>https://www.justice.fr/themes/acces-droit-point-justice</a>"
+        service_improvement_html: C’est en détectant de nouvelles problématiques que nous pouvons améliorer ce service et compléter l’expertise.
+        useful_links: 'En attendant, ces contacts peuvent vous être utiles dans votre démarche :'
       recruitment_foreign_worker:
         interior_ministry_html: 'La demande d’autorisation de travail relève d’un service en ligne du Ministère de l’Intérieur : <a href=''https://administration-etrangers-en-france.interieur.gouv.fr/immiprousager/#/authentification''>https://administration-etrangers-en-france.interieur.gouv.fr</a>.'
         phone_number_html: 'Pour plus d’informations : <b>0806 001 620</b> (appel gratuit).'
@@ -231,7 +232,7 @@ fr:
     team_pde: L’équipe Place des Entreprises
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service de mise en relation.
-    thanks_for_your_comprehension: Merci pour votre compréhension.
+    thanks_for_your_comprehension: Nous vous remercions pour votre compréhension.
     thanks_for_your_trust: Merci pour votre confiance,
     user_mailer:
       match_feedback:

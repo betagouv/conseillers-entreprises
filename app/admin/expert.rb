@@ -31,9 +31,11 @@ ActiveAdmin.register Expert do
         div '✆ ' + (e.phone_number || '')
       end
     end
-    column(:institution) do |e|
+    column(:institution_antenne) do |e|
       div admin_link_to(e, :institution)
-      div admin_link_to(e, :antenne)
+      div class: 'bold' do
+        admin_link_to(e, :antenne)
+      end
     end
     column(:intervention_zone) do |e|
       if e.is_global_zone
