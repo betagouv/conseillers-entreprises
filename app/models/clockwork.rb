@@ -9,9 +9,6 @@ module Clockwork
   every(1.week, 'send_experts_reminders', at: 'Tuesday 9:00') do
     ExpertReminderService.delay(queue: :low_priority).send_reminders
   end
-  every(1.week, 'delete_unused_users', at: 'sunday 9:00') do
-    UnusedUsersService.delay.delete_users
-  end
   every(1.week, 'anonymize_old_diagnoses', at: 'sunday 5:00') do
     `rake anonymize_old_diagnoses`
   end

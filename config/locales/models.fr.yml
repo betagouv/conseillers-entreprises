@@ -81,8 +81,10 @@ fr:
       not_archived: Non archivés
       not_invited: Invitations non envoyées
       not_taken_after_3_weeks: 3 semaines sans réponse
+      old_active_invitation_not_accepted: Invitations non acceptées (+ de 6 mois)
       opco: Opco
       personal_skillsets: Individuel
+      recent_active_invitation_not_accepted: Invitations non acceptées (- de 6 mois)
       relevant_for_skills: Compétences visibles
       sent: Mises en relation envoyées
       status_step_company: Étape entreprise
