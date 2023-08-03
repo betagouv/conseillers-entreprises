@@ -6,10 +6,15 @@ module XlsxExport
 
         add_agglomerate_headers(:region)
 
+        needs_by_territories = {}
+
         Territory.deployed_regions.each do |region|
-          needs = @needs.by_region(region.id)
+          needs_by_territories[region.name] = @needs.by_region(region.id)
+        end
+
+        needs_by_territories.sort_by { |_, needs| -needs.count }.each do |region_name, needs|
           ratio = calculate_rate(needs.count, @needs)
-          add_agglomerate_rows(needs, region.name, ratio)
+          add_agglomerate_rows(needs, region_name, ratio)
         end
 
         finalise_agglomerate_style
