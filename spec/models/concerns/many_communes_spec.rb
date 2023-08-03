@@ -31,7 +31,7 @@ RSpec.describe ManyCommunes do
         before { territory.insee_codes = raw_codes }
 
         it do
-          expect(territory).to be_invalid
+          expect(territory).not_to be_valid
           expect(territory.errors.details).to eq({ insee_codes: [{ error: :invalid_insee_codes }] })
         end
       end
