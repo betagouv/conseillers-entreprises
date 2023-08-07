@@ -239,6 +239,10 @@ class Need < ApplicationRecord
     where(status: [:done, :done_no_help, :done_not_reachable])
   end
 
+  scope :taken_care_of, -> do
+    where(status: [:done, :done_no_help, :done_not_reachable, :taking_care])
+  end
+
   scope :quo_active, -> do
     range = Range.new(Need::REMINDERS_DAYS[:abandon]&.days&.ago, nil)
     status_quo.matches_sent_at(range)

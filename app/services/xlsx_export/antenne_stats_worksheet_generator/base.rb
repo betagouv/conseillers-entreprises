@@ -16,6 +16,8 @@ module XlsxExport
         finalise_style
       end
 
+      private
+
       def generate_base_stats
         sheet.add_row [I18n.t('antenne_stats_exporter.subtitle')], style: @subtitle
         sheet.add_row
@@ -57,15 +59,14 @@ module XlsxExport
           I18n.t('antenne_stats_exporter.percentage')
         ], style: count_rate_header_style
 
-        (0...ordered_statuses.size).to_a.each do |index|
-          match_status = ordered_statuses[index]
-          match_status_size = matches.send("status_#{match_status}")&.size
-          sheet.add_row [
-            I18n.t("activerecord.attributes.match/statuses/short.#{match_status}"),
-            match_status_size,
-            calculate_rate(match_status_size, matches)
-          ], style: count_rate_row_style
-        end
+        # Besoins transmis
+        sheet.add_row [
+          I18n.t('antenne_stats_exporter.transmitted_needs'),
+          matches.size
+        ], style: count_rate_row_style
+
+        add_status_rows(ordered_scopes, matches)
+
         sheet.add_row
       end
 
@@ -76,16 +77,26 @@ module XlsxExport
           I18n.t('antenne_stats_exporter.percentage')
         ], style: count_rate_header_style
 
-        (0...ordered_statuses.size).to_a.each do |index|
-          need_status = ordered_statuses[index]
-          need_status_size = @needs.send("status_#{need_status}")&.size if need_status.present?
+        # Besoins transmis
+        sheet.add_row [
+          I18n.t('antenne_stats_exporter.transmitted_needs'),
+          @needs.size
+        ], style: count_rate_row_style
+
+        add_status_rows(ordered_scopes, @needs)
+
+        sheet.add_row
+      end
+
+      def add_status_rows(scopes, recipient)
+        scopes.each do |scope|
+          by_status_size = recipient.send(scope)&.size
           sheet.add_row [
-            need_status.present? ? I18n.t("activerecord.attributes.need/statuses/csv.#{need_status}") : nil,
-            need_status_size || nil,
-            calculate_rate(need_status_size, @needs)
+            I18n.t("antenne_stats_exporter.funnel.#{scope}"),
+            by_status_size,
+            calculate_rate(by_status_size, recipient)
           ], style: count_rate_row_style
         end
-        sheet.add_row
       end
 
       def finalise_style
@@ -113,6 +124,10 @@ module XlsxExport
 
       def facilities
         @facilities ||= Facility.joins(diagnoses: :needs).where(diagnoses: { needs: @needs }).distinct
+      end
+
+      def ordered_scopes
+        @ordered_scopes ||= [:not_status_quo, :status_not_for_me, :taken_care_of, :status_done, :status_done_no_help, :status_done_not_reachable, :status_taking_care, :status_quo]
       end
 
       def ordered_statuses
