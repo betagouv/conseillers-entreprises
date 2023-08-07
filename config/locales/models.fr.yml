@@ -712,7 +712,7 @@ fr:
     needs_count: Nb de besoins
     needs_percentage: Part des besoins
     not_for_me_caption_definition: L’expert n’a pas appelé l’entreprise car il sait d’emblée qu’il ne pourra pas l’aider, il refuse le besoin.
-    not_for_me_caption_label: Refusé
+    not_for_me_caption_label: Taux de refus
     not_for_me_rate: Taux de refus
     percentage: Pourc.
     positionning_accepted_caption_definition: Part des besoins pour lesquels les experts ont indiqué prendre en charge en appelant l’entreprise, toutes clôtures confondues (aide proposée, injoignage, pas d’aide).
@@ -735,7 +735,7 @@ fr:
     take_care_rate: Taux de prise en charge
     taking_care: "- dont en cours de traitement"
     taking_care_caption_definition: Besoins pris en charge par un expert, qui n’a pas encore été clôturé après l’appel de l’entreprise.
-    taking_care_caption_label: Pris en charge
+    taking_care_caption_label: En cours de traitement
     total: Tous sujets
     transmitted_needs: Besoins transmis
     year_stats: Stats ann.
