@@ -14,7 +14,7 @@ module XlsxExport
 
         needs_by_antennes.sort_by { |_, needs| -needs.count }.each do |antenne_name, needs|
           ratio = calculate_rate(needs.count, @needs)
-          add_agglomerate_rows(needs, antenne_name, ratio)
+          add_agglomerate_rows(needs, antenne_name, @antenne, ratio)
         end
 
         finalise_agglomerate_style

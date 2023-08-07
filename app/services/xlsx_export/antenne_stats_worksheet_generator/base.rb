@@ -200,8 +200,8 @@ module XlsxExport
         ], style: [@left_header, @right_header, @right_header, @right_header, @right_header, @right_header]
       end
 
-      def add_agglomerate_rows(needs, row_title, ratio = nil)
-        matches = @antenne.perimeter_received_matches_from_needs(needs)
+      def add_agglomerate_rows(needs, row_title, recipient, ratio = nil)
+        matches = recipient.perimeter_received_matches_from_needs(needs)
         positionning_size = calculate_positionning_status_size(:positionning, matches)
         positionning_accepted_size = calculate_positionning_status_size(:positionning_accepted, matches)
         done_size = calculate_positionning_status_size(:done, matches)
