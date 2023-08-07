@@ -101,11 +101,11 @@ module XlsxExport
 
       def finalise_style
         [
-          'A1:G1',
-          'A2:G2',
+          'A1:E1',
+          'A2:E2',
         ].each { |range| sheet.merge_cells(range) }
 
-        sheet.column_widths 50, 8, 8
+        sheet.column_widths 50, 15, 15, 15, 15
       end
 
       # Base variables
@@ -170,17 +170,17 @@ module XlsxExport
       # Style
       #
       def create_styles(s)
-        @subtitle     = s.add_style bg_color: 'DD', sz: 14, b: true, alignment: { horizontal: :center, vertical: :center }
+        @subtitle     = s.add_style bg_color: 'eadecd', sz: 14, b: true, alignment: { horizontal: :center, vertical: :center }, border: { color: 'AAAAAA', style: :thin }
         @bold         = s.add_style b: true
-        @left_header  = s.add_style bg_color: 'FFDFDEDF', b: true, alignment: { horizontal: :left }
-        @right_header = s.add_style bg_color: 'FFDFDEDF', b: true, alignment: { horizontal: :right }
+        @left_header  = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :left }, border: { color: 'AAAAAA', style: :thin }
+        @right_header = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :right }, border: { color: 'AAAAAA', style: :thin }
         @label        = s.add_style alignment: { indent: 1 }
         @rate         = s.add_style format_code: '#0.0%'
         s
       end
 
       def count_rate_header_style
-        [@left_header, @right_header, @right_header, nil, @left_header, @right_header, @right_header]
+        [@left_header, @right_header, @right_header, @right_header, @right_header]
       end
 
       def count_rate_row_style
@@ -217,7 +217,7 @@ module XlsxExport
 
       def finalise_agglomerate_style
         [
-          'A1:G1',
+          'A1:F1',
         ].each { |range| sheet.merge_cells(range) }
 
         sheet.column_widths 50, 15, 25, 25, 25, 25

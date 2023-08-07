@@ -684,7 +684,7 @@ fr:
     closed_not_reachable: "- dont clôturés par « injoignable »"
     closed_with_help: "- dont clôturés par « aide proposée »"
     closed_without_help: "- dont clôturés par « pas d’aide »"
-    count: Nb
+    count: Nombre
     done_caption_definition: Besoin pris en charge par un expert et clôturé par une proposition d’aide au sens large (conseils, accompagnement technique, aide financière).
     done_caption_label: Aide proposée
     done_no_help_caption_definition: Besoin pris en charge par un expert mais l’échange téléphonique n’a pu aboutir à une proposition d’aide (critère non rempli, situation spécifique...).
@@ -714,7 +714,7 @@ fr:
     not_for_me_caption_definition: L’expert n’a pas appelé l’entreprise car il sait d’emblée qu’il ne pourra pas l’aider, il refuse le besoin.
     not_for_me_caption_label: Taux de refus
     not_for_me_rate: Taux de refus
-    percentage: Pourc.
+    percentage: Pourcentage
     positionning_accepted_caption_definition: Part des besoins pour lesquels les experts ont indiqué prendre en charge en appelant l’entreprise, toutes clôtures confondues (aide proposée, injoignage, pas d’aide).
     positionning_accepted_caption_label: Taux de prise en charge
     positionning_accepted_rate: Taux de prise en charge

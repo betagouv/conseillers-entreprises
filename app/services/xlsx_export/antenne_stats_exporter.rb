@@ -9,7 +9,7 @@ module XlsxExport
     def xlsx
       p = Axlsx::Package.new
       wb = p.workbook
-      title = wb.styles.add_style bg_color: 'DD', sz: 16, b: true, alignment: { horizontal: :center, vertical: :center }
+      title = wb.styles.add_style bg_color: 'eadecd', sz: 16, b: true, alignment: { horizontal: :center, vertical: :center }, border: { color: 'AAAAAA', style: :thin }
       needs = @antenne.perimeter_received_needs
       year_start_date = @start_date.beginning_of_year
 
