@@ -738,6 +738,8 @@ fr:
     taking_care_caption_label: En cours de traitement
     total: Tous sujets
     transmitted_needs: Besoins transmis
+    without_response_caption_definition: Part des besoins pour lesquels les experts n’ont rien indiqué
+    without_response_caption_label: Taux de sans réponse
     year_stats: Stats ann.
     year_stats_by_subject: Stats ann. par sujet
   archivable:

@@ -17,6 +17,7 @@ module XlsxExport
         sheet.add_row [I18n.t('antenne_stats_exporter.done_no_help_caption_label'), I18n.t('antenne_stats_exporter.done_no_help_caption_definition')], style: caption_row_style
         sheet.add_row [I18n.t('antenne_stats_exporter.done_not_reachable_caption_label'), I18n.t('antenne_stats_exporter.done_not_reachable_caption_definition')], style: caption_row_style
         sheet.add_row [I18n.t('antenne_stats_exporter.taking_care_caption_label'), I18n.t('antenne_stats_exporter.taking_care_caption_definition')], style: caption_row_style
+        sheet.add_row [I18n.t('antenne_stats_exporter.without_response_caption_label'), I18n.t('antenne_stats_exporter.without_response_caption_definition')], style: caption_row_style
         sheet.add_row
 
         finalise_style
