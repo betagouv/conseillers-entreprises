@@ -281,6 +281,7 @@ Rails.application.routes.draw do
   controller :about do
     get :comment_ca_marche
     get :cgu
+    get :equipe
     get :mentions_d_information
     get :mentions_legales
     get :accessibilite

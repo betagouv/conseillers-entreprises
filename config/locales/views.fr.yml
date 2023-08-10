@@ -18,6 +18,10 @@ fr:
       read_transcription: Lire la transcription
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
+    equipe:
+      subtitle: Une petite équipe investie est à votre disposition pour répondre à vos questions. N'hésitez pas à nous écrire et partager vos idées pour améliorer le service.
+      title: L’équipe
+      title_long: Une équipe à votre service pour avancer ensemble !
     index_testimonials:
       business_owners: Ces chefs d’entreprises utilisent déjà le service. Et vous ?
       testimonial_1_author_html: Clément Francomme<br /> CEO de <strong>UTOCAT</strong> (10 à 19 salariés)
@@ -558,6 +562,7 @@ fr:
       service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Place des Entreprises
       startup_d_etat: Une startup d’État de beta.gouv
       twitter_title: Compte twitter de Place des Entreprises
+      who_are_we: Qui sommes-nous ?
     how_it_works_long:
       choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>

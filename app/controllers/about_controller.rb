@@ -17,4 +17,6 @@ class AboutController < PagesController
     @ld_json = FaqGenerator.new(I18n.t('faq').values).to_ld_json
     @faq = FaqGenerator.new(I18n.t('faq').values).to_html
   end
+
+  def equipe; end
 end
