@@ -12,8 +12,8 @@ class UpdateAntenneCoverage
       experts_without_specific_territories = get_experts_without_specific_territories(antenne_insee_codes, institution_subject)
       experts_with_specific_territories = get_experts_with_specific_territories(antenne_insee_codes, institution_subject)
 
-      experts_without_specific_territories.each{ |expert| subject_hash[expert.insee_code] << expert.id }
-      experts_with_specific_territories.each{ |expert| subject_hash[expert.insee_code] << expert.id }
+      experts_without_specific_territories.each{ |expert| subject_hash[expert.insee_code] << { expert_id: expert.id, users_ids: expert.users.ids } }
+      experts_with_specific_territories.each{ |expert| subject_hash[expert.insee_code] << { expert_id: expert.id, users_ids: expert.users.ids } }
 
       register_coverage(institution_subject, subject_hash)
     end
@@ -52,8 +52,8 @@ class UpdateAntenneCoverage
     end
   end
 
-  def good_coverage(institution_subject, code_experts_hash)
-    all_experts = code_experts_hash.values.flatten.uniq
+  def good_coverage(institution_subject, code_experts_users_hash)
+    all_experts = all_experts_ids(code_experts_users_hash)
     get_rc(institution_subject).update(
       coverage: get_coverage(all_experts),
       anomalie: :no_anomalie,
@@ -64,9 +64,9 @@ class UpdateAntenneCoverage
   #- que des experts avec communes, et somme des communes < antenne.communes
   #- /!\ et pas d'expert global sur le sujet
   #- /!\ et pas d'expert de l'antenne ou de la région sur le sujet sans code commune
-  def missing_insee_codes(institution_subject, code_experts_hash)
-    missing_codes = code_experts_hash.select{ |k,v| v.empty? }.keys
-    all_experts = code_experts_hash.values.flatten.uniq
+  def missing_insee_codes(institution_subject, code_experts_users_hash)
+    missing_codes = code_experts_users_hash.select{ |k,v| v.empty? }.keys
+    all_experts = all_experts_ids(code_experts_users_hash)
     get_rc(institution_subject).update(
       coverage: get_coverage(all_experts),
       anomalie: :missing_insee_codes,
@@ -79,11 +79,11 @@ class UpdateAntenneCoverage
   #- + d'un expert sans commune
   #- des experts avec communes + au moins un expert sans commune
   #- que des experts avec communes, et sommes des communes > antenne.communes
-  def extra_insee_codes(institution_subject, code_experts_hash)
-    extra_objects = code_experts_hash.select{ |k,v| v.size > 1 }
+  def extra_insee_codes(institution_subject, code_experts_users_hash)
+    extra_objects = code_experts_users_hash.select{ |k,v| v.size > 1 }
     extra_codes = extra_objects.keys
-    extra_experts = extra_objects.values.flatten.uniq
-    all_experts = code_experts_hash.values.flatten.uniq
+    extra_experts = all_experts_ids(extra_objects)
+    all_experts = all_experts_ids(code_experts_users_hash)
     get_rc(institution_subject).update(
       coverage: get_coverage(all_experts),
       anomalie: :extra_insee_codes,
@@ -126,5 +126,9 @@ class UpdateAntenneCoverage
       @antenne.institution.antennes.territorial_level_national.pluck(:id),
       @antenne&.territorial_antennes&.pluck(:id)
     ].compact.flatten
+  end
+
+  def all_experts_ids(code_experts_users_hash)
+    code_experts_users_hash.values.flatten.uniq.pluck(:expert_id)
   end
 end
