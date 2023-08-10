@@ -179,7 +179,7 @@ ActiveAdmin.register User do
                 search_fields: [:name]
               }
       f.input :experts, as: :ajax_select,
-              collection: resource.experts,
+              collection: resource&.antenne&.experts,
               data: {
                 url: :admin_experts_path,
                 search_fields: [:full_name],
