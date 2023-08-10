@@ -3,7 +3,7 @@
 - content_for :form_header do
   - if @landing_subject&.form_description.present?
     .fr-highlight.fr-ml-0
-      %h2.fr-h3= t('solicitations.creation_form.accompaniments')
+      %h2.fr-h5.fr-mb-2w= t('solicitations.creation_form.accompaniments')
       = sanitize @landing_subject&.form_description&.html_safe
       .contact-delay.fr-mt-4w
         %span.ri-phone-fill.blue{ 'aria-hidden': 'true' }
@@ -64,7 +64,7 @@
       .fr-container.fr-my-8w.temoignage
         %figure.fr-quote.fr-quote--column
           %blockquote
-            %p= temoignage.content
+            %p.fr-text--lg= temoignage.content
           %figcaption
             %p.fr-quote__author= temoignage.author
             .fr-quote__image
