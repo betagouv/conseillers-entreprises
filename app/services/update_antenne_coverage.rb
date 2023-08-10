@@ -14,7 +14,6 @@ class UpdateAntenneCoverage
 
       experts_without_specific_territories.each{ |expert| subject_hash[expert.insee_code] << { expert_id: expert.id, users_ids: expert.users.ids } }
       experts_with_specific_territories.each{ |expert| subject_hash[expert.insee_code] << { expert_id: expert.id, users_ids: expert.users.ids } }
-
       register_coverage(institution_subject, subject_hash)
     end
   end
@@ -47,6 +46,8 @@ class UpdateAntenneCoverage
       missing_insee_codes(institution_subject, subject_hash)
     elsif subject_hash.values.any?{ |a| a.uniq.size > 1 }
       extra_insee_codes(institution_subject, subject_hash)
+    elsif subject_hash.values.flatten.pluck(:users_ids).all?([])
+      no_user(institution_subject, subject_hash)
     else
       good_coverage(institution_subject, subject_hash)
     end
@@ -99,6 +100,17 @@ class UpdateAntenneCoverage
       coverage: nil,
       anomalie: :no_expert,
       anomalie_details: nil
+    )
+  end
+
+  def no_user(institution_subject, code_experts_users_hash)
+    all_experts = all_experts_ids(code_experts_users_hash)
+    get_rc(institution_subject).update(
+      coverage: get_coverage(all_experts),
+      anomalie: :no_user,
+      anomalie_details: {
+        experts: all_experts
+      }
     )
   end
 

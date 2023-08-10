@@ -25,5 +25,5 @@ class ReferencementCoverage < ApplicationRecord
   belongs_to :antenne
   belongs_to :institution_subject
 
-  enum anomalie: { no_anomalie: 0, no_expert: 1, missing_insee_codes: 2, extra_insee_codes: 3 }
+  enum anomalie: { no_anomalie: 0, no_expert: 1, missing_insee_codes: 2, extra_insee_codes: 3, no_user: 4 }
 end
