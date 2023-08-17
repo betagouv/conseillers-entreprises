@@ -416,15 +416,16 @@ fr:
         missing_insee_codes: Experts manquants dans certaines communes
         no_anomalie: Pas d’anomalie
         no_expert: Aucun expert
+        no_user: Aucun utilisateur
       referencement_coverage/anomalie_details:
         experts: Experts concernés
         extra_insee_codes: Codes insee couverts par plusieurs experts
         missing_insee_codes: Codes insee non couverts
       referencement_coverage/coverage:
         long:
-          local: antenne locale
+          local: Antenne locale
           mixte: Mixte (locale + régionale)
-          regional: antenne régionale
+          regional: Antenne régionale
         short:
           local: L
           mixte: L + R
