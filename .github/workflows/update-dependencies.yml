@@ -1,8 +1,8 @@
-name: "Bundle Update"
+name: "Update dependencies"
 
 on:
   schedule:
-    - cron: '0,15,30,45 * * * *'
+    - cron: '0 0 1-7,14-20 * 4'
 jobs:
   updates:
     runs-on: ubuntu-latest
@@ -10,7 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
       - name: install bundler
