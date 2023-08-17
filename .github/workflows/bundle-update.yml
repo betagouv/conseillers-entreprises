@@ -1,0 +1,49 @@
+name: "Bundle Update"
+
+on:
+  schedule:
+    - cron: '0,15,30,45 * * * *'
+  push:
+    branches:
+      - '**'
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: place_des_entreprises_test
+          POSTGRES_USER: place_des_entreprises_test
+          POSTGRES_PASSWORD: place_des_entreprises_test
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        with:
+          bundler-cache: true
+      - name: install bundler
+        run: gem install bundler
+      - name: config unset deployment
+        run: bundle config unset deployment
+      - name: bundle update
+        run: bin/bundle update
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+      - name: Upgrade Node modules
+        run: yarn upgrade
+        shell: bash
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: 'update-dependencies'
+          branch-suffix: 'timestamp'
+          title: 'Update depedencies'
