@@ -78,7 +78,7 @@ module CsvImport
       return attempted.first if opened_files.empty?
 
       # Find the separator that find the most headers
-      best_index = opened_files.map(&:headers).map(&:count).each_with_index.max.second
+      best_index = opened_files.map { |x| x.headers.count }.each_with_index.max.second
       opened_files[best_index]
     end
 
