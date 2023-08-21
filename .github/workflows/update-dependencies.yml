@@ -2,7 +2,8 @@ name: "Update dependencies"
 
 on:
   schedule:
-    - cron: '0 0 1-7,14-20 * 4'
+    - cron: '0 0 1-7 * 4'
+    - cron: '0 0 14-20 * 4'
 jobs:
   updates:
     runs-on: ubuntu-latest
@@ -30,7 +31,6 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           branch: 'update-dependencies'
-          branch-suffix: timestamp
           commit-message: 'Update depedencies'
           title: 'Update depedencies'
           base: main
