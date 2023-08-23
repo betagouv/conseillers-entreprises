@@ -26,7 +26,7 @@ gem 'sassc-rails'
 gem 'terser'
 gem 'premailer-rails'
 gem 'css_parser'
-gem 'webpacker'
+gem 'webpacker', '6.0.0.rc.6'
 
 # Parallel processes
 gem 'clockwork'
