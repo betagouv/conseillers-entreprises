@@ -1,5 +1,8 @@
 const { webpackConfig, merge } = require('@rails/webpacker');
 const customConfig = {
+  resolve: {
+    extensions: ['.js', '.css', '.scss', '.sass']
+  },
   module: {
     rules: [
       {
