@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-describe UpdateAntenneCoverage do
+describe AntenneCoverage::Update do
   let(:institution) { create(:institution) }
   let!(:local_antenne) { create(:antenne, :local, institution: institution, communes: communes) }
   let!(:regional_antenne) { create(:antenne, :regional, institution: institution, communes: communes) }

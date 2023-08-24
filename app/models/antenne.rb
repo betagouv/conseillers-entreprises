@@ -263,6 +263,6 @@ class Antenne < ApplicationRecord
   end
 
   def update_antenne_coverage(antenne)
-    DeduplicateCoverageJobsService.new(antenne).call
+    AntenneCoverage::DeduplicatedJob.new(antenne).call
   end
 end

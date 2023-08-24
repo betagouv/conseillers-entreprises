@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-describe DeduplicateCoverageJobsService do
+describe AntenneCoverage::DeduplicatedJob do
 
   describe '#call' do
     let(:institution) { create(:institution) }
