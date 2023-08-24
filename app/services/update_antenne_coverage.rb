@@ -62,9 +62,9 @@ class UpdateAntenneCoverage
     )
   end
 
-  #- que des experts avec communes, et somme des communes < antenne.communes
-  #- /!\ et pas d'expert global sur le sujet
-  #- /!\ et pas d'expert de l'antenne ou de la région sur le sujet sans code commune
+  # - que des experts avec communes, et somme des communes < antenne.communes
+  # - /!\ et pas d'expert global sur le sujet
+  # - /!\ et pas d'expert de l'antenne ou de la région sur le sujet sans code commune
   def missing_insee_codes(institution_subject, code_experts_users_hash)
     missing_codes = code_experts_users_hash.select{ |k,v| v.empty? }.keys
     all_experts = all_experts_ids(code_experts_users_hash)
@@ -77,9 +77,9 @@ class UpdateAntenneCoverage
     )
   end
 
-  #- + d'un expert sans commune
-  #- des experts avec communes + au moins un expert sans commune
-  #- que des experts avec communes, et sommes des communes > antenne.communes
+  # - + d'un expert sans commune
+  # - des experts avec communes + au moins un expert sans commune
+  # - que des experts avec communes, et sommes des communes > antenne.communes
   def extra_insee_codes(institution_subject, code_experts_users_hash)
     extra_objects = code_experts_users_hash.select{ |k,v| v.size > 1 }
     extra_codes = extra_objects.keys

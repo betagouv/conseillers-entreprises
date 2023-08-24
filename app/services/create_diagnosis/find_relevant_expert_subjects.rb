@@ -31,8 +31,8 @@ module CreateDiagnosis
         expert_subjects = expert_subjects.select do |es|
           institution_filter = es.expert.institution.institution_filters.find_by(additional_subject_question_id: need_question_id)
           # On garde les expert_subjects
-          #- qui n'ont pas de filtre sur cette question additionnelle
-          #- qui ont la même filter_value que la solicitation
+          # - qui n'ont pas de filtre sur cette question additionnelle
+          # - qui ont la même filter_value que la solicitation
           institution_filter.nil? || (institution_filter.filter_value == need_value)
         end
       end
@@ -44,8 +44,8 @@ module CreateDiagnosis
         # On retire les filtres sur les sujets autres que celui du besoin
         examined_match_filters = es.match_filters.reject{ |mf| other_subject_filter?(mf) }
         # On garde les experts_subjects
-        #- qui n'ont pas de filtres
-        #- ou bien où au moins un filtre passe
+        # - qui n'ont pas de filtres
+        # - ou bien où au moins un filtre passe
         examined_match_filters.empty? || examined_match_filters.any?{ |mf| accepting(mf) }
       end
     end
