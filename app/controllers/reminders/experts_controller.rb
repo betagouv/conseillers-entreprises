@@ -2,6 +2,7 @@ module Reminders
   class ExpertsController < BaseController
     include Inbox
     helper_method :inbox_collections_counts
+    helper_method :inbox_collections_counts_new
     before_action :persist_filter_params, :setup_territory_filters, :collections_counts, only: %i[index show many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]
     before_action :retrieve_expert, except: %i[index many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]
     before_action :persist_search_params, only: [:quo_active, :taking_care, :done, :not_for_me, :expired]
