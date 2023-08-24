@@ -1,4 +1,6 @@
 class UpdateAntenneCoverage
+  attr_accessor :antenne
+
   def initialize(antenne)
     @antenne = antenne
   end

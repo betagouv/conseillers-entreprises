@@ -9,5 +9,6 @@ Delayed::Worker.queue_attributes = {
   high_priority: { priority: -10 },
   low_priority: { priority: 10 },
   mailers: { priority: -10 },
-  match_notify: { priority: -10 }
+  match_notify: { priority: -10 },
+  antenne_coverage: { priority: -10 }
 }
