@@ -27,6 +27,8 @@ jobs:
       - name: Upgrade Node modules
         run: yarn upgrade
         shell: bash
+      - name: fix linter
+        run: rake lint_fix
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
