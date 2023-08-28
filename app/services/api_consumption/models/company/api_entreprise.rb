@@ -22,6 +22,8 @@ module ApiConsumption::Models
         :effectifs_entreprise_annuel,
         :mandataires_sociaux,
         :forme_exercice,
+        :rne_rcs,
+        :rne_rnm
       ]
     end
 
@@ -35,13 +37,21 @@ module ApiConsumption::Models
     end
 
     def inscrit_rcs
-      return false if rcs.blank?
-      rcs["error"].nil?
+      # api rcs peut retourner false juste parce qu'il n'a pas la donnée
+      if api_rcs_value == true
+        return true
+      else
+        return api_rne_rcs_value
+      end
     end
 
     def inscrit_rm
-      return false if rm.blank?
-      rm["error"].nil?
+      # api rm peut retourner false juste parce qu'il n'a pas la donnée
+      if api_rm_value == true
+        return true
+      else
+        return api_rne_rnm_value
+      end
     end
 
     def forme_juridique_libelle
@@ -137,6 +147,26 @@ module ApiConsumption::Models
 
     def effectifs_entreprise_annuel_annee
       effectifs_entreprise_annuel['annee'] || nil
+    end
+
+    def api_rcs_value
+      return false if rcs.nil?
+      rcs["error"].nil?
+    end
+
+    def api_rne_rcs_value
+      return false if rne_rcs.nil?
+      rne_rcs['estPresent']
+    end
+
+    def api_rm_value
+      return false if rm.nil?
+      rm["error"].nil?
+    end
+
+    def api_rne_rnm_value
+      return false if rne_rnm.nil?
+      rne_rnm['estPresent']
     end
   end
 end
