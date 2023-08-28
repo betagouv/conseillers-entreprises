@@ -63,6 +63,7 @@ module ApiConsumption::Models
     end
 
     def date_de_creation
+      return '' if date_creation.blank?
       I18n.l(Time.strptime(date_creation.to_s, '%s').in_time_zone.to_date)
     end
 
