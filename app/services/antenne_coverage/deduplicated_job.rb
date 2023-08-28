@@ -11,7 +11,7 @@ module AntenneCoverage
       queue = 'antenne_coverage'
       ApplicationJob.remove_delayed_jobs queue do |job|
         payload = job.payload_object
-        [payload.object.class, payload.method_name] == [AntenneCoverage::Update, :call] && payload.object.antenne == @antenne
+        [payload.object.class, payload.method_name, payload.object.antenne] == [AntenneCoverage::Update, :call, @antenne]
       end
 
       AntenneCoverage::Update.new(@antenne).delay(queue: 'antenne_coverage').call
