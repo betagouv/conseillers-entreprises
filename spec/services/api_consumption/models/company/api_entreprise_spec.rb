@@ -129,7 +129,7 @@ RSpec.describe ApiConsumption::Models::Company::ApiEntreprise do
         }
       end
 
-      it 'returns inscrit_rcs true' do
+      it 'returns inscrit_rcs false' do
         expect(described_class.new(params).inscrit_rcs).to be(false)
       end
     end
