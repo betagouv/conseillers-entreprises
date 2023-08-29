@@ -63,9 +63,11 @@ module Stats
       @all_months ||= search_range_by_month.map(&:begin)
     end
 
-    # [Fri, 08 Feb 2019..Thu, 28 Feb 2019, Fri, 01 Mar 2019..Sun, 31 Mar 2019, ...]
+    # [Sat, 01 Jul 2023..Tue, 01 Aug 2023, ...]
     def search_range_by_month
-      @search_range_by_month ||= (@start_date.to_date..@end_date.to_date).group_by(&:beginning_of_month).map { |_, month| month.first..month.last }
+      @search_range_by_month ||= (@start_date.beginning_of_month.to_date..@end_date.beginning_of_month.to_date)
+        .group_by(&:beginning_of_month)
+        .map { |_, month| month.first..month.last }
     end
 
     def all_categories
