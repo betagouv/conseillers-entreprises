@@ -42,6 +42,7 @@ module XlsxExport
           needs_by_themes[theme.label] = theme.present? ? calculate_needs_by_theme_size(theme) : nil
         end
 
+        # Tri selon le nombre de besoins en ordre décroissant
         needs_by_themes.sort_by { |_, needs_count| -needs_count }.each do |theme_label, needs_count|
           sheet.add_row [
             theme_label,

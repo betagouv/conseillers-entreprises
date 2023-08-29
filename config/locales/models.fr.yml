@@ -711,7 +711,7 @@ fr:
     needs: Besoins
     needs_count: Nb de besoins
     needs_percentage: Part des besoins
-    not_for_me_caption_definition: L’expert n’a pas appelé l’entreprise car il sait d’emblée qu’il ne pourra pas l’aider, il refuse le besoin.
+    not_for_me_caption_definition: Part des besoins pour lesquels les experts ont indiqué refuser car ils savaient d’emblée qu’ils ne pourraient pas aider l’entreprise.
     not_for_me_caption_label: Taux de refus
     not_for_me_rate: Taux de refus
     percentage: Pourcentage
