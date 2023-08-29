@@ -681,9 +681,12 @@ fr:
     processed_need: Besoin de l’entreprise %{company} traité
   reports:
     index:
+      download_matches: Télécharger le fichier des mises en relation
+      download_stats: Télécharger le fichier statistique
+      file_infos: XLSX - %{weight} ko
       interval: "%{start_month} à %{end_month} %{year}"
       no_export_available: L’export de données et votre rapport trimestriels ne sont pas encore disponibles pour cette antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
-      title: Export des données
+      title: Export des données %{antenne}
   republique_francaise_html: République <br /> Française
   see_you_soon: À très vite !
   shared:

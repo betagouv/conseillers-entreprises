@@ -16,6 +16,8 @@ module XlsxExport
         finalise_style
       end
 
+      private
+
       def generate_base_stats
         sheet.add_row [I18n.t('antenne_stats_exporter.subtitle')], style: @subtitle
         sheet.add_row
@@ -28,33 +30,24 @@ module XlsxExport
       def generate_themes_stats
         # On ne prend que les thèmes principaux
         themes = Theme.for_interview.limit(10)
-        needs_subject_ids = @needs.pluck(:subject_id).uniq
-        # On ne répertorie que les sujets pour lesquels on a un besoin référencé
-        subjects = Subject.where(theme_id: themes.pluck(:id)).where(id: needs_subject_ids)
-        max_length = [themes.size, subjects.size].max
 
         sheet.add_row [
           Theme.model_name.human,
           I18n.t('antenne_stats_exporter.count'),
-          I18n.t('antenne_stats_exporter.percentage'), nil,
-          Subject.model_name.human,
-          I18n.t('antenne_stats_exporter.count'),
-          I18n.t('antenne_stats_exporter.percentage'),
+          I18n.t('antenne_stats_exporter.percentage')
         ], style: count_rate_header_style
 
-        (0...max_length).to_a.each do |index|
-          theme = themes[index]
-          needs_by_theme_size = theme.present? ? calculate_needs_by_theme_size(theme) : nil
-          subject = subjects[index]
-          needs_by_subject_size = subject.present? ? calculate_needs_by_subject_size(subject) : nil
+        needs_by_themes = {}
+        themes.each do |theme|
+          needs_by_themes[theme.label] = theme.present? ? calculate_needs_by_theme_size(theme) : nil
+        end
 
+        # Tri selon le nombre de besoins en ordre décroissant
+        needs_by_themes.sort_by { |_, needs_count| -needs_count }.each do |theme_label, needs_count|
           sheet.add_row [
-            theme&.label,
-            needs_by_theme_size,
-            calculate_rate(needs_by_theme_size, @needs), nil,
-            subject&.label,
-            needs_by_subject_size,
-            calculate_rate(needs_by_subject_size, @needs)
+            theme_label,
+            needs_count,
+            calculate_rate(needs_count, @needs)
           ], style: count_rate_row_style
         end
         sheet.add_row
@@ -64,26 +57,17 @@ module XlsxExport
         sheet.add_row [
           I18n.t('antenne_stats_exporter.experts_positionning', institution: institution_name),
           I18n.t('antenne_stats_exporter.count'),
-          I18n.t('antenne_stats_exporter.percentage'), nil,
-          I18n.t('antenne_stats_exporter.experts_answering_rate', institution: institution_name),
-          I18n.t('antenne_stats_exporter.count'),
           I18n.t('antenne_stats_exporter.percentage')
         ], style: count_rate_header_style
 
-        (0...ordered_statuses.size).to_a.each do |index|
-          match_status = ordered_statuses[index]
-          match_status_size = matches.send("status_#{match_status}")&.size
-          positionning_status = ordered_positionning_statuses[index]
-          positionning_status_size = calculate_positionning_status_size(positionning_status, matches)
-          sheet.add_row [
-            I18n.t("activerecord.attributes.match/statuses/short.#{match_status}"),
-            match_status_size,
-            calculate_rate(match_status_size, matches), nil,
-            positionning_status.present? ? I18n.t("antenne_stats_exporter.#{positionning_status}_rate") : nil,
-            positionning_status_size,
-            calculate_rate(positionning_status_size, matches)
-          ], style: count_rate_row_style
-        end
+        # Besoins transmis
+        sheet.add_row [
+          I18n.t('antenne_stats_exporter.transmitted_needs'),
+          matches.size
+        ], style: count_rate_row_style
+
+        add_status_rows(ordered_scopes, matches)
+
         sheet.add_row
       end
 
@@ -91,36 +75,38 @@ module XlsxExport
         sheet.add_row [
           I18n.t('antenne_stats_exporter.ecosystem_positionning', institution: institution_name),
           I18n.t('antenne_stats_exporter.count'),
-          I18n.t('antenne_stats_exporter.percentage'),nil,
-          I18n.t('antenne_stats_exporter.ecosystem_answering_rate', institution: institution_name),
-          I18n.t('antenne_stats_exporter.count'),
           I18n.t('antenne_stats_exporter.percentage')
         ], style: count_rate_header_style
 
-        (0...ordered_statuses.size).to_a.each do |index|
-          need_status = ordered_statuses[index]
-          need_status_size = @needs.send("status_#{need_status}")&.size if need_status.present?
-          positionning_status = ordered_positionning_statuses[index]
-          positionning_status_size = calculate_positionning_status_size(positionning_status, @needs)
+        # Besoins transmis
+        sheet.add_row [
+          I18n.t('antenne_stats_exporter.transmitted_needs'),
+          @needs.size
+        ], style: count_rate_row_style
+
+        add_status_rows(ordered_scopes, @needs)
+
+        sheet.add_row
+      end
+
+      def add_status_rows(scopes, recipient)
+        scopes.each do |scope|
+          by_status_size = recipient.send(scope)&.size
           sheet.add_row [
-            need_status.present? ? I18n.t("activerecord.attributes.need/statuses/csv.#{need_status}") : nil,
-            need_status_size || nil,
-            calculate_rate(need_status_size, @needs), nil,
-            positionning_status.present? ? I18n.t("antenne_stats_exporter.#{positionning_status}_rate") : nil,
-            positionning_status_size,
-            calculate_rate(positionning_status_size, matches)
+            I18n.t("antenne_stats_exporter.funnel.#{scope}"),
+            by_status_size,
+            calculate_rate(by_status_size, recipient)
           ], style: count_rate_row_style
         end
-        sheet.add_row
       end
 
       def finalise_style
         [
-          'A1:G1',
-          'A2:G2',
+          'A1:E1',
+          'A2:E2',
         ].each { |range| sheet.merge_cells(range) }
 
-        sheet.column_widths 50, 8, 8, 2, 50, 8, 8
+        sheet.column_widths 50, 15, 15, 15, 15
       end
 
       # Base variables
@@ -139,6 +125,10 @@ module XlsxExport
 
       def facilities
         @facilities ||= Facility.joins(diagnoses: :needs).where(diagnoses: { needs: @needs }).distinct
+      end
+
+      def ordered_scopes
+        @ordered_scopes ||= [:not_status_quo, :status_not_for_me, :taken_care_of, :status_done, :status_done_no_help, :status_done_not_reachable, :status_taking_care, :status_quo]
       end
 
       def ordered_statuses
@@ -181,55 +171,57 @@ module XlsxExport
       # Style
       #
       def create_styles(s)
-        @subtitle     = s.add_style bg_color: 'DD', sz: 14, b: true, alignment: { horizontal: :center, vertical: :center }
+        @subtitle     = s.add_style bg_color: 'eadecd', sz: 14, b: true, alignment: { horizontal: :center, vertical: :center }, border: { color: 'AAAAAA', style: :thin }
         @bold         = s.add_style b: true
-        @left_header  = s.add_style bg_color: 'FFDFDEDF', b: true, alignment: { horizontal: :left }
-        @right_header = s.add_style bg_color: 'FFDFDEDF', b: true, alignment: { horizontal: :right }
+        @left_header  = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :left }, border: { color: 'AAAAAA', style: :thin }
+        @right_header = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :right }, border: { color: 'AAAAAA', style: :thin }
         @label        = s.add_style alignment: { indent: 1 }
         @rate         = s.add_style format_code: '#0.0%'
         s
       end
 
       def count_rate_header_style
-        [@left_header, @right_header, @right_header, nil, @left_header, @right_header, @right_header]
+        [@left_header, @right_header, @right_header, @right_header, @right_header]
       end
 
       def count_rate_row_style
-        [@label, nil, @rate, nil, @label, nil, @rate]
+        [@label, nil, @rate]
       end
 
       # Pages résumé
       #
-      def add_agglomerate_headers
+      def add_agglomerate_headers(tab_scope)
         sheet.add_row [
-          I18n.t('antenne_stats_exporter.antenne'),
+          I18n.t(tab_scope, scope: ['antenne_stats_exporter']),
           I18n.t('antenne_stats_exporter.needs_count'),
+          I18n.t('antenne_stats_exporter.needs_percentage'),
           I18n.t('antenne_stats_exporter.positionning_rate'),
           I18n.t('antenne_stats_exporter.positionning_accepted_rate'),
           I18n.t('antenne_stats_exporter.done_rate')
-        ], style: [@left_header, @right_header, @right_header, @right_header, @right_header]
+        ], style: [@left_header, @right_header, @right_header, @right_header, @right_header, @right_header]
       end
 
-      def add_agglomerate_rows(needs, row_title)
-        matches = @antenne.perimeter_received_matches_from_needs(needs)
+      def add_agglomerate_rows(needs, row_title, recipient, ratio = nil)
+        matches = recipient.perimeter_received_matches_from_needs(needs)
         positionning_size = calculate_positionning_status_size(:positionning, matches)
         positionning_accepted_size = calculate_positionning_status_size(:positionning_accepted, matches)
         done_size = calculate_positionning_status_size(:done, matches)
         sheet.add_row [
           row_title,
           needs.size,
+          ratio,
           calculate_rate(positionning_size, matches),
           calculate_rate(positionning_accepted_size, matches),
           calculate_rate(done_size, matches),
-        ], style: [nil, nil, @rate, @rate, @rate]
+        ], style: [nil, nil, @rate, @rate, @rate, @rate]
       end
 
       def finalise_agglomerate_style
         [
-          'A1:G1',
+          'A1:F1',
         ].each { |range| sheet.merge_cells(range) }
 
-        sheet.column_widths 50, 15, 25, 25, 25
+        sheet.column_widths 50, 15, 25, 25, 25, 25
       end
     end
   end

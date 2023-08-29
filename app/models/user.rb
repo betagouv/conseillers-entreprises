@@ -110,7 +110,7 @@ class User < ApplicationRecord
   ## Scopes
   #
   scope :admin, -> { not_deleted.joins(:user_rights).merge(UserRight.category_admin) }
-  scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_manager) }
+  scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_manager).distinct }
 
   scope :not_invited, -> { not_deleted.where(invitation_sent_at: nil) }
   scope :managers_not_invited, -> { not_deleted.managers.where(invitation_sent_at: nil) }

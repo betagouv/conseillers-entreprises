@@ -114,6 +114,10 @@ class Match < ApplicationRecord
     where(status: [:done, :done_no_help, :done_not_reachable])
   end
 
+  scope :taken_care_of, -> do
+    where(status: [:done, :done_no_help, :done_not_reachable, :taking_care])
+  end
+
   scope :with_status_quo_active, -> do
     status_quo.where(created_at: Need::REMINDERS_DAYS[:abandon]&.days&.ago..)
   end

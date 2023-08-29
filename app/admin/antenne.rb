@@ -102,6 +102,9 @@ ActiveAdmin.register Antenne do
           div admin_link_to(a, :managers, list: true)
         end
       end
+      row(:stats) do |a|
+        div link_to I18n.t('active_admin.antennes.stats_reports'),reports_path(antenne_id: a.id)
+      end
       row(I18n.t('active_admin.territory.communes_list')) do |a|
         div displays_insee_codes(a.communes)
       end
