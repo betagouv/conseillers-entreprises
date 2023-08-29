@@ -152,9 +152,11 @@ class Conseiller::SolicitationsController < ApplicationController
     emails, sirets = [], []
     solicitations_hash = @solicitations.each_with_object({}) do |solicitation, hash|
       emails << solicitation.email
-      sirets << solicitation.siret
-      hash[solicitation.siret] = solicitation.id
       hash[solicitation.email] = solicitation.id
+      unless solicitation.siret.nil?
+        sirets << solicitation.siret
+        hash[solicitation.siret] = solicitation.id
+      end
     end
     sirets = (sirets.flatten | Facility.for_contacts(emails).pluck(:siret)).compact_blank
 
