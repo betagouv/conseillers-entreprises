@@ -117,6 +117,7 @@ fr:
       reports: Export des données
       root_path_title: Accueil Place des Entreprises
       sign_out: Déconnexion
+      stats: Statistiques
     pde_partnership_mention: Ce service public de mise en relation est proposé par Place des Entreprises.
     person_modal:
       manager_name: 'Responsable : %{name}'
@@ -447,6 +448,9 @@ fr:
       index:
         many_antennes_title: Demandes reçues des antennes
         one_antenne_title: Demandes reçues de %{name}
+    stats:
+      index:
+        stats: Statistiques
   matches:
     match:
       change_match_status: Modifier le statut du besoin

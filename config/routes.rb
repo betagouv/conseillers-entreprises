@@ -89,6 +89,9 @@ Rails.application.routes.draw do
   end
 
   namespace 'manager' do
+    controller :stats do
+      get :index, path: 'stats', as: :stats
+    end
     resources :needs, only: :index, path: 'besoins-des-antennes' do
       collection do
         get :quo_active, path: 'boite-de-reception'

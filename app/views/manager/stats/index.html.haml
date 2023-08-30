@@ -1,0 +1,17 @@
+- title = t('.stats')
+- meta title: title
+- content_for :head do
+  - javascript_include_tag 'highcharts', data: { 'turbo-track': 'reload' }, nonce: 'true'
+
+.fr-container
+  .fr-grid-row
+    .fr-col
+      %h1= title
+
+= render 'pages/breadcrumbs', title: title
+
+.fr-container
+  .fr-grid-row
+    = render 'stats_params', stats: @stats, filters: @filters
+  .fr-grid-row.fr-grid-row--gutters#stats-charts
+    = render 'stats/stats_charts', stats: @stats, charts_names: @charts_names
