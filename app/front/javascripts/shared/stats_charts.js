@@ -2,7 +2,7 @@ export function simpleStatsCharts (container, months, max_value, series, colors,
   Highcharts.chart(container, {
     colors: colors,
     chart: {
-      type: 'column'
+      type: 'line'
     },
     title: {
       text: null

@@ -91,6 +91,7 @@ Rails.application.routes.draw do
   namespace 'manager' do
     controller :stats do
       get :index, path: 'stats', as: :stats
+      get :load_graph, as: :load_graph
     end
     resources :needs, only: :index, path: 'besoins-des-antennes' do
       collection do

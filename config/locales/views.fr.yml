@@ -952,6 +952,8 @@ fr:
         title_table: Délai de transmission des sollicitations
       transmitted_needs:
         title: Besoins transmis
+    skeleton_card:
+      loading: Graphique en cours de chargement...
     stats_chart:
       detailed_description: Description détaillée
       months: Mois

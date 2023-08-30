@@ -73,7 +73,7 @@ module Stats
     private
 
     def render_partial(data, name)
-      render partial: 'stats/public/load_stats', locals: { data: data, name: name }
+      render partial: 'stats/load_stats', locals: { data: data, name: name }
     end
   end
 end
