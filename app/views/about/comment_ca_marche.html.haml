@@ -57,7 +57,3 @@
                         .fr-transcription__actions-group
                           %button.fr-btn.fr-btn--fullscreen{ 'aria-controls': 'fr-transcription-modal-pde-testimonial', 'data-fr-opened': 'false', title: t('.pde_testimonial_transcription') }
                             = t('pages.navbar.extend')
-
-.fr-container.text-center.fr-py-6w
-  %h2= t('.join_us')
-  %p= t('.contact_us_html', mailto_link: mailto_contact_us(ENV['APPLICATION_EMAIL'], 'blue'))
