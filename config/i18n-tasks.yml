@@ -116,6 +116,7 @@ ignore_unused:
   - 'password.missing_elements.*'
   - 'antenne_stats_exporter.*'
   - 'reminders.needs.scopes.mark_done.*'
+  - 'equipe.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

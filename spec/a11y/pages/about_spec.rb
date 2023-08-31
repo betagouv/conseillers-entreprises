@@ -37,4 +37,10 @@ describe 'about', type: :feature, js: true do
 
     it { is_expected.to be_accessible }
   end
+
+  describe '/equipe' do
+    before { visit '/equipe' }
+
+    it { is_expected.to be_accessible }
+  end
 end
