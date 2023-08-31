@@ -452,7 +452,10 @@ fr:
   matches:
     match:
       change_match_status: Modifier le statut du besoin
+      closed_at: Clôture
       see_expert_inbox: Voir la boîte de réception de l’expert
+      see_match_info: Voir plus d'infos sur la MER
+      taken_care_of_at: Prise en charge
   needs:
     additional_experts:
       add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?

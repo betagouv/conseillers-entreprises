@@ -35,7 +35,11 @@
 
 .row-match
   display: flex
+  justify-content: space-between
+.row-match__advisor
+  display: flex
   align-items: center
+  flex-grow: 1
   padding: 0.5rem 0
   p
     margin: 0
@@ -49,37 +53,17 @@
     text-align: right
     @media (max-width: $bp-md)
       margin-top: 1rem
-
-.feedbacks-title
-  display: flex
-  align-items: center
-  h2
-    margin: 0
-  p
-    margin: 0 0 0 1rem
-    font-style: italic
-
-.additional-experts
-  ul
-    margin-bottom: 0
-  .fr-search-bar .fr-input
-    box-shadow: inset 0 -2px 0 0 $blue
-    background-color: $white
-  .ri-user-add-fill
-    font-size: 2rem
-    display: flex
-    align-items: center
-    margin-right: 1rem
-
-.match-admin-actions
+.row-match__admin
   display: flex
   align-items: center
   justify-content: space-between
+  margin-left: 1rem
   .details--dropdown
     position: relative
     summary
       margin-bottom: 0
       padding: 0 1rem !important
+      color: $blue
     .details--dropdown__content
       position: absolute
       right: 0
@@ -106,6 +90,27 @@
         &:not(:last-child)
           margin-bottom: 0.5rem
 
+.feedbacks-title
+  display: flex
+  align-items: center
+  h2
+    margin: 0
+  p
+    margin: 0 0 0 1rem
+    font-style: italic
+
+.additional-experts
+  ul
+    margin-bottom: 0
+  .fr-search-bar .fr-input
+    box-shadow: inset 0 -2px 0 0 $blue
+    background-color: $white
+  .ri-user-add-fill
+    font-size: 2rem
+    display: flex
+    align-items: center
+    margin-right: 1rem
+
 .need-metadata
   margin-bottom: 2rem
   .need-metadata--picto
@@ -127,24 +132,6 @@
     font-weight: bold
   .name
     margin-bottom: 0
-
-.match-admin-actions
-  display: flex
-  align-items: center
-  justify-content: space-between
-  .details--dropdown
-    position: relative
-    summary
-      margin-bottom: 0
-      padding: 0 1rem !important
-      color: $blue
-    .details--dropdown__content
-      position: absolute
-      right: 0
-      z-index: 1
-      width: 15rem
-      background-color: $white
-      padding: 1rem
 
 .need-description__meta
   > :not(:first-child)
