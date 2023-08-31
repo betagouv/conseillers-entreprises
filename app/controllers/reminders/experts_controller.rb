@@ -3,7 +3,7 @@ module Reminders
     include Inbox
     helper_method :inbox_collections_counts
     helper_method :inbox_collections_counts_new
-    before_action :persist_filter_params, :setup_territory_filters, :collections_counts, only: %i[index show many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]
+    before_action :persist_filter_params, :setup_territory_filters, :collections_counts, :collections_counts_new, only: %i[index show many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]
     before_action :retrieve_expert, except: %i[index many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]
     before_action :persist_search_params, only: [:quo_active, :taking_care, :done, :not_for_me, :expired]
 
@@ -110,8 +110,7 @@ module Reminders
 
     def render_collection(action)
       @active_experts = filtered_experts
-        .includes(:received_needs)
-        .preload(:reminder_feedbacks, :users)
+        .includes(:received_needs, :reminder_feedbacks, :users, :antenne)
         .send(action)
         .most_needs_quo_first
         .page params[:page]
@@ -123,6 +122,11 @@ module Reminders
       @expert_collections_count = Rails.cache.fetch(['expert_reminders_need', filtered_experts, RemindersRegister.current_remainder_category.pluck(:updated_at).max]) do
         experts_collection_names.index_with { |name| filtered_experts.send(name).distinct.size }
       end
+    end
+
+    def collections_counts_new
+      # filtered_experts.to_sql      
+      # {:inputs=>0, :many_pending_needs=>5, :medium_pending_needs=>3, :one_pending_need=>5, :expired_needs=>2, :outputs=>0}
     end
 
     def filtered_experts
