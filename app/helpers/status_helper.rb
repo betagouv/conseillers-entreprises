@@ -56,8 +56,6 @@ module StatusHelper
     end
   end
 
-
-
   def status_icon(status)
     classes = ['icon'] + STATUS_ICONS[status.to_sym]
     tag.span(class: classes.join(' '), aria: { hidden: "true" })
