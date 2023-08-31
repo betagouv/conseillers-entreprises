@@ -14,6 +14,7 @@ module Inbox
 
   # Common render method for collection actions
   def retrieve_needs(recipient, collection_name, view: :index, order: :desc)
+    p 'retrieve_needs ====================================='
     @recipient = recipient
     inbox_collections_counts(recipient)
     @collection_name = collection_name
@@ -45,10 +46,14 @@ module Inbox
   end
 
   def inbox_collections_counts(recipient)
-    @inbox_collections_counts = inbox_collection_names.index_with { |name| recipient.send("needs_#{name}").distinct.size }
+    p 'inbox_collections_counts ====================================='
+
+    @inbox_collections_counts ||= inbox_collection_names.index_with { |name| recipient.send("needs_#{name}").distinct.size }
   end
 
   def antenne_inbox_collections_counts(recipient)
+    p 'antenne_inbox_collections_counts ====================================='
+
     @inbox_collections_counts = if recipient.is_a?(Antenne)
       inbox_collection_names.index_with do |name|
         recipient.perimeter_received_needs.merge!(recipient.send("territory_needs_#{name}")).distinct.size

@@ -29,9 +29,21 @@
           = link_to quo_active_reminders_expert_path(match.expert), class: "fr-btn fr-btn--secondary fr-mb-0", title: t('.see_expert_inbox') do
             %span.ri-inbox-line{ 'aria-hidden': 'true' }
         %li
-          %button.fr-btn--tooltip.fr-btn.fr-btn--tertiary-no-outline.fr-mb-0{ 'aria-describedby': "tooltip-match-#{match.id}", title: t('.see_match_info') }
+          %button.fr-btn.fr-btn--tertiary-no-outline.fr-mb-0{ 'aria-controls': "tooltip-match-#{match.id}", 'data-fr-opened': 'false', title: t('.see_match_info') }
             %span.ri-information-line{ 'aria-hidden': 'true' }
-          %span.fr-tooltip.fr-placement{ id: "tooltip-match-#{match.id}", role: "tooltip" }
-            %ul
-              %li= [t('.taken_care_of_at'), l(match.taken_care_of_at, format: :admin, default: '')].join(' : ')
-              %li= [t('.closed_at'), l(match.closed_at, format: :admin, default: '')].join(' : ')
+          %dialog.fr-modal{ 'aria-labelledby': "tooltip-match-#{match.id}-title", id: "tooltip-match-#{match.id}" }
+            .fr-container.fr-container--fluid.fr-container-md
+              .fr-grid-row.fr-grid-row--center
+                .fr-col-12.fr-col-md-6.fr-col-lg-4
+                  .fr-modal__body
+                    .fr-modal__header
+                      %button.fr-btn--close.fr-btn.fr-ml-auto-imp.fr-mr-n2w{ 'aria-controls': "tooltip-match-#{match.id}", title: t('application.navbar.close') }
+                        = t('application.navbar.close')
+                    .fr-modal__content
+                      %h1.fr-modal__title{ id: "tooltip-match-#{match.id}-title" }
+                        %span.fr-icon-arrow-right-line.fr-icon--lg{ 'aria-hidden': 'true' }
+                        = match.expert.antenne.name
+                        = " - " + match.human_attribute_value(:status)
+                      %ul
+                        %li= [t('.taken_care_of_at'), l(match.taken_care_of_at, format: :admin, default: '')].join(' : ')
+                        %li= [t('.closed_at'), l(match.closed_at, format: :admin, default: '')].join(' : ')
