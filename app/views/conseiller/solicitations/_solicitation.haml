@@ -26,7 +26,7 @@
         - if solicitation.landing_subject.present?
           .item
             = t('.landing_subjects')
-            = subject_tag(solicitation, "ui small label")
+            = subject_tag(solicitation, "fr-badge fr-badge--blue-ecume")
         = display_region(solicitation.region, params[:territory])
 
       .card__meta
