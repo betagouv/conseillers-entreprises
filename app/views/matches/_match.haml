@@ -1,5 +1,5 @@
 - if !match.expert.deleted? || (match.expert.deleted? && policy(match.expert).show_deleted_experts?)
-  .container.row-match{ id: "row-match-#{match.id}" }
+  .fr-container.row-match{ id: "row-match-#{match.id}" }
     .fr-grid-row.row-match__advisor
       .fr-col-sm-1.fr-col-1.col-icon
         = expert_status_icon(match)
@@ -43,7 +43,7 @@
                       %h1.fr-modal__title{ id: "tooltip-match-#{match.id}-title" }
                         %span.fr-icon-arrow-right-line.fr-icon--lg{ 'aria-hidden': 'true' }
                         = match.expert.antenne.name
-                        = " - " + match.human_attribute_value(:status)
                       %ul
-                        %li= [t('.taken_care_of_at'), l(match.taken_care_of_at, format: :admin, default: '')].join(' : ')
-                        %li= [t('.closed_at'), l(match.closed_at, format: :admin, default: '')].join(' : ')
+                        %li{ class: status_color(match.status) }= match.human_attribute_value(:status)
+                        %li= [t('.taken_care_of_at'), l(match.taken_care_of_at, format: :fr, default: '')].join(' : ')
+                        %li= [t('.closed_at'), l(match.closed_at, format: :fr, default: '')].join(' : ')

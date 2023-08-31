@@ -39,7 +39,7 @@ module StatusHelper
     form_with(model: match, url: match_path(match), class: 'menu admin-match-actions') do |f|
       allowed_actions.map do |new_status|
         title = Match.human_attribute_value(:status, new_status, context: :action)
-        classes = %w[fr-btn] << "btn-#{STATUS_COLORS[new_status]}"
+        classes = %w[fr-btn] << "btn-#{status_color(new_status)}"
         f.button :submit, name: :status, value: new_status, class: classes.join(' ') do
           title
         end
@@ -50,11 +50,13 @@ module StatusHelper
   def status_label(need_or_match, length = :short)
     status = need_or_match.status
     title = need_or_match.human_attribute_value(:status, context: length)
-    classes = %w[label] << STATUS_COLORS[status.to_sym]
+    classes = %w[label] << status_color(status)
     tag.div(class: classes.join(' ')) do
       status_icon(status) + title
     end
   end
+
+
 
   def status_icon(status)
     classes = ['icon'] + STATUS_ICONS[status.to_sym]
@@ -68,7 +70,11 @@ module StatusHelper
     else
       EXPERTS_ICONS[match.status.to_sym]
     end
-    classes << STATUS_COLORS[match.status.to_sym]
+    classes << status_color(match.status)
     tag.span('', class: classes.join(' '), aria: { hidden: "true" })
+  end
+
+  def status_color(status)
+    STATUS_COLORS[status.to_sym]
   end
 end
