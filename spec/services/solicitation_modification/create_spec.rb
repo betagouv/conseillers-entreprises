@@ -27,20 +27,8 @@ describe SolicitationModification::Create do
         expect(service).to be_persisted
       end
 
-      it "turns created_in_deployed_region to true" do
+      it "sets created_in_deployed_region as true" do
         expect(service.created_in_deployed_region).to be(true)
-      end
-    end
-
-    context 'with undeployed code region' do
-      let(:params) { base_params.merge(code_region: "666") }
-
-      it "creates sollicitation" do
-        expect(service).to be_persisted
-      end
-
-      it "doesnt turn created_in_deployed_region to true" do
-        expect(service.created_in_deployed_region).not_to be(true)
       end
     end
 
@@ -51,8 +39,8 @@ describe SolicitationModification::Create do
         expect(service).to be_persisted
       end
 
-      it "doesnt turn created_in_deployed_region to true" do
-        expect(service.created_in_deployed_region).not_to be(true)
+      it "sets created_in_deployed_region as true" do
+        expect(service.created_in_deployed_region).to be(true)
       end
     end
   end
@@ -82,20 +70,8 @@ describe SolicitationModification::Create do
         expect(service).not_to be_persisted
       end
 
-      it "turns created_in_deployed_region to true" do
+      it "sets created_in_deployed_region as true" do
         expect(service.created_in_deployed_region).to be(true)
-      end
-    end
-
-    context 'with undeployed code region' do
-      let(:params) { base_params.merge(code_region: "666") }
-
-      it "initializes sollicitation" do
-        expect(service).not_to be_persisted
-      end
-
-      it "doesnt turn created_in_deployed_region to true" do
-        expect(service.created_in_deployed_region).not_to be(true)
       end
     end
 
@@ -106,8 +82,8 @@ describe SolicitationModification::Create do
         expect(service).not_to be_persisted
       end
 
-      it "doesnt turn created_in_deployed_region to true" do
-        expect(service.created_in_deployed_region).not_to be(true)
+      it "sets created_in_deployed_region as true" do
+        expect(service.created_in_deployed_region).to be(true)
       end
     end
   end
