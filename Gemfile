@@ -143,7 +143,6 @@ group :development do
   gem 'rubocop-i18n', require: false
   gem 'brakeman', require: false
   gem "rails-erd"
-  gem 'scout_apm'
 end
 
 # Use Redis for Action Cable
