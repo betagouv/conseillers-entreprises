@@ -21,8 +21,10 @@ import "@hotwired/turbo-rails";
 
 require("@rails/ujs").start();
 require('remixicon/fonts/remixicon.css')
-require('@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.css')
-require('@gouvfr/dsfr/dist/dsfr/dsfr.css')
+require('@gouvfr/dsfr/dist/dsfr.min.css')
+require('@gouvfr/dsfr/dist/utility/icons/icons.main.min.css')
+require('@gouvfr/dsfr/dist/utility/colors/colors.min.css')
+require('@gouvfr/dsfr/dist/utility/colors/colors.min.css')
 require('stylesheets/application.sass')
 
 require("jquery");
