@@ -510,7 +510,7 @@ fr:
         content: Le chef d’entreprise ne répond pas mais il a mes coordonnées pour me recontacter.
         title: Entreprise injoignable
       placeholder_no_help: 'Par exemple : « Je n’ai pas d’aide pour les entreprises de moins de 3 ans »'
-      take_care: Je m’en charge !
+      take_care: 'J’appelle'
       validate: Valider
       your_turn_html: C’est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
     search:
