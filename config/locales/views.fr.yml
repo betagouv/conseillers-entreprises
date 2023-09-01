@@ -399,8 +399,6 @@ fr:
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       localisation_html: 'Localisation : <strong>%{region}</strong>'
-      out_of_deployed_territories_label: Hors territoires déployés
-      out_of_deployed_territories_value: out_of_deployed_territories
       uncategorisable_label: Inclassables
       uncategorisable_value: uncategorisable
       view_completed_analysis: Voir l’analyse réalisée
@@ -510,7 +508,7 @@ fr:
         content: Le chef d’entreprise ne répond pas mais il a mes coordonnées pour me recontacter.
         title: Entreprise injoignable
       placeholder_no_help: 'Par exemple : « Je n’ai pas d’aide pour les entreprises de moins de 3 ans »'
-      take_care: 'J’appelle'
+      take_care: J’appelle
       validate: Valider
       your_turn_html: C’est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
     search:

@@ -789,7 +789,6 @@ fr:
     content: Description
     coordinates: Coordonnées
     created_at: Date de création
-    created_in_deployed_region: Créées dans une région déployée
     custom_communes: Spécifique
     date_de_creation: Date de création
     deleted_at: Suppression

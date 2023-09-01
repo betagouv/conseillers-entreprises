@@ -281,7 +281,7 @@ RSpec.describe Solicitation do
   end
 
   describe "#by_possible_region" do
-    let(:territory1) { Territory.deployed_regions.first }
+    let(:territory1) { Territory.regions.first }
     # - solicitation avec facility dans une region déployé
     let!(:solicitation1) { create :solicitation, :with_diagnosis, code_region: territory1.code_region }
     # - solicitation avec facility dans territoire non déployé
@@ -306,12 +306,6 @@ RSpec.describe Solicitation do
       let(:possible_region) { 'uncategorisable' }
 
       it { is_expected.to contain_exactly(solicitation_without_diagnosis, solicitation_with_diagnosis_no_region) }
-    end
-
-    context 'filter by out_of_deployed_territories' do
-      let(:possible_region) { 'out_of_deployed_territories' }
-
-      it { is_expected.to contain_exactly(solicitation2) }
     end
   end
 

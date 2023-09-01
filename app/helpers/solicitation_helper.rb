@@ -57,21 +57,18 @@ module SolicitationHelper
     link_to text, diagnosis, class: 'ui item'
   end
 
-  def possible_territories_options(territories = Territory.deployed_regions)
+  def possible_territories_options(territories = Territory.regions)
     territory_options = territories.map do |territory|
       [territory.name, territory.id]
     end
     territory_options.push(
-      [ t('helpers.solicitation.out_of_deployed_territories_label'), t('helpers.solicitation.out_of_deployed_territories_value') ],
       [ t('helpers.solicitation.uncategorisable_label'), t('helpers.solicitation.uncategorisable_value') ]
     )
   end
 
   def display_region(region, territory_params)
     # display region if there is no region filter
-    return unless ((territory_params.present? &&
-      (territory_params == 'uncategorisable' || territory_params == 'out_of_deployed_territories')) ||
-      territory_params.blank?) && region.present?
+    return unless ((territory_params.present? && (territory_params == 'uncategorisable')) || territory_params.blank?) && region.present?
     tag.div(class: 'item') do
       t('helpers.solicitation.localisation_html', region: region.name)
     end

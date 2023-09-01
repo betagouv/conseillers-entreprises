@@ -50,7 +50,7 @@ ActiveAdmin.register Need do
   filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :experts, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
   filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
-  filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.deployed_regions.pluck(:name, :id) }
+  filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.regions.pluck(:name, :id) }
 
   ## CSV
   #

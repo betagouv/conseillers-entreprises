@@ -48,22 +48,13 @@ class Territory < ApplicationRecord
   #
   scope :bassins_emploi, -> { where(bassin_emploi: true) }
   scope :regions, -> { where.not(code_region: nil) }
-  scope :deployed_regions, -> { regions.where(arel_table[:deployed_at].lteq(Time.zone.now)) }
 
   scope :with_support, -> { where.not(support_contact_id: nil) }
-
-  def self.deployed_codes_regions
-    deployed_regions.pluck(:code_region)
-  end
 
   ##
   #
   def to_s
     name
-  end
-
-  def deployed?
-    deployed_at.present? && deployed_at < Time.zone.now
   end
 
   def territorial_experts

@@ -366,15 +366,6 @@ class Solicitation < ApplicationRecord
     where(code_region: codes_regions)
   end
 
-  scope :in_deployed_regions, -> do
-    where(created_in_deployed_region: true)
-  end
-
-  # solicitation avec region identifiee mais hors region deployee
-  scope :in_undeployed_regions, -> do
-    where(created_in_deployed_region: false).where.not(code_region: nil)
-  end
-
   scope :out_of_regions, -> (codes_regions) do
     where.not(code_region: codes_regions).where.not(code_region: nil)
   end
@@ -393,10 +384,6 @@ class Solicitation < ApplicationRecord
     rescue ActiveRecord::RecordNotFound => e
       self.send(param)
     end
-  }
-
-  scope :out_of_deployed_territories, -> {
-    out_of_regions(Territory.deployed_codes_regions)
   }
 
   # Solicitations similaires
