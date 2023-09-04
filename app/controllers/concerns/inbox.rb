@@ -45,7 +45,7 @@ module Inbox
   end
 
   def inbox_collections_counts(recipient)
-    @inbox_collections_counts ||= inbox_collection_names.index_with { |name| recipient.send("needs_#{name}").distinct.size }
+    @inbox_collections_counts = inbox_collection_names.index_with { |name| recipient.send("needs_#{name}").distinct.size }
   end
 
   def antenne_inbox_collections_counts(recipient)
