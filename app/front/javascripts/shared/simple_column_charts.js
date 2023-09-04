@@ -1,8 +1,8 @@
-export function simpleStatsCharts (container, months, max_value, series, colors, format, subtitle) {
+export function simpleColumnCharts (container, months, max_value, series, colors, format, subtitle) {
   Highcharts.chart(container, {
     colors: colors,
     chart: {
-      type: 'line'
+      type: 'column'
     },
     title: {
       text: null

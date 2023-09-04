@@ -1,6 +1,6 @@
 import { Controller } from "stimulus"
 import { percentageStatsCharts } from '../percentage_column_chart'
-import { simpleStatsCharts } from "../stats_charts"
+import { simpleColumnCharts } from '../simple_column_charts'
 
 export default class extends Controller {
   static targets = ['graph']
@@ -18,7 +18,7 @@ export default class extends Controller {
     if (type === 'percentage-column-chart') {
       percentageStatsCharts(container, months, maxValue, series, colors, format, subtitle);
     } else {
-      simpleStatsCharts(container, months, maxValue, series, colors, format, subtitle);
+      simpleColumnCharts(container, months, maxValue, series, colors, format, subtitle);
     }
   }
 }
