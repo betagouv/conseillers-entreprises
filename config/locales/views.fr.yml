@@ -572,6 +572,8 @@ fr:
       source_code: Code source
       themes: Thèmes
       who_are_we: Qui sommes-nous ?
+      know_us: Nous connaître
+      themes: Thèmes
     how_it_works_long:
       choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
