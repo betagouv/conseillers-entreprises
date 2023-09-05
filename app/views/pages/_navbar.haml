@@ -7,12 +7,15 @@
             .fr-header__logo
               %p.fr-logo
                 = t('republique_francaise_html')
-            .fr-header__operator
-              = link_to root_path do
-                = image_tag 'logo-PDE.svg', alt: t('logos.pde_home'), class: 'fr-responsive-img'
             .fr-header__navbar
               %button.fr-btn--menu.fr-btn#fr-btn-menu-mobile-4{ 'aria-controls': 'modal-responsive-menu', 'aria-haspopup': 'menu', 'data-fr-opened': 'false', title: "#{t('pages.navbar.menu')}" }
                 = t('pages.navbar.menu')
+          .fr-header__service
+            = link_to root_path do
+              %p.fr-header__service-title
+                %span.red>= t('app_name_subdomain').sp_titleize_url
+                = "." + t('app_name_domain').sp_titleize_url
+            %p.fr-header__service-tagline= t('app_tagline')
         .fr-header__tools
           %nav.fr-header__tools-links{ role: 'navigation' }
             %ul.fr-links-group
@@ -28,3 +31,8 @@
       %nav.fr-header__menu-links{ 'aria-label': 'Menu principal', role: "navigation" }
         %ul.fr-nav__list
           -# Les liens du menu se mettent automatiquement ici
+.fr-notice.fr-notice--info
+  .fr-container
+    .fr-notice__body
+      %p.fr-notice__title
+        Place des Entreprises devient #{t('app_name').sp_titleize_url}

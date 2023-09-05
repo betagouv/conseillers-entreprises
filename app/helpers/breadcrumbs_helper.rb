@@ -30,7 +30,7 @@ module BreadcrumbsHelper
 
   def home_link(landing, params = {})
     if landing.iframe? && landing.integral_iframe?
-      link_to(t('breadcrumbs_helper.home_link.pde'), landing, class: 'fr-breadcrumb__link blue')
+      link_to(t('app_name').capitalize, landing, class: 'fr-breadcrumb__link blue')
     elsif landing.iframe?
       ''
     else

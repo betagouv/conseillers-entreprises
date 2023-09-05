@@ -25,7 +25,10 @@ fr:
     generic_error: Nous n’avons pas pu récupérer les détails de votre entité auprès de nos partenaires
     invalid_siret_or_siren: L’identifiant (siret ou siren) est invalide
     non_diffusible_error: Nous n’avons pas pu identifier votre entité. Peut-être est-elle non diffusible ?
-  app_name: Place des Entreprises
+  app_name: conseillers-entreprises.service-public.fr
+  app_name_subdomain: conseillers-entreprises
+  app_name_domain: service-public.fr
+  app_tagline: Le service public d'accompagnement des entreprises
   boolean:
     text:
       'false': non
@@ -45,7 +48,7 @@ fr:
     - ven
     - sam
     abbr_month_names:
-    - 
+    -
     - jan.
     - fév.
     - mar.
@@ -74,7 +77,7 @@ fr:
       month_name: "%B"
       short: "%e %b"
     month_names:
-    - 
+    -
     - janvier
     - février
     - mars

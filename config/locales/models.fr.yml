@@ -579,7 +579,7 @@ fr:
         user:
           attributes:
             email:
-              taken: est déjà inscrit sur Place des Entreprises.
+              taken: est déjà inscrit sur Conseillers-entreprises.service-public.fr.
     models:
       additional_subject_question:
         one: Question additionnelle
@@ -724,7 +724,7 @@ fr:
     quarter_stats_by_region: Stats trim. par region
     quarter_stats_by_subject: Stats trim. par sujet
     quo: Taux de sans réponse
-    quo_caption_definition: L’expert ne s’est pas positionné sur le besoin malgré les relances de l’équipe Place des Entreprises.
+    quo_caption_definition: L’expert ne s’est pas positionné sur le besoin malgré les relances de l’équipe Conseillers-entreprises.service-public.fr.
     quo_caption_label: En attente de réponse
     quo_rate: Taux de sans réponse
     region: Région

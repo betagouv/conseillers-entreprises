@@ -7,16 +7,16 @@ fr:
     blog:
       title: Actu aides
     cgu:
-      title: Conditions d’utilisation du service numérique Place des Entreprises
+      title: Conditions d’utilisation du service numérique Conseillers-entreprises.service-public.fr
     comment_ca_marche:
-      long_title: Place des Entreprises, comment ça marche ?
+      long_title: Conseillers-entreprises.service-public.fr, comment ça marche ?
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
       meta_title: Comment ça marche
-      partners: 'Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
+      partners: 'Conseillers-entreprises.service-public.fr vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
       pde_testimonial: Témoignage d’un chef d’entreprise.
       pde_testimonial_transcription: Transcription textuelle de la vidéo du témoignage d’un chef d’entreprise.
       read_transcription: Lire la transcription
-      subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
+      subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Conseillers-entreprises.service-public.fr rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
     equipe:
       subtitle: Une petite équipe investie est à votre disposition pour répondre à vos questions. N'hésitez pas à nous écrire et partager vos idées pour améliorer le service.
@@ -115,10 +115,10 @@ fr:
       menu: Menu
       profile: Profil
       reports: Export des données
-      root_path_title: Accueil Place des Entreprises
+      root_path_title: Accueil Conseillers-entreprises.service-public.fr
       sign_out: Déconnexion
       stats: Statistiques
-    pde_partnership_mention: Ce service public de mise en relation est proposé par Place des Entreprises.
+    pde_partnership_mention: Ce service public de mise en relation est proposé par Conseillers Entreprises.
     person_modal:
       manager_name: 'Responsable : %{name}'
     user_admin_view:
@@ -152,7 +152,6 @@ fr:
   breadcrumbs_helper:
     home_link:
       home: Accueil
-      pde: Place des Entreprises
   come_back_to_home: Retour à l’accueil
   companies:
     company:
@@ -215,7 +214,7 @@ fr:
       company_satisfaction_exist: Vous avez déjà répondu pour ce besoin.
       contacted_by_expert: Avez-vous bien été rappelé(e) par au moins un conseiller ou une conseillère ?
       send: Envoyer
-      title: Donnez votre avis sur Place des Entreprises
+      title: Donnez votre avis sur Conseillers-entreprises.service-public.fr
       useful_exchange: Est-ce que cet échange a été utile pour vous ?
     thank_you:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
@@ -338,7 +337,7 @@ fr:
     edit:
       antenne_and_institution: Structure
       different_antenne_warning_html: 'Attention : cette antenne est différente de l’antenne à laquelle est rattaché votre compte utilisateur.<br/> C’est peut-être une erreur ; <a href="mailto:%{email}">contactez-nous</a> pour la modifier.'
-      team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Place des Entreprises.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
+      team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Conseillers-entreprises.service-public.fr.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
       team_members: Membres de l’équipe
       team_name_explanation: C’est le nom d’équipe qui sera indiqué au conseiller pour vous envoyer des besoins. Votre antenne et votre structure figurent automatiquement, ne les précisez pas dans le nom d’équipe.
     subjects:
@@ -346,10 +345,10 @@ fr:
       expert_subject_title_solo: Vos domaines d'intervention
       expert_subject_title_team: Les domaines d'intervention de votre équipe
       institution_subject_title: Les autres domaines d'intervention de votre institution
-      instructions_html: En tant qu’expert sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos domaines d’intervention.
+      instructions_html: En tant qu’expert sur Conseillers-entreprises.service-public.fr, vous pouvez recevoir des besoins d’entreprises sur vos domaines d’intervention.
       others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a> (%{email}). Vous êtes susceptible de n'intervenir que sur une partie de ces domaines.
   export_xls:
-    email_instructions: Les adresses mails individuelles sont indispensables à la création des comptes utilisateurs et l’accès à l’interface Place des Entreprises. Si des conseillers sont partis, merci de mettre en rouge les lignes en question pour que nous supprimions leurs comptes utilisateurs.
+    email_instructions: Les adresses mails individuelles sont indispensables à la création des comptes utilisateurs et l’accès à l’interface Conseillers-entreprises.service-public.fr. Si des conseillers sont partis, merci de mettre en rouge les lignes en question pour que nous supprimions leurs comptes utilisateurs.
     phone_instructions: |-
       Un numéro différent par conseiller
       Pas de standard téléphonique
@@ -423,12 +422,12 @@ fr:
         how-it-works: Comment ça marche
         meta:
           description: 'TPE & PME vous avez un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
-          title: Page d’accueil | Place des Entreprises - Conseils et aides publiques
+          title: Page d’accueil | Conseillers-entreprises.service-public.fr - Conseils et aides publiques
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
         subtitle: 'Service public simple et rapide : %{count} TPE & PME ont déjà été accompagnées cette année par un conseiller %{subject}'
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
-        title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
+        title: Conseillers-entreprises.service-public.fr vous met en relation avec le conseiller qui peut vous aider.
       multiple_steps:
         contact_us: cliquez ici !
         other_questions: Pour toute autre demande,
