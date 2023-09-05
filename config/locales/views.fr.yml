@@ -560,15 +560,17 @@ fr:
       frequently_questions: Questions fréquentes
     footer:
       cookies: Gestion des cookies
+      source_code: Code source
       github_title: Page Github de Place des Entreprises
+      service_public_title: Site service-public.fr
       link_to_beta_gouv: Lien vers le site de Beta.gouv.fr
       linkedin_title: Page Linkedin de Place des Entreprises
       open_cookies: Ouvre la fenêtre de gestion des cookies
       service_presentation: Présentation du service (PDF 438 ko)
       service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Place des Entreprises
-      startup_d_etat: Une startup d’État de beta.gouv
-      twitter_title: Compte twitter de Place des Entreprises
       who_are_we: Qui sommes-nous ?
+      know_us: Nous connaître
+      themes: Thèmes
     how_it_works_long:
       choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
