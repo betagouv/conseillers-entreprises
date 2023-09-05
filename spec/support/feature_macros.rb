@@ -9,6 +9,14 @@ module FeatureMacros
     end
   end
 
+  def login_manager
+    let(:current_user) { create :user, :manager }
+
+    before do
+      login_as current_user, scope: :user
+    end
+  end
+
   def login_admin
     let(:current_user) { create :user, :admin }
 

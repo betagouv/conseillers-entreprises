@@ -30,6 +30,14 @@ module Stats::Needs
       filtered_needs(main_query).size
     end
 
+    def colors
+      needs_colors
+    end
+
+    def format
+      '{series.name} : <b>{point.y}</b>'
+    end
+
     private
 
     def as_series(needs)

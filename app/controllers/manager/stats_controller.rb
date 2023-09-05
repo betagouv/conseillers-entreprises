@@ -28,7 +28,7 @@ module Manager
       @stats_params[:start_date] ||= 6.months.ago.beginning_of_month.to_date
       @stats_params[:end_date] ||= Date.today
       @stats_params[:institution_id] = current_user.institution.id
-      @stats_params[:colors] = %w[#e0e4cc #69d2e7]
+      @stats_params[:colors] = %w[#cacafb #000091]
       @stats_params
     end
 

@@ -33,7 +33,7 @@ module Stats
     end
 
     def colors
-      %w[#62e0d3 #2D908F #f3dd68 #e78112 #F45A5B #9f3cca #F15C80 #A8FF96 #946c47 #64609b #7a7a7a #CF162B]
+      @colors || %w[#62e0d3 #2D908F #f3dd68 #e78112 #F45A5B #9f3cca #F15C80 #A8FF96 #946c47 #64609b #7a7a7a #CF162B]
     end
 
     def series
@@ -104,6 +104,10 @@ module Stats
 
     def matches_colors
       @colors || %w[#eabab1 #8D533E]
+    end
+
+    def needs_colors
+      @colors || %w[#2D908F #62e0d3]
     end
 
     ## Overrides
