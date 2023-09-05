@@ -20,19 +20,28 @@
           %nav.fr-header__tools-links{ role: 'navigation' }
             %ul.fr-links-group
               %li
-                = link_to t('about.blog.title'), ENV['BLOG_URL'], title: t('.link_to_blog'), class: 'fr-link'
-              %li
-                = link_to t('about.comment_ca_marche.title'), comment_ca_marche_path, class: 'fr-link'
-              %li
-                = link_to t('experts_login'), user_signed_in? ? needs_path : new_user_session_path, class: 'fr-link'
+                = link_to t('experts_login'), user_signed_in? ? needs_path : new_user_session_path, class: 'fr-link fr-icon-lock-line'
   .fr-header__menu.fr-modal#modal-responsive-menu{ 'aria-labelledby': 'fr-btn-menu-mobile-4' }
     .fr-container
       %button.fr-link--close.fr-link{ 'aria-controls': 'modal-responsive-menu' }= t('pages.navbar.close')
-      %nav.fr-header__menu-links{ 'aria-label': 'Menu principal', role: "navigation" }
+      .fr-header__menu-links{ 'aria-label': 'Menu principal' }
+      %nav.fr-nav{ 'aria-label': t(".main_menu"), role: 'navigation' }
         %ul.fr-nav__list
+          = active_link_to root_path, title: t('.link_to_blog'), class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', active: :exclusive do
+            %span.ri-home-line.fr-mr-1w{ 'aria-hidden': 'true' }
+            = t('breadcrumbs_helper.home_link.home')
+          %li.fr-nav__item
+            = link_to ENV['BLOG_URL'], title: t('.link_to_blog'), class: 'fr-nav__link' do
+              %span.ri-newspaper-line.fr-mr-1w{ 'aria-hidden': 'true' }
+              = t('about.blog.title')
+          = active_link_to comment_ca_marche_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+            %span.ri-presentation-line.fr-mr-1w{ 'aria-hidden': 'true' }
+            = t('about.comment_ca_marche.title')
+
           -# Les liens du menu se mettent automatiquement ici
 .fr-notice.fr-notice--info
   .fr-container
     .fr-notice__body
       %p.fr-notice__title
-        Place des Entreprises devient #{t('app_name').sp_titleize_url}
+        Place des Entreprises devient
+        = link_to t('app_name').sp_titleize_url, service_public_fr_path

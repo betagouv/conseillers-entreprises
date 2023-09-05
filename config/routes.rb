@@ -289,6 +289,7 @@ Rails.application.routes.draw do
     get :mentions_d_information
     get :mentions_legales
     get :accessibilite
+    get :service_public_fr, path: 'place-des-entreprises-devient-conseillers-entreprises'
   end
 
   scope :stats, module: :stats do
