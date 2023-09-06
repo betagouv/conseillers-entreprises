@@ -250,19 +250,6 @@ class Antenne < ApplicationRecord
 
   # Updated when changed : add/remove communes - add/remove experts - add/remove expert communes - add/remove expert subject
   def update_referencement_coverages(*args)
-    # pour que les tests passent
-    return unless self.persisted?
-    if self.regional?
-      update_antenne_coverage(self)
-      self.territorial_antennes.each { |ta| update_antenne_coverage(ta) }
-    elsif self.regional_antenne.present?
-      self.regional_antenne.territorial_antennes.each { |ta| update_antenne_coverage(ta) }
-    else
-      update_antenne_coverage(self)
-    end
-  end
-
-  def update_antenne_coverage(antenne)
-    AntenneCoverage::DeduplicatedJob.new(antenne).call
+    AntenneCoverage::DeduplicatedJob.new(self).call
   end
 end
