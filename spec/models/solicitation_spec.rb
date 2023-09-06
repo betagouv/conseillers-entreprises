@@ -179,7 +179,6 @@ RSpec.describe Solicitation do
         it 'sets correctly siret and code_region' do
           expect(solicitation.siret).to eq('41816609600069')
           expect(solicitation.code_region).to eq(11)
-          expect(solicitation.created_in_deployed_region).to be true
         end
       end
     end

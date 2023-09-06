@@ -5,7 +5,6 @@
 #  id                 :bigint(8)        not null, primary key
 #  bassin_emploi      :boolean          default(FALSE), not null
 #  code_region        :integer
-#  deployed_at        :datetime
 #  name               :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null

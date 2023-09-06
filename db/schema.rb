@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_07_152426) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_06_162736) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -571,7 +571,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_152426) do
     t.string "location"
     t.bigint "institution_id"
     t.integer "code_region"
-    t.boolean "created_in_deployed_region", default: true
     t.bigint "landing_id"
     t.bigint "landing_subject_id"
     t.integer "status", default: 0
@@ -610,7 +609,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_152426) do
     t.boolean "bassin_emploi", default: false, null: false
     t.bigint "support_contact_id"
     t.integer "code_region"
-    t.datetime "deployed_at", precision: nil
     t.index ["code_region"], name: "index_territories_on_code_region", unique: true
     t.index ["support_contact_id"], name: "index_territories_on_support_contact_id"
   end

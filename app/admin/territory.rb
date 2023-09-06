@@ -71,9 +71,6 @@ ActiveAdmin.register Territory do
         div t.code_region
       end
       row :support_contact
-      row :deployed_at do |t|
-        div t.deployed_at&.to_date
-      end
       row(:communes) do |t|
         div admin_link_to(t, :communes)
         div displays_insee_codes(t.communes)
@@ -96,7 +93,7 @@ ActiveAdmin.register Territory do
 
   ## Form
   #
-  permit_params :name, :insee_codes, :bassin_emploi, :code_region, :support_contact_id, :deployed_at
+  permit_params :name, :insee_codes, :bassin_emploi, :code_region, :support_contact_id
 
   form do |f|
     f.inputs do
@@ -104,7 +101,6 @@ ActiveAdmin.register Territory do
       f.input :bassin_emploi
       f.input :code_region, as: :select, collection: regions_list.map{ |r| [r.last, r.first] }
       f.input :support_contact, collection: User.admin.not_deleted
-      f.input :deployed_at, as: :datepicker, datepicker_options: { min_date: "2017-01-01" }
     end
     f.inputs do
       f.input :insee_codes, as: :text

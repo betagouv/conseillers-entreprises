@@ -5,7 +5,6 @@
 #  id                               :bigint(8)        not null, primary key
 #  code_region                      :integer
 #  completed_at                     :datetime
-#  created_in_deployed_region       :boolean          default(TRUE)
 #  description                      :string
 #  email                            :string
 #  form_info                        :jsonb
