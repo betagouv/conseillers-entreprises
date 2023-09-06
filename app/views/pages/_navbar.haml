@@ -8,8 +8,8 @@
               %p.fr-logo
                 = t('republique_francaise_html')
             .fr-header__navbar
-              %button.fr-btn--menu.fr-btn#fr-btn-menu-mobile-4{ 'aria-controls': 'modal-responsive-menu', 'aria-haspopup': 'menu', 'data-fr-opened': 'false', title: "#{t('pages.navbar.menu')}" }
-                = t('pages.navbar.menu')
+              %button.fr-btn--menu.fr-btn#fr-btn-menu-mobile-4{ 'aria-controls': 'modal-responsive-menu', 'aria-haspopup': 'menu', 'data-fr-opened': 'false', title: "#{t('navbar.menu')}" }
+                = t('navbar.menu')
           .fr-header__service
             = link_to root_path do
               %p.fr-header__service-title
@@ -23,9 +23,9 @@
                 = link_to t('experts_login'), user_signed_in? ? needs_path : new_user_session_path, class: 'fr-link fr-icon-lock-line'
   .fr-header__menu.fr-modal#modal-responsive-menu{ 'aria-labelledby': 'fr-btn-menu-mobile-4' }
     .fr-container
-      %button.fr-link--close.fr-link{ 'aria-controls': 'modal-responsive-menu' }= t('pages.navbar.close')
+      %button.fr-link--close.fr-link{ 'aria-controls': 'modal-responsive-menu' }= t('navbar.close')
       .fr-header__menu-links{ 'aria-label': 'Menu principal' }
-      %nav.fr-nav{ 'aria-label': t(".main_menu"), role: 'navigation' }
+      %nav.fr-nav{ 'aria-label': t("navbar.main_menu"), role: 'navigation' }
         %ul.fr-nav__list
           = active_link_to root_path, title: t('.link_to_blog'), class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', active: :exclusive do
             %span.ri-home-line.fr-mr-1w{ 'aria-hidden': 'true' }

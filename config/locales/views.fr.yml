@@ -8,8 +8,6 @@ fr:
       title: Actu aides
     cgu:
       title: Conditions d’utilisation du service numérique Conseillers-entreprises.service-public.fr
-    service_public_fr:
-      title: Place des Entreprises devient Conseillers-entreprises.service-public.fr
     comment_ca_marche:
       long_title: Conseillers-entreprises.service-public.fr, comment ça marche ?
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
@@ -36,6 +34,8 @@ fr:
       title: Mentions d'information
     mentions_legales:
       title: Mentions légales
+    service_public_fr:
+      title: Place des Entreprises devient Conseillers-entreprises.service-public.fr
   active_admin:
     admin_link: Lien admin
     badges:
@@ -110,14 +110,10 @@ fr:
       antenne_needs: Demandes de l’antenne
       antennes_needs: Demandes des antennes
       badges: Tags
-      close: Fermer
       csv_exports: Exports csv
       invite: Inviter des utilisateurs
-      main_menu: Menu principal
-      menu: Menu
       profile: Profil
       reports: Export des données
-      root_path_title: Accueil Conseillers-entreprises.service-public.fr
       sign_out: Déconnexion
       stats: Statistiques
     pde_partnership_mention: Ce service public de mise en relation est proposé par Conseillers Entreprises.
@@ -459,6 +455,11 @@ fr:
       see_expert_inbox: Voir la boîte de réception de l’expert
       see_match_info: Voir plus d'infos sur la MER
       taken_care_of_at: Prise en charge
+  navbar:
+    close: Fermer
+    main_menu: Menu principal
+    menu: Menu
+    root_path_title: Accueil Conseillers-entreprises.service-public.fr
   needs:
     additional_experts:
       add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
@@ -560,17 +561,15 @@ fr:
       frequently_questions: Questions fréquentes
     footer:
       cookies: Gestion des cookies
-      source_code: Code source
       github_title: Page Github de Place des Entreprises
-      service_public_title: Site service-public.fr
-      link_to_beta_gouv: Lien vers le site de Beta.gouv.fr
-      linkedin_title: Page Linkedin de Place des Entreprises
+      know_us: Nous connaître
       open_cookies: Ouvre la fenêtre de gestion des cookies
       service_presentation: Présentation du service (PDF 438 ko)
       service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Place des Entreprises
-      who_are_we: Qui sommes-nous ?
-      know_us: Nous connaître
+      service_public_title: Site service-public.fr
+      source_code: Code source
       themes: Thèmes
+      who_are_we: Qui sommes-nous ?
     how_it_works_long:
       choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
@@ -588,10 +587,8 @@ fr:
       quick_description: Une personne vous rappelle dans les 5 jours.
       quick_title: Rapide
     navbar:
-      close: Fermer
       extend: Agrandir
       link_to_blog: Lien vers le blog de Place des Entreprises - lien externe
-      menu: Menu
     newsletter:
       email_format: 'Format attendu : nom@domaine.fr'
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise

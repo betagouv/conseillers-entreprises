@@ -2,19 +2,20 @@
   .fr-footer__top
     .fr-container
       .fr-grid-row.fr-grid-row--start.fr-grid-row--gutters
-        .fr-col-12.fr-col-sm-4
-          %h3.fr-footer__top-cat= t('.themes')
-          %ul.fr-footer__top-list
-            - @footer_landing_themes.first(5).each do |landing_theme|
-              - path = { controller: "landings/landing_themes", action: "show", landing_slug: @footer_landing.slug, slug: landing_theme.slug, anchor: 'section-breadcrumbs' }.merge(query_params)
-              %li
-                = link_to landing_theme.title, path, class: 'fr-footer__top-link'
-        .fr-col-12.fr-col-sm-4
-          %ul.fr-footer__top-list.fr-pt-4w
-            - @footer_landing_themes.last(4).each do |landing_theme|
-              - path = { controller: "landings/landing_themes", action: "show", landing_slug: @footer_landing.slug, slug: landing_theme.slug, anchor: 'section-breadcrumbs' }.merge(query_params)
-              %li
-                = link_to landing_theme.title, path, class: 'fr-footer__top-link'
+        - if defined?(footer_landing_themes)
+          .fr-col-12.fr-col-sm-4
+            %h3.fr-footer__top-cat= t('.themes')
+            %ul.fr-footer__top-list
+              - footer_landing_themes.first(5).each do |landing_theme|
+                - path = { controller: "landings/landing_themes", action: "show", landing_slug: footer_landing.slug, slug: landing_theme.slug, anchor: 'section-breadcrumbs' }.merge(query_params)
+                %li
+                  = link_to landing_theme.title, path, class: 'fr-footer__top-link'
+          .fr-col-12.fr-col-sm-4
+            %ul.fr-footer__top-list.fr-pt-4w
+              - footer_landing_themes.last(4).each do |landing_theme|
+                - path = { controller: "landings/landing_themes", action: "show", landing_slug: footer_landing.slug, slug: landing_theme.slug, anchor: 'section-breadcrumbs' }.merge(query_params)
+                %li
+                  = link_to landing_theme.title, path, class: 'fr-footer__top-link'
         .fr-col-12.fr-col-sm-4
           %h3.fr-footer__top-cat= t('.know_us')
           %ul.fr-footer__top-list
@@ -41,7 +42,7 @@
         %p.fr-footer__content-desc= t('app_tagline')
         %ul.fr-footer__content-list
           %li.fr-footer__content-item
-            = link_to 'service-publics.fr', 'https://www.service-public.fr', title: to_new_window_title(t('.service_public_title')), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
+            = link_to 'service-public.fr', 'https://www.service-public.fr', title: to_new_window_title(t('.service_public_title')), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
     .fr-footer__bottom
       %ul.fr-footer__bottom-list
         %li.fr-footer__bottom-item

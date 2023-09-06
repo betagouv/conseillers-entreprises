@@ -38,4 +38,4 @@
     %main#content{ role: 'main' }
       = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts
 
-    = render 'footer' unless in_iframe?
+    = render 'footer', footer_landing_themes: @footer_landing_themes, footer_landing: @footer_landing unless in_iframe?
