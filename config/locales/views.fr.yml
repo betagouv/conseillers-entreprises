@@ -8,8 +8,6 @@ fr:
       title: Actu aides
     cgu:
       title: Conditions d’utilisation du service numérique Conseillers-entreprises.service-public.fr
-    service_public_fr:
-      title: Place des Entreprises devient Conseillers-entreprises.service-public.fr
     comment_ca_marche:
       long_title: Conseillers-entreprises.service-public.fr, comment ça marche ?
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
@@ -574,6 +572,7 @@ fr:
       who_are_we: Qui sommes-nous ?
       know_us: Nous connaître
       themes: Thèmes
+      who_are_we: Qui sommes-nous ?
     how_it_works_long:
       choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>

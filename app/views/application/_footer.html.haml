@@ -19,19 +19,28 @@
             = link_to t('usage_stats'), public_index_path, class: 'fr-footer__content-link'
           - if policy(Stats::All).team?
             %li.fr-footer__content-item
-              = link_to t('usage_team_stats'), team_index_path, class: 'fr-footer__content-link'
-    .fr-footer__bottom
-      %ul.fr-footer__bottom-list
-        %li.fr-footer__bottom-item
-          = link_to t('cgu'), cgu_path, class: 'fr-footer__bottom-link'
-        %li.fr-footer__bottom-item
-          = link_to t('about.mentions_d_information.title'), mentions_d_information_path, class: 'fr-footer__bottom-link'
-        %li.fr-footer__bottom-item
-          = link_to t('about.mentions_legales.title'), mentions_legales_path, class: 'fr-footer__bottom-link'
-        %li.fr-footer__bottom-item
-          = link_to t('conseiller.sitemap.sitemap.title'), conseiller_sitemap_path, class: 'fr-footer__bottom-link'
-        %li.fr-footer__bottom-item
-          = link_to t('about.accessibilite.footer_title'), accessibilite_path, class: 'fr-footer__bottom-link'
-        %li.fr-footer__bottom-item
-          %button.link.fr-footer__bottom-link{ id: 'open-cookies-box', 'aria-label': t('.open_cookies') }
-            = t('.cookies')
+              = mail_to ENV['APPLICATION_EMAIL'], 'Contactez-nous', target: :_blank, class: 'fr-footer__content-link'
+            %li.fr-footer__content-item
+              = link_to t('pages.footer.service_presentation'), '/dossier-presse.pdf', 'aria-label': t('pages.footer.service_presentation_title'), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
+            %li.fr-footer__content-item
+              = link_to t('usage_stats'), public_index_path, class: 'fr-footer__content-link'
+            - if policy(Stats::All).team?
+              %li.fr-footer__content-item
+                = link_to t('usage_team_stats'), team_index_path, class: 'fr-footer__content-link'
+      .fr-footer__bottom
+        %ul.fr-footer__bottom-list
+          %li.fr-footer__bottom-item
+            = link_to t('cgu'), cgu_path, class: 'fr-footer__bottom-link'
+          %li.fr-footer__bottom-item
+            = link_to t('about.mentions_d_information.title'), mentions_d_information_path, class: 'fr-footer__bottom-link'
+          %li.fr-footer__bottom-item
+            = link_to t('about.mentions_legales.title'), mentions_legales_path, class: 'fr-footer__bottom-link'
+          %li.fr-footer__bottom-item
+            = link_to t('conseiller.sitemap.sitemap.title'), conseiller_sitemap_path, class: 'fr-footer__bottom-link'
+          %li.fr-footer__bottom-item
+            = link_to t('about.accessibilite.footer_title'), accessibilite_path, class: 'fr-footer__bottom-link'
+          %li.fr-footer__bottom-item
+            %button.link.fr-footer__bottom-link{ id: 'open-cookies-box', 'aria-label': t('.open_cookies') }
+              = t('.cookies')
+- else
+  = render 'pages/footer'

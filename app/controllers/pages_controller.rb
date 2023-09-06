@@ -20,11 +20,9 @@ class PagesController < SharedController
   end
 
   def fetch_themes
-    p "fetch_themes"
     @footer_landing = Landing.accueil
     @footer_landing_themes = Rails.cache.fetch('footer_landing_themes', expires_in: 1.hour) do
       @footer_landing.landing_themes.not_archived.order(:position)
     end
   end
-
 end
