@@ -8,12 +8,12 @@
           = f.date_field :start_date, { value: stats.params.start_date, class: 'fr-input' }
       .fr-select-group
         = f.label :theme, t('stats.stats_params.theme'), class: 'fr-label'
-        = f.collection_select :theme, filters[:themes], :id, :label, { selected: params[:theme],
+        = f.collection_select :theme, filters[:themes], :id, :label, { selected: stats.params.theme,
           include_blank: t('all.feminine') }, class: "fr-select"
       - if filters[:antennes].many?
         .fr-select-group
           = f.label :antenne, t('activerecord.models.antenne.one'), class: 'fr-label'
-          = f.collection_select :antenne, filters[:antennes], :id, :name, { selected: params[:antenne] || current_user.managed_antennes.first.id }, class: "fr-select", data: { 'stats-target': 'antennes' }
+          = f.collection_select :antenne, filters[:antennes], :id, :name, { selected: stats.params.antenne }, class: "fr-select", data: { 'stats-target': 'antennes' }
     .fr-col-12.fr-col-md-6.fr-p-2w
       .fr-input-group
         = f.label :end_date, t('stats.stats_params.end_date'), class: 'fr-label'
@@ -21,12 +21,12 @@
           = f.date_field :end_date, { value: stats.params.end_date, class: 'fr-input' }
       .fr-select-group
         = f.label :subject, t('activerecord.models.subject.one'), class: 'fr-label'
-        = f.collection_select :subject, filters[:subjects], :id, :label, { selected: params[:subject],
+        = f.collection_select :subject, filters[:subjects], :id, :label, { selected: stats.params.subject,
         include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
       - if filters[:regions].many?
         .fr-select-group
           = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
-          = f.collection_select :territory, filters[:regions], :id, :name, { selected: params[:territory],
+          = f.collection_select :territory, filters[:regions], :id, :name, { selected: stats.params.territory,
             include_blank: t('all.feminine') }, class: "fr-select"
 
     .fr-col-12.fr-p-2w

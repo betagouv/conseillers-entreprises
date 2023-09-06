@@ -268,6 +268,67 @@ RSpec.describe Antenne do
     end
   end
 
+  describe 'perimeter_received_matches' do
+    let(:commune1) { create :commune }
+    let(:commune2) { create :commune }
+    let!(:region) { create :territory, :region, code_region: 999, communes: [commune1, commune2] }
+    let(:institution1) { create :institution, name: 'Institution 1' }
+    let(:national_antenne_i1) { create :antenne, :national, institution: institution1 }
+    let(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, communes: [commune1, commune2] }
+    let(:local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune1] }
+    let(:other_local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune2] }
+    let(:random_local_antenne_i1) { create :antenne, :local, institution: institution1 }
+    let(:local_antenne_i2) { create :antenne, :local, institution: create(:institution), communes: [commune1] }
+
+    let(:expert_local_antenne_i1) { create :expert_with_users, antenne: local_antenne_i1 }
+    let(:expert_other_local_antenne_i1) { create :expert_with_users, antenne: other_local_antenne_i1 }
+    let(:expert_regional_antenne_i1) { create :expert_with_users, antenne: regional_antenne_i1 }
+    let(:expert_local_antenne_i2) { create :expert_with_users, antenne: local_antenne_i2 }
+
+    let!(:match_regional_antenne_i1) do
+      create :match,
+             expert: expert_regional_antenne_i1,
+             need: create(:need, diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1)))
+    end
+    let!(:match_local_antenne_i1) do
+      create :match,
+             expert: expert_local_antenne_i1,
+             need: create(:need, diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1)))
+    end
+    let!(:match_other_local_antenne_i1) do
+      create :match,
+             expert: expert_other_local_antenne_i1,
+             need: create(:need, diagnosis: create(:diagnosis, facility: create(:facility, commune: commune2)))
+    end
+    let!(:match_random_local_antenne_i1) do
+      create :match,
+             expert: create(:expert, antenne: random_local_antenne_i1)
+    end
+    let!(:match_local_antenne_i2) do
+      create :match,
+             expert: expert_local_antenne_i2,
+             need: create(:need, diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1)))
+    end
+
+    before do
+      match_local_antenne_i1.update(status: :quo)
+      match_other_local_antenne_i1.update(status: :quo)
+    end
+
+    it 'displays only antenne needs for local antennes' do
+      expect(local_antenne_i1.perimeter_received_matches).to contain_exactly(match_local_antenne_i1)
+      expect(other_local_antenne_i1.perimeter_received_matches).to contain_exactly(match_other_local_antenne_i1)
+    end
+
+    it 'displays regional and antenne needs for regional antenne' do
+      expect(regional_antenne_i1.perimeter_received_matches).to contain_exactly(match_regional_antenne_i1, match_local_antenne_i1, match_other_local_antenne_i1)
+    end
+
+    it 'displays institution needs for national antenne' do
+      expect(national_antenne_i1.perimeter_received_matches).to contain_exactly(match_regional_antenne_i1, match_local_antenne_i1, match_other_local_antenne_i1, match_random_local_antenne_i1)
+    end
+  end
+
   describe 'perimeter_received_matches_from_needs' do
     let(:commune1) { create :commune }
     let(:commune2) { create :commune }

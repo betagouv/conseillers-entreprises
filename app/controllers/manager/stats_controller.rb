@@ -27,6 +27,7 @@ module Manager
       @stats_params = stats_filter_params
       @stats_params[:start_date] ||= 6.months.ago.beginning_of_month.to_date
       @stats_params[:end_date] ||= Date.today
+      @stats_params[:antenne] ||= current_user.managed_antennes.first.id
       @stats_params[:institution_id] = current_user.institution.id
       @stats_params[:colors] = %w[#cacafb #000091]
       @stats_params
