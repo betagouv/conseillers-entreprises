@@ -10,10 +10,10 @@ ActiveAdmin.register Match do
   includes :need, :facility, :company, :related_matches,
            :advisor, :advisor_antenne, :advisor_institution,
            :expert, :expert_antenne, :expert_institution,
+           :solicitation, :diagnosis,
            :subject, :theme,
            facility: :commune,
-           need: :subject,
-           diagnosis: :solicitation
+           need: :subject
 
   scope :sent, default: true, group: :all
   scope :all, group: :all
