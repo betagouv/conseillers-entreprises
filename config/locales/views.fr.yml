@@ -918,8 +918,8 @@ fr:
         title_table: Nombre de besoins restés sans réponse de l’institution
       positioning_rate:
         subtitle: L’expert s’est positionné pour indiquer prendre en charge ou refuser le besoin.
-        title: Taux de positionnement
-        title_table: Taux de positionnement
+        title: Taux de réponse
+        title_table: Taux de réponse
       solicitations:
         series: Besoins déposés
         subtitle_html: Il s’agit du nombre de besoins déposés par les entreprises avant la vérification qualité
@@ -953,7 +953,7 @@ fr:
     skeleton_card:
       loading: Graphique en cours de chargement...
     stats_chart:
-      detailed_description: Description détaillée
+      detailed_description: Chiffres détaillés
       months: Mois
       sum: Total
     stats_params:
