@@ -40,7 +40,7 @@ class RemindersRegister < ApplicationRecord
   scope :current_expired_need_category, -> { expired_needs_category.where(run_number: RemindersRegister.last_run_number, processed: false) }
 
   def self.last_run_number
-    RemindersRegister.maximum(:run_number)
+    @last_run_number ||= RemindersRegister.maximum(:run_number)
   end
 
   def current_reminder_register

@@ -3,7 +3,7 @@ module Reminders
     include Inbox
     helper_method :inbox_collections_counts
     helper_method :inbox_collections_counts_new
-    before_action :persist_filter_params, :setup_territory_filters, :collections_counts, :collections_counts_new, only: %i[index show many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]
+    before_action :persist_filter_params, :setup_territory_filters, :collections_counts_new, only: %i[index show many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]
     before_action :retrieve_expert, except: %i[index many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]
     before_action :persist_search_params, only: [:quo_active, :taking_care, :done, :not_for_me, :expired]
 
@@ -125,8 +125,18 @@ module Reminders
     end
 
     def collections_counts_new
-      # filtered_experts.to_sql      
-      # {:inputs=>0, :many_pending_needs=>5, :medium_pending_needs=>3, :one_pending_need=>5, :expired_needs=>2, :outputs=>0}
+      experts_collection_count_request = filtered_experts.joins(:reminders_registers)
+        .select("
+          COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.category = 1 AND reminders_registers.run_number = #{RemindersRegister.last_run_number} AND reminders_registers.processed = false) AS inputs,
+          COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.run_number = #{RemindersRegister.last_run_number} AND (reminders_registers.category = 0 OR reminders_registers.category = 1 AND reminders_registers.processed = true) AND reminders_registers.basket = 0) AS many_pending_needs,
+          COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.run_number = #{RemindersRegister.last_run_number} AND (reminders_registers.category = 0 OR reminders_registers.category = 1 AND reminders_registers.processed = true) AND reminders_registers.basket = 1) AS medium_pending_needs,
+          COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.run_number = #{RemindersRegister.last_run_number} AND (reminders_registers.category = 0 OR reminders_registers.category = 1 AND reminders_registers.processed = true) AND reminders_registers.basket = 2) AS one_pending_need,
+          COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.category = 3 AND reminders_registers.run_number = #{RemindersRegister.last_run_number} AND reminders_registers.processed = false) AS expired_needs,
+          COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.category = 2 AND reminders_registers.run_number = #{RemindersRegister.last_run_number} AND reminders_registers.processed = false) AS outputs
+        ")
+        .to_sql
+      results = ActiveRecord::Base.connection.execute(experts_collection_count_request)
+      @expert_collections_count = results.first.symbolize_keys
     end
 
     def filtered_experts
