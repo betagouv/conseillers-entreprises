@@ -45,19 +45,23 @@ module Inbox
   end
 
   def inbox_collections_counts(recipient)
-    inbox_collections_request = Need.joins(:matches).where(archived_at: nil)
-      .where(matches: { expert_id: recipient.id, archived_at: nil })
-      .where.not(matches: { sent_at: nil })
-      .select("
-        COUNT(DISTINCT needs.id) FILTER(WHERE matches.status = 'quo' AND matches.created_at >= '#{Need::REMINDERS_DAYS[:abandon]&.days&.ago}') AS quo_active,
-        COUNT(DISTINCT needs.id) FILTER(WHERE matches.status = 'taking_care') AS taking_care,
-        COUNT(DISTINCT needs.id) FILTER(WHERE matches.status IN ('done', 'done_no_help', 'done_not_reachable')) AS done,
-        COUNT(DISTINCT needs.id) FILTER(WHERE matches.status = 'not_for_me') AS not_for_me,
-        COUNT(DISTINCT needs.id) FILTER(WHERE matches.status = 'quo' AND matches.created_at <= '#{Need::REMINDERS_DAYS[:abandon]&.days&.ago}') AS expired
-      ")
-      .to_sql
-    results = ActiveRecord::Base.connection.execute(inbox_collections_request)
-    @inbox_collections_counts = results.first.symbolize_keys
+    @inbox_collections_counts = if recipient.is_a? Expert
+      inbox_collections_request = Need.joins(:matches).where(archived_at: nil)
+        .where(matches: { expert_id: recipient.id, archived_at: nil })
+        .where.not(matches: { sent_at: nil })
+        .select("
+          COUNT(DISTINCT needs.id) FILTER(WHERE matches.status = 'quo' AND matches.created_at >= '#{Need::REMINDERS_DAYS[:abandon]&.days&.ago}') AS quo_active,
+          COUNT(DISTINCT needs.id) FILTER(WHERE matches.status = 'taking_care') AS taking_care,
+          COUNT(DISTINCT needs.id) FILTER(WHERE matches.status IN ('done', 'done_no_help', 'done_not_reachable')) AS done,
+          COUNT(DISTINCT needs.id) FILTER(WHERE matches.status = 'not_for_me') AS not_for_me,
+          COUNT(DISTINCT needs.id) FILTER(WHERE matches.status = 'quo' AND matches.created_at <= '#{Need::REMINDERS_DAYS[:abandon]&.days&.ago}') AS expired
+        ")
+        .to_sql
+      results = ActiveRecord::Base.connection.execute(inbox_collections_request)
+      results.first.symbolize_keys
+    else
+      inbox_collection_names.index_with { |name| recipient.send("needs_#{name}").distinct.size }
+    end
   end
 
   def antenne_inbox_collections_counts(recipient)
