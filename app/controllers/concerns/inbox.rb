@@ -45,10 +45,6 @@ module Inbox
   end
 
   def inbox_collections_counts(recipient)
-    @inbox_collections_counts = inbox_collection_names.index_with { |name| recipient.send("needs_#{name}").distinct.size }
-  end
-
-  def inbox_collections_counts_new(recipient)
     inbox_collections_request = Need.joins(:matches).where(archived_at: nil)
       .where(matches: { expert_id: recipient.id, archived_at: nil })
       .where.not(matches: { sent_at: nil })

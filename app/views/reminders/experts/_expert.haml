@@ -50,7 +50,7 @@
         .fr-tag
           .bold= expert.received_matches.count
           .fr-ml-1v= t('.received_matches')
-        - inbox_collections_counts_new(expert).each do |name, count|
+        - inbox_collections_counts(expert).each do |name, count|
           - path = polymorphic_path([name, :reminders, expert])
           = link_to path, class: 'fr-tag' do
             .bold= count

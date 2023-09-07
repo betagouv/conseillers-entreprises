@@ -2,8 +2,7 @@ module Reminders
   class ExpertsController < BaseController
     include Inbox
     helper_method :inbox_collections_counts
-    helper_method :inbox_collections_counts_new
-    before_action :persist_filter_params, :setup_territory_filters, :collections_counts_new, only: %i[index show many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]
+    before_action :persist_filter_params, :setup_territory_filters, :collections_counts, only: %i[index show many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]
     before_action :retrieve_expert, except: %i[index many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]
     before_action :persist_search_params, only: [:quo_active, :taking_care, :done, :not_for_me, :expired]
 
@@ -120,12 +119,6 @@ module Reminders
     end
 
     def collections_counts
-      @expert_collections_count = Rails.cache.fetch(['expert_reminders_need', filtered_experts, RemindersRegister.current_remainder_category.pluck(:updated_at).max]) do
-        experts_collection_names.index_with { |name| filtered_experts.send(name).distinct.size }
-      end
-    end
-
-    def collections_counts_new
       experts_collection_count_request = filtered_experts.joins(:reminders_registers)
         .select("
           COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.category = 1 AND reminders_registers.run_number = #{RemindersRegister.last_run_number} AND reminders_registers.processed = false) AS inputs,
