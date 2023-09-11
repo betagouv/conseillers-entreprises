@@ -15,11 +15,13 @@ describe AntenneCoverage::DeduplicatedJob do
       expect(Delayed::Job.count).to eq 1
       expect(Delayed::Job.last.payload_object.object.antenne).to eq antenne
       first_job = Delayed::Job.first
+
+      # Pas de nouveau job rajouté si on modifie la même antenne
       antenne.update(communes: [beaufay])
       expect(Delayed::Job.count).to eq 1
       expect(Delayed::Job.last.payload_object.object.antenne).to eq antenne
       second_job = Delayed::Job.first
-      expect(first_job).not_to eq second_job
+      expect(first_job).to eq second_job
     end
   end
 end
