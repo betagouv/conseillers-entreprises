@@ -116,7 +116,6 @@ ActiveAdmin.register Solicitation do
   remove_filter :feedbacks
   remove_filter :updated_at
   remove_filter :institution
-  remove_filter :created_in_deployed_region
   remove_filter :badge_badgeables
   remove_filter :institution_filters
   filter :landing, as: :select, collection: -> { Landing.order(:slug).pluck(:slug, :id) }
@@ -124,7 +123,7 @@ ActiveAdmin.register Solicitation do
   filter :subject, as: :select, collection: -> { Subject.not_archived.order(:label).pluck(:label, :id) }
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
   filter :completion, as: :select, collection: -> { ['step_complete', 'step_incomplete'].map{ |completion| [I18n.t("active_admin.scopes.#{completion}"), completion] } }
-  filter :code_region, as: :select, collection: -> { Territory.deployed_regions.order(:name).pluck(:name, :code_region) }
+  filter :code_region, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :code_region) }
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
   filter :mtm_campaign, as: :string
   filter :mtm_kwd, as: :string

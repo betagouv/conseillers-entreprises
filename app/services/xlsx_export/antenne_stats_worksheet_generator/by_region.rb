@@ -8,7 +8,7 @@ module XlsxExport
 
         needs_by_territories = {}
 
-        Territory.deployed_regions.each do |region|
+        Territory.regions.each do |region|
           needs_by_territories[region.name] = @needs.by_region(region.id)
         end
 
