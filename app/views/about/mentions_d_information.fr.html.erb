@@ -1,15 +1,15 @@
-<% meta title: t('.title') %>
+<% meta title: t(’.title’) %>
 
 <div class="fr-container fr-py-7w fr-mt-3v">
-  <h1><%= t('.title') %></h1>
+  <h1><%= t(’.title’) %></h1>
 </div>
 
-<%= render 'pages/breadcrumbs', title: t('.title'), landing: @landing.presence %>
+<%= render ’pages/breadcrumbs’, title: t(’.title’), landing: @landing.presence %>
 
 <div class="fr-container--fluid section-grey fr-py-7w">
   <div class="fr-container container-medium">
     <p>Place des Entreprises est un service de l’État qui met en relation les TPE & PME avec les bons experts publics et parapublics, afin de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements techniques…) de manière adaptée à chaque situation.</p>
-    <p>Il est développé par la Direction Générale des Entreprises (DGE) et la Délégation Générale à l'Emploi et à la Formation Professionnelle (DGEFP), avec l'appui de la Direction Interministérielle du Numérique (DINUM).</p>
+    <p>Il est développé par la Direction Générale des Entreprises (DGE) et la Délégation Générale à l’Emploi et à la Formation Professionnelle (DGEFP), avec l’appui de la Direction Interministérielle du Numérique (DINUM).</p>
 
     <h2>Responsables de traitement</h2>
     <p>La Direction Générale des Entreprises (DGE) et la Délégation Générale à l’Emploi et à la Formation Professionnelle (DGEFP) sont conjointement responsables du traitement de vos données à caractère personnel. Les coordonnées de la DGE sont : Ministère de l’Économie, DGE, 67 rue Barbès, BP 8001, 94 201 Ivry-sur-Seine. Les coordonnées de la DGEFP sont : Ministère du Travail, DGEFP, 14 avenue Duquesne, 75350 Paris 07 SP.</p>
@@ -24,9 +24,9 @@
 
     <h2>Licéité du traitement</h2>
     <p>Conformément aux articles 6-c et 6-e du Règlement (UE) n°2016/679 du Parlement européen et du Conseil du 27 avril 2016 relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données, le traitement de données est nécessaire à l’exécution d’une mission d’intérêt public dont sont investis les responsables du traitement.</p>
-    <p>La mission d’intérêt public dans laquelle s’inscrit le traitement est définie par le décret n°2009-37 modifié du 12 janvier 2009 relatif à la Direction Générale des Entreprises, l’arrêté du 4 mai 2017 portant organisation de la Délégation Générale à l’Emploi et à la Formation Professionnelle et le code des relations entre le public et l'administration.</p>
+    <p>La mission d’intérêt public dans laquelle s’inscrit le traitement est définie par le décret n°2009-37 modifié du 12 janvier 2009 relatif à la Direction Générale des Entreprises, l’arrêté du 4 mai 2017 portant organisation de la Délégation Générale à l’Emploi et à la Formation Professionnelle et le code des relations entre le public et l’administration.</p>
     <% url="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045742996" %>
-    <p>Le traitement est régi par <a href="<%= url %>" title="<%= to_new_window_title(url)%>" target="_blank" rel='noopener'>le décret n° 2022-778 du 3 mai 2022 relatif à la création du traitement de données à caractère personnel dénommé « Place des Entreprises »</a>.</p>
+    <p>Le traitement est régi par <a href="<%= url %>" title="<%= to_new_window_title(url)%>" target="_blank" rel=’noopener’>le décret n° 2022-778 du 3 mai 2022 relatif à la création du traitement de données à caractère personnel dénommé « Place des Entreprises »</a>.</p>
 
     <h2>Catégories de données personnelles traitées</h2>
     <ul>
@@ -80,7 +80,7 @@
 
     <h2>Sous-traitants</h2>
     <p>Les données sont accessibles par des sous-traitants dans le cadre de leurs missions. Les responsables de traitement se sont assurés auprès de leurs sous-traitants des garanties adéquates et du respect de conditions strictes de confidentialité, d’usage et de protection des données.</p>
-    <p>La Direction Générale des Entreprises (DGE) met en œuvre le traitement de Place des Entreprises. Elle recourt, pour certaines compétences spécifiques, à la société Malt. La mission d’infogérance est confiée à la société Scalingo. Les missions d'hébergement des données du service sont confiées aux sociétés 3DS et OVH.</p>
+    <p>La Direction Générale des Entreprises (DGE) met en œuvre le traitement de Place des Entreprises. Elle recourt, pour certaines compétences spécifiques, à la société Malt. La mission d’infogérance est confiée à la société Scalingo. Les missions d’hébergement des données du service sont confiées aux sociétés 3DS et OVH.</p>
 
     <h2>Durée de conservation des données personnelles</h2>
     <p><span class="bold">Les données relatives aux entreprises utilisatrices du service</span> sont conservées pendant une durée maximale de 3 ans.</p>
@@ -101,8 +101,8 @@
         </thead>
         <tbody>
         <tr>
-          <td headers="table-1-data1">Traitement Entreprise.data.gouv.fr</td>
-          <td headers="table-1-data2">Entreprise.data.gouv.fr alimente Place des Entreprises en données relatives au numéro de SIRET, à l’enseigne, la localisation (code postal et ville), le nom de l’établissement et le secteur d’activité de l’entreprise.</td>
+          <td headers="table-1-data1">Traitement annuaire-entreprises.data.gouv.fr</td>
+          <td headers="table-1-data2">annuaire-entreprises.data.gouv.fr alimente Place des Entreprises en données relatives au numéro de SIRET, à l’enseigne, la localisation (code postal et ville), le nom de l’établissement et le secteur d’activité de l’entreprise.</td>
         </tr>
         <tr>
           <td headers="table-1-data1">Traitement API Entreprise</td>
@@ -110,7 +110,19 @@
         </tr>
         <tr>
           <td headers="table-1-data1">Traitement IP info</td>
-          <td headers="table-1-data2"> IP info alimente Place des Entreprises en données relatives à la localisation géographique de tout visiteur du site (adresse IP anonymisée).</td>
+          <td headers="table-1-data2">IP info alimente Place des Entreprises en données relatives à la localisation géographique de tout visiteur du site (adresse IP anonymisée).</td>
+        </tr>
+        <tr>
+          <td headers="table-1-data1">Traitement registre-national-entreprises.inpi.fr</td>
+          <td headers="table-1-data2">Registre-national-entreprises.inpi.fr alimente Place des Entreprises en données relatives à la forme d’activité de l’entreprise</td>
+        </tr>
+        <tr>
+          <td headers="table-1-data1">Traitement api.insee.fr</td>
+          <td headers="table-1-data2">Api.insee.fr alimente Place des Entreprises en données relatives aux établissements d’une entreprise</td>
+        </tr>
+        <tr>
+          <td headers="table-1-data1">Traitement cfadock.fr</td>
+          <td headers="table-1-data2">Cfadock.fr alimente Place des Entreprises en données relatives aux OPCO compétents pour une entreprise</td>
         </tr>
         </tbody>
       </table>
@@ -274,9 +286,9 @@
     <p>Pour aller plus loin, vous pouvez consulter les fiches proposées par la Commission Nationale de l’Informatique et des Libertés (CNIL) :</p>
     <ul>
       <% url="https://www.cnil.fr/fr/cookies-traceurs-que-dit-la-loi" %>
-      <li><a href="<%= url %>" title="<%= to_new_window_title(url)%>" target="_blank" rel='noopener'>Cookies & traceurs : que dit la loi ?</a></li>
+      <li><a href="<%= url %>" title="<%= to_new_window_title(url)%>" target="_blank" rel=’noopener’>Cookies & traceurs : que dit la loi ?</a></li>
       <% url="https://www.cnil.fr/fr/cookies-les-outils-pour-les-maitriser" %>
-      <li><a href="<%= url %>" title="<%= to_new_window_title(url)%>" target="_blank" rel='noopener'>Cookies : les outils pour les maîtriser</a></li>
+      <li><a href="<%= url %>" title="<%= to_new_window_title(url)%>" target="_blank" rel=’noopener’>Cookies : les outils pour les maîtriser</a></li>
     </ul>
 
     <h2>Vos demandes d’exercice de droit</h2>
