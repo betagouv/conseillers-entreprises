@@ -27,6 +27,8 @@ jobs:
       - name: Upgrade Node modules
         run: yarn upgrade
         shell: bash
+      - name: install panolint for linter
+        run: gem install panolint
       - name: fix linter
         run: rake lint_fix
       - name: Create Pull Request
