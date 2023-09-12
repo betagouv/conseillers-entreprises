@@ -5,7 +5,7 @@ module Stats::Needs
     include ::Stats::FiltersStats
 
     def main_query
-      Need.diagnosis_completed.where(created_at: @start_date..@end_date)
+      Need.diagnosis_completed.joins(matches: :expert).where(created_at: @start_date..@end_date)
     end
 
     def build_series
