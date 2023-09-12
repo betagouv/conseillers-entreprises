@@ -15,6 +15,8 @@
             %li.fr-footer__content-item
               = link_to t('pages.footer.service_presentation'), '/dossier-presse.pdf', 'aria-label': t('pages.footer.service_presentation_title'), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
             %li.fr-footer__content-item
+              = link_to t('pages.footer.who_are_we'), equipe_path, class: 'fr-footer__content-link'
+            %li.fr-footer__content-item
               = link_to t('usage_stats'), public_index_path, class: 'fr-footer__content-link'
             - if policy(Stats::All).team?
               %li.fr-footer__content-item
@@ -35,4 +37,5 @@
             %button.link.fr-footer__bottom-link{ id: 'open-cookies-box', 'aria-label': t('.open_cookies') }
               = t('.cookies')
 - else
-  = render 'pages/footer'
+  = render 'pages/footer', footer_landing_themes: @footer_landing_themes, footer_landing: @footer_landing unless in_iframe?
+

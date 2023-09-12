@@ -5,6 +5,7 @@ class ApplicationController < SharedController
   include Pundit::Authorization
 
   before_action :authenticate_user!
+  before_action :fetch_themes, if: :devise_controller?
 
   def authenticate_admin!
     current_user.is_admin? || not_found
