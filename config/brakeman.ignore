@@ -59,6 +59,52 @@
     {
       "warning_type": "Dangerous Send",
       "warning_code": 23,
+      "fingerprint": "406facd43ca65f782d191212b4ee73112e777a69a68a839794e8833273117b3a",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/stats/team_controller.rb",
+      "line": 40,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "\"Stats::#{params.permit(:stats_for)[:stats_for]}::All\".constantize.new(session[:team_stats_params]).send(params.permit(:chart_name)[:chart_name])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Stats::TeamController",
+        "method": "load_stats"
+      },
+      "user_input": "params.permit(:chart_name)[:chart_name]",
+      "confidence": "High",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 24,
+      "fingerprint": "a5954d44e2ec305579a40308d7a0373f2c80cc754bdba14aacd52560836d0ce9",
+      "check_name": "UnsafeReflection",
+      "message": "Unsafe reflection method `constantize` called on parameter value",
+      "file": "app/controllers/stats/team_controller.rb",
+      "line": 40,
+      "link": "https://brakemanscanner.org/docs/warning_types/remote_code_execution/",
+      "code": "\"Stats::#{params.permit(:stats_for)[:stats_for]}::All\".constantize",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Stats::TeamController",
+        "method": "load_stats"
+      },
+      "user_input": "params.permit(:stats_for)[:stats_for]",
+      "confidence": "High",
+      "cwe_id": [
+        470
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
       "fingerprint": "a2ff645fb19dc92b961ec0a28bb8a1f2da85322f1e167ca6246a9f96a989b5af",
       "check_name": "Send",
       "message": "User controlled method execution",
