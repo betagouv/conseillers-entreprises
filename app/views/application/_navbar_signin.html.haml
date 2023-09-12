@@ -22,10 +22,6 @@
                 = link_to root_path, class: 'fr-btn' do
                   = t('company_contact')
               %li
-                = active_link_to tutoriels_path, class: 'fr-btn' do
-                  %span.ri-tools-line.fr-mr-1w{ 'aria-hidden': 'true' }
-                  = t('user_pages.tutoriels.title')
-              %li
                 = link_to t('experts_login'), user_signed_in? ? needs_path : new_user_session_path, class: 'fr-btn fr-icon-lock-line'
 
   / Navigation principale - à garder pour éviter erreurs js sur mobile

@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe 'about', type: :feature, js: true do
+  before { create_home_landing }
+
   subject { page }
 
   describe '/cgu' do
