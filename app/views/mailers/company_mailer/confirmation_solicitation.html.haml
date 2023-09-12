@@ -7,7 +7,9 @@
 - if @solicitation.landing.iframe?
   %p= t('.content_for_iframe_html', website: @solicitation.landing.partner_url)
 - else
-  %p= t('.content_html')
+  %p= t('.content')
+
+%p= t('.its_about')
 
 %p
   %strong= @solicitation.landing_subject.title
@@ -22,4 +24,4 @@
 
 %p= t('mailers.cordially')
 
-%p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)
+%p= t('mailers.team_html', link_to_root: link_to_root)

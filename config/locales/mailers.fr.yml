@@ -12,8 +12,8 @@ fr:
         job_id: 'ID : %{id}'
         jobs_index: Index des jobs
         subject:
-          one: "[Place des Entreprises] %{count} job en erreur"
-          other: "[Place des Entreprises] %{count} jobs en erreur"
+          one: "[Conseillers-entreprises.service-public.fr] %{count} job en erreur"
+          other: "[Conseillers-entreprises.service-public.fr] %{count} jobs en erreur"
       send_csv:
         content: L’export des %{model} est terminé, vous le trouverez en pièce jointe.
         ransack_params: Paramètres de recherche
@@ -26,60 +26,61 @@ fr:
         last_week: 'Voici les statistiques de la semaine dernière :'
         reminders: 'Côté relances, voici où nous en sommes :'
         see_you_next_week: À la semaine prochaine pour de nouvelles aventures !
-        subject: "[Place des Entreprises] Bon lundi ! Voici les statistiques d’utilisation !"
-    best_regards: Bien cordialement,
+        subject: "[Conseillers-entreprises.service-public.fr] Bon lundi ! Voici les statistiques d’utilisation !"
+    best_regards: Cordialement,
     company_mailer:
       abandoned_need:
         no_experts: Nous avons transmis votre demande au sein de notre réseau de partenaires institutionnels publics et parapublics. Malheureusement et malgré nos efforts de relance, nous avons le regret de vous informer qu’aucun de nos partenaires n’est en mesure de vous accompagner pour votre demande.
-        service_improvement: C’est en détectant de nouvelles situations que nous pouvons améliorer ce service. Nous faisons notre maximum pour compléter l’expertise du service en intégrant de nouveaux partenaires. Nous espérons ainsi proposer à terme un conseil personnalisé à toutes les TPE & PME dans votre situation.
-        subject: Échec de votre demande Place des Entreprises
+        service_improvement: C’est en détectant de nouvelles situations que nous pouvons améliorer ce service. Nous faisons notre maximum pour compléter l’expertise du service en intégrant de nouveaux partenaires.
+        subject: Échec de votre demande pour « %{subject} »
         your_need_html: Vous avez déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant le sujet <strong>%{subject}</strong>.
       confirmation_solicitation:
-        content_for_iframe_html: 'Nous avons bien reçu votre demande déposée sur le site <strong>%{website}</strong>, en partenariat avec le service public Place des Entreprises.<br>Elle concerne :'
-        content_html: 'Nous avons bien reçu votre demande déposée sur le site Place des Entreprises.<br>Elle concerne :'
-        informations_html: 'Vous serez informé(e) par mail de sa prise en charge par un conseiller dans les 5 jours en moyenne.<br>Le(s) partenaire(s) pouvant vous rappeler sont :'
+        content: Nous avons bien reçu votre demande déposée sur le site Conseillers-entreprises.service-public.fr.
+        content_for_iframe_html: Nous avons bien reçu votre demande déposée sur le site <strong>%{website}</strong>, en partenariat avec le service public d’accompagnement des TPE-PME.
+        informations_html: 'Vous serez informé(e) par mail de sa prise en charge par un conseiller ou une conseillère dans les 5 jours en moyenne.<br>Le(s) partenaire(s) pouvant vous rappeler sont :'
+        its_about: 'Elle concerne :'
         subject: Confirmation de votre demande « %{subject} »
+      explanation_html: Conseillers-entreprises.service-public.fr est un service du Ministère de l’Économie et du Ministère du Travail pour faciliter la vie des petites entreprises. Il vous permet d’échanger avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
       intelligent_retention:
         and_you: Et vous, souhaitez-vous être aidé par un conseiller sur ces sujets ?
-        explanation_html: 'Place des Entreprises est un service des ministères de l’Economie et du Travail avec un objectif : faciliter la vie des petites entreprises.<br>Lorsqu''un chef d’entreprise dépose sa demande, le service sélectionne pour lui les conseillers compétents parmi plus de 40 institutions publiques.'
-        why_this_message: Pourquoi recevez-vous ce message ?
       not_yet_taken_care:
-        intro_from_solicitation_html: 'Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne :'
+        holiday_delay: En période de vacances scolaires, les délais de prise en charge peuvent être exceptionnellement plus longs au regard des congés des conseillers et conseillères.
+        intro_from_solicitation_html: 'Vous avez utilisé le service public d’accompagnement des TPE-PME pour <i>%{company}</i>. Votre demande concerne :'
         subject: Suivi de votre demande « %{subject} »
         thanks_for_your_patience: Nous vous remercions pour votre patience.
         we_continue_to_follow_up_html: Nous avons relancé le conseiller ou la conseillère compétente pour votre demande. Nous continuons d’<strong>assurer son suivi</strong> pour vous apporter une réponse dans les meilleurs délais.
       notify_not_reachable:
-        content_by_expert_html: "<strong>Un conseiller ou une conseillère de %{expert_antenne}</strong> a tenté de vous joindre par téléphone. Nous vous invitons à consulter votre messagerie vocale et vos mails pour le rappeler."
+        content_by_expert_html: "<strong>Un conseiller ou une conseillère de %{expert_antenne} a tenté de vous joindre</strong> par téléphone. Nous vous invitons à consulter votre messagerie vocale et vos mails pour rappeler cette personne."
         subject: Appel manqué pour votre demande « %{subject} »
       notify_taking_care:
         content_by_expert_html: Votre demande vient d’être prise en charge par <strong>un conseiller ou une conseillère de %{expert_antenne}</strong>. Si vous êtes injoignable, n’oubliez pas de consulter votre messagerie vocale et vos mails.
-        intro_from_solicitation_html: 'Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne :'
+        intro_from_solicitation_html: 'Vous avez utilisé le service public d’accompagnement des TPE-PME pour <i>%{company}</i>. Votre demande concerne :'
         subject: Prise en charge de votre demande « %{subject} »
       retention:
-        intro_html: 'Vous avez utilisé le service public Place des Entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait :'
-        list_html: 'Plus de 40 partenaires publics sont réunis dans ce service pour vous accompagner sur de nombreux sujets : <ul><li>recrutement</li><li>formation</li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
+        intro_html: 'Vous avez utilisé le service public d’accompagnement des TPE-PME il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait :'
+        list_html: 'Des dirigeants utilisent le service pour être accompagnés sur d’autres sujets : <ul><li>recrutement</li><li>formation</li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
         outro: Si vous souhaitez être accompagné(e), n’hésitez pas à déposer une demande.
-        remind: Pour rappel, Place des Entreprises est un service de mise en relation pour les TPE & PME. Il vous permet d’échanger avec LE conseiller qui peut vous aider.
         send_solicitation: Échanger avec un conseiller
         subject: Avez-vous besoin d’aide ?
       satisfaction:
-        intro_html: 'Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concernait :'
+        intro_html: 'Vous avez utilisé le service public d’accompagnement des TPE-PME pour <i>%{company}</i>. Votre demande concernait :'
         outro: Votre avis est important pour nous aider à améliorer ce service public de mise en relation.
         question_one_html: Avez-vous été rappelé(e) par un conseiller ou une conseillère ? <a href='%{link_yes}' target='_blank' class='response-button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='response-button no'>Non</a>
-        subject: Suivi de votre demande « %{subject} »
+        subject: Fin du suivi de votre demande « %{subject} »
         tank_you: Merci pour votre confiance,
       solicitation_relaunch_company:
         continue_button_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Finaliser ma demande d’aide</a>"
-        incomplete_step_explanation: 'Nous avons besoin de votre SIRET ou SIREN pour vous fournir un conseil de proximité et sur mesure. Pour trouver votre SIRET, vous pouvez renseigner le nom de votre entreprise en cliquant ci-dessous :'
-        service_explanation_html: Place des Entreprises est un <strong>service public</strong> du ministère de l’Économie qui vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 institutions compétentes.
-        subject: Votre demande au sujet de «%{subject}»
-        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet «<strong>%{subject}</strong>» sur le site Place des Entreprises.
+        incomplete_step_explanation: 'Nous avons besoin de votre SIRET ou SIREN pour vous fournir un conseil personnalisé et de proximité. Pour trouver votre SIRET, vous pouvez renseigner le nom de votre entreprise en cliquant ci-dessous :'
+        service_explanation_html: Ce <strong>service public d’accompagnement des TPE-PME</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
+        subject: Votre demande pour «%{subject}»
+        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet «<strong>%{subject}</strong>» sur le site Conseillers-entreprises.service-public.fr.
       solicitation_relaunch_description:
         continue_button_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Finaliser ma demande d’aide</a>"
-        incomplete_step_explanation: Vous pouvez expliquer votre problématique avec quelques éléments de contexte pour bénéficier d’un conseil sur mesure.
-        service_explanation_html: Place des Entreprises est un <strong>service public</strong> du ministère de l’Économie qui vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 institutions compétentes.
+        incomplete_step_explanation: Vous pouvez expliquer votre problématique avec quelques éléments de contexte pour bénéficier d’un conseil personnalisé.
+        service_explanation_html: Ce <strong>service public d’accompagnement des TPE-PME</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
         subject: Votre demande à propos de «%{subject}»
-        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet «<strong>%{subject}</strong>» sur le site Place des Entreprises.
+        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet «<strong>%{subject}</strong>» sur le site Conseillers-entreprises.service-public.fr.
+      why_this_message_html: "<strong>Pourquoi recevez-vous ce message ?</strong>"
     cordially: Cordialement,
     email_sent: L’email a bien été envoyé
     expert_mailer:
@@ -87,8 +88,8 @@ fr:
         answer: C’est un nouveau service public financé par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
         answer_continuation: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon conseiller au sein des administrations, organismes publics et parapublics, et collectivités territoriales partenaires.
         need_help: Besoin d’aide ?
-        pde_contact: 'Votre contact pour vous aider au sein de l’équipe Place des Entreprises :'
-        received_need: Vous venez de recevoir votre premier besoin d’entreprise sur Place des Entreprises.
+        pde_contact: 'Votre contact pour vous aider au sein de l’équipe Conseillers-entreprises.service-public.fr :'
+        received_need: Vous venez de recevoir votre premier besoin d’entreprise sur Conseillers-entreprises.service-public.fr.
         response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
         subject: Place des Entreprises - Besoin d’aide ?
         watch_videos_html: Jetez un œil sur <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>les vidéos de démonstration ici</a> !
@@ -141,8 +142,6 @@ fr:
     hello: Bonjour,
     hello_name: Bonjour %{name},
     hope_to_helped: En espérant que ces informations vous soient utiles,
-    place_des_entreprises_team: L’équipe Place des Entreprises.
-    place_des_entreprises_team_html: L’équipe %{link_to_root}.
     see_diagnosis: Voir la demande
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
     sincerely: Bien à vous,
@@ -236,6 +235,8 @@ fr:
         no_expert: Malheureusement nous n’avons pas encore d'expert en mesure de répondre à votre problématique.
         tradespeople_html: "<strong>pour les commerçants</strong> : <a href='https://communication-agefice.fr'>https://communication-agefice.fr</a>"
         useful_links: 'Selon votre statut social de Travailleur Non Salarié, 3 organismes sont compétents :'
+    team: L’équipe Conseillers-entreprises.service-public.fr
+    team_html: L’équipe %{link_to_root}.
     team_pde: L’équipe Place des Entreprises
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service de mise en relation.
