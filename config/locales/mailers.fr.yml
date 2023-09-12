@@ -91,19 +91,19 @@ fr:
         pde_contact: 'Votre contact pour vous aider au sein de l’équipe Conseillers-entreprises.service-public.fr :'
         received_need: Vous venez de recevoir votre premier besoin d’entreprise sur Conseillers-entreprises.service-public.fr.
         response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
-        subject: Place des Entreprises - Besoin d’aide ?
+        subject: Conseillers-entreprises.service-public.fr - Besoin d’aide ?
         watch_videos_html: Jetez un œil sur <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>les vidéos de démonstration ici</a> !
-        what_is_pde: Qu’est-ce que Place des Entreprises ?
+        what_is_pde: Qu’est-ce que Conseillers-entreprises.service-public.fr ?
       last_chance:
         at_your_disposal: Je reste à votre disposition si vous avez besoin d’aide.
         company_solicitation_html: 'Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier :'
         link_to_need: Lien vers la fiche
-        subject: "[Service public Place des Entreprises] Le besoin de l’entreprise %{company} va être abandonné "
+        subject: "[Service public Conseillers-entreprises.service-public.fr] Le besoin de l’entreprise %{company} va être abandonné "
         we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant ou à la dirigeante resté(e) sans nouvelles.
       notify_company_needs:
         advisor_met_company_html: "<strong>%{name}</strong> - %{antenne} - vous a partagé cette demande le %{visit_date}."
         needs_you_html: a besoin de votre expertise sur <strong>« %{subject} »</strong>
-        subject: "[Service public Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
+        subject: "[Service public Conseillers-entreprises.service-public.fr] L’entreprise %{company_name} a besoin de vous"
         support_contact_label: 'Si vous n’arrivez pas à accéder à cette demande, contactez :'
         this_company: L’entreprise
         via_partner_html: Cette demande a été déposée sur le site <a href='%{url}' target='_blank'>%{url}</a> avec lequel le service Place des Entreprises est en partenariat.
@@ -188,7 +188,7 @@ fr:
         sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr%2F%3Fopenidconnectcallback%3D1&nonce=1644578731_23573&client_id=id_cfspro_prod&display=&state=1644578731_4749&scope=openid%20profile%20email%20info'>impot.gouv.fr</a>, dans votre espace de messagerie personnalisée.
         solicitation_subject_html: concernant des questions relatives à la fiscalité
       intermediary:
-        explications: Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 40 partenaires publics et parapublics du service ont à cœur d’échanger directement avec les entreprises pour répondre au mieux à leur problématique.
+        explications: Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 30 partenaires publics et parapublics du service ont à cœur d’échanger directement avec les entreprises pour répondre au mieux à leur problématique.
         explications_2: C’est pourquoi nous vous invitons à accompagner votre interlocuteur / client pour qu’il dépose lui-même une demande sur le site.
         for_companies_html: Il s'agit d’un service public <b>destiné aux chefs d’entreprises</b>, afin d’aider les petites structures à se développer et à s’adapter.
       intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service).
