@@ -302,6 +302,7 @@ Rails.application.routes.draw do
         get :public, path: 'public'
         get :needs, path: 'besoins'
         get :matches, path: 'mises-en-relation'
+        get :load_stats
         get :institution_filters
       end
     end
