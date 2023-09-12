@@ -28,7 +28,7 @@ RSpec.describe ApiConsumption::Models::Company::ApiEntreprise do
             nomenclature: "NAFRev2",
             libelle: "Conseil en systèmes et logiciels informatiques"
           },
-          forme_exercice: "INDEPENDANTE"
+          forme_exercice: "LIBERALE_NON_REGLEMENTEE"
         }
       end
 
@@ -49,7 +49,7 @@ RSpec.describe ApiConsumption::Models::Company::ApiEntreprise do
             nomenclature: "NAFRev2",
             libelle: "Services de soutien à l’exploitation forestière"
           },
-          forme_exercice: nil
+          forme_exercice: "INDEPENDANTE"
         }
       end
 
