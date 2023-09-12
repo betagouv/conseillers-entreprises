@@ -95,6 +95,7 @@ jobs:
             DATABASE_URL: "postgis://place_des_entreprises_test@localhost:5432/place_des_e\
               ntreprises_test"
             APPLICATION_EMAIL: "contact@mailrandom.fr"
+            APPLICATION_MARKETING_EMAIL: "contact@marketing.mailrandom.fr"
             TEST_ERROR_RENDERING: "false"
             CI: 'true'
             RORVSWILD_KEY: 'rorvswild'
