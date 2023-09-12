@@ -8,13 +8,13 @@ class DeviseMailerPreview < ActionMailer::Preview
   def reset_password_instructions
     user = User.not_deleted.sample
     user.reset_password_sent_at = Time.now.utc
-    Devise::Mailer.reset_password_instructions(user, 'faketoken')
+    CustomDeviseMailer.reset_password_instructions(user, 'faketoken')
   end
 
   def reset_password_instructions_never_used
     user = User.not_deleted.sample
     user.invitation_accepted_at = nil
-    Devise::Mailer.reset_password_instructions(user, 'faketoken')
+    CustomDeviseMailer.reset_password_instructions(user, 'faketoken')
   end
 
   # Other Devise emails never used:
