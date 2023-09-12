@@ -294,14 +294,7 @@ Rails.application.routes.draw do
   scope :stats, module: :stats do
     resources :public, only: :index, path: '/' do
       collection do
-        get :solicitations
-        get :solicitations_diagnoses
-        get :exchange_with_expert
-        get :needs_done_from_exchange
-        get :taking_care
-        get :themes
-        get :companies_by_employees
-        get :companies_by_naf_code
+        get :load_stats
       end
     end
     resources :team, only: :index, path: 'equipe' do
