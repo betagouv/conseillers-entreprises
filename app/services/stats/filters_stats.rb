@@ -62,6 +62,7 @@ module Stats
     end
 
     def filtered_matches(query)
+      query = query.joins(:need)
       query.merge! query.in_region(territory) if territory.present?
       query.merge! antenne_or_institution.perimeter_received_matches if antenne_or_institution.present?
       query.merge! Match.joins(:subject).where(subjects: subject) if subject.present?
