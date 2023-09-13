@@ -4,7 +4,7 @@ module Manager
   class StatsController < ApplicationController
     include StatsHelper
     before_action :stats_params, only: :index
-    before_action :set_filters, only: :index
+    before_action :set_filters_collections, only: :index
     before_action :set_charts_names, only: :index
 
     def index
@@ -13,7 +13,7 @@ module Manager
       session[:manager_stats_params] = @stats_params
     end
 
-    def load_graph
+    def load_data
       name = params.permit(:chart_name)[:chart_name]
       data = Rails.cache.fetch(['manager-stats', name, session[:manager_stats_params]], expires_in: 6.hours) do
         Stats::Manager::All.new(session[:manager_stats_params]).send(name)
@@ -37,7 +37,7 @@ module Manager
       render partial: 'stats/load_stats', locals: { data: data, name: name }
     end
 
-    def set_filters
+    def set_filters_collections
       managed_antennes = current_user.managed_antennes
       @filters = {
         antennes: Antenne.where(id: [managed_antennes.ids, managed_antennes.map { |a| a.territorial_antennes.map(&:id) }].flatten),

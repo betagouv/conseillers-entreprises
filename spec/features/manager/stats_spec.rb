@@ -13,9 +13,9 @@ describe 'Manager::StatsController features' do
     end
   end
 
-  describe 'load_graph' do
+  describe 'load_data' do
     it do
-      visit 'manager/load_graph?chart_name=needs_transmitted'
+      visit 'manager/load_data?chart_name=needs_transmitted'
       expect(page.html).to include 'Besoins transmis'
     end
   end
