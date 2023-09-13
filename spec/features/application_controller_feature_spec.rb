@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe 'ApplicationController specific features' do
+  before { create_home_landing }
+
   describe 'authenticate_admin!' do
     login_user
 

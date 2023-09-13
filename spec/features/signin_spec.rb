@@ -6,6 +6,7 @@ describe 'the signin process' do
   let!(:user) { create :user, email: 'user@example.com', password: 'yX*4Ubo_xPW!u' }
 
   before do
+    create_home_landing
     visit new_user_session_path
     within('#new_user') do
       fill_in 'E-mail', with: 'user@example.com'

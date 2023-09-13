@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'landings', type: :feature, js: true do
-  let!(:landing) { create :landing, title: 'Accueil', slug: 'accueil' }
+  before { create_home_landing }
   let(:landing_theme) { create :landing_theme, title: 'Theme', slug: 'theme' }
 
   subject { page }
@@ -15,7 +15,10 @@ describe 'landings', type: :feature, js: true do
   end
 
   describe '/aide-entreprise/:landing_slug' do
-    before { visit "/aide-entreprise/#{Landing.last.slug}" }
+    before do
+      byebug
+      visit "/aide-entreprise/#{Landing.last.slug}"
+    end
 
     it do
       is_expected.to be_accessible
@@ -23,7 +26,7 @@ describe 'landings', type: :feature, js: true do
   end
 
   describe '/aide-entreprise/:landing_slug/theme/:slug' do
-    before { visit "/aide-entreprise/#{landing.slug}/theme/#{landing_theme.slug}" }
+    before { visit "/aide-entreprise/#{home_landing.slug}/theme/#{landing_theme.slug}" }
 
     it do
       is_expected.to be_accessible

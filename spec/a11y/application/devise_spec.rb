@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe 'devise', type: :feature, js: true do
+  before { create_home_landing }
+
   subject { page }
 
   describe '/mon_compte/sign_in' do

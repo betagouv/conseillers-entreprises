@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe 'pages', type: :feature, js: true do
+  before { create_home_landing }
+
   login_user
 
   subject { page }

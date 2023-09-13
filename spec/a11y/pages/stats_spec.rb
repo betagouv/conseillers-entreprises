@@ -16,7 +16,10 @@ describe 'about', type: :feature, js: true do
   end
 
   describe '/stats' do
-    before { visit '/stats' }
+    before do
+      create_home_landing
+      visit '/stats'
+    end
 
     it { is_expected.to be_accessible }
   end
