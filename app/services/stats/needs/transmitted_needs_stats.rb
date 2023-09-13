@@ -5,6 +5,7 @@ module Stats::Needs
     include ::Stats::FiltersStats
 
     def main_query
+      # Ajoute un joins ici pour les jointures du '.size' ne fonctionne pas sans en production uniquement
       Need.diagnosis_completed.joins(matches: :expert).where(created_at: @start_date..@end_date)
     end
 
