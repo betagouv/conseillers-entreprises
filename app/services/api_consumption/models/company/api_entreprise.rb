@@ -131,11 +131,11 @@ module ApiConsumption::Models
     end
 
     def has_liberal_forme_exercice
-      forme_exercice.present? && forme_exercice == ("INDEPENDANTE" || "LIBERALE_REGLEMENTEE")
+      forme_exercice.present? && ["LIBERALE_REGLEMENTEE", "LIBERALE_NON_REGLEMENTEE"].include?(forme_exercice)
     end
 
     def has_liberal_naf_code
-      forme_juridique_code == '1000' && liberal_naf_codes.include?(naf_code)
+      forme_exercice == "INDEPENDANTE" && forme_juridique_code == '1000' && liberal_naf_codes.include?(naf_code)
     end
 
     def liberal_naf_codes
