@@ -5,7 +5,7 @@ module Manager
     include StatsHelper
     before_action :stats_params, only: :index
     before_action :set_filters_collections, only: :index
-    before_action :set_charts_names, only: :index
+    before_action :set_charts_names, only: %i[index load_data]
 
     def index
       authorize current_user, :index?
@@ -16,7 +16,7 @@ module Manager
     def load_data
       name = params.permit(:chart_name)[:chart_name]
       data = Rails.cache.fetch(['manager-stats', name, session[:manager_stats_params]], expires_in: 6.hours) do
-        Stats::Manager::All.new(session[:manager_stats_params]).send(name)
+        Stats::Manager::All.new(session[:manager_stats_params]).send(name) if @charts_names.include?(name.to_sym)
       end
       render_partial(data, name)
     end
