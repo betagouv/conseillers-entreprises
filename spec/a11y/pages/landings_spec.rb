@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe 'landings', type: :feature, js: true do
   before { create_home_landing }
+
   let(:landing_theme) { create :landing_theme, title: 'Theme', slug: 'theme' }
 
   subject { page }
