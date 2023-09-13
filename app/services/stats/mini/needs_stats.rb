@@ -3,7 +3,9 @@ module Stats::Mini
     include ::Stats::Mini::BaseStats
 
     def main_query
-      Need.diagnosis_completed
+      Need.joins(:diagnosis)
+        .merge(Diagnosis.from_solicitation.completed)
+        .with_exchange
     end
   end
 end

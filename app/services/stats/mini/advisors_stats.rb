@@ -3,7 +3,7 @@ module Stats::Mini
     include ::Stats::Mini::BaseStats
 
     def main_query
-      User.all.distinct
+      User.active.distinct
     end
   end
 end

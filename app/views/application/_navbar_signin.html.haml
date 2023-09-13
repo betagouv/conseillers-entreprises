@@ -19,9 +19,6 @@
           .fr-header__tools-links{ role: 'navigation' }
             %ul.fr-btns-group
               %li
-                = link_to root_path, class: 'fr-btn' do
-                  = t('company_contact')
-              %li
                 = link_to t('experts_login'), user_signed_in? ? needs_path : new_user_session_path, class: 'fr-btn fr-icon-lock-line'
 
   / Navigation principale - à garder pour éviter erreurs js sur mobile
@@ -31,7 +28,7 @@
       .fr-header__menu-links{ 'aria-label': t('navbar.main_menu') }
       %nav.fr-nav{ 'aria-label': t("navbar.main_menu"), role: 'navigation' }
         %ul.fr-nav__list
-          = active_link_to root_path, title: t('pages.navbar.link_to_blog'), class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', active: :exclusive do
+          = active_link_to root_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', active: :exclusive do
             %span.ri-home-line.fr-mr-1w{ 'aria-hidden': 'true' }
             = t('breadcrumbs_helper.home_link.home')
           = active_link_to comment_ca_marche_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do

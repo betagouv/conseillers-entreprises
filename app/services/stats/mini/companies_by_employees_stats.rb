@@ -6,6 +6,7 @@ module Stats::Mini
       Company
         .includes(:needs).references(:needs)
         .where(facilities: { diagnoses: { step: :completed } })
+        .where(facilities: { needs: { status: :done } })
         .distinct
     end
   end

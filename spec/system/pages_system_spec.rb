@@ -25,7 +25,7 @@ describe 'Pages' do
 
     click_link 'Accès conseillers'
     click_link 'Tutoriel'
-    click_link 'Chefs d’entreprises, cliquez ici'
+    click_link 'Accueil'
 
     click_link 'Conditions d’utilisation'
     click_link 'Mentions d\'information'
