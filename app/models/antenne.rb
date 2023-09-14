@@ -208,7 +208,7 @@ class Antenne < ApplicationRecord
             .or(Match.sent.where(expert: { antenne: self.territorial_antennes }))
         end.distinct
       else
-        self.received_matches_including_from_deleted_experts
+        self.received_matches
       end
     end
   end
