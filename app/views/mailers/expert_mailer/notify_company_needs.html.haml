@@ -18,12 +18,12 @@
      antenne: advisor.antenne.name,
      visit_date: I18n.l(@diagnosis.display_date, format: :long))
 
-.button
-  %a{ href: need_url(@need) }= t('mailers.see_diagnosis')
+.btn-wrapper
+  %a.response-btn{ href: need_url(@need) }= t('mailers.see_diagnosis')
 
 %p= t('mailers.thanks_for_your_trust')
 
-%p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to(t('app_name'), root_url))
+%p= t('mailers.see_you_on_service_html', link_to_root: link_to(t('app_name'), root_url))
 
 .info
   %p= t('.support_contact_label')

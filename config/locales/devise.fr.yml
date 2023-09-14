@@ -29,10 +29,10 @@ fr:
       hello: Bonjour %{user_full_name},
       invitation_instructions:
         accept: Choisir mon mot de passe
-        accept_user_invitation_instruction: 'Pour rejoindre la communauté, choisissez votre mot de passe :'
-        answer_one: Après une expérimentation réussie en Hauts-de-France, %{institution_name} est partenaire du service Conseillers-entreprises.service-public.fr en vertu d’un accord de coopération national, décliné localement. D’après les données communiquées, vous avez été identifié(e) pour participer à cette nouvelle dynamique.
-        answer_two_html: "<p>Financé par le Ministère de l’Économie et le Ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE et PME.</p><p>En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations, collectivités, organismes publics et parapublics chargés de l’accompagner sur son territoire.</p><p>Vous pouvez ainsi échanger sur une demande d’entreprise avec des conseillers du service public, travaillant dans d’autres structures. Le service compte plus de 30 partenaires ! </p>"
-        description_html: Vous êtes invité·e à rejoindre le service public %{link_to_root}, au sein de l’antenne %{antenne}.
+        accept_user_invitation_instruction: 'Pour recevoir des besoins et rejoindre la communauté, choissisez votre mot de passe :'
+        answer_one: "%{institution_name} est partenaire de ce service public en vertu d’un accord national, décliné localement. D’après les données communiquées, vous avez été identifié(e) pour participer à cette dynamique. Ce service est le fruit d’une co-construction avec des conseillers et des chefs d’entreprises, n’hésitez à nous faire un retour d’expérience."
+        answer_two_html: "<p>Financé par le Ministère de l’Économie et le Ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE et PME. L’objectif est de faciliter la vie des petites entreprises en apportant une réponse collectivement plus efficace.</p><p>En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations et des organismes publics ou parapublics sur son territoire.</p><p>Vous pouvez ainsi échanger sur un besoin d’entreprise avec des conseillers du service public travaillant dans d’autres structures. Le service compte plus de 30 partenaires !</p>"
+        description_html: vous êtes invité(e) à rejoindre le service public d’accompagnement des TPE PME, au sein de l’antenne %{antenne}.
         details_answer: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon expert au sein des administrations, organismes publics et parapublics, et collectivités territoriales partenaires.
         details_answer_service: C’est un nouveau service public porté par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
         details_question: Qu’est ce que Conseillers-entreprises.service-public.fr ?
@@ -41,8 +41,8 @@ fr:
         livestorm_permalink: lien permanant livestorm
         looking_forward: Au plaisir d’échanger à cette occasion !
         question_one: Pourquoi recevez-vous ce mail ?
-        question_two: Comment fonctionne le service public Conseillers-entreprises.service-public.fr ?
-        subject: Vous êtes invité à rejoindre le service public Conseillers-entreprises.service-public.fr, partenaire de %{institution}
+        question_two: Comment fonctionne Conseillers-Entreprises.Service-Public.fr ?
+        subject: Invitation à rejoindre le service public d’accompagnement des TPE-PME, partenaire de %{institution}
         support_contact_label: 'Si vous avez le moindre souci pour votre compte, contactez :'
         training_html: "<strong>Pour en savoir plus, inscrivez-vous à la prochaine démonstration du service</strong> : %{link}"
       reset_password_instructions:
