@@ -29,8 +29,8 @@ jobs:
         shell: bash
       - name: install panolint for linter
         run: gem install panolint
-      - name: fix linter
-        run: rake lint_fix
+      - name: Rubocop
+        run: rubocop -a
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
