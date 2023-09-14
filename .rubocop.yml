@@ -844,7 +844,11 @@ RSpec/DescribeClass:
 RSpec/ExampleLength:
   Enabled: false
 
-RSpec/FilePath:
+RSpec/SpecFilePathFormat:
+  Exclude:
+    - spec/helpers/*
+
+RSpec/SpecFilePathSuffix:
   Exclude:
     - spec/helpers/*
 
