@@ -8,7 +8,7 @@ module Stats
       @main_stat = Stats::Public::ExchangeWithExpertColumnStats.new(@stats_params)
     end
 
-    def load_stats
+    def load_data
       name = params.permit(:chart_name)[:chart_name]
       data = Rails.cache.fetch(['public-stats', name, session[:public_stats_params]], expires_in: 6.hours) do
         Stats::Public::All.new(session[:public_stats_params]).send(name) if @graph_names.include? name
@@ -23,7 +23,7 @@ module Stats
     end
 
     def set_graph_names
-      @graph_names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :needs_done_from_exchange, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
+      @graph_names = %w[solicitations solicitations_diagnoses exchange_with_expert needs_done_from_exchange taking_care themes companies_by_employees companies_by_naf_code]
     end
   end
 end

@@ -33,7 +33,7 @@ module Stats
       render :index
     end
 
-    def load_stats
+    def load_data
       name = params.permit(:chart_name)[:chart_name]
       stats_for = params.permit(:stats_for)[:stats_for]
       data = Rails.cache.fetch(['team-public-stats', name, session[:team_stats_params]], expires_in: 6.hours) do

@@ -70,7 +70,7 @@
       "location": {
         "type": "method",
         "class": "Stats::TeamController",
-        "method": "load_stats"
+        "method": "load_data"
       },
       "user_input": "params.permit(:chart_name)[:chart_name]",
       "confidence": "High",
@@ -93,7 +93,7 @@
       "location": {
         "type": "method",
         "class": "Stats::TeamController",
-        "method": "load_stats"
+        "method": "load_data"
       },
       "user_input": "params.permit(:stats_for)[:stats_for]",
       "confidence": "High",

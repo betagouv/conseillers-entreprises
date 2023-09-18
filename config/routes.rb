@@ -294,7 +294,7 @@ Rails.application.routes.draw do
   scope :stats, module: :stats do
     resources :public, only: :index, path: '/' do
       collection do
-        get :load_stats
+        get :load_data
       end
     end
     resources :team, only: :index, path: 'equipe' do
@@ -302,7 +302,7 @@ Rails.application.routes.draw do
         get :public, path: 'public'
         get :needs, path: 'besoins'
         get :matches, path: 'mises-en-relation'
-        get :load_stats
+        get :load_data
         get :institution_filters
       end
     end

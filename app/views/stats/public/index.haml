@@ -17,5 +17,5 @@
     .fr-grid-row.fr-grid-row--gutters#stats-charts
       - @graph_names.each do |name|
         .fr-col-12.card.stats
-          = turbo_frame_tag name, stats_params: @stats_params, src: load_stats_public_index_path(chart_name: name) do
+          = turbo_frame_tag name, stats_params: @stats_params, src: load_data_public_index_path(chart_name: name) do
             = render 'stats/skeleton_card'
