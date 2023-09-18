@@ -2,9 +2,9 @@
   - if solicitation.diagnosis.nil?
     - if solicitation.may_prepare_diagnosis?
       - if solicitation.prepare_diagnosis_errors.present?
-        .ui.item.error-425-bg
-          - error_text = solicitation.prepare_diagnosis_errors.full_messages.to_sentence
-          .ui.icon{ data: { tooltip: error_text, variation: 'fixed' } }
+        - error_text = solicitation.prepare_diagnosis_errors.full_messages.to_sentence
+        .ui.item.error-425-bg{ title: error_text }
+          .ui.icon
             %span.ri-error-warning-line{ 'aria-hidden': 'true' }
             = t('.prepare_diagnosis_errors', count: solicitation.prepare_diagnosis_errors.count)
         .ui.item.dropdown.success-main-525-bg
