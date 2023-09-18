@@ -25,6 +25,7 @@ module ApiRne::Companies
 
   class Responder < ApiRne::Responder
     def format_data
+      pp @http_request.data
       registres = @http_request.data.dig('formality','content','registreAnterieur')
       {
         "forme_exercice" => @http_request.data.dig('formality', 'content', 'formeExerciceActivitePrincipale'),

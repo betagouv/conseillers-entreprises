@@ -13,11 +13,14 @@ module Stats::Matches
     end
 
     def build_series
+      query = main_query
+      query = filtered(query)
       @not_reachable_status = []
       @other_status = []
 
       search_range_by_month.each do |range|
-        month_query = filtered_main_query.created_between(range.first, range.last)
+        month_query = query.created_between(range.first, range.last)
+        # month_query = filtered_main_query.created_between(range.first, range.last)
         @not_reachable_status.push(month_query.status_done_not_reachable.count)
         @other_status.push(month_query.not_status_done_not_reachable.count)
       end
