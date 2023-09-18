@@ -11,8 +11,9 @@ RSpec.describe 'stats/public/index' do
     let(:end_date) { Date.today }
 
     it "displays coherent needs counts" do
-      assign(:stats, Stats::Public::All.new({ start_date: start_date, end_date: end_date }))
+      assign(:stats, { start_date: start_date, end_date: end_date })
       assign(:main_stat, Stats::Public::ExchangeWithExpertColumnStats.new({ start_date: start_date, end_date: end_date }))
+      assign(:graph_names, %w[solicitations solicitations_diagnoses exchange_with_expert needs_done_from_exchange taking_care themes companies_by_employees companies_by_naf_code])
 
       render
 

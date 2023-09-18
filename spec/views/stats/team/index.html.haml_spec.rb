@@ -11,7 +11,7 @@ RSpec.describe 'stats/team/index' do
     let(:end_date) { Date.today }
 
     it "displays correctly public stats" do
-      assign(:stats, Stats::Public::All.new({ start_date: start_date, end_date: end_date }))
+      assign(:stats_params, { start_date: start_date, end_date: end_date })
       assign(:charts_names, [
         :solicitations, :solicitations_diagnoses,
         :exchange_with_expert, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code
@@ -27,14 +27,14 @@ RSpec.describe 'stats/team/index' do
     end
 
     it "displays correctly needs stats" do
-      assign(:stats, Stats::Needs::All.new({ start_date: start_date, end_date: end_date }))
+      assign(:stats_params, { start_date: start_date, end_date: end_date })
+      assign(:main_stat, Stats::Public::ExchangeWithExpertColumnStats.new({ start_date: start_date, end_date: end_date }))
       assign(:charts_names, [
         :transmitted_less_than_72h_stats, :needs_done, :needs_done_no_help, :needs_done_not_reachable,
         :needs_not_for_me, :needs_abandoned
       ])
       assign(:institution_antennes, [])
       assign(:iframes, Landing.iframe.not_archived.order(:slug))
-      assign(:action_name, 'needs')
       allow(view).to receive(:action_name).and_return("needs")
 
       render
@@ -44,7 +44,7 @@ RSpec.describe 'stats/team/index' do
     end
 
     it "displays correctly matches stats" do
-      assign(:stats, Stats::Matches::All.new({ start_date: start_date, end_date: end_date }))
+      assign(:stats_params, { start_date: start_date, end_date: end_date })
       assign(:charts_names, [
         :positioning_rate, :taking_care_rate_stats, :done_rate_stats,
         :done_no_help_rate_stats, :done_not_reachable_rate_stats, :not_for_me_rate_stats,
