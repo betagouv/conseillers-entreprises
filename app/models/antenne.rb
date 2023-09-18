@@ -184,7 +184,7 @@ class Antenne < ApplicationRecord
   # tous les besoins auxquels une antenne peut avoir accès suivant son échelon territorial
   #
   def perimeter_received_needs
-    Rails.cache.fetch(id, expires_in: 1.hour) do
+    Rails.cache.fetch(['perimeter_received_needs', id], expires_in: 1.hour) do
       if self.national?
         self.institution.received_needs
         # self.institution.received_needs_including_from_deleted_experts
@@ -201,7 +201,7 @@ class Antenne < ApplicationRecord
   end
 
   def perimeter_received_matches
-    Rails.cache.fetch(id, expires_in: 1.hour) do
+    Rails.cache.fetch(['perimeter_received_matches', id], expires_in: 1.hour) do
       if self.national?
         self.institution.received_matches_including_from_deleted_experts
       elsif self.regional?
