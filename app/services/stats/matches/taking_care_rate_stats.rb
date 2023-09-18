@@ -13,14 +13,11 @@ module Stats::Matches
     end
 
     def build_series
-      query = main_query
-      query = filtered(query)
-
       @tacking_care_status = []
       @other_status = []
 
       search_range_by_month.each do |range|
-        month_query = query.created_between(range.first, range.last)
+        month_query = filtered_main_query.created_between(range.first, range.last)
         @tacking_care_status.push(month_query.status_taking_care.count)
         @other_status.push(month_query.not_status_taking_care.count)
       end
@@ -31,6 +28,10 @@ module Stats::Matches
     def count
       build_series
       percentage_two_numbers(@tacking_care_status, @other_status)
+    end
+
+    def secondary_count
+      @tacking_care_status.sum
     end
 
     def subtitle
