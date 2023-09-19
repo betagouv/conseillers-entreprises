@@ -15,8 +15,4 @@ class DiagnosisPolicy < ApplicationPolicy
   def new?
     index?
   end
-
-  def destroy?
-    admin?
-  end
 end
