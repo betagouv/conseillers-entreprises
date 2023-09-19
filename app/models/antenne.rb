@@ -173,10 +173,11 @@ class Antenne < ApplicationRecord
 
   def territorial_antennes
     return [] if self.local?
-    same_region_antennes = institution.antennes_in_region(region_ids)
-    same_region_antennes.select do |a|
-      !a.regional? && Utilities::Arrays.included_in?(a.commune_ids, commune_ids)
-    end
+    Antenne.not_deleted.where(institution_id: institution_id, territorial_level: 'local')
+      .left_joins(:communes, :experts)
+      .where(communes: { id: commune_ids })
+      .or(Antenne.not_deleted.where(institution_id: institution_id, territorial_level: 'local').where(experts: { is_global_zone: true }))
+      .distinct
   end
 
   ## Périmètre d'exercice :
