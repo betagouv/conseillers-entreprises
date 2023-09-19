@@ -171,14 +171,6 @@ class Antenne < ApplicationRecord
     end&.first
   end
 
-  def territorial_antennes_old
-    return [] if self.local?
-    same_region_antennes = institution.antennes_in_region(region_ids)
-    same_region_antennes.select do |a|
-      !a.regional? && Utilities::Arrays.included_in?(a.commune_ids, commune_ids)
-    end
-  end
-
   def territorial_antennes
     return [] if self.local?
     Antenne.not_deleted.where(institution_id: institution_id, territorial_level: 'local')
