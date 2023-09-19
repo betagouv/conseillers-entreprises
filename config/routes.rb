@@ -114,8 +114,6 @@ Rails.application.routes.draw do
     collection do
       get :processed, path: 'traitees'
       get :archives
-      get :index_antenne
-      get :archives_antenne
     end
 
     member do

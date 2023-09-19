@@ -1,8 +1,4 @@
 class DiagnosisPolicy < ApplicationPolicy
-  def index?
-    admin?
-  end
-
   def show?
     admin? ||
         @record.advisor == @user ||

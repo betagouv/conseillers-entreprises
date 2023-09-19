@@ -268,9 +268,6 @@ fr:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
   diagnoses:
-    antenne_menu:
-      browse_active_diagnoses: Mes analyses
-      for_other_header: Voir aussi
     collections:
       all: Archivés
       completed: Traitées
@@ -284,8 +281,6 @@ fr:
       create_new_diagnosis: Démarrer une analyse
     index:
       confirm_archive: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?
-      title: Analyses
-    index_antenne:
       title: Analyses
     menu:
       browse_antenne_diagnoses: Toutes les analyses de %{antenne}

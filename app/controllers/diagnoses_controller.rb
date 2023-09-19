@@ -26,18 +26,9 @@ class DiagnosesController < ApplicationController
     end
   end
 
-  def index_antenne
-    retrieve_diagnoses(current_user.antenne, false)
-  end
-
   def archives
     retrieve_diagnoses(current_user, true)
     render :index
-  end
-
-  def archives_antenne
-    retrieve_diagnoses(current_user.antenne, true)
-    render :index_antenne
   end
 
   def create
