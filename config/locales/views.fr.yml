@@ -1004,9 +1004,9 @@ fr:
     status_done_no_help: Clôture sans accompagnement
     status_done_not_reachable: Entreprises injoignables
     status_not_for_me: Besoins refusés
-    taking_care_status: Statut « pris en charge »
     taken_care_after: Plus de 5 jours
     taken_care_before: Moins de 5 jours
+    taking_care_status: Statut « pris en charge »
     team:
       index:
         title: Statistiques équipe

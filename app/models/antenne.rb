@@ -188,7 +188,7 @@ class Antenne < ApplicationRecord
       if self.national?
         self.institution.perimeter_received_needs
       elsif self.regional?
-        antenne_ids = self.territorial_antennes.pluck(:id)<< self.id
+        antenne_ids = self.territorial_antennes.pluck(:id) << self.id
         Need
           .diagnosis_completed
           .joins(experts: :antenne)
@@ -205,7 +205,7 @@ class Antenne < ApplicationRecord
       if self.national?
         self.institution.perimeter_received_matches
       elsif self.regional?
-        antenne_ids = self.territorial_antennes.pluck(:id)<< self.id
+        antenne_ids = self.territorial_antennes.pluck(:id) << self.id
         Match
           .joins(expert: :antenne)
           .sent
@@ -222,7 +222,7 @@ class Antenne < ApplicationRecord
       if self.national?
         self.institution.perimeter_received_matches_from_needs(needs)
       elsif self.regional?
-        antenne_ids = self.territorial_antennes.pluck(:id)<< self.id
+        antenne_ids = self.territorial_antennes.pluck(:id) << self.id
         Match.joins(:need, expert: :antenne)
           .where(need: needs, expert: { antenne_id: antenne_ids })
           .distinct

@@ -1,5 +1,4 @@
 module Stats::TwoRatesStats
-
   # Ex: [11, 7, 4, 6, 3, 7, 32]
   def main_array
     @main_array ||= series[1][:data]
@@ -18,4 +17,3 @@ module Stats::TwoRatesStats
     main_array.sum
   end
 end
-
