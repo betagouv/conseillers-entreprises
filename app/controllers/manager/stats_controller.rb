@@ -3,25 +3,31 @@
 module Manager
   class StatsController < ApplicationController
     include StatsHelper
+    before_action :authorize_index_manager_stats, only: %i[index load_data]
     before_action :stats_params, only: :index
     before_action :set_filters_collections, only: :index
     before_action :set_charts_names, only: %i[index load_data]
 
     def index
-      authorize current_user, :index?
       @stats = Stats::Matches::All.new(@stats_params)
       session[:manager_stats_params] = @stats_params
     end
 
     def load_data
       name = params.permit(:chart_name)[:chart_name]
-      data = Rails.cache.fetch(['manager-stats', name, session[:manager_stats_params]], expires_in: 6.hours) do
-        Stats::Manager::All.new(session[:manager_stats_params]).send(name) if @charts_names.include?(name.to_sym)
+      if @charts_names.include?(name.to_sym)
+        data = Rails.cache.fetch(['manager-stats', name, session[:manager_stats_params]], expires_in: 6.hours) do
+          Stats::Manager::All.new(session[:manager_stats_params]).send(name)
+        end
+        render_partial(data, name)
       end
-      render_partial(data, name)
     end
 
     private
+
+    def authorize_index_manager_stats
+      authorize [:manager, :stats], :index?
+    end
 
     def stats_params
       @stats_params = stats_filter_params

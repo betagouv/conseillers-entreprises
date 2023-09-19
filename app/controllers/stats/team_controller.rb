@@ -49,7 +49,7 @@ module Stats
 
     def get_institution_antennes
       @institution_antennes = params[:institution].present? ?
-                                Institution.find(params[:institution]).antennes.not_deleted : []
+                                Institution.find(params[:institution]).antennes.not_deleted.order(:name) : []
     end
 
     def init_filters
