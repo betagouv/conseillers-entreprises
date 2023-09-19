@@ -186,16 +186,16 @@ class Antenne < ApplicationRecord
   def perimeter_received_needs
     Rails.cache.fetch(['perimeter_received_needs', id], expires_in: 1.hour) do
       if self.national?
-        self.institution.received_needs
-        # self.institution.received_needs_including_from_deleted_experts
+        # self.institution.received_needs
+        self.institution.received_needs_including_from_deleted_experts
       elsif self.regional?
         Need.diagnosis_completed.joins(experts: :antenne).scoping do
           Need.where(experts: { antenne: self })
             .or(Need.where(experts: { antenne: self.territorial_antennes }))
         end.distinct
       else
-        self.received_needs
-        # self.received_needs_including_from_deleted_experts
+        # self.received_needs
+        self.received_needs_including_from_deleted_experts
       end
     end
   end
@@ -210,7 +210,7 @@ class Antenne < ApplicationRecord
             .or(Match.sent.where(expert: { antenne: self.territorial_antennes }))
         end.distinct
       else
-        self.received_matches
+        self.received_matches_including_from_deleted_experts
       end
     end
   end
