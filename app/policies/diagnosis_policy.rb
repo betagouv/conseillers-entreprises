@@ -13,6 +13,10 @@ class DiagnosisPolicy < ApplicationPolicy
   end
 
   def new?
-    index?
+    admin?
+  end
+
+  def create?
+    admin?
   end
 end

@@ -110,16 +110,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :diagnoses, only: %i[index new show create], path: 'analyses' do
-    collection do
-      get :processed, path: 'traitees'
-      get :archives
-    end
-
+  resources :diagnoses, only: %i[new show create], path: 'analyses' do
     member do
-      post :archive
-      post :unarchive
-
       controller 'diagnoses/steps' do
         get :needs, path: 'besoins'
         patch :update_needs

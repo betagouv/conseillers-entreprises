@@ -1,19 +1,7 @@
 # frozen_string_literal: true
 
 class DiagnosesController < ApplicationController
-  before_action :retrieve_diagnosis, only: %i[show archive unarchive]
-
-  layout 'side_menu', except: %i[new create]
-
-  def index
-    retrieve_diagnoses(current_user, false, :in_progress)
-  end
-
-  def processed
-    retrieve_diagnoses(current_user, false, :completed)
-    render :index
-  end
-
+  before_action :retrieve_diagnosis, only: :show
   def new
     authorize Diagnosis
     @current_solicitation = Solicitation.find_by(id: params[:solicitation])
@@ -24,11 +12,6 @@ class DiagnosesController < ApplicationController
     else
       @needs = []
     end
-  end
-
-  def archives
-    retrieve_diagnoses(current_user, true)
-    render :index
   end
 
   def create
@@ -53,42 +36,14 @@ class DiagnosesController < ApplicationController
     end
   end
 
-  def archive
-    authorize @diagnosis, :update?
-    @diagnosis.archive!
-    redirect_to diagnoses_path
-  end
-
-  def unarchive
-    authorize @diagnosis, :update?
-    @diagnosis.unarchive!
-    redirect_to diagnoses_path
-  end
-
   private
 
   def retrieve_diagnosis
     @diagnosis = Diagnosis.find(params.require(:id))
   end
 
-  def retrieve_diagnoses(scope, archived, status = :all)
-    authorize Diagnosis, :index?
-    @collection_name = status
-    @diagnoses = scope.sent_diagnoses.archived(archived)
-      .distinct
-      .left_outer_joins(:matches, needs: :matches)
-      .includes(:matches, :visitee, facility: :company, needs: :matches)
-      .send(status)
-      .order(happened_on: :desc)
-      .page(params[:page])
-  end
-
   def diagnosis_params
     params.require(:diagnosis)
-      .permit(:solicitation_id,
-              facility_attributes: [
-                :siret, :insee_code,
-                company_attributes: :name
-              ])
+      .permit(:solicitation_id, facility_attributes: [ :siret, :insee_code, company_attributes: :name ])
   end
 end

@@ -268,24 +268,11 @@ fr:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
   diagnoses:
-    collections:
-      all: Archivés
-      completed: Traitées
-      in_progress: En cours
     company_details:
       company_details: Voir le détail de l’entreprise
       need_without_siret: Analyse sans SIRET
     diagnosis:
       last_activity_date: dernière activité le %{l}
-    header:
-      create_new_diagnosis: Démarrer une analyse
-    index:
-      confirm_archive: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?
-      title: Analyses
-    menu:
-      browse_antenne_diagnoses: Toutes les analyses de %{antenne}
-      for_other_header: Voir aussi
-      for_recipient: Par %{recipient}
     new:
       city: Ville
       create_new_diagnosis: Démarrer une analyse
