@@ -25,8 +25,8 @@ module Stats
 
     def filtered_solicitations(query)
       query.merge! Solicitation.in_regions(territory.code_region) if territory.present?
-      query.merge! antenne_or_institution.received_solicitations_including_from_deleted_experts if antenne_or_institution.present?
-      # query.merge! antenne_or_institution.perimeter_received_needs if antenne_or_institution.present?
+      # query.merge! antenne_or_institution.received_solicitations_including_from_deleted_experts if antenne_or_institution.present?
+      query.merge! antenne_or_institution.perimeter_received_needs if antenne_or_institution.present?
       query.merge! Solicitation.joins(landing_subject: :subject).where(subjects: subject) if subject.present?
       query.merge! Solicitation.joins(:landing).where(landings: { integration: integration }) if integration.present?
       query.merge! Solicitation.where(landing_id: iframe_id) if iframe_id.present?
@@ -44,8 +44,8 @@ module Stats
 
     def filtered_companies(query)
       query.merge!(territory.companies) if territory.present?
-      query.merge! antenne_or_institution.received_diagnoses_including_from_deleted_experts if antenne_or_institution.present?
-      # query.merge! antenne_or_institution.perimeter_received_need if antenne_or_institution.present?
+      # query.merge! antenne_or_institution.received_diagnoses_including_from_deleted_experts if antenne_or_institution.present?
+      query.merge! antenne_or_institution.perimeter_received_need if antenne_or_institution.present?
       query.merge! Company.joins(facilities: { diagnoses: { solicitation: { landing_subject: :subject } } })
         .where(landing_subjects: { subjects: subject }) if subject.present?
       query.merge! Company.joins(facilities: { diagnoses: { solicitation: :landing } })
