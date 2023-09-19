@@ -910,7 +910,7 @@ fr:
         title_table: Besoins transmis
       not_for_me_rate_stats:
         subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
-        title: de besoins refusés par l’institution
+        title: de besoins refusés par l’institution, soit %{secondary_count} besoins
         title_table: Nombre de besoins refusés par l’institution
       not_positioning_rate:
         subtitle: L’expert n’a donné aucune indication sur le besoin transmis.
@@ -1004,7 +1004,7 @@ fr:
     status_done_no_help: Clôture sans accompagnement
     status_done_not_reachable: Entreprises injoignables
     status_not_for_me: Besoins refusés
-    tacking_care_status: Statut « pris en charge »
+    taking_care_status: Statut « pris en charge »
     taken_care_after: Plus de 5 jours
     taken_care_before: Moins de 5 jours
     team:
