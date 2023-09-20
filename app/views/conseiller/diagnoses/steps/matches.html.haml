@@ -14,7 +14,7 @@
         %p= link_to t('.link_to_historic'), needs_historic_contact_path(@diagnosis.visitee), target: :blank, reel: :noopener
 
     = form_with model: @diagnosis,
-      url: update_matches_diagnosis_path(@diagnosis), id: 'confirm_matches_form',
+      url: update_matches_conseiller_diagnosis_path(@diagnosis), id: 'confirm_matches_form',
       data: { checkboxes_require_one_with: t(".select_at_least_one_expert") },
       local: true do |form|
 
@@ -48,7 +48,7 @@
     .hidden.additional-experts.card-matches.fr-my-4w#add-expert-form{ data: { controller: "expert-autocomplete" } }
       .card__header
         %h2.fr-text--lead= t('.add_expert')
-      = form_with url: add_match_diagnosis_path(@diagnosis), data: { 'expert-autocomplete-target': 'form', turbo_frame: "match-checkboxes-XXX" } do |add_f|
+      = form_with url: add_match_conseiller_diagnosis_path(@diagnosis), data: { 'expert-autocomplete-target': 'form', turbo_frame: "match-checkboxes-XXX" } do |add_f|
         = add_f.hidden_field :need_id, value: @diagnosis.needs.first.id, data: { 'toggle-block-target': 'itemId' }
         = add_f.hidden_field :expert_id, value: nil, data: { 'expert-autocomplete-target': 'expertField' }
       .fr-p-2w
@@ -60,7 +60,7 @@
       %p.fr-callout__text= t('.before_sending_emails')
 
     .bottom_actions.flex
-      = link_to needs_diagnosis_path(@diagnosis), class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbo: false } do
+      = link_to needs_conseiller_diagnosis_path(@diagnosis), class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbo: false } do
         %span.ri-arrow-left-line.fr-mr-1w{ 'aria-hidden': 'true' }
         = t('previous_step')
 

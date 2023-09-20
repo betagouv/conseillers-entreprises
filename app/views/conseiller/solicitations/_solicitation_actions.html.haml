@@ -14,7 +14,7 @@
             = link_to prepare_diagnosis_conseiller_solicitation_path(solicitation), class: 'item', method: :post do
               = t('.start_auto_diagnosis')
               %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
-            = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'item' do
+            = link_to new_conseiller_diagnosis_path(solicitation: solicitation.id), class: 'item' do
               = t('.start_manual_diagnosis')
               %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
       - else
@@ -25,7 +25,7 @@
             %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
     - else
       .ui.item.success-main-525-bg.fr-p-0.fr-px-1w
-        = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'ui item' do
+        = link_to new_conseiller_diagnosis_path(solicitation: solicitation.id), class: 'ui item' do
           = t('.start_diagnosis')
           %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
   - else

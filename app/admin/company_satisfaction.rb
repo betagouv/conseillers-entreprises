@@ -14,7 +14,7 @@ ActiveAdmin.register CompanySatisfaction do
     column :useful_exchange
     column :comment
     column :need do |s|
-      link_to s.need.to_s, diagnosis_path(s.need.diagnosis)
+      link_to s.need.to_s, conseiller_diagnosis_path(s.need.diagnosis)
     end
     column :landing do |s|
       admin_link_to(s.landing) || '-'

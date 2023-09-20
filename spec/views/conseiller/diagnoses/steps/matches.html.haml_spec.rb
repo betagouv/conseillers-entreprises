@@ -1,7 +1,7 @@
 require "spec_helper"
 require 'rails_helper'
 
-describe "diagnoses/steps/matches" do
+describe "conseiller/diagnoses/steps/matches" do
   let(:need) { create :need }
   let(:diagnosis) { create :diagnosis, needs: [need] }
   let(:institution_subject) { create :institution_subject, subject: need.subject }

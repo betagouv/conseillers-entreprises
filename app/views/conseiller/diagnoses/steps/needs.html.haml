@@ -5,7 +5,7 @@
 
   #needs-app
     = form_with model: @diagnosis,
-      url: update_needs_diagnosis_path,
+      url: update_needs_conseiller_diagnosis_path,
       data: { checkboxes_require_one_with: t(".select_at_least_one_need"), controller: "diagnosis-needs-step" },
       local: true do |diagnosis_form|
 
@@ -55,7 +55,7 @@
                 = render 'next_step', diagnosis_form: diagnosis_form
 
       .bottom_actions.fr-mt-10v
-        = link_to contact_diagnosis_path, class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbo: false } do
+        = link_to contact_conseiller_diagnosis_path, class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbo: false } do
           %span.ri-arrow-left-line.fr-mr-1w{ 'aria-hidden': 'true' }
           = t('previous_step')
 

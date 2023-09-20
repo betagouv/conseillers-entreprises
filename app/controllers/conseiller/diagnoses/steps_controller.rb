@@ -1,4 +1,4 @@
-class Diagnoses::StepsController < ApplicationController
+class Conseiller::Diagnoses::StepsController < ApplicationController
   before_action :retrieve_diagnosis
 
   def contact
@@ -59,7 +59,7 @@ class Diagnoses::StepsController < ApplicationController
     if @diagnosis.update(diagnosis_params)
       @diagnosis.notify_matches_made!
       @diagnosis.solicitation&.process!
-      flash.notice = I18n.t('diagnoses.steps.matches.notifications_sent')
+      flash.notice = I18n.t('conseiller.diagnoses.steps.matches.notifications_sent')
       redirect_to conseiller_solicitations_path
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence

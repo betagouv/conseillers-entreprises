@@ -226,6 +226,48 @@ fr:
         title: Exports csv
       menu:
         csv_exports: Exports csv
+    diagnoses:
+      company_details:
+        company_details: Voir le détail de l’entreprise
+        need_without_siret: Analyse sans SIRET
+      last_activity_date: dernière activité le %{l}
+      new:
+        city: Ville
+        create_new_diagnosis: Démarrer une analyse
+        find_company: Rechercher une entreprise
+        name: Nom de l’entreprise ou du dirigeant
+        search_manually: Cas particulier (sans SIRET)
+        sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation. SIRET non diffusible, reprise d’entreprise, déménagement…
+        title: Saisie manuelle
+      steps:
+        contact:
+          date: Date de la sollicitation
+          date_placeholder: jj/mm/aaaa
+          email_address: E-mail
+          full_name: Nom
+          full_name_placeholder: 'ex: Marie Dupont'
+          phone_number: Numéro de télephone
+          your_contact_in_the_company: 'Contact de l’entreprise %{company_name} :'
+        expert_content:
+          invitation_not_accepted: Au moins une personne n’a pas encore accepté son invitation
+        matches:
+          add_expert: Ajouter un ou une expert·e
+          add_expert_label: Rechercher par nom d’équipe, antenne, institution...
+          before_sending_emails: En cliquant sur le bouton ci-dessous, les experts sélectionnés seront contactés par e-mail et auront accès à la fiche détaillée du besoin.
+          company_needs_historic_title: Cette entreprise a déjà des besoins mis en relation.
+          contact_needs_historic_title: Cette personne a déjà des besoins mis en relation.
+          link_to_historic: Accéder à l’historique
+          no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
+          notifications_sent: Les notifications ont bien été envoyées.
+          notify_matches: Notifier les experts sélectionnés
+          select_at_least_one_expert: Cochez au minimum un expert à contacter.
+          solicitation_reminder: Rappel du besoin
+          you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
+        needs:
+          diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
+          diagnosis_content_subtitle: Informations générales sur cette entreprise
+          need_content_placeholder: Plus d’infos sur ce besoin
+          select_at_least_one_need: Cochez au minimum un besoin identifié.
     sitemap:
       sitemap:
         general: Liens rapides
@@ -267,49 +309,6 @@ fr:
   contacts:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
-  diagnoses:
-    company_details:
-      company_details: Voir le détail de l’entreprise
-      need_without_siret: Analyse sans SIRET
-    diagnosis:
-      last_activity_date: dernière activité le %{l}
-    new:
-      city: Ville
-      create_new_diagnosis: Démarrer une analyse
-      find_company: Rechercher une entreprise
-      name: Nom de l’entreprise ou du dirigeant
-      search_manually: Cas particulier (sans SIRET)
-      sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation. SIRET non diffusible, reprise d’entreprise, déménagement…
-      title: Saisie manuelle
-    steps:
-      contact:
-        date: Date de la sollicitation
-        date_placeholder: jj/mm/aaaa
-        email_address: E-mail
-        full_name: Nom
-        full_name_placeholder: 'ex: Marie Dupont'
-        phone_number: Numéro de télephone
-        your_contact_in_the_company: 'Contact de l’entreprise %{company_name} :'
-      expert_content:
-        invitation_not_accepted: Au moins une personne n’a pas encore accepté son invitation
-      matches:
-        add_expert: Ajouter un ou une expert·e
-        add_expert_label: Rechercher par nom d’équipe, antenne, institution...
-        before_sending_emails: En cliquant sur le bouton ci-dessous, les experts sélectionnés seront contactés par e-mail et auront accès à la fiche détaillée du besoin.
-        company_needs_historic_title: Cette entreprise a déjà des besoins mis en relation.
-        contact_needs_historic_title: Cette personne a déjà des besoins mis en relation.
-        link_to_historic: Accéder à l’historique
-        no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
-        notifications_sent: Les notifications ont bien été envoyées.
-        notify_matches: Notifier les experts sélectionnés
-        select_at_least_one_expert: Cochez au minimum un expert à contacter.
-        solicitation_reminder: Rappel du besoin
-        you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
-      needs:
-        diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
-        diagnosis_content_subtitle: Informations générales sur cette entreprise
-        need_content_placeholder: Plus d’infos sur ce besoin
-        select_at_least_one_need: Cochez au minimum un besoin identifié.
   download_xls: Télécharger XLSX
   emails:
     not_sent: L’email n’a pu être envoyé

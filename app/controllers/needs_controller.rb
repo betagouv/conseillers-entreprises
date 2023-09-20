@@ -89,7 +89,7 @@ class NeedsController < ApplicationController
     authorize @need, :archive?
     @need.archive!
     flash[:notice] = t('.subjet_achived')
-    redirect_back fallback_location: diagnosis_path(@need.diagnosis),
+    redirect_back fallback_location: conseiller_diagnosis_path(@need.diagnosis),
                   notice: t('.archive_done', company: @need.company.name)
   end
 
@@ -97,7 +97,7 @@ class NeedsController < ApplicationController
     authorize @need, :archive?
     @need.update(archived_at: nil)
     flash[:notice] = t('.subject_unarchived')
-    redirect_to diagnosis_path(@need.diagnosis)
+    redirect_to conseiller_diagnosis_path(@need.diagnosis)
   end
 
   private

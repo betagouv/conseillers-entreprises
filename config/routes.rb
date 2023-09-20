@@ -86,6 +86,19 @@ Rails.application.routes.draw do
       get :sitemap
     end
     resources :experts, only: %i[index]
+    resources :diagnoses, only: %i[new show create], path: 'analyses' do
+      member do
+        controller 'diagnoses/steps' do
+          get :needs, path: 'besoins'
+          patch :update_needs
+          get :contact, path: 'contact'
+          patch :update_contact
+          get :matches, path: 'selection'
+          patch :update_matches
+          post :add_match
+        end
+      end
+    end
   end
 
   namespace 'manager' do

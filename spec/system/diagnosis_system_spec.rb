@@ -16,18 +16,16 @@ describe 'diagnosis', :js do
                expert: create(:expert, communes: [need.facility.commune])
       end
 
-      before do
-        subjects = create_list(:subject, 4)
-      end
+      before { create_list(:subject, 4) }
 
       it 'display all steps' do
-        visit "/analyses/#{diagnosis.id}"
+        visit "/conseiller/analyses/#{diagnosis.id}"
         expect(page).to have_css 'h2', text: "Contact de l’entreprise #{diagnosis.company.name}"
 
         click_button 'diagnosis_submit'
 
         expect(page).to have_css 'h1', text: "Besoin exprimé"
-        expect(page).to have_current_path(needs_diagnosis_path(diagnosis))
+        expect(page).to have_current_path(needs_conseiller_diagnosis_path(diagnosis))
 
         # On ne peut sélectionner qu'un seul besoin
         expect(page).to have_css('input[type=checkbox]:checked', count: 1, visible: :hidden)
@@ -37,7 +35,7 @@ describe 'diagnosis', :js do
 
         expect(page).to have_css 'h2', text: diagnosis.needs.first.subject.label
         find('label[for="diagnosis_needs_attributes_0_matches_attributes_0__destroy"]').click
-        click_button(I18n.t('diagnoses.steps.matches.notify_matches'), match: :first)
+        click_button(I18n.t('conseiller.diagnoses.steps.matches.notify_matches'), match: :first)
 
         expect(page).to have_current_path(conseiller_solicitations_path)
       end

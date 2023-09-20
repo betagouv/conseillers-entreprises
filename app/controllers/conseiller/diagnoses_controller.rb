@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DiagnosesController < ApplicationController
+class Conseiller::DiagnosesController < ApplicationController
   before_action :retrieve_diagnosis, only: :show
   def new
     authorize Diagnosis
@@ -19,7 +19,7 @@ class DiagnosesController < ApplicationController
 
     if @diagnosis.persisted?
       @diagnosis.autofill_steps
-      redirect_to controller: 'diagnoses/steps', action: @diagnosis.step, id: @diagnosis
+      redirect_to controller: 'conseiller/diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     else
       flash.now[:alert] = @diagnosis.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
@@ -32,7 +32,7 @@ class DiagnosesController < ApplicationController
       need = current_user.received_needs.where(diagnosis: @diagnosis).first || @diagnosis.needs.first
       redirect_to need_path(need)
     else
-      redirect_to controller: 'diagnoses/steps', action: @diagnosis.step, id: @diagnosis
+      redirect_to controller: 'conseiller/diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     end
   end
 

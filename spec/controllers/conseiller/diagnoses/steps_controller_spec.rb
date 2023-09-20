@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-RSpec.describe Diagnoses::StepsController do
+RSpec.describe Conseiller::Diagnoses::StepsController do
   login_user
 
   let(:diagnosis) { create :diagnosis, advisor: advisor }
