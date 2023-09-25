@@ -232,6 +232,7 @@ fr:
         need_without_siret: Analyse sans SIRET
       last_activity_date: dernière activité le %{l}
       new:
+        aria_label_tabs: Choix du type de création d’analyse
         city: Ville
         create_new_diagnosis: Démarrer une analyse
         find_company: Rechercher une entreprise

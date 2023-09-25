@@ -1,46 +1,46 @@
 - meta title: t('.title')
 
 .fr-container
-  %h1.ui.header= t('.create_new_diagnosis')
+  %h1= t('.create_new_diagnosis')
 
   - if @needs.present?
     %h2.fr-h3= t('companies.needs.others')
     = render partial: 'companies/need', collection: @needs
-  .ui.attached.tabular.menu.head-tab.new-diagnosis
-    %a.item{ "data-tab" => "find_company" }
-      = t('.find_company')
-    %a.item{ "data-tab" => "search_manually", class: ("active" if @tab == 'search_manually') }
-      = t('.search_manually')
-  .ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "find_company" }
-    = render partial: 'companies/search_form', locals: { query: @query, solicitation: @diagnosis.solicitation }
 
-  .ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "search_manually", class: ("active" if @tab == 'search_manually') }
-    %h2.ui.header
-      = t('.title')
+  .fr-tabs.fr-mt-5w
+    %ul.fr-tabs__list{"aria-label" => t('.aria_label_tabs'), role: "tablist"}
+      %li{role: "presentation"}
+        %button#tabpanel-search-company.fr-tabs__tab{ aria: { controls: "search-company-panel",
+        selected: (@tab == 'search_manually' ? 'false' : 'true')}, role: "tab", tabindex: "0" }
+          = t('.find_company')
+      %li{role: "presentation"}
+        %button#tabpanel-search-manually.fr-tabs__tab{ aria: { controls: "search-manually-panel",
+        selected: (@tab == 'search_manually' ? 'true' : 'false')}, role: "tab", tabindex: "-1"}
+          = t('.search_manually')
 
-    %p
-      = t('.sub_title')
+    #search-company-panel.fr-tabs__panel.fr-tabs__panel--selected{ 'aria-labelledby': "tabpanel-search-company", role: "tabpanel", tabindex: "0" }
+      = render partial: 'companies/search_form', locals: { query: @query, solicitation: @diagnosis.solicitation }
 
-    = form_with model: @diagnosis, class: 'ui form', local: true do |form|
-      - if @diagnosis.errors.present?
-        .field.error
-          .ui.error.message= @diagnosis.errors.full_messages.to_sentence
-      - if @diagnosis.solicitation.present?
-        = form.hidden_field :solicitation_id
-      = form.fields_for :facility do |facility_form|
-        .field.required
-          = facility_form.fields_for :company do |company_form|
-            = label_tag t('.name')
-            = company_form.text_field :name, required: true
+    #search-manually-panel.fr-tabs__panel{ 'aria-labelledby': "tabpanel-search-manually", role: "tabpanel", tabindex: "0" }
+      %h2= t('.title')
+      %p= t('.sub_title')
 
-        .fr-input-group
-          = label_tag 'city-autocomplete', t('.city')
-          %div{ data: { action: 'city-autocomplete', 'default-value': @diagnosis.solicitation&.location } }
-          = facility_form.hidden_field :insee_code, data: { target: 'insee-code' }
-
-      .text-right
-        = form.button :submit, class: 'fr-btn btn-green btn-icon' do
-          = t('next_step')
-          %span.ri-arrow-right-s-line{ 'aria-hidden': 'true' }
-
-    .clear
+      = form_with model: @diagnosis, class: 'ui form', local: true do |form|
+        - if @diagnosis.errors.present?
+          .fr-alert.fr-alert--error.fr-alert--sm
+            = @diagnosis.errors.full_messages.to_sentence
+        - if @diagnosis.solicitation.present?
+          = form.hidden_field :solicitation_id
+        = form.fields_for :facility do |facility_form|
+          .fr-fieldset__element
+            = facility_form.fields_for :company do |company_form|
+              = company_form.label :name, t('.name'), class: 'fr-label'
+              = company_form.text_field :name, required: true, class: 'fr-input'
+          .fr-fieldset__element
+            = label_tag 'city-autocomplete', t('.city')
+            %div{ data: { action: 'city-autocomplete', 'default-value': @diagnosis.solicitation&.location } }
+            = facility_form.hidden_field :insee_code, data: { target: 'insee-code' }
+        .text-right
+          = form.button :submit, class: 'fr-btn btn-green btn-icon' do
+            = t('next_step')
+            %span.ri-arrow-right-s-line{ 'aria-hidden': 'true' }
