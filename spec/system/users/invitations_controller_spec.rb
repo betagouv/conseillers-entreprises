@@ -38,6 +38,7 @@ describe 'invitations', js: true do
 
     before do
       user.invite!
+      create_home_landing
       visit accept_user_invitation_path(invitation_token: user.raw_invitation_token)
       fill_in id: 'user_full_name', with: 'Jane Doe', fill_options: { clear: :backspace }
       fill_in id: 'user_password', with: 'yX*4Ubo_xPW!u'

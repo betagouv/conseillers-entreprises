@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'registrations' do
-  before { create_home_landing }
+  before { create(:landing, :home) }
 
   describe 'profile update' do
     login_user

@@ -16,9 +16,7 @@ describe 'diagnosis', js: true do
                expert: create(:expert, communes: [need.facility.commune])
       end
 
-      before do
-        subjects = create_list(:subject, 4)
-      end
+      before { create_list(:subject, 4) }
 
       it 'display all steps' do
         visit "/analyses/#{diagnosis.id}"
