@@ -23,10 +23,6 @@ module Stats::Public
       group_by_date(query_range)
     end
 
-    def series
-      @series ||= build_series
-    end
-
     def build_series
       query = main_query
       query = filtered_needs(query)

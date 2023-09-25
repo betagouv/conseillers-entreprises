@@ -19,4 +19,4 @@
       - names.each do |name|
         .fr-col-12.card.stats
           = turbo_frame_tag name, stats_params: @stats_params, src: polymorphic_path([name, :public_index]) do
-            = render 'skeleton_card'
+            = render 'stats/skeleton_card'

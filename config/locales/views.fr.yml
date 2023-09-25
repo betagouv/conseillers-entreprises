@@ -117,6 +117,7 @@ fr:
       reports: Export des données
       root_path_title: Accueil Place des Entreprises
       sign_out: Déconnexion
+      stats: Statistiques
     pde_partnership_mention: Ce service public de mise en relation est proposé par Place des Entreprises.
     person_modal:
       manager_name: 'Responsable : %{name}'
@@ -447,6 +448,9 @@ fr:
       index:
         many_antennes_title: Demandes reçues des antennes
         one_antenne_title: Demandes reçues de %{name}
+    stats:
+      index:
+        stats: Statistiques
   matches:
     match:
       change_match_status: Modifier le statut du besoin
@@ -835,8 +839,6 @@ fr:
       index:
         meta_description: Le service public Place des Entreprises permet aux TPE & PME d’être appelées par le bon conseiller pour répondre à leur demande. L’activité du service est mesurée à partir de statistiques publiques.
         title: Statistiques d’utilisation
-      skeleton_card:
-        loading: Graphique en cours de chargement...
       stats_params:
         datepicker_format: 'Format attendu : JJ/MM/AAAA'
     series:
@@ -852,15 +854,15 @@ fr:
         title_table: Secteurs d’activité des entreprises utilisatrices du service
       done_no_help_rate_stats:
         subtitle: Le besoin a été pris en charge par un expert, mais l’échange téléphonique n’a pu aboutir à une proposition d’aide (critères non remplis, situation spécifique...).
-        title: de besoins clôturés sans aide possible de l’institution
+        title: de besoins transmis sont clôturés sans aide possible par l’institution, soit %{secondary_count} besoins
         title_table: Nombre de besoins clôturés sans aide possible de l’institution
       done_not_reachable_rate_stats:
         subtitle: L’expert n’a pas réussi à joindre l’entreprise malgré deux tentatives. En laissant ses coordonnées, l’entreprise peut néanmoins le rappeler.
-        title: de besoins clôturés par l’institution sans avoir pu joindre l’entreprise
+        title: des besoins transmis sont clôturés par l’institution sans avoir pu joindre l’entreprise, soit %{secondary_count} besoins
         title_table: Nombre de besoins clôturés par l’institution sans avoir pu joindre l’entreprise
       done_rate_stats:
         subtitle: Le besoin a été pris en charge par un expert et une aide a pu être proposée à l’entreprise. L’aide s’entend au sens large (conseils, accompagnement technique, aide financière).
-        title: de besoins clôturés par une aide proposée par l’institution
+        title: des besoins transmis sont clôturés par l’institution par une aide proposée, soit %{secondary_count} besoins
         title_table: Nombre de besoins clôturés par une aide proposée par l’institution
       exchange_with_expert:
         title: des besoins transmis ont donné lieu à un échange avec un conseiller, soit %{secondary_count} besoins
@@ -908,16 +910,16 @@ fr:
         title_table: Besoins transmis
       not_for_me_rate_stats:
         subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
-        title: de besoins refusés par l’institution
+        title: de besoins refusés par l’institution, soit %{secondary_count} besoins
         title_table: Nombre de besoins refusés par l’institution
       not_positioning_rate:
         subtitle: L’expert n’a donné aucune indication sur le besoin transmis.
-        title: de besoins restés sans réponse de l’institution
+        title: des besoins transmis sont restés sans réponse de l’institution, soit %{secondary_count} besoins
         title_table: Nombre de besoins restés sans réponse de l’institution
       positioning_rate:
         subtitle: L’expert s’est positionné pour indiquer prendre en charge ou refuser le besoin.
-        title: Taux de positionnement
-        title_table: Taux de positionnement
+        title: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoins
+        title_table: Taux de réponse
       solicitations:
         series: Besoins déposés
         subtitle_html: Il s’agit du nombre de besoins déposés par les entreprises avant la vérification qualité
@@ -937,7 +939,7 @@ fr:
         title_table: Délai de réponses aux besoins des entreprises
       taking_care_rate_stats:
         subtitle: Le besoin a été pris en charge par un expert, mais n’a pas encore été cloturé après l’appel de l’entreprise.
-        title: de besoins en cours de prise en charge par l’institution
+        title: des besoins transmis sont en cours de prise en charge par l’institution, soit %{secondary_count} besoins
         title_table: Nombre de besoins en cours de prise en charge
       themes:
         subtitle: Une thématique est un regroupement de sujets d’entreprises proches.
@@ -948,8 +950,10 @@ fr:
         title_table: Délai de transmission des sollicitations
       transmitted_needs:
         title: Besoins transmis
+    skeleton_card:
+      loading: Graphique en cours de chargement...
     stats_chart:
-      detailed_description: Description détaillée
+      detailed_description: Chiffres détaillés
       months: Mois
       sum: Total
     stats_params:
@@ -1000,9 +1004,9 @@ fr:
     status_done_no_help: Clôture sans accompagnement
     status_done_not_reachable: Entreprises injoignables
     status_not_for_me: Besoins refusés
-    tacking_care_status: Statut « pris en charge »
     taken_care_after: Plus de 5 jours
     taken_care_before: Moins de 5 jours
+    taking_care_status: Statut « pris en charge »
     team:
       index:
         title: Statistiques équipe

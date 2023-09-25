@@ -6,6 +6,8 @@ module Stats::Needs
 
     def main_query
       Need.diagnosis_completed.where(created_at: @start_date..@end_date)
+      # Ajoute un joins ici pour les jointures du '.size' ne fonctionne pas sans en production uniquement
+      # Need.diagnosis_completed.joins(matches: :expert).where(created_at: @start_date..@end_date)
     end
 
     def build_series
@@ -28,6 +30,14 @@ module Stats::Needs
 
     def count
       filtered_needs(main_query).size
+    end
+
+    def colors
+      needs_colors
+    end
+
+    def format
+      '{series.name} : <b>{point.y}</b>'
     end
 
     private

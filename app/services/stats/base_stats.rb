@@ -8,7 +8,7 @@ module Stats
   module BaseStats
     FILTER_PARAMS = [
       :territory, :institution, :antenne, :subject, :integration, :mtm_campaign, :mtm_kwd,
-      :start_date, :end_date, :theme, :iframe_id
+      :start_date, :end_date, :theme, :iframe_id, :colors
     ]
     attr_reader(*FILTER_PARAMS)
 
@@ -25,6 +25,7 @@ module Stats
       @theme = Theme.find_by(id: params.theme) if params.theme.present?
       @start_date = params.start_date&.to_time || (Time.zone.now.beginning_of_day - 6.months)
       @end_date = params.end_date&.to_time&.end_of_day || Time.zone.now.end_of_day
+      @colors = params.colors
     end
 
     def date_group_attribute
@@ -32,7 +33,7 @@ module Stats
     end
 
     def colors
-      %w[#62e0d3 #2D908F #f3dd68 #e78112 #F45A5B #9f3cca #F15C80 #A8FF96 #946c47 #64609b #7a7a7a #CF162B]
+      @colors || %w[#62e0d3 #2D908F #f3dd68 #e78112 #F45A5B #9f3cca #F15C80 #A8FF96 #946c47 #64609b #7a7a7a #CF162B]
     end
 
     def series
@@ -102,7 +103,11 @@ module Stats
     end
 
     def matches_colors
-      %w[#eabab1 #8D533E]
+      @colors || %w[#eabab1 #8D533E]
+    end
+
+    def needs_colors
+      @colors || %w[#2D908F #62e0d3]
     end
 
     ## Overrides

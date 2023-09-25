@@ -3,6 +3,7 @@ module Stats::Matches
   class TakingCareRateStats
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
+    include ::Stats::TwoRatesStats
 
     def main_query
       Match.sent.where(created_at: @start_date..@end_date)
@@ -13,24 +14,16 @@ module Stats::Matches
     end
 
     def build_series
-      query = main_query
-      query = filtered(query)
-
-      @tacking_care_status = []
+      @taking_care_status = []
       @other_status = []
 
       search_range_by_month.each do |range|
-        month_query = query.created_between(range.first, range.last)
-        @tacking_care_status.push(month_query.status_taking_care.count)
+        month_query = filtered_main_query.created_between(range.first, range.last)
+        @taking_care_status.push(month_query.status_taking_care.count)
         @other_status.push(month_query.not_status_taking_care.count)
       end
 
-      as_series(@tacking_care_status, @other_status)
-    end
-
-    def count
-      build_series
-      percentage_two_numbers(@tacking_care_status, @other_status)
+      as_series(@taking_care_status, @other_status)
     end
 
     def subtitle
@@ -43,15 +36,15 @@ module Stats::Matches
 
     private
 
-    def as_series(tacking_care_status, other_status)
+    def as_series(taking_care_status, other_status)
       [
         {
           name: I18n.t('stats.other_status'),
           data: other_status
         },
         {
-          name: I18n.t('stats.tacking_care_status'),
-          data: tacking_care_status
+          name: I18n.t('stats.taking_care_status'),
+          data: taking_care_status
         }
       ]
     end
