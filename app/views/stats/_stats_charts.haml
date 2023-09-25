@@ -1,5 +1,0 @@
-- cache([stats, charts_names], expires_in: 1.hour) do
-  - charts_names.each do |name|
-    .fr-col-12.card.stats
-      - data = stats.send(name.to_sym)
-      = render 'stats/stats_chart', data: data, name: name
