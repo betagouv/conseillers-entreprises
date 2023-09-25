@@ -1,6 +1,6 @@
 module Stats
   class PublicController < BaseController
-    before_action :set_graph_names
+    before_action :set_charts_names
 
     def index
       @stats_params = stats_params
@@ -11,7 +11,7 @@ module Stats
     def load_data
       name = params.permit(:chart_name)[:chart_name]
       data = Rails.cache.fetch(['public-stats', name, session[:public_stats_params]], expires_in: 6.hours) do
-        Stats::Public::All.new(session[:public_stats_params]).send(name) if @graph_names.include? name
+        Stats::Public::All.new(session[:public_stats_params]).send(name) if @charts_names.include?(name)
       end
       render_partial(data, name)
     end
@@ -22,8 +22,8 @@ module Stats
       render partial: 'stats/load_stats', locals: { data: data, name: name }
     end
 
-    def set_graph_names
-      @graph_names = %w[solicitations solicitations_diagnoses exchange_with_expert needs_done_from_exchange taking_care themes companies_by_employees companies_by_naf_code]
+    def set_charts_names
+      @charts_names = %w[solicitations solicitations_diagnoses exchange_with_expert needs_done_from_exchange taking_care themes companies_by_employees companies_by_naf_code]
     end
   end
 end

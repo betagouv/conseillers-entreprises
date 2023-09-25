@@ -11,24 +11,27 @@ module Stats
 
     def public
       @stats_for = "Public"
-      @charts_names = [
-        :solicitations, :solicitations_diagnoses,
-        :exchange_with_expert, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code
+      @charts_names = %w[
+        solicitations solicitations_diagnoses exchange_with_expert taking_care themes
+        companies_by_employees companies_by_naf_code
       ]
       render :index
     end
 
     def needs
       @stats_for = "Needs"
-      @charts_names = [:transmitted_less_than_72h_stats, :needs_done, :needs_done_no_help, :needs_done_not_reachable, :needs_not_for_me, :needs_abandoned]
+      @charts_names = %w[
+        transmitted_less_than_72h_stats needs_done needs_done_no_help
+        needs_done_not_reachable needs_not_for_me needs_abandoned
+      ]
       render :index
     end
 
     def matches
       @stats_for = "Matches"
-      @charts_names = [
-        :needs_transmitted, :positioning_rate, :taking_care_rate_stats, :done_rate_stats,
-        :done_no_help_rate_stats, :done_not_reachable_rate_stats, :not_for_me_rate_stats, :not_positioning_rate
+      @charts_names = %w[
+        needs_transmitted, positioning_rate, taking_care_rate_stats, done_rate_stats,
+        done_no_help_rate_stats, done_not_reachable_rate_stats, not_for_me_rate_stats, not_positioning_rate
       ]
       render :index
     end
