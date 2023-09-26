@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 RSpec.describe Conseiller::Diagnoses::StepsController do
-  login_user
+  login_admin
 
   let(:diagnosis) { create :diagnosis, advisor: advisor }
   let(:advisor) { current_user }
