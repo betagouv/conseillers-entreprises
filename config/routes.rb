@@ -338,17 +338,6 @@ Rails.application.routes.draw do
     ["/aide-entreprise/#{landing_slug}", req.query_string.presence].compact.join('?')
   }
 
-  # Others
-  get '/entreprise/:slug', to: redirect(path: '/aide-entreprises/%{slug}')
-  get '/entreprise/:slug(*all)', to: redirect(path: '/aide-entreprises/%{slug}%{all}')
-  get '/aide/:slug', to: redirect('/aide-entreprises/%{slug}')
-  get '/aide/:slug(*all)', to: redirect(path: '/aide-entreprises/%{slug}%{all}')
-  get '/profile', to: redirect('/mon_compte')
-  get '/mes_competences', to: redirect('/mon_compte/referents')
-  get '/diagnoses', to: redirect('conseiller/analyses')
-  get '/qui_sommes_nous', to: redirect('/comment_ca_marche')
-  get '/politique_de_confidentialite', to: redirect('/mentions_d_information')
-
   ## Handle 404 properly
   get '*unmatched_route', :to => 'shared#not_found'
 end
