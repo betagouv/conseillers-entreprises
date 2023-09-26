@@ -21,12 +21,6 @@ fr:
       solicitation:
         new_solicitation_received: Une entreprise nous sollicite !
         subject: Nouvelle sollicitation d’entreprise
-      weekly_statistics:
-        hello: Bonjour, chers administrateurs !
-        last_week: 'Voici les statistiques de la semaine dernière :'
-        reminders: 'Côté relances, voici où nous en sommes :'
-        see_you_next_week: À la semaine prochaine pour de nouvelles aventures !
-        subject: "[Conseillers-entreprises.service-public.fr] Bon lundi ! Voici les statistiques d’utilisation !"
     best_regards: Cordialement,
     company_mailer:
       abandoned_need:

@@ -2,10 +2,6 @@
 
 class AdminMailersService
   class << self
-    def send_statistics_email
-      AdminMailer.weekly_statistics(public_stats_counts, reminders_counts).deliver_later
-    end
-
     def send_failed_jobs
       failed_jobs = Delayed::Backend::ActiveRecord::Job.where.not(failed_at: nil).as_json
       if failed_jobs.any?
