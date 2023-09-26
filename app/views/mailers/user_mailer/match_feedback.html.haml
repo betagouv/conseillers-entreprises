@@ -1,5 +1,3 @@
-= render 'mailers/header', institution_logo_name: @person.institution.logo&.filename
-
 %p= t('mailers.hello')
 
 %p= t('.new_comment_html', author: @author.full_name, antenne: @author.antenne, company: @feedback.need.company, date: I18n.l(@feedback.need.diagnosis.display_date))

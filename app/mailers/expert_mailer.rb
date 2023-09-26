@@ -4,13 +4,14 @@ class ExpertMailer < ApplicationMailer
   default template_path: 'mailers/expert_mailer'
   helper :institutions
 
-  def notify_company_needs(expert, need)
-    @expert = expert
-    return if @expert.deleted?
+  layout 'expert_mailers'
 
-    @need = need
-    @diagnosis = need.diagnosis
-    @solicitation = need.solicitation
+  before_action :set_expert
+
+  def notify_company_needs
+    @need = params[:need]
+    @diagnosis = @need.diagnosis
+    @solicitation = @need.solicitation
 
     mail(
       to: @expert.email_with_display_name,
@@ -18,22 +19,16 @@ class ExpertMailer < ApplicationMailer
     )
   end
 
-  def first_notification_help(expert)
-    @expert = expert
-    return if @expert.deleted?
-
+  def first_notification_help
     mail(
       to: @expert.email_with_display_name,
       subject: t('mailers.expert_mailer.first_notification_help.subject')
     )
   end
 
-  def remind_involvement(expert)
-    @expert = expert
-    return if @expert.deleted?
-
+  def remind_involvement
     # On ne relance pas les MER les + recentes
-    @needs_quo = expert.needs_quo.matches_sent_at(Range.new(nil, 4.days.ago))
+    @needs_quo = @expert.needs_quo.matches_sent_at(Range.new(nil, 4.days.ago))
 
     return if @needs_quo.empty?
 
@@ -43,11 +38,8 @@ class ExpertMailer < ApplicationMailer
     )
   end
 
-  def positioning_rate_reminders(expert, support_user)
-    @expert = expert
-    return if @expert.deleted?
-
-    @support_user = support_user
+  def positioning_rate_reminders
+    @support_user = params[:support_user]
 
     mail(
       to: @expert.email_with_display_name,
@@ -56,12 +48,9 @@ class ExpertMailer < ApplicationMailer
     )
   end
 
-  def re_engagement(expert, support_user, need)
-    @expert = expert
-    return if @expert.deleted?
-
-    @need = need
-    @support_user = support_user
+  def re_engagement
+    @need = params[:need]
+    @support_user = params[:support_user]
 
     mail(
       to: @expert.email_with_display_name,
@@ -70,18 +59,23 @@ class ExpertMailer < ApplicationMailer
     )
   end
 
-  def last_chance(expert, need, support_user)
-    @expert = expert
-    return if @expert.deleted?
-
-    @need = need
+  def last_chance
+    @need = params[:need]
+    @support_user = params[:support_user]
     @match = @expert.received_matches.find_by(need: @need)
-    @support_user = support_user
 
     mail(
       to: @expert.email_with_display_name,
       reply_to: @support_user.email_with_display_name,
       subject: t('mailers.expert_mailer.last_chance.subject', company: @need.company.name)
     )
+  end
+
+  private
+
+  def set_expert
+    @expert = params[:expert]
+    return if @expert.deleted?
+    @institution_logo_name = @expert.institution.logo&.filename
   end
 end

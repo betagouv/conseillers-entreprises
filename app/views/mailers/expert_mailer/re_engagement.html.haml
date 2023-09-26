@@ -1,8 +1,6 @@
-= render 'mailers/header', institution_logo_name: @expert.institution.logo&.filename
-
 %p= t('mailers.hello')
 
-%p= t('.you_received_need_html', company: @need.company.name, subject: @need.subject.label.downcase)
+%p= t('.you_received_need_html', company: @need.company.name, subject: @need.subject.label.downcase, url: need_url(@need))
 
 %p= t('.its_been_a_while')
 

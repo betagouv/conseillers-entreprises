@@ -5,7 +5,7 @@ require 'mailers/shared_examples_for_an_email'
 
 describe UserMailer do
   describe '#match_feedback' do
-    subject(:mail) { described_class.match_feedback(feedback, user).deliver_now }
+    subject(:mail) { described_class.with(user: user, feedback: feedback).match_feedback.deliver_now }
 
     let(:feedback) { create :feedback, :for_need }
     let(:advisor) { create :user }

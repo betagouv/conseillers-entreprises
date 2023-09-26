@@ -1,5 +1,3 @@
-= render 'mailers/header', institution_logo_name: @user.institution.logo&.filename
-
 %p= t('mailers.hello')
 
 %p= t('.antenne_manager', antennes: @user.managed_antennes.pluck(:name).to_sentence, count: @user.managed_antennes.size)

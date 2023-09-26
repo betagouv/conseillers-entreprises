@@ -1,5 +1,3 @@
-= render 'mailers/header', institution_logo_name: @expert.institution.logo&.filename
-
 %p= t('mailers.hello_name', name: @expert.full_name)
 
 %p= t('.company_solicitation_html', company: @need.company.name, date: I18n.l(@match.created_at, format: :sentence))

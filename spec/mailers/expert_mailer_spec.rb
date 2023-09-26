@@ -5,7 +5,7 @@ require 'mailers/shared_examples_for_an_email'
 
 describe ExpertMailer do
   describe '#notify_company_needs' do
-    subject(:mail) { described_class.notify_company_needs(expert, need).deliver_now }
+    subject(:mail) { described_class.with(expert: expert, need: need).notify_company_needs.deliver_now }
 
     let(:expert) { create :expert }
     let(:user) { create :user }
@@ -35,7 +35,7 @@ describe ExpertMailer do
 
   describe '#remind_involvement' do
     subject(:mail) do
-      described_class.remind_involvement(expert).deliver_now
+      described_class.with(expert: expert).remind_involvement.deliver_now
     end
 
     let(:expert) { create :expert }

@@ -6,24 +6,33 @@ class UserMailer < ApplicationMailer
   helper :institutions
   helper :status
 
-  def match_feedback(feedback, person)
-    @person = person
-    return if @person.deleted? || feedback.nil?
+  layout 'expert_mailers'
 
-    @feedback = feedback
-    @author = feedback.user
-    @match = person.received_matches.find_by(need: feedback.need.id)
+  before_action :set_user
 
-    mail(to: @person.email_with_display_name,
-         subject: t('mailers.user_mailer.match_feedback.subject', company_name: feedback.need.company))
+  def match_feedback
+    @feedback = params[:feedback]
+    return if @feedback.nil?
+
+    @author = @feedback.user
+    @match = @user.received_matches.find_by(need: @feedback.need.id)
+
+    mail(to: @user.email_with_display_name,
+         subject: t('mailers.user_mailer.match_feedback.subject', company_name: @feedback.need.company))
   end
 
-  def quarterly_report(user)
-    @user = user
-
+  def quarterly_report
     mail(
       to: @user.email_with_display_name,
       subject: t('mailers.user_mailer.quarterly_report.subject')
     )
+  end
+
+  private
+
+  def set_user
+    @user = params[:user]
+    return if @user.deleted?
+    @institution_logo_name = @user.institution.logo&.filename
   end
 end

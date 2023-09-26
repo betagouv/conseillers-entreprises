@@ -45,7 +45,7 @@ class Feedback < ApplicationRecord
   def notify_for_need!
     return unless category_need?
     persons_to_notify.each do |person|
-      UserMailer.match_feedback(self, person)&.deliver_later
+      UserMailer.with(user: person, feedback: self).match_feedback&.deliver_later
     end
   end
 
