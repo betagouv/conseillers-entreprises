@@ -446,9 +446,6 @@ fr:
       add_other_experts: Rechercher d’autres experts à mettre en relation
       ambulance_explanation: Notifier un nouveau conseiller référencé, quel que soit le partenaire, le sujet ou le territoire
       no_expert_found: Aucun résultat
-    archive:
-      archive_done: Besoin de l’entreprise %{company} archivé
-      subjet_achived: Le besoin a été archivé
     collections:
       archived: Archivées
       done: Clôturées
@@ -524,8 +521,6 @@ fr:
       transmitted_by: Demande transmise par
       warning_comments: Attention ! Cette discussion n’est pas visible par l’entreprise.
       workforce: 'Effectifs de l’établissement : %{range}'
-    unarchive:
-      subject_unarchived: Besoin désarchivé
   newsletters:
     create:
       error_newsletter_subscription: Une erreur s’est produite, merci de réessayer.

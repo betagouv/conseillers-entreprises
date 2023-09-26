@@ -8,24 +8,24 @@
     = render partial: 'companies/need', collection: @needs
 
   .fr-tabs.fr-mt-5w
-    %ul.fr-tabs__list{"aria-label" => t('.aria_label_tabs'), role: "tablist"}
-      %li{role: "presentation"}
-        %button#tabpanel-search-company.fr-tabs__tab{ aria: { controls: "search-company-panel",
-        selected: (@tab == 'search_manually' ? 'false' : 'true')}, role: "tab", tabindex: "0" }
+    %ul.fr-tabs__list{ 'aria-label': t('.aria_label_tabs'), role: "tablist" }
+      %li{ role: "presentation" }
+        %button.fr-tabs__tab#tabpanel-search-company{ aria: { controls: "search-company-panel",
+        selected: (@tab == 'search_manually' ? 'false' : 'true') }, role: "tab", tabindex: "0" }
           = t('.find_company')
-      %li{role: "presentation"}
-        %button#tabpanel-search-manually.fr-tabs__tab{ aria: { controls: "search-manually-panel",
-        selected: (@tab == 'search_manually' ? 'true' : 'false')}, role: "tab", tabindex: "-1"}
+      %li{ role: "presentation" }
+        %button.fr-tabs__tab#tabpanel-search-manually{ aria: { controls: "search-manually-panel",
+        selected: (@tab == 'search_manually' ? 'true' : 'false') }, role: "tab", tabindex: "-1" }
           = t('.search_manually')
 
-    #search-company-panel.fr-tabs__panel.fr-tabs__panel--selected{ 'aria-labelledby': "tabpanel-search-company", role: "tabpanel", tabindex: "0" }
+    .fr-tabs__panel.fr-tabs__panel--selected#search-company-panel{ 'aria-labelledby': "tabpanel-search-company", role: "tabpanel", tabindex: "0" }
       = render partial: 'companies/search_form', locals: { query: @query, solicitation: @diagnosis.solicitation }
 
-    #search-manually-panel.fr-tabs__panel{ 'aria-labelledby': "tabpanel-search-manually", role: "tabpanel", tabindex: "0" }
+    .fr-tabs__panel#search-manually-panel{ 'aria-labelledby': "tabpanel-search-manually", role: "tabpanel", tabindex: "0" }
       %h2= t('.title')
       %p= t('.sub_title')
 
-      = form_with model: @diagnosis, class: 'ui form', local: true do |form|
+      = form_with model: @diagnosis, url: conseiller_diagnoses_path, local: true do |form|
         - if @diagnosis.errors.present?
           .fr-alert.fr-alert--error.fr-alert--sm
             = @diagnosis.errors.full_messages.to_sentence

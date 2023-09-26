@@ -2,6 +2,7 @@
 
 class Conseiller::DiagnosesController < ApplicationController
   before_action :retrieve_diagnosis, only: :show
+
   def new
     authorize Diagnosis
     @current_solicitation = Solicitation.find_by(id: params[:solicitation])

@@ -123,20 +123,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :diagnoses, only: %i[new show create], path: 'analyses' do
-    member do
-      controller 'diagnoses/steps' do
-        get :needs, path: 'besoins'
-        patch :update_needs
-        get :contact, path: 'contact'
-        patch :update_contact
-        get :matches, path: 'selection'
-        patch :update_matches
-        post :add_match
-      end
-    end
-  end
-
   resources :companies, only: %i[show], path: 'entreprises' do
     member do
       get :needs, path: 'besoins'
@@ -164,8 +150,6 @@ Rails.application.routes.draw do
     member do
       get :additional_experts
       post :add_match
-      post :archive
-      post :unarchive
     end
   end
 
@@ -361,7 +345,7 @@ Rails.application.routes.draw do
   get '/aide/:slug(*all)', to: redirect(path: '/aide-entreprises/%{slug}%{all}')
   get '/profile', to: redirect('/mon_compte')
   get '/mes_competences', to: redirect('/mon_compte/referents')
-  get '/diagnoses', to: redirect('/analyses')
+  get '/diagnoses', to: redirect('conseiller/analyses')
   get '/qui_sommes_nous', to: redirect('/comment_ca_marche')
   get '/politique_de_confidentialite', to: redirect('/mentions_d_information')
 
