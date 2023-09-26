@@ -48,4 +48,4 @@
           = link_to t('sitemap.sitemap.title'), sitemap_path, class: 'fr-footer__bottom-link'
         - if policy(Stats::All).team?
           %li.fr-footer__bottom-item
-            = link_to t('usage_team_stats'), team_index_path, class: 'fr-footer__bottom-link'
+            = link_to t('usage_team_stats'), public_team_index_path, class: 'fr-footer__bottom-link'

@@ -17,7 +17,7 @@
             = link_to t('usage_stats'), public_index_path, class: 'fr-footer__content-link'
           - if policy(Stats::All).team?
             %li.fr-footer__content-item
-              = link_to t('usage_team_stats'), team_index_path, class: 'fr-footer__content-link'
+              = link_to t('usage_team_stats'), public_team_index_path, class: 'fr-footer__content-link'
     .fr-footer__bottom
       %ul.fr-footer__bottom-list
         %li.fr-footer__bottom-item
