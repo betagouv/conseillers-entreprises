@@ -1,7 +1,6 @@
 class CustomDeviseMailer < Devise::Mailer
   layout 'expert_mailers'
 
-
   def headers_for(action, opts)
     if action == :invitation_instructions
       super.merge!({

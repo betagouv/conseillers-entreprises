@@ -44,8 +44,18 @@ describe ExpertMailer do
       create :match, expert: expert, created_at: 5.days.ago, sent_at: 5.days.ago
     end
 
-    it_behaves_like 'an email'
+    describe 'when the recipient is active' do
+      it_behaves_like 'an email'
 
-    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+      it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+    end
+
+    describe 'when the recipient is deleted' do
+      before { expert.soft_delete }
+
+      let(:mail) { subject }
+
+      it { expect(mail).to be_nil }
+    end
   end
 end
