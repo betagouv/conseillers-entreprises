@@ -10,7 +10,7 @@ describe 'New Solicitation', js: true, flaky: true do
   let!(:landing) { create :landing, slug: 'accueil', title: 'Test Landing' }
   let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
   let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, subject: pde_subject, title: "Super sujet", description: "Description LS", requires_siret: true }
-  let(:siret) { '41816609600077' }
+  let(:siret) { '41816609600069' }
   let(:siren) { siret[0..8] }
   let(:solicitation) { Solicitation.last }
 
@@ -131,7 +131,7 @@ describe 'New Solicitation', js: true, flaky: true do
       context "with siret in url and modification" do
         let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
         let(:fixture_file) { 'api_insee_siret.json' }
-        let(:query) { '41816609600077' }
+        let(:query) { '41816609600069' }
         let(:token) { '1234' }
 
         before do
