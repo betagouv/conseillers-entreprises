@@ -153,7 +153,6 @@ fr:
       do_invite_done: Invitation(s) envoyée(s)
       duplicate_territories: Dupliquer les territoires spécifiques
       impersonate: Voir le site comme %{name}
-      not_created: L’utilisateur n’a pas pu être créé
       reassign_matches_done:
         one: "%{count} mise en relation réattribuée à %{user}"
         other: "%{count} mises en relation réattribuées à %{user}"
@@ -580,7 +579,7 @@ fr:
         user:
           attributes:
             email:
-              taken: est déjà inscrit sur Place des Entreprises. Connectez-vous.
+              taken: est déjà inscrit sur Place des Entreprises.
     models:
       additional_subject_question:
         one: Question additionnelle

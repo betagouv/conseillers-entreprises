@@ -326,6 +326,7 @@ class User < ApplicationRecord
   def duplicate(params)
     params[:job] = params[:job].presence || self.job
     new_user = User.create(params.merge(antenne: antenne))
+    return new_user unless new_user.persisted? && new_user.valid?
     user_experts = self.relevant_experts - self.personal_skillsets
     # si c'est une équipe
     if user_experts.present?

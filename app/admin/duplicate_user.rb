@@ -6,11 +6,11 @@ ActiveAdmin.register_page 'Duplicate user' do
     old_user = User.find(params[:user_id])
     user_params = params.require(:user).permit(:full_name, :email, :phone_number, :job, :specifics_territories)
     new_user = old_user.duplicate(user_params)
-    if new_user.persisted?
+    if new_user.valid?
       flash[:notice] = t('active_admin.user.created')
       redirect_to admin_users_path
     else
-      flash[:alert] = t('active_admin.user.not_created')
+      flash[:alert] = new_user.errors.full_messages.to_sentence
       redirect_to admin_user_duplicate_user_path(old_user)
     end
   end
