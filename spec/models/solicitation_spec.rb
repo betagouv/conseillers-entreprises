@@ -40,23 +40,92 @@ RSpec.describe Solicitation do
       end
     end
 
-    describe 'siret field' do
-      let(:subject_with_siret) { create :landing_subject, requires_siret: true }
-      let(:subject_without_siret) { create :landing_subject, requires_siret: false }
-      # solicitation à l'étape contact ko
-      let(:contact_solicitation) { build :solicitation, status: :step_contact, landing_subject: subject_with_siret }
-      # solicitation à l'étape company ko
-      let(:company_solicitation) { build :solicitation, status: :step_company, landing_subject: subject_with_siret }
-      # solicitation à l'étape description avec siret obligatoire ok
-      let(:description_solicitation_with_siret) { build :solicitation, status: :step_description, landing_subject: subject_with_siret }
-      # solicitation à l'étape description sans siret obligatoire ko
-      let(:description_solicitation_without_siret) { build :solicitation, status: :step_description, landing_subject: subject_without_siret }
+    describe 'validate siret' do
 
-      it 'check presence of siret' do
-        expect(contact_solicitation).not_to validate_presence_of :siret
-        expect(company_solicitation).not_to validate_presence_of :siret
-        expect(description_solicitation_with_siret).to validate_presence_of :siret
-        expect(description_solicitation_without_siret).not_to validate_presence_of :siret
+      describe 'moment of validation' do
+        let(:subject_with_siret) { create :landing_subject, requires_siret: true }
+        let(:subject_without_siret) { create :landing_subject, requires_siret: false }
+        # solicitation à l'étape contact ko
+        let(:contact_solicitation) { build :solicitation, status: :step_contact, landing_subject: subject_with_siret }
+        # solicitation à l'étape company ko
+        let(:company_solicitation) { build :solicitation, status: :step_company, landing_subject: subject_with_siret }
+        # solicitation à l'étape description avec siret obligatoire ok
+        let(:description_solicitation_with_siret) { build :solicitation, status: :step_description, landing_subject: subject_with_siret }
+        # solicitation à l'étape description sans siret obligatoire ko
+        let(:description_solicitation_without_siret) { build :solicitation, status: :step_description, landing_subject: subject_without_siret }
+
+        it 'check presence of siret' do
+          expect(contact_solicitation).not_to validate_presence_of :siret
+          expect(company_solicitation).not_to validate_presence_of :siret
+          expect(description_solicitation_with_siret).to validate_presence_of :siret
+          expect(description_solicitation_without_siret).not_to validate_presence_of :siret
+        end
+      end
+
+      describe 'full validation' do
+        let(:solicitation) { create :solicitation, status: 'step_company', siret: siret, code_region: nil }
+
+        describe 'with no siret' do
+          let(:siret) { nil }
+
+          before { solicitation.update(status: 'step_description') }
+
+          it { expect(solicitation).not_to be_valid }
+        end
+
+        describe 'with malformed siret' do
+          let(:siret) { '123456789 00010' }
+
+          before { solicitation.update(status: 'step_description') }
+
+          it { expect(solicitation).not_to be_valid }
+        end
+
+        describe 'with valid siret' do
+          let(:token) { '1234' }
+          let(:api_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
+
+          before do
+            ENV['API_ENTREPRISE_TOKEN'] = token
+            stub_request(:get, api_url).to_return(
+              body: api_body
+            )
+            solicitation.update(status: 'step_description')
+          end
+
+          describe 'with foreign siret' do
+            let(:siret) { '84784706800016' }
+            let(:api_body) do
+  { "data" =>
+    { "siret" => "84784706800016",
+      "adresse" =>
+      { "status_diffusion" => "diffusible",
+        "code_postal" => nil,
+        "libelle_commune" => nil,
+        "libelle_commune_etranger" => "1260 NYON",
+        "code_commune" => nil,
+        "code_pays_etranger" => "99140",
+        "libelle_pays_etranger" => "SUISSE",
+      }
+    },
+    "links" => {}, "meta" => {}
+  }.to_json
+end
+
+            it { expect(solicitation).not_to be_valid }
+          end
+
+          describe 'with correct french siret' do
+            let(:siret) { '41816609600069' }
+            let(:api_body) { file_fixture('api_entreprise_etablissement.json') }
+
+            it do
+              expect(solicitation).to be_valid
+              expect(solicitation.code_region).to eq(11)
+            end
+          end
+
+        end
       end
     end
 
@@ -124,25 +193,17 @@ RSpec.describe Solicitation do
     end
 
     describe 'format_solicitation' do
-      let(:token) { '1234' }
       let(:siret) { '41816609600069' }
       let(:email) { 'contact..machin@truc.fr' }
 
       context 'with all fields to be formatted' do
-        let(:api_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
-        let(:solicitation) { create :solicitation, siret: siret, code_region: nil, email: email, status: :step_description }
+        let(:solicitation) { create :solicitation, email: email, status: :step_description }
 
         before do
-          ENV['API_ENTREPRISE_TOKEN'] = token
-          stub_request(:get, api_url).to_return(
-            body: file_fixture('api_entreprise_etablissement.json')
-          )
           solicitation.complete
         end
 
         it 'formats correctly fields' do
-          expect(solicitation.code_region).to eq(11)
-          expect(solicitation.siret).to eq('41816609600069')
           expect(solicitation.email).to eq('contact.machin@truc.fr')
         end
       end
@@ -156,29 +217,6 @@ RSpec.describe Solicitation do
           expect(solicitation.code_region).to eq(11)
           expect(solicitation.siret).to eq('41816609600069')
           expect(solicitation.email).to eq('contact.machin@truc.fr')
-        end
-      end
-    end
-
-    describe 'set_siret_and_region' do
-      let(:token) { '1234' }
-      let(:siret) { '41816609600069' }
-      let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
-
-      context 'with valid siret' do
-        let(:solicitation) { create :solicitation, siret: siret, code_region: nil, status: :step_description }
-
-        before do
-          ENV['API_ENTREPRISE_TOKEN'] = token
-          stub_request(:get, entreprise_api_url).to_return(
-            body: file_fixture('api_entreprise_etablissement.json')
-          )
-          solicitation.complete
-        end
-
-        it 'sets correctly siret and code_region' do
-          expect(solicitation.siret).to eq('41816609600069')
-          expect(solicitation.code_region).to eq(11)
         end
       end
     end
