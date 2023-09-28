@@ -15,9 +15,10 @@ module Stats::Matches
     end
 
     def build_series
+      query = filtered_main_query
       @not_positioning, @positioning = [], []
       search_range_by_month.each do |range|
-        month_query = filtered_main_query.created_between(range.first, range.last)
+        month_query = query.created_between(range.first, range.last)
         @positioning.push(month_query.not_status_quo.count)
         @not_positioning.push(month_query.status_quo.count)
       end
