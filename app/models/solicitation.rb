@@ -169,13 +169,18 @@ class Solicitation < ApplicationRecord
         errors.add(:siret, :must_be_a_valid_siret)
       # On recale les siret étrangers
       elsif code_region.blank? || code_region == 0
-        etablissement_data = ApiConsumption::Facility.new(siret, { request_keys: [] }).call
-        foreign_country = etablissement_data.adresse['libelle_pays_etranger']
-        if foreign_country.present?
-          errors.add(:base, I18n.t('api_requests.foreign_facility', country: foreign_country.capitalize))
-        else
-          # on en profite pour mettre à jour le code_region si siret non diffusible
-          self.update_columns(siret: etablissement_data.siret, code_region: etablissement_data.code_region)
+        begin
+          etablissement_data = ApiConsumption::Facility.new(siret, { request_keys: [] }).call
+          foreign_country = etablissement_data.adresse['libelle_pays_etranger']
+          if foreign_country.present?
+            errors.add(:base, I18n.t('api_requests.foreign_facility', country: foreign_country.capitalize))
+          else
+            # on en profite pour mettre à jour le code_region si siret non diffusible
+            self.code_region = etablissement_data.code_region
+            self.siret = etablissement_data.siret
+          end
+        rescue StandardError
+          true
         end
       end
     end
