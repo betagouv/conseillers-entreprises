@@ -258,7 +258,7 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.status_step_description?).to be false
 
           expect(page).to have_content("Sélectionnez l'établissement concerné :")
-          click_button "#{siret} - Octo Technology"
+          click_button("#{siret} - Octo Technology", match: :first)
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
