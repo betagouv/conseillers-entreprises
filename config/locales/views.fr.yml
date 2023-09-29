@@ -9,6 +9,7 @@ fr:
     cgu:
       title: Conditions d’utilisation du service numérique Conseillers-entreprises.service-public.fr
     comment_ca_marche:
+      business_owners: Ces chefs d’entreprises utilisent déjà le service. Et vous ?
       long_title: Conseillers-entreprises.service-public.fr, comment ça marche ?
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
       meta_title: Comment ça marche
@@ -22,14 +23,6 @@ fr:
       subtitle: Une petite équipe investie est à votre disposition pour répondre à vos questions. N'hésitez pas à nous écrire et partager vos idées pour améliorer le service.
       title: L’équipe
       title_long: Une équipe à votre service pour avancer ensemble !
-    index_testimonials:
-      business_owners: Ces chefs d’entreprises utilisent déjà le service. Et vous ?
-      testimonial_1_author_html: Clément Francomme<br /> CEO de <strong>UTOCAT</strong> (10 à 19 salariés)
-      testimonial_1_text_html: Place des Entreprises est très réactive et pratique ! Ils nous ont permis une mise en relation rapide avec les bonnes personnes quand nous en avions besoin.<br />Nous avons donc pu clôturer notre dossier dans les délais.
-      testimonial_2_author_html: Christophe B. <br />Dirigeant de <strong>SOS Impact 02</strong> (1 à 2 salariés)
-      testimonial_2_text_html: J’ai découvert qu’il existait des partenaires publics experts de mes besoins d’entreprise. Ils m’ont accompagné sur des questions de ressources humaines, de développement commercial et de réglementation.<br />Ils font un super job.
-      testimonial_3_author_html: Thérèse Debarge<br /><strong>Emballages Hocq</strong> (20 à 49 salariés)
-      testimonial_3_text_html: Grâce à Place des Entreprises, nous avons été contactés par 5 organismes différents prêts à nous conseiller ou nous aider de diverses manières pour le financement de notre nouvel investissement. <br /> Un grand merci pour votre réactivité.
     mentions_d_information:
       title: Mentions d'information
     mentions_legales:

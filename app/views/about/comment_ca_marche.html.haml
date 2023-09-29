@@ -30,7 +30,9 @@
 
 .fr-container--fluid.section-grey.fr-py-7w#section-testimonials
   .fr-container
-    = render 'index_testimonials'
+    %h2= t('.business_owners')
+    - @temoignages.each do |temoignage|
+      = render 'about/temoignage', temoignage: temoignage
 
 .fr-container--fluid.section-grey.fr-py-7w
   .fr-container
