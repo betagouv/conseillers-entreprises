@@ -12,8 +12,8 @@ fr:
         job_id: 'ID : %{id}'
         jobs_index: Index des jobs
         subject:
-          one: "[Conseillers-entreprises.service-public.fr] %{count} job en erreur"
-          other: "[Conseillers-entreprises.service-public.fr] %{count} jobs en erreur"
+          one: "[Conseillers-Entreprises] %{count} job en erreur"
+          other: "[Conseillers-Entreprises] %{count} jobs en erreur"
       send_csv:
         content: L’export des %{model} est terminé, vous le trouverez en pièce jointe.
         ransack_params: Paramètres de recherche
@@ -34,7 +34,7 @@ fr:
         informations_html: 'Vous serez informé(e) par mail de sa prise en charge par un conseiller ou une conseillère dans les 5 jours en moyenne.<br>Le(s) partenaire(s) pouvant vous rappeler sont :'
         its_about: 'Elle concerne :'
         subject: Confirmation de votre demande « %{subject} »
-      explanation_html: Conseillers-entreprises.service-public.fr est un service du Ministère de l’Économie et du Ministère du Travail pour faciliter la vie des petites entreprises. Il vous permet d’échanger avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
+      explanation_html: Conseillers-Entreprises est un service du Ministère de l’Économie et du Ministère du Travail pour faciliter la vie des petites entreprises. Il vous permet d’échanger avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
       intelligent_retention:
         and_you: Et vous, souhaitez-vous être aidé par un conseiller sur ces sujets ?
       not_yet_taken_care:
@@ -88,7 +88,7 @@ fr:
         response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
         subject: Conseillers-entreprises.service-public.fr - Besoin d’aide ?
         watch_videos_html: Jetez un œil sur <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>les vidéos de démonstration ici</a> !
-        what_is_pde: Comment fonctionne Conseillers-entreprises.service-public.fr ?
+        what_is_pde: Comment fonctionne le service Conseillers-Entreprises ?
       last_chance:
         at_your_disposal: Je reste à votre disposition si vous avez besoin d’aide.
         company_solicitation_html: 'Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier :'
