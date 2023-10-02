@@ -368,6 +368,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.19.0)
+    mjml-rails (4.9.0)
     msgpack (1.7.2)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
@@ -734,6 +735,7 @@ DEPENDENCIES
   listen
   matrix
   metamagic
+  mjml-rails
   parallel_tests
   pg
   pg_search

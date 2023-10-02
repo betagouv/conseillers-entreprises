@@ -1,0 +1,13 @@
+<%= t('mailers.hello_name', name: @expert.full_name) %>
+
+<%= t('.company_solicitation_html', company: @need.company.name, date: I18n.l(@match.created_at, format: :sentence)) %>
+
+<%= link_to t('.link_to_need'), need_url(@need) %>
+
+<%= t('.we_will_cancel_need') %>
+
+<%= t('.at_your_disposal') %>
+
+<%= t('mailers.sincerely') %>
+
+<%= @support_user.full_name %>

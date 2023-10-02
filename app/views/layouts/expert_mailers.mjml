@@ -1,0 +1,31 @@
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-all font-family="Arial" />
+    </mj-attributes>
+    <mj-style>
+      .fr-header__service-title {
+        font-weight: 700;
+        margin: 0;
+      }
+      .red {
+        color: #ce0500;
+      }
+      .fr-header__service-tagline {
+        line-height: 1.5;
+        margin: 0;
+      }
+      .institution-logo {
+        max-height: 75px;
+        max-width: 95%;
+        padding-right: 10px;
+      }
+    </mj-style>
+  </mj-head>
+
+  <mj-body width='650px'>
+    <%= render 'mailers/expert_header', institution_logo_name: @institution_logo_name %>
+    <%= yield %>
+    <%= render partial: 'mailers/expert_footer' %>
+  </mj-body>
+</mjml>
