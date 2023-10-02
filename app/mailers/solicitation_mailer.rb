@@ -52,4 +52,8 @@ class SolicitationMailer < ApplicationMailer
   def tns_training(solicitation)
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
+
+  def kbis_extract(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
 end
