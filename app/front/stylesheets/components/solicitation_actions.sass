@@ -1,6 +1,10 @@
 .solicitation-actions
   display: flex
   border-radius: 0.29rem
+  .actions:last-child
+    border-radius: 0 0.2rem 0.2rem 0
+  .actions:first-child
+    border-radius: 0.2rem 0 0 0.2rem
   .button, .info
     padding: 1rem
     border: none
@@ -8,41 +12,28 @@
     display: flex
     align-items: center
     height: 3rem
-    color: white
+    color: $white
+    background: transparent
+    &:hover
+      background: transparent
   .info
     cursor: help
-
-
-.solicitation-actions > .actions:last-child
-  border-radius: 0 0.2rem 0.2rem 0
-.solicitation-actions > .actions:first-child
-  border-radius: 0.2rem 0 0 0.2rem
-
-
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown
-  position: relative
-  display: inline-block
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content
-  display: none
-  position: absolute
-  z-index: 1
-  right: 0
-
-/* Links inside the dropdown */
-.dropdown-content
-  a, .clickable
-    padding: 0.5rem
-    background: none
-    box-shadow: 0 calc(-1rem - 1px) 0 -1rem $grey-light
-    cursor: pointer
-    &:hover
-      background-color: $grey-lighter
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content
-  display: block
-
+  .dropdown
+    position: relative
+    display: inline-block
+    li
+      padding: 0
+    .dropdown-content
+      display: none
+      position: absolute
+      z-index: 1
+      right: 0
+      filter: drop-shadow(0 2px 6px $grey)
+      a, .clickable
+        padding: 0.5rem 0.5rem 0.5rem 1rem
+        background: none
+        cursor: pointer
+        &:hover
+          background-color: $grey-lighter
+  .dropdown:hover .dropdown-content
+    display: block

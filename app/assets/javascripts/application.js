@@ -16,3 +16,4 @@
 // = require semantic-ui/transition
 
 // = require ./application/semantic-ui
+// = require ./application/selectize

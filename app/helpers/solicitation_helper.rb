@@ -56,7 +56,7 @@ module SolicitationHelper
       t('helpers.solicitation.analysis_in_progress', step: diagnosis.human_attribute_value(:step))
     end
 
-    link_to text, [:conseiller, diagnosis], class: 'button success-main-525-bg'
+    link_to text, [:conseiller, diagnosis], class: 'button'
   end
 
   def possible_territories_options(territories = Territory.regions)
