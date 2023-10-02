@@ -47,6 +47,10 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.tns_training(random_solicitation)
   end
 
+  def kbis_extract
+    SolicitationMailer.kbis_extract(random_solicitation)
+  end
+
   private
 
   def random_solicitation

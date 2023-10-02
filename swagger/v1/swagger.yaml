@@ -62,8 +62,7 @@ paths:
                       - id: 25
                         key: recrutement_poste_cadre
                         position: 1
-                        question: Souhaitez-vous recruter sur un poste d’expert, de
-                          spécialiste ou d’encadrement ?
+                        question: Souhaitez-vous recruter sur un poste d’ingénieur, de manager ou de niveau Bac +3 ?
                         question_type: boolean
                       - id: 26
                         key: recrutement_en_apprentissage
@@ -155,8 +154,7 @@ paths:
                       - id: 27
                         key: recrutement_poste_cadre
                         position: 1
-                        question: Souhaitez-vous recruter sur un poste d’expert, de
-                          spécialiste ou d’encadrement ?
+                        question: Souhaitez-vous recruter sur un poste d’ingénieur, de manager ou de niveau Bac +3 ?
                         question_type: boolean
                       - id: 28
                         key: recrutement_en_apprentissage
@@ -251,8 +249,7 @@ paths:
                       - id: 33
                         key: recrutement_poste_cadre
                         position: 1
-                        question: Souhaitez-vous recruter sur un poste d’expert, de
-                          spécialiste ou d’encadrement ?
+                        question: Souhaitez-vous recruter sur un poste d’ingénieur, de manager ou de niveau Bac +3 ?
                         question_type: boolean
                       - id: 34
                         key: recrutement_en_apprentissage
