@@ -14,14 +14,15 @@ module Stats::Matches
     end
 
     def build_series
+      query = filtered_main_query
       @done_no_help = []
       @other_status = []
+
       search_range_by_month.each do |range|
-        month_query = filtered_main_query.created_between(range.first, range.last)
+        month_query = query.created_between(range.first, range.last)
         @done_no_help.push(month_query.status_done_no_help.count)
         @other_status.push(month_query.not_status_done_no_help.count)
       end
-
       as_series(@done_no_help, @other_status)
     end
 
