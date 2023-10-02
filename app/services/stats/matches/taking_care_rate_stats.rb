@@ -14,11 +14,12 @@ module Stats::Matches
     end
 
     def build_series
+      query = filtered_main_query
       @taking_care_status = []
       @other_status = []
 
       search_range_by_month.each do |range|
-        month_query = filtered_main_query.created_between(range.first, range.last)
+        month_query = query.created_between(range.first, range.last)
         @taking_care_status.push(month_query.status_taking_care.count)
         @other_status.push(month_query.not_status_taking_care.count)
       end
