@@ -18,6 +18,6 @@
 
 <%= render 'mailers/expert_mailer/support_contacts', antenne: @expert.antenne %>
 
-<%= t('.watch_videos_html') %>
+<%= ActionView::Base.full_sanitizer.sanitize(t('.watch_videos_html')) %>: https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured
 
-<%= t('mailers.see_you_on_service_html', link_to_root: link_to(t('app_name'), root_url)) %>
+<%= ActionView::Base.full_sanitizer.sanitize(t('mailers.see_you_on_service_html', link_to_root: link_to(t('app_name'), root_url))) %>
