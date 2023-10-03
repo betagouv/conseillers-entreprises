@@ -1,6 +1,7 @@
 <mjml>
   <mj-head>
     <mj-attributes>
+      <mj-text line-height='22px' font-size='14px'>
       <mj-all font-family="Arial" />
     </mj-attributes>
     <mj-style>
@@ -17,8 +18,8 @@
       }
       .institution-logo {
         max-height: 75px;
-        max-width: 95%;
-        padding-right: 10px;
+        max-width: 90%;
+        padding: 10px 25px;
       }
     </mj-style>
   </mj-head>

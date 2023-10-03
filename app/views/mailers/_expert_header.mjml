@@ -16,7 +16,7 @@
     <mj-text font-size='16px' line-height=1.5 padding=0 css-class="fr-header__service-title">
       <span class="red"><%= t('app_name_subdomain').sp_titleize_url %></span><%= "." + t('app_name_domain').sp_titleize_url %>
     </mj-text>
-    <mj-text padding=0 css-class="fr-header__service-tagline">
+    <mj-text line-height=1 font-size='13px'padding=0 css-class="fr-header__service-tagline">
       <%= t('app_tagline') %>
     </mj-text>
   </mj-column>
