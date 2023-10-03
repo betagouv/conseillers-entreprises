@@ -1,12 +1,14 @@
 <mj-text>
   <% if antenne.support_user.present? %>
-  <span>
-    <%= t('.support_contact_html',
-        region: antenne.regions.first.name,
-        name: antenne.support_user.full_name,
-        tel: antenne.support_user.phone_number,
-        email: antenne.support_user.email) %>
-  </span>
+  <ul>
+    <li>
+      <%= t('.support_contact_html',
+          region: antenne.regions.first.name,
+          name: antenne.support_user.full_name,
+          tel: antenne.support_user.phone_number,
+          email: antenne.support_user.email) %>
+    </li>
+  </ul>
 <% else %>
   <ul>
     <% Territory.regions.with_support.includes(:support_contact).each do |territory| %>

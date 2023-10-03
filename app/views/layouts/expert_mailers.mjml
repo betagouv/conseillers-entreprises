@@ -21,6 +21,19 @@
         max-width: 90%;
         padding: 10px 25px;
       }
+      .card__detail {
+        font-size: 12px;
+        color: #666;
+      }
+      .card__desc {
+        font-size: 14px;
+        font-weight: 700;
+        margin-top: 0.25em;
+      }
+      .card__title {
+        font-size: 16px;
+        margin-bottom: 0.25em;
+      }
     </mj-style>
   </mj-head>
 

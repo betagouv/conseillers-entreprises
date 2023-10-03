@@ -97,10 +97,9 @@ fr:
         we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant ou à la dirigeante resté(e) sans nouvelles.
       notify_company_needs:
         advisor_met_company_html: Dans l'équipe, <strong>%{name}</strong> vous a partagé ce besoin le %{visit_date}.
-        needs_you_html: a besoin de votre expertise sur <strong>« %{subject} »</strong>
+        company_needs_you_html: Une entreprise a besoin de votre expertise sur <strong>« %{subject} »</strong>
         subject: L’entreprise %{company_name} a besoin de vous
         support_contact_label: 'Si vous n’arrivez pas à accéder au détail du besoin, contactez :'
-        this_company: L’entreprise
         via_partner_html: Ce besoin a été déposé sur le site <a href='%{url}' target='_blank'>%{url}</a>, partenaire du service public d’accompagnement des TPE PME.
       positioning_rate_reminders:
         at_your_disposal: Je me tiens également à votre disposition pour toute modification de référencement ou si vous souhaitez faire un point sur la qualité des besoins transmis. Vos retours sont précieux pour nous aider à améliorer le service.
@@ -119,7 +118,7 @@ fr:
         needs_for_you: 'Des entreprises souhaitent bénéficier de votre expertise :'
         needs_quo: Concernant ces besoins en attente de réponse, quelle est votre position ?
         subject: 'Récap : Des entreprises ont besoin de vous !'
-        support_contact_label: 'Si vous n’arrivez pas à accéder à une demande, contactez :'
+        support_contact_label: 'Si vous n’arrivez pas à accéder au au détail d’un besoin, contactez :'
         visited_days_ago: transmis il y a %{days} par %{advisor}
         visited_on: transmis le %{date}
       remind_received_needs:
@@ -128,8 +127,8 @@ fr:
         support_contact: 'En %{region} : %{name} – tel: %{tel} – email: %{email}'
         support_contact_html: En %{region}, %{name} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a>
       support_user_signature:
-        beta_gouv: Incubateur de Services Numériques / beta.gouv.fr
-        prime_minister: Services du Premier Ministre
+        service_ce: Service public Conseillers-Entreprises
+        tutelles: DGE / DGEFP / DILA
     footer:
       contact_us_html: N’hésitez pas à %{mailto_link} pour toute question, nous sommes à votre service.
       contact_us_mailto_text: nous contacter
