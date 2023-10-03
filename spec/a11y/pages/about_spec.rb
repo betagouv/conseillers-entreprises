@@ -25,7 +25,11 @@ describe 'about', type: :feature, js: true do
       visit '/comment_ca_marche'
     end
 
-    it { is_expected.to be_accessible }
+    # it { is_expected.to be_accessible }
+    it do
+      is_expected.to be_axe_clean
+      is_expected.to have_skiplinks_ids
+    end
   end
 
   describe '/mentions_legales' do
