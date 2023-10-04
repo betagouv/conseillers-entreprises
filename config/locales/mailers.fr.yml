@@ -96,7 +96,6 @@ fr:
         subject: 'Le besoin de l’entreprise %{company} va être abandonné '
         we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant ou à la dirigeante resté(e) sans nouvelles.
       notify_company_needs:
-        advisor_met_company_html: Dans l'équipe, <strong>%{name}</strong> vous a partagé ce besoin le %{visit_date}.
         company_needs_you_html: Une entreprise a besoin de votre expertise sur <strong>« %{subject} »</strong>
         subject: L’entreprise %{company_name} a besoin de vous
         support_contact_label: 'Si vous n’arrivez pas à accéder au détail du besoin, contactez :'
@@ -115,14 +114,12 @@ fr:
         subject: Service public Place des Entreprises - Nous vous accompagnons !
         you_received_need_html: 'Vous venez de recevoir un besoin de l’entreprise <strong>%{company}</strong> sur le sujet %{subject}. Vous pouvez le retrouver ici : <a href=''''%{url}''''>%{url}</a>'
       remind_involvement:
-        needs_for_you: 'Des entreprises souhaitent bénéficier de votre expertise :'
+        needs_for_you: Des entreprises souhaitent bénéficier de votre expertise.
         needs_quo: Concernant ces besoins en attente de réponse, quelle est votre position ?
         subject: 'Récap : Des entreprises ont besoin de vous !'
         support_contact_label: 'Si vous n’arrivez pas à accéder au au détail d’un besoin, contactez :'
         visited_days_ago: transmis il y a %{days} par %{advisor}
         visited_on: transmis le %{date}
-      remind_received_needs:
-        company: Entreprise
       support_contacts:
         support_contact: 'En %{region} : %{name} – tel: %{tel} – email: %{email}'
         support_contact_html: En %{region}, %{name} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a>
@@ -237,8 +234,9 @@ fr:
     thanks_for_your_trust: Merci pour votre confiance,
     user_mailer:
       match_feedback:
+        feedback_by_html: 'Commentaire de %{author} (%{antenne}) :'
         match_status_html: 'Votre positionnement sur ce besoin d’entreprise : %{status}'
-        new_comment_html: "%{author} (%{antenne}) a fait un commentaire sur le besoin de l’entreprise <b>%{company}</b>, adressée le %{date}."
+        new_feedback: 'Un besoin a reçu un nouveau commentaire :'
         subject: Des nouvelles de l’entreprise %{company_name}
       quarterly_report:
         antenne_manager:

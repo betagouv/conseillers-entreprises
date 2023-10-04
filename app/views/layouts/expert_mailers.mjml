@@ -34,6 +34,31 @@
         font-size: 16px;
         margin-bottom: 0.25em;
       }
+      .feedback__content {
+        border-left: 3px solid #ddd;
+        padding-left: 20px;
+        margin-top: 3px;
+        margin-bottom: 28px;
+      }
+      .label {
+        display: contents;
+        font-weight: 700;
+      }
+      .label.green {
+        color: #12882D;
+      }
+      .label.red {
+        color: #e1000f;
+      }
+      .label.grey-blue {
+        color: #6B74A5FF;
+      }
+      .label.blue-dark {
+        color: #292A63FF;
+      }
+      .label.orange {
+        color: #B95E06FF;
+      }
     </mj-style>
   </mj-head>
 

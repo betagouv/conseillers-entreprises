@@ -3,7 +3,7 @@
     <mj-text><%= t('mailers.hello') %></mj-text>
     <mj-text>
       <%= t('.needs_for_you') %>
-      <h2 style><%= t('.needs_quo') %></h2>
+      <p><%= t('.needs_quo') %></p>
     </mj-text>
   </mj-column>
 </mj-section>
