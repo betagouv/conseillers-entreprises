@@ -46,12 +46,12 @@ fr:
         support_contact_label: 'Si vous avez le moindre souci pour votre compte, contactez :'
         training_html: "<strong>Pour en savoir plus, inscrivez-vous à la prochaine démonstration du service</strong> : %{link}"
       reset_password_instructions:
-        account_but_never_connected: Vous disposez d’un accès au service Conseillers-Entreprises mais vous n’êtes pas encore connecté·e. Suivez le lien ci-dessous pour définir votre mot de passe et activer votre compte.
-        account_but_never_connected_html: "<p>Vous disposez d’un accès au service Conseillers-Entreprises mais vous n’êtes pas encore connecté·e. Cliquez sur le bouton ci-dessous pour définir votre mot de passe et activer votre compte.</p>"
+        account_but_never_connected: Vous disposez d’un accès au service Conseillers-Entreprises mais vous n’êtes pas encore connecté(e). Suivez le lien ci-dessous pour définir votre mot de passe et activer votre compte.
+        account_but_never_connected_html: "<p>Vous disposez d’un accès au service Conseillers-Entreprises mais vous n’êtes pas encore connecté(e). Cliquez sur le bouton ci-dessous pour définir votre mot de passe et activer votre compte.</p>"
         change_my_password: Changer de mot de passe
         choose_my_password: Choisir mon mot de passe
         ignore: Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail. Votre mot de passe ne sera pas modifié.
-        once_connected: Une fois connecté, vous pourrez accéder à toutes les demandes qui vous ont été transmises ; vous pourrez aussi faire vous même des mises en relation.
+        once_connected: Une fois connecté(e), vous pourrez accéder à tous les besoins qui vous ont été transmis.
         someone_has_requested_a_link: Le %{date}, une demande de réinitalisation du mot de passe a été faite pour votre compte (%{email}). Suivez-le lien ci-dessous pour choisir un nouveau mot de passe.
         someone_has_requested_a_link_html: "<p>Le %{date}, une demande de réinitalisation du mot de passe a été faite pour votre compte (<code>%{email}</code>).</p><p>Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe.</p>"
         subject: 'Conseillers-entreprises.service-public.fr : choisissez un mot de passe pour votre compte'

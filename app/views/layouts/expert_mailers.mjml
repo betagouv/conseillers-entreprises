@@ -59,6 +59,10 @@
       .label.orange {
         color: #B95E06FF;
       }
+      .style_h3 {
+        font-size: 16px;
+        line-height: 22px;
+      }
     </mj-style>
   </mj-head>
 
