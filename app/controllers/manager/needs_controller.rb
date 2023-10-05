@@ -1,5 +1,6 @@
 class Manager::NeedsController < ApplicationController
   include Inbox
+  before_action :authorize_index_needs
   before_action :retrieve_recipient
   before_action :persist_search_params, only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired]
 
@@ -43,5 +44,9 @@ class Manager::NeedsController < ApplicationController
 
   def recipient_for_search
     @recipient.is_a?(ActiveRecord::Associations::CollectionProxy) ? @recipient.first : @recipient
+  end
+
+  def authorize_index_needs
+    authorize :needs, :index?, policy_class: Manager::NeedsPolicy
   end
 end
