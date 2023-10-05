@@ -350,6 +350,19 @@ RSpec.describe User do
         expect(new_user.relevant_experts.map(&:communes).flatten).to contain_exactly(commune)
       end
     end
+
+    context 'with accidentally existing user' do
+      let(:commune) { create :commune }
+      let(:expert) { create :expert, experts_subjects: [expert_subject], full_name: 'Édith Piaf', email: 'test2@email.com', communes: [commune] }
+      let!(:old_user) { create :user, :invitation_accepted, :manager, experts: [expert], antenne: antenne, full_name: 'Édith Piaf', email: 'test2@email.com' }
+      let!(:existing_user) { create :user, full_name: 'Bruce Benamran', email: 'test3@email.com', phone_number: '0303030303' }
+      let(:new_user) { old_user.duplicate({ full_name: 'Bruce Benamran', email: 'test3@email.com', phone_number: '0303030303', specifics_territories: '1' }) }
+
+      it "doesnt duplicate user and raises no exception" do
+        expect(new_user.valid?).to eq false
+      end
+
+    end
   end
 
   describe '#reassign matches' do

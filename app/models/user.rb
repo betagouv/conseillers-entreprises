@@ -324,17 +324,17 @@ class User < ApplicationRecord
   end
 
   def duplicate(params)
-    params[:job] = params[:job].presence || self.job
+    params[:job] ||= self.job
     new_user = User.create(params.merge(antenne: antenne))
-    return new_user unless new_user.persisted? && new_user.valid?
+    return new_user unless new_user.valid?
     user_experts = self.relevant_experts - self.personal_skillsets
     # si c'est une équipe
     if user_experts.present?
-      new_user.relevant_experts << user_experts
+      new_user.relevant_experts.concat(user_experts)
       new_user.save
     # si c'est un expert personnel on attribue les sujets à l'expert personnel du nouvel utilisateur
-    elsif self.personal_skillsets.map(&:experts_subjects).present?
-      self.personal_skillsets.first.experts_subjects.map do |es|
+    elsif self.personal_skillsets.first.experts_subjects.present?
+      self.personal_skillsets.first.experts_subjects.each do |es|
         ExpertSubject.create(institution_subject: es.institution_subject,
                              expert: new_user.personal_skillsets.first,
                              intervention_criteria: es.intervention_criteria)
