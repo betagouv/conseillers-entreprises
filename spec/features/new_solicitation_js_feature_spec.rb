@@ -96,7 +96,7 @@ describe 'New Solicitation', js: true, flaky: true do
           fill_in 'Votre numéro SIRET', with: other_siret
           click_button 'Suivant'
           expect(solicitation.reload.siret).to eq other_siret
-          expect(solicitation.code_region).to eq 53
+          expect(solicitation.reload.code_region).to eq 53
           expect(solicitation.status_step_description?).to be true
 
           # Retour étape entreprise

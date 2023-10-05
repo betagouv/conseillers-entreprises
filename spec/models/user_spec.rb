@@ -359,7 +359,7 @@ RSpec.describe User do
       let(:new_user) { old_user.duplicate({ full_name: 'Bruce Benamran', email: 'test3@email.com', phone_number: '0303030303', specifics_territories: '1' }) }
 
       it "doesnt duplicate user and raises no exception" do
-        expect(new_user.valid?).to eq false
+        expect(new_user.valid?).to be false
       end
 
     end
