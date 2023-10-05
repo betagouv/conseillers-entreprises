@@ -62,7 +62,7 @@ describe 'New Solicitation' do
       end
 
       context "with siret in url" do
-        let(:siret) { "41816609600077" }
+        let(:siret) { "41816609600069" }
 
         before do
           visit "/?siret=#{siret}"

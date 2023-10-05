@@ -32,7 +32,7 @@ describe 'New Solicitation', js: true, flaky: true do
         let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
         let(:fixture_file) { 'api_insee_siret.json' }
         let(:query) { siret }
-        let(:other_siret) { '13000918600011' }
+        let(:other_siret) { '89448692700011' }
         let!(:additional_question_1) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_poste_cadre' }
         let!(:additional_question_2) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
 
@@ -42,6 +42,25 @@ describe 'New Solicitation', js: true, flaky: true do
 
           stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{other_siret}")
             .to_return(status: 400, body: file_fixture('api_insee_siret_400.json'))
+          stub_request(:get, "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{other_siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013")
+            .to_return(status: 200, body:
+              { "data" =>
+                { "siret" => "89448692700011",
+                  "adresse" =>
+                  { "status_diffusion" => "diffusible",
+                    "code_postal" => "35000",
+                    "libelle_commune" => "RENNES",
+                    "libelle_commune_etranger" => nil,
+                    "distribution_speciale" => nil,
+                    "code_commune" => "35238",
+                    "code_cedex" => nil,
+                    "libelle_cedex" => nil,
+                    "code_pays_etranger" => nil,
+                    "libelle_pays_etranger" => nil
+                    }
+                },
+                "links" => {}, "meta" => {}
+              }.to_json)
         end
 
         it do
@@ -77,7 +96,7 @@ describe 'New Solicitation', js: true, flaky: true do
           fill_in 'Votre numéro SIRET', with: other_siret
           click_button 'Suivant'
           expect(solicitation.reload.siret).to eq other_siret
-          expect(solicitation.code_region).to be_nil
+          expect(solicitation.reload.code_region).to eq 53
           expect(solicitation.status_step_description?).to be true
 
           # Retour étape entreprise
@@ -110,15 +129,19 @@ describe 'New Solicitation', js: true, flaky: true do
       end
 
       context "with siret in url and modification" do
-        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{siret}" }
-        let(:api_url_2) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
+        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
         let(:fixture_file) { 'api_insee_siret.json' }
-        let(:query) { '41816609600077' }
+        let(:query) { '41816609600069' }
+        let(:token) { '1234' }
 
         before do
+          ENV['API_ENTREPRISE_TOKEN'] = token
           authorize_insee_token
-          stub_request(:get, api_url_2).to_return(
+          stub_request(:get, api_url).to_return(
             body: file_fixture(fixture_file)
+          )
+          stub_request(:get, "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{query}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013").to_return(
+            body: file_fixture('api_entreprise_etablissement.json')
           )
         end
 
@@ -146,6 +169,7 @@ describe 'New Solicitation', js: true, flaky: true do
 
           click_button "#{siret} - Octo Technology"
           expect(solicitation.reload.siret).to eq siret
+          expect(solicitation.code_region).to eq 11
         end
       end
 
@@ -234,7 +258,7 @@ describe 'New Solicitation', js: true, flaky: true do
           expect(solicitation.status_step_description?).to be false
 
           expect(page).to have_content("Sélectionnez l'établissement concerné :")
-          click_button "#{siret} - Octo Technology"
+          click_button("#{siret} - Octo Technology", match: :first)
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
@@ -284,13 +308,12 @@ describe 'New Solicitation', js: true, flaky: true do
           fill_in 'Votre numéro SIRET', with: "418 166 096 00069"
           click_button 'Suivant'
           expect(solicitation.reload.siret).to eq "41816609600069"
-          expect(solicitation.code_region).to be_nil
+          expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
           fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
           click_button 'Envoyer ma demande'
 
           expect(page).to have_content('Merci')
-          expect(solicitation.reload.code_region).to eq 11
           expect(solicitation.reload.status_in_progress?).to be true
         end
       end
