@@ -80,7 +80,7 @@ class RemindersService
 
     expert_for_outputs.each do |expert|
       last_run_register = expert.reminders_registers.find_by(run_number: last_run_number)
-      current_expired_count = expert.received_quo_matches.with_status_expired.size
+      current_expired_count = expert.received_quo_matches.not_archived.with_status_expired.size
       # On considère que la sortie est due a l'expiration des besoins si au moins un besoin a expiré
       if last_run_register.present? && (
         (current_expired_count > last_run_register.expired_count) || (current_expired_count == last_run_register.expired_count && in_expired_needs_not_processed.include?(expert))
