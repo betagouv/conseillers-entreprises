@@ -64,7 +64,8 @@
                         - if expert_subject.present?
                           - intervention_criteria = expert_subject.intervention_criteria
                           - if intervention_criteria.present?
-                            %a.popup-hover.dashed= t('yes')
-                            .ui.popup= intervention_criteria
+                            .tooltip{ 'tab-index': -1 }
+                              = t('yes')
+                              %span.tooltiptext= intervention_criteria
                           - else
                             = t('yes')
