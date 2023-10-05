@@ -5,7 +5,7 @@
 %p= t('.intro_from_solicitation_html', company: @diagnosis.company.name)
 
 %p
-  %strong= @diagnosis.solicitation.landing_subject.title
+  %strong= @subject_title
 
 %p= t('.content_by_expert_html', expert_antenne: @match.expert.antenne.name)
 

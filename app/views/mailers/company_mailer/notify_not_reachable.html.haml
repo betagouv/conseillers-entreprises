@@ -5,7 +5,7 @@
 %p= t('mailers.company_mailer.notify_taking_care.intro_from_solicitation_html', company: @diagnosis.company.name)
 
 %p
-  %strong= @match.need.subject.label
+  %strong= @subject_title
 
 %p= t('.content_by_expert_html', expert_antenne: @match.expert.antenne.name)
 

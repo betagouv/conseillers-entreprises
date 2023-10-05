@@ -155,6 +155,14 @@ class Diagnosis < ApplicationRecord
     end
   end
 
+  def subject_title
+    if solicitation.present?
+      solicitation.landing_subject.title
+    else
+      needs.first.subject.label
+    end
+  end
+
   private
 
   def update_needs
