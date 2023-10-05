@@ -29,6 +29,12 @@ jobs:
         shell: bash
       - name: install panolint for linter
         run: gem install panolint
+      - name: install rubocop-i18n for linter
+        run: gem install rubocop-i18n
+      - name: install rubocop-capybara for linter
+        run: gem install rubocop-capybara
+      - name: install rubocop-factory_bot for linter
+        run: gem install rubocop-factory_bot
       - name: Rubocop
         run: rubocop -a
       - name: Create Pull Request
