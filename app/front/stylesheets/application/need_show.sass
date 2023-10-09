@@ -65,12 +65,13 @@
       padding: 0 1rem !important
       color: $blue
     .details--dropdown__content
+      filter: drop-shadow(0 2px 6px $grey)
       position: absolute
       right: 0
       z-index: 1
       width: 15rem
       background-color: $white
-      padding: 1rem
+      padding: 0.5rem
   .status-label
     flex-shrink: 0
     margin-left: auto
@@ -84,11 +85,13 @@
       display: block
     .fr-btn
       margin-bottom: 0
-    .admin-match-actions
-      button
-        margin-right: 0
-        &:not(:last-child)
-          margin-bottom: 0.5rem
+  .admin-match-actions
+    display: flex
+    flex-direction: column
+    button
+      margin: 0 0 0.5rem 0
+      &:last-child
+        margin: 0
 
 .feedbacks-title
   display: flex
