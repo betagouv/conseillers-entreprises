@@ -9,9 +9,9 @@ describe 'SharedController features' do
     # TODO : à mettre à jour
     before do
       ENV['TEST_ERROR_RENDERING'] = 'true'
-      allow_any_instance_of(User).to receive(:sent_diagnoses).and_raise(raised_error)
+      allow_any_instance_of(User).to receive(:full_name).and_raise(raised_error)
       # Je comprend pas pourquoi ce test visite une url de diagnoses et si on rien ne passe
-      # visit diagnoses_path
+      visit conseiller_solicitations_path
     end
 
     after do
@@ -21,13 +21,13 @@ describe 'SharedController features' do
     describe '404 error' do
       let(:raised_error) { ActiveRecord::RecordNotFound }
 
-      xit { expect(page.html).to include('Cette page n’existe pas, ou vous n’y avez pas accès.') }
+      it { expect(page.html).to include('Cette page n’existe pas, ou vous n’y avez pas accès.') }
     end
 
     describe '500 error' do
       let(:raised_error) { ArgumentError }
 
-      xit { expect(page.html).to include 'Cette erreur était inattendue…' }
+      it { expect(page.html).to include 'Cette erreur était inattendue…' }
     end
   end
 end
