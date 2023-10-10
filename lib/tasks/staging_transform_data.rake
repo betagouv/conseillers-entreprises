@@ -152,7 +152,8 @@ namespace :staging do
     Match.create({
       need_id: @need.id,
       subject_id: 42,
-      expert_id: expert.id
+      expert_id: expert.id,
+      sent_at: Time.zone.now
     })
     expert.antenne.update(name: 'Métropole Démo')
   end
