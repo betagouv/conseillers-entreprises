@@ -2,8 +2,12 @@
 
 require 'rails_helper'
 require 'system_helper'
+require 'api_helper'
 
 describe 'invitations', js: true do
+
+  before { stub_mjml_google_fonts }
+
   describe 'new invitations' do
     login_user
 
