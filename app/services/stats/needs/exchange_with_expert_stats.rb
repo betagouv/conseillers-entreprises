@@ -1,4 +1,4 @@
-module Stats::Public
+module Stats::Needs
   class ExchangeWithExpertStats
     include ::Stats::BaseStats
     include ::Stats::FiltersStats

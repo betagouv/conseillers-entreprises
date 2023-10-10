@@ -39,7 +39,7 @@ module Stats
       name = params.permit(:chart_name)[:chart_name]
       stats_category = params.permit(:stats_category)[:stats_category]
       data = Rails.cache.fetch(['team-public-stats', name, session[:team_stats_params]], expires_in: 6.hours) do
-        "Stats::#{stats_category}::All".constantize.new(session[:team_stats_params]).send(name)
+        "Stats::Team::#{stats_category}".constantize.new(session[:team_stats_params]).send(name)
       end
       render_partial(data, name)
     end

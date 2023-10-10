@@ -1,4 +1,4 @@
-module Stats::Public
+module Stats::Solicitations
   class SolicitationsStats
     include ::Stats::BaseStats
     include ::Stats::FiltersStats

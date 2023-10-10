@@ -1,5 +1,5 @@
 # Stats montrant l'evolution du nombre de demandes donnant lieu à échange avec un conseiller
-module Stats::Public
+module Stats::Needs
   class ExchangeWithExpertColumnStats
     include ::Stats::BaseStats
 

@@ -1,5 +1,5 @@
-module Stats::Public
-  class All < Stats::All
+module Stats::Team
+  class Public < Stats::All
     def companies_by_employees
       Stats::Companies::CompaniesByEmployeesStats.new(@params)
     end

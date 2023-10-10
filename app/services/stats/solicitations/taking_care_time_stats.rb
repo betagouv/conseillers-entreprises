@@ -1,4 +1,4 @@
-module Stats::Public
+module Stats::Solicitations
   class TakingCareTimeStats
     include ::Stats::BaseStats
     include ::Stats::FiltersStats

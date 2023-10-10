@@ -9,7 +9,7 @@ module Manager
     before_action :set_charts_names, only: %i[index load_data]
 
     def index
-      @stats = Stats::Matches::All.new(@stats_params)
+      @stats = Stats::Manager::All.new(@stats_params)
       session[:manager_stats_params] = @stats_params
     end
 

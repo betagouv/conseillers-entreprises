@@ -1,4 +1,4 @@
-module Stats::Public
+module Stats::Needs
   class ThemesStats
     include ::Stats::BaseStats
     include ::Stats::FiltersStats

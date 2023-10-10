@@ -1,4 +1,4 @@
-module Stats::Public
+module Stats::Companies
   class CompaniesByEmployeesStats
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
