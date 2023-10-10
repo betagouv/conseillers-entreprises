@@ -59,7 +59,7 @@ RSpec.describe MatchPolicy, type: :policy do
     end
   end
 
-  permissions :taking_care_by?, :show_inbox? do
+  permissions :show_info?, :show_inbox? do
     context "grants access if user is an admin" do
       let(:user) { create :user, :admin }
 

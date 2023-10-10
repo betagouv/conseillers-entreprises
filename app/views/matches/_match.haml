@@ -16,7 +16,7 @@
         .status-label
           = status_label(match)
 
-    - if policy(match).update_status? || policy(match).show_inbox? || policy(match).taking_care_by?
+    - if policy(match).update_status? || policy(match).show_inbox? || policy(match).show_info?
       %ul.fr-btns-group.fr-btns-group--inline.fr-btns-group--sm.row-match__admin
         - if policy(match).update_status?
           %li
@@ -29,7 +29,7 @@
           %li
             = link_to quo_active_reminders_expert_path(match.expert), class: "fr-btn fr-btn--secondary fr-mb-0", title: t('.see_expert_inbox') do
               %span.ri-inbox-line{ 'aria-hidden': 'true' }
-        - if policy(match).show_inbox?
+        - if policy(match).show_info?
           %li
             %button.fr-btn.fr-btn--tertiary-no-outline.fr-mb-0{ 'aria-controls': "tooltip-match-#{match.id}", 'data-fr-opened': 'false', title: t('.see_match_info') }
               %span.ri-information-line{ 'aria-hidden': 'true' }
