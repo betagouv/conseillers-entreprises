@@ -53,7 +53,7 @@ class NeedsController < ApplicationController
       redirect_to quo_active_needs_path
     else
       @origin = params[:origin]
-      @matches = @need.matches.order(:created_at)
+      @matches = @need.matches.sent.order(:created_at)
       @facility = @need.facility
       @facility_needs = Need.for_facility(@facility).where.not(id: @need.id)
       @contact_needs = NeedPolicy::Scope.new(current_user, Need.for_emails_and_sirets([@need.diagnosis.visitee.email])).resolve - [@facility_needs, @need]
