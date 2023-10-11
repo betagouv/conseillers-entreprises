@@ -21,8 +21,7 @@ end
 
 def stub_mjml_google_fonts
   stub_request(:get, 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700')
-  .to_return(
-    body: "".to_json
-  )
-
+    .to_return(
+      body: "".to_json
+    )
 end

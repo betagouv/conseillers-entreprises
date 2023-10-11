@@ -6,4 +6,4 @@
       %figcaption
         %p.fr-quote__author= temoignage.author
         .fr-quote__image
-          = image_tag(temoignage.picture_path, class: 'fr-responsive-img')
+          = image_tag(temoignage.picture_path, class: 'fr-responsive-img', alt: t('.temoignage_alt', author: temoignage.author))

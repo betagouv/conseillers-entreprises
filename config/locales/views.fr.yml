@@ -29,6 +29,8 @@ fr:
       title: Mentions légales
     service_public_fr:
       title: Place des Entreprises devient Conseillers-entreprises.service-public.fr
+    temoignage:
+      temoignage_alt: Photo de %{author}
   active_admin:
     admin_link: Lien admin
     badges:

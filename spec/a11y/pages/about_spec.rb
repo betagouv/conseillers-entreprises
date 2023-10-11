@@ -27,8 +27,7 @@ describe 'about', type: :feature, js: true do
 
     # it { is_expected.to be_accessible }
     it do
-      is_expected.to be_axe_clean
-      is_expected.to have_skiplinks_ids
+      is_expected.to be_accessible
     end
   end
 
