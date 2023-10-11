@@ -1,5 +1,9 @@
 module Stats::Team
   class Needs < Stats::All
+    def needs_quo
+      Stats::Needs::NeedsQuoStats.new(@params)
+    end
+
     def needs_done
       Stats::Needs::NeedsDoneStats.new(@params)
     end

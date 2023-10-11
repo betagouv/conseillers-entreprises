@@ -20,7 +20,7 @@ module Stats
     def needs
       @stats_category = "Needs"
       @charts_names = %w[
-        transmitted_less_than_72h_stats needs_done needs_done_no_help
+        transmitted_less_than_72h_stats needs_quo needs_done needs_done_no_help
         needs_done_not_reachable needs_not_for_me needs_abandoned
       ]
       render :index

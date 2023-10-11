@@ -20,6 +20,10 @@ module Stats::Public
       Stats::Solicitations::TakingCareTimeStats.new(@params)
     end
 
+    def needs_quo
+      Stats::Needs::NeedsQuoStats.new(@params)
+    end
+
     def companies_by_naf_code
       Stats::Companies::CompaniesByNafCodeStats.new(@params)
     end

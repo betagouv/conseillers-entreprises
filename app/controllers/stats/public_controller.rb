@@ -23,7 +23,7 @@ module Stats
     end
 
     def set_charts_names
-      @charts_names = %w[solicitations solicitations_diagnoses exchange_with_expert needs_done_from_exchange taking_care themes companies_by_employees companies_by_naf_code]
+      @charts_names = %w[solicitations solicitations_diagnoses needs_quo exchange_with_expert needs_done_from_exchange taking_care themes companies_by_employees companies_by_naf_code]
     end
   end
 end

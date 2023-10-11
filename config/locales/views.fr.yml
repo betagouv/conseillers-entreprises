@@ -906,6 +906,9 @@ fr:
       needs_not_for_me:
         title: de besoins refusés
         title_table: Nombre de besoins refusés
+      needs_quo:
+        title: des besoins transmis sont en cours de prise en charge par les conseillers
+        title_table: Nombre de besoins en cours de prise en charge par les conseillers
       needs_transmitted:
         title: Besoins transmis
         title_table: Besoins transmis
@@ -1005,6 +1008,7 @@ fr:
     status_done_no_help: Clôture sans accompagnement
     status_done_not_reachable: Entreprises injoignables
     status_not_for_me: Besoins refusés
+    status_quo: en cours de prise en charge
     taken_care_after: Plus de 5 jours
     taken_care_before: Moins de 5 jours
     taking_care_status: Statut « pris en charge »
