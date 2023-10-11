@@ -32,7 +32,7 @@ fr:
         accept_user_invitation_instruction: 'Pour recevoir des besoins et rejoindre la communauté, choissisez votre mot de passe :'
         answer_one: "%{institution_name} est partenaire de ce service public en vertu d’un accord national, décliné localement. D’après les données communiquées, vous avez été identifié(e) pour participer à cette dynamique. Ce service est le fruit d’une co-construction avec des conseillers et des chefs d’entreprises, n’hésitez à nous faire un retour d’expérience."
         answer_two_html: "<p>Financé par le Ministère de l’Économie et le Ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE et PME. L’objectif est de faciliter la vie des petites entreprises en apportant une réponse collectivement plus efficace.</p><p>En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations et des organismes publics ou parapublics sur son territoire.</p><p>Vous pouvez ainsi échanger sur un besoin d’entreprise avec des conseillers du service public travaillant dans d’autres structures. Le service compte plus de 30 partenaires !</p>"
-        description_html: vous êtes invité(e) à rejoindre le service public d’accompagnement des TPE PME, au sein de l’antenne %{antenne}.
+        description_html: vous êtes invité(e) à rejoindre le service public Conseillers-Entreprises, au sein de l’antenne %{antenne}.
         details_answer: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon expert au sein des administrations, organismes publics et parapublics, et collectivités territoriales partenaires.
         details_answer_service: C’est un nouveau service public porté par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
         details_question: Qu’est ce que le service Conseillers-Entreprises ?
@@ -41,7 +41,7 @@ fr:
         livestorm_permalink: lien permanant livestorm
         looking_forward: Au plaisir d’échanger à cette occasion !
         question_one: Pourquoi recevez-vous ce mail ?
-        question_two: Comment fonctionne Conseillers-Entreprises ?
+        question_two: Comment fonctionne Conseillers-Entreprises, un service de Service-Public.fr ?
         subject: Invitation à rejoindre le service public d’accompagnement des TPE-PME, partenaire de %{institution}
         support_contact_label: 'Si vous avez le moindre souci pour votre compte, contactez :'
         training_html: "<strong>Pour en savoir plus, inscrivez-vous à la prochaine démonstration du service</strong> : %{link}"
@@ -92,7 +92,7 @@ fr:
         how_to_sign_up_html: |
           <h2>Qui sont les conseillers utilisant Conseillers-Entreprises, un service de Service-Public.fr ?</h2>
           <p>Les conseillers du service Conseillers-Entreprises sont des agents des administrations, des organismes publics et parapublics chargés d’accompagner les entreprises. Le service compte aujourd’hui <b>plus de 10 000 conseillers</b> au sein de 30 partenaires différents !</p>
-          <p>EEn tant que conseiller(e), vous êtes référencé(e) comme expert(e) sur un ou plusieurs sujets avec un champ d’intervention précis. Le service vous permet ensuite de recevoir des besoins d’entreprises correspondant à votre expertise et d’échanger avec d’autres conseillers compétents pour aider une entreprise.</p>
+          <p>En tant que conseiller(e), vous êtes référencé(e) comme expert(e) sur un ou plusieurs sujets avec un champ d’intervention précis. Le service vous permet ensuite de recevoir des besoins d’entreprises correspondant à votre expertise et d’échanger avec d’autres conseillers compétents pour aider une entreprise.</p>
           <p>Ce service vise autant à aider les TPE & PME qu’à <b>faciliter le travail quotidien</b> des conseillers qui les accompagnent, dans une logique de <b>complémentarité et de décloisonnement des institutions</b>. Notre objectif commun est d’être plus efficace ensemble.</p>
         meta_description: Les conseillers du service public Conseillers-entreprises.service-public.fr sont des agents des administrations, des organismes publics et parapublics et des collectivités chargés d’accompagner les entreprises.
         meta_title: Accès conseiller

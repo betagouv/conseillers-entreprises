@@ -34,7 +34,7 @@ fr:
         informations_html: 'Vous serez informé(e) par mail de sa prise en charge par un conseiller ou une conseillère dans les 5 jours en moyenne.<br>Le(s) partenaire(s) pouvant vous rappeler sont :'
         its_about: 'Elle concerne :'
         subject: Confirmation de votre demande « %{subject} »
-      explanation_html: Conseillers-Entreprises est un service du Ministère de l’Économie et du Ministère du Travail pour faciliter la vie des petites entreprises. Il vous permet d’échanger avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
+      explanation_html: Ce service public d’accompagnement des entreprises est proposé par le Ministère de l’Économie et le Ministère du Travail pour faciliter la vie des petites entreprises. Il vous permet d’échanger avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
       intelligent_retention:
         and_you: Et vous, souhaitez-vous être aidé par un conseiller sur ces sujets ?
       not_yet_taken_care:
@@ -88,7 +88,7 @@ fr:
         response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
         subject: Conseillers-entreprises.service-public.fr - Besoin d’aide ?
         watch_videos_html: Jetez un œil sur <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>les vidéos de démonstration ici</a> !
-        what_is_pde: Comment fonctionne le service Conseillers-Entreprises ?
+        what_is_pde: Comment fonctionne Conseillers-Entreprises, un service de Service-Public.fr ?
       last_chance:
         at_your_disposal: Je reste à votre disposition si vous avez besoin d’aide.
         company_solicitation_html: 'Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier :'
