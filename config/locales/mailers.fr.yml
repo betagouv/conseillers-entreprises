@@ -115,7 +115,7 @@ fr:
         ask_questions: N’hésitez pas à venir poser vos questions.
         at_your_service: Je me tiens également à votre disposition par téléphone.
         find_it_here_html: 'Vous pouvez le retrouver ici : <a href=''%{url}''>%{url}</a>'
-        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service Place des Entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque mardi à 14H30</strong> sur ce lien de visio : <a href=''https://webinaire.numerique.gouv.fr''> https://webinaire.numerique.gouv.fr</a>.'
+        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service Place des Entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque jeudi à 14h30 (heure de Paris) </strong> sur ce lien de visio : <a href="https://webinaire.numerique.gouv.fr/meeting/signin/11932/creator/6579/hash/75c0b4e988e0f7de9a3e69f4f3aa60af92b9cb17"> https://webinaire.numerique.gouv.fr</a>.'
         its_been_a_while: Cela n’était pas arrivé depuis un bon moment !
         position_yourself: Nous vous invitons à vous positionner sur ce besoin à l'aide des boutons de prise en charge ou de refus.
         subject: Service public Place des Entreprises - Nous vous accompagnons !
