@@ -7,14 +7,12 @@
 
       <p><%= t('.quarterly_report_available_html') %></p>
 
-      <p><%= t('.stats_report_html') %></p>
+      <p><%= t('.dynamic_stats_html') %></p>
     </mj-text>
 
-
     <mj-button background-color="#000091" color="white" border-radius="0" font-weight="700">
-      <%= link_to t('.download_reports'), reports_url, style: 'color: white; text-decoration: none' %>
+      <%= link_to t('.discover_dynamic_stats'), manager_stats_url, style: 'color: white; text-decoration: none' %>
     </mj-button>
-
 
     <mj-text>
       <p><%= t('.at_your_disposal') %></p>

@@ -26,3 +26,5 @@
     </mj-text>
   </mj-column>
 </mj-section>
+
+<%= render 'mailers/expert_mailer/support_contact_block', antenne: @user.antenne, support_contact_label: t('mailers.expert_mailer.notify_company_needs.support_contact_label') %>

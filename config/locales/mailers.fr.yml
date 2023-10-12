@@ -84,41 +84,43 @@ fr:
         answer_continuation: En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations et des organismes publics ou parapublics compétents sur son territoire.
         need_help: Besoin d’aide ?
         pde_contact: 'Votre contact pour vous aider au sein de l’équipe en charge du service :'
-        received_need: Vous venez de recevoir votre premier besoin d’entreprise au sein du service public d’accompagnement des TPE-PME.
+        received_need: Vous venez de recevoir votre premier besoin d’entreprise sur le service public Conseillers-Entreprises.
         response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
         subject: Conseillers-entreprises.service-public.fr - Besoin d’aide ?
         watch_videos_html: Jetez un œil sur <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>les vidéos de démonstration ici</a> !
         what_is_pde: Comment fonctionne Conseillers-Entreprises, un service de Service-Public.fr ?
       last_chance:
         at_your_disposal: Je reste à votre disposition si vous avez besoin d’aide.
-        company_solicitation_html: 'Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier :'
+        company_solicitation_html: 'Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier.'
         link_to_need: Lien vers la fiche
-        subject: 'Le besoin de l’entreprise %{company} va être abandonné '
+        will_you_act: Souhaitez-vous intervenir ?
+        subject: 'Risque d’abandon pour le besoin de l’entreprise %{company}'
         we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant ou à la dirigeante resté(e) sans nouvelles.
       notify_company_needs:
         company_needs_you_html: Une entreprise a besoin de votre expertise sur <strong>« %{subject} »</strong>
         subject: L’entreprise %{company_name} a besoin de vous
         support_contact_label: 'Si vous n’arrivez pas à accéder au détail du besoin, contactez :'
-        via_partner_html: Ce besoin a été déposé sur le site <a href='%{url}' target='_blank'>%{url}</a>, partenaire du service public d’accompagnement des TPE PME.
+        via_partner_html: Ce besoin a été déposé sur le site <a href='%{url}' target='_blank'>%{url}</a>, en partenariat avec Conseillers-Entreprises, un service de Service-Public.fr.
       positioning_rate_reminders:
         at_your_disposal: Je me tiens également à votre disposition pour toute modification de référencement ou si vous souhaitez faire un point sur la qualité des besoins transmis. Vos retours sont précieux pour nous aider à améliorer le service.
         call_me: Si jamais vous ne recevez pas les besoins par mail, appelez-moi pour que nous regardions ensemble.
-        needs_quo_html: Je me permets de vous écrire car vous avez <strong>%{count} besoins d’entreprise</strong> en attente de votre positionnement sur Conseillers-entreprises.service-public.fr. Vous pouvez les retrouver facilement en vous connectant sur votre %{account_link}.
+        needs_quo_html: Je me permets de vous écrire car vous avez <strong>%{count} besoins d’entreprise</strong> en attente de votre positionnement sur le service public Conseillers-Entreprises. Vous pouvez les retrouver facilement en vous connectant sur votre %{account_link}.
+        subject: 'Rappel : des entreprises ont besoin de vous !'
         user_account: compte utilisateur
       re_engagement:
         ask_questions: N’hésitez pas à venir poser vos questions.
         at_your_service: Je me tiens également à votre disposition par téléphone.
-        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service Conseillers-entreprises.service-public.fr, nous organisons une démonstration et <strong>un temps d’échanges chaque mardi à 14H30</strong> sur ce lien de visio : <a href=''https://webinaire.numerique.gouv.fr''> https://webinaire.numerique.gouv.fr</a>.'
+        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service public Conseillers-Entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque jeudi à 14H30</strong> sur ce lien de visio : <a href=''https://webinaire.numerique.gouv.fr''> https://webinaire.numerique.gouv.fr</a>.'
         its_been_a_while: Cela n’était pas arrivé depuis un bon moment !
-        position_yourself: Nous vous invitons à vous positionner sur ce besoin à l'aide des boutons de prise en charge ou de refus.
+        position_yourself_html: Nous vous invitons à vous positionner sur ce besoin <strong>à l'aide du bouton « J’appelle » ou « Ce n’est pas pour moi »</strong>.
         subject: Service public Place des Entreprises - Nous vous accompagnons !
         you_received_need_html: 'Vous venez de recevoir un besoin de l’entreprise <strong>%{company}</strong> sur le sujet %{subject}. Vous pouvez le retrouver ici : <a href=''''%{url}''''>%{url}</a>'
       remind_involvement:
         needs_for_you: Des entreprises souhaitent bénéficier de votre expertise.
-        needs_quo: Concernant ces besoins en attente de réponse, quelle est votre position ?
+        needs_quo: Pour ces besoins en attente de réponse, quelle est votre position ?
         subject: 'Récap : Des entreprises ont besoin de vous !'
         support_contact_label: 'Si vous n’arrivez pas à accéder au au détail d’un besoin, contactez :'
-        visited_days_ago: transmis il y a %{days} par %{advisor}
+        visited_days_ago: transmis il y a %{days} par %{advisor}, votre contact territorial
         visited_on: transmis le %{date}
       support_contacts:
         support_contact: 'En %{region} : %{name} – tel: %{tel} – email: %{email}'
@@ -168,10 +170,10 @@ fr:
         linkedin:
           link_html: Linkedin - %{link}
           title: linkedin.com/place-des-entreprises
-        team_pde: L’équipe Place des Entreprises
+        team_pde: L’équipe Conseillers-Entreprises, un service de Service-Public.fr
         website:
           link_html: Site internet - %{link}
-          title: Place-des-entreprises.beta.gouv.fr
+          title: Conseillers-entreprises.service-public.fr
       independent_tva:
         no_tva_number: Votre question (TVA, seuil de déclaration, CFE, assujettissement aux taxes…) relève de votre service des impôts des entreprises (SIE).
         sie_annuaire_html: "<b>Malheureusement ce service n’est pas partenaire de Place des Entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href='https://lannuaire.service-public.fr/navigation/sie'>https://lannuaire.service-public.fr/navigation/sie</a>."
@@ -227,7 +229,7 @@ fr:
         useful_links: 'Selon votre statut social de Travailleur Non Salarié, 3 organismes sont compétents :'
     team: L’équipe Conseillers-entreprises.service-public.fr
     team_html: L’équipe %{link_to_root}.
-    team_pde: L’équipe Place des Entreprises
+    team_pde: L’équipe Conseillers-Entreprises, un service de Service-Public.fr
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service de mise en relation.
     thanks_for_your_comprehension: Nous vous remercions pour votre compréhension.
@@ -240,12 +242,12 @@ fr:
         subject: Des nouvelles de l’entreprise %{company_name}
       quarterly_report:
         antenne_manager:
-          one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service public Place des Entreprises.
-          other: Vous êtes identifié(e) comme responsable des antennes %{antennes} au sein du service public Place des Entreprises.
+          one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service Conseillers-Entreprises.
+          other: Vous êtes identifié(e) comme responsable des antennes %{antennes} au sein du service Conseillers-Entreprises.
         at_your_disposal: Nous restons à votre entière disposition pour toute question sur l’interprétation de ces données.
-        download_reports: Télécharger mes données
-        quarterly_report_available_html: "<strong>L’ensemble des besoins transmis à vos équipes</strong> sur le dernier trimestre est disponible sur votre compte utilisateur, sous forme de fichier excel à télécharger."
-        stats_report_html: Nous mettons également à votre disposition un <strong>rapport statistique</strong> par trimestre et pour l’année en cours.
-        subject: Place des Entreprises - Rapport statistique
+        quarterly_report_available_html: "Le <strong>rapport statistique</strong> des besoins transmis à vos équipes, sur le dernier trimestre et depuis le début de l’année, est à télécharger dans votre compte. Le détail des besoins est disponible dans un second fichier."
+        dynamic_stats_html: "<strong>NOUVEAU !</strong> Nous mettons à votre disposition des <strong>statistiques dynamiques</strong> pour le pilotage et l’analyse de l’activité générée par le service pour votre institution."
+        discover_dynamic_stats: Découvrir mes statistiques
+        subject: Vos statistiques de pilotage sont disponibles
         support_contact_label: 'En cas de besoin vous pouvez contacter :'
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.

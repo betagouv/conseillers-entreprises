@@ -7,7 +7,7 @@
 
       <p><%= t('.its_been_a_while') %></p>
 
-      <p style='margin:0; font-weight: 700'><%= t('.position_yourself') %></p>
+      <p style='margin:0'><%= t('.position_yourself_html') %></p>
 
       <p><%= t('.if_you_need_a_demo_html') %></p>
 
