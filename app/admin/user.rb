@@ -236,12 +236,12 @@ ActiveAdmin.register User do
   end
 
   batch_action :destroy, confirm: I18n.t('active_admin.users.delete_confirmation') do |ids|
-    User.where(id: ids).each { |u| u.soft_delete }
+    User.where(id: ids).find_each { |u| u.soft_delete }
     redirect_to collection_path, notice: I18n.t('active_admin.user.deleted')
   end
 
   batch_action I18n.t('active_admin.user.deep_soft_delete'), { action: :deep_soft_delete, confirm: I18n.t('active_admin.user.deep_soft_delete_confirmation') } do |ids|
-    User.where(id: ids).each { |u| u.deep_soft_delete }
+    User.where(id: ids).find_each { |u| u.deep_soft_delete }
     redirect_to collection_path, notice: I18n.t('active_admin.users.deep_soft_deleted')
   end
 

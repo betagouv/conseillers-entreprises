@@ -6,10 +6,10 @@ module SitemapGenerator
     landings = Landing.intern.not_archived.preload(:landing_themes)
 
     # Pour afficher en premier la landing 'accueil'
-    landings.where(slug: 'accueil').each do |landing|
+    landings.where(slug: 'accueil').find_each do |landing|
       create_landing_hash(landing)
     end
-    landings.where.not(slug: 'accueil').each do |landing|
+    landings.where.not(slug: 'accueil').find_each do |landing|
       create_landing_hash(landing)
     end
 
@@ -48,7 +48,7 @@ module SitemapGenerator
       changefreq: 'weekly'
     }
 
-    landing.landing_themes.not_archived.preload(:landing_subjects).each do |landing_theme|
+    landing.landing_themes.not_archived.preload(:landing_subjects).find_each do |landing_theme|
       landing_theme_elt = {
         loc: Rails.application.routes.url_helpers.landing_theme_url(landing, landing_theme),
         priority: 0.7,

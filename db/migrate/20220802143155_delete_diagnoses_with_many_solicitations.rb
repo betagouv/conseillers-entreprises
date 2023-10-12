@@ -1,6 +1,6 @@
 class DeleteDiagnosesWithManySolicitations < ActiveRecord::Migration[7.0]
   def change
-    Solicitation.where(created_at: (Time.now - 2.years)..Time.now).each do |solicitation|
+    Solicitation.where(created_at: (Time.now - 2.years)..Time.now).find_each do |solicitation|
       diagnoses = Diagnosis.joins(:solicitation).where(solicitations: { id: solicitation.id })
       not_completed = diagnoses.where(step: :completed)
 
