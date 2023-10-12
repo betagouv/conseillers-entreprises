@@ -91,11 +91,11 @@ fr:
         what_is_pde: Comment fonctionne Conseillers-Entreprises, un service de Service-Public.fr ?
       last_chance:
         at_your_disposal: Je reste à votre disposition si vous avez besoin d’aide.
-        company_solicitation_html: 'Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier.'
+        company_solicitation_html: Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier.
         link_to_need: Lien vers la fiche
-        will_you_act: Souhaitez-vous intervenir ?
-        subject: 'Risque d’abandon pour le besoin de l’entreprise %{company}'
+        subject: Risque d’abandon pour le besoin de l’entreprise %{company}
         we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant ou à la dirigeante resté(e) sans nouvelles.
+        will_you_act: Souhaitez-vous intervenir ?
       notify_company_needs:
         company_needs_you_html: Une entreprise a besoin de votre expertise sur <strong>« %{subject} »</strong>
         subject: L’entreprise %{company_name} a besoin de vous
@@ -105,7 +105,7 @@ fr:
         at_your_disposal: Je me tiens également à votre disposition pour toute modification de référencement ou si vous souhaitez faire un point sur la qualité des besoins transmis. Vos retours sont précieux pour nous aider à améliorer le service.
         call_me: Si jamais vous ne recevez pas les besoins par mail, appelez-moi pour que nous regardions ensemble.
         needs_quo_html: Je me permets de vous écrire car vous avez <strong>%{count} besoins d’entreprise</strong> en attente de votre positionnement sur le service public Conseillers-Entreprises. Vous pouvez les retrouver facilement en vous connectant sur votre %{account_link}.
-        subject: 'Rappel : des entreprises ont besoin de vous !'
+        subject: Rappel : des entreprises ont besoin de vous !
         user_account: compte utilisateur
       re_engagement:
         ask_questions: N’hésitez pas à venir poser vos questions.
@@ -245,9 +245,9 @@ fr:
           one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service Conseillers-Entreprises.
           other: Vous êtes identifié(e) comme responsable des antennes %{antennes} au sein du service Conseillers-Entreprises.
         at_your_disposal: Nous restons à votre entière disposition pour toute question sur l’interprétation de ces données.
-        quarterly_report_available_html: "Le <strong>rapport statistique</strong> des besoins transmis à vos équipes, sur le dernier trimestre et depuis le début de l’année, est à télécharger dans votre compte. Le détail des besoins est disponible dans un second fichier."
-        dynamic_stats_html: "<strong>NOUVEAU !</strong> Nous mettons à votre disposition des <strong>statistiques dynamiques</strong> pour le pilotage et l’analyse de l’activité générée par le service pour votre institution."
         discover_dynamic_stats: Découvrir mes statistiques
+        dynamic_stats_html: "<strong>NOUVEAU !</strong> Nous mettons à votre disposition des <strong>statistiques dynamiques</strong> pour le pilotage et l’analyse de l’activité générée par le service pour votre institution."
+        quarterly_report_available_html: Le <strong>rapport statistique</strong> des besoins transmis à vos équipes, sur le dernier trimestre et depuis le début de l’année, est à télécharger dans votre compte. Le détail des besoins est disponible dans un second fichier.
         subject: Vos statistiques de pilotage sont disponibles
         support_contact_label: 'En cas de besoin vous pouvez contacter :'
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
