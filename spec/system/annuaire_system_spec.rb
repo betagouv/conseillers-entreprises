@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'system_helper'
 
-describe 'annuaire', js: true do
+describe 'annuaire', :js do
   let(:user) { create :user, :admin }
   let(:region) { create :territory, :region, code_region: 1234 }
   let(:commune) { create :commune, regions: [region] }

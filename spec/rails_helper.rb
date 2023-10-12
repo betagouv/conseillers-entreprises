@@ -48,7 +48,7 @@ RSpec.configure do |config|
     driven_by :rack_test
   end
 
-  config.before(:each, type: :system, js: true) do
+  config.before(:each, :js, type: :system) do
     if ENV["SELENIUM_DRIVER_URL"].present?
       driven_by :selenium, using: :chrome,
         options: {

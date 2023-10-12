@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'system_helper'
 
-describe 'diagnosis', js: true do
+describe 'diagnosis', :js do
   login_admin
 
   describe 'steps' do
