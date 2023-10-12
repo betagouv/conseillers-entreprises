@@ -35,8 +35,8 @@ jobs:
         run: gem install rubocop-capybara
       - name: install rubocop-factory_bot for linter
         run: gem install rubocop-factory_bot
-      - name: Rubocop
-        run: rubocop -a
+      - name: lint_fix
+        run: rake lint_fix
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
