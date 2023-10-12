@@ -30,16 +30,16 @@ fr:
         your_need_html: Vous avez déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant le sujet <strong>%{subject}</strong>.
       confirmation_solicitation:
         content: Nous avons bien reçu votre demande déposée sur le site Conseillers-entreprises.service-public.fr.
-        content_for_iframe_html: Nous avons bien reçu votre demande déposée sur le site <strong>%{website}</strong>, en partenariat avec le service public d’accompagnement des TPE-PME.
-        informations_html: 'Vous serez informé(e) par mail de sa prise en charge par un conseiller ou une conseillère dans les 5 jours en moyenne.<br>Le(s) partenaire(s) pouvant vous rappeler sont :'
+        content_for_iframe_html: Nous avons bien reçu votre demande déposée sur le site <strong>%{website}</strong>, en partenariat avec Conseillers-Entreprises, un service de Service-Public.fr.
+        informations_html: 'Vous serez informé(e) par mail de sa prise en charge par un conseiller ou une conseillère dans les 5 jours en moyenne.<br>Les partenaires pouvant vous rappeler sont :'
         its_about: 'Elle concerne :'
         subject: Confirmation de votre demande « %{subject} »
       explanation_html: Ce service public d’accompagnement des entreprises est proposé par le Ministère de l’Économie et le Ministère du Travail pour faciliter la vie des petites entreprises. Il vous permet d’échanger avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
       intelligent_retention:
         and_you: Et vous, souhaitez-vous être aidé par un conseiller sur ces sujets ?
       not_yet_taken_care:
-        holiday_delay: En période de vacances scolaires, les délais de prise en charge peuvent être exceptionnellement plus longs au regard des congés des conseillers et conseillères.
-        intro_from_solicitation_html: 'Vous avez utilisé le service public d’accompagnement des TPE-PME pour <i>%{company}</i>. Votre demande concerne :'
+        holiday_delay: En période de congés, les délais de prise en charge peuvent être exceptionnellement plus longs.
+        intro_from_solicitation_html: 'Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concerne :'
         subject: Suivi de votre demande « %{subject} »
         thanks_for_your_patience: Nous vous remercions pour votre patience.
         we_continue_to_follow_up_html: Nous avons relancé le conseiller ou la conseillère compétente pour votre demande. Nous continuons d’<strong>assurer son suivi</strong> pour vous apporter une réponse dans les meilleurs délais.
@@ -48,31 +48,31 @@ fr:
         subject: Appel manqué pour votre demande « %{subject} »
       notify_taking_care:
         content_by_expert_html: Votre demande vient d’être prise en charge par <strong>un conseiller ou une conseillère de %{expert_antenne}</strong>. Si vous êtes injoignable, n’oubliez pas de consulter votre messagerie vocale et vos mails.
-        intro_from_solicitation_html: 'Vous avez utilisé le service public d’accompagnement des TPE-PME pour <i>%{company}</i>. Votre demande concerne :'
+        intro_from_solicitation_html: 'Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concerne :'
         subject: Prise en charge de votre demande « %{subject} »
       retention:
-        intro_html: 'Vous avez utilisé le service public d’accompagnement des TPE-PME il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait :'
+        intro_html: 'Vous avez utilisé le service public Conseillers-Entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait :'
         list_html: 'Des dirigeants utilisent le service pour être accompagnés sur d’autres sujets : <ul><li>recrutement</li><li>formation</li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
         outro: Si vous souhaitez être accompagné(e), n’hésitez pas à déposer une demande.
         send_solicitation: Échanger avec un conseiller
         subject: Avez-vous besoin d’aide ?
       satisfaction:
-        intro_html: 'Vous avez utilisé le service public d’accompagnement des TPE-PME pour <i>%{company}</i>. Votre demande concernait :'
-        outro: Votre avis est important pour nous aider à améliorer ce service public de mise en relation.
+        intro_html: 'Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concernait :'
+        outro: Votre avis est important pour nous aider à améliorer ce service d'acompagnement des entreprises.
         question_one_html: Avez-vous été rappelé(e) par un conseiller ou une conseillère ? <a href='%{link_yes}' target='_blank' class='response-button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='response-button no'>Non</a>
         subject: Fin du suivi de votre demande « %{subject} »
         tank_you: Merci pour votre confiance,
       solicitation_relaunch_company:
         continue_button_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Finaliser ma demande d’aide</a>"
         incomplete_step_explanation: 'Nous avons besoin de votre SIRET ou SIREN pour vous fournir un conseil personnalisé et de proximité. Pour trouver votre SIRET, vous pouvez renseigner le nom de votre entreprise en cliquant ci-dessous :'
-        service_explanation_html: Ce <strong>service public d’accompagnement des TPE-PME</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
-        subject: Votre demande pour «%{subject}»
+        service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
+        subject: Finalisez votre demande pour «%{subject}»
         your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet «<strong>%{subject}</strong>» sur le site Conseillers-entreprises.service-public.fr.
       solicitation_relaunch_description:
         continue_button_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Finaliser ma demande d’aide</a>"
         incomplete_step_explanation: Vous pouvez expliquer votre problématique avec quelques éléments de contexte pour bénéficier d’un conseil personnalisé.
-        service_explanation_html: Ce <strong>service public d’accompagnement des TPE-PME</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
-        subject: Votre demande à propos de «%{subject}»
+        service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
+        subject: Finalisez votre demande à propos de «%{subject}»
         your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet «<strong>%{subject}</strong>» sur le site Conseillers-entreprises.service-public.fr.
       why_this_message_html: "<strong>Pourquoi recevez-vous ce message ?</strong>"
     cordially: Cordialement,
@@ -92,7 +92,6 @@ fr:
       last_chance:
         at_your_disposal: Je reste à votre disposition si vous avez besoin d’aide.
         company_solicitation_html: Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier.
-        link_to_need: Lien vers la fiche
         subject: Risque d’abandon pour le besoin de l’entreprise %{company}
         we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant ou à la dirigeante resté(e) sans nouvelles.
         will_you_act: Souhaitez-vous intervenir ?
@@ -231,7 +230,7 @@ fr:
     team_html: L’équipe %{link_to_root}.
     team_pde: L’équipe Conseillers-Entreprises, un service de Service-Public.fr
     thank_you: Merci beaucoup,
-    thank_you_to_used_our_service: Merci d’avoir utilisé notre service de mise en relation.
+    thank_you_to_used_our_service: Merci d’avoir utilisé notre service.
     thanks_for_your_comprehension: Nous vous remercions pour votre compréhension.
     thanks_for_your_trust: Merci pour votre confiance,
     user_mailer:
