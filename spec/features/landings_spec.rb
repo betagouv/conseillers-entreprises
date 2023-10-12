@@ -18,7 +18,7 @@ describe 'Landings', :js, :flaky do
     context "root url" do
       it do
         visit "/aide-entreprise/#{landing.slug}"
-        expect(page).to have_selector('h2', text: landing_theme.title)
+        expect(page).to have_css('h2', text: landing_theme.title)
         expect(page).to have_link(landing_subject.title)
       end
     end
@@ -26,7 +26,7 @@ describe 'Landings', :js, :flaky do
     context "theme url" do
       it do
         visit "/aide-entreprise/#{landing.slug}/theme/#{landing_theme.slug}"
-        expect(page).to have_selector('h2', text: landing_theme.title)
+        expect(page).to have_css('h2', text: landing_theme.title)
         expect(page).to have_link(landing_subject.title)
       end
     end

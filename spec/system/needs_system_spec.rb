@@ -72,7 +72,7 @@ describe 'needs' do
       click_link 'Boite de réception'
       find("a[href='#{need_path(need_other_done)}']").click
 
-      expect(page).to have_selector 'h1', text: "#{need_other_done.subject.label}"
+      expect(page).to have_css 'h1', text: "#{need_other_done.subject.label}"
       expect(page).to have_css('.row-match', count: 2)
     end
   end
