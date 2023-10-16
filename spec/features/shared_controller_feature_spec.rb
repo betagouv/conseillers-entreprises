@@ -18,9 +18,9 @@ describe 'SharedController features' do
     end
 
     describe '404 error' do
-      xit do
+      it do
         # visit edit_user_path
-        expect(page.html).to include('Cette page n’existe pas, ou vous n’y avez pas accès.')
+        expect(page.html).to include I18n.t('shared.errors.404.message')
       end
     end
 
@@ -29,7 +29,7 @@ describe 'SharedController features' do
 
       it do
         visit need_path(id: 'wrong_id')
-        expect(page.html).to include 'Cette erreur était inattendue…'
+        expect(page.html).to include I18n.t('shared.errors.500.message')
       end
     end
   end

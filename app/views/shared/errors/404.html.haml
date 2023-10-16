@@ -1,4 +1,11 @@
 - meta title: t('.title')
 
-%h1= t('.title')
-%p= t('.message_html')
+.fr-container
+  .fr-my-7w.fr-mt-md-12w.fr-mb-md-10w.fr-grid-row.fr-grid-row--gutters.fr-grid-row--middle.fr-grid-row--center
+    .fr-py-0.fr-col-12.fr-col-md-6
+      %h1= t('.title')
+      %p.fr-text--sm.fr-mb-3w= t('.error')
+      %p.fr-text--lead.fr-mb-3w= t('.message')
+      %p.fr-text--sm.fr-mb-5w= t('.infos')
+
+      = link_to t('errors.homepage'), root_path, class: 'fr-btn'
