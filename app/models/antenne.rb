@@ -163,14 +163,6 @@ class Antenne < ApplicationRecord
   end
 
   # A surveiller : une antenne peut-elle avoir plusieurs antennes regionales ?
-  def regional_antenne_old
-    return unless self.local?
-    same_region_antennes = institution.antennes_in_region(region_ids)
-    same_region_antennes.select do |a|
-      a.regional? && Utilities::Arrays.included_in?(commune_ids, a.commune_ids)
-    end&.first
-  end
-
   def regional_antenne
     return unless self.local?
     get_associated_antennes(Antenne.territorial_levels[:regional])&.first
