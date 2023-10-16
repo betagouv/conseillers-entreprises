@@ -17,7 +17,7 @@
     <mj-text>
       <p><%= t('.at_your_disposal') %></p>
       <p><%= t('mailers.thanks_for_your_trust') %></p>
-      <p><%= t('mailers.team_pde') %></p>
+      <p><%= t('mailers.team') %></p>
     </mj-text>
   </mj-column>
 </mj-section>

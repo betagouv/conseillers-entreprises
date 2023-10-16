@@ -115,8 +115,8 @@ fr:
         subject: Service public Place des Entreprises - Nous vous accompagnons !
         you_received_need_html: 'Vous venez de recevoir un besoin de l’entreprise <strong>%{company}</strong> sur le sujet %{subject}. Vous pouvez le retrouver ici : <a href=''''%{url}''''>%{url}</a>'
       remind_involvement:
-        needs_for_you: Des entreprises souhaitent bénéficier de votre expertise.
-        needs_quo: Pour ces besoins en attente de réponse, quelle est votre position ?
+        needs_for_you: Les entreprises ci-dessous ont souhaité bénéficier de votre expertise via le site Conseillers-entreprises.service-public.fr.
+        needs_quo: Pourriez-vous nous partager votre position sur ces besoins ?
         subject: 'Récap : Des entreprises ont besoin de vous !'
         support_contact_label: 'Si vous n’arrivez pas à accéder au au détail d’un besoin, contactez :'
         visited_days_ago: transmis il y a %{days} par %{advisor}, votre contact territorial
@@ -169,7 +169,6 @@ fr:
         linkedin:
           link_html: Linkedin - %{link}
           title: linkedin.com/place-des-entreprises
-        team_pde: L’équipe Conseillers-Entreprises, un service de Service-Public.fr
         website:
           link_html: Site internet - %{link}
           title: Conseillers-entreprises.service-public.fr
@@ -226,9 +225,8 @@ fr:
         no_expert: Malheureusement nous n’avons pas encore d'expert en mesure de répondre à votre problématique.
         tradespeople_html: "<strong>pour les commerçants</strong> : <a href='https://communication-agefice.fr'>https://communication-agefice.fr</a>"
         useful_links: 'Selon votre statut social de Travailleur Non Salarié, 3 organismes sont compétents :'
-    team: L’équipe Conseillers-entreprises.service-public.fr
-    team_html: L’équipe %{link_to_root}.
-    team_pde: L’équipe Conseillers-Entreprises, un service de Service-Public.fr
+    team: L’équipe Conseillers-Entreprises, un service de Service-Public.fr
+    team_html: L’équipe <a href=%{url}>Conseillers-Entreprises</a>, un service de Service-Public.fr.
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service.
     thanks_for_your_comprehension: Nous vous remercions pour votre compréhension.

@@ -23,7 +23,7 @@
     <mj-text>
       <p><%= t('.looking_forward') %></p>
 
-      <p><%= t('mailers.team_html', link_to_root: link_to(t('app_name'), root_url)) %></p>
+      <p><%= t('mailers.team_html', url: root_url) %></p>
     </mj-text>
   </mj-column>
 </mj-section>
