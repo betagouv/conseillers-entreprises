@@ -457,10 +457,6 @@ GEM
       actionview (> 3.1)
       activesupport (> 3.1)
       railties (> 3.1)
-    rails_real_favicon (0.1.1)
-      json (>= 1.7, < 3)
-      rails
-      rubyzip (~> 2)
     railties (7.0.7.2)
       actionpack (= 7.0.7.2)
       activesupport (= 7.0.7.2)
@@ -748,7 +744,6 @@ DEPENDENCIES
   rails-erd
   rails-i18n
   rails_autolink
-  rails_real_favicon
   recipient_interceptor
   redis (~> 4.0)
   rorvswild

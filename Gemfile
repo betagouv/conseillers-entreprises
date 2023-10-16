@@ -130,7 +130,6 @@ group :development do
   gem 'web-console'
   gem 'annotate'
   gem 'letter_opener_web'
-  gem 'rails_real_favicon'
   gem 'bullet'
   gem 'squasher'
 
