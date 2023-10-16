@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'about', type: :feature, js: true do
+describe 'about', :js, type: :feature do
   subject { page }
 
   before do

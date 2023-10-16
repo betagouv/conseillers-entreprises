@@ -3,7 +3,7 @@ module Stats::Public
     include ::Stats::BaseStats
 
     def main_query
-      Expert.all.distinct
+      Expert.distinct
     end
 
     def additive_values

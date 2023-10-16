@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'api_helper'
 
-describe 'Landings', js: true, flaky: true do
+describe 'Landings', :js, :flaky do
   let(:pde_subject) { create :subject }
   let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
   let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, subject: pde_subject, title: "Super sujet", description: "Description LS", requires_siret: true }
@@ -18,7 +18,7 @@ describe 'Landings', js: true, flaky: true do
     context "root url" do
       it do
         visit "/aide-entreprise/#{landing.slug}"
-        expect(page).to have_selector('h2', text: landing_theme.title)
+        expect(page).to have_css('h2', text: landing_theme.title)
         expect(page).to have_link(landing_subject.title)
       end
     end
@@ -26,7 +26,7 @@ describe 'Landings', js: true, flaky: true do
     context "theme url" do
       it do
         visit "/aide-entreprise/#{landing.slug}/theme/#{landing_theme.slug}"
-        expect(page).to have_selector('h2', text: landing_theme.title)
+        expect(page).to have_css('h2', text: landing_theme.title)
         expect(page).to have_link(landing_subject.title)
       end
     end

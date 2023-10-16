@@ -154,7 +154,7 @@ ActiveAdmin.register Institution do
   end
 
   batch_action :destroy, confirm: I18n.t('active_admin.institution.delete_confirmation') do |ids|
-    Institution.where(id: ids).each { |u| u.soft_delete }
+    Institution.where(id: ids).find_each { |u| u.soft_delete }
     redirect_to collection_path, notice: I18n.t('active_admin.institutions.deleted')
   end
 end

@@ -22,8 +22,8 @@ RSpec.describe 'stats/team/index' do
 
       render
 
-      expect(rendered).to have_selector('h1', text: t('stats.team.public'))
-      expect(rendered).to have_selector('.fr-col-12.card.stats', count: 7)
+      expect(rendered).to have_css('h1', text: t('stats.team.public'))
+      expect(rendered).to have_css('.fr-col-12.card.stats', count: 7)
     end
 
     it "displays correctly needs stats" do
@@ -39,8 +39,8 @@ RSpec.describe 'stats/team/index' do
 
       render
 
-      expect(rendered).to have_selector('h1', text: t('stats.team.needs'))
-      expect(rendered).to have_selector('.fr-col-12.card.stats', count: 6)
+      expect(rendered).to have_css('h1', text: t('stats.team.needs'))
+      expect(rendered).to have_css('.fr-col-12.card.stats', count: 6)
     end
 
     it "displays correctly matches stats" do
@@ -56,8 +56,8 @@ RSpec.describe 'stats/team/index' do
 
       render
 
-      expect(rendered).to have_selector('h1', text: t('stats.team.matches'))
-      expect(rendered).to have_selector('.fr-col-12.card.stats', count: 7)
+      expect(rendered).to have_css('h1', text: t('stats.team.matches'))
+      expect(rendered).to have_css('.fr-col-12.card.stats', count: 7)
     end
   end
 end

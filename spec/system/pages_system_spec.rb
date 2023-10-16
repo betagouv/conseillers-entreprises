@@ -15,8 +15,8 @@ describe 'Pages' do
 
     find("a[href='#{comment_ca_marche_path}']", match: :first).click
     expect(page).to have_content "Questions fréquentes"
-    expect(page).to have_selector '.faq', count: 4
-    advisors_count = User.all.distinct.count
+    expect(page).to have_css '.faq', count: 4
+    advisors_count = User.distinct.count
     needs_count = Need.diagnosis_completed.count
     companies_count = Company.includes(:needs).references(:needs).where(facilities: { diagnoses: { step: :completed } }).distinct.count
     expect(page).to have_content(advisors_count)
