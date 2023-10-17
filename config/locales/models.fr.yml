@@ -388,7 +388,7 @@ fr:
         done: Besoin clôturé
         done_no_help: Pas d’aide disponible
         done_not_reachable: Entreprise non joignable
-        not_for_me: Mise en relation refusée
+        not_for_me: Besoin refusé
         quo: En attente de réponse
         taking_care: En cours de prise en charge
       need/statuses/csv:
