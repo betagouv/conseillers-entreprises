@@ -1,5 +1,5 @@
 module Stats::Solicitations
-  class TransmittedLessThan72hStats
+  class TransmittedLessThan72h
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
 

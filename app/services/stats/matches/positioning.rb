@@ -1,6 +1,5 @@
 module Stats::Matches
-  # Taux de mises en relation clôturées grâce à une aide proposée sur la totalité des mises en relation transmises
-  class DoneRateStats
+  class Positioning
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
     include ::Stats::TwoRatesStats
@@ -15,20 +14,18 @@ module Stats::Matches
 
     def build_series
       query = filtered_main_query
-      @done_status = []
-      @other_status = []
-
+      @positioning, @not_positioning = [], []
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        @done_status.push(month_query.status_done.count)
-        @other_status.push(month_query.not_status_done.count)
+        @positioning.push(month_query.not_status_quo.count)
+        @not_positioning.push(month_query.status_quo.count)
       end
 
-      as_series(@done_status, @other_status)
+      as_series(@positioning, @not_positioning)
     end
 
     def subtitle
-      I18n.t('stats.series.done_rate_stats.subtitle')
+      I18n.t('stats.series.matches_positioning.subtitle')
     end
 
     def colors
@@ -37,15 +34,15 @@ module Stats::Matches
 
     private
 
-    def as_series(done_status, other_status)
+    def as_series(positioning, not_positioning)
       [
         {
-          name: I18n.t('stats.other_status'),
-          data: other_status
+          name: I18n.t('stats.not_positioning'),
+          data: not_positioning
         },
         {
-          name: I18n.t('stats.done_status'),
-          data: done_status
+          name: I18n.t('stats.positioning'),
+          data: positioning
         }
       ]
     end

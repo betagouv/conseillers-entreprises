@@ -11,7 +11,7 @@ RSpec.describe Manager::StatsController do
 
     it 'returns http success' do
       expect(request).to be_successful
-      expect(assigns(:stats)).not_to be_nil
+      expect(assigns(:charts_names)).not_to be_nil
     end
   end
 end

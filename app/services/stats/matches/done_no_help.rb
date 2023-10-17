@@ -1,6 +1,6 @@
 module Stats::Matches
   # Taux de mises en relation sans aide disponible sur la totalité des mises en relations transmises
-  class DoneNoHelpRateStats
+  class DoneNoHelp
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
     include ::Stats::TwoRatesStats
@@ -27,7 +27,7 @@ module Stats::Matches
     end
 
     def subtitle
-      I18n.t('stats.series.done_no_help_rate_stats.subtitle')
+      I18n.t('stats.series.matches_done_no_help.subtitle')
     end
 
     def colors

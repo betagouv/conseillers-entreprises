@@ -1,5 +1,5 @@
 module Stats::Needs
-  class NeedsDoneNoHelpStats
+  class DoneNoHelp
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
 

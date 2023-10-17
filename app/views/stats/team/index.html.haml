@@ -14,5 +14,5 @@
     .fr-grid-row.fr-grid-row--gutters#stats-charts
       - @charts_names.each do |name|
         .fr-col-12.card.stats
-          = turbo_frame_tag name, stats_params: @stats_params, src: load_data_team_index_path(chart_name: name, stats_category: @stats_category) do
+          = turbo_frame_tag name, stats_params: @stats_params, src: load_data_team_index_path(chart_name: name) do
             = render 'stats/skeleton_card'

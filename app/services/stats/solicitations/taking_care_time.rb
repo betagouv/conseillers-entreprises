@@ -1,5 +1,5 @@
 module Stats::Solicitations
-  class TakingCareTimeStats
+  class TakingCareTime
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
 

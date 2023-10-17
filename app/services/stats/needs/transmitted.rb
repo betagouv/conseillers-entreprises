@@ -1,6 +1,6 @@
 module Stats::Needs
   # Besoins mis en relation
-  class TransmittedNeedsStats
+  class Transmitted
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
 

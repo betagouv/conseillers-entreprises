@@ -1,5 +1,7 @@
 module Stats::Matches
-  class PositioningRate
+  # Taux de mises en relation restées sans réponse sur la totalité sur la totalité des besoins transmis au partenaire
+  # (la lecture inverse correspond au taux de positionnement))
+  class NotPositioning
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
     include ::Stats::TwoRatesStats
@@ -14,18 +16,18 @@ module Stats::Matches
 
     def build_series
       query = filtered_main_query
-      @positioning, @not_positioning = [], []
+      @not_positioning, @positioning = [], []
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
         @positioning.push(month_query.not_status_quo.count)
         @not_positioning.push(month_query.status_quo.count)
       end
 
-      as_series(@positioning, @not_positioning)
+      as_series(@not_positioning, @positioning)
     end
 
     def subtitle
-      I18n.t('stats.series.positioning_rate.subtitle')
+      I18n.t('stats.series.matches_not_positioning.subtitle')
     end
 
     def colors
@@ -34,15 +36,15 @@ module Stats::Matches
 
     private
 
-    def as_series(positioning, not_positioning)
+    def as_series(not_positioning, positioning)
       [
-        {
-          name: I18n.t('stats.not_positioning'),
-          data: not_positioning
-        },
         {
           name: I18n.t('stats.positioning'),
           data: positioning
+        },
+        {
+          name: I18n.t('stats.not_positioning'),
+          data: not_positioning
         }
       ]
     end

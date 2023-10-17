@@ -1,6 +1,6 @@
 # Stats montrant l'evolution du nombre de demandes donnant lieu à échange avec un conseiller
 module Stats::Needs
-  class ExchangeWithExpertColumnStats
+  class ExchangeWithExpertColumn
     include ::Stats::BaseStats
 
     def initialize(params)

@@ -4,23 +4,18 @@ module Manager
   class StatsController < ApplicationController
     include StatsHelper
     before_action :authorize_index_manager_stats, only: %i[index load_data]
-    before_action :stats_params, only: :index
+    before_action :set_stats_params, only: :index
     before_action :set_filters_collections, only: :index
     before_action :set_charts_names, only: %i[index load_data]
 
-    def index
-      @stats = Stats::Manager::All.new(@stats_params)
-      session[:manager_stats_params] = @stats_params
-    end
+    def index; end
 
     def load_data
       name = params.permit(:chart_name)[:chart_name]
-      if @charts_names.include?(name.to_sym)
-        data = Rails.cache.fetch(['manager-stats', name, session[:manager_stats_params]], expires_in: 6.hours) do
-          Stats::Manager::All.new(session[:manager_stats_params]).send(name)
-        end
-        render_partial(data, name)
+      data = Rails.cache.fetch(['manager-stats', name, session[:manager_stats_params]], expires_in: 6.hours) do
+        invoke_stats(name, session[:manager_stats_params]) if @charts_names.include?(name)
       end
+      render partial: 'stats/load_stats', locals: { data: data, name: name }
     end
 
     private
@@ -29,18 +24,14 @@ module Manager
       authorize [:manager, :stats], :index?
     end
 
-    def stats_params
+    def set_stats_params
       @stats_params = stats_filter_params
       @stats_params[:start_date] ||= 6.months.ago.beginning_of_month.to_date
       @stats_params[:end_date] ||= Date.today
       @stats_params[:antenne] ||= current_user.managed_antennes.first.id
       @stats_params[:institution_id] = current_user.institution.id
       @stats_params[:colors] = %w[#cacafb #000091]
-      @stats_params
-    end
-
-    def render_partial(data, name)
-      render partial: 'stats/load_stats', locals: { data: data, name: name }
+      session[:manager_stats_params] = @stats_params
     end
 
     def set_filters_collections
@@ -54,9 +45,9 @@ module Manager
     end
 
     def set_charts_names
-      @charts_names = [
-        :needs_transmitted, :positioning_rate, :taking_care_rate_stats, :done_rate_stats,
-        :done_no_help_rate_stats, :done_not_reachable_rate_stats, :not_for_me_rate_stats, :not_positioning_rate
+      @charts_names = %w[
+        needs_transmitted matches_positioning matches_taking_care matches_done
+        matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
       ]
     end
   end

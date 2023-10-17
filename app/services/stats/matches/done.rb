@@ -1,6 +1,6 @@
 module Stats::Matches
-  # Taux de mises en relation en cours de prises en charge sur l’ensemble des mises en relation transmises
-  class TakingCareRateStats
+  # Taux de mises en relation clôturées grâce à une aide proposée sur la totalité des mises en relation transmises
+  class Done
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
     include ::Stats::TwoRatesStats
@@ -15,20 +15,20 @@ module Stats::Matches
 
     def build_series
       query = filtered_main_query
-      @taking_care_status = []
+      @done_status = []
       @other_status = []
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        @taking_care_status.push(month_query.status_taking_care.count)
-        @other_status.push(month_query.not_status_taking_care.count)
+        @done_status.push(month_query.status_done.count)
+        @other_status.push(month_query.not_status_done.count)
       end
 
-      as_series(@taking_care_status, @other_status)
+      as_series(@done_status, @other_status)
     end
 
     def subtitle
-      I18n.t('stats.series.taking_care_rate_stats.subtitle')
+      I18n.t('stats.series.matches_done.subtitle')
     end
 
     def colors
@@ -37,15 +37,15 @@ module Stats::Matches
 
     private
 
-    def as_series(taking_care_status, other_status)
+    def as_series(done_status, other_status)
       [
         {
           name: I18n.t('stats.other_status'),
           data: other_status
         },
         {
-          name: I18n.t('stats.taking_care_status'),
-          data: taking_care_status
+          name: I18n.t('stats.done_status'),
+          data: done_status
         }
       ]
     end

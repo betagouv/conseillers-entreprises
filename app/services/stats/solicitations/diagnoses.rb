@@ -1,5 +1,5 @@
 module Stats::Solicitations
-  class SolicitationsDiagnosesStats
+  class Diagnoses
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
 

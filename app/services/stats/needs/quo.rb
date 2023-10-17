@@ -1,5 +1,5 @@
 module Stats::Needs
-  class NeedsQuoStats
+  class Quo
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
 

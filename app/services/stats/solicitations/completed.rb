@@ -1,5 +1,5 @@
 module Stats::Solicitations
-  class SolicitationsStats
+  class Completed
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
 
@@ -16,7 +16,7 @@ module Stats::Solicitations
     end
 
     def category_name(_)
-      I18n.t('stats.series.solicitations.series')
+      I18n.t('stats.series.solicitations_completed.series')
     end
 
     def category_order_attribute
@@ -32,7 +32,7 @@ module Stats::Solicitations
     end
 
     def subtitle
-      I18n.t('stats.series.solicitations.subtitle_html')
+      I18n.t('stats.series.solicitations_completed.subtitle_html')
     end
 
     def date_group_attribute
@@ -41,7 +41,7 @@ module Stats::Solicitations
 
     def grouped_by_month(query)
       # Ici les mois sont en UTC
-      query.group("DATE_TRUNC('month', #{query.model.name.pluralize}.completed_at)")
+      query.group("DATE_TRUNC('month', #{ActiveRecord::Base::sanitize_sql(query.model.name.pluralize)}.completed_at)")
     end
   end
 end

@@ -1,5 +1,5 @@
 module Stats::Companies
-  class CompaniesByNafCodeStats
+  class ByNafCode
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
 

@@ -1,5 +1,5 @@
 module Stats::Needs
-  class ThemesStats
+  class Themes
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
 
@@ -16,7 +16,7 @@ module Stats::Needs
     end
 
     def subtitle
-      I18n.t('stats.series.themes.subtitle')
+      I18n.t('stats.series.needs_themes.subtitle')
     end
 
     def category_group_attribute

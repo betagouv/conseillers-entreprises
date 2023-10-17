@@ -1,5 +1,5 @@
 module Stats::Needs
-  class ExchangeWithExpertStats
+  class ExchangeWithExpert
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
 
@@ -52,11 +52,11 @@ module Stats::Needs
     def as_series(needs_with_exchange, needs_without_exchange)
       [
         {
-          name: I18n.t('stats.series.exchange_with_expert.without_exchange'),
+          name: I18n.t('stats.series.needs_exchange_with_expert.without_exchange'),
           data: needs_without_exchange
         },
         {
-          name: I18n.t('stats.series.exchange_with_expert.with_exchange'),
+          name: I18n.t('stats.series.needs_exchange_with_expert.with_exchange'),
           data: needs_with_exchange
         }
       ]

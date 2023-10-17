@@ -1,5 +1,5 @@
 module Stats::Companies
-  class CompaniesByEmployeesStats
+  class ByEmployees
     include ::Stats::BaseStats
     include ::Stats::FiltersStats
 
