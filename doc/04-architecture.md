@@ -5,16 +5,16 @@
 * [Deployment (en)](03-deployment.md)
 * ➡ [Architecture (fr)](04-architecture.md)
 
-# Conseillers-entreprises.service-public.fr - Architecture générale
+# Conseillers-Entreprises - Architecture générale
 
-Contrairement au reste de la documentation, ce chapitre est rédigé en français. Il s’adresse non seulement aux nouveaux membres rejoignant l’équipe, mais aussi aux administrations et services publics partenaires qui souhaiteraient mieux comprendre le fonctionnement de Conseillers-entreprises.service-public.fr.
+Contrairement au reste de la documentation, ce chapitre est rédigé en français. Il s’adresse non seulement aux nouveaux membres rejoignant l’équipe, mais aussi aux administrations et services publics partenaires qui souhaiteraient mieux comprendre le fonctionnement de Conseillers-Entreprises.
 
 ## Types d’utilisateurs
 
-Conseillers-entreprises.service-public.fr s’adresse a plusieurs classes d’utilisateurs :
+Conseillers-Entreprises s’adresse a plusieurs classes d’utilisateurs :
 1. En premier lieu, les entrepreneurs qui font appel au service via le formulaire en ligne. Ce sont les cibles premières du service.
-2. En second lieu, les agents des services publics et parapublics enregistrés sur Conseillers-entreprises.service-public.fr. Il disposent d’un compte grâce auquel il peuvent se connecter et voir les demandes des entreprises qui ont besoin de leur aide.
-3. Enfin, les membres de l’équipe Conseillers-entreprises.service-public.fr, qui ont un double rôle:
+2. En second lieu, les agents des services publics et parapublics enregistrés sur Conseillers-Entreprises. Il disposent d’un compte grâce auquel il peuvent se connecter et voir les demandes des entreprises qui ont besoin de leur aide.
+3. Enfin, les membres de l’équipe Conseillers-Entreprises, qui ont un double rôle:
     * l’administration des comptes utilisateurs des agents,
     * et le suivi des mises en relation entre les entrepreneurs et les agents.
 
@@ -35,7 +35,7 @@ Cette liste n’est pas exhaustive: d’autres informations disponibles dans les
 
 ### Agents publics et parapublics
 
-De l’autre côté, on trouve donc les informations des agents recensées auprès des partenaires. Elles sont fournies par les organismes partenaires et ajoutées à la main par l’équipe Conseillers-entreprises.service-public.fr, à mesure du déploiement géographique de Conseillers-entreprises.service-public.fr, et tenues à jour au fil des échanges avec les partenaires. C’est en fait une grande partie de notre travail. Cet « annuaire » comporte notamment :
+De l’autre côté, on trouve donc les informations des agents recensées auprès des partenaires. Elles sont fournies par les organismes partenaires et ajoutées à la main par l’équipe en charge de Conseillers-Entreprises et tenues à jour au fil des échanges avec les partenaires. C’est en fait une grande partie de notre travail. Cet « annuaire » comporte notamment :
 * Les coordonnées professionelles des agents : nom, fonction, email et téléphone de contact ;
 * Leurs champs de compétence, classée selon les mêmes sujets et catégories que les besoins des entreprises,
 * Leur zone géographique d’intervention, à la commune près.
@@ -70,11 +70,11 @@ Conseillers-entreprises.service-public.fr est une application web écrite en [Ru
 
 ### Développement
 
-Le développement de Conseillers-entreprises.service-public.fr est organisé sur [github](https://github.com/betagouv/place-des-entreprises).
+Le développement de Conseillers-Entreprises est organisé sur [github](https://github.com/betagouv/place-des-entreprises).
 * Le code source est libre et ouvert, et publié sour license AGPL.
 * Le développement se fait de façon transparente ; les _issues_ et _pull requests_ sont visibles par tout le monde.
 
-L’app Ruby est développée principalement sous forme de « [monolithe](https://m.signalvnoise.com/the-majestic-monolith/) ». Il y a très peu de javascript. De manière générale, Conseillers-entreprises.service-public.fr est développée de façon _prudente_: nous utilisons, autant que possible, des technologies qui ont fait leur preuve, et qui sont mises à jour régulièrement.
+L’app Ruby est développée principalement sous forme de « [monolithe](https://m.signalvnoise.com/the-majestic-monolith/) ». Il y a très peu de javascript. De manière générale, Conseillers-Entreprises est développée de façon _prudente_: nous utilisons, autant que possible, des technologies qui ont fait leur preuve, et qui sont mises à jour régulièrement.
 
 Nous travaillons de façon agile, par sprints de deux semaines. Le développement logiciel est fait en concertation permanente avec les autres membres de l’équipe. Un aperçu des sujets en cours est visible [directement sur github](https://github.com/betagouv/place-des-entreprises/projects/1).
 
@@ -92,13 +92,13 @@ Conseillers-entreprises.service-public.fr est déployé sur la plateforme PAAS d
 
 ### Nom de domaine
 
-Le domaine `service-public.fr` est géré par la DILA. La gestion du sous-domaine `conseillers-entreprises.` est déléguée à l’équipe Conseillers-entreprises.service-public.fr.
+Le domaine `service-public.fr` est géré par la DILA. La gestion du sous-domaine `conseillers-entreprises.` est déléguée à l’équipe en charge de Conseillers-Entreprises.
 
 ## Services externes
 
 ### Au sein de l’admistration
 
-Conseillers-entreprises.service-public.fr récupère les données publiques des entreprises sur [annuaire-entreprises.data.gouv.fr](https://annuaire-entreprises.data.gouv.fr/), [entreprise.api.gouv.fr](https://entreprise.api.gouv.fr), l' [API de l'INSEE](https://api.insee.fr/catalogue) ou [registre-national-entreprises.inpi.fr](https://registre-national-entreprises.inpi.fr/api/), des plateformes maintenues par l'administration.
+Conseillers-Entreprises récupère les données publiques des entreprises sur [annuaire-entreprises.data.gouv.fr](https://annuaire-entreprises.data.gouv.fr/), [entreprise.api.gouv.fr](https://entreprise.api.gouv.fr), l' [API de l'INSEE](https://api.insee.fr/catalogue) ou [registre-national-entreprises.inpi.fr](https://registre-national-entreprises.inpi.fr/api/), des plateformes maintenues par l'administration.
 
 Nous utilisons aussi des outils propres à la communauté betagouv et etalab:
 * [sentry.data.gouv.fr/betagouvfr/](https://sentry.data.gouv.fr/betagouvfr/) est un outil standard de monitoring de pannes logicielles; les erreurs et crashes de Conseillers-entreprises.service-public.fr, côté client comme serveur, y sont consignés.
@@ -107,7 +107,7 @@ Nous utilisons aussi des outils propres à la communauté betagouv et etalab:
 ### Services tiers
 
 * [Brevo](https://www.brevo.com/) nous sert à envoyer les emails de confirmation, d’inscription, de notification… aux différents utilisateurs du service.
-* [ipinfo.io](https://ipinfo.io/) est utilisé de façon annexe. La géolocalisation IP est utilisée uniquement pour afficher une alerte si l’utilisateur semble se situer dans une région où Conseillers-entreprises.service-public.fr n’est pas encore déployé.
+* [ipinfo.io](https://ipinfo.io/) est utilisé de façon annexe. La géolocalisation IP est utilisée uniquement pour afficher des logos spécifiques à la région de localisation des visiteurs.
 
 ### Contrôle des accès
 
