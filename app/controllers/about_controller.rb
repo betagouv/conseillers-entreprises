@@ -1,5 +1,6 @@
 class AboutController < PagesController
   include IframePrefix
+  before_action :build_stats_and_count, only: :comment_ca_marche
 
   def cgu; end
 
@@ -19,4 +20,14 @@ class AboutController < PagesController
   end
 
   def equipe; end
+
+  private
+
+  def build_stats_and_count
+    @stats = {
+      companies_by_employees: Stats::Companies::DiagnosisCompleted.new.count,
+      users: Stats::Users::InvitationAccepted.new.count,
+      needs: Stats::Needs::DiagnosisCompleted.new.count
+    }
+  end
 end

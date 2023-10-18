@@ -1,4 +1,4 @@
-module Stats::Mini::BaseStats
+module Stats::MiniStats
   def main_query
     raise 'main_query must be implemented'
   end
