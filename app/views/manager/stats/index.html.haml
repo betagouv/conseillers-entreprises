@@ -13,6 +13,6 @@
     = render 'stats_params', stats: @stats_params, filters: @filters
   .fr-grid-row.fr-grid-row--gutters#stats-charts
     - @charts_names.each do |name|
-      .fr-col-12.fr-mb-4w
+      .fr-col-12.fr-mb-4v
         = turbo_frame_tag name, stats_params: @stats_params, src: manager_load_data_path(chart_name: name) do
           = render 'stats/skeleton_card'
