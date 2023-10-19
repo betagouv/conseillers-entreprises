@@ -81,11 +81,6 @@ module DiagnosisCreation
         end
       end
 
-      # Debug pour "ActiveRecord::RecordNotSaved Solicitation#prepare_diagnosis"
-      if self.diagnosis.present? && diagnosis.present? && self.diagnosis.id != diagnosis.id
-        Sentry.capture_message("Erreur preparation diagnosis : solicitation.diagnosis.id = #{self.diagnosis.id} ; diagnosis.id = #{diagnosis.id}")
-      end
-
       # Save or clear the error
       self.update(prepare_diagnosis_errors: prepare_diagnosis_errors, diagnosis: diagnosis)
       diagnosis
