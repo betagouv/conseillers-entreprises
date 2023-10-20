@@ -1,29 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "00049db5b0cada03521751944c2a032ec0c0d038d194cd7592722cb6a4737bc4",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/services/stats/public/solicitations_stats.rb",
-      "line": 44,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "query.group(\"DATE_TRUNC('month', #{query.model.name.pluralize}.completed_at)\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Stats::Public::SolicitationsStats",
-        "method": "grouped_by_month"
-      },
-      "user_input": "query.model.name.pluralize",
-      "confidence": "Weak",
-      "cwe_id": [
-        89
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "3f8a8d49ee107fbb6b9a9b7d00218316003d2fcc965e798c06845071ed1186c6",
@@ -53,75 +30,6 @@
       "confidence": "Weak",
       "cwe_id": [
         79
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Remote Code Execution",
-      "warning_code": 24,
-      "fingerprint": "791d3dc897f65732efcaf509c79adfebe257d08598ff792adfccb953bc3f58a0",
-      "check_name": "UnsafeReflection",
-      "message": "Unsafe reflection method `constantize` called on parameter value",
-      "file": "app/controllers/stats/team_controller.rb",
-      "line": 42,
-      "link": "https://brakemanscanner.org/docs/warning_types/remote_code_execution/",
-      "code": "\"Stats::#{params.permit(:stats_category)[:stats_category]}::All\".constantize",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Stats::TeamController",
-        "method": "load_data"
-      },
-      "user_input": "params.permit(:stats_category)[:stats_category]",
-      "confidence": "High",
-      "cwe_id": [
-        470
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Dangerous Send",
-      "warning_code": 23,
-      "fingerprint": "a04c5e4ca8af4583c7af6e7a556960966ac4f25dd27b8e0742f40a5e51bbb035",
-      "check_name": "Send",
-      "message": "User controlled method execution",
-      "file": "app/controllers/stats/team_controller.rb",
-      "line": 42,
-      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
-      "code": "\"Stats::#{params.permit(:stats_category)[:stats_category]}::All\".constantize.new(session[:team_stats_params]).send(params.permit(:chart_name)[:chart_name])",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Stats::TeamController",
-        "method": "load_data"
-      },
-      "user_input": "params.permit(:chart_name)[:chart_name]",
-      "confidence": "High",
-      "cwe_id": [
-        77
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Dangerous Send",
-      "warning_code": 23,
-      "fingerprint": "a2ff645fb19dc92b961ec0a28bb8a1f2da85322f1e167ca6246a9f96a989b5af",
-      "check_name": "Send",
-      "message": "User controlled method execution",
-      "file": "app/controllers/manager/stats_controller.rb",
-      "line": 20,
-      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
-      "code": "Stats::Manager::All.new(session[:manager_stats_params]).send(params.permit(:chart_name)[:chart_name])",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Manager::StatsController",
-        "method": "load_data"
-      },
-      "user_input": "params.permit(:chart_name)[:chart_name]",
-      "confidence": "High",
-      "cwe_id": [
-        77
       ],
       "note": ""
     },
@@ -172,6 +80,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-09-25 14:50:39 +0200",
+  "updated": "2023-10-17 17:16:54 +0200",
   "brakeman_version": "6.0.1"
 }
