@@ -9,7 +9,7 @@
         %span.icon{ class: (mine ? 'ri-chat-1-fill blue' : 'ri-chat-1-line'), 'aria-hidden': 'true' }
       .author-data
         .date= I18n.l(feedback.created_at, format: :long)
-        %p.author-name.fr-text--sm.fr-mb-2v
+        %p.author-name.fr-text--sm
           - if mine
             %b= user.full_name
           - else
