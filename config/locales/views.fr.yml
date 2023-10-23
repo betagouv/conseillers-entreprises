@@ -1014,6 +1014,7 @@ fr:
     taking_care_status: Statut « pris en charge »
     team:
       index:
+        select_partner: Attention ! pensez à sélectionner un partenaire
         title: Statistiques équipe
       matches: Pilotage par partenaire
       needs: Pilotage par besoins
