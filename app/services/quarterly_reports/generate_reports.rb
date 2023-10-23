@@ -8,8 +8,8 @@ module QuarterlyReports
       quarters = last_quarters
       return if quarters.nil?
       quarters.each do |quarter|
-        generate_matches_files(quarter)
-        generate_stats_files(quarter)
+        delay(queue: :low_priority).generate_matches_files(quarter)
+        delay(queue: :low_priority).generate_stats_files(quarter)
       end
       destroy_old_report_files(quarters)
     end
