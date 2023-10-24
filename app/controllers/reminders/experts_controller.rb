@@ -119,18 +119,9 @@ module Reminders
     end
 
     def collections_counts
-      experts_collection_count_request = filtered_experts.joins(:reminders_registers)
-        .select("
-          COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.category = 1 AND reminders_registers.run_number = #{RemindersRegister.last_run_number} AND reminders_registers.processed = false) AS inputs,
-          COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.run_number = #{RemindersRegister.last_run_number} AND (reminders_registers.category = 0 OR reminders_registers.category = 1 AND reminders_registers.processed = true) AND reminders_registers.basket = 0) AS many_pending_needs,
-          COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.run_number = #{RemindersRegister.last_run_number} AND (reminders_registers.category = 0 OR reminders_registers.category = 1 AND reminders_registers.processed = true) AND reminders_registers.basket = 1) AS medium_pending_needs,
-          COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.run_number = #{RemindersRegister.last_run_number} AND (reminders_registers.category = 0 OR reminders_registers.category = 1 AND reminders_registers.processed = true) AND reminders_registers.basket = 2) AS one_pending_need,
-          COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.category = 3 AND reminders_registers.run_number = #{RemindersRegister.last_run_number} AND reminders_registers.processed = false) AS expired_needs,
-          COUNT(DISTINCT experts.id) FILTER(WHERE reminders_registers.category = 2 AND reminders_registers.run_number = #{RemindersRegister.last_run_number} AND reminders_registers.processed = false) AS outputs
-        ")
-        .to_sql
-      results = ActiveRecord::Base.connection.execute(experts_collection_count_request)
-      @expert_collections_count = results.first.symbolize_keys
+      @expert_collections_count = Rails.cache.fetch(['expert_reminders_need', filtered_experts, RemindersRegister.current_remainder_category.pluck(:updated_at).max]) do
+        experts_collection_names.index_with { |name| filtered_experts.send(name).distinct.size }
+      end
     end
 
     def filtered_experts
