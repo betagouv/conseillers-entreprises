@@ -110,7 +110,7 @@ module Reminders
     def render_collection(action)
       @active_experts = filtered_experts
         .includes(:received_needs)
-        .preload(:reminder_feedbacks, :users)
+        .preload(:reminder_feedbacks, :users, :antenne)
         .send(action)
         .most_needs_quo_first
         .page params[:page]
