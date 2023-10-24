@@ -8,7 +8,7 @@
   .fr-grid-row.fr-grid-row--gutters
     .fr-col-md-8
       .fr-mt-xs-4w
-        %h1.fr-h2= @need.subject
+        %h1.fr-h3.fr-mb-2v= @need.subject
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
         = need_general_context(@need)
