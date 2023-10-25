@@ -121,6 +121,7 @@ ActiveAdmin.register Antenne do
             row :subjects
             row :accepted_legal_forms
             row :raw_accepted_naf_codes
+            row :raw_excluded_naf_codes
           end
         end
       end
@@ -131,7 +132,7 @@ ActiveAdmin.register Antenne do
   #
   match_filters_attributes = [
     :id, :min_years_of_existence, :max_years_of_existence, :effectif_max, :effectif_min,
-    :raw_accepted_naf_codes, :raw_accepted_legal_forms, :_destroy, subject_ids: []
+    :raw_accepted_naf_codes, :raw_excluded_naf_codes, :raw_accepted_legal_forms, :_destroy, subject_ids: []
   ]
   permit_params :name, :institution_id, :insee_codes, :territorial_level,
                 advisor_ids: [], expert_ids: [], manager_ids: [], match_filters_attributes: match_filters_attributes
@@ -187,6 +188,7 @@ ActiveAdmin.register Antenne do
         mf.input :effectif_max
         mf.input :raw_accepted_legal_forms
         mf.input :raw_accepted_naf_codes, as: :text
+        mf.input :raw_excluded_naf_codes, as: :text
       end
     end
 

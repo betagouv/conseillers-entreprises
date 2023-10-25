@@ -35,6 +35,10 @@ class MatchFilter < ApplicationRecord
     accepted_naf_codes&.join(' ')
   end
 
+  def raw_excluded_naf_codes
+    excluded_naf_codes&.join(' ')
+  end
+
   def raw_accepted_legal_forms
     accepted_legal_forms&.join(' ')
   end
@@ -42,6 +46,11 @@ class MatchFilter < ApplicationRecord
   def raw_accepted_naf_codes=(naf_codes)
     updated_naf_codes = naf_codes.split(/[,\s]/).delete_if(&:empty?)
     self.accepted_naf_codes = updated_naf_codes
+  end
+
+  def raw_excluded_naf_codes=(naf_codes)
+    updated_naf_codes = naf_codes.split(/[,\s]/).delete_if(&:empty?)
+    self.excluded_naf_codes = updated_naf_codes
   end
 
   def raw_accepted_legal_forms=(legal_form_code)
