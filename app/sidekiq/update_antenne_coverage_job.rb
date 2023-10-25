@@ -24,19 +24,19 @@ class UpdateAntenneCoverageJob
     with_custom_communes_subquery = institution_subject.not_deleted_experts.with_custom_communes
 
     institution_subject.not_deleted_experts
-                       .where.not(id: with_custom_communes_subquery)
-                       .select('experts.id, experts.antenne_id, communes.insee_code AS insee_code')
-                       .joins(antenne: :communes)
-                       .where(antenne_id: all_potential_antennes_ids)
-                       .where(communes: { insee_code: insee_codes })
+      .where.not(id: with_custom_communes_subquery)
+      .select('experts.id, experts.antenne_id, communes.insee_code AS insee_code')
+      .joins(antenne: :communes)
+      .where(antenne_id: all_potential_antennes_ids)
+      .where(communes: { insee_code: insee_codes })
   end
 
   def get_experts_with_specific_territories(insee_codes, institution_subject)
     institution_subject.not_deleted_experts
-                       .select('experts.id, experts.antenne_id, communes.insee_code AS insee_code')
-                       .joins(:communes)
-                       .where(antenne_id: all_potential_antennes_ids)
-                       .where(communes: { insee_code: insee_codes })
+      .select('experts.id, experts.antenne_id, communes.insee_code AS insee_code')
+      .joins(:communes)
+      .where(antenne_id: all_potential_antennes_ids)
+      .where(communes: { insee_code: insee_codes })
   end
 
   def register_coverage(institution_subject, subject_hash)

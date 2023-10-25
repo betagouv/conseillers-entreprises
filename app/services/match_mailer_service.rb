@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class MatchMailerService
+  # TODO ajouter initilalize
   def self.deduplicated_notify_status(match, previous_status)
     scheduled = Sidekiq::ScheduledSet.new
 

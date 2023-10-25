@@ -29,7 +29,6 @@ fr:
         last_week: 'Voici les statistiques de la semaine dernière :'
         reminders: 'Côté relances, voici où nous en sommes :'
         see_you_next_week: À la semaine prochaine pour de nouvelles aventures !
-        subject: "[Place des Entreprises] Bon lundi ! Voici les statistiques d’utilisation !"
     best_regards: Bien cordialement,
     company_mailer:
       abandoned_need:

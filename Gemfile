@@ -32,6 +32,7 @@ gem 'webpacker'
 gem 'clockwork'
 gem 'daemons'
 gem "sidekiq"
+gem 'sidekiq-failures'
 
 # Improving models
 gem 'devise'
@@ -79,7 +80,7 @@ gem 'matrix'
 # Notifiers
 gem "sentry-ruby"
 gem "sentry-rails"
-# gem "sentry-delayed_job"
+gem "sentry-sidekiq"
 
 # Helper gems
 gem 'browser'

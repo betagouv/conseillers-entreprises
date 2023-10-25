@@ -35,6 +35,8 @@ module PlaceDesEntreprises
     config.action_mailer.default_url_options = { host: ENV['HOST_NAME'] }
 
     config.active_job.queue_adapter = :sidekiq
+    config.action_mailer.deliver_later_queue_name = 'default'
+
     config.middleware.insert_after ActionDispatch::RemoteIp, IpAnonymizer::MaskIp
     config.action_view.form_with_generates_remote_forms = true
     config.active_record.legacy_connection_handling = false
