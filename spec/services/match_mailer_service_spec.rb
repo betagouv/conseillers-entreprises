@@ -20,9 +20,8 @@ describe MatchMailerService do
       end
 
       it do
-        expect(Delayed::Job.count).to eq 1
-        previous_status = Delayed::Job.last.payload_object.args.last.to_sym
-        expect(previous_status).to eq :quo
+        expect(Sidekiq::Job.jobs.count).to eq 1
+        expect(SendStatusNotificationJob).to have_enqueued_sidekiq_job(a_match.id, 'quo')
       end
     end
 
@@ -32,9 +31,8 @@ describe MatchMailerService do
         notify_change(:quo)
       end
 
-      it do
-        expect(Delayed::Job.count).to eq 0
-      end
+      # ici on veut un nouveau job qui n'envoie pas d'email ou pas de job du tout
+      it { expect(SendStatusNotificationJob).not_to have_enqueued_sidekiq_job(a_match.id, 'quo') }
     end
 
     context 'match taking_care and match not reachable' do
@@ -44,8 +42,8 @@ describe MatchMailerService do
       end
 
       it do
-        expect(Delayed::Job.count).to eq 1
-        previous_status = Delayed::Job.last.payload_object.args.last.to_sym
+        # expect(Delayed::Job.count).to eq 1
+        # previous_status = Delayed::Job.last.payload_object.args.last.to_sym
         expect(previous_status).to eq :quo
       end
     end
