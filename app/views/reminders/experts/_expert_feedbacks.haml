@@ -4,9 +4,10 @@
   -# On affiche les 2 premiers commentaires, les autres sont dépliables
   - if expert.reminder_feedbacks.size > 2
     - remaining_feedbacks = feedbacks.offset(2)
-    %section.fr-accordion
-      %h4.fr-accordion__title
-      %button.fr-accordion__btn.fr-text--sm{ aria: { expanded: "false", controls: "hidden-feedbacks-#{expert.id}" } }
-        = t('.see_remaining_feedbacks', count: remaining_feedbacks.size)
-    .fr-collapse.fr-pt-2w{ id: "hidden-feedbacks-#{expert.id}" }
-      = render partial: 'feedbacks/feedback', collection: remaining_feedbacks
+    - if remaining_feedbacks.size > 0
+      %section.fr-accordion
+        %h4.fr-accordion__title
+          %button.fr-accordion__btn.fr-text--sm{ aria: { expanded: "false", controls: "hidden-feedbacks-#{expert.id}" } }
+            = t('.see_remaining_feedbacks', count: remaining_feedbacks.size)
+      .fr-collapse.fr-pt-2w{ id: "hidden-feedbacks-#{expert.id}" }
+        = render partial: 'feedbacks/feedback', collection: remaining_feedbacks

@@ -3,7 +3,7 @@
 .fr-container
   #company-show
     - if policy(@diagnosis).new?
-      = form_with model: @diagnosis, local: true do |form|
+      = form_with model: @diagnosis, url: conseiller_diagnoses_path, local: true do |form|
         = form.hidden_field :solicitation_id
         = form.fields_for :facility do |facility_form|
           = facility_form.hidden_field :siret, value: @facility.siret

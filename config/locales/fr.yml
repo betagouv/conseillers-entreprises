@@ -139,7 +139,9 @@ fr:
   download_csv: Télécharger CSV
   errors:
     cancel_solicitation_with_email: La sollicitation ne peut pas être mise à jour (solicitation ou type d'email invalide)
+    contact: Contactez-nous
     format: "%{attribute} %{message}"
+    homepage: Page d’accuei
     manager_without_managed_antennes: Une antenne doit être attribuée à ce responsable d'antenne
     messages:
       accepted: doit être accepté(e)
@@ -256,11 +258,15 @@ fr:
   shared:
     errors:
       '404':
-        message_html: Cette page n’existe pas, ou vous n’y avez pas accès.
-        title: Erreur !
+        error: Erreur 404
+        infos: Si vous avez tapé l'adresse web dans le navigateur, vérifiez qu'elle est correcte. La page n’est peut-être plus disponible.
+        message: La page que vous cherchez est introuvable. Excusez-nous pour la gène occasionnée.
+        title: Page non trouvée
       '500':
-        message_html: Cette erreur était inattendue…<br/>Nous avons été prévenus de son apparition et nous allons la réparer dès que possible !
-        title: Erreur !
+        error: Erreur 500
+        info: Désolé, le service rencontre un problème, nous travaillons pour le résoudre le plus rapidement possible.
+        message: Essayez de rafraichir la page ou bien ressayez plus tard.
+        title: Erreur inattendue
   sign_in: Connexion
   submit: Envoyer
   support:

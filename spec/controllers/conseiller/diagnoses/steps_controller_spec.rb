@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-RSpec.describe Diagnoses::StepsController do
-  login_user
+RSpec.describe Conseiller::Diagnoses::StepsController do
+  login_admin
 
   let(:diagnosis) { create :diagnosis, advisor: advisor }
   let(:advisor) { current_user }

@@ -4,54 +4,55 @@
       %h2= [solicitation.to_s, solicitation.full_name].join(' - ')
       %span.subtitle= I18n.l(solicitation.completed_at, format: :long)
     = render 'solicitation_badges', solicitation: solicitation
-  .fr-card__body
-    .card__info
-      .card__fields
-        - if solicitation.siret.present?
-          .item
-            = t('.siret')
-            %strong= link_to(solicitation.normalized_siret, show_with_siret_companies_path(solicitation.siret), data: { turbo: false })
-        .item
-          = t('.email')
-          %strong= mail_to(solicitation.email, solicitation.email, target: '_blank')
-        - solicitation.display_attributes.each do |attribut|
-          - if solicitation.send(attribut).present?
+  .fr-card__body.fr-text--sm
+    .fr-card__content
+      .card__info
+        .card__fields
+          - if solicitation.siret.present?
             .item
-              = Solicitation.human_attribute_name(attribut) + ' : '
-              %strong= solicitation.send(attribut)
-        - if solicitation.landing.present?
+              = t('.siret')
+              %strong= link_to(solicitation.normalized_siret, show_with_siret_companies_path(solicitation.siret), data: { turbo: false })
           .item
-            = t('.source')
-            %strong= link_to solicitation.landing.slug, landing_path(solicitation.landing)
-        - if solicitation.landing_subject.present?
-          .item
-            = t('.landing_subjects')
-            = subject_tag(solicitation, "fr-badge fr-badge--blue-ecume")
-        = display_region(solicitation.region, params[:territory])
+            = t('.email')
+            %strong= mail_to(solicitation.email, solicitation.email, target: '_blank')
+          - solicitation.display_attributes.each do |attribut|
+            - if solicitation.send(attribut).present?
+              .item
+                = Solicitation.human_attribute_name(attribut) + ' : '
+                %strong= solicitation.send(attribut)
+          - if solicitation.landing.present?
+            .item
+              = t('.source')
+              %strong= link_to solicitation.landing.slug, landing_path(solicitation.landing)
+          - if solicitation.landing_subject.present?
+            .item
+              = t('.landing_subjects')
+              = subject_tag(solicitation, "fr-badge fr-badge--blue-ecume")
+          = display_region(solicitation.region, params[:territory])
 
-      .card__meta
-        .meta__warnings
-          - if solicitation.facility&.company&.forme_exercice.present?
-            %span.meta__warnings__item= solicitation.facility.company.forme_exercice.humanize
-          - if solicitation.recent_matched_solicitations.any?
-            %span.meta__warnings__item{ title: t('.solicitation_relance_explanation') } R
-          - if solicitation.doublon_solicitations.any?
-            %span.meta__warnings__item{ title: t('.solicitation_doublon_explanation') } D
-          - if solicitation.from_no_register_company?
-            %span.meta__warnings__item{ title: t('.solicitation_no_register_company_explanation') } ?
-        - if facilities[solicitation.id].present?
-          .meta__items
-            .item= t('.needs_historic')
-            - facilities[solicitation.id].each do |facility|
-              = link_to facility[:company_name], needs_company_path(facility[:id])
-        - if solicitation.institution.present?
-          .logo-institution= institution_image(solicitation.institution.logo&.filename)
-    .card__description
-      .card__description__label= t('.description')
-      .card__description__content= simple_format(solicitation.description)
-    .card__feedbacks
-      %div{ id: "display-feedbacks-#{solicitation.id}" }
-        = render partial: 'feedbacks/feedback', collection: solicitation.feedbacks
-      = render 'feedbacks/form', feedback: solicitation.feedbacks.new(category: :solicitation)
+        .card__meta
+          .meta__warnings
+            - if solicitation.facility&.company&.forme_exercice.present?
+              %span.meta__warnings__item= solicitation.facility.company.forme_exercice.humanize
+            - if solicitation.recent_matched_solicitations.any?
+              %span.meta__warnings__item{ title: t('.solicitation_relance_explanation') } R
+            - if solicitation.doublon_solicitations.any?
+              %span.meta__warnings__item{ title: t('.solicitation_doublon_explanation') } D
+            - if solicitation.from_no_register_company?
+              %span.meta__warnings__item{ title: t('.solicitation_no_register_company_explanation') } ?
+          - if facilities[solicitation.id].present?
+            .meta__items
+              .item= t('.needs_historic')
+              - facilities[solicitation.id].each do |facility|
+                = link_to facility[:company_name], needs_company_path(facility[:id])
+          - if solicitation.institution.present?
+            .logo-institution= institution_image(solicitation.institution.logo&.filename)
+      .card__description
+        .card__description__label= t('.description')
+        .card__description__content= simple_format(solicitation.description)
+      .card__feedbacks
+        %div{ id: "display-feedbacks-#{solicitation.id}" }
+          = render partial: 'feedbacks/feedback', collection: solicitation.feedbacks
+        = render 'feedbacks/form', feedback: solicitation.feedbacks.new(category: :solicitation)
   .card__footer
     = render 'solicitation_actions', solicitation: solicitation

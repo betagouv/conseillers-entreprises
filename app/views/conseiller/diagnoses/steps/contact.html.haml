@@ -4,7 +4,7 @@
   = render 'header', diagnosis: @diagnosis, current_page_step: 2
 
   #visit-app
-    = form_with model: @diagnosis, url: update_contact_diagnosis_path, local: true do |diagnosis_form|
+    = form_with model: @diagnosis, url: update_contact_conseiller_diagnosis_path, local: true do |diagnosis_form|
 
       - @diagnosis.visitee ||= Contact.new
       = diagnosis_form.fields_for :visitee do |contact_form|

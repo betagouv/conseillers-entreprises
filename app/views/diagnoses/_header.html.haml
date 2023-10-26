@@ -1,7 +1,0 @@
-.fr-grid-row.fr-grid-row--beetween
-  .fr-col
-    %h1= t('diagnoses.index.title')
-  .fr-col.text-right
-    = link_to t('.create_new_diagnosis'), new_diagnosis_path, class: 'fr-btn fr-btn--lg btn-green new-diagnosis'
-
-= render 'shared/breadcrumb', pages: [{ title: recipient.to_s, path: diagnoses_path }], current_page: t(collection_name, scope: 'diagnoses.collections')

@@ -32,7 +32,9 @@ module SolicitationHelper
     name = Solicitation.human_attribute_value(:status, new_status, context: :action)
     path = update_status_conseiller_solicitation_path(solicitation, status: new_status)
     classes += STATUS_ACTION_COLORS[new_status.to_sym]
-    link_to name, path, method: :post, remote: true, class: classes.join(' ')
+    tag.li class: 'fr-menu__item' do
+      link_to name, path, method: :post, remote: true, class: classes.join(' ')
+    end
   end
 
   def subject_tag(solicitation, classes = %[])
@@ -54,7 +56,7 @@ module SolicitationHelper
       t('helpers.solicitation.analysis_in_progress', step: diagnosis.human_attribute_value(:step))
     end
 
-    link_to text, diagnosis, class: 'ui item'
+    link_to text, [:conseiller, diagnosis], class: 'button'
   end
 
   def possible_territories_options(territories = Territory.regions)
