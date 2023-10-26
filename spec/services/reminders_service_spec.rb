@@ -11,8 +11,8 @@ describe RemindersService do
       # Multiple expects en un bloc pour gagner du temps d'exécution
       describe 'create correct baskets' do
         it do
-          # expect(RemindersRegister.many_pending_needs_basket.map(&:expert)).to contain_exactly(expert_with_many_old_quo_matches)
-          # expect(RemindersRegister.medium_pending_needs_basket.map(&:expert)).to contain_exactly(expert_with_medium_old_quo_matches)
+          expect(RemindersRegister.many_pending_needs_basket.map(&:expert)).to contain_exactly(expert_with_many_old_quo_matches)
+          expect(RemindersRegister.medium_pending_needs_basket.map(&:expert)).to contain_exactly(expert_with_medium_old_quo_matches)
           expect(RemindersRegister.one_pending_need_basket.map(&:expert)).to contain_exactly(expert_with_one_quo_match_1, expert_with_one_old_quo_match)
         end
       end
