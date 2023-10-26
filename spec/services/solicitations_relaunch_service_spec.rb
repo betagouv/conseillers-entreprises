@@ -22,12 +22,4 @@ describe SolicitationsRelaunchService do
       is_expected.to match_array(solicitations_to_relaunch)
     end
   end
-
-  describe '#send_emails' do
-    before { described_class.send_emails(solicitations_to_relaunch) }
-
-    it 'send emails to solicitations not completed' do
-      expect(ActionMailer::Base.deliveries.count).to eq 2
-    end
-  end
 end

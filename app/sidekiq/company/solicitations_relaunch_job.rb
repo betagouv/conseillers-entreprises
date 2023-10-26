@@ -3,7 +3,7 @@ class Company::SolicitationsRelaunchJob
   sidekiq_options queue: 'low_priority'
 
   def perform
-    solicitations = find_not_completed_solicitations
+    solicitations = SolicitationsRelaunchService.new.find_not_completed_solicitations
     send_emails(solicitations)
   end
 
