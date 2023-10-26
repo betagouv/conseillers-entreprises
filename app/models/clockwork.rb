@@ -4,7 +4,7 @@ require './config/environment'
 
 module Clockwork
   every(1.week, 'send_experts_reminders', at: 'Tuesday 9:00', tz: 'UTC') do
-    ExpertReminderService.delay(queue: :low_priority).send_reminders
+    SendExpertsRemindersJob.perform_async
   end
   every(1.week, 'anonymize_old_diagnoses', at: 'sunday 5:00', tz: 'UTC') do
     `rake anonymize_old_diagnoses`
