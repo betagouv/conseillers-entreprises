@@ -62,3 +62,4 @@ pickle-email-*.html
 yarn-debug.log*
 .yarn-integrity
 /storage
+!/dump.rdb
