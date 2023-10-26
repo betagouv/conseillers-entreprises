@@ -377,12 +377,12 @@ fr:
         accepted_naf_codes: codes naf acceptés
         effectif_max: effectif maximum
         effectif_min: effectif minimum
-        excluded_naf_codes: codes naf rejetés
+        excluded_legal_forms: codes forme juridique rejetés (niveau 1)
         max_years_of_existence: ancienneté maximum (en année)
         min_years_of_existence: ancienneté minimum (en année)
         raw_accepted_legal_forms: codes forme juridique acceptés (niveau 1)
         raw_accepted_naf_codes: codes naf acceptés
-        raw_excluded_naf_codes: codes naf rejetés
+        raw_excluded_legal_forms: codes forme juridique rejetés (niveau 1)
       need:
         subject: Sujet
       need/statuses:

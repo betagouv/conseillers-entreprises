@@ -93,56 +93,37 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
 
       let!(:difficulte_subject) { create :subject }
-      let(:match_filter_accepting_naf_codes) { create :match_filter, accepted_naf_codes: ['1101Z', '1102A', '1102B'], subjects: [difficulte_subject] }
-      let(:match_filter_excluding_naf_codes) { create :match_filter, excluded_naf_codes: ['9001Z'], subjects: [difficulte_subject] }
-      let!(:es_including) { create :expert_subject }
-      let!(:es_excluding) { create :expert_subject }
+      let(:match_filter_01) { create :match_filter, accepted_naf_codes: ['1101Z', '1102A', '1102B'], subjects: [difficulte_subject] }
+      let!(:es_01) { create :expert_subject }
 
-      before do
-        es_including.expert.antenne.match_filters << match_filter_accepting_naf_codes
-        es_excluding.expert.antenne.match_filters << match_filter_excluding_naf_codes
-      end
+      before { es_01.expert.antenne.match_filters << match_filter_01 }
 
       context 'matching subject only' do
         let(:need_subject) { difficulte_subject }
         let(:facility) { create :facility, naf_code: '2202A' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_excluding) }
-      end
-
-      context 'matching included naf only' do
-        let(:need_subject) { create :subject }
-        let(:facility) { create :facility, naf_code: '1102A' }
-
-        it { is_expected.to contain_exactly(es_temoin, es_including, es_excluding) }
-      end
-
-      context 'matching excluded naf only' do
-        let(:need_subject) { create :subject }
-        let(:facility) { create :facility, naf_code: '9001Z' }
-
-        it { is_expected.to contain_exactly(es_temoin, es_including, es_excluding) }
-      end
-
-      context 'matching included naf and subject' do
-        let(:need_subject) { difficulte_subject }
-        let(:facility) { create :facility, naf_code: '1102A' }
-
-        it { is_expected.to contain_exactly(es_temoin, es_including, es_excluding) }
-      end
-
-      context 'matching excluded naf and subject' do
-        let(:need_subject) { difficulte_subject }
-        let(:facility) { create :facility, naf_code: '9001Z' }
-
         it { is_expected.to contain_exactly(es_temoin) }
+      end
+
+      context 'matching naf only' do
+        let(:need_subject) { create :subject }
+        let(:facility) { create :facility, naf_code: '1102A' }
+
+        it { is_expected.to contain_exactly(es_temoin, es_01) }
+      end
+
+      context 'matching naf and subject' do
+        let(:need_subject) { difficulte_subject }
+        let(:facility) { create :facility, naf_code: '1102A' }
+
+        it { is_expected.to contain_exactly(es_temoin, es_01) }
       end
 
       context 'matching nothing' do
         let(:need_subject) { create :subject }
         let(:facility) { create :facility, naf_code: '2202A' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_including, es_excluding) }
+        it { is_expected.to contain_exactly(es_temoin, es_01) }
       end
     end
 
@@ -155,36 +136,56 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
       let!(:difficulte_subject) { create :subject }
       let(:match_filter_01) { create :match_filter, accepted_legal_forms: %w[4 6], subjects: [difficulte_subject] }
-      let!(:es_01) { create :expert_subject }
+      let(:match_filter_excluding_legal_forms) { create :match_filter, excluded_legal_forms: %w[5], subjects: [difficulte_subject] }
 
-      before { es_01.expert.antenne.match_filters << match_filter_01 }
+      let!(:es_including) { create :expert_subject }
+      let!(:es_excluding) { create :expert_subject }
+
+      before do
+        es_including.expert.antenne.match_filters << match_filter_01
+        es_excluding.expert.antenne.match_filters << match_filter_excluding_legal_forms
+      end
 
       context 'matching subject only' do
         let(:need_subject) { difficulte_subject }
         let(:company) { create :company, legal_form_code: '1000' }
 
-        it { is_expected.to contain_exactly(es_temoin) }
+        it { is_expected.to contain_exactly(es_temoin, es_excluding) }
       end
 
-      context 'matching legal form only' do
+      context 'matching accepted legal form only' do
         let(:need_subject) { create :subject }
         let(:company) { create :company, legal_form_code: '6533' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_01) }
+        it { is_expected.to contain_exactly(es_temoin, es_including, es_excluding) }
       end
 
-      context 'matching legal form and subject' do
+      context 'matching excluded legal form only' do
+        let(:need_subject) { create :subject }
+        let(:company) { create :company, legal_form_code: '5499' }
+
+        it { is_expected.to contain_exactly(es_temoin, es_including, es_excluding) }
+      end
+
+      context 'matching accepted legal form and subject' do
         let(:need_subject) { difficulte_subject }
         let(:company) { create :company, legal_form_code: '6533' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_01) }
+        it { is_expected.to contain_exactly(es_temoin, es_including, es_excluding) }
+      end
+
+      context 'matching excluded naf and subject' do
+        let(:need_subject) { difficulte_subject }
+        let(:company) { create :company, legal_form_code: '5499' }
+
+        it { is_expected.to contain_exactly(es_temoin) }
       end
 
       context 'matching nothing' do
         let(:need_subject) { create :subject }
         let(:company) { create :company, legal_form_code: '1000' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_01) }
+        it { is_expected.to contain_exactly(es_temoin, es_including, es_excluding) }
       end
     end
 

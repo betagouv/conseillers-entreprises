@@ -59,8 +59,8 @@ module CreateDiagnosis
         accepting_years_of_existence(match_filter),
         accepting_effectif(match_filter),
         accepting_naf_codes(match_filter),
-        excluding_naf_codes(match_filter),
-        accepting_legal_forms_codes(match_filter)
+        accepting_legal_forms_codes(match_filter),
+        excluding_legal_forms_codes(match_filter),
       ]
       base_filters.reduce(:&)
     end
@@ -124,16 +124,16 @@ module CreateDiagnosis
       match_filter.accepted_naf_codes.include?(facility.naf_code)
     end
 
-    def excluding_naf_codes(match_filter)
-      return true if match_filter.excluded_naf_codes.blank?
-      match_filter.excluded_naf_codes.exclude?(facility.naf_code)
-    end
-
     # Forme juridique
 
     def accepting_legal_forms_codes(match_filter)
       return true if match_filter.accepted_legal_forms.blank?
       match_filter.accepted_legal_forms.include?(company.legal_form_code&.first)
+    end
+
+    def excluding_legal_forms_codes(match_filter)
+      return true if match_filter.excluded_legal_forms.blank?
+      match_filter.excluded_legal_forms.exclude?(company.legal_form_code&.first)
     end
 
     # Helpers -------------------------------
