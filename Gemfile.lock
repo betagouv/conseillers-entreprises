@@ -107,9 +107,9 @@ GEM
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
-    arbre (1.6.0)
-      activesupport (>= 3.0.0, < 7.1)
-      ruby2_keywords (>= 0.0.2, < 1.0)
+    arbre (1.7.0)
+      activesupport (>= 3.0.0)
+      ruby2_keywords (>= 0.0.2)
     ast (2.4.2)
     auto_strip_attributes (2.6.0)
       activerecord (>= 4.0)
@@ -268,7 +268,7 @@ GEM
       rainbow
       rubocop (>= 1.0)
       sysexits (~> 1.1)
-    has_scope (0.8.1)
+    has_scope (0.8.2)
       actionpack (>= 5.2)
       activesupport (>= 5.2)
     hashdiff (1.0.1)
@@ -299,11 +299,11 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
     ice_nine (0.11.2)
-    inherited_resources (1.13.1)
-      actionpack (>= 5.2, < 7.1)
-      has_scope (~> 0.6)
-      railties (>= 5.2, < 7.1)
-      responders (>= 2, < 4)
+    inherited_resources (1.14.0)
+      actionpack (>= 6.0)
+      has_scope (>= 0.6)
+      railties (>= 6.0)
+      responders (>= 2)
     ip_anonymizer (0.2.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
@@ -363,7 +363,7 @@ GEM
     msgpack (1.7.2)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
-    net-imap (0.4.1)
+    net-imap (0.4.2)
       date
       net-protocol
     net-pop (0.1.2)
@@ -472,7 +472,7 @@ GEM
       mail
     redis (4.8.1)
     regexp_parser (2.8.2)
-    responders (3.1.0)
+    responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.2.6)
@@ -512,7 +512,7 @@ GEM
     rswag-ui (2.10.1)
       actionpack (>= 3.1, < 7.1)
       railties (>= 3.1, < 7.1)
-    rubocop (1.57.0)
+    rubocop (1.57.1)
       base64 (~> 0.1.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -617,7 +617,7 @@ GEM
       unicode-display_width (>= 1.1.1, < 3)
     terser (1.1.17)
       execjs (>= 0.3.0, < 3)
-    thor (1.2.2)
+    thor (1.3.0)
     thread_safe (0.3.6)
     tilt (2.2.0)
     timeout (0.4.0)
@@ -780,4 +780,4 @@ RUBY VERSION
    ruby 3.1.2p20
 
 BUNDLED WITH
-   2.3.23
+   2.4.21
