@@ -135,8 +135,8 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
 
       let!(:difficulte_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, accepted_legal_forms: %w[4 6], subjects: [difficulte_subject] }
-      let(:match_filter_excluding_legal_forms) { create :match_filter, excluded_legal_forms: %w[5], subjects: [difficulte_subject] }
+      let(:match_filter_01) { create :match_filter, accepted_legal_forms: %w[4160 6533 6534], subjects: [difficulte_subject] }
+      let(:match_filter_excluding_legal_forms) { create :match_filter, excluded_legal_forms: %w[5499], subjects: [difficulte_subject] }
 
       let!(:es_including) { create :expert_subject }
       let!(:es_excluding) { create :expert_subject }
