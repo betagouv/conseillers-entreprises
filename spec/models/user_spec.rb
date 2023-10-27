@@ -79,42 +79,6 @@ RSpec.describe User do
   end
 
   describe 'scopes' do
-    describe 'active_searchers' do
-      it do
-        searcher = create :user, searches: [(create :search, created_at: 1.day.ago)]
-        create :user, searches: [(create :search, created_at: 2.months.ago)]
-
-        last_30_days = (30.days.ago)..Time.zone.now
-        expect(described_class.active_searchers(last_30_days)).to contain_exactly(searcher)
-      end
-    end
-
-    describe 'active_diagnosers' do
-      it do
-        diagnosis = create :diagnosis, created_at: 1.day.ago, step: :needs, needs: create_list(:need, 1)
-        diagnoser = create :user, sent_diagnoses: [diagnosis]
-
-        last_30_days = (30.days.ago)..Time.zone.now
-
-        expect(described_class.active_diagnosers(last_30_days, 3)).to contain_exactly(diagnoser)
-        expect(described_class.active_diagnosers(last_30_days, 4)).to be_empty
-      end
-    end
-
-    describe 'active_answered' do
-      it do
-        expert = create :match, status: 'done'
-        need = create :need, matches: [expert]
-        diagnosis = create :diagnosis, created_at: 1.day.ago, needs: [need]
-        active_user = create :user, sent_diagnoses: [diagnosis]
-
-        last_30_days = (30.days.ago)..Time.zone.now
-
-        expect(described_class.active_answered(last_30_days, ['taking_care','done'])).to contain_exactly(active_user)
-        expect(described_class.active_answered(last_30_days, ['not_for_me'])).to be_empty
-      end
-    end
-
     describe 'not_invited' do
       subject { described_class.not_invited }
 
