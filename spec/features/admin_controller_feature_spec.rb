@@ -86,8 +86,6 @@ describe 'admin panel' do
       current_user.user_rights.create(category: 'admin')
       visit '/admin'
 
-      match.need.diagnosis.archive!
-
       click_link 'Mises en relation'
     end
 
