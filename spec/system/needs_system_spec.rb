@@ -21,9 +21,6 @@ describe 'needs' do
   let!(:need_done) do
     create(:need, matches: [create(:match, expert: current_expert, status: :done)])
   end
-  let!(:need_archived) do
-    create(:need, matches: [create(:match, expert: current_expert, status: :quo)], archived_at: Time.zone.now)
-  end
   let!(:need_other_done) do
     create(:need, diagnosis: diagnosis, matches: [
       create(:match, expert: current_expert, status: :quo),

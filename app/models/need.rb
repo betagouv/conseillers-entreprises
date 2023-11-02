@@ -4,7 +4,6 @@
 #
 #  id                      :bigint(8)        not null, primary key
 #  abandoned_email_sent    :boolean          default(FALSE)
-#  archived_at             :datetime
 #  content                 :text
 #  matches_count           :integer
 #  retention_sent_at       :datetime
@@ -17,7 +16,6 @@
 #
 # Indexes
 #
-#  index_needs_on_archived_at                  (archived_at)
 #  index_needs_on_diagnosis_id                 (diagnosis_id)
 #  index_needs_on_status                       (status)
 #  index_needs_on_subject_id                   (subject_id)
@@ -131,13 +129,11 @@ class Need < ApplicationRecord
   scope :reminders_to, -> (action) do
     if action == :abandon
       diagnosis_completed
-        .archived(false)
         .where(status: :not_for_me)
         .without_action(action)
 
     else # :poke and :last_chance
       diagnosis_completed
-        .archived(false)
         .status_quo
         .in_reminders_range(action)
         .without_action(action)
@@ -149,6 +145,11 @@ class Need < ApplicationRecord
       .joins(:reminders_actions)
       .where(reminders_actions: { category: category })
     where.not(id: subquery)
+  end
+
+  scope :with_action, -> (category) do
+    joins(:reminders_actions)
+      .where(reminders_actions: { category: category })
   end
 
   scope :received_by, -> (user_id) do
@@ -210,8 +211,7 @@ class Need < ApplicationRecord
 
   # Utilisé pour les mails de relance
   scope :active, -> do
-    archived(false)
-      .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
+    with_matches_only_in_status([:quo, :taking_care, :not_for_me])
       .with_some_matches_in_status([:quo, :taking_care])
   end
 
