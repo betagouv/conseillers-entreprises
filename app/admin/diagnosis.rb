@@ -27,15 +27,9 @@ ActiveAdmin.register Diagnosis do
     column(:commune) { |d| d.facility.readable_locality || d.facility.commune }
     column :created_at
     column :step
-    column :is_archived do |d|
-      status_tag t('archivable.archive_done') if d.is_archived
-    end
     column :needs do |d|
       div admin_link_to(d, :needs)
       div admin_link_to(d, :matches)
-    end
-    actions dropdown: true do |d|
-      index_row_archive_actions(d)
     end
   end
 
@@ -46,8 +40,6 @@ ActiveAdmin.register Diagnosis do
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
 
-  filter :archived_in, as: :boolean, label: I18n.t('attributes.is_archived')
-
   ## CSV
   #
   csv do
@@ -57,7 +49,6 @@ ActiveAdmin.register Diagnosis do
     column :advisor
     column :created_at
     column :step
-    column :is_archived
     column_count :needs
     column_count :matches
   end
@@ -74,7 +65,6 @@ ActiveAdmin.register Diagnosis do
       row(:visitee) { |d| d.visitee }
       row :content
       row :step
-      row :archived_at
       row(:needs) do |d|
         div admin_link_to(d, :needs)
         div admin_link_to(d, :needs, list: true)

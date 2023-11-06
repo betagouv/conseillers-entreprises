@@ -44,12 +44,6 @@ RSpec.describe TerritoryNeedsStatus do
     let!(:need_done_outside) do
       create(:need, matches: [create(:match, expert: expert_outside, status: :done)])
     end
-    let!(:need_archived_inside) do
-      create(:need, matches: [create(:match, expert: expert_inside, status: :quo)], archived_at: Time.zone.now)
-    end
-    let!(:need_archived_outside) do
-      create(:need, matches: [create(:match, expert: expert_outside, status: :quo)], archived_at: Time.zone.now)
-    end
     let!(:need_expired_inside) do
       create(:need, matches: [create(:match, expert: expert_inside, status: :quo, created_at: 46.days.ago)])
     end
@@ -85,12 +79,6 @@ RSpec.describe TerritoryNeedsStatus do
       subject { antenne_inside_regional.territory_needs_done }
 
       it { is_expected.to contain_exactly(need_done_inside) }
-    end
-
-    describe 'needs_archived' do
-      subject { antenne_inside_regional.territory_needs_archived }
-
-      it { is_expected.to contain_exactly(need_archived_inside) }
     end
 
     describe 'needs_expired' do

@@ -19,10 +19,6 @@ FactoryBot.define do
       end
     end
 
-    trait :archived do
-      archived_at { Time.now }
-    end
-
     after(:create) do |diagnosis, _|
       if diagnosis.matches.present?
         diagnosis.update_columns(step: :completed)

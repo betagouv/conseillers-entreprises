@@ -158,36 +158,6 @@ class User < ApplicationRecord
   # This can reasonably happen when expert teams are reorganized.
   scope :without_experts, -> { where.missing(:experts) }
 
-  # Activity
-  scope :active_searchers, -> (date) do
-    joins(:searches)
-      .merge(Search.where(created_at: date))
-      .distinct
-  end
-
-  scope :active_diagnosers, -> (date, minimum_step) do
-    joins(:sent_diagnoses)
-      .merge(Diagnosis.archived(false)
-                      .where(created_at: date)
-                      .after_step(minimum_step))
-      .distinct
-  end
-
-  scope :active_matchers, -> (date) do
-    joins(sent_diagnoses: [needs: :matches])
-      .merge(Diagnosis.archived(false)
-                      .where(created_at: date))
-      .distinct
-  end
-
-  scope :active_answered, -> (date, status) do
-    joins(sent_diagnoses: [needs: :matches])
-      .merge(Match
-               .where(taken_care_of_at: date)
-               .where(status: status))
-      .distinct
-  end
-
   ## Relevant Experts stuff
   # User objects fetched through this scope have an additional attribute :relevant_expert_id
   # Note: This scope will return DUPLICATE ROWS FOR THE SAME USER, if there are several relevant experts.)

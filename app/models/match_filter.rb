@@ -7,6 +7,7 @@
 #  accepted_naf_codes     :string           is an Array
 #  effectif_max           :integer
 #  effectif_min           :integer
+#  excluded_legal_forms   :string           is an Array
 #  max_years_of_existence :integer
 #  min_years_of_existence :integer
 #  created_at             :datetime         not null
