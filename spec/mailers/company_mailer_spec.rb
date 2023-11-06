@@ -26,7 +26,7 @@ describe CompanyMailer do
   end
 
   describe '#solicitation_relaunch_company' do
-    subject(:mail) { described_class.solicitation_relaunch_company(a_match).deliver_now }
+    subject(:mail) { described_class.solicitation_relaunch_company(solicitation).deliver_now }
 
     let(:solicitation) { create :solicitation }
 

@@ -16,7 +16,7 @@ describe SolicitationsRelaunchService do
   let(:solicitations_to_relaunch) { [solicitation2, solicitation3] }
 
   describe '#find_not_completed_solicitations' do
-    subject { described_class.find_not_completed_solicitations }
+    subject { described_class.new.find_not_completed_solicitations }
 
     it 'find not completed solicitations' do
       is_expected.to match_array(solicitations_to_relaunch)

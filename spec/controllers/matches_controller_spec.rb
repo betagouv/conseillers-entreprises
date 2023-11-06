@@ -23,8 +23,8 @@ RSpec.describe MatchesController do
 
         expect(response).to be_successful
         expect(match.reload.status_taking_care?).to be true
-        expect(Delayed::Backend::ActiveRecord::Job.count).to eq 1
-        expect(Delayed::Backend::ActiveRecord::Job.last.queue).to eq 'match_notify'
+        expect(Sidekiq::Worker.jobs.count).to eq 1
+        expect(Sidekiq::Worker.jobs.last['queue']).to eq 'match_notify'
       end
     end
 
@@ -37,8 +37,8 @@ RSpec.describe MatchesController do
 
         expect(response).to be_successful
         expect(match.reload.status_taking_care?).to be true
-        expect(Delayed::Backend::ActiveRecord::Job.count).to eq 1
-        expect(Delayed::Backend::ActiveRecord::Job.last.queue).to eq 'match_notify'
+        expect(Sidekiq::Worker.jobs.count).to eq 1
+        expect(Sidekiq::Worker.jobs.last['queue']).to eq 'match_notify'
       end
     end
 
@@ -50,7 +50,7 @@ RSpec.describe MatchesController do
 
         expect(response).to be_successful
         expect(match.reload.status_taking_care?).to be true
-        expect(Delayed::Backend::ActiveRecord::Job.count).to eq 0
+        expect(Sidekiq::Worker.jobs.count).to eq 0
       end
     end
   end
