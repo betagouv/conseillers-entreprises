@@ -38,6 +38,6 @@ describe 'Pages' do
     click_button 'Filtrer'
     expect(page).to have_select 'territory'
     click_link 'Plan du site'
-    expect(page).to have_content(Landing.first.title)
+    expect(page).to have_content(Landing.first.landing_themes.first.title)
   end
 end
