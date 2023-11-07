@@ -40,16 +40,16 @@ class RemindersService
     old_quo_matches = quo_matches.where(sent_at: ..MATCHES_AGE[:old])
     quo_matches_size = quo_matches.size
     has_old_quo_matches = (old_quo_matches.size >= MATCHES_COUNT[:quo])
-    # Panier avec plus de 5 besoins en attentes dont 2 superieur à 15 jours
+    # Poulet : Panier avec plus de 5 besoins en attentes dont 2 superieur à 15 jours
     basket = if has_old_quo_matches &&
       (quo_matches_size > MATCHES_COUNT[:many])
       :many_pending_needs
-      # Panier entre 2 et 5 besoins en attentes dont 2 superieur à 15 jours
+    # Poule : Panier entre 2 et 5 besoins en attentes dont 2 superieur à 15 jours
     elsif has_old_quo_matches &&
-      (quo_matches_size > MATCHES_COUNT[:medium]) &&
+      (quo_matches_size >= MATCHES_COUNT[:medium]) &&
       (quo_matches_size <= MATCHES_COUNT[:many])
       :medium_pending_needs
-      # Panier avec un nouveau besoin en attente et le dernier besoin recu avant est vieux de + de 3 mois
+    # Poussin : Panier avec un nouveau besoin en attente et le dernier besoin recu avant est vieux de + de 3 mois
     elsif (old_quo_matches.size < MATCHES_COUNT[:medium] && quo_matches.present?) &&
       (latest_received_match_at(expert).present? && (latest_received_match_at(expert) <= MATCHES_AGE[:prehistorical]))
       :one_pending_need

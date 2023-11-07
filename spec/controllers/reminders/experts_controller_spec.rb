@@ -19,7 +19,7 @@ RSpec.describe Reminders::ExpertsController do
     describe '#GET medium_pending_needs' do
       before { get :medium_pending_needs }
 
-      it { expect(assigns(:active_experts)).to contain_exactly(expert_with_medium_old_quo_matches) }
+      it { expect(assigns(:active_experts)).to contain_exactly(expert_with_medium_old_quo_matches, expert_with_only_old_quo_matches) }
     end
 
     describe '#GET one_pending_need' do
