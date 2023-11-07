@@ -35,6 +35,10 @@ class MatchFilter < ApplicationRecord
     accepted_naf_codes&.join(' ')
   end
 
+  def raw_excluded_legal_forms
+    excluded_legal_forms&.join(' ')
+  end
+
   def raw_accepted_legal_forms
     accepted_legal_forms&.join(' ')
   end
@@ -47,5 +51,10 @@ class MatchFilter < ApplicationRecord
   def raw_accepted_legal_forms=(legal_form_code)
     updated_legal_form_code = legal_form_code.split(/[,\s]/).delete_if(&:empty?)
     self.accepted_legal_forms = updated_legal_form_code
+  end
+
+  def raw_excluded_legal_forms=(legal_form_code)
+    updated_legal_form_code = legal_form_code.split(/[,\s]/).delete_if(&:empty?)
+    self.excluded_legal_forms = updated_legal_form_code
   end
 end
