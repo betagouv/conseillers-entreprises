@@ -966,6 +966,9 @@ fr:
       downcase: lettre minuscule
       special: caractère spécial
       uppercase: lettre majuscule
+  sitemap:
+    accueil: Principales thématiques
+    contactez-nous: Autres thématiques
   solicitation:
     provenance_categories:
       api: API
