@@ -12,6 +12,10 @@
   table
     border-spacing: 0
     border-top: 0.125rem solid $grey
+  thead
+    position: sticky
+    inset-block-start: 0
+    z-index: 1
   td, th
     padding: 0.75rem
     text-align: left
@@ -27,6 +31,15 @@
     &.td-header
       left: 0
       position: sticky
+    &.td-header--antenne
+      width: 120px
+      left: 0
+    &.td-header--expert
+      width: 120px
+      left: 110px
+    &.td-header--user
+      left: 230px
+      border-right: 0.125rem solid $grey
     &.yellow
       background: #fff9d2
       color: #B58105
@@ -54,7 +67,6 @@
       background: $orange-lighter
       color: $orange
   th, td.td-header
-    position: sticky
     top: 0
     border-left: 0.125rem solid $grey
     border-bottom: 0.125rem solid $grey
@@ -65,8 +77,6 @@
     z-index: 0
   th:last-child
     border-right: 0.125rem solid $grey
-  th
-    z-index: 1
   // sticky header
   thead tr.subjects th
     top: 64px
@@ -78,10 +88,8 @@
     background: rgba(0,0,0,0.02)
     .td-header
       background-color: darken($fr-beige, 2%)
-  td.td-user
-    border-right: 0.125rem solid $grey
   .tr--distinct:not(:first-child) td
-    border-top: 4px solid $grey-light
+    border-top: 5px solid $grey
   tr.blue, tr.blue td
     background-color: $grey-blue-lighter
   img
