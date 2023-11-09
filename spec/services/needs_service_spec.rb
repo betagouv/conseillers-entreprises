@@ -56,7 +56,7 @@ describe NeedsService do
         expect(need4.reload.is_abandoned?).to be false
         expect(need5.reload.is_abandoned?).to be false
         expect(need6.reload.is_abandoned?).to be false
-        expect(ActionMailer::Base.deliveries.count).to eq 1
+        assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
       end
     end
 
@@ -86,7 +86,7 @@ describe NeedsService do
         expect(need2.reload.is_abandoned?).to be true
         expect(need3.reload.is_abandoned?).to be false
         expect(need4.reload.is_abandoned?).to be false
-        expect(ActionMailer::Base.deliveries.count).to eq 1
+        expect(enqueued_jobs.count).to eq 1
       end
     end
   end

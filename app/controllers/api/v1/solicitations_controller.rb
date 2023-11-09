@@ -5,7 +5,7 @@ class Api::V1::SolicitationsController < Api::V1::BaseController
       @solicitation = Solicitation.new(params)
       if @solicitation.complete!
         ActiveRecord::Base.transaction do
-          PrepareSolicitationDiagnosisJob.perform_async(@solicitation.id)
+          PrepareSolicitationDiagnosisJob.perform_later(@solicitation.id)
           CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
           render json: @solicitation, serializer: serializer, status: 200
         end

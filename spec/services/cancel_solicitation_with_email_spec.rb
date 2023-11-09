@@ -15,7 +15,7 @@ describe CancelSolicitationWithEmail do
         expect(solicitation.badges.size).to eq 1
         expect(solicitation.badges.first.title).to eq I18n.t(email_type, scope: 'solicitations.solicitation_actions.emails')
         expect(solicitation.status).to eq 'canceled'
-        expect(ActionMailer::Base.deliveries.count).to eq 1
+        assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
       end
     end
 

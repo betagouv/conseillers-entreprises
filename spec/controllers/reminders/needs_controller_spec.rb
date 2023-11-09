@@ -11,7 +11,7 @@ RSpec.describe Reminders::NeedsController do
     before { post :send_abandoned_email, params: { id: need.id } }
 
     it 'send email and set abandoned_email_sent' do
-      expect(ActionMailer::Base.deliveries.count).to eq 1
+      assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
       expect(need.reload.is_abandoned?).to be false
     end
   end
@@ -52,7 +52,8 @@ RSpec.describe Reminders::NeedsController do
     before { post :send_last_chance_email, params: { id: need.id } }
 
     it 'send email only for quo match and add a feedback' do
-      expect(ActionMailer::Base.deliveries.count).to eq 1
+      assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
+      assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
       expect(Feedback.where(feedbackable_id: match1.need.id).count).to eq 1
     end
   end

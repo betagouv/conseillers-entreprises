@@ -20,7 +20,7 @@ describe AntenneCoverage::DeduplicatedJob do
       antenne.update(communes: [beaufay])
       expect(Sidekiq::Job.jobs.count).to eq 1
       expect(Sidekiq::Job.jobs.last['args']).to eq [antenne.id]
-      second_job = Delayed::Job.first
+      second_job = Sidekiq::Job.jobs.first
       expect(first_job).to eq second_job
     end
   end

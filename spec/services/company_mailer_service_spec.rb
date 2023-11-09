@@ -40,7 +40,7 @@ describe CompanyMailerService do
     let!(:need_9) { create :need_with_matches, created_at: seven_months_ago }
 
     xit 'enqueues 3 mailer job' do
-      expect(ActionMailer::Base.deliveries.count).to eq 3
+      assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
     end
 
     xit 'updates retention_email_sent' do

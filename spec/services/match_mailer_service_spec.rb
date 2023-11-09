@@ -42,7 +42,7 @@ describe MatchMailerService do
       end
 
       it do
-        expect(Sidekiq::Job.jobs.count).to eq 1
+        expect(enqueued_jobs.count).to eq 1
         previous_status = Delayed::Job.last.payload_object.args.last.to_sym
         expect(previous_status).to eq :quo
       end

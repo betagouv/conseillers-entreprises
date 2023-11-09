@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'simplecov'
+
 # SimpleCov.start 'rails' if ENV["COVERAGE"]
 
 ENV['RAILS_ENV'] ||= 'test'
@@ -36,6 +37,7 @@ RSpec.configure do |config|
   config.include ApiSpecHelper, type: :request
   config.include SplitHelper
   config.extend RemindersSpecHelper
+  config.include ActiveJob::TestHelper
 
   config.infer_spec_type_from_file_location!
 

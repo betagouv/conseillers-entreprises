@@ -11,7 +11,10 @@ describe QuarterlyReports::NotifyManagers do
     subject { described_class.new.call }
 
     it 'send a mail to managers' do
-      expect { subject }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      # expect { subject }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      assert_enqueued_with(job: ActionMailer::MailDeliveryJob) do
+        subject
+      end
     end
   end
 end
