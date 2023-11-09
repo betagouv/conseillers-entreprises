@@ -15,11 +15,11 @@
 // const imagePath = (name) => images(name, true)
 
 // Compatibilité navigateurs anciens dont IE11
-import "core-js/stable";
-import "whatwg-fetch";
-import "@hotwired/turbo-rails";
+// import "core-js/stable";
+// import "whatwg-fetch";
+// import "@hotwired/turbo-rails";
 
-require("@rails/ujs").start();
+// require("@rails/ujs").start();
 require('remixicon/fonts/remixicon.css')
 require('@gouvfr/dsfr/dist/dsfr.min.css')
 require('@gouvfr/dsfr/dist/utility/icons/icons.main.min.css')
@@ -27,8 +27,8 @@ require('@gouvfr/dsfr/dist/utility/colors/colors.min.css')
 require('@gouvfr/dsfr/dist/utility/colors/colors.min.css')
 require('stylesheets/application.sass')
 
-require("jquery");
-require("@selectize/selectize");
+// require("jquery");
+// require("@selectize/selectize");
 
-import "javascripts/shared";
-import "javascripts/application";
+// import "javascripts/shared";
+// import "javascripts/application";
