@@ -17,6 +17,7 @@
     "remixicon": "^3.5.0",
     "sass": "^1.66.1",
     "sass-loader": "^13.3.2",
+    "@selectize/selectize": "^0.15.2",
     "style-loader": "^3.3.3",
     "whatwg-fetch": "^3.6.17"
   },
