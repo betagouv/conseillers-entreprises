@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'system_helper'
 
-describe 'annuaire', js: true do
+describe 'annuaire', :js do
   let(:user) { create :user, :admin }
   let(:region) { create :territory, :region, code_region: 1234 }
   let(:commune) { create :commune, regions: [region] }
@@ -20,7 +20,7 @@ describe 'annuaire', js: true do
     it 'displays all institution' do
       visit 'annuaire/institutions'
 
-      expect(page).to have_selector 'h1', text: "Institutions"
+      expect(page).to have_css 'h1', text: "Institutions"
       expect(page).to have_css('.fr-table--c-annuaire', count: 1)
       expect(page).to have_css('tr', count: 3)
 
@@ -34,7 +34,7 @@ describe 'annuaire', js: true do
     it 'displays all institution subjects' do
       visit "annuaire/institutions/#{institution.slug}/domaines"
 
-      expect(page).to have_selector 'h1', text: institution.name
+      expect(page).to have_css 'h1', text: institution.name
       expect(page).to have_css('.fr-table--c-annuaire', count: 1)
     end
   end
@@ -43,7 +43,7 @@ describe 'annuaire', js: true do
     it 'displays all institution antennes' do
       visit "annuaire/institutions/#{institution.slug}/antennes"
 
-      expect(page).to have_selector 'h1', text: institution.name
+      expect(page).to have_css 'h1', text: institution.name
       expect(page).to have_css('.fr-table--c-annuaire', count: 1)
       expect(page).to have_css('tr', count: 2)
     end
@@ -62,7 +62,7 @@ describe 'annuaire', js: true do
       it 'display users without warning' do
         visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
 
-        expect(page).to have_selector 'h1', text: institution.name
+        expect(page).to have_css 'h1', text: institution.name
         expect(page).to have_css('.fr-table--c-annuaire', count: 1)
         expect(page).to have_css('.td-header.td-user', count: 1)
         expect(page).to have_css('.success-table-cell', count: 1)
@@ -92,7 +92,7 @@ describe 'annuaire', js: true do
         end
 
         it 'display users with many experts warning' do
-          expect(page).to have_selector 'h1', text: institution.name
+          expect(page).to have_css 'h1', text: institution.name
           expect(page).to have_css('.fr-table--c-annuaire', count: 1)
           expect(page).to have_css('.td-header.td-user', count: 2)
           expect(page).to have_css('.error-table-cell')
@@ -169,7 +169,7 @@ describe 'annuaire', js: true do
 
       it 'display users with no expert warning' do
         visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
-        expect(page).to have_selector 'h1', text: institution.name
+        expect(page).to have_css 'h1', text: institution.name
         expect(page).to have_css('.fr-table--c-annuaire', count: 1)
         expect(page).to have_css('.td-header.td-user', count: 1)
         expect(page).to have_css('.error-table-cell')

@@ -9,7 +9,7 @@ RSpec.describe Reminders::ExpertsController do
   describe 'Currents baskets' do
     create_experts_for_reminders
 
-    before { RemindersService.create_reminders_registers }
+    before { RemindersService.new.create_reminders_registers }
 
     describe '#GET many_pending_needs' do
       before { get :many_pending_needs }
@@ -20,7 +20,7 @@ RSpec.describe Reminders::ExpertsController do
     describe '#GET medium_pending_needs' do
       before { get :medium_pending_needs }
 
-      it { expect(assigns(:active_experts)).to contain_exactly(expert_with_medium_old_quo_matches) }
+      it { expect(assigns(:active_experts)).to contain_exactly(expert_with_medium_old_quo_matches, expert_with_only_old_quo_matches) }
     end
 
     describe '#GET one_pending_need' do
@@ -34,7 +34,7 @@ RSpec.describe Reminders::ExpertsController do
     create_registers_for_reminders
 
     before do
-      RemindersService.create_reminders_registers
+      RemindersService.new.create_reminders_registers
       expert_input_processed.reminders_registers.last.update(processed: true)
     end
 

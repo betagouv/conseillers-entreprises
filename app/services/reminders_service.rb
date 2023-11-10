@@ -2,8 +2,8 @@
 
 class RemindersService
   MATCHES_AGE = {
-    quo: 15.days.ago,
-    done: 3.months.ago
+    old: 15.days.ago,
+    prehistorical: 3.months.ago
   }
 
   MATCHES_COUNT = {
@@ -12,47 +12,51 @@ class RemindersService
     medium: 2
   }
 
-  def self.create_reminders_registers
-    experts_with_active_matches = Expert.not_deleted.with_users.with_active_matches
+  def initialize(experts = Expert.not_deleted.with_users.with_active_matches)
+    @experts_with_active_matches = experts
+  end
+
+  def create_reminders_registers
     last_run_number = RemindersRegister.last_run_number.presence || 0
     current_run = last_run_number + 1
     ActiveRecord::Base.transaction do
-      experts_with_active_matches.each do |expert|
+      @experts_with_active_matches.each do |expert|
         basket = select_basket(expert)
+        next if basket.nil?
         category = select_category(expert, last_run_number)
-        next if basket.nil? || category.nil?
+        next if category.nil?
         RemindersRegister.create!(expert: expert, basket: basket,
                                   category: category, run_number: current_run,
-                                  expired_count: expert.received_quo_matches.with_status_expired.size)
+                                  expired_count: expired_matches(expert).size)
       end
-      build_output_basket(experts_with_active_matches, last_run_number, current_run)
+      build_output_basket(last_run_number, current_run)
     end
   end
 
   private
 
-  def self.select_basket(expert)
+  def select_basket(expert)
     quo_matches = expert.received_quo_matches.with_status_quo_active
-    old_matches = quo_matches.where(sent_at: ..MATCHES_AGE[:quo])
+    old_quo_matches = quo_matches.where(sent_at: ..MATCHES_AGE[:old])
     quo_matches_size = quo_matches.size
-    has_old_matches = (old_matches.size >= MATCHES_COUNT[:quo])
+    has_old_quo_matches = (old_quo_matches.size >= MATCHES_COUNT[:quo])
     # Panier avec plus de 5 besoins en attentes dont 2 superieur à 15 jours
-    basket = if has_old_matches &&
+    basket = if has_old_quo_matches &&
       (quo_matches_size > MATCHES_COUNT[:many])
       :many_pending_needs
     # Panier entre 2 et 5 besoins en attentes dont 2 superieur à 15 jours
-    elsif has_old_matches &&
-               (quo_matches_size > MATCHES_COUNT[:medium]) &&
-               (quo_matches_size <= MATCHES_COUNT[:many])
+    elsif has_old_quo_matches &&
+      (quo_matches_size >= MATCHES_COUNT[:medium]) &&
+      (quo_matches_size <= MATCHES_COUNT[:many])
       :medium_pending_needs
-    # Panier avec un vieux besoin en attente et le dernier besoin cloturé est vieux de 3 mois
-    elsif (old_matches.size < MATCHES_COUNT[:medium] && quo_matches.present?) &&
-               (last_closed_match_at(expert).present? && (last_closed_match_at(expert) <= MATCHES_AGE[:done]))
+    # Panier avec un nouveau besoin en attente et le dernier besoin recu avant est vieux de + de 3 mois
+    elsif (old_quo_matches.size < MATCHES_COUNT[:medium] && quo_matches.present?) &&
+      (latest_received_match_at(expert).present? && (latest_received_match_at(expert) <= MATCHES_AGE[:prehistorical]))
       :one_pending_need
     end
   end
 
-  def self.select_category(expert, last_run_number)
+  def select_category(expert, last_run_number)
     last_register = expert.reminders_registers.find_by(run_number: last_run_number)
     # S'il n'y a pas de reminders_register la semaine passée ou qu'il y en a un pas vu dans les entrées
     if last_register.nil? || (last_register.present? && last_register.input_category? && !last_register.processed?)
@@ -63,11 +67,7 @@ class RemindersService
     end
   end
 
-  def self.last_closed_match_at(expert)
-    expert.received_matches.done.pluck(:sent_at).max
-  end
-
-  def self.build_output_basket(experts, last_run_number, current_run)
+  def build_output_basket(last_run_number, current_run)
     last_run_reminder_needs = RemindersRegister.where(run_number: last_run_number)
     experts_in_last_run = last_run_reminder_needs.where(category: [:input, :remainder]).map(&:expert)
     experts_in_current_run = RemindersRegister.where(run_number: current_run).map(&:expert)
@@ -80,7 +80,7 @@ class RemindersService
 
     expert_for_outputs.each do |expert|
       last_run_register = expert.reminders_registers.find_by(run_number: last_run_number)
-      current_expired_count = expert.received_quo_matches.not_archived.with_status_expired.size
+      current_expired_count = expired_matches(expert).size
       # On considère que la sortie est due a l'expiration des besoins si au moins un besoin a expiré
       if last_run_register.present? && (
         (current_expired_count > last_run_register.expired_count) || (current_expired_count == last_run_register.expired_count && in_expired_needs_not_processed.include?(expert))
@@ -90,5 +90,14 @@ class RemindersService
         RemindersRegister.create!(expert: expert, category: :output, run_number: current_run)
       end
     end
+  end
+
+  def latest_received_match_at(expert)
+    newer_received_match = expert.received_matches.order(sent_at: :desc).first
+    expert.received_matches.where.not(id: newer_received_match.id).pluck(:sent_at).max
+  end
+
+  def expired_matches(expert)
+    expert.received_quo_matches.not_archived.with_status_expired
   end
 end

@@ -1,4 +1,4 @@
-.block-infos.compact
+.block-infos.compact.fr-text-sm
   %ul.list-unstyled.fr-pl-1v
     %li.name
       %b
@@ -12,8 +12,8 @@
     - if user.phone_number.present?
       %li
         %span.picto.ri-phone-line{ 'aria-hidden': 'true' }
-        = link_to(user.phone_number, "tel:#{ERB::Util.url_encode(user.phone_number)}", class: 'fr-link')
+        = link_to(user.phone_number, "tel:#{ERB::Util.url_encode(user.phone_number)}", class: 'fr-link fr-text--sm')
     - if user.email.present?
       %li
         %span.picto.ri-mail-line{ 'aria-hidden': 'true' }
-        = mail_to user.email, user.email, class: 'fr-link'
+        = mail_to user.email, user.email, class: 'fr-link fr-text--sm'

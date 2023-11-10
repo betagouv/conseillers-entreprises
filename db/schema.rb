@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_12_085335) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_27_100322) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -226,7 +226,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_085335) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "step", default: 1
-    t.datetime "archived_at", precision: nil
     t.bigint "advisor_id"
     t.bigint "visitee_id"
     t.bigint "facility_id", null: false
@@ -235,7 +234,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_085335) do
     t.datetime "completed_at", precision: nil
     t.boolean "retention_email_sent", default: false
     t.index ["advisor_id"], name: "index_diagnoses_on_advisor_id"
-    t.index ["archived_at"], name: "index_diagnoses_on_archived_at"
     t.index ["facility_id"], name: "index_diagnoses_on_facility_id"
     t.index ["solicitation_id"], name: "index_diagnoses_on_solicitation_id"
     t.index ["visitee_id"], name: "index_diagnoses_on_visitee_id"
@@ -454,6 +452,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_085335) do
     t.datetime "updated_at", null: false
     t.integer "max_years_of_existence"
     t.string "accepted_legal_forms", array: true
+    t.string "excluded_legal_forms", array: true
     t.index ["antenne_id"], name: "index_match_filters_on_antenne_id"
   end
 
@@ -489,12 +488,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_085335) do
     t.datetime "updated_at", precision: nil, null: false
     t.text "content"
     t.integer "matches_count"
-    t.datetime "archived_at", precision: nil
     t.boolean "satisfaction_email_sent", default: false, null: false
     t.enum "status", default: "diagnosis_not_complete", null: false, enum_type: "need_status"
     t.boolean "abandoned_email_sent", default: false
     t.datetime "retention_sent_at", precision: nil
-    t.index ["archived_at"], name: "index_needs_on_archived_at"
     t.index ["diagnosis_id"], name: "index_needs_on_diagnosis_id"
     t.index ["status"], name: "index_needs_on_status"
     t.index ["subject_id", "diagnosis_id"], name: "index_needs_on_subject_id_and_diagnosis_id", unique: true

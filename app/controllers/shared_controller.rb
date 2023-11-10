@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class SharedController < ActionController::Base
+  include Pundit::Authorization
   NOT_FOUND_ERROR_CLASSES = [
     ActionController::RoutingError,
     ActionController::UrlGenerationError,
@@ -53,14 +54,7 @@ class SharedController < ActionController::Base
   end
 
   def respond_with_status(status)
-    respond_to do |format|
-      format.html { render "shared/errors/#{status}", status: status }
-      format.js do
-        flash.alert = I18n.t(:message_html, scope: ['shared', 'errors', status])
-        render "shared/errors/#{status}"
-      end
-      format.any { head status }
-    end
+    render "shared/errors/#{status}", status: status, layout: 'pages'
   end
 
   def http_authentication

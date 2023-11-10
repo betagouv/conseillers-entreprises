@@ -4,7 +4,7 @@ require 'rails_helper'
 require 'system_helper'
 require 'api_helper'
 
-describe 'invitations', js: true do
+describe 'invitations', :js do
 
   before { stub_mjml_google_fonts }
 

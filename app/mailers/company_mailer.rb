@@ -40,7 +40,7 @@ class CompanyMailer < ApplicationMailer
     @email_token = Digest::SHA256.hexdigest(@need.diagnosis.visitee.email)
     mail(
       to: @need.diagnosis.visitee.email_with_display_name,
-      subject: t('mailers.company_mailer.satisfaction.subject', subject: @need.solicitation.landing_subject.title)
+      subject: t('mailers.company_mailer.satisfaction.subject', subject: @need.subject.label)
     )
   end
 

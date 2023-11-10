@@ -16,34 +16,36 @@
         .status-label
           = status_label(match)
 
-    - if policy(match).update_status?
-
+    - if policy(match).update_status? || policy(match).show_inbox? || policy(match).show_info?
       %ul.fr-btns-group.fr-btns-group--inline.fr-btns-group--sm.row-match__admin
-        %li
-          %details.details--dropdown
-            %summary.fr-btn.fr-btn--secondary{ title: t('.change_match_status') }
-              %span.ri-edit-box-line{ 'aria-hidden': 'true' }
-            .details--dropdown__content
-              = admin_match_actions_buttons match
-        %li
-          = link_to quo_active_reminders_expert_path(match.expert), class: "fr-btn fr-btn--secondary fr-mb-0", title: t('.see_expert_inbox') do
-            %span.ri-inbox-line{ 'aria-hidden': 'true' }
-        %li
-          %button.fr-btn.fr-btn--tertiary-no-outline.fr-mb-0{ 'aria-controls': "tooltip-match-#{match.id}", 'data-fr-opened': 'false', title: t('.see_match_info') }
-            %span.ri-information-line{ 'aria-hidden': 'true' }
-          %dialog.fr-modal{ 'aria-labelledby': "tooltip-match-#{match.id}-title", id: "tooltip-match-#{match.id}" }
-            .fr-container.fr-container--fluid.fr-container-md
-              .fr-grid-row.fr-grid-row--center
-                .fr-col-12.fr-col-md-6.fr-col-lg-4
-                  .fr-modal__body
-                    .fr-modal__header
-                      %button.fr-btn--close.fr-btn.fr-ml-auto-imp.fr-mr-n2w{ 'aria-controls': "tooltip-match-#{match.id}", title: t('navbar.close') }
-                        = t('navbar.close')
-                    .fr-modal__content
-                      %h1.fr-modal__title{ id: "tooltip-match-#{match.id}-title" }
-                        %span.fr-icon-arrow-right-line.fr-icon--lg{ 'aria-hidden': 'true' }
-                        = match.expert.antenne.name
-                      %ul
-                        %li{ class: status_color(match.status) }= match.human_attribute_value(:status)
-                        %li= [t('.taken_care_of_at'), l(match.taken_care_of_at, format: :fr, default: '')].join(' : ')
-                        %li= [t('.closed_at'), l(match.closed_at, format: :fr, default: '')].join(' : ')
+        - if policy(match).update_status?
+          %li
+            %details.details--dropdown
+              %summary.fr-btn.fr-btn--secondary{ title: t('.change_match_status') }
+                %span.ri-edit-box-line{ 'aria-hidden': 'true' }
+              .details--dropdown__content
+                = admin_match_actions_buttons match
+        - if policy(match).show_inbox?
+          %li
+            = link_to quo_active_reminders_expert_path(match.expert), class: "fr-btn fr-btn--secondary fr-mb-0", title: t('.see_expert_inbox') do
+              %span.ri-inbox-line{ 'aria-hidden': 'true' }
+        - if policy(match).show_info?
+          %li
+            %button.fr-btn.fr-btn--tertiary-no-outline.fr-mb-0{ 'aria-controls': "tooltip-match-#{match.id}", 'data-fr-opened': 'false', title: t('.see_match_info') }
+              %span.ri-information-line{ 'aria-hidden': 'true' }
+            %dialog.fr-modal{ 'aria-labelledby': "tooltip-match-#{match.id}-title", id: "tooltip-match-#{match.id}" }
+              .fr-container.fr-container--fluid.fr-container-md
+                .fr-grid-row.fr-grid-row--center
+                  .fr-col-12.fr-col-md-6.fr-col-lg-4
+                    .fr-modal__body
+                      .fr-modal__header
+                        %button.fr-btn--close.fr-btn.fr-ml-auto-imp.fr-mr-n2w{ 'aria-controls': "tooltip-match-#{match.id}", title: t('navbar.close') }
+                          = t('navbar.close')
+                      .fr-modal__content
+                        %h1.fr-modal__title{ id: "tooltip-match-#{match.id}-title" }
+                          %span.fr-icon-arrow-right-line.fr-icon--lg{ 'aria-hidden': 'true' }
+                          = match.expert.antenne.name
+                        %ul
+                          %li{ class: status_color(match.status) }= match.human_attribute_value(:status)
+                          %li= [t('.taken_care_of_at'), l(match.taken_care_of_at, format: :fr, default: '')].join(' : ')
+                          %li= [t('.closed_at'), l(match.closed_at, format: :fr, default: '')].join(' : ')

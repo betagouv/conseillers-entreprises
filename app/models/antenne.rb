@@ -165,26 +165,19 @@ class Antenne < ApplicationRecord
   # A surveiller : une antenne peut-elle avoir plusieurs antennes regionales ?
   def regional_antenne
     return unless self.local?
-    same_region_antennes = institution.antennes_in_region(region_ids)
-    same_region_antennes.select do |a|
-      a.regional? && Utilities::Arrays.included_in?(commune_ids, a.commune_ids)
-    end&.first
+    get_associated_antennes(Antenne.territorial_levels[:regional])&.first
   end
 
   def territorial_antennes
     return [] if self.local?
-    Antenne.not_deleted.where(institution_id: institution_id, territorial_level: 'local')
-      .left_joins(:communes, :experts)
-      .where(communes: { id: commune_ids })
-      .or(Antenne.not_deleted.where(institution_id: institution_id, territorial_level: 'local').where(experts: { is_global_zone: true }))
-      .distinct
+    get_associated_antennes(Antenne.territorial_levels[:local])
   end
 
   ## Périmètre d'exercice :
   # tous les besoins auxquels une antenne peut avoir accès suivant son échelon territorial
   #
   def perimeter_received_needs
-    Rails.cache.fetch(['perimeter_received_needs', id], expires_in: 1.hour) do
+    Rails.cache.fetch(['perimeter_received_needs', id, territorial_level], expires_in: 1.hour) do
       if self.national?
         self.institution.perimeter_received_needs
       elsif self.regional?
@@ -201,7 +194,7 @@ class Antenne < ApplicationRecord
   end
 
   def perimeter_received_matches
-    Rails.cache.fetch(['perimeter_received_matches', id], expires_in: 1.hour) do
+    Rails.cache.fetch(['perimeter_received_matches', id, territorial_level], expires_in: 1.hour) do
       if self.national?
         self.institution.perimeter_received_matches
       elsif self.regional?
@@ -265,5 +258,15 @@ class Antenne < ApplicationRecord
   # Updated when changed : add/remove communes - add/remove experts - add/remove expert communes - add/remove expert subject
   def update_referencement_coverages(*args)
     AntenneCoverage::DeduplicatedJob.new(self).call
+  end
+
+  private
+
+  def get_associated_antennes(targeted_territorial_level)
+    Antenne.not_deleted.where(institution_id: institution_id, territorial_level: targeted_territorial_level)
+      .left_joins(:communes, :experts)
+      .where(communes: { id: commune_ids })
+      .or(Antenne.not_deleted.where(institution_id: institution_id, territorial_level: targeted_territorial_level).where(experts: { is_global_zone: true }))
+      .distinct
   end
 end

@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'api_helper'
 
-describe 'solicitation_form', type: :feature, js: true do
+describe 'solicitation_form', :js, type: :feature do
   subject { page }
 
   describe 'accessible solicitation form' do

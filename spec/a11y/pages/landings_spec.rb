@@ -2,7 +2,8 @@
 
 require 'rails_helper'
 
-describe 'landings', type: :feature, js: true do
+describe 'landings', :js, type: :feature do
+  let!(:landing) { create :landing, title: 'Accueil', slug: 'accueil' }
   let(:landing_theme) { create :landing_theme, title: 'Theme', slug: 'theme' }
   let!(:home_landing) { create(:landing, :home) }
 

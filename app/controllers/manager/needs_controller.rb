@@ -35,10 +35,8 @@ class Manager::NeedsController < ApplicationController
   def retrieve_recipient
     @recipient = if params[:antenne_id].present?
       current_user.managed_antennes.find(params[:antenne_id])
-    elsif current_user.managed_antennes.count == 1
-      current_user.managed_antennes.first
     else
-      current_user.managed_antennes
+      current_user.managed_antennes.first
     end
   end
 

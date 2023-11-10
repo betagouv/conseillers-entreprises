@@ -117,6 +117,7 @@ ignore_unused:
   - 'antenne_stats_exporter.*'
   - 'reminders.needs.scopes.mark_done.*'
   - 'equipe.*'
+  - 'sitemap.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

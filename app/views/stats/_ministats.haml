@@ -1,17 +1,16 @@
 .fr-grid-row.fr-py-17v
-  - stats = Stats::Mini::All.new
   .fr-col-12.fr-col-md-4.text-center.stats-item
     %p.fr-m-md-0
-      = number_with_delimiter(stats.companies_by_employees, locale: :fr)
+      = number_with_delimiter(stats[:companies_by_employees], locale: :fr)
       %span.bold.fr-mt-2v
         = t('stats.series.companies_by_employees.ministats')
   .fr-col-12.fr-col-md-4.text-center.stats-item
     %p.fr-m-md-0
-      = number_with_delimiter(stats.needs, locale: :fr)
+      = number_with_delimiter(stats[:needs], locale: :fr)
       %span.bold.fr-mt-2v
         = t('stats.series.needs.title')
   .fr-col-12.fr-col-md-4.text-center.stats-item
     %p.fr-m-md-0
-      = number_with_delimiter(stats.advisors, locale: :fr)
+      = number_with_delimiter(stats[:users], locale: :fr)
       %span.bold.fr-mt-2v
         = t('stats.series.advisors.title')

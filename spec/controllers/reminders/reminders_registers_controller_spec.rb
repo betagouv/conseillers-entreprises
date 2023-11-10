@@ -9,7 +9,7 @@ RSpec.describe Reminders::RemindersRegistersController do
     create_registers_for_reminders
 
     before do
-      RemindersService.create_reminders_registers
+      RemindersService.new.create_reminders_registers
       patch :update, params: { id: expert_input.reload.reminders_registers.last.id }
     end
 

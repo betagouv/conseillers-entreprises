@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-describe 'reminders experts', js: true do
+describe 'reminders experts', :js do
   login_admin
 
   context 'show expert reminder by duration' do
     create_experts_for_reminders
 
-    before { RemindersService.create_reminders_registers }
+    before { RemindersService.new.create_reminders_registers }
 
     xit 'displays experts and opens expert BAL' do
       visit inputs_reminders_experts_path
@@ -36,7 +36,7 @@ describe 'reminders experts', js: true do
   context 'show expert reminder input and output' do
     create_registers_for_reminders
 
-    before { RemindersService.create_reminders_registers }
+    before { RemindersService.new.create_reminders_registers }
 
     context 'reminders_path' do
       it 'displays page' do

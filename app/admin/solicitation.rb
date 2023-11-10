@@ -256,9 +256,9 @@ ActiveAdmin.register Solicitation do
     badge = Badge.find(inputs[:badge])
     case inputs[:action]
     when 'ajouter'
-      Solicitation.where(id: ids).each { |s| s.badges << badge }
+      Solicitation.where(id: ids).find_each { |s| s.badges << badge }
     when 'enlever'
-      Solicitation.where(id: ids).each { |s| s.badges.delete(badge) }
+      Solicitation.where(id: ids).find_each { |s| s.badges.delete(badge) }
     end
     redirect_to collection_path, notice: I18n.t('active_admin.badges.modified', action: inputs[:action].gsub('er', 'é'))
   end

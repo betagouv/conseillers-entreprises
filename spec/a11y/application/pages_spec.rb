@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'pages', type: :feature, js: true do
+describe 'pages', :js, type: :feature do
   before { create_home_landing }
 
   login_user

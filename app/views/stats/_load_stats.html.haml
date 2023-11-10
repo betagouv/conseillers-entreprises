@@ -2,11 +2,11 @@
   - chart_name = "chart-#{name}"
 
   .card__content.white-bg.fr-p-3w{ data: { controller: 'stats-charts' } }
-    %h2
+    %h2.fr-h3
       - if data.count.present?
         %span= number_with_delimiter(data.count, locale: :fr)
       - if data.secondary_count.present?
-        = t('title', scope: ['stats', 'series', name], secondary_count: data.secondary_count)
+        = t('title', scope: ['stats', 'series', name], secondary_count: number_with_delimiter(data.secondary_count, locale: :fr))
       - else
         = t('title', scope: ['stats', 'series', name])
 

@@ -9,37 +9,33 @@ module Stats
     end
 
     def public
-      @stats_category = "Public"
       @charts_names = %w[
-        solicitations solicitations_diagnoses exchange_with_expert taking_care themes
-        companies_by_employees companies_by_naf_code
+        solicitations_completed solicitations_diagnoses needs_quo needs_exchange_with_expert
+        needs_done solicitations_taking_care_time needs_themes companies_by_employees companies_by_naf_code
       ]
       render :index
     end
 
     def needs
-      @stats_category = "Needs"
       @charts_names = %w[
-        transmitted_less_than_72h_stats needs_done needs_done_no_help
+        solicitations_transmitted_less_than_72h needs_quo needs_done needs_done_no_help
         needs_done_not_reachable needs_not_for_me needs_abandoned
       ]
       render :index
     end
 
     def matches
-      @stats_category = "Matches"
       @charts_names = %w[
-        needs_transmitted positioning_rate taking_care_rate_stats done_rate_stats
-        done_no_help_rate_stats done_not_reachable_rate_stats not_for_me_rate_stats not_positioning_rate
+        needs_transmitted matches_positioning matches_taking_care matches_done
+        matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
       ]
       render :index
     end
 
     def load_data
       name = params.permit(:chart_name)[:chart_name]
-      stats_category = params.permit(:stats_category)[:stats_category]
       data = Rails.cache.fetch(['team-public-stats', name, session[:team_stats_params]], expires_in: 6.hours) do
-        "Stats::#{stats_category}::All".constantize.new(session[:team_stats_params]).send(name)
+        invoke_stats(name, session[:team_stats_params])
       end
       render_partial(data, name)
     end

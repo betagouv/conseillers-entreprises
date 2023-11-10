@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'reminders needs', js: true do
+describe 'reminders needs', :js do
   login_admin
 
   context 'show expert reminder by duration' do

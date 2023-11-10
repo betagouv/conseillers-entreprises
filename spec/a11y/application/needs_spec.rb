@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'needs', type: :feature, js: true do
+describe 'needs', :js, type: :feature do
   login_user
 
   subject { page }

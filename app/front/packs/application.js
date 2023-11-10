@@ -26,6 +26,7 @@ require('@gouvfr/dsfr/dist/dsfr/dsfr.css')
 require('stylesheets/application.sass')
 
 require("jquery");
+require("@selectize/selectize");
 
 import "javascripts/shared";
 import "javascripts/application";

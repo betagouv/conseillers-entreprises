@@ -218,6 +218,49 @@ fr:
         title: Exports csv
       menu:
         csv_exports: Exports csv
+    diagnoses:
+      company_details:
+        company_details: Voir le détail de l’entreprise
+        need_without_siret: Analyse sans SIRET
+      last_activity_date: dernière activité le %{l}
+      new:
+        aria_label_tabs: Choix du type de création d’analyse
+        city: Ville
+        create_new_diagnosis: Démarrer une analyse
+        find_company: Rechercher une entreprise
+        name: Nom de l’entreprise ou du dirigeant
+        search_manually: Cas particulier (sans SIRET)
+        sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation. SIRET non diffusible, reprise d’entreprise, déménagement…
+        title: Saisie manuelle
+      steps:
+        contact:
+          date: Date de la sollicitation
+          date_placeholder: jj/mm/aaaa
+          email_address: E-mail
+          full_name: Nom
+          full_name_placeholder: 'ex: Marie Dupont'
+          phone_number: Numéro de télephone
+          your_contact_in_the_company: 'Contact de l’entreprise %{company_name} :'
+        expert_content:
+          invitation_not_accepted: Au moins une personne n’a pas encore accepté son invitation
+        matches:
+          add_expert: Ajouter un ou une expert·e
+          add_expert_label: Rechercher par nom d’équipe, antenne, institution...
+          before_sending_emails: En cliquant sur le bouton ci-dessous, les experts sélectionnés seront contactés par e-mail et auront accès à la fiche détaillée du besoin.
+          company_needs_historic_title: Cette entreprise a déjà des besoins mis en relation.
+          contact_needs_historic_title: Cette personne a déjà des besoins mis en relation.
+          link_to_historic: Accéder à l’historique
+          no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
+          notifications_sent: Les notifications ont bien été envoyées.
+          notify_matches: Notifier les experts sélectionnés
+          select_at_least_one_expert: Cochez au minimum un expert à contacter.
+          solicitation_reminder: Rappel du besoin
+          you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
+        needs:
+          diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
+          diagnosis_content_subtitle: Informations générales sur cette entreprise
+          need_content_placeholder: Plus d’infos sur ce besoin
+          select_at_least_one_need: Cochez au minimum un besoin identifié.
     sitemap:
       sitemap:
         general: Liens rapides
@@ -259,67 +302,6 @@ fr:
   contacts:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
-  diagnoses:
-    antenne_menu:
-      browse_active_diagnoses: Mes analyses
-      for_other_header: Voir aussi
-    collections:
-      all: Archivés
-      completed: Traitées
-      in_progress: En cours
-    company_details:
-      company_details: Voir le détail de l’entreprise
-      need_without_siret: Analyse sans SIRET
-    diagnosis:
-      last_activity_date: dernière activité le %{l}
-    header:
-      create_new_diagnosis: Démarrer une analyse
-    index:
-      confirm_archive: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?
-      title: Analyses
-    index_antenne:
-      title: Analyses
-    menu:
-      browse_antenne_diagnoses: Toutes les analyses de %{antenne}
-      for_other_header: Voir aussi
-      for_recipient: Par %{recipient}
-    new:
-      city: Ville
-      create_new_diagnosis: Démarrer une analyse
-      find_company: Rechercher une entreprise
-      name: Nom de l’entreprise ou du dirigeant
-      search_manually: Cas particulier (sans SIRET)
-      sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation. SIRET non diffusible, reprise d’entreprise, déménagement…
-      title: Saisie manuelle
-    steps:
-      contact:
-        date: Date de la sollicitation
-        date_placeholder: jj/mm/aaaa
-        email_address: E-mail
-        full_name: Nom
-        full_name_placeholder: 'ex: Marie Dupont'
-        phone_number: Numéro de télephone
-        your_contact_in_the_company: 'Contact de l’entreprise %{company_name} :'
-      expert_content:
-        invitation_not_accepted: Au moins une personne n’a pas encore accepté son invitation
-      matches:
-        add_expert: Ajouter un ou une expert·e
-        add_expert_label: Rechercher par nom d’équipe, antenne, institution...
-        before_sending_emails: En cliquant sur le bouton ci-dessous, les experts sélectionnés seront contactés par e-mail et auront accès à la fiche détaillée du besoin.
-        company_needs_historic_title: Cette entreprise a déjà des besoins mis en relation.
-        contact_needs_historic_title: Cette personne a déjà des besoins mis en relation.
-        link_to_historic: Accéder à l’historique
-        no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
-        notifications_sent: Les notifications ont bien été envoyées.
-        notify_matches: Notifier les experts sélectionnés
-        select_at_least_one_expert: Cochez au minimum un expert à contacter.
-        solicitation_reminder: Rappel du besoin
-        you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
-      needs:
-        diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
-        diagnosis_content_subtitle: Informations générales sur cette entreprise
-        need_content_placeholder: Plus d’infos sur ce besoin
-        select_at_least_one_need: Cochez au minimum un besoin identifié.
   download_xls: Télécharger XLSX
   emails:
     not_sent: L’email n’a pu être envoyé
@@ -461,9 +443,6 @@ fr:
       add_other_experts: Rechercher d’autres experts à mettre en relation
       ambulance_explanation: Notifier un nouveau conseiller référencé, quel que soit le partenaire, le sujet ou le territoire
       no_expert_found: Aucun résultat
-    archive:
-      archive_done: Besoin de l’entreprise %{company} archivé
-      subjet_achived: Le besoin a été archivé
     collections:
       archived: Archivées
       done: Clôturées
@@ -539,8 +518,6 @@ fr:
       transmitted_by: Demande transmise par
       warning_comments: Attention ! Cette discussion n’est pas visible par l’entreprise.
       workforce: 'Effectifs de l’établissement : %{range}'
-    unarchive:
-      subject_unarchived: Besoin désarchivé
   newsletters:
     create:
       error_newsletter_subscription: Une erreur s’est produite, merci de réessayer.
@@ -821,14 +798,14 @@ fr:
         siret: SIRET
         tns_training: Formation TNS du dirigeant
   stats:
-    archived: Besoins abandonnés
+    abandonned: Besoins abandonnés
     done_no_help_status: Statut « cloturé sans aide »
     done_status: Statut « cloturé avec aide »
     less_than_72h: Moins de 72h
     main_stats_chart:
       title: Notre mesure d’impact phare
     more_than_72h: Plus de 72h
-    not_archived: Besoins non abandonnés
+    not_abandonned: Besoins non abandonnés
     not_for_me_status: Statut « pas pour moi »
     not_positioning: L’expert ne s’est pas positionné
     not_reachable_status: Statut « cloturé entreprise non joignable »
@@ -851,23 +828,6 @@ fr:
       companies_by_naf_code:
         title: Secteurs d’activité des entreprises utilisatrices du service
         title_table: Secteurs d’activité des entreprises utilisatrices du service
-      done_no_help_rate_stats:
-        subtitle: Le besoin a été pris en charge par un expert, mais l’échange téléphonique n’a pu aboutir à une proposition d’aide (critères non remplis, situation spécifique...).
-        title: de besoins transmis sont clôturés sans aide possible par l’institution, soit %{secondary_count} besoins
-        title_table: Nombre de besoins clôturés sans aide possible de l’institution
-      done_not_reachable_rate_stats:
-        subtitle: L’expert n’a pas réussi à joindre l’entreprise malgré deux tentatives. En laissant ses coordonnées, l’entreprise peut néanmoins le rappeler.
-        title: des besoins transmis sont clôturés par l’institution sans avoir pu joindre l’entreprise, soit %{secondary_count} besoins
-        title_table: Nombre de besoins clôturés par l’institution sans avoir pu joindre l’entreprise
-      done_rate_stats:
-        subtitle: Le besoin a été pris en charge par un expert et une aide a pu être proposée à l’entreprise. L’aide s’entend au sens large (conseils, accompagnement technique, aide financière).
-        title: des besoins transmis sont clôturés par l’institution par une aide proposée, soit %{secondary_count} besoins
-        title_table: Nombre de besoins clôturés par une aide proposée par l’institution
-      exchange_with_expert:
-        title: des besoins transmis ont donné lieu à un échange avec un conseiller, soit %{secondary_count} besoins
-        title_table: Nombre de besoins d’entreprises transmis ayant donné lieu à un échange avec un conseiller
-        with_exchange: Avec échange
-        without_exchange: Sans échange
       exchange_with_expert_column:
         series: Besoins suivis d'un échange avec un conseiller
         subtitle_html: "<p>La promesse du service Conseillers-Entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p>"
@@ -879,6 +839,34 @@ fr:
       matches:
         title: Mises en relation
         title_table: Nombre de mises en relation
+      matches_done:
+        subtitle: Le besoin a été pris en charge par un expert et une aide a pu être proposée à l’entreprise. L’aide s’entend au sens large (conseils, accompagnement technique, aide financière).
+        title: des besoins transmis sont clôturés par l’institution par une aide proposée, soit %{secondary_count} besoins
+        title_table: Nombre de besoins clôturés par une aide proposée par l’institution
+      matches_done_no_help:
+        subtitle: Le besoin a été pris en charge par un expert, mais l’échange téléphonique n’a pu aboutir à une proposition d’aide (critères non remplis, situation spécifique...).
+        title: de besoins transmis sont clôturés sans aide possible par l’institution, soit %{secondary_count} besoins
+        title_table: Nombre de besoins clôturés sans aide possible de l’institution
+      matches_done_not_reachable:
+        subtitle: L’expert n’a pas réussi à joindre l’entreprise malgré deux tentatives. En laissant ses coordonnées, l’entreprise peut néanmoins le rappeler.
+        title: des besoins transmis sont clôturés par l’institution sans avoir pu joindre l’entreprise, soit %{secondary_count} besoins
+        title_table: Nombre de besoins clôturés par l’institution sans avoir pu joindre l’entreprise
+      matches_not_for_me:
+        subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
+        title: de besoins refusés par l’institution, soit %{secondary_count} besoins
+        title_table: Nombre de besoins refusés par l’institution
+      matches_not_positioning:
+        subtitle: L’expert n’a donné aucune indication sur le besoin transmis.
+        title: des besoins transmis sont restés sans réponse de l’institution, soit %{secondary_count} besoins
+        title_table: Nombre de besoins restés sans réponse de l’institution
+      matches_positioning:
+        subtitle: L’expert s’est positionné pour indiquer prendre en charge ou refuser le besoin.
+        title: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoins
+        title_table: Taux de réponse
+      matches_taking_care:
+        subtitle: Le besoin a été pris en charge par un expert, mais n’a pas encore été cloturé après l’appel de l’entreprise.
+        title: des besoins transmis sont en cours de prise en charge par l’institution, soit %{secondary_count} besoins
+        title_table: Nombre de besoins en cours de prise en charge
       needs:
         title: Besoins identifiés
         title_table: Nombre de besoins identifiés
@@ -901,25 +889,25 @@ fr:
       needs_done_not_reachable:
         title: de besoins clôturés faute d’avoir pu joindre l’entreprise
         title_table: Nombre de besoins clôturés faute d’avoir pu joindre l’entreprise
+      needs_exchange_with_expert:
+        title: des besoins transmis ont donné lieu à un échange avec un conseiller, soit %{secondary_count} besoins
+        title_table: Nombre de besoins d’entreprises transmis ayant donné lieu à un échange avec un conseiller
+        with_exchange: Avec échange
+        without_exchange: Sans échange
       needs_not_for_me:
         title: de besoins refusés
         title_table: Nombre de besoins refusés
+      needs_quo:
+        title: des besoins transmis sont en cours de prise en charge par les conseillers
+        title_table: Nombre de besoins en cours de prise en charge par les conseillers
+      needs_themes:
+        subtitle: Une thématique est un regroupement de sujets d’entreprises proches.
+        title: Thématiques choisies par les entreprises
+        title_table: Thématiques choisies par les entreprises
       needs_transmitted:
         title: Besoins transmis
         title_table: Besoins transmis
-      not_for_me_rate_stats:
-        subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
-        title: de besoins refusés par l’institution, soit %{secondary_count} besoins
-        title_table: Nombre de besoins refusés par l’institution
-      not_positioning_rate:
-        subtitle: L’expert n’a donné aucune indication sur le besoin transmis.
-        title: des besoins transmis sont restés sans réponse de l’institution, soit %{secondary_count} besoins
-        title_table: Nombre de besoins restés sans réponse de l’institution
-      positioning_rate:
-        subtitle: L’expert s’est positionné pour indiquer prendre en charge ou refuser le besoin.
-        title: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoins
-        title_table: Taux de réponse
-      solicitations:
+      solicitations_completed:
         series: Besoins déposés
         subtitle_html: Il s’agit du nombre de besoins déposés par les entreprises avant la vérification qualité
         title: besoins déposés par les entreprises
@@ -928,25 +916,17 @@ fr:
         subtitle_html: Pour le bon fonctionnement du service, les besoins sont vérifiés. Seuls les besoins de bonne qualité sont transmis. Les besoins sans aucun élément de contexte, avec des erreurs de siret ou touchant à la création d’entreprise, ne peuvent pas être transmis.
         title: des besoins sont transmis aux conseillers, soit %{secondary_count} besoins
         title_table: Nombre de besoins transmis aux conseillers
+      solicitations_taking_care_time:
+        title: des échanges ont lieu dans les 5 jours après transmission du besoin
+        title_table: Délai de réponses aux besoins des entreprises
+      solicitations_transmitted_less_than_72h:
+        title: de sollicitations transmises en moins de 72H parmi l’ensemble des sollicitations transmises
+        title_table: Délai de transmission des sollicitations
       source: Analyses d’entreprises
       source_category:
         direct: Sollicitations d’entreprises
         title: Analyses d’entreprises
         visits: Visites par un conseiller
-      taking_care:
-        title: des échanges ont lieu dans les 5 jours après transmission du besoin
-        title_table: Délai de réponses aux besoins des entreprises
-      taking_care_rate_stats:
-        subtitle: Le besoin a été pris en charge par un expert, mais n’a pas encore été cloturé après l’appel de l’entreprise.
-        title: des besoins transmis sont en cours de prise en charge par l’institution, soit %{secondary_count} besoins
-        title_table: Nombre de besoins en cours de prise en charge
-      themes:
-        subtitle: Une thématique est un regroupement de sujets d’entreprises proches.
-        title: Thématiques choisies par les entreprises
-        title_table: Thématiques choisies par les entreprises
-      transmitted_less_than_72h_stats:
-        title: de sollicitations transmises en moins de 72H parmi l’ensemble des sollicitations transmises
-        title_table: Délai de transmission des sollicitations
       transmitted_needs:
         title: Besoins transmis
     skeleton_card:
@@ -1003,11 +983,13 @@ fr:
     status_done_no_help: Clôture sans accompagnement
     status_done_not_reachable: Entreprises injoignables
     status_not_for_me: Besoins refusés
+    status_quo: en cours de prise en charge
     taken_care_after: Plus de 5 jours
     taken_care_before: Moins de 5 jours
     taking_care_status: Statut « pris en charge »
     team:
       index:
+        select_partner: Attention ! Pensez à sélectionner un partenaire
         title: Statistiques équipe
       matches: Pilotage par partenaire
       needs: Pilotage par besoins

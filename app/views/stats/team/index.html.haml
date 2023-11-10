@@ -11,8 +11,12 @@
   .fr-container
     = render 'tabs', filter_params: stats_filter_params
     = render 'stats_params', stats: @stats_params, institution_antennes: @institution_antennes, iframes: @iframes
+    - if action_name == 'matches' && @stats_params[:institution].blank?
+      .fr-alert.fr-alert--warning.white-bg.fr-my-3w
+        %p= t('.select_partner')
+
     .fr-grid-row.fr-grid-row--gutters#stats-charts
       - @charts_names.each do |name|
         .fr-col-12.card.stats
-          = turbo_frame_tag name, stats_params: @stats_params, src: load_data_team_index_path(chart_name: name, stats_category: @stats_category) do
+          = turbo_frame_tag name, stats_params: @stats_params, src: load_data_team_index_path(chart_name: name) do
             = render 'stats/skeleton_card'

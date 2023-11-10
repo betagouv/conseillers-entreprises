@@ -27,16 +27,12 @@ jobs:
       - name: Upgrade Node modules
         run: yarn upgrade
         shell: bash
-      - name: install panolint for linter
-        run: gem install panolint
-      - name: install rubocop-i18n for linter
-        run: gem install rubocop-i18n
-      - name: install rubocop-capybara for linter
-        run: gem install rubocop-capybara
-      - name: install rubocop-factory_bot for linter
-        run: gem install rubocop-factory_bot
-      - name: Rubocop
-        run: rubocop -a
+      - name: RuboCop Linter
+        uses: andrewmcodes/rubocop-linter-action@v3.3.0
+        with:
+          action_config_path: ".github/config/rubocop_linter_action.yml"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:

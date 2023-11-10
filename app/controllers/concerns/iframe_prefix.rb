@@ -21,7 +21,7 @@ module IframePrefix
     landing_subject_slug = params[:landing_subject_slug]
     if landing_subject_slug.present?
       @landing_subject = LandingSubject.not_archived.find_by(slug: landing_subject_slug)
-      redirect_to root_path, status: :moved_permanently if @landing_subject.nil?
+      redirect_to root_path, status: :moved_permanently && return if @landing_subject.nil?
     end
     # Controller Solicitation#other_methods
     solicitation_uuid = params[:uuid]

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'devise', type: :feature, js: true do
+describe 'devise', :js, type: :feature do
   before { create_home_landing }
 
   subject { page }

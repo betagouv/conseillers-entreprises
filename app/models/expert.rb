@@ -143,8 +143,7 @@ class Expert < ApplicationRecord
     joins(:received_quo_matches)
       .merge(Match
         .where(archived_at: nil)
-        .where(Match.arel_table[:created_at].lt(RemindersService::MATCHES_AGE[:quo]))
-        .joins(:need).where(need: { archived_at: nil }))
+        .where(Match.arel_table[:created_at].lt(RemindersService::MATCHES_AGE[:old])))
       .distinct
   end
 

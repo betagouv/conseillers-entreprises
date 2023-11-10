@@ -1,0 +1,26 @@
+- company = diagnosis.company
+%h1.fr-h2= company.name
+%ul
+  %li
+    = diagnosis.facility.commune_name
+  - if diagnosis.facility.siret.present?
+    %li
+      %span.fr-text--bold #{t('attributes.naf_code')} : 
+      = diagnosis.facility.naf_code
+    %li
+      #{diagnosis.facility.naf_libelle}
+    %li
+      %span.fr-text--bold #{t('attributes.forme_exercice')} : 
+      = company.forme_exercice&.humanize
+    %li
+      = [:inscrit_rcs, :inscrit_rm, :activite_liberale].map{ |registre| inscription_registre(registre, company.send(registre)) }.join(' / ').html_safe
+    - if diagnosis.facility.code_effectif.present?
+      %li
+        #{t('attributes.code_effectif')} : #{t('codes_effectif' + '.' + diagnosis.facility.code_effectif)}
+    %li
+      = link_to "#{t('attributes.siret')} : #{diagnosis.facility.siret}", company_path(diagnosis.facility), data: { turbo: false }
+    %li
+      = link_to t('.company_details'), company_path(diagnosis.facility), data: { turbo: false }
+  - else
+    %li
+      = t('.need_without_siret')

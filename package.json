@@ -6,6 +6,7 @@
     "@hotwired/turbo-rails": "^7.2.4",
     "@rails/ujs": "^6.0.3-4",
     "@rails/webpacker": "5.4.4",
+    "@selectize/selectize": "^0.15.2",
     "@sentry/webpack-plugin": "^1.14.2",
     "accessible-autocomplete": "^2.0.3",
     "expose-loader": "^1.0.1",

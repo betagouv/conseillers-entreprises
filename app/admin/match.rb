@@ -38,7 +38,6 @@ ActiveAdmin.register Match do
       div admin_attr(m.facility, :commune)
       div I18n.l(m.created_at, format: :admin)
       human_attribute_status_tag m.need, :status
-      status_tag t('attributes.is_archived'), class: :ok if m.need.is_archived
     end
     column :advisor do |m|
       div admin_link_to(m, :advisor)
@@ -103,10 +102,9 @@ ActiveAdmin.register Match do
           if m.diagnosis.step_completed?
             link_to(I18n.t('active_admin.matches.need_page'), need_path(m.need))
           else
-            link_to(I18n.t('active_admin.matches.diagnosis_page'), diagnosis_path(m.diagnosis))
+            link_to(I18n.t('active_admin.matches.diagnosis_page'), conseiller_diagnosis_path(m.diagnosis))
           end
         end
-        status_tag t('attributes.is_archived'), class: :ok if m.need.is_archived
       end
       row :created_at
       row :updated_at
