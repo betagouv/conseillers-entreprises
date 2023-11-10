@@ -3,10 +3,6 @@
 ActiveAdmin.register Diagnosis do
   menu priority: 8
 
-  ##
-  #
-  include AdminArchivable
-
   ## Index
   #
   includes :facility, :company, :advisor, :needs, :matches, :solicitation
