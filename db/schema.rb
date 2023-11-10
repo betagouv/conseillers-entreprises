@@ -472,8 +472,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_27_100322) do
     t.bigint "expert_id", null: false
     t.bigint "subject_id", null: false
     t.enum "status", default: "quo", null: false, enum_type: "match_status"
-    t.datetime "sent_at", precision: nil
     t.datetime "archived_at", precision: nil
+    t.datetime "sent_at", precision: nil
     t.index ["expert_id", "need_id"], name: "index_matches_on_expert_id_and_need_id", unique: true, where: "(expert_id <> NULL::bigint)"
     t.index ["expert_id"], name: "index_matches_on_expert_id"
     t.index ["need_id"], name: "index_matches_on_need_id"
