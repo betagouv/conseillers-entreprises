@@ -3,7 +3,7 @@
 .fr-container
   %h1.fr-h2= t('.title')
 
-  %h2= t('activerecord.models.need.other')
+  %h2.fr-h3= t('activerecord.models.need.other')
   %ul
     %li
       = link_to t('needs.collections.quo_active'), quo_active_needs_path
@@ -22,7 +22,7 @@
       %li
         = link_to t('reports.index.title'), reports_path
 
-  %h2.fr-mt-10v= t('application.navbar.profile')
+  %h2.fr-h3.fr-mt-10v= t('application.navbar.profile')
   %ul
     %li
       = link_to t('users.menu.informations'), edit_user_path
@@ -31,7 +31,7 @@
     %li
       = link_to t('users.menu.antenne'), antenne_user_path
 
-  %h2.fr-mt-10v= t('.general')
+  %h2.fr-h3.fr-mt-10v= t('.general')
   %ul
     %li
       = link_to t('user_pages.tutoriels.title'), tutoriels_path
