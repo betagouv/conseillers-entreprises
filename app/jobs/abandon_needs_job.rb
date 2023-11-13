@@ -5,7 +5,7 @@ class AbandonNeedsJob < ApplicationJob
     Need.archived(false)
       .status_quo
       .without_action('abandon')
-      .where(created_at: ..Need::REMINDERS_DAYS[:last_chance].days.ago).each do |need|
+      .where(created_at: ..Need::REMINDERS_DAYS[:last_chance].days.ago).find_each do |need|
       # Envoie de l'email d'abandon a l’entreprise si :
       # le besoin a aucun email envoyé et qu'il a plus de 45 jours
       # ou si le besoin a un email envoyé depuis plus de 10 jours et que le besoin a plus de 21 jours

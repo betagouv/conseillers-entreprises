@@ -16,4 +16,3 @@ class Company::NotYetTakenCareJob < ApplicationJob
                        diagnoses: { step: :completed, needs: { status: :quo } })
   end
 end
-

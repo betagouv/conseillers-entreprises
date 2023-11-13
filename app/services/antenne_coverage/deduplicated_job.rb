@@ -31,11 +31,10 @@ module AntenneCoverage
 
     def delete_jobs_already_in_queue(antenne)
       scheduled = if Rails.env == 'test'
-                    Sidekiq::Job.jobs
-                  else
-                    Sidekiq::ScheduledSet.new
-                  end
-
+        Sidekiq::Job.jobs
+      else
+        Sidekiq::ScheduledSet.new
+      end
 
       scheduled.each do |job|
         return if job['queue'] != QUEUE_NAME

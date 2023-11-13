@@ -2,13 +2,18 @@
 
 require 'rails_helper'
 describe MatchMailerService do
-  before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
+  before do
+  ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr'
+  Sidekiq::ScheduledSet.new.clear
+end
+
+  Sidekiq::Testing.disable!
 
   describe '#deduplicated_notify_status' do
     def notify_change(new_status)
       previous_status = a_match.status
       a_match.status = new_status
-      described_class.deduplicated_notify_status(a_match, previous_status)
+      described_class.new(a_match).deduplicated_notify_status(previous_status)
     end
 
     let(:a_match) { create :match, status: :quo }
@@ -20,8 +25,10 @@ describe MatchMailerService do
       end
 
       it do
-        expect(Sidekiq::Job.jobs.count).to eq 1
-        expect(SendStatusNotificationJob).to have_enqueued_sidekiq_job(a_match.id, 'quo')
+        scheduled = Sidekiq::ScheduledSet.new
+        expect(scheduled.size).to eq 1
+        expect(scheduled.first.args).to eq([a_match.id, 'taking_care'])
+        expect(a_match.status).to eq 'done'
       end
     end
 
@@ -32,7 +39,16 @@ describe MatchMailerService do
       end
 
       # ici on veut un nouveau job qui n'envoie pas d'email ou pas de job du tout
-      it { expect(SendStatusNotificationJob).not_to have_enqueued_sidekiq_job(a_match.id, 'quo') }
+      it do
+        scheduled = Sidekiq::ScheduledSet.new
+        # un job Sidekiq est lancé
+        expect(scheduled.first.args).to eq([a_match.id, 'not_for_me'])
+        expect(a_match.status).to eq 'quo'
+        # mais pas de job d'envoie d'email qui passe dans une queue ActiveJob
+        SendStatusNotificationJob.perform_sync(a_match.id, 'quo')
+        assert_no_enqueued_jobs
+      end
+
     end
 
     context 'match taking_care and match not reachable' do
@@ -42,9 +58,10 @@ describe MatchMailerService do
       end
 
       it do
-        expect(enqueued_jobs.count).to eq 1
-        previous_status = Delayed::Job.last.payload_object.args.last.to_sym
-        expect(previous_status).to eq :quo
+        scheduled = Sidekiq::ScheduledSet.new
+        expect(scheduled.size).to eq 1
+        expect(scheduled.first.args).to eq([a_match.id, 'taking_care'])
+        expect(a_match.status).to eq 'done_not_reachable'
       end
     end
   end

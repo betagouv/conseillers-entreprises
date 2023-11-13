@@ -21,7 +21,9 @@ describe AntenneCoverage::DeduplicatedJob do
       expect(Sidekiq::Job.jobs.count).to eq 1
       expect(Sidekiq::Job.jobs.last['args']).to eq [antenne.id]
       second_job = Sidekiq::Job.jobs.first
-      expect(first_job).to eq second_job
+      expect(first_job['args']).to eq second_job['args']
+      expect(first_job['class']).to eq second_job['class']
+      expect(first_job['queue']).to eq second_job['queue']
     end
   end
 end

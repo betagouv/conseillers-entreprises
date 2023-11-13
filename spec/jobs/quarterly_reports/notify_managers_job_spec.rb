@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe QuarterlyReports::NotifyManagersJob, type: :job do
+RSpec.describe QuarterlyReports::NotifyManagersJob do
   describe 'enqueue a job' do
     it { assert_enqueued_jobs(1) { described_class.perform_later } }
   end

@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe UpdateAntenneCoverageJob, type: :job do
+RSpec.describe UpdateAntenneCoverageJob do
   describe 'enqueue a job with an antenne' do
     let(:antenne) { create(:antenne) }
 

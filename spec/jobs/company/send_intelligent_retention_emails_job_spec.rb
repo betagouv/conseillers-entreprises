@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe Company::SendIntelligentRetentionEmailsJob, type: :job do
+RSpec.describe Company::SendIntelligentRetentionEmailsJob do
   describe 'enqueue a job' do
     it { assert_enqueued_jobs(1) { described_class.perform_later } }
   end
