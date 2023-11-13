@@ -4,11 +4,17 @@ module XlsxExport
       def generate
         sheet.add_row
 
-        add_agglomerate_headers
+        add_agglomerate_headers(:antenne)
+
+        needs_by_antennes = {}
 
         @antenne.territorial_antennes.each do |local_antenne|
-          needs = @needs.joins(:expert_antennes).where(antennes: { id: local_antenne.id })
-          add_agglomerate_rows(needs, local_antenne.name)
+          needs_by_antennes[local_antenne.name] = @needs.joins(:expert_antennes).where(antennes: { id: local_antenne.id })
+        end
+
+        needs_by_antennes.sort_by { |_, needs| -needs.count }.each do |antenne_name, needs|
+          ratio = calculate_rate(needs.count, @needs)
+          add_agglomerate_rows(needs, antenne_name, @antenne, ratio)
         end
 
         finalise_agglomerate_style

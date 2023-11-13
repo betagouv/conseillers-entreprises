@@ -3,7 +3,7 @@
 class NeedsController < ApplicationController
   include Inbox
   before_action :retrieve_user, except: %i[index]
-  before_action :retrieve_need, only: %i[show archive unarchive]
+  before_action :retrieve_need, only: %i[show]
   before_action :persist_search_params, only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired]
 
   layout 'side_menu', except: :show
@@ -53,7 +53,7 @@ class NeedsController < ApplicationController
       redirect_to quo_active_needs_path
     else
       @origin = params[:origin]
-      @matches = @need.matches.order(:created_at)
+      @matches = @need.matches.sent.order(:created_at)
       @facility = @need.facility
       @facility_needs = Need.for_facility(@facility).where.not(id: @need.id)
       @contact_needs = NeedPolicy::Scope.new(current_user, Need.for_emails_and_sirets([@need.diagnosis.visitee.email])).resolve - [@facility_needs, @need]
@@ -83,21 +83,6 @@ class NeedsController < ApplicationController
       flash.alert = @match.errors.full_messages.to_sentence
       redirect_back(fallback_location: root_path)
     end
-  end
-
-  def archive
-    authorize @need, :archive?
-    @need.archive!
-    flash[:notice] = t('.subjet_achived')
-    redirect_back fallback_location: diagnosis_path(@need.diagnosis),
-                  notice: t('.archive_done', company: @need.company.name)
-  end
-
-  def unarchive
-    authorize @need, :archive?
-    @need.update(archived_at: nil)
-    flash[:notice] = t('.subject_unarchived')
-    redirect_to diagnosis_path(@need.diagnosis)
   end
 
   private

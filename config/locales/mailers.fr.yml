@@ -115,7 +115,7 @@ fr:
         ask_questions: N’hésitez pas à venir poser vos questions.
         at_your_service: Je me tiens également à votre disposition par téléphone.
         find_it_here_html: 'Vous pouvez le retrouver ici : <a href=''%{url}''>%{url}</a>'
-        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service Place des Entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque mardi à 14H30</strong> sur ce lien de visio : <a href=''https://webinaire.numerique.gouv.fr''> https://webinaire.numerique.gouv.fr</a>.'
+        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service Place des Entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque jeudi à 14h30 (heure de Paris) </strong> sur ce lien de visio : <a href="https://webinaire.numerique.gouv.fr/meeting/signin/11932/creator/6579/hash/75c0b4e988e0f7de9a3e69f4f3aa60af92b9cb17"> https://webinaire.numerique.gouv.fr</a>.'
         its_been_a_while: Cela n’était pas arrivé depuis un bon moment !
         position_yourself: Nous vous invitons à vous positionner sur ce besoin à l'aide des boutons de prise en charge ou de refus.
         subject: Service public Place des Entreprises - Nous vous accompagnons !
@@ -194,6 +194,13 @@ fr:
         for_companies_html: Il s'agit d’un service public <b>destiné aux chefs d’entreprises</b>, afin d’aider les petites structures à se développer et à s’adapter.
       intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service).
       intro_with_subject_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) %{solicitation_subject}.
+      kbis_extract:
+        insee_html: 'un avis de situation de l’Insee : <a href=''https://annuaire-entreprises.data.gouv.fr ''>https://annuaire-entreprises.data.gouv.fr</a>'
+        liberal_instruction: 'Si vous êtes artisan ou si vous exercez une activité de nature libérale, vous pouvez fournir :'
+        no_expert_monidenum_html: 'Malheureusement, nous n''avons pas d’expert pour vos difficultés techniques sur le site MonIdenum. Nous vous invitons à contacter leur support : <a href=''https://monidenum.fr/contact''>https://monidenum.fr/contact</a>'
+        only_commercial_html: 'Attention : <strong>l’extrait Kbis ne concerne que les activités commerciales</strong>.'
+        rne_html: 'un extrait de votre inscription au Registre national des entreprises (extrait RNE) : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
+        use_for_commercant: Ces deux documents peuvent être aussi utilisés par les commerçants rencontrant des blocages.
       moderation:
         no_new_element: En l’absence d’élément nouveau, nous ne pouvons réaliser de nouvelles mises en relation vers ce dernier.
         quality_monitoring: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller.
@@ -244,9 +251,9 @@ fr:
           one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service public Place des Entreprises.
           other: Vous êtes identifié(e) comme responsable des antennes %{antennes} au sein du service public Place des Entreprises.
         at_your_disposal: Nous restons à votre entière disposition pour toute question sur l’interprétation de ces données.
-        download_reports: Télécharger mes données
-        quarterly_report_available_html: "<strong>L’ensemble des besoins transmis à vos équipes</strong> sur le dernier trimestre est disponible sur votre compte utilisateur, sous forme de fichier excel à télécharger."
-        stats_report_html: Nous mettons également à votre disposition un <strong>rapport statistique</strong> par trimestre et pour l’année en cours.
-        subject: Place des Entreprises - Rapport statistique
+        discover_dynamic_stats: Découvrir mes statistiques
+        dynamic_stats_html: "<strong>NOUVEAU !</strong> Nous mettons à votre disposition des <strong>statistiques dynamiques</strong> pour le pilotage et l’analyse de l’activité générée par le service pour votre institution."
+        quarterly_report_available_html: Le <strong>rapport statistique</strong> des besoins transmis à vos équipes, sur le dernier trimestre et depuis le début de l’année, est à télécharger dans votre compte. Le détail des besoins est disponible dans un second fichier.
+        subject: Vos statistiques de pilotage sont disponibles
         support_contact_label: 'En cas de besoin vous pouvez contacter :'
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.

@@ -121,7 +121,7 @@ ActiveAdmin.register Institution do
       f.input :slug
       f.input :display_logo
       f.input :show_on_list
-      f.input :code_region, as: :select, collection: Territory.deployed_regions.map{ |r| [r.name, r.code_region] }
+      f.input :code_region, as: :select, collection: Territory.regions.map{ |r| [r.name, r.code_region] }
       f.input :categories, as: :check_boxes, collection: Category.all.map{ |c| [I18n.t('active_admin.scopes.' + c.label), c.id] }
       f.input :siren, input_html: { rows: 1 }
     end
@@ -154,7 +154,7 @@ ActiveAdmin.register Institution do
   end
 
   batch_action :destroy, confirm: I18n.t('active_admin.institution.delete_confirmation') do |ids|
-    Institution.where(id: ids).each { |u| u.soft_delete }
+    Institution.where(id: ids).find_each { |u| u.soft_delete }
     redirect_to collection_path, notice: I18n.t('active_admin.institutions.deleted')
   end
 end

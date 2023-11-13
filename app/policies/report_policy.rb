@@ -9,6 +9,6 @@ class ReportPolicy < ApplicationPolicy
   end
 
   def download?
-    @user.managed_antennes.include?(@record.antenne)
+    @user&.is_admin? || @user.managed_antennes.include?(@record.antenne)
   end
 end

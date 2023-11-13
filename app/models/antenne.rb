@@ -165,55 +165,62 @@ class Antenne < ApplicationRecord
   # A surveiller : une antenne peut-elle avoir plusieurs antennes regionales ?
   def regional_antenne
     return unless self.local?
-    same_region_antennes = institution.antennes_in_region(region_ids)
-    same_region_antennes.select do |a|
-      a.regional? && Utilities::Arrays.included_in?(commune_ids, a.commune_ids)
-    end&.first
+    get_associated_antennes(Antenne.territorial_levels[:regional])&.first
   end
 
   def territorial_antennes
     return [] if self.local?
-    same_region_antennes = institution.antennes_in_region(region_ids)
-    same_region_antennes.select do |a|
-      !a.regional? && Utilities::Arrays.included_in?(a.commune_ids, commune_ids)
-    end
+    get_associated_antennes(Antenne.territorial_levels[:local])
   end
 
   ## Périmètre d'exercice :
   # tous les besoins auxquels une antenne peut avoir accès suivant son échelon territorial
   #
   def perimeter_received_needs
-    Rails.cache.fetch(id, expires_in: 1.hour) do
+    Rails.cache.fetch(['perimeter_received_needs', id, territorial_level], expires_in: 1.hour) do
       if self.national?
-        self.institution.received_needs
+        self.institution.perimeter_received_needs
       elsif self.regional?
-        Need.diagnosis_completed.joins(experts: :antenne).scoping do
-          Need.where(experts: { antenne: self })
-            .or(Need.where(experts: { antenne: self.territorial_antennes }))
-        end.distinct
+        antenne_ids = self.territorial_antennes.pluck(:id) << self.id
+        Need
+          .diagnosis_completed
+          .joins(experts: :antenne)
+          .where(experts: { antenne_id: antenne_ids })
+          .distinct
       else
-        self.received_needs
+        self.received_needs_including_from_deleted_experts
+      end
+    end
+  end
+
+  def perimeter_received_matches
+    Rails.cache.fetch(['perimeter_received_matches', id, territorial_level], expires_in: 1.hour) do
+      if self.national?
+        self.institution.perimeter_received_matches
+      elsif self.regional?
+        antenne_ids = self.territorial_antennes.pluck(:id) << self.id
+        Match
+          .joins(expert: :antenne)
+          .sent
+          .where(expert: { antenne_id: antenne_ids })
+          .distinct
+      else
+        self.received_matches_including_from_deleted_experts
       end
     end
   end
 
   def perimeter_received_matches_from_needs(needs)
-    Rails.cache.fetch([id, needs], expires_in: 1.hour) do
+    Rails.cache.fetch(['perimeter_received_matches_from_needs', id, needs.map(&:id)], expires_in: 1.hour) do
       if self.national?
-        self.institution.received_matches.joins(:need).where(need: needs).distinct
+        self.institution.perimeter_received_matches_from_needs(needs)
       elsif self.regional?
-        Match.joins(:need, expert: :antenne).scoping do
-          Match.where(
-            need: needs,
-            expert: { antenne: self }
-          )
-            .or(Match.where(
-                  need: needs,
-                  expert: { antenne: self.territorial_antennes }
-                ))
-        end.distinct
+        antenne_ids = self.territorial_antennes.pluck(:id) << self.id
+        Match.joins(:need, expert: :antenne)
+          .where(need: needs, expert: { antenne_id: antenne_ids })
+          .distinct
       else
-        self.received_matches.joins(:need).where(need: needs).distinct
+        self.received_matches_including_from_deleted_experts.joins(:need).where(need: needs).distinct
       end
     end
   end
@@ -250,19 +257,16 @@ class Antenne < ApplicationRecord
 
   # Updated when changed : add/remove communes - add/remove experts - add/remove expert communes - add/remove expert subject
   def update_referencement_coverages(*args)
-    # pour que les tests passent
-    return unless self.persisted?
-    if self.regional?
-      update_antenne_coverage(self)
-      self.territorial_antennes.each { |ta| update_antenne_coverage(ta) }
-    elsif self.regional_antenne.present?
-      self.regional_antenne.territorial_antennes.each { |ta| update_antenne_coverage(ta) }
-    else
-      update_antenne_coverage(self)
-    end
+    AntenneCoverage::DeduplicatedJob.new(self).call
   end
 
-  def update_antenne_coverage(antenne)
-    UpdateAntenneCoverage.new(antenne).delay.call
+  private
+
+  def get_associated_antennes(targeted_territorial_level)
+    Antenne.not_deleted.where(institution_id: institution_id, territorial_level: targeted_territorial_level)
+      .left_joins(:communes, :experts)
+      .where(communes: { id: commune_ids })
+      .or(Antenne.not_deleted.where(institution_id: institution_id, territorial_level: targeted_territorial_level).where(experts: { is_global_zone: true }))
+      .distinct
   end
 end

@@ -110,7 +110,7 @@ class User < ApplicationRecord
   ## Scopes
   #
   scope :admin, -> { not_deleted.joins(:user_rights).merge(UserRight.category_admin) }
-  scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_manager) }
+  scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_manager).distinct }
 
   scope :not_invited, -> { not_deleted.where(invitation_sent_at: nil) }
   scope :managers_not_invited, -> { not_deleted.managers.where(invitation_sent_at: nil) }
@@ -157,36 +157,6 @@ class User < ApplicationRecord
   # However there is nothing preventing an expert to be removed afterwards.
   # This can reasonably happen when expert teams are reorganized.
   scope :without_experts, -> { where.missing(:experts) }
-
-  # Activity
-  scope :active_searchers, -> (date) do
-    joins(:searches)
-      .merge(Search.where(created_at: date))
-      .distinct
-  end
-
-  scope :active_diagnosers, -> (date, minimum_step) do
-    joins(:sent_diagnoses)
-      .merge(Diagnosis.archived(false)
-                      .where(created_at: date)
-                      .after_step(minimum_step))
-      .distinct
-  end
-
-  scope :active_matchers, -> (date) do
-    joins(sent_diagnoses: [needs: :matches])
-      .merge(Diagnosis.archived(false)
-                      .where(created_at: date))
-      .distinct
-  end
-
-  scope :active_answered, -> (date, status) do
-    joins(sent_diagnoses: [needs: :matches])
-      .merge(Match
-               .where(taken_care_of_at: date)
-               .where(status: status))
-      .distinct
-  end
 
   ## Relevant Experts stuff
   # User objects fetched through this scope have an additional attribute :relevant_expert_id
@@ -324,16 +294,17 @@ class User < ApplicationRecord
   end
 
   def duplicate(params)
-    params[:job] = params[:job].presence || self.job
+    params[:job] ||= self.job
     new_user = User.create(params.merge(antenne: antenne))
+    return new_user unless new_user.valid?
     user_experts = self.relevant_experts - self.personal_skillsets
     # si c'est une équipe
     if user_experts.present?
-      new_user.relevant_experts << user_experts
+      new_user.relevant_experts.concat(user_experts)
       new_user.save
     # si c'est un expert personnel on attribue les sujets à l'expert personnel du nouvel utilisateur
-    elsif self.personal_skillsets.map(&:experts_subjects).present?
-      self.personal_skillsets.first.experts_subjects.map do |es|
+    elsif self.personal_skillsets.first.experts_subjects.present?
+      self.personal_skillsets.first.experts_subjects.each do |es|
         ExpertSubject.create(institution_subject: es.institution_subject,
                              expert: new_user.personal_skillsets.first,
                              intervention_criteria: es.intervention_criteria)

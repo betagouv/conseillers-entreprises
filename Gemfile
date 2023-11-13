@@ -23,11 +23,10 @@ gem 'puma'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'sassc-rails'
-gem 'fomantic-ui-sass'
 gem 'terser'
 gem 'premailer-rails'
 gem 'css_parser'
-gem 'webpacker'
+gem 'webpacker', '6.0.0.rc.6'
 
 # Parallel processes
 gem 'clockwork'
@@ -144,7 +143,6 @@ group :development do
   gem 'rubocop-i18n', require: false
   gem 'brakeman', require: false
   gem "rails-erd"
-  gem 'scout_apm'
 end
 
 # Use Redis for Action Cable

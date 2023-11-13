@@ -8,7 +8,6 @@ module InvolvementConcern
     received_needs
       .where(matches: received_matches.status_quo)
       .where(matches: { archived_at: nil })
-      .archived(false)
       .distinct
   end
 
@@ -16,7 +15,6 @@ module InvolvementConcern
     received_needs
       .where(matches: received_matches.with_status_quo_active)
       .where(matches: { archived_at: nil })
-      .archived(false)
       .distinct
   end
 
@@ -24,7 +22,6 @@ module InvolvementConcern
     received_needs
       .where(matches: received_matches.status_taking_care)
       .where(matches: { archived_at: nil })
-      .archived(false)
       .distinct
   end
 
@@ -32,7 +29,6 @@ module InvolvementConcern
     received_needs
       .where(matches: received_matches.with_status_done)
       .where(matches: { archived_at: nil })
-      .archived(false)
       .distinct
   end
 
@@ -40,14 +36,6 @@ module InvolvementConcern
     received_needs
       .where(matches: received_matches.status_not_for_me)
       .where(matches: { archived_at: nil })
-      .archived(false)
-      .distinct
-  end
-
-  def needs_archived
-    received_needs
-      .archived(true)
-      .or(received_needs.where.not(matches: { archived_at: nil }))
       .distinct
   end
 
@@ -55,7 +43,6 @@ module InvolvementConcern
     received_needs
       .where(matches: received_matches.with_status_expired)
       .where(matches: { archived_at: nil })
-      .archived(false)
       .distinct
   end
 
@@ -64,7 +51,6 @@ module InvolvementConcern
       .status_taking_care
       .where(matches: received_matches.status_quo)
       .where(matches: { archived_at: nil })
-      .archived(false)
       .distinct
   end
 end

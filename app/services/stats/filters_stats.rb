@@ -2,7 +2,7 @@ module Stats
   module FiltersStats
     def filtered_needs(query)
       query.merge! territory.needs if territory.present?
-      query.merge! antenne_or_institution.received_needs_including_from_deleted_experts if antenne_or_institution.present?
+      query.merge! antenne_or_institution.perimeter_received_needs if antenne_or_institution.present?
       query.merge! Need.joins(:subject).where(subject: subject) if subject.present?
       query.merge! Need.joins(solicitation: :landing)
         .where(solicitations: { landings: { integration: integration } }) if integration.present?
@@ -24,6 +24,7 @@ module Stats
 
     def filtered_solicitations(query)
       query.merge! Solicitation.in_regions(territory.code_region) if territory.present?
+      # TODO : passer à un `perimeter_received_solicitations`
       query.merge! antenne_or_institution.received_solicitations_including_from_deleted_experts if antenne_or_institution.present?
       query.merge! Solicitation.joins(landing_subject: :subject).where(subjects: subject) if subject.present?
       query.merge! Solicitation.joins(:landing).where(landings: { integration: integration }) if integration.present?
@@ -42,6 +43,7 @@ module Stats
 
     def filtered_companies(query)
       query.merge!(territory.companies) if territory.present?
+      # TODO : passer à un `perimeter_received_diagnoses`
       query.merge! antenne_or_institution.received_diagnoses_including_from_deleted_experts if antenne_or_institution.present?
       query.merge! Company.joins(facilities: { diagnoses: { solicitation: { landing_subject: :subject } } })
         .where(landing_subjects: { subjects: subject }) if subject.present?
@@ -63,11 +65,7 @@ module Stats
 
     def filtered_matches(query)
       query.merge! query.in_region(territory) if territory.present?
-      if antenne.present?
-        query.merge! query.joins(expert: :antenne).where(experts: { antennes: antenne })
-      elsif institution.present?
-        query.merge! query.joins(expert: :institution).where(experts: { institutions: institution })
-      end
+      query.merge! antenne_or_institution.perimeter_received_matches if antenne_or_institution.present?
       query.merge! Match.joins(:subject).where(subjects: subject) if subject.present?
       query.merge! Match.joins(need: { solicitation: :landing })
         .where(solicitations: { landings: { integration: integration } }) if integration.present?

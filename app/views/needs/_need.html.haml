@@ -1,14 +1,16 @@
 - cache need do
   .fr-mb-2w
     .fr-card__c-container.fr-card__c-container--need
-      .fr-card.fr-card--horizontal.fr-enlarge-link
+      .fr-card.fr-card--sm.fr-card--horizontal.fr-enlarge-link
         .fr-card__body
-          %p.fr-card__detail
-            = I18n.l(need.created_at, format: :long)
-            - if params[:query].present?
-              %span.label.grey-blue= t(need.status, scope: 'needs.collections_single')
-          %h2.fr-h4.fr-card__title
-            = link_to need.subject, need_path(need), class: 'fr-card__link'
-          %p.fr-card__desc
-            %span.fr-text--lg= need.company.name
-            = need.facility.commune_name
+          .fr-card__content
+            %h3.fr-h4.fr-card__title
+              = link_to need.subject, need_path(need), class: 'fr-card__link'
+            %p.fr-card__desc
+              %span.fr-text--lg= need.company.name
+              = need.facility.commune_name
+            .fr-card__start
+              %p.fr-card__detail
+                = I18n.l(need.created_at, format: :long)
+                - if params[:query].present?
+                  %span.label.grey-blue= t(need.status, scope: 'needs.collections_single')

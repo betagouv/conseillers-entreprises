@@ -1,30 +1,39 @@
-- meta title: t('.title')
-- content_for :header, render('header', title: t('.title'))
+- meta title: t('.title', antenne: @antenne.name)
+- content_for :header, render('header', title: t('.title', antenne: @antenne.name))
 - content_for :menu, render('menu', antennes: @antennes, current_antenne: @antenne)
 
 .fr-container.reports
   - if @quarters.present?
-    - @quarters.each do |quarter|
-      %section.fr-mt-6w
-      %h2= t('.interval', start_month: I18n.l(quarter.first, format: :month_name), end_month: I18n.l(quarter.last, format: :month_name), year: quarter.last.year).capitalize
-      - matches_report = @antenne.quarterly_reports.category_matches.find_by(start_date: quarter.first)
-      - stats_report = @antenne.quarterly_reports.category_stats.find_by(start_date: quarter.first)
-      - if matches_report.present?
-        .fr-tile.fr-enlarge-link.fr-tile--horizontal.fr-mt-2w
-          .fr-tile__body
-            %h2.fr-h4.fr-tile__title
-              = link_to download_report_path(matches_report, format: :xlsx), class: 'fr-tile__link' do
-                = matches_report.file.filename
-          .fr-tile__img
-            %span.ri-file-download-line{ 'aria-hidden': 'true' }
-      - if stats_report.present?
-        .fr-tile.fr-enlarge-link.fr-tile--horizontal.fr-mt-2w
-          .fr-tile__body
-            %h2.fr-h4.fr-tile__title
-              = link_to download_report_path(stats_report, format: :xlsx), class: 'fr-tile__link' do
-                = stats_report.file.filename
-          .fr-tile__img
-            %span.ri-file-download-line{ 'aria-hidden': 'true' }
+    .fr-table.fr-table--beige-gris-galet.fr-accordions-group
+      - @quarters.each_with_index do |quarter, index|
+        - matches_report = @antenne.quarterly_reports.category_matches.find_by(start_date: quarter.first)
+        - stats_report = @antenne.quarterly_reports.category_stats.find_by(start_date: quarter.first)
+        %section.fr-accordion
+          %h3.fr-accordion__title
+            %button.fr-accordion__btn{ 'aria-controls': "accordion-quarter-#{index}", 'aria-expanded': index == 0 ? 'true' : 'false' }
+              #{t('.interval', start_month: I18n.l(quarter.first, format: :month_name), end_month: I18n.l(quarter.last, format: :month_name), year: quarter.last.year).capitalize}
+          .fr-collapse{ id: "accordion-quarter-#{index}" }
+            - if stats_report.present?
+              .fr-card.fr-enlarge-link.fr-card--download
+                .fr-card__body
+                  .fr-card__content
+                    %h3.fr-card__title
+                      = link_to download_report_path(stats_report, format: :xlsx), class: 'fr-download__link' do
+                        = t('.download_stats')
+                    .fr-card__end
+                      %p.fr-card__detail
+                        = t('.file_infos', weight: stats_report.file.byte_size / 1000) if stats_report.file.present? # Pour les tests
+            - if matches_report.present?
+              .fr-card.fr-enlarge-link.fr-card--download.fr-mt-2w
+                .fr-card__body
+                  .fr-card__content
+                    %h3.fr-card__title
+                      = link_to download_report_path(matches_report, format: :xlsx), class: 'fr-download__link' do
+                        = t('.download_matches')
+                    .fr-card__end
+                      %p.fr-card__detail
+                        = t('.file_infos', weight: matches_report.file.byte_size / 1000) if matches_report.file.present?
+
   - else
     .fr-alert.fr-alert--info{ role: "alert" }
       %p.fr-alert__title= t('.no_export_available')

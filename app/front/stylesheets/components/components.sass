@@ -77,6 +77,7 @@ hr.separation
     display: flex
     align-items: center
     margin-top: 0.15rem
+    margin-bottom: 0
   .date
     line-height: 0.5rem
     font-size: 0.75rem
@@ -89,16 +90,8 @@ hr.separation
   .content
     margin-left: 3rem
     position: relative
-    &::before
-      content: ""
-      display: block
-      position: absolute
-      z-index: 1
-      left: -2rem
-      top: 0
-      bottom: 0
-      border: 1px solid $grey-light
-      border-width: 0 0 0 1px
+    p
+      margin-top: 0.1rem
   .fr-icon-delete-line
     padding-top: 1.2rem
   button.fr-tag.custom-modal-tag.custom-modal-tag--blue
@@ -146,9 +139,6 @@ hr.separation
     z-index: 1
     &:hover
       color: $blue
-
-.ui.item
-  box-shadow: none
 
 // Equivalent de .fr-enlarge-link, mais pr les boutons.
 // Rend le block auquel il s'applique cliquable avec le lien du bouton qu'il abrite

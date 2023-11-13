@@ -21,7 +21,7 @@ RSpec.describe 'companies/needs' do
       assignments
     end
 
-    it { expect(render).to have_selector('h1', text: strip_tags(I18n.t('companies.needs.title_html', company: facility.company.name, siret: facility.siret))) }
+    it { expect(render).to have_css('h1', text: strip_tags(I18n.t('companies.needs.title_html', company: facility.company.name, siret: facility.siret))) }
   end
 
   describe 'with only quo needs' do
@@ -31,9 +31,9 @@ RSpec.describe 'companies/needs' do
       assignments
     end
 
-    it('displays title needs in progress') { expect(render).to have_selector('h2', text: I18n.t('companies.needs.needs_in_progress')) }
-    it('not displays title needs done') { expect(render).not_to have_selector('h2', text: I18n.t('companies.needs.needs_done')) }
-    it('displays needs') { expect(render).to have_selector('div.company-need', count: 1) }
+    it('displays title needs in progress') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_in_progress')) }
+    it('not displays title needs done') { expect(render).not_to have_css('h2', text: I18n.t('companies.needs.needs_done')) }
+    it('displays needs') { expect(render).to have_css('div.company-need', count: 1) }
     it('displays need subject') { expect(render).to have_link(text: need.subject.label) }
   end
 
@@ -44,9 +44,9 @@ RSpec.describe 'companies/needs' do
       assignments
     end
 
-    it('displays title needs done') { expect(render).to have_selector('h2', text: I18n.t('companies.needs.needs_done')) }
-    it('not displays title needs in progress') { expect(render).not_to have_selector('h2', text: I18n.t('companies.needs.needs_in_progress')) }
-    it('displays needs') { expect(render).to have_selector('div.company-need', count: 2) }
+    it('displays title needs done') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_done')) }
+    it('not displays title needs in progress') { expect(render).not_to have_css('h2', text: I18n.t('companies.needs.needs_in_progress')) }
+    it('displays needs') { expect(render).to have_css('div.company-need', count: 2) }
     it('displays first need subject') { expect(render).to have_link(text: need.subject.label) }
     it('displays second need subject') { expect(render).to have_link(text: another_need.subject.label) }
   end
@@ -58,9 +58,9 @@ RSpec.describe 'companies/needs' do
       assignments
     end
 
-    it('displays title needs done') { expect(render).to have_selector('h2', text: I18n.t('companies.needs.needs_done')) }
-    it('displays title needs in progress') { expect(render).to have_selector('h2', text: I18n.t('companies.needs.needs_in_progress')) }
-    it('displays needs') { expect(render).to have_selector('div.company-need', count: 2) }
+    it('displays title needs done') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_done')) }
+    it('displays title needs in progress') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_in_progress')) }
+    it('displays needs') { expect(render).to have_css('div.company-need', count: 2) }
     it('displays first need subject') { expect(render).to have_link(text: need.subject.label) }
     it('displays second need subject') { expect(render).to have_link(text: another_need.subject.label) }
   end

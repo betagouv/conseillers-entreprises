@@ -1,29 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "00049db5b0cada03521751944c2a032ec0c0d038d194cd7592722cb6a4737bc4",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/services/stats/public/solicitations_stats.rb",
-      "line": 44,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "query.group(\"DATE_TRUNC('month', #{query.model.name.pluralize}.completed_at)\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Stats::Public::SolicitationsStats",
-        "method": "grouped_by_month"
-      },
-      "user_input": "query.model.name.pluralize",
-      "confidence": "Weak",
-      "cwe_id": [
-        89
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "3f8a8d49ee107fbb6b9a9b7d00218316003d2fcc965e798c06845071ed1186c6",
@@ -63,7 +40,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/antenne.rb",
-      "line": 99,
+      "line": 108,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "joins(:institution).where(\"(antennes.name, institutions.name) IN (#{([\"(?)\"] * antennes_and_institutions_names.size).join(\", \")})\", *antennes_and_institutions_names)",
       "render_path": null,
@@ -86,7 +63,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/services/stats/base_stats.rb",
-      "line": 127,
+      "line": 135,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "query.group(\"DATE_TRUNC('month', #{query.model.name.pluralize}.created_at)\")",
       "render_path": null,
@@ -103,6 +80,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-06-08 16:29:39 +0200",
-  "brakeman_version": "6.0.0"
+  "updated": "2023-10-17 17:16:54 +0200",
+  "brakeman_version": "6.0.1"
 }

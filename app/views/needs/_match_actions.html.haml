@@ -5,6 +5,7 @@
         %p.question= t('.can_you_help', company: match.need.company)
         = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :taking_care, class: 'fr-btn btn-green fr-mr-2w', id: 'match_submit_taking_care' do
+            %span.ri-phone-fill.fr-mr-2v{ 'aria-hidden': 'true' }
             = t('.take_care')
           = f.button :submit, name: :status, value: :not_for_me, class: 'fr-btn fr-btn--secondary btn-red', id: 'match_submit_not_for_me' do
             = t('.not_for_me')

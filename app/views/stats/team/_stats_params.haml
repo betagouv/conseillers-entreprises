@@ -5,11 +5,11 @@
       .fr-input-group
         = f.label :start_date, t('stats.stats_params.start_date'), class: 'fr-label'
         .fr-input-wrap
-          = f.date_field :start_date, { value: stats.params.start_date, class: 'fr-input' }
+          = f.date_field :start_date, { value: stats[:start_date], class: 'fr-input' }
       .fr-input-group
         = f.label :end_date, t('stats.stats_params.end_date'), class: 'fr-label'
         .fr-input-wrap
-          = f.date_field :end_date, { value: stats.params.end_date, class: 'fr-input' }
+          = f.date_field :end_date, { value: stats[:end_date], class: 'fr-input' }
       .fr-select-group
         = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
         = f.collection_select :territory, Territory.regions.order(:name), :id, :name, { selected: params[:territory],
@@ -37,10 +37,10 @@
     .fr-col-12.fr-col-md-4.fr-p-2w
       .fr-input-group
         = f.label :mtm_campaign, t('stats.stats_params.campaign'), class: 'fr-label'
-        = f.text_field :mtm_campaign, value: stats.params.mtm_campaign, class: 'fr-input'
+        = f.text_field :mtm_campaign, value: stats[:mtm_campaign], class: 'fr-input'
       .fr-input-group
         = f.label :mtm_kwd, t('stats.stats_params.keywords'), class: 'fr-label'
-        = f.text_field :mtm_kwd, value: stats.params.mtm_kwd, class: 'fr-input'
+        = f.text_field :mtm_kwd, value: stats[:mtm_kwd], class: 'fr-input'
       .fr-select-group
         = f.label :integration, t('activerecord.attributes.landing.integration'), class: 'fr-label'
         = f.select :integration, Landing.integrations.map { |i| [I18n.t(i.first, scope: 'activerecord.attributes.landing/integrations'), i.first] },
@@ -53,5 +53,6 @@
     .fr-col-12.fr-p-2w
       .fr-input-group
         = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
-        - if stats.params.table.count > 2
+        -# Affiche le bouton s'il y a plus de filtres que les dates début et fin qui sont présentes dès le début
+        - if stats.keys.count > 2
           = link_to t('stats.stats_params.clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--secondary'

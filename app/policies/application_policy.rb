@@ -42,6 +42,10 @@ class ApplicationPolicy
     UserPolicy.new(@user, @record).admin?
   end
 
+  def manager?
+    UserPolicy.new(@user, @record).manager?
+  end
+
   class Scope
     attr_reader :user, :scope
 

@@ -15,8 +15,7 @@
   .fr-container
     = render 'stats_params', stats: @stats_params
     .fr-grid-row.fr-grid-row--gutters#stats-charts
-      - names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :needs_done_from_exchange, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
-      - names.each do |name|
+      - @charts_names.each do |name|
         .fr-col-12.card.stats
-          = turbo_frame_tag name, stats_params: @stats_params, src: polymorphic_path([name, :public_index]) do
-            = render 'skeleton_card'
+          = turbo_frame_tag name, stats_params: @stats_params, src: load_data_public_index_path(chart_name: name) do
+            = render 'stats/skeleton_card'

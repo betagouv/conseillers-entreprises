@@ -32,7 +32,9 @@ module SolicitationHelper
     name = Solicitation.human_attribute_value(:status, new_status, context: :action)
     path = update_status_conseiller_solicitation_path(solicitation, status: new_status)
     classes += STATUS_ACTION_COLORS[new_status.to_sym]
-    link_to name, path, method: :post, remote: true, class: classes.join(' ')
+    tag.li class: 'fr-menu__item' do
+      link_to name, path, method: :post, remote: true, class: classes.join(' ')
+    end
   end
 
   def subject_tag(solicitation, classes = %[])
@@ -54,24 +56,21 @@ module SolicitationHelper
       t('helpers.solicitation.analysis_in_progress', step: diagnosis.human_attribute_value(:step))
     end
 
-    link_to text, diagnosis, class: 'ui item'
+    link_to text, [:conseiller, diagnosis], class: 'button'
   end
 
-  def possible_territories_options(territories = Territory.deployed_regions)
+  def possible_territories_options(territories = Territory.regions)
     territory_options = territories.map do |territory|
       [territory.name, territory.id]
     end
     territory_options.push(
-      [ t('helpers.solicitation.out_of_deployed_territories_label'), t('helpers.solicitation.out_of_deployed_territories_value') ],
       [ t('helpers.solicitation.uncategorisable_label'), t('helpers.solicitation.uncategorisable_value') ]
     )
   end
 
   def display_region(region, territory_params)
     # display region if there is no region filter
-    return unless ((territory_params.present? &&
-      (territory_params == 'uncategorisable' || territory_params == 'out_of_deployed_territories')) ||
-      territory_params.blank?) && region.present?
+    return unless ((territory_params.present? && (territory_params == 'uncategorisable')) || territory_params.blank?) && region.present?
     tag.div(class: 'item') do
       t('helpers.solicitation.localisation_html', region: region.name)
     end

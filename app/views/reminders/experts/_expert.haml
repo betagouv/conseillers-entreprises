@@ -44,26 +44,23 @@
           .fr-collapse.team-members{ id: "accordion-#{expert.id}" }
             = render partial: 'user_admin_view', collection: expert.users, as: :user
   .fr-card__body
-    - cache ["received_matches", expert, expert.received_matches, expert.needs_quo_active] do
-      .card-expert__subtitle= t('.matches_total')
-      .fr-tags-group
-        .fr-tag
-          .bold= expert.received_matches.count
-          .fr-ml-1v= t('.received_matches')
-        - inbox_collections_counts(expert).each do |name, count|
-          - path = polymorphic_path([name, :reminders, expert])
-          = link_to path, class: 'fr-tag' do
-            .bold= count
-            .fr-ml-1v= t(name, scope: 'needs.collections').downcase
-        - archived_needs = expert.needs_archived
-        %span.fr-tag
-          .bold= archived_needs.size
-          .fr-ml-1v= t(:archived, scope: 'needs.collections').downcase
+    .fr-card__content
+      - cache ["received_matches", expert, expert.received_matches, expert.needs_quo_active] do
+        .card-expert__subtitle= t('.matches_total')
+        .fr-tags-group
+          .fr-tag
+            .bold= expert.received_matches.count
+            .fr-ml-1v= t('.received_matches')
+          - inbox_collections_counts(expert).each do |name, count|
+            - path = polymorphic_path([name, :reminders, expert])
+            = link_to path, class: 'fr-tag' do
+              .bold= count
+              .fr-ml-1v= t(name, scope: 'needs.collections').downcase
 
-    %hr
-    = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
-    .fr-mt-3w
-      = render 'expert_feedbacks', expert: expert
+      %hr
+      = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
+      .fr-mt-3w
+        = render 'expert_feedbacks', expert: expert
 
   .card__footer
     - if action == :one_pending_need

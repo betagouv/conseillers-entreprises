@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'system_helper'
 
-describe 'invitations', js: true do
+describe 'invitations', :js do
   describe 'new invitations' do
     login_user
 

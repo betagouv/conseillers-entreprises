@@ -32,8 +32,6 @@ RSpec.describe Reminders::NeedsController do
     let!(:need4) { create :need }
     let!(:need4_match1) { create :match, need: need4, status: :not_for_me }
     let!(:need4_match2) { create :match, need: need4, status: :not_for_me }
-    let!(:need5) { create :need, archived_at: Time.now }
-    let!(:need5_match) { create :match, need: need5, status: :not_for_me }
 
     before { get :abandon }
 

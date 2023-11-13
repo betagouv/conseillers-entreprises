@@ -1,0 +1,30 @@
+- meta title: t('.title'), description: t('.title_long')
+.fr-container.fr-py-7w.fr-mt-3v
+  %h1.fr-h2= t('.title_long')
+  .fr-col-md-10
+    %p.fr-text--lead
+      = t('.subtitle')
+= render 'pages/breadcrumbs', title: t('.title')
+
+.fr-container
+  .fr-grid-row.fr-grid-row--gutters.fr-my-7w
+    - t('equipe').each do |index, member|
+      .fr-col-md-4.fr-col-md
+        .fr-card
+          .fr-card__body
+            .fr-card__content
+              %h2.fr-card__title
+                = member[:name]
+              %p.fr-card__desc.fr-mt-0
+                %span.fr-text--sm= member[:role]
+                %br
+                - if member[:territories].present?
+                  %i.fr-text--sm= member[:territories]
+                  %br
+                %br
+                = raw member[:description_html]
+              .fr-card__end
+                %p.fr-card__detail= member[:email]
+          .fr-card__header
+            .fr-card__img
+              = image_tag(member[:photo], alt: '', class: 'fr-responsive-img')

@@ -6,7 +6,6 @@ module SolicitationModification
     end
 
     def base_call
-      check_in_deployed_region
       update_institution_filters if @solicitation.institution_filters.present?
       @solicitation.assign_attributes(@params)
       manage_completion_step
@@ -27,20 +26,6 @@ module SolicitationModification
 
     def format_params(params)
       params
-    end
-
-    def check_in_deployed_region
-      @params = @params.merge(created_in_deployed_region: from_deployed_territory?)
-    end
-
-    # Methode a surcharger
-    def from_deployed_territory?
-      code_region = @params[:code_region] || @solicitation.code_region
-      if @solicitation.persisted?
-        code_region.present? && Territory.deployed_codes_regions.include?(code_region.to_i) && (@solicitation.created_at > solicitation_territory(code_region).deployed_at)
-      else
-        code_region.present? && Territory.deployed_codes_regions.include?(@params[:code_region].to_i)
-      end
     end
 
     # on gère automatiquement les étapes du formulaire de création d'une solicitation

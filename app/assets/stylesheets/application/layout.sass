@@ -1,22 +1,5 @@
-@import 'semantic-ui/globals/all'
-@import 'semantic-ui/elements/button'
-@import 'semantic-ui/collections/menu'
-@import 'semantic-ui/modules/dropdown'
-@import 'semantic-ui/modules/transition'
-
-// Reste de semantic, sans ça l'annuaire ne scrolle plus
-body
-  // Set to hidden by fomantic-ui in _site.scss; this doesn’t seem to be 100% expected.
-  // We want to allow very large tables to scroll: the margin and the layout are wrong, but the contents must be accessible still.
-  overflow-x: revert
-
 .hide
   display: none !important
-
-.dashed
-  &:hover
-    border-bottom: 1px dashed
-    cursor: default
 
 details
   summary

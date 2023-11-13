@@ -1,0 +1,42 @@
+name: "Update dependencies"
+
+on:
+  schedule:
+    - cron: '0 0 1-7 * 4'
+    - cron: '0 0 14-20 * 4'
+jobs:
+  updates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: install bundler
+        run: gem install bundler
+      - name: config unset deployment
+        run: bundle config unset deployment
+      - name: bundle update
+        run: bin/bundle update
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+      - name: Upgrade Node modules
+        run: yarn upgrade
+        shell: bash
+      - name: RuboCop Linter
+        uses: andrewmcodes/rubocop-linter-action@v3.3.0
+        with:
+          action_config_path: ".github/config/rubocop_linter_action.yml"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: 'update-dependencies'
+          commit-message: 'Update depedencies'
+          title: 'Update depedencies'
+          base: main

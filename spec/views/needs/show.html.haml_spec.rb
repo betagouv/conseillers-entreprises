@@ -22,11 +22,11 @@ RSpec.describe 'needs/show' do
     describe 'display page' do
       before { assignments }
 
-      it('displays subject title') { expect(rendered).to have_selector('h1', text: need.subject.label) }
-      it('display other experts matches') { expect(rendered).to have_selector('#all-experts', text: matches.first.expert.full_name) }
-      it('display new feedback form') { expect(rendered).to have_selector('.feedbacks-form', text: I18n.t('feedbacks.form.title')) }
-      it('have form for additional experts') { expect(render).not_to have_selector('.additional-experts', count: 1) }
-      it('has form for close matches') { expect(render).not_to have_selector(".details--dropdown", count: 1) }
+      it('displays subject title') { expect(rendered).to have_css('h1', text: need.subject.label) }
+      it('display other experts matches') { expect(rendered).to have_css('#all-experts', text: matches.first.expert.full_name) }
+      it('display new feedback form') { expect(rendered).to have_css('.feedbacks-form', text: I18n.t('feedbacks.form.title')) }
+      it('have form for additional experts') { expect(render).not_to have_css('.additional-experts', count: 1) }
+      it('has form for close matches') { expect(render).not_to have_css(".details--dropdown", count: 1) }
     end
 
     describe 'displays page without solicitation' do
@@ -46,7 +46,7 @@ RSpec.describe 'needs/show' do
     describe 'status quo' do
       before { assignments }
 
-      it('displays action for match') { expect(render).to have_selector('#match-actions', text: I18n.t('needs.match_actions.can_you_help', company: need.company)) }
+      it('displays action for match') { expect(render).to have_css('#match-actions', text: I18n.t('needs.match_actions.can_you_help', company: need.company)) }
     end
 
     describe 'status taking_care' do
@@ -56,7 +56,7 @@ RSpec.describe 'needs/show' do
       end
 
       it('displays action title') { expect(render).to match 'C’est à vous de jouer' }
-      it('displays actions choices') { expect(render).to have_selector('div.close-need-box', count: 3) }
+      it('displays actions choices') { expect(render).to have_css('div.close-need-box', count: 3) }
     end
 
     describe 'status done' do
@@ -103,8 +103,8 @@ RSpec.describe 'needs/show' do
     end
 
     it('displays subject title') { expect(rendered).to match(need.subject.label) }
-    it('not displays action for match') { expect(render).not_to have_selector('#match-actions') }
-    it('has form for additional experts') { expect(render).to have_selector('.additional-experts', count: 1) }
-    it('has form for close matches') { expect(render).to have_selector(".details--dropdown", count: 2) }
+    it('not displays action for match') { expect(render).not_to have_css('#match-actions') }
+    it('has form for additional experts') { expect(render).to have_css('.additional-experts', count: 1) }
+    it('has form for close matches') { expect(render).to have_css(".details--dropdown", count: 2) }
   end
 end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'about', type: :feature, js: true do
+describe 'about', :js, type: :feature do
   subject { page }
 
   describe '/cgu' do
@@ -34,6 +34,12 @@ describe 'about', type: :feature, js: true do
 
   describe '/accessibilite' do
     before { visit '/accessibilite' }
+
+    it { is_expected.to be_accessible }
+  end
+
+  describe '/equipe' do
+    before { visit '/equipe' }
 
     it { is_expected.to be_accessible }
   end

@@ -8,11 +8,11 @@ class CompanyMailerPreview < ActionMailer::Preview
   end
 
   def taking_care_solicitation
-    CompanyMailer.notify_taking_care(Diagnosis.completed.from_solicitation.sample.matches.sample)
+    CompanyMailer.notify_taking_care(Diagnosis.completed.sample.matches.sample)
   end
 
   def not_reachable
-    CompanyMailer.notify_not_reachable(Diagnosis.completed.from_solicitation.sample.matches.sample)
+    CompanyMailer.notify_not_reachable(Diagnosis.completed.sample.matches.sample)
   end
 
   def satisfaction

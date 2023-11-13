@@ -78,9 +78,9 @@ class ExpertSubject < ApplicationRecord
 
   scope :in_company_registres, -> (company) do
     klass = self
-    klass = klass.not_of_institution(Institution.find_by(slug: 'cma')) if company.inscrit_rcs && !company.inscrit_rm
-    klass = klass.not_of_institution(Institution.find_by(slug: 'cci')) if !company.inscrit_rcs && company.inscrit_rm
-    klass = klass.not_of_institution(Institution.find_by(slug: 'unapl')) if !company.activite_liberale && Institution.find_by(slug: 'unapl').present?
+    klass = klass.not_of_institution(Institution.find_by(slug: 'cma')) if (company.inscrit_rcs || company.activite_liberale) && !company.inscrit_rm
+    klass = klass.not_of_institution(Institution.find_by(slug: 'cci')) if (company.inscrit_rm  || company.activite_liberale) && !company.inscrit_rcs
+    klass = klass.not_of_institution(Institution.find_by(slug: 'unapl')) unless company.activite_liberale
     klass
   end
 

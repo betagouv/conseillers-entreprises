@@ -1,7 +1,7 @@
 - title = Institution.model_name.human.pluralize
 - meta title: title
 .fr-container
-  %h1= title
+  %h1.fr-h2= title
 
   = render 'annuaire/search/form'
   = render 'table', institutions: @institutions, antennes_count: @antennes_count, users_count: @users_count

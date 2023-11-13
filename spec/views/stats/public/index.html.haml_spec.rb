@@ -11,14 +11,15 @@ RSpec.describe 'stats/public/index' do
     let(:end_date) { Date.today }
 
     it "displays coherent needs counts" do
-      assign(:stats, Stats::Public::All.new({ start_date: start_date, end_date: end_date }))
-      assign(:main_stat, Stats::Public::ExchangeWithExpertColumnStats.new({ start_date: start_date, end_date: end_date }))
+      assign(:stats, { start_date: start_date, end_date: end_date })
+      assign(:main_stat, Stats::Needs::ExchangeWithExpertColumn.new({ start_date: start_date, end_date: end_date }))
+      assign(:charts_names, %w[solicitations solicitations_diagnoses exchange_with_expert needs_done_from_exchange taking_care themes companies_by_employees companies_by_naf_code])
 
       render
 
       expect(rendered).to have_content("Statistiques d’utilisation")
-      expect(rendered).to have_selector('.fr-col-12.card.stats', count: 8)
-      expect(rendered).to have_selector('.fr-container.main-stat', count: 1)
+      expect(rendered).to have_css('.fr-col-12.card.stats', count: 8)
+      expect(rendered).to have_css('.fr-container.main-stat', count: 1)
     end
   end
 end

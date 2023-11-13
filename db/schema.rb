@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_07_152426) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_27_100322) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -226,7 +226,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_152426) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "step", default: 1
-    t.datetime "archived_at", precision: nil
     t.bigint "advisor_id"
     t.bigint "visitee_id"
     t.bigint "facility_id", null: false
@@ -235,7 +234,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_152426) do
     t.datetime "completed_at", precision: nil
     t.boolean "retention_email_sent", default: false
     t.index ["advisor_id"], name: "index_diagnoses_on_advisor_id"
-    t.index ["archived_at"], name: "index_diagnoses_on_archived_at"
     t.index ["facility_id"], name: "index_diagnoses_on_facility_id"
     t.index ["solicitation_id"], name: "index_diagnoses_on_solicitation_id"
     t.index ["visitee_id"], name: "index_diagnoses_on_visitee_id"
@@ -454,6 +452,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_152426) do
     t.datetime "updated_at", null: false
     t.integer "max_years_of_existence"
     t.string "accepted_legal_forms", array: true
+    t.string "excluded_legal_forms", array: true
     t.index ["antenne_id"], name: "index_match_filters_on_antenne_id"
   end
 
@@ -473,8 +472,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_152426) do
     t.bigint "expert_id", null: false
     t.bigint "subject_id", null: false
     t.enum "status", default: "quo", null: false, enum_type: "match_status"
-    t.datetime "archived_at", precision: nil
     t.datetime "sent_at", precision: nil
+    t.datetime "archived_at", precision: nil
     t.index ["expert_id", "need_id"], name: "index_matches_on_expert_id_and_need_id", unique: true, where: "(expert_id <> NULL::bigint)"
     t.index ["expert_id"], name: "index_matches_on_expert_id"
     t.index ["need_id"], name: "index_matches_on_need_id"
@@ -489,12 +488,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_152426) do
     t.datetime "updated_at", precision: nil, null: false
     t.text "content"
     t.integer "matches_count"
-    t.datetime "archived_at", precision: nil
     t.boolean "satisfaction_email_sent", default: false, null: false
     t.enum "status", default: "diagnosis_not_complete", null: false, enum_type: "need_status"
     t.boolean "abandoned_email_sent", default: false
     t.datetime "retention_sent_at", precision: nil
-    t.index ["archived_at"], name: "index_needs_on_archived_at"
     t.index ["diagnosis_id"], name: "index_needs_on_diagnosis_id"
     t.index ["status"], name: "index_needs_on_status"
     t.index ["subject_id", "diagnosis_id"], name: "index_needs_on_subject_id_and_diagnosis_id", unique: true
@@ -571,7 +568,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_152426) do
     t.string "location"
     t.bigint "institution_id"
     t.integer "code_region"
-    t.boolean "created_in_deployed_region", default: true
     t.bigint "landing_id"
     t.bigint "landing_subject_id"
     t.integer "status", default: 0
@@ -610,7 +606,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_152426) do
     t.boolean "bassin_emploi", default: false, null: false
     t.bigint "support_contact_id"
     t.integer "code_region"
-    t.datetime "deployed_at", precision: nil
     t.index ["code_region"], name: "index_territories_on_code_region", unique: true
     t.index ["support_contact_id"], name: "index_territories_on_support_contact_id"
   end

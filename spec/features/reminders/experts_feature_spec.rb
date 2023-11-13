@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-describe 'reminders experts', js: true do
+describe 'reminders experts', :js do
   login_admin
 
   context 'show expert reminder by duration' do
     create_experts_for_reminders
 
-    before { RemindersService.create_reminders_registers }
+    before { RemindersService.new.create_reminders_registers }
 
     xit 'displays experts and opens expert BAL' do
       visit inputs_reminders_experts_path
@@ -36,7 +36,7 @@ describe 'reminders experts', js: true do
   context 'show expert reminder input and output' do
     create_registers_for_reminders
 
-    before { RemindersService.create_reminders_registers }
+    before { RemindersService.new.create_reminders_registers }
 
     context 'reminders_path' do
       it 'displays page' do
@@ -48,9 +48,7 @@ describe 'reminders experts', js: true do
 
     context 'inputs_reminders_experts_path' do
       it 'displays page' do
-        p "inputs expected count : 2"
         visit inputs_reminders_experts_path
-        p "inputs real count : #{Expert.inputs.distinct.size}"
         expect(page).to have_css('.card', count: 2, wait: 10)
         expect(page).to be_accessible
       end
@@ -58,9 +56,7 @@ describe 'reminders experts', js: true do
 
     context 'outputs_reminders_experts' do
       it 'displays page' do
-        p "outputs expected count : 3"
         visit outputs_reminders_experts_path
-        p "outputs real count : #{Expert.outputs.distinct.size}"
         expect(page).to have_css('.card', count: 3, wait: 10)
         expect(page).to be_accessible
       end

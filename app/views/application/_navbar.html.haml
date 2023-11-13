@@ -16,12 +16,9 @@
               .fr-header__navbar
                 %button.fr-btn--menu.fr-btn#fr-btn-menu-mobile-2{ 'aria-controls': 'modal-870', 'aria-haspopup': 'menu', 'data-fr-opened': 'false', title: t('.menu') }
                   = t(".menu")
-          .fr-header__tools
-            .fr-header__tools-links
-              %ul.fr-links-group
     .fr-header__menu.fr-modal#modal-870{ 'aria-labelledby': 'fr-btn-menu-mobile-2' }
       .fr-container
-        %button.fr-link--close.fr-link{ 'aria-controls': 'modal-870' }= t('.close')
+        %button.fr-btn--close.fr-btn{ 'aria-controls': 'modal-870', title: t('.close') }= t('.close')
         .fr-header__menu-links
         %nav.fr-nav{ 'aria-label': t(".main_menu"), role: 'navigation' }
           %ul.fr-nav__list
@@ -32,13 +29,16 @@
               = active_link_to needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-inbox-fill.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('needs.index.title')
-                - cache([current_user, current_user.needs_quo.size]) do
-                  - if current_user.needs_quo.exists?
+                - cache([current_user, current_user.needs_quo_active.size]) do
+                  - if current_user.needs_quo_active.size > 0
                     %span.ri-mail-unread-fill.orange.fr-ml-1w
             - if policy(User).manager?
               = active_link_to manager_needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-inbox-fill.fr-mr-1w{ 'aria-hidden': 'true' }
                 = current_user.managed_antennes.many? ? t('.antennes_needs') : t('.antenne_needs')
+              = active_link_to manager_stats_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+                %span.ri-line-chart-line.fr-mr-1w{ 'aria-hidden': 'true' }
+                = t('.stats')
             - if policy(:report).show_navbar?
               = active_link_to reports_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-file-text-line.fr-mr-1w{ 'aria-hidden': 'true' }
@@ -58,7 +58,7 @@
               %span.ri-tools-line.fr-mr-1w{ 'aria-hidden': 'true' }
               = t('user_pages.tutoriels.title')
             %li.fr-nav__item.fr-nav__item--align-right
-              %button.fr-nav__btn{ 'aria-controls': "fr-nav-item-account", 'aria-expanded': "false", data: { controller: 'fr-dropdown', action: 'click->fr-dropdown#collapse' } }
+              %button.fr-nav__btn{ 'aria-controls': "fr-nav-item-account", 'aria-expanded': "false" }
                 = t('.account')
               .fr-menu.fr-collapse#fr-nav-item-account
                 %ul.fr-menu__list

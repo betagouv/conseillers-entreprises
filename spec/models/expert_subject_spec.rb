@@ -124,35 +124,42 @@ RSpec.describe ExpertSubject do
                institution_subject: create(:institution_subject, institution: create(:institution, name: 'other'))
       end
 
-      context 'when company is rcs & rm' do
-        let(:company) { create :company, inscrit_rcs: true, inscrit_rm: true }
+      context 'when company is none' do
+        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false, activite_liberale: false }
 
         it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_other) }
       end
 
       context 'when company is only rcs' do
-        let(:company) { create :company, inscrit_rcs: true, inscrit_rm: false }
+        let(:company) { create :company, inscrit_rcs: true, inscrit_rm: false, activite_liberale: false }
 
         it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_other) }
       end
 
       context 'when company is only rm' do
-        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: true }
+        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: true, activite_liberale: false }
 
         it{ is_expected.to contain_exactly(expert_subject_cma, expert_subject_other) }
       end
 
-      context 'when company is none' do
-        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false }
+      context 'when company is only liberal' do
+        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false, activite_liberale: true }
+
+        it{ is_expected.to contain_exactly(expert_subject_unapl, expert_subject_other) }
+      end
+
+      context 'when company is rcs & rm' do
+        let(:company) { create :company, inscrit_rcs: true, inscrit_rm: true, activite_liberale: false }
 
         it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_other) }
       end
 
-      context 'when company is liberal' do
-        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false, activite_liberale: true }
+      context 'when company is rcs & rm && unapl' do
+        let(:company) { create :company, inscrit_rcs: true, inscrit_rm: true, activite_liberale: true }
 
         it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_unapl, expert_subject_other) }
       end
+
     end
   end
 

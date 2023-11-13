@@ -1,6 +1,6 @@
 - unless result.success?
   .fr-alert.fr-alert--error.fr-mb-2w{ role: "alert" }
-    %h2.fr-alert__title= t('.import_failed')
+    %h2.fr-h3.fr-alert__title= t('.import_failed')
     - if result.preprocess_errors.present?
       %ul
         - result.preprocess_errors.each do |message|

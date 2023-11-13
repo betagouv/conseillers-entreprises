@@ -5,7 +5,7 @@ class ChangeMatchFiltersSubject < ActiveRecord::Migration[7.0]
       t.belongs_to :subject
     end
 
-    MatchFilter.where.not(subject_id: nil).each do |mf|
+    MatchFilter.where.not(subject_id: nil).find_each do |mf|
       mf.subjects << Subject.find_by(id: mf.subject_id)
     end
     remove_reference :match_filters, :subject, index: true, foreign_key: true

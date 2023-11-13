@@ -1,49 +1,56 @@
-.ui.compact.inverted.menu
+.solicitation-actions
   - if solicitation.diagnosis.nil?
     - if solicitation.may_prepare_diagnosis?
       - if solicitation.prepare_diagnosis_errors.present?
-        .ui.item.error-425-bg
-          - error_text = solicitation.prepare_diagnosis_errors.full_messages.to_sentence
-          .ui.icon{ data: { tooltip: error_text, variation: 'fixed' } }
-            %span.ri-error-warning-line{ 'aria-hidden': 'true' }
-            = t('.prepare_diagnosis_errors', count: solicitation.prepare_diagnosis_errors.count)
-        .ui.item.dropdown.success-main-525-bg
-          = t('.prepare_diagnosis_retry')
-          %span.ri-arrow-down-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
-          .ui.menu
-            = link_to prepare_diagnosis_conseiller_solicitation_path(solicitation), class: 'item', method: :post do
-              = t('.start_auto_diagnosis')
-              %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
-            = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'item' do
-              = t('.start_manual_diagnosis')
-              %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
+        - error_text = solicitation.prepare_diagnosis_errors.full_messages.to_sentence
+        .actions.error-425-bg.info{ title: error_text }
+          %span.ri-error-warning-line.fr-mr-2v{ 'aria-hidden': 'true' }
+          = t('.prepare_diagnosis_errors', count: solicitation.prepare_diagnosis_errors.count)
+        .actions.dropdown.success-main-525-bg
+          %button.button
+            = t('.prepare_diagnosis_retry')
+            %span.ri-arrow-down-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
+          %ul.dropdown-content.fr-menu__list
+            %li.fr-menu__item
+              = link_to prepare_diagnosis_conseiller_solicitation_path(solicitation), class: 'fr-nav__link', method: :post do
+                = t('.start_auto_diagnosis')
+                %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
+            %li.fr-menu__item
+              = link_to new_conseiller_diagnosis_path(solicitation: solicitation.id), class: 'fr-nav__link' do
+                = t('.start_manual_diagnosis')
+                %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
       - else
-        .ui.item.success-main-525-bg.fr-p-0.fr-px-1w
-          = link_to prepare_diagnosis_conseiller_solicitation_path(solicitation), class: 'ui item', method: :post do
+        .actions.success-main-525-bg
+          = link_to prepare_diagnosis_conseiller_solicitation_path(solicitation), class: 'button', method: :post do
             %span.ri-rocket-2-fill.fr-mr-1w{ 'aria-hidden': 'true' }
             = t('.start_auto_diagnosis')
             %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
     - else
-      .ui.item.success-main-525-bg.fr-p-0.fr-px-1w
-        = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'ui item' do
+      .actions.success-main-525-bg
+        = link_to new_conseiller_diagnosis_path(solicitation: solicitation.id), class: 'button' do
           = t('.start_diagnosis')
           %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
   - else
-    .ui.item.success-main-525-bg.fr-p-0.fr-px-1w
+    .actions.success-main-525-bg
       = link_to_diagnosis(solicitation.diagnosis)
 
-  .ui.item.dropdown.warning-main-525-bg#generic-emails
-    = t('.send_email')
-    %span.ri-mail-add-fill.fr-ml-1w{ 'aria-hidden': 'true' }
-    .ui.menu
+  .dropdown.actions.warning-main-525-bg#generic-emails
+    %button.button
+      = t('.send_email')
+      %span.ri-mail-add-fill.fr-ml-1w{ 'aria-hidden': 'true' }
+    %ul.dropdown-content.fr-menu__list
       - emails_types = Solicitation::GENERIC_EMAILS_TYPES
       - emails_types.each do |email_type|
-        = link_to t(email_type, scope: 'solicitations.solicitation_actions.emails'),
-          emails_solicitation_generic_path(email_type: email_type, id: solicitation.id, query: params[:query]),
-          method: :post, class: 'item'
+        %li.fr-menu__item
+          = link_to t(email_type, scope: 'solicitations.solicitation_actions.emails'),
+            emails_solicitation_generic_path(email_type: email_type, id: solicitation.id, query: params[:query]),
+            method: :post, class: 'fr-nav__link'
 
-  .ui.item.dropdown.grey-medium-bg
-    %span.ri-list-settings-fill{ 'aria-hidden': 'true' }
-    .ui.menu
-      = status_action_link(solicitation, 'canceled', %w[item]) if solicitation.may_cancel?
-      .item.show-feedbacks-form{ 'data-feedbackable': "#{solicitation.id}" }= t('feedbacks.add')
+  .dropdown.actions.grey-medium-bg
+    %button.button
+      %span.ri-list-settings-fill{ 'aria-hidden': 'true' }
+    %ul.dropdown-content.fr-menu__list
+      = status_action_link(solicitation, 'canceled', %w[fr-nav__link]) if solicitation.may_cancel?
+      %li.fr-menu__item
+        .fr-nav__link.show-feedbacks-form.clickable{ 'data-feedbackable': "#{solicitation.id}", tabindex: "0" }
+          = t('feedbacks.add')

@@ -24,7 +24,7 @@ describe CsvExport::UserExporter, CsvExport do
 
     it do
       csv = <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Id de l’équipe,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Territoire spécifique
+        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Id de l’équipe,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Territoire spécifique (CODE INSEE)
         Test Institution,Test Antenne,User 1,user@user.com,01 23 45 67 89,User Job,#{expert.id},Team 1,team@team.com,09 87 65 43 21,22101
       CSV
       is_expected.to eq csv

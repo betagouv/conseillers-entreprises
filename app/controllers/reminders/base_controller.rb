@@ -32,7 +32,7 @@ module Reminders
     end
 
     def setup_territory_filters
-      @possible_territories_options = Territory.deployed_regions.pluck(:name, :id)
+      @possible_territories_options = Territory.regions.pluck(:name, :id)
       @possible_territories_options.push(
         [ t('helpers.expert.national_perimeter.label'), t('helpers.expert.national_perimeter.value') ]
       )

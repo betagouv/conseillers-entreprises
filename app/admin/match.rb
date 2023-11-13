@@ -10,10 +10,10 @@ ActiveAdmin.register Match do
   includes :need, :facility, :company, :related_matches,
            :advisor, :advisor_antenne, :advisor_institution,
            :expert, :expert_antenne, :expert_institution,
+           :solicitation, :diagnosis,
            :subject, :theme,
            facility: :commune,
-           need: :subject,
-           diagnosis: :solicitation
+           need: :subject
 
   scope :sent, default: true, group: :all
   scope :all, group: :all
@@ -38,7 +38,6 @@ ActiveAdmin.register Match do
       div admin_attr(m.facility, :commune)
       div I18n.l(m.created_at, format: :admin)
       human_attribute_status_tag m.need, :status
-      status_tag t('attributes.is_archived'), class: :ok if m.need.is_archived
     end
     column :advisor do |m|
       div admin_link_to(m, :advisor)
@@ -89,7 +88,7 @@ ActiveAdmin.register Match do
   filter :subject, collection: -> { Subject.not_archived.order(:label) }
 
   filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
-  filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.deployed_regions.pluck(:name, :id) }
+  filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.regions.pluck(:name, :id) }
 
   ## Show
   #
@@ -103,7 +102,7 @@ ActiveAdmin.register Match do
           if m.diagnosis.step_completed?
             link_to(I18n.t('active_admin.matches.need_page'), need_path(m.need))
           else
-            link_to(I18n.t('active_admin.matches.diagnosis_page'), diagnosis_path(m.diagnosis))
+            link_to(I18n.t('active_admin.matches.diagnosis_page'), conseiller_diagnosis_path(m.diagnosis))
           end
         end
         status_tag t('attributes.is_archived'), class: :ok if m.need.is_archived

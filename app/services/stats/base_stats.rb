@@ -8,7 +8,7 @@ module Stats
   module BaseStats
     FILTER_PARAMS = [
       :territory, :institution, :antenne, :subject, :integration, :mtm_campaign, :mtm_kwd,
-      :start_date, :end_date, :theme, :iframe_id
+      :start_date, :end_date, :theme, :iframe_id, :colors
     ]
     attr_reader(*FILTER_PARAMS)
 
@@ -25,6 +25,7 @@ module Stats
       @theme = Theme.find_by(id: params.theme) if params.theme.present?
       @start_date = params.start_date&.to_time || (Time.zone.now.beginning_of_day - 6.months)
       @end_date = params.end_date&.to_time&.end_of_day || Time.zone.now.end_of_day
+      @colors = params.colors
     end
 
     def date_group_attribute
@@ -32,7 +33,7 @@ module Stats
     end
 
     def colors
-      %w[#62e0d3 #2D908F #f3dd68 #e78112 #F45A5B #9f3cca #F15C80 #A8FF96 #946c47 #64609b #7a7a7a #CF162B]
+      @colors || %w[#62e0d3 #2D908F #f3dd68 #e78112 #F45A5B #9f3cca #F15C80 #A8FF96 #946c47 #64609b #7a7a7a #CF162B]
     end
 
     def series
@@ -63,9 +64,11 @@ module Stats
       @all_months ||= search_range_by_month.map(&:begin)
     end
 
-    # [Fri, 08 Feb 2019..Thu, 28 Feb 2019, Fri, 01 Mar 2019..Sun, 31 Mar 2019, ...]
+    # [Sat, 01 Jul 2023..Tue, 01 Aug 2023, ...]
     def search_range_by_month
-      @search_range_by_month ||= (@start_date.to_date..@end_date.to_date).group_by(&:beginning_of_month).map { |_, month| month.first..month.last }
+      @search_range_by_month ||= (@start_date.beginning_of_month.to_date..@end_date.end_of_month.to_date)
+        .group_by(&:beginning_of_month)
+        .map { |_, month| month.first..month.last }
     end
 
     def all_categories
@@ -100,7 +103,11 @@ module Stats
     end
 
     def matches_colors
-      %w[#eabab1 #8D533E]
+      @colors || %w[#eabab1 #8D533E]
+    end
+
+    def needs_colors
+      @colors || %w[#2D908F #62e0d3]
     end
 
     ## Overrides

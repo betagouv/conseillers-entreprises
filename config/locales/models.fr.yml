@@ -10,6 +10,7 @@ fr:
     antennes:
       deep_soft_deleted: Antennes, experts et utilisateurs supprimés avec succès
       deleted: Antennes supprimées avec succès
+      stats_reports: Rapports statistiques
       territorial_antennes: 'Antennes du territoire : '
     duplicate_user:
       new_user_details: Coordonnées du nouvel utilisateur
@@ -152,7 +153,6 @@ fr:
       do_invite_done: Invitation(s) envoyée(s)
       duplicate_territories: Dupliquer les territoires spécifiques
       impersonate: Voir le site comme %{name}
-      not_created: L’utilisateur n’a pas pu être créé
       reassign_matches_done:
         one: "%{count} mise en relation réattribuée à %{user}"
         other: "%{count} mises en relation réattribuées à %{user}"
@@ -184,7 +184,7 @@ fr:
         recrutement_handicape:
           label: Êtes-vous ouvert aux candidatures de personnes en situation de handicap avec l’aide d’un conseiller dédié ?
         recrutement_poste_cadre:
-          label: Souhaitez-vous recruter sur un poste d’expert, de spécialiste ou d’encadrement ?
+          label: Souhaitez-vous recruter sur un poste d’ingénieur, de manager ou de niveau Bac +3 ?
       antenne:
         match_filters: Filtres pour les mises en relation
       antenne/territorial_levels:
@@ -377,10 +377,12 @@ fr:
         accepted_naf_codes: codes naf acceptés
         effectif_max: effectif maximum
         effectif_min: effectif minimum
+        excluded_legal_forms: codes forme juridique rejetés (niveau 1)
         max_years_of_existence: ancienneté maximum (en année)
         min_years_of_existence: ancienneté minimum (en année)
         raw_accepted_legal_forms: codes forme juridique acceptés (niveau 1)
         raw_accepted_naf_codes: codes naf acceptés
+        raw_excluded_legal_forms: codes forme juridique rejetés (niveau 1)
       need:
         subject: Sujet
       need/statuses:
@@ -388,7 +390,7 @@ fr:
         done: Besoin clôturé
         done_no_help: Pas d’aide disponible
         done_not_reachable: Entreprise non joignable
-        not_for_me: Mise en relation refusée
+        not_for_me: Besoin refusé
         quo: En attente de réponse
         taking_care: En cours de prise en charge
       need/statuses/csv:
@@ -416,15 +418,16 @@ fr:
         missing_insee_codes: Experts manquants dans certaines communes
         no_anomalie: Pas d’anomalie
         no_expert: Aucun expert
+        no_user: Aucun utilisateur
       referencement_coverage/anomalie_details:
         experts: Experts concernés
         extra_insee_codes: Codes insee couverts par plusieurs experts
         missing_insee_codes: Codes insee non couverts
       referencement_coverage/coverage:
         long:
-          local: antenne locale
+          local: Antenne locale
           mixte: Mixte (locale + régionale)
-          regional: antenne régionale
+          regional: Antenne régionale
         short:
           local: L
           mixte: L + R
@@ -485,7 +488,6 @@ fr:
         antennes: Antennes
         bassin_emploi: Bassin d’emploi ?
         code_region: Région
-        deployed_at: Déployé le
         experts: Experts
         insee_codes: Codes communes
         support_contact: Contact support
@@ -515,7 +517,7 @@ fr:
         reset_password_token: Le lien de renouvellement du mot de passe
         roles: Rôles
         sign_in_count: Connexions
-        team_custom_communes: Territoire spécifique
+        team_custom_communes: Territoire spécifique (CODE INSEE)
         team_email: E-mail de l’équipe
         team_full_name: Nom de l’équipe
         team_id: Id de l’équipe
@@ -579,7 +581,7 @@ fr:
         user:
           attributes:
             email:
-              taken: est déjà inscrit sur Place des Entreprises. Connectez-vous.
+              taken: est déjà inscrit sur Place des Entreprises.
     models:
       additional_subject_question:
         one: Question additionnelle
@@ -672,11 +674,17 @@ fr:
         one: Droit utilisateur
         other: Droits utilisateur
   antenne_stats_exporter:
+    annual_national_stats: Repères nationaux
+    annual_stats_by_antenne: Stats ann. par antenne
+    annual_stats_by_region: Stats ann. par région
     antenne: Antenne
     by_antenne: Par antenne
     by_region: Par région
     caption_title: Aide à la lecture
-    count: Nb
+    closed_not_reachable: "- dont clôturés par « injoignable »"
+    closed_with_help: "- dont clôturés par « aide proposée »"
+    closed_without_help: "- dont clôturés par « pas d’aide »"
+    count: Nombre
     done_caption_definition: Besoin pris en charge par un expert et clôturé par une proposition d’aide au sens large (conseils, accompagnement technique, aide financière).
     done_caption_label: Aide proposée
     done_no_help_caption_definition: Besoin pris en charge par un expert mais l’échange téléphonique n’a pu aboutir à une proposition d’aide (critère non rempli, situation spécifique...).
@@ -690,30 +698,50 @@ fr:
     experts_positionning: Positionnement des experts %{institution}
     facilities: Etablissements
     from_beginning_of_year: Depuis le début de l’année %{year}
+    funnel:
+      not_status_quo: Taux de réponse
+      status_done: "  -  dont clôturés par « aide proposée »"
+      status_done_no_help: "  -  dont clôturés par « pas d’aide »"
+      status_done_not_reachable: "  -  dont clôturés par « injoignable »"
+      status_not_for_me: Taux de refus
+      status_quo: Taux de sans réponse
+      status_taking_care: "  -  dont en cours de traitement"
+      taken_care_of: Taux de prise en charge
     matches: Mises en relation
     needs: Besoins
     needs_count: Nb de besoins
-    not_for_me_caption_definition: L’expert n’a pas appelé l’entreprise car il sait d’emblée qu’il ne pourra pas l’aider, il refuse le besoin.
-    not_for_me_caption_label: Refusé
+    needs_percentage: Part des besoins
+    not_for_me_caption_definition: Part des besoins pour lesquels les experts ont indiqué refuser car ils savaient d’emblée qu’ils ne pourraient pas aider l’entreprise.
+    not_for_me_caption_label: Taux de refus
     not_for_me_rate: Taux de refus
-    percentage: Pourc.
-    positionning_accepted_caption_definition: Taux de besoins pour lesquels les experts ont indiqué prendre en charge, toutes clôtures confondues (aide proposée, injoignage, pas d’aide).
+    percentage: Pourcentage
+    positionning_accepted_caption_definition: Part des besoins pour lesquels les experts ont indiqué prendre en charge en appelant l’entreprise, toutes clôtures confondues (aide proposée, injoignage, pas d’aide).
     positionning_accepted_caption_label: Taux de prise en charge
     positionning_accepted_rate: Taux de prise en charge
-    positionning_caption_definition: Taux de besoins pour lesquels les experts ont indiqué prendre en charge ou refuser.
-    positionning_caption_label: Taux de positionnement
-    positionning_rate: Taux de positionnement
+    positionning_caption_definition: Part des besoins pour lesquels les experts ont indiqué prendre en charge ou refuser.
+    positionning_caption_label: Taux de réponse
+    positionning_rate: Taux de réponse
     quarter_stats: Stats trim.
     quarter_stats_by_antenne: Stats trim. par antenne
     quarter_stats_by_region: Stats trim. par region
+    quarter_stats_by_subject: Stats trim. par sujet
+    quo: Taux de sans réponse
     quo_caption_definition: L’expert ne s’est pas positionné sur le besoin malgré les relances de l’équipe Place des Entreprises.
     quo_caption_label: En attente de réponse
     quo_rate: Taux de sans réponse
     region: Région
+    subject: Sujet
     subtitle: Analyse statistique des besoins transmis aux experts
+    take_care_rate: Taux de prise en charge
+    taking_care: "- dont en cours de traitement"
     taking_care_caption_definition: Besoins pris en charge par un expert, qui n’a pas encore été clôturé après l’appel de l’entreprise.
-    taking_care_caption_label: Pris en charge
+    taking_care_caption_label: En cours de traitement
+    total: Tous sujets
+    transmitted_needs: Besoins transmis
+    without_response_caption_definition: Part des besoins pour lesquels les experts n’ont rien indiqué
+    without_response_caption_label: Taux de sans réponse
     year_stats: Stats ann.
+    year_stats_by_subject: Stats ann. par sujet
   archivable:
     archive: Archiver
     archive_done: Archivé
@@ -761,7 +789,6 @@ fr:
     content: Description
     coordinates: Coordonnées
     created_at: Date de création
-    created_in_deployed_region: Créées dans une région déployée
     custom_communes: Spécifique
     date_de_creation: Date de création
     deleted_at: Suppression
@@ -799,7 +826,7 @@ fr:
     filter_value: Valeur du filtre
     find_my_facility: Votre numéro SIRET
     flags: Options
-    forme_exercice: Forme d’activité
+    forme_exercice: Nature de l’entreprise
     full_name: Prénom et nom
     global_need_status: Statut du besoin au global
     happened_on: Date de la visite

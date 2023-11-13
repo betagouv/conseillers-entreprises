@@ -79,42 +79,6 @@ RSpec.describe User do
   end
 
   describe 'scopes' do
-    describe 'active_searchers' do
-      it do
-        searcher = create :user, searches: [(create :search, created_at: 1.day.ago)]
-        create :user, searches: [(create :search, created_at: 2.months.ago)]
-
-        last_30_days = (30.days.ago)..Time.zone.now
-        expect(described_class.active_searchers(last_30_days)).to contain_exactly(searcher)
-      end
-    end
-
-    describe 'active_diagnosers' do
-      it do
-        diagnosis = create :diagnosis, created_at: 1.day.ago, step: :needs, needs: create_list(:need, 1)
-        diagnoser = create :user, sent_diagnoses: [diagnosis]
-
-        last_30_days = (30.days.ago)..Time.zone.now
-
-        expect(described_class.active_diagnosers(last_30_days, 3)).to contain_exactly(diagnoser)
-        expect(described_class.active_diagnosers(last_30_days, 4)).to be_empty
-      end
-    end
-
-    describe 'active_answered' do
-      it do
-        expert = create :match, status: 'done'
-        need = create :need, matches: [expert]
-        diagnosis = create :diagnosis, created_at: 1.day.ago, needs: [need]
-        active_user = create :user, sent_diagnoses: [diagnosis]
-
-        last_30_days = (30.days.ago)..Time.zone.now
-
-        expect(described_class.active_answered(last_30_days, ['taking_care','done'])).to contain_exactly(active_user)
-        expect(described_class.active_answered(last_30_days, ['not_for_me'])).to be_empty
-      end
-    end
-
     describe 'not_invited' do
       subject { described_class.not_invited }
 
@@ -349,6 +313,19 @@ RSpec.describe User do
         expect(new_user.user_rights.count).to eq 1
         expect(new_user.relevant_experts.map(&:communes).flatten).to contain_exactly(commune)
       end
+    end
+
+    context 'with accidentally existing user' do
+      let(:commune) { create :commune }
+      let(:expert) { create :expert, experts_subjects: [expert_subject], full_name: 'Édith Piaf', email: 'test2@email.com', communes: [commune] }
+      let!(:old_user) { create :user, :invitation_accepted, :manager, experts: [expert], antenne: antenne, full_name: 'Édith Piaf', email: 'test2@email.com' }
+      let!(:existing_user) { create :user, full_name: 'Bruce Benamran', email: 'test3@email.com', phone_number: '0303030303' }
+      let(:new_user) { old_user.duplicate({ full_name: 'Bruce Benamran', email: 'test3@email.com', phone_number: '0303030303', specifics_territories: '1' }) }
+
+      it "doesnt duplicate user and raises no exception" do
+        expect(new_user.valid?).to be false
+      end
+
     end
   end
 

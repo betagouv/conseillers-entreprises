@@ -5,10 +5,10 @@
   = render 'shared/breadcrumb', pages: [{ title: t('.all_needs'), path: needs_path }], current_page: "#{@need.visitee} - #{@need.company.name}"
 
 .fr-container.fr-pb-4w
-  .fr-grid-row
+  .fr-grid-row.fr-grid-row--gutters
     .fr-col-md-8
-      .fr-container.fr-mt-xs-4w
-        %h1.fr-h2= @need.subject
+      .fr-mt-xs-4w
+        %h1.fr-h3.fr-mb-2v= @need.subject
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
         = need_general_context(@need)

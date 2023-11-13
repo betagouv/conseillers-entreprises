@@ -34,7 +34,7 @@ module  Annuaire
       params[:users_ids].split.each do |user_id|
         user = User.find user_id
         next if user.invitation_sent_at.present?
-        user.invite!
+        user.invite!(current_user)
         invite_count += 1
       end
       if invite_count > 0

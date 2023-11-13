@@ -5,7 +5,6 @@
 #  id                               :bigint(8)        not null, primary key
 #  code_region                      :integer
 #  completed_at                     :datetime
-#  created_in_deployed_region       :boolean          default(TRUE)
 #  description                      :string
 #  email                            :string
 #  form_info                        :jsonb
@@ -75,7 +74,7 @@ class Solicitation < ApplicationRecord
 
   paginates_per 25
 
-  GENERIC_EMAILS_TYPES = %i[bad_quality creation employee_labor_law siret moderation independent_tva intermediary recruitment_foreign_worker no_expert no_expert_juridique carsat tns_training]
+  GENERIC_EMAILS_TYPES = %i[bad_quality creation employee_labor_law siret moderation independent_tva intermediary recruitment_foreign_worker no_expert no_expert_juridique carsat tns_training kbis_extract]
 
   ## Status
   #
@@ -163,10 +162,27 @@ class Solicitation < ApplicationRecord
     required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
-    # on ne vérifie la validité du siret qu'à cette étape, car on a bcp de vieille ou actuelles solicitations avec un siret invalide
+    # on ne vérifie la validité du siret qu'à cette étape, car on a bcp de vieilles solicitations avec un siret invalide
     if company_step_is_siret? && siret.present?
       self.siret = FormatSiret.clean_siret(siret)
-      errors.add(:siret, :must_be_a_valid_siret) unless FormatSiret.siret_is_valid(siret)
+      if !FormatSiret.siret_is_valid(siret)
+        errors.add(:siret, :must_be_a_valid_siret)
+      # On recale les siret étrangers
+      elsif code_region.blank? || code_region == 0
+        begin
+          etablissement_data = ApiConsumption::Facility.new(siret, { request_keys: [] }).call
+          foreign_country = etablissement_data.adresse['libelle_pays_etranger']
+          if foreign_country.present?
+            errors.add(:base, I18n.t('api_requests.foreign_facility', country: foreign_country.capitalize))
+          else
+            # on en profite pour mettre à jour le code_region si siret non diffusible
+            self.code_region = etablissement_data.code_region
+            self.siret = etablissement_data.siret
+          end
+        rescue StandardError
+          true
+        end
+      end
     end
   end
 
@@ -199,43 +215,13 @@ class Solicitation < ApplicationRecord
   end
 
   def format_solicitation
-    params = set_siret_and_region
     self.email = formatted_email
-    self.siret = params[:siret]
-    self.code_region = params[:code_region]
     self.completed_at = Time.zone.now
   end
 
   def formatted_email
     # cas des double point qui empêche l'envoi d'email
     self.email&.squeeze('.')
-  end
-
-  def set_siret_and_region
-    params = { code_region: self.code_region, siret: self.siret }
-    return params if (self.code_region.present? && self.code_region != 0)
-    siret_or_siren = FormatSiret.clean_siret(siret)
-    # Solicitation with a valid SIREN -> find siret
-    if FormatSiret.siren_is_valid(siret_or_siren)
-      begin
-        response = ApiInsee::SiretsBySiren::Base.new(siret_or_siren).call
-        return params if (response[:nombre_etablissements_ouverts] != 1)
-        siret_or_siren = response.dig(:etablissements_ouverts, 0, 'siret')
-      rescue ApiInsee::ApiInseeError => e
-        return params
-      end
-    end
-    # Solicitation with a valid SIRET
-    if FormatSiret.siret_is_valid(siret_or_siren)
-      begin
-        etablissement_data = ApiConsumption::Facility.new(siret_or_siren, { request_keys: [] }).call
-        params[:code_region] = etablissement_data.code_region
-        params[:siret] = etablissement_data.siret
-      rescue ApiEntreprise::ApiEntrepriseError => e
-        return params
-      end
-    end
-    params
   end
 
   ## Scopes
@@ -366,15 +352,6 @@ class Solicitation < ApplicationRecord
     where(code_region: codes_regions)
   end
 
-  scope :in_deployed_regions, -> do
-    where(created_in_deployed_region: true)
-  end
-
-  # solicitation avec region identifiee mais hors region deployee
-  scope :in_undeployed_regions, -> do
-    where(created_in_deployed_region: false).where.not(code_region: nil)
-  end
-
   scope :out_of_regions, -> (codes_regions) do
     where.not(code_region: codes_regions).where.not(code_region: nil)
   end
@@ -393,10 +370,6 @@ class Solicitation < ApplicationRecord
     rescue ActiveRecord::RecordNotFound => e
       self.send(param)
     end
-  }
-
-  scope :out_of_deployed_territories, -> {
-    out_of_regions(Territory.deployed_codes_regions)
   }
 
   # Solicitations similaires

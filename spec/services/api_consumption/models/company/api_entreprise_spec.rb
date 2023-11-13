@@ -28,7 +28,7 @@ RSpec.describe ApiConsumption::Models::Company::ApiEntreprise do
             nomenclature: "NAFRev2",
             libelle: "Conseil en systèmes et logiciels informatiques"
           },
-          forme_exercice: "INDEPENDANTE"
+          forme_exercice: "LIBERALE_NON_REGLEMENTEE"
         }
       end
 
@@ -49,7 +49,7 @@ RSpec.describe ApiConsumption::Models::Company::ApiEntreprise do
             nomenclature: "NAFRev2",
             libelle: "Services de soutien à l’exploitation forestière"
           },
-          forme_exercice: nil
+          forme_exercice: "INDEPENDANTE"
         }
       end
 
@@ -76,6 +76,61 @@ RSpec.describe ApiConsumption::Models::Company::ApiEntreprise do
 
       it 'returns false activite_liberale' do
         expect(described_class.new(params).activite_liberale).to be(false)
+      end
+    end
+  end
+
+  describe 'inscrit_rcs' do
+    context 'rcs true && rne_rcs true' do
+      let!(:params) do
+        {
+          rcs: {
+            siren: "418166096",
+            date_extrait: "27 FEVRIER 2023",
+            date_immatriculation: "1998-03-27"
+          },
+          rne_rcs: {
+            estPresent: true, dateDebut: "1998-04-01T00:00:00+02:00"
+          },
+        }
+      end
+
+      it 'returns inscrit_rcs true' do
+        expect(described_class.new(params).inscrit_rcs).to be(true)
+      end
+    end
+
+    context 'rcs false && rne_rcs true' do
+      let!(:params) do
+        {
+          rcs: {
+            error: "Entité non trouvée : L'identifiant indiqué n'existe pas, n'est pas connu ou ne comporte aucune information pour cet appel."
+          },
+          rne_rcs: {
+            estPresent: true, dateDebut: "1998-04-01T00:00:00+02:00"
+          },
+        }
+      end
+
+      it 'returns inscrit_rcs true' do
+        expect(described_class.new(params).inscrit_rcs).to be(true)
+      end
+    end
+
+    context 'rcs false && rne_rcs false' do
+      let!(:params) do
+        {
+          rcs: {
+            error: "Entité non trouvée : L'identifiant indiqué n'existe pas, n'est pas connu ou ne comporte aucune information pour cet appel."
+          },
+          rne_rcs: {
+            estPresent: false
+          },
+        }
+      end
+
+      it 'returns inscrit_rcs false' do
+        expect(described_class.new(params).inscrit_rcs).to be(false)
       end
     end
   end

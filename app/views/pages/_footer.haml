@@ -29,6 +29,8 @@
               = link_to t('usage_stats'), public_index_path, class: 'fr-footer__content-link'
             %li.fr-footer__content-item
               = link_to t('.service_presentation'), '/dossier-presse.pdf', 'aria-label': t('.service_presentation_title'), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
+            %li.fr-footer__content-item
+              = link_to t('.who_are_we'), equipe_path, class: 'fr-footer__content-link'
     .fr-footer__bottom
       %ul.fr-footer__bottom-list
         %li.fr-footer__bottom-item
@@ -46,4 +48,4 @@
           = link_to t('sitemap.sitemap.title'), sitemap_path, class: 'fr-footer__bottom-link'
         - if policy(Stats::All).team?
           %li.fr-footer__bottom-item
-            = link_to t('usage_team_stats'), team_index_path, class: 'fr-footer__bottom-link'
+            = link_to t('usage_team_stats'), public_team_index_path, class: 'fr-footer__bottom-link'

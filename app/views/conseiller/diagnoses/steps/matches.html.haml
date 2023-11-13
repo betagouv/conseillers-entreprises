@@ -1,0 +1,71 @@
+- meta title: Diagnosis.human_attribute_value(:step, :matches)
+
+.fr-container
+  = render 'header', diagnosis: @diagnosis, current_page_step: 4
+
+  #matches-app{ data: { controller: "toggle-block" } }
+    - if @company_needs.present?
+      .fr-alert.fr-alert--warning.fr-mb-2w{ role: "alert" }
+        .fr-alert__title= t('.company_needs_historic_title')
+        %p= link_to t('.link_to_historic'), needs_company_path(@diagnosis.facility), target: :blank, reel: :noopener
+    - if @contact_needs.present? && @company_needs.blank?
+      .fr-alert.fr-alert--warning.fr-mb-2w{ role: "alert" }
+        .fr-alert__title= t('.contact_needs_historic_title')
+        %p= link_to t('.link_to_historic'), needs_historic_contact_path(@diagnosis.visitee), target: :blank, reel: :noopener
+
+    = form_with model: @diagnosis,
+      url: update_matches_conseiller_diagnosis_path(@diagnosis), id: 'confirm_matches_form',
+      data: { checkboxes_require_one_with: t(".select_at_least_one_expert") },
+      local: true do |form|
+
+      %details.fr-callout.fr-mb-2w
+        %summary
+          %strong= t('.solicitation_reminder')
+        = form.text_area :content, class: 'fr-input fr-mt-2w'
+
+      - @diagnosis.needs.ordered_for_interview.each do |need|
+        .card-matches.fr-mb-2w
+          .card__header
+            %h2.fr-text--lead= need.subject
+          #experts-subject-checkboxes
+            = turbo_frame_tag "match-checkboxes-#{need.id}" do
+              - experts_subjects = CreateDiagnosis::FindRelevantExpertSubjects.new(need).call
+              - other_matches = need.matches.where.not(expert_id: [experts_subjects.pluck(:expert_id)])
+              - support_subject = ExpertSubject.support_for(@diagnosis)
+              - if experts_subjects.present? || other_matches.present?
+                = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects, other_matches: other_matches
+              - elsif support_subject.present?
+                .fr-highlight.fr-mt-2w
+                  %p= t('.no_expert_subject')
+                  %p= t('.you_can_contact_support')
+                = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: support_subject
+              - else
+                .fr-highlight.fr-mt-2w
+                  %p= t('.no_expert_subject')
+          .card__footer.fr-p-2w
+            %button.fr-btn{ title: t('.add_expert'), aria: { expanded: false, controls: "add-expert-form" }, data: { action: 'toggle-block#show', 'item-id': need.id } }= t('.add_expert')
+
+    .hidden.additional-experts.card-matches.fr-my-4w#add-expert-form{ data: { controller: "expert-autocomplete" } }
+      .card__header
+        %h2.fr-text--lead= t('.add_expert')
+      = form_with url: add_match_conseiller_diagnosis_path(@diagnosis), data: { 'expert-autocomplete-target': 'form', turbo_frame: "match-checkboxes-XXX" } do |add_f|
+        = add_f.hidden_field :need_id, value: @diagnosis.needs.first.id, data: { 'toggle-block-target': 'itemId' }
+        = add_f.hidden_field :expert_id, value: nil, data: { 'expert-autocomplete-target': 'expertField' }
+      .fr-p-2w
+        = label_tag "expert", t('.add_expert_label'), class: 'fr-label'
+        .loader.hidden{ data: { 'expert-autocomplete-target': 'loader' } }
+        %div{ data: { 'expert-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'omnisearch', 'search-url': conseiller_experts_path } }
+
+    .fr-callout
+      %p.fr-callout__text= t('.before_sending_emails')
+
+    .bottom_actions.flex
+      = link_to needs_conseiller_diagnosis_path(@diagnosis), class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbo: false } do
+        %span.ri-arrow-left-line.fr-mr-1w{ 'aria-hidden': 'true' }
+        = t('previous_step')
+
+      - button_classes = []
+      - if @diagnosis.visitee.blank?
+        - button_classes << 'disabled'
+      %button.fr-btn.btn-green#next-step-button{ class: button_classes, form: 'confirm_matches_form' }
+        = t('.notify_matches')

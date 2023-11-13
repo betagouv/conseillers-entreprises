@@ -166,6 +166,18 @@ class Institution < ApplicationRecord
     institutions
   end
 
+  def perimeter_received_matches_from_needs(needs)
+    self.received_matches_including_from_deleted_experts.joins(:need).where(need: needs).distinct
+  end
+
+  def perimeter_received_matches
+    self.received_matches_including_from_deleted_experts
+  end
+
+  def perimeter_received_needs
+    self.received_needs_including_from_deleted_experts
+  end
+
   ## Soft deletion
   #
   def soft_delete

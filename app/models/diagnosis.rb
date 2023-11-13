@@ -3,7 +3,6 @@
 # Table name: diagnoses
 #
 #  id                   :bigint(8)        not null, primary key
-#  archived_at          :datetime
 #  completed_at         :datetime
 #  content              :text
 #  happened_on          :date
@@ -19,7 +18,6 @@
 # Indexes
 #
 #  index_diagnoses_on_advisor_id       (advisor_id)
-#  index_diagnoses_on_archived_at      (archived_at)
 #  index_diagnoses_on_facility_id      (facility_id)
 #  index_diagnoses_on_solicitation_id  (solicitation_id)
 #  index_diagnoses_on_visitee_id       (visitee_id)
@@ -110,11 +108,6 @@ class Diagnosis < ApplicationRecord
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
 
-  scope :out_of_deployed_territories, -> {
-    left_outer_joins(:facility_territories)
-      .where(territories: { id: nil })
-  }
-
   ## Scopes for flags
   #
   FLAGS = %i[retention_email_sent satisfaction_email_sent]
@@ -157,6 +150,14 @@ class Diagnosis < ApplicationRecord
         ExpertMailer.notify_company_needs(expert, need).deliver_later
       end
       expert.first_notification_help_email
+    end
+  end
+
+  def subject_title
+    if solicitation.present?
+      solicitation.landing_subject.title
+    else
+      needs.first.subject.label
     end
   end
 

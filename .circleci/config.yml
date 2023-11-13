@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  browser-tools: circleci/browser-tools@1.4.3
+  browser-tools: circleci/browser-tools@1.4.4
 
 defaults:
   &defaults
@@ -74,6 +74,8 @@ jobs:
     parallelism: 1
     steps:
       - checkout
+      - browser-tools/install-browser-tools:
+          chrome-version: 116.0.5845.96
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - *check_chrome_installation
@@ -93,6 +95,7 @@ jobs:
             DATABASE_URL: "postgis://place_des_entreprises_test@localhost:5432/place_des_e\
               ntreprises_test"
             APPLICATION_EMAIL: "contact@mailrandom.fr"
+            APPLICATION_MARKETING_EMAIL: "contact@marketing.mailrandom.fr"
             TEST_ERROR_RENDERING: "false"
             CI: 'true'
             RORVSWILD_KEY: 'rorvswild'

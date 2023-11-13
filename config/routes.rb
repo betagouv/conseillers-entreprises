@@ -86,9 +86,26 @@ Rails.application.routes.draw do
       get :sitemap
     end
     resources :experts, only: %i[index]
+    resources :diagnoses, only: %i[new show create], path: 'analyses' do
+      member do
+        controller 'diagnoses/steps' do
+          get :needs, path: 'besoins'
+          patch :update_needs
+          get :contact, path: 'contact'
+          patch :update_contact
+          get :matches, path: 'selection'
+          patch :update_matches
+          post :add_match
+        end
+      end
+    end
   end
 
   namespace 'manager' do
+    controller :stats do
+      get :index, path: 'stats', as: :stats
+      get :load_data, as: :load_data
+    end
     resources :needs, only: :index, path: 'besoins-des-antennes' do
       collection do
         get :quo_active, path: 'boite-de-reception'
@@ -103,30 +120,6 @@ Rails.application.routes.draw do
   resources :reports, path: 'export-des-donnees', only: :index do
     member do
       get :download
-    end
-  end
-
-  resources :diagnoses, only: %i[index new show create], path: 'analyses' do
-    collection do
-      get :processed, path: 'traitees'
-      get :archives
-      get :index_antenne
-      get :archives_antenne
-    end
-
-    member do
-      post :archive
-      post :unarchive
-
-      controller 'diagnoses/steps' do
-        get :needs, path: 'besoins'
-        patch :update_needs
-        get :contact, path: 'contact'
-        patch :update_contact
-        get :matches, path: 'selection'
-        patch :update_matches
-        post :add_match
-      end
     end
   end
 
@@ -157,8 +150,6 @@ Rails.application.routes.draw do
     member do
       get :additional_experts
       post :add_match
-      post :archive
-      post :unarchive
     end
   end
 
@@ -281,6 +272,7 @@ Rails.application.routes.draw do
   controller :about do
     get :comment_ca_marche
     get :cgu
+    get :equipe
     get :mentions_d_information
     get :mentions_legales
     get :accessibilite
@@ -289,14 +281,7 @@ Rails.application.routes.draw do
   scope :stats, module: :stats do
     resources :public, only: :index, path: '/' do
       collection do
-        get :solicitations
-        get :solicitations_diagnoses
-        get :exchange_with_expert
-        get :needs_done_from_exchange
-        get :taking_care
-        get :themes
-        get :companies_by_employees
-        get :companies_by_naf_code
+        get :load_data
       end
     end
     resources :team, only: :index, path: 'equipe' do
@@ -304,6 +289,7 @@ Rails.application.routes.draw do
         get :public, path: 'public'
         get :needs, path: 'besoins'
         get :matches, path: 'mises-en-relation'
+        get :load_data
         get :institution_filters
       end
     end
@@ -351,17 +337,6 @@ Rails.application.routes.draw do
     landing_slug = hash[query_params['institution']]
     ["/aide-entreprise/#{landing_slug}", req.query_string.presence].compact.join('?')
   }
-
-  # Others
-  get '/entreprise/:slug', to: redirect(path: '/aide-entreprises/%{slug}')
-  get '/entreprise/:slug(*all)', to: redirect(path: '/aide-entreprises/%{slug}%{all}')
-  get '/aide/:slug', to: redirect('/aide-entreprises/%{slug}')
-  get '/aide/:slug(*all)', to: redirect(path: '/aide-entreprises/%{slug}%{all}')
-  get '/profile', to: redirect('/mon_compte')
-  get '/mes_competences', to: redirect('/mon_compte/referents')
-  get '/diagnoses', to: redirect('/analyses')
-  get '/qui_sommes_nous', to: redirect('/comment_ca_marche')
-  get '/politique_de_confidentialite', to: redirect('/mentions_d_information')
 
   ## Handle 404 properly
   get '*unmatched_route', :to => 'shared#not_found'
