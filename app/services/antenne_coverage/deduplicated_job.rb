@@ -30,22 +30,12 @@ module AntenneCoverage
     end
 
     def delete_jobs_already_in_queue(antenne)
-      scheduled = if Rails.env == 'test'
-        Sidekiq::Job.jobs
-      else
-        Sidekiq::ScheduledSet.new
-      end
+      scheduled = Sidekiq::ScheduledSet.new
 
       scheduled.each do |job|
         return if job['queue'] != QUEUE_NAME
-        if Rails.env == 'test'
-          # Seule methode que j'ai trouvé pour vider Sidekiq::Job.jobs qui est accessible dans les tests,
-          # Sidekiq::ScheduledSet ne l'est pas
-          Sidekiq::Job.clear_all
-        else
-          if job['class'] == UpdateAntenneCoverageJob.to_s && job['args'].first == antenne.id
-            job.delete
-          end
+        if job['class'] == UpdateAntenneCoverageJob.to_s && job['args'].first == antenne.id
+          job.delete
         end
       end
     end

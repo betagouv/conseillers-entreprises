@@ -11,7 +11,6 @@ RSpec.describe Company::SolicitationsRelaunchJob do
     it 'send emails to solicitations not completed' do
       described_class.perform_now
       assert_enqueued_with(job: ActionMailer::MailDeliveryJob, args: ["CompanyMailer", "solicitation_relaunch_company", "deliver_now", { args: [solicitation] }])
-
     end
   end
 end

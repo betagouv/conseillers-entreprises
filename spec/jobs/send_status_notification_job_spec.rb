@@ -18,7 +18,7 @@ RSpec.describe SendStatusNotificationJob do
     end
 
     context "others status" do
-      # Les combinaisons de `should_notify_everyone` notifient tout le monde
+      # Les combinaisons de `should_notify_everyone` qui notifient tout le monde
       %w[taking_care done].each do |new_status|
         %w[quo not_for_me].each do |previous_status|
           it 'notifies everyone' do

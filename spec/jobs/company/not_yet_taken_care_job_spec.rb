@@ -42,7 +42,10 @@ RSpec.describe Company::NotYetTakenCareJob do
   describe 'perform_now' do
     before { described_class.perform_now }
 
-    it { assert_enqueued_with(job: ActionMailer::MailDeliveryJob) }
+    it do
+      assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
+      expect(enqueued_jobs.count).to eq 1
+    end
   end
 
   describe 'enqueue a job' do

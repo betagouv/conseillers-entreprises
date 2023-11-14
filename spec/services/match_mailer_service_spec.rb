@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 describe MatchMailerService do
-  before do
-  ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr'
-  Sidekiq::ScheduledSet.new.clear
-end
-
   Sidekiq::Testing.disable!
+
+  before do
+    ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr'
+    Sidekiq::ScheduledSet.new.clear
+  end
 
   describe '#deduplicated_notify_status' do
     def notify_change(new_status)
@@ -44,7 +44,6 @@ end
         expect(scheduled.size).to eq 0
         expect(a_match.status).to eq 'quo'
       end
-
     end
 
     context 'match taking_care and match not reachable' do

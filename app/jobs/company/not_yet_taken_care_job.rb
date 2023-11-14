@@ -4,7 +4,7 @@ class Company::NotYetTakenCareJob < ApplicationJob
 
   def perform
     retrieve_solicitations.each do |solicitation|
-      CompanyMailer.not_yet_taken_care(solicitation).deliver_later(queue: 'low_priority')
+      CompanyMailer.not_yet_taken_care(solicitation).deliver_later
     end
   end
 

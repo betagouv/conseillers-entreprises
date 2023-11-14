@@ -14,6 +14,7 @@ describe QuarterlyReports::NotifyManagers do
       assert_enqueued_with(job: ActionMailer::MailDeliveryJob) do
         subject
       end
+      expect(enqueued_jobs.count).to eq 1
     end
   end
 end
