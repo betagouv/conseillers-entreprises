@@ -226,12 +226,6 @@ ActiveAdmin.setup do |config|
   #
   # If you wanted to add a static menu item to the default menu provided:
 
-  config.namespace :admin do |admin|
-    admin.build_menu :default do |menu|
-      menu.add label: "Jobs", url: "/admin/sidekiq"
-    end
-  end
-
   # == Download Links
   #
   # You can disable download links on resource listing pages,
