@@ -8,6 +8,7 @@ defaults:
   working_directory: ~/place-des-entreprises
   docker:
     - image: cimg/ruby:3.1.2-browsers
+    - image: cimg/redis:7.2.3
     - image: cimg/postgres:13.5-postgis
       environment:
         POSTGRES_USER: place_des_entreprises_test
@@ -99,6 +100,7 @@ jobs:
             TEST_ERROR_RENDERING: "false"
             CI: 'true'
             RORVSWILD_KEY: 'rorvswild'
+            REDIS_URL: 'redis://localhost:6379/1'
           name: Run Tests, Split by Timings
           command: |
             bundle exec rspec --profile 10 \
