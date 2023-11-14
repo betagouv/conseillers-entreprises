@@ -87,3 +87,7 @@ end
 Capybara.javascript_driver = :chrome
 Capybara.default_max_wait_time = 5
 WebMock.disable_net_connect!(allow_localhost: true)
+
+RSpec::Sidekiq.configure do |config|
+  config.warn_when_jobs_not_processed_by_sidekiq = false
+end

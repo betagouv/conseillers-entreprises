@@ -27,7 +27,7 @@ end
       it do
         scheduled = Sidekiq::ScheduledSet.new
         expect(scheduled.size).to eq 1
-        expect(scheduled.first.args).to eq([a_match.id, 'taking_care'])
+        expect(scheduled.first.args).to eq([a_match.id, 'quo'])
         expect(a_match.status).to eq 'done'
       end
     end
@@ -38,15 +38,11 @@ end
         notify_change(:quo)
       end
 
-      # ici on veut un nouveau job qui n'envoie pas d'email ou pas de job du tout
       it do
         scheduled = Sidekiq::ScheduledSet.new
-        # un job Sidekiq est lancé
-        expect(scheduled.first.args).to eq([a_match.id, 'not_for_me'])
+        # Pas de job de lancé comme le statut ne change pas
+        expect(scheduled.size).to eq 0
         expect(a_match.status).to eq 'quo'
-        # mais pas de job d'envoie d'email qui passe dans une queue ActiveJob
-        SendStatusNotificationJob.perform_sync(a_match.id, 'quo')
-        assert_no_enqueued_jobs
       end
 
     end
@@ -60,7 +56,7 @@ end
       it do
         scheduled = Sidekiq::ScheduledSet.new
         expect(scheduled.size).to eq 1
-        expect(scheduled.first.args).to eq([a_match.id, 'taking_care'])
+        expect(scheduled.first.args).to eq([a_match.id, 'quo'])
         expect(a_match.status).to eq 'done_not_reachable'
       end
     end

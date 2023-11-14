@@ -6,11 +6,9 @@ class SendStatusNotificationJob
     match = Match.find(match_id)
     if should_notify_everyone(previous_status, match.status)
       # Notify the company
-      logger.info "premier"
       CompanyMailer.notify_taking_care(match).deliver_later
     end
-    if match.status == :done_not_reachable
-      logger.info "deuxieme"
+    if match.status.to_sym == :done_not_reachable
       CompanyMailer.notify_not_reachable(match).deliver_later
     end
   end
