@@ -632,11 +632,10 @@ fr:
     need:
       many_pending_needs: Cet expert est présent dans le paniers « plus de 5 besoins en attentes »
     needs:
-      index:
-        no_results: Aucun besoin dans ce panier
-
       filters:
         search: Rechercher
+      index:
+        no_results: Aucun besoin dans ce panier
       navbar:
         title: Relances
       scopes:
