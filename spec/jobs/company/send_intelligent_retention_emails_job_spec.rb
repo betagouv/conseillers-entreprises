@@ -35,17 +35,15 @@ RSpec.describe Company::SendIntelligentRetentionEmailsJob do
       described_class.perform_now
     end
 
-    describe 'send emails and fill retention_sent_at' do
-      it do
-        expect(need_ok.reload.retention_sent_at).not_to be_nil
-        expect(need_already_relaunch.reload.retention_sent_at).not_to be_nil
-        expect(need_wrong_delays.reload.retention_sent_at).to be_nil
-        expect(need_wrong_subject.reload.retention_sent_at).to be_nil
-        expect(need_without_help.reload.retention_sent_at).to be_nil
-        expect(need_all_wrong.reload.retention_sent_at).to be_nil
-        assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
-        expect(enqueued_jobs.count).to eq 2
-      end
+    it do
+      expect(need_ok.reload.retention_sent_at).not_to be_nil
+      expect(need_already_relaunch.reload.retention_sent_at).not_to be_nil
+      expect(need_wrong_delays.reload.retention_sent_at).to be_nil
+      expect(need_wrong_subject.reload.retention_sent_at).to be_nil
+      expect(need_without_help.reload.retention_sent_at).to be_nil
+      expect(need_all_wrong.reload.retention_sent_at).to be_nil
+      assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
+      expect(enqueued_jobs.count).to eq 2
     end
   end
 end

@@ -3,7 +3,11 @@ RSpec.describe SendStatusNotificationJob do
   describe 'enqueue a job with a match' do
     let(:a_match) { create(:match) }
 
-    it { expect { described_class.perform_async(a_match.id, 'quo') }.to enqueue_sidekiq_job.with(a_match.id, 'quo') }
+    it do
+      described_class.perform_async(a_match.id, 'quo')
+      expect(Sidekiq::Job.jobs.count).to eq(1)
+      expect(Sidekiq::Job.jobs.first['args']).to eq([a_match.id, 'quo'])
+    end
   end
 
   describe '#should_notify_everyone' do
