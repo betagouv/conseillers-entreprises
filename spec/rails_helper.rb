@@ -13,6 +13,7 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 require 'system_helper'
+require 'sidekiq/testing'
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
