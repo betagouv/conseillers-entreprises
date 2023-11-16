@@ -596,6 +596,7 @@ fr:
         search: Rechercher
         search_placeholder: Equipe Entreprise, Michel Martin...
       index:
+        no_results: aucun expert trouvé
         title: Paniers qualité
       navbar:
         title: Paniers qualité
