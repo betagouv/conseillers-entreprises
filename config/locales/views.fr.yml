@@ -278,6 +278,7 @@ fr:
         clear_search: Réinitialiser la recherche
         header: Sollicitations %{status}
         no_result: Il n'y a pas de résultat pour cette recherche.
+        no_results: Aucune sollicitation trouvée
         omnisearch: Recherche libre (Email, tag, aide demandée...)
         search: Rechercher
         search_placeholder: Tag, aide demandée…
@@ -596,7 +597,7 @@ fr:
         search: Rechercher
         search_placeholder: Equipe Entreprise, Michel Martin...
       index:
-        no_results: aucun expert trouvé
+        no_results: Aucun expert trouvé
         title: Paniers qualité
       navbar:
         title: Paniers qualité
