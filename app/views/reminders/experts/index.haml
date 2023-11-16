@@ -6,9 +6,9 @@
 = paginate @active_experts
 
 %div
-  - if @active_experts.to_a.size == 0 && @action == :inputs
-    .fr-container.fr-mt-10v
-      .fr-col= t('.no_results')
+  - if @active_experts.to_a.size == 0
+    .fr-container.text-center.fr-mt-18v
+      .fr-h3= t('.no_results')
   - else
     = render partial: 'expert', collection: @active_experts, locals: { action: @action }
 

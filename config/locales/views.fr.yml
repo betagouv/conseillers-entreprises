@@ -425,7 +425,7 @@ fr:
     prefets_regions: Préfet région %{name}
     regions: Conseil régional %{name}
     republique_francaise: République française
-    title: 'Place des Entreprises est un service du Ministère de l’Economie et le Ministère du Travail, en partenariat avec :'
+    title: 'Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
   manager:
     needs:
       index:
@@ -597,7 +597,7 @@ fr:
         search: Rechercher
         search_placeholder: Equipe Entreprise, Michel Martin...
       index:
-        no_results: Aucun expert trouvé
+        no_results: Aucun expert dans ce panier
         title: Paniers qualité
       navbar:
         title: Paniers qualité
@@ -632,6 +632,9 @@ fr:
     need:
       many_pending_needs: Cet expert est présent dans le paniers « plus de 5 besoins en attentes »
     needs:
+      index:
+        no_results: Aucun besoin dans ce panier
+
       filters:
         search: Rechercher
       navbar:

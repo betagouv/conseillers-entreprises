@@ -4,4 +4,8 @@
 
 = render 'filters', possible_territories_options: @possible_territories_options
 
-= render 'reminders/needs', received_needs: @needs, action: @action
+- if @needs.to_a.size == 0
+  .fr-container.text-center.fr-mt-18v
+    .fr-h3= t('.no_results')
+- else
+  = render 'reminders/needs', received_needs: @needs, action: @action
