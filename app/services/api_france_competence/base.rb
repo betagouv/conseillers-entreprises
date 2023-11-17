@@ -53,7 +53,7 @@ module ApiFranceCompetence
     def initialize(siren_or_siret, options = {})
       @siren_or_siret = siren_or_siret
       @options = options
-      @http_response = HTTP.auth("Bearer #{token}").get(url)
+      @http_response = HTTP.auth("Bearer #{token}").get(url, headers: headers)
       begin
         @data = @http_response.parse(:json)
       rescue StandardError => e
@@ -63,6 +63,12 @@ module ApiFranceCompetence
 
     def token
       @token ||= ApiFranceCompetence::Token::Base.new.call
+    end
+
+    def headers
+      @headers ||= {
+        'X-Gravitee-Api-Key' => ENV.fetch('FRANCE_COMPETENCE_SIRO_KEY')
+      }
     end
 
     def success?
@@ -111,11 +117,6 @@ module ApiFranceCompetence
 
     def format_data
       @http_request.data
-    end
-
-    def check_if_foreign_facility(etablissement)
-      foreign_country = etablissement['adresseEtablissement']["libellePaysEtrangerEtablissement"]
-      raise ApiFranceCompetenceError, I18n.t('api_requests.foreign_facility', country: foreign_country.capitalize) if foreign_country.present?
     end
   end
 

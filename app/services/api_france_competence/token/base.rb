@@ -5,7 +5,6 @@ module ApiFranceCompetence::Token
     # rubocop:enable Style/RedundantInitialize
 
     def call
-      # token france_competence valable 7 jours par défaut
       Rails.cache.fetch('france_competence_token', expires_in: 1.day) do
         http_request = Request.new
         if http_request.success?
@@ -19,14 +18,9 @@ module ApiFranceCompetence::Token
 
   class Request < ApiFranceCompetence::Request
     def initialize
-      p base_url
-      p json_params
-      p headers
-      @http_response = HTTP.post(base_url, json: json_params, headers: headers)
-      p @http_response
-      byebug
+      @http_response = HTTP.post(url, json: json_params, headers: headers)
       begin
-        @data = @http_response.parse(:json)
+        @data = @http_response.body.to_s
       rescue StandardError => e
         @error = e
       end
@@ -34,17 +28,17 @@ module ApiFranceCompetence::Token
 
     private
 
-    def json_params
-      {
-        login: login,
-        password: password
-      }.as_json
-    end
-
     def headers
       @headers ||= {
         'X-Gravitee-Api-Key' => ENV.fetch('FRANCE_COMPETENCE_AUTH_KEY')
       }
+    end
+
+    def json_params
+      {
+        'login' => login,
+        'password' => password
+      }.as_json
     end
 
     def login
@@ -55,15 +49,10 @@ module ApiFranceCompetence::Token
       @password ||= ENV.fetch('FRANCE_COMPETENCE_PASSWORD')
     end
 
-    def base_url
-      @base_url ||= 'https://api-preprod.francecompetences.fr/siropartfc-auth'
+    def url
+      @url ||= "#{base_url}siropartfc-auth/login"
     end
   end
 
-  class Responder < ApiFranceCompetence::Responder
-    def format_data
-      byebug
-      @http_request.data['access_token']
-    end
-  end
+  class Responder < ApiFranceCompetence::Responder; end
 end
