@@ -18,3 +18,17 @@ def authorize_rne_token
       body: "{ 'token1234' }".to_json
     )
 end
+
+def authorize_france_competence_token
+  ENV['FRANCE_COMPETENCE_LOGIN'] = 'fc_login'
+  ENV['FRANCE_COMPETENCE_PASSWORD'] = 'fc_password'
+  ENV['FRANCE_COMPETENCE_AUTH_KEY'] = 'fc_auth_key'
+  stub_request(:post, 'https://api-preprod.francecompetences.fr/siropartfc-auth/login')
+    .with(
+      body: { login: 'fc_login', password: 'fc_password' },
+      headers: { 'X-Gravitee-Api-Key' => 'fc_auth_key' }
+    )
+    .to_return(
+      body: "token1234"
+    )
+end

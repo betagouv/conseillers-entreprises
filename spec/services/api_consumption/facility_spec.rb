@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'api_helper'
 
 RSpec.describe ApiConsumption::Facility do
   let(:siret) { '41816609600069' }
@@ -25,6 +26,8 @@ RSpec.describe ApiConsumption::Facility do
     let(:api_facility) { described_class.new(siret).call }
     let(:api_ets_base_url) { 'https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements' }
     let(:cfadock_base_url) { 'https://www.cfadock.fr/api/opcos?siret=' }
+    let(:france_competence_url) { "https://api-preprod.francecompetences.fr/siropartfc/#{siret}" }
+    let(:effectifs_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/#{siret}/effectifs_mensuels/#{searched_month}/annee/#{searched_year}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
     before { Rails.cache.clear }
 
@@ -34,19 +37,19 @@ RSpec.describe ApiConsumption::Facility do
       let(:cfadock_url) { "#{cfadock_base_url}#{siret}" }
       let(:searched_month) { Time.zone.now.months_ago(2).strftime("%m") }
       let(:searched_year) { Time.zone.now.months_ago(2).year }
-      let(:effectifs_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/#{siret}/effectifs_mensuels/#{searched_month}/annee/#{searched_year}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
       before do
         ENV['API_ENTREPRISE_TOKEN'] = token
-        stub_request(:get, api_ets_url).to_return(
-          body: file_fixture('api_entreprise_etablissement.json')
-        )
+        authorize_france_competence_token
+        stub_request(:get, api_ets_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
+        stub_request(:get, france_competence_url).to_return(body: file_fixture('api_france_competence_siret.json'))
         stub_request(:get, cfadock_url).to_return(
           body: file_fixture('api_cfadock_opco.json')
         )
         stub_request(:get, effectifs_url).to_return(
           body: file_fixture('api_entreprise_effectifs_etablissement.json')
         )
+
       end
 
       it 'has the right fields' do
