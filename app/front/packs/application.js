@@ -28,7 +28,6 @@ require('stylesheets/application.sass')
 
 require("jquery");
 require("@selectize/selectize");
-require("@gouvfr/dsfr");
 
 import "javascripts/shared";
 import "javascripts/application";
