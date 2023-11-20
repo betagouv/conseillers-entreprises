@@ -29,7 +29,6 @@ RSpec.describe ApiConsumption::Company do
     before { Rails.cache.clear }
 
     context 'SIRET exists' do
-      let(:token) { '1234' }
       let(:searched_year) { 1.year.ago.year }
       let(:suffix_url) { "context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
@@ -41,7 +40,6 @@ RSpec.describe ApiConsumption::Company do
       let(:rne_companies_url) { "https://registre-national-entreprises.inpi.fr/api/companies/#{siren}" }
 
       before do
-        ENV['API_ENTREPRISE_TOKEN'] = token
         authorize_rne_token
         stub_request(:get, api_ets_url).to_return(
           body: file_fixture('api_entreprise_entreprise.json')

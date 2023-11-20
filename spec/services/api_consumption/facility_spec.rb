@@ -32,14 +32,12 @@ RSpec.describe ApiConsumption::Facility do
     before { Rails.cache.clear }
 
     context 'SIRET exists' do
-      # let(:token) { '1234' }
       let(:api_ets_url) { "#{api_ets_base_url}/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
       let(:cfadock_url) { "#{cfadock_base_url}#{siret}" }
       let(:searched_month) { Time.zone.now.months_ago(2).strftime("%m") }
       let(:searched_year) { Time.zone.now.months_ago(2).year }
 
       before do
-        # ENV['API_ENTREPRISE_TOKEN'] = token
         authorize_france_competence_token
         stub_request(:get, api_ets_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
         stub_france_competence_siret(france_competence_url, file_fixture('api_france_competence_siret.json'))
