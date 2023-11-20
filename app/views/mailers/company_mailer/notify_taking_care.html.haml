@@ -2,15 +2,12 @@
 
 %p= t('mailers.hello')
 
-%p= t('.intro_from_solicitation_html', company: @diagnosis.company.name)
-
-%p
-  %strong= @subject_title
+%p= t('.intro_from_solicitation_html', company: @diagnosis.company.name, subject: @subject_title)
 
 %p= t('.content_by_expert')
 
 %p
-  %strong= "#{@match.expert.institution} - #{@match.expert.antenne.name}"
+  %strong #{@match.expert.institution} - #{@match.expert.antenne.name}
 
 %p= t('.not_reachable_instructions')
 
