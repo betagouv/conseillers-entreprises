@@ -41,6 +41,7 @@ RSpec.describe ApiConsumption::Company do
 
       before do
         authorize_rne_token
+        ENV['API_ENTREPRISE_TOKEN'] = '1234'
         stub_request(:get, api_ets_url).to_return(
           body: file_fixture('api_entreprise_entreprise.json')
         )

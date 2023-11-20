@@ -38,6 +38,7 @@ RSpec.describe ApiConsumption::Facility do
       let(:searched_year) { Time.zone.now.months_ago(2).year }
 
       before do
+        ENV['API_ENTREPRISE_TOKEN'] = '1234'
         authorize_france_competence_token
         stub_request(:get, api_ets_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
         stub_france_competence_siret(france_competence_url, file_fixture('api_france_competence_siret.json'))
