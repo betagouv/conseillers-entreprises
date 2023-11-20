@@ -5,21 +5,8 @@ RSpec.describe Company::SendRetentionEmailsJob do
   end
 
   describe 'send_retention_emails' do
-    before do
-      need_1.matches.first.update(status: :done)
-      need_2.matches.first.update(status: :done)
-      need_3.matches.first.update(status: :done_not_reachable)
-      need_4.matches.first.update(status: :done_no_help)
-      need_5.matches.first.update(status: :not_for_me)
-      need_6.matches.first.update(status: :taking_care)
-      need_7.matches.first.update(status: :quo)
-      need_8.matches.first.update(status: :done)
-      need_9.matches.first.update(status: :done)
-      described_class.perform_now
-    end
-
     let(:two_months_ago) { Time.now - 2.months }
-    let(:five_months_ago) { Time.now - 5.months }
+    let(:five_months_ago) { Time.now - (5.months + 1.day) }
     let(:seven_months_ago) { Time.now - 7.months }
     # Analyse de moins de 5 mois KO
     let!(:need_1) { create :need_with_matches, created_at: two_months_ago }
@@ -40,6 +27,19 @@ RSpec.describe Company::SendRetentionEmailsJob do
     let!(:need_8) { create :need_with_matches, created_at: five_months_ago, diagnosis: diagnosis_8 }
     # Analyse de plus de 6 mois KO
     let!(:need_9) { create :need_with_matches, created_at: seven_months_ago }
+
+    before do
+      need_1.matches.first.update(status: :done)
+      need_2.matches.first.update(status: :done)
+      need_3.matches.first.update(status: :done_not_reachable)
+      need_4.matches.first.update(status: :done_no_help)
+      need_5.matches.first.update(status: :not_for_me)
+      need_6.matches.first.update(status: :taking_care)
+      need_7.matches.first.update(status: :quo)
+      need_8.matches.first.update(status: :done)
+      need_9.matches.first.update(status: :done)
+      described_class.perform_now
+    end
 
     it 'enqueues 3 mailer job' do
       assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
