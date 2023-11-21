@@ -8,7 +8,7 @@ module Stats::Solicitations
     end
 
     def filtered(query)
-      filtered_solicitations(query)
+      Stats::Filters::Solicitations.new(query).call
     end
 
     def build_series

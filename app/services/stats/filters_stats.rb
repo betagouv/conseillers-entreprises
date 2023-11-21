@@ -1,24 +1,5 @@
 module Stats
   module FiltersStats
-    def filtered_solicitations(query)
-      query.merge! Solicitation.in_regions(territory.code_region) if territory.present?
-      # TODO : passer à un `perimeter_received_solicitations`
-      query.merge! antenne_or_institution.received_solicitations_including_from_deleted_experts if antenne_or_institution.present?
-      query.merge! Solicitation.joins(landing_subject: :subject).where(subjects: subject) if subject.present?
-      query.merge! Solicitation.joins(:landing).where(landings: { integration: integration }) if integration.present?
-      query.merge! Solicitation.where(landing_id: iframe_id) if iframe_id.present?
-      query.merge! Solicitation.joins(landing_subject: { subject: :theme }).where(subjects: { themes: theme }) if theme.present?
-      if mtm_campaign.present?
-        query.merge! Solicitation.where(pk_campaign_query, "%#{mtm_campaign}%")
-          .or(Solicitation.where(mtm_campaign_query, "%#{mtm_campaign}%"))
-      end
-      if mtm_kwd.present?
-        query.merge! Solicitation.where(pk_kwd_query, "%#{mtm_kwd}%")
-          .or(Solicitation.where(mtm_kwd_query, "%#{mtm_kwd}%"))
-      end
-      query
-    end
-
     def filtered_companies(query)
       query.merge!(territory.companies) if territory.present?
       query.merge! Company.joins(facilities: :needs).where(needs: antenne_or_institution.perimeter_received_needs) if antenne_or_institution.present?

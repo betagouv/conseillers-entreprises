@@ -24,7 +24,7 @@ module Stats::Solicitations
     end
 
     def filtered_main_query
-      filtered_solicitations(main_query)
+      Stats::Filters::Solicitations.new(main_query).call
     end
 
     def secondary_count
