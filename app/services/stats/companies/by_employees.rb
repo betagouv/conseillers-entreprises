@@ -16,7 +16,7 @@ module Stats::Companies
     end
 
     def filtered(query)
-      filtered_companies(query)
+      Stats::Filters::Companies.new(query).call
     end
 
     def category_group_attribute

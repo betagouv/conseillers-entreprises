@@ -46,7 +46,7 @@ describe Stats::Filters::Solicitations do
     let(:iframe) { create(:landing, iframe_category: :themes) }
     let!(:solicitation_inside) { create :solicitation, landing: iframe }
 
-    subject { described_class.new(query).send(:iframe_filter, iframe) }
+    subject { described_class.new(query).send(:iframe_filter, iframe.id) }
 
     it { is_expected.to eq [solicitation_inside] }
   end
