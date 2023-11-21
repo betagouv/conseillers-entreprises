@@ -9,7 +9,7 @@ module Stats::Needs
 
     def build_series
       query = main_query
-      query = filtered_needs(query)
+      query = Stats::Filters::Needs.new(query).call
 
       @needs_not_for_me = []
       @needs_other_status = []

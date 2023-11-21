@@ -1,27 +1,5 @@
 module Stats
   module FiltersStats
-    def filtered_needs(query)
-      query.merge! territory.needs if territory.present?
-      query.merge! antenne_or_institution.perimeter_received_needs if antenne_or_institution.present?
-      query.merge! Need.joins(:subject).where(subject: subject) if subject.present?
-      query.merge! Need.joins(solicitation: :landing)
-        .where(solicitations: { landings: { integration: integration } }) if integration.present?
-      query.merge! Need.joins(solicitation: :landing)
-        .where(solicitations: { landings: { id: iframe_id } }) if iframe_id.present?
-      query.merge! Need.joins(subject: :theme).where(subject: { theme: theme }) if theme.present?
-      if mtm_campaign.present?
-        query.merge! Need.joins(:solicitation)
-          .where(pk_campaign_query, "%#{mtm_campaign}%")
-          .or(Need.joins(:solicitation).where(mtm_campaign_query, "%#{mtm_campaign}%"))
-      end
-      if mtm_kwd.present?
-        query.merge! Need.joins(:solicitation)
-          .where(pk_kwd_query, "%#{mtm_kwd}%")
-          .or(Need.joins(:solicitation).where(mtm_kwd_query, "%#{mtm_kwd}%"))
-      end
-      query
-    end
-
     def filtered_solicitations(query)
       query.merge! Solicitation.in_regions(territory.code_region) if territory.present?
       # TODO : passer à un `perimeter_received_solicitations`
@@ -80,28 +58,6 @@ module Stats
           .or(Match.joins(need: :solicitation).where(mtm_kwd_query, "%#{mtm_kwd}%"))
       end
       query
-    end
-
-    private
-
-    def antenne_or_institution
-      antenne.presence || institution.presence
-    end
-
-    def pk_campaign_query
-      "solicitations.form_info::json->>'pk_campaign' ILIKE ?"
-    end
-
-    def mtm_campaign_query
-      "solicitations.form_info::json->>'mtm_campaign' ILIKE ?"
-    end
-
-    def pk_kwd_query
-      "solicitations.form_info::json->>'pk_kwd' ILIKE ?"
-    end
-
-    def mtm_kwd_query
-      "solicitations.form_info::json->>'mtm_kwd' ILIKE ?"
     end
   end
 end

@@ -12,7 +12,7 @@ module Stats::Needs
     end
 
     def filtered(query)
-      filtered_needs(query)
+      Stats::Filters::Needs.new(query).call
     end
 
     def subtitle

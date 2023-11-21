@@ -110,6 +110,10 @@ module Stats
       @colors || %w[#2D908F #62e0d3]
     end
 
+    def antenne_or_institution
+      @antenne_or_institution = @antenne.presence || @institution.presence
+    end
+
     ## Overrides
     #
     def subtitle

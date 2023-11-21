@@ -12,7 +12,7 @@ module Stats::Needs
 
     def build_series
       query = main_query
-      query = filtered_needs(query)
+      query = Stats::Filters::Needs.new(query).call
 
       @needs = []
 
@@ -29,7 +29,7 @@ module Stats::Needs
     end
 
     def count
-      filtered_needs(main_query).size
+      Stats::Filters::Needs.new(query).call.size
     end
 
     def colors
