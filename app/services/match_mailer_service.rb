@@ -13,7 +13,7 @@ class MatchMailerService
     old_status ||= previous_status
 
     scheduled.each do |job|
-      return if job.queue != 'match_notify'
+      return if job.queue != 'match_notification'
       if job.klass == SendStatusNotificationJob.to_s && job.args.first == @match.id
         job.delete
       end

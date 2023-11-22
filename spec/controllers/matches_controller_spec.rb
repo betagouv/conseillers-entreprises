@@ -28,7 +28,7 @@ RSpec.describe MatchesController do
         expect(response).to be_successful
         expect(match.reload.status_taking_care?).to be true
         expect(scheduled.size).to eq 1
-        expect(scheduled.first.queue).to eq 'match_notify'
+        expect(scheduled.first.queue).to eq 'match_notification'
       end
     end
 
@@ -43,7 +43,7 @@ RSpec.describe MatchesController do
         expect(response).to be_successful
         expect(match.reload.status_taking_care?).to be true
         expect(scheduled.size).to eq 1
-        expect(scheduled.first.queue).to eq 'match_notify'
+        expect(scheduled.first.queue).to eq 'match_notification'
       end
     end
 

@@ -1,6 +1,6 @@
 class SendStatusNotificationJob
   include Sidekiq::Job
-  sidekiq_options queue: 'match_notify'
+  sidekiq_options queue: 'match_notification'
 
   def perform(match_id, previous_status)
     match = Match.find(match_id)
