@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe Company::NotYetTakenCareJob do
+RSpec.describe CompanyEmails::NotYetTakenCareJob do
   let(:some_days_ago) { described_class::WAITING_TIME.ago }
   # solicitation sans diagnosis KO
   let!(:solicitation_without_diagnosis) { create :solicitation, status: :processed, created_at: some_days_ago }

@@ -1,4 +1,4 @@
-class ApiKeysRevokeJob < ApplicationJob
+class Api::ApiKeysRevokeJob < ApplicationJob
   queue_as :low_priority
 
   def perform

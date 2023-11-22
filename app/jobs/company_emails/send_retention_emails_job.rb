@@ -1,4 +1,4 @@
-class Company::SendRetentionEmailsJob < ApplicationJob
+class CompanyEmails::SendRetentionEmailsJob < ApplicationJob
   queue_as :low_priority
 
   def perform

@@ -10,7 +10,7 @@ module Clockwork
     `rake anonymize_old_diagnoses`
   end
   every(1.day, 'revoke_api_keys', at: ('2:00'), if: -> (t) { t.day == 1 }, tz: 'UTC') do
-    ApiKeysRevokeJob.perform_later
+    Api::ApiKeysRevokeJob.perform_later
   end
   every(1.day, 'archive_expired_matches', at: '02:11', tz: 'UTC') do
     ArchiveExpiredMatchesJob.perform_later
@@ -25,22 +25,22 @@ module Clockwork
     Admin::PurgeCsvExportsJob.perform_later
   end
   every(1.day, 'send_retention_emails', at: ('4:41'), tz: 'UTC') do
-    Company::SendRetentionEmailsJob.perform_later
+    CompanyEmails::SendRetentionEmailsJob.perform_later
   end
   every(1.day, 'not_supported_solicitations', at: ('5:00'), tz: 'UTC') do
-    Company::NotYetTakenCareJob.perform_later
+    CompanyEmails::NotYetTakenCareJob.perform_later
   end
   every(1.day, 'send_satisfaction_emails', at: ('5:41'), tz: 'UTC') do
-    Company::SendSatisfactionEmailsJob.perform_later
+    CompanyEmails::SendSatisfactionEmailsJob.perform_later
   end
   every(1.day, 'inteligent_retention', at: ('06:30'), tz: 'UTC') do
-    Company::SendIntelligentRetentionEmailsJob.perform_later
+    CompanyEmails::SendIntelligentRetentionEmailsJob.perform_later
   end
   every(1.day, 'send_failed_jobs_email', at: '10:00', tz: 'UTC') do
     Admin::SendFailedJobsJob.perform_later
   end
   every(1.day, 'relaunch_solicitations', at: ('12:00'), tz: 'UTC') do
-    Company::SolicitationsRelaunchJob.perform_later
+    CompanyEmails::SolicitationsRelaunchJob.perform_later
   end
   if Rails.env == 'production'
     every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 20 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }, tz: 'UTC') do

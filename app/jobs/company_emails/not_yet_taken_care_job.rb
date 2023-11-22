@@ -1,4 +1,4 @@
-class Company::NotYetTakenCareJob < ApplicationJob
+class CompanyEmails::NotYetTakenCareJob < ApplicationJob
   queue_as :low_priority
   WAITING_TIME = 9.days
 

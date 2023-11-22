@@ -14,14 +14,14 @@ class MatchMailerService
 
     scheduled.each do |job|
       return if job.queue != 'match_notification'
-      if job.klass == SendStatusNotificationJob.to_s && job.args.first == @match.id
+      if job.klass == CompanyEmails::SendStatusNotificationJob.to_s && job.args.first == @match.id
         job.delete
       end
     end
 
     # Reschedule a new email, if needed.
     if @match.status != old_status
-      SendStatusNotificationJob.perform_in(1.minute, @match.id, old_status)
+      CompanyEmails::SendStatusNotificationJob.perform_in(1.minute, @match.id, old_status)
     end
   end
 end

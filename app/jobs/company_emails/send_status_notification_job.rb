@@ -1,4 +1,4 @@
-class SendStatusNotificationJob
+class CompanyEmails::SendStatusNotificationJob
   include Sidekiq::Job
   sidekiq_options queue: 'match_notification'
 

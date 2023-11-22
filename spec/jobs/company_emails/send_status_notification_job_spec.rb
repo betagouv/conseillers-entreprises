@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe SendStatusNotificationJob do
+RSpec.describe CompanyEmails::SendStatusNotificationJob do
   describe 'enqueue a job with a match' do
     let(:a_match) { create(:match) }
 
