@@ -17,6 +17,11 @@ module ApiFranceCompetence::Token
   end
 
   class Request < ApiFranceCompetence::Request
+    ERROR_CODES = {
+      '401' => "API key invalid or expired",
+      '404' => "Login or password invalid"
+    }.freeze
+
     def initialize
       @http_response = HTTP.post(url, json: json_params, headers: headers)
       begin
@@ -24,6 +29,10 @@ module ApiFranceCompetence::Token
       rescue StandardError => e
         @error = e
       end
+    end
+
+    def error_message
+      @error&.message || ERROR_CODES[data['code']] || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
     end
 
     private

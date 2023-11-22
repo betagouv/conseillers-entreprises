@@ -13,10 +13,6 @@ module ApiFranceCompetence
         http_request = request
         if http_request.success?
           responder(http_request).call
-        elsif http_request.not_found?
-          raise ApiFranceCompetenceError, I18n.t('api_requests.non_diffusible_error')
-        elsif http_request.unavailable_api?
-          raise UnavailableApiError, I18n.t('api_requests.generic_error')
         else
           handle_error(http_request)
         end
@@ -32,8 +28,7 @@ module ApiFranceCompetence
     end
 
     def handle_error(http_request)
-      Sentry.capture_message(http_request.error_message)
-      raise ApiFranceCompetenceError, I18n.t('api_requests.generic_error')
+      return { "opco_fc" => { "error" => http_request.error_message } }
     end
 
     def id_key
@@ -47,6 +42,7 @@ module ApiFranceCompetence
 
   class Request
     DEFAULT_ERROR_MESSAGE = I18n.t('api_requests.generic_error')
+    ERROR_CODES = {}
 
     attr_reader :data
 
@@ -72,15 +68,7 @@ module ApiFranceCompetence
     end
 
     def success?
-      @error.nil? && response_status.success?
-    end
-
-    def unavailable_api?
-      response_status.internal_server_error? || response_status.bad_gateway? || response_status.service_unavailable?
-    end
-
-    def not_found?
-      response_status.not_found?
+      @error.nil? && response_status.success? && !ERROR_CODES.key?(data['code'])
     end
 
     def response_status
@@ -121,5 +109,4 @@ module ApiFranceCompetence
   end
 
   class ApiFranceCompetenceError < StandardError; end
-  class UnavailableApiError < StandardError; end
 end
