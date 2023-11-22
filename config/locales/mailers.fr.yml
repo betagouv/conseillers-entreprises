@@ -53,7 +53,7 @@ fr:
         subject: Appel manqué pour votre demande « %{subject} »
       notify_taking_care:
         content_by_expert: 'Votre demande vient d’être prise en charge par un conseiller ou une conseillère de :'
-        intro_from_solicitation_html: Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne Votre demande concerne <b>« %{subject} »</b>.
+        intro_from_solicitation_html: Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne <b>« %{subject} »</b>.
         not_reachable_instructions: Si vous êtes injoignable, n’oubliez pas de consulter votre messagerie vocale et vos mails.
         subject: Prise en charge de votre demande « %{subject} »
       retention:
