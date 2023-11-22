@@ -2,16 +2,17 @@
 #
 # Table name: institutions
 #
-#  id           :bigint(8)        not null, primary key
-#  code_region  :integer
-#  deleted_at   :datetime
-#  display_logo :boolean          default(TRUE)
-#  name         :string           not null
-#  show_on_list :boolean          default(FALSE)
-#  siren        :text
-#  slug         :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id                     :bigint(8)        not null, primary key
+#  code_region            :integer
+#  deleted_at             :datetime
+#  display_logo           :boolean          default(TRUE)
+#  france_competence_code :string
+#  name                   :string           not null
+#  show_on_list           :boolean          default(FALSE)
+#  siren                  :text
+#  slug                   :string           not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #
 # Indexes
 #

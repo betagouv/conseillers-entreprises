@@ -13,7 +13,7 @@ module ApiCfadock
         if http_request.success?
           Responder.new(http_request).call
         else
-          return { "opco" => { "error" => http_request.error_message } }
+          return { "opco_cfadock" => { "error" => http_request.error_message } }
         end
       end
     end
