@@ -9,7 +9,7 @@ module Stats::Matches
     end
 
     def filtered(query)
-      filtered_matches(query)
+      Stats::Filters::Matches.new(query).call
     end
 
     def build_series

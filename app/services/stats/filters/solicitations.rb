@@ -1,17 +1,5 @@
 module Stats::Filters
   class Solicitations < Base
-    def call
-      territories_filter(@territory)
-      antenne_or_institution_filter(@antenne_or_institution)
-      subject_filter(@subject)
-      integration_filter(@integration)
-      iframe_filter(@iframe_id)
-      theme_filter(@theme)
-      mtm_campaign_filter(@mtm_campaign)
-      mtm_kwd_filter(@mtm_kwd)
-      @query
-    end
-
     private
 
     def territories_filter(territory)
