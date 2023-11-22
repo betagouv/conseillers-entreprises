@@ -44,7 +44,7 @@
     <p><strong>La création du compte se réalise par une procédure d’invitation.</strong></p>
     <p>Le service référence des « Conseillers » sur différents sujets d’entreprise préalablement définis au niveau national, sous réserve d’adaptations locales. Lorsqu’un organisme public ou parapublic devient partenaire du service, les agents concernés par la collaboration reçoivent une invitation sur leur adresse mail professionnelle pour finaliser la création de leur compte et se voient proposer des sessions de démonstration du service.</p>
     <p>Ils reçoivent ensuite des besoins d’entreprises sur leur(s) sujet(s) de compétences, avec un champ d’intervention plus précis.</p>
-    <p><strong>Pour recevoir une invitation, il est également possible d’écrire</strong> à <a href="mailto:contact@conseillers-entreprises.service-public.fr" target="_blank">contact@conseillers-entreprises.service-public.fr</a> en se présentant. La création du compte doit être validée par l’équipe en charge du service, conformément aux mentions d’information et en lien avec la structure concernée.</p>
+    <p><strong>Pour recevoir une invitation, il est également possible d’écrire</strong> à <a href="mailto:<%= ENV['APPLICATION_EMAIL']%>" target="_blank"><%= ENV['APPLICATION_EMAIL']%></a> en se présentant. La création du compte doit être validée par l’équipe en charge du service, conformément aux mentions d’information et en lien avec la structure concernée.</p>
 
     <h4>B - Fonctionnalités</h4>
     <p>Le compte « Conseillers-Entreprises » permet plusieurs actions :</p>
