@@ -17,7 +17,7 @@ fr:
       pde_testimonial: Témoignage d’un chef d’entreprise.
       pde_testimonial_transcription: Transcription textuelle de la vidéo du témoignage d’un chef d’entreprise.
       read_transcription: Lire la transcription
-      subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Conseillers-Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
+      subtitle: Porté par le Ministère de l’Économie et le Ministère du Travail, le service Conseillers-Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
     equipe:
       subtitle: Une petite équipe investie est à votre disposition pour répondre à vos questions. N'hésitez pas à nous écrire et partager vos idées pour améliorer le service.
@@ -270,6 +270,7 @@ fr:
         clear_search: Réinitialiser la recherche
         header: Sollicitations %{status}
         no_result: Il n'y a pas de résultat pour cette recherche.
+        no_results: Aucune sollicitation trouvée
         omnisearch: Recherche libre (Email, tag, aide demandée...)
         search: Rechercher
         search_placeholder: Tag, aide demandée…
@@ -592,6 +593,7 @@ fr:
         search: Rechercher
         search_placeholder: Equipe Entreprise, Michel Martin...
       index:
+        no_results: Aucun expert dans ce panier
         title: Paniers qualité
       navbar:
         title: Paniers qualité
@@ -628,6 +630,8 @@ fr:
     needs:
       filters:
         search: Rechercher
+      index:
+        no_results: Aucun besoin dans ce panier
       navbar:
         title: Relances
       scopes:

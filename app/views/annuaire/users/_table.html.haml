@@ -42,14 +42,14 @@
             - highlighted_class = highlighted_ids&.include?(user.id) ? 'blue' : ''
             %tr{ class: [antenne_separation_class, highlighted_class].compact.join(" ") }
               - if antenne_first_row
-                %td.td-header{ rowspan: teams.values.sum(&:size) }
+                %td.td-header.td-header--antenne{ rowspan: teams.values.sum(&:size) }
                   = link_to antenne, admin_antenne_path(antenne)
               - if index_in_team == 0
-                %td.td-header{ rowspan: users.size }
+                %td.td-header.td-header--expert{ rowspan: users.size }
                   - if user.relevant_expert.team?
                     = link_to user.relevant_expert.full_name, edit_admin_expert_path(user.relevant_expert), title: t('.edit_expert', expert_name: user.relevant_expert.full_name, antenne: antenne)
 
-              %td.td-header.td-user
+              %td.td-header.td-header--user
                 = build_user_name_cell(user, antenne)
               - if index_in_team == 0
                 - grouped_subjects.each_value do |subjects|
