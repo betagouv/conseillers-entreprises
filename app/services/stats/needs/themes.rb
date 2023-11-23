@@ -1,7 +1,6 @@
 module Stats::Needs
   class Themes
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       Need
@@ -12,7 +11,7 @@ module Stats::Needs
     end
 
     def filtered(query)
-      Stats::Filters::Needs.new(query).call
+      Stats::Filters::Needs.new(query, self).call
     end
 
     def subtitle

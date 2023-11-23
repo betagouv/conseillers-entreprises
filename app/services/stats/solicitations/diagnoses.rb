@@ -1,7 +1,6 @@
 module Stats::Solicitations
   class Diagnoses
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       Solicitation.step_complete.where(completed_at: @start_date..@end_date)

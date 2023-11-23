@@ -2,7 +2,6 @@ module Stats::Needs
   # Besoins mis en relation
   class Transmitted
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       Need.diagnosis_completed.where(created_at: @start_date..@end_date)
@@ -12,7 +11,7 @@ module Stats::Needs
 
     def build_series
       query = main_query
-      query = Stats::Filters::Needs.new(query).call
+      query = Stats::Filters::Needs.new(query, self).call
 
       @needs = []
 
@@ -29,7 +28,7 @@ module Stats::Needs
     end
 
     def count
-      Stats::Filters::Needs.new(query).call.size
+      Stats::Filters::Needs.new(main_query, self).call.size
     end
 
     def colors

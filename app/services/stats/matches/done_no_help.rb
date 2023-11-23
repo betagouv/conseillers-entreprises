@@ -2,7 +2,6 @@ module Stats::Matches
   # Taux de mises en relation sans aide disponible sur la totalité des mises en relations transmises
   class DoneNoHelp
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
     include ::Stats::TwoRatesStats
 
     def main_query
@@ -10,7 +9,7 @@ module Stats::Matches
     end
 
     def filtered(query)
-      Stats::Filters::Matches.new(query).call
+      Stats::Filters::Matches.new(query, self).call
     end
 
     def build_series

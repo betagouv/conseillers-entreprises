@@ -1,18 +1,19 @@
 module Stats::Filters
   class Base
-    def initialize(query)
+    def initialize(query, graph_struct)
       @query = query
+      @graph_struct = graph_struct
     end
 
     def call
-      territories_filter(@territory)
-      antenne_or_institution_filter(@antenne_or_institution)
-      subject_filter(@subject)
-      integration_filter(@integration)
-      iframe_filter(@iframe_id)
-      theme_filter(@theme)
-      mtm_campaign_filter(@mtm_campaign)
-      mtm_kwd_filter(@mtm_kwd)
+      territories_filter(@graph_struct.territory)
+      antenne_or_institution_filter(@graph_struct.antenne_or_institution)
+      subject_filter(@graph_struct.subject)
+      integration_filter(@graph_struct.integration)
+      iframe_filter(@graph_struct.iframe_id)
+      theme_filter(@graph_struct.theme)
+      mtm_campaign_filter(@graph_struct.mtm_campaign)
+      mtm_kwd_filter(@graph_struct.mtm_kwd)
       @query
     end
 

@@ -1,7 +1,6 @@
 module Stats::Needs
   class Quo
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       Need.joins(:diagnosis)

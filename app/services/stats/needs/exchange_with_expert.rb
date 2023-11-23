@@ -1,7 +1,6 @@
 module Stats::Needs
   class ExchangeWithExpert
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       # This stat is available since 2020-09-01
