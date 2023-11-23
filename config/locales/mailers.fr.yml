@@ -52,8 +52,9 @@ fr:
         content_by_expert_html: "<strong>Un conseiller ou une conseillère de %{expert_antenne}</strong> a tenté de vous joindre par téléphone. Nous vous invitons à consulter votre messagerie vocale et vos mails pour le rappeler."
         subject: Appel manqué pour votre demande « %{subject} »
       notify_taking_care:
-        content_by_expert_html: Votre demande vient d’être prise en charge par <strong>un conseiller ou une conseillère de %{expert_antenne}</strong>. Si vous êtes injoignable, n’oubliez pas de consulter votre messagerie vocale et vos mails.
-        intro_from_solicitation_html: 'Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne :'
+        content_by_expert: 'Votre demande vient d’être prise en charge par un conseiller ou une conseillère de :'
+        intro_from_solicitation_html: Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne <b>« %{subject} »</b>.
+        not_reachable_instructions: Si vous êtes injoignable, n’oubliez pas de consulter votre messagerie vocale et vos mails.
         subject: Prise en charge de votre demande « %{subject} »
       retention:
         intro_html: 'Vous avez utilisé le service public Place des Entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait :'
