@@ -37,7 +37,7 @@ module Manager
     def set_filters_collections
       managed_antennes = current_user.managed_antennes
       @filters = {
-        antennes: Antenne.where(id: [managed_antennes.ids, managed_antennes.map { |a| a.territorial_antennes.pluck(:id) }].flatten),
+        antennes: build_antennes_collection(current_user),
         regions: managed_antennes.first.national? ? Territory.regions : Territory.where(id: managed_antennes.map(&:regions).flatten).uniq,
         themes: current_user.institution.themes.for_interview.order(:label).uniq,
         subjects: current_user.institution.subjects.for_interview.order(:label).uniq

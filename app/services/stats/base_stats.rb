@@ -8,7 +8,7 @@ module Stats
   module BaseStats
     FILTER_PARAMS = [
       :territory, :institution, :antenne, :subject, :integration, :mtm_campaign, :mtm_kwd,
-      :start_date, :end_date, :theme, :iframe_id, :colors
+      :start_date, :end_date, :theme, :iframe_id, :colors, :is_locale_antenne
     ]
     attr_reader(*FILTER_PARAMS)
 
@@ -17,6 +17,7 @@ module Stats
       @territory = Territory.find_by(id: params.territory) if params.territory.present?
       @institution = Institution.find_by(id: params.institution) if params.institution.present?
       @antenne = Antenne.find_by(id: params.antenne) if params.antenne.present?
+      @is_locale_antenne = !params.antenne.include?('locales')
       @subject = Subject.find_by(id: params.subject) if params.subject.present?
       @integration = params.integration
       @iframe_id = params.iframe_id

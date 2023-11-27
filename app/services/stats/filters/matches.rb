@@ -8,9 +8,13 @@ module Stats::Filters
       @query.merge! @query.in_region(territory)
     end
 
-    def antenne_or_institution_filter(antenne_or_institution)
+    def antenne_or_institution_filter(antenne_or_institution, is_local_antenne)
       return if antenne_or_institution.blank?
-      @query.merge! antenne_or_institution.perimeter_received_matches
+      if is_local_antenne || antenne_or_institution.is_a?(Institution)
+        @query.merge! antenne_or_institution.received_matches_including_from_deleted_experts
+      else
+        @query.merge! antenne_or_institution.perimeter_received_matches
+      end
     end
 
     def subject_filter(subject)

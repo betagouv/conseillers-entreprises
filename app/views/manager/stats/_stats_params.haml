@@ -30,7 +30,8 @@
       - if filters[:antennes].many?
         .fr-select-group
           = f.label :antenne, t('activerecord.models.antenne.one'), class: 'fr-label'
-          = f.collection_select :antenne, filters[:antennes], :id, :name, { selected: stats[:antenne] }, class: "fr-select", data: { 'stats-target': 'antennes' }
+          - antennes_collection = filters[:antennes].map { |a| [a[:name], "#{a[:id]}#{a[:name].include?('locales') ? ' + antennes locales' : ''}"]  }
+          = f.select :antenne, options_for_select(antennes_collection , selected: stats[:antenne]), {prompt: true}, class: "fr-select"
 
     .fr-col-12.fr-p-2w
       .fr-input-group

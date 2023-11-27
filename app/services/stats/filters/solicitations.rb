@@ -7,9 +7,13 @@ module Stats::Filters
       @query.merge! Solicitation.in_regions(territory.code_region)
     end
 
-    def antenne_or_institution_filter(antenne_or_institution)
+    def antenne_or_institution_filter(antenne_or_institution, is_local_antenne)
       return if antenne_or_institution.blank?
-      @query.merge! antenne_or_institution.received_solicitations_including_from_deleted_experts
+      if is_local_antenne
+        @query.merge! antenne_or_institution.received_solicitations_including_from_deleted_experts
+      else
+        @query.merge! Solicitation.joins(diagnosis: :needs).where(needs: antenne_or_institution.perimeter_received_matches)
+      end
     end
 
     def subject_filter(subject)

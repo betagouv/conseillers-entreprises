@@ -7,9 +7,13 @@ module Stats::Filters
       @query.merge! territory.companies
     end
 
-    def antenne_or_institution_filter(antenne_or_institution)
+    def antenne_or_institution_filter(antenne_or_institution, is_local_antenne)
       return if antenne_or_institution.blank?
-      @query.merge! Company.joins(facilities: :needs).where(needs: antenne_or_institution.perimeter_received_needs)
+      if is_local_antenne || antenne_or_institution.is_a?(Institution)
+        @query.merge! Company.joins(facilities: :needs).where(needs: antenne_or_institution.received_needs_including_from_deleted_experts)
+      else
+        @query.merge! Company.joins(facilities: :needs).where(needs: antenne_or_institution.perimeter_received_needs)
+      end
     end
 
     def subject_filter(subject)
