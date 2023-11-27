@@ -2,6 +2,8 @@
   .card__header{ class: "#{expert.last_reminder_register.basket}" }
     %h2.fr-h4.fr-card__title
       = link_to expert.full_name.presence, quo_active_reminders_expert_path(expert), class: 'fr-card__link'
+      - if expert.users.any?(&:invitation_not_accepted?)
+        %span.fr-h6.picto.ri-mail-forbid-line{ 'aria-hidden': 'true', title: t('conseiller.diagnoses.steps.expert_content.invitation_not_accepted') }
     .fr-grid-row
       .fr-col-7.fr-pb-2v
         %ul.list-unstyled.card-expert__list
