@@ -11,36 +11,36 @@ module Stats::Needs
       query = main_query
       query = filtered_needs(query)
 
-      @needs_abandonned = []
-      @needs_not_abandonned = []
+      @needs_abandoned = []
+      @needs_not_abandoned = []
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        abandonned_query = month_query.with_action(:abandon)
-        not_abandonned_query = month_query.without_action(:abandon)
-        @needs_abandonned.push(abandonned_query.count)
-        @needs_not_abandonned.push(not_abandonned_query.count)
+        abandoned_query = month_query.with_action(:abandon)
+        not_abandoned_query = month_query.without_action(:abandon)
+        @needs_abandoned.push(abandoned_query.count)
+        @needs_not_abandoned.push(not_abandoned_query.count)
       end
 
-      as_series(@needs_abandonned, @needs_not_abandonned)
+      as_series(@needs_abandoned, @needs_not_abandoned)
     end
 
     def count
       build_series
-      percentage_two_numbers(@needs_abandonned, @needs_not_abandonned)
+      percentage_two_numbers(@needs_abandoned, @needs_not_abandoned)
     end
 
     private
 
-    def as_series(needs_abandonned, needs_not_abandonned)
+    def as_series(needs_abandoned, needs_not_abandoned)
       [
         {
-          name: I18n.t('stats.not_abandonned'),
-          data: needs_not_abandonned
+          name: I18n.t('stats.not_abandoned'),
+          data: needs_not_abandoned
         },
         {
-          name: I18n.t('stats.abandonned'),
-          data: needs_abandonned
+          name: I18n.t('stats.abandoned'),
+          data: needs_abandoned
         }
       ]
     end

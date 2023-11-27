@@ -42,6 +42,8 @@ module CsvExport
         match_taken_care_of_at: -> { I18n.l(taken_care_of_at, format: :admin) if taken_care_of_at.present? },
         match_closed_at: -> { I18n.l(closed_at, format: :admin) if closed_at.present? },
         need_status: -> { need.human_attribute_value(:status, context: :csv) },
+        need_last_chance_at: -> { I18n.l(need.action_date('last_chance'), format: :admin) if need&.has_action?('last_chance') },
+        need_abandoned_at: -> { I18n.l(need.action_date('abandon'), format: :admin) if need&.is_abandoned? },
         archived_at: -> { I18n.l(archived_at, format: :admin) if archived_at.present? },
         page_besoin: -> { Rails.application.routes.url_helpers.need_url(self.need) },
         satisfaction_contacted_by_expert: -> { I18n.t(company_satisfaction.contacted_by_expert, scope: [:boolean, :text]) if company_satisfaction.present? },
@@ -56,7 +58,7 @@ module CsvExport
         :advisor, :expert, :expert_antenne, :expert_institution,
         :theme, :solicitation, :company_satisfaction,
         :facility_regions, solicitation: [:badges, :landing_theme, :landing, :subject],
-        facility: :commune, diagnosis: :visitee,
+        facility: :commune, diagnosis: :visitee, need: [:reminders_actions]
       ]
     end
 

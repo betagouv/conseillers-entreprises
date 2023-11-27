@@ -802,14 +802,14 @@ fr:
         siret: SIRET
         tns_training: Formation TNS du dirigeant
   stats:
-    abandonned: Besoins abandonnés
+    abandoned: Besoins abandonnés
     done_no_help_status: Statut « cloturé sans aide »
     done_status: Statut « cloturé avec aide »
     less_than_72h: Moins de 72h
     main_stats_chart:
       title: Notre mesure d’impact phare
     more_than_72h: Plus de 72h
-    not_abandonned: Besoins non abandonnés
+    not_abandoned: Besoins non abandonnés
     not_for_me_status: Statut « pas pour moi »
     not_positioning: L’expert ne s’est pas positionné
     not_reachable_status: Statut « cloturé entreprise non joignable »
