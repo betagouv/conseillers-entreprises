@@ -27,9 +27,5 @@ module ApiConsumption::Models
     def code_departement
       insee_code.start_with?('97') ? insee_code[0..2] : insee_code[0..1]
     end
-
-    def opco
-      @opco ||= Institution.opco.find_by(siren: opcoSiren)
-    end
   end
 end

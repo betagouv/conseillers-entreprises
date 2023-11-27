@@ -4,7 +4,7 @@ require 'rails_helper'
 require 'api_helper'
 
 describe UseCases::SearchFacility do
-  let!(:opco) { create :opco, siren: "851296632" }
+  let!(:opco) { create :opco, siren: "851296632", france_competence_code: "03" }
   let(:siret) { '41816609600051' }
   let(:siren) { siret[0..8] }
   let(:token) { '1234' }
@@ -21,11 +21,13 @@ describe UseCases::SearchFacility do
   let(:effectif_etablissement_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/#{siret}/effectifs_mensuels/#{searched_month}/annee/#{searched_year}?#{suffix_url}" }
   let(:opco_url) { "https://www.cfadock.fr/api/opcos?siret=#{siret}" }
   let(:rne_companies_url) { "https://registre-national-entreprises.inpi.fr/api/companies/#{siren}" }
+  let(:france_competence_url) { "https://api-preprod.francecompetences.fr/siropartfc/#{siret}" }
 
   describe 'with_siret_and_save' do
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
       authorize_rne_token
+      authorize_france_competence_token
       stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_entreprise.json'))
       stub_request(:get, effectif_entreprise_url).to_return(body: file_fixture('api_entreprise_effectifs_entreprise.json'))
       stub_request(:get, rcs_url).to_return(body: file_fixture('api_entreprise_rcs.json'))
@@ -35,6 +37,7 @@ describe UseCases::SearchFacility do
       stub_request(:get, effectif_etablissement_url).to_return(body: file_fixture('api_entreprise_effectifs_etablissement.json'))
       stub_request(:get, opco_url).to_return(body: file_fixture('api_cfadock_opco.json'))
       stub_request(:get, rne_companies_url).to_return(body: file_fixture('api_rne_companies.json'))
+      stub_france_competence_siret(france_competence_url, file_fixture('api_france_competence_siret.json'))
     end
 
     context 'first call' do

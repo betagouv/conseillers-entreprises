@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_27_100322) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_22_110051) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -341,6 +341,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_27_100322) do
     t.integer "code_region"
     t.boolean "display_logo", default: true
     t.text "siren"
+    t.string "france_competence_code"
     t.index ["code_region"], name: "index_institutions_on_code_region"
     t.index ["deleted_at"], name: "index_institutions_on_deleted_at"
     t.index ["name"], name: "index_institutions_on_name", unique: true
