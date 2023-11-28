@@ -870,7 +870,9 @@ fr:
     naf_code: Code NAF
     name: Nom
     need: Besoin
+    need_abandoned_at: Date d’abandon
     need_id: Identifiant du besoin
+    need_last_chance_at: Date d’envoi mail de la dernière chance
     need_status: Statut du besoin
     needs:
       one: Besoin
