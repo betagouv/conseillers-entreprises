@@ -9,6 +9,6 @@
 :queues:
   - high_priority
   - default
-  - match_notify
+  - match_notification
   - antenne_coverage
   - low_priority
