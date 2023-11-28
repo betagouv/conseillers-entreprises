@@ -1,23 +1,12 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
-describe CompanyMailerService do
-  describe 'send_retention_emails' do
-    before do
-      need_1.matches.first.update(status: :done)
-      need_2.matches.first.update(status: :done)
-      need_3.matches.first.update(status: :done_not_reachable)
-      need_4.matches.first.update(status: :done_no_help)
-      need_5.matches.first.update(status: :not_for_me)
-      need_6.matches.first.update(status: :taking_care)
-      need_7.matches.first.update(status: :quo)
-      need_8.matches.first.update(status: :done)
-      need_9.matches.first.update(status: :done)
-      described_class.send_retention_emails
-    end
+RSpec.describe CompanyEmails::SendRetentionEmailsJob do
+  describe 'enqueue a job' do
+    it { assert_enqueued_jobs(1) { described_class.perform_later } }
+  end
 
+  describe 'send_retention_emails' do
     let(:two_months_ago) { Time.now - 2.months }
-    let(:five_months_ago) { Time.now - 5.months }
+    let(:five_months_ago) { Time.now - (5.months + 1.day) }
     let(:seven_months_ago) { Time.now - 7.months }
     # Analyse de moins de 5 mois KO
     let!(:need_1) { create :need_with_matches, created_at: two_months_ago }
@@ -39,14 +28,34 @@ describe CompanyMailerService do
     # Analyse de plus de 6 mois KO
     let!(:need_9) { create :need_with_matches, created_at: seven_months_ago }
 
-    xit 'enqueues 3 mailer job' do
-      expect(ActionMailer::Base.deliveries.count).to eq 3
+    before do
+      need_1.matches.first.update(status: :done)
+      need_2.matches.first.update(status: :done)
+      need_3.matches.first.update(status: :done_not_reachable)
+      need_4.matches.first.update(status: :done_no_help)
+      need_5.matches.first.update(status: :not_for_me)
+      need_6.matches.first.update(status: :taking_care)
+      need_7.matches.first.update(status: :quo)
+      need_8.matches.first.update(status: :done)
+      need_9.matches.first.update(status: :done)
+      described_class.perform_now
     end
 
-    xit 'updates retention_email_sent' do
+    it 'enqueues 3 mailer job' do
+      assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
+      expect(enqueued_jobs.count).to eq(3)
+    end
+
+    it 'updates retention_email_sent' do
+      expect(need_1.diagnosis.reload.retention_email_sent).to be false
       expect(need_2.diagnosis.reload.retention_email_sent).to be true
       expect(need_3.diagnosis.reload.retention_email_sent).to be true
       expect(need_4.diagnosis.reload.retention_email_sent).to be true
+      expect(need_5.diagnosis.reload.retention_email_sent).to be false
+      expect(need_6.diagnosis.reload.retention_email_sent).to be false
+      expect(need_7.diagnosis.reload.retention_email_sent).to be false
+      expect(need_8.diagnosis.reload.retention_email_sent).to be true
+      expect(need_9.diagnosis.reload.retention_email_sent).to be false
     end
   end
 end

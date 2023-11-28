@@ -1,7 +1,9 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
-describe CsvExport do
+RSpec.describe Admin::PurgeCsvExportsJob do
+  describe 'enqueue a job' do
+    it { assert_enqueued_jobs(1) { described_class.perform_later } }
+  end
+
   describe 'purge' do
     let(:user) { create :user, :admin }
     let(:solicitation_01) { create :solicitation }
@@ -20,7 +22,7 @@ describe CsvExport do
       end
 
       it 'delete quarterly_report with date outside of quarters' do
-        expect { described_class.purge_later }.not_to change(user.csv_exports, :count)
+        expect { described_class.perform_now }.not_to change(user.csv_exports, :count)
       end
     end
 
@@ -36,7 +38,7 @@ describe CsvExport do
       end
 
       it 'delete quarterly_report with date outside of quarters' do
-        expect { described_class.purge_later }.to change(user.csv_exports, :count).by(-1)
+        expect { described_class.perform_now }.to change(user.csv_exports, :count).by(-1)
       end
     end
   end

@@ -41,7 +41,7 @@ class RemindersService
     quo_matches_size = quo_matches.size
     has_old_quo_matches = (old_quo_matches.size >= MATCHES_COUNT[:quo])
     # Panier avec plus de 5 besoins en attentes dont 2 superieur à 15 jours
-    basket = if has_old_quo_matches &&
+    if has_old_quo_matches &&
       (quo_matches_size > MATCHES_COUNT[:many])
       :many_pending_needs
     # Panier entre 2 et 5 besoins en attentes dont 2 superieur à 15 jours

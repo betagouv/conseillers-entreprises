@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
-
-describe NotYetTakenCareEmailService do
-  let(:some_days_ago) { NotYetTakenCareEmailService::WAITING_TIME.ago }
+RSpec.describe CompanyEmails::NotYetTakenCareJob do
+  let(:some_days_ago) { described_class::WAITING_TIME.ago }
   # solicitation sans diagnosis KO
   let!(:solicitation_without_diagnosis) { create :solicitation, status: :processed, created_at: some_days_ago }
   # solicitation avec need done KO
@@ -42,10 +39,17 @@ describe NotYetTakenCareEmailService do
   let(:need_not_for_me) { create :need, diagnosis: diagnosis_not_for_me }
   let!(:matches_not_for_me) { create :match, status: :not_for_me, need: need_not_for_me }
 
-  describe 'call' do
-    before { described_class.new.call }
+  describe 'perform_now' do
+    before { described_class.perform_now }
 
-    it { expect(ActionMailer::Base.deliveries.count).to eq 1 }
+    it do
+      assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
+      expect(enqueued_jobs.count).to eq 1
+    end
+  end
+
+  describe 'enqueue a job' do
+    it { assert_enqueued_jobs(1) { described_class.perform_later } }
   end
 
   describe 'retrieve_solicitations' do
