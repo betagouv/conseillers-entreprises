@@ -408,6 +408,12 @@ class Solicitation < ApplicationRecord
       .distinct
   end
 
+  def similar_abandonned_needs
+    Need.for_emails_and_sirets([self.email], self.valid_sirets)
+      .by_subject(self.landing_subject.subject)
+      .with_action('abandon')
+  end
+
   def update_diagnosis
     return if diagnosis.nil?
     return if status_processed?
