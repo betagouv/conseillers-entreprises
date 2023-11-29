@@ -45,8 +45,9 @@ fr:
         and_you: Et vous, souhaitez-vous être aidé par un conseiller sur ces sujets ?
         explanation_html: 'Place des Entreprises est un service des ministères de l’Economie et du Travail avec un objectif : faciliter la vie des petites entreprises.<br>Lorsqu''un chef d’entreprise dépose sa demande, le service sélectionne pour lui les conseillers compétents parmi plus de 40 institutions publiques.'
         why_this_message: Pourquoi recevez-vous ce message ?
+      intro_from_solicitation_html: 'Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne :'
+      intro_from_solicitation_with_subject_html: Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne <b>« %{subject} »</b>.
       not_yet_taken_care:
-        intro_from_solicitation_html: 'Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne :'
         subject: Suivi de votre demande « %{subject} »
         thanks_for_your_patience: Nous vous remercions pour votre patience.
         we_continue_to_follow_up_html: Nous avons relancé le conseiller ou la conseillère compétente pour votre demande. Nous continuons d’<strong>assurer son suivi</strong> pour vous apporter une réponse dans les meilleurs délais.
@@ -55,7 +56,6 @@ fr:
         subject: Appel manqué pour votre demande « %{subject} »
       notify_taking_care:
         content_by_expert: 'Votre demande vient d’être prise en charge par un conseiller ou une conseillère de :'
-        intro_from_solicitation_html: Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne <b>« %{subject} »</b>.
         not_reachable_instructions: Si vous êtes injoignable, n’oubliez pas de consulter votre messagerie vocale et vos mails.
         subject: Prise en charge de votre demande « %{subject} »
       retention:
