@@ -42,7 +42,7 @@
             - highlighted_class = highlighted_ids&.include?(user.id) ? 'blue' : ''
             %tr{ class: [antenne_separation_class, highlighted_class].compact.join(" ") }
               - if antenne_first_row
-                %td.td-header.td-header--antenne{ rowspan: teams.values.sum(&:size) }
+                %td.td-header.td-header--antenne{ rowspan: teams.values.sum(&:size), title: antenne.name }
                   = link_to antenne, admin_antenne_path(antenne)
               - if index_in_team == 0
                 %td.td-header.td-header--expert{ rowspan: users.size }
