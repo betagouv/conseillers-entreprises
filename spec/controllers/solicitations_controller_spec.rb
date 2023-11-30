@@ -14,10 +14,11 @@ RSpec.describe SolicitationsController do
 
     context 'with existing landing but without landing subject' do
       let(:landing) { create(:landing) }
+
       it do
         get :new, params: { landing_slug: landing.slug, landing_subject_slug: 'unknown' }
         expect(response).to redirect_to root_path
-        expect(response.status).to eq 301
+        expect(response).to have_http_status(:moved_permanently)
       end
     end
 
@@ -30,11 +31,11 @@ RSpec.describe SolicitationsController do
       end
     end
 
-    context  'with a bad solicitation uuid' do
+    context 'with a bad solicitation uuid' do
       it do
         get :new, params: { uuid: 'bad-solicitation-uuid', landing_slug: landing.slug, landing_subject_slug: landing_subject.slug }
         expect(response).to redirect_to root_path
-        expect(response.status).to eq 302
+        expect(response).to have_http_status(:moved_permanently)
       end
     end
   end

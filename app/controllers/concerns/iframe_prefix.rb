@@ -27,7 +27,7 @@ module IframePrefix
     solicitation_uuid = params[:uuid]
     if solicitation_uuid.present?
       @solicitation ||= Solicitation.find_by(uuid: solicitation_uuid)
-      redirect_to root_path and return if @solicitation.nil?
+      redirect_to root_path, status: :moved_permanently and return if @solicitation.nil?
       @landing = @solicitation.landing
       @landing_subject = @solicitation.landing_subject
     end

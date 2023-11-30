@@ -6,6 +6,7 @@ RSpec.describe Landings::LandingsController do
   describe 'GET #show' do
     context 'existing home landing page' do
       let!(:landing) { create :landing, slug: 'accueil' }
+
       it do
         get :home
         expect(response).to be_successful
@@ -25,7 +26,7 @@ RSpec.describe Landings::LandingsController do
       it do
         get :show, params: { landing_slug: 'unknown' }
         expect(response).to redirect_to root_path
-        expect(response.status).to eq 301
+        expect(response).to have_http_status(:moved_permanently)
       end
     end
   end
