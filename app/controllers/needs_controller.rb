@@ -4,6 +4,7 @@ class NeedsController < ApplicationController
   include Inbox
   before_action :retrieve_user, except: %i[index]
   before_action :retrieve_need, only: %i[show]
+  before_action :retrieve_filtered_antenne, only: [:quo_active, :taking_care, :done, :not_for_me, :expired]
   before_action :persist_search_params, only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired]
 
   layout 'side_menu', except: :show
@@ -105,5 +106,14 @@ class NeedsController < ApplicationController
 
   def recipient_for_search
     @user
+  end
+
+  def retrieve_filtered_antenne
+    antenne_param = params[:antenne_id] || needs_search_params[:antenne_id]
+    if antenne_param.present?
+      @antenne = @user.managed_antennes.find(antenne_param)
+    elsif @user.managed_antennes.many?
+      @antenne = @user.managed_antennes.first
+    end
   end
 end

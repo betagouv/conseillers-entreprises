@@ -428,8 +428,8 @@ fr:
   manager:
     needs:
       index:
-        many_antennes_title: Demandes reçues des antennes
-        one_antenne_title: Demandes reçues de %{name}
+        many_antennes_title: Toutes les demandes reçues des antennes
+        one_antenne_title: Antenne %{name} - toutes les demandes
     stats:
       index:
         stats: Statistiques
@@ -469,6 +469,7 @@ fr:
         other: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.
       welcome_title: Bienvenue sur Place des Entreprises
     index:
+      one_antenne_title: Demandes reçues via l'antenne %{name}
       title: Demandes reçues
     match_actions:
       can_you_help: Pouvez-vous aider l’entreprise %{company} ?

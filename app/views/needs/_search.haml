@@ -3,7 +3,7 @@
     .fr-grid-row.fr-grid-row--gutters
       .fr-col
         = f.label :antenne_id, t('.select_antenne'), class: 'fr-label'
-        = f.collection_select :antenne_id, current_user.managed_antennes.order(:name), :id, :name, { selected: params[:antenne_id] || current_user.managed_antennes.first.id }, class: "fr-select fr-mb-2v"
+        = f.collection_select :antenne_id, current_user.managed_antennes.order(:name), :id, :name, { selected: antenne.id }, class: "fr-select fr-mb-2v"
   .fr-grid-row.fr-grid-row--gutters
     .fr-col-md-6.fr-col-12
       - options = { include_blank: t('all.masculin'), class: 'fr-select' }

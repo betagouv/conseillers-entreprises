@@ -1,3 +1,3 @@
-%h1.fr-h2= t('needs.index.title')
+%h1.fr-h2= title
 
 = render 'shared/breadcrumb', pages: [{ title: recipient.to_s, path: needs_path }], current_page: t(collection_name, scope: 'needs.collections')
