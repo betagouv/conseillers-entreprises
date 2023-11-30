@@ -8,19 +8,24 @@ module StatsHelper
     graph.new(params)
   end
 
-  def build_antennes_collection(user)
-    if user.is_manager? && user.managed_antennes.any?
-      antennes = Antenne.where(id: [user.managed_antennes.ids, user.managed_antennes.map { |a| a.territorial_antennes.pluck(:id) }].flatten)
-        .map { |a| { name: a.name, id: a.id } }
-      user.managed_antennes.each do |antenne|
-        next if antenne.local?
-        #  Ajoute la possibilité pour les antennes régionale d'avoir les stats agglomérés
-        antennes << { name: "#{antenne.name} + antennes locales", id: antenne.id }
-      end
-    else
-      antennes = []
+  def build_manager_antennes_collection(user)
+    antennes_collection = Antenne.with_experts_subjects.not_deleted.where(id: [user.managed_antennes.ids, user.managed_antennes.map { |a| a.territorial_antennes.pluck(:id) }].flatten)
+      .map { |a| { name: a.name, id: a.id } }
+
+    add_locals_antennes(antennes_collection, user.managed_antennes)
+  end
+
+  def build_institution_antennes_collection(institution)
+    antennes_collection = institution.antennes.not_deleted.where(id: [institution.antennes.not_deleted.ids, institution.antennes.not_deleted.map { |a| a.territorial_antennes.pluck(:id) }].flatten)
+               .map { |a| { name: a.name, id: a.id } }
+
+    add_locals_antennes(antennes_collection, institution.antennes.not_deleted)
+  end
+
+  def build_antennes_collection_for_select(antennes)
+    antennes.map do |a|
+      [a[:name], "#{a[:id]}#{a[:name].include?('locales') ? ' avec antennes locales' : ''}"]
     end
-    antennes.sort_by { |a| a[:name] }
   end
 
   private
@@ -30,5 +35,14 @@ module StatsHelper
     category = name_splitted.first.capitalize
     graph = name_splitted[1..].map(&:capitalize).join
     "Stats::#{category}::#{graph}".constantize
+  end
+
+  def add_locals_antennes(antennes_collection, recipient_antennes)
+    recipient_antennes.each do |antenne|
+      next if antenne.local? || antenne.territorial_antennes.empty?
+      #  Ajoute la possibilité pour les antennes régionale d'avoir les stats agglomérés
+      antennes_collection << { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: antenne.name), id: antenne.id }
+    end
+    antennes_collection.sort_by { |a| a[:name] }
   end
 end

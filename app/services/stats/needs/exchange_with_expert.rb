@@ -35,7 +35,7 @@ module Stats::Needs
     end
 
     def filtered_main_query
-      Stats::Filters::Needs.new(main_query).call
+      Stats::Filters::Needs.new(main_query, self).call
     end
 
     def secondary_count

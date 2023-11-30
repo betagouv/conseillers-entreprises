@@ -87,6 +87,8 @@ class Antenne < ApplicationRecord
   has_many :received_diagnoses_including_from_deleted_experts, through: :experts_including_deleted, source: :received_diagnoses, inverse_of: :expert_antennes
   has_many :received_solicitations_including_from_deleted_experts, through: :received_diagnoses_including_from_deleted_experts, source: :solicitation, inverse_of: :diagnosis
 
+  has_many :experts_subjects, through: :experts
+
   # :institution
   has_many :themes, through: :institution, inverse_of: :antennes
 
@@ -113,6 +115,8 @@ class Antenne < ApplicationRecord
       not_deleted.where("antennes.name ILIKE ?", "%#{query}%")
     end
   end
+
+  scope :with_experts_subjects, -> { where.associated(:experts_subjects).distinct }
 
   ##
   #
@@ -169,8 +173,13 @@ class Antenne < ApplicationRecord
   end
 
   def territorial_antennes
-    return [] if self.local?
-    get_associated_antennes(Antenne.territorial_levels[:local])
+    if self.local?
+      []
+    elsif self.national?
+      Antenne.not_deleted.where(institution: self.institution).where.not(id: self.id)
+    else
+      get_associated_antennes(Antenne.territorial_levels[:local])
+    end
   end
 
   ## Périmètre d'exercice :

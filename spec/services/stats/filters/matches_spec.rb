@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe Stats::Filters::Matches do
   let(:query) { Match.all }
+  let(:open_struct_graph) { OpenStruct.new }
   let!(:match_outside) { create :match }
 
   describe 'territories_filter' do
@@ -10,26 +11,59 @@ describe Stats::Filters::Matches do
     let(:need_inside) { create :need, diagnosis: create(:diagnosis, facility: create(:facility, commune: commune)) }
     let!(:match_inside) { create :match, need: need_inside }
 
-    subject { described_class.new(query).send(:territories_filter, territory) }
+    subject { described_class.new(query, open_struct_graph).send(:territories_filter, territory) }
 
     it { is_expected.to eq [match_inside] }
   end
 
   describe 'antenne_or_institution_filter' do
-    let(:antenne_or_institution) { create :antenne }
-    let(:expert_inside) { create :expert, antenne: antenne_or_institution }
-    let!(:match_inside) { create :match, need: create(:need), expert: expert_inside }
+    let(:commune1) { create :commune }
+    let(:commune2) { create :commune }
+    let!(:region) { create :territory, :region, communes: [commune1, commune2] }
+    let(:institution) { create :institution }
+    let(:regional_antenne) { create :antenne, :regional, institution: institution, communes: [commune1, commune2] }
+    let(:expert_regional_antenne) { create :expert, antenne: regional_antenne }
+    let!(:match_regional_antenne) { create :match, need: create(:need), expert: expert_regional_antenne }
+    let(:local_antenne) { create :antenne, :local, institution: institution, communes: [commune1] }
+    let(:expert_local_antenne) { create :expert, antenne: local_antenne }
+    let!(:match_local_antenne) { create :match, need: create(:need), expert: expert_local_antenne }
 
-    subject { described_class.new(query).send(:antenne_or_institution_filter, antenne_or_institution) }
+    subject { described_class.new(query, open_struct_graph).send(:antenne_or_institution_filter, antenne_or_institution, is_local) }
 
-    it { is_expected.to eq [match_inside] }
+    context 'regional antenne only' do
+      let(:antenne_or_institution) { regional_antenne }
+      let(:is_local) { true }
+
+      it { is_expected.to match_array match_regional_antenne }
+    end
+
+    context 'regional antenne with locales' do
+      let(:antenne_or_institution) { regional_antenne }
+      let(:is_local) { false }
+
+      it { is_expected.to match_array [match_regional_antenne, match_local_antenne] }
+    end
+
+    context 'local antenne' do
+      let(:antenne_or_institution) { local_antenne }
+      let(:is_local) { true }
+
+      it { is_expected.to match_array match_local_antenne }
+    end
+
+    context 'institution' do
+      let(:antenne_or_institution) { institution }
+      let(:is_local) { true }
+
+      it { is_expected.to match_array [match_regional_antenne, match_local_antenne] }
+    end
   end
 
   describe 'subject_filter' do
     let(:a_subject) { create :subject }
     let!(:match_inside) { create :match, subject: a_subject }
 
-    subject { described_class.new(query).send(:subject_filter, a_subject) }
+    subject { described_class.new(query, open_struct_graph).send(:subject_filter, a_subject) }
 
     it { is_expected.to eq [match_inside] }
   end
@@ -41,7 +75,7 @@ describe Stats::Filters::Matches do
     end
     let!(:match_inside) { create :match, need: need_inside }
 
-    subject { described_class.new(query).send(:integration_filter, integration) }
+    subject { described_class.new(query, open_struct_graph).send(:integration_filter, integration) }
 
     it { is_expected.to eq [match_inside] }
   end
@@ -51,7 +85,7 @@ describe Stats::Filters::Matches do
     let(:need_inside) { create :need, solicitation: create(:solicitation, landing: iframe) }
     let!(:match_inside) { create :match, need: need_inside }
 
-    subject { described_class.new(query).send(:iframe_filter, iframe.id) }
+    subject { described_class.new(query, open_struct_graph).send(:iframe_filter, iframe.id) }
 
     it { is_expected.to eq [match_inside] }
   end
@@ -60,7 +94,7 @@ describe Stats::Filters::Matches do
     let(:theme) { create :theme }
     let!(:match_inside) { create :match, subject: create(:subject, theme: theme) }
 
-    subject { described_class.new(query).send(:theme_filter, theme) }
+    subject { described_class.new(query, open_struct_graph).send(:theme_filter, theme) }
 
     it { is_expected.to eq [match_inside] }
   end
@@ -70,7 +104,7 @@ describe Stats::Filters::Matches do
     let(:need_inside) { create :need, solicitation: create(:solicitation, form_info: { mtm_campaign: mtm_campaign }) }
     let!(:match_inside) { create :match, need: need_inside }
 
-    subject { described_class.new(query).send(:mtm_campaign_filter, mtm_campaign) }
+    subject { described_class.new(query, open_struct_graph).send(:mtm_campaign_filter, mtm_campaign) }
 
     it { is_expected.to eq [match_inside] }
   end
@@ -80,7 +114,7 @@ describe Stats::Filters::Matches do
     let(:need_inside) { create :need, solicitation: create(:solicitation, form_info: { mtm_kwd: mtm_kwd }) }
     let!(:match_inside) { create :match, need: need_inside }
 
-    subject { described_class.new(query).send(:mtm_kwd_filter, mtm_kwd) }
+    subject { described_class.new(query, open_struct_graph).send(:mtm_kwd_filter, mtm_kwd) }
 
     it { is_expected.to eq [match_inside] }
   end
