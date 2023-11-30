@@ -4,14 +4,28 @@ require 'rails_helper'
 
 RSpec.describe Landings::LandingsController do
   describe 'GET #show' do
-    before do
-      create :landing, slug: 'accueil'
-    end
-
     context 'existing home landing page' do
+      let!(:landing) { create :landing, slug: 'accueil' }
       it do
         get :home
         expect(response).to be_successful
+      end
+    end
+
+    context 'with existing landing' do
+      let(:landing) { create :landing }
+
+      it do
+        get :show, params: { landing_slug: landing.slug }
+        expect(response).to be_successful
+      end
+    end
+
+    context 'without existing landing' do
+      it do
+        get :show, params: { landing_slug: 'unknown' }
+        expect(response).to redirect_to root_path
+        expect(response.status).to eq 301
       end
     end
   end
