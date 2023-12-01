@@ -16,7 +16,7 @@
               = f.label :email, class: 'fr-label' do
                 = t('.email')
                 %span.fr-hint-text= t('.email_help')
-              = f.email_field :email, class: 'fr-input', autofocus: true, required: true, autocomplete: 'email'
+              = f.email_field :email, class: 'fr-input', required: true, autocomplete: 'email'
             .fr-input-group
               = f.label :password, class: 'fr-label' do
                 = t('activerecord.attributes.user.password')

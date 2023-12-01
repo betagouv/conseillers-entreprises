@@ -218,7 +218,7 @@ fr:
         needs: Besoin exprimé
         not_started: Pas démarrée
       diagnosis/visitee:
-        email: Adresse e-mail de la personne rencontrée
+        email: Adresse électronique de la personne rencontrée
         full_name: Prénom et Nom de la personne rencontrée
         job: Fonction de la personne rencontrée
         phone_number: Numéro de téléphone de la personne rencontrée
@@ -329,7 +329,7 @@ fr:
         solicitation_badges: Tags de l’équipe
         solicitation_created_at: Date de sollicitation
         solicitation_description: Description de la sollicitation
-        solicitation_email: Adresse mail du contact entreprise
+        solicitation_email: Adresse électronique du contact entreprise
         solicitation_full_name: Contact en entreprise
         solicitation_gclid: Id GA
         solicitation_id: Id de la sollicitation
@@ -439,7 +439,7 @@ fr:
       solicitation:
         api_calling_url: Url d’appel
         completion: Complétion
-        email: E-mail
+        email: Email
         full_name: Prénom et nom
         institution_filters: Questions additionnelles
         landing: Page d’atterrissage
@@ -518,7 +518,7 @@ fr:
         roles: Rôles
         sign_in_count: Connexions
         team_custom_communes: Territoire spécifique (CODE INSEE)
-        team_email: E-mail de l’équipe
+        team_email: Email de l’équipe
         team_full_name: Nom de l’équipe
         team_id: Id de l’équipe
         team_job: Fonction de l’équipe
@@ -803,7 +803,7 @@ fr:
     display_logo: Afficher le logo sur la page d’accueil, la page de remerciement et la liste des partenaires
     done_institutions: Institution ayant clôturé avec aide
     effectif: Effectif
-    email: E-mail
+    email: Email
     expert: Expert
     expert_antenne: Antenne de l’expert
     expert_institution: Institution de l’expert

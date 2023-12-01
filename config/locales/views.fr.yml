@@ -242,9 +242,9 @@ fr:
         contact:
           date: Date de la sollicitation
           date_placeholder: jj/mm/aaaa
-          email_address: E-mail
+          email_address: Email
           full_name: Nom
-          full_name_placeholder: 'ex: Marie Dupont'
+          full_name_placeholder: 'Exemple : Marie Dupont'
           phone_number: Numéro de télephone
           your_contact_in_the_company: 'Contact de l’entreprise %{company_name} :'
         expert_content:
@@ -402,10 +402,10 @@ fr:
       home:
         answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
         discover_measures: Découvrir les mesures
-        how-it-works: Comment ça marche
+        how-it-works: Comment ça marche ?
         meta:
           description: 'TPE & PME vous avez un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
-          title: Page d’accueil | Place des Entreprises - Conseils et aides publiques
+          title: Accueil | Place des Entreprises - Conseils et aides publiques
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
         subtitle: 'Service public simple et rapide : %{count} TPE & PME ont déjà été accompagnées cette année par un conseiller %{subject}'
       index_institutions:
@@ -567,7 +567,7 @@ fr:
       link_to_blog: Lien vers le blog de Place des Entreprises - lien externe
       menu: Menu
     newsletter:
-      email_format: 'Format attendu : nom@domaine.fr'
+      email_format: 'Format attendu : nom@example.org'
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
       newsletter_legal_html: Vous pouvez vous désinscrire à tout moment avec le lien de désinscription dans la <span lang='en'>newsletter</span>
       placeholder_email: Votre adresse email
