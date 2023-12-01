@@ -1,5 +1,5 @@
 - unless in_iframe?
-  %h2.fr-h3= t('you_wish')
+  %h2.fr-h3.fr-mb-6w= t('you_wish')
 
 .fr-grid-row.fr-grid-row--gutters.landing-theme-container{ class: "#{'in-iframe' if in_iframe?}" }
   = render partial: 'landings/landing_themes/card', collection: landing_themes, as: :landing_theme, locals: { landing: landing }
