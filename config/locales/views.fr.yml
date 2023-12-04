@@ -412,8 +412,8 @@ fr:
         more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
         title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
       multiple_steps:
-        contact_us: cliquez ici !
-        other_questions: Pour toute autre demande,
+        contact_us: Découvrez les autres sujets.
+        other_questions: Vous ne trouvez pas ce que vous voulez ?
   layouts:
     side_menu:
       mobile_menu: Menu
