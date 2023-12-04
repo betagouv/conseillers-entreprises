@@ -7,11 +7,10 @@
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.fr-pb-3w
     = form_with(model: @solicitation, url: update_step_description_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true, data: { turbo: false } }) do |f|
       - if @solicitation.landing_subject&.description_explanation.present?
-        .fr-highlight.fr-mb-6w
-          .highlight__header
-            = image_tag('info-alert.png', alt: '')
-            %p.fr-pl-2w= t('solicitations.creation_form.better_taking_care')
-          = h(@solicitation.landing_subject&.description_explanation&.html_safe)
+        .fr-callout.fr-callout--green-emeraude.fr-icon-feedback-line.fr-mb-6w
+
+          %p.fr-callout__text= t('solicitations.creation_form.better_taking_care_html')
+          .fr-callout__text= h(@solicitation.landing_subject&.description_explanation&.html_safe)
 
       - prefill_content = @solicitation.description.blank? ? h(@solicitation.landing_subject&.description_prefill&.html_safe) : ''
       .fr-fieldset{ data: { controller: 'prefill-textarea', 'prefill-textarea-target': 'dataSource', content: prefill_content } }
@@ -40,7 +39,7 @@
               = ff.label :filter_value, I18n.t('false', scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
 
       .form__group.submit-buttons
-        = render 'previous_button', path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+        = render 'previous_button', path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
         = f.submit t('solicitations.creation_form.buttons.send'), class: 'fr-btn', data: { disable_with: t('solicitations.creation_form.submit_in_progress') }
 
 - content_for :footer do

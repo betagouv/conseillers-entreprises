@@ -32,9 +32,10 @@
           .fr-fieldset__element
             .fr-input-group
               - help = t("attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
-              = f.label field, class: 'fr-label'
-              - if help.present?
-                %span.fr-hint-text= help
+              = f.label field, class: 'fr-label' do
+                = t("attributes.#{field}")
+                - if help.present?
+                  %span.fr-hint-text= help
               = f.text_field field,
                 type: Solicitation::FIELD_TYPES[field],
                 required: true,

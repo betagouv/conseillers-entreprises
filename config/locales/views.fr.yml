@@ -540,7 +540,7 @@ fr:
       link_to_beta_gouv: Lien vers le site de Beta.gouv.fr
       linkedin_title: Page Linkedin de Place des Entreprises
       open_cookies: Ouvre la fenêtre de gestion des cookies
-      service_presentation: Présentation du service (PDF 438 ko)
+      service_presentation: Dossier de presse (PDF 438 ko)
       service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Place des Entreprises
       startup_d_etat: Une startup d’État de beta.gouv
       twitter_title: Compte twitter de Place des Entreprises
@@ -701,7 +701,7 @@ fr:
       all_fields_compulsary: Tous les champs sont obligatoires.
       already_submitted_solicitation: Cette demande a déjà été envoyée aux conseillers.
       average_delays: "(Délai moyen de prise en charge)"
-      better_taking_care: 'Pour vous aider, les conseillers ont besoin d’éléments de contexte :'
+      better_taking_care_html: 'Pour vous aider, les conseillers ont besoin d’<b>éléments de contexte</b> :'
       buttons:
         manual_step_company: Je ne trouve pas mon entreprise
         next: Suivant
