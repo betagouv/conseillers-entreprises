@@ -329,7 +329,7 @@ fr:
         solicitation_badges: Tags de l’équipe
         solicitation_created_at: Date de sollicitation
         solicitation_description: Description de la sollicitation
-        solicitation_email: Adresse email du contact entreprise
+        solicitation_email: Adresse mail du contact entreprise
         solicitation_full_name: Contact en entreprise
         solicitation_gclid: Id GA
         solicitation_id: Id de la sollicitation
