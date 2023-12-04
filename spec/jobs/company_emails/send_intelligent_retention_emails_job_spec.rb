@@ -14,7 +14,7 @@ RSpec.describe CompanyEmails::SendIntelligentRetentionEmailsJob do
     # Un besoin cloturé par une aide, dans le sujet et dans les delais OK
     let!(:need_ok) { create :need, status: :done, subject: initial_subject, matches: [need_ok_match] }
     let!(:need_ok_match) { create :match, status: :done, created_at: 2.months.ago, closed_at: 2.months.ago }
-    # Un besoin cloturé par une aide, dans le sujet et dans les delais, mais deja relancé OK
+    # Un besoin cloturé par une aide, dans le sujet et dans les delais, mais deja relancé KO
     let!(:need_already_relaunch) { create :need, status: :done, subject: initial_subject, retention_sent_at: Time.zone.now, matches: [need_already_relaunch_match] }
     let!(:need_already_relaunch_match) { create :match, status: :done, created_at: 2.months.ago, closed_at: 2.months.ago }
     # Un besoin cloturé par une aide, dans le sujet mais pas dans les delais KO
@@ -26,7 +26,7 @@ RSpec.describe CompanyEmails::SendIntelligentRetentionEmailsJob do
     # Un besoin cloturé sans aide, dans le sujet et dans les delais
     let!(:need_without_help) { create :need, status: :not_for_me, subject: initial_subject, created_at: 2.months.ago, matches: [need_without_help_match] }
     let!(:need_without_help_match) { create :match, status: :not_for_me, created_at: 2.months.ago, closed_at: 2.months.ago }
-    # Un besoin cloturé sans aide pas, dans le sujet et pas dans les delais OK
+    # Un besoin cloturé sans aide pas, dans le sujet et pas dans les delais KO
     let!(:need_all_wrong) { create :need, status: :not_for_me, matches: [need_all_wrong_match] }
     let!(:need_all_wrong_match) { create :match, status: :not_for_me }
 
@@ -43,7 +43,7 @@ RSpec.describe CompanyEmails::SendIntelligentRetentionEmailsJob do
       expect(need_without_help.reload.retention_sent_at).to be_nil
       expect(need_all_wrong.reload.retention_sent_at).to be_nil
       assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
-      expect(enqueued_jobs.count).to eq 2
+      expect(enqueued_jobs.count).to eq 1
     end
   end
 end
