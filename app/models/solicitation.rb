@@ -410,7 +410,7 @@ class Solicitation < ApplicationRecord
 
   def similar_abandonned_needs
     Need.for_emails_and_sirets([self.email], self.valid_sirets)
-      .by_subject(self.landing_subject.subject)
+      .by_subject(self.landing_subject&.subject)
       .with_action('abandon')
   end
 
