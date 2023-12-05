@@ -1,6 +1,45 @@
 require 'rails_helper'
 
 RSpec.describe SolicitationsController do
+  describe 'GET #new' do
+    let(:landing) { create(:landing) }
+    let(:landing_subject) { create(:landing_subject) }
+
+    context 'with existing landing and landing subject' do
+      it do
+        get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug }
+        expect(response).to be_successful
+      end
+    end
+
+    context 'with existing landing but without landing subject' do
+      let(:landing) { create(:landing) }
+
+      it do
+        get :new, params: { landing_slug: landing.slug, landing_subject_slug: 'unknown' }
+        expect(response).to redirect_to root_path
+        expect(response).to have_http_status(:moved_permanently)
+      end
+    end
+
+    context 'with a good solicitation uuid' do
+      let(:solicitation) { create(:solicitation, uuid: 'good-solicitation-uuid') }
+
+      it do
+        get :new, params: { uuid: solicitation.uuid, landing_slug: landing.slug, landing_subject_slug: landing_subject.slug }
+        expect(response).to be_successful
+      end
+    end
+
+    context 'with a bad solicitation uuid' do
+      it do
+        get :new, params: { uuid: 'bad-solicitation-uuid', landing_slug: landing.slug, landing_subject_slug: landing_subject.slug }
+        expect(response).to redirect_to root_path
+        expect(response).to have_http_status(:moved_permanently)
+      end
+    end
+  end
+
   describe 'POST #create' do
     let(:landing) { create(:landing) }
     let(:landing_subject) { create(:landing_subject) }
