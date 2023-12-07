@@ -1,8 +1,8 @@
-- title = @antenne.present? ? t('.one_antenne_title', name: @antenne.name) : t('.title')
+- title = t('.title')
 - meta title: title
 - content_for :header, render('header', recipient: @recipient, collection_name: @collection_name, title: title)
-- content_for :menu, render('menu', recipient: @recipient, collections_counts: @inbox_collections_counts, user: @user, antenne: @antenne)
-- content_for :search, render('search', needs: @needs, collection_name: @collection_name, antenne: @antenne)
+- content_for :menu, render('menu', recipient: @recipient, collections_counts: @inbox_collections_counts, user: @user)
+- content_for :search, render('search', needs: @needs, collection_name: @collection_name)
 
 - if @needs.empty?
   = render 'empty_placeholder', recipient: @recipient
