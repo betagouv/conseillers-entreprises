@@ -21,4 +21,8 @@ class LandingJointTheme < ApplicationRecord
   belongs_to :landing, inverse_of: :landing_joint_themes
 
   acts_as_list scope: :landing
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "id", "id_value", "landing_id", "landing_theme_id", "position", "updated_at"]
+  end
 end

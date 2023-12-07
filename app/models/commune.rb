@@ -51,4 +51,12 @@ class Commune < ApplicationRecord
   def to_s
     insee_code
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["id", "id_value", "insee_code"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["advisors", "antenne_experts", "antennes", "bassins_emploi", "direct_experts", "facilities", "regions", "territories"]
+  end
 end

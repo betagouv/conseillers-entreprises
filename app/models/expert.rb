@@ -313,4 +313,20 @@ class Expert < ApplicationRecord
   def update_antenne_referencement_coverage(*args)
     antenne.update_referencement_coverages
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "antenne_id", "created_at", "deleted_at", "email", "full_name", "id", "id_value", "is_global_zone", "job",
+      "phone_number", "updated_at"
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "antenne", "antenne_communes", "antenne_regions", "antenne_territories", "communes", "direct_regions",
+      "experts_subjects", "institution", "institutions_subjects", "match_filters", "not_received_matches",
+      "received_diagnoses", "received_matches", "received_needs", "received_quo_matches", "reminder_feedbacks",
+      "reminders_registers", "subjects", "territories", "themes", "users"
+    ]
+  end
 end

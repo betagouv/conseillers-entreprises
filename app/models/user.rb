@@ -326,4 +326,24 @@ class User < ApplicationRecord
       end
     end
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "antenne_id", "cgu_accepted_at", "created_at", "current_sign_in_at", "current_sign_in_ip", "deleted_at", "email",
+      "encrypted_password", "full_name", "id", "id_value", "invitation_accepted_at", "invitation_created_at",
+      "invitation_limit", "invitation_sent_at", "invitation_token", "invitations_count", "inviter_id", "job",
+      "last_sign_in_at", "last_sign_in_ip", "phone_number", "remember_created_at", "reset_password_sent_at",
+      "reset_password_token", "sign_in_count", "updated_at"
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "antenne", "antenne_communes", "antenne_regions", "antenne_territories", "csv_exports_attachments",
+      "csv_exports_blobs", "experts", "feedbacks", "institution", "invited_by", "invitees", "inviter", "managed_antennes",
+      "received_diagnoses", "received_matches", "received_needs", "relevant_expert", "relevant_experts", "searches",
+      "sent_diagnoses", "sent_matches", "sent_needs", "supported_territories", "themes", "user_rights",
+      "user_rights_admin", "user_rights_manager"
+    ]
+  end
 end

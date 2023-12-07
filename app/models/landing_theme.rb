@@ -40,4 +40,11 @@ class LandingTheme < ApplicationRecord
   def to_param
     slug
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "archived", "archived_at", "created_at", "description", "id", "id_value", "meta_description", "meta_title",
+      "page_title", "slug", "title", "updated_at"
+    ]
+  end
 end

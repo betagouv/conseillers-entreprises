@@ -101,6 +101,15 @@ class LandingSubject < ApplicationRecord
     partenaires
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "archived", "archived_at", "created_at", "description", "description_explanation", "description_prefill",
+      "display_region_logo", "form_description", "form_title", "id", "id_value", "landing_theme_id", "meta_description",
+      "meta_title", "position", "requires_location", "requires_requested_help_amount", "requires_siret", "slug",
+      "subject_id", "title", "updated_at"
+    ]
+  end
+
   private
 
   def autoclean_textareas
