@@ -21,9 +21,9 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.fixture_path = Rails.root.join('spec', 'fixtures')
-
   config.use_transactional_fixtures = true
 
+  # config.include Rails.application.routes.url_helpers
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
