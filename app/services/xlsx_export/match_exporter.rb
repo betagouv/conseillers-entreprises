@@ -13,6 +13,7 @@ module XlsxExport
         facility_regions: -> { facility_regions&.pluck(:name).uniq.join(", ") },
         company_name: -> { company&.name },
         company_naf: -> { facility.naf_code },
+        company_categorie_juridique: -> { company.categorie_juridique },
         company_effectif: -> { Effectif::CodeEffectif.new(facility.code_effectif).intitule_effectif },
         solicitation_full_name: -> { solicitation&.full_name },
         solicitation_email: -> { solicitation&.email },
