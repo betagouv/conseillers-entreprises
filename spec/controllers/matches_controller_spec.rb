@@ -14,7 +14,10 @@ RSpec.describe MatchesController do
     context 'match does not exist' do
       let(:params) { { id: 'nonexisting' } }
 
-      it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
+      it('not found') do
+        request
+        expect(response).to be_not_found
+      end
     end
 
     context 'match is available to expert' do

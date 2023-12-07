@@ -7,10 +7,10 @@ describe 'ApplicationController specific features' do
     login_user
 
     context 'user is not admin' do
+
       it do
-        expect do
-          visit '/admin'
-        end.to raise_error ActionController::RoutingError
+        visit '/admin'
+        expect(page.html).to include 'Page non trouvée'
       end
     end
 
