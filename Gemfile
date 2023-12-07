@@ -12,7 +12,7 @@ end
 
 ruby '3.1.2'
 
-gem 'rails'
+gem 'rails', '~> 7.0.0'
 
 # Server
 gem 'foreman'

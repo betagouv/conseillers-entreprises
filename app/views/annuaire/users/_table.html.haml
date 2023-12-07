@@ -18,7 +18,7 @@
       %tr.users-count
         - if referencement_coverages
           - grouped_subjects.each_value do |subjects|
-            - subjects.each do |subject, institutions_subjects|
+            - subjects.each_value do |institutions_subjects|
               - institutions_subjects.each do |institution_subject|
                 - referencement_coverage = referencement_coverages.find_by(institution_subject: institution_subject)
                 - if referencement_coverage.present?
@@ -53,7 +53,7 @@
                 = build_user_name_cell(user, antenne)
               - if index_in_team == 0
                 - grouped_subjects.each_value do |subjects|
-                  - subjects.each do |subject, institutions_subjects|
+                  - subjects.each_value do |institutions_subjects|
                     - institutions_subjects.each do |institution_subject|
                       -# We’re using `&` instead of .merge to use the preloaded relations instead of doing a new DB query.
                       - experts_subjects = user.relevant_expert.experts_subjects & institution_subject.experts_subjects
