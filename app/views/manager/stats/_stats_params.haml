@@ -30,7 +30,7 @@
       - if filters[:antennes].many?
         .fr-select-group
           = f.label :antenne, t('activerecord.models.antenne.one'), class: 'fr-label'
-          = f.select :antenne, options_for_select(build_antennes_collection_for_select(filters[:antennes]) , selected: stats[:antenne]), {prompt: true}, class: "fr-select"
+          = f.select :antenne, options_for_select(build_antennes_collection_for_select(filters[:antennes]), selected: stats[:antenne]), {}, class: "fr-select"
 
     .fr-col-12.fr-p-2w
       .fr-input-group

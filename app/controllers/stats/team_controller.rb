@@ -60,7 +60,6 @@ module Stats
       @subjects = institution.subjects.not_archived.order(:label)
     end
 
-
     def authorize_team
       authorize Stats::All, :team?
     end

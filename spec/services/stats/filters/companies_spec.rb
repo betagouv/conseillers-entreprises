@@ -45,7 +45,7 @@ describe Stats::Filters::Companies do
       let(:antenne_or_institution) { regional_antenne }
       let(:is_local) { false }
 
-      it { is_expected.to match_array [need_regional_antenne.company, need_local_antenne.company] }
+      it { is_expected.to contain_exactly(need_regional_antenne.company, need_local_antenne.company) }
     end
 
     context 'local antenne' do
@@ -59,7 +59,7 @@ describe Stats::Filters::Companies do
       let(:antenne_or_institution) { institution }
       let(:is_local) { true }
 
-      it { is_expected.to match_array [need_regional_antenne.company, need_local_antenne.company] }
+      it { is_expected.to contain_exactly(need_regional_antenne.company, need_local_antenne.company) }
     end
   end
 

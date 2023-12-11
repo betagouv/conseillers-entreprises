@@ -17,7 +17,7 @@ module StatsHelper
 
   def build_institution_antennes_collection(institution)
     antennes_collection = institution.antennes.not_deleted.where(id: [institution.antennes.not_deleted.ids, institution.antennes.not_deleted.map { |a| a.territorial_antennes.pluck(:id) }].flatten)
-               .map { |a| { name: a.name, id: a.id } }
+      .map { |a| { name: a.name, id: a.id } }
 
     add_locals_antennes(antennes_collection, institution.antennes.not_deleted)
   end

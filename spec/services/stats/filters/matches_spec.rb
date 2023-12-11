@@ -41,7 +41,7 @@ describe Stats::Filters::Matches do
       let(:antenne_or_institution) { regional_antenne }
       let(:is_local) { false }
 
-      it { is_expected.to match_array [match_regional_antenne, match_local_antenne] }
+      it { is_expected.to contain_exactly(match_regional_antenne, match_local_antenne) }
     end
 
     context 'local antenne' do
@@ -55,7 +55,7 @@ describe Stats::Filters::Matches do
       let(:antenne_or_institution) { institution }
       let(:is_local) { true }
 
-      it { is_expected.to match_array [match_regional_antenne, match_local_antenne] }
+      it { is_expected.to contain_exactly(match_regional_antenne, match_local_antenne) }
     end
   end
 
