@@ -89,6 +89,8 @@ fr:
     '97': RU
     '98': RU
     '99': RU
+  naf_libelle:
+    code_not_found: Code non trouvé
   naf_libelle_a10:
     AZ: Agriculture, sylviculture et pêche
     BE: Industrie manufacturière, industries extractives et autres
@@ -189,5 +191,3 @@ fr:
     '97': Activités des ménages en tant qu'employeurs de personnel domestique
     '98': Activités indifférenciées des ménages en tant que producteurs de biens et services pour usage propre
     '99': Activités des organisations et organismes extraterritoriaux
-  naf_libelle:
-    code_not_found: "Code non trouvé"
