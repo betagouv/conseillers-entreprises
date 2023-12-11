@@ -89,6 +89,8 @@ fr:
     '97': RU
     '98': RU
     '99': RU
+  naf_libelle:
+    code_not_found: Code non trouvé
   naf_libelle_a10:
     AZ: Agriculture, sylviculture et pêche
     BE: Industrie manufacturière, industries extractives et autres
