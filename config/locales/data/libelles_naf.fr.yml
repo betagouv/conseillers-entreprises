@@ -189,3 +189,5 @@ fr:
     '97': Activités des ménages en tant qu'employeurs de personnel domestique
     '98': Activités indifférenciées des ménages en tant que producteurs de biens et services pour usage propre
     '99': Activités des organisations et organismes extraterritoriaux
+  naf_libelle:
+    code_not_found: "Code non trouvé"
