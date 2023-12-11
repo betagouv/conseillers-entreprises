@@ -449,6 +449,7 @@ fr:
         mtm_kwd: Mots-clés
         needs: Besoins sélectionnés
         normalized_phone_number: Téléphone
+        origin_url: Url d’origine
         phone_number: Téléphone
         pk_campaign: Campagne
         pk_kwd: Mots-clés
