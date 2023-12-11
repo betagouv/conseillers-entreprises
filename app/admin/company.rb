@@ -61,7 +61,9 @@ ActiveAdmin.register Company do
     attributes_table do
       row :name
       row :siren
-      row :legal_form_code
+      row :legal_form_code do |c|
+        [c.legal_form_code, c.categorie_juridique].join(' - ')
+      end
       row :code_effectif
       row :created_at
       row(:facilities) do |c|

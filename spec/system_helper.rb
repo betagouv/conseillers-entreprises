@@ -31,7 +31,9 @@ def create_base_dummy_data
 end
 
 def side_menu_link(path)
-  find("a[href='#{path}']").sibling('span')
+  within('#fr-sidemenu-wrapper') do
+    find("a[href='#{path}']").sibling('span')
+  end
 end
 
 def create_home_landing

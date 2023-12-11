@@ -428,8 +428,8 @@ fr:
   manager:
     needs:
       index:
-        many_antennes_title: Demandes reçues des antennes
-        one_antenne_title: Demandes reçues de %{name}
+        many_antennes_title: Toutes les demandes reçues des antennes
+        one_antenne_title: Antenne %{name} - toutes les demandes
     stats:
       index:
         stats: Statistiques

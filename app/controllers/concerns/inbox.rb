@@ -27,16 +27,13 @@ module Inbox
     render view
   end
 
-  def antenne_retrieve_needs(recipient, collection_name, view: :index, order: :desc)
-    @recipient = recipient
+  def antenne_retrieve_needs(antenne, collection_name, view: :index, order: :desc)
+    @recipient = antenne
     antenne_inbox_collections_counts(@recipient)
     @collection_name = collection_name
 
-    @needs = if recipient.is_a?(Antenne)
-      @recipient.perimeter_received_needs.merge!(@recipient.send("territory_needs_#{@collection_name}"))
-    else
-      Need.in_antennes_perimeters(@recipient).merge!(Need.where(id: @recipient.map { |a| a.send("territory_needs_#{@collection_name}") }.flatten))
-    end
+    @needs = @recipient.perimeter_received_needs.merge!(@recipient.send("territory_needs_#{@collection_name}"))
+
     @needs = @needs.includes(:company, :advisor, :subject)
       .apply_filters(needs_search_params)
       .order(created_at: order)
