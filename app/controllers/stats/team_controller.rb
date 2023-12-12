@@ -42,23 +42,16 @@ module Stats
 
     def institution_filters
       institution = Institution.find(params.permit(:institution_id)[:institution_id])
-      antennes = build_institution_antennes_collection(institution)
-      subjects = institution.subjects.not_archived.order(:label)
 
       response = {
-        antennes: antennes,
-        subjects: subjects
+        antennes: build_institution_antennes_collection(institution),
+        subjects: institution.subjects.not_archived.order(:label)
       }
 
       render json: response.as_json
     end
 
     private
-
-    def set_institution_filters
-      institution = Institution.find(params.permit(:institution)[:institution])
-      @subjects = institution.subjects.not_archived.order(:label)
-    end
 
     def authorize_team
       authorize Stats::All, :team?

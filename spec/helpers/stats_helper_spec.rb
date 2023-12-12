@@ -13,9 +13,7 @@ describe StatsHelper do
       let(:regional_antenne) { create :antenne, :regional, institution: institution, communes: [commune1, commune2] }
       let!(:region) { create :territory, :region, code_region: 999, communes: [commune1, commune2] }
 
-      before do
-        current_user.managed_antennes << [regional_antenne]
-      end
+      before { current_user.managed_antennes << [regional_antenne] }
 
       context 'Antenne regional qui a des experts et des antennes locales' do
         let!(:local_antenne) { create :antenne, :local, institution: institution, communes: [commune1] }
@@ -34,9 +32,10 @@ describe StatsHelper do
         let!(:expert) { create :expert_with_users, antenne: local_antenne }
         let!(:expert_subject) { create :expert_subject, expert: expert }
 
-        it {
-  is_expected.to contain_exactly({ name: local_antenne.name, id: local_antenne.id }, { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: regional_antenne.name), id: regional_antenne.id })
-}
+        it do
+          is_expected.to contain_exactly({ name: local_antenne.name, id: local_antenne.id },
+                                         { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: regional_antenne.name), id: regional_antenne.id })
+        end
       end
 
       context "Antenne regional sans antenne locale" do
@@ -50,9 +49,7 @@ describe StatsHelper do
     context 'National antenne' do
       let(:national_antenne) { create :antenne, :national, institution: institution }
 
-      before do
-        current_user.managed_antennes << [national_antenne]
-      end
+      before { current_user.managed_antennes << [national_antenne] }
 
       context 'Antenne national sans antennes locales' do
         let!(:expert) { create :expert_with_users, antenne: national_antenne }
@@ -69,7 +66,9 @@ describe StatsHelper do
         let!(:expert_subject_national) { create :expert_subject, expert: national_expert }
 
         it do
-          is_expected.to contain_exactly({ name: local_antenne.name, id: local_antenne.id }, { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: national_antenne.name), id: national_antenne.id }, { name: national_antenne.name, id: national_antenne.id })
+          is_expected.to contain_exactly({ name: local_antenne.name, id: local_antenne.id },
+                                         { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: national_antenne.name), id: national_antenne.id },
+                                         { name: national_antenne.name, id: national_antenne.id })
         end
       end
 
@@ -79,7 +78,8 @@ describe StatsHelper do
         let!(:expert_subject) { create :expert_subject, expert: expert }
 
         it do
-          is_expected.to contain_exactly({ name: local_antenne.name, id: local_antenne.id }, { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: national_antenne.name), id: national_antenne.id })
+          is_expected.to contain_exactly({ name: local_antenne.name, id: local_antenne.id },
+                                         { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: national_antenne.name), id: national_antenne.id })
         end
       end
     end

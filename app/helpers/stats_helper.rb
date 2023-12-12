@@ -9,26 +9,31 @@ module StatsHelper
   end
 
   def build_manager_antennes_collection(user)
-    antennes_collection = Antenne.with_experts_subjects.not_deleted.where(id: [user.managed_antennes.ids, user.managed_antennes.map { |a| a.territorial_antennes.pluck(:id) }].flatten)
-      .map { |a| { name: a.name, id: a.id } }
+    antennes_collection = antennes_collection_hash(Antenne.with_experts_subjects.not_deleted, user.managed_antennes)
 
     add_locals_antennes(antennes_collection, user.managed_antennes)
   end
 
   def build_institution_antennes_collection(institution)
-    antennes_collection = institution.antennes.not_deleted.where(id: [institution.antennes.not_deleted.ids, institution.antennes.not_deleted.map { |a| a.territorial_antennes.pluck(:id) }].flatten)
-      .map { |a| { name: a.name, id: a.id } }
+    institution_antennes = institution.antennes.not_deleted
+    antennes_collection = antennes_collection_hash(institution_antennes, institution_antennes)
 
-    add_locals_antennes(antennes_collection, institution.antennes.not_deleted)
+    add_locals_antennes(antennes_collection, institution_antennes)
   end
 
   def build_antennes_collection_for_select(antennes)
     antennes.map do |a|
-      [a[:name], "#{a[:id]}#{a[:name].include?('locales') ? ' avec antennes locales' : ''}"]
+      [a[:name], "#{a[:id]}#{a[:name].include?('locales') ? t('helpers.stats_helper.with_locales') : ''}"]
     end
   end
 
   private
+
+  def antennes_collection_hash(base_antennes, looking_for_antennes)
+    base_antennes
+      .where(id: [looking_for_antennes.ids, looking_for_antennes.map { |a| a.territorial_antennes.pluck(:id) }].flatten)
+      .map { |a| { name: a.name, id: a.id } }
+  end
 
   def constantize_chart_name(name)
     name_splitted = name.split('_')

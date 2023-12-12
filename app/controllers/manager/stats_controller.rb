@@ -39,8 +39,8 @@ module Manager
       @filters = {
         antennes: build_manager_antennes_collection(current_user),
         regions: managed_antennes.first.national? ? Territory.regions : Territory.where(id: managed_antennes.map(&:regions).flatten).uniq,
-        themes: current_user.institution.themes.for_interview.order(:label).uniq,
-        subjects: current_user.institution.subjects.for_interview.order(:label).uniq
+        themes: current_user.institution.themes.for_interview.sort_by(&:label).uniq,
+        subjects: current_user.institution.subjects.for_interview.sort_by(&:label).uniq
       }
     end
 

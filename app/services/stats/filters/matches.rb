@@ -4,7 +4,6 @@ module Stats::Filters
 
     def territories_filter(territory)
       return if territory.blank?
-      # On est sure de vouloir que les régions ?
       @query.merge! @query.in_region(territory)
     end
 
