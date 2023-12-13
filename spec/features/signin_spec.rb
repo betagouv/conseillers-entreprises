@@ -8,14 +8,14 @@ describe 'the signin process' do
   before do
     visit new_user_session_path
     within('#new_user') do
-      fill_in 'E-mail', with: 'user@example.com'
+      fill_in 'Email', with: 'user@example.com'
       fill_in 'Mot de passe', with: 'yX*4Ubo_xPW!u'
     end
   end
 
   context 'active user' do
     it do
-      click_button 'Connexion'
+      click_button 'Accès conseillers'
 
       expect(page.html).to include 'Demandes reçues'
     end

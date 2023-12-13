@@ -138,7 +138,7 @@ RSpec.describe SolicitationsController do
       let(:siret) { nil }
 
       it 'redirects properly' do
-        expect(request).to redirect_to(step_company_search_solicitation_path(solicitation.uuid, anchor: 'section-formulaire'))
+        expect(request).to redirect_to(step_company_search_solicitation_path(solicitation.uuid, anchor: 'section-breadcrumbs'))
       end
 
       it 'returns http success' do
@@ -151,7 +151,7 @@ RSpec.describe SolicitationsController do
       let(:siret) { '41816609600069' }
 
       it 'redirects properly' do
-        expect(request).to redirect_to(step_description_solicitation_path(solicitation.uuid, anchor: 'section-formulaire'))
+        expect(request).to redirect_to(step_description_solicitation_path(solicitation.uuid, anchor: 'section-breadcrumbs'))
       end
 
       it 'returns http success' do
@@ -163,7 +163,7 @@ RSpec.describe SolicitationsController do
       let!(:solicitation) { create :solicitation, full_name: "JJ Goldman", email: 'test@example.com', phone_number: 'xx', status: 'canceled', siret: '41816609600069', description: 'Decription insuffisante' }
 
       it 'redirects properly' do
-        expect(request).to redirect_to(step_description_solicitation_path(solicitation.uuid, anchor: 'section-formulaire'))
+        expect(request).to redirect_to(step_description_solicitation_path(solicitation.uuid, anchor: 'section-breadcrumbs'))
       end
 
       it 'returns http success' do

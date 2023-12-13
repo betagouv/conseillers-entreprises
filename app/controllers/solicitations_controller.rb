@@ -61,7 +61,7 @@ class SolicitationsController < PagesController
       if siret_is_set?
         update_step_company_method
       elsif siren_is_set?
-        redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-formulaire' }.merge(search_params)
+        redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-breadcrumbs' }.merge(search_params)
         redirect_to redirect_path and return
       else
         result = SearchFacility::Diffusable.new(search_params).from_full_text_or_siren
@@ -109,7 +109,7 @@ class SolicitationsController < PagesController
     @solicitation.go_to_step_description if @solicitation.may_go_to_step_description?
     sanitized_params = sanitize_params(solicitation_params)
     if @solicitation.update(sanitized_params)
-      redirect_to step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+      redirect_to step_description_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render :step_company
@@ -151,12 +151,12 @@ class SolicitationsController < PagesController
     solicitation.update(relaunch: params.require(:relaunch)) if params[:relaunch].present?
     case solicitation.status
     when 'step_company'
-      redirect_to step_company_search_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
+      redirect_to step_company_search_solicitation_path(solicitation.uuid, anchor: 'section-breadcrumbs')
     # canceled : mail mauvaise qualité à modifier
     when 'step_description','canceled'
-      redirect_to step_description_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
+      redirect_to step_description_solicitation_path(solicitation.uuid, anchor: 'section-breadcrumbs')
     else
-      redirect_to step_contact_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
+      redirect_to step_contact_solicitation_path(solicitation.uuid, anchor: 'section-breadcrumbs')
     end
   end
 
@@ -181,7 +181,7 @@ class SolicitationsController < PagesController
 
   # on dirige vers la recherche de siret si le champs "company" est le siret
   def retrieve_company_step_path
-    @solicitation.company_step_is_siret? ? step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire') : step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+    @solicitation.company_step_is_siret? ? step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs') : step_company_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
   end
 
   def siret_is_set?

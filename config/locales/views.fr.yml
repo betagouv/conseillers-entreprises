@@ -242,9 +242,9 @@ fr:
         contact:
           date: Date de la sollicitation
           date_placeholder: jj/mm/aaaa
-          email_address: E-mail
+          email_address: Email
           full_name: Nom
-          full_name_placeholder: 'ex: Marie Dupont'
+          full_name_placeholder: 'Exemple : Marie Dupont'
           phone_number: Numéro de télephone
           your_contact_in_the_company: 'Contact de l’entreprise %{company_name} :'
         expert_content:
@@ -402,18 +402,18 @@ fr:
       home:
         answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
         discover_measures: Découvrir les mesures
-        how-it-works: Comment ça marche
+        how-it-works: Comment ça marche ?
         meta:
           description: 'TPE & PME vous avez un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
-          title: Page d’accueil | Place des Entreprises - Conseils et aides publiques
+          title: Accueil | Place des Entreprises - Conseils et aides publiques
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
         subtitle: 'Service public simple et rapide : %{count} TPE & PME ont déjà été accompagnées cette année par un conseiller %{subject}'
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
         title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
       multiple_steps:
-        contact_us: cliquez ici !
-        other_questions: Pour toute autre demande,
+        contact_us: Découvrez les autres sujets.
+        other_questions: Vous ne trouvez pas ce que vous voulez ?
   layouts:
     side_menu:
       mobile_menu: Menu
@@ -540,7 +540,7 @@ fr:
       link_to_beta_gouv: Lien vers le site de Beta.gouv.fr
       linkedin_title: Page Linkedin de Place des Entreprises
       open_cookies: Ouvre la fenêtre de gestion des cookies
-      service_presentation: Présentation du service (PDF 438 ko)
+      service_presentation: Dossier de presse (PDF 438 ko)
       service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Place des Entreprises
       startup_d_etat: Une startup d’État de beta.gouv
       twitter_title: Compte twitter de Place des Entreprises
@@ -567,7 +567,7 @@ fr:
       link_to_blog: Lien vers le blog de Place des Entreprises - lien externe
       menu: Menu
     newsletter:
-      email_format: 'Format attendu : nom@domaine.fr'
+      email_format: 'Format attendu : nom@example.org'
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
       newsletter_legal_html: Vous pouvez vous désinscrire à tout moment avec le lien de désinscription dans la <span lang='en'>newsletter</span>
       placeholder_email: Votre adresse email
@@ -701,7 +701,7 @@ fr:
       all_fields_compulsary: Tous les champs sont obligatoires.
       already_submitted_solicitation: Cette demande a déjà été envoyée aux conseillers.
       average_delays: "(Délai moyen de prise en charge)"
-      better_taking_care: 'Pour vous aider, les conseillers ont besoin d’éléments de contexte :'
+      better_taking_care_html: 'Pour vous aider, les conseillers ont besoin d’<b>éléments de contexte</b> :'
       buttons:
         manual_step_company: Je ne trouve pas mon entreprise
         next: Suivant
