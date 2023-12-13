@@ -1,15 +1,13 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
-describe AntenneCoverage::DeduplicatedJob do
-  Sidekiq::Testing.disable!
-  before { Sidekiq::ScheduledSet.new.clear }
 
-  describe '#call' do
+RSpec.describe AntenneCoverage::DeduplicatedJob do
+  describe '#perform' do
     let(:institution) { create(:institution) }
     let(:beaufay) { create(:commune, insee_code: '72026') }
     let(:communes) { [beaufay] }
     let!(:antenne) { create(:antenne, :local, institution: institution, communes: communes) }
+
+    before { Sidekiq::ScheduledSet.new.clear }
 
     it do
       scheduled = Sidekiq::ScheduledSet.new
