@@ -64,7 +64,7 @@ describe 'annuaire', :js do
 
         expect(page).to have_css 'h1', text: institution.name
         expect(page).to have_css('.fr-table--c-annuaire', count: 1)
-        expect(page).to have_css('.td-header.td-user', count: 1)
+        expect(page).to have_css('.td-header--user', count: 1)
         expect(page).to have_css('.success-table-cell', count: 1)
         expect(page).to have_button('L')
       end
@@ -94,7 +94,7 @@ describe 'annuaire', :js do
         it 'display users with many experts warning' do
           expect(page).to have_css 'h1', text: institution.name
           expect(page).to have_css('.fr-table--c-annuaire', count: 1)
-          expect(page).to have_css('.td-header.td-user', count: 2)
+          expect(page).to have_css('.td-header--user', count: 2)
           expect(page).to have_css('.error-table-cell')
           expect(page).to have_button('L', title: "Plusieurs experts pour le même sujet - Voir le détail")
         end
@@ -171,7 +171,7 @@ describe 'annuaire', :js do
         visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
         expect(page).to have_css 'h1', text: institution.name
         expect(page).to have_css('.fr-table--c-annuaire', count: 1)
-        expect(page).to have_css('.td-header.td-user', count: 1)
+        expect(page).to have_css('.td-header--user', count: 1)
         expect(page).to have_css('.error-table-cell')
         expect(page).to have_button('?', title: "Aucun expert - Voir le détail")
       end

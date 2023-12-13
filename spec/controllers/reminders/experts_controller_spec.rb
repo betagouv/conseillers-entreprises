@@ -19,7 +19,7 @@ RSpec.describe Reminders::ExpertsController do
     describe '#GET medium_pending_needs' do
       before { get :medium_pending_needs }
 
-      it { expect(assigns(:active_experts)).to contain_exactly(expert_with_medium_old_quo_matches) }
+      it { expect(assigns(:active_experts)).to contain_exactly(expert_with_medium_old_quo_matches, expert_with_only_old_quo_matches) }
     end
 
     describe '#GET one_pending_need' do
@@ -76,7 +76,7 @@ RSpec.describe Reminders::ExpertsController do
     before { post :send_reminder_email, format: :turbo_stream, params: { id: match1.expert_id } }
 
     it 'send email only for quo match and add a feedback' do
-      expect(ActionMailer::Base.deliveries.count).to eq 1
+      expect(enqueued_jobs.count).to eq 1
       expect(Feedback.where(feedbackable_id: match1.expert_id).count).to eq 1
     end
   end

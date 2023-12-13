@@ -43,8 +43,7 @@ module Stats
 
     def filtered_companies(query)
       query.merge!(territory.companies) if territory.present?
-      # TODO : passer à un `perimeter_received_diagnoses`
-      query.merge! antenne_or_institution.received_diagnoses_including_from_deleted_experts if antenne_or_institution.present?
+      query.merge! Company.joins(facilities: :needs).where(needs: antenne_or_institution.perimeter_received_needs) if antenne_or_institution.present?
       query.merge! Company.joins(facilities: { diagnoses: { solicitation: { landing_subject: :subject } } })
         .where(landing_subjects: { subjects: subject }) if subject.present?
       query.merge! Company.joins(facilities: { diagnoses: { solicitation: :landing } })

@@ -7,7 +7,7 @@ module RemindersHelper
     #  - bouton Experts relancés (reminders_action :last_chance)
     #  Refusés :
     #  - Email : Envoyer email échec -> Ets
-    #  - bouton Traiter (reminders_action :abandonned)
+    #  - bouton Traiter (reminders_action :abandoned)
     html = ""
     html << email_button(action, need) if with_email.include? action
     html << action_button(action, need) if with_action.include? action

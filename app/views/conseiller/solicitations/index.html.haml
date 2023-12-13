@@ -31,6 +31,5 @@
   = t('.no_result')
 - else
   .fr-container.fr-mt-10v
-    .fr-grid-row
-      .fr-col-offset-3.fr-col-6= image_tag('no-solicitation.gif', class: 'fr-responsive-img')
+    .fr-col= t('.no_results')
 = paginate @solicitations

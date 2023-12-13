@@ -16,18 +16,10 @@ describe SolicitationsRelaunchService do
   let(:solicitations_to_relaunch) { [solicitation2, solicitation3] }
 
   describe '#find_not_completed_solicitations' do
-    subject { described_class.find_not_completed_solicitations }
+    subject { described_class.new.find_not_completed_solicitations }
 
     it 'find not completed solicitations' do
       is_expected.to match_array(solicitations_to_relaunch)
-    end
-  end
-
-  describe '#send_emails' do
-    before { described_class.send_emails(solicitations_to_relaunch) }
-
-    it 'send emails to solicitations not completed' do
-      expect(ActionMailer::Base.deliveries.count).to eq 2
     end
   end
 end

@@ -8,7 +8,7 @@
 
         .fr-input-group
           = f.label :email, class: 'fr-label'
-          = f.email_field :email, autofocus: true, disabled: true, class: 'fr-input'
+          = f.email_field :email, disabled: true, class: 'fr-input'
 
         %p.fr-mb-4v= t('.prefilled_description')
         = render 'devise/shared/user_fields', form: f

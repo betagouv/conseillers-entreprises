@@ -12,7 +12,6 @@ module AntenneCoverage
     def call
       # pour que les tests passent
       return unless @current_antenne.persisted?
-      return if job_already_in_queue?
       if @current_antenne.regional?
         update_antenne_coverage(@current_antenne)
         @current_antenne.territorial_antennes.each { |ta| update_antenne_coverage(ta) }
@@ -26,19 +25,19 @@ module AntenneCoverage
     private
 
     def update_antenne_coverage(antenne)
-      # Kill similar jobs that are not run yet (or being run).
-      ApplicationJob.remove_delayed_jobs QUEUE_NAME do |job|
-        payload = job.payload_object
-        [payload.object.class, payload.method_name, payload.object.antenne] == [AntenneCoverage::Update, :call, antenne]
-      end
-
-      AntenneCoverage::Update.new(antenne).delay(queue: QUEUE_NAME, run_at: 1.minute.from_now).call
+      delete_jobs_already_in_queue(antenne)
+      UpdateAntenneCoverageJob.perform_in(1.minute, antenne.id)
     end
 
-    def job_already_in_queue?
-      jobs = Delayed::Backend::ActiveRecord::Job.where(queue: QUEUE_NAME)
-      # /!\ bien comparer les ids, les objets sont pas forcément les mêmes
-      jobs.any?{ |job| job.payload_object.antenne.id == @current_antenne.id }
+    def delete_jobs_already_in_queue(antenne)
+      scheduled = Sidekiq::ScheduledSet.new
+
+      scheduled.each do |job|
+        return if job['queue'] != QUEUE_NAME
+        if job['class'] == UpdateAntenneCoverageJob.to_s && job['args'].first == antenne.id
+          job.delete
+        end
+      end
     end
   end
 end

@@ -2,6 +2,8 @@
 
 require 'rails_helper'
 describe AntenneCoverage::DeduplicatedJob do
+  Sidekiq::Testing.disable!
+  before { Sidekiq::ScheduledSet.new.clear }
 
   describe '#call' do
     let(:institution) { create(:institution) }
@@ -10,18 +12,22 @@ describe AntenneCoverage::DeduplicatedJob do
     let!(:antenne) { create(:antenne, :local, institution: institution, communes: communes) }
 
     it do
-      expect(Delayed::Job.count).to eq 0
+      scheduled = Sidekiq::ScheduledSet.new
+
+      expect(scheduled.size).to eq 0
       antenne.update(communes: [])
-      expect(Delayed::Job.count).to eq 1
-      expect(Delayed::Job.last.payload_object.object.antenne).to eq antenne
-      first_job = Delayed::Job.first
+      expect(scheduled.size).to eq 1
+      expect(scheduled.first.args).to eq [antenne.id]
+      first_job = scheduled.first
 
       # Pas de nouveau job rajouté si on modifie la même antenne
       antenne.update(communes: [beaufay])
-      expect(Delayed::Job.count).to eq 1
-      expect(Delayed::Job.last.payload_object.object.antenne).to eq antenne
-      second_job = Delayed::Job.first
-      expect(first_job).to eq second_job
+      expect(scheduled.size).to eq 1
+      expect(scheduled.first.args).to eq [antenne.id]
+      second_job = scheduled.first
+      expect(first_job['args']).to eq second_job['args']
+      expect(first_job['class']).to eq second_job['class']
+      expect(first_job['queue']).to eq second_job['queue']
     end
   end
 end

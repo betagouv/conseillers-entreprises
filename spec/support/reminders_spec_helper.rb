@@ -24,6 +24,10 @@ module RemindersSpecHelper
     let!(:quo_matches_3) { create_list :match, 2, status: :quo, expert: expert_with_medium_old_quo_matches }
     let!(:medium_old_quo_matches) { travel_to(16.days.ago) { create_list :match, 2, status: :quo, expert: expert_with_medium_old_quo_matches } }
 
+    # Expert avec uniquement 2 besoins de plus de 15 jours en attente
+    let!(:expert_with_only_old_quo_matches) { create :expert_with_users, :with_reminders_register, job: 'expert_with_only_old_quo_matches' }
+    let!(:only_old_quo_matches) { travel_to(16.days.ago) { create_list :match, 2, status: :quo, expert: expert_with_only_old_quo_matches } }
+
     # Expert avec plus de 2 besoins de plus de 45 jours en attente
     # et avec un stock > 2 < 5 de besoins non pris en charge
     let!(:expert_with_medium_abandoned_matches) { create :expert_with_users, :with_reminders_register, job: 'expert_with_medium_abandoned_matches' }

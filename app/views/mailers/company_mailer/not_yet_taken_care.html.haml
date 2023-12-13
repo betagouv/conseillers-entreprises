@@ -4,7 +4,7 @@
 
 - link_to_root = link_to t('app_name'), root_url(mtm_campaign: 'retention', mtm_kwd: 'sequence-mail-pde')
 
-%p= t('.intro_from_solicitation_html', company: @solicitation.diagnosis.company.name)
+%p= t('mailers.company_mailer.intro_from_solicitation_html', company: @solicitation.diagnosis.company.name)
 
 %p
   %strong= @solicitation.landing_subject.title

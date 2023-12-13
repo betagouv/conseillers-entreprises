@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
   mount Rswag::Ui::Engine => '/documentation-api'
   mount Rswag::Api::Engine => '/documentation-api'
+  authenticate :user, lambda { |u| u.is_admin? } do
+    mount Sidekiq::Web => '/admin/sidekiq'
+  end
   # ActiveAdmin
   ActiveAdmin.routes(self) rescue ActiveAdmin::DatabaseHitDuringLoad
 

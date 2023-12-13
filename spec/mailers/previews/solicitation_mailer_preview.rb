@@ -7,10 +7,6 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.employee_labor_law(random_solicitation)
   end
 
-  def no_expert_juridique
-    SolicitationMailer.no_expert_juridique(random_solicitation)
-  end
-
   def creation
     SolicitationMailer.creation(random_solicitation)
   end

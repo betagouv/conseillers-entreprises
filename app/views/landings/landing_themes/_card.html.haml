@@ -1,7 +1,7 @@
 - path = { controller: "landings/landing_themes", action: "show", landing_slug: landing.slug, slug: landing_theme.slug, anchor: 'section-breadcrumbs' }.merge(query_params)
-.fr-tile.fr-enlarge-link
-  .fr-tile__body
-    .fr-tile__content
-      %h3.fr-tile__title.fr-mb-2w.fr-h4
-        = link_to landing_theme.title, path, class: 'fr-tile__link'
-      = simple_format(landing_theme.description, class: 'fr-tile__desc')
+.fr-card.fr-enlarge-link.fr-card--no-border.landing-card
+  .fr-card__body
+    .fr-card__content
+      %h3.fr-card__title
+        = link_to landing_theme.title, path
+      = simple_format(landing_theme.description, class: 'fr-card__desc')

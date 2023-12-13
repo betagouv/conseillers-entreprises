@@ -16,7 +16,8 @@ module ApiConsumption::Models
         :adresse,
         :opcoSiren, # a partir d'ici, données agglomérées d'autres appels API
         :idcc,
-        :effectifs_etablissement_mensuel
+        :effectifs_etablissement_mensuel,
+        :opco_fc
       ]
     end
 
@@ -68,6 +69,10 @@ module ApiConsumption::Models
       adresse['libelle_commune']
     end
 
+    def opco
+      @opco ||= Institution.opco.find_by(france_competence_code: france_competence_code)
+    end
+
     private
 
     def effectifs_etablissement_mensuel_array
@@ -76,6 +81,10 @@ module ApiConsumption::Models
 
     def effectifs_etablissement_mensuel_annee
       effectifs_etablissement_mensuel['annee'] || nil
+    end
+
+    def france_competence_code
+      @france_competence_code ||= opco_fc.dig('opcoRattachement', 'code')
     end
   end
 end

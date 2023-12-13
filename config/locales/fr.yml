@@ -267,7 +267,7 @@ fr:
         info: Désolé, le service rencontre un problème, nous travaillons pour le résoudre le plus rapidement possible.
         message: Essayez de rafraichir la page ou bien ressayez plus tard.
         title: Erreur inattendue
-  sign_in: Connexion
+  sign_in: Accès conseillers
   submit: Envoyer
   support:
     array:

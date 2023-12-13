@@ -6,7 +6,7 @@
 
 .fr-container
   .fr-grid-row.fr-grid-row--center.fr-grid-row--gutters.fr-mb-5w
-    .fr-col.fr-col-lg-6
+    .fr-col-12.fr-col-md-10.fr-col-lg-8
       %h1.fr-mb-5w= t('sign_in')
       = form_for resource, as: resource_name, url: session_path(resource_name), html: { data: { turbo: false } } do |f|
         .fr-fieldset
@@ -16,7 +16,7 @@
               = f.label :email, class: 'fr-label' do
                 = t('.email')
                 %span.fr-hint-text= t('.email_help')
-              = f.email_field :email, class: 'fr-input', autofocus: true, required: true, autocomplete: 'email'
+              = f.email_field :email, class: 'fr-input', required: true, autocomplete: 'email'
             .fr-input-group
               = f.label :password, class: 'fr-label' do
                 = t('activerecord.attributes.user.password')
@@ -33,4 +33,6 @@
 
 .fr-container--fluid.lighter-blue-bg.fr-py-6w
   .fr-container
-    = t('.how_to_sign_up_html', email: mail_to(ENV['APPLICATION_EMAIL']))
+    .fr-grid-row.fr-grid-row--center
+      .fr-col-12.fr-col-md-10.fr-col-lg-8
+        = t('.how_to_sign_up_html', email: mail_to(ENV['APPLICATION_EMAIL']))

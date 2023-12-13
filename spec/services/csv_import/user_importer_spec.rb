@@ -16,7 +16,7 @@ describe CsvImport::UserImporter, CsvImport do
   context 'two users, no team' do
     let(:csv) do
       <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction
+        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction
         The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe
         The Institution,The Antenne,Mario Dupont,mario.dupont@antenne.com,0123456789,Sous-Chef
       CSV
@@ -33,7 +33,7 @@ describe CsvImport::UserImporter, CsvImport do
     describe 'without typo' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe
           The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321
           The Institution,The Antenne,Mario Dupont,mario.dupont@antenne.com,0123456789,Sous-Chef,Equipe,equipe@antenne.com,0987654321
         CSV
@@ -52,7 +52,7 @@ describe CsvImport::UserImporter, CsvImport do
     describe 'witout 0 in phone number' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe
           The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,123456789,Cheffe,Equipe,equipe@antenne.com,987654321
         CSV
       end
@@ -69,7 +69,7 @@ describe CsvImport::UserImporter, CsvImport do
     describe 'with accent in email' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe
           The Institution,The Antenne,Marie Dupont,marie.dùpont@antênne.com,0123456789,Cheffe,Equipe,équîpe@ântènne.com,0987654321
         CSV
       end
@@ -86,7 +86,7 @@ describe CsvImport::UserImporter, CsvImport do
     describe 'with non-breaking space in email' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe
           The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com ,0123456789,Cheffe,Equipe,équîpe@ântènne.com,0987654321
         CSV
       end
@@ -116,7 +116,7 @@ describe CsvImport::UserImporter, CsvImport do
   context 'set teams and user without phone number' do
     let(:csv) do
       <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe
         The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,,Cheffe,Equipe,equipe@antenne.com,
         The Institution,The Antenne,Mario Dupont,mario.dupont@antenne.com,,Sous-Chef,Equipe,equipe@antenne.com,
       CSV
@@ -139,7 +139,7 @@ describe CsvImport::UserImporter, CsvImport do
     context 'without typo' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe
           The Institution,Antenna,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321
         CSV
       end
@@ -158,7 +158,7 @@ describe CsvImport::UserImporter, CsvImport do
     context 'with tab before expert email' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe
           The Institution,Antenna,Mario Dupont,   mario.dupont@antenne.com,0123456789,Cheffe,Equipe,	equipe@antenne.com  ,0987654321
         CSV
       end
@@ -175,7 +175,7 @@ describe CsvImport::UserImporter, CsvImport do
     context 'with tab and no capital letter in antenne name' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe
           The Institution,  antenna,Mario Dupont,mario.dupont@antenne.com,0123456789,Cheffe,Equipe,	equipe@antenne.com  ,0987654321
         CSV
       end
@@ -194,7 +194,7 @@ describe CsvImport::UserImporter, CsvImport do
     context 'single user' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,The Theme:The Subject:First IS,The Theme:The Subject:Second IS
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,The Theme:The Subject:First IS,The Theme:The Subject:Second IS
           The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,First ES,
         CSV
       end
@@ -214,7 +214,7 @@ describe CsvImport::UserImporter, CsvImport do
     context 'different users, same team, different subjects' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,First IS,Second IS
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,First IS,Second IS
           The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,oui,
           The Institution,The Antenne,Marco,marco@a.a,0123456789,Directeur,Equipe,equipe@a.a,0123456789,,oui
           The Institution,The Antenne,Maria,maria@a.a,0123456789,Directora,Equipe,equipe@a.a,0123456789,,
@@ -230,7 +230,7 @@ describe CsvImport::UserImporter, CsvImport do
     context 'different users, same team, same subjects' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,First IS,Second IS
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,First IS,Second IS
           The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,,oui
           The Institution,The Antenne,Marco,marco@a.a,0123456789,Directeur,Equipe,equipe@a.a,0123456789,,oui
           The Institution,The Antenne,Maria,maria@a.a,0123456789,Directora,Equipe,equipe@a.a,0123456789,,oui
@@ -252,7 +252,7 @@ describe CsvImport::UserImporter, CsvImport do
     context 'no error' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Sujet
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Sujet
           The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,The Theme:The Subject:First IS
         CSV
       end
@@ -272,7 +272,7 @@ describe CsvImport::UserImporter, CsvImport do
     context 'subject not found' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Sujet
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Sujet
           The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Inconnu
         CSV
       end
@@ -291,7 +291,7 @@ describe CsvImport::UserImporter, CsvImport do
     context 'merge the subjects of users in the same team' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Sujet
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,Sujet
           The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,First IS
           The Institution,The Antenne,Marco,marco@a.a,0123456789,Directeur,Equipe,equipe@a.a,0123456789,Second IS
           The Institution,The Antenne,Maria,maria@a.a,0123456789,Directora,Equipe,equipe@a.a,0123456789,
@@ -313,7 +313,7 @@ describe CsvImport::UserImporter, CsvImport do
     context 'no error' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,First IS
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,First IS
           The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Oui
         CSV
       end
@@ -333,7 +333,7 @@ describe CsvImport::UserImporter, CsvImport do
     context 'imprecise match label' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,The Subject
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,The Subject
           The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Oui
         CSV
       end
@@ -351,7 +351,7 @@ describe CsvImport::UserImporter, CsvImport do
 
     let(:csv) do
       <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction
+        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction
         The Institution,The Antenne,Marie Dupont,test@test.com,0123456789,Cheffe
       CSV
     end
@@ -372,7 +372,7 @@ describe CsvImport::UserImporter, CsvImport do
 
     let(:csv) do
       <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction
+        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction
         The Institution,The Antenne,Marie Dupont, test@test.com,0123456789,Cheffe
       CSV
     end
@@ -390,14 +390,14 @@ describe CsvImport::UserImporter, CsvImport do
   context 'update existing team subjects' do
     let(:first_csv) do
       <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,First IS,Second IS
+        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,First IS,Second IS
         The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,oui,oui
       CSV
     end
 
     let(:csv) do
       <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,First IS,Second IS
+        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,First IS,Second IS
         The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,,oui
       CSV
     end
@@ -418,7 +418,7 @@ describe CsvImport::UserImporter, CsvImport do
   context 'Don’t create antenne if the name is wrong' do
     let(:csv) do
       <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction
+        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction
         The Institution,The other Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe
         The Institution,The other Antenne,Mario Dupont,mario.dupont@antenne.com,0123456789,Sous-Chef
       CSV

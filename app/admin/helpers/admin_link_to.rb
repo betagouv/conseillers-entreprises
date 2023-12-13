@@ -60,7 +60,7 @@ module Admin
         if klass.column_for_attribute(attribute).type == :datetime
           value = I18n.l(object.send(attribute), format: :admin)
         else
-          object.send(attribute)
+          value = object.send(attribute)
         end
         "#{klass.human_attribute_name(attribute)} : #{value}"
       end

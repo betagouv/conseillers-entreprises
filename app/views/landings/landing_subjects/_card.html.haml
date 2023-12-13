@@ -1,9 +1,9 @@
 .fr-col-12.fr-col-sm-6.fr-p-3w
   - path = { controller: "/solicitations", action: "new", landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, anchor: 'section-breadcrumbs' }.merge(query_params)
-  .fr-tile.fr-enlarge-link
-    .fr-tile__body
-      .fr-tile__content
-        %h3.fr-tile__title.fr-h4
+  .fr-card.fr-enlarge-link.fr-card--no-border.landing-card
+    .fr-card__body
+      .fr-card__content
+        %h3.fr-card__title
           = link_to landing_subject.title.html_safe, path, class: 'click-on-landing-subject'
-        .fr-tile__desc
-          = sanitize landing_subject.description.html_safe if landing_subject.description?
+        - if landing_subject.description?
+          .fr-card__desc= sanitize landing_subject.description.html_safe

@@ -105,7 +105,6 @@ ActiveAdmin.register Match do
             link_to(I18n.t('active_admin.matches.diagnosis_page'), conseiller_diagnosis_path(m.diagnosis))
           end
         end
-        status_tag t('attributes.is_archived'), class: :ok if m.need.is_archived
       end
       row :created_at
       row :updated_at

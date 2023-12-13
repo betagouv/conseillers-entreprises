@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_27_100322) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_22_110051) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -341,6 +341,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_27_100322) do
     t.integer "code_region"
     t.boolean "display_logo", default: true
     t.text "siren"
+    t.string "france_competence_code"
     t.index ["code_region"], name: "index_institutions_on_code_region"
     t.index ["deleted_at"], name: "index_institutions_on_deleted_at"
     t.index ["name"], name: "index_institutions_on_name", unique: true
@@ -472,8 +473,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_27_100322) do
     t.bigint "expert_id", null: false
     t.bigint "subject_id", null: false
     t.enum "status", default: "quo", null: false, enum_type: "match_status"
-    t.datetime "sent_at", precision: nil
     t.datetime "archived_at", precision: nil
+    t.datetime "sent_at", precision: nil
     t.index ["expert_id", "need_id"], name: "index_matches_on_expert_id_and_need_id", unique: true, where: "(expert_id <> NULL::bigint)"
     t.index ["expert_id"], name: "index_matches_on_expert_id"
     t.index ["need_id"], name: "index_matches_on_need_id"

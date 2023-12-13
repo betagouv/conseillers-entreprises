@@ -113,7 +113,18 @@
     },
     "idcc": 1486,
     "opcoName": "ATLAS",
-    "opcoSiren": "851296632"
+    "opcoSiren": "851296632",
+    "opco_fc": {
+      "code":"01",
+      "opcoRattachement": {
+        "code":"03",
+        "nom":"ATLAS"
+      },
+      "opcoGestion": {
+        "code":"N/C",
+        "nom":"N/C"
+      }
+    }
   },
   "links": {
     "unite_legale": "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/418166096"

@@ -29,7 +29,8 @@ module SitemapGenerator
         priority: 0.5,
         title: page[:title],
         href: true,
-        changefreq: 'monthly'
+        changefreq: 'monthly',
+        level: 1
       }
       @content << { "page_#{idx}": page_elt }
     end
@@ -42,10 +43,11 @@ module SitemapGenerator
       loc: Rails.application.routes.url_helpers.landing_url(landing),
       priority: 0.9,
       lasmod: landing.updated_at.iso8601,
-      title: landing.title,
+      title: I18n.t(landing.slug, scope: 'sitemap', default: landing.title),
       href: true,
-      elements: [],
-      changefreq: 'weekly'
+      changefreq: 'weekly',
+      level: 1,
+      elements: []
     }
 
     landing.landing_themes.not_archived.preload(:landing_subjects).find_each do |landing_theme|
@@ -55,8 +57,9 @@ module SitemapGenerator
         lasmod: landing_theme.updated_at.iso8601,
         title: landing_theme.title,
         href: true,
-        elements: [],
-        changefreq: 'weekly'
+        changefreq: 'weekly',
+        level: 2,
+        elements: []
       }
 
       landing_theme.landing_subjects.not_archived.each do |landing_subject|
@@ -66,7 +69,8 @@ module SitemapGenerator
           lasmod: landing_subject.updated_at.iso8601,
           title: landing_subject.title,
           href: true,
-          changefreq: 'weekly'
+          changefreq: 'weekly',
+          level: 3
         }
         landing_theme_elt[:elements] << { child_page: landing_subject_elt }
       end
