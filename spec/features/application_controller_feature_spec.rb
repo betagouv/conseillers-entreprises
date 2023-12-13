@@ -10,7 +10,7 @@ describe 'ApplicationController specific features' do
 
       it do
         visit '/admin'
-        expect(page.html).to include 'Page non trouvée'
+        expect(page.html).to include I18n.t('shared.errors.404.title')
       end
     end
 
