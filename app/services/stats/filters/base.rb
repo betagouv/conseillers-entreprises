@@ -1,5 +1,6 @@
 module Stats::Filters
   class Base
+    # graph_struct is an OpenStruct with the attributes of Stats::BaseStats::FILTER_PARAMS
     def initialize(query, graph_struct)
       @query = query
       @graph_struct = graph_struct

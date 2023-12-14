@@ -58,9 +58,8 @@ module Stats
     end
 
     def init_filters
-      institution = Institution.find_by(id: params[:institution])
       @iframes = Landing.iframe.not_archived.order(:slug)
-      @institution_antennes = params[:institution].present? ? build_institution_antennes_collection(institution) : []
+      @institution_antennes = params[:institution].present? ? build_institution_antennes_collection(Institution.find_by(id: params[:institution])) : []
     end
 
     def render_partial(data, name)
