@@ -1,4 +1,4 @@
-class UpdateAntenneCoverageJob
+class AntenneCoverage::UpdateJob
   include Sidekiq::Job
   sidekiq_options queue: 'antenne_coverage'
 
@@ -7,13 +7,13 @@ class UpdateAntenneCoverageJob
     antenne_insee_codes = @antenne.communes.pluck(:insee_code)
     institution_subjects = @antenne.institution.institutions_subjects
 
-    institution_subjects.each do |institution_subject|
+    institution_subjects.find_each do |institution_subject|
       subject_hash = antenne_insee_codes.index_with { [] }
       experts_without_specific_territories = get_experts_without_specific_territories(antenne_insee_codes, institution_subject)
       experts_with_specific_territories = get_experts_with_specific_territories(antenne_insee_codes, institution_subject)
 
-      experts_without_specific_territories.each{ |expert| subject_hash[expert.insee_code] << { expert_id: expert.id, users_ids: expert.users.ids } }
-      experts_with_specific_territories.each{ |expert| subject_hash[expert.insee_code] << { expert_id: expert.id, users_ids: expert.users.ids } }
+      experts_without_specific_territories.find_each{ |expert| subject_hash[expert.insee_code] << { expert_id: expert.id, users_ids: expert.users.ids } }
+      experts_with_specific_territories.find_each{ |expert| subject_hash[expert.insee_code] << { expert_id: expert.id, users_ids: expert.users.ids } }
       register_coverage(institution_subject, subject_hash)
     end
   end

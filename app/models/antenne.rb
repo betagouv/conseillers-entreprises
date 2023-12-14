@@ -257,7 +257,14 @@ class Antenne < ApplicationRecord
 
   # Updated when changed : add/remove communes - add/remove experts - add/remove expert communes - add/remove expert subject
   def update_referencement_coverages(*args)
-    AntenneCoverage::DeduplicatedJob.new(self).call
+    scheduled = Sidekiq::ScheduledSet.new
+
+    scheduled.each do |job|
+      if job['class'] == AntenneCoverage::DeduplicatedJob.to_s && job['args'].first == self.id
+        job.delete
+      end
+    end
+    AntenneCoverage::DeduplicatedJob.perform_in(30.seconds, self.id)
   end
 
   private

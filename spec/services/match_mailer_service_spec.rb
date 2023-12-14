@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 describe MatchMailerService do
-  Sidekiq::Testing.disable!
 
   before do
     ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr'

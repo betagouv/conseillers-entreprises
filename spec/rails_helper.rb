@@ -68,6 +68,11 @@ RSpec.configure do |config|
   config.before(:suite) do
     Rails.application.load_seed
   end
+
+  config.before(type: :job) do
+    Sidekiq::ScheduledSet.new.clear
+    Sidekiq::Testing.disable!
+  end
 end
 
 Shoulda::Matchers.configure do |config|

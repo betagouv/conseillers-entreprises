@@ -57,7 +57,7 @@ describe 'annuaire', :js do
       let!(:institution_subject) { create :institution_subject, institution: institution }
       let!(:expert_subject) { create :expert_subject, institution_subject: institution_subject, expert: expert }
 
-      before { AntenneCoverage::Update.new(antenne).call }
+      before { AntenneCoverage::UpdateJob.perform_sync(antenne.id) }
 
       it 'display users without warning' do
         visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
@@ -87,7 +87,7 @@ describe 'annuaire', :js do
       # Sans zone spécifique
       context 'without specifics territories' do
         before do
-          AntenneCoverage::Update.new(antenne).call
+          AntenneCoverage::UpdateJob.perform_sync(antenne.id)
           visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
         end
 
@@ -105,7 +105,7 @@ describe 'annuaire', :js do
         before do
           expert.communes = [communes_1]
           expert_2.communes = [communes_2]
-          AntenneCoverage::Update.new(antenne).call
+          AntenneCoverage::UpdateJob.perform_sync(antenne.id)
           visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
         end
 
@@ -120,7 +120,7 @@ describe 'annuaire', :js do
         before do
           expert.communes = [communes_1]
           expert_2.communes = [communes_2, communes_3]
-          AntenneCoverage::Update.new(antenne).call
+          AntenneCoverage::UpdateJob.perform_sync(antenne.id)
           visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
         end
 
@@ -135,7 +135,7 @@ describe 'annuaire', :js do
         before do
           expert.communes = [communes_1, communes_3]
           expert_2.communes = [communes_2, communes_3]
-          AntenneCoverage::Update.new(antenne).call
+          AntenneCoverage::UpdateJob.perform_sync(antenne.id)
           visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
         end
 
@@ -149,7 +149,7 @@ describe 'annuaire', :js do
       context 'experts with specific zone and expert without' do
         before do
           expert.communes = [communes_1]
-          AntenneCoverage::Update.new(antenne).call
+          AntenneCoverage::UpdateJob.perform_sync(antenne.id)
           visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
         end
 
@@ -164,7 +164,7 @@ describe 'annuaire', :js do
       let!(:institution_subject) { create :institution_subject, institution: institution }
 
       before do
-        AntenneCoverage::Update.new(antenne).call
+        AntenneCoverage::UpdateJob.perform_sync(antenne.id)
       end
 
       it 'display users with no expert warning' do
