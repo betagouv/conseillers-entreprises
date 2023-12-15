@@ -487,4 +487,48 @@ end
       it { is_expected.to be false }
     end
   end
+
+  describe "similar_abandonned_needs" do
+    let(:landing_subject) { create :landing_subject, subject: sol_subject }
+    let(:solicitation) { create :solicitation, email: email, siret: siret, landing_subject: landing_subject }
+    let(:need_subject) { create :subject }
+
+    let!(:need) do
+      create :need_with_matches,
+      subject: need_subject,
+      diagnosis: create(:diagnosis,
+        solicitation: create(:solicitation, email: 'need@mail.com'),
+        facility: create(:facility, siret: '41816609600069'))
+    end
+
+    subject { solicitation.similar_abandonned_needs }
+
+    context 'same company same subject abandonned' do
+      let(:email) { 'need@mail.com' }
+      let(:siret) { '41816609600069' }
+      let(:sol_subject) { need_subject }
+
+      before { need.reminders_actions.create(category: 'abandon') }
+
+      it { is_expected.to contain_exactly(need) }
+    end
+
+    context 'same company same subject not abandonned' do
+      let(:email) { 'need@mail.com' }
+      let(:siret) { '41816609600069' }
+      let(:sol_subject) { need_subject }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'same company other subject' do
+      let(:email) { 'need@mail.com' }
+      let(:siret) { '41816609600069' }
+      let(:sol_subject) { create :subject }
+
+      before { need.reminders_actions.create(category: 'abandon') }
+
+      it { is_expected.to be_empty }
+    end
+  end
 end

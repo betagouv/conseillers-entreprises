@@ -80,7 +80,7 @@ RSpec.describe Reminders::ExpertsController do
     end
 
     it 'send email only for quo match and add a feedback' do
-      expect(ActionMailer::Base.deliveries.count).to eq 1
+      expect(enqueued_jobs.count).to eq 1
       expect(Feedback.where(feedbackable_id: match1.expert_id).count).to eq 1
     end
   end

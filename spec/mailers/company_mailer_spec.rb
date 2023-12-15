@@ -25,6 +25,16 @@ describe CompanyMailer do
     it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
   end
 
+  describe '#solicitation_relaunch_company' do
+    subject(:mail) { described_class.solicitation_relaunch_company(solicitation).deliver_now }
+
+    let(:solicitation) { create :solicitation }
+
+    it_behaves_like 'an email'
+
+    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+  end
+
   describe '#intelligent_retention' do
     subject(:mail) { described_class.intelligent_retention(need, email_retention).deliver_now }
 

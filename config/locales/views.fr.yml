@@ -46,8 +46,6 @@ fr:
       diagnosis_in_progress: " (En cours)"
       id: Sollicitation %{id}
   admin:
-    job_rescheduled: Job re-planifié
-    jobs_rescheduled: Jobs re-planifiés
     reassign_matches:
       reassign_matches:
         save: Enregistrer
@@ -236,9 +234,9 @@ fr:
         contact:
           date: Date de la sollicitation
           date_placeholder: jj/mm/aaaa
-          email_address: E-mail
+          email_address: Email
           full_name: Nom
-          full_name_placeholder: 'ex: Marie Dupont'
+          full_name_placeholder: 'Exemple : Marie Dupont'
           phone_number: Numéro de télephone
           your_contact_in_the_company: 'Contact de l’entreprise %{company_name} :'
         expert_content:
@@ -284,6 +282,7 @@ fr:
         email: 'Email :'
         landing_subjects: 'Aides demandées :'
         needs_historic: 'Historique de l’entreprise :'
+        similar_abandonned_needs_explanation: 'Cycle d’abandon suspecté : cette entreprise a déjà eu un besoin pour le même sujet abandonné'
         siret: 'Siret :'
         solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres demandes récemment'
         solicitation_no_register_company_explanation: Entreprise ni RCS ni RM
@@ -395,18 +394,18 @@ fr:
       home:
         answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
         discover_measures: Découvrir les mesures
-        how-it-works: Comment ça marche
+        how-it-works: Comment ça marche ?
         meta:
           description: 'TPE & PME vous avez un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
-          title: Page d’accueil | Conseillers-entreprises.service-public.fr - Conseils et aides publiques
+          title: Accueil | Conseillers-entreprises.service-public.fr - Conseils et aides publiques
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
         subtitle: 'Service public simple et rapide : %{count} TPE & PME ont déjà été accompagnées cette année par un conseiller %{subject}'
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 30 partenaires</a> à votre service.
         title: Conseillers-Entreprises vous met en relation avec le conseiller qui peut vous aider.
       multiple_steps:
-        contact_us: cliquez ici !
-        other_questions: Pour toute autre demande,
+        contact_us: Découvrez les autres sujets.
+        other_questions: Vous ne trouvez pas ce que vous voulez ?
   layouts:
     side_menu:
       mobile_menu: Menu
@@ -421,8 +420,8 @@ fr:
   manager:
     needs:
       index:
-        many_antennes_title: Demandes reçues des antennes
-        one_antenne_title: Demandes reçues de %{name}
+        many_antennes_title: Toutes les demandes reçues des antennes
+        one_antenne_title: Antenne %{name} - toutes les demandes
     stats:
       index:
         stats: Statistiques
@@ -564,7 +563,7 @@ fr:
       extend: Agrandir
       link_to_blog: Lien vers le blog de Conseillers-Entreprises - lien externe
     newsletter:
-      email_format: 'Format attendu : nom@domaine.fr'
+      email_format: 'Format attendu : nom@example.org'
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
       newsletter_legal_html: Vous pouvez vous désinscrire à tout moment avec le lien de désinscription dans la <span lang='en'>newsletter</span>
       placeholder_email: Votre adresse email
@@ -700,7 +699,7 @@ fr:
       all_fields_compulsary: Tous les champs sont obligatoires.
       already_submitted_solicitation: Cette demande a déjà été envoyée aux conseillers.
       average_delays: "(Délai moyen de prise en charge)"
-      better_taking_care: 'Pour vous aider, les conseillers ont besoin d’éléments de contexte :'
+      better_taking_care_html: 'Pour vous aider, les conseillers ont besoin d’<b>éléments de contexte</b> :'
       buttons:
         manual_step_company: Je ne trouve pas mon entreprise
         next: Suivant
@@ -797,19 +796,18 @@ fr:
         kbis_extract: Extrait Kbis
         moderation: Modération
         no_expert: Pas d’expert
-        no_expert_juridique: Pas d’expert juridique
         recruitment_foreign_worker: Travailleur étranger
         siret: SIRET
         tns_training: Formation TNS du dirigeant
   stats:
-    abandonned: Besoins abandonnés
+    abandoned: Besoins abandonnés
     done_no_help_status: Statut « cloturé sans aide »
     done_status: Statut « cloturé avec aide »
     less_than_72h: Moins de 72h
     main_stats_chart:
       title: Notre mesure d’impact phare
     more_than_72h: Plus de 72h
-    not_abandonned: Besoins non abandonnés
+    not_abandoned: Besoins non abandonnés
     not_for_me_status: Statut « pas pour moi »
     not_positioning: L’expert ne s’est pas positionné
     not_reachable_status: Statut « cloturé entreprise non joignable »

@@ -41,10 +41,6 @@ class SolicitationMailer < ApplicationMailer
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 
-  def no_expert_juridique(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
   def carsat(solicitation)
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end

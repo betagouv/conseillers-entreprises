@@ -196,6 +196,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.2.2)
+    connection_pool (2.4.1)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -203,11 +204,6 @@ GEM
       addressable
     daemons (1.4.1)
     date (3.3.3)
-    delayed_job (4.1.11)
-      activesupport (>= 3.0, < 8.0)
-    delayed_job_active_record (4.1.7)
-      activerecord (>= 3.0, < 8.0)
-      delayed_job (>= 3.0, < 5)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (4.9.2)
@@ -469,6 +465,8 @@ GEM
     recipient_interceptor (0.3.1)
       mail
     redis (4.8.1)
+    redis-client (0.17.1)
+      connection_pool
     regexp_parser (2.8.2)
     responders (3.1.1)
       actionpack (>= 5.2)
@@ -497,6 +495,11 @@ GEM
       rspec-support (~> 3.12)
     rspec-retry (0.6.2)
       rspec-core (> 3.3)
+    rspec-sidekiq (4.0.2)
+      rspec-core (~> 3.0)
+      rspec-expectations (~> 3.0)
+      rspec-mocks (~> 3.0)
+      sidekiq (>= 5, < 8)
     rspec-support (3.12.1)
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
@@ -567,19 +570,26 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
-    sentry-delayed_job (5.10.0)
-      delayed_job (>= 4.0)
-      sentry-ruby (~> 5.10.0)
     sentry-rails (5.10.0)
       railties (>= 5.0)
       sentry-ruby (~> 5.10.0)
     sentry-ruby (5.10.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
+    sentry-sidekiq (5.10.0)
+      sentry-ruby (~> 5.10.0)
+      sidekiq (>= 3.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
     sib-api-v3-sdk (7.5.0)
       json (~> 2.1, >= 2.1.0)
       typhoeus (~> 1.0, >= 1.0.1)
+    sidekiq (7.1.6)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.14.0)
+    sidekiq-failures (1.0.4)
+      sidekiq (>= 4.0.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -699,7 +709,6 @@ DEPENDENCIES
   clockwork
   css_parser
   daemons
-  delayed_job_active_record
   devise
   devise-async
   devise_invitable
@@ -742,6 +751,7 @@ DEPENDENCIES
   rorvswild
   rspec-rails
   rspec-retry
+  rspec-sidekiq
   rspec_junit_formatter
   rswag-api
   rswag-specs
@@ -755,11 +765,13 @@ DEPENDENCIES
   sassc-rails
   scout_apm
   selenium-webdriver
-  sentry-delayed_job
   sentry-rails
   sentry-ruby
+  sentry-sidekiq
   shoulda-matchers
   sib-api-v3-sdk (~> 7.2)
+  sidekiq
+  sidekiq-failures
   simplecov
   split
   spring (>= 3.0.0)

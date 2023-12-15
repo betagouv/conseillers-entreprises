@@ -4,9 +4,9 @@ fr:
     failure:
       already_authenticated: Vous êtes déjà connecté.
       inactive: Votre compte n’est pas encore activé. Les administrateurs ont été prévenus et activeront votre compte très bientôt.
-      invalid: E-mail ou mot de passe incorrect.
+      invalid: Email ou mot de passe incorrect.
       invited: Vous devez avoir reçu une invitation. Cliquez sur le lien reçu par mail pour activer votre compte.
-      not_found_in_database: E-mail ou mot de passe invalide.
+      not_found_in_database: Email ou mot de passe invalide.
       timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
     forgot_password: Mot de passe oublié ou inconnu ?
@@ -86,7 +86,7 @@ fr:
       already_signed_out: Déconnecté.
       new:
         all_fields_are_mandatory: Tous les champs sont obligatoires.
-        email: E-mail personnel
+        email: Email professionnel nominatif
         email_help: 'Exemple : marie.dupont@mon-organisation.fr'
         how_to_sign_up_html: |
           <h2> Qui sont les conseillers utilisant Conseillers-Entreprises de Service-Public.fr ?</h2>

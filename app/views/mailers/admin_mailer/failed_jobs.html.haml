@@ -7,15 +7,18 @@
   - @jobs.each do |job|
     %ul
       %h3
-        = link_to t('.job_id', id: job['id']), admin_job_url(job['id'])
+        = link_to t('.job_id', id: job['item']['jid']), "https://place-des-entreprises.beta.gouv.fr/admin/sidekiq/retries/#{job['score']}-#{job['item']['jid']}"
       %li
-        %strong= t('.failed_date')
-        = I18n.l(job['failed_at'].to_datetime, format: :long)
+        %strong= t('.created_at')
+        = I18n.l(DateTime.new(job['item']['created_at']), format: :long)
       %li
-        %strong Handler :
-        = job['handler'].truncate(300)
+        %strong= t('.queue')
+        = job['item']['queue']
       %li
-        %strong Erreur :
-        = job['last_error'].truncate(300)
+        %strong= t('.class')
+        = job['item']['class']
+      %li
+        %strong= t('.error')
+        #{job['item']['error_class']} :#{job['item']['error_message']}
 
-= link_to t('.jobs_index'), admin_jobs_url
+= link_to t('.jobs_index'), sidekiq_web_url

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'simplecov'
+
 # SimpleCov.start 'rails' if ENV["COVERAGE"]
 
 ENV['RAILS_ENV'] ||= 'test'
@@ -12,6 +13,7 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 require 'system_helper'
+require 'sidekiq/testing'
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
@@ -36,6 +38,7 @@ RSpec.configure do |config|
   config.include ApiSpecHelper, type: :request
   config.include SplitHelper
   config.extend RemindersSpecHelper
+  config.include ActiveJob::TestHelper
 
   config.infer_spec_type_from_file_location!
 
@@ -65,6 +68,11 @@ RSpec.configure do |config|
   config.before(:suite) do
     Rails.application.load_seed
   end
+
+  config.before(type: :job) do
+    Sidekiq::ScheduledSet.new.clear
+    Sidekiq::Testing.disable!
+  end
 end
 
 Shoulda::Matchers.configure do |config|
@@ -85,3 +93,7 @@ end
 Capybara.javascript_driver = :chrome
 Capybara.default_max_wait_time = 5
 WebMock.disable_net_connect!(allow_localhost: true)
+
+RSpec::Sidekiq.configure do |config|
+  config.warn_when_jobs_not_processed_by_sidekiq = false
+end

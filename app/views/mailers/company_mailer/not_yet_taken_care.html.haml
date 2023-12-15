@@ -2,7 +2,7 @@
 
 %p= t('mailers.hello')
 
-%p= t('.intro_from_solicitation_html', company: @solicitation.diagnosis.company.name)
+%p= t('mailers.company_mailer.intro_from_solicitation_html', company: @solicitation.diagnosis.company.name)
 
 %p
   %strong= @solicitation.landing_subject.title

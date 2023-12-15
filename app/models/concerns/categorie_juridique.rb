@@ -7,7 +7,7 @@ module CategorieJuridique
     CategorieJuridique.description(self.legal_form_code)
   end
 
-  def self.description(legal_form_code, niveau = 1)
+  def self.description(legal_form_code, niveau = 3)
     return I18n.t('other') if legal_form_code.blank?
 
     case niveau

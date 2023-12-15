@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe MatchesController do
+  Sidekiq::Testing.disable!
+  before { Sidekiq::ScheduledSet.new.clear }
+
   describe 'PUT #update' do
     login_user
     subject(:request) { put :update, xhr: true, params: params }
@@ -19,12 +22,13 @@ RSpec.describe MatchesController do
       before { current_user.update experts: [match.expert] }
 
       it 'returns http success and send email' do
+        scheduled = Sidekiq::ScheduledSet.new
         request
 
         expect(response).to be_successful
         expect(match.reload.status_taking_care?).to be true
-        expect(Delayed::Backend::ActiveRecord::Job.count).to eq 1
-        expect(Delayed::Backend::ActiveRecord::Job.last.queue).to eq 'match_notify'
+        expect(scheduled.size).to eq 1
+        expect(scheduled.first.queue).to eq 'match_notification'
       end
     end
 
@@ -33,12 +37,13 @@ RSpec.describe MatchesController do
       before { current_user.update experts: [match.expert] }
 
       it 'returns http success and send email' do
+        scheduled = Sidekiq::ScheduledSet.new
         request
 
         expect(response).to be_successful
         expect(match.reload.status_taking_care?).to be true
-        expect(Delayed::Backend::ActiveRecord::Job.count).to eq 1
-        expect(Delayed::Backend::ActiveRecord::Job.last.queue).to eq 'match_notify'
+        expect(scheduled.size).to eq 1
+        expect(scheduled.first.queue).to eq 'match_notification'
       end
     end
 
@@ -46,11 +51,12 @@ RSpec.describe MatchesController do
       login_admin
 
       it 'returns http success and don’t send email' do
+        scheduled = Sidekiq::ScheduledSet.new
         request
 
         expect(response).to be_successful
         expect(match.reload.status_taking_care?).to be true
-        expect(Delayed::Backend::ActiveRecord::Job.count).to eq 0
+        expect(scheduled.size).to eq 0
       end
     end
   end

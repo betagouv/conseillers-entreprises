@@ -262,10 +262,6 @@ class Need < ApplicationRecord
   end
 
   scope :for_emails_and_sirets, -> (emails, sirets = []) do
-    # Need.diagnosis_completed.joins(:diagnosis, :solicitation, :facility).scoping do
-    #   Need.where(diagnosis: { solicitations: { email: emails } })
-    #     .or(Need.where(diagnosis: { facilities: { siret: sirets.compact } }))
-    # end
     Need
       .diagnosis_completed
       .joins('
@@ -278,7 +274,7 @@ class Need < ApplicationRecord
   end
 
   scope :in_antenne_perimeters, -> (antenne) do
-    Need.where(id: antenne.perimeter_received_needs)
+    where(id: antenne.perimeter_received_needs)
   end
 
   scope :by_region, -> (region_id) do
@@ -287,6 +283,10 @@ class Need < ApplicationRecord
 
   scope :by_subject, -> (subject_id) do
     where(subject_id: subject_id)
+  end
+
+  scope :by_antenne, -> (antenne_id) do
+    joins(matches: { expert: :antenne }).merge(Match.by_antenne(antenne_id))
   end
 
   scope :created_since, -> (date) do
@@ -310,6 +310,7 @@ class Need < ApplicationRecord
     klass = klass.omnisearch(params[:omnisearch]).with_pg_search_rank if params[:omnisearch].present?
     klass = klass.created_since(params[:created_since]) if params[:created_since].present?
     klass = klass.created_until(params[:created_until]) if params[:created_until].present?
+    klass = klass.by_antenne(params[:antenne_id]) if params[:antenne_id].present?
     klass.all
   end
 
@@ -329,6 +330,10 @@ class Need < ApplicationRecord
 
   def has_action?(action)
     reminders_actions.find_by(category: action).present?
+  end
+
+  def action_date(action)
+    reminders_actions.where(category: action).pluck(:created_at).min
   end
 
   def is_abandoned?

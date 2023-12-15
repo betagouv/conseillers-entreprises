@@ -31,7 +31,8 @@ gem 'webpacker'
 # Parallel processes
 gem 'clockwork'
 gem 'daemons'
-gem 'delayed_job_active_record'
+gem "sidekiq"
+gem 'sidekiq-failures'
 
 # Improving models
 gem 'devise'
@@ -80,7 +81,7 @@ gem 'mjml-rails'
 # Notifiers
 gem "sentry-ruby"
 gem "sentry-rails"
-gem "sentry-delayed_job"
+gem "sentry-sidekiq"
 
 # Helper gems
 gem 'browser'
@@ -107,6 +108,7 @@ group :test do
   gem 'axe-core-capybara', require: false
   gem 'simplecov', require: false
   gem 'rspec-retry'
+  gem 'rspec-sidekiq'
 end
 
 group :development, :test do

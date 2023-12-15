@@ -32,7 +32,7 @@ module Stats::Needs
     end
 
     def colors
-      %w[#9F3BCA #F15C80 #E78016 #F2DD68 #2D908F #62E0D3 #88c479 #A7FF96 #946D47 #64609B #63DDDB #F45A5A]
+      %w[#62e0d3 #2D908F #f3dd68 #e78112 #F45A5B #9f3cca #F15C80 #A8FF96 #946c47 #64609b #7a7a7a #CF162B]
     end
   end
 end

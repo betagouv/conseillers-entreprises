@@ -40,6 +40,8 @@
               %span.meta__warnings__item{ title: t('.solicitation_doublon_explanation') } D
             - if solicitation.from_no_register_company?
               %span.meta__warnings__item{ title: t('.solicitation_no_register_company_explanation') } ?
+            - if solicitation.similar_abandonned_needs.any?
+              %span.meta__warnings__item{ title: t('.similar_abandonned_needs_explanation') } A
           - if facilities[solicitation.id].present?
             .meta__items
               .item= t('.needs_historic')

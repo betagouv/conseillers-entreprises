@@ -70,7 +70,7 @@ describe 'New Solicitation', :js, :flaky do
 
           # Etape contact
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'E-mail', with: 'user@example.com'
+          fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
           click_button 'Suivant'
           expect(solicitation.persisted?).to be true
@@ -150,7 +150,7 @@ describe 'New Solicitation', :js, :flaky do
           click_link 'Test Landing Theme', match: :first
           click_link 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'E-mail', with: 'user@example.com'
+          fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
           click_button 'Suivant'
           expect(solicitation.siret).to eq query
@@ -193,7 +193,7 @@ describe 'New Solicitation', :js, :flaky do
           click_link 'Test Landing Theme', match: :first
           click_link 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'E-mail', with: 'user@example.com'
+          fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
           click_button 'Suivant'
           expect(solicitation.persisted?).to be true
@@ -240,7 +240,7 @@ describe 'New Solicitation', :js, :flaky do
           click_link 'Test Landing Theme', match: :first
           click_link 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'E-mail', with: 'user@example.com'
+          fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
           click_button 'Suivant'
           expect(solicitation.persisted?).to be true
@@ -290,7 +290,7 @@ describe 'New Solicitation', :js, :flaky do
           click_link 'Test Landing Theme', match: :first
           click_link 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'E-mail', with: 'user@example.com'
+          fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
           click_button 'Suivant'
           expect(solicitation.persisted?).to be true
@@ -328,7 +328,7 @@ describe 'New Solicitation', :js, :flaky do
           click_link 'Test Landing Theme', match: :first
           click_link 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'E-mail', with: 'user@example.com'
+          fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
           click_button 'Suivant'
           expect(solicitation.persisted?).to be true

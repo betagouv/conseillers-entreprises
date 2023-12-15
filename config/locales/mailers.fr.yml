@@ -4,13 +4,16 @@ fr:
     admin_mailer:
       csv_export: Export CSV des %{model}
       failed_jobs:
-        failed_date: 'Date d''échec :'
+        class: 'Classe :'
+        created_at: 'Date de création :'
+        error: 'Erreur :'
         failed_jobs_list:
           one: 'Il y a %{count} job en échec :'
           other: 'Il y a %{count} jobs en échecs :'
         hello: Salut les devs !
         job_id: 'ID : %{id}'
         jobs_index: Index des jobs
+        queue: Queue
         subject:
           one: "[Conseillers-Entreprises] %{count} job en erreur"
           other: "[Conseillers-Entreprises] %{count} jobs en erreur"
@@ -37,9 +40,12 @@ fr:
       explanation_html: Ce service public d’accompagnement des entreprises est proposé par le Ministère de l’Économie et le Ministère du Travail pour faciliter la vie des petites entreprises. Il vous permet d’échanger avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
       intelligent_retention:
         and_you: Et vous, souhaitez-vous être aidé par un conseiller sur ces sujets ?
+        explanation_html: 'Conseillers-Entreprises est un service des ministères de l’Economie et du Travail avec un objectif : faciliter la vie des petites entreprises.<br>Lorsqu''un chef d’entreprise dépose sa demande, le service sélectionne pour lui les conseillers compétents parmi plus de 40 institutions publiques.'
+        why_this_message: Pourquoi recevez-vous ce message ?
+      intro_from_solicitation_html: 'Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concerne :'
+      intro_from_solicitation_with_subject_html: Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concerne <b>« %{subject} »</b>.
       not_yet_taken_care:
         holiday_delay: En période de congés, les délais de prise en charge peuvent être exceptionnellement plus longs.
-        intro_from_solicitation_html: 'Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concerne :'
         subject: Suivi de votre demande « %{subject} »
         thanks_for_your_patience: Nous vous remercions pour votre patience.
         we_continue_to_follow_up_html: Nous avons relancé le conseiller ou la conseillère compétente pour votre demande. Nous continuons d’<strong>assurer son suivi</strong> pour vous apporter une réponse dans les meilleurs délais.
@@ -48,7 +54,6 @@ fr:
         subject: Appel manqué pour votre demande « %{subject} »
       notify_taking_care:
         content_by_expert_html: Votre demande vient d’être prise en charge par <strong>un conseiller ou une conseillère de %{expert_antenne}</strong>. Si vous êtes injoignable, n’oubliez pas de consulter votre messagerie vocale et vos mails.
-        intro_from_solicitation_html: 'Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concerne :'
         subject: Prise en charge de votre demande « %{subject} »
       retention:
         intro_html: 'Vous avez utilisé le service public Conseillers-Entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait :'
@@ -137,7 +142,7 @@ fr:
     see_you_on_service_html: À très vite sur %{link_to_root}.
     sincerely: Bien à vous,
     solicitation:
-      base_intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service).
+      base_intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service).
       subject: Votre demande sur Conseillers-Entreprises
     solicitation_mailer:
       bad_quality:
@@ -150,20 +155,32 @@ fr:
         upon_receipt: 'Nous vous invitons à compléter votre demande pour qu’elle soit transmise :'
       carsat:
         duerp_html: 'Document unique d’évaluation des risques professionnels (DUERP) : <br />Toutes activités : <a href=''https://www.inrs.fr/demarche/evaluation-risques-professionnels''>https://www.inrs.fr/demarche/evaluation-risques-professionnels</a> <br />Spécifique au bâtiment : <a href=''https://www.preventionbtp.fr''>https://www.preventionbtp.fr</a>'
-        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant votre retraite ou les risques professionnels.
+        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant votre retraite ou les risques professionnels.
         no_carsat_in_region_html: Malheureusement, <strong>l'organisme compétent, la CARSAT, n’est pas encore partenaire du service dans votre région</strong>. Nous vous invitons à <strong>la contacter au 3960</strong>.
         purchases_html: 'Subventions liées aux formations ou aux achats de matériels : sur <a href=''https://www.ameli.fr/''>le site Ameli</a>, choisir le département, puis « Entreprise » dans le bandeau du haut puis le sigle Euros « aides financières TPE PME » dans le bandeau de droite.'
         retirement_html: 'Retraite : <a href=''https://www.lassuranceretraite.fr''>www.lassuranceretraite.fr</a>'
         useful_links: 'Liens utiles :'
       creation:
-        cci_initiative_html: 'Nous vous invitons également à contacter les conseillers de la <b>Chambre de Commerce et d’Industrie</b> et du <b>réseau Initiative</b> proches de chez vous. Des conseillers en création peuvent vous accompagner pour financer et lancer votre projet d’entreprise :'
-        funding_resources: 'Vous retrouverez toutes les sources de financement possibles pour votre projet sur le site de Bpifrance ou de la Banque de France :'
+        adie: 'Adie :'
+        adie_label: 'Avec l’Adie : entreprendre c’est possible !'
+        agricultural_activities: 'pour les activités agricoles :'
+        artisanal_activities: 'pour les activités artisanales :'
+        banque_de_france: 'Banque de France :'
+        banque_de_france_label: Mes questions d’entrepreneur | Financer ma création (mesquestionsdentrepreneur.fr)
+        bpifrance: 'Bpifrance :'
+        bpifrance_label: Comment financer mon projet de création ou reprise d’entreprise ? | Bpifrance Création (bpifrance-creation.fr)
+        cci_initiative_html: 'Vous pouvez vous faire accompagner dans vos démarches de création par des conseillers proches de chez vous :'
+        commercial_activities: 'pour les activités commerciales :'
+        funding_resources: 'Vous retrouverez toutes les sources de financement possibles pour votre projet sur les sites suivants :'
+        initiative: 'Réseau Initiative :'
+        initiative_label: Accueil - Initiative France
+        liberal_activities: 'pour les activités libérales :'
         no_creation: Ce service public ne s’adresse actuellement qu’aux entreprises déjà existantes.
         solicitation_subject: pour votre entreprise en création ou tout juste lancée
       employee_labor_law:
         contact_dreets_html: En tant que salarié(e), nous vous invitons à contacter le service de renseignement en droit du travail de la <a href='https://dreets.gouv.fr/'>Direction régionale de l’économie, de l’emploi, du travail et des solidarités</a> (DREETS).
         dreets_phone_number_html: Vous pouvez composer le <b>0806 000 126</b> [prix d’un appel local - pas de surcoût] du lundi au vendredi, de 8h45 à 11h30 et de 13h45 à 16h30.
-        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant le <b>droit du travail</b>. Il s'agit cependant d'un service public destiné aux chefs d'entreprises. Nous ne sommes donc pas en mesure de vous apporter une réponse.
+        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant le <b>droit du travail</b>. Il s'agit cependant d'un service public destiné aux chefs d'entreprises. Nous ne sommes donc pas en mesure de vous apporter une réponse.
         other_informations: 'Vous trouverez également des informations en droit du travail sur :'
       footer:
         linkedin:
@@ -181,34 +198,28 @@ fr:
         explications: Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 30 partenaires publics et parapublics du service ont à cœur d’échanger directement avec les entreprises pour répondre au mieux à leur problématique.
         explications_2: C’est pourquoi nous vous invitons à accompagner votre interlocuteur / client pour qu’il dépose lui-même une demande sur le site.
         for_companies_html: Il s'agit d’un service public <b>destiné aux chefs d’entreprises</b>, afin d’aider les petites structures à se développer et à s’adapter.
-      intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service).
-      intro_with_subject_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) %{solicitation_subject}.
+      intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service).
+      intro_with_subject_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) %{solicitation_subject}.
       kbis_extract:
-        insee_html: 'un avis de situation de l’Insee : <a href=''https://annuaire-entreprises.data.gouv.fr ''>https://annuaire-entreprises.data.gouv.fr</a>'
-        liberal_instruction: 'Si vous êtes artisan ou si vous exercez une activité de nature libérale, vous pouvez fournir :'
-        no_expert_monidenum_html: 'Malheureusement, nous n''avons pas d’expert pour vos difficultés techniques sur le site MonIdenum. Nous vous invitons à contacter leur support : <a href=''https://monidenum.fr/contact''>https://monidenum.fr/contact</a>'
-        only_commercial_html: 'Attention : <strong>l’extrait Kbis ne concerne que les activités commerciales</strong>.'
-        rne_html: 'un extrait de votre inscription au Registre national des entreprises (extrait RNE) : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
-        use_for_commercant: Ces deux documents peuvent être aussi utilisés par les commerçants rencontrant des blocages.
+        base_intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant l’extrait Kbis.
+        insee: un avis de situation de l’Insee
+        liberal_instruction: 'De façon générale, il est souvent possible de fournir d’autres justificatifs d’existence comme :'
+        no_expert_monidenum_html: 'Si vous rencontrez des difficultés techniques sur le site MonIdenum et <a href=''https://monidenum.fr/contact''>son support</a>, ce document est également disponible pour les activités commerciales sur le site du greffe : <a href=''https://www.infogreffe.fr/documents-officiels/extrait-kbis''>www.infogreffe.fr/documents-officiels/extrait-kbis</a>. Le coût de la formalité est définie par le greffe.'
+        only_commercial_html: "<strong>Attention : l’extrait Kbis ne concerne que les activités commerciales</strong>."
+        rne: un extrait de votre inscription au Registre national des entreprises (extrait RNE)
+        use_for_commercant_html: Ces deux documents sont à télécharger gratuitement sur <a href=''https://annuaire-entreprises.data.gouv.fr''>annuaire-entreprises.data.gouv.fr</a>.
       moderation:
         no_new_element: En l’absence d’élément nouveau, nous ne pouvons réaliser de nouvelles mises en relation vers ce dernier.
         quality_monitoring: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller.
         taking_care_by_experts: Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.
       no_expert:
-        erp_html: 'pour votre établissement recevant du public (ERP)  : <a href=''https://entreprendre.service-public.fr/vosdroits/F32351''>https://entreprendre.service-public.fr/vosdroits/F32351</a><br>et son accessibilité :<a href=''https://www.demarches-simplifiees.fr/commencer/demande-d-information-accessibilite-erp-place-des-''>https://www.demarches-simplifiees.fr/commencer/demande-d-information-accessibilite-erp-place-des-</a>'
-        independent_html: 'pour être conseillé sur vos formalités en tant qu’<b>autoentrepreneur</b> : <a href=''https://www.autoentrepreneur.urssaf.fr/portail/accueil.html''>https://www.autoentrepreneur.urssaf.fr/portail/accueil.html</a> et obtenir votre avis de situation : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
-        inpi_html: 'pour réaliser vos formalités d’entreprises : <a href=''https://procedures.inpi.fr''>https://procedures.inpi.fr</a> et obtenir votre extrait Kbis : <a href=''https://entreprendre.service-public.fr/vosdroits/F21000''>https://entreprendre.service-public.fr/vosdroits/F21000</a>'
+        erp_html: 'pour votre établissement recevant du public (ERP) et son accessibilité : <a href=''https://entreprendre.service-public.fr/vosdroits/F32351''>https://entreprendre.service-public.fr/vosdroits/F32351</a>'
+        inpi_html: 'pour réaliser vos formalités d’entreprises : <a href=''https://procedures.inpi.fr''>https://procedures.inpi.fr</a>'
+        juridique_html: pour votre problématique juridique, vous rapprocher d’un <a href="https://www.justice.fr/themes/acces-droit-point-justice">point d’accès au droit</a> ou d’une <a href="https://www.service-public.fr/particuliers/vosdroits/F20706">permanence gratuite d’avocat</a>
         no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
         personal_services_html: 'pour devenir un service à la personne : <a href=''https://www.servicesalapersonne.gouv.fr''>https://www.servicesalapersonne.gouv.fr</a>'
-        profession_liberale_html: 'pour être conseillé sur vos formalités en tant que <b>profession libérale</b> : <a href=''https://www.oniffpl.fr/vos-oriffs''>https://www.oniffpl.fr/vos-oriffs</a>'
         service_improvement_html: C’est en détectant de nouvelles problématiques que nous pouvons améliorer ce service public.<strong> Nous faisons notre maximum pour compléter l’expertise</strong>.
         useful_links: 'Liens utiles selon votre démarche :'
-      no_expert_juridique:
-        avocat_html: "<b>Permanence gratuite d’avocat(e)</b> : <a href='https://www.service-public.fr/particuliers/vosdroits/F20706'>https://www.service-public.fr/particuliers/vosdroits/F20706</a>"
-        no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique juridique dans votre secteur d’activité.
-        point_acces_droits_html: "<b>Point d’accès au droit</b> : <a href='https://www.justice.fr/themes/acces-droit-point-justice'>https://www.justice.fr/themes/acces-droit-point-justice</a>"
-        service_improvement_html: C’est en détectant de nouvelles problématiques que nous pouvons améliorer ce service et compléter l’expertise.
-        useful_links: 'En attendant, ces contacts peuvent vous être utiles dans votre démarche :'
       recruitment_foreign_worker:
         interior_ministry_html: 'La demande d’autorisation de travail relève d’un service en ligne du Ministère de l’Intérieur : <a href=''https://administration-etrangers-en-france.interieur.gouv.fr/immiprousager/#/authentification''>https://administration-etrangers-en-france.interieur.gouv.fr</a>.'
         phone_number_html: 'Pour plus d’informations : <b>0806 001 620</b> (appel gratuit).'
@@ -220,7 +231,7 @@ fr:
         solicitation_transmission: Dès réception de ces éléments, nous transmettons votre demande au(x) conseiller(s) compétent(s) pour vous aider sur votre territoire. Ce(s) conseiller(s) vous rappelleront directement.
       tns_training:
         artisans_html: "<strong>pour les artisans</strong> : <a href='https://www.fafcea.com/'>https://www.fafcea.com/</a>"
-        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant le financement de votre formation.
+        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant le financement de votre formation.
         liberal_professions_html: "<strong>pour les professions libérales</strong> : <a href='https://www.fifpl.fr/'>https://www.fifpl.fr/</a>"
         no_expert: Malheureusement nous n’avons pas encore d'expert en mesure de répondre à votre problématique.
         tradespeople_html: "<strong>pour les commerçants</strong> : <a href='https://communication-agefice.fr'>https://communication-agefice.fr</a>"

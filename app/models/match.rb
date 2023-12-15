@@ -126,6 +126,10 @@ class Match < ApplicationRecord
     status_quo.where(created_at: ..Need::REMINDERS_DAYS[:abandon]&.days&.ago)
   end
 
+  scope :by_antenne, -> (antenne_id) do
+    joins(expert: :antenne).where(expert: { antenne_id: antenne_id })
+  end
+
   # Pour ransacker, en admin
   scope :solicitation_created_at_gteq_datetime, -> (val) do
     joins(:solicitation).where('solicitations.created_at >= ?', val)

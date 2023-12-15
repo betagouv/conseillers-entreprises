@@ -74,7 +74,7 @@ class Solicitation < ApplicationRecord
 
   paginates_per 25
 
-  GENERIC_EMAILS_TYPES = %i[bad_quality creation employee_labor_law siret moderation independent_tva intermediary recruitment_foreign_worker no_expert no_expert_juridique carsat tns_training kbis_extract]
+  GENERIC_EMAILS_TYPES = %i[bad_quality creation employee_labor_law siret moderation independent_tva intermediary recruitment_foreign_worker no_expert carsat tns_training kbis_extract]
 
   ## Status
   #
@@ -406,6 +406,12 @@ class Solicitation < ApplicationRecord
       .where(landing_subject_id: self.landing_subject_id)
       .from_same_company(self)
       .distinct
+  end
+
+  def similar_abandonned_needs
+    Need.for_emails_and_sirets([self.email], self.valid_sirets)
+      .by_subject(self.landing_subject&.subject)
+      .with_action('abandon')
   end
 
   def update_diagnosis

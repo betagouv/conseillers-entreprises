@@ -34,7 +34,7 @@ describe 'solicitation_form', :js, type: :feature do
       visit "/aide-entreprise/#{landing.slug}/demande/#{landing_subject.slug}"
       is_expected.to be_accessible
       fill_in 'Prénom et nom', with: 'Mariane'
-      fill_in 'E-mail', with: 'user@example.com'
+      fill_in 'Email', with: 'user@example.com'
       fill_in 'Téléphone', with: '0123456789'
       click_button 'Suivant'
       # Second step

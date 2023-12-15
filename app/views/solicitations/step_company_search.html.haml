@@ -9,25 +9,26 @@
     - if @error_message.present?
       .fr-alert.fr-alert--error.fr-mb-6w{ role: "alert" }
         %h2.fr-alert__title= t('api_requests.embraced_error_title')
-        %p= t('api_requests.embraced_error_html', message: @error_message, url: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+        %p= t('api_requests.embraced_error_html', message: @error_message, url: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs'))
 
     = form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, method: :get, html: { data: { turbo: false } }) do |f|
       .fr-fieldset
         .fr-fieldset__element
           .fr-input-group.siret-autocomplete{ 'data-controller': "pages-siret-autocomplete" }
-            = label_tag "query", t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
-            %span.fr-hint-text= t("solicitations.creation_form.search_facility_placeholder")
+            = label_tag "query", class: 'fr-label' do
+              = t("solicitations.creation_form.find_my_facility")
+              %span.fr-hint-text= t("solicitations.creation_form.search_facility_placeholder")
             .loader.hidden{ data: { 'pages-siret-autocomplete-target': 'loader' } }
 
             %div{ data: { 'pages-siret-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'query', 'default-value': (params[:query] || @solicitation.siret), url: search_company_solicitation_path(@solicitation.uuid) } }
             = f.hidden_field :code_region, data: { 'pages-siret-autocomplete-target': 'codeRegionField' }
             = f.hidden_field :siret, data: { 'pages-siret-autocomplete-target': 'siretField' }
 
-            .fr-my-3w.text-center.hidden{ data: { 'pages-siret-autocomplete-target': 'noResultLink' } }
-              = link_to t('solicitations.creation_form.buttons.manual_step_company'), step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'), class: 'fr-link'
+            .fr-my-3w.hidden{ data: { 'pages-siret-autocomplete-target': 'noResultLink' } }
+              = link_to t('solicitations.creation_form.buttons.manual_step_company'), step_company_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs'), class: 'fr-link'
 
       .submit-buttons
-        = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+        = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
         = render 'next_button'
 
 - content_for :footer do

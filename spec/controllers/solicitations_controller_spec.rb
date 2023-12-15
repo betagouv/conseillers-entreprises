@@ -1,7 +1,44 @@
 require 'rails_helper'
 
 RSpec.describe SolicitationsController do
-  before { create_home_landing }
+  describe 'GET #new' do
+    let(:landing) { create(:landing) }
+    let(:landing_subject) { create(:landing_subject) }
+
+    context 'with existing landing and landing subject' do
+      it do
+        get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug }
+        expect(response).to be_successful
+      end
+    end
+
+    context 'with existing landing but without landing subject' do
+      let(:landing) { create(:landing) }
+
+      it do
+        get :new, params: { landing_slug: landing.slug, landing_subject_slug: 'unknown' }
+        expect(response).to redirect_to root_path
+        expect(response).to have_http_status(:moved_permanently)
+      end
+    end
+
+    context 'with a good solicitation uuid' do
+      let(:solicitation) { create(:solicitation, uuid: 'good-solicitation-uuid') }
+
+      it do
+        get :new, params: { uuid: solicitation.uuid, landing_slug: landing.slug, landing_subject_slug: landing_subject.slug }
+        expect(response).to be_successful
+      end
+    end
+
+    context 'with a bad solicitation uuid' do
+      it do
+        get :new, params: { uuid: 'bad-solicitation-uuid', landing_slug: landing.slug, landing_subject_slug: landing_subject.slug }
+        expect(response).to redirect_to root_path
+        expect(response).to have_http_status(:moved_permanently)
+      end
+    end
+  end
 
   describe 'POST #create' do
     let(:landing) { create(:landing) }
@@ -101,7 +138,7 @@ RSpec.describe SolicitationsController do
       let(:siret) { nil }
 
       it 'redirects properly' do
-        expect(request).to redirect_to(step_company_search_solicitation_path(solicitation.uuid, anchor: 'section-formulaire'))
+        expect(request).to redirect_to(step_company_search_solicitation_path(solicitation.uuid, anchor: 'section-breadcrumbs'))
       end
 
       it 'returns http success' do
@@ -114,7 +151,7 @@ RSpec.describe SolicitationsController do
       let(:siret) { '41816609600069' }
 
       it 'redirects properly' do
-        expect(request).to redirect_to(step_description_solicitation_path(solicitation.uuid, anchor: 'section-formulaire'))
+        expect(request).to redirect_to(step_description_solicitation_path(solicitation.uuid, anchor: 'section-breadcrumbs'))
       end
 
       it 'returns http success' do
@@ -126,7 +163,7 @@ RSpec.describe SolicitationsController do
       let!(:solicitation) { create :solicitation, full_name: "JJ Goldman", email: 'test@example.com', phone_number: 'xx', status: 'canceled', siret: '41816609600069', description: 'Decription insuffisante' }
 
       it 'redirects properly' do
-        expect(request).to redirect_to(step_description_solicitation_path(solicitation.uuid, anchor: 'section-formulaire'))
+        expect(request).to redirect_to(step_description_solicitation_path(solicitation.uuid, anchor: 'section-breadcrumbs'))
       end
 
       it 'returns http success' do

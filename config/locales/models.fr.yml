@@ -218,7 +218,7 @@ fr:
         needs: Besoin exprimé
         not_started: Pas démarrée
       diagnosis/visitee:
-        email: Adresse e-mail de la personne rencontrée
+        email: Adresse email de la personne rencontrée
         full_name: Prénom et Nom de la personne rencontrée
         job: Fonction de la personne rencontrée
         phone_number: Numéro de téléphone de la personne rencontrée
@@ -439,7 +439,7 @@ fr:
       solicitation:
         api_calling_url: Url d’appel
         completion: Complétion
-        email: E-mail
+        email: Email
         full_name: Prénom et nom
         institution_filters: Questions additionnelles
         landing: Page d’atterrissage
@@ -518,7 +518,7 @@ fr:
         roles: Rôles
         sign_in_count: Connexions
         team_custom_communes: Territoire spécifique (CODE INSEE)
-        team_email: E-mail de l’équipe
+        team_email: Email de l’équipe
         team_full_name: Nom de l’équipe
         team_id: Id de l’équipe
         team_job: Fonction de l’équipe
@@ -803,7 +803,7 @@ fr:
     display_logo: Afficher le logo sur la page d’accueil, la page de remerciement et la liste des partenaires
     done_institutions: Institution ayant clôturé avec aide
     effectif: Effectif
-    email: E-mail
+    email: Email
     expert: Expert
     expert_antenne: Antenne de l’expert
     expert_institution: Institution de l’expert
@@ -834,7 +834,7 @@ fr:
       email_html: 'Exemple : marie.dupont@exemple.fr'
       full_name_html: 'Exemple : Marie Dupont'
       no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).<br/>Vous pourrez peut-être le trouver sur <a href='https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises' target='_blank' class='blue' title='annuaire-entreprises.data.gouv.fr - ouvre une nouvelle fenêtre'>https://annuaire-entreprises.data.gouv.fr</a>.
-      phone_number_html: 'Exemple : 06 12 34 56 78'
+      phone_number_html: 'Exemple : 0612345678 ou +33 6 12 34 56 78'
     insee_codes: Codes communes
     institution: Institution
     institution_antenne: Institution / Antenne
@@ -851,6 +851,7 @@ fr:
     landing_theme_title: Thème choisi sur le site
     landing_themes: Thèmes de landing
     legal_form_code: Forme juridique
+    location: Localisation
     manager: Responsable
     manager_email: Email du responsable
     manager_full_name: Nom du responsable
@@ -870,7 +871,9 @@ fr:
     naf_code: Code NAF
     name: Nom
     need: Besoin
+    need_abandoned_at: Date d’abandon
     need_id: Identifiant du besoin
+    need_last_chance_at: Date d’envoi mail de la dernière chance
     need_status: Statut du besoin
     needs:
       one: Besoin

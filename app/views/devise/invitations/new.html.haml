@@ -8,7 +8,7 @@
         .required.fr-input-group
           = f.label :email, class: 'fr-label'
           %p.fr-mb-2v.fr-text--sm= t('.description')
-          = f.text_field :email, placeholder: t('attributes.placeholder.email'), autofocus: true, class: 'fr-input',
+          = f.text_field :email, placeholder: t('attributes.placeholder.email'), class: 'fr-input',
             autocomplete: 'email', required: true
 
         = render 'devise/shared/user_fields', form: f

@@ -7,5 +7,7 @@
 
 .fr-container--fluid.fr-py-7w#liste-partenaires
   .fr-container.sitemap
-    - @site_map.each do |elements|
-      = raw site_map_html(elements)
+    .fr-grid-row.fr-grid-row--center
+      .fr-col-12.fr-col-md-10.fr-col-lg-8
+        - @site_map.each do |elements|
+          = raw site_map_html(elements)

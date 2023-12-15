@@ -1,14 +1,13 @@
 - meta title: t('.title')
 
 .fr-container.tuto
-  %h1= t('.title')
-
   .fr-grid-row.fr-grid-row--center.fr-mb-5w
-    .fr-col-12.fr-col-lg-10
+    .fr-col-12.fr-col-md-10
+      %h1= t('.title')
       .fr-content-media
         .fr-responsive-vid
           .youtube_player{ autoplay: "0", controls: "1", height: "100%", loading: "1", loop: "0", rel: "1", showinfo: "0", videoid: "0RR4Z4gwljc", width: "100%" }
-    .fr-col-12
+    .fr-col-12.fr-col-md-10
       %p.bold= t('.available_on_html',
         dailymotion_link: link_to(t('.dailymotion'), 'https://dai.ly/x8bu8ye', title: "#{t('.dailymotion_video_title')}", target: '_blank', rel: 'noopener'))
       .fr-transcription
@@ -29,8 +28,8 @@
                         %button.fr-btn.fr-btn--fullscreen{ 'aria-controls': 'fr-transcription-modal-pde-tutorial', 'data-fr-opened': 'false', title: t('.pde_tutorial_transcription') }
                           = t('pages.navbar.extend')
 
-  .fr-grid-row
-    .fr-col-12
+  .fr-grid-row.fr-grid-row--center
+    .fr-col-12.fr-col-md-10
       %h2.fr-mb-4w= t('.need_steps')
       %ol
         %li.fr-h5
@@ -48,8 +47,8 @@
           %em= t('.comments')
           = image_tag('tuto/experts.png', alt: '')
 
-  .fr-grid-row
-    .fr-col-12
+  .fr-grid-row.fr-grid-row--center
+    .fr-col-12.fr-col-md-10
       %h2= t('.notifications_title')
       %p.fr-h5= t('.notifications_question')
       %ul
@@ -61,8 +60,8 @@
       %p.fr-h5= t('.question_emails')
       %p= t('.explanation_emails')
 
-  .fr-grid-row.fr-mt-6w
-    .fr-col-12
+  .fr-grid-row.fr-grid-row--center.fr-mt-6w
+    .fr-col-12.fr-col-md-10
       .fr-callout
         %h2= t('.at_your_service')
         %ul

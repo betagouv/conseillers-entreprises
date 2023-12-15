@@ -2,13 +2,17 @@
 
 require 'rails_helper'
 describe MatchMailerService do
-  before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
+
+  before do
+    ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr'
+    Sidekiq::ScheduledSet.new.clear
+  end
 
   describe '#deduplicated_notify_status' do
     def notify_change(new_status)
       previous_status = a_match.status
       a_match.status = new_status
-      described_class.deduplicated_notify_status(a_match, previous_status)
+      described_class.new(a_match).deduplicated_notify_status(previous_status)
     end
 
     let(:a_match) { create :match, status: :quo }
@@ -20,9 +24,10 @@ describe MatchMailerService do
       end
 
       it do
-        expect(Delayed::Job.count).to eq 1
-        previous_status = Delayed::Job.last.payload_object.args.last.to_sym
-        expect(previous_status).to eq :quo
+        scheduled = Sidekiq::ScheduledSet.new
+        expect(scheduled.size).to eq 1
+        expect(scheduled.first.args).to eq([a_match.id, 'quo'])
+        expect(a_match.status).to eq 'done'
       end
     end
 
@@ -33,7 +38,10 @@ describe MatchMailerService do
       end
 
       it do
-        expect(Delayed::Job.count).to eq 0
+        scheduled = Sidekiq::ScheduledSet.new
+        # Pas de job de lancé comme le statut ne change pas
+        expect(scheduled.size).to eq 0
+        expect(a_match.status).to eq 'quo'
       end
     end
 
@@ -44,50 +52,10 @@ describe MatchMailerService do
       end
 
       it do
-        expect(Delayed::Job.count).to eq 1
-        previous_status = Delayed::Job.last.payload_object.args.last.to_sym
-        expect(previous_status).to eq :quo
-      end
-    end
-  end
-
-  describe '#notify_status' do
-    before do
-      mailer_double = double().as_null_object
-      allow(CompanyMailer).to receive(:notify_taking_care) { mailer_double }
-
-      other_matches = create_list :match, 2, status: :quo
-      create :need, matches: [a_match] + other_matches
-
-      described_class.notify_status(a_match, previous_status)
-    end
-
-    let(:a_match) { create :match, status: new_status }
-
-    context 'taken care of now' do
-      let(:previous_status) { 'quo' }
-      let(:new_status) { 'taking_care' }
-
-      it do
-        expect(CompanyMailer).to have_received(:notify_taking_care)
-      end
-    end
-
-    context 'already taken care of' do
-      let(:previous_status) { 'done' }
-      let(:new_status) { 'taking_care' }
-
-      it do
-        expect(CompanyMailer).not_to have_received(:notify_taking_care)
-      end
-    end
-
-    context 'not taken care of' do
-      let(:previous_status) { 'quo' }
-      let(:new_status) { 'not_for_me' }
-
-      it do
-        expect(CompanyMailer).not_to have_received(:notify_taking_care)
+        scheduled = Sidekiq::ScheduledSet.new
+        expect(scheduled.size).to eq 1
+        expect(scheduled.first.args).to eq([a_match.id, 'quo'])
+        expect(a_match.status).to eq 'done_not_reachable'
       end
     end
   end
