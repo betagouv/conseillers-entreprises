@@ -20,9 +20,9 @@ RSpec.describe "Solicitations" do
               full_name: "Steve Mc Kouign",
               phone_number: 'xx',
               email: 'steve@mc-kouign.fr'
-            }}
+            } }
           solicitation = Solicitation.last
-          expect(solicitation.form_info).to eq({"origin_url"=>"toto.fr", "origin_title"=>"Aide aux études d'amélioration de la performance énergétique ou de décarbonation en industrie"})
+          expect(solicitation.form_info).to eq({ "origin_url" => "toto.fr", "origin_title" => "Aide aux études d'amélioration de la performance énergétique ou de décarbonation en industrie" })
         end
       end
 
@@ -35,7 +35,7 @@ RSpec.describe "Solicitations" do
               full_name: "Steve Mc Kouign",
               phone_number: 'xx',
               email: 'steve@mc-kouign.fr'
-            }}
+            } }
           solicitation = Solicitation.last
           expect(solicitation.form_info).to eq({})
         end
@@ -43,7 +43,7 @@ RSpec.describe "Solicitations" do
     end
 
     context "classic landing" do
-      let!(:landing) { create :landing, slug: 'classic-01'}
+      let!(:landing) { create :landing, slug: 'classic-01' }
       let(:landing_theme) { create :landing_theme, slug: "recrutement-formation" }
       let(:landing_subject) { create :landing_subject, slug: "recruter" }
 
@@ -60,9 +60,9 @@ RSpec.describe "Solicitations" do
               full_name: "Steve Mc Kouign",
               phone_number: 'xx',
               email: 'steve@mc-kouign.fr'
-            }}
+            } }
           solicitation = Solicitation.last
-          expect(solicitation.form_info).to eq({"origin_url"=>"toto.fr", "origin_title"=>"Aide aux études d'amélioration de la performance énergétique ou de décarbonation en industrie"})
+          expect(solicitation.form_info).to eq({ "origin_url" => "toto.fr", "origin_title" => "Aide aux études d'amélioration de la performance énergétique ou de décarbonation en industrie" })
         end
       end
     end

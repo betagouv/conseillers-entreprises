@@ -214,10 +214,10 @@ ActiveAdmin.register Solicitation do
       row I18n.t('attributes.badges.other') do |s|
         render 'badges', badges: s.badges
       end
-      row :tracking do |s|
-        render 'conseiller/solicitations/tracking', solicitation: s
-      end
       row :institution
+      Solicitation::FORM_INFO_KEYS.each do |k|
+        row k, humanize_name: false
+      end
     end
   end
 

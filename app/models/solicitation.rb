@@ -559,10 +559,10 @@ class Solicitation < ApplicationRecord
   def provenance_detail
     if from_campaign?
       pk_kwd.presence || mtm_kwd.presence
-    elsif from_api?
-      origin_url
     elsif origin_title.present?
       origin_title
+    elsif origin_url.present?
+      origin_url
     end
   end
 
