@@ -9,8 +9,9 @@ describe 'ApplicationController specific features' do
     context 'user is not admin' do
 
       it do
-        visit '/admin'
-        expect(page.html).to include I18n.t('shared.errors.404.title')
+        expect do
+          visit '/admin'
+        end.to raise_error ActionController::RoutingError
       end
     end
 
