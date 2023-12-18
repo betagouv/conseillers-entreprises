@@ -600,4 +600,20 @@ class Solicitation < ApplicationRecord
     return if code_region.nil?
     Territory.find_by(code_region: self.code_region)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "code_region", "completed_at", "created_at", "description", "email", "form_info", "full_name", "id", "id_value",
+      "institution_id", "landing_id", "landing_slug", "landing_subject_id", "location", "phone_number",
+      "prepare_diagnosis_errors_details", "requested_help_amount", "siret", "status", "updated_at", "uuid", "mtm_campaign",
+      "mtm_kwd", "relaunch"
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "badge_badgeables", "badges", "diagnosis", "diagnosis_regions", "facility", "feedbacks", "institution",
+      "institution_filters", "landing", "landing_subject", "landing_theme", "matches", "needs", "subject", "visitee"
+    ]
+  end
 end

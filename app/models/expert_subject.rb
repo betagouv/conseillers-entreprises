@@ -112,4 +112,8 @@ class ExpertSubject < ApplicationRecord
       value
     end
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["expert_id", "id", "id_value", "institution_subject_id", "intervention_criteria"]
+  end
 end

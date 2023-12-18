@@ -122,6 +122,13 @@ class Subject < ApplicationRecord
     end
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "archived", "archived_at", "created_at", "id", "id_value", "interview_sort_order", "is_support", "label", "slug",
+      "theme_id", "updated_at"
+    ]
+  end
+
   private
 
   def set_support

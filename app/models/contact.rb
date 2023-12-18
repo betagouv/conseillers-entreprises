@@ -39,4 +39,8 @@ class Contact < ApplicationRecord
       errors.add(:base, "Contact must have at least email or phone_number")
     end
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["company_id", "created_at", "email", "full_name", "id", "id_value", "phone_number", "updated_at"]
+  end
 end

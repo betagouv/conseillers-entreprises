@@ -37,7 +37,7 @@ module SolicitationModification
 
     def update_institution_filters
       institution_filters_params = @params[:institution_filters_attributes]
-      institution_filters_params.to_h.each do |key, params|
+      institution_filters_params.to_h.each_value do |params|
         is = @solicitation.institution_filters.find_by(additional_subject_question_id: params[:additional_subject_question_id])
         is.update(filter_value: params[:filter_value])
       end

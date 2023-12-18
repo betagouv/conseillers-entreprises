@@ -7,6 +7,7 @@ describe 'ApplicationController specific features' do
     login_user
 
     context 'user is not admin' do
+
       it do
         expect do
           visit '/admin'

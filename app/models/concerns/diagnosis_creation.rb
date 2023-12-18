@@ -115,7 +115,7 @@ module DiagnosisCreation
       diagnosis_errors = Diagnosis.new.errors
 
       self.prepare_diagnosis_errors_details&.each do |attr, errors|
-        errors.each { |h| h.each { |_, error| diagnosis_errors.add(attr, error.to_sym) } }
+        errors.each { |h| h.each_value { |error| diagnosis_errors.add(attr, error.to_sym) } }
       end
 
       diagnosis_errors

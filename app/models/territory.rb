@@ -65,4 +65,15 @@ class Territory < ApplicationRecord
     territorial_experts
       .or(Expert.with_global_zone)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["bassin_emploi", "code_region", "created_at", "id", "id_value", "name", "support_contact_id", "updated_at"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "advisors", "antenne_experts", "antennes", "bassins_emploi", "communes", "companies", "diagnoses", "direct_experts",
+      "facilities", "matches", "needs", "regions", "support_contact"
+    ]
+  end
 end

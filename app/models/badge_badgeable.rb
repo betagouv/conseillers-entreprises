@@ -22,4 +22,8 @@ class BadgeBadgeable < ApplicationRecord
   belongs_to :badgeable, polymorphic: true, touch: true
 
   after_destroy -> { badgeable.touch }
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["badge_id", "badgeable_id", "badgeable_type", "created_at", "id", "id_value", "updated_at"]
+  end
 end

@@ -55,4 +55,11 @@ class Company < ApplicationRecord
   def to_s
     name
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "activite_liberale", "code_effectif", "created_at", "date_de_creation", "effectif", "forme_exercice", "id",
+      "id_value", "inscrit_rcs", "inscrit_rm", "legal_form_code", "name", "siren", "updated_at"
+    ]
+  end
 end

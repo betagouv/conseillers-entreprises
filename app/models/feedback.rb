@@ -45,7 +45,7 @@ class Feedback < ApplicationRecord
   def notify_for_need!
     return unless category_need?
     persons_to_notify.each do |person|
-      UserMailer.match_feedback(self, person)&.deliver_later
+      MatchFeedbackEmailJob.set(wait: 1.minute).perform_later(self.id, person.id)
     end
   end
 
@@ -77,5 +77,9 @@ class Feedback < ApplicationRecord
 
   def expert
     feedbackable if feedbackable_type == "Expert"
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["category", "created_at", "description", "feedbackable_id", "feedbackable_type", "id", "id_value", "updated_at", "user_id"]
   end
 end

@@ -213,6 +213,21 @@ class Match < ApplicationRecord
     expert&.experts_subjects&.find { |es| es.subject == self.subject }
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "archived", "archived_at", "closed_at", "created_at", "expert_id", "id", "id_value", "need_id", "sent_at",
+      "status", "subject_id", "taken_care_of_at", "updated_at"
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "advisor", "advisor_antenne", "advisor_institution", "company", "company_satisfaction", "contacted_users",
+      "diagnosis", "expert", "expert_antenne", "expert_institution", "facility", "facility_regions", "facility_territories",
+      "need", "related_matches", "solicitation", "subject", "theme"
+    ]
+  end
+
   private
 
   def update_taken_care_of_at
