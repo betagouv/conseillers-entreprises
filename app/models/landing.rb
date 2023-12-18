@@ -104,10 +104,6 @@ class Landing < ApplicationRecord
     end
   end
 
-  def is_entreprendre_landing
-    id == 75
-  end
-
   private
 
   def set_emphasis

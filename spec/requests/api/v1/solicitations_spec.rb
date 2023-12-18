@@ -124,8 +124,8 @@ RSpec.describe "Solicitations API" do
           end
         end
 
-        context 'Url d’appel manquante' do
-          response '422', 'Url d’appel manquante' do
+        context 'Url d’origine manquante' do
+          response '422', 'Url d’origine manquante' do
             schema errors: {
               type: :array,
                     items: {
@@ -145,7 +145,7 @@ RSpec.describe "Solicitations API" do
             it 'returns calling_url error' do
               expect(response).to have_http_status(:unprocessable_entity)
               result = response.parsed_body
-              expect(result["errors"].first["source"]).to eq('Url d’appel')
+              expect(result["errors"].first["source"]).to eq('Url page d’origine')
               expect(result["errors"].first["message"]).to eq('doit être rempli(e)')
             end
           end

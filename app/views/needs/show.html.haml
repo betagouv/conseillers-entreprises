@@ -12,7 +12,7 @@
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
         = need_general_context(@need)
-        - if @need.institution_filters.any? || @need.solicitation&.landing&.is_entreprendre_landing
+        - if @need.institution_filters.any? || @need.solicitation&.origin_url.present?
           %hr
           .need-description__meta.fr-text--sm
             - if @need.institution_filters.any?
@@ -22,11 +22,11 @@
                   %li
                     = I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])
                     %strong= answer
-            - if @need.solicitation.landing.is_entreprendre_landing
+            - if @need.solicitation.origin_url.present?
               %div
-                = t('.dila_page_source')
+                = t('.origin_source')
                 %br
-                = link_to @need.solicitation.api_calling_url, @need.solicitation.api_calling_url, title: "#{to_new_window_title(t('.dila_page_source_title'))}", target: '_blank', rel: 'noopener'
+                = link_to @need.solicitation.origin_link_title, @need.solicitation.origin_url, title: "#{to_new_window_title(t('.origin_source_title'))}", target: '_blank', rel: 'noopener'
 
     .fr-col-md-4.order-minus-one.bp-sm
       .fr-grid-row.need-metadata

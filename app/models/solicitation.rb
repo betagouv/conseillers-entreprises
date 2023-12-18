@@ -150,8 +150,14 @@ class Solicitation < ApplicationRecord
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
   validates :institution_filters, presence: true, if: -> { subject_with_additional_questions? }
   validate :correct_institution_filters, if: -> { subject_with_additional_questions? }
-  validates :api_calling_url, presence: true, if: -> { landing&.api? }
+  # Todo : à décommenter une fois que la migration api_url est passée
+  # validates :origin_url, presence: true, if: -> { landing&.api? }
   validates :completed_at, presence: true, if: -> { step_complete? }
+
+  # Todo : à supprimer une fois que la migration api_url est passée ?
+  validate if: -> { landing&.api? } do
+    errors.add(:origin_url, :blank) if (self.origin_url.blank? || self.api_calling_url.blank?)
+  end
 
   validate if: -> { status_step_contact? || status_step_company? || status_step_description? || landing&.api? } do
     contact_step_required_fields.each do |attr|
@@ -439,7 +445,8 @@ class Solicitation < ApplicationRecord
   ## JSON Accessors
   #
   MATOMO_KEYS = %i[pk_campaign pk_kwd mtm_campaign mtm_kwd]
-  FORM_INFO_KEYS = MATOMO_KEYS + %i[gclid api_calling_url relaunch]
+  # TODO remove api_calling_url
+  FORM_INFO_KEYS = MATOMO_KEYS + %i[gclid api_calling_url relaunch origin_title origin_id origin_url]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##
@@ -552,13 +559,24 @@ class Solicitation < ApplicationRecord
   def provenance_detail
     if from_campaign?
       pk_kwd.presence || mtm_kwd.presence
-    elsif from_api?
-      api_calling_url
+    elsif origin_title.present?
+      origin_title
+    elsif origin_url.present?
+      origin_url
     end
   end
 
   def campaign
     pk_campaign.presence || mtm_campaign.presence
+  end
+
+  def origin_link_title
+    return if origin_url.blank?
+    if origin_title.present?
+      "#{origin_title} (#{landing.partner_url})"
+    else
+      origin_url
+    end
   end
 
   # Else ---------------------

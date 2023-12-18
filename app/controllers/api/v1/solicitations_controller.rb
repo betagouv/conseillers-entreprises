@@ -32,14 +32,16 @@ class Api::V1::SolicitationsController < Api::V1::BaseController
     Api::V1::SolicitationLogoSerializer
   end
 
+  # TODO: remplacer api_calling_url par origin_url
   def solicitation_params
     params.require(:solicitation)
-      .permit(:landing_id, :landing_subject_id, :description, :code_region, :api_calling_url,
+      .permit(:landing_id, :landing_subject_id, :description, :code_region, :api_calling_url, :origin_url,
               *Solicitation::FIELD_TYPES.keys,
               questions_additionnelles: [:question_id, :answer]).merge(status: :step_description)
   end
 
   def format_params(params)
+    params = params.merge(origin_url: params[:api_calling_url])
     return params if params[:questions_additionnelles].nil?
     formatted_questions_additionnelles = params.delete(:questions_additionnelles).map{ |question| { additional_subject_question_id: question['question_id'], filter_value: question['answer'] } }
     params.merge(institution_filters_attributes: formatted_questions_additionnelles)
