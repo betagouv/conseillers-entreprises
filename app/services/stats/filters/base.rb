@@ -8,7 +8,7 @@ module Stats::Filters
 
     def call
       territories_filter(@graph_struct.territory)
-      antenne_or_institution_filter(@graph_struct.antenne_or_institution, @graph_struct.agglomerate_data)
+      antenne_or_institution_filter(@graph_struct.antenne_or_institution, @graph_struct.with_agglomerate_data)
       subject_filter(@graph_struct.subject)
       integration_filter(@graph_struct.integration)
       iframe_filter(@graph_struct.iframe_id)
