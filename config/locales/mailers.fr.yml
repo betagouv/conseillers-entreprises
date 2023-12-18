@@ -40,8 +40,6 @@ fr:
       explanation_html: Ce service public d’accompagnement des entreprises est proposé par le Ministère de l’Économie et le Ministère du Travail pour faciliter la vie des petites entreprises. Il vous permet d’échanger avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
       intelligent_retention:
         and_you: Et vous, souhaitez-vous être aidé par un conseiller sur ces sujets ?
-        explanation_html: 'Conseillers-Entreprises est un service des ministères de l’Economie et du Travail avec un objectif : faciliter la vie des petites entreprises.<br>Lorsqu''un chef d’entreprise dépose sa demande, le service sélectionne pour lui les conseillers compétents parmi plus de 40 institutions publiques.'
-        why_this_message: Pourquoi recevez-vous ce message ?
       intro_from_solicitation_html: 'Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concerne :'
       intro_from_solicitation_with_subject_html: Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concerne <b>« %{subject} »</b>.
       not_yet_taken_care:
@@ -53,7 +51,8 @@ fr:
         content_by_expert_html: "<strong>Un conseiller ou une conseillère de %{expert_antenne} a tenté de vous joindre</strong> par téléphone. Nous vous invitons à consulter votre messagerie vocale et vos mails pour rappeler cette personne."
         subject: Appel manqué pour votre demande « %{subject} »
       notify_taking_care:
-        content_by_expert_html: Votre demande vient d’être prise en charge par <strong>un conseiller ou une conseillère de %{expert_antenne}</strong>. Si vous êtes injoignable, n’oubliez pas de consulter votre messagerie vocale et vos mails.
+        content_by_expert: 'Votre demande vient d’être prise en charge par un conseiller ou une conseillère de :'
+        not_reachable_instructions: Si vous êtes injoignable, n’oubliez pas de consulter votre messagerie vocale et vos mails.
         subject: Prise en charge de votre demande « %{subject} »
       retention:
         intro_html: 'Vous avez utilisé le service public Conseillers-Entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait :'
