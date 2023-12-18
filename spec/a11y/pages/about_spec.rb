@@ -16,7 +16,8 @@ describe 'about', :js, type: :feature do
   describe '/mentions_d_information' do
     before { visit '/mentions_d_information' }
 
-    it { is_expected.to be_accessible }
+    it { is_expected.to be_axe_clean }
+    # it { is_expected.to be_accessible }
   end
 
   describe '/comment_ca_marche' do
@@ -25,10 +26,7 @@ describe 'about', :js, type: :feature do
       visit '/comment_ca_marche'
     end
 
-    # it { is_expected.to be_accessible }
-    it do
-      is_expected.to be_accessible
-    end
+    it { is_expected.to be_accessible }
   end
 
   describe '/mentions_legales' do
