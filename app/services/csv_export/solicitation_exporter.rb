@@ -72,6 +72,7 @@ module CsvExport
         solicitation_provenance_category: -> { I18n.t(provenance_category, scope: %i(solicitation provenance_categories)) if provenance_category.present? },
         solicitation_provenance_title: -> { provenance_title },
         solicitation_provenance_detail: -> { provenance_detail },
+        solicitation_origin_id: -> { solicitation&.origin_id },
         solicitation_gclid: -> { gclid },
         landing_theme_title: -> { landing_theme&.title },
         landing_subject_title: -> { subject&.label },

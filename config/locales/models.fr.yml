@@ -928,6 +928,7 @@ fr:
     solicitation_full_name: Contact en entreprise
     solicitation_gclid: Id GA
     solicitation_id: Id de la sollicitation
+    solicitation_origin_id: Id de la page d'origine
     solicitation_phone_number: Téléphone du contact entreprise
     solicitation_pk_campaign: Campagne de la sollicitation
     solicitation_provenance_category: Type de source
