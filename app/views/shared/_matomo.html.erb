@@ -1,18 +1,23 @@
 <%= javascript_tag 'data-turbo-eval': false, nonce: true do -%>
-  var _paq = _paq || [];
-  // Configure Matomo analytics
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  _paq.push(['setCookieSameSite', 'None']);
+  var _paq = window._paq = window._paq || [];
 
   // Load script from Matomo
+  _paq.push(['setCookieSameSite', 'None']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+
   (function() {
-    var u="//stats.data.gouv.fr/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '80']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  var u="//stats.beta.gouv.fr/";
+  _paq.push(['setTrackerUrl', u+'matomo.php']);
+  _paq.push(['setSiteId', '74']);
+  var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+  g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
   })();
+
+  // Also send all the tracking data to the old stats.data.gouv.fr Matomo server
+  var secondaryTracker = 'https://stats.data.gouv.fr/matomo.php';
+  var secondaryWebsiteId = '80';
+  _paq.push(['addTracker', secondaryTracker, secondaryWebsiteId]);
 
   // Send Matomo a new event when navigating to a new page using turbo
   // (see https://developer.matomo.org/guides/spa-tracking)
