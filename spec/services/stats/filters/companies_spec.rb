@@ -36,28 +36,28 @@ describe Stats::Filters::Companies do
 
     context 'regional antenne only' do
       let(:antenne_or_institution) { regional_antenne }
-      let(:with_agglomerate_data) { true }
+      let(:with_agglomerate_data) { false }
 
       it { is_expected.to match_array need_regional_antenne.company }
     end
 
     context 'regional antenne with locales' do
       let(:antenne_or_institution) { regional_antenne }
-      let(:with_agglomerate_data) { false }
+      let(:with_agglomerate_data) { true }
 
       it { is_expected.to contain_exactly(need_regional_antenne.company, need_local_antenne.company) }
     end
 
     context 'local antenne' do
       let(:antenne_or_institution) { local_antenne }
-      let(:with_agglomerate_data) { true }
+      let(:with_agglomerate_data) { false }
 
       it { is_expected.to match_array need_local_antenne.company }
     end
 
     context 'institution' do
       let(:antenne_or_institution) { institution }
-      let(:with_agglomerate_data) { true }
+      let(:with_agglomerate_data) { false }
 
       it { is_expected.to contain_exactly(need_regional_antenne.company, need_local_antenne.company) }
     end

@@ -28,32 +28,32 @@ describe Stats::Filters::Matches do
     let(:expert_local_antenne) { create :expert, antenne: local_antenne }
     let!(:match_local_antenne) { create :match, need: create(:need), expert: expert_local_antenne }
 
-    subject { described_class.new(query, open_struct_graph).send(:antenne_or_institution_filter, antenne_or_institution, is_local) }
+    subject { described_class.new(query, open_struct_graph).send(:antenne_or_institution_filter, antenne_or_institution, with_agglomerate_data) }
 
     context 'regional antenne only' do
       let(:antenne_or_institution) { regional_antenne }
-      let(:is_local) { true }
+      let(:with_agglomerate_data) { false }
 
       it { is_expected.to match_array match_regional_antenne }
     end
 
     context 'regional antenne with locales' do
       let(:antenne_or_institution) { regional_antenne }
-      let(:is_local) { false }
+      let(:with_agglomerate_data) { true }
 
       it { is_expected.to contain_exactly(match_regional_antenne, match_local_antenne) }
     end
 
     context 'local antenne' do
       let(:antenne_or_institution) { local_antenne }
-      let(:is_local) { true }
+      let(:with_agglomerate_data) { false }
 
       it { is_expected.to match_array match_local_antenne }
     end
 
     context 'institution' do
       let(:antenne_or_institution) { institution }
-      let(:is_local) { true }
+      let(:with_agglomerate_data) { false }
 
       it { is_expected.to contain_exactly(match_regional_antenne, match_local_antenne) }
     end

@@ -32,32 +32,32 @@ describe Stats::Filters::Solicitations do
       need_local_antenne.update(status: 'quo')
     end
 
-    subject { described_class.new(query, open_struct_graph).send(:antenne_or_institution_filter, antenne_or_institution, is_local) }
+    subject { described_class.new(query, open_struct_graph).send(:antenne_or_institution_filter, antenne_or_institution, with_agglomerate_data) }
 
     context 'regional antenne only' do
       let(:antenne_or_institution) { regional_antenne }
-      let(:is_local) { true }
+      let(:with_agglomerate_data) { false }
 
       it { is_expected.to match_array need_regional_antenne.solicitation }
     end
 
     context 'regional antenne with locales' do
       let(:antenne_or_institution) { regional_antenne }
-      let(:is_local) { false }
+      let(:with_agglomerate_data) { true }
 
       it { is_expected.to contain_exactly(need_regional_antenne.solicitation, need_local_antenne.solicitation) }
     end
 
     context 'local antenne' do
       let(:antenne_or_institution) { local_antenne }
-      let(:is_local) { true }
+      let(:with_agglomerate_data) { false }
 
       it { is_expected.to match_array need_local_antenne.solicitation }
     end
 
     context 'institution' do
       let(:antenne_or_institution) { institution }
-      let(:is_local) { true }
+      let(:with_agglomerate_data) { false }
 
       it { is_expected.to contain_exactly(need_regional_antenne.solicitation, need_local_antenne.solicitation) }
     end
