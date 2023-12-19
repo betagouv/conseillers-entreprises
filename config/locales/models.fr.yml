@@ -445,13 +445,16 @@ fr:
         landing: Page d’atterrissage
         landing_subject: Sujet choisi
         location: Localisation
-        mtm_campaign: Campagne
-        mtm_kwd: Mots-clés
+        mtm_campaign: Campagne mtm
+        mtm_kwd: Mots-clés mtm
         needs: Besoins sélectionnés
         normalized_phone_number: Téléphone
+        origin_id: Id page d’origine
+        origin_title: Titre page d’origine
+        origin_url: Url page d’origine
         phone_number: Téléphone
-        pk_campaign: Campagne
-        pk_kwd: Mots-clés
+        pk_campaign: Campagne pk
+        pk_kwd: Mots-clés pk
         provenance_category: Type de source
         provenance_detail: Détail de la source
         provenance_title: Intitulé de la source

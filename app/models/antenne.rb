@@ -267,6 +267,21 @@ class Antenne < ApplicationRecord
     AntenneCoverage::DeduplicatedJob.perform_in(30.seconds, self.id)
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "deleted_at", "id", "id_value", "institution_id", "name", "territorial_level", "updated_at"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "advisors", "communes", "experts", "experts_including_deleted", "institution", "managers", "match_filters",
+      "matches_reports", "quarterly_reports", "received_diagnoses", "received_diagnoses_including_from_deleted_experts",
+      "received_matches", "received_matches_including_from_deleted_experts", "received_needs",
+      "received_needs_including_from_deleted_experts", "received_solicitations",
+      "received_solicitations_including_from_deleted_experts", "referencement_coverages", "regions", "sent_diagnoses",
+      "sent_matches", "sent_needs", "stats_reports", "territories", "themes", "user_rights", "user_rights_manager"
+    ]
+  end
+
   private
 
   def get_associated_antennes(targeted_territorial_level)

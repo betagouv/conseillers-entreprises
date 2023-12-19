@@ -161,6 +161,21 @@ class Diagnosis < ApplicationRecord
     end
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "advisor_id", "archived", "completed_at", "content", "created_at", "facility_id", "happened_on", "id",
+      "id_value", "retention_email_sent", "solicitation_id", "step", "updated_at", "visitee_id"
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "advisor", "advisor_antenne", "advisor_institution", "company", "contacted_users", "expert_antennes",
+      "expert_institutions", "experts", "facility", "facility_territories", "matches", "needs", "solicitation", "subjects",
+      "themes", "visitee"
+    ]
+  end
+
   private
 
   def update_needs

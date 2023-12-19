@@ -89,6 +89,17 @@ class Facility < ApplicationRecord
     "#{company.name} (#{commune_name})"
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "code_effectif", "commune_id", "company_id", "created_at", "effectif", "id", "id_value", "naf_code",
+      "naf_code_a10", "naf_libelle", "opco_id", "readable_locality", "siret", "updated_at"
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["advisors", "commune", "company", "diagnoses", "matches", "needs", "opco", "territories"]
+  end
+
   private
 
   def sanitize_data

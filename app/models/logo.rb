@@ -25,4 +25,8 @@ class Logo < ApplicationRecord
   def to_s
     name
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "filename", "id", "id_value", "institution_id", "name", "updated_at"]
+  end
 end

@@ -388,4 +388,20 @@ class Need < ApplicationRecord
   def touch_after_badges_update(_badge)
     touch if persisted?
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "abandoned_email_sent", "archived", "content", "created_at", "diagnosis_id", "id", "id_value", "matches_count",
+      "retention_sent_at", "satisfaction_email_sent", "status", "subject_id", "updated_at"
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "advisor", "advisor_antenne", "advisor_institution", "badge_badgeables", "badges", "company", "company_satisfaction",
+      "contacted_users", "diagnosis", "expert_antennes", "expert_institutions", "experts", "facility", "facility_regions",
+      "facility_territories", "feedbacks", "institution_filters", "matches", "reminder_feedbacks", "reminders_actions",
+      "solicitation", "subject", "theme", "visitee"
+    ]
+  end
 end

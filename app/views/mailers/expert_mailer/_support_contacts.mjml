@@ -11,7 +11,7 @@
   </ul>
 <% else %>
   <ul>
-    <% Territory.regions.with_support.includes(:support_contact).each do |territory| %>
+    <% Territory.regions.with_support.includes(:support_contact).find_each do |territory| %>
       <% support_contact = territory.support_contact %>
       <li>
         <%= t('.support_contact_html',

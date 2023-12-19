@@ -116,6 +116,7 @@ RSpec.configure do |config|
                   siret: { type: :string },
                   location: { type: :string },
                   api_calling_url: { type: :string },
+                  origin_url: { type: :string },
                   questions_additionnelles: {
                     type: :array,
                     items: {
@@ -147,7 +148,8 @@ RSpec.configure do |config|
                   '$ref': "#/components/schemas/question_additionnelle_long"
                 }
               },
-              api_calling_url: { type: :string }
+              api_calling_url: { type: :string },
+              origin_url: { type: :string }
             },
             required: [ 'landing_id', 'landing_subject_id', 'description', 'full_name', 'email', 'api_calling_url' ]
           },

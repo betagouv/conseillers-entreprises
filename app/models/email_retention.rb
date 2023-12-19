@@ -33,4 +33,11 @@ class EmailRetention < ApplicationRecord
 
   validates :subject, uniqueness: true
   validates :waiting_time, :first_subject_label, :second_subject_label, :first_paragraph, :email_subject, presence: true, allow_blank: false
+
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "created_at", "email_subject", "first_paragraph", "first_subject_id", "first_subject_label", "id", "id_value",
+      "second_subject_id", "second_subject_label", "subject_id", "updated_at", "waiting_time"
+    ]
+  end
 end

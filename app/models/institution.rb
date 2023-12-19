@@ -191,4 +191,11 @@ class Institution < ApplicationRecord
       update_columns(deleted_at: Time.zone.now)
     end
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "code_region", "created_at", "deleted_at", "display_logo", "france_competence_code", "id", "id_value", "name",
+      "show_on_list", "siren", "slug", "updated_at"
+    ]
+  end
 end

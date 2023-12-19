@@ -18,7 +18,7 @@ module ApiConsumption::Models
     private
 
     def dynamically_create_attr_accessor(attribute_name, attribute_value)
-      self.class.send(:define_method, "#{attribute_name}=".to_sym) do |value|
+      self.class.send(:define_method, :"#{attribute_name}=") do |value|
         instance_variable_set("@" + attribute_name.to_s, value)
       end
 
@@ -26,7 +26,7 @@ module ApiConsumption::Models
         instance_variable_get("@" + attribute_name.to_s)
       end
 
-      self.send("#{attribute_name}=".to_sym, attribute_value)
+      self.send(:"#{attribute_name}=", attribute_value)
     end
   end
 end

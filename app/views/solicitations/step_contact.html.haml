@@ -31,7 +31,7 @@
         - @solicitation.contact_step_required_fields.each do |field|
           .fr-fieldset__element
             .fr-input-group
-              - help = t("attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
+              - help = t("attributes.help.#{field}_html", default: [:".attributes.help.#{field}", ''])
               = f.label field, class: 'fr-label' do
                 = t("attributes.#{field}")
                 - if help.present?

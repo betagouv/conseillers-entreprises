@@ -507,12 +507,12 @@ fr:
       comments: Discussion entre experts
       company: Entreprise
       diagnosis_not_completed: Analyse non terminée, vous ne pouvez pas accéder à la page du besoin.
-      dila_page_source: 'Demande effectuée depuis la page : '
-      dila_page_source_title: Lien vers la page du site entreprendre.service-public.fr dont est issue la demande
       more_informations: Plus d'informations
       needs_historic: Historique des besoins
       no_comment: Aucun commentaire
       no_match: Aucun expert de notifié
+      origin_source: 'Demande effectuée depuis la page : '
+      origin_source_title: Lien vers la page du site dont est issue la demande
       person_company_contact: Contact entreprise
       title: Visite de la société « %{company} »
       transmitted_by: Demande transmise par

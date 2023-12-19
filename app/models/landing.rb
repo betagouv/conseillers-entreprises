@@ -104,8 +104,16 @@ class Landing < ApplicationRecord
     end
   end
 
-  def is_entreprendre_landing
-    id == 75
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "archived", "archived_at", "created_at", "custom_css", "display_pde_partnership_mention", "emphasis",
+      "home_description", "id", "id_value", "iframe_category", "institution_id", "integration", "layout", "main_logo",
+      "meta_description", "meta_title", "partner_url", "slug", "title", "updated_at"
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["institution", "landing_joint_themes", "landing_subjects", "landing_themes", "solicitations"]
   end
 
   private

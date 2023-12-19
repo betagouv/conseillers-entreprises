@@ -34,4 +34,15 @@ class CompanySatisfaction < ApplicationRecord
   has_many :done_institutions, class_name: 'Institution', through: :done_antennes, source: :institution
 
   validates :contacted_by_expert, :useful_exchange, inclusion: { in: [true, false] }
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["comment", "contacted_by_expert", "created_at", "id", "id_value", "need_id", "updated_at", "useful_exchange"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "done_antennes", "done_experts", "done_institutions", "done_matches", "facility_regions", "landing",
+      "landing_subject", "matches", "need", "solicitation", "subject"
+    ]
+  end
 end

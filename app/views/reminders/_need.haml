@@ -16,7 +16,7 @@
               - if need.no_activity?
                 .label.label--sm.orange= t('conseiller.diagnoses.last_activity_date', l: l(need.updated_at.to_date, format: :long))
         .card__match-list.fr-mb-2w
-          - need.matches.preload(expert: :antenne).each do |match|
+          - need.matches.preload(expert: :antenne).find_each do |match|
             - expert = match.expert
             .item
               ⁃ #{expert.antenne.to_s}

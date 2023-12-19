@@ -1,6 +1,6 @@
 class Api::V1::SolicitationSerializer < ActiveModel::Serializer
   attributes :uuid, :code_region, :description, :email, :full_name, :status,
-             :location, :phone_number, :siret, :landing_subject, :api_calling_url
+             :location, :phone_number, :siret, :landing_subject, :api_calling_url, :origin_url
 
   has_many :institution_filters, key: :questions_additionnelles, serializer: Api::V1::SimpleInstitutionFilterSerializer
 
