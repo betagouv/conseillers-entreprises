@@ -536,9 +536,13 @@ fr:
       github_title: Page Github de Conseillers-entreprises.service-public.fr
       know_us: Nous connaître
       open_cookies: Ouvre la fenêtre de gestion des cookies
-      service_presentation: Présentation du service (PDF 438 ko)
+      service_presentation: Dossier de presse (PDF 438 ko)
       service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Conseillers-entreprises.service-public.fr
-      service_public_title: Site entreprendre.service-public.fr
+      entreprendre_service_public_title: Lien vers le site entreprendre.service-public.fr
+      service_public_title: Lien vers le site service-public.fr
+      legifrance_title: Lien vers le site legifrance.gouv.fr
+      datagouv_title: Lien vers le site data.gouv.fr
+      gouvernement_title: Lien vers le site gouvernement.fr
       service_short_description: Échangez avec les conseillers qui peuvent vous aider dans vos projets, vos difficultés ou les transformations nécessaires à la réussite de votre entreprise.
       source_code: Code source
       themes: Thèmes

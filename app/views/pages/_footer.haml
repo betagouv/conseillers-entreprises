@@ -44,7 +44,13 @@
         %p.fr-footer__content-desc= t('.service_short_description')
         %ul.fr-footer__content-list
           %li.fr-footer__content-item
-            = link_to 'entreprendre.service-public.fr', 'https://entreprendre.service-public.fr/', title: to_new_window_title(t('.service_public_title')), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
+            = link_to 'legifrance.gouv.fr', 'https://legifrance.gouv.fr', title: to_new_window_title(t('.legifrance_title')), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
+          %li.fr-footer__content-item
+            = link_to 'gouvernement.fr', 'https://gouvernement.fr', title: to_new_window_title(t('.gouvernement_title')), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
+          %li.fr-footer__content-item
+            = link_to 'service-public.fr', 'https://service-public.fr', title: to_new_window_title(t('.service_public_title')), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
+          %li.fr-footer__content-item
+            = link_to 'data.gouv.fr', 'https://data.gouv.fr', title: to_new_window_title(t('.datagouv_title')), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
     .fr-footer__bottom
       %ul.fr-footer__bottom-list
         %li.fr-footer__bottom-item
@@ -60,3 +66,6 @@
             = t('.cookies')
         %li.fr-footer__bottom-item
           = link_to t('sitemap.sitemap.title'), sitemap_path, class: 'fr-footer__bottom-link'
+        %li.fr-footer__bottom-item
+          = link_to 'entreprendre.service-public.fr', 'https://entreprendre.service-public.fr/', title: to_new_window_title(t('.entreprendre_service_public_title')), target: '_blank', rel: 'noopener', class: 'fr-footer__bottom-link'
+data.gouv
