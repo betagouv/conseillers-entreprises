@@ -3,7 +3,7 @@ class MatchFeedbackEmailJob < ApplicationJob
     feedback = Feedback.find_by(id: feedback_id)
     if feedback.present?
       user = User.find(person_id)
-      UserMailer.match_feedback(feedback, user).deliver_now
+      UserMailer.with(user: user, feedback: feedback).match_feedback.deliver_now
     end
   end
 end
