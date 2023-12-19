@@ -533,18 +533,18 @@ fr:
       frequently_questions: Questions fréquentes
     footer:
       cookies: Gestion des cookies
-      github_title: Page Github de Conseillers-entreprises.service-public.fr
-      know_us: Nous connaître
-      open_cookies: Ouvre la fenêtre de gestion des cookies
-      service_presentation: Dossier de presse (PDF 438 ko)
-      service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Conseillers-entreprises.service-public.fr
-      entreprendre_service_public_title: Lien vers le site entreprendre.service-public.fr
-      service_public_title: Lien vers le site service-public.fr
-      legifrance_title: Lien vers le site legifrance.gouv.fr
       datagouv_title: Lien vers le site data.gouv.fr
+      entreprendre_service_public_title: Lien vers le site entreprendre.service-public.fr
+      github_title: Page Github de Conseillers-entreprises.service-public.fr
       gouvernement_title: Lien vers le site gouvernement.fr
+      know_us: Nous connaître
+      legifrance_title: Lien vers le site legifrance.gouv.fr
+      open_cookies: Ouvre la fenêtre de gestion des cookies
+      service_presentation: Dossier de presse (PDF 500 ko)
+      service_presentation_title: Dossier de presse de Conseillers-Entreprises - lien de téléchargement (PDF 500 ko)
+      service_public_title: Lien vers le site service-public.fr
       service_short_description: Échangez avec les conseillers qui peuvent vous aider dans vos projets, vos difficultés ou les transformations nécessaires à la réussite de votre entreprise.
-      source_code: Code source
+      source_code: Github, lien vers le code source du site
       themes: Thèmes
       who_are_we: Qui sommes-nous ?
     how_it_works_long:
@@ -565,7 +565,7 @@ fr:
       quick_title: Rapide
     navbar:
       extend: Agrandir
-      link_to_blog: Lien vers le blog de Conseillers-Entreprises - lien externe
+      link_to_blog: Actu aides, blog de Conseillers-Entreprises - lien externe
     newsletter:
       email_format: 'Format attendu : nom@example.org'
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
@@ -1003,7 +1003,7 @@ fr:
     with_diagnosis: Besoins transmis
     without_diagnosis: Besoins non transmis
   step_number: Étape %{actual} sur %{total}
-  to_new_window: ouvre une nouvelle fenêtre
+  to_new_window: nouvelle fenêtre
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:
@@ -1014,7 +1014,7 @@ fr:
       available_on_html: La vidéo est également visible sur %{dailymotion_link}.
       comments: En cas de refus, les commentaires aident l’équipe en charge de Conseillers-Entreprises à améliorer l’orientation des besoins d’entreprises.
       dailymotion: Dailymotion
-      dailymotion_video_title: Lien vers la video tutoriel sur Dailymotion - ouvre une nouvelle fenêtre
+      dailymotion_video_title: Lien vers la video tutoriel sur Dailymotion - nouvelle fenêtre
       emails: Réceptionner les emails
       explanation_emails: Je glisse l'email de Conseillers-Entreprises dans ma boîte de réception. Les prochains emails arriveront ainsi directement dans ma boite de réception !
       need_steps: Les 4 étapes de la prise en charge d’un besoin

@@ -27,7 +27,7 @@
       .fr-header__menu-links{ 'aria-label': 'Menu principal' }
       %nav.fr-nav{ 'aria-label': t("navbar.main_menu"), role: 'navigation' }
         %ul.fr-nav__list
-          = active_link_to root_path, title: t('.link_to_blog'), class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', active: :exclusive do
+          = active_link_to root_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', active: :exclusive do
             %span.ri-home-line.fr-mr-1w{ 'aria-hidden': 'true' }
             = t('breadcrumbs_helper.home_link.home')
           %li.fr-nav__item

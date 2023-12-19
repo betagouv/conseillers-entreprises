@@ -24,7 +24,6 @@ describe 'Pages' do
     expect(page).to have_content(companies_count)
 
     click_link 'Accès conseillers'
-    click_link 'Tutoriel'
     click_link 'Accueil'
 
     click_link 'Conditions d’utilisation'

@@ -836,7 +836,7 @@ fr:
     help:
       email_html: 'Exemple : marie.dupont@exemple.fr'
       full_name_html: 'Exemple : Marie Dupont'
-      no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).<br/>Vous pourrez peut-être le trouver sur <a href='https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises' target='_blank' class='blue' title='annuaire-entreprises.data.gouv.fr - ouvre une nouvelle fenêtre'>https://annuaire-entreprises.data.gouv.fr</a>.
+      no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).<br/>Vous pourrez peut-être le trouver sur <a href='https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises' target='_blank' class='blue' title='annuaire-entreprises.data.gouv.fr - nouvelle fenêtre'>https://annuaire-entreprises.data.gouv.fr</a>.
       phone_number_html: 'Exemple : 0612345678 ou +33 6 12 34 56 78'
     insee_codes: Codes communes
     institution: Institution
