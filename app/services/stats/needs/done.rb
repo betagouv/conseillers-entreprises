@@ -1,7 +1,6 @@
 module Stats::Needs
   class Done
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       Need.joins(:diagnosis)
@@ -32,7 +31,7 @@ module Stats::Needs
     end
 
     def filtered_main_query
-      filtered_needs(main_query)
+      Stats::Filters::Needs.new(main_query, self).call
     end
 
     def secondary_count

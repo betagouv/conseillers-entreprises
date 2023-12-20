@@ -8,7 +8,7 @@ module Stats
   module BaseStats
     FILTER_PARAMS = [
       :territory, :institution, :antenne, :subject, :integration, :mtm_campaign, :mtm_kwd,
-      :start_date, :end_date, :theme, :iframe_id, :colors
+      :start_date, :end_date, :theme, :iframe_id, :colors, :with_agglomerate_data
     ]
     attr_reader(*FILTER_PARAMS)
 
@@ -17,6 +17,7 @@ module Stats
       @territory = Territory.find_by(id: params.territory) if params.territory.present?
       @institution = Institution.find_by(id: params.institution) if params.institution.present?
       @antenne = Antenne.find_by(id: params.antenne) if params.antenne.present?
+      @with_agglomerate_data = params.antenne.include?('locales') if params.antenne.present?
       @subject = Subject.find_by(id: params.subject) if params.subject.present?
       @integration = params.integration
       @iframe_id = params.iframe_id
@@ -108,6 +109,10 @@ module Stats
 
     def needs_colors
       @colors || %w[#2D908F #62e0d3]
+    end
+
+    def antenne_or_institution
+      @antenne_or_institution = @antenne.presence || @institution.presence
     end
 
     ## Overrides

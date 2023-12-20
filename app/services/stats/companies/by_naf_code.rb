@@ -1,7 +1,6 @@
 module Stats::Companies
   class ByNafCode
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       Company
@@ -16,7 +15,7 @@ module Stats::Companies
     end
 
     def filtered(query)
-      filtered_companies(query)
+      Stats::Filters::Companies.new(query, self).call
     end
 
     def category_group_attribute

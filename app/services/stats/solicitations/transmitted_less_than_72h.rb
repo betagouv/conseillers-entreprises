@@ -1,14 +1,13 @@
 module Stats::Solicitations
   class TransmittedLessThan72h
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       Solicitation.joins(diagnosis: :needs).status_processed.where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)
-      filtered_solicitations(query)
+      Stats::Filters::Solicitations.new(query, self).call
     end
 
     def build_series

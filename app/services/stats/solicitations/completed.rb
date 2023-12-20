@@ -1,14 +1,13 @@
 module Stats::Solicitations
   class Completed
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       Solicitation.step_complete.where(completed_at: @start_date..@end_date)
     end
 
     def filtered(query)
-      filtered_solicitations(query)
+      Stats::Filters::Solicitations.new(query, self).call
     end
 
     def category_group_attribute

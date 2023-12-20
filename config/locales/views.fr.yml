@@ -385,6 +385,9 @@ fr:
       uncategorisable_label: Inclassables
       uncategorisable_value: uncategorisable
       view_completed_analysis: Voir l’analyse réalisée
+    stats_helper:
+      antenne_with_locales: "%{name} avec antennes locales"
+      with_locales: " avec antennes locales"
   kaminari:
     page:
       page: Page
