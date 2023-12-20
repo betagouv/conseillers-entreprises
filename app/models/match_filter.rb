@@ -8,6 +8,7 @@
 #  effectif_max           :integer
 #  effectif_min           :integer
 #  excluded_legal_forms   :string           is an Array
+#  excluded_naf_codes     :string           is an Array
 #  max_years_of_existence :integer
 #  min_years_of_existence :integer
 #  created_at             :datetime         not null
@@ -35,6 +36,10 @@ class MatchFilter < ApplicationRecord
     accepted_naf_codes&.join(' ')
   end
 
+  def raw_excluded_naf_codes
+    excluded_naf_codes&.join(' ')
+  end
+
   def raw_excluded_legal_forms
     excluded_legal_forms&.join(' ')
   end
@@ -46,6 +51,11 @@ class MatchFilter < ApplicationRecord
   def raw_accepted_naf_codes=(naf_codes)
     updated_naf_codes = naf_codes.split(/[,\s]/).delete_if(&:empty?)
     self.accepted_naf_codes = updated_naf_codes
+  end
+
+  def raw_excluded_naf_codes=(naf_codes)
+    updated_naf_codes = naf_codes.split(/[,\s]/).delete_if(&:empty?)
+    self.excluded_naf_codes = updated_naf_codes
   end
 
   def raw_accepted_legal_forms=(legal_form_code)
