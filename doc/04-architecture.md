@@ -105,7 +105,7 @@ Place des Entreprises récupère les données publiques des entreprises sur `ent
 
 Nous utilisons aussi des outils propres à la communauté betagouv et etalab:
 * [sentry.data.gouv.fr/betagouvfr/](https://sentry.data.gouv.fr/betagouvfr/) est un outil standard de monitoring de pannes logicielles; les erreurs et crashes de Place des Entreprises, côté client comme serveur, y sont consignés.
-* [stats.data.gouv.fr](https://stats.data.gouv.fr) est une instance [Matomo](https://matomo.org), un outil libre de mesure d’audience web,  [recommandé par la cnil](https://www.cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience).
+* [stats.beta.gouv.fr](https://stats.beta.gouv.fr) est une instance [Matomo](https://matomo.org), un outil libre de mesure d’audience web,  [recommandé par la cnil](https://www.cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience).
 
 ### Services tiers
 
