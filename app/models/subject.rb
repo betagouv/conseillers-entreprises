@@ -129,6 +129,10 @@ class Subject < ApplicationRecord
     ]
   end
 
+  def self.ransackable_associations(auth_object = nil)
+    ["additional_subject_questions", "diagnoses", "experts", "experts_subjects", "institutions", "institutions_subjects", "landing_subjects", "match_filters", "matches", "needs", "theme"]
+  end
+
   private
 
   def set_support
