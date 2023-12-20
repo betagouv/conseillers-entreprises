@@ -248,6 +248,9 @@ fr:
       feedback:
         category: Catégorie
         feedbackable: Sujet
+        match_closed_at: Date de clôture de la mise en relation
+        real_subject: Sujet réel
+        real_theme: Thème réel
       feedback/categories:
         need: Besoin
         reminder: Relance
@@ -778,6 +781,7 @@ fr:
     category: Catégorie
     code_effectif: Tranche d’effectif
     color: Couleur
+    comments: Commentaires des conseillers de l’antenne
     commune: Commune
     communes: Communes
     community: Communauté
@@ -877,6 +881,8 @@ fr:
     name: Nom
     need: Besoin
     need_abandoned_at: Date d’abandon
+    need_closed_at: Date de clôture du besoin
+    need_created_at: Date de création du besoin
     need_id: Identifiant du besoin
     need_last_chance_at: Date d’envoi mail de la dernière chance
     need_status: Statut du besoin
