@@ -156,7 +156,7 @@ module XlsxExport
         when :positionning_accepted
           base_relation.size - (base_relation.status_quo.size + base_relation.status_not_for_me.size)
         else
-          base_relation.send("status_#{status}")&.size
+          base_relation.send(:"status_#{status}")&.size
         end
       end
 
