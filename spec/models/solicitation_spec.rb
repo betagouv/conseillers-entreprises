@@ -271,11 +271,11 @@ end
     it { is_expected.to contain_exactly(solicitation) }
   end
 
-  describe '#description_contains' do
+  describe '#description_cont' do
     let(:solicitation) { create :solicitation, description: 'Description de test' }
     let!(:solicitation2) { create :solicitation, description: 'Une autre description' }
 
-    subject { described_class.description_contains('test') }
+    subject { described_class.description_cont('test') }
 
     it { is_expected.to contain_exactly(solicitation) }
   end
@@ -290,29 +290,29 @@ end
     it { is_expected.to contain_exactly(solicitation) }
   end
 
-  describe '#name_contains' do
+  describe '#name_cont' do
     let(:solicitation) { create :solicitation, full_name: 'Pink Floyd' }
     let!(:solicitation2) { create :solicitation, full_name: 'Edith Piaf' }
 
-    subject { described_class.name_contains('Pink') }
+    subject { described_class.name_cont('Pink') }
 
     it { is_expected.to contain_exactly(solicitation) }
   end
 
-  describe '#email_contains' do
+  describe '#email_cont' do
     let(:solicitation) { create :solicitation, email: 'kingju@wanadoo.fr' }
     let!(:solicitation2) { create :solicitation, email: 'edith@piaf.fr' }
 
-    subject { described_class.email_contains('kingju') }
+    subject { described_class.email_cont('kingju') }
 
     it { is_expected.to contain_exactly(solicitation) }
   end
 
-  describe '#siret_contains' do
+  describe '#siret_cont' do
     let(:solicitation) { create :solicitation, siret: '11000101300017' }
     let!(:solicitation2) { create :solicitation, siret: '89233420200017' }
 
-    subject { described_class.siret_contains('110001013') }
+    subject { described_class.siret_cont('110001013') }
 
     it { is_expected.to contain_exactly(solicitation) }
   end

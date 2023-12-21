@@ -131,34 +131,34 @@ class Match < ApplicationRecord
   end
 
   # Pour ransacker, en admin
-  scope :solicitation_created_at_gteq_datetime, -> (val) do
+  scope :solicitation_created_at_gteq, -> (val) do
     joins(:solicitation).where('solicitations.created_at >= ?', val)
   end
 
-  scope :solicitation_created_at_lteq_datetime, -> (val) do
+  scope :solicitation_created_at_lteq, -> (val) do
     joins(:solicitation).where('solicitations.created_at <= ?', val)
   end
 
-  scope :solicitation_mtm_campaign_contains, -> (query) {
-    joins(:solicitation).merge(Solicitation.mtm_campaign_contains(query))
+  scope :solicitation_mtm_campaign_cont, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_campaign_cont(query))
   }
 
-  scope :solicitation_mtm_campaign_equals, -> (query) {
-    joins(:solicitation).merge(Solicitation.mtm_campaign_equals(query))
+  scope :solicitation_mtm_campaign_eq, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_campaign_eq(query))
   }
 
-  scope :solicitation_mtm_campaign_starts_with, -> (query) {
-    joins(:solicitation).merge(Solicitation.mtm_campaign_starts_with(query))
+  scope :solicitation_mtm_campaign_start, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_campaign_start(query))
   }
 
-  scope :solicitation_mtm_campaign_ends_with, -> (query) {
-    joins(:solicitation).merge(Solicitation.mtm_campaign_ends_with,(query))
+  scope :solicitation_mtm_campaign_end, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_campaign_end(query))
   }
 
   def self.ransackable_scopes(auth_object = nil)
     [
-      :sent, :solicitation_created_at_gteq_datetime, :solicitation_created_at_lteq_datetime,
-      :solicitation_mtm_campaign_contains, :solicitation_mtm_campaign_equals, :solicitation_mtm_campaign_starts_with, :solicitation_mtm_campaign_ends_with
+      :sent, :solicitation_created_at_gteq, :solicitation_created_at_lteq,
+      :solicitation_mtm_campaign_cont, :solicitation_mtm_campaign_eq, :solicitation_mtm_campaign_start, :solicitation_mtm_campaign_end
     ]
   end
 
