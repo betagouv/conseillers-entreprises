@@ -44,27 +44,27 @@ class Feedback < ApplicationRecord
 
   def notify_for_need!
     return unless category_need?
-    persons_to_notify.each do |expert|
-      MatchFeedbackEmailJob.set(wait: 1.minute).perform_later(self.id, expert.id)
+    persons_to_notify.each do |person|
+      MatchFeedbackEmailJob.set(wait: 1.minute).perform_later(self, person)
     end
   end
 
   # Notify experts of this need
   # don't send an email to their personal address
   def persons_to_notify
-    experts_to_notify = if self.user.is_admin?
+    users_and_experts_to_notify = if self.user.is_admin?
       self.need.matches.where(status: [:quo, :taking_care, :done_not_reachable]).map(&:expert)
     else
       self.need.matches.where(status: [:taking_care, :done_not_reachable]).map(&:expert)
     end
 
     # don’t notify the author themselves
-    experts_to_notify -= self.user.experts
+    users_and_experts_to_notify -= self.user.experts
 
     # Notify the advisor only if he's not the author or the author is not an admin
-    experts_to_notify << self.need.advisor if (!self.user.is_admin? && self.user != self.need.advisor)
+    users_and_experts_to_notify << self.need.advisor if (!self.user.is_admin? && self.user != self.need.advisor)
 
-    experts_to_notify
+    users_and_experts_to_notify
   end
 
   def need

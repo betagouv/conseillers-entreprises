@@ -6,15 +6,15 @@ class UserMailer < ApplicationMailer
   helper :institutions
   helper :status
 
-  def match_feedback(feedback, expert)
-    @expert = expert
-    return if @expert.deleted? || feedback.nil?
+  def match_feedback(feedback, person)
+    @person = person
+    return if @person.deleted? || feedback.nil?
 
     @feedback = feedback
     @author = feedback.user
-    @match = expert.received_matches.find_by(need: feedback.need.id)
+    @match = person.received_matches.find_by(need: feedback.need.id)
 
-    mail(to: @expert.email_with_display_name,
+    mail(to: @person.email_with_display_name,
          subject: t('mailers.user_mailer.match_feedback.subject', company_name: feedback.need.company))
   end
 

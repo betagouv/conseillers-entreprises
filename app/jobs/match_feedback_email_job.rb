@@ -1,9 +1,7 @@
 class MatchFeedbackEmailJob < ApplicationJob
-  def perform(feedback_id, expert_id)
-    feedback = Feedback.find_by(id: feedback_id)
+  def perform(feedback, person)
     if feedback.present?
-      expert = Expert.find(expert_id)
-      UserMailer.match_feedback(feedback, expert).deliver_now
+      UserMailer.match_feedback(feedback, person).deliver_now
     end
   end
 end
