@@ -106,4 +106,8 @@ class InstitutionSubject < ApplicationRecord
       theme.label.downcase.strip
     ]
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "description", "id", "institution_id", "subject_id", "updated_at"]
+  end
 end

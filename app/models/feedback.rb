@@ -82,4 +82,8 @@ class Feedback < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     ["category", "created_at", "description", "feedbackable_id", "feedbackable_type", "id", "id_value", "updated_at", "user_id"]
   end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["feedbackable", "user"]
+  end
 end
