@@ -10,13 +10,13 @@ RSpec.describe MatchFeedbackEmailJob do
     describe 'with feedback present' do
       let(:feedback) { create :feedback, :for_need, user: user }
 
-      before { described_class.perform_now(feedback.id, user.id) }
+      before { described_class.perform_now(feedback.id, user) }
 
       it { expect(ActionMailer::Base.deliveries.count).to eq 1 }
     end
 
     describe 'with feedback not present' do
-      before { described_class.perform_now(0, user.id) }
+      before { described_class.perform_now(0, user) }
 
       it { expect(ActionMailer::Base.deliveries.count).to eq 0 }
     end
