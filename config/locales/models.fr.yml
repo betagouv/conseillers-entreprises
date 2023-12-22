@@ -377,12 +377,14 @@ fr:
         accepted_naf_codes: codes naf acceptés
         effectif_max: effectif maximum
         effectif_min: effectif minimum
-        excluded_legal_forms: codes forme juridique rejetés (niveau 1)
+        excluded_legal_forms: codes forme juridique rejetés (niveau 3)
+        excluded_naf_codes: codes naf rejetés
         max_years_of_existence: ancienneté maximum (en année)
         min_years_of_existence: ancienneté minimum (en année)
-        raw_accepted_legal_forms: codes forme juridique acceptés (niveau 1)
+        raw_accepted_legal_forms: codes forme juridique acceptés (niveau 3)
         raw_accepted_naf_codes: codes naf acceptés
-        raw_excluded_legal_forms: codes forme juridique rejetés (niveau 1)
+        raw_excluded_legal_forms: codes forme juridique rejetés (niveau 3)
+        raw_excluded_naf_codes: codes naf rejetés
       need:
         subject: Sujet
       need/statuses:
@@ -928,6 +930,7 @@ fr:
     solicitation_full_name: Contact en entreprise
     solicitation_gclid: Id GA
     solicitation_id: Id de la sollicitation
+    solicitation_origin_id: Id de la page d’origine
     solicitation_phone_number: Téléphone du contact entreprise
     solicitation_pk_campaign: Campagne de la sollicitation
     solicitation_provenance_category: Type de source

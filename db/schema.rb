@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_08_154647) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_19_201859) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -454,6 +454,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_154647) do
     t.integer "max_years_of_existence"
     t.string "accepted_legal_forms", array: true
     t.string "excluded_legal_forms", array: true
+    t.string "excluded_naf_codes", array: true
     t.index ["antenne_id"], name: "index_match_filters_on_antenne_id"
   end
 
