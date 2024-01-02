@@ -5,10 +5,10 @@
         = t('.see_breadcrumb')
       .fr-collapse#breadcrumb-1
         %ol.fr-breadcrumb__list.breadcrumbs
-          - if defined? landing_theme
+          - if defined? landing
+            - landing_theme ||= nil
             - landing_subject ||= nil
-            = raw breadcrumbs_landing(landing, landing_theme, landing_subject)
-          - elsif defined?(landing) && landing.present?
-            = raw breadcrumbs_iframe_home(landing, title)
+            - title ||= nil
+            = raw breadcrumbs_landing({landing: landing, landing_theme: landing_theme, landing_subject: landing_subject}, params, title)
           - else
             = breadcrumbs_page(title)
