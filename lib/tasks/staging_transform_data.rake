@@ -70,8 +70,8 @@ namespace :staging do
     now = Time.zone.now
     diagnosis.update({
       advisor_id: 10697,
-      created_at: now, 
-      happened_on: now, 
+      created_at: now,
+      happened_on: now,
       completed_at: now,
       content: "Bonjour, \n\nNous sommes une petite entreprise qui fabrique des emballages en bois. \nNous avons perdus plusieurs gros clients à cause de la crise, nous n’avons plus de rentrée d’argent. Nous allons bientôt ne plus pouvoir payer nos charges qui s’élèvent à 15 000 euros par mois. \nLa banque ne veut pas nous accorder de prêt d’un montant suffisant pour couvrir nos besoins.  \nPouvez-vous nous aider ? \nMerci, \nFrançois Cagette\n"
     })
