@@ -17,10 +17,12 @@ namespace :staging do
         transform_visitee
         transform_company
         transform_facility
+        transform_solicitation
         transform_diagnosis
         transform_matches
         transform_feedbacks
         add_denis_sauveur
+        @need.update(created_at: Time.zone.now)
       end
     end
   end
@@ -54,17 +56,38 @@ namespace :staging do
     })
   end
 
+  def transform_solicitation
+    solicitation = @need.solicitation
+    now = Time.zone.now
+    solicitation.update({
+      created_at: now,
+      completed_at: now,
+    })
+  end
+
   def transform_diagnosis
     diagnosis = @need.diagnosis
+    now = Time.zone.now
     diagnosis.update({
       advisor_id: 10697,
+      created_at: now, 
+      happened_on: now, 
+      completed_at: now,
       content: "Bonjour, \n\nNous sommes une petite entreprise qui fabrique des emballages en bois. \nNous avons perdus plusieurs gros clients à cause de la crise, nous n’avons plus de rentrée d’argent. Nous allons bientôt ne plus pouvoir payer nos charges qui s’élèvent à 15 000 euros par mois. \nLa banque ne veut pas nous accorder de prêt d’un montant suffisant pour couvrir nos besoins.  \nPouvez-vous nous aider ? \nMerci, \nFrançois Cagette\n"
     })
   end
 
   def transform_matches
+    now = Time.zone.now
     match = Match.find(12025)
-    match.update(status: 'done_not_reachable')
+    match.update({
+      created_at: now - 1.day,
+      taken_care_of_at: now,
+      closed_at: now,
+      archived_at: nil,
+      sent_at: now - 1.day,
+      status: 'done_not_reachable'
+    })
     expert = match.expert
     expert.update({
       full_name: 'Laurent Dubois',
@@ -73,7 +96,14 @@ namespace :staging do
     })
 
     match = Match.find(12026)
-    match.update(status: 'done_no_help')
+    match.update({
+      created_at: now - 1.day,
+      taken_care_of_at: now,
+      closed_at: now,
+      archived_at: nil,
+      sent_at: now - 1.day,
+      status: 'done_no_help'
+    })
     expert = match.expert
     expert.update({
       full_name: 'Equipe Correspondants Tpe Pas De Calais',
@@ -82,6 +112,13 @@ namespace :staging do
     })
 
     match = Match.find(12027)
+    match.update({
+      created_at: now - 1.day,
+      taken_care_of_at: now,
+      closed_at: now,
+      archived_at: nil,
+      sent_at: now - 1.day,
+    })
     expert = match.expert
     expert.update({
       full_name: 'Djamal Humette',
@@ -90,7 +127,14 @@ namespace :staging do
     })
 
     match = Match.find(12028)
-    match.update(status: 'not_for_me')
+    match.update({
+      created_at: now - 1.day,
+      taken_care_of_at: now,
+      closed_at: now,
+      archived_at: nil,
+      sent_at: now - 1.day,
+      status: 'not_for_me'
+    })
     expert = match.expert
     expert.update({
       full_name: 'Brigitte Tonot',
@@ -99,7 +143,14 @@ namespace :staging do
     })
 
     match = Match.find(12029)
-    match.update(status: 'quo')
+    match.update({
+      created_at: now - 1.day,
+      taken_care_of_at: nil,
+      closed_at: nil,
+      archived_at: nil,
+      sent_at: now - 1.day,
+      status: 'quo'
+    })
     expert = match.expert
     expert.update({
       full_name: 'Equipe DDFIP 62 - Pierrette Brindy et Mahmoud Kabann',
