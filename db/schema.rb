@@ -89,7 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["subject_id"], name: "index_additional_subject_questions_on_subject_id"
   end
 
-  create_table "antennes", id: :serial, force: :cascade do |t|
+  create_table "antennes", force: :cascade do |t|
     t.string "name"
     t.bigint "institution_id", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -129,7 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["badge_id"], name: "index_badge_badgeables_on_badge_id"
   end
 
-  create_table "badges", id: :serial, force: :cascade do |t|
+  create_table "badges", force: :cascade do |t|
     t.string "title", null: false
     t.string "color", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -137,7 +137,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.integer "category", null: false
   end
 
-  create_table "categories", id: :serial, force: :cascade do |t|
+  create_table "categories", force: :cascade do |t|
     t.string "label", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -150,7 +150,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["institution_id"], name: "index_categories_institutions_on_institution_id"
   end
 
-  create_table "communes", id: :serial, force: :cascade do |t|
+  create_table "communes", force: :cascade do |t|
     t.string "insee_code"
     t.index ["insee_code"], name: "index_communes_on_insee_code", unique: true
   end
@@ -162,14 +162,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["expert_id"], name: "index_communes_experts_on_expert_id"
   end
 
-  create_table "communes_territories", id: :serial, force: :cascade do |t|
+  create_table "communes_territories", force: :cascade do |t|
     t.bigint "territory_id", null: false
     t.bigint "commune_id", null: false
     t.index ["commune_id"], name: "index_communes_territories_on_commune_id"
     t.index ["territory_id"], name: "index_communes_territories_on_territory_id"
   end
 
-  create_table "companies", id: :serial, force: :cascade do |t|
+  create_table "companies", force: :cascade do |t|
     t.string "name"
     t.string "siren"
     t.datetime "created_at", precision: nil, null: false
@@ -185,7 +185,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["siren"], name: "index_companies_on_siren", unique: true, where: "((siren)::text <> NULL::text)"
   end
 
-  create_table "company_satisfactions", id: :serial, force: :cascade do |t|
+  create_table "company_satisfactions", force: :cascade do |t|
     t.boolean "contacted_by_expert"
     t.boolean "useful_exchange"
     t.text "comment"
@@ -195,7 +195,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["need_id"], name: "index_company_satisfactions_on_need_id"
   end
 
-  create_table "contacts", id: :serial, force: :cascade do |t|
+  create_table "contacts", force: :cascade do |t|
     t.string "email"
     t.string "phone_number"
     t.bigint "company_id", null: false
@@ -205,7 +205,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["company_id"], name: "index_contacts_on_company_id"
   end
 
-  create_table "delayed_jobs", id: :serial, force: :cascade do |t|
+  create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
     t.text "handler", null: false
@@ -220,7 +220,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "diagnoses", id: :serial, force: :cascade do |t|
+  create_table "diagnoses", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -254,7 +254,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["subject_id"], name: "index_email_retentions_on_subject_id", unique: true
   end
 
-  create_table "experts", id: :serial, force: :cascade do |t|
+  create_table "experts", force: :cascade do |t|
     t.string "email"
     t.string "phone_number"
     t.string "job"
@@ -270,7 +270,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["email"], name: "index_experts_on_email"
   end
 
-  create_table "experts_subjects", id: :serial, force: :cascade do |t|
+  create_table "experts_subjects", force: :cascade do |t|
     t.string "intervention_criteria"
     t.bigint "expert_id"
     t.bigint "institution_subject_id"
@@ -287,7 +287,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["user_id"], name: "index_experts_users_on_user_id"
   end
 
-  create_table "facilities", id: :serial, force: :cascade do |t|
+  create_table "facilities", force: :cascade do |t|
     t.bigint "company_id", null: false
     t.string "siret"
     t.datetime "created_at", precision: nil, null: false
@@ -306,7 +306,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["siret"], name: "index_facilities_on_siret", unique: true, where: "((siret)::text <> NULL::text)"
   end
 
-  create_table "feedbacks", id: :serial, force: :cascade do |t|
+  create_table "feedbacks", force: :cascade do |t|
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -331,7 +331,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["institution_filtrable_type", "institution_filtrable_id"], name: "index_institution_filters_on_institution_filtrable"
   end
 
-  create_table "institutions", id: :serial, force: :cascade do |t|
+  create_table "institutions", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -349,7 +349,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["updated_at"], name: "index_institutions_on_updated_at"
   end
 
-  create_table "institutions_subjects", id: :serial, force: :cascade do |t|
+  create_table "institutions_subjects", force: :cascade do |t|
     t.string "description"
     t.bigint "institution_id"
     t.bigint "subject_id"
@@ -361,7 +361,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["updated_at"], name: "index_institutions_subjects_on_updated_at"
   end
 
-  create_table "landing_joint_themes", id: :serial, force: :cascade do |t|
+  create_table "landing_joint_themes", force: :cascade do |t|
     t.bigint "landing_id"
     t.bigint "landing_theme_id"
     t.integer "position"
@@ -371,7 +371,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["landing_theme_id"], name: "index_landing_joint_themes_on_landing_theme_id"
   end
 
-  create_table "landing_subjects", id: :serial, force: :cascade do |t|
+  create_table "landing_subjects", force: :cascade do |t|
     t.bigint "landing_theme_id", null: false
     t.bigint "subject_id", null: false
     t.string "title"
@@ -384,6 +384,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.text "form_description"
     t.text "description_explanation"
     t.boolean "requires_siret", default: true, null: false
+    t.boolean "requires_requested_help_amount", default: false, null: false
+    t.boolean "requires_location", default: false, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "display_region_logo", default: false
@@ -395,7 +397,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["subject_id"], name: "index_landing_subjects_on_subject_id"
   end
 
-  create_table "landing_themes", id: :serial, force: :cascade do |t|
+  create_table "landing_themes", force: :cascade do |t|
     t.string "title"
     t.string "page_title"
     t.string "slug"
@@ -409,7 +411,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["slug"], name: "index_landing_themes_on_slug", unique: true
   end
 
-  create_table "landings", id: :serial, force: :cascade do |t|
+  create_table "landings", force: :cascade do |t|
     t.string "slug", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -432,7 +434,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["slug"], name: "index_landings_on_slug", unique: true
   end
 
-  create_table "logos", id: :serial, force: :cascade do |t|
+  create_table "logos", force: :cascade do |t|
     t.string "filename"
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
@@ -441,7 +443,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["institution_id"], name: "index_logos_on_institution_id"
   end
 
-  create_table "match_filters", id: :serial, force: :cascade do |t|
+  create_table "match_filters", force: :cascade do |t|
     t.string "accepted_naf_codes", array: true
     t.integer "effectif_min"
     t.integer "effectif_max"
@@ -463,7 +465,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["subject_id"], name: "index_match_filters_subjects_on_subject_id"
   end
 
-  create_table "matches", id: :serial, force: :cascade do |t|
+  create_table "matches", force: :cascade do |t|
     t.bigint "need_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -481,7 +483,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["subject_id"], name: "index_matches_on_subject_id"
   end
 
-  create_table "needs", id: :serial, force: :cascade do |t|
+  create_table "needs", force: :cascade do |t|
     t.bigint "diagnosis_id", null: false
     t.bigint "subject_id", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -521,7 +523,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["institution_subject_id"], name: "index_referencement_coverages_on_institution_subject_id"
   end
 
-  create_table "reminders_actions", id: :serial, force: :cascade do |t|
+  create_table "reminders_actions", force: :cascade do |t|
     t.bigint "need_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -543,7 +545,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["run_number", "expert_id"], name: "index_reminders_registers_on_run_number_and_expert_id", unique: true
   end
 
-  create_table "searches", id: :serial, force: :cascade do |t|
+  create_table "searches", force: :cascade do |t|
     t.string "query", null: false
     t.bigint "user_id", null: false
     t.string "label"
@@ -553,7 +555,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["user_id"], name: "index_searches_on_user_id"
   end
 
-  create_table "solicitations", id: :serial, force: :cascade do |t|
+  create_table "solicitations", force: :cascade do |t|
     t.string "description"
     t.string "email"
     t.string "phone_number"
@@ -583,7 +585,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["uuid"], name: "index_solicitations_on_uuid"
   end
 
-  create_table "subjects", id: :serial, force: :cascade do |t|
+  create_table "subjects", force: :cascade do |t|
     t.string "label", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -599,7 +601,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["theme_id"], name: "index_subjects_on_theme_id"
   end
 
-  create_table "territories", id: :serial, force: :cascade do |t|
+  create_table "territories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -610,7 +612,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["support_contact_id"], name: "index_territories_on_support_contact_id"
   end
 
-  create_table "themes", id: :serial, force: :cascade do |t|
+  create_table "themes", force: :cascade do |t|
     t.string "label", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -631,7 +633,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["user_id"], name: "index_user_rights_on_user_id"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: ""
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
