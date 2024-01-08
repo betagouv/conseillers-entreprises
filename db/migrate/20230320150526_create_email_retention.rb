@@ -136,7 +136,7 @@ class CreateEmailRetention < ActiveRecord::Migration[7.0]
             second_subject_label: email[:second_subject_label]
           )
         end
-      rescue ActiveRecord::RecordNotFound => e 
+      rescue ActiveRecord::RecordNotFound => e
         pp e
       end
     end
