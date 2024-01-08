@@ -137,6 +137,10 @@ jobs:
           command: |
             ./tmp/cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
     # The resource_class feature allows configuring CPU and RAM resources for each job. Different resource classes are available for different executors. https://circleci.com/docs/2.0/configuration-reference/#resourceclass
+      - persist_to_workspace:
+          root: coverage
+          paths:
+            - codeclimate.*.json
     resource_class: large
   upload-coverage:
     <<: *defaults
