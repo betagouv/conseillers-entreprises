@@ -82,9 +82,6 @@ GEM
     activerecord (7.0.8)
       activemodel (= 7.0.8)
       activesupport (= 7.0.8)
-    activerecord-postgis-adapter (8.0.3)
-      activerecord (~> 7.0.0)
-      rgeo-activerecord (~> 7.0.0)
     activerecord-postgres_enum (2.0.1)
       activerecord (>= 5.2)
       pg
@@ -476,10 +473,6 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.2.6)
-    rgeo (3.0.1)
-    rgeo-activerecord (7.0.1)
-      activerecord (>= 5.0)
-      rgeo (>= 1.0.0)
     rorvswild (1.6.3)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
@@ -567,8 +560,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    scout_apm (5.3.5)
-      parser
     selectize-rails (0.12.6)
     selenium-webdriver (4.16.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -692,7 +683,6 @@ DEPENDENCIES
   activeadmin-ajax_filter
   activeadmin_blaze_theme
   activeadmin_quill_editor
-  activerecord-postgis-adapter
   activerecord-postgres_enum
   acts_as_list
   annotate
@@ -766,7 +756,6 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   sassc-rails
-  scout_apm
   selenium-webdriver
   sentry-rails
   sentry-ruby
