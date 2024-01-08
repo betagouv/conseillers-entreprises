@@ -111,22 +111,17 @@ jobs:
             COVERAGE: true
           name: Run Tests, Split by Timings
           command: |
+            ./cc-test-reporter before-build
             bundle exec rspec --profile 10 \
               --format RspecJunitFormatter \
               --out ~/test-results/rspec/results.xml \
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+              ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
       - store_test_results:
           path: ~/test-results
       - store_artifacts:
           path: tmp/screenshots
-      - run:
-          environment: 
-            CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
-          name: Upload coverage results to Code Climate
-          command: |
-            ./tmp/cc-test-reporter format-coverage -t simplecov $CIRCLE_ARTIFACTS/coverage/.resultset.json
-            ./tmp/cc-test-reporter upload-coverage
     # The resource_class feature allows configuring CPU and RAM resources for each job. Different resource classes are available for different executors. https://circleci.com/docs/2.0/configuration-reference/#resourceclass
     resource_class: large
   lint:
