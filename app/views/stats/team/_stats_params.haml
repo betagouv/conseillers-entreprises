@@ -42,7 +42,7 @@
         = f.text_field :mtm_kwd, value: stats[:mtm_kwd], class: 'fr-input'
       .fr-select-group
         = f.label :integration, t('activerecord.attributes.landing.integration'), class: 'fr-label'
-        = f.select :integration, Landing.integrations.map { |i| [I18n.t(i.first, scope: 'activerecord.attributes.landing/integrations'), i.first] },
+        = f.select :integration, Landing.integrations.map { |i| [I18n.t(i.first, scope: 'activerecord.attributes.landing/integrations'), i.last] },
         { selected: params[:integration], include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#toggleIframeSelect' }
       .fr-select-group{ class: "#{'hidden' if params[:iframe_id].blank?}" }
         = f.label :iframe_id, t('activerecord.attributes.landing.iframe'), class: 'fr-label'

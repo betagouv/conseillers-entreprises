@@ -74,7 +74,7 @@ describe Stats::Filters::Companies do
   end
 
   describe 'integration_filter' do
-    let(:integration) { :iframe }
+    let(:integration) { 1 }
     let(:diagnosis_inside) do
   create :diagnosis, needs: [create(:need)],
                          solicitation: create(:solicitation, landing: create(:landing, integration: integration, partner_url: 'https://www.example.com'))
