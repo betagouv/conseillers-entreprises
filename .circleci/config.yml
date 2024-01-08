@@ -92,6 +92,12 @@ jobs:
           name: Create DB
           command: bundle exec rake db:create db:schema:load db:migrate RAILS_ENV=test
       - run:
+          name: Setup Code Climate Test Reporter
+          command: |
+            mkdir -p tmp/
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
+            chmod +x ./tmp/cc-test-reporter
+      - run:
           environment:
             DATABASE_URL: "postgis://place_des_entreprises_test@localhost:5432/place_des_e\
               ntreprises_test"
@@ -101,6 +107,8 @@ jobs:
             CI: 'true'
             RORVSWILD_KEY: 'rorvswild'
             REDIS_URL: 'redis://localhost:6379/1'
+            CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
+            COVERAGE: true
           name: Run Tests, Split by Timings
           command: |
             bundle exec rspec --profile 10 \
@@ -112,6 +120,13 @@ jobs:
           path: ~/test-results
       - store_artifacts:
           path: tmp/screenshots
+      - run:
+          environment: 
+            CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
+          name: Upload coverage results to Code Climate
+          command: |
+            ./tmp/cc-test-reporter format-coverage -t simplecov $CIRCLE_ARTIFACTS/coverage/.resultset.json
+            ./tmp/cc-test-reporter upload-coverage
     # The resource_class feature allows configuring CPU and RAM resources for each job. Different resource classes are available for different executors. https://circleci.com/docs/2.0/configuration-reference/#resourceclass
     resource_class: large
   lint:
