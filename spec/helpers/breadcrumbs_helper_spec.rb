@@ -60,7 +60,7 @@ describe BreadcrumbsHelper do
 
         it {
           is_expected.to eq(
-            '<li><a class="fr-breadcrumb__link blue" href="/aide-entreprise/iframe-01">Place des Entreprises</a></li>'
+            '<li><a class="fr-breadcrumb__link blue" href="/aide-entreprise/iframe-01">Echanger avec un conseiller</a></li>'
           )
         }
       end
@@ -71,7 +71,7 @@ describe BreadcrumbsHelper do
 
         it {
           is_expected.to eq(
-            '<li><a class="fr-breadcrumb__link blue" href="/aide-entreprise/iframe-01">Place des Entreprises</a></li>' \
+            '<li><a class="fr-breadcrumb__link blue" href="/aide-entreprise/iframe-01">Echanger avec un conseiller</a></li>' \
             '<li><a class="fr-breadcrumb__link" aria-current="page" href="#">Thème 01</a></li>'
           )
         }
@@ -83,7 +83,7 @@ describe BreadcrumbsHelper do
 
         it {
           is_expected.to eq(
-            '<li><a class="fr-breadcrumb__link blue" href="/aide-entreprise/iframe-01">Place des Entreprises</a></li>' \
+            '<li><a class="fr-breadcrumb__link blue" href="/aide-entreprise/iframe-01">Echanger avec un conseiller</a></li>' \
             '<li><a class="fr-breadcrumb__link blue" href="/aide-entreprise/iframe-01/theme/theme-01">Thème 01</a></li>' \
             '<li><a class="fr-breadcrumb__link" aria-current="page" href="#">Sujet 01</a></li>'
           )
@@ -97,7 +97,7 @@ describe BreadcrumbsHelper do
 
         it {
           is_expected.to eq(
-            '<li><a class="fr-breadcrumb__link blue" href="/aide-entreprise/iframe-01">Place des Entreprises</a></li>' \
+            '<li><a class="fr-breadcrumb__link blue" href="/aide-entreprise/iframe-01">Echanger avec un conseiller</a></li>' \
             '<li><a class="fr-breadcrumb__link" aria-current="page" href="#">Mentions légales</a></li>'
           )
         }
@@ -113,7 +113,7 @@ describe BreadcrumbsHelper do
 
         it {
           is_expected.to eq(
-            '<li><a class="fr-breadcrumb__link blue" href="/aide-entreprise/iframe-01">Place des Entreprises</a></li>' \
+            '<li><a class="fr-breadcrumb__link blue" href="/aide-entreprise/iframe-01">Echanger avec un conseiller</a></li>' \
             '<li><a class="fr-breadcrumb__link" aria-current="page" href="#">Sujet 01</a></li>'
           )
         }
