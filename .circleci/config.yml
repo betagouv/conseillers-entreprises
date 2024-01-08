@@ -86,7 +86,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/repo/tmp
+          at: ~/place-des-entreprises
       - browser-tools/install-browser-tools:
           chrome-version: 116.0.5845.96
       - browser-tools/install-chrome
@@ -104,6 +104,16 @@ jobs:
           name: Create DB
           command: bundle exec rake db:create db:schema:load db:migrate RAILS_ENV=test
       - run:
+          name:  Download cc-test-reporter
+          command: |
+            mkdir -p tmp/
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
+            chmod +x ./tmp/cc-test-reporter
+      - persist_to_workspace:
+          root: tmp
+          paths:
+            - cc-test-reporter
+      - run:
           environment:
             DATABASE_URL: "postgis://place_des_entreprises_test@localhost:5432/place_des_e\
               ntreprises_test"
@@ -116,16 +126,16 @@ jobs:
             COVERAGE: true
           name: Run Tests, Split by Timings
           command: |
+            ./tmp/cc-test-reporter before-build
             bundle exec rspec --profile 10 \
               --format RspecJunitFormatter \
               --out ~/test-results/rspec/results.xml \
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-            ./tmp/cc-test-reporter format-coverage -t simplecov -o tmp/codeclimate.backend.json coverage/backend/.resultset.json
-      - persist_to_workspace:
-          root: tmp
-          paths: 
-            - codeclimate.backend.json
+      -  run:
+          name: Code Climate Test Coverage
+          command: |
+            ./tmp/cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
     # The resource_class feature allows configuring CPU and RAM resources for each job. Different resource classes are available for different executors. https://circleci.com/docs/2.0/configuration-reference/#resourceclass
     resource_class: large
   upload-coverage:
@@ -133,14 +143,19 @@ jobs:
     environment: 
       CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
       COVERAGE: true
+    working_directory: ~/place-des-entreprises
     steps:
       - attach_workspace:
-          at: ~/repo/tmp
+          at: ~/place-des-entreprises
+      - run:
+          name: Install Code Climate Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
       - run:
           name: Upload coverage results to Code Climate
           command: |
-            ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 2 -o tmp/codeclimate.total.json
-            ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
+            ./cc-test-reporter sum-coverage --output - codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
   lint:
     <<: *defaults
     steps:
