@@ -4,9 +4,9 @@
   .card__content.white-bg.fr-p-3w{ data: { controller: 'stats-charts' } }
     %h2.fr-h3
       - if data.count.present?
-        %span= number_with_delimiter(data.count, locale: :fr)
+        %span= number_with_delimiter(data.count, locale: :fr, delimiter: ' ')
       - if data.secondary_count.present?
-        = t('title', scope: ['stats', 'series', name], secondary_count: number_with_delimiter(data.secondary_count, locale: :fr))
+        = t('title', scope: ['stats', 'series', name], secondary_count: number_with_delimiter(data.secondary_count, locale: :fr, delimiter: ' '))
       - else
         = t('title', scope: ['stats', 'series', name])
 

@@ -7,7 +7,7 @@
       = t('.title')
     - if data.count.present?
       %p.header_content
-        %span.highlight= number_with_delimiter(data.count, locale: :fr)
+        %span.highlight= number_with_delimiter(data.count, locale: :fr, delimiter: ' ')
         = t("stats.series.#{name}.title")
 
     = I18n.t("stats.series.#{name}.subtitle_html").html_safe
