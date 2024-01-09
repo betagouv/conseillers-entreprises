@@ -43,7 +43,7 @@ module StatsHelper
   end
 
   def add_locals_antennes(antennes_collection, recipient_antennes)
-    recipient_antennes.each do |antenne|
+    recipient_antennes.includes(:child_antennes).find_each do |antenne|
       next if antenne.local? || antenne.territorial_antennes.empty?
       #  Ajoute la possibilité pour les antennes régionale d'avoir les stats agglomérés
       antennes_collection << { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: antenne.name), id: antenne.id }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_09_123620) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -96,9 +96,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.datetime "updated_at", precision: nil, null: false
     t.datetime "deleted_at", precision: nil
     t.enum "territorial_level", default: "local", null: false, enum_type: "territorial_level"
+    t.bigint "parent_antenne_id"
     t.index ["deleted_at"], name: "index_antennes_on_deleted_at"
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
     t.index ["name", "deleted_at", "institution_id"], name: "index_antennes_on_name_and_deleted_at_and_institution_id"
+    t.index ["parent_antenne_id"], name: "index_antennes_on_parent_antenne_id"
     t.index ["territorial_level"], name: "index_antennes_on_territorial_level"
     t.index ["updated_at"], name: "index_antennes_on_updated_at"
   end
@@ -132,15 +134,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
   create_table "badges", force: :cascade do |t|
     t.string "title", null: false
     t.string "color", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "category", null: false
   end
 
   create_table "categories", force: :cascade do |t|
     t.string "label", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "categories_institutions", id: false, force: :cascade do |t|
@@ -169,7 +171,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["territory_id"], name: "index_communes_territories_on_territory_id"
   end
 
-  create_table "companies", force: :cascade do |t|
+  create_table "companies", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "siren"
     t.datetime "created_at", precision: nil, null: false
@@ -190,8 +192,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.boolean "useful_exchange"
     t.text "comment"
     t.bigint "need_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["need_id"], name: "index_company_satisfactions_on_need_id"
   end
 
@@ -263,7 +265,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.string "full_name"
     t.bigint "antenne_id", null: false
     t.boolean "is_global_zone", default: false
-    t.text "reminders_notes"
     t.datetime "deleted_at", precision: nil
     t.index ["antenne_id"], name: "index_experts_on_antenne_id"
     t.index ["deleted_at"], name: "index_experts_on_deleted_at"
@@ -365,8 +366,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.bigint "landing_id"
     t.bigint "landing_theme_id"
     t.integer "position"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["landing_id"], name: "index_landing_joint_themes_on_landing_id"
     t.index ["landing_theme_id"], name: "index_landing_joint_themes_on_landing_theme_id"
   end
@@ -386,8 +387,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.boolean "requires_siret", default: true, null: false
     t.boolean "requires_requested_help_amount", default: false, null: false
     t.boolean "requires_location", default: false, null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "display_region_logo", default: false
     t.datetime "archived_at", precision: nil
     t.text "description_prefill"
@@ -404,8 +405,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.text "description"
     t.string "meta_title"
     t.string "meta_description"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.datetime "archived_at", precision: nil
     t.index ["archived_at"], name: "index_landing_themes_on_archived_at"
     t.index ["slug"], name: "index_landing_themes_on_slug", unique: true
@@ -437,8 +438,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
   create_table "logos", force: :cascade do |t|
     t.string "filename"
     t.string "name"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "institution_id"
     t.index ["institution_id"], name: "index_logos_on_institution_id"
   end
@@ -449,8 +450,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.integer "effectif_max"
     t.integer "min_years_of_existence"
     t.bigint "antenne_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "max_years_of_existence"
     t.string "accepted_legal_forms", array: true
     t.string "excluded_legal_forms", array: true
@@ -471,7 +472,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.datetime "updated_at", precision: nil, null: false
     t.datetime "taken_care_of_at", precision: nil
     t.datetime "closed_at", precision: nil
-    t.bigint "expert_id"
+    t.bigint "expert_id", null: false
     t.bigint "subject_id", null: false
     t.enum "status", default: "quo", null: false, enum_type: "match_status"
     t.datetime "archived_at", precision: nil
@@ -525,8 +526,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
 
   create_table "reminders_actions", force: :cascade do |t|
     t.bigint "need_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "category", null: false
     t.index ["need_id", "category"], name: "index_reminders_actions_on_need_id_and_category", unique: true
     t.index ["need_id"], name: "index_reminders_actions_on_need_id"
@@ -545,7 +546,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["run_number", "expert_id"], name: "index_reminders_registers_on_run_number_and_expert_id", unique: true
   end
 
-  create_table "searches", force: :cascade do |t|
+  create_table "searches", id: :serial, force: :cascade do |t|
     t.string "query", null: false
     t.bigint "user_id", null: false
     t.string "label"
@@ -585,7 +586,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["uuid"], name: "index_solicitations_on_uuid"
   end
 
-  create_table "subjects", force: :cascade do |t|
+  create_table "subjects", id: :serial, force: :cascade do |t|
     t.string "label", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -633,7 +634,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_120715) do
     t.index ["user_id"], name: "index_user_rights_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: ""
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
