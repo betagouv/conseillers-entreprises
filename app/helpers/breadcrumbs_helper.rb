@@ -34,7 +34,7 @@ module BreadcrumbsHelper
 
   def home_link(landing, params = {})
     if landing&.iframe?
-      link_to(t('breadcrumbs_helper.home_link.pde'), landing_path(landing, params), class: 'fr-breadcrumb__link blue')
+      link_to(t('breadcrumbs_helper.home_link.iframe'), landing_path(landing, params), class: 'fr-breadcrumb__link blue')
     else
       link_to(t('breadcrumbs_helper.home_link.home'), root_path(params), class: 'fr-breadcrumb__link blue')
     end

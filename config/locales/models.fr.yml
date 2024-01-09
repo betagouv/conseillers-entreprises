@@ -184,7 +184,7 @@ fr:
         recrutement_handicape:
           label: Êtes-vous ouvert aux candidatures de personnes en situation de handicap avec l’aide d’un conseiller dédié ?
         recrutement_poste_cadre:
-          label: Souhaitez-vous recruter sur un poste d’ingénieur, de manager ou de niveau Bac +3 ?
+          label: Recherchez-vous un profil pour un poste d’ingénieur, de manager ou de niveau Bac +3 ?
       antenne:
         match_filters: Filtres pour les mises en relation
       antenne/territorial_levels:

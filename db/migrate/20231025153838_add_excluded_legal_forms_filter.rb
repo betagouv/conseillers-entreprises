@@ -16,7 +16,7 @@ class AddExcludedLegalFormsFilter < ActiveRecord::Migration[7.0]
       MatchFilter
         .where(accepted_legal_forms: ["2", "3", "4", "5", "6", "7", "8", "9"]).or(
           MatchFilter.where(accepted_legal_forms: ["0", "2", "3", "4", "5", "6", "7", "8", "9"])
-        ).update_all(accepted_legal_forms: [], excluded_legal_forms: ['1000'])
+        ).update_all(accepted_legal_forms: [nil], excluded_legal_forms: ['1000'])
     end
   end
 end
