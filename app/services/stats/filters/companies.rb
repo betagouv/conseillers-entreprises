@@ -25,7 +25,7 @@ module Stats::Filters
     def integration_filter(integration)
       return if integration.blank?
       @query.merge! Company.joins(facilities: { diagnoses: { solicitation: :landing } })
-        .where(landings: { integration: integration })
+        .where(landing: { integration: integration })
     end
 
     def iframe_filter(iframe_id)

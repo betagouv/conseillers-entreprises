@@ -44,7 +44,8 @@ export default class extends Controller {
 
   toggleIframeSelect(data) {
     let selectedIntegration = data.target.value
-    if (selectedIntegration == 'iframe') {
+    // On utilise 1 au lieu de 'iframe' car ça déclenche une erreur Postgres dans les filtres
+    if (selectedIntegration == 1) {
       this.iframesTarget.parentElement.style.display = 'block'
     } else {
       this.iframesTarget.value = ''
