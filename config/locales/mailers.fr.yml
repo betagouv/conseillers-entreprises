@@ -4,16 +4,11 @@ fr:
     admin_mailer:
       csv_export: Export CSV des %{model}
       failed_jobs:
-        class: 'Classe :'
-        created_at: 'Date de création :'
-        error: 'Erreur :'
-        failed_jobs_list:
-          one: 'Il y a %{count} job en échec :'
-          other: 'Il y a %{count} jobs en échecs :'
+        failed_jobs_count:
+          one: Il y a %{count} job en échec.
+          other: Il y a %{count} jobs en échecs !
         hello: Salut les devs !
-        job_id: 'ID : %{id}'
         jobs_index: Index des jobs
-        queue: Queue
         subject:
           one: "[Place des Entreprises] %{count} job en erreur"
           other: "[Place des Entreprises] %{count} jobs en erreur"
