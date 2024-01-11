@@ -17,14 +17,11 @@ describe Stats::Filters::Matches do
   end
 
   describe 'antenne_or_institution_filter' do
-    let(:commune1) { create :commune }
-    let(:commune2) { create :commune }
-    let!(:region) { create :territory, :region, communes: [commune1, commune2] }
     let(:institution) { create :institution }
-    let(:regional_antenne) { create :antenne, :regional, institution: institution, communes: [commune1, commune2] }
+    let(:regional_antenne) { create :antenne, :regional, institution: institution }
     let(:expert_regional_antenne) { create :expert, antenne: regional_antenne }
     let!(:match_regional_antenne) { create :match, need: create(:need), expert: expert_regional_antenne }
-    let(:local_antenne) { create :antenne, :local, institution: institution, communes: [commune1] }
+    let(:local_antenne) { create :antenne, :local, institution: institution, parent_antenne: regional_antenne }
     let(:expert_local_antenne) { create :expert, antenne: local_antenne }
     let!(:match_local_antenne) { create :match, need: create(:need), expert: expert_local_antenne }
 

@@ -207,16 +207,13 @@ RSpec.describe Antenne do
   end
 
   describe 'perimeter_received_needs' do
-    let(:commune1) { create :commune }
-    let(:commune2) { create :commune }
-    let!(:region) { create :territory, :region, code_region: 999, communes: [commune1, commune2] }
     let(:institution1) { create :institution, name: 'Institution 1' }
     let(:national_antenne_i1) { create :antenne, :national, institution: institution1 }
-    let(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, communes: [commune1, commune2] }
-    let(:local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune1] }
-    let(:other_local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune2] }
+    let(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, parent_antenne_id: national_antenne_i1.id }
+    let(:local_antenne_i1) { create :antenne, :local, institution: institution1, parent_antenne_id: regional_antenne_i1.id }
+    let(:other_local_antenne_i1) { create :antenne, :local, institution: institution1, parent_antenne_id: regional_antenne_i1.id }
     let(:random_local_antenne_i1) { create :antenne, :local, institution: institution1 }
-    let(:local_antenne_i2) { create :antenne, :local, institution: create(:institution), communes: [commune1] }
+    let(:local_antenne_i2) { create :antenne, :local, institution: create(:institution) }
 
     let(:expert_local_antenne_i1) { create :expert_with_users, antenne: local_antenne_i1 }
     let(:expert_other_local_antenne_i1) { create :expert_with_users, antenne: other_local_antenne_i1 }
@@ -226,17 +223,17 @@ RSpec.describe Antenne do
     let!(:need_regional_antenne_i1) do
       create :need,
              matches: [create(:match, expert: expert_regional_antenne_i1)],
-             diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1))
+             diagnosis: create(:diagnosis, facility: create(:facility))
     end
     let!(:need_local_antenne_i1) do
       create :need,
              matches: [create(:match, expert: expert_local_antenne_i1)],
-             diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1))
+             diagnosis: create(:diagnosis, facility: create(:facility))
     end
     let!(:need_other_local_antenne_i1) do
       create :need,
              matches: [create(:match, expert: expert_other_local_antenne_i1)],
-             diagnosis: create(:diagnosis, facility: create(:facility, commune: commune2))
+             diagnosis: create(:diagnosis, facility: create(:facility))
     end
     let!(:need_random_local_antenne_i1) do
       create :need,
@@ -245,7 +242,7 @@ RSpec.describe Antenne do
     let!(:need_local_antenne_i2) do
       create :need,
              matches: [create(:match, expert: expert_local_antenne_i2)],
-             diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1))
+             diagnosis: create(:diagnosis, facility: create(:facility))
     end
 
     before do
@@ -269,16 +266,13 @@ RSpec.describe Antenne do
   end
 
   describe 'perimeter_received_matches' do
-    let(:commune1) { create :commune }
-    let(:commune2) { create :commune }
-    let!(:region) { create :territory, :region, code_region: 999, communes: [commune1, commune2] }
     let(:institution1) { create :institution, name: 'Institution 1' }
     let(:national_antenne_i1) { create :antenne, :national, institution: institution1 }
-    let(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, communes: [commune1, commune2] }
-    let(:local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune1] }
-    let(:other_local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune2] }
+    let(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, parent_antenne_id: national_antenne_i1.id }
+    let(:local_antenne_i1) { create :antenne, :local, institution: institution1, parent_antenne_id: regional_antenne_i1.id }
+    let(:other_local_antenne_i1) { create :antenne, :local, institution: institution1, parent_antenne_id: regional_antenne_i1.id }
     let(:random_local_antenne_i1) { create :antenne, :local, institution: institution1 }
-    let(:local_antenne_i2) { create :antenne, :local, institution: create(:institution), communes: [commune1] }
+    let(:local_antenne_i2) { create :antenne, :local, institution: create(:institution) }
 
     let(:expert_local_antenne_i1) { create :expert_with_users, antenne: local_antenne_i1 }
     let(:expert_other_local_antenne_i1) { create :expert_with_users, antenne: other_local_antenne_i1 }
@@ -288,17 +282,17 @@ RSpec.describe Antenne do
     let!(:match_regional_antenne_i1) do
       create :match,
              expert: expert_regional_antenne_i1,
-             need: create(:need, diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1)))
+             need: create(:need, diagnosis: create(:diagnosis, facility: create(:facility)))
     end
     let!(:match_local_antenne_i1) do
       create :match,
              expert: expert_local_antenne_i1,
-             need: create(:need, diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1)))
+             need: create(:need, diagnosis: create(:diagnosis, facility: create(:facility)))
     end
     let!(:match_other_local_antenne_i1) do
       create :match,
              expert: expert_other_local_antenne_i1,
-             need: create(:need, diagnosis: create(:diagnosis, facility: create(:facility, commune: commune2)))
+             need: create(:need, diagnosis: create(:diagnosis, facility: create(:facility)))
     end
     let!(:match_random_local_antenne_i1) do
       create :match,
@@ -307,7 +301,7 @@ RSpec.describe Antenne do
     let!(:match_local_antenne_i2) do
       create :match,
              expert: expert_local_antenne_i2,
-             need: create(:need, diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1)))
+             need: create(:need, diagnosis: create(:diagnosis, facility: create(:facility)))
     end
 
     before do
@@ -330,20 +324,15 @@ RSpec.describe Antenne do
   end
 
   describe 'perimeter_received_matches_from_needs' do
-    let(:commune1) { create :commune }
-    let(:commune2) { create :commune }
-    let(:commune3) { create :commune }
     let(:institution1) { create :institution, name: 'Institution 1' }
-    let!(:region) { create :territory, :region, code_region: 998, communes: [commune1, commune2] }
-    let!(:region2) { create :territory, :region, code_region: 999, communes: [commune3] }
 
     let(:national_antenne_i1) { create :antenne, :national, institution: institution1 }
-    let(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, communes: [commune1, commune2] }
-    let(:regional_antenne2_i1) { create :antenne, :regional, institution: institution1, communes: [commune3] }
-    let(:local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune1] }
-    let(:other_local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune2] }
+    let(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, parent_antenne_id: national_antenne_i1.id }
+    let(:regional_antenne2_i1) { create :antenne, :regional, institution: institution1, parent_antenne_id: national_antenne_i1.id }
+    let(:local_antenne_i1) { create :antenne, :local, institution: institution1, parent_antenne_id: regional_antenne_i1.id }
+    let(:other_local_antenne_i1) { create :antenne, :local, institution: institution1, parent_antenne_id: regional_antenne_i1.id }
     let(:random_local_antenne_i1) { create :antenne, :local, institution: institution1 }
-    let(:local_antenne_i2) { create :antenne, :local, institution: create(:institution), communes: [commune1] }
+    let(:local_antenne_i2) { create :antenne, :local, institution: create(:institution) }
 
     let(:expert_local_antenne_i1) { create :expert_with_users, antenne: local_antenne_i1 }
     let(:expert_other_local_antenne_i1) { create :expert_with_users, antenne: other_local_antenne_i1 }
@@ -395,15 +384,12 @@ RSpec.describe Antenne do
   end
 
   describe 'regional_antenne' do
-    let(:commune1) { create :commune }
-    let(:commune2) { create :commune }
-    let!(:region) { create :territory, :region, code_region: 999, communes: [commune1, commune2] }
     let(:institution1) { create :institution, name: 'Institution 1' }
-    let!(:regional_antenne1) { create :antenne, :regional, institution: institution1, communes: [commune1, commune2] }
-    let!(:local_antenne1) { create :antenne, :local, institution: institution1, communes: [commune1] }
-    let!(:other_local_antenne1) { create :antenne, :local, institution: institution1, communes: [commune2] }
-    let!(:out_local_antenne1) { create :antenne, :local, institution: institution1, communes: [create(:commune)] }
-    let!(:local_antenne2) { create :antenne, :local, institution: create(:institution), communes: [commune1] }
+    let!(:regional_antenne1) { create :antenne, :regional, institution: institution1 }
+    let!(:local_antenne1) { create :antenne, :local, institution: institution1, parent_antenne_id: regional_antenne1.id }
+    let!(:other_local_antenne1) { create :antenne, :local, institution: institution1, parent_antenne_id: regional_antenne1.id }
+    let!(:out_local_antenne1) { create :antenne, :local, institution: institution1 }
+    let!(:local_antenne2) { create :antenne, :local, institution: create(:institution) }
 
     it "returns correct regional_antenne" do
       expect(regional_antenne1.regional_antenne).to be_nil
@@ -415,14 +401,11 @@ RSpec.describe Antenne do
   end
 
   describe 'territorial_antennes' do
-    let(:commune1) { create :commune }
-    let(:commune2) { create :commune }
-    let!(:region) { create :territory, :region, code_region: 999, communes: [commune1, commune2] }
     let(:institution) { create :institution, name: 'Institution 1' }
-    let!(:regional_antenne) { create :antenne, :regional, institution: institution, communes: [commune1, commune2] }
+    let!(:regional_antenne) { create :antenne, :regional, institution: institution }
 
     context 'local antenne' do
-      let!(:local_antenne) { create :antenne, :local, institution: institution, communes: [commune1] }
+      let!(:local_antenne) { create :antenne, :local, institution: institution, parent_antenne: regional_antenne }
 
       it { expect(local_antenne.territorial_antennes).to be_empty }
     end
@@ -432,10 +415,10 @@ RSpec.describe Antenne do
     end
 
     context 'regional antenne with local antennes' do
-      let!(:local_antenne1) { create :antenne, :local, institution: institution, communes: [commune1] }
-      let!(:other_local_antenne1) { create :antenne, :local, institution: institution, communes: [commune2] }
-      let!(:out_local_antenne1) { create :antenne, :local, institution: institution, communes: [create(:commune)] }
-      let!(:local_antenne2) { create :antenne, :local, institution: create(:institution), communes: [commune1] }
+      let!(:local_antenne1) { create :antenne, :local, institution: institution, parent_antenne_id: regional_antenne.id }
+      let!(:other_local_antenne1) { create :antenne, :local, institution: institution, parent_antenne_id: regional_antenne.id }
+      let!(:out_local_antenne1) { create :antenne, :local, institution: institution }
+      let!(:local_antenne2) { create :antenne, :local, institution: create(:institution) }
 
       it { expect(regional_antenne.territorial_antennes).to contain_exactly(local_antenne1, other_local_antenne1) }
     end
