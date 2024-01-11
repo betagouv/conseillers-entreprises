@@ -51,7 +51,7 @@
             .logo-institution= institution_image(solicitation.institution.logo&.filename)
       .card__description
         .card__description__label= t('.description')
-        .card__description__content= simple_format(solicitation.description)
+        .card__description__content.break-word= simple_format(solicitation.description)
       .card__feedbacks
         %div{ id: "display-feedbacks-#{solicitation.id}" }
           = render partial: 'feedbacks/feedback', collection: solicitation.feedbacks
