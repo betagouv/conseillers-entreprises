@@ -110,4 +110,8 @@ class InstitutionSubject < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "description", "id", "institution_id", "subject_id", "updated_at"]
   end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["experts", "experts_subjects", "institution", "not_deleted_experts", "referencement_coverages", "similar_institutions_subjects", "subject", "theme"]
+    end
 end

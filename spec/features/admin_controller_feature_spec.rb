@@ -26,6 +26,8 @@ describe 'admin panel' do
       click_link 'Utilisateurs'
       click_link 'Créer Utilisateur'
 
+      click_link 'Recherches'
+
       click_link 'Entreprises'
       click_link 'Créer Entreprise'
 
