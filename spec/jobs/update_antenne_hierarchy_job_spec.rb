@@ -17,7 +17,7 @@ RSpec.describe UpdateAntenneHierarchyJob do
     describe 'national antenne' do
       before do
         described_class.perform_sync(national_antenne_i1.id)
-        national_antenne_i1.relaod
+        national_antenne_i1.reload
       end
 
       it 'sets hierarchy' do
