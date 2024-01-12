@@ -11,10 +11,10 @@ class AddChildrenAntennes < ActiveRecord::Migration[7.0]
           .where(communes: { id: regional_antenne.commune_ids })
           .or(Antenne.not_deleted.where(institution_id: institution_id, territorial_level: Antenne.territorial_levels[:local]).where(experts: { is_global_zone: true }))
           .distinct
-        territorial_antennes.update_all(parent_antenne: regional_antenne)
+        territorial_antennes.update_all(parent_antenne_id: regional_antenne.id)
 
         national_antenne = Antenne.not_deleted.where(institution_id: regional_antenne.institution_id, territorial_level: :national).first
-        regional_antenne.update(parent_antenne: national_antenne)
+        regional_antenne.update(parent_antenne_id: national_antenne.id)
       end
     end
   end
