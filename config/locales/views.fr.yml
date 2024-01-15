@@ -1004,6 +1004,8 @@ fr:
     with_diagnosis: Besoins transmis
     without_diagnosis: Besoins non transmis
   step_number: Étape %{actual} sur %{total}
+  temoignage:
+    image_title: Photo de %{author}
   to_new_window: ouvre une nouvelle fenêtre
   usage_team_stats: Statistiques équipe
   user_pages:

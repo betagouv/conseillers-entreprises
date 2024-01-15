@@ -69,7 +69,7 @@
           %figcaption
             %p.fr-quote__author= temoignage.author
             .fr-quote__image
-              = image_tag(temoignage.picture_path, class: 'fr-responsive-img')
+              = image_tag(temoignage.picture_path, alt: t('temoignage.image_title', author: temoignage.author), class: 'fr-responsive-img')
 
     - if @landing_subject.solicitable_institutions.with_logo.any?
       .section-light-grey.fr-pt-8w.fr-pb-5w
