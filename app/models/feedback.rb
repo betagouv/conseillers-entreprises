@@ -34,6 +34,7 @@ class Feedback < ApplicationRecord
   #
   belongs_to :feedbackable, polymorphic: true, touch: true
   belongs_to :user, inverse_of: :feedbacks
+  has_many :experts, through: :user, inverse_of: :feedbacks
 
   ## Validations
   #

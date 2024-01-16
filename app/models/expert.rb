@@ -73,6 +73,9 @@ class Expert < ApplicationRecord
   has_many :subjects, through: :experts_subjects, inverse_of: :experts
   has_many :themes, through: :experts_subjects, inverse_of: :experts
 
+  # :users
+  has_many :feedbacks, through: :users, inverse_of: :experts
+
   # Callbacks
   after_update :synchronize_single_member, if: :personal_skillset?
 
