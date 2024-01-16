@@ -24,7 +24,7 @@ class AdminMailerPreview < ActionMailer::Preview
   end
 
   def failed_jobs
-    count = Sidekiq::Failures::FailureSet.new.count
-    AdminMailer.failed_jobs(count)
+    jobs = Sidekiq::Failures::FailureSet.new
+    AdminMailer.failed_jobs(jobs)
   end
 end
