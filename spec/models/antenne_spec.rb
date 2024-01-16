@@ -133,6 +133,48 @@ RSpec.describe Antenne do
         end
       end
     end
+
+    context 'update_antenne_hierarchy' do
+      let(:antenne) { create :antenne, territorial_level: :local }
+
+      context 'communes updates' do
+        let(:commune) { create :commune }
+
+        context 'when adding commune' do
+          it 'calls update_antenne_hierarchy' do
+            allow(antenne).to receive(:update_antenne_hierarchy)
+            antenne.communes << commune
+            expect(antenne).to have_received(:update_antenne_hierarchy)
+          end
+        end
+
+        context 'when removing commune' do
+          before { antenne.communes << commune }
+
+          it 'calls update_antenne_hierarchy' do
+            allow(antenne).to receive(:update_antenne_hierarchy)
+            antenne.communes.delete(commune)
+            expect(antenne).to have_received(:update_antenne_hierarchy)
+          end
+        end
+      end
+
+      context 'territorial_level change' do
+        it 'calls update_antenne_hierarchy' do
+          allow(antenne).to receive(:update_antenne_hierarchy)
+          antenne.update(territorial_level: :regional)
+          expect(antenne).to have_received(:update_antenne_hierarchy)
+        end
+      end
+
+      context 'name change' do
+        it 'doesnt call update_antenne_hierarchy' do
+          allow(antenne).to receive(:update_antenne_hierarchy)
+          antenne.update(name: 'Pole Emploi Matignon')
+          expect(antenne).not_to have_received(:update_antenne_hierarchy)
+        end
+      end
+    end
   end
 
   describe 'name code uniqueness' do

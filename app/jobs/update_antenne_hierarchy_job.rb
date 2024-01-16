@@ -6,7 +6,7 @@ class UpdateAntenneHierarchyJob
     institution_id = current_antenne.institution_id
 
     if current_antenne.national?
-      regional_antennes = Antenne.not_deleted.where(institution: current_antenne.institution, territorial_level: Antenne.territorial_levels[:regional])
+      regional_antennes = Antenne.not_deleted.where(institution: current_antenne.institution, territorial_level: :regional)
       regional_antennes.update_all(parent_antenne_id: current_antenne.id)
     elsif current_antenne.regional?
       territorial_antennes = get_associated_antennes(Antenne.territorial_levels[:local], current_antenne)

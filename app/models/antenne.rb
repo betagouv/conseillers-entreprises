@@ -100,6 +100,7 @@ class Antenne < ApplicationRecord
   ## Callbacks
   #
   after_create :check_territorial_level
+  after_update :update_antenne_hierarchy, if: :saved_change_to_territorial_level?
 
   ##
   #
