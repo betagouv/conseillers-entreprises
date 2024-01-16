@@ -19,12 +19,12 @@ module CsvExport
         real_theme: :theme,
         real_subject: :subject,
         need_status: -> { need.human_attribute_value(:status, context: :csv) },
-        need_closed_at: -> { I18n.l(need.matches.pluck(:closed_at), format: :admin) if need.matches.pluck(:closed_at).compact.present? },
+        need_closed_at: -> { I18n.l(need.matches.minimum(:closed_at), format: :admin) if need.matches.pluck(:closed_at).compact.present? },
         match_status: -> { human_attribute_value(:status, context: :short) },
         match_closed_at: -> { I18n.l(closed_at, format: :admin) if closed_at.present? },
         expert_antenne: :expert_antenne,
         expert_institution: :expert_institution,
-        comments: -> { "- #{expert.feedbacks.where(user: expert.users).pluck(:description).join("\n- ")}" },
+        comments: -> { "- #{expert.feedbacks.where(user: expert.users, feedbackable: need).order(:created_at).pluck(:description).join("\n- ")}" },
         satisfaction_contacted_by_expert: -> { I18n.t(company_satisfaction.contacted_by_expert, scope: [:boolean, :text]) if company_satisfaction.present? },
         satisfaction_useful_exchange: -> { I18n.t(company_satisfaction.useful_exchange, scope: [:boolean, :text]) if company_satisfaction.present? },
         satisfaction_comment: -> { company_satisfaction&.comment },
@@ -34,11 +34,7 @@ module CsvExport
 
     def preloaded_associations
       [
-        :need, :diagnosis, :facility, :company, :related_matches,
-        :advisor, :expert, :expert_antenne, :expert_institution,
-        :theme, :solicitation, :company_satisfaction,
-        :facility_regions, solicitation: [:badges, :landing_theme, :landing, :subject],
-        facility: :commune, diagnosis: :visitee, need: [:reminders_actions]
+        :need, :facility, :company, :expert, :expert_antenne, :expert_institution, :theme, :solicitation, :company_satisfaction
       ]
     end
 
