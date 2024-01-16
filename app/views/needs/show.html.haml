@@ -7,7 +7,7 @@
 .fr-container.fr-pb-4w
   .fr-grid-row.fr-grid-row--gutters
     .fr-col-md-8
-      .fr-mt-xs-4w
+      .fr-mt-xs-4w.break-word
         %h1.fr-h3.fr-mb-2v= @need.subject
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
