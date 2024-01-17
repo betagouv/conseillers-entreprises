@@ -4,17 +4,12 @@ require 'rails_helper'
 
 RSpec.describe TerritoryNeedsStatus do
   let(:institution) { create :institution }
-  let!(:region_1) { create :territory, :region, code_region: 998 }
-  let!(:region_2) { create :territory, :region, code_region: 999 }
-  let!(:commune_1) { create :commune, insee_code: '72026', regions: [region_1] }
-  let!(:commune_2) { create :commune, insee_code: '72039', regions: [region_1] }
-  let!(:commune_3) { create :commune, insee_code: '94068', regions: [region_2] }
   # Antenne dans le territoire
-  let!(:antenne_inside_local) { create :antenne, communes: [commune_1], institution: institution }
-  let!(:antenne_inside_regional) { create :antenne, :regional, communes: [commune_1], institution: institution }
+  let!(:antenne_inside_local) { create :antenne, institution: institution, parent_antenne: antenne_inside_regional }
+  let!(:antenne_inside_regional) { create :antenne, :regional, institution: institution }
   let(:expert_inside) { create :expert_with_users, antenne: antenne_inside_local }
   # Antenne en dehors du territoire
-  let!(:antenne_outside_1) { create :antenne, communes: [commune_3], institution: institution }
+  let!(:antenne_outside_1) { create :antenne, institution: institution }
   let(:expert_outside) { create :expert_with_users, antenne: antenne_outside_1 }
 
   let(:diagnosis) { create :diagnosis_completed }

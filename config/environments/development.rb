@@ -99,5 +99,8 @@ Rails.application.configure do
   config.after_initialize do
     Bullet.enable = false
     Bullet.add_footer = true
+    Bullet.rails_logger = true
+    Bullet.alert = false
+    Bullet.console = false
   end
 end

@@ -3,20 +3,17 @@ require 'rails_helper'
 describe StatsHelper do
   describe "build_manager_antennes_collection" do
     login_user
-    let(:commune1) { create :commune }
-    let(:commune2) { create :commune }
     let(:institution) { create :institution }
 
     subject { helper.build_manager_antennes_collection(current_user) }
 
     context 'Regional antenne' do
-      let(:regional_antenne) { create :antenne, :regional, institution: institution, communes: [commune1, commune2] }
-      let!(:region) { create :territory, :region, code_region: 999, communes: [commune1, commune2] }
+      let(:regional_antenne) { create :antenne, :regional, institution: institution }
 
       before { current_user.managed_antennes << [regional_antenne] }
 
       context 'Antenne regional qui a des experts et des antennes locales' do
-        let!(:local_antenne) { create :antenne, :local, institution: institution, communes: [commune1] }
+        let!(:local_antenne) { create :antenne, :local, institution: institution, parent_antenne: regional_antenne }
         let!(:expert_local) { create :expert_with_users, antenne: local_antenne }
         let!(:expert_subject_local) { create :expert_subject, expert: expert_local }
         let!(:expert_regional) { create :expert_with_users, antenne: regional_antenne }
@@ -28,7 +25,7 @@ describe StatsHelper do
       end
 
       context "Antenne regional qui n’a pas d'expert mais des antennes locales" do
-        let!(:local_antenne) { create :antenne, :local, institution: institution, communes: [commune1] }
+        let!(:local_antenne) { create :antenne, :local, institution: institution, parent_antenne: regional_antenne }
         let!(:expert) { create :expert_with_users, antenne: local_antenne }
         let!(:expert_subject) { create :expert_subject, expert: expert }
 
@@ -59,7 +56,7 @@ describe StatsHelper do
       end
 
       context 'Antenne national avec des experts avec des antennes locales' do
-        let!(:local_antenne) { create :antenne, :local, institution: institution, communes: [commune1] }
+        let!(:local_antenne) { create :antenne, :local, institution: institution }
         let!(:local_expert) { create :expert_with_users, antenne: local_antenne }
         let!(:national_expert) { create :expert_with_users, antenne: national_antenne }
         let!(:expert_subject_local) { create :expert_subject, expert: local_expert }
@@ -73,7 +70,7 @@ describe StatsHelper do
       end
 
       context 'Antenne national sans expert avec des antennes locales' do
-        let!(:local_antenne) { create :antenne, :local, institution: institution, communes: [commune1] }
+        let!(:local_antenne) { create :antenne, :local, institution: institution }
         let!(:expert) { create :expert_with_users, antenne: local_antenne }
         let!(:expert_subject) { create :expert_subject, expert: expert }
 

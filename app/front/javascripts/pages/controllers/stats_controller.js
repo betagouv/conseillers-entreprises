@@ -1,15 +1,17 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ['institution', 'antennes', 'subjects', 'iframes']
+  static targets = ['institution', 'antennes', 'subjects', 'iframes', 'loader']
 
   async institutionFilters() {
+    this.loaderTarget.style.display = 'inline-block'
     await fetch(`/stats/equipe/institution_filters?institution_id=${this.institutionTarget.value}`)
       .then((response) => response.json())
       .then((data) => this.updateFilters(data));
   }
 
   updateFilters(data) {
+    this.loaderTarget.style.display = 'none'
     this.updateAntennesOptions(data.antennes);
     this.updateSubjectsOptions(data.subjects);
   }

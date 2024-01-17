@@ -14,15 +14,16 @@ RSpec.describe AntenneCoverage::DeduplicatedJob do
 
       expect(scheduled.size).to eq 0
       antenne.update(communes: [])
-      expect(scheduled.size).to eq 1
-      expect(scheduled.first.args).to eq [antenne.id]
-      first_job = scheduled.first
+      service_scheduled = scheduled.select{ |job| job['class'] == "AntenneCoverage::DeduplicatedJob" }
+      expect(service_scheduled.size).to eq 1
+      expect(service_scheduled.first.args).to eq [antenne.id]
+      first_job = service_scheduled.first
 
       # Pas de nouveau job rajouté si on modifie la même antenne
       antenne.update(communes: [beaufay])
-      expect(scheduled.size).to eq 1
-      expect(scheduled.first.args).to eq [antenne.id]
-      second_job = scheduled.first
+      expect(service_scheduled.size).to eq 1
+      expect(service_scheduled.first.args).to eq [antenne.id]
+      second_job = service_scheduled.first
       expect(first_job['args']).to eq second_job['args']
       expect(first_job['class']).to eq second_job['class']
       expect(first_job['queue']).to eq second_job['queue']
