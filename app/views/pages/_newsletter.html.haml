@@ -9,7 +9,7 @@
 
       = form_with url: newsletters_path, method: :post, local: true, data: { turbo: false } do |f|
         .fr-input-group
-          = f.label :email, class: 'fr-label' do
+          = f.label :email, class: 'fr-label', for: 'newsletter-email' do
             = t('attributes.email')
             %span.fr-hint-text#format= t('.email_format')
           .fr-input-wrap.fr-input-wrap--addon
