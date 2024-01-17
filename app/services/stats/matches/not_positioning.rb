@@ -6,7 +6,7 @@ module Stats::Matches
     include ::Stats::TwoRatesStats
 
     def main_query
-      Match.sent.where(created_at: @start_date..@end_date)
+      Match.sent.where(created_at: @start_date..@end_date).distinct
     end
 
     def filtered(query)

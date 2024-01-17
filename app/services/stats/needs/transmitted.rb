@@ -4,7 +4,7 @@ module Stats::Needs
     include ::Stats::BaseStats
 
     def main_query
-      Need.diagnosis_completed.joins(matches: :expert).where(created_at: @start_date..@end_date)
+      Need.diagnosis_completed.joins(matches: :expert).where(created_at: @start_date..@end_date).distinct
     end
 
     def build_series

@@ -8,6 +8,7 @@ module Stats::Needs
         .joins(:advisor)
         .joins(subject: :theme)
         .where(created_at: @start_date..@end_date)
+        .distinct
     end
 
     def filtered(query)

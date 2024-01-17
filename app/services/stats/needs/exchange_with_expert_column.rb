@@ -13,6 +13,7 @@ module Stats::Needs
       Need.joins(:diagnosis)
         .merge(Diagnosis.from_solicitation.completed)
         .with_exchange
+        .distinct
     end
 
     # Stat principale, on ne filtre pas

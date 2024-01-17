@@ -3,7 +3,7 @@ module Stats::Solicitations
     include ::Stats::BaseStats
 
     def main_query
-      Solicitation.joins(diagnosis: :needs).status_processed.where(created_at: @start_date..@end_date)
+      Solicitation.joins(diagnosis: :needs).status_processed.where(created_at: @start_date..@end_date).distinct
     end
 
     def filtered(query)

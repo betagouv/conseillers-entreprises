@@ -8,6 +8,7 @@ module Stats::Needs
         .merge(Diagnosis.from_solicitation.completed)
         .where(created_at: Time.zone.local(2020, 9, 1)..)
         .where(created_at: @start_date..@end_date)
+        .distinct
     end
 
     def build_series
