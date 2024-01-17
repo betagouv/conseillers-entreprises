@@ -1,11 +1,11 @@
 module CsvExport
   class FeedbackExporter < BaseExporter
-
     def initialize(relation, options = nil)
       super
-      needs = Need.includes(:feedbacks).where(feedbacks: relation)
-      users = User.includes(:feedbacks).where(feedbacks: relation)
-      @relation = Match.joins(:need, expert: :users).where(needs: needs, experts: { users: users })
+      @relation = Match
+        .joins(need: :feedbacks, expert: { users: :feedbacks })
+        .where(needs: { feedbacks: relation }, experts: { users: { feedbacks: relation } })
+        .distinct
     end
 
     def fields
@@ -40,6 +40,10 @@ module CsvExport
 
     def sort_relation(relation)
       relation.includes(*preloaded_associations).sort_by{ |m| [(m.solicitation&.created_at || m.created_at), m.created_at] }
+    end
+
+    def filename
+      "commentaires-#{Time.zone.now.iso8601}"
     end
   end
 end
