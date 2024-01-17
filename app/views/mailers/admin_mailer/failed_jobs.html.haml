@@ -4,21 +4,21 @@
 
 %p= t('.failed_jobs_list', count: @jobs.size)
 .container
-  - @jobs.each do |job|
-    %ul
-      %h3
-        = link_to t('.job_id', id: job['item']['jid']), "https://place-des-entreprises.beta.gouv.fr/admin/sidekiq/retries/#{job['score']}-#{job['item']['jid']}"
-      %li
-        %strong= t('.created_at')
-        = I18n.l(DateTime.new(job['item']['created_at']), format: :long)
-      %li
-        %strong= t('.queue')
-        = job['item']['queue']
-      %li
-        %strong= t('.class')
-        = job['item']['class']
-      %li
-        %strong= t('.error')
-        #{job['item']['error_class']} :#{job['item']['error_message']}
+- @jobs.each do |job|
+  %ul
+    %h3
+      = link_to t('.job_id', id: job.item['jid']), "https://place-des-entreprises.beta.gouv.fr/admin/sidekiq/retries/#{job['score']}-#{job.item['jid']}"
+    %li
+      %strong= t('.created_at')
+      = I18n.l(DateTime.new(job.item['created_at']), format: :long)
+    %li
+      %strong= t('.queue')
+      = job.item['queue']
+    %li
+      %strong= t('.class')
+      = job.item['class']
+    %li
+      %strong= t('.error')
+      #{job.item['error_class']} :#{job.item['error_message']}
 
 = link_to t('.jobs_index'), sidekiq_web_url

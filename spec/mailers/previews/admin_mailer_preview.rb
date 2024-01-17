@@ -24,7 +24,7 @@ class AdminMailerPreview < ActionMailer::Preview
   end
 
   def failed_jobs
-    jobs = Delayed::Backend::ActiveRecord::Job.where.not(failed_at: nil).as_json
+    jobs = Sidekiq::Failures::FailureSet.new
     AdminMailer.failed_jobs(jobs)
   end
 end
