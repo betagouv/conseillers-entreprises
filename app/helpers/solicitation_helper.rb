@@ -38,14 +38,10 @@ module SolicitationHelper
   end
 
   def subject_tag(solicitation, classes = %[])
-    landing_subject = solicitation.landing_subject
-    if landing_subject.present?
-      title_components = {}
-      subject = landing_subject.subject
-      title_components[t('attributes.subject')] = subject
-      title = "#{t('attributes.subject')} : #{subject}"
-      path = new_solicitation_path(solicitation.landing.slug, solicitation.landing_subject.slug, anchor: 'section-breadcrumbs')
-      link_to landing_subject.title, path, class: classes, title: title
+    if solicitation.diagnosis.present? && solicitation.diagnosis.needs.present?
+      tag_for_editable_subject(solicitation.diagnosis.needs.first, classes)
+    else
+      tag_for_non_editable_subject(solicitation, classes)
     end
   end
 
@@ -74,5 +70,20 @@ module SolicitationHelper
     tag.div(class: 'item') do
       t('helpers.solicitation.localisation_html', region: region.name)
     end
+  end
+
+  private
+
+  def tag_for_editable_subject(need, classes)
+    title = t('helpers.solicitation.modify_subject', subject: need.subject)
+    path = needs_conseiller_diagnosis_path(need.diagnosis)
+    link_to path, class: [], title: title do
+      tag.span(class: classes) { need.subject.label } +
+      tag.span(class: 'ri-edit-box-line', 'aria-hidden': 'true')
+    end
+  end
+
+  def tag_for_non_editable_subject(solicitation, classes)
+    tag.span(class: classes) { solicitation.landing_subject.title }
   end
 end
