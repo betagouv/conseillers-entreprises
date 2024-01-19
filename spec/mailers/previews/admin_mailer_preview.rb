@@ -24,7 +24,7 @@ class AdminMailerPreview < ActionMailer::Preview
   end
 
   def failed_jobs
-    jobs = Sidekiq::Failures::FailureSet.new.map{|j| j.item }.as_json
+    jobs = Sidekiq::Failures::FailureSet.new.map{ |j| j.item }.as_json
     AdminMailer.failed_jobs(jobs)
   end
 end
