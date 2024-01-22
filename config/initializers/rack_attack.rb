@@ -104,5 +104,5 @@ class Rack::Attack
     [ 503, {}, ['Blocked']]
   end
 
-  Rack::Attack.enabled = false
+  Rack::Attack.enabled = true
 end
