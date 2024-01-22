@@ -67,5 +67,6 @@
       - button_classes = []
       - if @diagnosis.visitee.blank?
         - button_classes << 'disabled'
-      %button.fr-btn.btn-green#next-step-button{ class: button_classes, form: 'confirm_matches_form' }
-        = t('.notify_matches')
+      .text-right
+        %button.fr-btn.btn-green#next-step-button{ class: button_classes, form: 'confirm_matches_form' }
+          = t('.notify_matches')

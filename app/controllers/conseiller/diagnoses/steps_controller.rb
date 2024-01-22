@@ -32,8 +32,10 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
 
     diagnosis_params = params_for_needs
     diagnosis_params[:step] = :matches
-    if @diagnosis.update(diagnosis_params)
+    if @diagnosis.update(diagnosis_params) && params[:diagnosis][:submit] != 'return_solicitation_page'
       redirect_to action: :matches
+    elsif @diagnosis.update(diagnosis_params) && params[:diagnosis][:submit] == 'return_solicitation_page'
+      redirect_to conseiller_solicitation_path(@diagnosis.solicitation)
     else
       @themes = Theme.ordered_for_interview
       flash.alert = @diagnosis.errors.full_messages.to_sentence
