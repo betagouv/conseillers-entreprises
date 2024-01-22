@@ -59,7 +59,7 @@
     .fr-callout
       %p.fr-callout__text= t('.before_sending_emails')
 
-    .bottom_actions.flex
+    .bottom_actions.space-between
       = link_to needs_conseiller_diagnosis_path(@diagnosis), class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbo: false } do
         %span.ri-arrow-left-line.fr-mr-1w{ 'aria-hidden': 'true' }
         = t('previous_step')
@@ -67,6 +67,5 @@
       - button_classes = []
       - if @diagnosis.visitee.blank?
         - button_classes << 'disabled'
-      .text-right
-        %button.fr-btn.btn-green#next-step-button{ class: button_classes, form: 'confirm_matches_form' }
-          = t('.notify_matches')
+      %button.fr-btn.btn-green#next-step-button{ class: button_classes, form: 'confirm_matches_form' }
+        = t('.notify_matches')
