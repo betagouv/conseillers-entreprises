@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-describe CancelSolicitationWithEmail do
+describe SendSolicitationGenericEmail do
   before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
 
   describe '#cancel' do
@@ -9,7 +9,7 @@ describe CancelSolicitationWithEmail do
       let(:solicitation) { create :solicitation, status: 'in_progress' }
       let(:email_type) { :siret }
 
-      before { described_class.new(solicitation, email_type).cancel }
+      before { described_class.new(solicitation, email_type).send_email }
 
       it do
         expect(solicitation.badges.size).to eq 1
@@ -25,7 +25,7 @@ describe CancelSolicitationWithEmail do
       let(:email_type) { :tatayoyo }
 
       it do
-        expect { described_class.new(solicitation, email_type).cancel }.to raise_error StandardError
+        expect { described_class.new(solicitation, email_type).send_email }.to raise_error StandardError
       end
     end
   end
