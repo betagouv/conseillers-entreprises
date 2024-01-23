@@ -70,6 +70,9 @@ fr:
       diagnosis_completed: Analyses terminées
       done: Clôturé
       expert_provider: Fournisseur d’experts
+      for_expert: Experts
+      for_need: Besoins
+      for_solicitation: Sollicitations
       from_solicitation: Sollicitations
       from_visit: Visites
       iframe: Iframe

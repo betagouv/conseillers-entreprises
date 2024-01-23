@@ -2,7 +2,11 @@ ActiveAdmin.register Feedback do
   include CsvExportable
   menu parent: :diagnoses, priority: 4
 
-  scope :all, group: :all, default: true
+  scope :all, group: :all
+
+  scope :for_need, group: :type, default: true
+  scope :for_solicitation, group: :type
+  scope :for_expert, group: :type
 
   ## Index
   #

@@ -40,6 +40,12 @@ class Feedback < ApplicationRecord
   #
   validates :description, presence: true
 
+  ## Scopes
+
+  scope :for_need, -> { where(feedbackable_type: 'Need') }
+  scope :for_solicitation, -> { where(feedbackable_type: 'Solicitation') }
+  scope :for_expert, -> { where(feedbackable_type: 'Expert') }
+
   ##
   #
 
