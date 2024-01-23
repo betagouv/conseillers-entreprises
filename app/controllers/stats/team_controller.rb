@@ -10,7 +10,7 @@ module Stats
 
     def public
       @charts_names = %w[
-        solicitations_completed solicitations_diagnoses needs_quo needs_exchange_with_expert
+        solicitations_completed solicitations_diagnoses needs_quo needs_taking_care needs_exchange_with_expert
         needs_done solicitations_taking_care_time needs_themes companies_by_employees companies_by_naf_code
       ]
       render :index
@@ -18,7 +18,7 @@ module Stats
 
     def needs
       @charts_names = %w[
-        solicitations_transmitted_less_than_72h needs_quo needs_done needs_done_no_help
+        solicitations_transmitted_less_than_72h needs_quo needs_taking_care needs_done needs_done_no_help
         needs_done_not_reachable needs_not_for_me needs_abandoned
       ]
       render :index

@@ -4,8 +4,8 @@ module Stats::Needs
 
     def main_query
       # This stat is available since 2020-09-01
-      Need.joins(:diagnosis)
-        .merge(Diagnosis.from_solicitation.completed)
+      Need.diagnosis_completed
+        .joins(:diagnosis).merge(Diagnosis.from_solicitation)
         .where(created_at: Time.zone.local(2020, 9, 1)..)
         .where(created_at: @start_date..@end_date)
     end
