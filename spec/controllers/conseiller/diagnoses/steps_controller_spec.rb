@@ -79,7 +79,7 @@ RSpec.describe Conseiller::Diagnoses::StepsController do
       end
     end
 
-    context 'to change subject from solicitation page' do
+    context 'Changes subject from solicitation page' do
       let(:params) do
         {
           id: diagnosis.id,
