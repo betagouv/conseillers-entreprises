@@ -11,7 +11,7 @@
 ## Problème de génération des reports
 
 ```ruby 
-a=Antenne.find(:id)
+a = Antenne.find(:id)
 
 a.quarterly_reports.all.each do |qr|
   qr.file.purge
