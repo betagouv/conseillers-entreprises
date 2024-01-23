@@ -6,6 +6,7 @@ class SolicitationMailer < ApplicationMailer
 
   def bad_quality(solicitation)
     @solicitation = solicitation
+    @subject_label = @solicitation&.diagnosis&.needs&.first&.subject&.label.presence || @solicitation.landing_subject.title
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 
