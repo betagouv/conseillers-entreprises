@@ -6,10 +6,10 @@ class AdminMailer < ApplicationMailer
 
   helper :solicitation
 
-  def failed_jobs(jobs)
-    @jobs = jobs
+  def failed_jobs(jobs_count)
+    @jobs_count = jobs_count
 
-    mail(to: ENV['TECH_EMAIL'], subject: t('mailers.admin_mailer.failed_jobs.subject', count: @jobs.size))
+    mail(to: ENV['TECH_EMAIL'], subject: t('mailers.admin_mailer.failed_jobs.subject', count: @jobs_count))
   end
 
   def solicitation(solicitation)

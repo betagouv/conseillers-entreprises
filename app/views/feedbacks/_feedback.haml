@@ -23,4 +23,4 @@
       - if policy(feedback).destroy?
         = button_to feedback_path(feedback), method: :delete, class: "delete-form", title: t('.delete_comment'), data: { confirm: t('.delete') } do
           %span.fr-icon-delete-line.red.fr-btn.fr-btn--tertiary-no-outline.fr-btn--sm
-    .content= simple_format(auto_link(feedback.description))
+    .content.break-word= simple_format(auto_link(feedback.description))
