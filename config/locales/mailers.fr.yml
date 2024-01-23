@@ -218,7 +218,7 @@ fr:
         taking_care_by_experts: Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.
       no_expert:
         erp_html: 'pour votre établissement recevant du public (ERP) et son accessibilité : <a href=''https://entreprendre.service-public.fr/vosdroits/F32351''>https://entreprendre.service-public.fr/vosdroits/F32351</a>'
-        inpi_html: 'pour réaliser vos formalités d’entreprises : <a href=''https://procedures.inpi.fr''>https://procedures.inpi.fr</a>'
+        inpi_html: 'pour réaliser vos formalités d’entreprises : <a href=''https://procedures.inpi.fr''>https://procedures.inpi.fr</a>, ou pour les SCI <a href=''https://tribunal-commerce.fr''>https://tribunal-commerce.fr</a>'
         juridique_html: pour votre problématique juridique, vous rapprocher d’un <a href="https://www.justice.fr/themes/acces-droit-point-justice">point d’accès au droit</a> ou d’une <a href="https://www.service-public.fr/particuliers/vosdroits/F20706">permanence gratuite d’avocat</a>
         no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
         personal_services_html: 'pour devenir un service à la personne : <a href=''https://www.servicesalapersonne.gouv.fr''>https://www.servicesalapersonne.gouv.fr</a>'
