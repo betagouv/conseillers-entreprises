@@ -24,7 +24,7 @@ module CsvExport
         match_closed_at: -> { I18n.l(closed_at, format: :admin) if closed_at.present? },
         expert_antenne: :expert_antenne,
         expert_institution: :expert_institution,
-        comments: -> { "- #{expert.feedbacks.where(user: expert.users, feedbackable: need).order(:created_at).pluck(:description).join("\n- ")}" },
+        comments: -> { FeedbackExporter.display_comments(expert, need) },
         satisfaction_contacted_by_expert: -> { I18n.t(company_satisfaction.contacted_by_expert, scope: [:boolean, :text]) if company_satisfaction.present? },
         satisfaction_useful_exchange: -> { I18n.t(company_satisfaction.useful_exchange, scope: [:boolean, :text]) if company_satisfaction.present? },
         satisfaction_comment: -> { company_satisfaction&.comment },
@@ -44,6 +44,14 @@ module CsvExport
 
     def filename
       "commentaires-#{Time.zone.now.iso8601}"
+    end
+
+    def self.display_comments(expert, need)
+      comments = expert.feedbacks.where(user: expert.users, feedbackable: need).order(:created_at)
+      comments_displays = comments.map do |comment|
+        "- #{I18n.l(comment.created_at, format: :fr)} #{comment.description}"
+      end
+      comments_displays.join("\n")
     end
   end
 end
