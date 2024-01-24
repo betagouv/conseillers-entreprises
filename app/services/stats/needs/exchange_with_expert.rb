@@ -1,7 +1,6 @@
 module Stats::Needs
   class ExchangeWithExpert
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       # This stat is available since 2020-09-01
@@ -36,7 +35,7 @@ module Stats::Needs
     end
 
     def filtered_main_query
-      filtered_needs(main_query)
+      Stats::Filters::Needs.new(main_query, self).call
     end
 
     def secondary_count

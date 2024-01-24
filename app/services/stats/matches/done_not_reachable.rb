@@ -2,7 +2,6 @@ module Stats::Matches
   # Taux de mises en relation clôturées faute d’avoir pu joindre l’entreprise sur la totalité des mises en relation transmises
   class DoneNotReachable
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
     include ::Stats::TwoRatesStats
 
     def main_query
@@ -10,7 +9,7 @@ module Stats::Matches
     end
 
     def filtered(query)
-      filtered_matches(query)
+      Stats::Filters::Matches.new(query, self).call
     end
 
     def build_series

@@ -1,4 +1,4 @@
-= form_with(model: solicitation, url: search_facility_solicitation_path(solicitation.uuid), local: true, method: :get, html: { honeypot: true, data: { turbo: false } }) do |f|
+= form_with(model: solicitation, url: search_facility_solicitation_path(solicitation.uuid), local: true, method: :get, html: { data: { turbo: false } }) do |f|
   = hidden_field_tag :query, company.siren
 
   .fr-tile.search-tile.fr-enlarge-link.fr-tile--horizontal

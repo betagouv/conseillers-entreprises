@@ -40,4 +40,8 @@ class EmailRetention < ApplicationRecord
       "second_subject_id", "second_subject_label", "subject_id", "updated_at", "waiting_time"
     ]
   end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["first_subject", "second_subject", "subject"]
+  end
 end

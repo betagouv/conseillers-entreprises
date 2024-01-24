@@ -1,14 +1,11 @@
 module Stats::Companies
   class ByNafCode
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       Company
         .includes(:needs, :diagnoses).references(:needs, :diagnoses)
-        .where(created_at: @start_date..@end_date)
-        .where(facilities: { diagnoses: { step: :completed } })
-        .distinct
+        .where(facilities: { diagnoses: { step: :completed, created_at: @start_date..@end_date } })
     end
 
     def date_group_attribute
@@ -16,7 +13,7 @@ module Stats::Companies
     end
 
     def filtered(query)
-      filtered_companies(query)
+      Stats::Filters::Companies.new(query, self).call
     end
 
     def category_group_attribute
@@ -25,6 +22,10 @@ module Stats::Companies
 
     def category_order_attribute
       'facilities.naf_code_a10'
+    end
+
+    def grouped_by_month(query)
+      query.group("DATE_TRUNC('month', diagnoses.created_at)")
     end
 
     def colors

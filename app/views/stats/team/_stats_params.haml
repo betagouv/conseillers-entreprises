@@ -22,9 +22,10 @@
         include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#institutionFilters', 'stats-target': 'institution' }
       .fr-select-group
         - antenne_placeholder = params[:institution].present? ? t('all.feminine') : t('stats.stats_params.select_institution')
-        = f.label :antenne, t('activerecord.models.antenne.one'), class: 'fr-label'
-        = f.collection_select :antenne, institution_antennes, :id, :name, { selected: params[:antenne],
-        include_blank: antenne_placeholder }, class: "fr-select", data: { 'stats-target': 'antennes' }
+        = f.label :antenne, class: 'fr-label' do
+          = t('activerecord.models.antenne.one')
+          .loader.hidden{ data: { 'stats-target': 'loader' } }
+        = f.select :antenne, options_for_select(build_antennes_collection_for_select(institution_antennes), selected: stats[:antenne]), { include_blank: antenne_placeholder }, class: "fr-select", data: { 'stats-target': 'antennes' }
       .fr-select-group
         = f.label :theme, t('stats.stats_params.theme'), class: 'fr-label'
         = f.collection_select :theme, Theme.for_interview.order(:label), :id, :label, { selected: params[:theme],
@@ -43,7 +44,7 @@
         = f.text_field :mtm_kwd, value: stats[:mtm_kwd], class: 'fr-input'
       .fr-select-group
         = f.label :integration, t('activerecord.attributes.landing.integration'), class: 'fr-label'
-        = f.select :integration, Landing.integrations.map { |i| [I18n.t(i.first, scope: 'activerecord.attributes.landing/integrations'), i.first] },
+        = f.select :integration, Landing.integrations.map { |i| [I18n.t(i.first, scope: 'activerecord.attributes.landing/integrations'), i.last] },
         { selected: params[:integration], include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#toggleIframeSelect' }
       .fr-select-group{ class: "#{'hidden' if params[:iframe_id].blank?}" }
         = f.label :iframe_id, t('activerecord.attributes.landing.iframe'), class: 'fr-label'

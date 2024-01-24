@@ -1,15 +1,17 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ['institution', 'antennes', 'subjects', 'iframes']
+  static targets = ['institution', 'antennes', 'subjects', 'iframes', 'loader']
 
   async institutionFilters() {
+    this.loaderTarget.style.display = 'inline-block'
     await fetch(`/stats/equipe/institution_filters?institution_id=${this.institutionTarget.value}`)
       .then((response) => response.json())
       .then((data) => this.updateFilters(data));
   }
 
   updateFilters(data) {
+    this.loaderTarget.style.display = 'none'
     this.updateAntennesOptions(data.antennes);
     this.updateSubjectsOptions(data.subjects);
   }
@@ -44,7 +46,8 @@ export default class extends Controller {
 
   toggleIframeSelect(data) {
     let selectedIntegration = data.target.value
-    if (selectedIntegration == 'iframe') {
+    // On utilise 1 au lieu de 'iframe' car ça déclenche une erreur Postgres dans les filtres
+    if (selectedIntegration == 1) {
       this.iframesTarget.parentElement.style.display = 'block'
     } else {
       this.iframesTarget.value = ''

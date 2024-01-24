@@ -1,7 +1,6 @@
 module Stats::Needs
   class Abandoned
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       Need.diagnosis_completed.where(created_at: @start_date..@end_date)
@@ -9,7 +8,7 @@ module Stats::Needs
 
     def build_series
       query = main_query
-      query = filtered_needs(query)
+      query = Stats::Filters::Needs.new(query, self).call
 
       @needs_abandoned = []
       @needs_not_abandoned = []

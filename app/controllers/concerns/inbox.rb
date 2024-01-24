@@ -19,7 +19,7 @@ module Inbox
     @collection_name = collection_name
 
     @needs = recipient
-      .send("needs_#{collection_name}") # See InvolvementConcern
+      .send(:"needs_#{collection_name}") # See InvolvementConcern
       .includes(:company, :advisor, :subject, :solicitation, :facility)
       .order(created_at: order)
       .apply_filters(needs_search_params)
@@ -32,7 +32,7 @@ module Inbox
     antenne_inbox_collections_counts(@recipient)
     @collection_name = collection_name
 
-    @needs = @recipient.perimeter_received_needs.merge!(@recipient.send("territory_needs_#{@collection_name}"))
+    @needs = @recipient.perimeter_received_needs.merge!(@recipient.send(:"territory_needs_#{@collection_name}"))
 
     @needs = @needs.includes(:company, :advisor, :subject)
       .apply_filters(needs_search_params)
@@ -42,17 +42,17 @@ module Inbox
   end
 
   def inbox_collections_counts(recipient)
-    @inbox_collections_counts = inbox_collection_names.index_with { |name| recipient.send("needs_#{name}").distinct.size }
+    @inbox_collections_counts = inbox_collection_names.index_with { |name| recipient.send(:"needs_#{name}").distinct.size }
   end
 
   def antenne_inbox_collections_counts(recipient)
     @inbox_collections_counts = if recipient.is_a?(Antenne)
       inbox_collection_names.index_with do |name|
-        recipient.perimeter_received_needs.merge!(recipient.send("territory_needs_#{name}")).distinct.size
+        recipient.perimeter_received_needs.merge!(recipient.send(:"territory_needs_#{name}")).distinct.size
       end
     else
       inbox_collection_names.index_with do |name|
-        Need.in_antennes_perimeters(recipient).merge!(Need.where(id: recipient.map { |a| a.send("territory_needs_#{name}") }.flatten)).size
+        Need.in_antennes_perimeters(recipient).merge!(Need.where(id: recipient.map { |a| a.send(:"territory_needs_#{name}") }.flatten)).size
       end
     end
   end
@@ -77,7 +77,7 @@ module Inbox
     hash = { themes: recipient_for_search.themes.ordered_for_interview.uniq, subjects: [] }
     hash[:themes].each do |theme|
       theme.subjects_ordered_for_interview.each do |subject|
-        count = recipient_for_search.send("needs_#{collection_name}").where(subject: subject).size
+        count = recipient_for_search.send(:"needs_#{collection_name}").where(subject: subject).size
         hash[:subjects][subject.id] = "#{subject.label} (#{count.positive? ? count : '-'})"
       end
     end

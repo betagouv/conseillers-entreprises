@@ -45,7 +45,7 @@ class Feedback < ApplicationRecord
   def notify_for_need!
     return unless category_need?
     persons_to_notify.each do |person|
-      MatchFeedbackEmailJob.set(wait: 1.minute).perform_later(self.id, person.id)
+      MatchFeedbackEmailJob.set(wait: 1.minute).perform_later(self.id, person)
     end
   end
 
@@ -81,5 +81,9 @@ class Feedback < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     ["category", "created_at", "description", "feedbackable_id", "feedbackable_type", "id", "id_value", "updated_at", "user_id"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["feedbackable", "user"]
   end
 end

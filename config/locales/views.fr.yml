@@ -143,6 +143,7 @@ fr:
   breadcrumbs_helper:
     home_link:
       home: Accueil
+      iframe: Echanger avec un conseiller
   come_back_to_home: Retour à l’accueil
   companies:
     company:
@@ -377,6 +378,9 @@ fr:
       uncategorisable_label: Inclassables
       uncategorisable_value: uncategorisable
       view_completed_analysis: Voir l’analyse réalisée
+    stats_helper:
+      antenne_with_locales: "%{name} avec antennes locales"
+      with_locales: " avec antennes locales"
   kaminari:
     page:
       page: Page
@@ -1003,7 +1007,9 @@ fr:
     with_diagnosis: Besoins transmis
     without_diagnosis: Besoins non transmis
   step_number: Étape %{actual} sur %{total}
-  to_new_window: nouvelle fenêtre
+  temoignage:
+    image_title: Photo de %{author}
+  to_new_window: ouvre une nouvelle fenêtre
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:

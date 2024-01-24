@@ -3,7 +3,6 @@ module Stats::Matches
   # (la lecture inverse correspond au taux de positionnement))
   class NotPositioning
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
     include ::Stats::TwoRatesStats
 
     def main_query
@@ -11,7 +10,7 @@ module Stats::Matches
     end
 
     def filtered(query)
-      filtered_matches(query)
+      Stats::Filters::Matches.new(query, self).call
     end
 
     def build_series

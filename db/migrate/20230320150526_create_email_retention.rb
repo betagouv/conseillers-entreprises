@@ -18,7 +18,7 @@ class CreateEmailRetention < ActiveRecord::Migration[7.0]
     add_column :needs, :retention_sent_at, :timestamp, default: nil
 
     up_only do
-      if Subject.where(id: 55).present?
+      begin
         finance_projet = Subject.find(55)
         recruter = Subject.find(44)
         former = Subject.find(45)
@@ -136,6 +136,8 @@ class CreateEmailRetention < ActiveRecord::Migration[7.0]
             second_subject_label: email[:second_subject_label]
           )
         end
+      rescue ActiveRecord::RecordNotFound => e
+        pp e
       end
     end
   end

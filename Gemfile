@@ -48,7 +48,6 @@ gem 'active_model_serializers', '~> 0.10'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'faker'
-gem 'activerecord-postgis-adapter'
 gem 'pg_search'
 
 # Charts
@@ -145,7 +144,6 @@ group :development do
   gem 'rubocop-i18n', require: false
   gem 'brakeman', require: false
   gem "rails-erd"
-  gem 'scout_apm'
 end
 
 # Use Redis for Action Cable

@@ -9,12 +9,14 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  institution_id    :bigint(8)        not null
+#  parent_antenne_id :bigint(8)
 #
 # Indexes
 #
 #  index_antennes_on_deleted_at                              (deleted_at)
 #  index_antennes_on_institution_id                          (institution_id)
 #  index_antennes_on_name_and_deleted_at_and_institution_id  (name,deleted_at,institution_id)
+#  index_antennes_on_parent_antenne_id                       (parent_antenne_id)
 #  index_antennes_on_territorial_level                       (territorial_level)
 #  index_antennes_on_updated_at                              (updated_at)
 #
@@ -34,7 +36,7 @@ class Antenne < ApplicationRecord
 
   ## Associations
   #
-  has_and_belongs_to_many :communes, inverse_of: :antennes, after_add: :update_referencement_coverages, after_remove: :update_referencement_coverages
+  has_and_belongs_to_many :communes, inverse_of: :antennes, after_add: [:update_referencement_coverages, :update_antenne_hierarchy], after_remove: [:update_referencement_coverages, :update_antenne_hierarchy]
   include ManyCommunes
   include InvolvementConcern
   include TerritoryNeedsStatus
@@ -57,6 +59,9 @@ class Antenne < ApplicationRecord
   has_many :managers, -> { distinct }, through: :user_rights_manager, source: :user, inverse_of: :managed_antennes
 
   has_many :referencement_coverages, dependent: :destroy, inverse_of: :antenne
+
+  belongs_to :parent_antenne, class_name: 'Antenne', inverse_of: :child_antennes, optional: true
+  has_many :child_antennes, class_name: 'Antenne', inverse_of: :parent_antenne, foreign_key: 'parent_antenne_id'
 
   ## Hooks and Validations
   #
@@ -87,12 +92,15 @@ class Antenne < ApplicationRecord
   has_many :received_diagnoses_including_from_deleted_experts, through: :experts_including_deleted, source: :received_diagnoses, inverse_of: :expert_antennes
   has_many :received_solicitations_including_from_deleted_experts, through: :received_diagnoses_including_from_deleted_experts, source: :solicitation, inverse_of: :diagnosis
 
+  has_many :experts_subjects, through: :experts
+
   # :institution
   has_many :themes, through: :institution, inverse_of: :antennes
 
   ## Callbacks
   #
   after_create :check_territorial_level
+  after_update :update_antenne_hierarchy, if: :saved_change_to_territorial_level?
 
   ##
   #
@@ -113,6 +121,8 @@ class Antenne < ApplicationRecord
       not_deleted.where("antennes.name ILIKE ?", "%#{query}%")
     end
   end
+
+  scope :with_experts_subjects, -> { where.associated(:experts_subjects).distinct }
 
   ##
   #
@@ -165,12 +175,17 @@ class Antenne < ApplicationRecord
   # A surveiller : une antenne peut-elle avoir plusieurs antennes regionales ?
   def regional_antenne
     return unless self.local?
-    get_associated_antennes(Antenne.territorial_levels[:regional])&.first
+    self.parent_antenne
   end
 
   def territorial_antennes
-    return [] if self.local?
-    get_associated_antennes(Antenne.territorial_levels[:local])
+    if self.local?
+      []
+    elsif self.national?
+      Antenne.not_deleted.where(institution: self.institution).where.not(id: self.id)
+    else
+      self.child_antennes
+    end
   end
 
   ## Périmètre d'exercice :
@@ -252,6 +267,17 @@ class Antenne < ApplicationRecord
     end
   end
 
+  def update_antenne_hierarchy(*args)
+    scheduled = Sidekiq::ScheduledSet.new
+
+    scheduled.each do |job|
+      if job['class'] == UpdateAntenneHierarchyJob.to_s && job['args'].first == self.id
+        job.delete
+      end
+    end
+    UpdateAntenneHierarchyJob.perform_in(20.seconds, self.id)
+  end
+
   ## referencement coverage
   #
 
@@ -280,15 +306,5 @@ class Antenne < ApplicationRecord
       "received_solicitations_including_from_deleted_experts", "referencement_coverages", "regions", "sent_diagnoses",
       "sent_matches", "sent_needs", "stats_reports", "territories", "themes", "user_rights", "user_rights_manager"
     ]
-  end
-
-  private
-
-  def get_associated_antennes(targeted_territorial_level)
-    Antenne.not_deleted.where(institution_id: institution_id, territorial_level: targeted_territorial_level)
-      .left_joins(:communes, :experts)
-      .where(communes: { id: commune_ids })
-      .or(Antenne.not_deleted.where(institution_id: institution_id, territorial_level: targeted_territorial_level).where(experts: { is_global_zone: true }))
-      .distinct
   end
 end

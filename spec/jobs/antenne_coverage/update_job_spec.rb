@@ -2,9 +2,9 @@ require 'rails_helper'
 RSpec.describe AntenneCoverage::UpdateJob do
   describe '#perform' do
     let(:institution) { create(:institution) }
-    let!(:local_antenne) { create(:antenne, :local, institution: institution, communes: communes) }
-    let!(:regional_antenne) { create(:antenne, :regional, institution: institution, communes: communes) }
     let!(:national_antenne) { create(:antenne, :national, institution: institution) }
+    let!(:regional_antenne) { create(:antenne, :regional, institution: institution, parent_antenne: national_antenne, communes: communes) }
+    let!(:local_antenne) { create(:antenne, :local, institution: institution, parent_antenne: regional_antenne, communes: communes) }
     let(:beaufay) { create(:commune, insee_code: '72026') }
     let(:bonnétable) { create(:commune, insee_code: '72039') }
     let(:briosne) { create(:commune, insee_code: '72048') }

@@ -238,13 +238,13 @@ class Solicitation < ApplicationRecord
         .or(where(id: have_landing_subject(query)))
         .or(where(id: have_landing_theme(query)))
         .or(where(id: have_landing(query)))
-        .or(description_contains(query))
-        .or(name_contains(query))
-        .or(email_contains(query))
-        .or(siret_contains(query))
-        .or(mtm_kwd_contains(query))
-        .or(mtm_campaign_contains(query))
-        .or(relaunch_contains(query))
+        .or(description_cont(query))
+        .or(name_cont(query))
+        .or(email_cont(query))
+        .or(siret_cont(query))
+        .or(mtm_kwd_cont(query))
+        .or(mtm_campaign_cont(query))
+        .or(relaunch_cont(query))
     end
   end
 
@@ -264,62 +264,67 @@ class Solicitation < ApplicationRecord
     joins(:landing).where('landings.slug ILIKE ?', "%#{query}%")
   end
 
-  scope :description_contains, -> (query) do
+  scope :description_cont, -> (query) do
     where('solicitations.description ILIKE ?', "%#{query}%")
   end
 
-  scope :name_contains, -> (query) do
+  scope :name_cont, -> (query) do
     where('solicitations.full_name ILIKE ?', "%#{query}%")
   end
 
-  scope :email_contains, -> (query) do
+  scope :email_cont, -> (query) do
     where('solicitations.email ILIKE ?', "%#{query}%")
   end
 
-  scope :siret_contains, -> (query) do
+  scope :siret_cont, -> (query) do
     where('solicitations.siret ILIKE ?', "%#{query}%")
   end
 
-  scope :mtm_kwd_contains, -> (query) {
+  scope :mtm_kwd_cont, -> (query) {
     where("solicitations.form_info::json->>'mtm_kwd' ILIKE ?", "%#{query}%")
       .or(where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{query}%"))
   }
 
-  scope :mtm_campaign_contains, -> (query) {
+  scope :mtm_campaign_cont, -> (query) {
     where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}%")
       .or(where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%"))
   }
 
-  scope :relaunch_contains, -> (query) {
+  scope :relaunch_cont, -> (query) {
     where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}%")
       .or(where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}%"))
   }
 
   # Pour ransack, en admin
-  scope :mtm_campaign_equals, -> (query) {
+  scope :mtm_campaign_eq, -> (query) {
     where('form_info @> ?', { pk_campaign: query }.to_json)
       .or(where('form_info @> ?', { mtm_campaign: query }.to_json))
   }
 
-  scope :mtm_campaign_starts_with, -> (query) {
+  scope :mtm_campaign_start, -> (query) {
     where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "#{query}%")
       .or(where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "#{query}%"))
   }
 
-  scope :mtm_campaign_ends_with, -> (query) {
+  scope :mtm_campaign_end, -> (query) {
     where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}")
       .or(where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}"))
   }
 
-  scope :relaunch_equals, -> (query) {
+  scope :mtm_campaign_cont, -> (query) {
+    where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%")
+      .or(where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}%"))
+  }
+
+  scope :relaunch_eq, -> (query) {
     where('form_info @> ?', { pk_campaign: query }.to_json)
   }
 
-  scope :relaunch_starts_with, -> (query) {
+  scope :relaunch_start, -> (query) {
     where("solicitations.form_info::json->>'relaunch' ILIKE ?", "#{query}%")
   }
 
-  scope :relaunch_ends_with, -> (query) {
+  scope :relaunch_end, -> (query) {
     where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}")
   }
 
@@ -330,9 +335,9 @@ class Solicitation < ApplicationRecord
 
   def self.ransackable_scopes(auth_object = nil)
     [
-      :mtm_campaign_contains, :mtm_campaign_equals, :mtm_campaign_starts_with, :mtm_campaign_ends_with,
-      :mtm_kwd_contains, :mtm_kwd_equals, :mtm_kwd_starts_with, :mtm_kwd_ends_with,
-      :relaunch_contains, :relaunch_equals, :relaunch_ends_with, :relaunch_starts_with, :completion_eq
+      :mtm_campaign_cont, :mtm_campaign_eq, :mtm_campaign_start, :mtm_campaign_end,
+      :mtm_kwd_cont, :mtm_kwd_eq, :mtm_kwd_start, :mtm_kwd_end,
+      :relaunch_cont, :relaunch_eq, :relaunch_end, :relaunch_start, :completion_eq
     ]
   end
 

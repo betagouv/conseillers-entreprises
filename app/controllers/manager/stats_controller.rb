@@ -28,7 +28,8 @@ module Manager
       @stats_params = stats_filter_params
       @stats_params[:start_date] ||= 6.months.ago.beginning_of_month.to_date
       @stats_params[:end_date] ||= Date.today
-      @stats_params[:antenne] ||= current_user.managed_antennes.first.id
+      # '.to_s' for keep 'plus antennes locales' in params
+      @stats_params[:antenne] ||= current_user.managed_antennes.first.id.to_s
       @stats_params[:institution_id] = current_user.institution.id
       @stats_params[:colors] = %w[#cacafb #000091]
       session[:manager_stats_params] = @stats_params
@@ -37,10 +38,10 @@ module Manager
     def set_filters_collections
       managed_antennes = current_user.managed_antennes
       @filters = {
-        antennes: Antenne.where(id: [managed_antennes.ids, managed_antennes.map { |a| a.territorial_antennes.pluck(:id) }].flatten),
+        antennes: build_manager_antennes_collection(current_user),
         regions: managed_antennes.first.national? ? Territory.regions : Territory.where(id: managed_antennes.map(&:regions).flatten).uniq,
-        themes: current_user.institution.themes.for_interview.order(:label).uniq,
-        subjects: current_user.institution.subjects.for_interview.order(:label).uniq
+        themes: current_user.institution.themes.for_interview.sort_by(&:label).uniq,
+        subjects: current_user.institution.subjects.for_interview.sort_by(&:label).uniq
       }
     end
 

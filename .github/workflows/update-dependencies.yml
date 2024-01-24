@@ -2,8 +2,7 @@ name: "Update dependencies"
 
 on:
   schedule:
-    - cron: '0 0 1-7 * 4'
-    - cron: '0 0 14-20 * 4'
+    - cron: '0 0 1 * *'
 jobs:
   updates:
     runs-on: ubuntu-latest

@@ -70,7 +70,17 @@ module IframePrefix
     end
 
     def show_breadcrumbs?
-      !in_iframe? || (in_iframe? && defined?(@landing) && @landing.layout_multiple_steps? && !@landing.subjects_iframe?)
+      !in_iframe? || show_iframe_breadcrumbs?
+    end
+
+    def show_iframe_breadcrumbs?
+      return true unless in_iframe?
+      return false unless defined?(@landing)
+      # Iframe formulaire
+      return false if @landing.form_iframe?
+      # Iframe liste de sujet : breadcrumbs que sur pages formulaire pour pouvoir revenir à la liste des sujets
+      return false if @landing.subjects_iframe? && !defined?(@landing_subject)
+      true
     end
   end
 end

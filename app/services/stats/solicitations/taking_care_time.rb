@@ -1,7 +1,6 @@
 module Stats::Solicitations
   class TakingCareTime
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       Solicitation
@@ -25,7 +24,7 @@ module Stats::Solicitations
 
     def build_series
       query = main_query
-      query = filtered_needs(query)
+      query = Stats::Filters::Needs.new(query, self).call
 
       @taken_care_before = []
       @taken_care_after = []

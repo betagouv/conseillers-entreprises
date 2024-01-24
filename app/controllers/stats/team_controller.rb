@@ -42,10 +42,12 @@ module Stats
 
     def institution_filters
       institution = Institution.find(params.permit(:institution_id)[:institution_id])
+
       response = {
-        antennes: institution.antennes.not_deleted.order(:name),
+        antennes: build_institution_antennes_collection(institution),
         subjects: institution.subjects.not_archived.order(:label)
       }
+
       render json: response.as_json
     end
 
@@ -57,8 +59,7 @@ module Stats
 
     def init_filters
       @iframes = Landing.iframe.not_archived.order(:slug)
-      @institution_antennes = params[:institution].present? ?
-                                Institution.find(params[:institution]).antennes.not_deleted : []
+      @institution_antennes = params[:institution].present? ? build_institution_antennes_collection(Institution.find_by(id: params[:institution])) : []
     end
 
     def render_partial(data, name)

@@ -103,4 +103,6 @@ class Rack::Attack
     Sentry.capture_message("foo-bar@example.com : IP = #{request.ip} ; Remote IP = #{request.remote_ip}")
     [ 503, {}, ['Blocked']]
   end
+
+  Rack::Attack.enabled = true
 end

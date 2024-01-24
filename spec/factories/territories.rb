@@ -6,7 +6,7 @@ FactoryBot.define do
 
     trait :region do
       bassin_emploi { false }
-      sequence(:code_region) { |n| "#{n}" }
+      code_region { Faker::Number.number(digits: 5) }
     end
   end
 end

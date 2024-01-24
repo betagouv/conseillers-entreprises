@@ -1,7 +1,6 @@
 module Stats::Solicitations
   class Diagnoses
     include ::Stats::BaseStats
-    include ::Stats::FiltersStats
 
     def main_query
       Solicitation.step_complete.where(completed_at: @start_date..@end_date)
@@ -24,7 +23,7 @@ module Stats::Solicitations
     end
 
     def filtered_main_query
-      filtered_solicitations(main_query)
+      Stats::Filters::Solicitations.new(main_query, self).call
     end
 
     def secondary_count

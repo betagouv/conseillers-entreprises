@@ -27,7 +27,7 @@ namespace :import_dump do
     Rake::Task['db:drop'].invoke
     Rake::Task['db:create'].invoke
 
-    dbuser = YAML.load_file('config/database.yml').dig('development', 'username')
+    dbuser = YAML.load_file('config/database.yml', aliases: true).dig('development', 'username')
 
     sh "psql place-des-entreprises-development -f tmp/export.pgsql -U #{dbuser}"
 
