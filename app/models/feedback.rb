@@ -34,10 +34,17 @@ class Feedback < ApplicationRecord
   #
   belongs_to :feedbackable, polymorphic: true, touch: true
   belongs_to :user, inverse_of: :feedbacks
+  has_many :experts, through: :user, inverse_of: :feedbacks
 
   ## Validations
   #
   validates :description, presence: true
+
+  ## Scopes
+
+  scope :for_need, -> { where(feedbackable_type: 'Need') }
+  scope :for_solicitation, -> { where(feedbackable_type: 'Solicitation') }
+  scope :for_expert, -> { where(feedbackable_type: 'Expert') }
 
   ##
   #

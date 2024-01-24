@@ -3,7 +3,7 @@ class Conseiller::CsvExportsController < ApplicationController
 
   def index
     authorize @user, policy_class: CsvExportPolicy
-    @exports = current_user.csv_exports.includes(:blob).references(:blob).order('active_storage_blobs.filename DESC')
+    @exports = current_user.csv_exports.includes(:blob).references(:blob).order('active_storage_blobs.created_at DESC')
   end
 
   def download
