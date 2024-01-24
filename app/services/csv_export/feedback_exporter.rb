@@ -46,6 +46,7 @@ module CsvExport
       "commentaires-#{Time.zone.now.iso8601}"
     end
 
+    # Class method to prevent "undefined method `display_comments' for Match:Class"
     def self.display_comments(expert, need)
       comments = expert.feedbacks.where(user: expert.users, feedbackable: need).order(:created_at)
       comments_displays = comments.map do |comment|
