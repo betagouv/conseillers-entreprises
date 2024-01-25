@@ -151,7 +151,7 @@ fr:
       bad_quality:
         complete_solicitation_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Compléter ma demande</a>"
         for_better_taking_care_html: 'Pour pouvoir vous aider, les conseillers ont impérativement besoin d’éléments de contexte :'
-        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site partenaire) pour <strong>"%{solicitation_subject}"</strong>.
+        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site partenaire) pour <strong>"%{subject_title}"</strong>.
         investment_html: "<strong>pour votre projet d’investissement :</strong> type d’investissement, but et montant du besoin"
         recruitment_html: "<strong>pour votre projet de recrutement :</strong> contexte du recrutement et type de contrat"
         treasury_html: "<strong>pour votre problème de trésorerie :</strong> contexte des difficultés et montant du besoin"

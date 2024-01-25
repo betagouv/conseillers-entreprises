@@ -6,7 +6,11 @@ class SolicitationMailer < ApplicationMailer
 
   def bad_quality(solicitation)
     @solicitation = solicitation
-    @subject_label = @solicitation&.diagnosis&.needs&.first&.subject&.label.presence || @solicitation.landing_subject.title
+    @landing_subject = if @solicitation&.diagnosis&.needs&.first&.subject.present?
+      LandingSubject.joins(landing_theme: :landings).find_by(subject: @solicitation.diagnosis.needs.first.subject, landings: [@solicitation.landing])
+    else
+      @solicitation.landing_subject
+    end
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 
