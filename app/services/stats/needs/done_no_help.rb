@@ -3,7 +3,9 @@ module Stats::Needs
     include ::Stats::BaseStats
 
     def main_query
-      Need.diagnosis_completed.where(created_at: @start_date..@end_date)
+      Need.diagnosis_completed
+        .joins(:diagnosis).merge(Diagnosis.from_solicitation)
+        .where(created_at: @start_date..@end_date)
     end
 
     def build_series

@@ -3,8 +3,8 @@ module Stats::Needs
     include ::Stats::BaseStats
 
     def main_query
-      Need
-        .diagnosis_completed
+      Need.diagnosis_completed
+        .joins(:diagnosis).merge(Diagnosis.from_solicitation)
         .joins(:advisor)
         .joins(subject: :theme)
         .where(created_at: @start_date..@end_date)

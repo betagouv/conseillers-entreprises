@@ -1,5 +1,5 @@
 module Stats::Needs
-  class Done
+  class TakingCare
     include ::Stats::BaseStats
 
     def main_query
@@ -11,23 +11,23 @@ module Stats::Needs
     def build_series
       query = filtered_main_query
 
-      @needs_done = []
+      @needs_taking_care = []
       @needs_other_status = []
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        needs_done_query = month_query.where(status: :done)
-        needs_other_status_query = month_query.where.not(status: :done)
-        @needs_done.push(needs_done_query.count)
+        needs_taking_care_query = month_query.where(status: :taking_care)
+        needs_other_status_query = month_query.where.not(status: :taking_care)
+        @needs_taking_care.push(needs_taking_care_query.count)
         @needs_other_status.push(needs_other_status_query.count)
       end
 
-      as_series(@needs_done, @needs_other_status)
+      as_series(@needs_taking_care, @needs_other_status)
     end
 
     def count
       build_series
-      percentage_two_numbers(@needs_done, @needs_other_status)
+      percentage_two_numbers(@needs_taking_care, @needs_other_status)
     end
 
     def filtered_main_query
@@ -35,24 +35,20 @@ module Stats::Needs
     end
 
     def secondary_count
-      filtered_main_query.status_done.size
-    end
-
-    def subtitle
-      I18n.t('stats.series.needs_done.subtitle')
+      filtered_main_query.status_taking_care.size
     end
 
     private
 
-    def as_series(needs_done, needs_other_status)
+    def as_series(needs_taking_care, needs_other_status)
       [
         {
           name: I18n.t('stats.other_status'),
           data: needs_other_status
         },
         {
-          name: I18n.t('stats.status_done'),
-          data: needs_done
+          name: I18n.t('stats.status_taking_care'),
+          data: needs_taking_care
         }
       ]
     end
