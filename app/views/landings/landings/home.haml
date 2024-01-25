@@ -17,7 +17,7 @@
       .fr-col-12.fr-col-md-5#col-image
         = image_tag('home.png', alt: "")
 
-.fr-container-fluid.section-grey.fr-py-4w.home.landing
+.fr-container-fluid.section-grey.fr-py-7w.home.landing
   .fr-container
     - unless in_iframe?
       - @landing_emphasis.each do |landing|
@@ -32,6 +32,8 @@
               = simple_format(landing.home_description, { class: 'fr-m-0' }, wrapper_tag: 'p')
             .fr-col-md-3.fr-col-12.display-flex-center
               = link_to t('.discover_measures'), landing, class: 'fr-btn fr-btn--secondary'
+    - unless in_iframe?
+      #scroll-section
     = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
 
 .fr-container-fluid.section-partners.fr-py-7w.section-light-grey
