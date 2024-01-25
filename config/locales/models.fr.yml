@@ -12,8 +12,6 @@ fr:
       deleted: Antennes supprimées avec succès
       stats_reports: Rapports statistiques
       territorial_antennes: 'Antennes du territoire : '
-    duplicate_user:
-      new_user_details: Coordonnées du nouvel utilisateur
     expert:
       deep_soft_delete: Supprimer l’expert et ses utilisateurs
       deep_soft_delete_confirmation: Voulez-vous supprimer cet expert et tous ses utilisateurs ?

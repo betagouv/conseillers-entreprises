@@ -5,7 +5,7 @@ ActiveAdmin.register_page 'Duplicate user' do
   page_action :duplicate, method: :post do
     old_user = User.find(params[:user_id])
     if old_user.deleted?
-      flash[:alert] = 'utilisateur supprimé'
+      flash[:alert] = I18n.t('active_admin.duplicate_user.deleted_user')
       redirect_to admin_users_path and return
     end
     user_params = params.require(:user).permit(:full_name, :email, :phone_number, :job, :specifics_territories)
