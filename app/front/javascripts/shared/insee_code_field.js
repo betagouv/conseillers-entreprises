@@ -1,4 +1,4 @@
-import { exists, debounce } from '../shared/utils.js'
+import { exists, debounce } from './utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
 
 (function () {
@@ -14,7 +14,8 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 
       accessibleAutocomplete({
         element: autocompleteField,
-        id: 'city_autocomplete',
+        id: autocompleteField.dataset.id || 'city_autocomplete',
+        name: autocompleteField.dataset.name || 'query',
         showNoOptionsFound: false,
         minLength: 3,
         templates: {
@@ -29,7 +30,7 @@ import accessibleAutocomplete from 'accessible-autocomplete';
           populateResults(results)
         }, 300),
         onConfirm: (val) => {
-          if (val) {
+          if (val && targetField) {
             targetField.value = val.properties.citycode
           }
         }
