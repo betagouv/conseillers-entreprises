@@ -20,7 +20,7 @@
                   = t("solicitations.creation_form.siret")
                   %span.fr-hint-text= t('attributes.help.no_creation_html')
                 = f.text_field :siret, placeholder: t("solicitations.creation_form.placeholder.#{field}"), class: 'fr-input white-bg', minlength: '9', maxlength: '18'
-              - if field == :location
+              - elsif field == :location
                 = f.label :location, class: 'fr-label' do
                   = t("attributes.#{field}")
                   %span.fr-hint-text= t('attributes.help.location')
