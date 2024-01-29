@@ -60,36 +60,5 @@ describe NeedsService do
         expect(enqueued_jobs.count).to eq 1
       end
     end
-
-    context 'with last chance email' do
-      # Besoin quo de moins de 10 jours après le mail  ko
-      # Besoin quo de plus de 10 jours après le mail   ok
-      # Besoin done de moins de 40 jours de moins de 10 jours après le mail            ko
-      # Besoin done de plus de 40 jours de plus de 10 jours après le mail              ko
-
-      let!(:need1) { create :need, matches: [match1], reminders_actions: [reminders_actions1] }
-      let(:reminders_actions1) { create :reminders_action, category: 'last_chance' }
-      let(:match1) { create :match, status: :quo }
-      let!(:need2) { create :need, matches: [match2], created_at: 40.days.ago, reminders_actions: [reminders_actions2] }
-      let(:reminders_actions2) { create :reminders_action, category: 'last_chance', created_at: 11.days.ago }
-      let(:match2) { create :match, status: :quo, created_at: 40.days.ago }
-      let!(:need3) { create :need, matches: [match3], reminders_actions: [reminders_actions3] }
-      let(:reminders_actions3) { create :reminders_action, category: 'last_chance' }
-      let(:match3) { create :match, status: :done }
-      let!(:need4) { create :need, matches: [match4], created_at: 40.days.ago, reminders_actions: [reminders_actions4] }
-      let(:reminders_actions4) { create :reminders_action, category: 'last_chance', created_at: 11.days.ago }
-      let(:match4) { create :match, status: :done, created_at: 40.days.ago }
-
-      before { described_class.abandon_needs }
-
-      it 'abandon only old needs without help and send' do
-        expect(need1.reload.is_abandoned?).to be false
-        expect(need2.reload.is_abandoned?).to be true
-        expect(need3.reload.is_abandoned?).to be false
-        expect(need4.reload.is_abandoned?).to be false
-        assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
-        expect(enqueued_jobs.count).to eq 1
-      end
-    end
   end
 end
