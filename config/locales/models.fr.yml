@@ -845,6 +845,7 @@ fr:
     help:
       email_html: 'Exemple : marie.dupont@exemple.fr'
       full_name_html: 'Exemple : Marie Dupont'
+      location: Choisir une commune de votre périmètre de recherche
       no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).<br/>Vous pourrez peut-être le trouver sur <a href='https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises' target='_blank' class='blue' title='annuaire-entreprises.data.gouv.fr - ouvre une nouvelle fenêtre'>https://annuaire-entreprises.data.gouv.fr</a>.
       phone_number_html: 'Exemple : 0612345678 ou +33 6 12 34 56 78'
     insee_codes: Codes communes
@@ -863,7 +864,7 @@ fr:
     landing_theme_title: Thème choisi sur le site
     landing_themes: Thèmes de landing
     legal_form_code: Forme juridique
-    location: Localisation
+    location: Localité
     manager: Responsable
     manager_email: Email du responsable
     manager_full_name: Nom du responsable

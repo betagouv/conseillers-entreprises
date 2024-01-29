@@ -20,6 +20,11 @@
                   = t("solicitations.creation_form.siret")
                   %span.fr-hint-text= t('attributes.help.no_creation_html')
                 = f.text_field :siret, placeholder: t("solicitations.creation_form.placeholder.#{field}"), class: 'fr-input white-bg', minlength: '9', maxlength: '18'
+              - elsif field == :location
+                = f.label :location, class: 'fr-label' do
+                  = t("attributes.#{field}")
+                  %span.fr-hint-text= t('attributes.help.location')
+                %div{ data: { action: 'city-autocomplete', id: 'solicitation_location', name: 'solicitation[location]' } }
               - else
                 - help = t(".attributes.help.#{field}_html", default: [:".attributes.help.#{field}", ''])
                 = f.label field, class: 'fr-label' do
