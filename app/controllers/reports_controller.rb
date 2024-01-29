@@ -3,8 +3,6 @@ class ReportsController < ApplicationController
   before_action :retrieve_antenne, only: :index
   before_action :retrieve_quarters, only: :index
 
-  layout 'side_menu'
-
   def index
     authorize @antenne, policy_class: ReportPolicy
   end
