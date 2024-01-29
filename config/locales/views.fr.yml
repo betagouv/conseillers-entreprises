@@ -266,6 +266,7 @@ fr:
           diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
           diagnosis_content_subtitle: Informations générales sur cette entreprise
           need_content_placeholder: Plus d’infos sur ce besoin
+          save_and_return_solicitation_page: Enregistrer et revenir à la sollicitation
           select_at_least_one_need: Cochez au minimum un besoin identifié.
     sitemap:
       sitemap:
@@ -382,6 +383,7 @@ fr:
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       localisation_html: 'Localisation : <strong>%{region}</strong>'
+      modify_subject: 'Modifier le sujet : %{subject}'
       uncategorisable_label: Inclassables
       uncategorisable_value: uncategorisable
       view_completed_analysis: Voir l’analyse réalisée

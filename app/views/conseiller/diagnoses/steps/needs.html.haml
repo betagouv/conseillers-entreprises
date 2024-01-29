@@ -6,7 +6,7 @@
   #needs-app
     = form_with model: @diagnosis,
       url: update_needs_conseiller_diagnosis_path,
-      data: { checkboxes_require_one_with: t(".select_at_least_one_need"), controller: "diagnosis-needs-step" },
+      data: { turbo: 'false', checkboxes_require_one_with: t(".select_at_least_one_need"), controller: "diagnosis-needs-step" },
       local: true do |diagnosis_form|
 
       %h1.fr-h2= Diagnosis.human_attribute_value(:step, :needs)
@@ -51,12 +51,14 @@
                                 = filter_form.label :filter_value, I18n.t('false', scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
                     = need_form.text_area :content, placeholder: t('.need_content_placeholder'), rows: 2, class: 'fr-input'
 
-              .fr-mt-2w
+              .fr-mt-2w.bottom_actions
                 = render 'next_step', diagnosis_form: diagnosis_form
 
-      .bottom_actions.fr-mt-10v
-        = link_to contact_conseiller_diagnosis_path, class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbo: false } do
+      .bottom_actions.space-between.fr-mt-10v
+        = link_to contact_conseiller_diagnosis_path, class: 'fr-btn fr-btn--icon-left height-fit-content', data: { turbo: false } do
           %span.ri-arrow-left-line.fr-mr-1w{ 'aria-hidden': 'true' }
           = t('previous_step')
-
-        = render 'next_step', diagnosis_form: diagnosis_form
+        .fr-btns-group--right.fr-btns-group--inline-md
+          = diagnosis_form.button :submit, value: 'return_solicitation_page', class: 'fr-btn fr-btn--secondary fr-btn-green fr-btn--icon-right fr-icon-arrow-go-back-line' do
+            = t('.save_and_return_solicitation_page')
+          = render 'next_step', diagnosis_form: diagnosis_form

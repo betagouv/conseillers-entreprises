@@ -1,4 +1,4 @@
-class CancelSolicitationWithEmail
+class SendSolicitationGenericEmail
   def initialize(solicitation, email_type)
     @solicitation = solicitation
     @email_type = email_type
@@ -8,7 +8,7 @@ class CancelSolicitationWithEmail
     @email_type.present? && @solicitation.present? && Solicitation::GENERIC_EMAILS_TYPES.include?(@email_type.to_sym)
   end
 
-  def cancel
+  def send_email
     raise StandardError, I18n.t('errors.cancel_solicitation_with_email') unless valid?
     @solicitation.update(badge_ids: @solicitation.badge_ids + [email_type_to_badge_id])
     @solicitation.cancel!
