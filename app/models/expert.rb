@@ -245,6 +245,10 @@ class Expert < ApplicationRecord
     reminders_registers.order(:created_at).last
   end
 
+  def currently_in_reminders?
+    last_reminder_register&.run_number == RemindersRegister.last_run_number
+  end
+
   def input_register
     reminders_registers.current_input_category.first
   end

@@ -19,10 +19,10 @@
           - need.matches.preload(expert: :antenne).find_each do |match|
             - expert = match.expert
             .item
-              ⁃ #{expert.antenne.to_s}
-              - if Expert.many_pending_needs.include?(expert)
-                = link_to reminders_expert_path(expert), class: 'picto', data: { turbo: false } do
-                  %span.ri-vip-crown-2-fill{ title: t('.many_pending_needs'), 'aria-hidden': 'true' }
+              - if expert.currently_in_reminders?
+                = raw build_expert_reminders_link(expert)
+              - else
+                ⁃ #{expert.antenne.to_s}
         .card__feedbacks
           %div{ id: "display-feedbacks-#{need.id}" }
             = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks
