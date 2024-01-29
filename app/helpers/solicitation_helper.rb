@@ -37,11 +37,11 @@ module SolicitationHelper
     end
   end
 
-  def subject_tag(solicitation, classes = %[])
+  def subject_button(solicitation, classes = %[])
     if solicitation.diagnosis.present? && solicitation.diagnosis.needs.present?
-      tag_for_editable_subject(solicitation.diagnosis.needs.first, classes)
+      button_for_editable_subject(solicitation.diagnosis.needs.first, classes)
     else
-      tag_for_non_editable_subject(solicitation, classes)
+      button_for_non_editable_subject(solicitation, classes)
     end
   end
 
@@ -74,16 +74,13 @@ module SolicitationHelper
 
   private
 
-  def tag_for_editable_subject(need, classes)
+  def button_for_editable_subject(need, classes)
     title = t('helpers.solicitation.modify_subject', subject: need.subject)
     path = needs_conseiller_diagnosis_path(need.diagnosis)
-    link_to path, class: [], title: title do
-      tag.span(class: classes) { need.subject.label } +
-      tag.span(class: 'ri-edit-box-line', 'aria-hidden': 'true')
-    end
+    link_to need.subject.label, path, class: classes + ' fr-icon-settings-5-fill fr-btn--icon-right ', title: title
   end
 
-  def tag_for_non_editable_subject(solicitation, classes)
-    tag.span(class: classes) { solicitation.landing_subject.title }
+  def button_for_non_editable_subject(solicitation, classes)
+    tag.button(class: classes, disabled: 'disabled') { solicitation.landing_subject.title }
   end
 end
