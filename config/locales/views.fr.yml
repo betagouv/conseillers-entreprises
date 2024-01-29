@@ -635,7 +635,7 @@ fr:
       send_reminder_email:
         email_send: Email de relance envoyé
     index:
-      title: Relances
+      title: Risques d’échec
     need:
       many_pending_needs: Cet expert est présent dans le paniers « plus de 5 besoins en attentes »
     needs:
@@ -644,7 +644,7 @@ fr:
       index:
         no_results: Aucun besoin dans ce panier
       navbar:
-        title: Relances
+        title: Risques d’échec
       scopes:
         detail:
           last_chance: J+%{days}
@@ -670,7 +670,7 @@ fr:
       add_remove_badges: Ajouter ou retirer un tag
     section:
       experts: Paniers qualité
-      needs: relances
+      needs: Risques d’échec
     send_abandoned_need_email: Envoyer l’email d’échec au dirigeant
     send_last_chance_email: Envoyer l’email de la dernière chance
   reminders_actions:
