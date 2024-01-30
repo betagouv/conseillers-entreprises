@@ -50,16 +50,24 @@
       - cache ["received_matches", expert, expert.received_matches, expert.needs_quo_active] do
         .card-expert__subtitle= t('.matches_total')
         .fr-tags-group
-          .fr-tag
-            .bold= expert.received_matches.count
-            .fr-ml-1v= t('.received_matches')
+          %p.fr-tag
+            %span.bold.fr-mr-1v= expert.received_matches.count
+            = t('.received_matches')
           - inbox_collections_counts(expert).each do |name, count|
             - path = polymorphic_path([name, :reminders, expert])
             = link_to path, class: 'fr-tag' do
               .bold= count
               .fr-ml-1v= t(name, scope: 'needs.collections').downcase
+      - expert_last_chance_needs = expert.received_needs.reminders_to(:last_chance)
+      - cache ["received_needs_last_chance", expert, expert_last_chance_needs.ids] do
+        - if expert_last_chance_needs.present?
+          .card-expert__subtitle.fr-mt-2w= t('.needs_in_last_chance')
+          .fr-tags-group
+            = link_to last_chance_reminders_needs_path, class: 'fr-tag warning' do
+              .bold= expert_last_chance_needs.count
+              .fr-ml-1v= t('activerecord.models.need', count: expert_last_chance_needs.count).downcase
 
-      %hr
+      %hr.fr-mt-2v
       = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
       .fr-mt-3w
         = render 'expert_feedbacks', expert: expert

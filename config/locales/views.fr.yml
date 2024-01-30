@@ -594,7 +594,8 @@ fr:
       expert:
         expert_creation_date: Inscription le %{date}
         manager_name: 'Responsable : %{name}'
-        matches_total: Demandes depuis le début
+        matches_total: Mises en relation reçues depuis le début
+        needs_in_last_chance: Besoins en risque d’abandon
         process: Vu
         received_matches: reçues
         send_one_pending_need_email: Envoyer l’email de réengagement
