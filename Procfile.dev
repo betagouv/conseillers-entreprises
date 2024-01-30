@@ -3,3 +3,4 @@ clock: bundle exec clockwork app/models/clockwork.rb
 delayedjob: bundle exec rake jobs:work
 log: tail -f log/development.log
 webpack:  ./bin/webpack-dev-server
+js: yarn build --watch

@@ -26,7 +26,7 @@ gem 'sassc-rails'
 gem 'terser'
 gem 'premailer-rails'
 gem 'css_parser'
-gem 'webpacker'
+gem 'jsbundling-rails'
 
 # Parallel processes
 gem 'clockwork'
