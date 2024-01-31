@@ -28,7 +28,7 @@ describe 'needs' do
     ])
   end
   let!(:need_abandoned) do
-    create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, created_at: 46.days.ago)], created_at: 46.days.ago)
+    create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, sent_at: 46.days.ago)], created_at: 46.days.ago)
   end
 
   describe 'user needs' do

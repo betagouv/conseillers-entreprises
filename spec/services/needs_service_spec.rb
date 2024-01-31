@@ -8,10 +8,10 @@ describe NeedsService do
     # match de plus de 6 mois not_for_me    ko
     # matche de plus de 6 mois taking_care  ko
     let!(:match1) { create :match, status: :quo }
-    let!(:match2) { create :match, status: :quo, created_at: 6.months.ago }
-    let!(:match3) { create :match, status: :not_for_me, created_at: 6.months.ago }
-    let!(:match4) { create :match, status: :taking_care, created_at: 6.months.ago }
-    let!(:match5) { create :match, status: :done, created_at: 6.months.ago }
+    let!(:match2) { create :match, status: :quo, sent_at: 6.months.ago }
+    let!(:match3) { create :match, status: :not_for_me, sent_at: 6.months.ago }
+    let!(:match4) { create :match, status: :taking_care, sent_at: 6.months.ago }
+    let!(:match5) { create :match, status: :done, sent_at: 6.months.ago }
 
     before { described_class.archive_expired_matches }
 
@@ -26,7 +26,6 @@ describe NeedsService do
 
   describe 'abandon_needs' do
     context 'without last chance email' do
-      # Besoin quo done_no_help done_not_reachable de moins de 45 jours   ko
       # Besoin quo done_no_help done_not_reachable de moins de 45 jours   ko
       # Besoin quo done_no_help done_not_reachable de plus de 45 jours    ok
       # Besoin done de moins de 45 jours                                  ko

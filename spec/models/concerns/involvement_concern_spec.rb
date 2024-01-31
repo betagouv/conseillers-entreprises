@@ -34,18 +34,18 @@ RSpec.describe InvolvementConcern do
       create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, status: :taking_care)])
     end
     let!(:need_quo_old) do
-      create(:need, matches: [create(:match, expert: current_expert, status: :quo, created_at: 46.days.ago)])
+      create(:need, matches: [create(:match, expert: current_expert, status: :quo, sent_at: 46.days.ago)])
     end
     let!(:need_other_done_old) do
       create(:need, matches: [
-        create(:match, expert: current_expert, status: :quo, created_at: 46.days.ago),
-        create(:match, expert: other_expert, status: :done, created_at: 46.days.ago)
+        create(:match, expert: current_expert, status: :quo, sent_at: 46.days.ago),
+        create(:match, expert: other_expert, status: :done, sent_at: 46.days.ago)
       ])
     end
     let!(:need_other_refused_old) do
       create(:need, matches: [
-        create(:match, expert: current_expert, status: :quo, created_at: 46.days.ago),
-        create(:match, expert: other_expert, status: :not_for_me, created_at: 46.days.ago)
+        create(:match, expert: current_expert, status: :quo, sent_at: 46.days.ago),
+        create(:match, expert: other_expert, status: :not_for_me, sent_at: 46.days.ago)
       ])
     end
     let!(:need_not_for_me) do

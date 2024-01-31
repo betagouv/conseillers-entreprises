@@ -117,11 +117,11 @@ class Match < ApplicationRecord
   end
 
   scope :with_status_quo_active, -> do
-    status_quo.where(created_at: Need::REMINDERS_DAYS[:abandon]&.days&.ago..)
+    status_quo.where(sent_at: Need::REMINDERS_DAYS[:abandon]&.days&.ago..)
   end
 
   scope :with_status_expired, -> do
-    status_quo.where(created_at: ..Need::REMINDERS_DAYS[:abandon]&.days&.ago)
+    status_quo.where(sent_at: ..Need::REMINDERS_DAYS[:abandon]&.days&.ago)
   end
 
   scope :by_antenne, -> (antenne_id) do
