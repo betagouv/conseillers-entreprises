@@ -125,8 +125,10 @@ ActiveAdmin.register User do
 
   sidebar I18n.t('active_admin.actions'), only: :show do
     ul class: 'actions' do
-      li link_to t('annuaire.users.table.duplicate_user'), admin_user_duplicate_user_path(user), class: 'action'
-      li link_to t('annuaire.users.table.reassign_matches'), admin_user_reassign_matches_path(user), class: 'action'
+      unless resource.deleted?
+        li link_to t('annuaire.users.table.duplicate_user'), admin_user_duplicate_user_path(user), class: 'action'
+        li link_to t('annuaire.users.table.reassign_matches'), admin_user_reassign_matches_path(user), class: 'action'
+      end
       li link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user), class: 'action'
     end
   end

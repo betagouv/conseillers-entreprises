@@ -42,6 +42,8 @@ fr:
     csv_export: Export CSV
     csv_export_launched: La génération du CSV a commencé, retrouvez-le dans quelques minutes dans votre espace personnel.
     duplicate_user:
+      deleted_user: Cet utilisateur a été supprimé, cette action n'est donc pas possible
+      new_user_details: Coordonnées du nouvel utilisateur
       title: Dupliquer un utilisateur
     reassign_matches:
       title: Transférer les mises en relation
