@@ -25,7 +25,7 @@
                 ⁃ #{expert.antenne.to_s}
         .card__feedbacks
           %div{ id: "display-feedbacks-#{need.id}" }
-            = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks
+            = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks, cached: true
           = render 'feedbacks/form', feedback: need.reminder_feedbacks.new
     .card__footer
       = raw build_reminders_card_footer(action, need)

@@ -19,6 +19,16 @@ module Reminders
       render_collection(:abandon)
     end
 
+    def expert
+      @expert = Expert.find(params.permit(:expert_id)[:expert_id])
+      @needs = @expert.received_needs
+        .reminders_to(:last_chance)
+        .joins(:matches, :experts)
+        .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
+        .order(:created_at)
+        .page(params[:page])
+    end
+
     def send_abandoned_email
       ActiveRecord::Base.transaction do
         @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_sent'),

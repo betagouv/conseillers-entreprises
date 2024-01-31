@@ -193,6 +193,7 @@ Rails.application.routes.draw do
         get :poke, path: 'sans-reponse'
         get :last_chance, path: 'risque-abandon'
         get :abandon, path: 'refuses'
+        get :expert, path: 'risque-abandon-expert'
       end
     end
     resources :reminders_registers, only: :update

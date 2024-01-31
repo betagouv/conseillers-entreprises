@@ -59,18 +59,18 @@
               .bold= count
               .fr-ml-1v= t(name, scope: 'needs.collections').downcase
       - expert_last_chance_needs = expert.received_needs.reminders_to(:last_chance)
-      - cache ["received_needs_last_chance", expert, expert_last_chance_needs.ids] do
-        - if expert_last_chance_needs.present?
-          .card-expert__subtitle.fr-mt-2w= t('.needs_in_last_chance')
-          .fr-tags-group
-            = link_to last_chance_reminders_needs_path, class: 'fr-tag warning' do
-              .bold= expert_last_chance_needs.count
-              .fr-ml-1v= t('activerecord.models.need', count: expert_last_chance_needs.count).downcase
+      - if expert_last_chance_needs.present?
+        .card-expert__subtitle.fr-mt-2w= t('.needs_in_last_chance')
+        .fr-tags-group
+          = link_to expert_reminders_needs_path(expert_id: expert.id), class: 'fr-tag warning' do
+            .bold= expert_last_chance_needs.count
+            .fr-ml-1v= t('activerecord.models.need', count: expert_last_chance_needs.count).downcase
 
       %hr.fr-mt-2v
-      = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
-      .fr-mt-3w
-        = render 'expert_feedbacks', expert: expert
+      - cache ['expert_feedbacks', expert, expert.reminder_feedbacks.ids] do
+        = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
+        .fr-mt-3w
+          = render 'expert_feedbacks', expert: expert
 
   .card__footer
     - if action == :one_pending_need

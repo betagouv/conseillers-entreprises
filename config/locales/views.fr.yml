@@ -641,6 +641,8 @@ fr:
     index:
       title: Risques d’échec
     needs:
+      expert:
+        title: Risques d’abandon pour %{expert}
       filters:
         search: Rechercher
       index:
