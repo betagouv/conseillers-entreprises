@@ -17,7 +17,7 @@ RSpec.describe Reminders::NeedsController do
     end
   end
 
-  describe 'GET #abandon' do
+  describe 'GET #refused' do
     # - besoin avec 1 positionnement « refusé », et autres MER sans réponse           ko
     # - besoin avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ko
     # - besoin avec 1 cloture « injoignable », et autres MER sans réponse             ko
@@ -34,7 +34,7 @@ RSpec.describe Reminders::NeedsController do
     let!(:need4_match1) { create :match, need: need4, status: :not_for_me }
     let!(:need4_match2) { create :match, need: need4, status: :not_for_me }
 
-    before { get :abandon }
+    before { get :refused }
 
     it 'display only not_for_me needs' do
       expect(assigns(:needs)).to contain_exactly(need4)

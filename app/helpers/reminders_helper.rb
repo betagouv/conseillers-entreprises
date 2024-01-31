@@ -25,7 +25,7 @@ module RemindersHelper
   private
 
   def with_email
-    %i[last_chance abandon]
+    %i[last_chance refused]
   end
 
   def with_last_chance_email
@@ -33,11 +33,11 @@ module RemindersHelper
   end
 
   def with_abandoned_email
-    %i[abandon]
+    %i[refused]
   end
 
   def with_action
-    %i[poke last_chance abandon]
+    %i[poke last_chance refused]
   end
 
   def action_button(action, need)

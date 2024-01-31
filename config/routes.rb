@@ -192,7 +192,7 @@ Rails.application.routes.draw do
       collection do
         get :poke, path: 'sans-reponse'
         get :last_chance, path: 'risque-abandon'
-        get :abandon, path: 'refuses'
+        get :refused, path: 'refuses'
         get :expert, path: 'risque-abandon-expert'
       end
     end

@@ -15,8 +15,8 @@ module Reminders
       render_collection(:last_chance)
     end
 
-    def abandon
-      render_collection(:abandon)
+    def refused
+      render_collection(:refused)
     end
 
     def expert
@@ -37,7 +37,7 @@ module Reminders
       end
       respond_to do |format|
         format.js { render template: 'reminders/needs/add_feedback', layout: false }
-        format.html { redirect_to abandon_reminders_needs_path, notice: t('mailers.email_sent') }
+        format.html { redirect_to refused_reminders_needs_path, notice: t('mailers.email_sent') }
       end
     end
 

@@ -654,18 +654,18 @@ fr:
           last_chance: J+%{days}
           poke: J+%{days}
         instruction:
-          abandon: Je fais un mail d’échec à l’entreprise
           last_chance: j’envoie le mail de la dernière chance aux experts, puis le besoin sera automatiquement abandonné
           not_for_me: Besoins avec toutes les mises en relation refusées
           poke: Je mets un commentaire sur la fiche pour relancer la dynamique
+          refused: Je fais un mail d’échec à l’entreprise
         mark_done:
-          abandon: Traiter
           last_chance: Experts relancés
           poke: Experts relancés
+          refused: Traiter
         name:
-          abandon: Refusés
           last_chance: Risque d’abandon
           poke: Sans réponse
+          refused: Refusés
       send_abandoned_email:
         email_sent: Email d’échec envoyé au dirigeant
       send_last_chance_email:
