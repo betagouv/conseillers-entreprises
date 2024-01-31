@@ -86,8 +86,6 @@ class Match < ApplicationRecord
 
   ## Scopes
   #
-  scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
-
   scope :to_support, -> { joins(:need).where(subject: Subject.support_subject) }
 
   scope :with_deleted_expert, ->{ where(expert: nil) }
