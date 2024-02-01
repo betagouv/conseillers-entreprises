@@ -335,7 +335,7 @@ describe 'New Solicitation', :js, :flaky do
 
           fill_in 'Recherchez votre entreprise', with: '40440440440400'
           click_on 'Suivant'
-          expect(page).not_to have_content('Sélectionnez votre entreprise :')
+          expect(page).to have_no_content('Sélectionnez votre entreprise :')
 
           expect(page).to have_content("L’identifiant (siret ou siren) est invalide")
         end

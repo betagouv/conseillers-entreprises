@@ -39,7 +39,7 @@ describe 'needs' do
       visit '/manager/besoins-des-antennes'
 
       expect(page).to have_current_path(quo_active_manager_needs_path, ignore_query: true)
-      expect(page).not_to have_select 'antenne_id'
+      expect(page).to have_no_select 'antenne_id'
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
     end
   end

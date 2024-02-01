@@ -33,7 +33,7 @@ describe 'Pages' do
     click_on 'Accessibilité : partiellement conforme'
     click_on 'Statistiques'
     expect(page).to have_select 'territory'
-    expect(page).not_to have_select 'institution'
+    expect(page).to have_no_select 'institution'
     find_by_id('start_date').set "2021-03-01"
     click_on 'Filtrer'
     expect(page).to have_select 'territory'
