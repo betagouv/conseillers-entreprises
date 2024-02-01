@@ -77,7 +77,7 @@ describe 'ApplicationController specific features' do
       visit new_user_session_path
       fill_in I18n.t('attributes.email'), with: user.email
       fill_in I18n.t('activerecord.attributes.user.password'), with: password
-      click_on I18n.t('sign_in')
+      click_on I18n.t('sign_in'), class: 'fr-btn'
     end
 
     context 'first connexion' do
