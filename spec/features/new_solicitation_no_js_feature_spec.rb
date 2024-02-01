@@ -28,7 +28,7 @@ describe 'New Solicitation' do
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
-          click_button 'Suivant'
+          click_on 'Suivant'
         end
 
         it do
@@ -49,7 +49,7 @@ describe 'New Solicitation' do
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Téléphone', with: '0123456789'
           fill_in 'Email', with: 'user@exemple.com'
-          click_button 'Suivant'
+          click_on 'Suivant'
         end
 
         it do
@@ -71,7 +71,7 @@ describe 'New Solicitation' do
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
-          click_button 'Suivant'
+          click_on 'Suivant'
         end
 
         it do

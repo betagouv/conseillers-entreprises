@@ -38,7 +38,7 @@ describe 'admin panel' do
       click_link 'Créer Expert'
       visit "/admin/experts/#{Expert.first.id}"
       click_link 'Modifier Expert'
-      click_button 'Modifier ce(tte) Expert'
+      click_on 'Modifier ce(tte) Expert'
 
       click_link 'Antennes'
       click_link 'Créer Antenne'
@@ -70,7 +70,7 @@ describe 'admin panel' do
       click_link 'Sollicitations'
       visit "/admin/solicitations/#{Solicitation.first.id}"
       click_link 'Modifier Sollicitation'
-      click_button 'Modifier ce(tte) Sollicitation'
+      click_on 'Modifier ce(tte) Sollicitation'
 
       click_link 'Analyses'
       click_link 'Créer Analyse'

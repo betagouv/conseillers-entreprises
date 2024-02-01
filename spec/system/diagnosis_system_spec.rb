@@ -22,7 +22,7 @@ describe 'diagnosis', :js do
         visit "/conseiller/analyses/#{diagnosis.id}"
         expect(page).to have_css 'h2', text: "Contact de l’entreprise #{diagnosis.company.name}"
 
-        click_button 'diagnosis_submit'
+        click_on 'diagnosis_submit'
 
         expect(page).to have_css 'h1', text: "Besoin exprimé"
         expect(page).to have_current_path(needs_conseiller_diagnosis_path(diagnosis))
@@ -31,11 +31,11 @@ describe 'diagnosis', :js do
         expect(page).to have_css('input[type=checkbox]:checked', count: 1, visible: :hidden)
         find('input[type=checkbox]', visible: :hidden, match: :first).set(true)
         expect(page).to have_css('input[type=checkbox]:checked', count: 1, visible: :hidden)
-        click_button(I18n.t('next_step'), match: :first)
+        click_on(I18n.t('next_step'), match: :first)
 
         expect(page).to have_css 'h2', text: diagnosis.needs.first.subject.label
         find('label[for="diagnosis_needs_attributes_0_matches_attributes_0__destroy"]').click
-        click_button(I18n.t('conseiller.diagnoses.steps.matches.notify_matches'), match: :first)
+        click_on(I18n.t('conseiller.diagnoses.steps.matches.notify_matches'), match: :first)
 
         expect(page).to have_current_path(conseiller_solicitations_path)
       end

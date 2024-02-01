@@ -75,7 +75,7 @@ describe 'needs' do
       expect(side_menu_link(expired_manager_needs_path)).to have_text('0')
 
       select(managed_antenne_02.name, from: 'antenne_id')
-      click_button 'Rechercher'
+      click_on 'Rechercher'
       expect(page).not_to have_css('.fr-card__c-container--need')
       expect(side_menu_link(quo_active_manager_needs_path(antenne_id: managed_antenne_02.id))).to have_text('0')
       expect(side_menu_link(taking_care_manager_needs_path(antenne_id: managed_antenne_02.id))).to have_text('1')
