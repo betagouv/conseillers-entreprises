@@ -65,8 +65,8 @@ describe 'New Solicitation', :js, :flaky do
 
         it do
           visit '/?recrutement_poste_cadre=true&recrutement_en_apprentissage=false'
-          click_link 'Test Landing Theme'
-          click_link 'Super sujet'
+          click_on 'Test Landing Theme'
+          click_on 'Super sujet'
 
           # Etape contact
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
@@ -81,7 +81,7 @@ describe 'New Solicitation', :js, :flaky do
           expect(solicitation.status_step_company?).to be true
 
           # Retour étape contact
-          click_link 'Précédent'
+          click_on 'Précédent'
           expect(solicitation.reload.status_step_company?).to be true
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc Superstar'
           click_on 'Suivant'
@@ -92,7 +92,7 @@ describe 'New Solicitation', :js, :flaky do
           fill_in 'Recherchez votre entreprise', with: "zzzzzz"
           click_on 'Suivant'
           expect(page).to have_link('Je ne trouve pas mon entreprise')
-          click_link 'Je ne trouve pas mon entreprise'
+          click_on 'Je ne trouve pas mon entreprise'
           fill_in 'Votre numéro SIRET', with: other_siret
           click_on 'Suivant'
           expect(solicitation.reload.siret).to eq other_siret
@@ -100,7 +100,7 @@ describe 'New Solicitation', :js, :flaky do
           expect(solicitation.status_step_description?).to be true
 
           # Retour étape entreprise
-          click_link 'Précédent'
+          click_on 'Précédent'
           expect(solicitation.status_step_description?).to be true
           fill_in 'Recherchez votre entreprise', with: query
           option = find(".autocomplete__option", match: :first)
@@ -147,8 +147,8 @@ describe 'New Solicitation', :js, :flaky do
 
         it do
           visit "/?siret=#{query}"
-          click_link 'Test Landing Theme'
-          click_link 'Super sujet'
+          click_on 'Test Landing Theme'
+          click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
@@ -160,7 +160,7 @@ describe 'New Solicitation', :js, :flaky do
           expect(solicitation.reload.siret).to eq query
           expect(page).to have_field(I18n.t('solicitations.creation_form.description'))
 
-          click_link 'Précédent'
+          click_on 'Précédent'
           expect(solicitation.reload.siret).to eq query
 
           fill_in 'Recherchez votre entreprise', with: siret
@@ -190,8 +190,8 @@ describe 'New Solicitation', :js, :flaky do
 
         it do
           visit '/'
-          click_link 'Test Landing Theme'
-          click_link 'Super sujet'
+          click_on 'Test Landing Theme'
+          click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
@@ -237,8 +237,8 @@ describe 'New Solicitation', :js, :flaky do
 
         it do
           visit '/'
-          click_link 'Test Landing Theme'
-          click_link 'Super sujet'
+          click_on 'Test Landing Theme'
+          click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
@@ -287,8 +287,8 @@ describe 'New Solicitation', :js, :flaky do
 
         it do
           visit '/'
-          click_link 'Test Landing Theme'
-          click_link 'Super sujet'
+          click_on 'Test Landing Theme'
+          click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
@@ -299,7 +299,7 @@ describe 'New Solicitation', :js, :flaky do
           click_on 'Suivant'
           expect(page).to have_content('Sélectionnez votre entreprise :')
 
-          click_link "Je ne trouve pas mon entreprise"
+          click_on "Je ne trouve pas mon entreprise"
           fill_in 'Votre numéro SIRET', with: "n'importe quoi"
           click_on 'Suivant'
           expect(page).to have_content('SIRET doit être un numéro à 14 chiffres')
@@ -325,8 +325,8 @@ describe 'New Solicitation', :js, :flaky do
 
         it do
           visit '/'
-          click_link 'Test Landing Theme'
-          click_link 'Super sujet'
+          click_on 'Test Landing Theme'
+          click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'

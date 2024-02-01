@@ -21,8 +21,8 @@ describe 'needs' do
   context 'expert inbox' do
     it 'displays all user received needs pages' do
       visit '/'
-      click_link 'Accès conseillers'
-      click_link 'Demandes reçues'
+      click_on 'Accès conseillers'
+      click_on 'Demandes reçues'
       expect(page).to have_current_path(quo_active_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 

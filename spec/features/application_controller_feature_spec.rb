@@ -31,10 +31,10 @@ describe 'ApplicationController specific features' do
       it 'shows no errors' do
         visit '/besoins'
         visit '/mon_compte'
-        click_link 'Mot de passe'
-        click_link 'Antenne'
-        click_link 'Domaines d’intervention'
-        click_link 'Tutoriel'
+        click_on 'Mot de passe'
+        click_on 'Antenne'
+        click_on 'Domaines d’intervention'
+        click_on 'Tutoriel'
         visit 'entreprises/search'
         expect(page.html).to include 'Demandes reçues'
         expect(page.html).not_to include 'Administration'
@@ -62,10 +62,10 @@ describe 'ApplicationController specific features' do
       it 'shows no errors' do
         visit '/mon_compte'
         expect(page.html).to include 'Annuaire'
-        click_link 'Annuaire'
-        click_link 'Tags'
-        click_link 'Exports csv'
-        click_link 'Inviter des utilisateurs'
+        click_on 'Annuaire'
+        click_on 'Tags'
+        click_on 'Exports csv'
+        click_on 'Inviter des utilisateurs'
       end
     end
   end

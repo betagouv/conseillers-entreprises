@@ -14,7 +14,7 @@ describe 'needs' do
       visit needs_path
       expect(page.html).to include 'Demandes reçues'
       expect(page.html).to include match.diagnosis.company.name
-      page.click_link('', :href => "/besoins/#{match.need.id}")
+      page.click_on('', :href => "/besoins/#{match.need.id}")
       expect(page.html).to include need_subject
     end
   end

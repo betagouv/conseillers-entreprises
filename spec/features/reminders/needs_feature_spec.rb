@@ -18,7 +18,7 @@ describe 'reminders needs', :js do
     xit 'displays experts' do
       visit poke_reminders_needs_path
       expect(page.html).to include 'Relances'
-      click_link(href: "/relances/besoins/sans-reponse")
+      click_on(href: "/relances/besoins/sans-reponse")
       expect(page).to have_content(need2.company.name)
       expect(page).to have_css('.card', count: 2)
       select(region.name, from: 'by_region')
