@@ -25,6 +25,8 @@ module ApiConsumption::Models
     end
 
     def code_departement
+      return if insee_code.blank?
+
       insee_code.start_with?('97') ? insee_code[0..2] : insee_code[0..1]
     end
   end
