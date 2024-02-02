@@ -1,8 +1,22 @@
-- meta title: t('.title', antenne: @antenne.name)
-- content_for :header, render('header', title: t('.title', antenne: @antenne.name))
-- content_for :menu, render('menu', antennes: @antennes, current_antenne: @antenne)
+- title = t('.title', antenne: @antenne.name)
+- meta title: title
+
+.fr-container
+  .fr-grid-row
+    .fr-col
+      %h1.fr-h2= title
 
 .fr-container.reports
+  = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
+    .fr-grid-row.fr-grid-row--gutters.fr-grid-row--bottom.fr-py-3w
+      .fr-col-12.fr-col-md-6
+        .fr-select-group
+          = f.label :antenne_id, t('filters.select_antenne'), class: 'fr-label'
+          = f.select :antenne_id, options_for_select(build_antennes_collection_for_select(@antennes), selected: @antenne), {}, class: "fr-select"
+      .fr-col-12.fr-col-md-6
+        .fr-input-group
+          = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
+
   - if @quarters.present?
     .fr-table.fr-table--beige-gris-galet.fr-accordions-group
       - @quarters.each_with_index do |quarter, index|

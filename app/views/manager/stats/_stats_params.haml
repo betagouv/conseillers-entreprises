@@ -1,7 +1,7 @@
 = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
-  .fr-grid-row.fr-py-3w.fr-mb-3w.white-bg#stats-params{ data: { controller: 'stats' } }
+  .fr-grid-row.fr-grid-row--gutters.fr-mb-3w.white-bg#stats-params{ data: { controller: 'stats' } }
 
-    .fr-col-12.fr-col-md-4.fr-p-2w
+    .fr-col-12.fr-col-md-4
       .fr-input-group
         = f.label :start_date, t('stats.stats_params.start_date'), class: 'fr-label'
         .fr-input-wrap
@@ -11,7 +11,7 @@
         = f.collection_select :theme, filters[:themes], :id, :label, { selected: stats[:theme],
           include_blank: t('all.feminine') }, class: "fr-select"
 
-    .fr-col-12.fr-col-md-4.fr-p-2w
+    .fr-col-12.fr-col-md-4
       .fr-input-group
         = f.label :end_date, t('stats.stats_params.end_date'), class: 'fr-label'
         .fr-input-wrap
@@ -21,7 +21,7 @@
         = f.collection_select :subject, filters[:subjects], :id, :label, { selected: stats[:subject],
         include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
 
-    .fr-col-12.fr-col-md-4.fr-p-2w
+    .fr-col-12.fr-col-md-4
       - if filters[:regions].many?
         .fr-select-group
           = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
@@ -32,7 +32,7 @@
           = f.label :antenne, t('activerecord.models.antenne.one'), class: 'fr-label'
           = f.select :antenne, options_for_select(build_antennes_collection_for_select(filters[:antennes]), selected: stats[:antenne]), {}, class: "fr-select"
 
-    .fr-col-12.fr-p-2w
+    .fr-col-12
       .fr-input-group
         = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
         - prefill_params = %i[start_date end_date institution_id colors]

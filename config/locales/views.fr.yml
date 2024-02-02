@@ -360,6 +360,8 @@ fr:
       submit: Commenter
       thank_you_html: "<p class='fr-m-0 fr-ml-16v'><b>Merci, votre commentaire a été publié.</b></p>"
       title: 'Nouveau commentaire :'
+  filters:
+    select_antenne: Sélectionnez une antenne
   helpers:
     annuaire:
       anomalie_less: Aucun expert pour ce sujet
@@ -509,7 +511,6 @@ fr:
       omnisearch: Rechercher par entreprise, contact, description...
       search: Rechercher
       search_placeholder: 'Ex : La mie tendre, Lucie Martin, plomberie, financement...'
-      select_antenne: Selectionnez une antenne
     show:
       all_experts: Experts notifiés
       all_needs: Toutes les demandes
