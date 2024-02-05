@@ -14,7 +14,7 @@ class NeedsService
       # Envoie de l'email d'abandon a l’entreprise si :
       # le besoin a aucun email envoyé et qu'il a plus de 45 jours
       # ou si le besoin a un email envoyé depuis plus de 10 jours et que le besoin a plus de 21 jours
-      if !need.has_action?('last_chance') && need.created_at <= Need::REMINDERS_DAYS[:abandon].days.ago
+      if need.created_at <= Need::REMINDERS_DAYS[:abandon].days.ago
         CompanyMailer.abandoned_need(need).deliver_later
         need.reminders_actions.create(category: 'abandon')
       end
