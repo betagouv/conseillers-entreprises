@@ -666,6 +666,8 @@ fr:
           last_chance: Risque d’abandon
           poke: Sans réponse
           refused: Refusés
+      send_failure_email:
+        email_sent: Email d’échec envoyé à l’entreprise
       send_last_chance_email:
         email_send: Email de la dernière chance envoyé à %{teams}
     needs_badges:
@@ -673,7 +675,7 @@ fr:
     section:
       experts: Paniers qualité
       needs: Risques d’échec
-    send_abandoned_need_email: Envoyer l’email d’échec au dirigeant
+    send_failure_email: Envoyer l’email d’échec au dirigeant
     send_last_chance_email: Envoyer l’email de la dernière chance
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité

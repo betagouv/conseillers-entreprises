@@ -5,10 +5,10 @@ require 'rails_helper'
 RSpec.describe Reminders::NeedsController do
   login_admin
 
-  describe 'POST #send_abandoned_email' do
+  describe 'POST #send_failure_email' do
     let!(:need) { create :need }
 
-    before { post :send_abandoned_email, params: { id: need.id } }
+    before { post :send_failure_email, params: { id: need.id } }
 
     it 'send email and set abandoned_email_sent' do
       assert_enqueued_with(job: ActionMailer::MailDeliveryJob)

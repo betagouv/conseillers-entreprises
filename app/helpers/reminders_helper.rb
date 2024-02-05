@@ -49,7 +49,7 @@ module RemindersHelper
     button = if with_last_chance_email.include? action
       form_builder(send_last_chance_email_reminders_need_path(need), t('reminders.send_last_chance_email'), need)
     elsif with_abandoned_email.include? action
-      form_builder(send_abandoned_email_reminders_need_path(need), t('reminders.send_abandoned_need_email'), need)
+      form_builder(send_failure_email_reminders_need_path(need), t('reminders.send_failure_email'), need)
     end
     tag.div(button, id: "reminder-email-#{need.id}",)
   end

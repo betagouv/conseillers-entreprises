@@ -1,7 +1,7 @@
 module Reminders
   class NeedsController < BaseController
     before_action :persist_filter_params, :setup_territory_filters, :collections_counts
-    before_action :find_need, only: %i[send_abandoned_email send_last_chance_email]
+    before_action :find_need, only: %i[send_failure_email send_last_chance_email]
 
     def index
       redirect_to action: :poke
@@ -30,7 +30,7 @@ module Reminders
         .page(params[:page])
     end
 
-    def send_abandoned_email
+    def send_failure_email
       ActiveRecord::Base.transaction do
         @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_sent'),
                                     feedbackable_type: 'Need', feedbackable_id: @need.id)
