@@ -26,6 +26,7 @@ module Reminders
         .joins(:matches, :experts)
         .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
         .order(:created_at)
+        .distinct
         .page(params[:page])
     end
 
