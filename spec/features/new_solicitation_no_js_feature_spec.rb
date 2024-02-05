@@ -23,12 +23,12 @@ describe 'New Solicitation' do
       context "with PK params in url" do
         before do
           visit '/?pk_campaign=FOO&pk_kwd=BAR'
-          click_link 'Test Landing Theme'
-          click_link 'Super sujet'
+          click_on 'Test Landing Theme'
+          click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
-          click_button 'Suivant'
+          click_on 'Suivant'
         end
 
         it do
@@ -44,12 +44,12 @@ describe 'New Solicitation' do
       context "with MTM params in url" do
         before do
           visit '/?mtm_campaign=FOO&mtm_kwd=BAR'
-          click_link 'Test Landing Theme'
-          click_link 'Super sujet'
+          click_on 'Test Landing Theme'
+          click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Téléphone', with: '0123456789'
           fill_in 'Email', with: 'user@exemple.com'
-          click_button 'Suivant'
+          click_on 'Suivant'
         end
 
         it do
@@ -66,12 +66,12 @@ describe 'New Solicitation' do
 
         before do
           visit "/?siret=#{siret}"
-          click_link 'Test Landing Theme'
-          click_link 'Super sujet'
+          click_on 'Test Landing Theme'
+          click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
-          click_button 'Suivant'
+          click_on 'Suivant'
         end
 
         it do

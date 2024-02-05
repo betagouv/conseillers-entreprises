@@ -14,21 +14,21 @@ describe 'reminders experts', :js do
       visit inputs_reminders_experts_path
       expect(page.html).to include 'Paniers qualité'
       p "many_pending_needs expected count : 1"
-      page.click_link(href: "/relances/experts/superieur-a-cinq-besoins")
+      page.click_on(href: "/relances/experts/superieur-a-cinq-besoins")
       p "many_pending_needs real count : #{Expert.many_pending_needs.distinct.size}"
       expect(page).to have_css('.card', count: 1, wait: 10)
       expect(page).to be_accessible
       p "medium_pending_needs expected count : 1 "
-      page.click_link(href: "/relances/experts/entre-deux-et-cinq-besoins")
+      page.click_on(href: "/relances/experts/entre-deux-et-cinq-besoins")
       p "medium_pending_needs real count : #{Expert.medium_pending_needs.distinct.size}"
       expect(page).to have_css('.card', count: 1, wait: 10)
       expect(page).to be_accessible
       p "one_pending_need expected count : 2"
-      page.click_link(href: "/relances/experts/un-besoin-recent")
+      page.click_on(href: "/relances/experts/un-besoin-recent")
       p "one_pending_need real count : #{Expert.one_pending_need.distinct.size}"
       expect(page).to have_css('.card', count: 2, wait: 10)
       expect(page).to be_accessible
-      click_link("1 boite de réception", match: :first)
+      click_on("1 boite de réception", match: :first)
       expect(page).to have_text("Boite de réception")
     end
   end

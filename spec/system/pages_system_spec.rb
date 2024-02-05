@@ -23,21 +23,21 @@ describe 'Pages' do
     expect(page).to have_content(needs_count)
     expect(page).to have_content(companies_count)
 
-    click_link 'Accès conseillers'
-    click_link 'Tutoriel'
-    click_link 'Chefs d’entreprises, cliquez ici'
+    click_on 'Accès conseillers'
+    click_on 'Tutoriel'
+    click_on 'Chefs d’entreprises, cliquez ici'
 
-    click_link 'Conditions d’utilisation'
-    click_link 'Mentions d\'information'
-    click_link 'Mentions légales'
-    click_link 'Accessibilité : partiellement conforme'
-    click_link 'Statistiques'
+    click_on 'Conditions d’utilisation'
+    click_on 'Mentions d\'information'
+    click_on 'Mentions légales'
+    click_on 'Accessibilité : partiellement conforme'
+    click_on 'Statistiques'
     expect(page).to have_select 'territory'
-    expect(page).not_to have_select 'institution'
+    expect(page).to have_no_select 'institution'
     find_by_id('start_date').set "2021-03-01"
-    click_button 'Filtrer'
+    click_on 'Filtrer'
     expect(page).to have_select 'territory'
-    click_link 'Plan du site'
+    click_on 'Plan du site'
     expect(page).to have_content(Landing.first.landing_themes.first.title)
   end
 end

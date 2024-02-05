@@ -15,7 +15,7 @@ describe 'experts' do
       fill_in id: 'expert_job', with: 'Doer of things'
       fill_in id: 'expert_phone_number', with: '0987654321'
 
-      click_button 'Mettre à jour'
+      click_on 'Mettre à jour'
     end
 
     it 'updates the expert info' do

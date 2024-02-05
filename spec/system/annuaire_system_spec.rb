@@ -25,7 +25,7 @@ describe 'annuaire', :js do
       expect(page).to have_css('tr', count: 3)
 
       select(region.name, from: 'region_id')
-      click_button 'Chercher'
+      click_on 'Chercher'
       expect(page).to have_css('tr', count: 2)
     end
   end

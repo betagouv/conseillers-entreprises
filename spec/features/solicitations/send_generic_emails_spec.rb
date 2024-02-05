@@ -14,27 +14,27 @@ describe 'send generic emails' do
   end
 
   it 'send bad_quality email' do
-    click_link I18n.t('solicitations.solicitation_actions.emails.bad_quality')
+    click_on I18n.t('solicitations.solicitation_actions.emails.bad_quality')
     expect(page.html).to include I18n.t('emails.sent')
   end
 
   it 'send employee_labor_law email' do
-    click_link I18n.t('solicitations.solicitation_actions.emails.employee_labor_law')
+    click_on I18n.t('solicitations.solicitation_actions.emails.employee_labor_law')
     expect(page.html).to include I18n.t('emails.sent')
   end
 
   it 'send creation email' do
-    click_link I18n.t('solicitations.solicitation_actions.emails.creation')
+    click_on I18n.t('solicitations.solicitation_actions.emails.creation')
     expect(page.html).to include I18n.t('emails.sent')
   end
 
   it 'send siret email' do
-    click_link I18n.t('solicitations.solicitation_actions.emails.siret')
+    click_on I18n.t('solicitations.solicitation_actions.emails.siret')
     expect(page.html).to include I18n.t('emails.sent')
   end
 
   it 'send moderation email' do
-    click_link I18n.t('solicitations.solicitation_actions.emails.moderation')
+    click_on I18n.t('solicitations.solicitation_actions.emails.moderation')
     expect(page.html).to include I18n.t('emails.sent')
   end
 end
