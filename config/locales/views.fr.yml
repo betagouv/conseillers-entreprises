@@ -386,7 +386,7 @@ fr:
       searched_collection_count_html: "<strong>%{size}</strong> Résultats trouvés"
     reminders:
       link_to_expert_reminders: Lien vers la fiche de l’expert dans les paniers qualité
-      present_in_basket: Cet expert est présent dans le paniers « %{basket} »
+      present_in_basket: Cet expert est présent dans le panier « %{basket} »
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       localisation_html: 'Localisation : <strong>%{region}</strong>'
@@ -666,8 +666,6 @@ fr:
           last_chance: Risque d’abandon
           poke: Sans réponse
           refused: Refusés
-      send_abandoned_email:
-        email_sent: Email d’échec envoyé au dirigeant
       send_last_chance_email:
         email_send: Email de la dernière chance envoyé à %{teams}
     needs_badges:

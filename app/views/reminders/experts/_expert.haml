@@ -56,8 +56,8 @@
           - inbox_collections_counts(expert).each do |name, count|
             - path = polymorphic_path([name, :reminders, expert])
             = link_to path, class: 'fr-tag' do
-              .bold= count
-              .fr-ml-1v= t(name, scope: 'needs.collections').downcase
+              %span.bold.fr-mr-1v= count
+              = t(name, scope: 'needs.collections').downcase
       - expert_last_chance_needs = expert.received_needs.reminders_to(:last_chance)
       - if expert_last_chance_needs.present?
         .card-expert__subtitle.fr-mt-2w= t('.needs_in_last_chance')
