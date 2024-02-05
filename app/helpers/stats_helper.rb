@@ -32,7 +32,7 @@ module StatsHelper
   def antennes_collection_hash(base_antennes, looking_for_antennes)
     base_antennes
       .where(id: [looking_for_antennes.ids, looking_for_antennes.map { |a| a.territorial_antennes.pluck(:id) }].flatten)
-      .map { |a| { name: a.name, id: a.id } }
+      .map { |a| { name: a.name, id: a.id, territorial_level: Antenne::TERRITORIAL_ORDER[a.territorial_level.to_sym] } }
   end
 
   def constantize_chart_name(name)
@@ -46,8 +46,8 @@ module StatsHelper
     recipient_antennes.includes(:child_antennes).find_each do |antenne|
       next if antenne.local? || antenne.territorial_antennes.empty?
       #  Ajoute la possibilité pour les antennes régionale d'avoir les stats agglomérés
-      antennes_collection << { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: antenne.name), id: antenne.id }
+      antennes_collection << { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: antenne.name), id: antenne.id, territorial_level: Antenne::TERRITORIAL_ORDER[antenne.territorial_level.to_sym] }
     end
-    antennes_collection.sort_by { |a| a[:name] }
+    antennes_collection.sort_by { |a| [a[:territorial_level], a[:name]] }
   end
 end
