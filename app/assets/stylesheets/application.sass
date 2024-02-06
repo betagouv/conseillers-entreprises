@@ -11,7 +11,47 @@
  * It is generally better to create a new file per style scope.
  *
  */
+@import 'shared/base'
+@import 'shared/typo'
+@import 'shared/utilities'
+@import 'shared/environment_ribbon'
+@import 'shared/user_impersonate'
 
-@import application/*
-@import shared/*
+@import 'remixicon/fonts/remixicon.css'
+@import '@gouvfr/dsfr/dist/utility/icons/icons'
+@import '@gouvfr/dsfr/dist/dsfr'
 
+
+// @import 'tarteaucitron-dsfr'
+// @import 'base'
+// @import 'utilities'
+// @import 'typo'
+// @import '@selectize/selectize/dist/scss/selectize'
+
+// Components
+@import 'components/alertes'
+@import "components/autocomplete"
+@import 'components/buttons'
+@import 'components/callout'
+@import 'components/cards'
+@import 'components/components'
+@import "components/footer"
+@import 'components/forms'
+@import 'components/labels'
+@import 'components/navigation'
+@import 'components/table'
+@import 'components/tabs'
+@import 'components/tags'
+@import 'components/charts'
+@import 'components/tarteaucitron'
+@import 'components/solicitation_actions'
+@import 'components/tooltip'
+
+//pages
+// @import "application/*"
+@import "application/annuaire"
+@import "application/need_show"
+@import "application/reminders"
+@import "application/reports"
+@import "application/steps"
+@import "application/tuto"
