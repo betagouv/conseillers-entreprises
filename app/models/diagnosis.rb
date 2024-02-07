@@ -87,6 +87,7 @@ class Diagnosis < ApplicationRecord
   ## Callbacks
   #
   after_update :update_needs, if: :step_completed?
+  before_create :warn_debug_developers
 
   ## Scopes
   #
@@ -212,6 +213,15 @@ class Diagnosis < ApplicationRecord
   def without_solicitation_has_advisor
     if solicitation.nil? && advisor.nil?
       errors.add(:advisor, :blank)
+    end
+  end
+
+  def warn_debug_developers
+    if solicitation.nil?
+      Sentry.with_scope do |scope|
+        scope.set_tags(diagnosis: self.inspect)
+        Sentry.capture_message("Analyse sans sollicitation") 
+      end
     end
   end
 end

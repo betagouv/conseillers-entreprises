@@ -101,9 +101,8 @@ class Solicitation < ApplicationRecord
     end
 
     event :complete, before: :format_solicitation do
-      transitions from: [:step_description], to: :in_progress
-      # cas des mauvaises qualités modifiés par le chef d'entreprise
-      transitions from: [:canceled], to: :in_progress
+      # canceled : cas des mauvaises qualités modifiés par le chef d'entreprise
+      transitions from: [:step_description, :canceled], to: :in_progress
     end
 
     event :process do
