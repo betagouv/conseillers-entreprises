@@ -19,8 +19,8 @@ const sharedWebpackConfig = (mode) => {
     entry: {
       application: "./app/front/packs/application.js",
       pages: "./app/front/packs/pages.js",
-      gouvfrNomodule: "./app/front/packs/gouvfr-nomodule.js",
-      gouvfrModule: "./app/front/packs/gouvfr-module.js",
+      'gouvfr-nomodule': "./app/front/packs/gouvfr-nomodule.js",
+      'gouvfr-module': "./app/front/packs/gouvfr-module.js",
     },
     // optimization: // optimization rules
     resolve: {
