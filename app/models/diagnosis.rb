@@ -84,10 +84,10 @@ class Diagnosis < ApplicationRecord
   has_many :expert_institutions, through: :experts, source: :institution, inverse_of: :received_diagnoses
   has_many :contacted_users, through: :experts, source: :users, inverse_of: :received_diagnoses
 
+  before_create :warn_debug_developers
   ## Callbacks
   #
   after_update :update_needs, if: :step_completed?
-  before_create :warn_debug_developers
 
   ## Scopes
   #
@@ -220,7 +220,7 @@ class Diagnosis < ApplicationRecord
     if solicitation.nil?
       Sentry.with_scope do |scope|
         scope.set_tags(diagnosis: self.inspect)
-        Sentry.capture_message("Analyse sans sollicitation") 
+        Sentry.capture_message("Analyse sans sollicitation")
       end
     end
   end

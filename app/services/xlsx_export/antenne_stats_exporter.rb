@@ -10,7 +10,7 @@ module XlsxExport
       p = Axlsx::Package.new
       wb = p.workbook
       title = wb.styles.add_style bg_color: 'eadecd', sz: 16, b: true, alignment: { horizontal: :center, vertical: :center }, border: { color: 'AAAAAA', style: :thin }
-      needs = @antenne.perimeter_received_needs
+      needs = @antenne.perimeter_received_needs.joins(:diagnosis).merge(Diagnosis.from_solicitation)
       year_start_date = @start_date.beginning_of_year
 
       # Quarter stats

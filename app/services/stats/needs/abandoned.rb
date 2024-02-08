@@ -1,12 +1,11 @@
 module Stats::Needs
   class Abandoned
     include ::Stats::BaseStats
+    include Stats::Needs::Base
 
     def main_query
-      Need.diagnosis_completed
-        .joins(:diagnosis).merge(Diagnosis.from_solicitation)
+      needs_base_scope
         .with_action(:abandon)
-        .where(created_at: @start_date..@end_date)
     end
 
     def category_group_attribute
