@@ -34,7 +34,7 @@ module Reminders
       ActiveRecord::Base.transaction do
         @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_sent'),
                                     feedbackable_type: 'Need', feedbackable_id: @need.id)
-        CompanyMailer.abandoned_need(@need).deliver_later
+        CompanyMailer.failed_need(@need).deliver_later
       end
       respond_to do |format|
         format.js { render template: 'reminders/needs/add_feedback', layout: false }

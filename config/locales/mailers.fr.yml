@@ -26,16 +26,16 @@ fr:
         see_you_next_week: À la semaine prochaine pour de nouvelles aventures !
     best_regards: Bien cordialement,
     company_mailer:
-      abandoned_need:
-        no_experts: Nous avons transmis votre demande au sein de notre réseau de partenaires institutionnels publics et parapublics. Malheureusement et malgré nos efforts de relance, nous avons le regret de vous informer qu’aucun de nos partenaires n’est en mesure de vous accompagner pour votre demande.
-        service_improvement: C’est en détectant de nouvelles situations que nous pouvons améliorer ce service. Nous faisons notre maximum pour compléter l’expertise du service en intégrant de nouveaux partenaires. Nous espérons ainsi proposer à terme un conseil personnalisé à toutes les TPE & PME dans votre situation.
-        subject: Échec de votre demande Place des Entreprises
-        your_need_html: Vous avez déposé une demande sur le site %{link_to_root} (ou un site intégrant le service) concernant le sujet <strong>%{subject}</strong>.
       confirmation_solicitation:
         content_for_iframe_html: 'Nous avons bien reçu votre demande déposée sur le site <strong>%{website}</strong>, en partenariat avec le service public Place des Entreprises.<br>Elle concerne :'
         content_html: 'Nous avons bien reçu votre demande déposée sur le site Place des Entreprises.<br>Elle concerne :'
         informations_html: 'Vous serez informé(e) par mail de sa prise en charge par un conseiller dans les 5 jours en moyenne.<br>Le(s) partenaire(s) pouvant vous rappeler sont :'
         subject: Confirmation de votre demande « %{subject} »
+      failed_need:
+        no_experts: Nous avons transmis votre demande au sein de notre réseau de partenaires institutionnels publics et parapublics. Malheureusement et malgré nos efforts de relance, nous avons le regret de vous informer qu’aucun de nos partenaires n’est en mesure de vous accompagner pour votre demande.
+        service_improvement: C’est en détectant de nouvelles situations que nous pouvons améliorer ce service. Nous faisons notre maximum pour compléter l’expertise du service en intégrant de nouveaux partenaires. Nous espérons ainsi proposer à terme un conseil personnalisé à toutes les TPE & PME dans votre situation.
+        subject: Échec de votre demande Place des Entreprises
+        your_need_html: Vous avez déposé une demande sur le site %{link_to_root} (ou un site intégrant le service) concernant le sujet <strong>%{subject}</strong>.
       intelligent_retention:
         and_you: Et vous, souhaitez-vous être aidé par un conseiller sur ces sujets ?
         explanation_html: 'Place des Entreprises est un service des ministères de l’Economie et du Travail avec un objectif : faciliter la vie des petites entreprises.<br>Lorsqu''un chef d’entreprise dépose sa demande, le service sélectionne pour lui les conseillers compétents parmi plus de 40 institutions publiques.'
