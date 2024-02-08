@@ -2,12 +2,12 @@
 
 %p= t('mailers.hello')
 
-%p= t('.intro_html', link_to_root: link_to(t('app_name'), root_url), solicitation_subject: @solicitation.landing_subject.title)
+%p= t('.intro_html', link_to_root: link_to(t('app_name'), root_url), subject_title: @landing_subject.title)
 
 %p= t('.for_better_taking_care_html')
 
-- if @solicitation.landing_subject.description_explanation.present?
-  = @solicitation.landing_subject.description_explanation.html_safe
+- if @landing_subject.description_explanation.present?
+  = @landing_subject.description_explanation.html_safe
 - else
   %ul
     %li= t('.treasury_html')

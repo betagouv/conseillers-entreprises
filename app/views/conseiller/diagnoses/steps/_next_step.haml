@@ -1,4 +1,2 @@
-.text-right
-  = diagnosis_form.button :submit, class: 'fr-btn btn-green' do
-    = t('next_step')
-    %span.btn-icon.ri-arrow-right-s-line{ 'aria-hidden': 'true' }
+= diagnosis_form.button :submit, class: 'fr-btn btn-green fr-btn--icon-right fr-icon-arrow-right-line' do
+  = t('next_step')

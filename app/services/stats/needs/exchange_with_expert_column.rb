@@ -10,8 +10,8 @@ module Stats::Needs
     end
 
     def main_query
-      Need.joins(:diagnosis)
-        .merge(Diagnosis.from_solicitation.completed)
+      Need.diagnosis_completed
+        .joins(:diagnosis).merge(Diagnosis.from_solicitation)
         .with_exchange
     end
 

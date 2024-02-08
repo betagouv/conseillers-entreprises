@@ -4,9 +4,9 @@ class Emails::SolicitationsController < ApplicationController
 
   def send_generic_email
     email_type = ActionController::Base.helpers.sanitize(params[:email_type])
-    processor = CancelSolicitationWithEmail.new(@solicitation, email_type)
+    processor = SendSolicitationGenericEmail.new(@solicitation, email_type)
     if processor.valid?
-      processor.cancel
+      processor.send_email
       flash.notice = t('emails.sent')
     else
       flash.alert = t('emails.not_sent')

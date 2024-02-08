@@ -144,7 +144,7 @@ fr:
     cancel_solicitation_with_email: La sollicitation ne peut pas être mise à jour (solicitation ou type d'email invalide)
     contact: Contactez-nous
     format: "%{attribute} %{message}"
-    homepage: Page d’accuei
+    homepage: Page d’accueil
     manager_without_managed_antennes: Une antenne doit être attribuée à ce responsable d'antenne
     messages:
       accepted: doit être accepté(e)

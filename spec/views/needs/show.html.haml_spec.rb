@@ -25,8 +25,8 @@ RSpec.describe 'needs/show' do
       it('displays subject title') { expect(rendered).to have_css('h1', text: need.subject.label) }
       it('display other experts matches') { expect(rendered).to have_css('#all-experts', text: matches.first.expert.full_name) }
       it('display new feedback form') { expect(rendered).to have_css('.feedbacks-form', text: I18n.t('feedbacks.form.title')) }
-      it('have form for additional experts') { expect(render).not_to have_css('.additional-experts', count: 1) }
-      it('has form for close matches') { expect(render).not_to have_css(".details--dropdown", count: 1) }
+      it('have form for additional experts') { expect(render).to have_no_css('.additional-experts', count: 1) }
+      it('has form for close matches') { expect(render).to have_no_css(".details--dropdown", count: 1) }
     end
 
     describe 'displays page without solicitation' do
@@ -103,7 +103,7 @@ RSpec.describe 'needs/show' do
     end
 
     it('displays subject title') { expect(rendered).to match(need.subject.label) }
-    it('not displays action for match') { expect(render).not_to have_css('#match-actions') }
+    it('not displays action for match') { expect(render).to have_no_css('#match-actions') }
     it('has form for additional experts') { expect(render).to have_css('.additional-experts', count: 1) }
     it('has form for close matches') { expect(render).to have_css(".details--dropdown", count: 2) }
   end

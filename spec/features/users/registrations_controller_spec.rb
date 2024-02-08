@@ -15,7 +15,7 @@ describe 'registrations' do
       fill_in id: 'user_job', with: 'Detective'
       fill_in id: 'user_phone_number', with: '0987654321'
 
-      click_button 'Mettre à jour'
+      click_on 'Mettre à jour'
     end
 
     it 'updates the first name, last name, institution, job and phone number' do
@@ -36,7 +36,7 @@ describe 'registrations' do
         fill_in id: 'user_password', with: 'new_yX*4Ubo_xPW!u'
         fill_in id: 'user_password_confirmation', with: 'new_yX*4Ubo_xPW!u'
 
-        click_button 'Enregistrer le mot de passe'
+        click_on 'Enregistrer le mot de passe'
       end
 
       it 'updates the password' do
@@ -53,7 +53,7 @@ describe 'registrations' do
         fill_in id: 'user_password', with: 'lalala'
         fill_in id: 'user_password_confirmation', with: 'lalala'
 
-        click_button 'Enregistrer le mot de passe'
+        click_on 'Enregistrer le mot de passe'
       end
 
       it 'updates the password' do
@@ -74,7 +74,7 @@ describe 'registrations' do
         fill_in id: 'user_password', with: 'yX*4Ubo_xPW!u'
         fill_in id: 'user_password_confirmation', with: 'yX*4Ubo_xPW!u'
 
-        click_button 'Enregistrer le mot de passe'
+        click_on 'Enregistrer le mot de passe'
       end
 
       it 'updates the password' do

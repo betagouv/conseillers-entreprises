@@ -142,7 +142,7 @@ fr:
       bad_quality:
         complete_solicitation_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Compléter ma demande</a>"
         for_better_taking_care_html: 'Pour pouvoir vous aider, les conseillers ont impérativement besoin d’éléments de contexte :'
-        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site partenaire) pour <strong>"%{solicitation_subject}"</strong>.
+        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site partenaire) pour <strong>"%{subject_title}"</strong>.
         investment_html: "<strong>pour votre projet d’investissement :</strong> type d’investissement, but et montant du besoin"
         recruitment_html: "<strong>pour votre projet de recrutement :</strong> contexte du recrutement et type de contrat"
         treasury_html: "<strong>pour votre problème de trésorerie :</strong> contexte des difficultés et montant du besoin"
@@ -189,9 +189,9 @@ fr:
         sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr%2F%3Fopenidconnectcallback%3D1&nonce=1644578731_23573&client_id=id_cfspro_prod&display=&state=1644578731_4749&scope=openid%20profile%20email%20info'>impot.gouv.fr</a>, dans votre espace de messagerie personnalisée.
         solicitation_subject_html: concernant des questions relatives à la fiscalité
       intermediary:
-        explications: Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 30 partenaires publics et parapublics du service ont à cœur d’échanger directement avec les entreprises pour répondre au mieux à leur problématique.
-        explications_2: C’est pourquoi nous vous invitons à accompagner votre interlocuteur / client pour qu’il dépose lui-même une demande sur le site.
-        for_companies_html: Il s'agit d’un service public <b>destiné aux chefs d’entreprises</b>, afin d’aider les petites structures à se développer et à s’adapter.
+        explications_2_html: Les demandes déposées par les intermédiaires, quel que soit le mandat, ne sont pas transmises. C’est pourquoi <strong>nous vous invitons à accompagner votre interlocuteur / client</strong> pour qu’il dépose lui-même une demande sur le site.
+        explications_html: Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 40 partenaires publics et parapublics du service ont à cœur <strong>d’échanger directement</strong> avec les entreprises pour répondre au mieux à leur problématique.
+        for_companies: Il s'agit d'un service public destiné aux chefs d'entreprises, afin d’aider les petites structures à se développer et à s’adapter.
       intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service).
       intro_with_subject_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) %{solicitation_subject}.
       kbis_extract:
@@ -208,7 +208,7 @@ fr:
         taking_care_by_experts: Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.
       no_expert:
         erp_html: 'pour votre établissement recevant du public (ERP) et son accessibilité : <a href=''https://entreprendre.service-public.fr/vosdroits/F32351''>https://entreprendre.service-public.fr/vosdroits/F32351</a>'
-        inpi_html: 'pour réaliser vos formalités d’entreprises : <a href=''https://procedures.inpi.fr''>https://procedures.inpi.fr</a>'
+        inpi_html: 'pour réaliser vos formalités d’entreprises : <a href=''https://procedures.inpi.fr''>https://procedures.inpi.fr</a>, ou pour les SCI <a href=''https://tribunal-commerce.fr''>https://tribunal-commerce.fr</a>'
         juridique_html: pour votre problématique juridique, vous rapprocher d’un <a href="https://www.justice.fr/themes/acces-droit-point-justice">point d’accès au droit</a> ou d’une <a href="https://www.service-public.fr/particuliers/vosdroits/F20706">permanence gratuite d’avocat</a>
         no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
         personal_services_html: 'pour devenir un service à la personne : <a href=''https://www.servicesalapersonne.gouv.fr''>https://www.servicesalapersonne.gouv.fr</a>'

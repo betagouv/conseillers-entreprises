@@ -39,6 +39,8 @@ fr:
     csv_export: Export CSV
     csv_export_launched: La génération du CSV a commencé, retrouvez-le dans quelques minutes dans votre espace personnel.
     duplicate_user:
+      deleted_user: Cet utilisateur a été supprimé, cette action n'est donc pas possible
+      new_user_details: Coordonnées du nouvel utilisateur
       title: Dupliquer un utilisateur
     reassign_matches:
       title: Transférer les mises en relation
@@ -259,6 +261,7 @@ fr:
           diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
           diagnosis_content_subtitle: Informations générales sur cette entreprise
           need_content_placeholder: Plus d’infos sur ce besoin
+          save_and_return_solicitation_page: Enregistrer et revenir à la sollicitation
           select_at_least_one_need: Cochez au minimum un besoin identifié.
     sitemap:
       sitemap:
@@ -350,6 +353,8 @@ fr:
       submit: Commenter
       thank_you_html: "<p class='fr-m-0 fr-ml-16v'><b>Merci, votre commentaire a été publié.</b></p>"
       title: 'Nouveau commentaire :'
+  filters:
+    select_antenne: Sélectionnez une antenne
   helpers:
     annuaire:
       anomalie_less: Aucun expert pour ce sujet
@@ -375,6 +380,7 @@ fr:
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       localisation_html: 'Localisation : <strong>%{region}</strong>'
+      modify_subject: 'Modifier le sujet : %{subject}'
       uncategorisable_label: Inclassables
       uncategorisable_value: uncategorisable
       view_completed_analysis: Voir l’analyse réalisée
@@ -503,7 +509,6 @@ fr:
       omnisearch: Rechercher par entreprise, contact, description...
       search: Rechercher
       search_placeholder: 'Ex : La mie tendre, Lucie Martin, plomberie, financement...'
-      select_antenne: Selectionnez une antenne
     show:
       all_experts: Experts notifiés
       all_needs: Toutes les demandes
@@ -808,14 +813,12 @@ fr:
         siret: SIRET
         tns_training: Formation TNS du dirigeant
   stats:
-    abandoned: Besoins abandonnés
     done_no_help_status: Statut « cloturé sans aide »
     done_status: Statut « cloturé avec aide »
     less_than_72h: Moins de 72h
     main_stats_chart:
       title: Notre mesure d’impact phare
     more_than_72h: Plus de 72h
-    not_abandoned: Besoins non abandonnés
     not_for_me_status: Statut « pas pour moi »
     not_positioning: L’expert ne s’est pas positionné
     not_reachable_status: Statut « cloturé entreprise non joignable »
@@ -882,7 +885,7 @@ fr:
         title_table: Nombre de besoins identifiés
       needs_abandoned:
         subtitle: Le besoin est considéré comme abandonné lorsque aucun conseiller ne s’est positionné au bout de 45 jours ou 10 jours après l'envoi d'un mail de relance. Il est resté sans réponse malgré les relances et le suivi qualité dont il a fait l’objet.
-        title: de besoins abandonnés
+        title: de besoins abandonnés, soit %{secondary_count} besoins
         title_table: Nombre de besoins abandonnés
       needs_done:
         subtitle: Une clôture par « une aide proposée » signifie qu’un conseiller a pu proposer par téléphone un conseil, un accompagnement technique ou une aide financière au chef d’entreprise pour répondre à sa problématique.
@@ -908,6 +911,9 @@ fr:
         title: de besoins refusés
         title_table: Nombre de besoins refusés
       needs_quo:
+        title: des besoins transmis sont en attente de prise en charge par les conseillers
+        title_table: Nombre de besoins en attente de prise en charge par les conseillers
+      needs_taking_care:
         title: des besoins transmis sont en cours de prise en charge par les conseillers
         title_table: Nombre de besoins en cours de prise en charge par les conseillers
       needs_themes:
@@ -993,7 +999,8 @@ fr:
     status_done_no_help: Clôture sans accompagnement
     status_done_not_reachable: Entreprises injoignables
     status_not_for_me: Besoins refusés
-    status_quo: en cours de prise en charge
+    status_quo: en attente de prise en charge
+    status_taking_care: en cours de prise en charge
     taken_care_after: Plus de 5 jours
     taken_care_before: Moins de 5 jours
     taking_care_status: Statut « pris en charge »

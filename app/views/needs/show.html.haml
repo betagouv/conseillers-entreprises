@@ -22,7 +22,7 @@
                   %li
                     = I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])
                     %strong= answer
-            - if @need.solicitation.origin_url.present?
+            - if @need.solicitation.present? && @need.solicitation.origin_url.present?
               %div
                 = t('.origin_source')
                 %br

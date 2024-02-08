@@ -47,10 +47,6 @@
 .text-center
   text-align: center
 
-.bottom_actions
-  display: flex
-  justify-content: space-between
-
 .justify-around
   display: flex
   justify-content: space-around
@@ -150,3 +146,12 @@ button.link
   column-count: 2
   @media (max-width: $bp-sm)
     column-count: 1
+
+.height-fit-content
+  height: fit-content
+
+.bottom_actions
+  display: flex
+  justify-content: flex-end
+  &.space-between
+    justify-content: space-between

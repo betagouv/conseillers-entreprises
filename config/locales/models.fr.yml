@@ -12,8 +12,6 @@ fr:
       deleted: Antennes supprimées avec succès
       stats_reports: Rapports statistiques
       territorial_antennes: 'Antennes du territoire : '
-    duplicate_user:
-      new_user_details: Coordonnées du nouvel utilisateur
     expert:
       deep_soft_delete: Supprimer l’expert et ses utilisateurs
       deep_soft_delete_confirmation: Voulez-vous supprimer cet expert et tous ses utilisateurs ?
@@ -70,6 +68,9 @@ fr:
       diagnosis_completed: Analyses terminées
       done: Clôturé
       expert_provider: Fournisseur d’experts
+      for_expert: Experts
+      for_need: Besoins
+      for_solicitation: Sollicitations
       from_solicitation: Sollicitations
       from_visit: Visites
       iframe: Iframe
@@ -248,6 +249,9 @@ fr:
       feedback:
         category: Catégorie
         feedbackable: Sujet
+        match_closed_at: Date de clôture de la mise en relation
+        real_subject: Sujet réel
+        real_theme: Thème réel
       feedback/categories:
         need: Besoin
         reminder: Relance
@@ -778,6 +782,7 @@ fr:
     category: Catégorie
     code_effectif: Tranche d’effectif
     color: Couleur
+    comments: Commentaires des conseillers de l’antenne
     commune: Commune
     communes: Communes
     community: Communauté
@@ -838,7 +843,8 @@ fr:
     help:
       email_html: 'Exemple : marie.dupont@exemple.fr'
       full_name_html: 'Exemple : Marie Dupont'
-      no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).<br/>Vous pourrez peut-être le trouver sur <a href='https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises' target='_blank' class='blue' title='annuaire-entreprises.data.gouv.fr - nouvelle fenêtre'>https://annuaire-entreprises.data.gouv.fr</a>.
+      location: Choisir une commune de votre périmètre de recherche
+      no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).<br/>Vous pourrez peut-être le trouver sur <a href='https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises' target='_blank' class='blue' title='annuaire-entreprises.data.gouv.fr - ouvre une nouvelle fenêtre'>https://annuaire-entreprises.data.gouv.fr</a>.
       phone_number_html: 'Exemple : 0612345678 ou +33 6 12 34 56 78'
     insee_codes: Codes communes
     institution: Institution
@@ -856,7 +862,7 @@ fr:
     landing_theme_title: Thème choisi sur le site
     landing_themes: Thèmes de landing
     legal_form_code: Forme juridique
-    location: Localisation
+    location: Localité
     manager: Responsable
     manager_email: Email du responsable
     manager_full_name: Nom du responsable
@@ -877,6 +883,8 @@ fr:
     name: Nom
     need: Besoin
     need_abandoned_at: Date d’abandon
+    need_closed_at: Date de clôture du besoin
+    need_created_at: Date de création du besoin
     need_id: Identifiant du besoin
     need_last_chance_at: Date d’envoi mail de la dernière chance
     need_status: Statut du besoin

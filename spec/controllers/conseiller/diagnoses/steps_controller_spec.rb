@@ -51,6 +51,63 @@ RSpec.describe Conseiller::Diagnoses::StepsController do
     end
   end
 
+  describe 'POST #update_needs' do
+    let(:diagnosis) { create :diagnosis }
+    let(:need) { create(:need, diagnosis: diagnosis) }
+    let(:new_subject) { create(:subject) }
+
+    context 'normal workflow' do
+      let(:params) do
+        {
+          id: diagnosis.id,
+          diagnosis: {
+            needs_attributes: [
+              {
+                id: need.id,
+                subject_id: new_subject.id,
+                description: 'description'
+              }
+            ]
+          }
+        }
+      end
+
+      it 'updates subject and redirect to matches step' do
+        post :update_needs, params: params
+        diagnosis.reload
+        expect(diagnosis.step).to eq 'matches'
+        expect(diagnosis.needs.first.subject).to eq new_subject
+        expect(response).to redirect_to matches_conseiller_diagnosis_path(diagnosis)
+      end
+    end
+
+    context 'Changes subject from solicitation page' do
+      let(:params) do
+        {
+          id: diagnosis.id,
+          diagnosis: {
+            submit: 'return_solicitation_page',
+            needs_attributes: [
+              {
+                id: need.id,
+                subject_id: new_subject.id,
+                description: 'description'
+              }
+            ]
+          }
+        }
+      end
+
+      it 'updates the subject and redirect to solicitations page' do
+        post :update_needs, params: params
+        diagnosis.reload
+        expect(diagnosis.step).to eq 'matches'
+        expect(diagnosis.needs.first.subject).to eq new_subject
+        expect(response).to redirect_to conseiller_solicitation_path(diagnosis.solicitation)
+      end
+    end
+  end
+
   describe 'GET #matches' do
     subject(:request) { get :matches, params: { id: diagnosis.id } }
 
