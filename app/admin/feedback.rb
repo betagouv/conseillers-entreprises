@@ -17,7 +17,6 @@ ActiveAdmin.register Feedback do
     selectable_column
     id_column
     column :created_at
-
     column :feedbackable
     column(:category) { |feedback| human_attribute_status_tag feedback, :category }
     column :user
@@ -26,10 +25,17 @@ ActiveAdmin.register Feedback do
     actions dropdown: true
   end
 
+  filter :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
+  filter :landing, as: :ajax_select, data: { url: :admin_landings_path, search_fields: [:title] }
+  filter :mtm_campaign, as: :string
   filter :description
   filter :category, as: :select, collection: -> { Feedback.human_attribute_values(:category, raw_values: true).invert.to_a }
-  filter :created_at
+  filter :need_created_at, as: :date_range, label: I18n.t('activeadmin.feedback.need_created_at')
+  filter :created_at, as: :date_range, label: I18n.t('activeadmin.feedback.created_at')
   filter :user, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
+  filter :user_antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
+  filter :user_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
 
   ## CSV
   #
