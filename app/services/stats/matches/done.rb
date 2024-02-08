@@ -9,7 +9,6 @@ module Stats::Matches
       matches_base_scope
     end
 
-
     def build_series
       query = filtered_main_query
       @done_status = []
