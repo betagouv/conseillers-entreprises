@@ -16,7 +16,9 @@ describe 'the signin process' do
 
   context 'active user' do
     it do
-      click_on 'Accès conseillers', class: 'fr-btn'
+      within '.new_user' do
+        click_on 'Accès conseillers', class: 'fr-btn'
+      end
 
       expect(page.html).to include 'Demandes reçues'
     end
