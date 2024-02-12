@@ -16,10 +16,9 @@ module RemindersHelper
 
   def build_expert_reminders_link(expert)
     current_basket = expert.last_reminder_register.basket
-    dash = '- '
     link = link_to expert.antenne.to_s, reminders_expert_path(expert), title: t('helpers.reminders.link_to_expert_reminders'), data: { turbo: false }
     icon = tag.span(class: "fr-ml-1v reminders-icon #{t(current_basket, scope: 'reminders.experts.scopes.icon')}", title: t('helpers.reminders.present_in_basket', basket: t(current_basket, scope: 'reminders.experts.scopes.name')), 'aria-hidden': 'true')
-    dash + link + icon
+    link + icon
   end
 
   private
