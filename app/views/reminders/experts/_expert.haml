@@ -63,8 +63,8 @@
         .card-expert__subtitle.fr-mt-2w= t('.needs_in_last_chance')
         .fr-tags-group
           = link_to expert_reminders_needs_path(expert_id: expert.id), class: 'fr-tag warning' do
-            .bold= expert_last_chance_needs.count
-            .fr-ml-1v= t('activerecord.models.need', count: expert_last_chance_needs.count).downcase
+            %span.bold.fr-mr-1v= expert_last_chance_needs.count
+            = t('activerecord.models.need', count: expert_last_chance_needs.count).downcase
 
       %hr.fr-mt-2v
       - cache ['expert_feedbacks', expert, expert.reminder_feedbacks.ids] do
