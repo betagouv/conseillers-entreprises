@@ -25,7 +25,7 @@
         = f.label :antenne, class: 'fr-label' do
           = t('activerecord.models.antenne.one')
           .loader.hidden{ data: { 'stats-target': 'loader' } }
-        = f.select :antenne, options_for_select(build_antennes_collection_for_select(institution_antennes), selected: stats[:antenne]), { include_blank: antenne_placeholder }, class: "fr-select", data: { 'stats-target': 'antennes' }
+        = f.select :antenne, options_for_select(institution_antennes.pluck(:name, :id), selected: stats[:antenne]), { include_blank: antenne_placeholder }, class: "fr-select", data: { 'stats-target': 'antennes' }
       .fr-select-group
         = f.label :theme, t('stats.stats_params.theme'), class: 'fr-label'
         = f.collection_select :theme, Theme.for_interview.order(:label), :id, :label, { selected: params[:theme],
