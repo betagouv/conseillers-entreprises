@@ -10,4 +10,4 @@
 .fr-grid-row
   .fr-col-12.text-right
     - if reminders_filter_params.present?
-      = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
+      = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'

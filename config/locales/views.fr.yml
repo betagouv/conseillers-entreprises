@@ -276,7 +276,6 @@ fr:
         title: Plan du site
     solicitations:
       index:
-        clear_search: Réinitialiser la recherche
         header: Sollicitations %{status}
         no_result: Il n'y a pas de résultat pour cette recherche.
         no_results: Aucune sollicitation trouvée
@@ -507,7 +506,6 @@ fr:
       validate: Valider
       your_turn_html: C’est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
     search:
-      clear_search: Réinitialiser la recherche
       created_since: Date de début
       created_until: Date de fin
       more_filters: Voir plus de filtres
@@ -954,9 +952,8 @@ fr:
       sum: Total
     stats_params:
       campaign: Campagne
-      clear_search: Réinitialiser la recherche
       end_date: Date de fin
-      filter: Filtrer
+      filter: Rechercher
       keywords: Détail de la source
       region: Région
       select_institution: Selectionnez une institution

@@ -56,4 +56,4 @@
         = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
         -# Affiche le bouton s'il y a plus de filtres que les dates début et fin qui sont présentes dès le début
         - if stats.keys.count > 2
-          = link_to t('stats.stats_params.clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--secondary'
+          = link_to t('clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--tertiary-no-outline'

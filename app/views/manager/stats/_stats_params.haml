@@ -35,7 +35,5 @@
     .fr-col-12
       .fr-input-group
         = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
-        - prefill_params = %i[start_date end_date institution_id colors]
-        - without_prefill_params = stats.except(*prefill_params)
-        - if without_prefill_params.present?
-          = link_to t('stats.stats_params.clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--secondary'
+        - if request.fullpath.include?("?")
+          = link_to t('clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--tertiary-no-outline'
