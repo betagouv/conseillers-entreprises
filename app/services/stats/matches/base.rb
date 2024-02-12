@@ -2,8 +2,7 @@ module Stats::Matches::Base
   include Stats::Needs::Base
 
   def matches_base_scope
-    Match.sent
-      .joins(:need).where(need: needs_base_scope)
+    Match.sent.joins(:need).where(need: needs_base_scope)
   end
 
   def filtered(query)
