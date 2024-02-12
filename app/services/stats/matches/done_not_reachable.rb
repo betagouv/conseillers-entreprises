@@ -3,13 +3,10 @@ module Stats::Matches
   class DoneNotReachable
     include ::Stats::BaseStats
     include ::Stats::TwoRatesStats
+    include Stats::Matches::Base
 
     def main_query
-      Match.sent.where(created_at: @start_date..@end_date)
-    end
-
-    def filtered(query)
-      Stats::Filters::Matches.new(query, self).call
+      matches_base_scope
     end
 
     def build_series
@@ -18,7 +15,7 @@ module Stats::Matches
       @other_status = []
 
       search_range_by_month.each do |range|
-        month_query = query.created_between(range.first, range.last)
+        month_query = get_month_query(query, range)
         @not_reachable_status.push(month_query.status_done_not_reachable.count)
         @other_status.push(month_query.not_status_done_not_reachable.count)
       end
@@ -28,10 +25,6 @@ module Stats::Matches
 
     def subtitle
       I18n.t('stats.series.matches_done_not_reachable.subtitle')
-    end
-
-    def colors
-      matches_colors
     end
 
     private

@@ -1,13 +1,12 @@
 module Stats::Needs
   class Themes
     include ::Stats::BaseStats
+    include Stats::Needs::Base
 
     def main_query
-      Need.diagnosis_completed
-        .joins(:diagnosis).merge(Diagnosis.from_solicitation)
+      needs_base_scope
         .joins(:advisor)
         .joins(subject: :theme)
-        .where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)

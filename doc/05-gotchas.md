@@ -4,9 +4,9 @@
 * [Development (en)](02-development.md)
 * [Deployment (en)](03-deployment.md)
 * [Architecture (fr)](04-architecture.md)
-* ➡ [Gotchas (fr)](05-gotchas.md)
+* ➡ [Gotchas & tips (fr)](05-gotchas.md)
 
-# Place des Entreprises - Gotchas
+# Place des Entreprises - Gotchas & Tips
 
 ## Problème de génération des reports
 
@@ -38,5 +38,5 @@ Puis relancer la génération des rapports.
 Trouver les managers qui sont responsables de + d'une antenne : 
 
 ```ruby
-User.managers.joins(:user_rights).group(:id).having('COUNT(user_rights.id)>1').size
+users = User.managers.joins(:user_rights).group(:id).having('COUNT(user_rights.id)>1')
 ```
