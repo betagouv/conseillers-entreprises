@@ -384,6 +384,9 @@ fr:
     page_infos:
       collection_count_html: "<strong>%{size}</strong> %{name}"
       searched_collection_count_html: "<strong>%{size}</strong> Résultats trouvés"
+    reminders:
+      link_to_expert_reminders: Lien vers la fiche de l’expert dans les paniers qualité
+      present_in_basket: Cet expert est présent dans le panier « %{basket} »
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       localisation_html: 'Localisation : <strong>%{region}</strong>'
@@ -591,7 +594,8 @@ fr:
       expert:
         expert_creation_date: Inscription le %{date}
         manager_name: 'Responsable : %{name}'
-        matches_total: Demandes depuis le début
+        matches_total: Mises en relation reçues depuis le début
+        needs_in_last_chance: Besoins en risque d’abandon
         process: Vu
         received_matches: reçues
         send_one_pending_need_email: Envoyer l’email de réengagement
@@ -635,43 +639,43 @@ fr:
       send_reminder_email:
         email_send: Email de relance envoyé
     index:
-      title: Relances
-    need:
-      many_pending_needs: Cet expert est présent dans le paniers « plus de 5 besoins en attentes »
+      title: Risques d’échec
     needs:
+      expert:
+        title: Risques d’abandon pour %{expert}
       filters:
         search: Rechercher
       index:
         no_results: Aucun besoin dans ce panier
       navbar:
-        title: Relances
+        title: Risques d’échec
       scopes:
         detail:
           last_chance: J+%{days}
           poke: J+%{days}
         instruction:
-          abandon: Je fais un mail d’échec à l’entreprise
           last_chance: j’envoie le mail de la dernière chance aux experts, puis le besoin sera automatiquement abandonné
           not_for_me: Besoins avec toutes les mises en relation refusées
           poke: Je mets un commentaire sur la fiche pour relancer la dynamique
+          refused: Je fais un mail d’échec à l’entreprise
         mark_done:
-          abandon: Traiter
           last_chance: Experts relancés
           poke: Experts relancés
+          refused: Traiter
         name:
-          abandon: Refusés
           last_chance: Risque d’abandon
           poke: Sans réponse
-      send_abandoned_email:
-        email_sent: Email d’échec envoyé au dirigeant
+          refused: Refusés
+      send_failure_email:
+        email_sent: Email d’échec envoyé à l’entreprise
       send_last_chance_email:
         email_send: Email de la dernière chance envoyé à %{teams}
     needs_badges:
       add_remove_badges: Ajouter ou retirer un tag
     section:
       experts: Paniers qualité
-      needs: relances
-    send_abandoned_need_email: Envoyer l’email d’échec au dirigeant
+      needs: Risques d’échec
+    send_failure_email: Envoyer l’email d’échec au dirigeant
     send_last_chance_email: Envoyer l’email de la dernière chance
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité

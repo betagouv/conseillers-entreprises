@@ -271,18 +271,6 @@ RSpec.describe Expert do
     end
   end
 
-  describe 'with_old_needs_in_inbox scope' do
-    let!(:expert_with_empty_inbox) { create :expert }
-    let!(:expert_with_recent_needs_in_inbox) { create :expert }
-    let!(:expert_with_old_needs_in_inbox) { create :expert }
-    let!(:recent_match) { create :match, expert: expert_with_recent_needs_in_inbox }
-    let!(:old_match) { create :match, expert: expert_with_old_needs_in_inbox, created_at: 16.days.ago }
-
-    it 'displays only expert with old needs in inbox' do
-      expect(described_class.with_old_needs_in_inbox).to contain_exactly(expert_with_old_needs_in_inbox)
-    end
-  end
-
   describe 'most_needs_quo_first scope' do
     let!(:expert_with_lots_inbox) { create :expert }
     let!(:expert_with_few_inbox) { create :expert }

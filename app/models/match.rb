@@ -86,8 +86,6 @@ class Match < ApplicationRecord
 
   ## Scopes
   #
-  scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
-
   scope :to_support, -> { joins(:need).where(subject: Subject.support_subject) }
 
   scope :with_deleted_expert, ->{ where(expert: nil) }
@@ -119,11 +117,11 @@ class Match < ApplicationRecord
   end
 
   scope :with_status_quo_active, -> do
-    status_quo.where(created_at: Need::REMINDERS_DAYS[:abandon]&.days&.ago..)
+    status_quo.where(sent_at: Need::REMINDERS_DAYS[:abandon]&.days&.ago..)
   end
 
   scope :with_status_expired, -> do
-    status_quo.where(created_at: ..Need::REMINDERS_DAYS[:abandon]&.days&.ago)
+    status_quo.where(sent_at: ..Need::REMINDERS_DAYS[:abandon]&.days&.ago)
   end
 
   scope :by_antenne, -> (antenne_id) do

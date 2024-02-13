@@ -140,16 +140,6 @@ class Expert < ApplicationRecord
       .distinct
   end
 
-  # referent avec besoin dans boite reception vieux de + de X jours
-  # Utilisation d'arel pour plaire a brakeman
-  scope :with_old_needs_in_inbox, -> do
-    joins(:received_quo_matches)
-      .merge(Match
-        .where(archived_at: nil)
-        .where(Match.arel_table[:created_at].lt(RemindersService::MATCHES_AGE[:old])))
-      .distinct
-  end
-
   # Pas besoin de distinct avec cette méthode
   scope :most_needs_quo_first, -> do
     left_outer_joins(:received_quo_matches)
@@ -243,6 +233,10 @@ class Expert < ApplicationRecord
 
   def last_reminder_register
     reminders_registers.order(:created_at).last
+  end
+
+  def currently_in_reminders?
+    last_reminder_register&.run_number == RemindersRegister.last_run_number
   end
 
   def input_register

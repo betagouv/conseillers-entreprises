@@ -186,13 +186,14 @@ Rails.application.routes.draw do
     resources :needs, path: 'besoins', only: %i[index] do
       member do
         post :update_badges
-        post :send_abandoned_email
+        post :send_failure_email
         post :send_last_chance_email
       end
       collection do
         get :poke, path: 'sans-reponse'
         get :last_chance, path: 'risque-abandon'
-        get :abandon, path: 'refuses'
+        get :refused, path: 'refuses'
+        get :expert, path: 'risque-abandon-expert'
       end
     end
     resources :reminders_registers, only: :update

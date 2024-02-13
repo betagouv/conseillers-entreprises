@@ -7,7 +7,7 @@ module Reminders
     private
 
     def collection_action_names
-      %i[poke last_chance abandon]
+      %i[poke last_chance refused]
     end
 
     def experts_collection_names
