@@ -39,9 +39,9 @@ ActiveAdmin.register Subject do
     end
   end
 
-  filter :is_support
-  filter :theme, collection: -> { Theme.ordered_for_interview }
+  filter :theme, collection: -> { Theme.order(:label) }
   filter :label
+  filter :is_support
 
   ## CSV
   #

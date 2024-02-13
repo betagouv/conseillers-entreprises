@@ -47,6 +47,8 @@ ActiveAdmin.register Institution do
   end
 
   filter :name
+  filter :themes, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
+  filter :subjects, as: :ajax_select, collection: -> { Subject.not_archived.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 
   ## CSV
   #

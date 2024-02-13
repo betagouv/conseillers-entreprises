@@ -198,4 +198,8 @@ class Institution < ApplicationRecord
       "show_on_list", "siren", "slug", "updated_at"
     ]
   end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["advisors", "antennes", "api_key", "categories", "experts", "experts_including_deleted", "facilities", "institution_filters", "institutions_subjects", "landing_subjects", "landing_themes", "landings", "logo", "not_deleted_antennes", "received_diagnoses", "received_diagnoses_including_from_deleted_experts", "received_matches", "received_matches_including_from_deleted_experts", "received_needs", "received_needs_including_from_deleted_experts", "received_solicitations", "received_solicitations_including_from_deleted_experts", "sent_diagnoses", "sent_matches", "sent_needs", "solicitations", "subjects", "themes"]
+  end
 end
