@@ -262,7 +262,8 @@ fr:
         solicitation: Solicitation
       institution:
         antennes: Antennes
-        subjects: Domaines
+        subjects: Sujets
+        themes: Thèmes
         users: Conseillers
       landing:
         custom_css: CSS personnalisé
@@ -448,8 +449,11 @@ fr:
         user: Utilisateur
       solicitation:
         api_calling_url: Url d’appel
+        code_region: Région
+        company_legal_form_code: Forme juridique entreprise
         completion: Complétion
         email: Email
+        facility_naf_code: Code NAF établissement
         full_name: Prénom et nom
         institution_filters: Questions additionnelles
         landing: Page d’atterrissage

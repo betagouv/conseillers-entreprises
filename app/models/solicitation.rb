@@ -57,6 +57,7 @@ class Solicitation < ApplicationRecord
   has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
   has_one :facility, through: :diagnosis, source: :facility, inverse_of: :diagnoses
   has_one :visitee, through: :diagnosis, source: :visitee, inverse_of: :diagnoses
+  has_one :company, through: :facility, source: :company, inverse_of: :facilities
 
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_many :matches, through: :diagnosis, inverse_of: :solicitation
@@ -291,7 +292,6 @@ class Solicitation < ApplicationRecord
 
   scope :relaunch_cont, -> (query) {
     where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}%")
-      .or(where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}%"))
   }
 
   # Pour ransack, en admin
@@ -315,8 +315,9 @@ class Solicitation < ApplicationRecord
       .or(where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}%"))
   }
 
+  # pragmatisme : pas réussi à bien faire fonctionner le filtre relaunch_eq, mais filtre utilisé automatiquement en admin
   scope :relaunch_eq, -> (query) {
-    where('form_info @> ?', { pk_campaign: query }.to_json)
+    relaunch_cont(query)
   }
 
   scope :relaunch_start, -> (query) {
@@ -616,7 +617,7 @@ class Solicitation < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     [
-      "badge_badgeables", "badges", "diagnosis", "diagnosis_regions", "facility", "feedbacks", "institution",
+      "badge_badgeables", "badges", "diagnosis", "diagnosis_regions", "facility", "company", "feedbacks", "institution",
       "institution_filters", "landing", "landing_subject", "landing_theme", "matches", "needs", "subject", "visitee"
     ]
   end
