@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Need do
-  menu parent: :diagnoses, priority: 1
+  menu priority: 8
 
   ## index
   #
@@ -30,16 +30,15 @@ ActiveAdmin.register Need do
   end
 
   filter :status, as: :select, collection: -> { Need.human_attribute_values(:status, raw_values: true).invert.to_a }
-
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :theme, collection: -> { Theme.ordered_for_interview }
   filter :subject, collection: -> { Subject.not_archived.order(:label) }
   filter :content
-  filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :experts, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
-  filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
-  filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.regions.pluck(:name, :id) }
+  filter :expert_antennes, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
+  filter :expert_institutions, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :facility_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
 
   ## CSV
   #

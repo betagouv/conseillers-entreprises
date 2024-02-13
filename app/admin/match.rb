@@ -3,7 +3,7 @@
 ActiveAdmin.register Match do
   include CsvExportable
 
-  menu parent: :diagnoses, priority: 2
+  menu parent: :needs, priority: 2
 
   ## Index
   #

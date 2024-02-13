@@ -395,6 +395,9 @@ fr:
         raw_excluded_legal_forms: codes forme juridique rejetés (niveau 3)
         raw_excluded_naf_codes: codes naf rejetés
       need:
+        company: Entreprise
+        expert_antennes: Antenne
+        expert_institutions: Institution
         subject: Sujet
       need/statuses:
         diagnosis_not_complete: Analyse en cours
