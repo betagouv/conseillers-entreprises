@@ -35,7 +35,7 @@ describe 'Pages' do
     expect(page).to have_select 'territory'
     expect(page).to have_no_select 'institution'
     find_by_id('start_date').set "2021-03-01"
-    click_on 'Filtrer'
+    click_on 'Rechercher'
     expect(page).to have_select 'territory'
     click_on 'Plan du site'
     expect(page).to have_content(Landing.first.landing_themes.first.title)
