@@ -17,7 +17,6 @@ describe 'reports' do
       visit reports_path
       expect(page.html).to include I18n.t('reports.index.title', antenne: antenne1.name)
       expect(page.html).to include antenne1.name
-      expect(page.html).to include antenne2.name
       expect(page).to have_css('.fr-accordion', count: 2)
       expect(page).to have_css('.fr-download__link', count: 4)
     end

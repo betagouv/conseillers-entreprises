@@ -16,4 +16,10 @@ FactoryBot.define do
   trait :local do
     territorial_level { :local }
   end
+
+  trait :with_experts_subjects do
+    after(:create) do |antenne|
+      create_list(:expert_subject, 1, expert: create(:expert_with_users, antenne: antenne))
+    end
+  end
 end
