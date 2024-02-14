@@ -163,6 +163,10 @@ fr:
     users:
       deep_soft_deleted: Utilisateurs et experts solo supprimés avec succès
       delete_confirmation: Voulez-vous supprimer ces utilisateurs ? Cela va aussi supprimer leur expert personnel.
+  activeadmin:
+    feedback:
+      created_at: Date de création du commentaire
+      need_created_at: Date de création du besoin
   activerecord:
     attributes:
       additional_subject_questions:
@@ -248,7 +252,7 @@ fr:
         readable_locality: Commune
       feedback:
         category: Catégorie
-        feedbackable: Sujet
+        feedbackable: Relation
         match_closed_at: Date de clôture de la mise en relation
         real_subject: Sujet réel
         real_theme: Thème réel
@@ -817,6 +821,7 @@ fr:
     expert: Expert
     expert_antenne: Antenne de l’expert
     expert_institution: Institution de l’expert
+    expert_reminder: Relances par expert
     expert_subject: Domaine d’intervention
     experts:
       one: Expert
@@ -857,6 +862,7 @@ fr:
     is_archived: Archivé
     key: Identifiant
     label: Intitulé
+    landing: page d’atterrissage
     landing_subject_title: Option choisie sur le site
     landing_subjects: Sujets de landing
     landing_theme_title: Thème choisi sur le site
@@ -887,6 +893,7 @@ fr:
     need_created_at: Date de création du besoin
     need_id: Identifiant du besoin
     need_last_chance_at: Date d’envoi mail de la dernière chance
+    need_reminder: Relances par besoin
     need_status: Statut du besoin
     needs:
       one: Besoin
@@ -962,6 +969,8 @@ fr:
     title: Titre
     updated_at: Date de mise à jour
     user: Conseiller
+    user_antenne: Antenne
+    user_institution: Institution
     visit: Visite
     visitee: Personne rencontrée
   deleted_account:
