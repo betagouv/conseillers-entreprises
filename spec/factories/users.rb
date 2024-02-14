@@ -21,6 +21,7 @@ FactoryBot.define do
     end
 
     trait :manager do
+      antenne factory: [:antenne, :with_experts_subjects], strategy: :create
       after(:create) do |user, _|
         user.managed_antennes.push(user.antenne)
       end

@@ -32,11 +32,3 @@ blobs.first.attachments.destroy_all
 ```
 
 Puis relancer la génération des rapports.
-
-## Requêtes utiles
-
-Trouver les managers qui sont responsables de + d'une antenne : 
-
-```ruby
-users = User.managers.joins(:user_rights).group(:id).having('COUNT(user_rights.id)>1')
-```

@@ -34,6 +34,12 @@ class Antenne < ApplicationRecord
     national: 'national'
   }, _prefix: true
 
+  TERRITORIAL_ORDER = {
+    national: 0,
+    regional: 1,
+    local: 2
+  }
+
   ## Associations
   #
   has_and_belongs_to_many :communes, inverse_of: :antennes, after_add: [:update_referencement_coverages, :update_antenne_hierarchy], after_remove: [:update_referencement_coverages, :update_antenne_hierarchy]
