@@ -1,4 +1,4 @@
-import  SiretAutocompleteController from "../../shared/controllers/siret_autocomplete_controller.js"
+import  SiretAutocompleteController from "./../../shared/controllers/siret_autocomplete_controller.js"
 
 
 export default class extends SiretAutocompleteController {

@@ -1,4 +1,4 @@
-import { Controller } from "stimulus";
+import { Controller } from '@hotwired/stimulus';
 import { exists, debounce } from '../utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
 

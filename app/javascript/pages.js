@@ -19,8 +19,8 @@
 import "whatwg-fetch";
 import "@hotwired/turbo-rails";
 
-import Rails from "@rails/ujs"
-Rails.starts()
+import Rails from "@rails/ujs";
+// Rails.starts()
 
 // require('remixicon/fonts/remixicon.css');
 // require('@gouvfr/dsfr/dist/utility/icons/icons-communication/icons-communication.css')
