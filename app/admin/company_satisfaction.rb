@@ -5,8 +5,10 @@ ActiveAdmin.register CompanySatisfaction do
 
   ## Index
   #
-  includes :need, :landing, :solicitation, :subject
+  includes :need, :landing, :solicitation, :subject, :facility
   config.sort_order = 'created_at_desc'
+
+  scope :all, default: true
 
   index do
     selectable_column
@@ -32,13 +34,18 @@ ActiveAdmin.register CompanySatisfaction do
     actions dropdown: true
   end
 
-  filter :contacted_by_expert
   filter :created_at
+  filter :contacted_by_expert
   filter :useful_exchange
-  filter :landing, as: :select, collection: -> { Landing.order(:slug).pluck(:slug, :id) }
+  filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subject, as: :select, collection: -> { Subject.not_archived.order(:label).pluck(:label, :id) }
   filter :done_institutions, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
+  filter :solicitation_email_cont
   filter :facility_regions, collection: -> { Territory.regions.order(:name) }
+  filter :landing, as: :select, collection: -> { Landing.order(:slug).pluck(:slug, :id) }
+  filter :solicitation_mtm_campaign, as: :string
+  filter :solicitation_mtm_kwd, as: :string
 
   ## CSV
   #

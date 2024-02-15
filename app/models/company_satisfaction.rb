@@ -24,8 +24,10 @@ class CompanySatisfaction < ApplicationRecord
   has_one :landing, through: :solicitation, inverse_of: :solicitations
   has_one :landing_subject, through: :solicitation, inverse_of: :solicitations
   has_one :subject, through: :need, inverse_of: :needs
+  has_one :theme, through: :need, inverse_of: :needs
   has_many :matches, through: :need, inverse_of: :need
   has_many :facility_regions, through: :need, inverse_of: :needs
+  has_one :facility, through: :need, inverse_of: :needs
 
   # Satisfaction pour les MER avec aide proposée
   has_many :done_matches, -> { status_done }, class_name: 'Match', through: :need, inverse_of: :need, source: :matches
@@ -42,7 +44,7 @@ class CompanySatisfaction < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [
       "done_antennes", "done_experts", "done_institutions", "done_matches", "facility_regions", "landing",
-      "landing_subject", "matches", "need", "solicitation", "subject"
+      "landing_subject", "matches", "need", "solicitation", "subject", "theme", "facility", "need"
     ]
   end
 end

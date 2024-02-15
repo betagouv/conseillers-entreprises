@@ -52,6 +52,7 @@ class Facility < ApplicationRecord
   # :diagnoses
   has_many :needs, through: :diagnoses, inverse_of: :facility
   has_many :matches, through: :diagnoses, inverse_of: :facility
+  has_many :company_satisfactions, through: :needs, inverse_of: :facility
 
   # :commune
   has_many :territories, through: :commune, inverse_of: :facilities
