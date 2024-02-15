@@ -319,10 +319,19 @@ fr:
       logo:
         filename: Nom du fichier image (non modifiable)
       match:
+        facility_siret_cont: Siret
+        solicitation_full_name_cont: Contact en entreprise
+        solicitation_email_cont: Email
+        solicitation_phone_number_cont: Téléphone
+        facility_naf_code: Code NAF établissement
+        company_legal_form_code: Forme juridique entreprise
         closed_at: Date de clôture
         expert: Expert
         expert_id: Id de l'expert
+        landing: Page d’atterrissage
+        landing_subject: Sujet choisi sur le site
         landing_subject_title: Sujet choisi sur le site
+        landing_theme: Thème choisi sur le site
         landing_theme_title: Thème choisi sur le site
         match_created_at: Date de transmission du besoin
         match_id: Id de la mise en relation
@@ -342,6 +351,9 @@ fr:
         solicitation_full_name: Contact en entreprise
         solicitation_gclid: Id GA
         solicitation_id: Id de la sollicitation
+        solicitation_mtm_campaign: Campagne
+        solicitation_mtm_kwd: Mots-clés
+        solicitation_relaunch: Relance
         solicitation_phone_number: Téléphone du contact entreprise
         solicitation_provenance_category: Type de source
         solicitation_provenance_detail: Détail de la source

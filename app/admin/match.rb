@@ -70,25 +70,49 @@ ActiveAdmin.register Match do
     end
   end
 
+  
+  ## Filtres entreprise
+  filter :facility_siret_cont
+  filter :solicitation_full_name_cont
+  filter :solicitation_email_cont
+  filter :solicitation_phone_number_cont
+  filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
+  filter :facility_naf_code, as: :string
+  filter :company_legal_form_code, as: :string
+  
+  ## Filtres Mise en relation
   collection = -> { Match.human_attribute_values(:status, raw_values: true, context: :short).invert.to_a }
   filter :status, as: :select, collection: collection, label: I18n.t('attributes.status')
   filter :archived_in, as: :boolean, label: I18n.t('attributes.is_archived')
-
   filter :solicitation_created_at, as: :date_range
-  filter :solicitation_mtm_campaign, as: :string
-
-  filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
-
   filter :expert, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
-  filter :expert_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :expert_antenne, as: :ajax_select, collection: -> { @antennes_collection.pluck(:name, :id) },
          data: { url: :admin_antennes_path, search_fields: [:name] }
-
+  filter :expert_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :theme, collection: -> { Theme.ordered_for_interview }
   filter :subject, collection: -> { Subject.not_archived.order(:label) }
-
-  filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.regions.pluck(:name, :id) }
+  
+  ## Filtres acquisition
+  filter :landing, as: :select, collection: -> { Landing.not_archived.order(:slug).pluck(:slug, :id) }
+  filter :solicitation_mtm_campaign, as: :string
+  filter :solicitation_mtm_kwd, as: :string
+  filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }
+  filter :landing_subject, as: :select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }
+
+  before_action only: :index do
+    @landing_themes = if params[:q].present? && params[:q][:landing_id_eq].present?
+      Landing.find(params[:q][:landing_id_eq]).landing_themes.not_archived
+    else
+      LandingTheme.not_archived
+    end
+    @landing_subjects = if params[:q].present? && params[:q][:landing_subject_landing_theme_id_eq].present?
+      LandingTheme.find(params[:q][:landing_subject_landing_theme_id_eq]).landing_subjects.not_archived
+    else
+      LandingSubject.not_archived
+    end
+  end
+
 
   ## Show
   #
