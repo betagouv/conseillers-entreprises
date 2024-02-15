@@ -203,6 +203,8 @@ fr:
         insee_code: Code commune
       company:
         activite_liberale: Activité libérale
+        facilities_naf_code: Code NAF établissements
+        facilities_regions: Régions
         inscrit_rcs: Inscrit au RCS
         inscrit_rm: Inscrit au RM
       company_satisfaction:
@@ -248,7 +250,9 @@ fr:
         intervention_criteria: Critères d’intervention
         job: rôle
       facility:
+        commune_insee_code: Code insee
         company: Entreprise
+        company_legal_form_code: Forme juridique entreprise
         readable_locality: Commune
       feedback:
         category: Catégorie
@@ -319,15 +323,12 @@ fr:
       logo:
         filename: Nom du fichier image (non modifiable)
       match:
-        facility_siret_cont: Siret
-        solicitation_full_name_cont: Contact en entreprise
-        solicitation_email_cont: Email
-        solicitation_phone_number_cont: Téléphone
-        facility_naf_code: Code NAF établissement
-        company_legal_form_code: Forme juridique entreprise
         closed_at: Date de clôture
+        company_legal_form_code: Forme juridique entreprise
         expert: Expert
         expert_id: Id de l'expert
+        facility_naf_code: Code NAF établissement
+        facility_siret_cont: Siret
         landing: Page d’atterrissage
         landing_subject: Sujet choisi sur le site
         landing_subject_title: Sujet choisi sur le site
@@ -348,16 +349,19 @@ fr:
         solicitation_created_at: Date de sollicitation
         solicitation_description: Description de la sollicitation
         solicitation_email: Adresse mail du contact entreprise
+        solicitation_email_cont: Email
         solicitation_full_name: Contact en entreprise
+        solicitation_full_name_cont: Contact en entreprise
         solicitation_gclid: Id GA
         solicitation_id: Id de la sollicitation
         solicitation_mtm_campaign: Campagne
         solicitation_mtm_kwd: Mots-clés
-        solicitation_relaunch: Relance
         solicitation_phone_number: Téléphone du contact entreprise
+        solicitation_phone_number_cont: Téléphone
         solicitation_provenance_category: Type de source
         solicitation_provenance_detail: Détail de la source
         solicitation_provenance_title: Intitulé de la source
+        solicitation_relaunch: Relance
         subject: Sujet
         taken_care_of_at: Date d’intervention
         theme: Thème

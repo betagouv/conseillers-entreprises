@@ -11,6 +11,7 @@ ActiveAdmin.register Match do
            :advisor, :advisor_antenne, :advisor_institution,
            :expert, :expert_antenne, :expert_institution,
            :solicitation, :diagnosis,
+           :landing, :landing_theme, :landing_subject,
            :subject, :theme,
            facility: :commune,
            need: :subject
@@ -70,7 +71,6 @@ ActiveAdmin.register Match do
     end
   end
 
-  
   ## Filtres entreprise
   filter :facility_siret_cont
   filter :solicitation_full_name_cont
@@ -79,7 +79,7 @@ ActiveAdmin.register Match do
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
   filter :facility_naf_code, as: :string
   filter :company_legal_form_code, as: :string
-  
+
   ## Filtres Mise en relation
   collection = -> { Match.human_attribute_values(:status, raw_values: true, context: :short).invert.to_a }
   filter :status, as: :select, collection: collection, label: I18n.t('attributes.status')
@@ -92,7 +92,7 @@ ActiveAdmin.register Match do
   filter :theme, collection: -> { Theme.ordered_for_interview }
   filter :subject, collection: -> { Subject.not_archived.order(:label) }
   filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.regions.pluck(:name, :id) }
-  
+
   ## Filtres acquisition
   filter :landing, as: :select, collection: -> { Landing.not_archived.order(:slug).pluck(:slug, :id) }
   filter :solicitation_mtm_campaign, as: :string
@@ -112,7 +112,6 @@ ActiveAdmin.register Match do
       LandingSubject.not_archived
     end
   end
-
 
   ## Show
   #

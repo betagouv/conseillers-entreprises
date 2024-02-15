@@ -8,6 +8,8 @@ ActiveAdmin.register Company do
   includes :facilities, :contacts, :diagnoses, :needs, :matches
   config.sort_order = 'created_at_desc'
 
+  scope :all, default: true
+
   index do
     selectable_column
     column(:name) do |c|
@@ -37,6 +39,8 @@ ActiveAdmin.register Company do
   filter :name
   filter :siren
   filter :legal_form_code
+  filter :facilities_naf_code, as: :string
+  filter :facilities_regions, collection: -> { Territory.regions.order(:name) }
   filter :code_effectif
   filter :created_at
 
