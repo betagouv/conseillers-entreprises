@@ -1,5 +1,5 @@
 = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
-  .fr-grid-row.fr-py-3w.fr-mb-3w.white-bg#stats-params{ data: { controller: 'stats' } }
+  .fr-grid-row.fr-py-3w.fr-mb-3w.white-bg#stats-params{ data: { controller: 'stats', url: set_filter_options_base_index_path } }
 
     .fr-col-12.fr-col-md-4.fr-p-2w
       .fr-input-group
@@ -19,19 +19,23 @@
       .fr-select-group
         = f.label :institution, t('activerecord.models.institution.one'), class: 'fr-label'
         = f.collection_select :institution, Institution.not_deleted.expert_provider.order(:name), :id, :name, { selected: params[:institution],
-        include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#institutionFilters', 'stats-target': 'institution' }
+        include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#fetchFilters', 'stats-target': 'institution' }
       .fr-select-group
         - antenne_placeholder = params[:institution].present? ? t('all.feminine') : t('stats.stats_params.select_institution')
         = f.label :antenne, class: 'fr-label' do
           = t('activerecord.models.antenne.one')
-          .loader.hidden{ data: { 'stats-target': 'loader' } }
+          .loader.loader--sm.hidden{ data: { 'stats-target': 'loader' } }
         = f.select :antenne, options_for_select(institution_antennes.pluck(:name, :id), selected: stats[:antenne]), { include_blank: antenne_placeholder }, class: "fr-select", data: { 'stats-target': 'antennes' }
       .fr-select-group
-        = f.label :theme, t('stats.stats_params.theme'), class: 'fr-label'
+        = f.label :theme, class: 'fr-label' do
+          = t('stats.stats_params.theme')
+          .loader.loader--sm.hidden{ data: { 'stats-target': 'loader' } }
         = f.collection_select :theme, Theme.for_interview.order(:label), :id, :label, { selected: params[:theme],
-          include_blank: t('all.feminine') }, class: "fr-select"
+          include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#fetchFilters', 'stats-target': 'themes' }
       .fr-select-group
-        = f.label :subject, t('activerecord.models.subject.one'), class: 'fr-label'
+        = f.label :subject, class: 'fr-label' do
+          = t('activerecord.models.subject.one')
+          .loader.loader--sm.hidden{ data: { 'stats-target': 'loader' } }
         = f.collection_select :subject, Subject.not_archived.order(:label), :id, :label, { selected: params[:subject],
         include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
 

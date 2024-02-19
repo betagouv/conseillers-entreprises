@@ -284,6 +284,11 @@ Rails.application.routes.draw do
   end
 
   scope :stats, module: :stats do
+    resources :base, only: [] do
+      collection do
+        get :set_filter_options
+      end
+    end
     resources :public, only: :index, path: '/' do
       collection do
         get :load_data
@@ -295,7 +300,6 @@ Rails.application.routes.draw do
         get :needs, path: 'besoins'
         get :matches, path: 'mises-en-relation'
         get :load_data
-        get :institution_filters
       end
     end
   end

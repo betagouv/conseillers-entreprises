@@ -1,19 +1,27 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ['institution', 'antennes', 'subjects', 'iframes', 'loader']
+  static targets = ['institution', 'antennes', 'themes', 'subjects', 'iframes', 'loader', 'url']
 
-  async institutionFilters() {
-    this.loaderTarget.style.display = 'inline-block'
-    await fetch(`/stats/equipe/institution_filters?institution_id=${this.institutionTarget.value}`)
+  initialize() {
+    console.log('initialize stats controller')
+    this.url = this.element.dataset.url
+  }
+
+  async fetchFilters() {
+    for(let loader of this.loaderTargets) { loader.style.display = 'inline-block'}
+    let params = `institution_id=${this.institutionTarget.value}&theme_id=${this.themesTarget.value}`;
+
+    await fetch(`${this.url}?${params}`)
       .then((response) => response.json())
       .then((data) => this.updateFilters(data));
   }
 
   updateFilters(data) {
-    this.loaderTarget.style.display = 'none'
     this.updateAntennesOptions(data.antennes);
+    this.updateThemesOptions(data.themes);
     this.updateSubjectsOptions(data.subjects);
+    for(let loader of this.loaderTargets) { loader.style.display = 'none'}
   }
 
   updateAntennesOptions(antennes) {
@@ -30,18 +38,30 @@ export default class extends Controller {
     });
   }
 
+  updateThemesOptions(themes) { 
+    this.updateOptions(themes, this.themesTarget, "Toutes")
+  }
+
   updateSubjectsOptions(subjects) {
-    this.subjectsTarget.innerHTML = "";
+    this.updateOptions(subjects, this.subjectsTarget, "Tous")
+  }
+
+  updateOptions(newOptions, target, emptyLabel) {
+    let previouslySelectedValue = target.value
+    target.innerHTML = "";
     let option = document.createElement("option");
     option.value = '';
-    option.innerHTML = 'Tous';
-    this.subjectsTarget.appendChild(option);
-    subjects.forEach((subject) => {
+    option.innerHTML = emptyLabel;
+    target.appendChild(option);
+    newOptions.forEach((newOption) => {
       const option = document.createElement("option");
-      option.value = subject.id;
-      option.innerHTML = subject.label;
-      this.subjectsTarget.appendChild(option);
+      option.value = newOption.id;
+      option.innerHTML = newOption.label;
+      target.appendChild(option);
     });
+    if(newOptions.map(t => t.id).includes(Number(previouslySelectedValue))) {
+      target.value = previouslySelectedValue
+    }
   }
 
   toggleIframeSelect(data) {
