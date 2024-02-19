@@ -1,5 +1,5 @@
 = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
-  .fr-grid-row.fr-py-3w.fr-mb-3w.white-bg#stats-params{ data: { controller: 'stats', url: set_filter_options_base_index_path } }
+  .fr-grid-row.fr-py-3w.fr-mb-3w.white-bg#stats-params{ data: { controller: 'stats', url: load_filter_options_team_index_path } }
 
     .fr-col-12.fr-col-md-4.fr-p-2w
       .fr-input-group
@@ -30,13 +30,13 @@
         = f.label :theme, class: 'fr-label' do
           = t('stats.stats_params.theme')
           .loader.loader--sm.hidden{ data: { 'stats-target': 'loader' } }
-        = f.collection_select :theme, Theme.for_interview.order(:label), :id, :label, { selected: params[:theme],
+        = f.collection_select :theme, themes, :id, :label, { selected: params[:theme],
           include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#fetchFilters', 'stats-target': 'themes' }
       .fr-select-group
         = f.label :subject, class: 'fr-label' do
           = t('activerecord.models.subject.one')
           .loader.loader--sm.hidden{ data: { 'stats-target': 'loader' } }
-        = f.collection_select :subject, Subject.not_archived.order(:label), :id, :label, { selected: params[:subject],
+        = f.collection_select :subject, subjects, :id, :label, { selected: params[:subject],
         include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
 
     .fr-col-12.fr-col-md-4.fr-p-2w

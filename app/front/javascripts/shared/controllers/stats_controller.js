@@ -4,13 +4,15 @@ export default class extends Controller {
   static targets = ['institution', 'antennes', 'themes', 'subjects', 'iframes', 'loader', 'url']
 
   initialize() {
-    console.log('initialize stats controller')
     this.url = this.element.dataset.url
   }
 
   async fetchFilters() {
     for(let loader of this.loaderTargets) { loader.style.display = 'inline-block'}
-    let params = `institution_id=${this.institutionTarget.value}&theme_id=${this.themesTarget.value}`;
+    let institutionParams = this.hasInstitutionTarget ? `institution=${this.institutionTarget.value}` : null;
+    let themesParams = this.hasThemesTarget ? `theme=${this.themesTarget.value}` : null;
+    let params = [institutionParams, themesParams].filter(n => n).join('&')
+    console.log(params)
 
     await fetch(`${this.url}?${params}`)
       .then((response) => response.json())
@@ -18,8 +20,8 @@ export default class extends Controller {
   }
 
   updateFilters(data) {
-    this.updateAntennesOptions(data.antennes);
-    this.updateThemesOptions(data.themes);
+    if (this.hasAntennesTarget && data.antennes ) this.updateAntennesOptions(data.antennes);
+    if (this.hasThemesTarget && data.themes ) this.updateThemesOptions(data.themes);
     this.updateSubjectsOptions(data.subjects);
     for(let loader of this.loaderTargets) { loader.style.display = 'none'}
   }
