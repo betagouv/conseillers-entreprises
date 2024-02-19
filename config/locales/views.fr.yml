@@ -1009,6 +1009,7 @@ fr:
       index:
         select_partner: Attention ! Pensez à sélectionner un partenaire
         title: Statistiques équipe
+        unselect_partner: Attention, les statistiques publiques mesure l’activité cumulée des partenaires.
       matches: Pilotage par partenaire
       needs: Pilotage par besoins
       public: Statistiques publiques
