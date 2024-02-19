@@ -19,7 +19,7 @@ module Stats
     def needs
       @charts_names = %w[
         solicitations_transmitted_less_than_72h needs_quo needs_taking_care needs_done needs_done_no_help
-        needs_done_not_reachable needs_not_for_me needs_abandoned
+        needs_done_not_reachable needs_not_for_me needs_abandoned_total_count needs_abandoned
       ]
       render :index
     end

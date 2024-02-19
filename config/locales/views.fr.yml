@@ -883,9 +883,14 @@ fr:
         title: Besoins identifiés
         title_table: Nombre de besoins identifiés
       needs_abandoned:
-        subtitle: Le besoin est considéré comme abandonné lorsque aucun conseiller ne s’est positionné au bout de 45 jours ou 10 jours après l'envoi d'un mail de relance. Il est resté sans réponse malgré les relances et le suivi qualité dont il a fait l’objet.
-        title: de besoins abandonnés, soit %{secondary_count} besoins
+        subtitle: Besoins triés par mois selon leur date de création
+        title: Évolution des besoins abandonnés dans le temps
         title_table: Nombre de besoins abandonnés
+      needs_abandoned_total_count:
+        series: Besoins abandonnés
+        subtitle: Besoins triés par mois selon leur date de création
+        title: de besoins transmis sont abandonnés en l’absence de positionnement des conseillers
+        title_table: Nombre total de besoins abandonnés
       needs_done:
         subtitle: Une clôture par « une aide proposée » signifie qu’un conseiller a pu proposer par téléphone un conseil, un accompagnement technique ou une aide financière au chef d’entreprise pour répondre à sa problématique.
         title: des besoins transmis sont clôturés par une aide proposée, soit %{secondary_count} besoins
