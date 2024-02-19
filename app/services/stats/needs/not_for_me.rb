@@ -30,6 +30,10 @@ module Stats::Needs
       percentage_two_numbers(@needs_not_for_me, @needs_other_status)
     end
 
+    def secondary_count
+      filtered_main_query.status_not_for_me.size
+    end
+
     private
 
     def as_series(needs_not_for_me, needs_others_status)
