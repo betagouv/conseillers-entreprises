@@ -12,7 +12,6 @@ export default class extends Controller {
     let institutionParams = this.hasInstitutionTarget ? `institution=${this.institutionTarget.value}` : null;
     let themesParams = this.hasThemesTarget ? `theme=${this.themesTarget.value}` : null;
     let params = [institutionParams, themesParams].filter(n => n).join('&')
-    console.log(params)
 
     await fetch(`${this.url}?${params}`)
       .then((response) => response.json())
