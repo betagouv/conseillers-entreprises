@@ -145,7 +145,8 @@ class Feedback < ApplicationRecord
   def self.ransackable_scopes(auth_object = nil)
     [
       :subject_eq, :theme_eq, :landing_eq, :mtm_campaign_cont, :mtm_campaign_eq, :mtm_campaign_start, :mtm_campaign_end,
-      :need_created_at_gteq, :need_created_at_lteq, :user_antenne_eq, :user_institution_eq
+      :mtm_kwd_cont, :mtm_kwd_eq, :mtm_kwd_start, :mtm_kwd_end, :need_created_at_gteq, :need_created_at_lteq,
+      :user_antenne_eq, :user_institution_eq
     ]
   end
 end

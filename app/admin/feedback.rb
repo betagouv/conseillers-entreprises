@@ -29,6 +29,7 @@ ActiveAdmin.register Feedback do
   filter :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
   filter :landing, as: :ajax_select, data: { url: :admin_landings_path, search_fields: [:title] }
   filter :mtm_campaign, as: :string
+  filter :mtm_kwd, as: :string
   filter :description
   filter :category, as: :select, collection: -> { Feedback.human_attribute_values(:category, raw_values: true).invert.to_a }
   filter :need_created_at, as: :date_range, label: I18n.t('activeadmin.feedback.need_created_at')
