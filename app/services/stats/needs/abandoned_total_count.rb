@@ -25,10 +25,8 @@ module Stats::Needs
     end
 
     def count
-      total = filtered(Need.diagnosis_completed
-                           .joins(:diagnosis).merge(Diagnosis.from_solicitation)
-                           .where(created_at: @start_date..@end_date))
-      total == 0 ? "0" : "#{(secondary_count * 100).fdiv(total.size).round}%"
+      total = filtered(needs_base_scope).size
+      total == 0 ? "0" : "#{(secondary_count * 100).fdiv(total).round}%"
     end
 
     def secondary_count
