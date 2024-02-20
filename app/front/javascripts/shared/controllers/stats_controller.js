@@ -27,17 +27,7 @@ export default class extends Controller {
   }
 
   updateAntennesOptions(antennes) {
-    this.antennesTarget.innerHTML = "";
-    let option = document.createElement("option");
-    option.value = '';
-    option.innerHTML = 'Toutes';
-    this.antennesTarget.appendChild(option);
-    antennes.forEach((antenne) => {
-      const option = document.createElement("option");
-      option.value = antenne.id;
-      option.innerHTML = antenne.name;
-      this.antennesTarget.appendChild(option);
-    });
+    this.updateOptions(antennes, this.antennesTarget, "Toutes")
   }
 
   updateThemesOptions(themes) { 
@@ -58,9 +48,10 @@ export default class extends Controller {
     newOptions.forEach((newOption) => {
       const option = document.createElement("option");
       option.value = newOption.id;
-      option.innerHTML = newOption.label;
+      option.innerHTML = Object.prototype.hasOwnProperty.call(newOption, 'label') ? newOption.label : newOption.name;
       target.appendChild(option);
     });
+    // on conserve l'ancienne value si présente dans les options
     if(newOptions.map(t => t.id).includes(Number(previouslySelectedValue))) {
       target.value = previouslySelectedValue
     }
