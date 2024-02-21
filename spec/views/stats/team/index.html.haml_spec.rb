@@ -29,14 +29,14 @@ RSpec.describe 'stats/team/index' do
       assign(:main_stat, Stats::Needs::ExchangeWithExpertColumn.new({ start_date: start_date, end_date: end_date }))
       assign(:charts_names, [
         :transmitted_less_than_72h_stats, :needs_done, :needs_done_no_help, :needs_done_not_reachable,
-        :needs_not_for_me, :needs_abandoned
+        :needs_not_for_me, :needs_abandoned, :needs_abandoned_total_count
       ])
       allow(view).to receive(:action_name).and_return("needs")
 
       render
 
       expect(rendered).to have_css('h1', text: t('stats.team.needs'))
-      expect(rendered).to have_css('.fr-col-12.card.stats', count: 6)
+      expect(rendered).to have_css('.fr-col-12.card.stats', count: 7)
     end
 
     it "displays correctly matches stats" do

@@ -38,6 +38,10 @@ module Stats::Needs
       percentage_two_numbers(@needs_done_no_help, @needs_others_status)
     end
 
+    def secondary_count
+      filtered_main_query.status_done_no_help.size
+    end
+
     private
 
     def as_series(needs_with_help, needs_without_help)

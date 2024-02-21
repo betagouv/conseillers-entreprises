@@ -30,6 +30,10 @@ module Stats::Needs
       percentage_two_numbers(@needs_done_not_reachable, @needs_other_status)
     end
 
+    def secondary_count
+      filtered_main_query.status_done_not_reachable.size
+    end
+
     private
 
     def as_series(needs_done_not_reachable, needs_other_status)

@@ -1,5 +1,5 @@
 module Stats::Needs
-  class Abandoned
+  class AbandonedTotalCount
     include ::Stats::BaseStats
     include Stats::Needs::Base
 
@@ -9,15 +9,15 @@ module Stats::Needs
     end
 
     def category_group_attribute
-      :status
+      Arel.sql('true')
     end
 
     def category_order_attribute
-      :status
+      Arel.sql('true')
     end
 
     def category_name(category)
-      Need.human_attribute_value(:status, category)
+      I18n.t('stats.series.needs_abandoned_total_count.series')
     end
 
     def filtered(query)
@@ -25,7 +25,8 @@ module Stats::Needs
     end
 
     def count
-      ''
+      total = filtered(needs_base_scope).size
+      total == 0 ? "0" : "#{(secondary_count * 100).fdiv(total).round}%"
     end
 
     def secondary_count
@@ -33,7 +34,15 @@ module Stats::Needs
     end
 
     def subtitle
-      I18n.t('stats.series.needs_abandoned.subtitle')
+      I18n.t('stats.series.needs_abandoned_total_count.subtitle')
+    end
+
+    def chart
+      'stats-chart'
+    end
+
+    def format
+      'Total : <b>{point.stackTotal}</b>'
     end
   end
 end
