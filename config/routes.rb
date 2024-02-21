@@ -109,6 +109,7 @@ Rails.application.routes.draw do
     controller :stats do
       get :index, path: 'stats', as: :stats
       get :load_data, as: :load_data
+      get :load_filter_options
     end
     resources :needs, only: :index, path: 'besoins-des-antennes' do
       collection do
@@ -295,7 +296,7 @@ Rails.application.routes.draw do
         get :needs, path: 'besoins'
         get :matches, path: 'mises-en-relation'
         get :load_data
-        get :institution_filters
+        get :load_filter_options
       end
     end
   end

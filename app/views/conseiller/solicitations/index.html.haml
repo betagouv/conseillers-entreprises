@@ -20,7 +20,7 @@
       %p= collection_count @solicitations
     .fr-col-md-6.fr-col-12.text-right
       - if sol_search_params.present?
-        = link_to t('.clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
+        = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
       = f.submit t('.search'), class: 'fr-btn', title: t('.search')
 
 = paginate @solicitations
