@@ -211,6 +211,9 @@ fr:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
         landing: Page d’atterrissage
+        solicitation_email_cont: Email du contact
+        solicitation_mtm_campaign: Campagne
+        solicitation_mtm_kwd: Mots-clés
         useful_exchange: Échange utile
       contact:
         company: Entreprise
@@ -260,6 +263,8 @@ fr:
         match_closed_at: Date de clôture de la mise en relation
         real_subject: Sujet réel
         real_theme: Thème réel
+        subject: Sujet réel
+        theme: Thématique réelle
       feedback/categories:
         need: Besoin
         reminder: Relance
@@ -332,8 +337,8 @@ fr:
         landing: Page d’atterrissage
         landing_subject: Sujet choisi sur le site
         landing_subject_title: Sujet choisi sur le site
-        landing_theme: Thème choisi sur le site
-        landing_theme_title: Thème choisi sur le site
+        landing_theme: Thématique choisie sur le site
+        landing_theme_title: Thématique choisie sur le site
         match_created_at: Date de transmission du besoin
         match_id: Id de la mise en relation
         match_status: Statut de la mise en relation
@@ -346,7 +351,7 @@ fr:
         satisfaction_contacted_by_expert: Satisfaction - rappel
         satisfaction_useful_exchange: Satisfaction - utilité
         solicitation_badges: Tags de l’équipe
-        solicitation_created_at: Date de sollicitation
+        solicitation_created_at: Date de création de la sollicitation
         solicitation_description: Description de la sollicitation
         solicitation_email: Adresse mail du contact entreprise
         solicitation_email_cont: Email
@@ -362,9 +367,9 @@ fr:
         solicitation_provenance_detail: Détail de la source
         solicitation_provenance_title: Intitulé de la source
         solicitation_relaunch: Relance
-        subject: Sujet
+        subject: Sujet réel
         taken_care_of_at: Date d’intervention
-        theme: Thème
+        theme: Thématique réelle
       match/statuses:
         done: Besoin clôturé
         done_no_help: Pas d’aide disponible
@@ -414,7 +419,8 @@ fr:
         company: Entreprise
         expert_antennes: Antenne
         expert_institutions: Institution
-        subject: Sujet
+        subject: Sujet réel
+        theme: Thématique réelle
       need/statuses:
         diagnosis_not_complete: Analyse en cours
         done: Besoin clôturé
@@ -476,7 +482,8 @@ fr:
         full_name: Prénom et nom
         institution_filters: Questions additionnelles
         landing: Page d’atterrissage
-        landing_subject: Sujet choisi
+        landing_subject: Sujet choisi sur le site
+        landing_theme: Thématique choisie sur le site
         location: Localisation
         mtm_campaign: Campagne mtm
         mtm_kwd: Mots-clés mtm
@@ -495,6 +502,8 @@ fr:
         requested_help_amount: Montant de l’aide demandée
         siret: SIRET
         slug: Slug
+        subject: Sujet réel
+        theme: Thématique réelle
         tracking: Suivi
       solicitation/statuses:
         canceled: Abandonnée

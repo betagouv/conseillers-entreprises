@@ -89,7 +89,7 @@ ActiveAdmin.register Match do
   filter :expert_antenne, as: :ajax_select, collection: -> { @antennes_collection.pluck(:name, :id) },
          data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :expert_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :theme, collection: -> { Theme.ordered_for_interview }
+  filter :theme, collection: -> { Theme.order(:label) }
   filter :subject, collection: -> { Subject.not_archived.order(:label) }
   filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.regions.pluck(:name, :id) }
 

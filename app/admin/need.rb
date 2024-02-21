@@ -32,7 +32,7 @@ ActiveAdmin.register Need do
   filter :status, as: :select, collection: -> { Need.human_attribute_values(:status, raw_values: true).invert.to_a }
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
-  filter :theme, collection: -> { Theme.ordered_for_interview }
+  filter :theme, collection: -> { Theme.order(:label) }
   filter :subject, collection: -> { Subject.not_archived.order(:label) }
   filter :content
   filter :experts, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }

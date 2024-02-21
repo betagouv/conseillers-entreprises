@@ -121,14 +121,12 @@ ActiveAdmin.register Solicitation do
   # Filtres sollicitation
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
   filter :completion, as: :select, collection: -> { ['step_complete', 'step_incomplete'].map{ |completion| [I18n.t("active_admin.scopes.#{completion}"), completion] } }
-  filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }
-  filter :landing_subject, as: :select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }
-  # filter :subject, as: :select, collection: -> { Subject.not_archived.order(:label).pluck(:label, :id) }
+  filter :theme, collection: -> { Theme.order(:label) }
+  filter :subject, collection: -> { Subject.not_archived.order(:label) }
   filter :code_region, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :code_region) }
   filter :created_at
   filter :completed_at
   filter :description, as: :string
-  filter :requested_help_amount, as: :string
   filter :badges, as: :select, collection: -> { Badge.category_solicitations.order(:title).pluck(:title, :id) }
 
   # Filtres acquisition
