@@ -64,7 +64,7 @@ module Manager
     end
 
     def base_subjects
-      @base_subjects = current_user.institution.subjects.for_interview.order(:label)
+      @base_subjects = current_user.institution.subjects.not_archived.for_interview.order(:label)
       @base_subjects = @base_subjects.where(theme_id: params[:theme]) if params[:theme].present?
       @base_subjects
     end
