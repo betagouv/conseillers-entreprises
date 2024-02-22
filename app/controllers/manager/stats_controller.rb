@@ -71,6 +71,10 @@ module Manager
 
     def base_antennes
       @base_antennes ||= build_manager_antennes_collection(current_user)
+      if @base_antennes.empty?
+        @base_antennes = [{ name: current_user.managed_antennes.first.name, id: 'no_base_antenne_id' }]
+      end
+      @base_antennes
     end
   end
 end
