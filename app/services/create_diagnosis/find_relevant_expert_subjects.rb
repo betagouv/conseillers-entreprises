@@ -26,14 +26,52 @@ module CreateDiagnosis
 
     def apply_institution_filters(expert_subjects)
       need.institution_filters.each do |need_filter|
-        need_question_id = need_filter.additional_subject_question_id
-        need_value = need_filter.filter_value
         expert_subjects = expert_subjects.select do |es|
-          institution_filter = es.expert.institution.institution_filters.find_by(additional_subject_question_id: need_question_id)
-          # On garde les expert_subjects
-          # - qui n'ont pas de filtre sur cette question additionnelle
-          # - qui ont la même filter_value que la solicitation
-          institution_filter.nil? || (institution_filter.filter_value == need_value)
+          adie = Institution.find_by(slug: 'adie')
+          initiative = Institution.find_by(slug: 'initiative-france')
+          bpi = Institution.find_by(slug: 'bpifrance')
+          bdf = Institution.find_by(slug: 'banque-de-france')
+          es_institution = es.expert.institution
+
+          # essai de questions liées pour le sujet "Financer sa croissance et ses investissements"
+          if ENV['FEATURE_QUESTIONS_INVESTISSEMENT'].to_b &&
+            es.subject.id == 55 &&
+            (es_institution == adie || es_institution == initiative || es_institution == bpi || es_institution == bdf)
+            # on récupère les questions additionnelles liés entre elles
+            less_than_10k_question = AdditionalSubjectQuestion.find_by(key: 'moins_de_10k_restant_a_financer')
+            bank_question = AdditionalSubjectQuestion.find_by(key: 'financement_bancaire_envisage')
+            less_than_10k_institution_filter = need.institution_filters.find_by(additional_subject_question_id: less_than_10k_question.id)
+            bank_institution_filter = need.institution_filters.find_by(additional_subject_question_id: bank_question.id)
+
+            # Réponses aux questions
+            less_than_10k = less_than_10k_institution_filter.filter_value
+            bank = bank_institution_filter.filter_value
+
+            #   moins de 10 000 + oui banque = Adie, Initiative
+            #   moins de 10 000 + non banque = Adie
+            #   plus de 10 000 + oui banque = Bpi, BDF, Initiative
+            #   plus de 10 000 + non banque = BDF, Adie
+            if less_than_10k && bank
+              es.expert.institution == adie || es.expert.institution == initiative
+            elsif less_than_10k && !bank
+              es.expert.institution == adie
+            elsif !less_than_10k && bank
+              es.expert.institution == bpi || es.expert.institution == bdf || es.expert.institution == initiative
+            elsif !less_than_10k && !bank
+              es.expert.institution == bdf || es.expert.institution == adie
+            else
+              false
+            end
+
+          else
+            need_question_id = need_filter.additional_subject_question_id
+            need_value = need_filter.filter_value
+            institution_filter = es.expert.institution.institution_filters.find_by(additional_subject_question_id: need_question_id)
+            # On garde les expert_subjects
+            # - qui n'ont pas de filtre sur cette question additionnelle
+            # - qui ont la même filter_value que la solicitation
+            institution_filter.nil? || (institution_filter.filter_value == need_value)
+          end
         end
       end
       expert_subjects

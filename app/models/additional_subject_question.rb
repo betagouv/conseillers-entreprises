@@ -13,11 +13,6 @@
 #  index_additional_subject_questions_on_subject_id  (subject_id)
 #
 class AdditionalSubjectQuestion < ApplicationRecord
-  # 1 Une question additionnelle est liée à un sujet
-  # 2 Un InstitutionFilter est lié à une sollicitation avec une valeur filter_value
-  # 3 Cet InstitutionFilter est dupliqué et lié à un besoin
-  # 4 Il est ensuite comparé à l'InstitutionFilter rattaché à l'institution de l'expert ayant le bon sujet pour créer ou non un matche
-
   ## Associations
   #
   belongs_to :subject, inverse_of: :additional_subject_questions
