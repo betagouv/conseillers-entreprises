@@ -38,6 +38,26 @@ class CompanySatisfaction < ApplicationRecord
 
   validates :contacted_by_expert, :useful_exchange, inclusion: { in: [true, false] }
 
+  scope :solicitation_mtm_campaign_cont, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_campaign_cont(query))
+  }
+
+  scope :solicitation_mtm_campaign_eq, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_campaign_eq(query))
+  }
+
+  scope :solicitation_mtm_campaign_start, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_campaign_start(query))
+  }
+
+  scope :solicitation_mtm_campaign_end, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_campaign_end(query))
+  }
+
+  def self.ransackable_scopes(auth_object = nil)
+    %w[solicitation_mtm_campaign_cont solicitation_mtm_campaign_eq solicitation_mtm_campaign_start solicitation_mtm_campaign_end]
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ["comment", "contacted_by_expert", "created_at", "id", "id_value", "need_id", "updated_at", "useful_exchange"]
   end
