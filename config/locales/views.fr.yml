@@ -443,7 +443,9 @@ fr:
         one_antenne_title: Antenne %{name} - toutes les demandes
     stats:
       index:
+        no_experts_subjects: Votre antenne ne semble pas pouvoir recevoir de besoins. Nous ne pouvons donc pas afficher de statistiques.
         stats: Statistiques
+        support_user_html: Vous pouvez contacter votre référent <strong>%{name}</strong> au <strong>%{phone}</strong> ou par email <strong><a href='mailto:%{email}'>%{email}</a></strong>.
   matches:
     match:
       change_match_status: Modifier le statut du besoin
