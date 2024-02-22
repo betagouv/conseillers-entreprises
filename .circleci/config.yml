@@ -76,7 +76,7 @@ jobs:
     steps:
       - checkout
       - browser-tools/install-browser-tools:
-          chrome-version: 116.0.5845.96
+          chrome-version: 121.0.6167.85
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - *check_chrome_installation
