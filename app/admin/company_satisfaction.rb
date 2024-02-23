@@ -38,7 +38,7 @@ ActiveAdmin.register CompanySatisfaction do
   filter :contacted_by_expert
   filter :useful_exchange
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
-  filter :subject, as: :select, collection: -> { Subject.not_archived.order(:label).pluck(:label, :id) }
+  filter :subject, as: :ajax_select, collection: -> { Subject.not_archived.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
   filter :done_institutions, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
   filter :solicitation_email_cont

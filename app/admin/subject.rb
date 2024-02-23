@@ -39,7 +39,7 @@ ActiveAdmin.register Subject do
     end
   end
 
-  filter :theme, collection: -> { Theme.order(:label) }
+  filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :label
   filter :is_support
 

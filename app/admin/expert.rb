@@ -80,8 +80,8 @@ ActiveAdmin.register Expert do
   filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
   filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
   filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
-  filter :themes, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
-  filter :subjects, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :themes, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
+  filter :subjects, as: :ajax_select, collection: -> { Subject.not_archived.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 
   ## CSV
   #
