@@ -40,8 +40,8 @@ ActiveAdmin.register Company do
   filter :siren
   filter :legal_form_code
   filter :facilities_naf_code, as: :string
-  filter :facilities_regions, collection: -> { Territory.regions.order(:name) }
   filter :code_effectif
+  filter :facilities_regions, collection: -> { Territory.regions.order(:name) }
   filter :created_at
 
   ## CSV
