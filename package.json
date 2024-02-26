@@ -14,7 +14,6 @@
     "jquery": "^3.5.1",
     "normalize-url": "^4.5.1",
     "postcss": "^8.4.34",
-    "remixicon": "^2.5.0",
     "sass": "^1.70.0",
     "sass-loader": "^14.1.0",
     "stimulus": "^2.0.0",
@@ -31,9 +30,6 @@
   "scripts": {
     "lint:js": "eslint ./app/front/javascripts ./app/assets/javascripts ./config/webpack",
     "dev": "webpack serve --config ./config/webpack/webpack.config.js --mode development --progress",
-    "build": "webpack --config ./config/webpack/webpack.config.js --mode production --progress",
-    "build:css": "yarn run build:css:application & yarn run build:css:pages",
-    "build:css:application": "sass ./app/assets/stylesheets/application.sass:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
-    "build:css:pages": "sass ./app/assets/stylesheets/pages.sass:./app/assets/builds/pages.css --no-source-map --load-path=node_modules"
+    "build": "webpack --config ./config/webpack/webpack.config.js --mode production --progress"
   }
 }
