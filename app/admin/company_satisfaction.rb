@@ -43,7 +43,8 @@ ActiveAdmin.register CompanySatisfaction do
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
   filter :solicitation_email_cont
   filter :facility_regions, collection: -> { Territory.regions.order(:name) }
-  filter :landing, as: :select, collection: -> { Landing.order(:slug).pluck(:slug, :id) }
+  filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
+
   filter :solicitation_mtm_campaign, as: :string
   filter :solicitation_mtm_kwd, as: :string
 
