@@ -903,10 +903,10 @@ fr:
         title_table: Nombre de besoins clôturés grâce à une aide proposée
       needs_done_no_help:
         subtitle: La clôture sans accompagnement signifie que l’entreprise a bien été rappelée par au moins un conseiller, mais que celui-ci n’a finalement pas pu l’aider au regard de sa situation particulière.
-        title: de besoins clôturés sans aide disponible, soit %{secondary_count} besoins
+        title: des besoins transmis sont clôturés sans aide possible, soit %{secondary_count} besoins
         title_table: Nombre de besoins clôturés sans aide disponible
       needs_done_not_reachable:
-        title: de besoins clôturés faute d’avoir pu joindre l’entreprise, soit %{secondary_count} besoins
+        title: des besoins transmis sont clôturés sans avoir pu joindre l’entreprise, soit %{secondary_count} besoins
         title_table: Nombre de besoins clôturés faute d’avoir pu joindre l’entreprise
       needs_exchange_with_expert:
         title: des besoins transmis ont donné lieu à un échange avec un conseiller, soit %{secondary_count} besoins
@@ -914,7 +914,7 @@ fr:
         with_exchange: Avec échange
         without_exchange: Sans échange
       needs_not_for_me:
-        title: de besoins refusés, soit %{secondary_count} besoins
+        title: des besoins transmis sont refusés, soit %{secondary_count} besoins
         title_table: Nombre de besoins refusés
       needs_quo:
         title: des besoins transmis sont en attente de prise en charge par les conseillers
@@ -1013,7 +1013,7 @@ fr:
       index:
         select_partner: Attention ! Pensez à sélectionner un partenaire
         title: Statistiques équipe
-        unselect_partner: Attention, les statistiques publiques mesure l’activité cumulée des partenaires.
+        unselect_partner: Attention, les statistiques publiques mesurent l’activité cumulée des partenaires.
       matches: Pilotage par partenaire
       needs: Pilotage par besoins
       public: Statistiques publiques
