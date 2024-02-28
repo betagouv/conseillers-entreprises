@@ -1,14 +1,6 @@
 const path    = require("path")
-// const { resolve } = require("path");
 const webpack = require("webpack")
 const { sourcePath, additionalPaths } = require("./config")
-
-const getCssLoader = () => {
-  return {
-    loader: require.resolve('css-loader'),
-    options: { sourceMap: true, importLoaders: 2 }
-  }
-}
 
 const sharedWebpackConfig = (mode) => {
   const isProduction = (mode === "production");
@@ -23,46 +15,8 @@ const sharedWebpackConfig = (mode) => {
       'gouvfr-module': "./app/front/packs/gouvfr-module.js",
     },
     // optimization: // optimization rules
-    resolve: {
-      extensions: [
-        '.erb', '.js',
-        '.sass', '.scss', '.css', '.module.sass', '.module.scss', '.module.css',
-        '.png', '.svg', '.gif', '.jpeg', '.jpg'
-      ],
-      modules: [ 'node_modules' ],
-    },
     resolveLoader: {
-      modules: [ 'node_modules' ], // default settings
-    },
-    module: {
-      strictExportPresence: true,
-      rules: [
-        // CSS
-        {
-          test: /\.(css)$/i,
-          use: [
-            // MiniCssExtractPlugin.loader,
-            getCssLoader(),
-            // getEsbuildCssLoader()
-          ]
-        },
-        // SASS
-        {
-          test: /\.(scss|sass)(\.erb)?$/i,
-          use: [
-            // MiniCssExtractPlugin.loader,
-            getCssLoader(),
-            {
-              loader: require.resolve('sass-loader'),
-              options: {
-                sassOptions: {
-                  includePaths: additionalPaths
-                }
-              }
-            }
-          ]
-        }
-      ]
+      modules: [ 'node_modules' ],
     },
     output:   {
       filename: "[name].js",
@@ -79,34 +33,3 @@ const sharedWebpackConfig = (mode) => {
 }
 
 module.exports = sharedWebpackConfig;
-
-
-
-
-// const { environment } = require('@rails/webpacker')
-
-// const webpack = require('webpack')
-
-// // Pour que jquery soit aussi accessible à Sprockets le temps de la cohabitation sprockets/webpacker
-// environment.loaders.append('expose', {
-//   test: require.resolve('jquery'),
-//   loader: 'expose-loader',
-//   options: {
-//     exposes: ['$', 'jQuery']
-//   }
-// })
-
-// environment.plugins.append(
-//   'Provide',
-//   new webpack.ProvidePlugin({
-//     $: 'jquery',
-//     jQuery: 'jquery',
-//     jquery: 'jquery',
-//     'window.jQuery': 'jquery'
-//   })
-// )
-
-// module.exports = environment
-
-
-

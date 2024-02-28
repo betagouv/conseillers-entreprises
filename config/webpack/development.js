@@ -1,5 +1,5 @@
 const path = require("path");
-const { devServerPort, publicRootPath, publicOutputPath } = require("./config");
+const { publicRootPath, publicOutputPath } = require("./config");
 
 module.exports = (webpackConfig) => {
   webpackConfig.devtool = "cheap-module-source-map"
@@ -18,14 +18,8 @@ module.exports = (webpackConfig) => {
     host: 'localhost',
     port: 3035,
     public: 'localhost:3035',
-    // hmr: false,
-    // hot: false,
-    // client: {
-    //   overlay: true,
-    // },
     // Use gzip compression
     compress: true,
-    // allowedHosts: "all",
     headers: {
       "Access-Control-Allow-Origin": "*"
     },
@@ -40,9 +34,6 @@ module.exports = (webpackConfig) => {
     },
     // Reload upon new webpack build
     liveReload: true,
-    // historyApiFallback: {
-    //   disableDotRule: true
-    // }
   }
 
   return webpackConfig;
