@@ -26,7 +26,6 @@ require("@rails/ujs").start();
 // require('../stylesheets/application.sass')
 
 require("jquery");
-require("@selectize/selectize");
 
 import "../javascripts/shared";
 import "../javascripts/application";

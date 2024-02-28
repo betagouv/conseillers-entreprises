@@ -4,6 +4,6 @@
       = badge_label(badge)
   .hide.badges{ 'data-badges-target': 'form', id: "solicitation-#{solicitation.id}-form-badges" }
     = form_with model: solicitation, url: update_badges_conseiller_solicitation_path(solicitation), method: :post do |f|
-      = f.select(:badge_ids, options_from_collection_for_select(Badge.category_solicitations.order(:title), :id, :title, solicitation.badge_ids), {}, { multiple: true, class: 'selectize' })
+      = f.select(:badge_ids, options_from_collection_for_select(Badge.category_solicitations.order(:title), :id, :title, solicitation.badge_ids), {}, { multiple: true, class: 'badge-select', 'data-badges-target': 'select', id: "solicitation-#{solicitation.id}-select-badges" })
       = f.submit t('ok'), class: 'fr-btn fr-btn--sm'
   %button.ri-price-tag-3-line.fr-mr-1w.modify-badges{ data: { action: 'click->badges#toggleForm', id: "#{solicitation.id}" }, title: t('.add_remove_badges') }
