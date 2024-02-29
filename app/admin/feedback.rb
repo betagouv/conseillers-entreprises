@@ -25,8 +25,8 @@ ActiveAdmin.register Feedback do
     actions dropdown: true
   end
 
-  filter :subject, as: :ajax_select, collection: -> { Subject.not_archived.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
+  filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
   filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
   filter :mtm_campaign, as: :string
   filter :mtm_kwd, as: :string
@@ -37,6 +37,16 @@ ActiveAdmin.register Feedback do
   filter :user, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :user_antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :user_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+
+  controller do
+    before_action only: :index do
+      @subjects = if params[:q].present? && params[:q][:theme_eq].present?
+        Theme.find(params[:q][:theme_eq]).subjects.not_archived
+      else
+        Subject.not_archived
+      end
+    end
+  end
 
   ## CSV
   #

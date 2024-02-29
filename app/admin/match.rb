@@ -90,7 +90,7 @@ ActiveAdmin.register Match do
          data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :expert_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
-  filter :subject, as: :ajax_select, collection: -> { Subject.not_archived.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
   filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.regions.pluck(:name, :id) }
 
   ## Filtres acquisition
@@ -98,7 +98,7 @@ ActiveAdmin.register Match do
   filter :solicitation_mtm_campaign, as: :string
   filter :solicitation_mtm_kwd, as: :string
   filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }
-  filter :landing_subject, as: :select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }
+  filter :landing_subject, as: :ajax_select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 
   before_action only: :index do
     @landing_themes = if params[:q].present? && params[:q][:landing_id_eq].present?
@@ -110,6 +110,11 @@ ActiveAdmin.register Match do
       LandingTheme.find(params[:q][:landing_subject_landing_theme_id_eq]).landing_subjects.not_archived
     else
       LandingSubject.not_archived
+    end
+    @subjects = if params[:q].present? && params[:q][:subject_theme_id_eq].present?
+      Theme.find(params[:q][:subject_theme_id_eq]).subjects.not_archived
+    else
+      Subject.not_archived
     end
   end
 

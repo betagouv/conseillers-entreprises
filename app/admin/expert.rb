@@ -81,8 +81,17 @@ ActiveAdmin.register Expert do
   filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
   filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
   filter :themes, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
-  filter :subjects, as: :ajax_select, collection: -> { Subject.not_archived.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :subjects, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 
+  controller do
+    before_action only: :index do
+      @subjects = if params[:q].present? && params[:q][:themes_id_eq].present?
+        Theme.find(params[:q][:themes_id_eq]).subjects.not_archived
+      else
+        Subject.not_archived
+      end
+    end
+  end
   ## CSV
   #
   csv do

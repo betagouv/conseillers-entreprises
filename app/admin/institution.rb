@@ -48,7 +48,17 @@ ActiveAdmin.register Institution do
 
   filter :name
   filter :themes, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
-  filter :subjects, as: :ajax_select, collection: -> { Subject.not_archived.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :subjects, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
+
+  controller do
+    before_action only: :index do
+      @subjects = if params[:q].present? && params[:q][:themes_id_eq].present?
+        Theme.find(params[:q][:themes_id_eq]).subjects.not_archived
+      else
+        Subject.not_archived
+      end
+    end
+  end
 
   ## CSV
   #

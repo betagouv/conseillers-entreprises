@@ -33,12 +33,22 @@ ActiveAdmin.register Need do
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
-  filter :subject, as: :ajax_select, collection: -> { Subject.not_archived.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
   filter :content
   filter :experts, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
   filter :expert_antennes, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :expert_institutions, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :facility_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
+
+  controller do
+    before_action only: :index do
+      @subjects = if params[:q].present? && params[:q][:subject_theme_id_eq].present?
+        Theme.find(params[:q][:subject_theme_id_eq]).subjects.not_archived
+      else
+        Subject.not_archived
+      end
+    end
+  end
 
   ## CSV
   #

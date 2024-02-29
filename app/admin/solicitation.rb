@@ -109,7 +109,7 @@ ActiveAdmin.register Solicitation do
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
   filter :completion, as: :select, collection: -> { ['step_complete', 'step_incomplete'].map{ |completion| [I18n.t("active_admin.scopes.#{completion}"), completion] } }
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
-  filter :subject, as: :ajax_select, collection: -> { Subject.not_archived.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
   filter :code_region, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :code_region) }
   filter :created_at
   filter :completed_at
@@ -122,7 +122,7 @@ ActiveAdmin.register Solicitation do
   filter :mtm_kwd, as: :string
   filter :relaunch, as: :select, collection: -> { ['sollicitation-etape-entreprise', 'sollicitation-etape-description', 'sollicitation-mauvaise-qualité'] }
   filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }
-  filter :landing_subject, as: :select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }
+  filter :landing_subject, as: :ajax_select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 
   controller do
     before_action only: :index do
@@ -135,6 +135,11 @@ ActiveAdmin.register Solicitation do
         LandingTheme.find(params[:q][:landing_subject_landing_theme_id_eq]).landing_subjects.not_archived
       else
         LandingSubject.not_archived
+      end
+      @subjects = if params[:q].present? && params[:q][:subject_theme_id_eq].present?
+        Theme.find(params[:q][:subject_theme_id_eq]).subjects.not_archived
+      else
+        Subject.not_archived
       end
       # Mettre filtre solicitation complète par défaut, pour faciliter export
       if params[:commit].blank? && params[:q].blank?
