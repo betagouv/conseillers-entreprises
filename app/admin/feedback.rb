@@ -27,6 +27,7 @@ ActiveAdmin.register Feedback do
 
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :need_status, as: :select, collection: -> { Need.human_attribute_values(:status).invert.to_a }
   filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
   filter :mtm_campaign, as: :string
   filter :mtm_kwd, as: :string
