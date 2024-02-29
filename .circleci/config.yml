@@ -39,12 +39,6 @@ yarn_save_cache:
     paths:
       - ~/.cache/yarn
 
-bundler_update:
-  &bundler_update
-  run:
-    name: Update bundler
-    command: gem update bundler
-
 bundle_install:
   &bundle_install
   run:
@@ -72,7 +66,6 @@ jobs:
       - checkout
       - *bundle_restore_cache
       - *yarn_restore_cache
-      - *bundler_update
       - *bundle_install
       - *yarn_install
       - *bundle_save_cache
@@ -89,7 +82,6 @@ jobs:
       - *check_chrome_installation
       - *bundle_restore_cache
       - *yarn_restore_cache
-      - *bundler_update
       - *bundle_install
       - *yarn_install
       - run:
@@ -128,7 +120,6 @@ jobs:
       - checkout
       - *bundle_restore_cache
       - *yarn_restore_cache
-      - *bundler_update
       - *bundle_install
       - *yarn_install
       - run:
