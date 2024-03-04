@@ -55,6 +55,7 @@ class Feedback < ApplicationRecord
   #
   scope :subject_eq, -> (subject) { joins(feedback_need: :subject).where(needs: { subjects: subject }) }
   scope :theme_eq, -> (theme) { joins(feedback_need: { subject: :theme }).where(subjects: { themes: theme }) }
+  scope :need_status_eq, -> (status) { joins(:feedback_need).where(needs: { status: status }) }
   scope :landing_eq, -> (landing) do
     joins(feedback_need: { diagnosis: { solicitation: :landing } }).where(diagnoses: { solicitations: { landings: landing } })
   end
@@ -146,7 +147,7 @@ class Feedback < ApplicationRecord
     [
       :subject_eq, :theme_eq, :landing_eq, :mtm_campaign_cont, :mtm_campaign_eq, :mtm_campaign_start, :mtm_campaign_end,
       :mtm_kwd_cont, :mtm_kwd_eq, :mtm_kwd_start, :mtm_kwd_end, :need_created_at_gteq, :need_created_at_lteq,
-      :user_antenne_eq, :user_institution_eq
+      :user_antenne_eq, :user_institution_eq, :need_status_eq
     ]
   end
 end

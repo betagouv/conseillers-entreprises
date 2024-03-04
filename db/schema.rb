@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_31_150436) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_23_101345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -546,16 +546,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_31_150436) do
     t.index ["run_number", "expert_id"], name: "index_reminders_registers_on_run_number_and_expert_id", unique: true
   end
 
-  create_table "searches", id: :serial, force: :cascade do |t|
-    t.string "query", null: false
-    t.bigint "user_id", null: false
-    t.string "label"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["query"], name: "index_searches_on_query"
-    t.index ["user_id"], name: "index_searches_on_user_id"
-  end
-
   create_table "solicitations", force: :cascade do |t|
     t.string "description"
     t.string "email"
@@ -715,7 +705,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_31_150436) do
   add_foreign_key "referencement_coverages", "institutions_subjects"
   add_foreign_key "reminders_actions", "needs"
   add_foreign_key "reminders_registers", "experts"
-  add_foreign_key "searches", "users"
   add_foreign_key "solicitations", "institutions"
   add_foreign_key "solicitations", "landing_subjects"
   add_foreign_key "solicitations", "landings"

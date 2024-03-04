@@ -63,6 +63,9 @@ class Landing < ApplicationRecord
   belongs_to :institution, inverse_of: :landings, optional: true
 
   has_many :solicitations, inverse_of: :landing
+  has_many :diagnoses, through: :solicitations, inverse_of: :landing
+  has_many :matches, through: :diagnoses, inverse_of: :landing
+
   accepts_nested_attributes_for :landing_joint_themes, allow_destroy: true
 
   before_save :set_emphasis

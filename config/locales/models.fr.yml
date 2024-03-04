@@ -203,12 +203,17 @@ fr:
         insee_code: Code commune
       company:
         activite_liberale: Activité libérale
+        facilities_naf_code: Code NAF établissements
+        facilities_regions: Régions
         inscrit_rcs: Inscrit au RCS
         inscrit_rm: Inscrit au RM
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
-        landing: Page source
+        landing: Page d’atterrissage
+        solicitation_email_cont: Email du contact
+        solicitation_mtm_campaign: Campagne
+        solicitation_mtm_kwd: Mots-clés
         useful_exchange: Échange utile
       contact:
         company: Entreprise
@@ -248,7 +253,9 @@ fr:
         intervention_criteria: Critères d’intervention
         job: rôle
       facility:
+        commune_insee_code: Code insee
         company: Entreprise
+        company_legal_form_code: Forme juridique entreprise
         readable_locality: Commune
       feedback:
         category: Catégorie
@@ -256,13 +263,16 @@ fr:
         match_closed_at: Date de clôture de la mise en relation
         real_subject: Sujet réel
         real_theme: Thème réel
+        subject: Sujet réel
+        theme: Thématique réelle
       feedback/categories:
         need: Besoin
         reminder: Relance
         solicitation: Solicitation
       institution:
         antennes: Antennes
-        subjects: Domaines
+        subjects: Sujets
+        themes: Thèmes
         users: Conseillers
       landing:
         custom_css: CSS personnalisé
@@ -319,10 +329,16 @@ fr:
         filename: Nom du fichier image (non modifiable)
       match:
         closed_at: Date de clôture
+        company_legal_form_code: Forme juridique entreprise
         expert: Expert
         expert_id: Id de l'expert
+        facility_naf_code: Code NAF établissement
+        facility_siret_cont: Siret
+        landing: Page d’atterrissage
+        landing_subject: Sujet choisi sur le site
         landing_subject_title: Sujet choisi sur le site
-        landing_theme_title: Thème choisi sur le site
+        landing_theme: Thématique choisie sur le site
+        landing_theme_title: Thématique choisie sur le site
         match_created_at: Date de transmission du besoin
         match_id: Id de la mise en relation
         match_status: Statut de la mise en relation
@@ -335,19 +351,25 @@ fr:
         satisfaction_contacted_by_expert: Satisfaction - rappel
         satisfaction_useful_exchange: Satisfaction - utilité
         solicitation_badges: Tags de l’équipe
-        solicitation_created_at: Date de sollicitation
+        solicitation_created_at: Date de création de la sollicitation
         solicitation_description: Description de la sollicitation
         solicitation_email: Adresse mail du contact entreprise
+        solicitation_email_cont: Email
         solicitation_full_name: Contact en entreprise
+        solicitation_full_name_cont: Contact en entreprise
         solicitation_gclid: Id GA
         solicitation_id: Id de la sollicitation
+        solicitation_mtm_campaign: Campagne
+        solicitation_mtm_kwd: Mots-clés
         solicitation_phone_number: Téléphone du contact entreprise
+        solicitation_phone_number_cont: Téléphone
         solicitation_provenance_category: Type de source
         solicitation_provenance_detail: Détail de la source
         solicitation_provenance_title: Intitulé de la source
-        subject: Sujet
+        solicitation_relaunch: Relance
+        subject: Sujet réel
         taken_care_of_at: Date d’intervention
-        theme: Thème
+        theme: Thématique réelle
       match/statuses:
         done: Besoin clôturé
         done_no_help: Pas d’aide disponible
@@ -394,7 +416,11 @@ fr:
         raw_excluded_legal_forms: codes forme juridique rejetés (niveau 3)
         raw_excluded_naf_codes: codes naf rejetés
       need:
-        subject: Sujet
+        company: Entreprise
+        expert_antennes: Antenne
+        expert_institutions: Institution
+        subject: Sujet réel
+        theme: Thématique réelle
       need/statuses:
         diagnosis_not_complete: Analyse en cours
         done: Besoin clôturé
@@ -448,12 +474,16 @@ fr:
         user: Utilisateur
       solicitation:
         api_calling_url: Url d’appel
+        code_region: Région
+        company_legal_form_code: Forme juridique entreprise
         completion: Complétion
         email: Email
+        facility_naf_code: Code NAF établissement
         full_name: Prénom et nom
         institution_filters: Questions additionnelles
         landing: Page d’atterrissage
-        landing_subject: Sujet choisi
+        landing_subject: Sujet choisi sur le site
+        landing_theme: Thématique choisie sur le site
         location: Localisation
         mtm_campaign: Campagne mtm
         mtm_kwd: Mots-clés mtm
@@ -472,6 +502,8 @@ fr:
         requested_help_amount: Montant de l’aide demandée
         siret: SIRET
         slug: Slug
+        subject: Sujet réel
+        theme: Thématique réelle
         tracking: Suivi
       solicitation/statuses:
         canceled: Abandonnée

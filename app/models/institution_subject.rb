@@ -40,11 +40,13 @@ class InstitutionSubject < ApplicationRecord
   # :experts_subjects
   has_many :experts, through: :experts_subjects, inverse_of: :institutions_subjects
   has_many :not_deleted_experts, through: :experts_subjects, inverse_of: :institutions_subjects
+  has_many :users, through: :experts, inverse_of: :experts_subjects
 
   # :institution
   # Other InstitutionSubjects of the same Institution, and the same Subject.
   has_many :similar_institutions_subjects, -> (is) { where(subject: is.subject).where.not(id: is.id) },
            through: :institution, source: :institutions_subjects
+  has_many :antennes, through: :institution, source: :institutions_subjects
 
   # Validations
   #

@@ -69,9 +69,9 @@ class Expert < ApplicationRecord
   has_many :received_diagnoses, through: :received_matches, source: :diagnosis, inverse_of: :experts
 
   # :experts_subjects
-  has_many :institutions_subjects, through: :experts_subjects, inverse_of: :experts
-  has_many :subjects, through: :experts_subjects, inverse_of: :experts
-  has_many :themes, through: :experts_subjects, inverse_of: :experts
+  has_many :institutions_subjects, through: :experts_subjects, source: :institution_subject, inverse_of: :experts
+  has_many :subjects, through: :experts_subjects, source: :subject, inverse_of: :experts
+  has_many :themes, through: :experts_subjects, source: :theme, inverse_of: :experts
 
   # :users
   has_many :feedbacks, through: :users, source: :feedbacks, inverse_of: :experts

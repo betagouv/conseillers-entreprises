@@ -71,6 +71,8 @@ class Diagnosis < ApplicationRecord
   has_many :subjects, through: :needs, inverse_of: :diagnoses
   has_many :themes, through: :subjects, inverse_of: :diagnoses
   has_many :matches, through: :needs, inverse_of: :diagnosis
+  has_one :landing, through: :solicitation, inverse_of: :diagnoses
+  has_many :company_satisfactions, through: :needs, inverse_of: :diagnosis
 
   # :matches
   has_many :experts, through: :matches, inverse_of: :received_diagnoses

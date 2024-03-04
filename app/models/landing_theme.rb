@@ -30,6 +30,7 @@ class LandingTheme < ApplicationRecord
 
   has_many :landing_subjects, inverse_of: :landing_theme, dependent: :destroy
   has_many :solicitations, through: :landing_subjects, inverse_of: :landing_theme
+  has_many :matches, through: :solicitations, inverse_of: :landing_theme
 
   accepts_nested_attributes_for :landing_subjects, allow_destroy: true
 

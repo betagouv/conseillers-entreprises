@@ -1,6 +1,10 @@
 ActiveAdmin.register Feedback do
+  menu parent: :needs, priority: 3
+
   include CsvExportable
-  menu parent: :diagnoses, priority: 4
+  controller do
+    include DynamicallyFiltrable
+  end
 
   scope :all, group: :all
 
@@ -10,6 +14,10 @@ ActiveAdmin.register Feedback do
 
   ## Index
   #
+  before_action only: :index do
+    init_subjects_filter
+  end
+
   includes [feedbackable: [:facility, :company, :subject]], # feedbackable is either a Need or a Solicitation; ActiveRecord’s magic does the right thing here.
            user: [:institution, :antenne]
 
@@ -25,9 +33,10 @@ ActiveAdmin.register Feedback do
     actions dropdown: true
   end
 
-  filter :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
-  filter :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
-  filter :landing, as: :ajax_select, data: { url: :admin_landings_path, search_fields: [:title] }
+  filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
+  filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :need_status, as: :select, collection: -> { Need.human_attribute_values(:status).invert.to_a }
+  filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
   filter :mtm_campaign, as: :string
   filter :mtm_kwd, as: :string
   filter :description
