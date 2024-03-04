@@ -1,6 +1,10 @@
 ActiveAdmin.register Feedback do
-  include CsvExportable
   menu parent: :needs, priority: 3
+
+  include CsvExportable
+  controller do
+    include DynamicallyFiltrable
+  end
 
   scope :all, group: :all
 
@@ -10,6 +14,10 @@ ActiveAdmin.register Feedback do
 
   ## Index
   #
+  before_action only: :index do
+    init_subjects_filter
+  end
+
   includes [feedbackable: [:facility, :company, :subject]], # feedbackable is either a Need or a Solicitation; ActiveRecord’s magic does the right thing here.
            user: [:institution, :antenne]
 
@@ -38,16 +46,6 @@ ActiveAdmin.register Feedback do
   filter :user, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :user_antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :user_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-
-  controller do
-    before_action only: :index do
-      @subjects = if params[:q].present? && params[:q][:theme_eq].present?
-        Theme.find(params[:q][:theme_eq]).subjects.not_archived
-      else
-        Subject.not_archived
-      end
-    end
-  end
 
   ## CSV
   #

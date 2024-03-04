@@ -3,8 +3,16 @@
 ActiveAdmin.register CompanySatisfaction do
   menu parent: :companies, priority: 3
 
+  controller do
+    include DynamicallyFiltrable
+  end
+
   ## Index
   #
+  before_action only: :index do
+    init_subjects_filter
+  end
+
   includes :need, :landing, :solicitation, :subject, :facility
   config.sort_order = 'created_at_desc'
 
@@ -47,16 +55,6 @@ ActiveAdmin.register CompanySatisfaction do
 
   filter :solicitation_mtm_campaign, as: :string
   filter :solicitation_mtm_kwd, as: :string
-
-  controller do
-    before_action only: :index do
-      @subjects = if params[:q].present? && params[:q][:theme_id_eq].present?
-        Theme.find(params[:q][:theme_id_eq]).subjects.not_archived
-      else
-        Subject.not_archived
-      end
-    end
-  end
 
   ## CSV
   #

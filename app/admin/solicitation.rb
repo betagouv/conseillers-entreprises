@@ -1,14 +1,27 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Solicitation do
-  include CsvExportable
-
   menu priority: 7
+
+  include CsvExportable
+  controller do
+    include DynamicallyFiltrable
+  end
 
   actions :all, :except => [:destroy]
 
   ## Index
   #
+  before_action only: :index do
+    init_landing_subjects_filter
+    init_subjects_filter
+    # Mettre filtre solicitation complète par défaut, pour faciliter export
+    if params[:commit].blank? && params[:q].blank?
+      extra_params = { q: { completion_eq: "step_complete" } }
+      params.merge! extra_params
+    end
+  end
+
   scope :step_complete, default: true
   scope :step_incomplete
 
@@ -121,33 +134,12 @@ ActiveAdmin.register Solicitation do
   filter :mtm_campaign, as: :string
   filter :mtm_kwd, as: :string
   filter :relaunch, as: :select, collection: -> { ['sollicitation-etape-entreprise', 'sollicitation-etape-description', 'sollicitation-mauvaise-qualité'] }
-  filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }
-  filter :landing_subject, as: :ajax_select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }, name: nil
+  filter :landing_subject, as: :ajax_select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }, name: nil
 
-  controller do
-    before_action only: :index do
-      @landing_themes = if params[:q].present? && params[:q][:landing_id_eq].present?
-        Landing.find(params[:q][:landing_id_eq]).landing_themes.not_archived
-      else
-        LandingTheme.not_archived
-      end
-      @landing_subjects = if params[:q].present? && params[:q][:landing_subject_landing_theme_id_eq].present?
-        LandingTheme.find(params[:q][:landing_subject_landing_theme_id_eq]).landing_subjects.not_archived
-      else
-        LandingSubject.not_archived
-      end
-      @subjects = if params[:q].present? && params[:q][:subject_theme_id_eq].present?
-        Theme.find(params[:q][:subject_theme_id_eq]).subjects.not_archived
-      else
-        Subject.not_archived
-      end
-      # Mettre filtre solicitation complète par défaut, pour faciliter export
-      if params[:commit].blank? && params[:q].blank?
-        extra_params = { q: { completion_eq: "step_complete" } }
-        params.merge! extra_params
-      end
-    end
-  end
+  # controller do
+
+  # end
 
   ## Batch actions
   # Statuses

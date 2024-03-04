@@ -1,12 +1,21 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Match do
-  include CsvExportable
-
   menu parent: :needs, priority: 2
+
+  include CsvExportable
+  controller do
+    include DynamicallyFiltrable
+  end
 
   ## Index
   #
+  before_action only: :index do
+    init_landing_subjects_filter
+    init_subjects_filter
+    init_antennes_filter
+  end
+
   includes :need, :facility, :company, :related_matches,
            :advisor, :advisor_antenne, :advisor_institution,
            :expert, :expert_antenne, :expert_institution,
@@ -63,14 +72,6 @@ ActiveAdmin.register Match do
     end
   end
 
-  before_action :only => :index do
-    @antennes_collection = if params[:q].present? && params[:q][:advisor_institution_id_eq].present?
-      Antenne.where(institution_id: params[:q][:advisor_institution_id_eq])
-    else
-      Antenne.all
-    end
-  end
-
   ## Filtres entreprise
   filter :facility_siret_cont
   filter :solicitation_full_name_cont
@@ -97,26 +98,8 @@ ActiveAdmin.register Match do
   filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
   filter :solicitation_mtm_campaign, as: :string
   filter :solicitation_mtm_kwd, as: :string
-  filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }
+  filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }, name: nil
   filter :landing_subject, as: :ajax_select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
-
-  before_action only: :index do
-    @landing_themes = if params[:q].present? && params[:q][:landing_id_eq].present?
-      Landing.find(params[:q][:landing_id_eq]).landing_themes.not_archived
-    else
-      LandingTheme.not_archived
-    end
-    @landing_subjects = if params[:q].present? && params[:q][:landing_subject_landing_theme_id_eq].present?
-      LandingTheme.find(params[:q][:landing_subject_landing_theme_id_eq]).landing_subjects.not_archived
-    else
-      LandingSubject.not_archived
-    end
-    @subjects = if params[:q].present? && params[:q][:subject_theme_id_eq].present?
-      Theme.find(params[:q][:subject_theme_id_eq]).subjects.not_archived
-    else
-      Subject.not_archived
-    end
-  end
 
   ## Show
   #
