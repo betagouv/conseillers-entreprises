@@ -156,8 +156,6 @@ fr:
   come_back_to_home: Retour à l’accueil
   companies:
     company:
-      activite_liberale: Activité libérale
-      activite_liberale_yes_no: 'Activité libérale : %{response}'
       capital_social: Capital social
       categorie_entreprise: Catégorie de l’entreprise
       date_cessation: Date de cessation
@@ -167,10 +165,6 @@ fr:
       forme_exercice: Nature de l’entreprise
       forme_juridique: Forme juridique
       information: Informations sur l’entreprise
-      inscrit_rcs: Inscrit au RCS
-      inscrit_rcs_yes_no: 'Inscrit au RCS : %{response}'
-      inscrit_rm: Inscrit au RM
-      inscrit_rm_yes_no: 'Inscrit au RM : %{response}'
       siren: SIREN
       tranche_effectif_salarie_entreprise: Tranche d’effectif de salariés de l’entreprise
     facility:
@@ -1022,6 +1016,7 @@ fr:
   temoignage:
     image_title: Photo de %{author}
   to_new_window: ouvre une nouvelle fenêtre
+  undefined: Non défini
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:

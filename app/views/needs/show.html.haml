@@ -52,14 +52,9 @@
                 - if @facility.naf_libelle.present?
                   %li= @facility.naf_libelle
                 - company = @facility.company
-                - if company.forme_exercice.present?
-                  %li.fr-mt-3v
-                    %span.fr-text--bold #{t('attributes.forme_exercice')} : 
-                    = company.forme_exercice.humanize
-                - else
-                  %li= t('companies.company.inscrit_rcs_yes_no', response: company.inscrit_rcs ? t('yes') : t('no'))
-                  %li= t('companies.company.inscrit_rm_yes_no', response: company.inscrit_rm ? t('yes') : t('no'))
-                  %li= t('companies.company.activite_liberale_yes_no', response: company.activite_liberale ? t('yes') : t('no'))
+                %li.fr-mt-3v
+                  %span.fr-text--bold #{t('attributes.forme_exercice')} : 
+                  = company.forme_exercice&.humanize || t('undefined')
                 %li.fr-mt-3v= link_to t('.more_informations'), company_path(@facility.id), class: 'fr-link', data: { turbo: false }
                 - if defined?(@facility_needs) && @facility_needs.present? && policy(@facility).show_needs_history? && @facility_needs.any?
                   %li= link_to t('.needs_historic'), needs_company_path(@facility), class: 'fr-link'
