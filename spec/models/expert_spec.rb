@@ -295,24 +295,41 @@ RSpec.describe Expert do
     let(:team) { create :expert, email: 'team@email.com', full_name: 'Team', antenne: antenne_1 }
 
     context 'personal_skillsets expert' do
-      before do
-        team.users << user
-        personal_skillset.update(full_name: 'Robert', antenne: antenne_2)
+      context 'update full_name' do
+        before do
+          team.users << user
+          personal_skillset.update(full_name: 'Robert', antenne: antenne_2)
+        end
+
+        it 'automatically synchronizes the info in the personal skillsets' do
+          expect(personal_skillset.reload.full_name).to eq 'Robert'
+          expect(user.reload.full_name).to eq 'Robert'
+          expect(team.reload.full_name).not_to eq 'Robert'
+
+          expect(personal_skillset.email).to eq 'bob@email.com'
+          expect(user.email).to eq 'bob@email.com'
+          expect(team.email).not_to eq 'bob@email.com'
+
+          expect(personal_skillset.antenne).to eq antenne_2
+          expect(user.antenne).to eq antenne_2
+          expect(team.antenne).to eq antenne_1
+        end
       end
 
-      it 'automatically synchronizes the info in the personal skillsets' do
-        expect(personal_skillset.reload.full_name).to eq 'Robert'
-        expect(user.reload.full_name).to eq 'Robert'
-        expect(team.reload.full_name).not_to eq 'Robert'
+      context 'update full_name and email' do
+        before do
+          team.users << user
+          personal_skillset.update(full_name: 'Robert', email: 'robert@email.com', antenne: antenne_2)
+        end
 
-        expect(personal_skillset.email).to eq 'bob@email.com'
-        expect(user.email).to eq 'bob@email.com'
-        expect(team.email).not_to eq 'bob@email.com'
+        it 'prevents update and expert duplication' do
+          expect(personal_skillset.valid?).to be false
 
-        expect(personal_skillset.antenne).to eq antenne_2
-        expect(user.antenne).to eq antenne_2
-        expect(team.antenne).to eq antenne_1
+          expect(personal_skillset.reload.full_name).to eq 'Bob'
+          expect(personal_skillset.reload.email).to eq 'bob@email.com'
+        end
       end
+
     end
 
     context 'team expert' do
