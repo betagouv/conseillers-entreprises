@@ -7,9 +7,9 @@
 - if in_iframe? && landing.landing_themes.not_archived.pluck(:slug).include?('contactez-nous')
   %p.text-center.contact-us
     %b= t('.other_questions')
-    %b= link_to t('.contact_us'), landing_theme_path({ landing_slug: landing.slug, slug: 'contactez-nous' }), class: 'click-on-landing'
+    %b= link_to t('.contact_us'), landing_theme_path({ landing_slug: landing.slug, slug: 'contactez-nous' }), class: 'click-on-landing-theme'
 
 - unless in_iframe?
   %p.text-center.contact-us
     %b= t('.other_questions')
-    %b= link_to t('.contact_us'), landing_path({ landing_slug: 'contactez-nous' }), class: 'click-on-landing'
+    %b= link_to t('.contact_us'), landing_path({ landing_slug: 'contactez-nous' }), class: 'click-on-landing-theme'
