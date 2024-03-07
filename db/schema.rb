@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_23_101345) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_07_111608) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -184,6 +184,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_23_101345) do
     t.float "effectif"
     t.string "forme_exercice"
     t.boolean "activite_liberale", default: false
+    t.boolean "independant", default: false
     t.index ["siren"], name: "index_companies_on_siren", unique: true, where: "((siren)::text <> NULL::text)"
   end
 

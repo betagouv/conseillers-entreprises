@@ -8,6 +8,7 @@
 #  date_de_creation  :date
 #  effectif          :float
 #  forme_exercice    :string
+#  independant       :boolean          default(FALSE)
 #  inscrit_rcs       :boolean
 #  inscrit_rm        :boolean
 #  legal_form_code   :string
