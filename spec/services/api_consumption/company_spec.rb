@@ -59,7 +59,7 @@ RSpec.describe ApiConsumption::Company do
         expect(api_company.name).to eq("OCTO-TECHNOLOGY")
         expect(api_company.inscrit_rcs).to be(true)
         expect(api_company.inscrit_rm).to be(true)
-        expect(api_company.activite_liberale).to be(false)
+        expect(api_company.activite_liberale).to be(true)
         expect(api_company.naf_code_a10).to eq('JZ')
         expect(api_company.naf_libelle).to eq("Conseil en systèmes et logiciels informatiques")
       end
