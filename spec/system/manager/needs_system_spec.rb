@@ -22,7 +22,7 @@ describe 'needs' do
     it 'displays all user received needs pages' do
       visit '/'
       click_on 'Accès conseillers'
-      click_on 'Demandes reçues'
+      click_on 'Besoins reçus'
       expect(page).to have_current_path(quo_active_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 

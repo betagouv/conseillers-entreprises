@@ -74,8 +74,10 @@
               = t('.blank_advisor')
 
 - if policy(@need).show_need_actions?
-  .lighter-blue-bg
-    = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
+  .light-blue-bg
+    .fr-container.fr-p-2w.fr-pb-8w
+      %h2.fr-h3.fr-my-4w= t('.my_intervention')
+      = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
 
 .lighter-blue-bg
   .fr-container.fr-p-2w#all-experts

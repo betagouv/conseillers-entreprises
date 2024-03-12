@@ -1,4 +1,4 @@
-.fr-container.fr-p-2w.fr-pt-6w#match-actions
+#match-actions
   - if match.status_quo?
     .fr-grid-row.white-bg.fr-p-3w.fr-grid-row--middle
       .actions-default.fr-col
@@ -28,7 +28,7 @@
           = f.button :submit, name: :status, value: :quo, class: 'gray-link', id: "cancel-match" do
             = t('.cancel_taking_care')
 
-    %h2.fr-h3.fr-my-4w= t('.close_need')
+    %h3.fr-h4.fr-my-4w= t('.close_need')
     = form_with(model: match, url: match_path(match)) do |f|
       %ul.list-unstyled.fr-grid-row.fr-grid-row--gutters.fr-col
         %li.fr-col-12.fr-col-md-4

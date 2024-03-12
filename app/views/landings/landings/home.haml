@@ -17,7 +17,7 @@
       .fr-col-12.fr-col-md-5#col-image
         = image_tag('home.png', alt: "")
 
-.fr-container-fluid.section-grey.fr-py-7w.home.landing
+.fr-container-fluid.light-blue-bg.fr-py-7w.home.landing
   .fr-container
     - unless in_iframe?
       - @landing_emphasis.each do |landing|
@@ -36,7 +36,7 @@
       #scroll-section
     = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
 
-.fr-container-fluid.section-partners.fr-py-7w.section-light-grey
+.fr-container-fluid.section-partners.fr-py-7w.lighter-blue-bg
   .fr-container.text-center
     - cache("institutions-#{session[:region_code]}", expires_in: 1.minute) do
       = render 'index_institutions'

@@ -105,8 +105,8 @@ fr:
       account: Compte
       admin: Administration
       annuaire: Annuaire
-      antenne_needs: Demandes de l’antenne
-      antennes_needs: Demandes des antennes
+      antenne_needs: Besoins de l’antenne
+      antennes_needs: Besoins des antennes
       badges: Tags
       close: Fermer
       csv_exports: Exports csv
@@ -459,7 +459,7 @@ fr:
       not_for_me: Refusées
       quo_active: Boite de réception
       search: Recherche
-      taking_care: Prises en charge
+      taking_care: En cours
     collections_single:
       archived: Archivée
       done: Clôturée
@@ -475,12 +475,12 @@ fr:
         other: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.
       welcome_title: Bienvenue sur Place des Entreprises
     index:
-      title: Demandes reçues
+      title: Besoins reçus
     match_actions:
       can_you_help: Pouvez-vous aider l’entreprise %{company} ?
       cancel: Annuler
       cancel_taking_care: Annuler ma prise en charge
-      close_need: 'Clôturer votre intervention :'
+      close_need: Quelle est votre intervention ?
       contact_company: C‘est à vous de jouer et de contacter l’entreprise %{company}
       deposited_on_partner_website_html: Demande déposée sur le site %{partner_link}
       help_provided:
@@ -515,6 +515,7 @@ fr:
       company: Entreprise
       diagnosis_not_completed: Analyse non terminée, vous ne pouvez pas accéder à la page du besoin.
       more_informations: Plus d'informations
+      my_intervention: Mon intervention
       needs_historic: Historique des besoins
       no_comment: Aucun commentaire
       no_match: Aucun expert de notifié

@@ -34,7 +34,7 @@
                 = t('needs.index.title')
                 - cache([current_user, current_user.needs_quo_active.size]) do
                   - if current_user.needs_quo_active.size > 0
-                    %span.ri-mail-unread-fill.orange.fr-ml-1w
+                    %span.count-notification.fr-tag.fr-tag--sm.fr-ml-1w= current_user.needs_quo_active.size
             - if policy(User).manager?
               = active_link_to manager_needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-inbox-fill.fr-mr-1w{ 'aria-hidden': 'true' }

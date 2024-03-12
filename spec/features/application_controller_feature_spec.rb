@@ -36,7 +36,7 @@ describe 'ApplicationController specific features' do
         click_on 'Domaines d’intervention'
         click_on 'Tutoriel'
         visit 'entreprises/search'
-        expect(page.html).to include 'Demandes reçues'
+        expect(page.html).to include 'Besoins reçus'
         expect(page.html).not_to include 'Administration'
         expect(page.html).not_to include 'Annuaire'
         expect(page.html).not_to include 'Tags'
@@ -52,7 +52,7 @@ describe 'ApplicationController specific features' do
         visit '/besoins'
         visit '/manager/besoins-des-antennes'
         visit '/export-des-donnees'
-        expect(page.html).to include 'Demandes reçues'
+        expect(page.html).to include 'Besoins reçus'
       end
     end
 
