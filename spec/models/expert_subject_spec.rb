@@ -160,6 +160,11 @@ RSpec.describe ExpertSubject do
         it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_unapl, expert_subject_other) }
       end
 
+      context 'when company is independant' do
+        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false, activite_liberale: false, independant: true }
+
+        it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_unapl, expert_subject_other) }
+      end
     end
   end
 
