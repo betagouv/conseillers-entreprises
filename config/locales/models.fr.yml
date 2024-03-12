@@ -543,6 +543,7 @@ fr:
         current_sign_in_ip: IP de connexion
         encrypted_password: Mot de passe chiffré
         errors:
+          cant_change_email_and_full_name: Vous ne pouvez pas modifier en même temps le nom ET l’email, sous peine de désynchroniser l’utilisateur et son expert personnel. Changez-les l’un après l’autre, ou demandez à votre équipe de développement d’assumer la complexité du système qu’elle a elle-même créé et de faire la modification elle-même !
           cant_transfer_match: 'Les mises en relation n’ont pas pu être transférés : %{error}'
         experts:
           one: Équipe

@@ -50,6 +50,7 @@ class Expert < ApplicationRecord
   validates :email, presence: true, unless: :deleted?
   validates :full_name, presence: true
   validates_associated :experts_subjects, on: :import
+  validate :personal_skillset_synchronisation_ok, on: :update, if: -> { full_name_changed? || email_changed? }
 
   ## “Through” Associations
   #
@@ -257,6 +258,11 @@ class Expert < ApplicationRecord
       users.first.email.casecmp(self.email)&.zero?
   end
 
+  def was_personal_skillset_before_update?
+    users.size == 1 &&
+      users.first.email.casecmp(self.email_was)&.zero?
+  end
+
   def without_users?
     users.empty?
   end
@@ -303,6 +309,14 @@ class Expert < ApplicationRecord
 
   ## Updates
   #
+  def personal_skillset_synchronisation_ok
+    return true if deleted?
+    return true unless (email_changed? && full_name_changed? && was_personal_skillset_before_update?)
+
+    errors.add :full_name, I18n.t('activerecord.attributes.user.errors.cant_change_email_and_full_name')
+    false
+  end
+
   def synchronize_single_member
     users.first.update_columns(self.user_personal_skillsets_shared_attributes)
   end

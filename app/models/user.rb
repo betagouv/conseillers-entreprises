@@ -83,6 +83,7 @@ class User < ApplicationRecord
   validates :full_name, presence: true, unless: :deleted?
   validates :job, presence: true
   validate :password_complexity
+  validate :personal_skillset_synchronisation_ok, on: :update, if: -> { full_name_changed? || email_changed? }
   after_create :create_personal_skillset_if_needed
   after_update :synchronize_personal_skillsets
   validates_associated :experts, on: :import
@@ -269,6 +270,14 @@ class User < ApplicationRecord
     return if personal_skillsets.present?
 
     self.experts.create!(self.user_personal_skillsets_shared_attributes)
+  end
+
+  def personal_skillset_synchronisation_ok
+    return true if self.deleted?
+    return true unless (self.email_changed? && self.full_name_changed?)
+
+    errors.add :full_name, I18n.t('activerecord.attributes.user.errors.cant_change_email_and_full_name')
+    false
   end
 
   # Bizarrement, qq utilisateurs sont créés sans personal_skillsets (investigation en cours)
