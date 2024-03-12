@@ -213,7 +213,7 @@ RSpec.describe ApiConsumption::Models::Company::ApiEntreprise do
         }
       end
 
-      it 'returns independant false' do
+      it 'returns independant true' do
         expect(described_class.new(params).independant).to be(true)
       end
     end
