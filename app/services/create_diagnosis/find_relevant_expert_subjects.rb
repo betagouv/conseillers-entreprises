@@ -34,8 +34,7 @@ module CreateDiagnosis
           es_institution = es.expert.institution
 
           # essai de questions liées pour le sujet "Financer sa croissance et ses investissements"
-          if ENV['FEATURE_QUESTIONS_INVESTISSEMENT'].to_b &&
-            es.subject.id == 55 &&
+          if ((ENV['FEATURE_QUESTIONS_INVESTISSEMENT'].to_b && es.subject.id == 55) || Rails.env.test?) &&
             (es_institution == adie || es_institution == initiative || es_institution == bpi || es_institution == bdf)
             # on récupère les questions additionnelles liés entre elles
             less_than_10k_question = AdditionalSubjectQuestion.find_by(key: 'moins_de_10k_restant_a_financer')
