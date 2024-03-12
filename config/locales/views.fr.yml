@@ -14,7 +14,6 @@ fr:
       meta_title: Comment ça marche
       partners: 'Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
       pde_testimonial: Témoignage d’un chef d’entreprise.
-      pde_testimonial_transcription: Transcription textuelle de la vidéo du témoignage d’un chef d’entreprise.
       read_transcription: Lire la transcription
       subtitle: Porté par le Ministère de l’Économie et le Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
@@ -558,7 +557,6 @@ fr:
       expert_contacts_you_html: "<span class='blue'>Le conseiller vous contacte</span> directement pour vous aider sous 5 jours*."
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Place des Entreprises</a>
       pde_presentation: Présentation du service Place des Entreprises
-      pde_presentation_transcription: Transcription textuelle de la vidéo de présentation du service Place des Entreprises
       read_transcription: Lire la transcription
       select_expert_description: Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
     how_it_works_short:
@@ -1032,7 +1030,6 @@ fr:
       notifications_explanations_3_html: Lorsque la demande est clôturée, vous ne recevez plus de notification.
       notifications_question: Quand recevez-vous une notification ?
       notifications_title: Comprendre les notifications
-      pde_tutorial_transcription: Transcription textuelle de la vidéo tutorielle de Place des Entreprises.
       question_emails: Je ne reçois pas les mails de Place des entreprises, que faire ?
       read_transcription: Lire la transcription
       step_1: Je me positionne sur le besoin de l’entreprise adressé sur mon champ de compétences, en cliquant sur le bouton de prise en charge ou de refus.
