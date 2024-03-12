@@ -51,6 +51,12 @@ yarn_install:
     name: Install Yarn Dependencies
     command: yarn install --ignore-engines
 
+yarn_build:
+  &yarn_build
+  run:
+    name: Bundle js assets
+    command: yarn build
+
 check_chrome_installation:
   &check_chrome_installation
   run:
@@ -84,6 +90,7 @@ jobs:
       - *yarn_restore_cache
       - *bundle_install
       - *yarn_install
+      - *yarn_build
       - run:
           environment:
             DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_e\
