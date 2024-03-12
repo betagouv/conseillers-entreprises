@@ -50,7 +50,7 @@ describe 'needs' do
       expect(side_menu_link(not_for_me_needs_path)).to have_text('1')
       expect(side_menu_link(expired_needs_path)).to have_text('1')
 
-      click_on 'Prises en charge'
+      click_on 'En cours'
       expect(page).to have_current_path(taking_care_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 
