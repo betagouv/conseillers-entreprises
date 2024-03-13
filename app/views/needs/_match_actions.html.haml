@@ -71,10 +71,9 @@
         = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :taking_care, class: 'gray-link' do
             = t('.cancel')
-      - if local_assigns[:display_feedback_form] && (match.status_done? || match.status_done_no_help?)
+      - if local_assigns[:display_feedback_form]
         .fr-col-12.fr-p-2w
-          - placeholder = match.status_done? ? t("feedbacks.form.need.placeholder") : t('.placeholder_no_help')
-          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), placeholder: placeholder, from_alert_box: true
+          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), placeholder: t(".feedback_placeholder.#{match.status}"), from_alert_box: true
 
   - elsif match.status_not_for_me?
     .fr-grid-row.orange-box
@@ -92,4 +91,4 @@
             = t('.cancel')
       - if local_assigns[:display_feedback_form]
         .fr-col-12.fr-p-2w
-          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), placeholder: t('.placeholder_no_help'), from_alert_box: true
+          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), placeholder: t(".feedback_placeholder.done_no_help"), from_alert_box: true

@@ -341,8 +341,6 @@ fr:
     form:
       expert_reminder:
         placeholder: " "
-      need:
-        placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise et nous avons convenu d’un rendez-vous le 23/11. »'
       need_reminder:
         placeholder: " "
       prefill: 'Préremplissage :'
@@ -483,6 +481,10 @@ fr:
       close_need: Quelle est votre intervention ?
       contact_company: C‘est à vous de jouer et de contacter l’entreprise %{company}
       deposited_on_partner_website_html: Demande déposée sur le site %{partner_link}
+      feedback_placeholder:
+        done: 'Par exemple : « J’ai appelé le chef d’entreprise et nous avons convenu d’un rendez-vous le 23/11. »'
+        done_no_help: 'Par exemple : « Je n’ai pas d’aide pour les entreprises de moins de 3 ans »'
+        done_not_reachable: 'Par exemple : « J’ai appelé le chef d’entreprise le 3/04 sans succès, lui ai laissé un message et envoyé un mail avec la documentation sur tel dispositif.»'
       help_provided:
         content: Un conseil, un accompagnement ou une aide financière a pu être proposée.
         title: Une aide proposée
@@ -496,7 +498,6 @@ fr:
       not_reachable:
         content: Le chef d’entreprise ne répond pas mais il a mes coordonnées pour me recontacter.
         title: Entreprise injoignable
-      placeholder_no_help: 'Par exemple : « Je n’ai pas d’aide pour les entreprises de moins de 3 ans »'
       take_care: J’appelle
       validate: Valider
       your_turn_html: C’est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
