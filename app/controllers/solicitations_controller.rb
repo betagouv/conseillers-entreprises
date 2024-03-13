@@ -119,7 +119,7 @@ class SolicitationsController < PagesController
   # Step description
   #
   def step_description
-    with_step_data { build_institution_filters if @solicitation.institution_filters.blank? }
+    with_step_data { build_institution_filters }
   end
 
   def update_step_description
