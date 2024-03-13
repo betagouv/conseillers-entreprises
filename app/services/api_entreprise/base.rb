@@ -49,8 +49,6 @@ module ApiEntreprise
       @siren_or_siret = siren_or_siret
       @options = options
       @http_response = HTTP.auth("Bearer #{token}").get(url)
-      p '-----------------'
-      p 'Request URL' + url
       begin
         @data = @http_response.parse(:json)
       rescue StandardError => e

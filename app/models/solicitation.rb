@@ -184,10 +184,6 @@ class Solicitation < ApplicationRecord
             errors.add(:base, I18n.t('api_requests.foreign_facility', country: foreign_country.capitalize))
           else
             # on en profite pour mettre à jour le code_region si siret non diffusible
-            p '==========='
-            p 'Solicitation '
-            p 'self.code_region' + self.code_region.to_s
-            p 'etablissement_data.code_region' + etablissement_data.code_region.to_s
             self.code_region = etablissement_data.code_region
             self.siret = etablissement_data.siret
           end
