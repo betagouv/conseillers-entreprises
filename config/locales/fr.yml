@@ -265,7 +265,7 @@ fr:
       '500':
         error: Erreur 500
         info: Désolé, le service rencontre un problème, nous travaillons pour le résoudre le plus rapidement possible.
-        message: Essayez de rafraichir la page ou bien ressayez plus tard.
+        message: Essayez de rafraîchir la page ou bien réessayez plus tard.
         title: Erreur inattendue
   sign_in: Accès conseillers
   submit: Envoyer
