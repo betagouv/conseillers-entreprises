@@ -14,6 +14,7 @@ defaults:
         POSTGRES_USER: place_des_entreprises_test
         POSTGRES_PASSWORD: place_des_entreprises_test
         POSTGRES_DB: place_des_entreprises_test
+        CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
 
 bundle_restore_cache:
   &bundle_restore_cache
@@ -85,6 +86,12 @@ jobs:
       - *bundle_install
       - *yarn_install
       - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            # download test reporter as a static binary
+                     curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
+                     chmod +x ./tmp/cc-test-reporter
+      - run:
           environment:
             DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_e\
               ntreprises_test"
@@ -105,15 +112,23 @@ jobs:
           command: |
             bundle exec rspec --profile 10 \
               --format RspecJunitFormatter \
-              --out ~/test-results/rspec/results.xml \
+              --out /tmp/test-results/rspec.xml \
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - store_test_results:
-          path: ~/test-results
+          path: /tmp/test-results
       - store_artifacts:
-          path: tmp/screenshots
+          path: /tmp/screenshots
+      - run:
+          name: Upload coverage results to Code Climate
+          command: |
+            ./tmp/cc-test-reporter format-coverage -t simplecov $CIRCLE_ARTIFACTS/coverage/.resultset.json
+            ./tmp/cc-test-reporter upload-coverage
     # The resource_class feature allows configuring CPU and RAM resources for each job. Different resource classes are available for different executors. https://circleci.com/docs/2.0/configuration-reference/#resourceclass
     resource_class: large
+
+
+
   lint:
     <<: *defaults
     steps:
