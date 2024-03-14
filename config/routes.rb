@@ -153,7 +153,6 @@ Rails.application.routes.draw do
       get :expired, path: 'expirees'
     end
     member do
-      get :additional_experts
       post :add_match
     end
   end
