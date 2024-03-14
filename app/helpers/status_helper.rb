@@ -13,7 +13,7 @@ module StatusHelper
   STATUS_ICONS = {
     diagnosis_not_complete: %w[],
     sent_to_no_one: %w[],
-    quo: %w[ri-question-line],
+    quo: %w[ri-question-mark],
     not_for_me: %w[ri-close-line],
     taking_care: %w[ri-loader-2-line],
     done: %w[ri-check-line],

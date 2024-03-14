@@ -475,10 +475,11 @@ fr:
     index:
       title: Besoins reçus
     match_actions:
+      call_company: 1. J’appelle l’entreprise
       can_you_help: Pouvez-vous aider l’entreprise %{company} ?
       cancel: Annuler
       cancel_taking_care: Annuler ma prise en charge
-      close_need: Quelle est votre intervention ?
+      close_need: 2. Je clôture mon intervention
       contact_company: C‘est à vous de jouer et de contacter l’entreprise %{company}
       deposited_on_partner_website_html: Demande déposée sur le site %{partner_link}
       feedback_placeholder:
