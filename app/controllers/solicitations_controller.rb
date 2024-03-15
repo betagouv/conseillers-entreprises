@@ -4,6 +4,7 @@ class SolicitationsController < PagesController
   layout 'solicitation_form'
 
   before_action :prevent_completed_solicitation_modification, except: [:new, :create, :form_complete]
+  before_action :redirect_entreprendre_solicitations
   before_action :calculate_needs_count
 
   # Step contact
@@ -216,6 +217,17 @@ class SolicitationsController < PagesController
   def prevent_completed_solicitation_modification
     if @solicitation&.step_unmodifiable?
       flash.alert = I18n.t('solicitations.creation_form.already_submitted_solicitation')
+      redirect_to root_path
+    end
+  end
+
+  # http://localhost:3000/aide-entreprise/accueil/demande/transport-mobilite/?mtm_campaign=entreprendre
+  def redirect_entreprendre_solicitations
+    # Si la demande vient d'entreprendre et qu'elle n'a pas encore été redirigée
+    if (query_params[:mtm_campaign] == 'entreprendre') && !(session.dig('solicitation_form_info', 'redirected') == 'entreprendre')
+      session[:solicitation_form_info] ||= {}
+      session[:solicitation_form_info].merge!(redirected: 'entreprendre')
+
       redirect_to root_path
     end
   end
