@@ -226,7 +226,7 @@ class SolicitationsController < PagesController
     # Si la demande vient d'entreprendre et qu'elle n'a pas encore été redirigée
     if (query_params[:mtm_campaign] == 'entreprendre') && !(session.dig('solicitation_form_info', 'redirected') == 'entreprendre')
       session[:solicitation_form_info] ||= {}
-      session[:solicitation_form_info].merge!(redirected: 'entreprendre')
+      session[:solicitation_form_info][:redirected] = 'entreprendre'
 
       redirect_to root_path
     end
