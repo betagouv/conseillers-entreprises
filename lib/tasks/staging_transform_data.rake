@@ -120,11 +120,12 @@ namespace :staging do
       sent_at: now - 1.day,
     })
     expert = match.expert
+    # Expert personnel, modif doit se faire en 2 temps
     expert.update({
       full_name: 'Djamal Humette',
-      email: 'd.humette@artois.cci.fr',
       phone_number: '0605040302'
     })
+    expert.update(email: 'd.humette@artois.cci.fr')
 
     match = Match.find(12028)
     match.update({
@@ -136,11 +137,12 @@ namespace :staging do
       status: 'not_for_me'
     })
     expert = match.expert
+    # Expert personnel, modif doit se faire en 2 temps
     expert.update({
       full_name: 'Brigitte Tonot',
-      email: 'brigitte.tonot@hautsdefrance.fr',
       phone_number: '0605040302'
     })
+    expert.update(email: 'brigitte.tonot@hautsdefrance.fr')
 
     match = Match.find(12029)
     match.update({

@@ -105,8 +105,8 @@ fr:
       account: Compte
       admin: Administration
       annuaire: Annuaire
-      antenne_needs: Demandes de l’antenne
-      antennes_needs: Demandes des antennes
+      antenne_needs: Besoins de l’antenne
+      antennes_needs: Besoins des antennes
       badges: Tags
       close: Fermer
       csv_exports: Exports csv
@@ -341,8 +341,6 @@ fr:
     form:
       expert_reminder:
         placeholder: " "
-      need:
-        placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise et nous avons convenu d’un rendez-vous le 23/11. »'
       need_reminder:
         placeholder: " "
       prefill: 'Préremplissage :'
@@ -459,7 +457,7 @@ fr:
       not_for_me: Refusées
       quo_active: Boite de réception
       search: Recherche
-      taking_care: Prises en charge
+      taking_care: En cours
     collections_single:
       archived: Archivée
       done: Clôturée
@@ -475,14 +473,19 @@ fr:
         other: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.
       welcome_title: Bienvenue sur Place des Entreprises
     index:
-      title: Demandes reçues
+      title: Besoins reçus
     match_actions:
+      call_company: 1. J’appelle l’entreprise
       can_you_help: Pouvez-vous aider l’entreprise %{company} ?
       cancel: Annuler
       cancel_taking_care: Annuler ma prise en charge
-      close_need: 'Clôturer votre intervention :'
+      close_need: 2. Je clôture mon intervention
       contact_company: C‘est à vous de jouer et de contacter l’entreprise %{company}
       deposited_on_partner_website_html: Demande déposée sur le site %{partner_link}
+      feedback_placeholder:
+        done: 'Par exemple : « J’ai appelé le chef d’entreprise et nous avons convenu d’un rendez-vous le 23/11. »'
+        done_no_help: 'Par exemple : « Je n’ai pas d’aide pour les entreprises de moins de 3 ans »'
+        done_not_reachable: 'Par exemple : « J’ai appelé le chef d’entreprise le 3/04 sans succès, lui ai laissé un message et envoyé un mail avec la documentation sur tel dispositif.»'
       help_provided:
         content: Un conseil, un accompagnement ou une aide financière a pu être proposée.
         title: Une aide proposée
@@ -496,7 +499,6 @@ fr:
       not_reachable:
         content: Le chef d’entreprise ne répond pas mais il a mes coordonnées pour me recontacter.
         title: Entreprise injoignable
-      placeholder_no_help: 'Par exemple : « Je n’ai pas d’aide pour les entreprises de moins de 3 ans »'
       take_care: J’appelle
       validate: Valider
       your_turn_html: C’est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
@@ -515,6 +517,7 @@ fr:
       company: Entreprise
       diagnosis_not_completed: Analyse non terminée, vous ne pouvez pas accéder à la page du besoin.
       more_informations: Plus d'informations
+      my_intervention: Mon intervention
       needs_historic: Historique des besoins
       no_comment: Aucun commentaire
       no_match: Aucun expert de notifié

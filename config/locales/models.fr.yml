@@ -394,14 +394,14 @@ fr:
         done_not_reachable: Entreprise injoignable
         not_for_me: Ce n’est pas pour moi
         quo: En attente de réponse
-        taking_care: Prise en charge
+        taking_care: En cours
       match/statuses/short:
         done: Aide proposée
         done_no_help: Pas d’aide
         done_not_reachable: Non joignable
         not_for_me: Refusé
         quo: Pas de réponse
-        taking_care: Pris en charge
+        taking_care: En cours
       match_filter:
         accepted_legal_forms: codes forme juridique acceptés (niveau 1)
         accepted_naf_codes: codes naf acceptés

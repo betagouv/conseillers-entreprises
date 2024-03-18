@@ -60,7 +60,7 @@
 
 - content_for :footer do
   - unless in_iframe?
-    .fr-container--fluid.section-light-grey
+    .fr-container--fluid.lighter-blue-bg
       = render 'pages/how_it_works_short'
     - temoignage = TemoignageGenerator.new(@landing_subject.slug)
     - if temoignage.published?
@@ -74,7 +74,7 @@
               = image_tag(temoignage.picture_path, alt: t('temoignage.image_title', author: temoignage.author), class: 'fr-responsive-img')
 
     - if @landing_subject.solicitable_institutions.with_logo.any?
-      .section-light-grey.fr-pt-8w.fr-pb-5w
+      .lighter-blue-bg.fr-pt-8w.fr-pb-5w
         .fr-container
           %h2.text-dark-grey.text-center.text-normal.fr-text--lead
             = t('logos.title')

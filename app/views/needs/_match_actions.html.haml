@@ -1,4 +1,4 @@
-.fr-container.fr-p-2w.fr-pt-6w#match-actions
+#match-actions
   - if match.status_quo?
     .fr-grid-row.white-bg.fr-p-3w.fr-grid-row--middle
       .actions-default.fr-col
@@ -11,6 +11,7 @@
             = t('.not_for_me')
 
   - elsif match.status_taking_care?
+    %h3.fr-h4.fr-my-4w= t('.call_company')
     .fr-grid-row
       .green-box.alert-box.take_care.fr-col
         %span.ri-phone-line.icon{ 'aria-hidden': 'true' }
@@ -28,7 +29,7 @@
           = f.button :submit, name: :status, value: :quo, class: 'gray-link', id: "cancel-match" do
             = t('.cancel_taking_care')
 
-    %h2.fr-h3.fr-my-4w= t('.close_need')
+    %h3.fr-h4.fr-my-4w= t('.close_need')
     = form_with(model: match, url: match_path(match)) do |f|
       %ul.list-unstyled.fr-grid-row.fr-grid-row--gutters.fr-col
         %li.fr-col-12.fr-col-md-4
@@ -71,10 +72,9 @@
         = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :taking_care, class: 'gray-link' do
             = t('.cancel')
-      - if local_assigns[:display_feedback_form] && (match.status_done? || match.status_done_no_help?)
+      - if local_assigns[:display_feedback_form]
         .fr-col-12.fr-p-2w
-          - placeholder = match.status_done? ? t("feedbacks.form.need.placeholder") : t('.placeholder_no_help')
-          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), placeholder: placeholder, from_alert_box: true
+          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), placeholder: t(".feedback_placeholder.#{match.status}"), from_alert_box: true
 
   - elsif match.status_not_for_me?
     .fr-grid-row.orange-box
@@ -92,4 +92,4 @@
             = t('.cancel')
       - if local_assigns[:display_feedback_form]
         .fr-col-12.fr-p-2w
-          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), placeholder: t('.placeholder_no_help'), from_alert_box: true
+          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), placeholder: t(".feedback_placeholder.done_no_help"), from_alert_box: true

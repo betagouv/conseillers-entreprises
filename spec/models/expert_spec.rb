@@ -329,7 +329,6 @@ RSpec.describe Expert do
           expect(personal_skillset.reload.email).to eq 'bob@email.com'
         end
       end
-
     end
 
     context 'team expert' do
