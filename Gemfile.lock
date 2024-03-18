@@ -768,6 +768,7 @@ DEPENDENCIES
   sidekiq
   sidekiq-failures
   simplecov
+  simplecov_json_formatter
   split
   spring (>= 3.0.0)
   spring-commands-parallel-tests
