@@ -176,6 +176,8 @@ fr:
           label: Avez-vous déjà trouvé une entreprise à reprendre ?
         etalement_cotisations_sociales:
           label: Souhaitez-vous étaler vos cotisations sociales ?
+        financement_bancaire_envisage:
+          label: Certains accompagnements publics ne viennent qu’en complément d’un financement bancaire. Envisagez-vous un financement bancaire pour votre projet ?
         formee_est_salariee_de_lentreprise:
           label: La personne que vous souhaitez former est-elle salariée de votre entreprise ?
         moins_de_10k_restant_a_financer:
