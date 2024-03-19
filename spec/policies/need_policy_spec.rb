@@ -128,7 +128,7 @@ RSpec.describe NeedPolicy, type: :policy do
 
   describe 'Scopes' do
     let!(:other_need) { create :need_with_matches }
-    let(:need_scope) { NeedPolicy::Scope.new(user, Need.all).resolve }
+    let(:need_scope) { described_class::Scope.new(user, Need.all).resolve }
 
     context 'admin user' do
       let(:user) { create :user, :admin }

@@ -15,7 +15,7 @@ describe ExpertMailer do
     describe 'email behavior' do
       it_behaves_like 'an email'
 
-      it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+      it { expect(mail.header[:from].value).to eq described_class::SENDER }
     end
 
     describe 'password instructions reminder' do
@@ -46,6 +46,6 @@ describe ExpertMailer do
 
     it_behaves_like 'an email'
 
-    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+    it { expect(mail.header[:from].value).to eq described_class::SENDER }
   end
 end
