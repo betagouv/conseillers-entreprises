@@ -284,6 +284,10 @@ Layout/SpaceInsideArrayLiteralBrackets:
 
 Layout/SpaceInsideParens:
   Enabled: true
+  Exclude:
+    - 'app/views/conseiller/diagnoses/new.haml'
+    - 'app/views/stats/_load_stats.html.haml'
+    - 'app/views/stats/_main_stats_chart.haml'
 
 Layout/SpaceInsidePercentLiteralDelimiters:
   Enabled: true
