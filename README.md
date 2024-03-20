@@ -1,3 +1,5 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/betagouv/place-des-entreprises/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/betagouv/place-des-entreprises/tree/main) [![Maintainability](https://api.codeclimate.com/v1/badges/12cdf35ab56d27c64046/maintainability)](https://codeclimate.com/github/betagouv/place-des-entreprises/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/12cdf35ab56d27c64046/test_coverage)](https://codeclimate.com/github/betagouv/place-des-entreprises/test_coverage)
+
 # <img src="doc/picto-PDE.svg" width="50"> Place des Entreprises
 
 _[Une startup d’État de beta.gouv](https://beta.gouv.fr/startups/place-des-entreprises)._
