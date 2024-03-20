@@ -1,4 +1,4 @@
-= form_with url: annuaire_search_path, local: true, class: 'fr-mb-3w' do |f|
+= form_with url: institution_antennes_path(institution), local: true, class: 'fr-mb-3w', method: :get do |f|
   .fr-grid-row
     .fr-col
       .fr-input-group.fr-pr-2v
@@ -12,11 +12,6 @@
         = f.label :by_region, t('attributes.region'), class: 'fr-label'
         = f.collection_select :region_id, Territory.regions.order(:name), :id, :name, { selected: params[:region_id],
           include_blank: t('all.feminine') }, class: "fr-select"
-    .fr-col
-      .fr-select-group
-        = f.label :by_theme, t('attributes.theme'), class: 'fr-label'
-        = f.collection_select :theme_id, Theme.order(:label), :id, :label, { selected: params[:theme_id],
-          include_blank: t('all.masculin') }, class: "fr-select"
   - if session[:annuaire_region_id].present?
     = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
-  = f.submit t('.submit'), class: 'fr-btn fr-mt-2w'
+  = f.submit t('annuaire.search.form.submit'), class: 'fr-btn fr-mt-2w'
