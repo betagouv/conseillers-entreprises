@@ -1,5 +1,6 @@
 module  Annuaire
   class AntennesController < BaseController
+    before_action :set_session_params, only: :index
     before_action :retrieve_institution
     before_action :retrieve_antennes, only: :index
 
@@ -27,8 +28,14 @@ module  Annuaire
 
     private
 
+    def set_session_params
+      session[:annuaire_region_id] = params[:region_id] if params[:region_id].present?
+      session.delete(:annuaire_region_id) if params[:reset_query].present?
+    end
+
     def retrieve_antennes
       @antennes = @institution.retrieve_antennes(session[:annuaire_region_id]).preload(:experts, :advisors)
+      @antennes = @antennes.joins(:regions).where(territories: { id: session[:annuaire_region_id] }).distinct if session[:annuaire_region_id].present?
     end
   end
 end
