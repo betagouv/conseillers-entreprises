@@ -1,0 +1,20 @@
+= form_with url: institutions_path, local: true, method: :get, class: 'fr-mb-3w' do |f|
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col
+      .fr-select-group
+        = f.label :by_region, t('attributes.region'), class: 'fr-label'
+        = f.collection_select :by_region, Territory.regions.order(:name), :id, :name, { selected: session[:annuaire_by_region],
+          include_blank: t('all.feminine') }, class: "fr-select"
+    .fr-col
+      .fr-select-group
+        = f.label :by_theme, t('attributes.theme'), class: 'fr-label'
+        = f.collection_select :by_theme, Theme.order(:label), :id, :label, { selected: session[:annuaire_by_theme],
+          include_blank: t('all.masculin') }, class: "fr-select"
+    .fr-col
+      .fr-select-group
+        = f.label :by_subject, t('attributes.subject'), class: 'fr-label'
+        = f.collection_select :by_subject, Subject.not_archived.order(:label), :id, :label, { selected: session[:annuaire_by_subject],
+          include_blank: t('all.masculin') }, class: "fr-select"
+  - if session[:query].present?
+    = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
+  = f.submit t('annuaire.search.form.submit'), class: 'fr-btn fr-mt-2w'

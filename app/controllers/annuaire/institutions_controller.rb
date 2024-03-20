@@ -17,15 +17,17 @@ module  Annuaire
 
     def retrieve_institutions
       @institutions = Institution.expert_provider.includes(:logo, :themes).not_deleted.order(:slug)
-      @institutions = @institutions.in_region(params[:region_id]) if params[:region_id].present?
+      @institutions = @institutions.in_region(session[:annuaire_region_id]) if params[:annuaire_region_id].present?
+      @institutions = @institutions.joins(:themes).where(themes: { id: session[:annuaire_by_theme] }) if session[:annuaire_by_theme].present?
+      @institutions = @institutions.joins(:subjects).where(themes: { id: session[:annuaire_by_subject] }) if session[:annuaire_by_subject].present?
     end
 
     def get_antennes_count
-      antennes_count = if params[:region_id].present?
+      antennes_count = if session[:annuaire_by_region].present?
         Antenne.select('COUNT(DISTINCT antennes.id) AS antennes_count, antennes.institution_id AS institution_id')
           .not_deleted
           .left_joins(:regions, :experts)
-          .where(territories: { id: params[:region_id] })
+          .where(territories: { id: session[:annuaire_by_region] })
           .or(Antenne.where(deleted_at: nil, experts: { is_global_zone: true }))
           .group('antennes.institution_id')
       else
