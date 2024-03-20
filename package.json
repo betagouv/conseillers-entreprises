@@ -13,6 +13,7 @@
     "jquery": "^3.5.1",
     "normalize-url": "^4.5.1",
     "postcss": "^8.4.34",
+    "remixicon": "^4.2.0",
     "sass": "^1.70.0",
     "sass-loader": "^14.1.0",
     "slim-select": "^2.8.1",

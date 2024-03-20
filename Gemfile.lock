@@ -201,6 +201,12 @@ GEM
     css_parser (1.16.0)
       addressable
     daemons (1.4.1)
+    dartsass-sprockets (3.1.0)
+      railties (>= 4.0.0)
+      sassc-embedded (~> 1.69)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     date (3.3.4)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
@@ -246,6 +252,10 @@ GEM
     geocoder (1.8.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-protobuf (4.26.0-arm64-darwin)
+      rake (>= 13)
+    google-protobuf (4.26.0-x86_64-linux)
+      rake (>= 13)
     haml (6.3.0)
       temple (>= 0.8.2)
       thor
@@ -552,14 +562,12 @@ GEM
     rubystats (0.4.1)
       matrix
     rubyzip (2.3.2)
-    sassc (2.4.0)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
+    sass-embedded (1.72.0-arm64-darwin)
+      google-protobuf (>= 3.25, < 5.0)
+    sass-embedded (1.72.0-x86_64-linux-gnu)
+      google-protobuf (>= 3.25, < 5.0)
+    sassc-embedded (1.70.1)
+      sass-embedded (~> 1.70)
     selectize-rails (0.12.6)
     selenium-webdriver (4.16.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -696,6 +704,7 @@ DEPENDENCIES
   clockwork
   css_parser
   daemons
+  dartsass-sprockets
   devise
   devise-async
   devise_invitable
@@ -750,7 +759,6 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
-  sassc-rails
   selenium-webdriver
   sentry-rails
   sentry-ruby
