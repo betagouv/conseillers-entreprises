@@ -3,5 +3,8 @@
 .fr-container
   %h1.fr-h2= title
 
+  %h2.fr-h4.fr-mb-3w= t('annuaire.search.free_text_search')
   = render 'annuaire/search/form'
+  %h2.fr-h4.fr-mb-3w= t('annuaire.search.institution_search')
+  = render 'form'
   = render 'table', institutions: @institutions, antennes_count: @antennes_count, users_count: @users_count
