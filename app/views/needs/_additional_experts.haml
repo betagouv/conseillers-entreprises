@@ -1,5 +1,5 @@
 :ruby
-  return unless current_user&.is_admin?
+  return unless policy(need).add_match?
 
 .additional-experts.fr-pt-2w#add-expert-form{ data: { controller: "expert-autocomplete" }, id: "additional_experts-#{need.id}" }
   .expert-search-bar

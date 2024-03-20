@@ -62,6 +62,8 @@ class NeedsController < ApplicationController
 
   def add_match
     @need = retrieve_need
+    authorize @need, :add_match?
+    return render status: :unprocessable_entity if params[:expert_id].blank?
     expert = Expert.find(params.require(:expert_id))
     @match = Match.create(need: @need, expert: expert, subject: @need.subject, sent_at: Time.zone.now)
     if @match.valid?

@@ -25,4 +25,8 @@ class NeedPolicy < ApplicationPolicy
   def show_need_actions?
     @record.matches.find_by(expert: @user.experts).present?
   end
+
+  def add_match?
+    admin?
+  end
 end

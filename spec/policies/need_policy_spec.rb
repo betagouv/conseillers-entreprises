@@ -126,6 +126,22 @@ RSpec.describe NeedPolicy, type: :policy do
     end
   end
 
+  permissions :add_match? do
+    let!(:need) { create :need_with_matches }
+
+    context "when user is admin" do
+      let(:user) { create :user, :admin }
+
+      it { is_expected.to permit(user, need) }
+    end
+
+    context "when user is not admin" do
+      let(:user) { create :user }
+
+      it { is_expected.not_to permit(user, need) }
+    end
+  end
+
   describe 'Scopes' do
     let!(:other_need) { create :need_with_matches }
     let(:need_scope) { described_class::Scope.new(user, Need.all).resolve }
