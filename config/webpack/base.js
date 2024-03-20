@@ -1,9 +1,9 @@
 const path    = require("path")
 const webpack = require("webpack")
-const { sourcePath, additionalPaths } = require("./config")
+// const { sourcePath, additionalPaths } = require("./config")
 
 const sharedWebpackConfig = (mode) => {
-  const isProduction = (mode === "production");
+  // const isProduction = (mode === "production");
 
   return {
     mode: mode,
