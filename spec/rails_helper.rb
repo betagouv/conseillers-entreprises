@@ -89,8 +89,9 @@ Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new app, browser: :chrome, options: options
 end
 
-Capybara.javascript_driver = :chrome
+Capybara.javascript_driver = :selenium
 Capybara.default_max_wait_time = 5
+# Capybara.raise_server_errors = false
 WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec::Sidekiq.configure do |config|
