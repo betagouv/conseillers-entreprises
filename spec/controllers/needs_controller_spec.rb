@@ -41,4 +41,43 @@ RSpec.describe NeedsController do
       end
     end
   end
+
+  describe '#add_expert' do
+    let(:need) { create(:need) }
+    let(:request) { post :add_match, params: { id: need.id, expert_id: expert_id, format: :js } }
+
+    context 'when user is admin and expert is present' do
+      login_admin
+      let(:expert) { create(:expert) }
+      let(:expert_id) { expert.id }
+
+      it 'adds an expert to the need' do
+        request
+        expect(response).to have_http_status(:success)
+        expect(need.experts).to include(expert)
+      end
+    end
+
+    context 'when user is admin and expert is not present' do
+      login_admin
+      let(:expert_id) { '' }
+
+      it 'does not add an expert if expert_id is nil' do
+        request
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(need.experts).to be_empty
+      end
+    end
+
+    context 'when user is not admin' do
+      login_user
+      let(:expert) { create(:expert) }
+      let(:expert_id) { expert.id }
+
+      it 'does not add an expert' do
+        expect { request }.to raise_error(Pundit::NotAuthorizedError)
+        expect(need.experts).not_to include(expert)
+      end
+    end
+  end
 end

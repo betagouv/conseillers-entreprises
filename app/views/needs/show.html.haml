@@ -87,9 +87,10 @@
     - else
       %p#no-match= t('.no_match')
 
-.lighter-blue-bg
-  .fr-container
-    = render 'additional_experts', need: @need
+- if policy(@need).add_match?
+  .lighter-blue-bg
+    .fr-container
+      = render 'additional_experts', need: @need
 
 .lighter-blue-bg.fr-pb-6w
   .fr-container.fr-p-2w

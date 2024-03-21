@@ -446,10 +446,8 @@ fr:
       taken_care_of_at: Prise en charge
   needs:
     additional_experts:
-      add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
       add_other_experts: Rechercher d’autres experts à mettre en relation
       ambulance_explanation: Notifier un nouveau conseiller référencé, quel que soit le partenaire, le sujet ou le territoire
-      no_expert_found: Aucun résultat
     collections:
       archived: Archivées
       done: Clôturées
