@@ -1,13 +1,6 @@
 = form_with url: institution_antennes_path(institution), local: true, class: 'fr-mb-3w', method: :get do |f|
   .fr-grid-row
     .fr-col
-      .fr-input-group.fr-pr-2v
-        .autocomplete-field{ 'data-autocomplete-url-value': "#{annuaire_autocomplete_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length': 3 }
-          = f.label :query, t('search'), class: 'fr-label'
-          = f.hidden_field :query, 'data-autocomplete-target': 'hidden'
-          %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text' }
-          %ul.list-group{ 'data-autocomplete-target': 'results' }
-    .fr-col
       .fr-select-group.fr-pr-2v
         = f.label :by_region, t('attributes.region'), class: 'fr-label'
         = f.collection_select :region_id, Territory.regions.order(:name), :id, :name, { selected: params[:region_id],

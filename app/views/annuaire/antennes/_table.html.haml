@@ -12,10 +12,11 @@
         %tr{ class: highlighted_ids&.include?(antenne.id) ? 'blue' : '' }
           %td.fr-enlarge-link
             = link_to antenne, institution_antenne_users_path(antenne_id: antenne)
-          %td
-            %ul
-              %li= antenne.experts.human_count
-              %li= antenne.advisors.human_count
+          %td.fr-enlarge-link
+            = link_to institution_users_path(antenne.institution, region_id: session[:annuaire_region_id].presence) do
+              %ul
+                %li= antenne.experts.relevant_for_skills.human_count
+                %li= antenne.advisors.not_deleted.human_count
           %td
             %ul
               - summary = antenne.intervention_zone_summary
