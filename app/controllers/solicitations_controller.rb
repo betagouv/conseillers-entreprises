@@ -221,11 +221,11 @@ class SolicitationsController < PagesController
     end
   end
 
-  # http://localhost:3000/aide-entreprise/accueil/demande/transport-mobilite/?mtm_campaign=entreprendre
+  # http://localhost:3000/aide-entreprise/accueil/demande/transport-mobilite/?mtm_campaign=entreprendre&mtm_kwd=F123
   def redirect_entreprendre_solicitations
     # Si la demande vient d'entreprendre et qu'elle n'a pas encore été redirigée
     if (query_params[:mtm_campaign] == 'entreprendre') && !(session.dig('solicitation_form_info', 'redirected') == 'entreprendre')
-      session[:solicitation_form_info] ||= {}
+      session[:solicitation_form_info] ||= query_params
       session[:solicitation_form_info][:redirected] = 'entreprendre'
 
       redirect_to root_path
