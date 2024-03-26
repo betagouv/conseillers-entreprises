@@ -1,5 +1,5 @@
 = form_with url: annuaire_search_path, local: true, class: 'fr-mb-3w' do |f|
-  .fr-grid-row
+  .fr-grid-row.fr-grid-row--gutters{ data: { controller: 'stats', url: load_filter_options_team_index_path } }
     .fr-col
       .fr-input-group.fr-pr-2v
         .autocomplete-field{ 'data-autocomplete-url-value': "#{annuaire_autocomplete_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length': 3 }
@@ -8,15 +8,17 @@
           %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text' }
           %ul.list-group{ 'data-autocomplete-target': 'results' }
     .fr-col
-      .fr-select-group.fr-pr-2v
-        = f.label :by_region, t('attributes.region'), class: 'fr-label'
-        = f.collection_select :region_id, Territory.regions.order(:name), :id, :name, { selected: params[:region_id],
-          include_blank: t('all.feminine') }, class: "fr-select"
+      .fr-select-group
+        = f.label :theme, class: 'fr-label' do
+          = t('attributes.theme')
+          .loader.loader--sm.hidden{ data: { 'stats-target': 'loader' } }
+        = f.collection_select :theme, Theme.order(:label), :id, :label, { selected: session[:annuaire_theme],
+          include_blank: t('all.masculin') }, class: "fr-select", data: { action: 'change->stats#fetchFilters', 'stats-target': 'themes' }
     .fr-col
       .fr-select-group
-        = f.label :by_theme, t('attributes.theme'), class: 'fr-label'
-        = f.collection_select :theme_id, Theme.order(:label), :id, :label, { selected: params[:theme_id],
-          include_blank: t('all.masculin') }, class: "fr-select"
-  - if session[:annuaire_region_id].present?
+        = f.label :subject, t('attributes.subject'), class: 'fr-label'
+        = f.collection_select :subject, subjects, :id, :label, { selected: session[:annuaire_subject],
+          include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
+  - if session[:annuaire_theme].present? || session[:annuaire_subject].present? || session[:annuaire_query].present?
     = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
   = f.submit t('.submit'), class: 'fr-btn fr-mt-2w'
