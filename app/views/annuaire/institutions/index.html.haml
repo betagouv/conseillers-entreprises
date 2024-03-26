@@ -1,20 +1,14 @@
 - title = Institution.model_name.human.pluralize
 - meta title: title
-.fr-container
-  %h1.fr-h2= title
+.fr-container.light-blue-bg.fr-p-3w
+  %h1.fr-h2= t('annuaire.search.free_text_search')
+  %div
+    = render 'annuaire/search/form', subjects: @subjects
 
-  .fr-tabs.fr-my-3w
-    %ul.fr-tabs__list{"aria-label" => "[A modifier | nom du système d'onglet]", role: "tablist"}
-      %li{role: "presentation"}
-        %button#tabpanel-404.fr-tabs__tab.fr-icon-checkbox-line.fr-tabs__tab--icon-left{"aria-controls" => "tabpanel-users-panel", "aria-selected" => "true", role: "tab", tabindex: "0"}
-          = t('annuaire.search.free_text_search')
-      %li{role: "presentation"}
-        %button#tabpanel-405.fr-tabs__tab.fr-icon-checkbox-line.fr-tabs__tab--icon-left{"aria-controls" => "tabpanel-institutions-panel", "aria-selected" => "false", role: "tab", tabindex: "-1"}
-          = t('annuaire.search.institution_search')
 
-    #tabpanel-users-panel.fr-tabs__panel.fr-tabs__panel--selected{"aria-labelledby" => "tabpanel-users", role: "tabpanel", tabindex: "0"}
-      = render 'annuaire/search/form'
-    #tabpanel-institutions-panel.fr-tabs__panel{"aria-labelledby" => "tabpanel-institutions", role: "tabpanel", tabindex: "0"}
-      = render 'form', subjects: @subjects
+.fr-container.fr-mt-9w
+  %h2= title
+  .fr-mb-6w
+    = render 'form', subjects: @subjects
 
   = render 'table', institutions: @institutions, antennes_count: @antennes_count, users_count: @users_count
