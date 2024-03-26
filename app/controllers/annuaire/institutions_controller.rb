@@ -7,6 +7,7 @@ module  Annuaire
       # Compteur ici pour raison de perfs
       get_antennes_count
       get_users_count
+      get_subjects
     end
 
     def show
@@ -59,6 +60,14 @@ module  Annuaire
 
       @users_count = users_count.each_with_object({}) do |institution, hash|
         hash[institution.institution_id] = institution.users_count
+      end
+    end
+
+    def get_subjects
+      @subjects = if session[:annuaire_theme].present?
+        Theme.find_by(id: session[:annuaire_theme]).subjects
+      else
+        Subject.not_archived.order(:label)
       end
     end
   end
