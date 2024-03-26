@@ -5,12 +5,12 @@ module Annuaire
     layout 'annuaire'
 
     def retrieve_institution
-      @institution = Institution.find_by(slug: params[:institution_slug].presence || params[:by_institution])
+      @institution = Institution.find_by(slug: params[:institution_slug].presence || params[:institution])
       authorize @institution
     end
 
     def form_params
-      %i[by_institution by_antenne by_name by_region by_theme]
+      %i[institution antenne name region theme]
         .reduce({}) { |h,key| h[key] = params[key]; h }
     end
 
