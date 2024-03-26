@@ -40,6 +40,7 @@ module Stats
       render_partial(data, name)
     end
 
+    # TODO déplacer dans un meilleure endroit
     def load_filter_options
       response = {
         antennes: @institution_antennes,
