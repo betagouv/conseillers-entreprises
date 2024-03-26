@@ -42,16 +42,16 @@ RSpec.describe SolicitationsController do
     context 'entreprendre redirection' do
       context 'first access with entreprendre params' do
         it do
-          get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre' }
-          expect(response).to redirect_to root_path
+          get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre', mtm_kwd: 'F12345' }
+          expect(response).to redirect_to root_path({mtm_campaign: 'entreprendre', mtm_kwd: 'F12345', redirected: 'entreprendre'})
         end
       end
 
       context 'further navigation with entreprendre params' do
         it do
-          request.session[:solicitation_form_info] = { "redirected" => "entreprendre", "mtm_campaign" => "entreprendre" }
-          get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre' }
-          expect(response).not_to redirect_to root_path
+          request.session[:solicitation_form_info] = { "redirected" => "entreprendre", "mtm_campaign" => "entreprendre", "mtm_kwd" => 'F12345' }
+          get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre', mtm_kwd: 'F12345' }
+          expect(response).not_to redirect_to root_path({mtm_campaign: 'entreprendre', mtm_kwd: 'F12345', redirected: 'entreprendre'})
         end
       end
 
