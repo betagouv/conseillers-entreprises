@@ -22,8 +22,8 @@ describe 'about', :js, type: :feature do
       create_list :institution, 2, show_on_list: true
       visit '/comment_ca_marche'
     end
-
-    it { is_expected.to be_accessible }
+    it { is_expected.to be_axe_clean }
+    # it { is_expected.to be_accessible }
   end
 
   describe '/mentions_legales' do

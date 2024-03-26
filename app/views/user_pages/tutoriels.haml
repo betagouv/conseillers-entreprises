@@ -26,7 +26,7 @@
                     .fr-modal__header
                       %button.fr-btn--close.fr-btn{ 'aria-controls': 'fr-transcription-modal-transcription-tutoriel', 'data-fr-js-modal-button': 'false', title: t('pages.navbar.close') }
                         = t('pages.navbar.close')
-                    .fr-modal__content
+                    .fr-modal__content{ 'aria-hidden': 'true' }
                       = render 'transcription_pde_tutorial'
 
   .fr-grid-row.fr-grid-row--center

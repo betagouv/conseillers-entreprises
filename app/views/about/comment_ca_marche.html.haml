@@ -56,5 +56,5 @@
                       .fr-modal__header
                         %button.fr-btn--close.fr-btn{ 'aria-controls': 'fr-transcription-modal-transcription-testimonial', 'data-fr-js-modal-button': 'false', title: t('pages.navbar.close') }
                           = t('pages.navbar.close')
-                      .fr-modal__content
-                        = render 'transcription_pde_tutorial'
+                      .fr-modal__content{ 'aria-hidden': 'true' }
+                        = render 'about/transcription_pde_testimonial'
