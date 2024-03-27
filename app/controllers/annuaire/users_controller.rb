@@ -3,6 +3,7 @@ module  Annuaire
     before_action :retrieve_institution
     before_action :retrieve_antenne, only: :index
     before_action :retrieve_users, only: :index
+    before_action :retrieve_subjects, only: :index
 
     def index
       institutions_subjects_by_theme = @institution.institutions_subjects
@@ -58,6 +59,13 @@ module  Annuaire
       end
     end
 
+    def autocomplete
+      @results = Institution.omnisearch(params[:q]).limit(7) +
+        Antenne.omnisearch(params[:q]).limit(7) +
+        User.omnisearch(params[:q]).limit(7)
+      render layout: false
+    end
+
     private
 
     def not_invited_users
@@ -79,9 +87,9 @@ module  Annuaire
         .order('antennes.name', 'team_name', 'users.full_name')
         .preload(:antenne, :user_rights_manager, relevant_expert: [:users, :antenne, :experts_subjects, :communes])
 
-      if params[:region_id].present?
-        @users = @users.in_region(params[:region_id])
-      end
+      @users = @users.in_region(session[:annuaire_region]) if session[:annuaire_region].present?
+      @users = @users.joins(:themes).where(themes: session[:annuaire_theme]) if session[:annuaire_theme].present?
+      @users = @users.joins(:subjects).where(subjects: session[:annuaire_subject]) if session[:annuaire_subject].present?
     end
 
     def base_users

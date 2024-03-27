@@ -10,7 +10,7 @@ module Annuaire
     end
 
     def form_params
-      %i[institution antenne name region theme]
+      %i[institution antenne name region theme subject]
         .reduce({}) { |h,key| h[key] = params[key]; h }
     end
 
@@ -26,6 +26,14 @@ module Annuaire
         form_params.each_key do |key|
           session.delete("annuaire_#{key}")
         end
+      end
+    end
+
+    def retrieve_subjects
+      @subjects = if session[:annuaire_theme].present?
+        Theme.find_by(id: session[:annuaire_theme]).subjects
+      else
+        Subject.not_archived.order(:label)
       end
     end
   end

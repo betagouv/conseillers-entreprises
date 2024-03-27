@@ -67,10 +67,10 @@ fr:
     search:
       form:
         submit: Chercher
+      free_text_search: Rechercher un ou des conseilers
+      institution_search: Rechercher des institutions
       search:
         no_results: Aucun résultat n'a été trouvé
-      free_text_search: "Rechercher un ou des conseilers"
-      institution_search: "Rechercher des institutions"
     users:
       index:
         send_invitations:
