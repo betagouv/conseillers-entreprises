@@ -106,6 +106,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :relevant_experts, -> { relevant_for_skills }, class_name: 'Expert'
   has_many :antenne_regions, through: :experts, inverse_of: :advisors
   has_many :themes, through: :experts, inverse_of: :advisors
+  has_many :subjects, through: :experts, inverse_of: :advisors
 
   ## Scopes
   #
