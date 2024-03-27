@@ -13,7 +13,7 @@ RSpec.describe Annuaire::SearchController do
     context 'when the query is a user' do
       it 'redirects to the user in this antenne' do
         post :search, params: { query: "User-#{user.id}" }
-        expect(response).to redirect_to(institution_users_path(institution.slug, antenne_id: antenne.id))
+        expect(response).to redirect_to(institution_users_path(institution.slug, antenne_id: antenne.id, advisor: user))
       end
     end
 

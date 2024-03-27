@@ -65,9 +65,6 @@ fr:
       form:
         submit: Chercher
       free_text_search: Rechercher un ou des conseilers
-      institution_search: Rechercher des institutions
-      search:
-        no_results: Aucun résultat n'a été trouvé
     users:
       index:
         send_invitations:

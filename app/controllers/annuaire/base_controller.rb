@@ -20,7 +20,7 @@ module Annuaire
 
     def set_session_params
       form_params.each_key do |key|
-        session["annuaire_#{key}"] = params[key] if params[key].present?
+        session["annuaire_#{key}"] = params[key].presence
       end
       if params[:reset_query].present?
         form_params.each_key do |key|

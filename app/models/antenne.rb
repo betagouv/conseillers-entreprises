@@ -130,6 +130,21 @@ class Antenne < ApplicationRecord
 
   scope :with_experts_subjects, -> { where.associated(:experts_subjects).distinct }
 
+  scope :by_region, -> (region_id) do
+    return all if region_id.blank?
+    joins(:regions).where(regions: { id: region_id })
+  end
+
+  scope :by_subject, -> (subject_id) do
+    return all if subject_id.blank?
+    joins(experts: :subjects).where(subjects: { id: subject_id })
+  end
+
+  scope :by_theme, -> (theme_id) do
+    return all if theme_id.blank?
+    joins(institution: :themes).where(themes: { id: theme_id })
+  end
+
   ##
   #
   def to_s
