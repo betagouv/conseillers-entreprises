@@ -5,8 +5,14 @@
         .autocomplete-field{ 'data-autocomplete-url-value': "#{annuaire_autocomplete_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length': 3 }
           = f.label :query, t('search'), class: 'fr-label'
           = f.hidden_field :query, 'data-autocomplete-target': 'hidden'
+          // Should be required for /institution but not for /users
           %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text' }
           %ul.list-group{ 'data-autocomplete-target': 'results' }
+    .fr-col
+      .fr-select-group
+        = f.label :region, t('attributes.region'), class: 'fr-label'
+        = f.collection_select :region, Territory.regions.order(:name), :id, :name, { selected: session[:annuaire_region],
+          include_blank: t('all.feminine') }, class: "fr-select"
     .fr-col
       .fr-select-group
         = f.label :theme, class: 'fr-label' do
