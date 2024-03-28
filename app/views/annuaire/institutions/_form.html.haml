@@ -4,7 +4,7 @@
       .fr-select-group
         = f.label :region, t('attributes.region'), class: 'fr-label'
         = f.collection_select :region, Territory.regions.order(:name), :id, :name, { selected: session[:annuaire_region],
-          include_blank: t('all.feminine') }, class: "fr-select"
+          include_blank: t('all.feminine') }, class: "fr-select", id: 'institutions-region'
     .fr-col
       .fr-select-group
         = f.label :theme, class: 'fr-label' do
@@ -19,4 +19,4 @@
           include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
   - if session[:annuaire_region].present? || session[:annuaire_theme].present? || session[:annuaire_subject].present?
     = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
-  = f.submit t('annuaire.search.form.submit'), class: 'fr-btn fr-mt-2w'
+  = f.submit t('annuaire.search.form.submit'), class: 'fr-btn fr-mt-2w', id: 'search-institutions'
