@@ -1,5 +1,5 @@
 = form_with url: institutions_path, local: true, method: :get, class: 'fr-mb-3w' do |f|
-  .fr-grid-row.fr-grid-row--gutters{ data: { controller: 'stats', url: load_filter_options_team_index_path } }
+  .fr-grid-row.fr-grid-row--gutters{ data: { controller: 'stats', url: annuaire_load_filter_options_path } }
     .fr-col
       .fr-select-group
         = f.label :region, t('attributes.region'), class: 'fr-label'

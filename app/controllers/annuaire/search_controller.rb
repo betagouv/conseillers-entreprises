@@ -1,5 +1,8 @@
 module Annuaire
   class SearchController < BaseController
+    include LoadFilterOptions
+    before_action :init_filters, only: %i[load_filter_options]
+
     def search
       model, id = params[:query].split('-')
       institution_slug, antenne_id, advisor_id = fetch_institution_and_antenne(model, id)
