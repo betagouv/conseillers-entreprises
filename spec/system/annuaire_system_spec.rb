@@ -20,7 +20,7 @@ describe 'annuaire', :js do
     it 'displays all institution' do
       visit 'annuaire/institutions'
 
-      expect(page).to have_css 'h1', text: "Institutions"
+      expect(page).to have_css 'h1', text: "Annuaire"
       expect(page).to have_css('.fr-table--c-annuaire', count: 1)
       expect(page).to have_css('tr', count: 3)
 
