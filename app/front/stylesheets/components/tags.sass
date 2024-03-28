@@ -1,8 +1,9 @@
 button.fr-tag.custom-modal-tag
   border-radius: 0
-  padding: 0 0.25rem
+  padding: 0rem 0.25rem
   text-decoration: underline dotted
   background-color: var(--fbc-white)
+  text-align: left
   &:hover
     background-color: var(--blue-france-975-75-hover)
   &:active
@@ -14,7 +15,8 @@ button.fr-tag.custom-modal-tag
       background-color: var(--blue-france-975-75-hover)
     &:active
       background-color: var(--blue-france-975-75-active)
-
+  &::before
+    margin-right: 0.5rem
 
 .fr-tag.warning
   color: $grey-darkest

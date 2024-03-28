@@ -68,7 +68,7 @@
           %h2.need-metadata--title= t('.transmitted_by')
           %div
             - if @need.advisor.present?
-              %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag{ 'aria-controls': "modal-user-#{@need.advisor.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }= @need.advisor.full_name
+              %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag.fr-ml-2v{ 'aria-controls': "modal-user-#{@need.advisor.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }= @need.advisor.full_name
               = render 'application/person_modal', person: @need.advisor
             - else
               = t('.blank_advisor')
