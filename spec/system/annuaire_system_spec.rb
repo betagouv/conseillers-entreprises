@@ -24,8 +24,8 @@ describe 'annuaire', :js do
       expect(page).to have_css('.fr-table--c-annuaire', count: 1)
       expect(page).to have_css('tr', count: 3)
 
-      select(region.name, from: 'region')
-      click_on 'Chercher'
+      select(region.name, from: 'institutions-region')
+      click_on 'search-institutions'
       expect(page).to have_css('tr', count: 2)
     end
   end
