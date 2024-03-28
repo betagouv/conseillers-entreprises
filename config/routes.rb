@@ -217,7 +217,7 @@ Rails.application.routes.draw do
     controller :search do
       post :search, as: 'annuaire_search'
       get :autocomplete, as: 'annuaire_autocomplete'
-      get :reset_session_params, as: 'annuaire_reset_session_params'
+      get :load_filter_options, as: 'annuaire_load_filter_options'
     end
 
     resources :institutions, param: :slug, only: %i[index show] do
