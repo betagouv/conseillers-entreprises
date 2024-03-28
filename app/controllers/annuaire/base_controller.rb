@@ -20,10 +20,7 @@ module Annuaire
 
     def set_session_params
       form_params.each_key do |key|
-        # Avec `presence` ça réinitialise si on selectionne "tout" dans le select,
-        # mais ça le réinitialise aussi si on clique sur une institution sur /institutions alors qu'on avait un filtre actif
-        session["annuaire_#{key}"] = params[key].presence if params.keys.include?(key.to_s)
-        # session["annuaire_#{key}"] = params[key] if params[key].present?
+        session["annuaire_#{key}"] = params[key].presence if params.key?(key.to_s)
       end
       if params[:reset_query].present?
         form_params.each_key do |key|
