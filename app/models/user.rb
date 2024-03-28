@@ -147,7 +147,10 @@ class User < ApplicationRecord
 
   scope :by_antenne, -> (antenne_id) { where(antenne: antenne_id) }
 
-  scope :by_region, -> (region_id) { joins(antenne: { communes: :territories }).where(antenne: { communes: { territories: { id: region_id } } }).distinct }
+  scope :by_region, -> (region_id) do
+    return all if region_id.blank?
+    joins(antenne: { communes: :territories }).where(antenne: { communes: { territories: { id: region_id } } }).distinct
+  end
 
   scope :by_subject, -> (subject_id) do
     return all if subject_id.blank?
@@ -184,9 +187,8 @@ class User < ApplicationRecord
   scope :in_region, -> (region_id) do
     return all if region_id.blank?
     left_joins(:experts, antenne: :regions)
-      .select('"antennes".*, "users".*')
       .where(antennes: { territories: { id: [region_id] } })
-      .or(self.select('"antennes".*, "users".*').where(experts: { is_global_zone: true }))
+      .or(self.where(experts: { is_global_zone: true }))
       .distinct
   end
 
