@@ -1,4 +1,7 @@
-%h1.fr-h2= institution.name
+%h1.fr-h2
+  = institution.name
+  - if local_assigns[:antenne].present?
+    = " - #{local_assigns[:antenne]}"
 
 %nav.fr-breadcrumb{ 'aria-label': t('shared.breadcrumb.you_are_here'), role: 'navigation' }
   %button.fr-breadcrumb__button{ 'aria-controls': 'breadcrumb-189', 'aria-expanded': 'false' }
