@@ -16,7 +16,9 @@ RSpec.describe Conseiller::VeilleController do
     end
 
     describe 'GET #quo_matches' do
-      let!(:done_need_with_quo_match) { create :need, status: :done }
+      let!(:region) { create :territory, :region, name: "Région-01", code_region: 12345 }
+      let!(:commune) { create :commune, regions: [region] }
+      let!(:done_need_with_quo_match) { create :need, status: :done, facility: create(:facility, commune: commune) }
       let!(:done_match_01) { create(:match, need: done_need_with_quo_match, status: :quo, sent_at: 30.days.ago) }
       let!(:done_match_02) { create(:match, need: done_need_with_quo_match, status: :done, sent_at: 30.days.ago) }
       let!(:taking_care_need_with_quo_match) { create :need, status: :taking_care }
@@ -26,17 +28,16 @@ RSpec.describe Conseiller::VeilleController do
       let!(:done_no_help_match_01) { create(:match, need: done_no_help_need_with_quo_match, status: :quo, sent_at: 30.days.ago) }
       let!(:done_no_help_match_02) { create(:match, need: done_no_help_need_with_quo_match, status: :done_no_help, sent_at: 30.days.ago) }
 
-      subject(:request) { get :quo_matches }
-
       context 'without filters' do
-        before { request }
+        before { get :quo_matches }
 
         it { expect(assigns(:needs)).to contain_exactly(done_need_with_quo_match, taking_care_need_with_quo_match, done_no_help_need_with_quo_match) }
       end
 
       context 'with filters' do
-        #   TODO
-        xit 'displays filtered needs'
+        before { get :quo_matches, params: { by_region: region.id } }
+
+        it { expect(assigns(:needs)).to contain_exactly(done_need_with_quo_match) }
       end
 
     end

@@ -1,4 +1,6 @@
 class Conseiller::VeilleController < ApplicationController
+  include PersistedSearch
+
   before_action :authenticate_admin!
   before_action :collections_counts
 
@@ -30,12 +32,20 @@ class Conseiller::VeilleController < ApplicationController
 
   private
 
+  def search_params_label
+    :veille_search
+  end
+
+  def search_fields
+    [:by_region]
+  end
+
   def retrieve_quo_matches_needs
-    @quo_matches_needs ||= Need.with_filtered_matches_quo
+    @quo_matches_needs ||= Need.apply_filters(index_search_params).with_filtered_matches_quo
   end
 
   def retrieve_starred_needs
-    @starred_needs ||= Need.starred
+    @starred_needs ||= Need.apply_filters(index_search_params).starred
   end
 
   def collections_counts
