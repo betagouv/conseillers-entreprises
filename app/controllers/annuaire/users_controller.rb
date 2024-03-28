@@ -59,13 +59,6 @@ module  Annuaire
       end
     end
 
-    def autocomplete
-      @results = Institution.omnisearch(params[:q]).limit(7) +
-        Antenne.omnisearch(params[:q]).limit(7) +
-        User.omnisearch(params[:q]).limit(7)
-      render layout: false
-    end
-
     private
 
     def not_invited_users

@@ -19,12 +19,13 @@ module Annuaire
     end
 
     def set_session_params
-      form_params.each_key do |key|
-        session["annuaire_#{key}"] = params[key].presence if params.key?(key.to_s)
-      end
       if params[:reset_query].present?
         form_params.each_key do |key|
           session.delete("annuaire_#{key}")
+        end
+      else
+        form_params.each_key do |key|
+          session["annuaire_#{key}"] = params[key].presence if params.key?(key.to_s)
         end
       end
     end

@@ -1,8 +1,1 @@
-- @results.each do |result|
-  %li.list-group-item{ 'data-autocomplete-value': "#{result.class}-#{result.id}", role: 'option' }
-    - if defined? result.full_name
-      #{result.full_name}
-      %i
-        (#{result.antenne.name})
-    - else
-      = result.name
+= render 'annuaire/search/results', results: @results
