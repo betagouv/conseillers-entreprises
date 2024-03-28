@@ -25,7 +25,7 @@ describe 'annuaire', :js do
       expect(page).to have_css('tr', count: 3)
 
       select(region.name, from: 'institutions-region')
-      click_on 'search-institutions'
+      click_on 'Chercher', id: 'search-institutions'
       expect(page).to have_css('tr', count: 2)
     end
   end
