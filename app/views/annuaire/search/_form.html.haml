@@ -1,4 +1,5 @@
 = form_with url: annuaire_search_path, local: true, class: 'fr-mb-3w' do |f|
+  = f.hidden_field :institution_slug, value: params[:institution_slug].presence || (institution.slug if defined?(institution) && institution.present?)
   .fr-grid-row.fr-grid-row--gutters{ data: { controller: 'stats', url: load_filter_options_team_index_path } }
     .fr-col
       .fr-input-group.fr-pr-2v
