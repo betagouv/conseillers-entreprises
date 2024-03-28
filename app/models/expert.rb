@@ -180,7 +180,7 @@ class Expert < ApplicationRecord
     begin
       by_region(param)
     rescue ActiveRecord::RecordNotFound => e
-      self.send(param)
+      self.send(param) if [I18n.t('helpers.expert.national_perimeter.value')].include?(param)
     end
   }
 

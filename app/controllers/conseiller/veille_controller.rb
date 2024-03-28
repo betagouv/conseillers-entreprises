@@ -32,14 +32,6 @@ class Conseiller::VeilleController < ApplicationController
 
   private
 
-  def search_params_label
-    :veille_search
-  end
-
-  def search_fields
-    [:by_region]
-  end
-
   def retrieve_quo_matches_needs
     @quo_matches_needs ||= Need.apply_filters(index_search_params).with_filtered_matches_quo
   end
@@ -55,5 +47,13 @@ class Conseiller::VeilleController < ApplicationController
         starred_needs: retrieve_starred_needs.size
       }
     end
+  end
+
+  def search_session_key
+    :veille_search
+  end
+
+  def search_fields
+    [:by_region]
   end
 end

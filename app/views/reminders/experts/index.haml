@@ -2,7 +2,7 @@
 - content_for :header, render('reminders/header', title: t('.title'), section: :experts, scope: @action)
 - content_for :menu, render('menu', expert_collections_count: @expert_collections_count)
 
-= render 'filters', possible_territories_options: @possible_territories_options, active_experts: @active_experts
+= render 'filters', active_experts: @active_experts
 = paginate @active_experts
 
 %div
