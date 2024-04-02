@@ -27,6 +27,9 @@
 
 class Antenne < ApplicationRecord
   include SoftDeletable
+  include ManyCommunes
+  include InvolvementConcern
+  include TerritoryNeedsStatus
 
   enum territorial_level: {
     local: 'local',
@@ -43,9 +46,6 @@ class Antenne < ApplicationRecord
   ## Associations
   #
   has_and_belongs_to_many :communes, inverse_of: :antennes, after_add: [:update_referencement_coverages, :update_antenne_hierarchy], after_remove: [:update_referencement_coverages, :update_antenne_hierarchy]
-  include ManyCommunes
-  include InvolvementConcern
-  include TerritoryNeedsStatus
 
   belongs_to :institution, inverse_of: :antennes
 

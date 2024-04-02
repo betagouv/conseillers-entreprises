@@ -149,17 +149,17 @@ class User < ApplicationRecord
 
   scope :by_region, -> (region_id) do
     return all if region_id.blank?
-    joins(antenne: { communes: :territories }).where(antenne: { communes: { territories: { id: region_id } } }).distinct
+    joins(antenne: :regions).where(antennes: { territories: { id: region_id } })
   end
 
   scope :by_subject, -> (subject_id) do
     return all if subject_id.blank?
-    joins(experts: :subjects).where(experts: { subjects: subject_id }).distinct
+    joins(experts: :subjects).where(experts: { subjects: subject_id })
   end
 
   scope :by_theme, -> (theme_id) do
     return all if theme_id.blank?
-    joins(experts: :themes).where(experts: { themes: theme_id }).distinct
+    joins(experts: :themes).where(experts: { themes: theme_id })
   end
 
   # Team stuff
