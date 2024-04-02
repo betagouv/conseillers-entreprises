@@ -40,10 +40,10 @@ RSpec.describe TerritoryNeedsStatus do
       create(:need, matches: [create(:match, expert: expert_outside, status: :done)])
     end
     let!(:need_expired_inside) do
-      create(:need, matches: [create(:match, expert: expert_inside, status: :quo, created_at: 46.days.ago)])
+      create(:need, matches: [create(:match, expert: expert_inside, status: :quo, sent_at: 46.days.ago)])
     end
     let!(:need_expired_outside) do
-      create(:need, matches: [create(:match, expert: expert_outside, status: :quo, created_at: 46.days.ago)])
+      create(:need, matches: [create(:match, expert: expert_outside, status: :quo, sent_at: 46.days.ago)])
     end
 
     describe 'needs_taking_care' do

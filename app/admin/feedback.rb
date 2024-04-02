@@ -1,6 +1,10 @@
 ActiveAdmin.register Feedback do
+  menu parent: :needs, priority: 3
+
   include CsvExportable
-  menu parent: :diagnoses, priority: 4
+  controller do
+    include DynamicallyFiltrable
+  end
 
   scope :all, group: :all
 
@@ -10,6 +14,10 @@ ActiveAdmin.register Feedback do
 
   ## Index
   #
+  before_action only: :index do
+    init_subjects_filter
+  end
+
   includes [feedbackable: [:facility, :company, :subject]], # feedbackable is either a Need or a Solicitation; ActiveRecord’s magic does the right thing here.
            user: [:institution, :antenne]
 
@@ -17,7 +25,6 @@ ActiveAdmin.register Feedback do
     selectable_column
     id_column
     column :created_at
-
     column :feedbackable
     column(:category) { |feedback| human_attribute_status_tag feedback, :category }
     column :user
@@ -26,10 +33,19 @@ ActiveAdmin.register Feedback do
     actions dropdown: true
   end
 
+  filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
+  filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :need_status, as: :select, collection: -> { Need.human_attribute_values(:status).invert.to_a }
+  filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
+  filter :mtm_campaign, as: :string
+  filter :mtm_kwd, as: :string
   filter :description
   filter :category, as: :select, collection: -> { Feedback.human_attribute_values(:category, raw_values: true).invert.to_a }
-  filter :created_at
+  filter :need_created_at, as: :date_range, label: I18n.t('activeadmin.feedback.need_created_at')
+  filter :created_at, as: :date_range, label: I18n.t('activeadmin.feedback.created_at')
   filter :user, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
+  filter :user_antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
+  filter :user_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
 
   ## CSV
   #

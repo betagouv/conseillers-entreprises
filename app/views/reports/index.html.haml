@@ -12,7 +12,8 @@
       .fr-col-12.fr-col-md-6
         .fr-select-group
           = f.label :antenne_id, t('filters.select_antenne'), class: 'fr-label'
-          = f.select :antenne_id, options_for_select(build_antennes_collection_for_select(@antennes), selected: @antenne), {}, class: "fr-select"
+          = f.select :antenne_id, options_for_select(build_manager_antennes_collection(current_user).pluck(:name, :id), selected: @antenne), {}, class: "fr-select"
+
       .fr-col-12.fr-col-md-6
         .fr-input-group
           = f.submit t('stats.stats_params.filter'), class: 'fr-btn'

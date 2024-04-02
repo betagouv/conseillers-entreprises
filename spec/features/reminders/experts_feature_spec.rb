@@ -41,7 +41,7 @@ describe 'reminders experts', :js do
     context 'reminders_path' do
       it 'displays page' do
         visit inputs_reminders_experts_path
-        expect(page.html).to include 'Relances'
+        expect(page.html).to include 'Risques d’échec'
         expect(page.html).to include 'Paniers qualité'
       end
     end

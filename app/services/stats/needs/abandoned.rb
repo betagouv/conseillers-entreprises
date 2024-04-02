@@ -1,12 +1,11 @@
 module Stats::Needs
   class Abandoned
     include ::Stats::BaseStats
+    include Stats::Needs::Base
 
     def main_query
-      Need.diagnosis_completed
-        .joins(:diagnosis).merge(Diagnosis.from_solicitation)
+      needs_base_scope
         .with_action(:abandon)
-        .where(created_at: @start_date..@end_date)
     end
 
     def category_group_attribute
@@ -26,14 +25,15 @@ module Stats::Needs
     end
 
     def count
-      total = filtered(Need.diagnosis_completed
-      .joins(:diagnosis).merge(Diagnosis.from_solicitation)
-      .where(created_at: @start_date..@end_date))
-      total == 0 ? "0" : "#{(secondary_count * 100).fdiv(total.size).round}%"
+      ''
     end
 
     def secondary_count
       filtered(main_query).size
+    end
+
+    def subtitle
+      I18n.t('stats.series.needs_abandoned.subtitle')
     end
   end
 end

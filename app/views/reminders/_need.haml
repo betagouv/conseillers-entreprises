@@ -16,16 +16,17 @@
               - if need.no_activity?
                 .label.label--sm.orange= t('conseiller.diagnoses.last_activity_date', l: l(need.updated_at.to_date, format: :long))
         .card__match-list.fr-mb-2w
-          - need.matches.preload(expert: :antenne).find_each do |match|
-            - expert = match.expert
-            .item
-              ⁃ #{expert.antenne.to_s}
-              - if Expert.many_pending_needs.include?(expert)
-                = link_to reminders_expert_path(expert), class: 'picto', data: { turbo: false } do
-                  %span.ri-vip-crown-2-fill{ title: t('.many_pending_needs'), 'aria-hidden': 'true' }
+          %ul.fr-p-0.list-dash
+            - need.matches.preload(expert: :antenne).find_each do |match|
+              - expert = match.expert
+              %li.item
+                - if expert.currently_in_reminders?
+                  = raw build_expert_reminders_link(expert)
+                - else
+                  #{expert.antenne.to_s}
         .card__feedbacks
           %div{ id: "display-feedbacks-#{need.id}" }
-            = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks
+            = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks, cached: true
           = render 'feedbacks/form', feedback: need.reminder_feedbacks.new
     .card__footer
       = raw build_reminders_card_footer(action, need)

@@ -20,7 +20,7 @@ describe StatsHelper do
         let!(:expert_subject_regional) { create :expert_subject, expert: expert_regional }
 
         it do
-          is_expected.to contain_exactly({ name: local_antenne.name, id: local_antenne.id }, { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: regional_antenne.name), id: regional_antenne.id }, { name: regional_antenne.name, id: regional_antenne.id })
+          is_expected.to contain_exactly({ name: I18n.t('helpers.stats_helper.antenne_with_locales', name: regional_antenne.name), id: "#{regional_antenne.id}#{I18n.t('helpers.stats_helper.with_locales')}", territorial_level: 1 }, { name: regional_antenne.name, id: regional_antenne.id, territorial_level: 1 }, { name: local_antenne.name, id: local_antenne.id, territorial_level: 2 })
         end
       end
 
@@ -30,8 +30,8 @@ describe StatsHelper do
         let!(:expert_subject) { create :expert_subject, expert: expert }
 
         it do
-          is_expected.to contain_exactly({ name: local_antenne.name, id: local_antenne.id },
-                                         { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: regional_antenne.name), id: regional_antenne.id })
+          is_expected.to contain_exactly({ name: I18n.t('helpers.stats_helper.antenne_with_locales', name: regional_antenne.name), id: "#{regional_antenne.id}#{I18n.t('helpers.stats_helper.with_locales')}", territorial_level: 1 },
+                                         { name: local_antenne.name, id: local_antenne.id, territorial_level: 2 },)
         end
       end
 
@@ -39,7 +39,7 @@ describe StatsHelper do
         let!(:expert) { create :expert_with_users, antenne: regional_antenne }
         let!(:expert_subject) { create :expert_subject, expert: expert }
 
-        it { is_expected.to contain_exactly({ name: regional_antenne.name, id: regional_antenne.id }) }
+        it { is_expected.to contain_exactly({ name: regional_antenne.name, id: regional_antenne.id, territorial_level: 1 }) }
       end
     end
 
@@ -52,7 +52,7 @@ describe StatsHelper do
         let!(:expert) { create :expert_with_users, antenne: national_antenne }
         let!(:expert_subject) { create :expert_subject, expert: expert }
 
-        it { is_expected.to contain_exactly({ name: national_antenne.name, id: national_antenne.id }) }
+        it { is_expected.to contain_exactly({ name: national_antenne.name, id: national_antenne.id, territorial_level: 0 }) }
       end
 
       context 'Antenne national avec des experts avec des antennes locales' do
@@ -63,9 +63,9 @@ describe StatsHelper do
         let!(:expert_subject_national) { create :expert_subject, expert: national_expert }
 
         it do
-          is_expected.to contain_exactly({ name: local_antenne.name, id: local_antenne.id },
-                                         { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: national_antenne.name), id: national_antenne.id },
-                                         { name: national_antenne.name, id: national_antenne.id })
+          is_expected.to contain_exactly({ name: national_antenne.name, id: national_antenne.id, territorial_level: 0 },
+                                         { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: national_antenne.name), id: "#{national_antenne.id}#{I18n.t('helpers.stats_helper.with_locales')}", territorial_level: 0 },
+                                         { name: local_antenne.name, id: local_antenne.id, territorial_level: 2 })
         end
       end
 
@@ -75,8 +75,8 @@ describe StatsHelper do
         let!(:expert_subject) { create :expert_subject, expert: expert }
 
         it do
-          is_expected.to contain_exactly({ name: local_antenne.name, id: local_antenne.id },
-                                         { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: national_antenne.name), id: national_antenne.id })
+          is_expected.to contain_exactly({ name: I18n.t('helpers.stats_helper.antenne_with_locales', name: national_antenne.name), id: "#{national_antenne.id}#{I18n.t('helpers.stats_helper.with_locales')}", territorial_level: 0 },
+                                         { name: local_antenne.name, id: local_antenne.id, territorial_level: 2 })
         end
       end
     end

@@ -35,12 +35,16 @@ module IframePrefix
   end
 
   def query_params
+    @query_params ||= fetch_query_params
+  end
+
+  def fetch_query_params
     saved_params = session[:solicitation_form_info] || {}
     # pas de session dans les iframe, on recupere les params dans l'url
-    query_params = view_params.slice(*Solicitation::FORM_INFO_KEYS + [:siret] + AdditionalSubjectQuestion.pluck(:key))
+    url_query_params = view_params.slice(*Solicitation::FORM_INFO_KEYS + [:siret, :redirected] + AdditionalSubjectQuestion.pluck(:key))
     # on supprime les params matomo anciens si doublon
-    saved_params.except!(*Solicitation::MATOMO_KEYS.map(&:to_s)) if double_matomo_params(saved_params, query_params)
-    saved_params.with_indifferent_access.merge!(query_params)
+    saved_params.except!(*Solicitation::MATOMO_KEYS.map(&:to_s)) if double_matomo_params(saved_params, url_query_params)
+    saved_params.with_indifferent_access.merge!(url_query_params)
   end
 
   def double_matomo_params(session_params, url_params)
@@ -49,7 +53,7 @@ module IframePrefix
   end
 
   def view_params
-    params.permit(:landing_slug, :slug, :siret, *Solicitation::FORM_INFO_KEYS, AdditionalSubjectQuestion.pluck(:key))
+    params.permit(:landing_slug, :slug, :siret, *Solicitation::FORM_INFO_KEYS, AdditionalSubjectQuestion.pluck(:key), :redirected)
   end
 
   def allow_in_iframe

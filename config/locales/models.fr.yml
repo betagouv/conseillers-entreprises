@@ -163,6 +163,10 @@ fr:
     users:
       deep_soft_deleted: Utilisateurs et experts solo supprimés avec succès
       delete_confirmation: Voulez-vous supprimer ces utilisateurs ? Cela va aussi supprimer leur expert personnel.
+  activeadmin:
+    feedback:
+      created_at: Date de création du commentaire
+      need_created_at: Date de création du besoin
   activerecord:
     attributes:
       additional_subject_questions:
@@ -172,6 +176,8 @@ fr:
           label: Avez-vous déjà trouvé une entreprise à reprendre ?
         etalement_cotisations_sociales:
           label: Souhaitez-vous étaler vos cotisations sociales ?
+        financement_bancaire_envisage:
+          label: Certains accompagnements publics ne viennent qu’en complément d’un financement bancaire. Envisagez-vous un financement bancaire pour votre projet ?
         formee_est_salariee_de_lentreprise:
           label: La personne que vous souhaitez former est-elle salariée de votre entreprise ?
         moins_de_10k_restant_a_financer:
@@ -199,12 +205,17 @@ fr:
         insee_code: Code commune
       company:
         activite_liberale: Activité libérale
+        facilities_naf_code: Code NAF établissements
+        facilities_regions: Régions
         inscrit_rcs: Inscrit au RCS
         inscrit_rm: Inscrit au RM
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
-        landing: Page source
+        landing: Page d’atterrissage
+        solicitation_email_cont: Email du contact
+        solicitation_mtm_campaign: Campagne
+        solicitation_mtm_kwd: Mots-clés
         useful_exchange: Échange utile
       contact:
         company: Entreprise
@@ -244,21 +255,26 @@ fr:
         intervention_criteria: Critères d’intervention
         job: rôle
       facility:
+        commune_insee_code: Code insee
         company: Entreprise
+        company_legal_form_code: Forme juridique entreprise
         readable_locality: Commune
       feedback:
         category: Catégorie
-        feedbackable: Sujet
+        feedbackable: Relation
         match_closed_at: Date de clôture de la mise en relation
         real_subject: Sujet réel
         real_theme: Thème réel
+        subject: Sujet réel
+        theme: Thématique réelle
       feedback/categories:
         need: Besoin
         reminder: Relance
         solicitation: Solicitation
       institution:
         antennes: Antennes
-        subjects: Domaines
+        subjects: Sujets
+        themes: Thèmes
         users: Conseillers
       landing:
         custom_css: CSS personnalisé
@@ -315,10 +331,16 @@ fr:
         filename: Nom du fichier image (non modifiable)
       match:
         closed_at: Date de clôture
+        company_legal_form_code: Forme juridique entreprise
         expert: Expert
         expert_id: Id de l'expert
+        facility_naf_code: Code NAF établissement
+        facility_siret_cont: Siret
+        landing: Page d’atterrissage
+        landing_subject: Sujet choisi sur le site
         landing_subject_title: Sujet choisi sur le site
-        landing_theme_title: Thème choisi sur le site
+        landing_theme: Thématique choisie sur le site
+        landing_theme_title: Thématique choisie sur le site
         match_created_at: Date de transmission du besoin
         match_id: Id de la mise en relation
         match_status: Statut de la mise en relation
@@ -331,19 +353,25 @@ fr:
         satisfaction_contacted_by_expert: Satisfaction - rappel
         satisfaction_useful_exchange: Satisfaction - utilité
         solicitation_badges: Tags de l’équipe
-        solicitation_created_at: Date de sollicitation
+        solicitation_created_at: Date de création de la sollicitation
         solicitation_description: Description de la sollicitation
         solicitation_email: Adresse mail du contact entreprise
+        solicitation_email_cont: Email
         solicitation_full_name: Contact en entreprise
+        solicitation_full_name_cont: Contact en entreprise
         solicitation_gclid: Id GA
         solicitation_id: Id de la sollicitation
+        solicitation_mtm_campaign: Campagne
+        solicitation_mtm_kwd: Mots-clés
         solicitation_phone_number: Téléphone du contact entreprise
+        solicitation_phone_number_cont: Téléphone
         solicitation_provenance_category: Type de source
         solicitation_provenance_detail: Détail de la source
         solicitation_provenance_title: Intitulé de la source
-        subject: Sujet
+        solicitation_relaunch: Relance
+        subject: Sujet réel
         taken_care_of_at: Date d’intervention
-        theme: Thème
+        theme: Thématique réelle
       match/statuses:
         done: Besoin clôturé
         done_no_help: Pas d’aide disponible
@@ -368,14 +396,14 @@ fr:
         done_not_reachable: Entreprise injoignable
         not_for_me: Ce n’est pas pour moi
         quo: En attente de réponse
-        taking_care: Prise en charge
+        taking_care: En cours
       match/statuses/short:
         done: Aide proposée
         done_no_help: Pas d’aide
         done_not_reachable: Non joignable
         not_for_me: Refusé
         quo: Pas de réponse
-        taking_care: Pris en charge
+        taking_care: En cours
       match_filter:
         accepted_legal_forms: codes forme juridique acceptés (niveau 1)
         accepted_naf_codes: codes naf acceptés
@@ -390,7 +418,11 @@ fr:
         raw_excluded_legal_forms: codes forme juridique rejetés (niveau 3)
         raw_excluded_naf_codes: codes naf rejetés
       need:
-        subject: Sujet
+        company: Entreprise
+        expert_antennes: Antenne
+        expert_institutions: Institution
+        subject: Sujet réel
+        theme: Thématique réelle
       need/statuses:
         diagnosis_not_complete: Analyse en cours
         done: Besoin clôturé
@@ -444,12 +476,16 @@ fr:
         user: Utilisateur
       solicitation:
         api_calling_url: Url d’appel
+        code_region: Région
+        company_legal_form_code: Forme juridique entreprise
         completion: Complétion
         email: Email
+        facility_naf_code: Code NAF établissement
         full_name: Prénom et nom
         institution_filters: Questions additionnelles
         landing: Page d’atterrissage
-        landing_subject: Sujet choisi
+        landing_subject: Sujet choisi sur le site
+        landing_theme: Thématique choisie sur le site
         location: Localisation
         mtm_campaign: Campagne mtm
         mtm_kwd: Mots-clés mtm
@@ -468,6 +504,8 @@ fr:
         requested_help_amount: Montant de l’aide demandée
         siret: SIRET
         slug: Slug
+        subject: Sujet réel
+        theme: Thématique réelle
         tracking: Suivi
       solicitation/statuses:
         canceled: Abandonnée
@@ -507,6 +545,7 @@ fr:
         current_sign_in_ip: IP de connexion
         encrypted_password: Mot de passe chiffré
         errors:
+          cant_change_email_and_full_name: Vous ne pouvez pas modifier en même temps le nom ET l’email, sous peine de désynchroniser l’utilisateur et son expert personnel. Changez-les l’un après l’autre, ou demandez à votre équipe de développement d’assumer la complexité du système qu’elle a elle-même créé et de faire la modification elle-même !
           cant_transfer_match: 'Les mises en relation n’ont pas pu être transférés : %{error}'
         experts:
           one: Équipe
@@ -817,6 +856,7 @@ fr:
     expert: Expert
     expert_antenne: Antenne de l’expert
     expert_institution: Institution de l’expert
+    expert_reminder: Relances par expert
     expert_subject: Domaine d’intervention
     experts:
       one: Expert
@@ -857,6 +897,7 @@ fr:
     is_archived: Archivé
     key: Identifiant
     label: Intitulé
+    landing: page d’atterrissage
     landing_subject_title: Option choisie sur le site
     landing_subjects: Sujets de landing
     landing_theme_title: Thème choisi sur le site
@@ -879,6 +920,7 @@ fr:
       one: Mise en relation
       other: Mises en relation
     mtm_campaign: Campagne
+    mtm_kwd: Mots-clés
     naf_code: Code NAF
     name: Nom
     need: Besoin
@@ -887,6 +929,7 @@ fr:
     need_created_at: Date de création du besoin
     need_id: Identifiant du besoin
     need_last_chance_at: Date d’envoi mail de la dernière chance
+    need_reminder: Relances par besoin
     need_status: Statut du besoin
     needs:
       one: Besoin
@@ -962,6 +1005,8 @@ fr:
     title: Titre
     updated_at: Date de mise à jour
     user: Conseiller
+    user_antenne: Antenne
+    user_institution: Institution
     visit: Visite
     visitee: Personne rencontrée
   deleted_account:

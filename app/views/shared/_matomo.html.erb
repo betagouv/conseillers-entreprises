@@ -14,11 +14,6 @@
   g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
   })();
 
-  // Also send all the tracking data to the old stats.data.gouv.fr Matomo server
-  var secondaryTracker = 'https://stats.data.gouv.fr/matomo.php';
-  var secondaryWebsiteId = '80';
-  _paq.push(['addTracker', secondaryTracker, secondaryWebsiteId]);
-
   // Send Matomo a new event when navigating to a new page using turbo
   // (see https://developer.matomo.org/guides/spa-tracking)
   addEventListener('turbo:load', function(event) {

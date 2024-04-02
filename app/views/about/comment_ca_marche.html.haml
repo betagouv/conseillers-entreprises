@@ -10,7 +10,7 @@
 .fr-container.fr-pb-5w
   = render 'pages/faq', faq: @faq, ld_json: @ld_json
 
-.fr-container--fluid.section-grey.fr-py-7w#liste-partenaires
+.fr-container--fluid.light-blue-bg.fr-py-7w#liste-partenaires
   .fr-container
     %h2.fr-h3= t('.partners')
     .logo-list
@@ -28,13 +28,13 @@
   .fr-container
     = render 'stats/ministats', stats: @stats
 
-.fr-container--fluid.section-grey.fr-py-7w#section-testimonials
+.fr-container--fluid.light-blue-bg.fr-py-7w#section-testimonials
   .fr-container
     %h2= t('.business_owners')
     - @temoignages.each do |temoignage|
       = render 'about/temoignage', temoignage: temoignage
 
-.fr-container--fluid.section-grey.fr-py-7w
+.fr-container--fluid.light-blue-bg.fr-py-7w
   .fr-container
     .fr-grid-row
       .fr-col-12.fr-col-md-8.fr-col-offset-md-2

@@ -3,7 +3,7 @@ module RecordExtensions
     ## A readable description of an ActiveRecord::Relation
     # > user.all.human_count
     # => "12 users"
-    # > user.last.searches.human_count
+    # > user.last.experts.human_count
     # => "12 recherches"
     def human_count
       "#{size} #{model_name.human(count: size).downcase}"

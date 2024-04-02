@@ -36,5 +36,5 @@
         %p= collection_count needs
     .fr-col-md-6.fr-col-12.text-right
       - if needs_search_params.present?
-        = link_to t('.clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
-      = f.submit t('.search'), class: 'fr-btn', title: t('.search')
+        = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
+      = f.submit t('search'), class: 'fr-btn', title: t('.search')

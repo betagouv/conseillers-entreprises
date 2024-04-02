@@ -1,5 +1,5 @@
 = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
-  .fr-grid-row.fr-grid-row--gutters.fr-mb-3w.white-bg#stats-params{ data: { controller: 'stats' } }
+  .fr-grid-row.fr-grid-row--gutters.fr-mb-3w.white-bg#stats-params{ data: { controller: 'stats', url: manager_load_filter_options_path } }
 
     .fr-col-12.fr-col-md-4
       .fr-input-group
@@ -7,9 +7,10 @@
         .fr-input-wrap
           = f.date_field :start_date, { value: stats[:start_date], class: 'fr-input' }
       .fr-select-group
-        = f.label :theme, t('stats.stats_params.theme'), class: 'fr-label'
+        = f.label :theme, class: 'fr-label' do
+          = t('stats.stats_params.theme')
         = f.collection_select :theme, filters[:themes], :id, :label, { selected: stats[:theme],
-          include_blank: t('all.feminine') }, class: "fr-select"
+          include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#fetchFilters', 'stats-target': 'themes' }
 
     .fr-col-12.fr-col-md-4
       .fr-input-group
@@ -17,7 +18,9 @@
         .fr-input-wrap
           = f.date_field :end_date, { value: stats[:end_date], class: 'fr-input' }
       .fr-select-group
-        = f.label :subject, t('activerecord.models.subject.one'), class: 'fr-label'
+        = f.label :subject, class: 'fr-label' do
+          = t('activerecord.models.subject.one')
+          .loader.loader--sm.hidden{ data: { 'stats-target': 'loader' } }
         = f.collection_select :subject, filters[:subjects], :id, :label, { selected: stats[:subject],
         include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
 
@@ -30,12 +33,10 @@
       - if filters[:antennes].many?
         .fr-select-group
           = f.label :antenne, t('activerecord.models.antenne.one'), class: 'fr-label'
-          = f.select :antenne, options_for_select(build_antennes_collection_for_select(filters[:antennes]), selected: stats[:antenne]), {}, class: "fr-select"
+          = f.select :antenne, options_for_select(filters[:antennes].pluck(:name, :id), selected: stats[:antenne]), {}, class: "fr-select"
 
     .fr-col-12
       .fr-input-group
         = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
-        - prefill_params = %i[start_date end_date institution_id colors]
-        - without_prefill_params = stats.except(*prefill_params)
-        - if without_prefill_params.present?
-          = link_to t('stats.stats_params.clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--secondary'
+        - if request.fullpath.include?("?")
+          = link_to t('clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--tertiary-no-outline'

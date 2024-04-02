@@ -3,7 +3,7 @@ module ApplicationHelper
     if block
       options, url, count, title = url, count, title, capture(&block)
     end
-    tag.li class: 'fr-sidemenu__item item-with-tag' do
+    tag.li class: "fr-sidemenu__item item-with-tag #{options[:class]}" do
       active_link_to(url, options.merge(class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active', data: { turbo: false })) do
        title
      end + tag.span("#{count}", class: "fr-tag fr-ml-2v")

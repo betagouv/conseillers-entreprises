@@ -3,4 +3,5 @@
 %ul.fr-sidemenu__list
   - collections_counts.each do |name, count|
     - path = polymorphic_path([name, :needs].compact)
-    = menu_link_with_count(t(name, scope: 'needs.collections'), count, path)
+    - options = ([:quo_active, :taking_care].include?(name) ? {} : { class: 'grey' })
+    = menu_link_with_count(t(name, scope: 'needs.collections'), count, path, options)

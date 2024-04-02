@@ -48,7 +48,6 @@ class CompaniesController < ApplicationController
         flash.now[:alert] = @message
         redirect_back fallback_location: { action: :search }, alert: @message
       else
-        save_search(siret, @company.name) if defined? @company
         render :show
       end
     else
@@ -87,10 +86,6 @@ class CompaniesController < ApplicationController
 
   def siret_is_set?
     params[:siret].present? && params[:siret].length == 14
-  end
-
-  def save_search(query, label = nil)
-    Search.create user: current_user, query: query, label: label
   end
 
   def get_current_solicitation

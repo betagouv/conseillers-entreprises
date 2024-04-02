@@ -20,7 +20,7 @@ describe 'the signin process' do
         click_on 'Accès conseillers', class: 'fr-btn'
       end
 
-      expect(page.html).to include 'Demandes reçues'
+      expect(page.html).to include 'Besoins reçus'
     end
   end
 end

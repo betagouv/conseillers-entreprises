@@ -1,16 +1,26 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Match do
-  include CsvExportable
+  menu parent: :needs, priority: 2
 
-  menu parent: :diagnoses, priority: 2
+  include CsvExportable
+  controller do
+    include DynamicallyFiltrable
+  end
 
   ## Index
   #
+  before_action only: :index do
+    init_landing_subjects_filter
+    init_subjects_filter
+    init_antennes_filter
+  end
+
   includes :need, :facility, :company, :related_matches,
            :advisor, :advisor_antenne, :advisor_institution,
            :expert, :expert_antenne, :expert_institution,
            :solicitation, :diagnosis,
+           :landing, :landing_theme, :landing_subject,
            :subject, :theme,
            facility: :commune,
            need: :subject
@@ -62,33 +72,34 @@ ActiveAdmin.register Match do
     end
   end
 
-  before_action :only => :index do
-    @antennes_collection = if params[:q].present? && params[:q][:advisor_institution_id_eq].present?
-      Antenne.where(institution_id: params[:q][:advisor_institution_id_eq])
-    else
-      Antenne.all
-    end
-  end
+  ## Filtres entreprise
+  filter :facility_siret_cont
+  filter :solicitation_full_name_cont
+  filter :solicitation_email_cont
+  filter :solicitation_phone_number_cont
+  filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
+  filter :facility_naf_code, as: :string
+  filter :company_legal_form_code, as: :string
 
+  ## Filtres Mise en relation
   collection = -> { Match.human_attribute_values(:status, raw_values: true, context: :short).invert.to_a }
   filter :status, as: :select, collection: collection, label: I18n.t('attributes.status')
   filter :archived_in, as: :boolean, label: I18n.t('attributes.is_archived')
-
   filter :solicitation_created_at, as: :date_range
-  filter :solicitation_mtm_campaign, as: :string
-
-  filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
-
   filter :expert, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
-  filter :expert_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :expert_antenne, as: :ajax_select, collection: -> { @antennes_collection.pluck(:name, :id) },
          data: { url: :admin_antennes_path, search_fields: [:name] }
-
-  filter :theme, collection: -> { Theme.ordered_for_interview }
-  filter :subject, collection: -> { Subject.not_archived.order(:label) }
-
-  filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
+  filter :expert_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
+  filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
   filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.regions.pluck(:name, :id) }
+
+  ## Filtres acquisition
+  filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
+  filter :solicitation_mtm_campaign, as: :string
+  filter :solicitation_mtm_kwd, as: :string
+  filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }, name: nil
+  filter :landing_subject, as: :ajax_select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 
   ## Show
   #

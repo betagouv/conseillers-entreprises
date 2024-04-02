@@ -127,7 +127,7 @@ class Need < ApplicationRecord
   scope :diagnosis_completed, -> { where.not(status: :diagnosis_not_complete) }
 
   scope :reminders_to, -> (action) do
-    if action == :abandon
+    if action == :refused
       diagnosis_completed
         .where(status: :not_for_me)
         .without_action(action)

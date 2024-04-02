@@ -5,10 +5,15 @@ ActiveAdmin.register Expert do
 
   controller do
     include SoftDeletable::ActiveAdminResourceController
+    include DynamicallyFiltrable
   end
 
   # Index
   #
+  before_action only: :index do
+    init_subjects_filter
+  end
+
   includes :institution, :antenne, :users,
            :communes, :territories, { antenne: [:territories, :communes] },
            :subjects, :received_matches
@@ -71,16 +76,17 @@ ActiveAdmin.register Expert do
   end
 
   filter :full_name
-  filter :job
   filter :email
+  filter :job
   filter :phone_number
-  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
   filter :antenne, as: :ajax_select, collection: -> { @antennes_collection.pluck(:name, :id) }, data: { url: :admin_antennes_path, search_fields: [:name] }
-  filter :antenne_territories, as: :ajax_select, collection: -> { Territory.bassins_emploi.pluck(:name, :id) },
-         data: { url: :admin_territories_path, search_fields: [:name] }
+  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :created_at
+  filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
+  filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
   filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
-  filter :subjects, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :themes, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
+  filter :subjects, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 
   ## CSV
   #

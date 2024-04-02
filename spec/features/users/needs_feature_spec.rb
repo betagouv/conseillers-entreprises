@@ -12,7 +12,7 @@ describe 'needs' do
 
     it 'shows the need to user' do
       visit needs_path
-      expect(page.html).to include 'Demandes reçues'
+      expect(page.html).to include 'Besoins reçus'
       expect(page.html).to include match.diagnosis.company.name
       page.click_on(need_subject)
       expect(page.html).to include need_subject

@@ -28,7 +28,7 @@ describe 'needs' do
     ])
   end
   let!(:need_abandoned) do
-    create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, created_at: 46.days.ago)], created_at: 46.days.ago)
+    create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, sent_at: 46.days.ago)], created_at: 46.days.ago)
   end
 
   describe 'user needs' do
@@ -40,7 +40,7 @@ describe 'needs' do
     it 'displays all user received needs pages' do
       visit '/'
       click_on 'Accès conseillers'
-      click_on 'Demandes reçues'
+      click_on 'Besoins reçus'
       expect(page).to have_current_path(quo_active_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 2)
 
@@ -50,7 +50,7 @@ describe 'needs' do
       expect(side_menu_link(not_for_me_needs_path)).to have_text('1')
       expect(side_menu_link(expired_needs_path)).to have_text('1')
 
-      click_on 'Prises en charge'
+      click_on 'En cours'
       expect(page).to have_current_path(taking_care_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 

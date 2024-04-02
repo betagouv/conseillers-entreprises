@@ -8,6 +8,8 @@ ActiveAdmin.register Facility do
   includes :company, :commune, :diagnoses, :needs, :matches
   config.sort_order = 'created_at_desc'
 
+  scope :all, default: true
+
   index do
     selectable_column
     column(:facility) do |f|
@@ -28,10 +30,12 @@ ActiveAdmin.register Facility do
   end
 
   filter :siret
+  filter :company_legal_form_code, as: :string
   filter :naf_code
   filter :code_effectif
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :commune_insee_code, as: :string
+  filter :regions, collection: -> { Territory.regions.order(:name) }
   filter :created_at
 
   ## Index

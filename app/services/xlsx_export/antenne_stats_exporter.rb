@@ -10,7 +10,7 @@ module XlsxExport
       p = Axlsx::Package.new
       wb = p.workbook
       title = wb.styles.add_style bg_color: 'eadecd', sz: 16, b: true, alignment: { horizontal: :center, vertical: :center }, border: { color: 'AAAAAA', style: :thin }
-      needs = @antenne.perimeter_received_needs
+      needs = @antenne.perimeter_received_needs.joins(:diagnosis).merge(Diagnosis.from_solicitation)
       year_start_date = @start_date.beginning_of_year
 
       # Quarter stats
@@ -67,7 +67,7 @@ module XlsxExport
       unless @antenne.national?
         wb.add_worksheet(name: I18n.t('antenne_stats_exporter.annual_national_stats')) do |sheet|
           sheet.add_row ["#{@antenne.institution.name} - #{I18n.t('antenne_stats_exporter.from_beginning_of_year', year: @start_date.year)}"], style: title
-          XlsxExport::AntenneStatsWorksheetGenerator::National.new(sheet, @antenne, @antenne.institution.received_needs.created_between(year_start_date, @end_date), wb.styles).generate
+          XlsxExport::AntenneStatsWorksheetGenerator::National.new(sheet, @antenne, @antenne.institution.perimeter_received_needs.created_between(year_start_date, @end_date), wb.styles).generate
         end
       end
 

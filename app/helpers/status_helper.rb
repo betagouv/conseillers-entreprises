@@ -4,7 +4,7 @@ module StatusHelper
     sent_to_no_one: 'grey-blue',
     quo: 'grey-blue',
     not_for_me: 'red',
-    taking_care: 'green',
+    taking_care: 'tilleul',
     done: 'green',
     done_no_help: 'orange',
     done_not_reachable: 'blue-dark'
@@ -13,18 +13,18 @@ module StatusHelper
   STATUS_ICONS = {
     diagnosis_not_complete: %w[],
     sent_to_no_one: %w[],
-    quo: %w[ri-loader-2-line],
+    quo: %w[ri-question-mark],
     not_for_me: %w[ri-close-line],
-    taking_care: %w[ri-add-line],
+    taking_care: %w[ri-loader-2-line],
     done: %w[ri-check-line],
-    done_no_help: %w[icon ri-check-line],
-    done_not_reachable: %w[icon ri-check-line]
+    done_no_help: %w[ri-check-line],
+    done_not_reachable: %w[ri-check-line]
   }
 
   EXPERTS_ICONS = {
-    quo: %w[ri-user-received-line],
+    quo: %w[ri-user-line],
     not_for_me: %w[ri-user-unfollow-line],
-    taking_care: %w[ri-user-add-line],
+    taking_care: %w[ri-user-search-line],
     done: %w[ri-user-follow-line],
     done_no_help: %w[ri-user-follow-line],
     done_not_reachable: %w[ri-user-follow-line],

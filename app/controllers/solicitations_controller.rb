@@ -4,6 +4,7 @@ class SolicitationsController < PagesController
   layout 'solicitation_form'
 
   before_action :prevent_completed_solicitation_modification, except: [:new, :create, :form_complete]
+  before_action :redirect_entreprendre_solicitations
   before_action :calculate_needs_count
 
   # Step contact
@@ -119,7 +120,7 @@ class SolicitationsController < PagesController
   # Step description
   #
   def step_description
-    with_step_data { build_institution_filters if @solicitation.institution_filters.blank? }
+    with_step_data { build_institution_filters }
   end
 
   def update_step_description
@@ -220,9 +221,20 @@ class SolicitationsController < PagesController
     end
   end
 
+  # http://localhost:3000/aide-entreprise/accueil/demande/transport-mobilite/?mtm_campaign=entreprendre&mtm_kwd=F123
+  def redirect_entreprendre_solicitations
+    # Si la demande vient d'entreprendre et qu'elle n'a pas encore été redirigée
+    if (query_params[:mtm_campaign] == 'entreprendre') && !(session.dig('solicitation_form_info', 'redirected') == 'entreprendre')
+      session[:solicitation_form_info] ||= query_params
+      session[:solicitation_form_info]['redirected'] = 'entreprendre'
+
+      redirect_to root_path(query_params.merge(redirected: 'entreprendre'))
+    end
+  end
+
   def calculate_needs_count
-    Rails.cache.fetch(['needs_count', @landing_subject.subject], expires_in: 1.hour) do
-      @needs_count ||= Need
+    Rails.cache.fetch(['needs_count', @landing_subject.subject, Need.by_subject(@landing_subject.subject).size], expires_in: 1.hour) do
+      @needs_count = Need
         .by_subject(@landing_subject.subject)
         .min_closed_at(1.year.ago..Date.today)
         .pluck(:id)

@@ -52,9 +52,11 @@ class Facility < ApplicationRecord
   # :diagnoses
   has_many :needs, through: :diagnoses, inverse_of: :facility
   has_many :matches, through: :diagnoses, inverse_of: :facility
+  has_many :company_satisfactions, through: :needs, inverse_of: :facility
 
   # :commune
   has_many :territories, through: :commune, inverse_of: :facilities
+  has_many :regions, -> { regions }, through: :commune, source: :territories, inverse_of: :facilities
 
   accepts_nested_attributes_for :company
 
@@ -97,7 +99,7 @@ class Facility < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["advisors", "commune", "company", "diagnoses", "matches", "needs", "opco", "territories"]
+    ["advisors", "commune", "company", "diagnoses", "matches", "needs", "opco", "territories", "regions"]
   end
 
   private

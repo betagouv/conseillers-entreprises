@@ -1,5 +1,9 @@
 # Conseillers-entreprises.service-public.fr
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/betagouv/place-des-entreprises/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/betagouv/place-des-entreprises/tree/main) [![Maintainability](https://api.codeclimate.com/v1/badges/12cdf35ab56d27c64046/maintainability)](https://codeclimate.com/github/betagouv/place-des-entreprises/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/12cdf35ab56d27c64046/test_coverage)](https://codeclimate.com/github/betagouv/place-des-entreprises/test_coverage)
+
+# <img src="doc/picto-PDE.svg" width="50"> Place des Entreprises
+
 Le service public Conseillers-Entreprises permet à l’État, aux Régions volontaires et à l’ensemble des organismes publics et parapublics de développer leur rôle de conseil auprès des TPE & PME. [Comment ça marche ?](https://conseillers-entreprises.service-public.fr/comment_ca_marche)
 
 ## Documentation

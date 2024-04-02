@@ -226,14 +226,44 @@ RSpec.describe User do
       let(:personal_skillset) { create :expert, email: 'user@email.com', full_name: 'Bob', users: [] }
       let(:team) { create :expert, email: 'team@email.com', full_name: 'Team' }
 
-      before do
-        user.update(full_name: 'Robert')
+      context 'update full_name' do
+        before do
+          user.update(full_name: 'Robert')
+        end
+
+        it 'automatically synchronizes the info in the personal skillsets' do
+          expect(user.reload.full_name).to eq 'Robert'
+          expect(personal_skillset.reload.full_name).to eq 'Robert'
+          expect(team.reload.full_name).not_to eq 'Robert'
+          expect(user.experts.size).to eq 2
+        end
       end
 
-      it 'automatically synchronizes the info in the personal skillsets' do
-        expect(user.reload.full_name).to eq 'Robert'
-        expect(personal_skillset.reload.full_name).to eq 'Robert'
-        expect(team.reload.full_name).not_to eq 'Robert'
+      context 'update email' do
+        before do
+          user.update(email: 'robert@email.com')
+        end
+
+        it 'automatically synchronizes the info in the personal skillsets' do
+          expect(user.reload.full_name).to eq 'Bob'
+          expect(user.reload.email).to eq 'robert@email.com'
+          expect(personal_skillset.reload.email).to eq 'robert@email.com'
+          expect(team.reload.email).not_to eq 'robert@email.com'
+          expect(user.experts.size).to eq 2
+        end
+      end
+
+      context 'update full_name and email' do
+        before do
+          user.update(full_name: 'Robert', email: 'robert@email.com')
+        end
+
+        it 'prevents update and expert duplication' do
+          expect(user.valid?).to be false
+          expect(user.reload.full_name).to eq 'Bob'
+          expect(user.reload.email).to eq 'user@email.com'
+          expect(user.experts.size).to eq 2
+        end
       end
     end
 

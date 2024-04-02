@@ -9,7 +9,7 @@ ActiveAdmin.register User do
 
   # Index
   #
-  includes :antenne, :institution, :searches, :feedbacks,
+  includes :antenne, :institution, :feedbacks,
            :sent_diagnoses, :sent_needs, :sent_matches,
            :relevant_experts,
            :invitees
@@ -48,7 +48,6 @@ ActiveAdmin.register User do
       div admin_link_to(u, :relevant_experts, list: true)
     end
     column(:activity) do |u|
-      div admin_link_to(u, :searches, blank_if_empty: true)
       div admin_link_to(u, :sent_diagnoses, blank_if_empty: true)
       div admin_link_to(u, :sent_needs, blank_if_empty: true)
       div admin_link_to(u, :sent_matches, blank_if_empty: true)
@@ -65,12 +64,11 @@ ActiveAdmin.register User do
   filter :full_name
   filter :email
   filter :job
-  filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
   filter :created_at
   filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
-  filter :antenne_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
 
   ## CSV
@@ -85,7 +83,6 @@ ActiveAdmin.register User do
     column :antenne
     column :institution
     column_list :experts
-    column_count :searches
     column_count :sent_diagnoses
     column_count :sent_needs
     column_count :sent_matches
@@ -110,7 +107,6 @@ ActiveAdmin.register User do
         div admin_link_to(u, :experts, list: true)
       end
       row :activity do |u|
-        div admin_link_to(u, :searches)
         div admin_link_to(u, :sent_diagnoses)
         div admin_link_to(u, :sent_needs)
         div admin_link_to(u, :sent_matches)

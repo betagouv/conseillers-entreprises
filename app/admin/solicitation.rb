@@ -1,14 +1,27 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Solicitation do
-  include CsvExportable
-
   menu priority: 7
+
+  include CsvExportable
+  controller do
+    include DynamicallyFiltrable
+  end
 
   actions :all, :except => [:destroy]
 
   ## Index
   #
+  before_action only: :index do
+    init_landing_subjects_filter
+    init_subjects_filter
+    # Mettre filtre solicitation complète par défaut, pour faciliter export
+    if params[:commit].blank? && params[:q].blank?
+      extra_params = { q: { completion_eq: "step_complete" } }
+      params.merge! extra_params
+    end
+  end
+
   scope :step_complete, default: true
   scope :step_incomplete
 
@@ -80,19 +93,6 @@ ActiveAdmin.register Solicitation do
     end
   end
 
-  before_action only: :index do
-    @landing_themes = if params[:q].present? && params[:q][:landing_id_eq].present?
-      Landing.find(params[:q][:landing_id_eq]).landing_themes
-    else
-      LandingTheme.all
-    end
-    @landing_subjects = if params[:q].present? && params[:q][:landing_subject_landing_theme_id_eq].present?
-      LandingTheme.find(params[:q][:landing_subject_landing_theme_id_eq]).landing_subjects
-    else
-      LandingSubject.all
-    end
-  end
-
   member_action :delete, method: :delete do
     if resource.diagnosis.present? && resource.diagnosis_completed?
       redirect_to resource_path, alert: t('active_admin.solicitations.diagnosis_exists')
@@ -109,37 +109,37 @@ ActiveAdmin.register Solicitation do
 
   ## Filters
   #
-  preserve_default_filters!
-  remove_filter :diagnosis  # ActiveAdmin default filters build selects for all the declared model relations.
-  remove_filter :matches    # Displaying them can become very expensive, especially if to_s is implemented
-  remove_filter :needs      # and uses yet another relation.
-  remove_filter :feedbacks
-  remove_filter :updated_at
-  remove_filter :institution
-  remove_filter :badge_badgeables
-  remove_filter :institution_filters
-  filter :landing, as: :select, collection: -> { Landing.order(:slug).pluck(:slug, :id) }
-  filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }
-  filter :subject, as: :select, collection: -> { Subject.not_archived.order(:label).pluck(:label, :id) }
+  # Filtres entreprise
+  filter :siret
+  filter :full_name
+  filter :email
+  filter :phone_number
+  filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
+  filter :facility_naf_code, as: :string
+  filter :company_legal_form_code, as: :string
+
+  # Filtres sollicitation
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
   filter :completion, as: :select, collection: -> { ['step_complete', 'step_incomplete'].map{ |completion| [I18n.t("active_admin.scopes.#{completion}"), completion] } }
+  filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
+  filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
   filter :code_region, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :code_region) }
-  filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
-  filter :mtm_campaign, as: :string
-  filter :mtm_kwd, as: :string
-  filter :relaunch, as: :string
   filter :created_at
   filter :completed_at
+  filter :description, as: :string
+  filter :badges, as: :select, collection: -> { Badge.category_solicitations.order(:title).pluck(:title, :id) }
 
-  controller do
-    before_action only: :index do
-      # Mettre filtre solicitation complète par défaut, pour faciliter export
-      if params[:commit].blank? && params[:q].blank?
-        extra_params = { q: { completion_eq: "step_complete" } }
-        params.merge! extra_params
-      end
-    end
-  end
+  # Filtres acquisition
+  filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
+  filter :mtm_campaign, as: :string
+  filter :mtm_kwd, as: :string
+  filter :relaunch, as: :select, collection: -> { ['sollicitation-etape-entreprise', 'sollicitation-etape-description', 'sollicitation-mauvaise-qualité'] }
+  filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }, name: nil
+  filter :landing_subject, as: :ajax_select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }, name: nil
+
+  # controller do
+
+  # end
 
   ## Batch actions
   # Statuses
