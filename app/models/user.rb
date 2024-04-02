@@ -149,17 +149,17 @@ class User < ApplicationRecord
 
   scope :by_region, -> (region_id) do
     return all if region_id.blank?
-    joins(antenne: :regions).where(antennes: { territories: { id: region_id } })
+    joins(antenne: :regions).where(antennes: { territories: { id: region_id } }).distinct
   end
 
   scope :by_subject, -> (subject_id) do
     return all if subject_id.blank?
-    joins(experts: :subjects).where(experts: { subjects: subject_id })
+    joins(experts: :subjects).where(experts: { subjects: subject_id }).distinct
   end
 
   scope :by_theme, -> (theme_id) do
     return all if theme_id.blank?
-    joins(experts: :themes).where(experts: { themes: theme_id })
+    joins(experts: :themes).where(experts: { themes: theme_id }).distinct
   end
 
   # Team stuff
@@ -186,10 +186,12 @@ class User < ApplicationRecord
 
   scope :in_region, -> (region_id) do
     return all if region_id.blank?
-    left_joins(:experts, antenne: :regions)
-      .where(antennes: { territories: { id: [region_id] } })
-      .or(self.where(experts: { is_global_zone: true }))
-      .distinct
+    left_joins(antenne: :regions)
+    .left_joins(:experts)
+    .select('"antennes".*, "users".*')
+    .where(antennes: { territories: { id: [region_id] } })
+    .or(self.select('"antennes".*, "users".*').where(experts: { is_global_zone: true }))
+    .distinct
   end
 
   ## Search
