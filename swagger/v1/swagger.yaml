@@ -13,7 +13,7 @@ info:
   version: 1.0.0
   contact:
     name: Équipe technique
-    email: tech@place-des-entreprises.beta.gouv.fr
+    email: tech@entreprises.service-public.fr
 tags:
 - name: Page d’atterrissage
 - name: Thèmes
@@ -727,7 +727,7 @@ paths:
               "$ref": "#/components/schemas/new_solicitation"
         required: true
 servers:
-- url: https://place-des-entreprises.beta.gouv.fr
+- url: https://conseillers-entreprises.service-public.fr
 - url: https://reso-staging.osc-fr1.scalingo.io
 components:
   schemas:
