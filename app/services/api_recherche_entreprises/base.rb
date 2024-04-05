@@ -27,12 +27,13 @@ module ApiRechercheEntreprises
     end
 
     def handle_error(http_request)
-      Sentry.with_scope do |scope|
-        scope.set_tags({ 
-        error_code: http_request.error_code,
+      tags = {
         error_message: http_request.error_message
-      })
-      Sentry.capture_message("Erreur Api Recherche Entreprise")
+      }
+      tags.merge({ error_code: http_request.error_code }) if http_request.error_code.present?
+      Sentry.with_scope do |scope|
+        scope.set_tags(tags)
+        Sentry.capture_message("Erreur Api Recherche Entreprise")
       end
       raise ApiError, http_request.error_message
     end
@@ -58,7 +59,8 @@ module ApiRechercheEntreprises
       @query = query
       @options = options
       begin
-        @http_response = HTTP.get(url)
+        # @http_response = HTTP.get(url)
+        raise "ahaha"
         @data = @http_response.parse(:json)
       rescue StandardError => e
         @error = e
@@ -70,11 +72,11 @@ module ApiRechercheEntreprises
     end
 
     def error_message
-      @error&.message || @data['erreur'] || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
+      @error&.message || @data['erreur'] || @http_response&.status.reason || DEFAULT_ERROR_MESSAGE
     end
 
     def error_code
-      @http_response.code
+      @http_response&.code
     end
 
     private
