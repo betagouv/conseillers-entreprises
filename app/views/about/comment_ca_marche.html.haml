@@ -40,21 +40,4 @@
           .fr-responsive-vid.youtube_player{ autoplay: "0", loading: "0", loop: "0", rel: "0", showinfo: "1", theme: "light", videoid: "QuCt9NvHBPU", title: [t('youtube_video'), t('.pde_testimonial')].join(' : ') }
           %h2.fr-content-media__caption= t('.pde_testimonial')
 
-        .fr-transcription#transcription-testimonial
-          %button.fr-transcription__btn{ 'aria-controls': 'fr-transcription-collapse-transcription-testimonial', 'aria-expanded': 'false', 'data-fr-js-collapse-button': 'false' }
-            = t('.read_transcription')
-          .fr-collapse.fr-collapse--expanded#fr-transcription-collapse-transcription-testimonial{ 'data-fr-js-collapse': 'false' }
-            .fr-transcription__footer
-              .fr-transcription__actions-group
-                %button.fr-btn--fullscreen.fr-btn{ 'aria-controls': 'fr-transcription-modal-transcription-testimonial', 'aria-label': t('pages.navbar.extend'), 'data-fr-js-modal-button': 'false', 'data-fr-opened': 'false' }
-                  = t('pages.navbar.extend')
-            .fr-modal#fr-transcription-modal-transcription-testimonial{ 'aria-labelledby': 'fr-transcription-modal-transcription-testimonial-title', 'data-fr-js-modal': 'false' }
-              .fr-container.fr-container--fluid.fr-container-md
-                .fr-grid-row.fr-grid-row--center
-                  .fr-col-12.fr-col-md-10.fr-col-lg-8
-                    .fr-modal__body{ 'data-fr-js-modal-body': 'false' }
-                      .fr-modal__header
-                        %button.fr-btn--close.fr-btn{ 'aria-controls': 'fr-transcription-modal-transcription-testimonial', 'data-fr-js-modal-button': 'false', title: t('pages.navbar.close') }
-                          = t('pages.navbar.close')
-                      .fr-modal__content{ 'aria-hidden': 'true' }
-                        = render 'about/transcription_pde_testimonial'
+        = render 'shared/transcription', key: 'testimonial'

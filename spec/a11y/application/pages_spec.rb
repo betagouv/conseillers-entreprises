@@ -9,8 +9,8 @@ describe 'pages', :js, type: :feature do
 
   describe '/tutoriels' do
     before { visit '/tutoriels' }
-    it { is_expected.to be_axe_clean }
-    # it { is_expected.to be_accessible }
+
+    it { is_expected.to be_accessible }
   end
 
   describe '/conseiller/sitemap' do

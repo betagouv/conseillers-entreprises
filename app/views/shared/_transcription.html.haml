@@ -1,0 +1,18 @@
+.fr-transcription{ id: "transcription-#{key}" }
+  %button.fr-transcription__btn{ 'aria-controls': "fr-transcription-collapse-transcription-#{key}", 'aria-expanded': 'false', 'data-fr-js-collapse-button': 'false' }
+    = t('.read_transcription')
+  .fr-collapse.fr-collapse{ id: "fr-transcription-collapse-transcription-#{key}" }
+    .fr-transcription__footer
+      .fr-transcription__actions-group
+        %button.fr-btn--fullscreen.fr-btn{ 'aria-controls': "fr-transcription-modal-transcription-#{key}", 'aria-label': t('pages.navbar.extend'), 'data-fr-opened': 'false' }
+          = t('pages.navbar.extend')
+    .fr-modal{ id: "fr-transcription-modal-transcription-#{key}", 'aria-labelledby': "fr-transcription-modal-transcription-#{key}-title" }
+      .fr-container.fr-container--fluid.fr-container-md
+        .fr-grid-row.fr-grid-row--center
+          .fr-col-12.fr-col-md-10.fr-col-lg-8
+            .fr-modal__body
+              .fr-modal__header
+                %button.fr-btn--close.fr-btn{ 'aria-controls': "fr-transcription-modal-transcription-#{key}", title: t('pages.navbar.close') }
+                  = t('pages.navbar.close')
+              .fr-modal__content
+                = render "transcription_pde_#{key}"

@@ -10,24 +10,7 @@
     .fr-col-12.fr-col-md-10
       %p.bold= t('.available_on_html',
         dailymotion_link: link_to(t('.dailymotion'), 'https://dai.ly/x8bu8ye', title: "#{t('.dailymotion_video_title')}", target: '_blank', rel: 'noopener'))
-      .fr-transcription#transcription-tutoriel
-        %button.fr-transcription__btn{ 'aria-controls': 'fr-transcription-collapse-transcription-tutoriel', 'aria-expanded': 'false', 'data-fr-js-collapse-button': 'false' }
-          = t('.read_transcription')
-        .fr-collapse.fr-collapse--expanded#fr-transcription-collapse-transcription-tutoriel{ 'data-fr-js-collapse': 'false' }
-          .fr-transcription__footer
-            .fr-transcription__actions-group
-              %button.fr-btn--fullscreen.fr-btn{ 'aria-controls': 'fr-transcription-modal-transcription-tutoriel', 'aria-label': t('pages.navbar.extend'), 'data-fr-js-modal-button': 'false', 'data-fr-opened': 'false' }
-                = t('pages.navbar.extend')
-          .fr-modal#fr-transcription-modal-transcription-tutoriel{ 'aria-labelledby': 'fr-transcription-modal-transcription-tutoriel-title', 'data-fr-js-modal': 'false' }
-            .fr-container.fr-container--fluid.fr-container-md
-              .fr-grid-row.fr-grid-row--center
-                .fr-col-12.fr-col-md-10.fr-col-lg-8
-                  .fr-modal__body{ 'data-fr-js-modal-body': 'false' }
-                    .fr-modal__header
-                      %button.fr-btn--close.fr-btn{ 'aria-controls': 'fr-transcription-modal-transcription-tutoriel', 'data-fr-js-modal-button': 'false', title: t('pages.navbar.close') }
-                        = t('pages.navbar.close')
-                    .fr-modal__content{ 'aria-hidden': 'true' }
-                      = render 'transcription_pde_tutorial'
+      = render 'shared/transcription', key: 'tutoriel'
 
   .fr-grid-row.fr-grid-row--center
     .fr-col-12.fr-col-md-10
