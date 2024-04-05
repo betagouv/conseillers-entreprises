@@ -32,7 +32,7 @@ module ApiRechercheEntreprises
         error_code: http_request.error_code,
         error_message: http_request.error_message
       })
-        Sentry.capture_message("Erreur Api Recherche Entreprise")
+      Sentry.capture_message("Erreur Api Recherche Entreprise")
       end
       raise ApiError, http_request.error_message
     end
@@ -57,8 +57,8 @@ module ApiRechercheEntreprises
     def initialize(query, options = {})
       @query = query
       @options = options
-      @http_response = HTTP.get(url)
       begin
+        @http_response = HTTP.get(url)
         @data = @http_response.parse(:json)
       rescue StandardError => e
         @error = e
