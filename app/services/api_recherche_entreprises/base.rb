@@ -35,7 +35,7 @@ module ApiRechercheEntreprises
         scope.set_tags(tags)
         Sentry.capture_message("Erreur Api Recherche Entreprise")
       end
-      raise ApiError, http_request.error_message
+      raise ApiError, Request::DEFAULT_ERROR_MESSAGE
     end
 
     def id_key
@@ -71,8 +71,7 @@ module ApiRechercheEntreprises
     end
 
     def error_message
-      DEFAULT_ERROR_MESSAGE
-      # @error&.message || @data['erreur'] || @http_response&.status.reason || DEFAULT_ERROR_MESSAGE
+      @error&.message || @data['erreur'] || @http_response&.status.reason || DEFAULT_ERROR_MESSAGE
     end
 
     def error_code
