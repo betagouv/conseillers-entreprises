@@ -59,6 +59,7 @@ module ApiRechercheEntreprises
       @query = query
       @options = options
       begin
+        raise
         @http_response = HTTP.get(url)
         @data = @http_response.parse(:json)
       rescue StandardError => e
@@ -71,7 +72,8 @@ module ApiRechercheEntreprises
     end
 
     def error_message
-      @error&.message || @data['erreur'] || @http_response&.status.reason || DEFAULT_ERROR_MESSAGE
+      DEFAULT_ERROR_MESSAGE
+      # @error&.message || @data['erreur'] || @http_response&.status.reason || DEFAULT_ERROR_MESSAGE
     end
 
     def error_code
