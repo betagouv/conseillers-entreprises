@@ -59,7 +59,6 @@ module ApiRechercheEntreprises
       @query = query
       @options = options
       begin
-        raise
         @http_response = HTTP.get(url)
         @data = @http_response.parse(:json)
       rescue StandardError => e
