@@ -27,15 +27,19 @@ module ApiRechercheEntreprises
     end
 
     def handle_error(http_request)
-      tags = {
-        error_message: http_request.error_message
-      }
-      tags.merge({ error_code: http_request.error_code }) if http_request.error_code.present?
-      Sentry.with_scope do |scope|
-        scope.set_tags(tags)
-        Sentry.capture_message("Erreur Api Recherche Entreprise")
+      if http_request.has_tech_error?
+        tags = {
+          error_message: http_request.error_message
+        }
+        tags.merge({ error_code: http_request.error_code }) if http_request.error_code.present?
+        Sentry.with_scope do |scope|
+          scope.set_tags(tags)
+          Sentry.capture_message("Erreur Api Recherche Entreprise")
+        end
+        raise ApiError, Request::DEFAULT_ERROR_MESSAGE
+      else
+        raise ApiError, http_request.error_message
       end
-      raise ApiError, Request::DEFAULT_ERROR_MESSAGE
     end
 
     def id_key
@@ -72,6 +76,10 @@ module ApiRechercheEntreprises
 
     def error_message
       @error&.message || @data['erreur'] || @http_response&.status.reason || DEFAULT_ERROR_MESSAGE
+    end
+
+    def has_tech_error?
+      error_code.nil? || (error_code.present? && error_code != 400)
     end
 
     def error_code
