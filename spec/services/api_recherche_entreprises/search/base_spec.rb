@@ -26,8 +26,8 @@ RSpec.describe ApiRechercheEntreprises::Search::Base do
 
     before do
       stub_request(:get, url).to_return(
-        status: 400, 
-        body: ({ "erreur": "Veuillez indiquer au moins un paramètre de recherche." }.to_json)
+        status: 400,
+        body: ({ erreur: "Veuillez indiquer au moins un paramètre de recherche." }.to_json)
       )
     end
 
@@ -41,8 +41,8 @@ RSpec.describe ApiRechercheEntreprises::Search::Base do
 
     before do
       stub_request(:get, url).to_return(
-        status: 429, 
-        body: ({ "erreur": "Trop de requêtes." }.to_json)
+        status: 429,
+        body: ({ erreur: "Trop de requêtes." }.to_json)
       )
     end
 
@@ -56,8 +56,8 @@ RSpec.describe ApiRechercheEntreprises::Search::Base do
 
     before do
       stub_request(:get, url).to_return(
-        status: 500, 
-        body: ({ "erreur": "Connection refused" }.to_json)
+        status: 500,
+        body: ({ erreur: "Connection refused" }.to_json)
       )
     end
 
