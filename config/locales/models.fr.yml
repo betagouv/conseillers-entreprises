@@ -604,10 +604,10 @@ fr:
               facility_commune_not_found: La commune de l’établissement n’a pas été trouvée
             matches:
               format: 'Mises en relation : %{message}.'
-              preselected_institution_has_no_relevant_experts: aucun expert de l’institution préselectionnée ne peut prendre en charge cette entreprise
+              preselected_institution_has_no_relevant_experts: aucun expert de l’institution présélectionnée ne peut prendre en charge cette entreprise
             needs:
               format: 'Besoins : %{message}.'
-              solicitation_has_no_preselected_subject: il n’y a pas de sujet préselectionné
+              solicitation_has_no_preselected_subject: il n’y a pas de sujet présélectionné
             solicitation:
               has_already_a_diagnosis: Une analyse existe deja pour cette sollicitation.
         landing_subjects:

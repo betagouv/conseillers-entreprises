@@ -57,7 +57,7 @@ fr:
         subject: Avez-vous besoin d’aide ?
       satisfaction:
         intro_html: 'Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concernait :'
-        outro: Votre avis est important pour nous aider à améliorer ce service d'acompagnement des entreprises.
+        outro: Votre avis est important pour nous aider à améliorer ce service d'accompagnement des entreprises.
         question_one_html: Avez-vous été rappelé(e) par un conseiller ou une conseillère ? <a href='%{link_yes}' target='_blank' class='response-button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='response-button no'>Non</a>
         subject: Fin du suivi de votre demande « %{subject} »
         tank_you: Merci pour votre confiance,
@@ -65,14 +65,14 @@ fr:
         continue_button_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Finaliser ma demande d’aide</a>"
         incomplete_step_explanation: 'Nous avons besoin de votre SIRET ou SIREN pour vous fournir un conseil personnalisé et de proximité. Pour trouver votre SIRET, vous pouvez renseigner le nom de votre entreprise en cliquant ci-dessous :'
         service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
-        subject: Finalisez votre demande pour «%{subject}»
-        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet «<strong>%{subject}</strong>» sur le site Conseillers-entreprises.service-public.fr.
+        subject: Finalisez votre demande pour  «%{subject} »
+        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site Conseillers-entreprises.service-public.fr.
       solicitation_relaunch_description:
         continue_button_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Finaliser ma demande d’aide</a>"
         incomplete_step_explanation: Vous pouvez expliquer votre problématique avec quelques éléments de contexte pour bénéficier d’un conseil personnalisé.
         service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
-        subject: Finalisez votre demande à propos de «%{subject}»
-        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet «<strong>%{subject}</strong>» sur le site Conseillers-entreprises.service-public.fr.
+        subject: Finalisez votre demande à propos de « %{subject} »
+        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site Conseillers-entreprises.service-public.fr.
       why_this_message_html: "<strong>Pourquoi recevez-vous ce message ?</strong>"
     cordially: Cordialement,
     email_sent: L’email a bien été envoyé
@@ -117,7 +117,7 @@ fr:
         needs_for_you: Les entreprises ci-dessous ont souhaité bénéficier de votre expertise via le site Conseillers-entreprises.service-public.fr.
         needs_quo: Pourriez-vous nous partager votre position sur ces besoins ?
         subject: 'Récap : Des entreprises ont besoin de vous !'
-        support_contact_label: 'Si vous n’arrivez pas à accéder au au détail d’un besoin, contactez :'
+        support_contact_label: 'Si vous n’arrivez pas à accéder au détail d’un besoin, contactez :'
         visited_days_ago: transmis il y a %{days} par %{advisor}, votre contact territorial
         visited_on: transmis le %{date}
       support_contacts:
