@@ -75,14 +75,14 @@ module  Annuaire
     end
 
     def retrieve_users
-    @users = base_users
-      .relevant_for_skills
-      .order('antennes.name', 'team_name', 'users.full_name')
-      .preload(:antenne, :user_rights_manager, relevant_expert: [:users, :antenne, :experts_subjects, :communes])
-      .select('"antennes".*, "users".*')
-      .by_region(session[:annuaire_region])
-      .by_theme(session[:annuaire_theme])
-      .by_subject(session[:annuaire_subject])
+      @users = base_users
+        .relevant_for_skills
+        .order('antennes.name', 'team_name', 'users.full_name')
+        .preload(:antenne, :user_rights_manager, relevant_expert: [:users, :antenne, :experts_subjects, :communes])
+        .select('"antennes".*, "users".*')
+        .by_region(session[:annuaire_region])
+        .by_theme(session[:annuaire_theme])
+        .by_subject(session[:annuaire_subject])
     end
 
     def base_users

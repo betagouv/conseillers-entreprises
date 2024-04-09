@@ -187,11 +187,11 @@ class User < ApplicationRecord
   scope :in_region, -> (region_id) do
     return all if region_id.blank?
     left_joins(antenne: :regions)
-    .left_joins(:experts)
-    .select('"antennes".*, "users".*')
-    .where(antennes: { territories: { id: [region_id] } })
-    .or(self.select('"antennes".*, "users".*').where(experts: { is_global_zone: true }))
-    .distinct
+      .left_joins(:experts)
+      .select('"antennes".*, "users".*')
+      .where(antennes: { territories: { id: [region_id] } })
+      .or(self.select('"antennes".*, "users".*').where(experts: { is_global_zone: true }))
+      .distinct
   end
 
   ## Search
