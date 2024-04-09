@@ -18,7 +18,7 @@ module  Annuaire
 
     def retrieve_institutions
       @institutions = Institution.expert_provider.includes(:logo, :themes).not_deleted.order(:slug)
-      @institutions = @institutions.in_region(session[:annuaire_region_id]) if session[:annuaire_region_id].present?
+      @institutions = @institutions.by_region(session[:annuaire_region]) if session[:annuaire_region].present?
       @institutions = @institutions.joins(:themes).where(themes: { id: session[:annuaire_theme] }) if session[:annuaire_theme].present?
       @institutions = @institutions.joins(:subjects).where(subjects: { id: session[:annuaire_subject] }) if session[:annuaire_subject].present?
     end
