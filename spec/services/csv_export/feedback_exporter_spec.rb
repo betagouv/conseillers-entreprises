@@ -28,7 +28,7 @@ describe CsvExport::FeedbackExporter, CsvExport do
   it do
     csv = <<~CSV
       Type de source,Intitulé de la source,Détail de la source,Identifiant du besoin,Date de création du besoin,SIRET,Thème réel,Sujet réel,Statut du besoin,Date de clôture du besoin,Statut de la mise en relation,Date de cloture,Antenne de l’expert,Institution de l’expert,Commentaires des conseillers de l’antenne,Satisfaction - rappel,Satisfaction - utilité,Commentaire de satisfaction,Page besoin
-      Iframe,landing-slug,www.example.fr,#{need.id},#{I18n.l(need.created_at, format: :admin)},12345678900011,Environnement,Energie,En cours de prise en charge,,Pris en charge,,GIEC Bretagne,GIEC,"- 21/01/2024 16:42 Premier commentaire.\n- 23/01/2024 15:02 Deuxième commentaire",oui,non,Commentaire de satisfaction,http://test.host/besoins/#{need.id}
+      Iframe,landing-slug,www.example.fr,#{need.id},#{I18n.l(need.created_at, format: :admin)},12345678900011,Environnement,Energie,En cours de prise en charge,,En cours,,GIEC Bretagne,GIEC,"- 21/01/2024 16:42 Premier commentaire.\n- 23/01/2024 15:02 Deuxième commentaire",oui,non,Commentaire de satisfaction,http://test.host/besoins/#{need.id}
     CSV
     is_expected.to eq csv
   end

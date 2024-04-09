@@ -18,8 +18,9 @@
         %td= t('.date_creation_etablissement')
         %td= date_from_timestamp(etablissement.date_creation)
       %tr
-        %td= t('.region_implantation')
-        %td= etablissement.libelle_region
+        - if etablissement.libelle_region.present?
+          %td= t('.region_implantation')
+          %td= etablissement.libelle_region
       %tr
         %td= t('.commune_implantation')
         %td= etablissement.commune

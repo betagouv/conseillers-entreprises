@@ -36,21 +36,21 @@ describe 'solicitation_form', :js, type: :feature do
       fill_in 'Prénom et nom', with: 'Mariane'
       fill_in 'Email', with: 'user@example.com'
       fill_in 'Téléphone', with: '0123456789'
-      click_button 'Suivant'
+      click_on 'Suivant'
       # Second step
       ## Search company
       is_expected.to be_accessible
       fill_in 'Recherchez votre entreprise (SIRET, SIREN, nom...)', with: query
-      click_button 'Suivant'
+      click_on 'Suivant'
       # ## Search Facility
       is_expected.to be_accessible
-      click_button "#{query} - Octo Technology"
+      click_on "#{query} - Octo Technology"
       # Third step
       is_expected.to be_accessible
       fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
       choose 'Oui', name: 'solicitation[institution_filters_attributes][0][filter_value]', allow_label_click: true
       choose 'Oui', name: 'solicitation[institution_filters_attributes][1][filter_value]', allow_label_click: true
-      click_button 'Envoyer ma demande'
+      click_on 'Envoyer ma demande'
       # Thank's step
       is_expected.to be_accessible
     end

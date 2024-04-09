@@ -23,83 +23,81 @@ describe 'admin panel' do
       create_base_dummy_data
       visit '/admin'
 
-      click_link 'Utilisateurs'
-      click_link 'Créer Utilisateur'
+      click_on 'Utilisateurs'
+      click_on 'Créer Utilisateur'
 
-      click_link 'Recherches'
+      click_on 'Entreprises'
+      click_on 'Créer Entreprise'
 
-      click_link 'Entreprises'
-      click_link 'Créer Entreprise'
+      click_on 'Contact'
+      click_on 'Créer Contact'
 
-      click_link 'Contact'
-      click_link 'Créer Contact'
-
-      click_link 'Experts'
-      click_link 'Créer Expert'
+      click_on 'Experts'
+      click_on 'Créer Expert'
       visit "/admin/experts/#{Expert.first.id}"
-      click_link 'Modifier Expert'
-      click_button 'Modifier ce(tte) Expert'
+      click_on 'Modifier Expert'
+      click_on 'Modifier ce(tte) Expert'
 
-      click_link 'Antennes'
-      click_link 'Créer Antenne'
+      click_on 'Antennes'
+      click_on 'Créer Antenne'
 
-      click_link 'Institutions'
-      click_link 'Créer Institution'
+      click_on 'Institutions'
+      click_on 'Créer Institution'
 
-      click_link 'Logos'
-      click_link 'Créer Logo'
+      click_on 'Logos'
+      click_on 'Créer Logo'
 
-      click_link 'Territoires'
-      click_link 'Créer Territoire'
+      click_on 'Territoires'
+      click_on 'Créer Territoire'
 
-      click_link 'Communes'
-      click_link 'Créer Commune'
+      click_on 'Communes'
+      click_on 'Créer Commune'
 
-      click_link 'Thématiques'
-      click_link 'Créer Thématique'
+      click_on 'Thématiques'
+      click_on 'Créer Thématique'
 
-      click_link 'Sujets'
-      click_link 'Créer Sujet'
+      click_on 'Sujets'
+      click_on 'Créer Sujet'
 
-      click_link 'Landings'
-      click_link 'Créer Landing'
+      click_on 'Landings'
+      click_on 'Créer Landing'
 
-      click_link 'Thématiques de landing'
-      click_link 'Créer Thématique de landing'
+      click_on 'Thématiques de landing'
+      click_on 'Créer Thématique de landing'
 
-      click_link 'Sollicitations'
+      click_on 'Sollicitations'
       visit "/admin/solicitations/#{Solicitation.first.id}"
-      click_link 'Modifier Sollicitation'
-      click_button 'Modifier ce(tte) Sollicitation'
+      click_on 'Modifier Sollicitation'
+      click_on 'Modifier ce(tte) Sollicitation'
 
-      click_link 'Analyses'
-      click_link 'Créer Analyse'
+      click_on 'Analyses'
+      click_on 'Créer Analyse'
 
-      click_link 'Besoins'
-      click_link 'Créer Besoin'
+      click_on 'Besoins'
+      click_on 'Créer Besoin'
 
-      click_link 'Mises en relation'
-      click_link 'Créer Mise en relation'
+      click_on 'Mises en relation'
+      click_on 'Créer Mise en relation'
 
-      click_link 'Commentaires'
-      click_link 'Créer Commentaire'
+      click_on 'Commentaires'
+      click_on 'Créer Commentaire'
 
-      click_link 'Entreprises'
-      click_link 'Créer Entreprise'
+      click_on 'Entreprises'
+      click_on 'Créer Entreprise'
 
-      click_link 'Établissements'
-      click_link 'Créer Établissement'
+      click_on 'Établissements'
+      click_on 'Créer Établissement'
 
-      click_link 'Contacts'
-      click_link 'Créer Contact'
+      click_on 'Contacts'
+      click_on 'Créer Contact'
 
-      click_link 'Satisfactions'
-      click_link 'Créer Satisfaction'
+      click_on 'Satisfactions'
+      click_on 'Créer Satisfaction'
 
-      click_link 'Email Retentions'
-      click_link 'Créer Email Retention'
+      click_on 'Email Retentions'
+      click_on 'Créer Email Retention'
 
-      click_link current_user.full_name
+      click_on current_user.full_name
     end
 
     it 'displays user name' do
@@ -114,7 +112,7 @@ describe 'admin panel' do
       current_user.user_rights.create(category: 'admin')
       visit '/admin'
 
-      click_link 'Mises en relation'
+      click_on 'Mises en relation'
     end
 
     it('displays page content') { expect(page.html).to include 'Mises en relation' }

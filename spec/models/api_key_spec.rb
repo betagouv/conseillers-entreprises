@@ -7,7 +7,7 @@ RSpec.describe ApiKey do
     describe 'active' do
       subject { described_class.active }
 
-      let!(:active_key) { create :api_key, valid_until: ApiKey::LIFETIME.since }
+      let!(:active_key) { create :api_key, valid_until: described_class::LIFETIME.since }
       let!(:revoked_key) { create :api_key, valid_until: 1.month.ago }
 
       it { is_expected.to contain_exactly(active_key) }
@@ -16,7 +16,7 @@ RSpec.describe ApiKey do
 
   describe 'instance_methods' do
     describe 'revoke' do
-      subject(:api_key) { create :api_key, valid_until: ApiKey::LIFETIME.since }
+      subject(:api_key) { create :api_key, valid_until: described_class::LIFETIME.since }
 
       it 'changes key validation' do
         expect(api_key.active?).to be true

@@ -6,13 +6,21 @@
 .fr-container
   .fr-grid-row
     .fr-col
-      %h1= title
+      %h1.fr-h2= title
 
 .fr-container
   .fr-grid-row
     = render 'stats_params', stats: @stats_params, filters: @filters
   .fr-grid-row.fr-grid-row--gutters#stats-charts
-    - @charts_names.each do |name|
+    - if @stats_params[:antenne].nil?
       .fr-col-12.fr-mb-4w
-        = turbo_frame_tag name, stats_params: @stats_params, src: manager_load_data_path(chart_name: name) do
-          = render 'stats/skeleton_card'
+        .fr-alert.fr-alert--warning.fr-mt-4w
+          %h3.h4.fr-alert__title= t('.no_experts_subjects')
+          - support_user = current_user.antenne.support_user
+          - if support_user.present?
+            %p= t('.support_user_html', name: support_user.full_name, email: support_user.email, phone: support_user.phone_number)
+    - else
+      - @charts_names.each do |name|
+        .fr-col-12.fr-mb-4w
+          = turbo_frame_tag name, stats_params: @stats_params, src: manager_load_data_path(chart_name: name) do
+            = render 'stats/skeleton_card'

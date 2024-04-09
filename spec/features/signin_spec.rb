@@ -15,9 +15,9 @@ describe 'the signin process' do
 
   context 'active user' do
     it do
-      click_button 'Accès conseillers'
+      click_on 'Accès conseillers', class: 'fr-btn'
 
-      expect(page.html).to include 'Demandes reçues'
+      expect(page.html).to include 'Besoins reçus'
     end
   end
 end

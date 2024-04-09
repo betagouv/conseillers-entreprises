@@ -31,12 +31,12 @@ describe 'ApplicationController specific features' do
       it 'shows no errors' do
         visit '/besoins'
         visit '/mon_compte'
-        click_link 'Mot de passe'
-        click_link 'Antenne'
-        click_link 'Domaines d’intervention'
-        click_link 'Tutoriel'
+        click_on 'Mot de passe'
+        click_on 'Antenne'
+        click_on 'Domaines d’intervention'
+        click_on 'Tutoriel'
         visit 'entreprises/search'
-        expect(page.html).to include 'Demandes reçues'
+        expect(page.html).to include 'Besoins reçus'
         expect(page.html).not_to include 'Administration'
         expect(page.html).not_to include 'Annuaire'
         expect(page.html).not_to include 'Tags'
@@ -52,7 +52,7 @@ describe 'ApplicationController specific features' do
         visit '/besoins'
         visit '/manager/besoins-des-antennes'
         visit '/export-des-donnees'
-        expect(page.html).to include 'Demandes reçues'
+        expect(page.html).to include 'Besoins reçus'
       end
     end
 
@@ -62,10 +62,10 @@ describe 'ApplicationController specific features' do
       it 'shows no errors' do
         visit '/mon_compte'
         expect(page.html).to include 'Annuaire'
-        click_link 'Annuaire'
-        click_link 'Tags'
-        click_link 'Exports csv'
-        click_link 'Inviter des utilisateurs'
+        click_on 'Annuaire'
+        click_on 'Tags'
+        click_on 'Exports csv'
+        click_on 'Inviter des utilisateurs'
       end
     end
   end
@@ -77,7 +77,7 @@ describe 'ApplicationController specific features' do
       visit new_user_session_path
       fill_in I18n.t('attributes.email'), with: user.email
       fill_in I18n.t('activerecord.attributes.user.password'), with: password
-      click_button I18n.t('sign_in')
+      click_on I18n.t('sign_in'), class: 'fr-btn'
     end
 
     context 'first connexion' do

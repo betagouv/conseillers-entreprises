@@ -3,5 +3,5 @@
   .fr-card__body
     .fr-card__content
       %h3.fr-card__title
-        = link_to landing_theme.title, path
+        = link_to landing_theme.title, path, class: 'click-on-landing-theme'
       = simple_format(landing_theme.description, class: 'fr-card__desc')

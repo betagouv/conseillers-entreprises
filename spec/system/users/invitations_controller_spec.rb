@@ -19,7 +19,7 @@ describe 'invitations', :js do
       fill_in id: 'user_job', with: 'Conseillère'
       select 'Agence tous risques', from: 'user_antenne_id'
 
-      click_button 'Envoyer l’invitation'
+      click_on 'Envoyer l’invitation'
     end
 
     it 'creates a new invited user' do
@@ -44,7 +44,7 @@ describe 'invitations', :js do
       fill_in id: 'user_password_confirmation', with: 'yX*4Ubo_xPW!u'
       page.execute_script("document.querySelector('[data-controller=\"cgu-acceptance\"] label').click()")
 
-      click_button 'Enregistrer'
+      click_on 'Enregistrer'
     end
 
     it 'marks the invitation as accepted, and takes modifications into account' do

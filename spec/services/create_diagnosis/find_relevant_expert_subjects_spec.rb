@@ -383,18 +383,18 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
   end
 
   describe 'apply_institution_filters' do
-    subject{ described_class.new(need).apply_institution_filters(ExpertSubject.all) }
+    subject{ described_class.new(need).apply_institution_filters(ExpertSubject.of_subject(need.subject)) }
 
     let(:common_subject) { create :subject }
     let(:additional_question) { create :additional_subject_question, subject: common_subject }
 
     let(:institution_filter_ok) { create :institution }
-    let!(:es_filter_ok) { create :expert_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_filter_ok)) }
+    let!(:es_filter_ok) { create :expert_subject, subject: common_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_filter_ok)) }
     let(:institution_filter_ko) { create :institution }
-    let!(:es_filter_ko) { create :expert_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_filter_ko)) }
-    let!(:es_temoin) { create :expert_subject }
+    let!(:es_filter_ko) { create :expert_subject, subject: common_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_filter_ko)) }
+    let!(:es_temoin) { create :expert_subject, subject: common_subject }
 
-    let(:need) { create :need }
+    let(:need) { create :need, subject: common_subject }
 
     context 'need with filter' do
       before do
@@ -413,6 +413,70 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       end
 
       it { is_expected.to contain_exactly(es_temoin, es_filter_ok, es_filter_ko) }
+    end
+
+    context 'multiple interrelated questions' do
+      # moins de 10 000 + oui banque = Adie, Initiative
+      # moins de 10 000 + non banque = Adie
+      # plus de 10 000 + oui banque = Bpi, BDF, Initiative
+      # plus de 10 000 + non banque = BDF, Adie
+
+      let(:investment_subject) { create :subject, label: 'Investissement' }
+      let(:adie) { create :institution, slug: 'adie' }
+      let!(:es_adie) { create :expert_subject, expert: create(:expert, institution: adie), subject: investment_subject }
+      let(:initiative) { create :institution, slug: 'initiative-france' }
+      let!(:es_initiative) { create :expert_subject, expert: create(:expert, institution: initiative), subject: investment_subject }
+      let(:bpi) { create :institution, slug: 'bpifrance' }
+      let!(:es_bpi) { create :expert_subject, expert: create(:expert, institution: bpi), subject: investment_subject }
+      let(:bdf) { create :institution, slug: 'banque-de-france' }
+      let!(:es_bdf) { create :expert_subject, expert: create(:expert, institution: bdf), subject: investment_subject }
+
+      let(:need) { create :need, subject: investment_subject }
+      let(:less_than_10k_question) { create :additional_subject_question, key: 'moins_de_10k_restant_a_financer' }
+      let(:bank_question) { create :additional_subject_question, key: 'financement_bancaire_envisage' }
+
+      before do
+        adie.institution_filters.create(additional_subject_question: less_than_10k_question, filter_value: true)
+        initiative.institution_filters.create(additional_subject_question: less_than_10k_question, filter_value: true)
+        bpi.institution_filters.create(additional_subject_question: bank_question, filter_value: true)
+        bdf.institution_filters.create(additional_subject_question: bank_question, filter_value: true)
+      end
+
+      describe 'moins de 10 000 + oui banque' do
+        before do
+          need.institution_filters.create(additional_subject_question: less_than_10k_question, filter_value: true)
+          need.institution_filters.create(additional_subject_question: bank_question, filter_value: true)
+        end
+
+        it { is_expected.to contain_exactly(es_adie, es_initiative) }
+      end
+
+      describe 'moins de 10 000 + non banque' do
+        before do
+          need.institution_filters.create(additional_subject_question: less_than_10k_question, filter_value: true)
+          need.institution_filters.create(additional_subject_question: bank_question, filter_value: false)
+        end
+
+        it { is_expected.to contain_exactly(es_adie) }
+      end
+
+      describe 'plus de 10 000 + oui banque' do
+        before do
+          need.institution_filters.create(additional_subject_question: less_than_10k_question, filter_value: false)
+          need.institution_filters.create(additional_subject_question: bank_question, filter_value: true)
+        end
+
+        it { is_expected.to contain_exactly(es_bpi, es_bdf, es_initiative) }
+      end
+
+      describe 'plus de 10 000 + non banque' do
+        before do
+          need.institution_filters.create(additional_subject_question: less_than_10k_question, filter_value: false)
+          need.institution_filters.create(additional_subject_question: bank_question, filter_value: false)
+        end
+
+        it { is_expected.to contain_exactly(es_bdf, es_adie) }
+      end
     end
   end
 

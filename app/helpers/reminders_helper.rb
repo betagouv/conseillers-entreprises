@@ -14,10 +14,17 @@ module RemindersHelper
     html
   end
 
+  def build_expert_reminders_link(expert)
+    current_basket = expert.last_reminder_register.basket
+    link = link_to expert.antenne.to_s, reminders_expert_path(expert), title: t('helpers.reminders.link_to_expert_reminders'), data: { turbo: false }
+    icon = tag.span(class: "fr-ml-1v reminders-icon #{t(current_basket, scope: 'reminders.experts.scopes.icon')}", title: t('helpers.reminders.present_in_basket', basket: t(current_basket, scope: 'reminders.experts.scopes.name')), 'aria-hidden': 'true')
+    link + icon
+  end
+
   private
 
   def with_email
-    %i[last_chance abandon]
+    %i[last_chance refused]
   end
 
   def with_last_chance_email
@@ -25,11 +32,11 @@ module RemindersHelper
   end
 
   def with_abandoned_email
-    %i[abandon]
+    %i[refused]
   end
 
   def with_action
-    %i[poke last_chance abandon]
+    %i[poke last_chance refused quo_match starred_need]
   end
 
   def action_button(action, need)
@@ -41,7 +48,7 @@ module RemindersHelper
     button = if with_last_chance_email.include? action
       form_builder(send_last_chance_email_reminders_need_path(need), t('reminders.send_last_chance_email'), need)
     elsif with_abandoned_email.include? action
-      form_builder(send_abandoned_email_reminders_need_path(need), t('reminders.send_abandoned_need_email'), need)
+      form_builder(send_failure_email_reminders_need_path(need), t('reminders.send_failure_email'), need)
     end
     tag.div(button, id: "reminder-email-#{need.id}",)
   end

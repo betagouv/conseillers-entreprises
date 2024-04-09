@@ -1,7 +1,7 @@
 module Reminders
   class NeedsController < BaseController
-    before_action :persist_filter_params, :setup_territory_filters, :collections_counts
-    before_action :find_need, only: %i[send_abandoned_email send_last_chance_email]
+    before_action :collections_counts
+    before_action :find_need, only: %i[send_failure_email send_last_chance_email]
 
     def index
       redirect_to action: :poke
@@ -15,19 +15,30 @@ module Reminders
       render_collection(:last_chance)
     end
 
-    def abandon
-      render_collection(:abandon)
+    def refused
+      render_collection(:refused)
     end
 
-    def send_abandoned_email
+    def expert
+      @expert = Expert.find(params.permit(:expert_id)[:expert_id])
+      @needs = @expert.received_needs
+        .reminders_to(:last_chance)
+        .joins(:matches, :experts)
+        .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
+        .order(:created_at)
+        .distinct
+        .page(params[:page])
+    end
+
+    def send_failure_email
       ActiveRecord::Base.transaction do
         @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_sent'),
                                     feedbackable_type: 'Need', feedbackable_id: @need.id)
-        CompanyMailer.abandoned_need(@need).deliver_later
+        CompanyMailer.failed_need(@need).deliver_later
       end
       respond_to do |format|
         format.js { render template: 'reminders/needs/add_feedback', layout: false }
-        format.html { redirect_to abandon_reminders_needs_path, notice: t('mailers.email_sent') }
+        format.html { redirect_to refused_reminders_needs_path, notice: t('mailers.email_sent') }
       end
     end
 
@@ -80,7 +91,7 @@ module Reminders
     end
 
     def filtered_needs
-      @filtered_needs ||= Need.apply_filters(reminders_filter_params)
+      @filtered_needs ||= Need.apply_filters(index_search_params)
     end
   end
 end

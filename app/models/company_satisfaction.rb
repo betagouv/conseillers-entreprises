@@ -20,12 +20,15 @@
 #
 class CompanySatisfaction < ApplicationRecord
   belongs_to :need, inverse_of: :company_satisfaction
-  has_one :solicitation, through: :need, inverse_of: :diagnosis
+  has_one :diagnosis, through: :need, inverse_of: :company_satisfactions
+  has_one :solicitation, through: :diagnosis, inverse_of: :company_satisfactions
   has_one :landing, through: :solicitation, inverse_of: :solicitations
   has_one :landing_subject, through: :solicitation, inverse_of: :solicitations
   has_one :subject, through: :need, inverse_of: :needs
+  has_one :theme, through: :need, inverse_of: :needs
   has_many :matches, through: :need, inverse_of: :need
   has_many :facility_regions, through: :need, inverse_of: :needs
+  has_one :facility, through: :need, inverse_of: :needs
 
   # Satisfaction pour les MER avec aide proposée
   has_many :done_matches, -> { status_done }, class_name: 'Match', through: :need, inverse_of: :need, source: :matches
@@ -35,6 +38,26 @@ class CompanySatisfaction < ApplicationRecord
 
   validates :contacted_by_expert, :useful_exchange, inclusion: { in: [true, false] }
 
+  scope :solicitation_mtm_campaign_cont, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_campaign_cont(query))
+  }
+
+  scope :solicitation_mtm_campaign_eq, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_campaign_eq(query))
+  }
+
+  scope :solicitation_mtm_campaign_start, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_campaign_start(query))
+  }
+
+  scope :solicitation_mtm_campaign_end, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_campaign_end(query))
+  }
+
+  def self.ransackable_scopes(auth_object = nil)
+    %w[solicitation_mtm_campaign_cont solicitation_mtm_campaign_eq solicitation_mtm_campaign_start solicitation_mtm_campaign_end]
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ["comment", "contacted_by_expert", "created_at", "id", "id_value", "need_id", "updated_at", "useful_exchange"]
   end
@@ -42,7 +65,7 @@ class CompanySatisfaction < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [
       "done_antennes", "done_experts", "done_institutions", "done_matches", "facility_regions", "landing",
-      "landing_subject", "matches", "need", "solicitation", "subject"
+      "landing_subject", "matches", "need", "diagnosis", "solicitation", "subject", "theme", "facility"
     ]
   end
 end

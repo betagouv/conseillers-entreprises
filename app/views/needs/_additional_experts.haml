@@ -1,31 +1,14 @@
 :ruby
-  return unless current_user&.is_admin?
+  return unless policy(need).add_match?
 
-.additional-experts.fr-pt-2w{ id: "additional_experts-#{need.id}" }
-  .content
-    = form_with url: additional_experts_need_path(need), remote: true, method: :get do |f|
-      .fr-search-bar
-        %span.ri-user-add-fill.blue.info-icon{ title: t('.ambulance_explanation'), 'aria-hidden': 'true' }
-        = f.hidden_field :need, value: need.id, class: 'fr-label'
-        = f.search_field :query, value: local_assigns[:query], autofocus: local_assigns[:query].present?,
-        class: 'fr-input', required: true, minlength: 3, placeholder: t('.add_other_experts')
-        = f.button t('search'), title: t('search'), data: { disable_with: t('search') }, class: 'fr-btn btn-blue'
-
-    - if !local_assigns[:experts].nil?
-      - if local_assigns[:experts].empty?
-        %p.fr-p-4w.fr-m-0= t('.no_expert_found')
-      - else
-        = form_with url: add_match_need_path do |f|
-          %ul.list-unstyled
-            - local_assigns[:experts].each do |expert|
-              - confirm_message = t('.add_match_with', name: expert.full_name, subject: need.subject)
-              %li
-                = f.button "#{expert.full_name} (#{expert.job} - #{expert.antenne.name})", value: expert.id,
-                name: :expert, data: { confirm: confirm_message }, remote: true, class: 'gray-link'
-                %ul.list-unstyled
-                  - expert.experts_subjects.each do |expert_subject|
-                    %li.fr-text--sm.fr-text--alt.fr-m-0
-                      %span.ri-arrow-right-s-line{ 'aria-hidden': 'true' }
-                      = expert_subject.institution_subject.description
-                      - if expert_subject.intervention_criteria.present?
-                        = " / #{expert_subject.intervention_criteria}"
+.additional-experts.fr-pt-2w#add-expert-form{ data: { controller: "expert-autocomplete" }, id: "additional_experts-#{need.id}" }
+  .expert-search-bar
+    = form_with url: add_match_need_path(need), data: { 'expert-autocomplete-target': 'form', turbo_frame: "match-checkboxes-XXX" } do |add_f|
+      = add_f.hidden_field :need_id, value: need.id, data: { 'toggle-block-target': 'itemId' }
+      = add_f.hidden_field :expert_id, value: nil, data: { 'expert-autocomplete-target': 'expertField' }
+      .label-loader
+        = label_tag "expert", t('.add_other_experts'), class: 'fr-label'
+        .hidden.loader.fr-ml-1w{ data: { 'expert-autocomplete-target': 'loader' } }
+    .input
+      %span.ri-user-add-fill.blue.info-icon{ title: t('.ambulance_explanation'), 'aria-hidden': 'true' }
+      .autocomplete-container{ data: { 'expert-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'omnisearch', 'search-url': conseiller_experts_path } }

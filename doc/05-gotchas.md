@@ -4,9 +4,9 @@
 * [Development (en)](02-development.md)
 * [Deployment (en)](03-deployment.md)
 * [Architecture (fr)](04-architecture.md)
-* ➡ [Gotchas (fr)](05-gotchas.md)
+* ➡ [Gotchas & tips (fr)](05-gotchas.md)
 
-# Place des Entreprises - Gotchas
+# Place des Entreprises - Gotchas & Tips
 
 ## Problème de génération des reports
 

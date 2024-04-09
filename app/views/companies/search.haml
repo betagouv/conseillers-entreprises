@@ -20,10 +20,3 @@
                 %p.fr-tile__desc
                   %span.ri-attachment-2.icon{ 'aria-hidden': 'true' }
                   #{I18n.t("attributes.siret")} : #{etablissement.siret}
-
-  %h2= t('.latest_searches')
-  - searches = current_user.searches.recent
-  - if searches.present?
-    %ul
-      - searches.each do |search|
-        %li= link_to search.summary, search_companies_path(query: search.query)

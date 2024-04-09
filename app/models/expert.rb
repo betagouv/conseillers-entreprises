@@ -50,6 +50,7 @@ class Expert < ApplicationRecord
   validates :email, presence: true, unless: :deleted?
   validates :full_name, presence: true
   validates_associated :experts_subjects, on: :import
+  validate :personal_skillset_synchronisation_ok, on: :update, if: -> { full_name_changed? || email_changed? }
 
   ## “Through” Associations
   #
@@ -69,9 +70,9 @@ class Expert < ApplicationRecord
   has_many :received_diagnoses, through: :received_matches, source: :diagnosis, inverse_of: :experts
 
   # :experts_subjects
-  has_many :institutions_subjects, through: :experts_subjects, inverse_of: :experts
-  has_many :subjects, through: :experts_subjects, inverse_of: :experts
-  has_many :themes, through: :experts_subjects, inverse_of: :experts
+  has_many :institutions_subjects, through: :experts_subjects, source: :institution_subject, inverse_of: :experts
+  has_many :subjects, through: :experts_subjects, source: :subject, inverse_of: :experts
+  has_many :themes, through: :experts_subjects, source: :theme, inverse_of: :experts
 
   # :users
   has_many :feedbacks, through: :users, source: :feedbacks, inverse_of: :experts
@@ -140,16 +141,6 @@ class Expert < ApplicationRecord
       .distinct
   end
 
-  # referent avec besoin dans boite reception vieux de + de X jours
-  # Utilisation d'arel pour plaire a brakeman
-  scope :with_old_needs_in_inbox, -> do
-    joins(:received_quo_matches)
-      .merge(Match
-        .where(archived_at: nil)
-        .where(Match.arel_table[:created_at].lt(RemindersService::MATCHES_AGE[:old])))
-      .distinct
-  end
-
   # Pas besoin de distinct avec cette méthode
   scope :most_needs_quo_first, -> do
     left_outer_joins(:received_quo_matches)
@@ -189,7 +180,7 @@ class Expert < ApplicationRecord
     begin
       by_region(param)
     rescue ActiveRecord::RecordNotFound => e
-      self.send(param)
+      self.send(param) if [I18n.t('helpers.expert.national_perimeter.value')].include?(param)
     end
   }
 
@@ -229,6 +220,7 @@ class Expert < ApplicationRecord
   scope :many_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.many_pending_needs_basket) }
   scope :medium_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.medium_pending_needs_basket) }
   scope :one_pending_need, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.one_pending_need_basket) }
+  scope :in_reminders_registers, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category).distinct }
   scope :inputs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_input_category) }
   scope :outputs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_output_category) }
   scope :expired_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_expired_need_category) }
@@ -243,6 +235,10 @@ class Expert < ApplicationRecord
 
   def last_reminder_register
     reminders_registers.order(:created_at).last
+  end
+
+  def currently_in_reminders?
+    last_reminder_register&.run_number == RemindersRegister.last_run_number
   end
 
   def input_register
@@ -261,6 +257,11 @@ class Expert < ApplicationRecord
   def personal_skillset?
     users.size == 1 &&
       users.first.email.casecmp(self.email)&.zero?
+  end
+
+  def was_personal_skillset_before_update?
+    users.size == 1 &&
+      users.first.email.casecmp(self.email_was)&.zero?
   end
 
   def without_users?
@@ -309,6 +310,14 @@ class Expert < ApplicationRecord
 
   ## Updates
   #
+  def personal_skillset_synchronisation_ok
+    return true if deleted?
+    return true unless (email_changed? && full_name_changed? && was_personal_skillset_before_update?)
+
+    errors.add :full_name, I18n.t('activerecord.attributes.user.errors.cant_change_email_and_full_name')
+    false
+  end
+
   def synchronize_single_member
     users.first.update_columns(self.user_personal_skillsets_shared_attributes)
   end

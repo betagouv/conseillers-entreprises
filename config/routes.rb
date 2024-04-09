@@ -103,12 +103,19 @@ Rails.application.routes.draw do
         end
       end
     end
+    resources :veille, only: %i[index], path: 'veille' do
+      collection do
+        get :quo_matches, path: 'mer-en-attente'
+        get :starred_needs, path: 'besoins-suivis'
+      end
+    end
   end
 
   namespace 'manager' do
     controller :stats do
       get :index, path: 'stats', as: :stats
       get :load_data, as: :load_data
+      get :load_filter_options
     end
     resources :needs, only: :index, path: 'besoins-des-antennes' do
       collection do
@@ -152,8 +159,8 @@ Rails.application.routes.draw do
       get :expired, path: 'expirees'
     end
     member do
-      get :additional_experts
       post :add_match
+      post :star
     end
   end
 
@@ -186,13 +193,14 @@ Rails.application.routes.draw do
     resources :needs, path: 'besoins', only: %i[index] do
       member do
         post :update_badges
-        post :send_abandoned_email
+        post :send_failure_email
         post :send_last_chance_email
       end
       collection do
         get :poke, path: 'sans-reponse'
         get :last_chance, path: 'risque-abandon'
-        get :abandon, path: 'refuses'
+        get :refused, path: 'refuses'
+        get :expert, path: 'risque-abandon-expert'
       end
     end
     resources :reminders_registers, only: :update
@@ -294,7 +302,7 @@ Rails.application.routes.draw do
         get :needs, path: 'besoins'
         get :matches, path: 'mises-en-relation'
         get :load_data
-        get :institution_filters
+        get :load_filter_options
       end
     end
   end

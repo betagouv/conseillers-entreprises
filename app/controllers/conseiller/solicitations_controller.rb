@@ -1,5 +1,7 @@
 class Conseiller::SolicitationsController < ApplicationController
-  before_action :authorize_index_solicitation, :persist_search_params, :set_category_content, :count_solicitations, only: [:index, :processed, :canceled]
+  include PersistedSearch
+
+  before_action :authorize_index_solicitation, :set_category_content, :count_solicitations, only: [:index, :processed, :canceled]
   before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis]
 
   layout 'side_menu'
@@ -84,32 +86,13 @@ class Conseiller::SolicitationsController < ApplicationController
     Solicitation
       .includes(:badge_badgeables, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne }, landing_subject: :subject, institution: :logo)
       .where(status: status)
-      .apply_filters(sol_search_params)
+      .apply_filters(index_search_params)
       .order(:completed_at)
       .page(params[:page])
   end
 
-  def sol_search_params
-    session[:sol_search_params]&.with_indifferent_access
-  end
-  helper_method :sol_search_params
-
   def authorize_index_solicitation
     authorize Solicitation, :index?
-  end
-
-  def persist_search_params
-    session[:sol_search_params] ||= {}
-    search_params = params.slice(:omnisearch, :by_region).permit!
-    if params[:reset_query].present?
-      reset_session
-    else
-      session[:sol_search_params] = session[:sol_search_params].merge(search_params)
-    end
-  end
-
-  def reset_session
-    session[:sol_search_params] = {}
   end
 
   def find_solicitation
@@ -135,6 +118,18 @@ class Conseiller::SolicitationsController < ApplicationController
       {
         in_progress: ordered_solicitations(:in_progress).total_count
       }
+  end
+
+  def search_session_key
+    :sol_search_params
+  end
+
+  def search_fields
+    [:omnisearch, :by_region]
+  end
+
+  def territory_options_complement
+    [ t('helpers.solicitation.uncategorisable_label'), t('helpers.solicitation.uncategorisable_value') ]
   end
 
   def get_and_format_facilities

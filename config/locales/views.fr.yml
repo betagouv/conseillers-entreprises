@@ -103,8 +103,8 @@ fr:
       account: Compte
       admin: Administration
       annuaire: Annuaire
-      antenne_needs: Demandes de l’antenne
-      antennes_needs: Demandes des antennes
+      antenne_needs: Besoins de l’antenne
+      antennes_needs: Besoins des antennes
       badges: Tags
       close: Fermer
       csv_exports: Exports csv
@@ -154,8 +154,6 @@ fr:
   come_back_to_home: Retour à l’accueil
   companies:
     company:
-      activite_liberale: Activité libérale
-      activite_liberale_yes_no: 'Activité libérale : %{response}'
       capital_social: Capital social
       categorie_entreprise: Catégorie de l’entreprise
       date_cessation: Date de cessation
@@ -165,10 +163,6 @@ fr:
       forme_exercice: Nature de l’entreprise
       forme_juridique: Forme juridique
       information: Informations sur l’entreprise
-      inscrit_rcs: Inscrit au RCS
-      inscrit_rcs_yes_no: 'Inscrit au RCS : %{response}'
-      inscrit_rm: Inscrit au RM
-      inscrit_rm_yes_no: 'Inscrit au RM : %{response}'
       siren: SIREN
       tranche_effectif_salarie_entreprise: Tranche d’effectif de salariés de l’entreprise
     facility:
@@ -199,7 +193,6 @@ fr:
       title_html: Liste des besoins pour %{company} <span class="fr-text--lg">(%{siret})</span>
     search:
       generic_error: La recherche a échoué pour une raison inconnue. Réessayez plus tard.
-      latest_searches: Recherches récentes
       search_company: Recherche d’une entreprise existante
     search_form:
       subtitle: Par SIRET, raison sociale, adresse, activité
@@ -274,7 +267,6 @@ fr:
         title: Plan du site
     solicitations:
       index:
-        clear_search: Réinitialiser la recherche
         header: Sollicitations %{status}
         no_result: Il n'y a pas de résultat pour cette recherche.
         no_results: Aucune sollicitation trouvée
@@ -308,6 +300,16 @@ fr:
         start_manual_diagnosis: Analyse manuelle
       solicitation_badges:
         add_remove_badges: Ajouter / Enlever des tags
+    veille:
+      index:
+        no_results: Aucun résultat
+        title: Veille
+      instructions:
+        quo_matches: MER en attente de réponse depuis + de 9 jours et - de 45 jours hors PQ
+        starred_needs: Besoins marqués comme suivi lors de l'analyse
+      titles:
+        quo_matches: MER en attente
+        starred_needs: Besoins suivis
   contacts:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
@@ -347,8 +349,6 @@ fr:
     form:
       expert_reminder:
         placeholder: " "
-      need:
-        placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise et nous avons convenu d’un rendez-vous le 23/11. »'
       need_reminder:
         placeholder: " "
       prefill: 'Préremplissage :'
@@ -358,6 +358,8 @@ fr:
       submit: Commenter
       thank_you_html: "<p class='fr-m-0 fr-ml-16v'><b>Merci, votre commentaire a été publié.</b></p>"
       title: 'Nouveau commentaire :'
+  filters:
+    select_antenne: Sélectionnez une antenne
   helpers:
     annuaire:
       anomalie_less: Aucun expert pour ce sujet
@@ -380,6 +382,9 @@ fr:
     page_infos:
       collection_count_html: "<strong>%{size}</strong> %{name}"
       searched_collection_count_html: "<strong>%{size}</strong> Résultats trouvés"
+    reminders:
+      link_to_expert_reminders: Lien vers la fiche de l’expert dans les paniers qualité
+      present_in_basket: Cet expert est présent dans le panier « %{basket} »
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       localisation_html: 'Localisation : <strong>%{region}</strong>'
@@ -437,7 +442,9 @@ fr:
         one_antenne_title: Antenne %{name} - toutes les demandes
     stats:
       index:
+        no_experts_subjects: Votre antenne ne semble pas pouvoir recevoir de besoins. Nous ne pouvons donc pas afficher de statistiques.
         stats: Statistiques
+        support_user_html: Vous pouvez contacter votre référent <strong>%{name}</strong> au <strong>%{phone}</strong> ou par email <strong><a href='mailto:%{email}'>%{email}</a></strong>.
   matches:
     match:
       change_match_status: Modifier le statut du besoin
@@ -447,10 +454,8 @@ fr:
       taken_care_of_at: Prise en charge
   needs:
     additional_experts:
-      add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
       add_other_experts: Rechercher d’autres experts à mettre en relation
       ambulance_explanation: Notifier un nouveau conseiller référencé, quel que soit le partenaire, le sujet ou le territoire
-      no_expert_found: Aucun résultat
     collections:
       archived: Archivées
       done: Clôturées
@@ -458,7 +463,7 @@ fr:
       not_for_me: Refusées
       quo_active: Boite de réception
       search: Recherche
-      taking_care: Prises en charge
+      taking_care: En cours
     collections_single:
       archived: Archivée
       done: Clôturée
@@ -474,14 +479,19 @@ fr:
         other: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.
       welcome_title: Bienvenue sur Place des Entreprises
     index:
-      title: Demandes reçues
+      title: Besoins reçus
     match_actions:
+      call_company: 1. J’appelle l’entreprise
       can_you_help: Pouvez-vous aider l’entreprise %{company} ?
       cancel: Annuler
       cancel_taking_care: Annuler ma prise en charge
-      close_need: 'Clôturer votre intervention :'
+      close_need: 2. Je clôture mon intervention
       contact_company: C‘est à vous de jouer et de contacter l’entreprise %{company}
       deposited_on_partner_website_html: Demande déposée sur le site %{partner_link}
+      feedback_placeholder:
+        done: 'Par exemple : « J’ai appelé le chef d’entreprise et nous avons convenu d’un rendez-vous le 23/11. »'
+        done_no_help: 'Par exemple : « Je n’ai pas d’aide pour les entreprises de moins de 3 ans »'
+        done_not_reachable: 'Par exemple : « J’ai appelé le chef d’entreprise le 3/04 sans succès, lui ai laissé un message et envoyé un mail avec la documentation sur tel dispositif.»'
       help_provided:
         content: Un conseil, un accompagnement ou une aide financière a pu être proposée.
         title: Une aide proposée
@@ -495,19 +505,16 @@ fr:
       not_reachable:
         content: Le chef d’entreprise ne répond pas mais il a mes coordonnées pour me recontacter.
         title: Entreprise injoignable
-      placeholder_no_help: 'Par exemple : « Je n’ai pas d’aide pour les entreprises de moins de 3 ans »'
       take_care: J’appelle
       validate: Valider
       your_turn_html: C’est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
     search:
-      clear_search: Réinitialiser la recherche
       created_since: Date de début
       created_until: Date de fin
       more_filters: Voir plus de filtres
       omnisearch: Rechercher par entreprise, contact, description...
       search: Rechercher
       search_placeholder: 'Ex : La mie tendre, Lucie Martin, plomberie, financement...'
-      select_antenne: Selectionnez une antenne
     show:
       all_experts: Experts notifiés
       all_needs: Toutes les demandes
@@ -516,6 +523,7 @@ fr:
       company: Entreprise
       diagnosis_not_completed: Analyse non terminée, vous ne pouvez pas accéder à la page du besoin.
       more_informations: Plus d'informations
+      my_intervention: Mon intervention
       needs_historic: Historique des besoins
       no_comment: Aucun commentaire
       no_match: Aucun expert de notifié
@@ -526,6 +534,9 @@ fr:
       transmitted_by: Demande transmise par
       warning_comments: Attention ! Cette discussion n’est pas visible par l’entreprise.
       workforce: 'Effectifs de l’établissement : %{range}'
+    star_btn:
+      need_starred: Besoin suivi
+      star_need: Suivre le besoin
   newsletters:
     create:
       error_newsletter_subscription: Une erreur s’est produite, merci de réessayer.
@@ -586,7 +597,8 @@ fr:
       expert:
         expert_creation_date: Inscription le %{date}
         manager_name: 'Responsable : %{name}'
-        matches_total: Demandes depuis le début
+        matches_total: Mises en relation reçues depuis le début
+        needs_in_last_chance: Besoins en risque d’abandon
         process: Vu
         received_matches: reçues
         send_one_pending_need_email: Envoyer l’email de réengagement
@@ -630,43 +642,46 @@ fr:
       send_reminder_email:
         email_send: Email de relance envoyé
     index:
-      title: Relances
-    need:
-      many_pending_needs: Cet expert est présent dans le paniers « plus de 5 besoins en attentes »
+      title: Risques d’échec
     needs:
+      expert:
+        title: Risques d’abandon pour %{expert}
       filters:
         search: Rechercher
       index:
         no_results: Aucun besoin dans ce panier
       navbar:
-        title: Relances
+        title: Risques d’échec
       scopes:
         detail:
           last_chance: J+%{days}
           poke: J+%{days}
         instruction:
-          abandon: Je fais un mail d’échec à l’entreprise
           last_chance: j’envoie le mail de la dernière chance aux experts, puis le besoin sera automatiquement abandonné
           not_for_me: Besoins avec toutes les mises en relation refusées
           poke: Je mets un commentaire sur la fiche pour relancer la dynamique
+          refused: Je fais un mail d’échec à l’entreprise
         mark_done:
-          abandon: Traiter
           last_chance: Experts relancés
           poke: Experts relancés
+          quo_match: Traiter
+          refused: Traiter
+          starred_need: Traiter
         name:
-          abandon: Refusés
           last_chance: Risque d’abandon
           poke: Sans réponse
-      send_abandoned_email:
-        email_sent: Email d’échec envoyé au dirigeant
+          quo_match: MER en attente
+          refused: Refusés
+      send_failure_email:
+        email_sent: Email d’échec envoyé à l’entreprise
       send_last_chance_email:
         email_send: Email de la dernière chance envoyé à %{teams}
     needs_badges:
       add_remove_badges: Ajouter ou retirer un tag
     section:
       experts: Paniers qualité
-      needs: relances
-    send_abandoned_need_email: Envoyer l’email d’échec au dirigeant
+      needs: Risques d’échec
+    send_failure_email: Envoyer l’email d’échec au dirigeant
     send_last_chance_email: Envoyer l’email de la dernière chance
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
@@ -878,9 +893,14 @@ fr:
         title: Besoins identifiés
         title_table: Nombre de besoins identifiés
       needs_abandoned:
-        subtitle: Le besoin est considéré comme abandonné lorsque aucun conseiller ne s’est positionné au bout de 45 jours ou 10 jours après l'envoi d'un mail de relance. Il est resté sans réponse malgré les relances et le suivi qualité dont il a fait l’objet.
-        title: de besoins abandonnés, soit %{secondary_count} besoins
+        subtitle: Besoins triés par mois selon leur date de création
+        title: Évolution des besoins abandonnés dans le temps
         title_table: Nombre de besoins abandonnés
+      needs_abandoned_total_count:
+        series: Besoins abandonnés
+        subtitle: Besoins triés par mois selon leur date de création
+        title: de besoins transmis sont abandonnés en l’absence de positionnement des conseillers, soit %{secondary_count} besoins
+        title_table: Nombre total de besoins abandonnés
       needs_done:
         subtitle: Une clôture par « une aide proposée » signifie qu’un conseiller a pu proposer par téléphone un conseil, un accompagnement technique ou une aide financière au chef d’entreprise pour répondre à sa problématique.
         title: des besoins transmis sont clôturés par une aide proposée, soit %{secondary_count} besoins
@@ -891,10 +911,10 @@ fr:
         title_table: Nombre de besoins clôturés grâce à une aide proposée
       needs_done_no_help:
         subtitle: La clôture sans accompagnement signifie que l’entreprise a bien été rappelée par au moins un conseiller, mais que celui-ci n’a finalement pas pu l’aider au regard de sa situation particulière.
-        title: de besoins clôturés sans aide disponible
+        title: des besoins transmis sont clôturés sans aide possible, soit %{secondary_count} besoins
         title_table: Nombre de besoins clôturés sans aide disponible
       needs_done_not_reachable:
-        title: de besoins clôturés faute d’avoir pu joindre l’entreprise
+        title: des besoins transmis sont clôturés sans avoir pu joindre l’entreprise, soit %{secondary_count} besoins
         title_table: Nombre de besoins clôturés faute d’avoir pu joindre l’entreprise
       needs_exchange_with_expert:
         title: des besoins transmis ont donné lieu à un échange avec un conseiller, soit %{secondary_count} besoins
@@ -902,7 +922,7 @@ fr:
         with_exchange: Avec échange
         without_exchange: Sans échange
       needs_not_for_me:
-        title: de besoins refusés
+        title: des besoins transmis sont refusés, soit %{secondary_count} besoins
         title_table: Nombre de besoins refusés
       needs_quo:
         title: des besoins transmis sont en attente de prise en charge par les conseillers
@@ -947,9 +967,8 @@ fr:
       sum: Total
     stats_params:
       campaign: Campagne
-      clear_search: Réinitialiser la recherche
       end_date: Date de fin
-      filter: Filtrer
+      filter: Rechercher
       keywords: Détail de la source
       region: Région
       select_institution: Selectionnez une institution
@@ -1002,6 +1021,7 @@ fr:
       index:
         select_partner: Attention ! Pensez à sélectionner un partenaire
         title: Statistiques équipe
+        unselect_partner: Attention, les statistiques publiques mesurent l’activité cumulée des partenaires.
       matches: Pilotage par partenaire
       needs: Pilotage par besoins
       public: Statistiques publiques
@@ -1011,6 +1031,7 @@ fr:
   temoignage:
     image_title: Photo de %{author}
   to_new_window: ouvre une nouvelle fenêtre
+  undefined: Non défini
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:

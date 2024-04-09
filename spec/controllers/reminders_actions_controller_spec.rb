@@ -29,10 +29,10 @@ RSpec.describe RemindersActionsController do
     let(:need) { create :need_with_matches }
 
     it do
-      request.headers[:referer] = abandon_reminders_needs_path
+      request.headers[:referer] = refused_reminders_needs_path
       post :create, params: { need_id: need.id, category: 'abandon' }
       expect(need.reminders_actions.pluck(:category)).to contain_exactly('abandon')
-      expect(response).to redirect_to abandon_reminders_needs_path
+      expect(response).to redirect_to refused_reminders_needs_path
     end
   end
 end

@@ -28,7 +28,7 @@ class NeedsController < ApplicationController
   end
 
   def taking_care
-    retrieve_needs(current_user, :taking_care)
+    retrieve_needs(current_user, :taking_care, order: :asc)
   end
 
   def done
@@ -60,21 +60,11 @@ class NeedsController < ApplicationController
     end
   end
 
-  def additional_experts
-    @need = Need.find(params.require(:need))
-    @query = params.require('query')&.strip
-
-    @experts = Expert.omnisearch(@query)
-      .active
-      .with_subjects
-      .where.not(id: @need.experts)
-      .limit(20)
-      .includes(:antenne, experts_subjects: :institution_subject)
-  end
-
   def add_match
     @need = retrieve_need
-    expert = Expert.find(params.require(:expert))
+    authorize @need, :add_match?
+    return render status: :unprocessable_entity if params[:expert_id].blank?
+    expert = Expert.find(params.require(:expert_id))
     @match = Match.create(need: @need, expert: expert, subject: @need.subject, sent_at: Time.zone.now)
     if @match.valid?
       ExpertMailer.notify_company_needs(expert, @need).deliver_later
@@ -83,6 +73,12 @@ class NeedsController < ApplicationController
       flash.alert = @match.errors.full_messages.to_sentence
       redirect_back(fallback_location: root_path)
     end
+  end
+
+  def star
+    @need = retrieve_need
+    authorize @need, :star?
+    @need.update(starred_at: Time.zone.now)
   end
 
   private

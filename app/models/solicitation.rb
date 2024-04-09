@@ -52,14 +52,17 @@ class Solicitation < ApplicationRecord
   belongs_to :landing_subject, inverse_of: :solicitations, optional: true
   has_one :landing_theme, through: :landing_subject, source: :landing_theme, inverse_of: :landing_subjects
   has_one :subject, through: :landing_subject, source: :subject, inverse_of: :landing_subjects
+  has_one :theme, through: :subject, source: :theme, inverse_of: :subjects
 
   has_one :diagnosis, inverse_of: :solicitation
   has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
   has_one :facility, through: :diagnosis, source: :facility, inverse_of: :diagnoses
   has_one :visitee, through: :diagnosis, source: :visitee, inverse_of: :diagnoses
+  has_one :company, through: :facility, source: :company, inverse_of: :facilities
 
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_many :matches, through: :diagnosis, inverse_of: :solicitation
+  has_many :company_satisfactions, through: :diagnosis, inverse_of: :solicitation
   has_many :needs, through: :diagnosis, inverse_of: :solicitation
   belongs_to :institution, inverse_of: :solicitations, optional: true
   has_many :badge_badgeables, as: :badgeable
@@ -101,9 +104,8 @@ class Solicitation < ApplicationRecord
     end
 
     event :complete, before: :format_solicitation do
-      transitions from: [:step_description], to: :in_progress
-      # cas des mauvaises qualités modifiés par le chef d'entreprise
-      transitions from: [:canceled], to: :in_progress
+      # canceled : cas des mauvaises qualités modifiés par le chef d'entreprise
+      transitions from: [:step_description, :canceled], to: :in_progress
     end
 
     event :process do
@@ -292,7 +294,6 @@ class Solicitation < ApplicationRecord
 
   scope :relaunch_cont, -> (query) {
     where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}%")
-      .or(where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}%"))
   }
 
   # Pour ransack, en admin
@@ -316,8 +317,9 @@ class Solicitation < ApplicationRecord
       .or(where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}%"))
   }
 
+  # pragmatisme : pas réussi à bien faire fonctionner le filtre relaunch_eq, mais filtre utilisé automatiquement en admin
   scope :relaunch_eq, -> (query) {
-    where('form_info @> ?', { pk_campaign: query }.to_json)
+    relaunch_cont(query)
   }
 
   scope :relaunch_start, -> (query) {
@@ -617,8 +619,8 @@ class Solicitation < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     [
-      "badge_badgeables", "badges", "diagnosis", "diagnosis_regions", "facility", "feedbacks", "institution",
-      "institution_filters", "landing", "landing_subject", "landing_theme", "matches", "needs", "subject", "visitee"
+      "badge_badgeables", "badges", "diagnosis", "diagnosis_regions", "facility", "company", "feedbacks", "institution",
+      "institution_filters", "landing", "landing_subject", "landing_theme", "matches", "needs", "subject", "theme", "visitee"
     ]
   end
 end

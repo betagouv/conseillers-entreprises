@@ -162,16 +162,6 @@ RSpec.describe Match do
   end
 
   describe 'scopes' do
-    describe 'updated_more_than_five_days_ago' do
-      subject { described_class.updated_more_than_five_days_ago }
-
-      let!(:match_updated_two_weeks_ago) { create :match, updated_at: 2.weeks.ago }
-
-      before { create :match, updated_at: 4.days.ago }
-
-      it { is_expected.to contain_exactly(match_updated_two_weeks_ago) }
-    end
-
     describe 'sent' do
       let(:match1) { create :match }
       let(:match2) { create :match }

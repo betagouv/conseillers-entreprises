@@ -5,6 +5,7 @@ ActiveAdmin.register Institution do
 
   controller do
     include SoftDeletable::ActiveAdminResourceController
+    include DynamicallyFiltrable
   end
 
   scope :active, default: true
@@ -16,6 +17,10 @@ ActiveAdmin.register Institution do
 
   ## Index
   #
+  before_action only: :index do
+    init_subjects_filter
+  end
+
   config.sort_order = 'slug_asc'
 
   controller do
@@ -47,6 +52,8 @@ ActiveAdmin.register Institution do
   end
 
   filter :name
+  filter :themes, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
+  filter :subjects, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 
   ## CSV
   #

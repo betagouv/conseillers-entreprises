@@ -18,10 +18,11 @@ module UseCases
           legal_form_code: api_company.forme_juridique_code,
           code_effectif: api_company.code_effectif,
           effectif: api_company.effectif,
+          forme_exercice: api_company.forme_exercice,
           inscrit_rcs: api_company.inscrit_rcs,
           inscrit_rm: api_company.inscrit_rm,
-          forme_exercice: api_company.forme_exercice,
-          activite_liberale: api_company.activite_liberale
+          activite_liberale: api_company.activite_liberale,
+          independant: api_company.independant
         )
         company
       end

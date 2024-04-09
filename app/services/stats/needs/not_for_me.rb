@@ -1,11 +1,10 @@
 module Stats::Needs
   class NotForMe
     include ::Stats::BaseStats
+    include Stats::Needs::Base
 
     def main_query
-      Need.diagnosis_completed
-        .joins(:diagnosis).merge(Diagnosis.from_solicitation)
-        .where(created_at: @start_date..@end_date)
+      needs_base_scope
     end
 
     def build_series
@@ -29,6 +28,10 @@ module Stats::Needs
     def count
       build_series
       percentage_two_numbers(@needs_not_for_me, @needs_other_status)
+    end
+
+    def secondary_count
+      filtered_main_query.status_not_for_me.size
     end
 
     private

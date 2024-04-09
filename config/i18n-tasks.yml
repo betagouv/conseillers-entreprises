@@ -81,7 +81,9 @@ search:
 
 ## Do not consider these keys missing:
 ignore_missing:
-# ignore_missing:
+  - 'DOMContentLoaded'
+  - 'abort'
+  - 'error'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 

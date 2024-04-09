@@ -39,9 +39,9 @@ ActiveAdmin.register Subject do
     end
   end
 
-  filter :is_support
-  filter :theme, collection: -> { Theme.ordered_for_interview }
+  filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :label
+  filter :is_support
 
   ## CSV
   #

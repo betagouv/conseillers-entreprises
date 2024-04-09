@@ -3,14 +3,22 @@
   & > li::before
     content: none
 
+.list-dash
+  & > li::before
+    content: '-'
+    margin-right: 0.3rem
+
 .order-minus-one
   order: -1
   &.bp-sm
     @media (max-width: $bp-sm)
       order: 0
 
-.lighter-blue-bg
+.light-blue-bg
   background-color: $blue-light
+
+.lighter-blue-bg
+  background-color: $blue-lighter
 
 .white-bg
   background-color: $white
@@ -117,6 +125,9 @@ a.fr-breadcrumb__item a.break-word, .fr-prose a.break-word, [class*=" fr-"] a.br
   width: 25px
   height: 25px
   animation: spin 0.5s linear infinite
+  &.loader--sm
+    width: 15px
+    height: 15px
 
 @keyframes spin
   0%
@@ -141,8 +152,9 @@ button.link
 .height-fit-content
   height: fit-content
 
-.bottom_actions
+.bottom-actions
   display: flex
   justify-content: flex-end
+  align-items: center
   &.space-between
     justify-content: space-between

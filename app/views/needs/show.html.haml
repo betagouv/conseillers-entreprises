@@ -22,7 +22,7 @@
                   %li
                     = I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])
                     %strong= answer
-            - if @need.solicitation.origin_url.present?
+            - if @need.solicitation.present? && @need.solicitation.origin_url.present?
               %div
                 = t('.origin_source')
                 %br
@@ -52,14 +52,9 @@
                 - if @facility.naf_libelle.present?
                   %li= @facility.naf_libelle
                 - company = @facility.company
-                - if company.forme_exercice.present?
-                  %li.fr-mt-3v
-                    %span.fr-text--bold #{t('attributes.forme_exercice')} : 
-                    = company.forme_exercice.humanize
-                - else
-                  %li= t('companies.company.inscrit_rcs_yes_no', response: company.inscrit_rcs ? t('yes') : t('no'))
-                  %li= t('companies.company.inscrit_rm_yes_no', response: company.inscrit_rm ? t('yes') : t('no'))
-                  %li= t('companies.company.activite_liberale_yes_no', response: company.activite_liberale ? t('yes') : t('no'))
+                %li.fr-mt-3v
+                  %span.fr-text--bold #{t('attributes.forme_exercice')} : 
+                  = company.forme_exercice&.humanize || t('undefined')
                 %li.fr-mt-3v= link_to t('.more_informations'), company_path(@facility.id), class: 'fr-link', data: { turbo: false }
                 - if defined?(@facility_needs) && @facility_needs.present? && policy(@facility).show_needs_history? && @facility_needs.any?
                   %li= link_to t('.needs_historic'), needs_company_path(@facility), class: 'fr-link'
@@ -73,14 +68,16 @@
           %h2.need-metadata--title= t('.transmitted_by')
           %div
             - if @need.advisor.present?
-              %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag{ 'aria-controls': "modal-user-#{@need.advisor.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }= @need.advisor.full_name
+              %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag.fr-ml-2v{ 'aria-controls': "modal-user-#{@need.advisor.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }= @need.advisor.full_name
               = render 'application/person_modal', person: @need.advisor
             - else
               = t('.blank_advisor')
 
 - if policy(@need).show_need_actions?
-  .lighter-blue-bg
-    = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
+  .light-blue-bg
+    .fr-container.fr-p-2w.fr-pb-8w
+      %h2.fr-h3.fr-my-4w= t('.my_intervention')
+      = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
 
 .lighter-blue-bg
   .fr-container.fr-p-2w#all-experts
@@ -90,9 +87,10 @@
     - else
       %p#no-match= t('.no_match')
 
-.lighter-blue-bg
-  .fr-container
-    = render 'additional_experts', need: @need
+- if policy(@need).add_match?
+  .lighter-blue-bg
+    .fr-container
+      = render 'additional_experts', need: @need
 
 .lighter-blue-bg.fr-pb-6w
   .fr-container.fr-p-2w
@@ -104,5 +102,5 @@
         = render @need.feedbacks.order(:created_at)
       - else
         %p.fr-my-2w#no-comment= t('.no_comment')
-    = render 'feedbacks/form', feedback: @need.feedbacks.new(category: :need)
+    = render 'feedbacks/form', feedback: @need.feedbacks.new(category: :need), placeholder: t("needs.match_actions.feedback_placeholder.done")
 -# haml-lint:enable ViewLength

@@ -2,20 +2,17 @@ module Stats::Matches
   class Positioning
     include ::Stats::BaseStats
     include ::Stats::TwoRatesStats
+    include Stats::Matches::Base
 
     def main_query
-      Match.sent.where(created_at: @start_date..@end_date)
-    end
-
-    def filtered(query)
-      Stats::Filters::Matches.new(query, self).call
+      matches_base_scope
     end
 
     def build_series
       query = filtered_main_query
       @positioning, @not_positioning = [], []
       search_range_by_month.each do |range|
-        month_query = query.created_between(range.first, range.last)
+        month_query = get_month_query(query, range)
         @positioning.push(month_query.not_status_quo.count)
         @not_positioning.push(month_query.status_quo.count)
       end
@@ -25,10 +22,6 @@ module Stats::Matches
 
     def subtitle
       I18n.t('stats.series.matches_positioning.subtitle')
-    end
-
-    def colors
-      matches_colors
     end
 
     private

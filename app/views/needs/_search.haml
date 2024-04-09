@@ -3,7 +3,7 @@
   - if defined?(antennes) && antennes.size > 1
     .fr-grid-row.fr-grid-row--gutters
       .fr-col
-        = f.label :antenne_id, t('.select_antenne'), class: 'fr-label'
+        = f.label :antenne_id, t('filters.select_antenne'), class: 'fr-label'
         = f.collection_select :antenne_id, antennes, :id, :name, { selected: params[:antenne_id] || antennes.first.id }, class: "fr-select fr-mb-2v"
   .fr-grid-row.fr-grid-row--gutters
     .fr-col-md-6.fr-col-12
@@ -36,5 +36,5 @@
         %p= collection_count needs
     .fr-col-md-6.fr-col-12.text-right
       - if needs_search_params.present?
-        = link_to t('.clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search'
-      = f.submit t('.search'), class: 'fr-btn', title: t('.search')
+        = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
+      = f.submit t('search'), class: 'fr-btn', title: t('.search')

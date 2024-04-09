@@ -4,7 +4,7 @@
       .fr-col-sm-1.fr-col-1.col-icon
         = expert_status_icon(match)
       .fr-col-sm-8.fr-col-11.col-expert-name
-        %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag.custom-modal-tag--blue{ 'aria-controls': "modal-expert-#{match.expert.id}", 'data-fr-opened': 'false', title: t('application.modal.see_expert_coordinates') }
+        %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag.custom-modal-tag--blue.fr-mr-2v{ 'aria-controls': "modal-expert-#{match.expert.id}", 'data-fr-opened': 'false', title: t('application.modal.see_expert_coordinates') }
           = match.expert.full_name
         = " - " + match.expert.antenne.name
         - if (defined? origin) && origin == 'reminders' && policy(match.expert.antenne).show_manager?

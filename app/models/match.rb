@@ -67,6 +67,9 @@ class Match < ApplicationRecord
   has_one :solicitation, through: :diagnosis, inverse_of: :matches
   has_one :company_satisfaction, through: :need, inverse_of: :matches
   has_many :related_matches, through: :need, source: :matches
+  has_one :landing, through: :solicitation, inverse_of: :matches
+  has_one :landing_theme, through: :solicitation, inverse_of: :matches
+  has_one :landing_subject, through: :solicitation, inverse_of: :matches
 
   # :advisor
   has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_matches
@@ -86,8 +89,6 @@ class Match < ApplicationRecord
 
   ## Scopes
   #
-  scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
-
   scope :to_support, -> { joins(:need).where(subject: Subject.support_subject) }
 
   scope :with_deleted_expert, ->{ where(expert: nil) }
@@ -119,11 +120,11 @@ class Match < ApplicationRecord
   end
 
   scope :with_status_quo_active, -> do
-    status_quo.where(created_at: Need::REMINDERS_DAYS[:abandon]&.days&.ago..)
+    status_quo.where(sent_at: Need::REMINDERS_DAYS[:abandon]&.days&.ago..)
   end
 
   scope :with_status_expired, -> do
-    status_quo.where(created_at: ..Need::REMINDERS_DAYS[:abandon]&.days&.ago)
+    status_quo.where(sent_at: ..Need::REMINDERS_DAYS[:abandon]&.days&.ago)
   end
 
   scope :by_antenne, -> (antenne_id) do
@@ -224,7 +225,7 @@ class Match < ApplicationRecord
     [
       "advisor", "advisor_antenne", "advisor_institution", "company", "company_satisfaction", "contacted_users",
       "diagnosis", "expert", "expert_antenne", "expert_institution", "facility", "facility_regions", "facility_territories",
-      "need", "related_matches", "solicitation", "subject", "theme"
+      "need", "related_matches", "solicitation", "subject", "theme", "landing", "landing_theme", "landing_subject"
     ]
   end
 

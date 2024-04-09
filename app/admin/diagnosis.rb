@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Diagnosis do
-  menu priority: 8
+  menu parent: :needs, priority: 4
 
   ## Index
   #

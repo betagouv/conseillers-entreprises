@@ -21,8 +21,8 @@ describe 'needs' do
   context 'expert inbox' do
     it 'displays all user received needs pages' do
       visit '/'
-      click_link 'Accès conseillers'
-      click_link 'Demandes reçues'
+      click_on 'Accès conseillers'
+      click_on 'Besoins reçus'
       expect(page).to have_current_path(quo_active_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 
@@ -39,7 +39,7 @@ describe 'needs' do
       visit '/manager/besoins-des-antennes'
 
       expect(page).to have_current_path(quo_active_manager_needs_path, ignore_query: true)
-      expect(page).not_to have_select 'antenne_id'
+      expect(page).to have_no_select 'antenne_id'
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
     end
   end
@@ -75,8 +75,8 @@ describe 'needs' do
       expect(side_menu_link(expired_manager_needs_path)).to have_text('0')
 
       select(managed_antenne_02.name, from: 'antenne_id')
-      click_button 'Rechercher'
-      expect(page).not_to have_css('.fr-card__c-container--need')
+      click_on 'Rechercher'
+      expect(page).to have_no_css('.fr-card__c-container--need')
       expect(side_menu_link(quo_active_manager_needs_path(antenne_id: managed_antenne_02.id))).to have_text('0')
       expect(side_menu_link(taking_care_manager_needs_path(antenne_id: managed_antenne_02.id))).to have_text('1')
       expect(side_menu_link(done_manager_needs_path(antenne_id: managed_antenne_02.id))).to have_text('0')

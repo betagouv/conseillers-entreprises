@@ -71,6 +71,8 @@ class Diagnosis < ApplicationRecord
   has_many :subjects, through: :needs, inverse_of: :diagnoses
   has_many :themes, through: :subjects, inverse_of: :diagnoses
   has_many :matches, through: :needs, inverse_of: :diagnosis
+  has_one :landing, through: :solicitation, inverse_of: :diagnoses
+  has_many :company_satisfactions, through: :needs, inverse_of: :diagnosis
 
   # :matches
   has_many :experts, through: :matches, inverse_of: :received_diagnoses
@@ -84,6 +86,7 @@ class Diagnosis < ApplicationRecord
   has_many :expert_institutions, through: :experts, source: :institution, inverse_of: :received_diagnoses
   has_many :contacted_users, through: :experts, source: :users, inverse_of: :received_diagnoses
 
+  before_create :warn_debug_developers
   ## Callbacks
   #
   after_update :update_needs, if: :step_completed?
@@ -212,6 +215,15 @@ class Diagnosis < ApplicationRecord
   def without_solicitation_has_advisor
     if solicitation.nil? && advisor.nil?
       errors.add(:advisor, :blank)
+    end
+  end
+
+  def warn_debug_developers
+    if solicitation.nil?
+      Sentry.with_scope do |scope|
+        scope.set_tags(diagnosis: self.id)
+        Sentry.capture_message("Analyse sans sollicitation")
+      end
     end
   end
 end
