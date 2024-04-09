@@ -95,6 +95,14 @@ class Institution < ApplicationRecord
       .distinct
   end
 
+  scope :by_region, -> (region_id) do
+    return all if region_id.blank?
+    left_joins(antennes: :regions)
+      .left_joins(antennes: :experts)
+      .where(antennes: { territories: { id: [region_id] } })
+      .distinct
+  end
+
   scope :omnisearch, -> (query) do
     if query.present?
       not_deleted.where("institutions.name ILIKE ?", "%#{query}%")
