@@ -7,8 +7,6 @@ RSpec.describe MatchFeedbackEmailJob do
   describe "perform" do
     let(:user) { create :user }
 
-    before { stub_mjml_google_fonts }
-
     describe 'with feedback present' do
       let(:feedback) { create :feedback, :for_need, user: user }
 

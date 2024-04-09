@@ -66,10 +66,7 @@ RSpec.describe Annuaire::UsersController do
 
     subject(:request) { post :send_invitations, params: { institution_slug: institution.slug, users_ids: "#{user.id} #{old_user.id}" } }
 
-    before do
-      stub_mjml_google_fonts
-      request
-    end
+    before { request }
 
     it 'expect invitation sent to user' do
       expect(user.reload.invitation_sent_at).not_to be_nil

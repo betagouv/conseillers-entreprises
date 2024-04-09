@@ -11,7 +11,6 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs' do
     let(:need) { create(:need, matches: [create(:match, expert: expert)]) }
 
     before do
-      stub_mjml_google_fonts
       assign(:expert, expert)
       assign(:diagnosis, need.diagnosis)
       assign(:need, need)

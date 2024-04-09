@@ -10,8 +10,6 @@ describe QuarterlyReports::NotifyManagers do
     let!(:manager) { create :user, :manager, managed_antennes: [antenne] }
     let!(:normal_user) { create :user }
 
-    before { stub_mjml_google_fonts }
-
     subject { described_class.new.call }
 
     it 'send a mail to managers' do

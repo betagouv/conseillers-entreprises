@@ -6,8 +6,6 @@ require 'api_helper'
 
 describe ExpertMailer do
 
-  before { stub_mjml_google_fonts }
-
   describe '#notify_company_needs' do
     subject(:mail) { described_class.with(expert: expert, need: need).notify_company_needs.deliver_now }
 

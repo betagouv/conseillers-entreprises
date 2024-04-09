@@ -51,10 +51,7 @@ RSpec.describe Reminders::NeedsController do
     let!(:match5) { create :match, status: :done_not_reachable, need: need }
     let!(:match6) { create :match, status: :not_for_me, need: need }
 
-    before do
-      stub_mjml_google_fonts
-      post :send_last_chance_email, params: { id: need.id }
-    end
+    before { post :send_last_chance_email, params: { id: need.id } }
 
     it 'send email only for quo match and add a feedback' do
       assert_enqueued_with(job: ActionMailer::MailDeliveryJob)

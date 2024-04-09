@@ -17,10 +17,7 @@ describe 'diagnosis', :js do
                expert: create(:expert, communes: [need.facility.commune])
       end
 
-      before do
-        stub_mjml_google_fonts
-        create_list(:subject, 4)
-      end
+      before { create_list(:subject, 4) }
 
       it 'display all steps' do
         visit "/conseiller/analyses/#{diagnosis.id}"

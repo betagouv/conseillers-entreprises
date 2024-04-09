@@ -140,8 +140,6 @@ RSpec.describe Conseiller::Diagnoses::StepsController do
       }
     end
 
-    before { stub_mjml_google_fonts }
-
     describe 'statuses are correctly updated' do
       let(:selected) { true }
 
