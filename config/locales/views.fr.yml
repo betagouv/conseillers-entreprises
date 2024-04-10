@@ -70,7 +70,7 @@ fr:
     institutions:
       index:
         no_institution: Aucune institution n’a été trouvé
-        title: "Annuaire"
+        title: Annuaire
     search:
       form:
         submit: Chercher
