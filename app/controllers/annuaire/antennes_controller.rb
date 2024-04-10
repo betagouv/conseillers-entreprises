@@ -28,8 +28,8 @@ module  Annuaire
     private
 
     def retrieve_antennes
-      @antennes = @institution.retrieve_antennes(session[:annuaire_region]).preload(:experts, :advisors)
-      @antennes = @antennes.joins(:regions).where(territories: { id: session[:annuaire_region] }).distinct if session[:annuaire_region].present?
+      @antennes = @institution.retrieve_antennes(index_search_params[:region]).preload(:experts, :advisors)
+      @antennes = @antennes.joins(:regions).where(territories: { id: index_search_params[:region] }).distinct if index_search_params[:region].present?
     end
   end
 end

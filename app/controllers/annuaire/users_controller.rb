@@ -80,9 +80,9 @@ module  Annuaire
         .order('antennes.name', 'team_name', 'users.full_name')
         .preload(:antenne, :user_rights_manager, relevant_expert: [:users, :antenne, :experts_subjects, :communes])
         .select('"antennes".*, "users".*')
-        .by_region(session[:annuaire_region])
-        .by_theme(session[:annuaire_theme])
-        .by_subject(session[:annuaire_subject])
+        .by_region(index_search_params[:region])
+        .by_theme(index_search_params[:theme])
+        .by_subject(index_search_params[:subject])
     end
 
     def base_users
