@@ -2,4 +2,8 @@
 - content_for :header, render('header', institution: @institution)
 - content_for :menu, render('menu', institution: @institution)
 
-= render 'table', institutions_subjects: @institutions_subjects
+- if @institutions_subjects.present?
+  = render 'table', institutions_subjects: @institutions_subjects
+- else
+  .fr-alert.fr-alert--info.fr-alert--sm
+    %p= t('.no_subject')

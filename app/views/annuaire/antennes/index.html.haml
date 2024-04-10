@@ -6,4 +6,8 @@
 
 = render 'import_buttons'
 
-= render 'table', antennes: @antennes
+- if @antennes.present?
+  = render 'table', antennes: @antennes
+- else
+  .fr-alert.fr-alert--info.fr-alert--sm
+    %p= t('.no_antenne')
