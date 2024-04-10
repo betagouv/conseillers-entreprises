@@ -274,13 +274,6 @@ Rails.application.routes.draw do
   get 'aide-entreprise/:landing_slug/demande/:landing_subject_slug', to: 'solicitations#new', as: :new_solicitation
   post 'aide-entreprise/:landing_slug/demande/:landing_subject_slug', to: 'solicitations#create', as: :solicitations
 
-  resource :newsletters, only: %i[] do
-    post :create
-    get :new, path: 'abonnement', as: :new
-    get :index, to: redirect('/newsletters/abonnement')
-    get :unsubscribe, path: 'desinscription'
-  end
-
   controller :about do
     get :comment_ca_marche
     get :cgu

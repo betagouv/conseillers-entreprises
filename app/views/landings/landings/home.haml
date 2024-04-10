@@ -40,7 +40,3 @@
   .fr-container.text-center
     - cache("institutions-#{session[:region_code]}", expires_in: 1.minute) do
       = render 'index_institutions'
-
-.fr-container-fluid.fr-py-7w
-  .fr-container
-    = render 'newsletter'

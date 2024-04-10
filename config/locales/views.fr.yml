@@ -537,12 +537,6 @@ fr:
     star_btn:
       need_starred: Besoin suivi
       star_need: Suivre le besoin
-  newsletters:
-    create:
-      error_newsletter_subscription: Une erreur s’est produite, merci de réessayer.
-      success_newsletter_html: Merci ! Votre inscription à la <span lang='en'>newsletter</span> a été prise en compte.
-    unsubscribe:
-      unsubscribe_successfully: Votre désinscription a bien été prise en compte
   pages:
     breadcrumbs:
       see_breadcrumb: Voir le fil d’Ariane
@@ -585,13 +579,6 @@ fr:
     navbar:
       extend: Agrandir
       link_to_blog: Actu aides, blog de Conseillers-Entreprises - lien externe
-    newsletter:
-      email_format: 'Format attendu : nom@example.org'
-      newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
-      newsletter_legal_html: Vous pouvez vous désinscrire à tout moment avec le lien de désinscription dans la <span lang='en'>newsletter</span>
-      placeholder_email: Votre adresse email
-      received_news: 'Découvrez les nouveaux accompagnements publics :'
-      subscribe: S’abonner
   person:
     deleted_person: Compte supprimé
   quarterly_report_service:
