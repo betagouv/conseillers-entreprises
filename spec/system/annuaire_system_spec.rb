@@ -66,6 +66,7 @@ describe 'annuaire', :js do
         expect(page).to have_css('.fr-table--c-annuaire', count: 0)
       end
     end
+
     context 'with antenne' do
       it 'displays all institution antennes' do
         visit "annuaire/institutions/#{institution.slug}/antennes"
@@ -87,6 +88,7 @@ describe 'annuaire', :js do
         expect(page).to have_css('.fr-table--c-annuaire', count: 0)
       end
     end
+
     context 'with user' do
       let!(:expert) { create :expert, antenne: antenne }
       let!(:user_1) { create :user, experts: [expert], antenne: antenne }
