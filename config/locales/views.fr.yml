@@ -57,6 +57,9 @@ fr:
         select_user: Utilisateur pour la réatribution des mises en relation
   admin_link: Lien admin
   annuaire:
+    antennes:
+      index:
+        no_antenne: Aucune antenne n’a été trouvé
     base:
       import_errors:
         antenne_not_found: 'Antenne non reconnue : %{name}'
@@ -64,12 +67,19 @@ fr:
         unknown_headers:
           one: En-tête non reconnu
           other: En-têtes non reconnus
+    institutions:
+      index:
+        no_institution: Aucune institution n’a été trouvé
     search:
       form:
         submit: Chercher
       free_text_search: Rechercher un ou des conseilers
+    subjects:
+      index:
+        no_subject: Aucun sujet n’a été trouvé
     users:
       index:
+        no_users: Aucun utilisateur n’a été trouvé
         send_invitations:
           one: Envoyer une invitation
           other: Envoyer les %{count} invitations

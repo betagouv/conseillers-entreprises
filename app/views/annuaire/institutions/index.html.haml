@@ -13,4 +13,8 @@
   .fr-mb-6w
     = render 'form', subjects: @subjects
 
+- if @institutions.present?
   = render 'table', institutions: @institutions, antennes_count: @antennes_count, users_count: @users_count
+- else
+  .fr-alert.fr-alert--info.fr-alert--sm
+    %p= t('.no_institution')
