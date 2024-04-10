@@ -2,7 +2,6 @@ module LoadFilterOptions
   extend ActiveSupport::Concern
 
   def load_filter_options
-    # load_filter_options
     response = {
       antennes: @institution_antennes,
       themes: @themes.select(:id, :label).uniq,

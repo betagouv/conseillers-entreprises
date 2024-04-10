@@ -2,7 +2,6 @@ module Annuaire
   class BaseController < ApplicationController
     include PersistedSearch
 
-    # before_action :retrieve_form_params, except: :search
     layout 'annuaire'
 
     def retrieve_institution
