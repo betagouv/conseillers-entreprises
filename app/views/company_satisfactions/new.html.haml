@@ -33,7 +33,7 @@
                   = f.radio_button :useful_exchange, false, required: true
                   = f.label t('no'), for: 'company_satisfaction_useful_exchange_false', class: 'fr-label'
           .fr-input-group
-            = f.label t('.comment'), class: 'fr-label'
-            = f.text_area :comment, class: 'fr-input white-bg'
+            = f.label :comment, t('.comment'), class: 'fr-label'
+            = f.text_area :comment, class: 'fr-input white-bg', rows: 8
           .fr-input-group
             = f.submit t(".send"), class: 'fr-btn'

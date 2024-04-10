@@ -197,11 +197,11 @@ fr:
       siege_social: Siège social
   company_satisfactions:
     new:
-      comment: Un commentaire ? Une suggestion ? Nous sommes à votre écoute.
+      comment: 'Un commentaire ? Une suggestion ? Nous sommes à votre écoute :'
       company_satisfaction_exist: Vous avez déjà répondu pour ce besoin.
       contacted_by_expert: Avez-vous bien été rappelé(e) par au moins un conseiller ou une conseillère ?
       send: Envoyer
-      title: Donnez votre avis sur Conseillers-entreprises.service-public.fr
+      title: Donnez votre avis sur le service Conseillers-Entreprises
       useful_exchange: Est-ce que cet échange a été utile pour vous ?
     thank_you:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
