@@ -176,13 +176,6 @@ fr:
         dreets_phone_number_html: Vous pouvez composer le <b>0806 000 126</b> [prix d’un appel local - pas de surcoût] du lundi au vendredi, de 8h45 à 11h30 et de 13h45 à 16h30.
         intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant le <b>droit du travail</b>. Il s'agit cependant d'un service public destiné aux chefs d'entreprises. Nous ne sommes donc pas en mesure de vous apporter une réponse.
         other_informations: 'Vous trouverez également des informations en droit du travail sur :'
-      footer:
-        linkedin:
-          link_html: Linkedin - %{link}
-          title: linkedin.com/place-des-entreprises
-        website:
-          link_html: Site internet - %{link}
-          title: Conseillers-entreprises.service-public.fr
       independent_tva:
         no_tva_number: Votre question (TVA, seuil de déclaration, CFE, assujettissement aux taxes…) relève de votre service des impôts des entreprises (SIE).
         sie_annuaire_html: "<b>Malheureusement ce service n’est pas partenaire de Conseillers-Entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href='https://lannuaire.service-public.fr/navigation/sie'>https://lannuaire.service-public.fr/navigation/sie</a>."
