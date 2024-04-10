@@ -8,14 +8,13 @@
 
     <mj-text font-weight='700'><%= t('.will_you_act') %></mj-text>
 
-    <mj-button background-color="#000091" color="white" border-radius="0" >
+    <mj-button background-color="#000091" color="white" border-radius="0" font-weight="700">
       <%= link_to t('mailers.see_diagnosis'), need_url(@need), style: 'color: white; text-decoration: none' %>
     </mj-button>
 
     <mj-text><%= t('.at_your_disposal') %></mj-text>
 
     <mj-text><%= t('mailers.sincerely') %></mj-text>
-
-    <mj-text><%= @support_user.full_name %></mj-text>
   </mj-column>
 </mj-section>
+<%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user %>

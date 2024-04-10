@@ -10,10 +10,10 @@ fr:
       title: Conditions d’utilisation du service numérique Conseillers-entreprises.service-public.fr
     comment_ca_marche:
       business_owners: Ces chefs d’entreprises utilisent déjà le service. Et vous ?
-      long_title: Conseillers-Entreprises.Service-Public.fr, comment ça marche ?
+      long_title: Le service public Conseillers-Entreprises, comment ça marche ?
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
       meta_title: Comment ça marche
-      partners: 'Conseillers-Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 30 partenaires publics et parapublics :'
+      partners: 'Conseillers-Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
       pde_testimonial: Témoignage d’un chef d’entreprise.
       pde_testimonial_transcription: Transcription textuelle de la vidéo du témoignage d’un chef d’entreprise.
       read_transcription: Lire la transcription
@@ -280,7 +280,7 @@ fr:
         needs_historic: 'Historique de l’entreprise :'
         similar_abandonned_needs_explanation: 'Cycle d’abandon suspecté : cette entreprise a déjà eu un besoin pour le même sujet abandonné'
         siret: 'Siret :'
-        solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres demandes récemment'
+        solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres besoins récemment'
         solicitation_no_register_company_explanation: Entreprise ni RCS ni RM
         solicitation_relance_explanation: 'Relance suspectée : une mise en relation pour la même entreprise sur le même sujet a été faite il y a moins de 3 semaines'
         source: 'Page d’atterrissage :'
@@ -404,7 +404,7 @@ fr:
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
         subtitle: 'Service public simple et rapide : %{count} TPE & PME ont déjà été accompagnées cette année par un conseiller %{subject}'
       index_institutions:
-        more_partners_html: Découvrez <a href='%{path}'>plus de 30 partenaires</a> à votre service.
+        more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
         title: Conseillers-Entreprises vous met en relation avec le conseiller qui peut vous aider.
       multiple_steps:
         contact_us: Découvrez les autres sujets.
@@ -423,8 +423,8 @@ fr:
   manager:
     needs:
       index:
-        many_antennes_title: Toutes les demandes reçues des antennes
-        one_antenne_title: Antenne %{name} - toutes les demandes
+        many_antennes_title: Tous les besoins reçus des antennes
+        one_antenne_title: Antenne %{name} - tous les besoins
     stats:
       index:
         no_experts_subjects: Votre antenne ne semble pas pouvoir recevoir de besoins. Nous ne pouvons donc pas afficher de statistiques.
@@ -507,7 +507,7 @@ fr:
       search_placeholder: 'Ex : La mie tendre, Lucie Martin, plomberie, financement...'
     show:
       all_experts: Experts notifiés
-      all_needs: Toutes les demandes
+      all_needs: Tous les besoins
       blank_advisor: "-"
       comments: Discussion entre experts
       company: Entreprise
@@ -709,7 +709,7 @@ fr:
       accompaniments: 'Des conseillers vous accompagnent pour :'
       all_fields_compulsary: Tous les champs sont obligatoires.
       already_submitted_solicitation: Cette demande a déjà été envoyée aux conseillers.
-      average_delays: "(Délai moyen de prise en charge)"
+      average_delays: "(délai moyen de prise en charge)"
       better_taking_care_html: 'Pour vous aider, les conseillers ont besoin d’<b>éléments de contexte</b> :'
       buttons:
         manual_step_company: Je ne trouve pas mon entreprise
@@ -719,7 +719,7 @@ fr:
       description: Quelle est votre demande ?
       empty_result_help_html: La recherche de votre entreprise n’a pas été concluante ? Renseignez manuellement votre numéro de SIRET ici ou effectuez une <a href=%{path}> nouvelle recherche</a>.
       find_my_facility: Recherchez votre entreprise (SIRET, SIREN, nom...)
-      five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"
+      five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours</b>"
       form_complete: Demande envoyée
       give_my_opinion_alt: Je donne mon avis
       legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l’Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Conseillers-Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner %{subject_personalisation}, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez nous contacter par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris. Pour en savoir plus, consultez les %{informations}.</p>"
@@ -1033,13 +1033,13 @@ fr:
       emails: Réceptionner les emails
       explanation_emails: Je glisse l'email de Conseillers-Entreprises dans ma boîte de réception. Les prochains emails arriveront ainsi directement dans ma boite de réception !
       need_steps: Les 4 étapes de la prise en charge d’un besoin
-      notifications_explanations_1_html: À l’arrivée d’une <b>nouvelle demande</b> d’une entreprise sur mon territoire
-      notifications_explanations_2_html: Si vous avez des demandes en attente en réponse, vous recevrez également :<ul><li>un <b>récapitulatif hebdomadaire</b> tous les mardis regroupant toutes les demandes en attente</li><li>une <b>relance de “la dernière chance”</b> 3 semaines après réception d’une demande</li><li>un <b>mail de rappel</b> manuellement déclenché par un membre de l’équipe</li></ul>
+      notifications_explanations_1_html: À l’arrivée d’une <b>nouvelle demande</b> d’une entreprise sur votre territoire
+      notifications_explanations_2_html: Si vous avez des besoins en attente en réponse, vous recevrez également :<ul><li>un <b>récapitulatif hebdomadaire</b> tous les mardis regroupant tous les besoins en attente</li><li>une <b>relance de “la dernière chance”</b> 3 semaines après réception d’une demande</li><li>un <b>mail de rappel</b> manuellement déclenché par un membre de l’équipe</li></ul>
       notifications_explanations_3_html: Lorsque la demande est clôturée, vous ne recevez plus de notification.
       notifications_question: Quand recevez-vous une notification ?
       notifications_title: Comprendre les notifications
       pde_tutorial_transcription: Transcription textuelle de la vidéo tutorielle de Conseillers-Entreprises.
-      question_emails: Je ne reçois pas les mails de Conseillers-Entreprises, que faire ?
+      question_emails: Je ne reçois pas les courriels de Conseillers-Entreprises, que faire ?
       read_transcription: Lire la transcription
       step_1: Je me positionne sur le besoin de l’entreprise adressé sur mon champ de compétences, en cliquant sur le bouton de prise en charge ou de refus.
       step_2: Lorsque j’ai cliqué sur le bouton vert "J’appelle", j’appelle le chef d’entreprise pour préciser avec lui sa problématique et identifier l’aide ou l’accompagnement que ma structure peut lui proposer.

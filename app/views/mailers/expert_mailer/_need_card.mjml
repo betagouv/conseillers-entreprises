@@ -16,7 +16,7 @@
           <p class="card__detail"><%= t('mailers.expert_mailer.remind_involvement.visited_days_ago', days: distance_of_time_in_words(Time.now.to_date, need.created_at), advisor: need.diagnosis.advisor.full_name) %></p>
         <% end %>
     </mj-text>
-    <mj-button background-color="#000091" color="white" border-radius="0" >
+    <mj-button background-color="#000091" color="white" border-radius="0" font-weight="700">
       <%= link_to t('mailers.see_diagnosis'), need_url(need), style: 'color: white; text-decoration: none' %>
     </mj-button>
   </mj-column>

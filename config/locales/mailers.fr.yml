@@ -27,7 +27,7 @@ fr:
         informations_html: 'Vous serez informé(e) par mail de sa prise en charge par un conseiller ou une conseillère dans les 5 jours en moyenne.<br>Les partenaires pouvant vous rappeler sont :'
         its_about: 'Elle concerne :'
         subject: Confirmation de votre demande « %{subject} »
-      explanation_html: Ce service public d’accompagnement des entreprises est proposé par le Ministère de l’Économie et le Ministère du Travail pour faciliter la vie des petites entreprises. Il vous permet d’échanger avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
+      explanation_html: Ce service public d’accompagnement des entreprises est proposé par le Ministère de l’Économie et le Ministère du Travail pour faciliter la vie des petites entreprises. Il vous permet d’échanger avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
       failed_need:
         no_experts: Nous avons transmis votre demande au sein de notre réseau de partenaires institutionnels publics et parapublics. Malheureusement et malgré nos efforts de relance, nous avons le regret de vous informer qu’aucun de nos partenaires n’est en mesure de vous accompagner pour votre demande.
         service_improvement: C’est en détectant de nouvelles situations que nous pouvons améliorer ce service. Nous faisons notre maximum pour compléter l’expertise du service en intégrant de nouveaux partenaires. Nous espérons ainsi proposer à terme un conseil personnalisé à toutes les TPE & PME dans votre situation.
@@ -51,7 +51,7 @@ fr:
         subject: Prise en charge de votre demande « %{subject} »
       retention:
         intro_html: 'Vous avez utilisé le service public Conseillers-Entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait :'
-        list_html: 'Des dirigeants utilisent le service pour être accompagnés sur d’autres sujets : <ul><li>recrutement</li><li>formation</li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
+        list_html: 'Des dirigeants utilisent le service pour être accompagnés sur d’autres sujets : <ul><li>recrutement</li><li>formation</li><li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
         outro: Si vous souhaitez être accompagné(e), n’hésitez pas à déposer une demande.
         send_solicitation: Échanger avec un conseiller
         subject: Avez-vous besoin d’aide ?
@@ -64,13 +64,13 @@ fr:
       solicitation_relaunch_company:
         continue_button_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Finaliser ma demande d’aide</a>"
         incomplete_step_explanation: 'Nous avons besoin de votre SIRET ou SIREN pour vous fournir un conseil personnalisé et de proximité. Pour trouver votre SIRET, vous pouvez renseigner le nom de votre entreprise en cliquant ci-dessous :'
-        service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
+        service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
         subject: Finalisez votre demande pour « %{subject} »
         your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site Conseillers-entreprises.service-public.fr.
       solicitation_relaunch_description:
         continue_button_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Finaliser ma demande d’aide</a>"
         incomplete_step_explanation: Vous pouvez expliquer votre problématique avec quelques éléments de contexte pour bénéficier d’un conseil personnalisé.
-        service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 30 institutions publiques.
+        service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
         subject: Finalisez votre demande à propos de « %{subject} »
         your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site Conseillers-entreprises.service-public.fr.
       why_this_message_html: "<strong>Pourquoi recevez-vous ce message ?</strong>"
@@ -79,7 +79,7 @@ fr:
     expert_mailer:
       first_notification_help:
         answer: Financé par le Ministère de l’Économie et le Ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE & PME. L’objectif est de faciliter la vie des petites entreprises en apportant une réponse collectivement plus efficace.
-        answer_3: Vous pouvez ainsi échanger sur un besoin d’entreprise avec des conseillers du service public travaillant dans d’autres structures. Le service compte plus de 30 partenaires !
+        answer_3: Vous pouvez ainsi échanger sur un besoin d’entreprise avec des conseillers du service public travaillant dans d’autres structures. Le service compte plus de 40 partenaires !
         answer_continuation: En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations et des organismes publics ou parapublics compétents sur son territoire.
         need_help: Besoin d’aide ?
         pde_contact: 'Votre contact pour vous aider au sein de l’équipe en charge du service :'
@@ -114,7 +114,7 @@ fr:
         subject: Service public Conseillers-Entreprises - Nous vous accompagnons !
         you_received_need_html: 'Vous venez de recevoir un besoin de l’entreprise <strong>%{company}</strong> sur le sujet %{subject}. Vous pouvez le retrouver ici : <a href=''''%{url}''''>%{url}</a>'
       remind_involvement:
-        needs_for_you: Les entreprises ci-dessous ont souhaité bénéficier de votre expertise via le site Conseillers-entreprises.service-public.fr.
+        needs_for_you: Les entreprises ci-dessous ont souhaité bénéficier de votre expertise via le service public Conseillers-Entreprises.
         needs_quo: Pourriez-vous nous partager votre position sur ces besoins ?
         subject: 'Récap : Des entreprises ont besoin de vous !'
         support_contact_label: 'Si vous n’arrivez pas à accéder au détail d’un besoin, contactez :'
@@ -231,7 +231,7 @@ fr:
         tradespeople_html: "<strong>pour les commerçants</strong> : <a href='https://communication-agefice.fr'>https://communication-agefice.fr</a>"
         useful_links: 'Selon votre statut social de Travailleur Non Salarié, 3 organismes sont compétents :'
     team: L’équipe Conseillers-Entreprises, un service de Service-Public.fr
-    team_html: L’équipe <a href=%{url}>Conseillers-Entreprises</a>, un service de Service-Public.fr.
+    team_html: L’équipe <a href=%{url}>Conseillers-Entreprises</a>
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service.
     thanks_for_your_comprehension: Nous vous remercions pour votre compréhension.
