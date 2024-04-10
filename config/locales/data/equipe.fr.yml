@@ -3,59 +3,59 @@ fr:
   equipe:
     '1':
       description_html: "« Diverses expériences sur le terrain - animateur de salons, en charge d’un observatoire éco emploi, conseiller en entreprise - et de belles rencontres m’ont donné la passion du service public. J’ai rejoint l’État en centrale pour créer ce service.<br />Il y a quelques années, j’ai proposé le pari fou de réunir tous les partenaires publics et parapublics de l’accompagnement des entreprises pour maximiser l’impact de notre réponse collective. Aujourd’hui, je souhaite observer finement ce dernier kilomètre décisif et participer à l’ajustement des politiques publiques. »"
-      email: mathieu.gens@beta.gouv.fr
+      email: mathieu.gens@entreprises.service-public.fr
       name: Mathieu Gens
       photo: equipe/mathieu.webp
       role: Directeur du service
     '2':
       description_html: "« Après un parcours en droit public, j’ai souhaité plonger dans la construction concrète d’un service public. Aventure passionnante pour accompagner les petites entreprises, en particulier face au défi de leur transformation sociale et écologique.<br />Je m’attache à bien comprendre les besoins de nos utilisateurs - chefs d’entreprises comme agents publics - pour proposer un service pertinent. Objectif : placer l’humain au cœur de l’outil et des politiques publiques pour renforcer leur impact dans le quotidien de chacun »"
-      email: adeline.latron@beta.gouv.fr
+      email: adeline.latron@entreprises.service-public.fr
       name: Adeline Latron
       photo: equipe/adeline.webp
       role: Cheffe de produit
     '3':
       description_html: "« Juriste en droit privé, j’ai eu la chance de forger mon expérience dans le secteur privé et au sein du réseau consulaire. En 2021, j’ai décidé de poursuivre ma mission d'accompagnement des TPE-PME sous un angle nouveau : mettre en lien les dirigeants avec les conseillers de leur territoire.<br />Dans la dynamique de mobilisation de nos partenaires, j’aspire à nouer et développer une relation de confiance avec l’ensemble des équipes pour un partenariat gagnant-gagnant et impactant ! »"
-      email: ludivine.baclet@beta.gouv.fr
+      email: ludivine.baclet@entreprises.service-public.fr
       name: Ludivine Baclet
       photo: equipe/ludivine.webp
       role: Coordinatrice qualité & Référente territoriale
       territories: Ile-de-France, Outre-mer
     '4':
       description_html: "« Durant mes 10 années dans le réseau bancaire et mes 20 années au sein de la CMA des Hauts-de-France, j’ai toujours aidé le chef d’entreprise dans la résolution de ses problématiques. À travers le conseil, l’accompagnement et la formation, j’ai joué le rôle de facilitateur auprès des dirigeants.<br />En rejoignant l’équipe, j’ai gardé au coeur de mes préoccupations ce souci de faciliter la vie des TPE & PME en leur apportant une réponse complète et pertinente. Quoi de mieux, pour cela, que d’être entouré d'experts grâce à notre réseau de partenaires »"
-      email: christophe.lecomte@beta.gouv.fr
+      email: christophe.lecomte@entreprises.service-public.fr
       name: Christophe Lecomte
       photo: equipe/christophe.webp
       role: Référent territorial
       territories: Bretagne, Hauts-de-France, Pays de la Loire, Provence Alpes Côtes d'Azur
     '5':
       description_html: "« Chargée de développement économique pendant 13 ans au sein de la Chambre des Métiers et de l’Artisanat, mon quotidien était d'accompagner les créateurs et les chefs d’entreprises dans de nombreux domaines. Mon crédo, tout faire pour accompagner et solutionner !<br />J’ai rejoint l'équipe car j'ai à cœur de valoriser l’expertise et les compétences des institutions, qui j’en suis convaincue, sont très souvent méconnues des dirigeants. Or la richesse des conseils et des services proposés peut pleinement concourir à leurs objectifs. »"
-      email: melanie.camboni@beta.gouv.fr
+      email: melanie.camboni@entreprises.service-public.fr
       name: Mélanie Camboni
       photo: equipe/melanie.webp
       role: Référente territoriale
-      territories: Centre-Val de Loire, Guadeloupe, Nouvelle-Aquitaine, Occitanie
+      territories: Centre-Val de Loire, Guadeloupe, Martinique, Nouvelle-Aquitaine, Occitanie
     '6':
       description_html: "« Le bon service au bon moment : c’est essentiel pour le dirigeant d’entreprise autant que les conseillers du service public. Ancien dirigeant d’une TPE dans les circuits-courts alimentaires, j’ai vécu les difficultés majeures que l’on rencontre en tant que jeune dirigeant à cet égard.<br />Je fais désormais mon possible pour tisser davantage de liens de qualité entre les dirigeants d’entreprises et l’expertise des conseillers du service public »"
-      email: niels.juliensaintamand@beta.gouv.fr
+      email: niels.juliensaintamand@entreprises.service-public.fr
       name: Niels Julien Saint Amand
       photo: equipe/niels.webp
       role: Référent territorial
       territories: Auvergne Rhône Alpes, Bourgogne Franche-Comté, Grand-Est, Normandie
     '7':
       description_html: "« Après un début de carrière dans le secteur culturel, j’ai bifurqué vers le développement web il y a une dizaine d'années. Depuis, j’ai développé le goût des produits numériques bien faits, tout en cultivant l’envie d'être utile et l’intérêt pour les projets collectifs.<br />J’ai à cœur de faire de ce service un outil incontournable et agréable, qui ne laisse personne sur le côté. Allez, je retourne à mes tests ! »"
-      email: claire.zuliani@beta.gouv.fr
+      email: claire.zuliani@entreprises.service-public.fr
       name: Claire Zuliani
       photo: equipe/claire.webp
       role: Lead Développeuse
     '8':
       description_html: "« Développeur web depuis 2017 j’ai essentiellement travaillé pour le service public. Je trouve une réelle satisfaction dans la création de solutions numériques au service de la collectivité.<br /> Mon approche dans le développement web se caractérise par la recherche constante d’une performance optimale, tout en intégrant des mesures de sécurité avancées, afin de fournir aux utilisateurs une plateforme à la fois efficace et protégée. »"
-      email: lucien.mollard@beta.gouv.fr
+      email: lucien.mollard@entreprises.service-public.fr
       name: Lucien Mollard
       photo: equipe/lucien.webp
       role: Développeur
     '9':
       description_html: "« Après avoir travaillé dans plusieurs entreprises de la tech, je me suis formé au coaching professionnel pour accompagner les individus et les équipes. Depuis 2018, j’accompagne au sein de beta.gouv plusieurs équipes de l’administration pour les aider à construire les meilleurs services publics numériques possibles.<br />Mon leitmotiv est d’améliorer en continu le produit pour qu’il ait le maximum d’impact auprès des chefs d’entreprises. L’objectif est de construire un produit qui soit utilisable, utilisé et surtout utile ! »"
-      email: julien.rayneau@beta.gouv.fr
+      email: julien.rayneau@entreprises.service-public.fr
       name: Julien Rayneau
       photo: equipe/julien.webp
       role: Coach agile

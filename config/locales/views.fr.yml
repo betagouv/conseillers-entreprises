@@ -834,7 +834,7 @@ fr:
     series:
       advisors:
         title: Conseillers publics
-        title_table: Nombre de conseillers publics
+        title_table: Nombre de conseillers de service public
       companies_by_employees:
         ministats: Entreprises aidées
         title: Typologie des entreprises utilisatrices du service

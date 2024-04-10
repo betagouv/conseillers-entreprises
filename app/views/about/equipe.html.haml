@@ -23,8 +23,9 @@
                   %br
                 %br
                 = raw member[:description_html]
-              .fr-card__end
-                %p.fr-card__detail= member[:email]
+              - if current_user.present?
+                .fr-card__end
+                  %p.fr-card__detail= member[:email]
           .fr-card__header
             .fr-card__img
               = image_tag(member[:photo], alt: '', class: 'fr-responsive-img')
