@@ -1,5 +1,6 @@
 module Reminders
   class BaseController < ApplicationController
+    include PersistedSearch
     before_action :authenticate_admin!
 
     layout 'side_menu'
@@ -16,26 +17,12 @@ module Reminders
 
     # Filtering
     #
-    def reminders_filter_params
-      session[:reminders_filter_params]&.with_indifferent_access || {}
-    end
-    helper_method :reminders_filter_params
-
-    def persist_filter_params
-      session[:reminders_filter_params] ||= {}
-      search_params = params.slice(:by_region, :by_full_name).permit!
-      if params[:reset_query].present?
-        session[:reminders_filter_params] = {}
-      else
-        session[:reminders_filter_params] = session[:reminders_filter_params].merge(search_params)
-      end
+    def search_session_key
+      :reminders_filter_params
     end
 
-    def setup_territory_filters
-      @possible_territories_options = Territory.regions.pluck(:name, :id)
-      @possible_territories_options.push(
-        [ t('helpers.expert.national_perimeter.label'), t('helpers.expert.national_perimeter.value') ]
-      )
+    def search_fields
+      [:by_region, :by_full_name]
     end
   end
 end

@@ -192,6 +192,7 @@ fr:
         insee: un avis de situation de l’Insee
         liberal_instruction: 'De façon générale, il est souvent possible de fournir d’autres justificatifs d’existence comme :'
         no_expert_monidenum_html: 'Si vous rencontrez des difficultés techniques sur le site MonIdenum et <a href=''https://monidenum.fr/contact''>son support</a>, ce document est également disponible pour les activités commerciales sur le site du greffe : <a href=''https://www.infogreffe.fr/documents-officiels/extrait-kbis''>www.infogreffe.fr/documents-officiels/extrait-kbis</a>. Le coût de la formalité est définie par le greffe.'
+        non_diffusible_help_html: 'Enfin, si votre entreprise est « non diffusible », vous avez la possibilité de modifier ce statut pour télécharger vos documents : <a href=''https://statut-diffusion-sirene.insee.fr''>Accueil - Statut de diffusion Sirene - Insee</a>'
         only_commercial_html: "<strong>Attention : l’extrait Kbis ne concerne que les activités commerciales</strong>."
         rne: un extrait de votre inscription au Registre national des entreprises (extrait RNE)
         use_for_commercant_html: Ces deux documents sont à télécharger gratuitement sur <a href=''https://annuaire-entreprises.data.gouv.fr''>annuaire-entreprises.data.gouv.fr</a>.

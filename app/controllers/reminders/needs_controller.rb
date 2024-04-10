@@ -1,6 +1,6 @@
 module Reminders
   class NeedsController < BaseController
-    before_action :persist_filter_params, :setup_territory_filters, :collections_counts
+    before_action :collections_counts
     before_action :find_need, only: %i[send_failure_email send_last_chance_email]
 
     def index
@@ -91,7 +91,7 @@ module Reminders
     end
 
     def filtered_needs
-      @filtered_needs ||= Need.apply_filters(reminders_filter_params)
+      @filtered_needs ||= Need.apply_filters(index_search_params)
     end
   end
 end

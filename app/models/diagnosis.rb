@@ -221,7 +221,7 @@ class Diagnosis < ApplicationRecord
   def warn_debug_developers
     if solicitation.nil?
       Sentry.with_scope do |scope|
-        scope.set_tags(diagnosis: self.inspect)
+        scope.set_tags(diagnosis: self.id)
         Sentry.capture_message("Analyse sans sollicitation")
       end
     end

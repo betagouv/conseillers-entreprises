@@ -5,16 +5,13 @@
       = f.label :by_region, t('attributes.region'), class: 'fr-label'
       = f.select(:by_region,
         options_for_select(possible_territories_options, index_search_params[:by_region]),
-        options.dup, { class: 'fr-select' })
+        options.dup, { class: 'fr-select fr-m-0' })
     .fr-col-md-6.fr-col-12
-      .fr-input-group
-        = f.label :by_full_name, t('.by_full_name'), class: 'fr-label'
-        = f.search_field :by_full_name, value: index_search_params[:by_full_name], class: 'fr-input', placeholder: t('.search_placeholder')
   .fr-grid-row.fr-grid-row--gutters
     .fr-col-md-6.fr-col-12
-      - if defined? active_experts
-        %p= collection_count active_experts
+      - if defined? needs
+        %p= collection_count needs
     .fr-col-md-6.fr-col-12.text-right
       - if index_search_params.present?
         = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
-      = f.submit t('search'), class: 'fr-btn', title: t('.search')
+      = f.submit t('search'), class: 'fr-btn', title: t('search')
