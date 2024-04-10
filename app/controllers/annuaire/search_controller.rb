@@ -21,6 +21,7 @@ module Annuaire
     private
 
     def fetch_institution_and_antenne(model, id)
+      # return [institution_slug, antenne_id, advisor_id]
       case model
       when 'User'
         user = User.find(id)
