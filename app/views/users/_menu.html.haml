@@ -1,16 +1,13 @@
-%ul.fr-sidemenu__list
-  %li.fr-sidemenu__item
-    -# User settings
-    = active_link_to t('.informations'), edit_user_path, { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
-  %li.fr-sidemenu__item
-    -# More User settings (password)
-    = active_link_to t('.password'), password_user_path, { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
-  %li.fr-sidemenu__item
-    -# More User settings (Antenne)
-    = active_link_to t('.antenne'), antenne_user_path, { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
-  %li.fr-sidemenu__item
+%ul.fr-sidemenu__list.toto
+  -# User settings
+  = active_link_to t('.informations'), edit_user_path, { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
+  -# More User settings (password)
+  = active_link_to t('.password'), password_user_path, { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
+  -# More User settings (Antenne)
+  = active_link_to t('.antenne'), antenne_user_path, { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
+  - if user.experts.teams.any?
     -# Expert teams info
     = experts_items_in_section(user.experts.teams, :edit, t('.team'))
-  %li.fr-sidemenu__item
+  - if user.experts.relevant_for_skills.any?
     -# Expert subjects (teams and non-empty personal skillsets)
     = experts_items_in_section(user.experts.relevant_for_skills, :subjects, t('.subjects'))

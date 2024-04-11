@@ -6,7 +6,7 @@ fr:
       id: fonctionnement
       question: Comment fonctionne le service public Conseillers-Entreprises ?
     '2':
-      answer: "<p>Les conseillers du service Conseillers-Entreprises sont des agents des administrations, des organismes publics et parapublics chargés d’accompagner les entreprises. Le service compte aujourd’hui plus de 10 000 conseillers, au sein de 40 partenaires différents. Pour des difficultés financières par exemple, en fonction de votre demande, vous pourrez être aidé par un conseiller de la Banque de France, de l’Urssaf, de la Chambre de Commerce et d’Industrie ou de la Chambre des Métiers et de l’Artisanat.</p>"
+      answer: "<p>Les conseillers du service Conseillers-Entreprises sont les agents des administrations, des organismes publics et parapublics chargés d’accompagner les entreprises. Le service compte aujourd’hui plus de 10 000 conseillers, au sein de 40 partenaires différents. Pour des difficultés financières par exemple, en fonction de votre demande, vous pourrez être aidé par un conseiller de la Banque de France, de l’Urssaf, de la Chambre de Commerce et d’Industrie ou de la Chambre des Métiers et de l’Artisanat.</p>"
       id: conseillers
       question: Qui sont les conseillers de Conseillers-Entreprises ?
     '3':

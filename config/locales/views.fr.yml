@@ -326,7 +326,7 @@ fr:
       expert_subject_title_solo: Vos domaines d'intervention
       expert_subject_title_team: Les domaines d'intervention de votre équipe
       institution_subject_title: Les autres domaines d'intervention de votre institution
-      instructions_html: En tant qu’expert sur Conseillers-entreprises.service-public.fr, vous pouvez recevoir des besoins d’entreprises sur vos domaines d’intervention.
+      instructions_html: En tant qu’expert du service public Conseillers-Entreprises, vous pouvez recevoir des besoins d’entreprises sur vos domaines d’intervention.
       others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a> (%{email}). Vous êtes susceptible de n'intervenir que sur une partie de ces domaines.
   export_xls:
     email_instructions: Les adresses mails individuelles sont indispensables à la création des comptes utilisateurs et l’accès à l’interface de Conseillers-Entreprises. Si des conseillers sont partis, merci de mettre en rouge les lignes en question pour que nous supprimions leurs comptes utilisateurs.
@@ -1061,6 +1061,7 @@ fr:
     registrations:
       antenne:
         antenne_within_institution: Antenne (au sein de %{institution})
+        no_team: Pas d’équipe
     thats_you: C’est vous !
   views:
     pagination:
