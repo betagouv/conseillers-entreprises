@@ -99,7 +99,6 @@ fr:
       see_expert_coordinates: Voir les coordonnées de l'équipe
       see_person_coordinates: Voir les coordonnées de la personne
     navbar:
-      account: Compte
       admin: Administration
       annuaire: Annuaire
       antenne_needs: Besoins de l’antenne
@@ -111,6 +110,7 @@ fr:
       reports: Export des données
       sign_out: Déconnexion
       stats: Statistiques
+      tools: Outils
     pde_partnership_mention: Ce service public d'accompagnement des entreprises est proposé par Conseillers Entreprises.
     person_modal:
       manager_name: 'Responsable : %{name}'
