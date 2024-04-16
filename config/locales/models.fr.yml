@@ -629,7 +629,7 @@ fr:
         user:
           attributes:
             email:
-              taken: est déjà inscrit sur Conseillers-entreprises.service-public.fr.
+              taken: est déjà inscrit sur conseillers-entreprises.service-public.fr.
     models:
       additional_subject_question:
         one: Question additionnelle

@@ -7,7 +7,7 @@ fr:
     blog:
       title: Actu aides
     cgu:
-      title: Conditions d’utilisation du service numérique Conseillers-entreprises.service-public.fr
+      title: Conditions d’utilisation du service numérique Conseillers-Entreprises
     comment_ca_marche:
       business_owners: Ces chefs d’entreprises utilisent déjà le service. Et vous ?
       long_title: Le service public Conseillers-Entreprises, comment ça marche ?
@@ -318,7 +318,7 @@ fr:
     edit:
       antenne_and_institution: Structure
       different_antenne_warning_html: 'Attention : cette antenne est différente de l’antenne à laquelle est rattaché votre compte utilisateur.<br/> C’est peut-être une erreur ; <a href="mailto:%{email}">contactez-nous</a> pour la modifier.'
-      team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Conseillers-entreprises.service-public.fr.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
+      team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Conseillers-Entreprises.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
       team_members: Membres de l’équipe
       team_name_explanation: C’est le nom d’équipe qui sera indiqué au conseiller pour vous envoyer des besoins. Votre antenne et votre structure figurent automatiquement, ne les précisez pas dans le nom d’équipe.
     subjects:
@@ -702,7 +702,7 @@ fr:
     sitemap:
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
       meta_title: Plan du site
-      subtitle: Retrouvez ici une vision synthétique de l’ensemble des contenus de Conseillers-entreprises.service-public.fr
+      subtitle: Retrouvez ici une vision synthétique de l’ensemble des contenus de Conseillers-Entreprises
       title: Plan du site
   solicitations:
     company_tile:

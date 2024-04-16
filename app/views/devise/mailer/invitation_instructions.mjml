@@ -1,18 +1,10 @@
 <mj-section>
   <mj-column>
-    <mj-text>
+    <mj-text>      
       <p><%= t('devise.mailer.hello', user_full_name: @resource.full_name) %></p>
 
       <p><%= t('.description_html', antenne: @resource.antenne.name) %></p>
-
-      <h2 class='style_h3'><%= t('.question_one') %></h2>
-
-      <p><%= t('.answer_one', institution_name: @resource.institution.name) %></p>
-
-      <h2 class='style_h3'><%= t('.question_two') %></h2>
-
-      <p><%= t('.answer_two_html') %></p>
-
+      
       <h2 class='style_h3'><%= t('.accept_user_invitation_instruction') %></h2>
     </mj-text>
 
@@ -21,6 +13,14 @@
     </mj-button>
 
     <mj-text>
+      <h2 class='style_h3'><%= t('.question_one') %></h2>
+
+      <p><%= t('.answer_one', institution_name: @resource.institution.name) %></p>
+
+      <h2 class='style_h3'><%= t('.question_two') %></h2>
+
+      <p><%= t('.answer_two_html') %></p>
+
       <p><%= t('.looking_forward') %></p>
 
       <p><%= t('mailers.team_html', url: root_url) %></p>

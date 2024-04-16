@@ -12,7 +12,7 @@ fr:
     forgot_password: Mot de passe oublié ou inconnu ?
     invitations:
       edit:
-        accept_cgu_html: J’ai lu et j’accepte les <a href='%{cgu_path}'>conditions d’utilisation de Conseillers-entreprises.service-public.fr</a>
+        accept_cgu_html: J’ai lu et j’accepte les <a href='%{cgu_path}'>conditions d’utilisation de Conseillers-Entreprises</a>
         header: Bienvenue sur Conseillers-Entreprises, un service de Service-Public.fr
         password_description: 'Choisissez un mot de passe pour créer votre compte :'
         prefilled_description: 'Certaines informations ont été préremplies ; vous pouvez les corriger si nécessaire :'
