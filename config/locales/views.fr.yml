@@ -855,31 +855,52 @@ fr:
         title_table: Nombre de mises en relation
       matches_done:
         subtitle: Le besoin a été pris en charge par un expert et une aide a pu être proposée à l’entreprise. L’aide s’entend au sens large (conseils, accompagnement technique, aide financière).
-        title: des besoins transmis sont clôturés par l’institution par une aide proposée, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis sont clôturés par l’institution par une aide proposée, soit %{secondary_count} besoin
+          other: des besoins transmis sont clôturés par l’institution par une aide proposée, soit %{secondary_count} besoins
+          zero: des besoins transmis sont clôturés par l’institution par une aide proposée, soit %{secondary_count} besoin
         title_table: Nombre de besoins clôturés par une aide proposée par l’institution
       matches_done_no_help:
         subtitle: Le besoin a été pris en charge par un expert, mais l’échange téléphonique n’a pu aboutir à une proposition d’aide (critères non remplis, situation spécifique...).
-        title: de besoins transmis sont clôturés sans aide possible par l’institution, soit %{secondary_count} besoins
+        title:
+          one: de besoins transmis sont clôturés sans aide possible par l’institution, soit %{secondary_count} besoin
+          other: de besoins transmis sont clôturés sans aide possible par l’institution, soit %{secondary_count} besoins
+          zero: de besoins transmis sont clôturés sans aide possible par l’institution, soit %{secondary_count} besoin
         title_table: Nombre de besoins clôturés sans aide possible de l’institution
       matches_done_not_reachable:
         subtitle: L’expert n’a pas réussi à joindre l’entreprise malgré deux tentatives. En laissant ses coordonnées, l’entreprise peut néanmoins le rappeler.
-        title: des besoins transmis sont clôturés par l’institution sans avoir pu joindre l’entreprise, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis sont clôturés par l’institution sans avoir pu joindre l’entreprise, soit %{secondary_count} besoin
+          other: des besoins transmis sont clôturés par l’institution sans avoir pu joindre l’entreprise, soit %{secondary_count} besoins
+          zero: des besoins transmis sont clôturés par l’institution sans avoir pu joindre l’entreprise, soit %{secondary_count} besoin
         title_table: Nombre de besoins clôturés par l’institution sans avoir pu joindre l’entreprise
       matches_not_for_me:
         subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
-        title: de besoins refusés par l’institution, soit %{secondary_count} besoins
+        title:
+          one: de besoins refusés par l’institution, soit %{secondary_count} besoin
+          other: de besoins refusés par l’institution, soit %{secondary_count} besoins
+          zero: de besoins refusés par l’institution, soit %{secondary_count} besoin
         title_table: Nombre de besoins refusés par l’institution
       matches_not_positioning:
         subtitle: L’expert n’a donné aucune indication sur le besoin transmis.
-        title: des besoins transmis sont restés sans réponse de l’institution, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis sont restés sans réponse de l’institution, soit %{secondary_count} besoin
+          other: des besoins transmis sont restés sans réponse de l’institution, soit %{secondary_count} besoins
+          zero: des besoins transmis sont restés sans réponse de l’institution, soit %{secondary_count} besoin
         title_table: Nombre de besoins restés sans réponse de l’institution
       matches_positioning:
         subtitle: L’expert s’est positionné pour indiquer prendre en charge ou refuser le besoin.
-        title: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoin
+          other: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoins
+          zero: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoin
         title_table: Taux de réponse
       matches_taking_care:
         subtitle: Le besoin a été pris en charge par un expert, mais n’a pas encore été cloturé après l’appel de l’entreprise.
-        title: des besoins transmis sont en cours de prise en charge par l’institution, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis sont en cours de prise en charge par l’institution, soit %{secondary_count} besoin
+          other: des besoins transmis sont en cours de prise en charge par l’institution, soit %{secondary_count} besoins
+          zero: des besoins transmis sont en cours de prise en charge par l’institution, soit %{secondary_count} besoin
         title_table: Nombre de besoins en cours de prise en charge
       needs:
         title: Besoins identifiés
@@ -903,13 +924,19 @@ fr:
         title_table: Nombre de besoins clôturés grâce à une aide proposée
       needs_done_no_help:
         subtitle: La clôture sans accompagnement signifie que l’entreprise a bien été rappelée par au moins un conseiller, mais que celui-ci n’a finalement pas pu l’aider au regard de sa situation particulière.
-        title: des besoins transmis sont clôturés sans aide possible, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis sont clôturés sans aide possible, soit %{secondary_count} besoin
+          other: des besoins transmis sont clôturés sans aide possible, soit %{secondary_count} besoins
+          zero: des besoins transmis sont clôturés sans aide possible, soit %{secondary_count} besoin
         title_table: Nombre de besoins clôturés sans aide disponible
       needs_done_not_reachable:
         title: des besoins transmis sont clôturés sans avoir pu joindre l’entreprise, soit %{secondary_count} besoins
         title_table: Nombre de besoins clôturés faute d’avoir pu joindre l’entreprise
       needs_exchange_with_expert:
-        title: des besoins transmis ont donné lieu à un échange avec un conseiller, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis ont donné lieu à un échange avec un conseiller, soit %{secondary_count} besoin
+          other: des besoins transmis ont donné lieu à un échange avec un conseiller, soit %{secondary_count} besoins
+          zero: des besoins transmis n'a donné lieu à un échange avec un conseiller, soit %{secondary_count} besoin
         title_table: Nombre de besoins d’entreprises transmis ayant donné lieu à un échange avec un conseiller
         with_exchange: Avec échange
         without_exchange: Sans échange
@@ -927,16 +954,25 @@ fr:
         title: Thématiques choisies par les entreprises
         title_table: Thématiques choisies par les entreprises
       needs_transmitted:
-        title: Besoins transmis
+        title:
+          one: Besoin transmis
+          other: Besoins transmis
+          zero: Besoin transmis
         title_table: Besoins transmis
       solicitations_completed:
         series: Besoins déposés
         subtitle_html: Il s’agit du nombre de besoins déposés par les entreprises avant la vérification qualité
-        title: besoins déposés par les entreprises
+        title:
+          one: besoin déposé par les entreprises
+          other: besoins déposés par les entreprises
+          zero: besoin déposé par les entreprises
         title_table: Nombre de besoins déposés par les entreprises
       solicitations_diagnoses:
         subtitle_html: Pour le bon fonctionnement du service, les besoins sont vérifiés. Seuls les besoins de bonne qualité sont transmis. Les besoins sans aucun élément de contexte, avec des erreurs de siret ou touchant à la création d’entreprise, ne peuvent pas être transmis.
-        title: des besoins sont transmis aux conseillers, soit %{secondary_count} besoins
+        title:
+          one: des besoins sont transmis aux conseillers, soit %{secondary_count} besoin
+          other: des besoins sont transmis aux conseillers, soit %{secondary_count} besoins
+          zero: aucun besoin n'a été transmis aux conseillers
         title_table: Nombre de besoins transmis aux conseillers
       solicitations_taking_care_time:
         title: des échanges ont lieu dans les 5 jours après transmission du besoin
