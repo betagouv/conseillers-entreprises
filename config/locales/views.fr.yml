@@ -74,7 +74,7 @@ fr:
     search:
       form:
         submit: Chercher
-      free_text_search: Rechercher un ou des conseilers
+      free_text_search: Rechercher un ou des conseillers
     subjects:
       index:
         no_subject: Aucun sujet n’a été trouvé
