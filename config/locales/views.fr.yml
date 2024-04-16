@@ -1065,12 +1065,13 @@ fr:
       at_your_service_1: Pour vous proposer un outil simple et intuitif, qui vous permettra d’échanger avec d’autres experts au sein de différentes institutions.
       at_your_service_2: Être à votre écoute pour améliorer la qualité et la nature des besoins d’entreprises que vous souhaitez recevoir.
       at_your_service_3: Assurer le suivi des besoins restés sans réponse ou refusés, afin qu’aucune entreprise ne reste sans réponse.
+      at_your_service_4_html: Pour toute question, <a href="%{contact_url}">n’hésitez pas à prendre contact !</a>
       available_on_html: La vidéo est également visible sur %{dailymotion_link}.
       comments: En cas de refus, les commentaires aident l’équipe en charge de Conseillers-Entreprises à améliorer l’orientation des besoins d’entreprises.
       dailymotion: Dailymotion
       dailymotion_video_title: Lien vers la video tutoriel sur Dailymotion - nouvelle fenêtre
       emails: Recevoir les emails
-      explanation_emails: Vérifiez vos spams, glissez l’email de Conseillers-Entreprises dans ma boîte de réception. Les prochains emails arriveront ainsi directement dans ma boite de réception !
+      explanation_emails: Je vérifie dans mon dossier "spams" et glisse, si je l'y trouve, l’email de Conseillers-Entreprises dans ma boîte de réception pour l’autoriser. Les prochains emails arriveront ainsi directement dans ma boîte de réception !
       need_steps: Les 4 étapes de la prise en charge d’un besoin
       notifications_explanations_1_html: À l’arrivée d’une <b>nouvelle demande</b> d’une entreprise sur votre territoire
       notifications_explanations_2_html: Si vous avez des besoins en attente en réponse, vous recevrez également :<ul><li>un <b>récapitulatif hebdomadaire</b> tous les mardis regroupant tous les besoins en attente</li><li>une <b>relance de “la dernière chance”</b> 3 semaines après réception d’une demande</li><li>un <b>mail de rappel</b> manuellement déclenché par un membre de l’équipe</li></ul>
@@ -1078,9 +1079,9 @@ fr:
       notifications_question: Quand recevez-vous une notification ?
       notifications_title: Comprendre les notifications
       pde_tutorial_transcription: Transcription textuelle de la vidéo tutorielle de Conseillers-Entreprises.
-      question_emails: Je ne reçois pas les courriels de Conseillers-Entreprises, que faire ?
+      question_emails: Je ne reçois pas les emails de Conseillers-Entreprises, que faire ?
       read_transcription: Lire la transcription
-      step_1: Je me positionne sur le besoin de l’entreprise adressé sur mon champ de compétences, en cliquant sur le bouton de prise en charge ou de refus.
+      step_1: Je me positionne sur le besoin de l’entreprise adressé sur mon champ de compétences, en cliquant sur le bouton de prise en charge (« J’appelle ») ou de refus (« Ce n’est pas pour moi »).
       step_2: Lorsque j’ai cliqué sur le bouton vert "J’appelle", je contacte le chef d’entreprise par téléphone pour préciser avec lui sa problématique et identifier l’aide ou l’accompagnement que ma structure peut lui proposer.
       step_3: Après l’appel, je clôture mon intervention en fonction de la réponse apportée ou de l’impossibilité de joindre le chef d’entreprise (n'oubliez alors pas de laisser vos coordonnées sur le répondeur).
       step_4: Je laisse un commentaire pour les autres experts notifiés afin qu’ils puissent intervenir de manière complémentaire et pertinente par rapport à mon action.
