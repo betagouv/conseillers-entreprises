@@ -17,18 +17,18 @@ module  Annuaire
     private
 
     def retrieve_institutions
-      @institutions = Institution.expert_provider.includes(:logo, :themes).not_deleted.order(:slug)
-      @institutions = @institutions.by_region(index_search_params[:region]) if index_search_params[:region].present?
-      @institutions = @institutions.joins(:themes).where(themes: { id: index_search_params[:theme] }) if index_search_params[:theme].present?
-      @institutions = @institutions.joins(:subjects).where(subjects: { id: index_search_params[:subject] }) if index_search_params[:subject].present?
+      @institutions = Institution
+                        .expert_provider
+                        .includes(:logo, :themes)
+                        .not_deleted
+                        .apply_filters(index_search_params)
+                        .order(:slug)
     end
 
     def get_antennes_count
       antennes_count = Antenne.select('COUNT(DISTINCT antennes.id) AS antennes_count, antennes.institution_id AS institution_id')
         .not_deleted
-        .by_region(index_search_params[:region])
-        .by_subject(index_search_params[:subject])
-        .by_theme(index_search_params[:theme])
+        .apply_filters(index_search_params)
         .group('antennes.institution_id')
 
       @antennes_count = antennes_count.each_with_object({}) do |institution, hash|
