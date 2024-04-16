@@ -41,6 +41,7 @@
   align-items: center
   flex-grow: 1
   padding: 0.5rem 0
+  flex-basis: 80%
   p
     margin: 0
   .col-icon
@@ -108,11 +109,22 @@
   .fr-search-bar .fr-input
     box-shadow: inset 0 -2px 0 0 $blue
     background-color: $white
+  .expert-search-bar
+    width: 100%
+    .input, .label-loader
+      display: flex
+      input
+        box-shadow: inset 0 -2px 0 0 $blue
+        background-color: $white
+    .fr-label
+      margin-left: 3rem
   .ri-user-add-fill
     font-size: 2rem
     display: flex
     align-items: center
     margin-right: 1rem
+  .autocomplete-container
+    width: 100%
 
 .need-metadata
   margin-bottom: 2rem
