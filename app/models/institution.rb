@@ -96,7 +96,6 @@ class Institution < ApplicationRecord
   end
 
   scope :by_region, -> (region_id) do
-    return all if region_id.blank?
     left_joins(antennes: :regions)
       .left_joins(antennes: :experts)
       .where(antennes: { territories: { id: [region_id] } })
@@ -185,6 +184,14 @@ class Institution < ApplicationRecord
 
   def perimeter_received_needs
     self.received_needs_including_from_deleted_experts
+  end
+
+  def self.apply_filters(params)
+    klass = self
+    klass = klass.by_region(params[:region]) if params[:region].present?
+    klass = klass.joins(:themes).where(themes: { id: params[:theme] }) if params[:theme].present?
+    klass = klass.joins(:subjects).where(subjects: { id: params[:subject] }) if params[:subject].present?
+    klass.all
   end
 
   ## Soft deletion
