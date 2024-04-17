@@ -130,7 +130,7 @@ class SolicitationsController < PagesController
         ActiveRecord::Base.transaction do
           PrepareSolicitationDiagnosisJob.perform_later(@solicitation.id)
           CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
-          redirect_to form_complete_solicitation_path(@solicitation.uuid)
+          redirect_to form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
         end
       else
         flash.now.alert = @solicitation.errors.full_messages.to_sentence
