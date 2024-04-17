@@ -14,14 +14,23 @@ const sharedWebpackConfig = (mode) => {
       'gouvfr-nomodule': "./app/front/packs/gouvfr-nomodule.js",
       'gouvfr-module': "./app/front/packs/gouvfr-module.js",
     },
+    module: {
+      rules: [
+          {
+            test: /\.(js)$/,
+            exclude: /node_modules/,
+            use: ['babel-loader'],
+          }
+        ]
+    },
     // optimization: // optimization rules
     resolveLoader: {
       modules: [ 'node_modules' ],
     },
     output:   {
       filename: "[name].js",
-      chunkFilename: "[name]-[contenthash].digested.js",
-      sourceMapFilename: "[file]-[fullhash].map",
+      chunkFilename: "[name].digested.js",
+      sourceMapFilename: "[file].map",
       path: path.resolve(__dirname, '..', '..', 'app/assets/builds'),
       hashFunction: "sha256",
       hashDigestLength: 64,
