@@ -12,6 +12,7 @@
 *.rbc
 capybara-*.html
 .rspec
+.vscode
 
 /public/system
 /coverage/
