@@ -18,11 +18,11 @@ module  Annuaire
 
     def retrieve_institutions
       @institutions = Institution
-                        .expert_provider
-                        .includes(:logo, :themes)
-                        .not_deleted
-                        .apply_filters(index_search_params)
-                        .order(:slug)
+        .expert_provider
+        .includes(:logo, :themes)
+        .not_deleted
+        .apply_filters(index_search_params)
+        .order(:slug)
     end
 
     def get_antennes_count

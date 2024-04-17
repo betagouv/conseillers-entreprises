@@ -22,12 +22,18 @@ module Annuaire
 
     def fetch_institution_and_antenne(model, id)
       # return [institution_slug, antenne_id, advisor_id]
+      # Si c'est un utilisateur qui est cherché on vide les filtres et on va à l'utilisateur
+      # pour éviter de ne pas trouver cet utilisateur
+      # si c'est une antenne on vide la région et on va a l'antenne
+      # si c'est un institution on garde les filtres et on va à l'institution
       case model
       when 'User'
         user = User.find(id)
+        reset_params_for_user
         form_params[:advisor] = user
         [user.institution.slug, user.antenne.id, user.id]
       when 'Antenne'
+        reset_params_for_antenne
         antenne = Antenne.find(id)
         [antenne.institution.slug, antenne.id, nil]
       when 'Institution'
@@ -40,6 +46,19 @@ module Annuaire
           [nil, nil, nil]
         end
       end
+    end
+
+    def reset_params_for_user
+      params[:region] = nil
+      params[:theme] = nil
+      params[:subject] = nil
+      reset_session
+    end
+
+    def reset_params_for_antenne
+      params[:region] = nil
+      session[:annuaire_search].delete('region')
+      index_search_params[:region] = nil
     end
   end
 end
