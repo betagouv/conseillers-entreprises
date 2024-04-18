@@ -3,6 +3,7 @@ module  Annuaire
     before_action :retrieve_institution
     before_action :retrieve_antenne, only: :index
     before_action :retrieve_users, only: :index
+    before_action :retrieve_subjects, only: :index
 
     def index
       institutions_subjects_by_theme = @institution.institutions_subjects
@@ -78,10 +79,10 @@ module  Annuaire
         .relevant_for_skills
         .order('antennes.name', 'team_name', 'users.full_name')
         .preload(:antenne, :user_rights_manager, relevant_expert: [:users, :antenne, :experts_subjects, :communes])
-
-      if params[:region_id].present?
-        @users = @users.in_region(params[:region_id])
-      end
+        .select('"antennes".*, "users".*')
+        .by_region(index_search_params[:region])
+        .by_theme(index_search_params[:theme])
+        .by_subject(index_search_params[:subject])
     end
 
     def base_users

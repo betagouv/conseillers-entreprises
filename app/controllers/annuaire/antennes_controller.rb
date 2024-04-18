@@ -28,7 +28,9 @@ module  Annuaire
     private
 
     def retrieve_antennes
-      @antennes = @institution.retrieve_antennes(session[:annuaire_region_id]).preload(:experts, :advisors)
+      @antennes = @institution.antennes.not_deleted.apply_filters(index_search_params)
+        .preload(:experts, :advisors)
+        .distinct
     end
   end
 end

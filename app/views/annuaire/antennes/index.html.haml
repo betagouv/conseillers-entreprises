@@ -2,8 +2,12 @@
 - content_for :header, render('header', institution: @institution)
 - content_for :menu, render('menu', institution: @institution)
 
-= render 'annuaire/search/form'
+= render 'form', institution: @institution
 
 = render 'import_buttons'
 
-= render 'table', antennes: @antennes
+- if @antennes.present?
+  = render 'table', antennes: @antennes
+- else
+  .fr-alert.fr-alert--info.fr-alert--sm
+    %p= t('.no_antenne')

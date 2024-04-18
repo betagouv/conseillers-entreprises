@@ -27,6 +27,9 @@
 
 class Antenne < ApplicationRecord
   include SoftDeletable
+  include ManyCommunes
+  include InvolvementConcern
+  include TerritoryNeedsStatus
 
   enum territorial_level: {
     local: 'local',
@@ -43,9 +46,6 @@ class Antenne < ApplicationRecord
   ## Associations
   #
   has_and_belongs_to_many :communes, inverse_of: :antennes, after_add: [:update_referencement_coverages, :update_antenne_hierarchy], after_remove: [:update_referencement_coverages, :update_antenne_hierarchy]
-  include ManyCommunes
-  include InvolvementConcern
-  include TerritoryNeedsStatus
 
   belongs_to :institution, inverse_of: :antennes
 
@@ -130,8 +130,28 @@ class Antenne < ApplicationRecord
 
   scope :with_experts_subjects, -> { where.associated(:experts_subjects).distinct }
 
+  scope :by_region, -> (region_id) do
+    joins(:regions).where(regions: { id: region_id })
+  end
+
+  scope :by_subject, -> (subject_id) do
+    joins(experts: :subjects).where(subjects: { id: subject_id })
+  end
+
+  scope :by_theme, -> (theme_id) do
+    joins(institution: :themes).where(themes: { id: theme_id })
+  end
+
   ##
   #
+  def self.apply_filters(params)
+    klass = self
+    klass = klass.by_region(params[:region]) if params[:region].present?
+    klass = klass.by_subject(params[:subject]) if params[:subject].present?
+    klass = klass.by_theme(params[:theme]) if params[:theme].present?
+    klass.all
+  end
+
   def to_s
     name
   end

@@ -2,7 +2,7 @@
 - content_for :header, render('header', institution: @institution, antenne: @antenne)
 - content_for :menu, render('menu', institution: @institution)
 
-= render 'annuaire/search/form'
+= render 'annuaire/search/form', subjects: @subjects
 
 = render 'import_buttons'
 
@@ -12,4 +12,8 @@
     = f.hidden_field :slug, value: params[:institution_slug]
     = f.submit t('.send_invitations', count: @not_invited_users.length), class: 'fr-btn fr-mb-2w fr-ml-2w'
 
-= render 'table', grouped_subjects: @grouped_subjects, grouped_users: @grouped_users, referencement_coverages: @referencement_coverages
+- if @grouped_users.present?
+  = render 'table', grouped_subjects: @grouped_subjects, grouped_users: @grouped_users, referencement_coverages: @referencement_coverages
+- else
+  .fr-alert.fr-alert--info.fr-alert--sm
+    %p= t('.no_users')

@@ -106,6 +106,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :relevant_experts, -> { relevant_for_skills }, class_name: 'Expert'
   has_many :antenne_regions, through: :experts, inverse_of: :advisors
   has_many :themes, through: :experts, inverse_of: :advisors
+  has_many :subjects, through: :experts, inverse_of: :advisors
 
   ## Scopes
   #
@@ -146,7 +147,20 @@ class User < ApplicationRecord
 
   scope :by_antenne, -> (antenne_id) { where(antenne: antenne_id) }
 
-  scope :by_region, -> (region_id) { joins(antenne: { communes: :territories }).where(antenne: { communes: { territories: { id: region_id } } }).distinct }
+  scope :by_region, -> (region_id) do
+    return all if region_id.blank?
+    joins(antenne: :regions).where(antennes: { territories: { id: region_id } }).distinct
+  end
+
+  scope :by_subject, -> (subject_id) do
+    return all if subject_id.blank?
+    joins(experts: :subjects).where(experts: { subjects: subject_id }).distinct
+  end
+
+  scope :by_theme, -> (theme_id) do
+    return all if theme_id.blank?
+    joins(experts: :themes).where(experts: { themes: theme_id }).distinct
+  end
 
   # Team stuff
   scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
@@ -171,6 +185,7 @@ class User < ApplicationRecord
   belongs_to :relevant_expert, class_name: 'Expert', optional: true
 
   scope :in_region, -> (region_id) do
+    return all if region_id.blank?
     left_joins(antenne: :regions)
       .left_joins(:experts)
       .select('"antennes".*, "users".*')

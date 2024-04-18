@@ -1,19 +1,10 @@
-= form_with url: annuaire_search_path, local: true, class: 'fr-mb-3w' do |f|
-  = f.hidden_field :institution_slug, value: params[:institution_slug].presence || (institution.slug if defined?(institution) && institution.present?)
-  = f.hidden_field :antenne, value: params[:antenne].presence || (antenne.id if defined?(antenne) && antenne.present?)
+= form_with url: institutions_path, local: true, method: :get, class: 'fr-mb-3w' do |f|
   .fr-grid-row.fr-grid-row--gutters{ data: { controller: 'stats', url: annuaire_load_filter_options_path } }
-    .fr-col
-      .fr-input-group.fr-pr-2v
-        .autocomplete-field{ 'data-autocomplete-url-value': "#{annuaire_autocomplete_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length': 3 }
-          = f.label :query, t('search'), class: 'fr-label'
-          = f.hidden_field :query, 'data-autocomplete-target': 'hidden'
-          %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text' }
-          %ul.list-group{ 'data-autocomplete-target': 'results' }
     .fr-col
       .fr-select-group
         = f.label :region, t('attributes.region'), class: 'fr-label'
         = f.collection_select :region, Territory.regions.order(:name), :id, :name, { selected: index_search_params[:region],
-          include_blank: t('all.feminine') }, class: "fr-select"
+          include_blank: t('all.feminine') }, class: "fr-select", id: 'institutions-region'
     .fr-col
       .fr-select-group
         = f.label :theme, class: 'fr-label' do
@@ -26,6 +17,6 @@
         = f.label :subject, t('attributes.subject'), class: 'fr-label'
         = f.collection_select :subject, subjects, :id, :label, { selected: index_search_params[:subject],
           include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
-  - if index_search_params[:theme].present? || index_search_params[:subject].present? || index_search_params[:query].present? || index_search_params[:region].present?
+  - if index_search_params[:region].present? || index_search_params[:theme].present? || index_search_params[:subject].present?
     = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
-  = f.submit t('.submit'), class: 'fr-btn fr-mt-2w'
+  = f.submit t('annuaire.search.form.submit'), class: 'fr-btn fr-mt-2w', id: 'search-institutions'
