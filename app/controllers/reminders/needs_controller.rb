@@ -85,7 +85,7 @@ module Reminders
     end
 
     def collections_counts
-      @collections_by_reminders_actions_count = Rails.cache.fetch(['reminders_need', filtered_needs]) do
+      @collections_by_reminders_actions_count = Rails.cache.fetch(['reminders_need', filtered_needs, collection_action_names]) do
         collection_action_names.index_with { |name| filtered_needs.reminders_to(name).size }
       end
     end
