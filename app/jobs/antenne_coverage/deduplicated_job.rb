@@ -4,9 +4,9 @@ class AntenneCoverage::DeduplicatedJob
 
   # Updated when changed : add/remove communes - add/remove experts - add/remove expert communes - add/remove expert subject
   def perform(antenne_id)
-    current_antenne = Antenne.find(antenne_id)
-    # pour que les tests passent
-    return unless current_antenne.persisted?
+    current_antenne = Antenne.find_by(id: antenne_id)
+    return unless current_antenne
+
     if current_antenne.regional?
       update_antenne_coverage(current_antenne)
       current_antenne.territorial_antennes.each { |ta| update_antenne_coverage(ta) }

@@ -2,8 +2,8 @@ class UpdateAntenneHierarchyJob
   include Sidekiq::Job
   # Updated when changed : add/remove communes
   def perform(antenne_id)
-    current_antenne = Antenne.find(antenne_id)
-    institution_id = current_antenne.institution_id
+    current_antenne = Antenne.find_by(id: antenne_id)
+    return unless current_antenne
 
     if current_antenne.national?
       regional_antennes = Antenne.not_deleted.where(institution: current_antenne.institution, territorial_level: :regional)
