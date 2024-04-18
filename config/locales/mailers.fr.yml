@@ -62,13 +62,13 @@ fr:
         subject: Fin du suivi de votre demande « %{subject} »
         tank_you: Merci pour votre confiance,
       solicitation_relaunch_company:
-        continue_button_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Finaliser ma demande d’aide</a>"
+        continue_button: Finaliser ma demande d’aide
         incomplete_step_explanation: 'Nous avons besoin de votre SIRET ou SIREN pour vous fournir un conseil personnalisé et de proximité. Pour trouver votre SIRET, vous pouvez renseigner le nom de votre entreprise en cliquant ci-dessous :'
         service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
         subject: Finalisez votre demande pour « %{subject} »
         your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site conseillers-entreprises.service-public.fr.
       solicitation_relaunch_description:
-        continue_button_html: "<a href='%{redirect_link}' target='_blank' class='response-btn'>Finaliser ma demande d’aide</a>"
+        continue_button: Finaliser ma demande d’aide
         incomplete_step_explanation: Vous pouvez expliquer votre problématique avec quelques éléments de contexte pour bénéficier d’un conseil personnalisé.
         service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
         subject: Finalisez votre demande à propos de « %{subject} »

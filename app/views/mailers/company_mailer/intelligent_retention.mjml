@@ -1,0 +1,23 @@
+<mj-section>
+  <mj-column>
+    <mj-text><%= t('mailers.hello') %></mj-text>
+
+    <mj-text><%= @email_retention.first_paragraph.html_safe %></mj-text>
+
+    <mj-text><%= t('.and_you') %></mj-text>
+
+    <% campaign = '?' + { mtm_campaign: 'retention2', mtm_kwd: "retention2-#{@email_retention.subject.label.parameterize}" }.to_query %>
+    <mj-button href="<%= new_solicitation_url(Landing.accueil, Landing.accueil.landing_subjects.joins(:subject).find_by(subject: @email_retention.first_subject)) + campaign %>"
+                background-color="#000091" color="white" border-radius="0" font-weight="700">
+      <%= @email_retention.first_subject_label %>
+    </mj-button>
+    <mj-button href="<%= new_solicitation_url(Landing.accueil, Landing.accueil.landing_subjects.joins(:subject).find_by(subject: @email_retention.second_subject)) + campaign %>"
+               background-color="#000091" color="white" border-radius="0" font-weight="700">
+      <%= @email_retention.second_subject_label %>
+    </mj-button>
+
+    <mj-text><%= t('mailers.company_mailer.why_this_message_html') %></mj-text>
+
+    <mj-text><%= t('mailers.company_mailer.explanation_html') %></mj-text>
+  </mj-column>
+</mj-section>
