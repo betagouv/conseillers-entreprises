@@ -1,0 +1,59 @@
+<mj-section>
+  <mj-column>
+    <mj-text><%= t('mailers.hello') %></mj-text>
+
+    <mj-text><%= t('mailers.solicitation_mailer.intro_with_subject_html', link_to_root: link_to(t('app_name'), root_url), solicitation_subject: t('.solicitation_subject')) %></mj-text>
+
+    <mj-text><%= t('.no_creation') %></mj-text>
+
+    <mj-text>
+      <%= t('.cci_initiative_html') %>
+      <ul>
+        <li>
+          <b><%= t('.commercial_activities') %></b>
+          <%= link_to "Contacts CCI | CCI - Chambre de commerce et d’industrie (www.cci.fr)", 'https://www.cci.fr/contact' %>
+        </li>
+        <li>
+          <b><%= t('.artisanal_activities') %></b>
+          <%= link_to "Le portail des Chambres de Métiers et de l’Artisanat en France | Artisanat.fr", 'https://www.artisanat.fr/' %>
+        </li>
+        <li>
+            <b><%= t('.liberal_activities') %></b>
+            <%= link_to " L’UNAPL près de chez vous | UNAPL", 'https://www.unapl.fr/unapl-et-vous/unapl-pres-de-chez-vous' %>
+        </li>
+        <li>
+            <b><%= t('.agricultural_activities') %></b>
+            <%= link_to " L’annuaire des Chambres d’agriculture - Chambres d’agriculture France (chambres-agriculture.fr)", 'https://chambres-agriculture.fr/chambres-dagriculture/nous-connaitre/lannuaire-des-chambres-dagriculture/' %>
+        </li>
+        </ul>
+    </mj-text>
+
+    <mj-text>
+      <%= t('.funding_resources') %>
+      <ul>
+        <li>
+          <%= t('.bpifrance') %>
+          <%= link_to(t('.bpifrance_label'), 'https://bpifrance-creation.fr/boiteaoutils/comment-financer-mon-projet-creation-ou-reprise-dentreprise') %>
+        </li>
+        <li>
+          <%= t('.banque_de_france') %>
+          <%= link_to(t('.banque_de_france_label'), 'https://www.mesquestionsdentrepreneur.fr/creer-entreprise/financer-creation-entreprise') %>
+        </li>
+        <li>
+          <%= t('.initiative') %>
+          <%= link_to(t('.initiative_label'), 'https://initiative-france.fr/') %>
+        </li>
+        <li>
+          <%= t('.adie') %>
+          <%= link_to(t('.adie_label'), 'https://www.adie.org/') %>
+        </li>
+      </ul>
+    </mj-text>
+
+    <mj-text><%= t('mailers.hope_to_helped') %></mj-text>
+
+    <mj-text><%= t('mailers.best_regards') %></mj-text>
+
+    <%= render 'mailers/solicitation_mailer/footer' %>
+    </mj-column>
+</mj-section>

@@ -1,0 +1,23 @@
+<mj-section>
+  <mj-column>
+    <mj-text><%= t('mailers.hello') %></mj-text>
+
+    <mj-text><%= t('.intro_html', link_to_root: link_to(t('app_name'), root_url)) %></mj-text>
+
+    <mj-text><%= t('.no_expert') %></mj-text>
+
+    <mj-text><%= t('.useful_links') %>
+      <ul>
+        <li><%= t('.tradespeople_html') %></li>
+        <li><%= t('.artisans_html') %></li>
+        <li><%= t('.liberal_professions_html') %></li>
+        </ul>
+    </mj-text>
+
+    <mj-text><%= t('mailers.thanks_for_your_comprehension') %></mj-text>
+
+    <mj-text><%= t('mailers.best_regards') %></mj-text>
+
+    <%= render 'mailers/solicitation_mailer/footer' %>
+  </mj-column>
+</mj-section>

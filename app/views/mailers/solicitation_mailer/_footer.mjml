@@ -1,0 +1,1 @@
+<mj-text><%= t('mailers.team_html', url: root_url) %></mj-text>

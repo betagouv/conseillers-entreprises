@@ -1,0 +1,21 @@
+<mj-section>
+  <mj-column>
+    <mj-text><%= t('mailers.hello') %></mj-text>
+
+    <mj-text><%= t('mailers.solicitation.base_intro_html', link_to_root: link_to(t('app_name'), root_url)) %></mj-text>
+
+    <mj-text><%= t('.siret_error') %></mj-text>
+
+    <mj-text><%= t('.siret_infos_html') %></mj-text>
+
+    <mj-text><%= t('.commune_name_html') %></mj-text>
+
+    <mj-text><%= t('.solicitation_transmission') %></mj-text>
+
+    <mj-text><%= t('mailers.thanks_for_your_comprehension') %></mj-text>
+
+    <mj-text><%= t('mailers.best_regards') %></mj-text>
+
+    <%= render 'mailers/solicitation_mailer/footer' %>
+  </mj-column>
+</mj-section>
