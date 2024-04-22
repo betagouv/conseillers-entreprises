@@ -32,8 +32,6 @@ const sharedWebpackConfig = (mode) => {
       chunkFilename: "[name].digested.js",
       sourceMapFilename: "[file].map",
       path: path.resolve(__dirname, '..', '..', 'app/assets/builds'),
-      hashFunction: "sha256",
-      hashDigestLength: 64,
     },
     plugins: [
       new webpack.optimize.LimitChunkCountPlugin({
