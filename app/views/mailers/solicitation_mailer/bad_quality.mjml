@@ -6,15 +6,15 @@
 
     <mj-text>
       <%= t('.for_better_taking_care_html') %>
-    <% if @landing_subject.description_explanation.present? %>
-      <%= @landing_subject.description_explanation.html_safe %>
-    <% else %>
-      <ul>
-        <li><%= t('.treasury_html') %></li>
-        <li><%= t('.recruitment_html') %></li>
-        <li><%= t('.investment_html') %></li>
-      </ul>
-    <% end %>
+      <% if @landing_subject.description_explanation.present? %>
+        <%= @landing_subject.description_explanation.html_safe %>
+      <% else %>
+        <ul>
+          <li><%= t('.treasury_html') %></li>
+          <li><%= t('.recruitment_html') %></li>
+          <li><%= t('.investment_html') %></li>
+        </ul>
+      <% end %>
     </mj-text>
 
     <mj-text><%= t('.upon_receipt') %></mj-text>
@@ -29,4 +29,3 @@
     <%= render 'mailers/solicitation_mailer/footer' %>
     </mj-column>
 </mj-section>
-
