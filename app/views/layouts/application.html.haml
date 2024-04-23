@@ -9,13 +9,17 @@
     = render 'environment_ribbon'
     = render 'user_impersonate'
 
-    %main.fr-py-5w#content{ role: 'main' }
+    %main#content{ role: 'main' }
+      = render 'shared/site_switch_info' unless in_iframe?
+
       -# ajout d'un id pour turbo_stream
       #flash
         = render 'shared/flashes'
-
-      = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts (e.g. side_menu)
+      .fr-py-5w
+        = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts (e.g. side_menu)
   - if user_signed_in?
     = render 'footer'
+    - unless (session[:modal_seen] == true)
+      = render 'modal', key: 'bascule-conseiller'
   - else
     = render 'pages/footer', footer_landing_themes: @footer_landing_themes, footer_landing: @footer_landing unless in_iframe?

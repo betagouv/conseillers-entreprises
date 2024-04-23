@@ -304,6 +304,7 @@ Rails.application.routes.draw do
 
   controller :user_pages do
     get :tutoriels
+    get :session_param
   end
 
   controller :sitemap do
@@ -317,8 +318,6 @@ Rails.application.routes.draw do
   end
 
   # Redirections =====================================
-
-  get 'profile' => 'users#show'
 
   ## Redirection for compatibility
   ### Landings - Accueil
