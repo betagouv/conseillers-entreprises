@@ -1,6 +1,6 @@
 {
-  "engines" : { 
-    "node" : ">=20.0.0 <=21.7.1"
+  "engines": { 
+    "node": ">=20.0.0 <=21.7.1"
   },
   "dependencies": {
     "@gouvfr/dsfr": "^1.10.0",
