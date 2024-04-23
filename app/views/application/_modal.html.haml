@@ -7,19 +7,20 @@
             %button.fr-btn--close.fr-btn{ 'aria-controls': "modal-#{key}", title: t('navbar.close') }
               = t('navbar.close')
           .fr-modal__content
-            %h1.fr-modal__title{ id: "modal-#{key}-title" }
+            %h1.fr-mb-4w.fr-modal__title{ id: "modal-#{key}-title" }
               Place des Entreprises devient Conseillers-Entreprises
-            = image_tag('encart-bascule.png', alt: '', style: "max-width: 100%")
+            = image_tag('encart-bascule.png', alt: '', style: "max-width: 80%; display: block; margin: 0 auto;")
 
-            %p.fr-mt-2w Le service Place des Entreprises devient Conseillers-Entreprises et intègre la marque Service-Public.fr.
-            %p 
-              Lors du rappel de l’entreprise, nous vous invitons à contextualiser votre échange concernant son besoin 
-              %b« déposé sur Service-Public.fr ».
+            %p.fr-mt-4w Le service Place des Entreprises devient Conseillers-Entreprises et intègre la marque Service-Public.fr.
+            %p
+              Lors du rappel de l’entreprise, nous vous invitons à contextualiser votre échange concernant son besoin
+              %b « déposé sur Service-Public.fr ».
             %p= link_to "Cliquez ici pour plus d’informations sur ce changement d’identité", service_public_fr_path
             %p
-              Si vous avez des questions, n'hésitez pas à nous écrire sur 
-              = mail_to 'contact@entreprises.service-public.fr'
-          .fr-modal__footer 
+              Si vous avez des questions, n'hésitez pas à nous écrire sur
+              = precede ' ' do
+                = mail_to 'contact@entreprises.service-public.fr'
+          .fr-modal__footer
             .fr-btns-group.fr-btns-group--right.fr-btns-group--inline-reverse.fr-btns-group--inline-lg.fr-btns-group--icon-left
               %button.fr-btn.fr-icon-checkbox-circle-line.fr-btn--icon-left{ 'aria-controls': "modal-#{key}", title: t('navbar.close') }
                 J'ai bien pris connaissance
