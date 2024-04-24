@@ -26,7 +26,8 @@ class UserRight < ApplicationRecord
 
   enum category: {
     manager: 0,
-    admin: 1
+    admin: 1,
+    national_referent: 2
   }, _prefix: true
 
   validates :user_id, uniqueness: { scope: [:category, :antenne_id] }

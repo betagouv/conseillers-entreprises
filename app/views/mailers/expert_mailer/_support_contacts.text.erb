@@ -8,7 +8,7 @@
 <% Territory.regions.with_support.includes(:support_contact).each do |territory| %>
 <% support_contact = territory.support_contact %>
 - <%= t('.support_contact',
-  region: territory.name,
+  regions: territory.name,
   name: support_contact.full_name,
   tel: support_contact.phone_number,
   email: support_contact.email) %>

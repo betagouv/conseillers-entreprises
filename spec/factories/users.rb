@@ -26,5 +26,19 @@ FactoryBot.define do
         user.managed_antennes.push(user.antenne)
       end
     end
+
+    trait :national_manager do
+      antenne factory: [:antenne, :with_experts_subjects, :national], strategy: :create
+      after(:create) do |user, _|
+        user.managed_antennes.push(user.antenne)
+      end
+    end
+
+    trait :national_referent do
+      antenne factory: [:antenne, :with_experts_subjects], strategy: :create
+      after(:create) do |user, _|
+        user.user_rights.create(category: 'national_referent')
+      end
+    end
   end
 end

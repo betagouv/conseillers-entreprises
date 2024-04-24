@@ -128,8 +128,9 @@ fr:
       remind_received_needs:
         company: Entreprise
       support_contacts:
-        support_contact: 'en %{region} : %{name} – tel: %{tel} – email: %{email}'
-        support_contact_html: en %{region}, %{name} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a>
+        national_referent_contact_html: "%{name} - %{function} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a>"
+        support_contact: "%{regions} : %{name} – tel: %{tel} – email: %{email}"
+        support_contact_html: "%{name} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a> :"
       support_user_signature:
         beta_gouv: Incubateur de Services Numériques / beta.gouv.fr
         prime_minister: Services du Premier Ministre
