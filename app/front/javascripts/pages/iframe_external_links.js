@@ -3,7 +3,7 @@
   // This adds target="_parent" to all <a> whose url isn't ours.
   // See also iframe_prefix.rb
 
-  this.onload = function () {
+  window.onload = function () {
     if (inIframe()) {
       makeExternalLinksOpenInParent()
     }
