@@ -17,7 +17,7 @@
       -# ajout d'un id pour turbo_stream
       #flash
         = render 'shared/flashes'
-      .fr-py-5w
+      .fr-pt-5w
         = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts (e.g. side_menu)
   - if user_signed_in?
     = render 'footer'
