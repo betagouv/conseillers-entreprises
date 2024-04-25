@@ -46,12 +46,6 @@ module DiagnosisCreation
       diagnosis.attributes = params
       diagnosis.save
       diagnosis
-      # if diagnosis.present?
-      #   new_diagnosis = diagnosis.update(params)
-      # else
-      #   new_diagnosis = Diagnosis.create(params)
-      # end
-      # new_diagnosis
     end
   end
 
