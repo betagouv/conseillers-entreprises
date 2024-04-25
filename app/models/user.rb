@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
+#  app_info               :jsonb
 #  cgu_accepted_at        :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
@@ -57,6 +58,8 @@ class User < ApplicationRecord
          :invitable, invited_by_class_name: 'User', validate_on_invite: true
 
   attr_accessor :cgu_accepted, :specifics_territories
+
+  store_accessor :app_info, ['bascule_seen']
 
   ## Associations
   #

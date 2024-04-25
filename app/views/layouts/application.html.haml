@@ -10,7 +10,9 @@
     = render 'user_impersonate'
 
     %main#content{ role: 'main' }
-      = render 'shared/site_switch_info' unless in_iframe?
+      -# TODO : à supprimer une fois bascule passée
+      - if ENV['DISPLAY_BASCULE_INFO'] == 'true'
+        = render 'shared/site_switch_info' unless in_iframe?
 
       -# ajout d'un id pour turbo_stream
       #flash
@@ -19,7 +21,9 @@
         = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts (e.g. side_menu)
   - if user_signed_in?
     = render 'footer'
-    - unless (session[:modal_seen] == true)
-      = render 'modal', key: 'bascule-conseiller'
+    -# TODO : à supprimer une fois bascule passée
+    - if ENV['DISPLAY_BASCULE_INFO'] == 'true'
+      - unless (current_user.bascule_seen)
+        = render 'modal', key: 'bascule-conseiller'
   - else
     = render 'pages/footer', footer_landing_themes: @footer_landing_themes, footer_landing: @footer_landing unless in_iframe?

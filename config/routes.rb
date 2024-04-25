@@ -304,7 +304,7 @@ Rails.application.routes.draw do
 
   controller :user_pages do
     get :tutoriels
-    get :session_param
+    get :bascule_seen
   end
 
   controller :sitemap do

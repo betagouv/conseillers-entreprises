@@ -5,9 +5,9 @@ class UserPagesController < ApplicationController
 
   def tutoriels; end
 
-  def session_param
+  def bascule_seen
     return unless current_user
-    session[:modal_seen] = true
+    current_user.update(bascule_seen: true)
     head :ok
   end
 end
