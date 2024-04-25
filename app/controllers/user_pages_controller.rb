@@ -8,6 +8,6 @@ class UserPagesController < ApplicationController
   def session_param
     return unless current_user
     session[:modal_seen] = true
-    render nil
+    head :ok
   end
 end

@@ -5,10 +5,15 @@ export default class extends Controller {
 
   connect() {
     // eslint-disable-next-line no-undef
-    dsfr(this.element).modal.disclose()
-    this.element.addEventListener('dsfr.conceal', () => {
-      this.markAsSeen();
-    })
+    setTimeout(() => {
+      const modalElement = this.element
+      if (modalElement && window.dsfr(modalElement)) {
+        window.dsfr(modalElement).modal.disclose();
+        modalElement.addEventListener('dsfr.conceal', () => {
+          this.markAsSeen();
+        })
+      }
+    }, 1500);
   }
 
   async markAsSeen() {
