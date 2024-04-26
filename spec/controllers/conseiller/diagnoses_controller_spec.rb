@@ -11,7 +11,7 @@ RSpec.describe Conseiller::DiagnosesController do
     let(:some_params) { { facility_attributes: { siret: '12345678901234' } } }
 
     before do
-      allow(DiagnosisCreation).to receive(:create_diagnosis) { result }
+      allow(DiagnosisCreation).to receive(:create_or_update_diagnosis) { result }
     end
 
     context 'when creation fails' do

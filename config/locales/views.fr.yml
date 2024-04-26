@@ -286,6 +286,7 @@ fr:
       solicitation:
         description: 'Description :'
         email: 'Email :'
+        from_intermediary: Sollicitation provenant d’un intermédiaire
         landing_subjects: 'Aides demandées :'
         needs_historic: 'Historique de l’entreprise :'
         similar_abandonned_needs_explanation: 'Cycle d’abandon suspecté : cette entreprise a déjà eu un besoin pour le même sujet abandonné'

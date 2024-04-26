@@ -488,6 +488,33 @@ end
     end
   end
 
+  describe "from_intermediary?" do
+    let!(:solicitation) { create :solicitation }
+
+    subject { solicitation.from_intermediary? }
+
+    context 'with facility' do
+      let!(:diagnosis) { create :diagnosis, solicitation: solicitation, facility: facility }
+      let!(:facility) { create :facility, naf_code: naf_code }
+
+      context 'with intermediary' do
+        let(:naf_code) { '70.22Z' }
+
+        it { is_expected.to be true }
+      end
+
+      context 'without intermediary' do
+        let(:naf_code) { '62.02A' }
+
+        it { is_expected.to be false }
+      end
+    end
+
+    context 'without facility' do
+      it { is_expected.to be false }
+    end
+  end
+
   describe "similar_abandonned_needs" do
     let(:landing_subject) { create :landing_subject, subject: sol_subject }
     let(:solicitation) { create :solicitation, email: email, siret: siret, landing_subject: landing_subject }

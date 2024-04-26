@@ -16,7 +16,7 @@ class Conseiller::DiagnosesController < ApplicationController
   end
 
   def create
-    @diagnosis = DiagnosisCreation.create_diagnosis(diagnosis_params.merge(advisor: current_user))
+    @diagnosis = DiagnosisCreation.create_or_update_diagnosis(diagnosis_params.merge(advisor: current_user))
 
     if @diagnosis.persisted?
       @diagnosis.autofill_steps
