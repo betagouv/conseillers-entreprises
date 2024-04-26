@@ -28,7 +28,7 @@ describe 'needs', :js, type: :feature do
     context 'match taking_care' do
       let(:a_match) { create :match, expert: current_user.experts.first, status: :taking_care }
 
-      it { is_expected.to be_accessible }
+      it { is_expected.to be_axe_clean }
     end
 
     context 'match done' do
