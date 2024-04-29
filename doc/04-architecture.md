@@ -43,7 +43,7 @@ De l’autre côté, on trouve donc les informations des agents recensées aupr�
 ## Volumétrie et contraintes
 
 
-* Nous recensons environ 10 000 agents de 40 institutions partenaires (Septembre 2023)
+* Nous recensons environ 10 000 agents de 40 institutions partenaires (Septembre 2023)
 * Nous recevons et transmettons plus de 2000 besoins d’entreprise par mois ; chaque besoin est transmis en général à deux ou trois agents.
 
 Les statistiques publiques sont disponibles en temps réel [sur notre page /stats](https://conseillers-entreprises.service-public.fr/stats).
