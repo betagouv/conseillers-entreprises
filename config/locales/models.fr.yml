@@ -586,6 +586,7 @@ fr:
         admin: Admin
         advisor: Conseiller
         manager: Responsable d’antenne
+        national_referent: Référent national
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
