@@ -22,7 +22,6 @@ gem 'puma'
 # Assets
 gem 'haml-rails'
 gem 'jquery-rails'
-# gem 'sassc-rails'
 gem 'dartsass-sprockets'
 gem 'terser'
 gem 'premailer-rails'

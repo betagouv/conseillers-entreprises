@@ -3,4 +3,3 @@ clock: bundle exec clockwork app/models/clockwork.rb
 worker: bundle exec sidekiq
 log: tail -f log/development.log
 js: yarn build --watch
-css: yarn build:css --watch
