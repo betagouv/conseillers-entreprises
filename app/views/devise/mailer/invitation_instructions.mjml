@@ -28,4 +28,4 @@
   </mj-column>
 </mj-section>
 
-<%= render 'mailers/expert_mailer/support_contact_block', antenne: @user.antenne, support_contact_label: t('.support_contact_label') %>
+<%= render 'mailers/expert_mailer/support_contact_block', antenne: @user.antenne, support_contact_label: t('.support_contact_label'), user: @user %>
