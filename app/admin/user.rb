@@ -113,10 +113,6 @@ ActiveAdmin.register User do
         div admin_link_to(u, :feedbacks)
       end
     end
-
-    attributes_table title: t('activerecord.attributes.user.invitees') do
-      row :invitees
-    end
   end
 
   sidebar I18n.t('active_admin.actions'), only: :show do
@@ -131,14 +127,15 @@ ActiveAdmin.register User do
 
   sidebar I18n.t('active_admin.user.roles'), only: :show do
     attributes_table do
-      if resource.is_admin?
-        row :admin do
-          div
-        end
-      end
-      resource.managed_antennes.each do |a|
-        row :manager do
-          div admin_link_to(a)
+      ul do
+        resource.user_rights.each do |ur|
+          li do
+            right = I18n.t(ur.category, scope: "activerecord.attributes.user_right/categories")
+            if ur.antenne.present?
+              right = "#{right} : #{admin_link_to(ur.antenne)}".html_safe
+            end
+            right
+          end
         end
       end
     end

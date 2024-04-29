@@ -115,6 +115,7 @@ class User < ApplicationRecord
   #
   scope :admin, -> { not_deleted.joins(:user_rights).merge(UserRight.category_admin) }
   scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_manager).distinct }
+  scope :national_referent, -> { not_deleted.joins(:user_rights).merge(UserRight.category_national_referent).distinct }
 
   scope :not_invited, -> { not_deleted.where(invitation_sent_at: nil) }
   scope :managers_not_invited, -> { not_deleted.managers.where(invitation_sent_at: nil) }
@@ -313,6 +314,10 @@ class User < ApplicationRecord
 
   def is_manager?
     user_rights_manager.any?
+  end
+
+  def is_national_referent?
+    user_rights_national_referent.any?
   end
 
   def is_admin?
