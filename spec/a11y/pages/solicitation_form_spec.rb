@@ -18,7 +18,7 @@ describe 'solicitation_form', :js, type: :feature do
     let!(:additional_question_2) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
     let(:siret) { '41816609600069' }
     let(:solicitation) { Solicitation.last }
-    let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
+    let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{query}" }
     let(:fixture_file) { 'api_insee_siret.json' }
     let(:query) { siret }
 
