@@ -1,0 +1,41 @@
+<mj-text>
+  <% if defined?(user) && user.is_manager? && antenne.national? %>
+    <ul>
+      <% User.national_referent.each do |national_referent| %>
+        <li>
+          <%= t('.national_referent_contact_html',
+              function: national_referent.job,
+              name: national_referent.full_name,
+              tel: national_referent.phone_number,
+              email: national_referent.email) %>
+        </li>
+      <% end %>
+    </ul>
+  <% elsif antenne.support_user.present? %>
+    <ul>
+      <li>
+          <%= t('.support_contact_html',
+              region: antenne.regions.first.name,
+              name: antenne.support_user.full_name,
+              tel: antenne.support_user.phone_number,
+              email: antenne.support_user.email) %>
+      </li>
+    </ul>
+  <% else %>
+    <ul>
+      <% Territory.regions.with_support.includes(:support_contact).group_by(&:support_contact).each do |support_contact, territories| %>
+        <li>
+          <%= t('.support_contact_html',
+              name: support_contact.full_name,
+              tel: support_contact.phone_number,
+              email: support_contact.email) %>
+          <ul>
+            <% territories.sort_by(&:name).each do |territory| %>
+              <li><%= territory.name %></li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</mj-text>

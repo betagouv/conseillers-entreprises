@@ -54,15 +54,15 @@ describe 'needs' do
       expect(page).to have_current_path(taking_care_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 
-      click_on 'Clôturées'
+      click_on 'Clôturés'
       expect(page).to have_current_path(done_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 
-      click_on 'Refusées'
+      click_on 'Refusés'
       expect(page).to have_current_path(not_for_me_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 
-      click_on 'Expirées'
+      click_on 'Expirés'
       expect(page).to have_current_path(expired_needs_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 

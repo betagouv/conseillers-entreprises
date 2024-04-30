@@ -7,33 +7,30 @@ fr:
     blog:
       title: Actu aides
     cgu:
-      title: Conditions d’utilisation du service numérique Place des Entreprises
+      title: Conditions d’utilisation du service numérique Conseillers-Entreprises
     comment_ca_marche:
-      long_title: Place des Entreprises, comment ça marche ?
+      business_owners: Ces chefs d’entreprises utilisent déjà le service. Et vous ?
+      long_title: Le service public Conseillers-Entreprises, comment ça marche ?
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
       meta_title: Comment ça marche
-      partners: 'Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
+      partners: 'Conseillers-Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
       pde_testimonial: Témoignage d’un chef d’entreprise.
       pde_testimonial_transcription: Transcription textuelle de la vidéo du témoignage d’un chef d’entreprise.
       read_transcription: Lire la transcription
-      subtitle: Porté par le Ministère de l’Économie et le Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
+      subtitle: Porté par le Ministère de l’Économie et le Ministère du Travail, le service Conseillers-Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
     equipe:
       subtitle: Une petite équipe investie est à votre disposition pour répondre à vos questions. N'hésitez pas à nous écrire et partager vos idées pour améliorer le service.
       title: L’équipe
       title_long: Une équipe à votre service pour avancer ensemble !
-    index_testimonials:
-      business_owners: Ces chefs d’entreprises utilisent déjà le service. Et vous ?
-      testimonial_1_author_html: Clément Francomme<br /> CEO de <strong>UTOCAT</strong> (10 à 19 salariés)
-      testimonial_1_text_html: Place des Entreprises est très réactive et pratique ! Ils nous ont permis une mise en relation rapide avec les bonnes personnes quand nous en avions besoin.<br />Nous avons donc pu clôturer notre dossier dans les délais.
-      testimonial_2_author_html: Christophe B. <br />Dirigeant de <strong>SOS Impact 02</strong> (1 à 2 salariés)
-      testimonial_2_text_html: J’ai découvert qu’il existait des partenaires publics experts de mes besoins d’entreprise. Ils m’ont accompagné sur des questions de ressources humaines, de développement commercial et de réglementation.<br />Ils font un super job.
-      testimonial_3_author_html: Thérèse Debarge<br /><strong>Emballages Hocq</strong> (20 à 49 salariés)
-      testimonial_3_text_html: Grâce à Place des Entreprises, nous avons été contactés par 5 organismes différents prêts à nous conseiller ou nous aider de diverses manières pour le financement de notre nouvel investissement. <br /> Un grand merci pour votre réactivité.
     mentions_d_information:
       title: Mentions d'information
     mentions_legales:
       title: Mentions légales
+    service_public_fr:
+      title: Place des Entreprises devient Conseillers-Entreprises, un service de Service-Public.fr
+    temoignage:
+      temoignage_alt: Photo de %{author}
   active_admin:
     admin_link: Lien admin
     badges:
@@ -112,23 +109,19 @@ fr:
       see_expert_coordinates: Voir les coordonnées de l'équipe
       see_person_coordinates: Voir les coordonnées de la personne
     navbar:
-      account: Compte
       admin: Administration
       annuaire: Annuaire
       antenne_needs: Besoins de l’antenne
       antennes_needs: Besoins des antennes
       badges: Tags
-      close: Fermer
       csv_exports: Exports csv
       invite: Inviter des utilisateurs
-      main_menu: Menu principal
-      menu: Menu
       profile: Profil
       reports: Export des données
-      root_path_title: Accueil Place des Entreprises
       sign_out: Déconnexion
       stats: Statistiques
-    pde_partnership_mention: Ce service public de mise en relation est proposé par Place des Entreprises.
+      tools: Outils
+    pde_partnership_mention: Ce service public d'accompagnement des entreprises est proposé par Conseillers Entreprises.
     person_modal:
       manager_name: 'Responsable : %{name}'
     user_admin_view:
@@ -214,11 +207,11 @@ fr:
       siege_social: Siège social
   company_satisfactions:
     new:
-      comment: Un commentaire ? Une suggestion ? Nous sommes à votre écoute.
+      comment: 'Un commentaire ? Une suggestion ? Nous sommes à votre écoute :'
       company_satisfaction_exist: Vous avez déjà répondu pour ce besoin.
       contacted_by_expert: Avez-vous bien été rappelé(e) par au moins un conseiller ou une conseillère ?
       send: Envoyer
-      title: Donnez votre avis sur Place des Entreprises
+      title: Donnez votre avis sur le service Conseillers-Entreprises
       useful_exchange: Est-ce que cet échange a été utile pour vous ?
     thank_you:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
@@ -298,7 +291,7 @@ fr:
         needs_historic: 'Historique de l’entreprise :'
         similar_abandonned_needs_explanation: 'Cycle d’abandon suspecté : cette entreprise a déjà eu un besoin pour le même sujet abandonné'
         siret: 'Siret :'
-        solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres demandes récemment'
+        solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres besoins récemment'
         solicitation_no_register_company_explanation: Entreprise ni RCS ni RM
         solicitation_relance_explanation: 'Relance suspectée : une mise en relation pour la même entreprise sur le même sujet a été faite il y a moins de 3 semaines'
         source: 'Page d’atterrissage :'
@@ -336,7 +329,7 @@ fr:
     edit:
       antenne_and_institution: Structure
       different_antenne_warning_html: 'Attention : cette antenne est différente de l’antenne à laquelle est rattaché votre compte utilisateur.<br/> C’est peut-être une erreur ; <a href="mailto:%{email}">contactez-nous</a> pour la modifier.'
-      team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Place des Entreprises.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
+      team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Conseillers-Entreprises.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
       team_members: Membres de l’équipe
       team_name_explanation: C’est le nom d’équipe qui sera indiqué au conseiller pour vous envoyer des besoins. Votre antenne et votre structure figurent automatiquement, ne les précisez pas dans le nom d’équipe.
     subjects:
@@ -344,10 +337,10 @@ fr:
       expert_subject_title_solo: Vos domaines d'intervention
       expert_subject_title_team: Les domaines d'intervention de votre équipe
       institution_subject_title: Les autres domaines d'intervention de votre institution
-      instructions_html: En tant qu’expert sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos domaines d’intervention.
+      instructions_html: En tant qu’expert du service public Conseillers-Entreprises, vous pouvez recevoir des besoins d’entreprises sur vos domaines d’intervention.
       others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a> (%{email}). Vous êtes susceptible de n'intervenir que sur une partie de ces domaines.
   export_xls:
-    email_instructions: Les adresses mails individuelles sont indispensables à la création des comptes utilisateurs et l’accès à l’interface Place des Entreprises. Si des conseillers sont partis, merci de mettre en rouge les lignes en question pour que nous supprimions leurs comptes utilisateurs.
+    email_instructions: Les adresses mails individuelles sont indispensables à la création des comptes utilisateurs et l’accès à l’interface de Conseillers-Entreprises. Si des conseillers sont partis, merci de mettre en rouge les lignes en question pour que nous supprimions leurs comptes utilisateurs.
     phone_instructions: |-
       Un numéro différent par conseiller
       Pas de standard téléphonique
@@ -428,12 +421,12 @@ fr:
         how-it-works: Comment ça marche ?
         meta:
           description: 'TPE & PME vous avez un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
-          title: Accueil | Place des Entreprises - Conseils et aides publiques
+          title: Accueil | Conseillers-entreprises.service-public.fr - Conseils et aides publiques
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
         subtitle: 'Service public simple et rapide : %{count} TPE & PME ont déjà été accompagnées cette année par un conseiller %{subject}'
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
-        title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
+        title: Conseillers-Entreprises vous met en relation avec le conseiller qui peut vous aider.
       multiple_steps:
         contact_us: Découvrez les autres sujets.
         other_questions: Vous ne trouvez pas ce que vous voulez ?
@@ -442,17 +435,17 @@ fr:
       mobile_menu: Menu
   logos:
     france_relance: France Relance
-    pde: Place des Entreprises
-    pde_home: Place des Entreprises - Page d’accueil
+    pde: Conseillers-entreprises.service-public.fr
+    pde_home: Conseillers-entreprises.service-public.fr - Page d’accueil
     prefets_regions: Préfet région %{name}
     regions: Conseil régional %{name}
     republique_francaise: République française
-    title: 'Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
+    title: 'Conseillers-Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
   manager:
     needs:
       index:
-        many_antennes_title: Toutes les demandes reçues des antennes
-        one_antenne_title: Antenne %{name} - toutes les demandes
+        many_antennes_title: Tous les besoins reçus des antennes
+        one_antenne_title: Antenne %{name} - tous les besoins
     stats:
       index:
         no_experts_subjects: Votre antenne ne semble pas pouvoir recevoir de besoins. Nous ne pouvons donc pas afficher de statistiques.
@@ -465,32 +458,37 @@ fr:
       see_expert_inbox: Voir la boîte de réception de l’expert
       see_match_info: Voir plus d'infos sur la MER
       taken_care_of_at: Prise en charge
+  navbar:
+    close: Fermer
+    main_menu: Menu principal
+    menu: Menu
+    root_path_title: Accueil Conseillers-entreprises.service-public.fr
   needs:
     additional_experts:
       add_other_experts: Rechercher d’autres experts à mettre en relation
       ambulance_explanation: Notifier un nouveau conseiller référencé, quel que soit le partenaire, le sujet ou le territoire
     collections:
-      archived: Archivées
-      done: Clôturées
-      expired: Expirées
-      not_for_me: Refusées
+      archived: Archivés
+      done: Clôturés
+      expired: Expirés
+      not_for_me: Refusés
       quo_active: Boite de réception
       search: Recherche
       taking_care: En cours
     collections_single:
-      archived: Archivée
-      done: Clôturée
-      expired: Expirée
-      not_for_me: Refusée
+      archived: Archivé
+      done: Clôturé
+      expired: Expiré
+      not_for_me: Refusé
       quo_active: Boite de réception
       taking_care: Prise en charge
     empty_placeholder:
-      title: Aucune demande
+      title: Aucun besoin
       welcome_help_html: Un problème ? Une question ? %{mailto_link}.
       welcome_subtitle_emails:
         one: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{emails}.
         other: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.
-      welcome_title: Bienvenue sur Place des Entreprises
+      welcome_title: Bienvenue sur Conseillers-Entreprises, un service de Service-Public.fr
     index:
       title: Besoins reçus
     match_actions:
@@ -504,13 +502,13 @@ fr:
       feedback_placeholder:
         done: 'Par exemple : « J’ai appelé le chef d’entreprise et nous avons convenu d’un rendez-vous le 23/11. »'
         done_no_help: 'Par exemple : « Je n’ai pas d’aide pour les entreprises de moins de 3 ans »'
-        done_not_reachable: 'Par exemple : « J’ai appelé le chef d’entreprise le 3/04 sans succès, lui ai laissé un message et envoyé un mail avec la documentation sur tel dispositif.»'
+        done_not_reachable: 'Par exemple : « J’ai appelé le chef d’entreprise le 3/04 sans succès, lui ai laissé un message et envoyé un mail avec la documentation sur tel dispositif. »'
       help_provided:
         content: Un conseil, un accompagnement ou une aide financière a pu être proposée.
         title: Une aide proposée
       its_done: C’est terminé, merci pour votre intervention ! Laissez un commentaire pour les autres experts.
-      need_canceled: Vous avez décliné cette demande. Merci d’indiquer pourquoi, afin de nous aider à améliorer le service. Votre retour est précieux !
-      need_canceled_short: Vous avez décliné cette demande.
+      need_canceled: Vous avez décliné ce besoin. Merci d’indiquer pourquoi, afin de nous aider à améliorer le service. Votre retour est précieux !
+      need_canceled_short: Vous avez décliné ce besoin.
       no_help:
         content: Mon organisme n’est pas en mesure d’accompagner l’entreprise.
         title: Pas d’aide disponible
@@ -530,7 +528,7 @@ fr:
       search_placeholder: 'Ex : La mie tendre, Lucie Martin, plomberie, financement...'
     show:
       all_experts: Experts notifiés
-      all_needs: Toutes les demandes
+      all_needs: Tous les besoins
       blank_advisor: "-"
       comments: Discussion entre experts
       company: Entreprise
@@ -541,7 +539,7 @@ fr:
       no_comment: Aucun commentaire
       no_match: Aucun expert de notifié
       origin_source: 'Demande effectuée depuis la page : '
-      origin_source_title: Lien vers la page du site dont est issue la demande
+      origin_source_title: Lien vers la page du site dont est issue le besoin
       person_company_contact: Contact entreprise
       title: Visite de la société « %{company} »
       transmitted_by: Demande transmise par
@@ -550,12 +548,6 @@ fr:
     star_btn:
       need_starred: Besoin suivi
       star_need: Suivre le besoin
-  newsletters:
-    create:
-      error_newsletter_subscription: Une erreur s’est produite, merci de réessayer.
-      success_newsletter_html: Merci ! Votre inscription à la <span lang='en'>newsletter</span> a été prise en compte.
-    unsubscribe:
-      unsubscribe_successfully: Votre désinscription a bien été prise en compte
   pages:
     breadcrumbs:
       see_breadcrumb: Voir le fil d’Ariane
@@ -565,22 +557,27 @@ fr:
       frequently_questions: Questions fréquentes
     footer:
       cookies: Gestion des cookies
-      github_title: Page Github de Place des Entreprises
-      link_to_beta_gouv: Lien vers le site de Beta.gouv.fr
-      linkedin_title: Page Linkedin de Place des Entreprises
+      datagouv_title: Lien vers le site data.gouv.fr
+      entreprendre_service_public_title: Lien vers le site entreprendre.service-public.fr
+      github_title: Page Github de Conseillers-entreprises.service-public.fr
+      gouvernement_title: Lien vers le site gouvernement.fr
+      know_us: Nous connaître
+      legifrance_title: Lien vers le site legifrance.gouv.fr
       open_cookies: Ouvre la fenêtre de gestion des cookies
-      service_presentation: Dossier de presse (PDF 438 ko)
-      service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Place des Entreprises
-      startup_d_etat: Une startup d’État de beta.gouv
-      twitter_title: Compte twitter de Place des Entreprises
+      service_presentation: Dossier de presse (PDF 500 ko)
+      service_presentation_title: Dossier de presse de Conseillers-Entreprises - lien de téléchargement (PDF 500 ko)
+      service_public_title: Lien vers le site service-public.fr
+      service_short_description: Échangez avec les conseillers qui peuvent vous aider dans vos projets, vos difficultés ou les transformations nécessaires à la réussite de votre entreprise.
+      source_code: Github, lien vers le code source du site
+      themes: Thèmes
       who_are_we: Qui sommes-nous ?
     how_it_works_long:
       choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
       expert_contacts_you_html: "<span class='blue'>Le conseiller vous contacte</span> directement pour vous aider sous 5 jours*."
-      learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Place des Entreprises</a>
-      pde_presentation: Présentation du service Place des Entreprises
-      pde_presentation_transcription: Transcription textuelle de la vidéo de présentation du service Place des Entreprises
+      learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Conseillers-entreprises.service-public.fr</a>
+      pde_presentation: Présentation de Conseillers-Entreprises, un service de Service-Public.fr
+      pde_presentation_transcription: Transcription textuelle de la vidéo de présentation du service Conseillers-Entreprises
       read_transcription: Lire la transcription
       select_expert_description: Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
     how_it_works_short:
@@ -591,17 +588,8 @@ fr:
       quick_description: Une personne vous rappelle dans les 5 jours.
       quick_title: Rapide
     navbar:
-      close: Fermer
       extend: Agrandir
-      link_to_blog: Lien vers le blog de Place des Entreprises - lien externe
-      menu: Menu
-    newsletter:
-      email_format: 'Format attendu : nom@example.org'
-      newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
-      newsletter_legal_html: Vous pouvez vous désinscrire à tout moment avec le lien de désinscription dans la <span lang='en'>newsletter</span>
-      placeholder_email: Votre adresse email
-      received_news: 'Découvrez les nouveaux accompagnements publics :'
-      subscribe: S’abonner
+      link_to_blog: Actu aides, blog de Conseillers-Entreprises - lien externe
   person:
     deleted_person: Compte supprimé
   quarterly_report_service:
@@ -714,6 +702,9 @@ fr:
     breadcrumb:
       see_breadcrumb: Voir le fil d’Ariane
       you_are_here: 'Vous êtes ici :'
+    site_switch_info:
+      know_more: En savoir plus
+      pde_becomes: Place des Entreprises devient Conseillers-Entreprises.Service-Public.fr.
     skiplinks:
       content: Contenu
       fast_access: Accès rapide
@@ -723,7 +714,7 @@ fr:
     sitemap:
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
       meta_title: Plan du site
-      subtitle: Retrouvez ici une vision synthétique de l’ensemble des contenus de Place des Entreprises
+      subtitle: Retrouvez ici une vision synthétique de l’ensemble des contenus de Conseillers-Entreprises
       title: Plan du site
   solicitations:
     company_tile:
@@ -733,7 +724,7 @@ fr:
       accompaniments: 'Des conseillers vous accompagnent pour :'
       all_fields_compulsary: Tous les champs sont obligatoires.
       already_submitted_solicitation: Cette demande a déjà été envoyée aux conseillers.
-      average_delays: "(Délai moyen de prise en charge)"
+      average_delays: "(délai moyen de prise en charge)"
       better_taking_care_html: 'Pour vous aider, les conseillers ont besoin d’<b>éléments de contexte</b> :'
       buttons:
         manual_step_company: Je ne trouve pas mon entreprise
@@ -743,10 +734,10 @@ fr:
       description: Quelle est votre demande ?
       empty_result_help_html: La recherche de votre entreprise n’a pas été concluante ? Renseignez manuellement votre numéro de SIRET ici ou effectuez une <a href=%{path}> nouvelle recherche</a>.
       find_my_facility: Recherchez votre entreprise (SIRET, SIREN, nom...)
-      five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"
+      five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours</b>"
       form_complete: Demande envoyée
       give_my_opinion_alt: Je donne mon avis
-      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l’Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner %{subject_personalisation}, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez nous contacter par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris. Pour en savoir plus, consultez les %{informations}.</p>"
+      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l’Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Conseillers-Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner %{subject_personalisation}, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez nous contacter par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris. Pour en savoir plus, consultez les %{informations}.</p>"
       legal_notice_personalisation:
         activite-partielle: sur l’activité partielle
         agrement-esus: sur les conditions de l’agrément « Entreprise solidaire d’utilité sociale » (ESUS) et ses avantages
@@ -796,9 +787,9 @@ fr:
         step_verification: Récapitulatif avant envoi
       submit_in_progress: Envoi en cours...
     form_complete:
-      iframe_message_html: Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME.
+      iframe_message_html: Votre demande a bien été transmise à Conseillers-Entreprises, le service public de mise en relation pour les TPE & PME.
       process_description_step_1_html: Nous allons <b> identifier le bon conseiller </b> près de chez vous.
-      process_description_step_1_iframe_html: Place des Entreprises va <b> identifier le bon conseiller </b> près de chez vous.
+      process_description_step_1_iframe_html: Conseillers-Entreprises va <b> identifier le bon conseiller </b> près de chez vous.
       process_description_step_2_html: Le conseiller vous <b>contactera par téléphone</b> dans les 5 jours (délai moyen de prise en charge).
       process_description_title: Et maintenant ?
       title: Merci pour votre demande
@@ -848,14 +839,14 @@ fr:
     positioning: L’expert s’est positionné
     public:
       index:
-        meta_description: Le service public Place des Entreprises permet aux TPE & PME d’être appelées par le bon conseiller pour répondre à leur demande. L’activité du service est mesurée à partir de statistiques publiques.
+        meta_description: Conseillers-Entreprises, service de Service-Public.fr, permet aux TPE & PME d’être appelées par le bon conseiller pour répondre à leur demande. L’activité du service est mesurée à partir de statistiques publiques.
         title: Statistiques d’utilisation
       stats_params:
         datepicker_format: 'Format attendu : JJ/MM/AAAA'
     series:
       advisors:
         title: Conseillers publics
-        title_table: Nombre de conseillers publics
+        title_table: Nombre de conseillers de service public
       companies_by_employees:
         ministats: Entreprises aidées
         title: Typologie des entreprises utilisatrices du service
@@ -865,7 +856,7 @@ fr:
         title_table: Secteurs d’activité des entreprises utilisatrices du service
       exchange_with_expert_column:
         series: Besoins suivis d'un échange avec un conseiller
-        subtitle_html: "<p>La promesse du service Place des Entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p>"
+        subtitle_html: "<p>La promesse du service Conseillers-Entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p>"
         title: besoins d’entreprises ont donné lieu à un échange avec un conseiller depuis l'ouverture du service
         title_table: Nombre de besoins d’entreprises ayant donné lieu à un échange avec un conseiller depuis l'ouverture du service
       experts:
@@ -876,31 +867,52 @@ fr:
         title_table: Nombre de mises en relation
       matches_done:
         subtitle: Le besoin a été pris en charge par un expert et une aide a pu être proposée à l’entreprise. L’aide s’entend au sens large (conseils, accompagnement technique, aide financière).
-        title: des besoins transmis sont clôturés par l’institution par une aide proposée, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis sont clôturés par l’institution par une aide proposée, soit %{secondary_count} besoin
+          other: des besoins transmis sont clôturés par l’institution par une aide proposée, soit %{secondary_count} besoins
+          zero: des besoins transmis sont clôturés par l’institution par une aide proposée, soit %{secondary_count} besoin
         title_table: Nombre de besoins clôturés par une aide proposée par l’institution
       matches_done_no_help:
         subtitle: Le besoin a été pris en charge par un expert, mais l’échange téléphonique n’a pu aboutir à une proposition d’aide (critères non remplis, situation spécifique...).
-        title: de besoins transmis sont clôturés sans aide possible par l’institution, soit %{secondary_count} besoins
+        title:
+          one: de besoins transmis sont clôturés sans aide possible par l’institution, soit %{secondary_count} besoin
+          other: de besoins transmis sont clôturés sans aide possible par l’institution, soit %{secondary_count} besoins
+          zero: de besoins transmis sont clôturés sans aide possible par l’institution, soit %{secondary_count} besoin
         title_table: Nombre de besoins clôturés sans aide possible de l’institution
       matches_done_not_reachable:
         subtitle: L’expert n’a pas réussi à joindre l’entreprise malgré deux tentatives. En laissant ses coordonnées, l’entreprise peut néanmoins le rappeler.
-        title: des besoins transmis sont clôturés par l’institution sans avoir pu joindre l’entreprise, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis sont clôturés par l’institution sans avoir pu joindre l’entreprise, soit %{secondary_count} besoin
+          other: des besoins transmis sont clôturés par l’institution sans avoir pu joindre l’entreprise, soit %{secondary_count} besoins
+          zero: des besoins transmis sont clôturés par l’institution sans avoir pu joindre l’entreprise, soit %{secondary_count} besoin
         title_table: Nombre de besoins clôturés par l’institution sans avoir pu joindre l’entreprise
       matches_not_for_me:
         subtitle: L’expert n’a pas appelé l’entreprise car il sait qu'il ne pourra pas l’aider (hors champ de compétence, pas d’aide complémentaire à ce qui a déjà été proposé...).
-        title: de besoins refusés par l’institution, soit %{secondary_count} besoins
+        title:
+          one: de besoins refusés par l’institution, soit %{secondary_count} besoin
+          other: de besoins refusés par l’institution, soit %{secondary_count} besoins
+          zero: de besoins refusés par l’institution, soit %{secondary_count} besoin
         title_table: Nombre de besoins refusés par l’institution
       matches_not_positioning:
         subtitle: L’expert n’a donné aucune indication sur le besoin transmis.
-        title: des besoins transmis sont restés sans réponse de l’institution, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis sont restés sans réponse de l’institution, soit %{secondary_count} besoin
+          other: des besoins transmis sont restés sans réponse de l’institution, soit %{secondary_count} besoins
+          zero: des besoins transmis sont restés sans réponse de l’institution, soit %{secondary_count} besoin
         title_table: Nombre de besoins restés sans réponse de l’institution
       matches_positioning:
         subtitle: L’expert s’est positionné pour indiquer prendre en charge ou refuser le besoin.
-        title: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoin
+          other: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoins
+          zero: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoin
         title_table: Taux de réponse
       matches_taking_care:
         subtitle: Le besoin a été pris en charge par un expert, mais n’a pas encore été cloturé après l’appel de l’entreprise.
-        title: des besoins transmis sont en cours de prise en charge par l’institution, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis sont en cours de prise en charge par l’institution, soit %{secondary_count} besoin
+          other: des besoins transmis sont en cours de prise en charge par l’institution, soit %{secondary_count} besoins
+          zero: des besoins transmis sont en cours de prise en charge par l’institution, soit %{secondary_count} besoin
         title_table: Nombre de besoins en cours de prise en charge
       needs:
         title: Besoins identifiés
@@ -924,13 +936,19 @@ fr:
         title_table: Nombre de besoins clôturés grâce à une aide proposée
       needs_done_no_help:
         subtitle: La clôture sans accompagnement signifie que l’entreprise a bien été rappelée par au moins un conseiller, mais que celui-ci n’a finalement pas pu l’aider au regard de sa situation particulière.
-        title: des besoins transmis sont clôturés sans aide possible, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis sont clôturés sans aide possible, soit %{secondary_count} besoin
+          other: des besoins transmis sont clôturés sans aide possible, soit %{secondary_count} besoins
+          zero: des besoins transmis sont clôturés sans aide possible, soit %{secondary_count} besoin
         title_table: Nombre de besoins clôturés sans aide disponible
       needs_done_not_reachable:
         title: des besoins transmis sont clôturés sans avoir pu joindre l’entreprise, soit %{secondary_count} besoins
         title_table: Nombre de besoins clôturés faute d’avoir pu joindre l’entreprise
       needs_exchange_with_expert:
-        title: des besoins transmis ont donné lieu à un échange avec un conseiller, soit %{secondary_count} besoins
+        title:
+          one: des besoins transmis ont donné lieu à un échange avec un conseiller, soit %{secondary_count} besoin
+          other: des besoins transmis ont donné lieu à un échange avec un conseiller, soit %{secondary_count} besoins
+          zero: des besoins transmis n'a donné lieu à un échange avec un conseiller, soit %{secondary_count} besoin
         title_table: Nombre de besoins d’entreprises transmis ayant donné lieu à un échange avec un conseiller
         with_exchange: Avec échange
         without_exchange: Sans échange
@@ -948,16 +966,25 @@ fr:
         title: Thématiques choisies par les entreprises
         title_table: Thématiques choisies par les entreprises
       needs_transmitted:
-        title: Besoins transmis
+        title:
+          one: Besoin transmis
+          other: Besoins transmis
+          zero: Besoin transmis
         title_table: Besoins transmis
       solicitations_completed:
         series: Besoins déposés
         subtitle_html: Il s’agit du nombre de besoins déposés par les entreprises avant la vérification qualité
-        title: besoins déposés par les entreprises
+        title:
+          one: besoin déposé par les entreprises
+          other: besoins déposés par les entreprises
+          zero: besoin déposé par les entreprises
         title_table: Nombre de besoins déposés par les entreprises
       solicitations_diagnoses:
         subtitle_html: Pour le bon fonctionnement du service, les besoins sont vérifiés. Seuls les besoins de bonne qualité sont transmis. Les besoins sans aucun élément de contexte, avec des erreurs de siret ou touchant à la création d’entreprise, ne peuvent pas être transmis.
-        title: des besoins sont transmis aux conseillers, soit %{secondary_count} besoins
+        title:
+          one: des besoins sont transmis aux conseillers, soit %{secondary_count} besoin
+          other: des besoins sont transmis aux conseillers, soit %{secondary_count} besoins
+          zero: aucun besoin n'a été transmis aux conseillers
         title_table: Nombre de besoins transmis aux conseillers
       solicitations_taking_care_time:
         title: des échanges ont lieu dans les 5 jours après transmission du besoin
@@ -1041,8 +1068,6 @@ fr:
     with_diagnosis: Besoins transmis
     without_diagnosis: Besoins non transmis
   step_number: Étape %{actual} sur %{total}
-  temoignage:
-    image_title: Photo de %{author}
   to_new_window: ouvre une nouvelle fenêtre
   undefined: Non défini
   usage_team_stats: Statistiques équipe
@@ -1052,24 +1077,25 @@ fr:
       at_your_service_1: Pour vous proposer un outil simple et intuitif, qui vous permettra d’échanger avec d’autres experts au sein de différentes institutions.
       at_your_service_2: Être à votre écoute pour améliorer la qualité et la nature des besoins d’entreprises que vous souhaitez recevoir.
       at_your_service_3: Assurer le suivi des besoins restés sans réponse ou refusés, afin qu’aucune entreprise ne reste sans réponse.
+      at_your_service_4_html: Pour toute question, <a href="%{contact_url}">n’hésitez pas à prendre contact !</a>
       available_on_html: La vidéo est également visible sur %{dailymotion_link}.
-      comments: En cas de refus, les commentaires aident l’équipe Place des Entreprises à améliorer l’orientation des besoins d’entreprises.
+      comments: En cas de refus, les commentaires aident l’équipe en charge de Conseillers-Entreprises à améliorer l’orientation des besoins d’entreprises.
       dailymotion: Dailymotion
-      dailymotion_video_title: Lien vers la video tutoriel sur Dailymotion - ouvre une nouvelle fenêtre
-      emails: Réceptionner les emails
-      explanation_emails: Je glisse l'email de Place des Entreprises dans ma boîte de réception. Les prochains emails @beta.gouv.fr arriveront ainsi directement dans ma boite de réception !
+      dailymotion_video_title: Lien vers la video tutoriel sur Dailymotion - nouvelle fenêtre
+      emails: Recevoir les emails
+      explanation_emails: Je vérifie dans mon dossier "spams" et glisse, si je l'y trouve, l’email de Conseillers-Entreprises dans ma boîte de réception pour l’autoriser. Les prochains emails arriveront ainsi directement dans ma boîte de réception !
       need_steps: Les 4 étapes de la prise en charge d’un besoin
-      notifications_explanations_1_html: À l’arrivée d’une <b>nouvelle demande</b> d’une entreprise sur mon territoire
-      notifications_explanations_2_html: Si vous avez des demandes en attente en réponse, vous recevrez également :<ul><li>un <b>récapitulatif hebdomadaire</b> tous les mardis regroupant toutes les demandes en attente</li><li>une <b>relance de “la dernière chance”</b> 3 semaines après réception d’une demande</li><li>un <b>mail de rappel</b> manuellement déclenché par un membre de l’équipe</li></ul>
-      notifications_explanations_3_html: Lorsque la demande est clôturée, vous ne recevez plus de notification.
+      notifications_explanations_1_html: À l’arrivée d’un <b>nouveau besoin</b> d’une entreprise sur votre territoire
+      notifications_explanations_2_html: Si vous avez des besoins en attente en réponse, vous recevrez également :<ul><li>un <b>récapitulatif hebdomadaire</b> tous les mardis regroupant tous les besoins en attente</li><li>une <b>relance de “la dernière chance”</b> 3 semaines après réception d’un besoin</li><li>un <b>mail de rappel</b> manuellement déclenché par un membre de l’équipe</li></ul>
+      notifications_explanations_3_html: Lorsque le besoin est clôturé, vous ne recevez plus de notification.
       notifications_question: Quand recevez-vous une notification ?
       notifications_title: Comprendre les notifications
-      pde_tutorial_transcription: Transcription textuelle de la vidéo tutorielle de Place des Entreprises.
-      question_emails: Je ne reçois pas les mails de Place des entreprises, que faire ?
+      pde_tutorial_transcription: Transcription textuelle de la vidéo tutorielle de Conseillers-Entreprises.
+      question_emails: Je ne reçois pas les emails de Conseillers-Entreprises, que faire ?
       read_transcription: Lire la transcription
-      step_1: Je me positionne sur le besoin de l’entreprise adressé sur mon champ de compétences, en cliquant sur le bouton de prise en charge ou de refus.
-      step_2: Lorsque j’ai cliqué sur le bouton vert "J’appelle", j’appelle le chef d’entreprise pour préciser avec lui sa problématique et identifier l’aide ou l’accompagnement que ma structure peut lui proposer.
-      step_3: Après l’appel, je clôture mon intervention en fonction de la réponse apportée ou de l’impossibilité de joindre le chef d’entreprise (n’oubliez pas de laisser vos coordonnées sur le répondeur ou par mail).
+      step_1: Je me positionne sur le besoin de l’entreprise adressé sur mon champ de compétences, en cliquant sur le bouton de prise en charge (« J’appelle ») ou de refus (« Ce n’est pas pour moi »).
+      step_2: Lorsque j’ai cliqué sur le bouton vert "J’appelle", je contacte le chef d’entreprise par téléphone pour préciser avec lui sa problématique et identifier l’aide ou l’accompagnement que ma structure peut lui proposer.
+      step_3: Après l’appel, je clôture mon intervention en fonction de la réponse apportée ou de l’impossibilité de joindre le chef d’entreprise (n'oubliez alors pas de laisser vos coordonnées sur le répondeur).
       step_4: Je laisse un commentaire pour les autres experts notifiés afin qu’ils puissent intervenir de manière complémentaire et pertinente par rapport à mon action.
       title: Tutoriel
   users:
@@ -1084,6 +1110,7 @@ fr:
     registrations:
       antenne:
         antenne_within_institution: Antenne (au sein de %{institution})
+        no_team: Pas d’équipe
     thats_you: C’est vous !
   views:
     pagination:

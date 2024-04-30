@@ -2,24 +2,21 @@
 
 <%= t('.description_html', link_to_root: t('app_name'), antenne: @resource.antenne.name) %>
 
-  <%= t('.question_one') %>
-
-<%= t('.answer_one', institution_name: @resource.institution.name) %>
-
-  <%= t('.question_two') %>
-
-<%= ActionView::Base.full_sanitizer.sanitize(t('.answer_two_html')) %>
-
 
 <%= t('.accept_user_invitation_instruction') %> : <%= accept_user_invitation_url(invitation_token: @token) %>
 
 
+  <%= t('.question_one') %>
+
+<%= t('.answer_one', institution_name: @resource.institution.name) %>  
+
+  <%= t('.question_two') %>
+
+<%= ActionView::Base.full_sanitizer.sanitize(t('.answer_two_html')) %>  
+
 <%= t('.looking_forward') %>
-<%= ActionView::Base.full_sanitizer.sanitize(t('mailers.place_des_entreprises_team_html', link_to_root: link_to(t('app_name'), root_url))) %>
+<%= ActionView::Base.full_sanitizer.sanitize(t('mailers.team_html', url: root_url)) %>
 
 ---
 <%= t('.support_contact_label') %>
-<%= render 'mailers/expert_mailer/support_contacts', antenne: @resource.antenne %>
-
----
-<%= render 'mailers/footer' %>
+<%= render 'mailers/expert_mailer/support_contacts', antenne: @resource.antenne, user: @resource %>

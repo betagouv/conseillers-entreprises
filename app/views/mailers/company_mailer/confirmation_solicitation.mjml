@@ -1,0 +1,33 @@
+<mj-section>
+  <mj-column>
+    <mj-text><%= t('mailers.hello') %></mj-text>
+
+      <% if @solicitation.landing.iframe? %>
+          <mj-text><%= t('.content_for_iframe_html', website: @solicitation.landing.partner_url) %></mj-text>
+      <% else %>
+          <mj-text><%= t('.content') %></mj-text>
+      <% end %>
+
+      <mj-text><%= t('.its_about') %></mj-text>
+
+      <mj-text>
+          <strong><%= @solicitation.landing_subject.title %></strong>
+      </mj-text>
+
+      <mj-text><%= t('.informations_html') %>
+        <ul>
+            <% @solicitation.landing_subject.solicitable_institutions_names.each do |institution_name| %>
+            <li><%= institution_name %></li>
+            <% end %>
+        </ul>
+      </mj-text>
+
+      <mj-text><%= t('mailers.thank_you_to_used_our_service') %></mj-text>
+
+      <mj-text><%= t('mailers.cordially') %></mj-text>
+
+      <mj-text>
+          <%= t('mailers.team_html', url: root_url(mtm_campaign: 'retention', mtm_kwd: 'sequence-mail-pde')) %>
+      </mj-text>
+  </mj-column>
+</mj-section>

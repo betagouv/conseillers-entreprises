@@ -21,6 +21,10 @@ module StatsHelper
     add_locals_antennes(antennes_collection, institution_antennes)
   end
 
+  def stats_count(count)
+    number_with_delimiter(count, locale: :fr, delimiter: ' ')
+  end
+
   private
 
   def antennes_collection_hash(base_antennes, looking_for_antennes)

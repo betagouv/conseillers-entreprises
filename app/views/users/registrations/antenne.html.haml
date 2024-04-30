@@ -29,3 +29,5 @@
         = team.full_name
         %br
         = members.pluck(:full_name).to_sentence
+    - if @user.antenne.experts.not_deleted.teams.none?
+      %li= t('.no_team')

@@ -1,0 +1,15 @@
+<mj-section>
+  <mj-column>
+    <mj-text><%= t('mailers.hello') %></mj-text>
+    <mj-text><%= t('.intro_html', company: @need.company.name) %></mj-text>
+    <mj-text><strong><%= @need.subject.label %></strong></mj-text>
+    <mj-text><%= t('.question_one_html',
+      link_yes: new_company_satisfactions_url(besoin: @need.id, token: @email_token, response: 'yes'),
+      link_no: new_company_satisfactions_url(besoin: @need.id, token: @email_token, response: 'no')) %></mj-text>
+
+    <mj-text><%= t('.outro') %></mj-text>
+    <mj-text><%= t('.tank_you') %></mj-text>
+    <mj-text><%= t('mailers.cordially') %></mj-text>
+    <mj-text><%= t('mailers.team_html', url: root_url(mtm_campaign: 'retention', mtm_kwd: 'sequence-mail-pde')) %></mj-text>
+    </mj-column>
+</mj-section>

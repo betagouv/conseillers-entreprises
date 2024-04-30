@@ -12,6 +12,15 @@
       .icon
         font-size: 1.5rem
         justify-content: space-between
+    @media only screen and (max-width: 382px)
+      .fr-btn
+        order: 2
+        width: 100%
+        margin: 0.5rem
+        &:not(:first-child)
+          order: 1
+          width: 100%
+          margin: 0.5rem
   .contact-delay
     display: flex
     .ri-phone-fill

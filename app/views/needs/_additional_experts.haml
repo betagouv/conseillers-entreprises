@@ -7,8 +7,8 @@
       = add_f.hidden_field :need_id, value: need.id, data: { 'toggle-block-target': 'itemId' }
       = add_f.hidden_field :expert_id, value: nil, data: { 'expert-autocomplete-target': 'expertField' }
       .label-loader
-        = label_tag "expert", t('.add_other_experts'), class: 'fr-label'
+        = label_tag "omnisearch", t('.add_other_experts'), class: 'fr-label'
         .hidden.loader.fr-ml-1w{ data: { 'expert-autocomplete-target': 'loader' } }
-    .input
-      %span.ri-user-add-fill.blue.info-icon{ title: t('.ambulance_explanation'), 'aria-hidden': 'true' }
-      .autocomplete-container{ data: { 'expert-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'omnisearch', 'search-url': conseiller_experts_path } }
+      .input
+        %span.ri-user-add-fill.blue.info-icon{ title: t('.ambulance_explanation'), 'aria-hidden': 'true' }
+        .autocomplete-container{ data: { 'expert-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'omnisearch', 'search-url': conseiller_experts_path } }

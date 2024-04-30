@@ -1,0 +1,23 @@
+<mj-section>
+  <mj-column>
+    <mj-text><%= t('mailers.hello') %></mj-text>
+
+    <mj-text><%= t('mailers.company_mailer.intro_from_solicitation_with_subject_html', company: @diagnosis.company.name, subject: @subject_title) %></mj-text>
+
+    <mj-text><%= t('.content_by_expert') %></mj-text>
+
+    <mj-text>
+      <strong><%= @match.expert.institution %> - <%= @match.expert.antenne.name %></strong>
+    </mj-text>
+
+    <mj-text><%= t('.not_reachable_instructions') %></mj-text>
+
+    <mj-text><%= t('mailers.thank_you_to_used_our_service') %></mj-text>
+
+    <mj-text><%= t('mailers.cordially') %></mj-text>
+
+    <mj-text><%= t('mailers.team_html', url: root_url(mtm_campaign: 'retention', mtm_kwd: 'sequence-mail-pde')) %></mj-text>
+
+    <mj-text><%= t('mailers.withdraw_request_html', mailto_link: mailto_contact_us(t('contact_us'))) %></mj-text>
+  </mj-column>
+</mj-section>
