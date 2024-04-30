@@ -12,6 +12,6 @@ class ExpertPolicy < ApplicationPolicy
   end
 
   def show_deleted_experts?
-    admin?
+    admin? || manager?
   end
 end
