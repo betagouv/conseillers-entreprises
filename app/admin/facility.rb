@@ -20,6 +20,15 @@ ActiveAdmin.register Facility do
         div admin_attr(f, :code_effectif), title: f.intitule_effectif
       end
     end
+    column(:nature) do |f|
+      if f.company.forme_exercice?
+        div admin_attr(f.company, :forme_exercice), title: f.company.forme_exercice
+      end
+      div inscription_registre(:inscrit_rcs, f.company.inscrit_rcs)
+      div inscription_registre(:inscrit_rm, f.company.inscrit_rm)
+      div inscription_registre(:activite_liberale, f.company.activite_liberale)
+    end
+
     column :created_at
     column(:activity) do |f|
       div admin_link_to(f, :diagnoses, blank_if_empty: true)

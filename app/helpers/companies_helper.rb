@@ -12,7 +12,7 @@ module CompaniesHelper
 
   def inscription_registre(registre, value)
     label = I18n.t(registre, scope: 'activerecord.attributes.company')
-    t_value = I18n.t(value, scope: [:boolean, :text])
+    t_value = I18n.t(value, scope: [:boolean, :text], default: I18n.t('boolean.text.false'))
 
     html = tag.span("#{label} : ", class: 'fr-text--bold')
     html << t_value
