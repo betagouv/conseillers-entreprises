@@ -88,7 +88,7 @@ module ApiInsee
     private
 
     def base_url
-      @base_url ||= "https://api.insee.fr/entreprises/sirene/V3/"
+      @base_url ||= "https://api.insee.fr/entreprises/sirene/V3.11/"
     end
 
     def url_key
