@@ -70,7 +70,7 @@
                 %span.ri-radar-line.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('conseiller.veille.index.title')
           %ul.fr-nav__list
-            = active_link_to tutoriels_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+            = active_link_to tutoriels_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
               %span.ri-tools-line.fr-mr-1w{ 'aria-hidden': 'true' }
               = t('user_pages.tutoriels.title')
             - if policy(User).admin?
@@ -99,6 +99,6 @@
             = active_link_to root_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', active: :exclusive do
               %span.ri-home-line.fr-mr-1w{ 'aria-hidden': 'true' }
               = t('breadcrumbs_helper.home_link.home')
-            = active_link_to comment_ca_marche_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+            = active_link_to comment_ca_marche_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
               %span.ri-presentation-line.fr-mr-1w{ 'aria-hidden': 'true' }
               = t('about.comment_ca_marche.title')

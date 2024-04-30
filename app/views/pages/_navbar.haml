@@ -34,7 +34,7 @@
             = link_to ENV['BLOG_URL'], title: t('.link_to_blog'), class: 'fr-nav__link' do
               %span.ri-newspaper-line.fr-mr-1w{ 'aria-hidden': 'true' }
               = t('about.blog.title')
-          = active_link_to comment_ca_marche_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+          = active_link_to comment_ca_marche_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
             %span.ri-presentation-line.fr-mr-1w{ 'aria-hidden': 'true' }
             = t('about.comment_ca_marche.title')
 
