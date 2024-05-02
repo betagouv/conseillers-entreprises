@@ -19,9 +19,14 @@ ActiveAdmin.register Company do
       if c.code_effectif?
         div admin_attr(c, :code_effectif), title: c.intitule_effectif
       end
+    end
+    column(:nature) do |c|
       if c.forme_exercice?
         div admin_attr(c, :forme_exercice), title: c.forme_exercice
       end
+      div inscription_registre(:inscrit_rcs, c.inscrit_rcs)
+      div inscription_registre(:inscrit_rm, c.inscrit_rm)
+      div inscription_registre(:activite_liberale, c.activite_liberale)
     end
     column :created_at
     column(:facilities) do |c|
