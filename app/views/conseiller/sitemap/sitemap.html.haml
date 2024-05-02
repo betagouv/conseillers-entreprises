@@ -40,7 +40,7 @@
   %h2.fr-h3.fr-mt-10v= t('.general')
   %ul
     %li
-      = link_to t('user_pages.tutoriels.title'), tutoriels_path
+      = link_to t('user_pages.tutoriels.title'), tutoriels_path, data: { turbo: false }
     %li
       = link_to t('stats.public.index.title'), public_index_path
     %li
