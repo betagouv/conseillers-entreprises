@@ -508,6 +508,12 @@ end
 
         it { is_expected.to be false }
       end
+
+      context 'without nafcode' do
+        let(:naf_code) { nil }
+
+        it { is_expected.to be false }
+      end
     end
 
     context 'without facility' do
