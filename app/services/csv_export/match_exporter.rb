@@ -19,7 +19,7 @@ module CsvExport
         company_name: -> { company&.name },
         company_categorie_juridique: -> { company.categorie_juridique },
         company_naf: -> { facility.naf_code },
-        company_effectif: -> { Effectif::CodeEffectif.new(facility.code_effectif).intitule_effectif },
+        company_effectif: -> { Effectif::CodeEffectif.new(facility.displayable_code_effectif).intitule_effectif },
         company_forme_exercice: -> { company&.forme_exercice&.humanize },
         inscrit_rcs: -> { I18n.t(company.inscrit_rcs, scope: [:boolean, :text], default: I18n.t('boolean.text.false')) },
         inscrit_rm: -> { I18n.t(company.inscrit_rm, scope: [:boolean, :text], default: I18n.t('boolean.text.false')) },

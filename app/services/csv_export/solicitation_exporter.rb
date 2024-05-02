@@ -82,7 +82,7 @@ module CsvExport
         company_name: -> { diagnosis&.company&.name },
         company_categorie_juridique: -> { diagnosis&.company&.categorie_juridique },
         company_naf: -> { diagnosis&.facility&.naf_code },
-        company_effectif: -> { Effectif::CodeEffectif.new(diagnosis&.facility&.code_effectif).intitule_effectif },
+        company_effectif: -> { Effectif::CodeEffectif.new(diagnosis&.facility&.displayable_code_effectif).intitule_effectif },
         company_forme_exercice: -> { diagnosis&.company&.forme_exercice&.humanize },
         inscrit_rcs: -> { I18n.t(diagnosis&.company&.inscrit_rcs, scope: [:boolean, :text], default: I18n.t('boolean.text.false')) },
         inscrit_rm: -> { I18n.t(diagnosis&.company&.inscrit_rm, scope: [:boolean, :text], default: I18n.t('boolean.text.false')) },
