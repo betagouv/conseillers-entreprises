@@ -18,8 +18,9 @@ module ApiRechercheEntreprises::Search
       @url_key ||= 'search'
     end
 
+    # On traque pour les collègues d'annuaire entreprise
     def url
-      @url ||= "#{base_url}#{url_key}?q=#{@query}"
+      @url ||= "#{base_url}#{url_key}?q=#{@query}&mtm_campaign=conseillers-entreprises"
     end
   end
 
