@@ -277,7 +277,7 @@ describe 'New Solicitation', :js, :flaky do
         let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{query}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
         before do
-          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/mtm_campaign=conseillers-entreprises&search?q=toto")
+          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/mtm_campaign=conseillers-entreprises&search?mtm_campaign=conseillers-entreprises&q=toto")
             .to_return(status: 200, body: '{"results": []}', headers: {})
           ENV['API_ENTREPRISE_TOKEN'] = '1234'
           stub_request(:get, entreprise_api_url).to_return(
