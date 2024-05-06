@@ -64,5 +64,7 @@ exclude_patterns:
   - 'app/services/csv_import/*'
   - 'app/models/clockwork.rb'
   - 'app/helpers/sitemap_helper.rb'
+  - 'app/admin/*'
+  - 'app/admin/'
   - 'babel.config.js'
   - 'app/services/sitemap_generator.rb'
