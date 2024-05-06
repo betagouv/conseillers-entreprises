@@ -53,10 +53,10 @@ RSpec.describe ExpertPolicy, type: :policy do
       it { is_expected.to permit(user, expert) }
     end
 
-    context "denies access if user is another user" do
+    context "grants access if user is another user" do
       let(:user) { create :user }
 
-      it { is_expected.not_to permit(user, expert) }
+      it { is_expected.to permit(user, expert) }
     end
   end
 end
