@@ -67,10 +67,23 @@ describe RemindersService do
 
     describe 'one_pending_need' do
       let!(:expert) { create :expert_with_users }
-      let!(:new_match) { create :match, status: :quo, expert: expert }
+      let!(:new_match) { create :match, status: :quo, expert: expert, created_at: 4.days.ago }
       let!(:ancient_match) { create :match, status: status, created_at: created_at, sent_at: created_at, expert: expert }
 
-      context 'when has an old done match' do
+      context 'when expert has an old match and new match less than 3 days' do
+        let(:status) { :done }
+        let(:created_at) { 4.months.ago }
+        let!(:new_match) { create :match, status: :quo, expert: expert, created_at: 2.days.ago }
+
+        before { described_class.new.create_reminders_registers }
+
+        it do
+          expect(RemindersRegister.current_input_category.map(&:expert)).to be_empty
+          expect(expert.reminders_registers).to be_empty
+        end
+      end
+
+      context 'when has an old done match status done' do
         let(:status) { :done }
         let(:created_at) { 4.months.ago }
 
@@ -82,7 +95,7 @@ describe RemindersService do
         end
       end
 
-      context 'when has an old quo match' do
+      context 'when expert has an old quo match status' do
         let(:status) { :quo }
         let(:created_at) { 4.months.ago }
 
@@ -94,7 +107,7 @@ describe RemindersService do
         end
       end
 
-      context 'when has a recent quo match' do
+      context 'when expert has a recent quo match' do
         let(:status) { :quo }
         let(:created_at) { 1.month.ago }
 
@@ -106,7 +119,7 @@ describe RemindersService do
         end
       end
 
-      context 'when has an old done and a recent quo match' do
+      context 'when expert has an old done and a recent quo match' do
         let(:status) { :quo }
         let(:created_at) { 1.month.ago }
         let!(:oldest_match) { create :match, status: :done, created_at: 4.months.ago, sent_at: 4.months.ago, expert: expert }

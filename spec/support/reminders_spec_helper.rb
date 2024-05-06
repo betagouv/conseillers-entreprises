@@ -57,7 +57,7 @@ module RemindersSpecHelper
 
     # Expert avec 1 besoin de moins de 15 jours avec plus de 3 mois depuis le dernier besoin cloturé
     let!(:expert_with_one_quo_match_1) { create :expert_with_users, :with_reminders_register, job: 'expert_with_one_quo_match_1' }
-    let!(:quo_match) { create :match, status: :quo, expert: expert_with_one_quo_match_1 }
+    let!(:quo_match) { create :match, status: :quo, expert: expert_with_one_quo_match_1, created_at: 4.days.ago }
     let!(:old_done_matches_3) { travel_to(4.months.ago) { create :match, status: :done, expert: expert_with_one_quo_match_1 } }
   end
 
