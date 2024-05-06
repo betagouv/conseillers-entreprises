@@ -10,8 +10,8 @@
       %h1.fr-mb-5w= t('advisor_sign_in')
       -# TODO : A supprimer une fois l'info devenue inutile
       .fr-alert.fr-alert--info.fr-mb-5w
-        %h3.fr-alert__title Connexion France Travail
-        %p Si vous êtes conseiller ou conseillère France Travail, anciennement Pôle emploi, connectez-vous avec votre nouvelle adresse mail : xxxxxxxxx@francetravail.fr 
+        %h2.fr-alert__title Connexion France Travail
+        %p Si vous êtes conseiller ou conseillère France Travail, anciennement Pôle emploi, connectez-vous avec votre nouvelle adresse mail : xxxxxxxxx@francetravail.fr.
       = form_for resource, as: resource_name, url: session_path(resource_name), html: { data: { turbo: false } } do |f|
         .fr-fieldset
           .fr-fieldset__element
