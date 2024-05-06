@@ -8,6 +8,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.paths << Rails.root.join('node_modules', '@gouvfr', 'dsfr', 'dist')
 Rails.application.config.assets.paths << Rails.root.join('node_modules', '@gouvfr', 'dsfr', 'dist', 'utility', 'icons')
 Rails.application.config.assets.paths << Rails.root.join('node_modules', '@gouvfr', 'dsfr', 'dist', 'utility', 'icons', 'icons-system')
+Rails.application.config.assets.paths << Rails.root.join('node_modules', '@gouvfr', 'dsfr', 'dist', 'utility', 'icons', 'icons-communication')
 Rails.application.config.assets.paths << Rails.root.join('node_modules', 'remixicon', 'fonts')
 Rails.application.config.assets.paths << Rails.root.join('node_modules', 'slim-select', 'dist')
 

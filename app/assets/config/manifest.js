@@ -8,5 +8,6 @@
 //= link @gouvfr/dsfr/dist/dsfr.min.css
 //= link @gouvfr/dsfr/dist/utility/icons/icons.css
 //= link @gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.css
+//= link @gouvfr/dsfr/dist/utility/icons/icons-communication/icons-communication.css
 //= link remixicon/fonts/remixicon.css
 //= link slim-select/dist/slimselect.css
