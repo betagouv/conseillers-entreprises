@@ -421,7 +421,7 @@ fr:
         how-it-works: Comment ça marche ?
         meta:
           description: 'TPE & PME vous avez un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
-          title: Accueil | Conseillers-entreprises.service-public.fr - Conseils et aides publiques
+          title: Accueil | Service public Conseillers-Entreprises
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
         subtitle: 'Service public simple et rapide : %{count} TPE & PME ont déjà été accompagnées cette année par un conseiller %{subject}'
       index_institutions:
