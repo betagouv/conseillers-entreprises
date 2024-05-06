@@ -5,7 +5,7 @@ require 'api_helper'
 
 RSpec.describe ApiRechercheEntreprises::Search::Base do
   let(:api) { described_class.new(query).call }
-  let(:url) { "https://recherche-entreprises.api.gouv.fr/search?q=#{query}" }
+  let(:url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
 
   context 'Query reconnue' do
     let(:query) { 'octo technology' }

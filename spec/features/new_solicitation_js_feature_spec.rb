@@ -37,7 +37,7 @@ describe 'New Solicitation', :js, :flaky do
         let!(:additional_question_2) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
 
         before do
-          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?q=zzzzzz")
+          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=zzzzzz")
             .to_return(status: 200, body: '{"results": []}', headers: {})
 
           stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{other_siret}")
@@ -221,7 +221,7 @@ describe 'New Solicitation', :js, :flaky do
       end
 
       context "from fulltext" do
-        let(:api_url) { "https://recherche-entreprises.api.gouv.fr/search?q=#{query}" }
+        let(:api_url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
         let(:fixture_file) { 'api_recherche_entreprises_search.json' }
         let(:query) { 'octo technology' }
 
@@ -277,7 +277,7 @@ describe 'New Solicitation', :js, :flaky do
         let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{query}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
         before do
-          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?q=toto")
+          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=toto")
             .to_return(status: 200, body: '{"results": []}', headers: {})
           ENV['API_ENTREPRISE_TOKEN'] = '1234'
           stub_request(:get, entreprise_api_url).to_return(

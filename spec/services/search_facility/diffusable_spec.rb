@@ -56,7 +56,7 @@ RSpec.describe SearchFacility::Diffusable do
     end
 
     context 'from_fulltext' do
-      let(:api_url) { "https://recherche-entreprises.api.gouv.fr/search?q=#{query}" }
+      let(:api_url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
       let(:query) { 'octo technology' }
 
       before do

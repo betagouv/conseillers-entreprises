@@ -18,8 +18,8 @@ RSpec.configure do |config|
     'v1/swagger.yaml' => {
       openapi: '3.0.1',
       info: {
-        title: 'API Conseillers-entreprises.service-public.fr V1',
-        description: "## Bienvenue sur la documentation de l’API de Conseillers-entreprises.service-public.fr
+        title: 'API Conseillers-Entreprises V1',
+        description: "## Bienvenue sur la documentation de l’API de conseillers-entreprises.service-public.fr
         \nCette API permet à une organisation de proposer un formulaire de dépôt de besoin d'entreprise connecté à Conseillers-entreprises.service-public.fr sur son propre site internet.
         \nConcrètement, cette API permet de :
         \n- récupérer la liste des pages d'atterrisage, thèmes et sujets autorisés pour l'organisation concernée,
