@@ -30,6 +30,6 @@ class Api::V1::Landings::LandingsController < Api::V1::BaseController
   end
 
   def base_scope
-    current_institution.landings.archived(false)
+    current_institution.landings.api.archived(false)
   end
 end

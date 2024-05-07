@@ -51,6 +51,7 @@ RSpec.describe "Landings API" do
                    }
                  }
           let!(:other_landing) { create(:landing, :api, :with_subjects) }
+          let!(:iframe_landing) { create(:landing, :iframe, institution: institution, partner_url: 'example.fr') }
 
           before do |example|
             submit_request(example.metadata)

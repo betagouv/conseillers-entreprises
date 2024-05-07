@@ -25,12 +25,12 @@ RSpec.configure do |config|
         \n- récupérer la liste des pages d'atterrisage, thèmes et sujets autorisés pour l'organisation concernée,
         \n- d'envoyer à Conseillers-entreprises.service-public.fr un besoin
         \n### Limite des requêtes
-        \nLe serveur accepte un maximum de 300 appels  par 5 minutes.
+        \nLe serveur accepte un maximum de 300 appels par 5 minutes.
         ",
         version: '1.0.0',
         contact: {
           name: 'Équipe technique',
-          email: 'tech@conseillers-entreprises.service-public.fr'
+          email: 'tech@entreprises.service-public.fr'
         }
       },
       tags: [
