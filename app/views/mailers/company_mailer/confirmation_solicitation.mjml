@@ -14,12 +14,16 @@
           <strong><%= @solicitation.landing_subject.title %></strong>
       </mj-text>
 
-      <mj-text><%= t('.informations_html') %>
+      <mj-text><%= t('.informations') %></mj-text>
+      <% institution_names = @solicitation.landing_subject.solicitable_institutions_names %>
+      <% if institution_names.any? %>
+        <mj-text><%= t('.partner_list') %>
         <ul>
-            <% @solicitation.landing_subject.solicitable_institutions_names.each do |institution_name| %>
+            <% institution_names.each do |institution_name| %>
             <li><%= institution_name %></li>
             <% end %>
         </ul>
+      <% end %>
       </mj-text>
 
       <mj-text><%= t('mailers.thank_you_to_used_our_service') %></mj-text>
