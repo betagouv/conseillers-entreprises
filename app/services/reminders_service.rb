@@ -49,8 +49,9 @@ class RemindersService
       (quo_matches_size >= MATCHES_COUNT[:medium]) &&
       (quo_matches_size <= MATCHES_COUNT[:many])
       :medium_pending_needs
-    # Panier avec un nouveau besoin en attente et le dernier besoin recu avant est vieux de + de 3 mois
+    # Panier avec un nouveau besoin en attente, reçu il y a au moins 3 jours, et le dernier besoin recu avant est vieux de + de 3 mois
     elsif (old_quo_matches.size < MATCHES_COUNT[:medium] && quo_matches.present?) &&
+      quo_matches.maximum(:created_at) <= 3.days.ago &&
       (latest_received_match_at(expert).present? && (latest_received_match_at(expert) <= MATCHES_AGE[:prehistorical]))
       :one_pending_need
     end
