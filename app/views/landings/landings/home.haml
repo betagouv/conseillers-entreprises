@@ -1,27 +1,28 @@
 - meta title: t('.meta.title'), description: t('.meta.description')
 - content_for :schema do
   %script{ type: "application/ld+json" }
-    {
-      "@context": "https://schema.org",
-      "@type":"WebPage",
-      "name":"#{t('.meta.title')}",
-      "url":"#{canonical_url}",
-      "description":"#{t('.meta.description')}",
-      "image":"#{image_url('logo-ce.png')}",
-      "isPartOf":{
-        "@type":"WebSite",
-        "name":"Conseillers-Entreprises",
+    :plain
+      {
+        "@context": "https://schema.org",
+        "@type":"WebPage",
+        "name":"#{t('.meta.title')}",
         "url":"#{canonical_url}",
-        "logo":"#{image_url('logo-ce.png')}",
-        "publisher":{
-          "@type":"GovernmentOrganization",
+        "description":"#{t('.meta.description')}",
+        "image":"#{image_url('logo-ce.png')}",
+        "isPartOf":{
+          "@type":"WebSite",
           "name":"Conseillers-Entreprises",
           "url":"#{canonical_url}",
           "logo":"#{image_url('logo-ce.png')}",
-          "email":"#{ENV['APPLICATION_EMAIL']}",
+          "publisher":{
+            "@type":"GovernmentOrganization",
+            "name":"Conseillers-Entreprises",
+            "url":"#{canonical_url}",
+            "logo":"#{image_url('logo-ce.png')}",
+            "email":"#{ENV['APPLICATION_EMAIL']}",
+          }
         }
       }
-    }
 
 .fr-container-fluid.fr-py-8w.home-banner
   .fr-container
