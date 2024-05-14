@@ -4,15 +4,15 @@ module SeoHelper
 		{
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "name": "#{t('home.meta.title')}",
+        "name": "#{t('landings.landings.home.meta.title')}",
         "url": "#{canonical_url}",
-        "description": "#{t('home.meta.description')}",
+        "description": "#{t('landings.landings.home.meta.description')}",
         "image": "#{image_url('logo-ce.png')}",
         "isPartOf":{
           "@type": "WebSite",
           "name": "Conseillers-Entreprises",
           "url": "#{canonical_url}",
-          "logo": "#{image_url('logo-ce.png')}",
+          "image": "#{image_url('logo-ce.png')}",
           "publisher":{
             "@type": "GovernmentOrganization",
             "name": "Conseillers-Entreprises",
