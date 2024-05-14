@@ -7,7 +7,7 @@ require 'api_helper'
 # TODO
 describe 'New Solicitation', :js, :flaky do
   let(:pde_subject) { create :subject }
-  let!(:landing) { create :landing, slug: 'accueil', title: 'Test Landing' }
+  let!(:landing) { create :landing, slug: 'accueil', title: 'Accueil' }
   let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
   let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, subject: pde_subject, title: "Super sujet", description: "Description LS", requires_siret: true }
   let(:siret) { '41816609600069' }
@@ -29,7 +29,7 @@ describe 'New Solicitation', :js, :flaky do
 
       # Features tests sont coûteux, je tests deux éléments indépendants dans un test
       context "from siret, with additional_subject_questions in url" do
-        let!(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
+        let!(:api_url) { "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{query}" }
         let!(:fixture_file) { 'api_insee_siret.json' }
         let!(:query) { siret }
         let!(:other_siret) { '89448692700011' }
@@ -37,10 +37,10 @@ describe 'New Solicitation', :js, :flaky do
         let!(:additional_question_2) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
 
         before do
-          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?q=zzzzzz")
+          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=zzzzzz")
             .to_return(status: 200, body: '{"results": []}', headers: {})
 
-          stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{other_siret}")
+          stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{other_siret}")
             .to_return(status: 400, body: file_fixture('api_insee_siret_400.json'))
           stub_request(:get, "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{other_siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013")
             .to_return(status: 200, body:
@@ -65,7 +65,7 @@ describe 'New Solicitation', :js, :flaky do
 
         it do
           visit '/?recrutement_poste_cadre=true&recrutement_en_apprentissage=false'
-          click_on 'Test Landing Theme'
+          click_on 'Test Landing Theme', match: :first
           click_on 'Super sujet'
 
           # Etape contact
@@ -129,7 +129,7 @@ describe 'New Solicitation', :js, :flaky do
       end
 
       context "with siret in url and modification" do
-        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
+        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{query}" }
         let(:fixture_file) { 'api_insee_siret.json' }
         let(:query) { '41816609600069' }
         let(:token) { '1234' }
@@ -147,7 +147,7 @@ describe 'New Solicitation', :js, :flaky do
 
         it do
           visit "/?siret=#{query}"
-          click_on 'Test Landing Theme'
+          click_on 'Test Landing Theme', match: :first
           click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
@@ -174,9 +174,9 @@ describe 'New Solicitation', :js, :flaky do
       end
 
       context "from siren" do
-        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{query}" }
+        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siren:#{query}" }
         let(:fixture_file) { 'api_insee_sirets_by_siren_many.json' }
-        let(:siret_api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{siret}" }
+        let(:siret_api_url) { "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{siret}" }
         let(:siret_fixture_file) { 'api_insee_siret.json' }
 
         let(:query) { siren }
@@ -190,7 +190,7 @@ describe 'New Solicitation', :js, :flaky do
 
         it do
           visit '/'
-          click_on 'Test Landing Theme'
+          click_on 'Test Landing Theme', match: :first
           click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
@@ -221,23 +221,23 @@ describe 'New Solicitation', :js, :flaky do
       end
 
       context "from fulltext" do
-        let(:api_url) { "https://recherche-entreprises.api.gouv.fr/search?q=#{query}" }
+        let(:api_url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
         let(:fixture_file) { 'api_recherche_entreprises_search.json' }
         let(:query) { 'octo technology' }
 
         before do
           # additional api call
-          stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{siren}").to_return(
+          stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siren:#{siren}").to_return(
             body: file_fixture('api_insee_sirets_by_siren_many.json')
           )
-          stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{siret}").to_return(
+          stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{siret}").to_return(
             body: file_fixture('api_insee_siret.json')
           )
         end
 
         it do
           visit '/'
-          click_on 'Test Landing Theme'
+          click_on 'Test Landing Theme', match: :first
           click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
@@ -271,13 +271,13 @@ describe 'New Solicitation', :js, :flaky do
       end
 
       context "manual siret" do
-        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
+        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{query}" }
         let(:fixture_file) { 'api_insee_siret.json' }
         let(:query) { '41816609600069' }
         let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{query}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
         before do
-          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?q=toto")
+          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=toto")
             .to_return(status: 200, body: '{"results": []}', headers: {})
           ENV['API_ENTREPRISE_TOKEN'] = '1234'
           stub_request(:get, entreprise_api_url).to_return(
@@ -287,7 +287,7 @@ describe 'New Solicitation', :js, :flaky do
 
         it do
           visit '/'
-          click_on 'Test Landing Theme'
+          click_on 'Test Landing Theme', match: :first
           click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
@@ -319,13 +319,13 @@ describe 'New Solicitation', :js, :flaky do
       end
 
       context "with api error" do
-        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
+        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{query}" }
         let(:fixture_file) { 'api_insee_siret_400.json' }
         let(:query) { 'tata yoyo' }
 
         it do
           visit '/'
-          click_on 'Test Landing Theme'
+          click_on 'Test Landing Theme', match: :first
           click_on 'Super sujet'
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'

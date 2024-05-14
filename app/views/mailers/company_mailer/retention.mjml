@@ -1,0 +1,28 @@
+<mj-section>
+  <mj-column>
+    <mj-text><%= t('mailers.hello') %></mj-text>
+
+    <mj-text><%= t('.intro_html', company: @need.diagnosis.company.name) %></mj-text>
+
+    <mj-text>
+      <strong><%= @need.subject.label %></strong>
+    </mj-text>
+
+    <mj-text><%= t('.list_html') %></mj-text>
+
+    <% url = root_url(mtm_campaign: 'retention', mtm_kwd: 'mail-retention') %>
+    <mj-button href="<%= url %>" background-color="#000091" color="white" border-radius="0" font-weight="700">
+      <%= t('.send_solicitation') %>
+    </mj-button>
+
+    <mj-text><%= t('mailers.company_mailer.why_this_message_html') %></mj-text>
+
+    <mj-text><%= t('mailers.company_mailer.explanation_html') %></mj-text>
+
+    <mj-text><%= t('.outro') %></mj-text>
+
+    <mj-text><%= t('mailers.cordially') %></mj-text>
+
+    <mj-text><%= t('mailers.team_html', url: root_url(url)) %></mj-text>
+  </mj-column>
+</mj-section>

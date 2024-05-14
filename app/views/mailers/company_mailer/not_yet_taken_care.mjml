@@ -1,0 +1,21 @@
+<mj-section>
+  <mj-column>
+    <mj-text><%= t('mailers.hello') %></mj-text>
+
+    <mj-text><%= t('mailers.company_mailer.intro_from_solicitation_html', company: @solicitation.diagnosis.company.name) %></mj-text>
+
+    <mj-text><strong><%= @solicitation.landing_subject.title %></strong></mj-text>
+
+    <mj-text><%= t('.we_continue_to_follow_up_html') %></mj-text>
+
+    <mj-text><%= t('.holiday_delay') %></mj-text>
+
+    <mj-text><%= t('.thanks_for_your_patience') %></mj-text>
+
+    <mj-text><%= t('mailers.cordially') %></mj-text>
+
+    <mj-text><%= t('mailers.team_html', url: root_url(mtm_campaign: 'retention', mtm_kwd: 'sequence-mail-pde')) %></mj-text>
+
+    <mj-text><%= t('mailers.withdraw_request_html', mailto_link: mailto_contact_us(t('contact_us'))) %></mj-text>
+    </mj-column>
+</mj-section>

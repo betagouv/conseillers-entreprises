@@ -13,7 +13,7 @@
             .fr-col-12.fr-col-md-6
               = render 'pages/cta_button'
             .fr-col-12.fr-col-md-6.fr-my-2w.fr-my-md-0
-              = link_to t('.how-it-works'), comment_ca_marche_path, class: 'blue'
+              = link_to t('.how-it-works'), comment_ca_marche_path, class: 'blue', data: { turbo: false }
       .fr-col-12.fr-col-md-5#col-image
         = image_tag('home.png', alt: "")
 
@@ -40,7 +40,3 @@
   .fr-container.text-center
     - cache("institutions-#{session[:region_code]}", expires_in: 1.minute) do
       = render 'index_institutions'
-
-.fr-container-fluid.fr-py-7w
-  .fr-container
-    = render 'newsletter'

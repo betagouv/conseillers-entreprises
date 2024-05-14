@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'api_helper'
 
 RSpec.describe Annuaire::UsersController do
   login_admin
@@ -43,15 +44,6 @@ RSpec.describe Annuaire::UsersController do
       it 'return all users for the institution' do
         request
         expect(assigns(:users)).to contain_exactly(user_1, user_1_same_antenne, user_2)
-      end
-    end
-
-    context 'with region and institution params' do
-      subject(:request) { get :index, params: { institution_slug: institution_1.slug, region_id: region_ouest.id } }
-
-      it 'return users for the selected region' do
-        request
-        expect(assigns(:users)).to contain_exactly(user_1, user_1_same_antenne)
       end
     end
   end

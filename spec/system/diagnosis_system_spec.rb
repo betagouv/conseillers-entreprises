@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require 'system_helper'
+require 'api_helper'
 
 describe 'diagnosis', :js do
   login_admin

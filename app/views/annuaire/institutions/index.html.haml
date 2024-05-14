@@ -1,7 +1,20 @@
 - title = Institution.model_name.human.pluralize
 - meta title: title
 .fr-container
-  %h1.fr-h2= title
+  %h1.fr-h2= t('.title')
 
-  = render 'annuaire/search/form'
+.fr-container.light-blue-bg.fr-p-3w
+  %h2= t('annuaire.search.free_text_search')
+  %div
+    = render 'annuaire/search/simple_form', subjects: @subjects, institution: @institution
+
+.fr-container.fr-mt-9w
+  %h2= title
+  .fr-mb-6w
+    = render 'form', subjects: @subjects
+
+- if @institutions.present?
   = render 'table', institutions: @institutions, antennes_count: @antennes_count, users_count: @users_count
+- else
+  .fr-alert.fr-alert--info.fr-alert--sm
+    %p= t('.no_institution')

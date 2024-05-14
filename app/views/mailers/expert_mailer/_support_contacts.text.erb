@@ -1,14 +1,22 @@
-<% if antenne.support_user.present? %>
+<% if defined?(user) && user.is_manager? && antenne.national? %>
+<% User.national_referent.each do |national_referent| %>
+- <%= t('.national_referent_contact_html',
+	function: national_referent.job,
+	name: national_referent.full_name,
+	tel: national_referent.phone_number,
+	email: national_referent.email) %>
+<% end %>
+<% elsif antenne.support_user.present? %>
 - <%= t('.support_contact',
-      region: antenne.regions.first.name,
-      name: antenne.support_user.full_name,
-      tel: antenne.support_user.phone_number,
-      email: antenne.support_user.email) %>
+	regions: antenne.regions.first.name,
+	name: antenne.support_user.full_name,
+	tel: antenne.support_user.phone_number,
+	email: antenne.support_user.email) %>
 <% else %>
-<% Territory.regions.with_support.includes(:support_contact).each do |territory| %>
+<% Territory.regions.with_support.includes(:support_contact).find_each do |territory| %>
 <% support_contact = territory.support_contact %>
 - <%= t('.support_contact',
-  region: territory.name,
+  regions: territory.name,
   name: support_contact.full_name,
   tel: support_contact.phone_number,
   email: support_contact.email) %>

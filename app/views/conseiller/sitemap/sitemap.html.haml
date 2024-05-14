@@ -20,7 +20,7 @@
         = link_to current_user.managed_antennes.many? ? t('application.navbar.antennes_needs') : t('application.navbar.antenne_needs'), manager_needs_path
     - if policy(:report).show_navbar?
       %li
-        = link_to t('reports.index.title'), reports_path
+        = link_to t('application.navbar.reports'), reports_path
 
   %h2.fr-h3.fr-mt-10v= t('application.navbar.profile')
   %ul
@@ -30,11 +30,17 @@
       = link_to t('users.menu.password'), password_user_path
     %li
       = link_to t('users.menu.antenne'), antenne_user_path
+    - if current_user.experts.teams.any?
+      %li
+        = link_to t('users.menu.team'), polymorphic_path([:edit, current_user.experts.teams.first])
+    - if current_user.experts.relevant_for_skills.any?
+      %li
+        = link_to t('users.menu.subjects'), polymorphic_path([:subjects, current_user.experts.relevant_for_skills.first])
 
   %h2.fr-h3.fr-mt-10v= t('.general')
   %ul
     %li
-      = link_to t('user_pages.tutoriels.title'), tutoriels_path
+      = link_to t('user_pages.tutoriels.title'), tutoriels_path, data: { turbo: false }
     %li
       = link_to t('stats.public.index.title'), public_index_path
     %li

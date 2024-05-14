@@ -8,6 +8,7 @@
     "@rails/ujs": "^6.0.3-4",
     "accessible-autocomplete": "^2.0.3",
     "jquery": "^3.5.1",
+    "mjml": "^4.15.3",
     "remixicon": "^4.2.0",
     "slim-select": "^2.8.1",
     "stimulus": "^2.0.0",

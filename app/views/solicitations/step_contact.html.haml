@@ -54,7 +54,7 @@
   .fr-grid-row
     .fr-col-12.fr-pb-3w.legal-notice
       = t('solicitations.creation_form.legal_notice_html',
-        mailto_link: mail_to('dpo@placedesentreprises.beta.gouv.fr', 'dpo@placedesentreprises.beta.gouv.fr', target: :_blank),
+        mailto_link: mail_to('dpo@entreprises.service-public.fr', 'dpo@entreprises.service-public.fr', target: :_blank),
         informations: link_to(t('about.mentions_d_information.title').downcase, mentions_d_information_url(landing_slug: @solicitation.landing.slug)),
         subject_personalisation: t(@landing_subject.slug, scope: 'solicitations.creation_form.legal_notice_personalisation', default: ''))
 
@@ -63,15 +63,7 @@
     .fr-container--fluid.lighter-blue-bg
       = render 'pages/how_it_works_short'
     - temoignage = TemoignageGenerator.new(@landing_subject.slug)
-    - if temoignage.published?
-      .fr-container.fr-my-8w.temoignage
-        %figure.fr-quote.fr-quote--column
-          %blockquote
-            %p.fr-text--lg= temoignage.content
-          %figcaption
-            %p.fr-quote__author= temoignage.author
-            .fr-quote__image
-              = image_tag(temoignage.picture_path, alt: t('temoignage.image_title', author: temoignage.author), class: 'fr-responsive-img')
+    = render 'about/temoignage', temoignage: temoignage
 
     - if @landing_subject.solicitable_institutions.with_logo.any?
       .lighter-blue-bg.fr-pt-8w.fr-pb-5w

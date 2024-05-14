@@ -1,0 +1,10 @@
+= form_with url: annuaire_search_path, local: true, class: 'fr-mb-3w' do |f|
+  .fr-grid-row.fr-grid-row--gutters{ data: { controller: 'stats', url: annuaire_load_filter_options_path } }
+    .fr-col
+      .fr-input-group.fr-pr-2v
+        .autocomplete-field{ 'data-autocomplete-url-value': "#{annuaire_autocomplete_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length': 3 }
+          = f.label :query, t('search'), class: 'fr-label'
+          = f.hidden_field :query, 'data-autocomplete-target': 'hidden'
+          %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text' }
+          %ul.list-group{ 'data-autocomplete-target': 'results' }
+  = f.submit t('annuaire.search.form.submit'), class: 'fr-btn fr-mt-2w'

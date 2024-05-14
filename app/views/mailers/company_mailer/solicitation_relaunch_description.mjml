@@ -1,0 +1,20 @@
+<mj-section>
+  <mj-column>
+    <mj-text><%= t('mailers.hello') %></mj-text>
+
+    <mj-text><%= t('.your_solicitation_html', subject: @solicitation.subject) %></mj-text>
+
+    <mj-text><%= t('.incomplete_step_explanation') %></mj-text>
+
+    <mj-button href="<%= redirect_to_solicitation_step_solicitation_url(@solicitation.uuid, relaunch: 'sollicitation-etape-description') %>"
+               background-color="#000091" color="white" border-radius="0" font-weight="700">
+      <%= t('.continue_button') %>
+    </mj-button>
+
+    <mj-text><%= t('.service_explanation_html') %></mj-text>
+
+    <mj-text><%= t('mailers.best_regards') %></mj-text>
+
+    <mj-text><%= t('mailers.team') %></mj-text>
+  </mj-column>
+</mj-section>

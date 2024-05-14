@@ -217,6 +217,7 @@ Rails.application.routes.draw do
     controller :search do
       post :search, as: 'annuaire_search'
       get :autocomplete, as: 'annuaire_autocomplete'
+      get :load_filter_options, as: 'annuaire_load_filter_options'
     end
 
     resources :institutions, param: :slug, only: %i[index show] do
@@ -274,13 +275,6 @@ Rails.application.routes.draw do
   get 'aide-entreprise/:landing_slug/demande/:landing_subject_slug', to: 'solicitations#new', as: :new_solicitation
   post 'aide-entreprise/:landing_slug/demande/:landing_subject_slug', to: 'solicitations#create', as: :solicitations
 
-  resource :newsletters, only: %i[] do
-    post :create
-    get :new, path: 'abonnement', as: :new
-    get :index, to: redirect('/newsletters/abonnement')
-    get :unsubscribe, path: 'desinscription'
-  end
-
   controller :about do
     get :comment_ca_marche
     get :cgu
@@ -288,6 +282,7 @@ Rails.application.routes.draw do
     get :mentions_d_information
     get :mentions_legales
     get :accessibilite
+    get :service_public_fr, path: 'place-des-entreprises-devient-conseillers-entreprises'
   end
 
   scope :stats, module: :stats do
@@ -309,6 +304,7 @@ Rails.application.routes.draw do
 
   controller :user_pages do
     get :tutoriels
+    get :bascule_seen
   end
 
   controller :sitemap do
@@ -322,8 +318,6 @@ Rails.application.routes.draw do
   end
 
   # Redirections =====================================
-
-  get 'profile' => 'users#show'
 
   ## Redirection for compatibility
   ### Landings - Accueil

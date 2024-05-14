@@ -10,7 +10,7 @@ RSpec.describe SearchFacility::Diffusable do
     let(:data) { described_class.new(search_params).from_full_text_or_siren.as_json['items'] }
 
     context 'from_siren' do
-      let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{query}" }
+      let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siren:#{query}" }
       let(:query) { '418166096' }
 
       before do
@@ -33,7 +33,7 @@ RSpec.describe SearchFacility::Diffusable do
     end
 
     context 'from_siret' do
-      let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
+      let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{query}" }
       let(:query) { '41816609600069' }
 
       before do
@@ -56,7 +56,7 @@ RSpec.describe SearchFacility::Diffusable do
     end
 
     context 'from_fulltext' do
-      let(:api_url) { "https://recherche-entreprises.api.gouv.fr/search?q=#{query}" }
+      let(:api_url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
       let(:query) { 'octo technology' }
 
       before do

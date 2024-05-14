@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'api_helper'
+
 describe QuarterlyReports::NotifyManagers do
   describe 'call' do
     let(:antenne) { create :antenne }

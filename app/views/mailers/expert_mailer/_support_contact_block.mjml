@@ -1,0 +1,12 @@
+<mj-section>
+  <mj-column background-color='#efefef' border-left='3px solid #888'>
+    <mj-text color='#333'>
+      <p><%= support_contact_label %> </p>
+      <% if defined?(user) %>
+        <%= render 'mailers/expert_mailer/support_contacts', antenne: antenne, user: user %>
+      <% else %>
+        <%= render 'mailers/expert_mailer/support_contacts', antenne: antenne %>
+      <% end %>
+    </mj-text>
+  </mj-column>
+</mj-section>

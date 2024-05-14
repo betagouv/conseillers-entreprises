@@ -1,33 +1,43 @@
-- if user_signed_in?
-  %header.fr-header#header-navigation{ role: "banner" }
-    .fr-header__body.fr-header--hidden
-      .fr-container
-        .fr-header__body-row
-          .fr-header__brand.fr-enlarge-link
-            .fr-header__brand-top
-              .fr-header__logo
-                %p.fr-logo
-                  République
-                  %br/
-                  française
-              .fr-header__operator
-                = link_to root_path, class: 'pde-logo', title: t('.root_path_title') do
-                  = image_tag 'logo-PDE.svg', alt: t('logos.pde')
-              .fr-header__navbar
-                %button.fr-btn--menu.fr-btn#fr-btn-menu-mobile-2{ 'aria-controls': 'modal-870', 'aria-haspopup': 'menu', 'data-fr-opened': 'false', title: t('.menu') }
-                  = t(".menu")
-          .fr-header__tools
-            .fr-header__tools-links
-              %ul.fr-links-group
-    .fr-header__menu.fr-modal#modal-870{ 'aria-labelledby': 'fr-btn-menu-mobile-2' }
-      .fr-container
-        %button.fr-link--close.fr-link{ 'aria-controls': 'modal-870' }= t('.close')
-        .fr-header__menu-links
-        %nav.fr-nav{ 'aria-label': t(".main_menu"), role: 'navigation' }
+%header.fr-header#header-navigation{ role: "banner" }
+  .fr-header__body
+    .fr-container
+      .fr-header__body-row
+        .fr-header__brand.fr-enlarge-link
+          .fr-header__brand-top
+            .fr-header__logo
+              %p.fr-logo
+                = t('republique_francaise_html')
+            .fr-header__navbar
+              %button.fr-btn--menu.fr-btn#fr-btn-menu-mobile-2{ 'aria-controls': 'modal-mobile', 'aria-haspopup': 'menu', 'data-fr-opened': 'false', title: t("navbar.root_path_title") }
+                = t("navbar.menu")
+          .fr-header__service
+            = link_to root_path do
+              %p.fr-header__service-title
+                %span.red>= t('app_name_subdomain').sp_titleize_url
+                = "." + t('app_name_domain').sp_titleize_url
+        .fr-header__tools
+          .fr-header__tools-links{ role: 'navigation' }
+            %ul.fr-btns-group
+              - if user_signed_in?
+                %li
+                  = link_to user_path, class: 'fr-btn' do
+                    %span.ri-user-line.fr-mr-1w{ 'aria-hidden': 'true' }
+                    = t('.profile')
+                %li
+                  = button_to destroy_user_session_path, method: :delete, data: { turbo: false }, local: true, rel: :nofollow, class: 'fr-btn' do
+                    %span.ri-logout-box-r-line.fr-mr-1w{ 'aria-hidden': 'true' }
+                    = t('.sign_out')
+              - else
+                %li
+                  = link_to t('experts_login'), new_user_session_path, class: 'fr-btn fr-icon-lock-line'
+
+  .fr-header__menu.fr-modal#modal-mobile{ 'aria-labelledby': 'fr-btn-menu-mobile-2' }
+    .fr-container
+      %button.fr-btn--close.fr-btn{ 'aria-controls': 'modal-mobile' }= t('navbar.close')
+      .fr-header__menu-links{ 'aria-label': t('navbar.main_menu') }
+      %nav.fr-nav{ 'aria-label': t("navbar.main_menu"), role: 'navigation' }
+        - if user_signed_in?
           %ul.fr-nav__list
-            %li.fr-nav__item
-              = link_to root_path, class: 'pde-logo-sm', title: t('.root_path_title') do
-                = image_tag 'place-des-entreprises-logo.png', alt: t('logos.pde')
             - if current_user.experts.present?
               = active_link_to needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-inbox-fill.fr-mr-1w{ 'aria-hidden': 'true' }
@@ -60,15 +70,15 @@
                 %span.ri-radar-line.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('conseiller.veille.index.title')
           %ul.fr-nav__list
-            = active_link_to tutoriels_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+            = active_link_to tutoriels_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
               %span.ri-tools-line.fr-mr-1w{ 'aria-hidden': 'true' }
               = t('user_pages.tutoriels.title')
-            %li.fr-nav__item.fr-nav__item--align-right
-              %button.fr-nav__btn{ 'aria-controls': "fr-nav-item-account", 'aria-expanded': "false", data: { controller: 'fr-dropdown', action: 'click->fr-dropdown#collapse' } }
-                = t('.account')
-              .fr-menu.fr-collapse#fr-nav-item-account
-                %ul.fr-menu__list
-                  - if policy(User).admin?
+            - if policy(User).admin?
+              %li.fr-nav__item.fr-nav__item--align-right
+                %button.fr-nav__btn{ 'aria-controls': "fr-nav-item-account", 'aria-expanded': "false", data: { controller: 'fr-dropdown', action: 'click->fr-dropdown#collapse' } }
+                  = t('.tools')
+                .fr-menu.fr-collapse#fr-nav-item-account
+                  %ul.fr-menu__list
                     = active_link_to admin_root_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
                       %span.ri-auction-line.fr-mr-1w{ 'aria-hidden': 'true' }
                       = t('.admin')
@@ -84,12 +94,11 @@
                     = active_link_to new_user_invitation_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
                       %span.ri-user-add-line.fr-mr-1w{ 'aria-hidden': 'true' }
                       = t('.invite')
-                  = active_link_to user_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-                    %span.ri-user-line.fr-mr-1w{ 'aria-hidden': 'true' }
-                    = t('.profile')
-                  = button_to destroy_user_session_path, method: :delete, data: { turbo: false }, local: true, rel: :nofollow, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-                    %span.ri-logout-box-r-line.fr-mr-1w{ 'aria-hidden': 'true' }
-                    = t('.sign_out')
-
-- else
-  = render 'navbar_signin'
+        - else
+          %ul.fr-nav__list
+            = active_link_to root_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', active: :exclusive do
+              %span.ri-home-line.fr-mr-1w{ 'aria-hidden': 'true' }
+              = t('breadcrumbs_helper.home_link.home')
+            = active_link_to comment_ca_marche_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
+              %span.ri-presentation-line.fr-mr-1w{ 'aria-hidden': 'true' }
+              = t('about.comment_ca_marche.title')

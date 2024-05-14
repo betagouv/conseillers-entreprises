@@ -17,8 +17,9 @@ module DiagnosisCreation
   end
 
   # Actually create a diagnosis with nested attributes for #facility and #company
-  def self.create_diagnosis(params)
+  def self.create_or_update_diagnosis(params, diagnosis = nil)
     Diagnosis.transaction do
+      diagnosis ||= Diagnosis.new
       if params[:facility_attributes].include? :siret
         params = params.dup # avoid modifying the params hash at the call site
         # Facility attributes are nested in the hash; if there is no siret, we use the insee_code.
@@ -34,7 +35,7 @@ module DiagnosisCreation
           params[:facility] = UseCases::SearchFacility.with_siret_and_save(facility_params[:siret])
         rescue ApiEntreprise::ApiEntrepriseError => e
           # Eat the exception and build a Diagnosis object just to hold the error
-          diagnosis = Diagnosis.new
+
           diagnosis.errors.add(:base, e.message)
           return diagnosis
         end
@@ -42,7 +43,9 @@ module DiagnosisCreation
 
       params[:step] = :contact
       params[:content] = get_solicitation_description(params)
-      Diagnosis.create(params)
+      diagnosis.attributes = params
+      diagnosis.save
+      diagnosis
     end
   end
 
@@ -62,13 +65,15 @@ module DiagnosisCreation
       return unless may_prepare_diagnosis?
 
       prepare_diagnosis_errors = nil
-      diagnosis = nil
+      diagnosis = self.diagnosis || nil
       Diagnosis.transaction do
         # Step 0: create with the facility
-        diagnosis = DiagnosisCreation.create_diagnosis(
-          advisor: advisor,
-          solicitation: self,
-          facility_attributes: computed_facility_attributes
+        diagnosis = DiagnosisCreation.create_or_update_diagnosis(
+          {
+            advisor: advisor,
+            solicitation: self,
+            facility_attributes: computed_facility_attributes
+          }, diagnosis
         )
 
         diagnosis.autofill_steps

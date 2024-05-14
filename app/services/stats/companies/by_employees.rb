@@ -47,7 +47,7 @@ module Stats::Companies
     def merge_categories(results)
       merged_categories = {}
       results.each do |key, value|
-        new_code = I18n.t(key, scope: 'code_to_range', default: I18n.t('other')).to_s
+        new_code = I18n.t(key, scope: 'code_to_range', default: I18n.t('00', scope: 'code_to_range')).to_s
         merged_categories[new_code] ||= {}
         merged_categories[new_code].merge!(value) { |_, o, n| o + n }
       end
@@ -55,11 +55,11 @@ module Stats::Companies
     end
 
     def all_categories
-      %w[Autre 250 50 20 10 6 1 0]
+      %w[250 50 20 10 6 1 0]
     end
 
     def colors
-      %w[#dddddd #9f3cca #F45A5B #e78112 #f3dd68 #2D908F #62e0d3 #c0ffaf]
+      %w[#9f3cca #F45A5B #e78112 #f3dd68 #2D908F #62e0d3 #c0ffaf]
     end
 
     def count

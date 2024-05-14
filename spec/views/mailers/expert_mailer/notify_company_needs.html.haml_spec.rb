@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'api_helper'
 
 RSpec.describe 'mailers/expert_mailer/notify_company_needs' do
   context 'hash with several information' do
@@ -19,7 +20,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs' do
 
     it 'displays the date, phone number and 1 items' do
       expect(rendered).to include "besoins/#{need.id}"
-      assert_select 'h1', count: 1
+      expect(rendered).to have_text("Voir le besoin", count: 1)
     end
   end
 end

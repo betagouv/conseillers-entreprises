@@ -36,15 +36,16 @@ describe SolicitationMailer do
       it 'include new subject title and description' do
         expect(mail.body.parts.first.body).not_to include initial_landing_subject.description_explanation
         expect(mail.body.parts.first.body).not_to include initial_landing_subject.title
-        expect(mail.body.parts.first.body).to include second_landing_subject.description_explanation
-        expect(mail.body.parts.first.body).to include second_landing_subject.title
+        # Use Regex to ignore line breaks
+        expect(mail.body.parts.first.body).to match(/#{second_landing_subject.description_explanation.split.join('\s*')}/)
+        expect(mail.body.parts.first.body).to match(/#{second_landing_subject.title.split.join('\s*')}/)
       end
     end
 
     context 'when solicitation has no diagnosis' do
       it 'include initial subject title and description' do
-        expect(mail.body.parts.first.body).to include initial_landing_subject.description_explanation
-        expect(mail.body.parts.first.body).to include initial_landing_subject.title
+        expect(mail.body.parts.first.body).to match(/#{initial_landing_subject.description_explanation.split.join('\s*')}/)
+        expect(mail.body.parts.first.body).to match(/#{initial_landing_subject.title.split.join('\s*')}/)
       end
     end
   end

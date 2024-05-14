@@ -1,0 +1,68 @@
+version: "2"         # required to adjust maintainability checks
+
+checks:
+  argument-count:
+    enabled: false
+  complex-logic:
+    enabled: true
+    config:
+      threshold: 4
+  file-lines:
+    enabled: false
+  method-complexity:
+    enabled: true
+    config:
+      threshold: 7
+  method-count:
+    enabled: false
+  method-lines:
+    enabled: true
+    config:
+      threshold: 25
+  nested-control-flow:
+    enabled: true
+    config:
+      threshold: 4
+  return-statements:
+    enabled: true
+    config:
+      threshold: 4
+  similar-code:
+    enabled: true
+    config:
+      threshold: #language-specific defaults. overrides affect all languages.
+  identical-code:
+    enabled: true
+    config:
+      threshold: #language-specific defaults. overrides affect all languages.
+
+#plugins:
+#  eslint:
+#     enabled: true
+#     channel: "eslint-6"
+#  rubocop:
+#     enabled: true
+#     channel: "rubocop-0-79"
+
+exclude_patterns:
+  - "config/"
+  - "db/"
+  - "dist/"
+  - "features/"
+  - "**/node_modules/"
+  - "script/"
+  - "**/spec/"
+  - "**/test/"
+  - "**/tests/"
+  - "Tests/"
+  - "**/vendor/"
+  - "**/*_test.go"
+  - "**/*.d.ts"
+  - 'app/services/xlsx_export/*'
+  - 'app/services/csv_export/*'
+  - 'app/services/csv_import/*'
+  - 'app/models/clockwork.rb'
+  - 'app/helpers/sitemap_helper.rb'
+  - 'app/admin/*'
+  - 'babel.config.js'
+  - 'app/services/sitemap_generator.rb'

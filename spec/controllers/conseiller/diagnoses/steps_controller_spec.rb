@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'api_helper'
+
 RSpec.describe Conseiller::Diagnoses::StepsController do
   login_admin
 

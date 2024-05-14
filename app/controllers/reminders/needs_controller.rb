@@ -46,7 +46,7 @@ module Reminders
       reminded_teams = []
       @need.matches.with_status_quo_active.each do |match|
         reminded_teams << "#{match.expert.full_name} (#{match.expert.institution.name})"
-        ExpertMailer.last_chance(match.expert, @need, current_user).deliver_later
+        ExpertMailer.with(expert: match.expert, support_user: current_user, need: @need).last_chance.deliver_later
       end
       @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_send', teams: reminded_teams.to_sentence),
                                   feedbackable_type: 'Need', feedbackable_id: @need.id)
@@ -85,7 +85,7 @@ module Reminders
     end
 
     def collections_counts
-      @collections_by_reminders_actions_count = Rails.cache.fetch(['reminders_need', filtered_needs]) do
+      @collections_by_reminders_actions_count = Rails.cache.fetch(['reminders_need', filtered_needs, collection_action_names]) do
         collection_action_names.index_with { |name| filtered_needs.reminders_to(name).size }
       end
     end

@@ -412,6 +412,13 @@ class Solicitation < ApplicationRecord
     !company.inscrit_rcs && !company.inscrit_rm
   end
 
+  def from_intermediary?
+    facility = self&.facility
+    return false if facility.nil?
+    intermediary_naf_codes = %w[7022Z 6920Z 9411Z 8299Z 7021Z 9499Z 8413Z]
+    intermediary_naf_codes.include?(facility.naf_code&.delete('.'))
+  end
+
   def recent_matched_solicitations
     Solicitation.processed
       .where.not(id: self.id)

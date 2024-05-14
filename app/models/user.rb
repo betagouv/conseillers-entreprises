@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
+#  app_info               :jsonb
 #  cgu_accepted_at        :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
@@ -58,6 +59,8 @@ class User < ApplicationRecord
 
   attr_accessor :cgu_accepted, :specifics_territories
 
+  store_accessor :app_info, ['bascule_seen']
+
   ## Associations
   #
   belongs_to :antenne, inverse_of: :advisors
@@ -106,11 +109,13 @@ class User < ApplicationRecord
   has_and_belongs_to_many :relevant_experts, -> { relevant_for_skills }, class_name: 'Expert'
   has_many :antenne_regions, through: :experts, inverse_of: :advisors
   has_many :themes, through: :experts, inverse_of: :advisors
+  has_many :subjects, through: :experts, inverse_of: :advisors
 
   ## Scopes
   #
   scope :admin, -> { not_deleted.joins(:user_rights).merge(UserRight.category_admin) }
   scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_manager).distinct }
+  scope :national_referent, -> { not_deleted.joins(:user_rights).merge(UserRight.category_national_referent).distinct }
 
   scope :not_invited, -> { not_deleted.where(invitation_sent_at: nil) }
   scope :managers_not_invited, -> { not_deleted.managers.where(invitation_sent_at: nil) }
@@ -146,7 +151,20 @@ class User < ApplicationRecord
 
   scope :by_antenne, -> (antenne_id) { where(antenne: antenne_id) }
 
-  scope :by_region, -> (region_id) { joins(antenne: { communes: :territories }).where(antenne: { communes: { territories: { id: region_id } } }).distinct }
+  scope :by_region, -> (region_id) do
+    return all if region_id.blank?
+    joins(antenne: :regions).where(antennes: { territories: { id: region_id } }).distinct
+  end
+
+  scope :by_subject, -> (subject_id) do
+    return all if subject_id.blank?
+    joins(experts: :subjects).where(experts: { subjects: subject_id }).distinct
+  end
+
+  scope :by_theme, -> (theme_id) do
+    return all if theme_id.blank?
+    joins(experts: :themes).where(experts: { themes: theme_id }).distinct
+  end
 
   # Team stuff
   scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
@@ -171,6 +189,7 @@ class User < ApplicationRecord
   belongs_to :relevant_expert, class_name: 'Expert', optional: true
 
   scope :in_region, -> (region_id) do
+    return all if region_id.blank?
     left_joins(antenne: :regions)
       .left_joins(:experts)
       .select('"antennes".*, "users".*')
@@ -295,6 +314,10 @@ class User < ApplicationRecord
 
   def is_manager?
     user_rights_manager.any?
+  end
+
+  def is_national_referent?
+    user_rights_national_referent.any?
   end
 
   def is_admin?

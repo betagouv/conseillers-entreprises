@@ -4,3 +4,5 @@ linters:
   ConsecutiveSilentScripts:
     enabled: true
     max_consecutive: 5
+  ViewLength:
+    exclude: 'app/views/application/_navbar.html.haml'

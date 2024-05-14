@@ -19,7 +19,7 @@ fr:
     NN: 0
     other: nil
   codes_effectif:
-    '00': 0 salarié
+    '00': 0 salarié, non-employeur ou AE
     '01': 1 ou 2 salariés
     '02': 3 à 5 salariés
     '03': 6 à 9 salariés
@@ -38,7 +38,7 @@ fr:
     NR: Non répertorié sur api entreprise
     other: nil
   simple_effectif:
-    '0': 0 salarié
+    '0': 0 salarié, entreprise non employeuse et auto-entrepreneur
     '1': 1 à 5 salariés
     '10': 10 à 19 salariés
     '20': 20 à 49 salariés

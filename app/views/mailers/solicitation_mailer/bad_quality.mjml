@@ -1,0 +1,31 @@
+<mj-section>
+  <mj-column>
+    <mj-text><%= t('mailers.hello') %></mj-text>
+
+    <mj-text><%= t('.intro_html', link_to_root: link_to(t('app_name'), root_url), subject_title: @landing_subject.title) %></mj-text>
+
+    <mj-text>
+      <%= t('.for_better_taking_care_html') %>
+      <% if @landing_subject.description_explanation.present? %>
+        <%= @landing_subject.description_explanation.html_safe %>
+      <% else %>
+        <ul>
+          <li><%= t('.treasury_html') %></li>
+          <li><%= t('.recruitment_html') %></li>
+          <li><%= t('.investment_html') %></li>
+        </ul>
+      <% end %>
+    </mj-text>
+
+    <mj-text><%= t('.upon_receipt') %></mj-text>
+
+    <mj-button href="<%= redirect_to_solicitation_step_solicitation_url(@solicitation.uuid, relaunch: 'sollicitation-mauvaise-qualité') %>"
+               background-color="#000091" color="white" border-radius="0" font-weight="700">
+      <%= t('.complete_solicitation') %>
+    </mj-button>
+
+    <mj-text><%= t('mailers.thanks_for_your_trust') %></mj-text>
+
+    <%= render 'mailers/solicitation_mailer/footer' %>
+    </mj-column>
+</mj-section>
