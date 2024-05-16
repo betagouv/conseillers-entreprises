@@ -60,6 +60,8 @@ exclude_patterns:
   - "**/*.d.ts"
   - 'app/admin/*'
   - 'app/admin/'
+  - 'app/admin/*'
+  - 'app/admin/company.rb'
   - "**/admin/"
   - 'app/services/xlsx_export/*'
   - 'app/services/csv_export/*'
