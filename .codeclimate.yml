@@ -62,6 +62,7 @@ exclude_patterns:
   - 'app/admin/'
   - 'app/admin/*'
   - 'app/admin/company.rb'
+  - 'app/admin/facility.rb'
   - "**/admin/"
   - 'app/services/xlsx_export/*'
   - 'app/services/csv_export/*'
