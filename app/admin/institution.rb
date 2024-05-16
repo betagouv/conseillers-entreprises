@@ -94,7 +94,8 @@ ActiveAdmin.register Institution do
       row(:logo) do |i|
         display_logo(name: i.logo&.filename, path: "institutions/") if i.logo.present?
       end
-      row :display_logo
+      row :display_logo_on_home_page
+      row :display_logo_in_partner_list
       row :show_on_list
     end
 
@@ -118,7 +119,7 @@ ActiveAdmin.register Institution do
 
   ## Form
   #
-  permit_params :name, :display_logo, :slug, :show_on_list, :code_region, :siren,
+  permit_params :name, :display_logo_on_home_page, :display_logo_in_partner_list, :slug, :show_on_list, :code_region, :siren,
                 antenne_ids: [], category_ids: [],
                 institutions_subjects_attributes: %i[id description subject_id _create _update _destroy]
 
@@ -126,7 +127,8 @@ ActiveAdmin.register Institution do
     f.inputs do
       f.input :name
       f.input :slug
-      f.input :display_logo
+      f.input :display_logo_on_home_page
+      f.input :display_logo_in_partner_list
       f.input :show_on_list
       f.input :code_region, as: :select, collection: Territory.regions.map{ |r| [r.name, r.code_region] }
       f.input :categories, as: :check_boxes, collection: Category.all.map{ |c| [I18n.t('active_admin.scopes.' + c.label), c.id] }
