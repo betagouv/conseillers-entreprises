@@ -10,7 +10,7 @@
           = t('.service_description')
         %ul.fr-footer__content-list
           %li.fr-footer__content-item
-            = mail_to ENV['APPLICATION_EMAIL'], 'Contactez-nous', target: :_blank, class: 'fr-footer__content-link'
+            = mail_to ENV['APPLICATION_EMAIL'], t('contact_us').humanize, target: :_blank, class: 'fr-footer__content-link'
           %li.fr-footer__content-item
             = link_to t('pages.footer.service_presentation'), '/dossier-presse.pdf', 'aria-label': t('pages.footer.service_presentation_title'), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
           %li.fr-footer__content-item

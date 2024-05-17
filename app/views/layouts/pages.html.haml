@@ -42,4 +42,5 @@
 
       = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts
 
-    = render 'footer', footer_landing_themes: @footer_landing_themes, footer_landing: @footer_landing unless in_iframe?
+    -# Garder "pages/footer" en entier, car aussi utilité par `respond_with_status`
+    = render 'pages/footer', footer_landing_themes: @footer_landing_themes, footer_landing: @footer_landing unless in_iframe?
