@@ -58,7 +58,7 @@ exclude_patterns:
   - "**/vendor/"
   - "**/*_test.go"
   - "**/*.d.ts"
-  - "**/app/admin/"
+  - "**/app/admin/*"
   - 'app/services/xlsx_export/*'
   - 'app/services/csv_export/*'
   - 'app/services/csv_import/*'
