@@ -13,7 +13,6 @@ Rails.application.config.content_security_policy do |p|
   p.object_src  :none
   p.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
   p.script_src  :self, :blob, 'https://browser.sentry-cdn.com', 'sentry.io', 'stats.data.gouv.fr', 'https://stats.beta.gouv.fr/', 'https://cdn.jsdelivr.net/', 'https://www.googletagmanager.com/', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com', 'www.pagespeed-mod.com'
-  p.script_src_elem :self, :blob, 'https://browser.sentry-cdn.com', 'sentry.io', 'stats.data.gouv.fr', 'https://stats.beta.gouv.fr/', 'https://cdn.jsdelivr.net/', 'https://www.googletagmanager.com/', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com', 'www.pagespeed-mod.com'
   p.frame_src :self, 'stats.data.gouv.fr', 'stats.beta.gouv.fr', 'browser.sentry-cdn.com', 'https://cdn.jsdelivr.net/', 'https://bid.g.doubleclick.net', 'https://tube.nocturlab.fr', 'https://tpc.googlesyndication.com', 'https://www.youtube-nocookie.com'
   if Rails.env.development?
     p.connect_src :self, 'localhost:3035', 'ws://localhost:3035', 'https://api-adresse.data.gouv.fr/'
