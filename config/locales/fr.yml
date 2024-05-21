@@ -262,13 +262,13 @@ fr:
     errors:
       '404':
         error: Erreur 404
-        infos: Si vous avez tapé l'adresse web dans le navigateur, vérifiez qu'elle est correcte. La page n’est peut-être plus disponible.
+        infos_html: Si vous avez tapé l'adresse web dans le navigateur, vérifiez qu'elle est correcte. La page n’est peut-être plus disponible.<br>Pour continuer votre visite vous pouvez consulter notre page d’accueil.<br>Sinon contactez-nous pour que l’on puisse vous rediriger vers la bonne information.
         message: La page que vous cherchez est introuvable. Excusez-nous pour la gène occasionnée.
         title: Page non trouvée
       '500':
         error: Erreur 500
-        info: Désolé, le service rencontre un problème, nous travaillons pour le résoudre le plus rapidement possible.
-        message: Essayez de rafraîchir la page ou bien réessayez plus tard.
+        info_html: Essayez de rafraîchir la page ou bien réessayez plus tard.<br>Si vous avez besoin d’une aide immédiate, merci de nous contacter directement.”
+        message: Désolé, le service rencontre un problème, nous travaillons pour le résoudre le plus rapidement possible.
         title: Erreur inattendue
   sign_in: Accès conseillers
   submit: Envoyer

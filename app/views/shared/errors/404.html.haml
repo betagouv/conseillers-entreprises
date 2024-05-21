@@ -6,6 +6,10 @@
       %h1= t('.title')
       %p.fr-text--sm.fr-mb-3w= t('.error')
       %p.fr-text--lead.fr-mb-3w= t('.message')
-      %p.fr-text--sm.fr-mb-5w= t('.infos')
+      %p.fr-text--sm.fr-mb-5w= t('.infos_html')
 
-      = link_to t('errors.homepage'), root_path, class: 'fr-btn'
+      %ul.fr-btns-group.fr-btns-group--inline-md
+        %li
+          = link_to t('errors.homepage'), root_path, class: 'fr-btn'
+        %li
+          = mailto_contact_us(t('contact_us').humanize, 'fr-btn fr-btn--secondary')

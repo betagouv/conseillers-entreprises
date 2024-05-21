@@ -54,6 +54,7 @@ class SharedController < ActionController::Base
   end
 
   def respond_with_status(status)
+    fetch_themes
     render "shared/errors/#{status}", status: status, layout: 'pages'
   end
 

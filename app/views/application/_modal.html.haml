@@ -19,7 +19,7 @@
             %p
               Si vous avez des questions, n'hésitez pas à nous écrire sur
               = precede ' ' do
-                = mail_to 'contact@entreprises.service-public.fr'
+                = mail_to ENV['APPLICATION_EMAIL']
           .fr-modal__footer
             .fr-btns-group.fr-btns-group--right.fr-btns-group--inline-reverse.fr-btns-group--inline-lg.fr-btns-group--icon-left
               %button.fr-btn.fr-icon-checkbox-circle-line.fr-btn--icon-left{ 'aria-controls': "modal-#{key}", title: t('navbar.close') }
