@@ -8,6 +8,7 @@ describe 'SharedController features' do
 
     before do
       ENV['TEST_ERROR_RENDERING'] = 'true'
+      create_home_landing
       allow_any_instance_of(User).to receive(:received_needs).and_raise(raised_error)
       visit quo_active_needs_path
     end
