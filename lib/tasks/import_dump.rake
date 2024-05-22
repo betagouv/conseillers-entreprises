@@ -1,6 +1,6 @@
 namespace :import_dump do
   def setup_tunnel
-    tunnel_command = 'scalingo -a reso-production db-tunnel SCALINGO_POSTGRESQL_URL'
+    tunnel_command = 'scalingo -a ce-production db-tunnel SCALINGO_POSTGRESQL_URL'
     @tunnel_pid = fork{ exec tunnel_command }
   end
 
@@ -13,7 +13,7 @@ namespace :import_dump do
 
     sleep 2
 
-    env = `scalingo -a reso-production env`.lines
+    env = `scalingo -a ce-production env`.lines
     pg_url = env.find{ |i| i[/SCALINGO_POSTGRESQL_URL=/] }
     pw = pg_url[/.*:(.*)@/,1]
     dbname = 'reso_produc_4107'

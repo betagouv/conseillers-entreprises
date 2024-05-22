@@ -13,21 +13,21 @@ The `beta.gouv.fr` is registered on OVH by the DINUM, the `place-des-entreprises
 
 ## Branches and setup
 
-Conseillers-entreprises.service-public.fr is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, `reso-staging` and `reso-production.` (Reso is an old name of the project.)
+Conseillers-entreprises.service-public.fr is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, `ce-staging` and `ce-production.` (Reso is an old name of the project.)
 
-* `reso-staging` is served at https://reso-staging.scalingo.io.
-* `reso-production` is the actual https://conseillers-entreprises.service-public.fr
+* `ce-staging` is served at https://ce-staging.scalingo.io.
+* `ce-production` is the actual https://conseillers-entreprises.service-public.fr
 
 There are GitHub to Scalingo hooks setup for auto-deployment:
-* The `main` branch is automatically deployed to the `reso-staging` env.
-* The `production` branch is automatically deployed to the `reso-production` env.
+* The `main` branch is automatically deployed to the `ce-staging` env.
+* The `production` branch is automatically deployed to the `ce-production` env.
 
 Additionally, a `postdeploy` hook [is setup in the Procfile](https://doc.scalingo.com/platform/app/postdeploy-hook#applying-migrations) so that Rails migrations are run automatically.
 
 In case of emergency, you can always run the rails console in production using the `scalingo` command line tool.
 
-    $ scalingo -a reso-staging run rails c
-    $ scalingo -a reso-production run rails c
+    $ scalingo -a ce-staging run rails c
+    $ scalingo -a ce-production run rails c
 
 ## HSTS
 
