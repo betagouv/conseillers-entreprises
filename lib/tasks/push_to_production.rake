@@ -27,7 +27,7 @@ task :push_to_production do
     end
 
     def format_parts(parts)
-      pull_request_url = 'https://github.com/betagouv/place-des-entreprises/pull/'
+      pull_request_url = 'https://github.com/betagouv/conseillers-entreprises/pull/'
       "* [##{parts['pr']}](#{pull_request_url}#{parts['pr']}) #{parts['title'].strip}"
     end
 

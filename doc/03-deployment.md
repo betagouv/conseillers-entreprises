@@ -9,7 +9,7 @@
 
 ## Domain name
 
-The `beta.gouv.fr` is registered on OVH by the DINUM, the `place-des-entreprises` subdomain is delegated to the team on AlwaysData. This allows us to manage TXT records ourselves and to add additional sub-subdomains. Contact the developer team to access the AlwaysData account.
+The `service-public.fr` is registered on NAMESHIELD by the DILA, the `conseillers-entreprises` subdomain is delegated to the team on OVH. This allows us to manage TXT records ourselves and to add additional sub-subdomains. Contact the developer team to access the OVH account.
 
 ## Branches and setup
 
@@ -43,11 +43,11 @@ Updating main and production…
 Last production commit is ebe7d79c4149c3ae64af917e0ccd09bb7c473cc8
 About to merge 5 PRs and push to production:
 🚀
-* [#718](https://github.com/betagouv/place-des-entreprises/pull/718) display created_at date instead of visit date
-* [#720](https://github.com/betagouv/place-des-entreprises/pull/720) Bump rack from 2.0.7 to 2.0.8
-* [#714](https://github.com/betagouv/place-des-entreprises/pull/714) Do not cc everyone in UserMailer#match_feedback
-* [#710](https://github.com/betagouv/place-des-entreprises/pull/710) Send a distinct email to the advisor when sending notifications
-* [#713](https://github.com/betagouv/place-des-entreprises/pull/713) Redesign email css
+* [#718](https://github.com/betagouv/conseillers-entreprises/pull/718) display created_at date instead of visit date
+* [#720](https://github.com/betagouv/conseillers-entreprises/pull/720) Bump rack from 2.0.7 to 2.0.8
+* [#714](https://github.com/betagouv/conseillers-entreprises/pull/714) Do not cc everyone in UserMailer#match_feedback
+* [#710](https://github.com/betagouv/conseillers-entreprises/pull/710) Send a distinct email to the advisor when sending notifications
+* [#713](https://github.com/betagouv/conseillers-entreprises/pull/713) Redesign email css
 Proceed?
 ```
 
