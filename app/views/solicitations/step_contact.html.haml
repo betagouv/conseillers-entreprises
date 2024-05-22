@@ -65,7 +65,7 @@
     - temoignage = TemoignageGenerator.new(@landing_subject.slug)
     = render 'about/temoignage', temoignage: temoignage
 
-    - if @landing_subject.solicitable_institutions.with_logo.any?
+    - if @landing_subject.solicitable_institutions.with_solicitable_logo.any?
       .lighter-blue-bg.fr-pt-8w.fr-pb-5w
         .fr-container
           %h2.text-dark-grey.text-center.text-normal.fr-text--lead

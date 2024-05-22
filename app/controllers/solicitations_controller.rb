@@ -141,7 +141,7 @@ class SolicitationsController < PagesController
   end
 
   def form_complete
-    @displayable_institutions = @landing_subject.solicitable_institutions.with_logo.order(:name)
+    @displayable_institutions = @landing_subject.solicitable_institutions.with_solicitable_logo.order(:name)
     @opco = @landing_subject.solicitable_institutions.opco.any? ? @landing_subject.solicitable_institutions.opco.first : nil
   end
 

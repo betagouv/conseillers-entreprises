@@ -4,8 +4,8 @@ module InstitutionsHelper
   def all_institutions_images
     Institution
       .preload(:logo)
-      .where(code_region: nil)
-      .ordered_logos
+      .national
+      .with_home_page_logo
       .map{ |i| i.logo&.filename }
       .uniq
       .map { institution_image(_1) }
