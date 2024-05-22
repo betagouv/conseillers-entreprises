@@ -13,7 +13,7 @@ The `service-public.fr` is registered on NAMESHIELD by the DILA, the `conseiller
 
 ## Branches and setup
 
-Conseillers-entreprises.service-public.fr is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, `ce-staging` and `ce-production.` (Reso is an old name of the project.)
+Conseillers-entreprises.service-public.fr is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, `ce-staging` and `ce-production.` 
 
 * `ce-staging` is served at https://ce-staging.scalingo.io.
 * `ce-production` is the actual https://conseillers-entreprises.service-public.fr
