@@ -31,7 +31,6 @@ class ExpertSubject < ApplicationRecord
   #
   has_one :subject, through: :institution_subject, inverse_of: :experts_subjects
   has_one :theme, through: :subject, inverse_of: :experts_subjects
-  has_many :match_filters, through: :expert, inverse_of: :experts_subjects
 
   belongs_to :not_deleted_expert, -> { not_deleted }, class_name: 'Expert', foreign_key: 'expert_id', optional: true, inverse_of: :experts_subjects
 
@@ -98,6 +97,12 @@ class ExpertSubject < ApplicationRecord
   end
 
   scope :support, -> { where(institution_subject: InstitutionSubject.support_subjects) }
+
+  ##
+  #
+  def match_filters
+    MatchFilter.where(id: expert.antenne.match_filters.ids + expert.institution.match_filters.ids)
+  end
 
   ## used for serialization in advisors csv
   #

@@ -13,7 +13,7 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let!(:es_01) { create :expert_subject }
 
       context 'min_years_of_existence' do
-        let(:match_filter_01) { create :match_filter, min_years_of_existence: 3 }
+        let(:match_filter_01) { create :match_filter, :for_antenne, min_years_of_existence: 3 }
 
         before { es_01.expert.antenne.match_filters << match_filter_01 }
 
@@ -31,7 +31,7 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       end
 
       context 'max_years_of_existence' do
-        let(:match_filter_01) { create :match_filter, max_years_of_existence: 5 }
+        let(:match_filter_01) { create :match_filter, :for_antenne, max_years_of_existence: 5 }
 
         before { es_01.expert.antenne.match_filters << match_filter_01 }
 
@@ -54,7 +54,7 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
 
       let!(:tresorerie_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, effectif_max: 20, subjects: [tresorerie_subject] }
+      let(:match_filter_01) { create :match_filter, :for_antenne, effectif_max: 20, subjects: [tresorerie_subject] }
       let!(:es_01) { create :expert_subject }
 
       before { es_01.expert.antenne.match_filters << match_filter_01 }
@@ -93,8 +93,8 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
 
       let!(:difficulte_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, accepted_naf_codes: ['1101Z', '1102A', '1102B'], subjects: [difficulte_subject] }
-      let(:match_filter_excluding_naf) { create :match_filter, excluded_naf_codes: ['9001Z'], subjects: [difficulte_subject] }
+      let(:match_filter_01) { create :match_filter, :for_antenne, accepted_naf_codes: ['1101Z', '1102A', '1102B'], subjects: [difficulte_subject] }
+      let(:match_filter_excluding_naf) { create :match_filter, :for_antenne, excluded_naf_codes: ['9001Z'], subjects: [difficulte_subject] }
 
       let!(:es_including_naf) { create :expert_subject }
       let!(:es_excluding_naf) { create :expert_subject }
@@ -155,8 +155,8 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
 
       let!(:difficulte_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, accepted_legal_forms: %w[4160 6533 6534], subjects: [difficulte_subject] }
-      let(:match_filter_excluding_legal_forms) { create :match_filter, excluded_legal_forms: %w[5499], subjects: [difficulte_subject] }
+      let(:match_filter_01) { create :match_filter, :for_antenne, accepted_legal_forms: %w[4160 6533 6534], subjects: [difficulte_subject] }
+      let(:match_filter_excluding_legal_forms) { create :match_filter, :for_antenne, excluded_legal_forms: %w[5499], subjects: [difficulte_subject] }
 
       let!(:es_including) { create :expert_subject }
       let!(:es_excluding) { create :expert_subject }
@@ -213,8 +213,8 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let(:diagnosis) { create :diagnosis, facility: facility }
       let(:need) { create :need, diagnosis: diagnosis }
 
-      let(:match_filter_01) { create :match_filter, effectif_min: 10 }
-      let(:match_filter_02) { create :match_filter, min_years_of_existence: 3 }
+      let(:match_filter_01) { create :match_filter, :for_antenne, effectif_min: 10 }
+      let(:match_filter_02) { create :match_filter, :for_antenne, min_years_of_existence: 3 }
       let!(:es_01) { create :expert_subject }
 
       before do
@@ -262,7 +262,7 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
       let!(:difficulte_subject) { create :subject }
       let!(:rh_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, min_years_of_existence: 3, subjects: [difficulte_subject, rh_subject] }
+      let(:match_filter_01) { create :match_filter, :for_antenne, min_years_of_existence: 3, subjects: [difficulte_subject, rh_subject] }
 
       let!(:es_01) { create :expert_subject }
 
@@ -308,8 +308,8 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let!(:rh_subject) { create :subject }
       let!(:eau_subject) { create :subject }
       let!(:energie_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, min_years_of_existence: 3, subjects: [rh_subject] }
-      let(:match_filter_02) { create :match_filter, min_years_of_existence: 3, effectif_max: 50, subjects: [eau_subject, energie_subject] }
+      let(:match_filter_01) { create :match_filter, :for_antenne, min_years_of_existence: 3, subjects: [rh_subject] }
+      let(:match_filter_02) { create :match_filter, :for_antenne, min_years_of_existence: 3, effectif_max: 50, subjects: [eau_subject, energie_subject] }
 
       let!(:es_01) { create :expert_subject }
 

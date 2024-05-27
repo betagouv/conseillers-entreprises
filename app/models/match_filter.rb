@@ -35,8 +35,16 @@ class MatchFilter < ApplicationRecord
 
   validate :antenne_or_institution
 
-  has_many :experts, through: :antenne, source: :experts, inverse_of: :match_filters
-  has_many :experts_subjects, through: :experts, inverse_of: :match_filters
+  has_many :antenne_experts, through: :antenne, source: :experts
+  has_many :institution_experts, through: :institution, source: :experts
+
+  def experts
+    antenne.present? ? antenne_experts : institution_experts
+  end
+
+  def experts_subjects
+    ExpertSubject.where(expert_id: experts.ids)
+  end
 
   def antenne_or_institution
     if antenne.nil? && institution.nil?
