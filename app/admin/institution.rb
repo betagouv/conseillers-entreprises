@@ -108,20 +108,42 @@ ActiveAdmin.register Institution do
       end
     end
 
-    attributes_table title: I18n.t('activerecord.models.institution_filter.other') do
+    attributes_table title: I18n.t('activerecord.models.additional_subject_question.other') do
       table_for institution.institution_filters do
         column(:label) { |filter| I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key]) }
         column(:key)
         column(:filter_value)
       end
     end
+
+    attributes_table title: I18n.t('activerecord.attributes.antenne.match_filters') do
+      institution.match_filters.map.with_index do |mf, index|
+        panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
+          attributes_table_for mf do
+            row :min_years_of_existence
+            row :max_years_of_existence
+            row :effectif_min
+            row :effectif_max
+            row :subjects
+            row :raw_accepted_legal_forms
+            row :raw_excluded_legal_forms
+            row :raw_accepted_naf_codes
+            row :raw_excluded_naf_codes
+          end
+        end
+      end
+    end
   end
 
   ## Form
   #
+  match_filters_attributes = [
+    :id, :min_years_of_existence, :max_years_of_existence, :effectif_max, :effectif_min,
+    :raw_accepted_naf_codes, :raw_excluded_naf_codes, :raw_accepted_legal_forms, :raw_excluded_legal_forms, :_destroy, subject_ids: []
+  ]
   permit_params :name, :display_logo_on_home_page, :display_logo_in_partner_list, :slug, :show_on_list, :code_region, :siren,
                 antenne_ids: [], category_ids: [],
-                institutions_subjects_attributes: %i[id description subject_id _create _update _destroy]
+                institutions_subjects_attributes: %i[id description subject_id _create _update _destroy], match_filters_attributes: match_filters_attributes
 
   form do |f|
     f.inputs do
@@ -148,6 +170,20 @@ ActiveAdmin.register Institution do
       collection = option_groups_from_collection_for_select(themes, :subjects_ordered_for_interview, :label, :id, :label, sub_f.object&.subject&.id)
       sub_f.input :subject, collection: collection
       sub_f.input :description
+    end
+
+    f.inputs do
+      f.has_many :match_filters, allow_destroy: true do |mf|
+        mf.input :subjects, as: :ajax_select, collection: resource.subjects, data: { url: :admin_subjects_path, search_fields: [:label] }
+        mf.input :min_years_of_existence
+        mf.input :max_years_of_existence
+        mf.input :effectif_min
+        mf.input :effectif_max
+        mf.input :raw_accepted_legal_forms
+        mf.input :raw_excluded_legal_forms
+        mf.input :raw_accepted_naf_codes, as: :text
+        mf.input :raw_excluded_naf_codes, as: :text
+      end
     end
 
     f.actions

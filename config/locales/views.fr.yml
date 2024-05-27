@@ -31,6 +31,9 @@ fr:
       temoignage_alt: Photo de %{author}
   active_admin:
     admin_link: Lien admin
+    antenne:
+      institution_match_filters: Filtres de mise en relation de l’institution
+      match_filters: Filtres de mise en relation de l’antenne
     badges:
       add_remove: Ajouter / supprimer un tag sur
       modified: Le tag a été %{action}

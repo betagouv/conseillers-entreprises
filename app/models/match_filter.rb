@@ -14,19 +14,38 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  antenne_id             :bigint(8)
+#  institution_id         :bigint(8)
 #
 # Indexes
 #
-#  index_match_filters_on_antenne_id  (antenne_id)
+#  index_match_filters_on_antenne_id      (antenne_id)
+#  index_match_filters_on_institution_id  (institution_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (antenne_id => antennes.id)
+#  fk_rails_...  (institution_id => institutions.id)
 #
 class MatchFilter < ApplicationRecord
   ## Associations
   #
   belongs_to :antenne, optional: true
+  belongs_to :institution, optional: true
   has_and_belongs_to_many :subjects
+
+  validate :antenne_or_institution
 
   has_many :experts, through: :antenne, source: :experts, inverse_of: :match_filters
   has_many :experts_subjects, through: :experts, inverse_of: :match_filters
+
+  def antenne_or_institution
+    if antenne.nil? && institution.nil?
+      errors.add(:base, 'antenne or institution must be present')
+    end
+    if antenne.present? && institution.present?
+      errors.add(:base, 'antenne and institution can’t be present at the same time')
+    end
+  end
 
   def raw_accepted_naf_codes
     accepted_naf_codes&.join(' ')
