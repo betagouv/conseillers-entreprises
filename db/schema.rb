@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_16_092522) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_21_125443) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -549,6 +549,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_16_092522) do
     t.index ["run_number", "expert_id"], name: "index_reminders_registers_on_run_number_and_expert_id", unique: true
   end
 
+  create_table "shared_satisfactions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "company_satisfaction_id", null: false
+    t.bigint "expert_id", null: false
+    t.datetime "seen_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_satisfaction_id"], name: "index_shared_satisfactions_on_company_satisfaction_id"
+    t.index ["expert_id"], name: "index_shared_satisfactions_on_expert_id"
+    t.index ["user_id", "company_satisfaction_id", "expert_id"], name: "shared_satisfactions_references_index", unique: true
+    t.index ["user_id"], name: "index_shared_satisfactions_on_user_id"
+  end
+
   create_table "solicitations", force: :cascade do |t|
     t.string "description"
     t.string "email"
@@ -709,6 +722,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_16_092522) do
   add_foreign_key "referencement_coverages", "institutions_subjects"
   add_foreign_key "reminders_actions", "needs"
   add_foreign_key "reminders_registers", "experts"
+  add_foreign_key "shared_satisfactions", "company_satisfactions"
+  add_foreign_key "shared_satisfactions", "experts"
+  add_foreign_key "shared_satisfactions", "users"
   add_foreign_key "solicitations", "institutions"
   add_foreign_key "solicitations", "landing_subjects"
   add_foreign_key "solicitations", "landings"

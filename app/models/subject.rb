@@ -60,7 +60,7 @@ class Subject < ApplicationRecord
   has_many :institutions, through: :institutions_subjects, inverse_of: :subjects
   has_many :experts_subjects, through: :institutions_subjects, inverse_of: :subject
   has_many :experts, through: :institutions_subjects, inverse_of: :subjects
-  has_many :advisors, class_name: 'User', through: :institutions_subjects, source: :users, inverse_of: :theme
+  has_many :advisors, class_name: 'User', through: :institutions_subjects, source: :users
 
   ## Scopes
   #

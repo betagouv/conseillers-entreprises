@@ -99,6 +99,9 @@ class Need < ApplicationRecord
   # :subject
   has_one :theme, through: :subject, inverse_of: :needs
 
+  # :company_satisfaction
+  has_many :shared_satisfactions, through: :company_satisfaction, source: :shared_satisfactions
+
   ## Scopes
   #
   NO_ACTIVITY_DELAY = 14.days

@@ -17,6 +17,31 @@
       display: block
   .fr-text--lg
     margin-bottom: 0
+  .comment__container
+    order: 3
+    margin-top: 1.25rem
+    background-color: var(--background-contrast-green-emeraude)
+    padding: 1rem 1.5rem
+    border-radius: 0.4em
+    position: relative
+    &::after
+      content: ''
+      position: absolute
+      bottom: 0
+      left: 80%
+      width: 0
+      height: 0
+      border: 26px solid transparent
+      border-top-color: var(--background-contrast-green-emeraude)
+      border-bottom: 0
+      border-right: 0
+      margin-left: -13px
+      margin-bottom: -26px
+  .comment__meta
+    font-size: 0.875rem
+    line-height: 1.5rem
+    margin-top: 0.5rem
+    text-align: right
 
 // Carte reminders need =================================
 .card-reminders-need

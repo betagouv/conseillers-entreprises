@@ -75,6 +75,8 @@ class User < ApplicationRecord
   belongs_to :antenne, inverse_of: :advisors
 
   has_and_belongs_to_many :experts, -> { not_deleted }, inverse_of: :users
+  has_many :shared_satisfactions, inverse_of: :user
+  has_many :shared_company_satisfactions, through: :shared_satisfactions, source: :company_satisfaction
 
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
   has_many :feedbacks, inverse_of: :user
