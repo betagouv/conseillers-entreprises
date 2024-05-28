@@ -6,4 +6,8 @@
       %h1= t('.title')
       %p.fr-text--sm.fr-mb-3w= t('.error')
       %p.fr-text--lead.fr-mb-3w= t('.message')
-      %p.fr-text--sm.fr-mb-5w= t('.info')
+      %p.fr-text--sm.fr-mb-5w= t('.info_html')
+
+      %ul.fr-btns-group.fr-btns-group--inline-md
+        %li
+          = mailto_contact_us(t('contact_us').humanize, 'fr-btn fr-btn--secondary')

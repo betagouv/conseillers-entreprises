@@ -141,7 +141,7 @@ class SolicitationsController < PagesController
   end
 
   def form_complete
-    @displayable_institutions = @landing_subject.solicitable_institutions.with_logo.order(:name)
+    @displayable_institutions = @landing_subject.solicitable_institutions.with_solicitable_logo.order(:name)
     @opco = @landing_subject.solicitable_institutions.opco.any? ? @landing_subject.solicitable_institutions.opco.first : nil
   end
 
@@ -233,8 +233,8 @@ class SolicitationsController < PagesController
   end
 
   def calculate_needs_count
-    Rails.cache.fetch(['needs_count', @landing_subject.subject, Need.by_subject(@landing_subject.subject).size], expires_in: 1.hour) do
-      @needs_count = Need
+    @needs_count = Rails.cache.fetch(['needs_count', @landing_subject.subject, Need.by_subject(@landing_subject.subject).size], expires_in: 1.hour) do
+      Need
         .by_subject(@landing_subject.subject)
         .min_closed_at(1.year.ago..Date.today)
         .pluck(:id)

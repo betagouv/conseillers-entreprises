@@ -58,11 +58,11 @@ exclude_patterns:
   - "**/vendor/"
   - "**/*_test.go"
   - "**/*.d.ts"
+  - "app/admin/*"
   - 'app/services/xlsx_export/*'
   - 'app/services/csv_export/*'
   - 'app/services/csv_import/*'
   - 'app/models/clockwork.rb'
   - 'app/helpers/sitemap_helper.rb'
-  - 'app/admin/*'
   - 'babel.config.js'
   - 'app/services/sitemap_generator.rb'

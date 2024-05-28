@@ -3,7 +3,7 @@ class SendExpertsRemindersJob < ApplicationJob
 
   def perform
     Expert.not_deleted.with_active_matches.each do |expert|
-      ExpertMailer.remind_involvement(expert).deliver_later(queue: 'low_priority')
+      ExpertMailer.with(expert: expert).remind_involvement.deliver_later
     end
   end
 end

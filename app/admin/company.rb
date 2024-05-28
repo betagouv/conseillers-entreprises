@@ -74,6 +74,10 @@ ActiveAdmin.register Company do
         [c.legal_form_code, c.categorie_juridique].join(' - ')
       end
       row :code_effectif
+      row :forme_exercice
+      row :inscrit_rcs
+      row :inscrit_rm
+      row :activite_liberale
       row :created_at
       row(:facilities) do |c|
         div admin_link_to(c, :facilities)
@@ -89,5 +93,5 @@ ActiveAdmin.register Company do
 
   ## Form
   #
-  permit_params :name, :siren, :legal_form_code, :code_effectif
+  permit_params :name, :siren, :legal_form_code, :code_effectif, :forme_exercice, :inscrit_rcs, :inscrit_rm, :activite_liberale
 end

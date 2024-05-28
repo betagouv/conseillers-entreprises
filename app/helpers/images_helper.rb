@@ -12,12 +12,12 @@ module ImagesHelper
   end
 
   def landing_and_theme_logos(landing_or_theme)
-    logos = landing_or_theme.landing_subjects.map{ |ls| ls.solicitable_institutions.ordered_logos.map(&:logo) }.flatten.uniq
+    logos = landing_or_theme.landing_subjects.map{ |ls| ls.solicitable_institutions.with_solicitable_logo.map(&:logo) }.flatten.uniq
     display_all_logos(logos, 'institutions/')
   end
 
   def landing_subject_logos(landing_subject)
-    logos = landing_subject.solicitable_institutions.ordered_logos.map(&:logo)
+    logos = landing_subject.solicitable_institutions.with_solicitable_logo.map(&:logo)
     display_all_logos(logos, 'institutions/')
   end
 

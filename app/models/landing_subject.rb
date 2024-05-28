@@ -96,8 +96,8 @@ class LandingSubject < ApplicationRecord
   end
 
   def solicitable_institutions_names
-    return [] if solicitable_institutions.with_logo.empty?
-    partenaires = solicitable_institutions.with_logo.order(:name).reject{ |i| i.opco? }.pluck(:name).uniq
+    return [] if solicitable_institutions.with_solicitable_logo.empty?
+    partenaires = solicitable_institutions.with_solicitable_logo.order(:name).reject{ |i| i.opco? }.pluck(:name).uniq
     partenaires << I18n.t('attributes.opco') if solicitable_institutions.opco.any?
     partenaires
   end

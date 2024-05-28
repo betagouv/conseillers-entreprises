@@ -850,7 +850,8 @@ fr:
     diagnosis_created_at: Date de l’analyse
     diagnosis_id: Id de l’analyse
     diagnosis_regions: Région
-    display_logo: Afficher le logo sur la page d’accueil, la page de remerciement et la liste des partenaires
+    display_logo_in_partner_list: Afficher le logo dans la liste des institutions conseillères (page remerciement, etc)
+    display_logo_on_home_page: Afficher le logo sur la page d’accueil
     done_institutions: Institution ayant clôturé avec aide
     effectif: Effectif
     email: Email

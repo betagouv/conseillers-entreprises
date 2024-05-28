@@ -37,7 +37,7 @@
     .fr-container--fluid.lighter-blue-bg
       = render 'pages/how_it_works_short'
 
-    - if @landing_theme.landing_subjects.map{ |ls| ls.solicitable_institutions.with_logo }.any?
+    - if @landing_theme.landing_subjects.map{ |ls| ls.solicitable_institutions.with_solicitable_logo }.any?
       .fr-container.fr-py-7w
         %h2.text-dark-grey.text-center.text-normal.fr-text--lead= t('logos.title')
         = render 'landings/landings/logos', landing_theme: @landing_theme

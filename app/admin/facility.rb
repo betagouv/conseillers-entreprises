@@ -69,7 +69,15 @@ ActiveAdmin.register Facility do
       row :siret
       row :naf_code
       row :code_effectif
-      row :company
+      row(:company) do |f|
+        div admin_link_to(f, :company)
+        if f.company.forme_exercice?
+          div admin_attr(f.company, :forme_exercice), title: f.company.forme_exercice
+        end
+        div inscription_registre(:inscrit_rcs, f.company.inscrit_rcs)
+        div inscription_registre(:inscrit_rm, f.company.inscrit_rm)
+        div inscription_registre(:activite_liberale, f.company.activite_liberale)
+      end
       row :commune
       row :readable_locality
       row :created_at
