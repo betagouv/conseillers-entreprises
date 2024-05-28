@@ -21,7 +21,6 @@ module SitemapGenerator
       { url: Rails.application.routes.url_helpers.mentions_legales_url, title: I18n.t('about.mentions_legales.title') },
       { url: Rails.application.routes.url_helpers.mentions_d_information_url, title: I18n.t('about.mentions_d_information.title') },
       { url: Rails.application.routes.url_helpers.cgu_url, title: I18n.t('cgu') },
-      { url: ENV['BLOG_URL'], title: I18n.t('about.blog.title') },
     ]
     static_pages.each_with_index do |page, idx|
       page_elt = {

@@ -4,8 +4,6 @@ fr:
     accessibilite:
       footer_title: 'Accessibilité : partiellement conforme'
       title: Accessibilité
-    blog:
-      title: Actu aides
     cgu:
       title: Conditions d’utilisation du service numérique Conseillers-Entreprises
     comment_ca_marche:
@@ -589,7 +587,6 @@ fr:
       quick_title: Rapide
     navbar:
       extend: Agrandir
-      link_to_blog: Actu aides, blog de Conseillers-Entreprises - lien externe
   person:
     deleted_person: Compte supprimé
   quarterly_report_service:
