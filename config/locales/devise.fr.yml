@@ -18,7 +18,7 @@ fr:
         prefilled_description: 'Certaines informations ont été préremplies ; vous pouvez les corriger si nécessaire :'
         submit_button: Enregistrer
       invitation_removed: Votre invitation a été annulée.
-      invitation_token_invalid: Ce lien d’invitation est invalide ou expiré. Vous avez peut-être reçu une invitation plus récente. Si ce n'est pas le cas, écrivez-nous à contact@conseillers-entreprises.service-public.fr pour recevoir une nouvelle invitation.
+      invitation_token_invalid: Ce lien d’invitation est invalide ou expiré. Vous avez peut-être reçu une invitation plus récente. Si ce n'est pas le cas, écrivez-nous à contact@entreprises.service-public.fr pour recevoir une nouvelle invitation.
       new:
         description: 'L’inscription est réservée aux conseillers d’organismes publics : préférez une adresse mail professionnelle fournie par votre organisme.'
         header: Inviter un conseiller sur Conseillers-Entreprises
