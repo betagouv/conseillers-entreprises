@@ -626,6 +626,11 @@ fr:
         landing_themes:
           restrict_dependent_destroy:
             solicitations: Vous ne pouvez pas supprimer la thématique car des solicitations y font référence
+        match_filter:
+          attributes:
+            antenne_or_institution:
+              blank: antenne ou institution doit être présente
+              invalid: antenne et institution ne peuvent être présentes en même temps
         solicitation:
           attributes:
             institution_filters:

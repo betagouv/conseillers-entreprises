@@ -48,10 +48,10 @@ class MatchFilter < ApplicationRecord
 
   def antenne_or_institution
     if antenne.nil? && institution.nil?
-      errors.add(:base, 'antenne or institution must be present')
+      errors.add(:antenne_or_institution, :blank, message: I18n.t("activerecord.errors.models.match_filter.attributes.antenne_or_institution.blank"))
     end
     if antenne.present? && institution.present?
-      errors.add(:base, 'antenne and institution can’t be present at the same time')
+      errors.add(:antenne_or_institution, :invalid, message: I18n.t("activerecord.errors.models.match_filter.attributes.antenne_or_institution.invalid"))
     end
   end
 
