@@ -44,7 +44,7 @@ RSpec.configure do |config|
           url: 'https://conseillers-entreprises.service-public.fr',
         },
         {
-          url: 'https://reso-staging.osc-fr1.scalingo.io',
+          url: 'https://ce-staging.osc-fr1.scalingo.io',
         },
       ],
       components: {

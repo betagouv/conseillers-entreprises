@@ -19,7 +19,7 @@
             %li
               = link_to t('.service_presentation'), '/dossier-presse.pdf', title: t('.service_presentation_title'), download: "true", rel: 'noopener', class: 'fr-footer__top-link'
             %li
-              = link_to t('.source_code'), 'https://github.com/betagouv/place-des-entreprises', title: to_new_window_title(t('.github_title')), target: '_blank', rel: 'noopener', class: 'fr-footer__top-link'
+              = link_to t('.source_code'), 'https://github.com/betagouv/conseillers-entreprises', title: to_new_window_title(t('.github_title')), target: '_blank', rel: 'noopener', class: 'fr-footer__top-link'
             %li
               = link_to t('usage_stats'), public_index_path, class: 'fr-footer__top-link'
             - if policy(Stats::All).team?

@@ -53,7 +53,7 @@ COVERAGE=true bundle exec rspec
 ## Automated tests and Continuous integration
 
 * Circle CI is hooked on github pull requests. It runs `rake test` and `rake lint`. The CI only runs for pull requests, not for all pushed branches.
-* Code merged on `main` is automatically deployed on `reso-staging` (See [Deployment](03-deployment.md).)
+* Code merged on `main` is automatically deployed on `ce-staging` (See [Deployment](03-deployment.md).)
 
 The Circle CI account is shared with the other betagouv startups; it’s paid for by the DINUM.
 

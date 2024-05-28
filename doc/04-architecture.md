@@ -70,13 +70,13 @@ Conseillers-entreprises.service-public.fr est une application web écrite en [Ru
 
 ### Développement
 
-Le développement de Conseillers-Entreprises est organisé sur [github](https://github.com/betagouv/place-des-entreprises).
+Le développement de Conseillers-Entreprises est organisé sur [github](https://github.com/betagouv/conseillers-entreprises).
 * Le code source est libre et ouvert, et publié sour license AGPL.
 * Le développement se fait de façon transparente ; les _issues_ et _pull requests_ sont visibles par tout le monde.
 
 L’app Ruby est développée principalement sous forme de « [monolithe](https://m.signalvnoise.com/the-majestic-monolith/) ». Il y a très peu de javascript. De manière générale, Conseillers-Entreprises est développée de façon _prudente_: nous utilisons, autant que possible, des technologies qui ont fait leur preuve, et qui sont mises à jour régulièrement.
 
-Nous travaillons de façon agile, par sprints de deux semaines. Le développement logiciel est fait en concertation permanente avec les autres membres de l’équipe. Un aperçu des sujets en cours est visible [directement sur github](https://github.com/betagouv/place-des-entreprises/projects/1).
+Nous travaillons de façon agile, par sprints de deux semaines. Le développement logiciel est fait en concertation permanente avec les autres membres de l’équipe. Un aperçu des sujets en cours est visible [directement sur github](https://github.com/orgs/betagouv/projects/96).
 
 Nous utilisons les outils standard d’audit automatique de qualité de code ([rubocop](https://rubocop.org)) et de sécurité ([brakeman](https://brakemanscanner.org)). Par ailleurs, nous développons, en parallèle des fonctionnalités, les tests associés. Ces tests sont executés de façon automatique avant l’intégration de chaque changement dans le code. Nous utilisons [Circle-CI](https://circleci.com) pour faire tourner ces tests automatiques.
 
