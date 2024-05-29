@@ -16,7 +16,7 @@ RSpec.describe SharedSatisfaction do
 
       context 'with already existing shared_satisfaction' do
         before { create :shared_satisfaction, company_satisfaction: company_satisfaction, user: user, expert: expert }
-        
+
         it 'doenst validate creation' do
           expect(shared_satisfaction).not_to be_valid
         end
