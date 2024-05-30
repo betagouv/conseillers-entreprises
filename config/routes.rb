@@ -109,10 +109,10 @@ Rails.application.routes.draw do
         get :starred_needs, path: 'besoins-suivis'
       end
     end
-    resources :shared_satisfactions, only: %i[index], path: 'satisfaction' do
+    resources :shared_satisfactions, only: %i[index], path: 'retours' do
       collection do
-        get :unseen, path: 'nouveaux-commentaires'
-        get :seen, path: 'commentaires-vus'
+        get :unseen, path: 'nouveaux'
+        get :seen, path: 'vus'
       end
       member do
         patch :mark_as_seen
