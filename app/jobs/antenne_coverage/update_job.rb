@@ -12,8 +12,8 @@ class AntenneCoverage::UpdateJob
       experts_without_specific_territories = get_experts_without_specific_territories(antenne_insee_codes, institution_subject)
       experts_with_specific_territories = get_experts_with_specific_territories(antenne_insee_codes, institution_subject)
 
-      experts_without_specific_territories.find_each{ |expert| subject_hash[expert.insee_code] << { expert_id: expert.id, users_ids: expert.users.ids } }
-      experts_with_specific_territories.find_each{ |expert| subject_hash[expert.insee_code] << { expert_id: expert.id, users_ids: expert.users.ids } }
+      experts_without_specific_territories.each{ |expert| subject_hash[expert.insee_code] << { expert_id: expert.id, users_ids: expert.users.ids } }
+      experts_with_specific_territories.each{ |expert| subject_hash[expert.insee_code] << { expert_id: expert.id, users_ids: expert.users.ids } }
       register_coverage(institution_subject, subject_hash)
     end
   end
