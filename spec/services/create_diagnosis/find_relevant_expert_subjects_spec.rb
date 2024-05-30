@@ -380,6 +380,35 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
         end
       end
     end
+
+    describe 'With institution and antenne filters take antenne filter' do
+      context 'min_years_of_existence' do
+        let(:diagnosis) { create :diagnosis, company: company }
+        let(:need) { create :need, diagnosis: diagnosis }
+        let!(:es_01) { create :expert_subject }
+        let(:institution) { create :institution }
+        let(:antenne) { create :antenne, institution: institution }
+        let(:match_filter_01) { create :match_filter, antenne: antenne, min_years_of_existence: 10 }
+        let(:match_filter_02) { create :match_filter, institution: institution, min_years_of_existence: 5 }
+
+        before do
+          es_01.expert.antenne.match_filters << match_filter_01
+          es_01.expert.institution.match_filters << match_filter_02
+        end
+
+        context 'young company' do
+          let(:company) { create :company, date_de_creation: 7.years.ago }
+
+          it { is_expected.to contain_exactly(es_temoin) }
+        end
+
+        context 'old company' do
+          let(:company) { create :company, date_de_creation: 11.years.ago }
+
+          it { is_expected.to contain_exactly(es_01, es_temoin) }
+        end
+      end
+    end
   end
 
   describe 'apply_institution_filters' do

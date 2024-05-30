@@ -85,4 +85,25 @@ class MatchFilter < ApplicationRecord
     updated_legal_form_code = legal_form_code.split(/[,\s]/).delete_if(&:empty?)
     self.excluded_legal_forms = updated_legal_form_code
   end
+
+  def same_antenne_match_filter?(match_filter_collection)
+    return false if filtrable_element_type != 'Institution'
+    match_filter_collection.any? do |mf|
+      mf != self &&
+      mf.filtrable_element_type == 'Antenne' &&
+        mf.filtrable_element.institution_id == filtrable_element.id &&
+        mf.has_same_fields_filled?(self)
+    end
+  end
+
+  def has_same_fields_filled?(other_match_filter)
+    fields_to_compare = %i[
+      accepted_naf_codes excluded_naf_codes accepted_legal_forms excluded_legal_forms
+      effectif_min effectif_max min_years_of_existence max_years_of_existence
+    ]
+    subjects == other_match_filter.subjects &&
+    fields_to_compare.all? do |field|
+      self.send(field).present? == other_match_filter.send(field).present?
+    end
+  end
 end
