@@ -1,6 +1,4 @@
 class Conseiller::SharedSatisfactionsController < ApplicationController
-  include PersistedSearch
-
   before_action :collections_counts
 
   layout 'side_menu'
@@ -59,13 +57,5 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
         seen: retrieve_seen_satisfactions.size,
       }
     end
-  end
-
-  def search_session_key
-    :satisfaction_search
-  end
-
-  def search_fields
-    [:by_region]
   end
 end

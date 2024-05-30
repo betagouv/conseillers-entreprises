@@ -24,10 +24,6 @@ ActiveAdmin.register CompanySatisfaction do
     column :useful_exchange
     column :comment do |s|
       div s.comment
-      # if s.shared_satisfaction_experts.any?
-      #   div admin_link_to(a, :shared_satisfaction_experts, list: true)
-      # end
-
       if s.shared
         br
         div t('active_admin.company_satisfaction.shared_with')
