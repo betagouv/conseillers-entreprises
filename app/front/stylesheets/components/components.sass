@@ -4,9 +4,21 @@
     margin-bottom: 0.875rem
   ul
     li
-      display: flex
       margin-bottom: 0
       line-height: 1.6rem
+      &.li--marker
+        margin-left: 1.5rem
+        padding-left: 1rem
+        &::marker
+          font-family: 'remixicon' !important
+          font-size: 1.5rem
+      &.li--mail-line::marker
+        content: "\eef6" // ri-mail-line
+      &.li--phone-line::marker
+        content: "\efec" // ri-phone-line
+        
+
+
     &:last-child
       margin-bottom: 0
   .name
