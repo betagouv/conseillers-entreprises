@@ -1,4 +1,4 @@
-.block-infos{ class: "#{'compact' if defined?(compact)}" }
+.block-infos{ class: "break-word#{' compact' if defined?(compact)}" }
   %ul.list-unstyled.fr-pl-1v
     - if prefix.present?
       %li.blue
@@ -13,10 +13,8 @@
         %span.picto.ri-contacts-book-line{ 'aria-hidden': 'true' }
         = job
     - if phone_number.present?
-      %li
-        %span.picto.ri-phone-line{ 'aria-hidden': 'true' }
+      %li.li--marker.li--phone-line
         = link_to(phone_number, "tel:#{ERB::Util.url_encode(phone_number)}", class: 'fr-link')
     - if email.present?
-      %li
-        %span.picto.ri-mail-line{ 'aria-hidden': 'true' }
-        = mail_to email, email, class: 'fr-link break-word'
+      %li.li--marker.li--mail-line
+        = mail_to email, email, class: 'fr-link'
