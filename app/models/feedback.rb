@@ -91,8 +91,8 @@ class Feedback < ApplicationRecord
     Feedback.joins(feedback_need: { diagnosis: :solicitation }).where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{query}")
       .or(Feedback.joins(feedback_need: { diagnosis: :solicitation }).where("solicitations.form_info::json->>'mtm_kwd' ILIKE ?", "%#{query}"))
   end
-  scope :need_created_at_gteq, -> (val) { joins(:feedback_need).where('needs.created_at >= ?', val) }
-  scope :need_created_at_lteq, -> (val) { joins(:feedback_need).where('needs.created_at <= ?', val) }
+  scope :need_created_at_gteq, -> (val) { joins(:feedback_need).where(needs: { created_at: val.. }) }
+  scope :need_created_at_lteq, -> (val) { joins(:feedback_need).where(needs: { created_at: ..val }) }
   scope :user_antenne_eq, -> (antenne) { joins(:user).where(users: { antenne: antenne }) }
   scope :user_institution_eq, -> (institution) { joins(user: { antenne: :institution }).where(users: { institutions: institution }) }
 

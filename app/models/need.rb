@@ -190,7 +190,7 @@ class Need < ApplicationRecord
   end
 
   # For Reminders, find Needs without taking care since NO_ACTIVITY_DELAY
-  scope :no_activity, -> { joins(:matches).where("matches.created_at < ?", NO_ACTIVITY_DELAY.ago) }
+  scope :no_activity, -> { joins(:matches).where(matches: { created_at: ...NO_ACTIVITY_DELAY.ago }) }
 
   scope :with_some_matches_in_status, -> (status) do
     # status can be an array

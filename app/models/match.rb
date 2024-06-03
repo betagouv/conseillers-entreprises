@@ -133,11 +133,11 @@ class Match < ApplicationRecord
 
   # Pour ransacker, en admin
   scope :solicitation_created_at_gteq, -> (val) do
-    joins(:solicitation).where('solicitations.created_at >= ?', val)
+    joins(:solicitation).where(solicitations: { created_at: val.. })
   end
 
   scope :solicitation_created_at_lteq, -> (val) do
-    joins(:solicitation).where('solicitations.created_at <= ?', val)
+    joins(:solicitation).where(solicitations: { created_at: ..val })
   end
 
   scope :solicitation_mtm_campaign_cont, -> (query) {
