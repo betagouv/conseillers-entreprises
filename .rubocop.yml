@@ -1334,6 +1334,9 @@ Style/Strip:
 Style/StructInheritance:
   Enabled: false
 
+Style/SuperArguments:
+  Enabled: false
+
 Style/SymbolArray:
   Enabled: false
 
