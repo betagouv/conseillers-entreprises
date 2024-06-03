@@ -13,9 +13,6 @@
   = javascript_pack_tag 'application', data: { 'turbo-track': 'reload' }, nonce: true
   = javascript_include_tag 'application', data: { 'turbo-track': 'reload' }, nonce: true
 
-  = javascript_include_tag 'https://browser.sentry-cdn.com/6.19.6/bundle.min.js', crossorigin: 'anonymous', integrity: "sha512-EnfWeHgbnvVl/d9JaR0pAznICi6nLymkzFdWjd51e/Xxl6j6zekri6WtRFeT2RRrQoZOakJpJcak3O2a2hf25A==", data: { 'turbo-track': 'reload' }, nonce: true
-
   = render 'favicon'
   = yield :head
-  = sentry_script
   = matomo_script
