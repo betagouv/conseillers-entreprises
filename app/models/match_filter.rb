@@ -23,7 +23,7 @@
 class MatchFilter < ApplicationRecord
   ## Associations
   #
-  belongs_to :filtrable_element, polymorphic: true, optional: true
+  belongs_to :filtrable_element, polymorphic: true
   has_and_belongs_to_many :subjects
 
   def experts_subjects
@@ -87,6 +87,8 @@ class MatchFilter < ApplicationRecord
   end
 
   def same_antenne_match_filter?(match_filter_collection)
+    # un filtre antenne prévaut sur un filtre institution
+    # on enlève les filtres des institution quand il y a le même sur l'antenne
     return false if filtrable_element_type != 'Institution'
     match_filter_collection.any? do |mf|
       mf != self &&
