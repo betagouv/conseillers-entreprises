@@ -99,38 +99,44 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let!(:es_01) { create :expert_subject }
 
       context 'with antenne filter only' do
+        let(:code_effectif_ok) { '03' } # 6 à 9 salariés
+        let(:code_effectif_ko) { '12' } # 20 à 49 salariés
+
         before { es_01.expert.antenne.match_filters << match_filter_01 }
 
         context 'matching nothing' do
           let(:need_subject) { create :subject }
-          let(:facility) { create :facility, code_effectif: '12' } # 20 à 49 salariés
+          let(:facility) { create :facility, code_effectif: code_effectif_ko }
 
           it { is_expected.to contain_exactly(es_temoin, es_01) }
         end
 
         context 'matching subject only' do
-          let(:facility) { create :facility, code_effectif: '12' } # 20 à 49 salariés
           let(:need_subject) { tresorerie_subject }
+          let(:facility) { create :facility, code_effectif: code_effectif_ko }
 
           it { is_expected.to contain_exactly(es_temoin) }
         end
 
         context 'matching effectif only' do
           let(:need_subject) { create :subject }
-          let(:facility) { create :facility, code_effectif: '03' } # 6 à 9 salariés
+          let(:facility) { create :facility, code_effectif: code_effectif_ok }
 
           it { is_expected.to contain_exactly(es_temoin, es_01) }
         end
 
         context 'matching subject and effectif' do
           let(:need_subject) { tresorerie_subject }
-          let(:facility) { create :facility, code_effectif: '03' } # 6 à 9 salariés
+          let(:facility) { create :facility, code_effectif: code_effectif_ok }
 
           it { is_expected.to contain_exactly(es_temoin, es_01) }
         end
       end
 
       context 'with antenne and institution filter' do
+        let(:code_effectif_ok) { '03' } # 6 à 9 salariés
+        let(:code_effectif_ko) { '12' } # 20 à 49 salariés
+
         before do
           es_01.expert.antenne.match_filters << match_filter_01
           es_01.expert.institution.match_filters << match_filter_02
@@ -138,60 +144,63 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
         context 'matching nothing' do
           let(:need_subject) { create :subject }
-          let(:facility) { create :facility, code_effectif: '12' } # 20 à 49 salariés
+          let(:facility) { create :facility, code_effectif: code_effectif_ko }
 
           it { is_expected.to contain_exactly(es_temoin, es_01) }
         end
 
         context 'matching subject only' do
-          let(:facility) { create :facility, code_effectif: '12' } # 20 à 49 salariés
           let(:need_subject) { tresorerie_subject }
+          let(:facility) { create :facility, code_effectif: code_effectif_ko }
 
           it { is_expected.to contain_exactly(es_temoin) }
         end
 
         context 'matching effectif only' do
           let(:need_subject) { create :subject }
-          let(:facility) { create :facility, code_effectif: '03' } # 6 à 9 salariés
+          let(:facility) { create :facility, code_effectif: code_effectif_ok }
 
           it { is_expected.to contain_exactly(es_temoin, es_01) }
         end
 
         context 'matching subject and effectif' do
           let(:need_subject) { tresorerie_subject }
-          let(:facility) { create :facility, code_effectif: '03' } # 6 à 9 salariés
+          let(:facility) { create :facility, code_effectif: code_effectif_ok }
 
           it { is_expected.to contain_exactly(es_temoin, es_01) }
         end
       end
 
       context 'with institution filter only' do
+        let(:code_effectif_ok) { '03' } # 6 à 9 salariés
+        let(:code_effectif_ko) { '32' } # 250 à 499 salariés
+
         before { es_01.expert.institution.match_filters << match_filter_02 }
 
         context 'matching nothing' do
           let(:need_subject) { create :subject }
-          let(:facility) { create :facility, code_effectif: '32' } # 250 à 499 salariés
+          let(:facility) { create :facility, code_effectif: code_effectif_ko }
 
           it { is_expected.to contain_exactly(es_temoin, es_01) }
         end
 
         context 'matching subject only' do
-          let(:facility) { create :facility, code_effectif: '32' } # 250 à 499 salariés
           let(:need_subject) { tresorerie_subject }
+          let(:facility) { create :facility, code_effectif: code_effectif_ko }
 
           it { is_expected.to contain_exactly(es_temoin) }
         end
 
         context 'matching effectif only' do
           let(:need_subject) { create :subject }
-          let(:facility) { create :facility, code_effectif: '12' } # 20 à 49 salariés
+          let(:facility) { create :facility, code_effectif: code_effectif_ok }
 
           it { is_expected.to contain_exactly(es_temoin, es_01) }
         end
 
         context 'matching subject and effectif' do
           let(:need_subject) { tresorerie_subject }
-          let(:facility) { create :facility, code_effectif: '12' } # 20 à 49 salariés
+          let(:facility) { create :facility, code_effectif: code_effectif_ok }
 
           it { is_expected.to contain_exactly(es_temoin, es_01) }
         end

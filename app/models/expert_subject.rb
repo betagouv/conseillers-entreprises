@@ -103,12 +103,8 @@ class ExpertSubject < ApplicationRecord
 
   ##
   #
-  def match_filters_2
-    antenne_match_filters + institution_match_filters
-  end
-
   def match_filters
-    MatchFilter.where(id: expert.antenne.match_filters.ids + expert.institution.match_filters.ids)
+    antenne_match_filters + institution_match_filters
   end
 
   ## used for serialization in advisors csv
