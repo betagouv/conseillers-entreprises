@@ -32,6 +32,9 @@ class ExpertSubject < ApplicationRecord
   has_one :subject, through: :institution_subject, inverse_of: :experts_subjects
   has_one :theme, through: :subject, inverse_of: :experts_subjects
 
+  has_many :antenne_match_filters, through: :expert, source: :antenne_match_filters
+  has_many :institution_match_filters, through: :expert, source: :institution_match_filters
+
   belongs_to :not_deleted_expert, -> { not_deleted }, class_name: 'Expert', foreign_key: 'expert_id', optional: true, inverse_of: :experts_subjects
 
   ## Validations
@@ -100,6 +103,10 @@ class ExpertSubject < ApplicationRecord
 
   ##
   #
+  def match_filters_2
+    antenne_match_filters + institution_match_filters
+  end
+
   def match_filters
     MatchFilter.where(id: expert.antenne.match_filters.ids + expert.institution.match_filters.ids)
   end
