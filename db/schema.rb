@@ -451,13 +451,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_21_125443) do
     t.integer "effectif_min"
     t.integer "effectif_max"
     t.integer "min_years_of_existence"
-    t.bigint "antenne_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "max_years_of_existence"
     t.string "accepted_legal_forms", array: true
     t.string "excluded_legal_forms", array: true
     t.string "excluded_naf_codes", array: true
+    t.bigint "antenne_id"
     t.index ["antenne_id"], name: "index_match_filters_on_antenne_id"
   end
 
@@ -711,7 +711,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_21_125443) do
   add_foreign_key "landing_subjects", "subjects"
   add_foreign_key "landings", "institutions"
   add_foreign_key "logos", "institutions"
-  add_foreign_key "match_filters", "antennes"
   add_foreign_key "matches", "experts"
   add_foreign_key "matches", "needs"
   add_foreign_key "matches", "subjects"

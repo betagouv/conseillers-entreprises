@@ -38,10 +38,20 @@
       margin-left: -13px
       margin-bottom: -26px
   .comment__meta
-    font-size: 0.875rem
+    font-size: 0.75rem
     line-height: 1.5rem
     margin-top: 0.5rem
     text-align: right
+  .comment__title
+    position: relative
+    &::before
+      content: open-quote
+      margin-right: 0.5rem
+    &::after
+      content: close-quote 
+      margin-left: 0.5rem
+    &::before, &::after
+      font-size: 2rem
 
 // Carte reminders need =================================
 .card-reminders-need

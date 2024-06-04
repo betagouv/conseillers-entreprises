@@ -128,6 +128,7 @@ fr:
   attributes:
     is_global_zone: Territoire national
   autocomplete_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
+  back_to_admin: Retourner à l’admin
   badges:
     create:
       badge_created: Le tag a bien été créé
@@ -272,8 +273,10 @@ fr:
         short_title: Retours
         title: Retours des entreprises aidées
       need:
-        comment_date: "%{author}, le %{date}"
+        comment_date: Retour de %{author}, le %{date}
+        need_date: Besoin du %{date}
         process: Marquer comme "vu"
+        see_need: Voir le besoin
       satifaction_seen: Le retour a été marqué comme vu
       titles:
         seen: Retours vus

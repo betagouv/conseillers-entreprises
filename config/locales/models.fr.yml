@@ -221,6 +221,7 @@ fr:
         contacted_by_expert: Contacté par un expert
         landing: Page d’atterrissage
         shared: Partagé
+        shared_satisfactions: Le partage de satisfaction
         solicitation_email_cont: Email du contact
         solicitation_mtm_campaign: Campagne
         solicitation_mtm_kwd: Mots-clés
@@ -712,6 +713,9 @@ fr:
       search:
         one: Recherche
         other: Recherches
+      shared_satisfaction:
+        one: Le partage de satisfaction
+        other: Le partage des satisfactions
       solicitation:
         one: Sollicitation
         other: Sollicitations

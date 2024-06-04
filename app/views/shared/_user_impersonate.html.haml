@@ -10,4 +10,4 @@
 
   .impersonate-buttons
     = form_with url: impersonate_engine.revert_impersonate_user_url, method: :delete, local: true, class: 'revert-form' do |f|
-      = f.submit 'Retourner à l’admin'
+      = f.submit t('back_to_admin')
