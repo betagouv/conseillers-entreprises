@@ -77,7 +77,7 @@ RSpec.describe MatchFilter do
   end
 
   describe '#accepted_naf_codes' do
-    let(:match_filter) { create :match_filter, raw_accepted_naf_codes: raw_accepted_naf_codes }
+    let(:match_filter) { create :match_filter, :for_antenne, raw_accepted_naf_codes: raw_accepted_naf_codes }
 
     subject { match_filter.accepted_naf_codes }
 
@@ -95,7 +95,7 @@ RSpec.describe MatchFilter do
   end
 
   describe '#raw_excluded_naf_codes' do
-    let(:match_filter) { create(:match_filter, :for_antenne, raw_excluded_naf_codes: excluded_naf_codes) }
+    let(:match_filter) { create(:match_filter, :for_antenne, excluded_naf_codes: excluded_naf_codes) }
 
     subject { match_filter.raw_excluded_naf_codes }
 
