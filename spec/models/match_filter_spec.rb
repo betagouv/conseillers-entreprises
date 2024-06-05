@@ -6,10 +6,10 @@ RSpec.describe MatchFilter do
 
   describe 'associations' do
     let(:match_filter) { build(:match_filter) }
-    let(:antenne) { create(:antenne) }
     let(:institution) { create(:institution) }
+    let(:antenne) { create(:antenne, institution: institution) }
     let(:a_subject) { create(:subject) }
-    let(:expert) { create(:expert) }
+    let(:expert) { create(:expert, antenne: antenne) }
 
     it 'belongs to antenne' do
       match_filter.antenne = antenne
@@ -27,8 +27,6 @@ RSpec.describe MatchFilter do
     end
 
     describe 'has many experts through filtrable_element' do
-      before { antenne.experts << expert }
-
       context 'when filtrable_element is an antenne' do
         let(:match_filter) { create(:match_filter, antenne: antenne) }
 
@@ -40,8 +38,6 @@ RSpec.describe MatchFilter do
       context 'when filtrable_element is an institution' do
         let(:match_filter) { create(:match_filter, institution: institution) }
 
-        before { institution.antennes << antenne }
-
         it 'has many experts' do
           expect(match_filter.experts).to include(expert)
         end
@@ -52,8 +48,6 @@ RSpec.describe MatchFilter do
       let!(:match_filter) { create(:match_filter, antenne: antenne) }
       let!(:expert_subject) { create(:expert_subject, expert: expert, subject: a_subject) }
 
-      before { antenne.experts << expert }
-
       it 'has many experts_subjects' do
         expect(match_filter.experts_subjects.map(&:subject)).to include(a_subject)
       end
@@ -61,18 +55,22 @@ RSpec.describe MatchFilter do
   end
 
   describe '#raw_accepted_naf_codes' do
-    let(:match_filter) { create(:match_filter, :for_antenne) }
+    let(:match_filter) { create :match_filter, :for_antenne, accepted_naf_codes: accepted_naf_codes }
+
+    subject { match_filter.raw_accepted_naf_codes }
 
     context 'when accepted_naf_codes is not empty' do
+      let(:accepted_naf_codes) { ['1101Z', '1102A', '1102B'] }
+
       it 'returns a string of accepted_naf_codes joined by space' do
-        match_filter.accepted_naf_codes = ['A01', 'B02']
-        expect(match_filter.raw_accepted_naf_codes).to eq('A01 B02')
+        is_expected.to eq('1101Z 1102A 1102B')
       end
     end
 
     context 'when accepted_naf_codes is empty' do
+      let(:accepted_naf_codes) { [] }
+
       it 'returns empty string' do
-        match_filter.accepted_naf_codes = []
         expect(match_filter.raw_accepted_naf_codes).to eq ""
       end
     end
@@ -97,55 +95,66 @@ RSpec.describe MatchFilter do
   end
 
   describe '#raw_excluded_naf_codes' do
-    let(:match_filter) { create(:match_filter, :for_antenne) }
+    let(:match_filter) { create(:match_filter, :for_antenne, raw_excluded_naf_codes: excluded_naf_codes) }
+
+    subject { match_filter.raw_excluded_naf_codes }
 
     context 'when excluded_naf_codes is not empty' do
+      let(:excluded_naf_codes) { ['1101Z', '1102A', '1102B'] }
+
       it 'returns a string of excluded_naf_codes joined by space' do
-        match_filter.excluded_naf_codes = ['C03', 'D04']
-        expect(match_filter.raw_excluded_naf_codes).to eq('C03 D04')
+        is_expected.to eq('1101Z 1102A 1102B')
       end
     end
 
     context 'when excluded_naf_codes is empty' do
+      let(:excluded_naf_codes) { [] }
+
       it 'returns empty string' do
-        match_filter.excluded_naf_codes = []
-        expect(match_filter.raw_excluded_naf_codes).to eq ""
+        is_expected.to eq ""
       end
     end
   end
 
   describe '#raw_accepted_legal_forms' do
-    let(:match_filter) { create(:match_filter, :for_antenne) }
+    let(:match_filter) { create(:match_filter, :for_antenne, accepted_legal_forms: accepted_legal_forms) }
+    let(:accepted_legal_forms) { ['SA', 'SARL'] }
+
+    subject { match_filter.raw_accepted_legal_forms }
 
     context 'when accepted_legal_forms is not empty' do
       it 'returns a string of accepted_legal_forms joined by space' do
-        match_filter.accepted_legal_forms = ['SA', 'SARL']
-        expect(match_filter.raw_accepted_legal_forms).to eq('SA SARL')
+        is_expected.to eq('SA SARL')
       end
     end
 
     context 'when accepted_legal_forms is empty' do
+      let(:accepted_legal_forms) { [] }
+
       it 'returns empty string' do
-        match_filter.accepted_legal_forms = []
-        expect(match_filter.raw_accepted_legal_forms).to eq ""
+        is_expected.to eq ""
       end
     end
   end
 
   describe '#raw_excluded_legal_forms' do
-    let(:match_filter) { create(:match_filter, :for_antenne) }
+    let(:match_filter) { create(:match_filter, :for_antenne, raw_excluded_legal_forms: excluded_legal_forms) }
+
+    subject { match_filter.raw_excluded_legal_forms }
 
     context 'when excluded_legal_forms is not empty' do
+      let(:excluded_legal_forms) { ['SA', 'SARL'] }
+
       it 'returns a string of excluded_legal_forms joined by space' do
-        match_filter.excluded_legal_forms = ['EURL', 'SASU']
-        expect(match_filter.raw_excluded_legal_forms).to eq('EURL SASU')
+        is_expected.to eq('SA SARL')
       end
     end
 
     context 'when excluded_legal_forms is empty' do
+      let(:excluded_legal_forms) { [] }
+
       it 'returns empty string' do
-        match_filter.excluded_legal_forms = []
-        expect(match_filter.raw_excluded_legal_forms).to eq ""
+        is_expected.to eq ""
       end
     end
   end
