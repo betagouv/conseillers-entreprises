@@ -21,27 +21,31 @@ RSpec.describe MatchFilter do
       expect(match_filter.institution).to eq(institution)
     end
 
-    it 'can’t belongs to both antenne and institution' do
-      match_filter.antenne = antenne
-      match_filter.institution = institution
-      expect(match_filter).not_to be_valid
-    end
-
-    it 'must belongs to either antenne or institution' do
-      match_filter.antenne = nil
-      match_filter.institution = nil
-      expect(match_filter).not_to be_valid
-    end
-
     it 'has and belongs to many subjects' do
       match_filter.subjects << a_subject
       expect(match_filter.subjects).to include(a_subject)
     end
 
-    it 'has many experts through antenne' do
-      antenne.experts << expert
-      match_filter.antenne = antenne
-      expect(match_filter.experts).to include(expert)
+    describe 'has many experts through filtrable_element' do
+      before { antenne.experts << expert }
+
+      context 'when filtrable_element is an antenne' do
+        let(:match_filter) { create(:match_filter, antenne: antenne) }
+
+        it 'has many experts' do
+          expect(match_filter.experts).to include(expert)
+        end
+      end
+
+      context 'when filtrable_element is an institution' do
+        let(:match_filter) { create(:match_filter, institution: institution) }
+
+        before { institution.antennes << antenne }
+
+        it 'has many experts' do
+          expect(match_filter.experts).to include(expert)
+        end
+      end
     end
 
     describe 'has many experts_subjects through experts' do
