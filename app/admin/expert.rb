@@ -64,6 +64,7 @@ ActiveAdmin.register Expert do
     end
     column(:activity) do |e|
       div admin_link_to(e, :received_matches, blank_if_empty: true)
+      admin_link_to_expert_shared_satisfaction(e)
     end
   end
 
@@ -138,6 +139,7 @@ ActiveAdmin.register Expert do
       end
       row(:activity) do |e|
         div admin_link_to(e, :received_matches)
+        admin_link_to_expert_shared_satisfaction(e)
       end
 
       attributes_table title: I18n.t('active_admin.expert.skills') do

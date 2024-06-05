@@ -12,6 +12,11 @@ fr:
       deleted: Antennes supprimées avec succès
       stats_reports: Rapports statistiques
       territorial_antennes: 'Antennes du territoire : '
+    company_satisfaction:
+      share: Partager
+      share_confirmation: Etes-vous sûr de vouloir partager ce commentaire aux conseillers qui ont aidé l'entreprise ?
+      shared: Le commentaire a bien été partagé
+      shared_with: 'Partagé avec :'
     expert:
       deep_soft_delete: Supprimer l’expert et ses utilisateurs
       deep_soft_delete_confirmation: Voulez-vous supprimer cet expert et tous ses utilisateurs ?
@@ -82,6 +87,7 @@ fr:
       no_team: Solo
       not_archived: Non archivés
       not_invited: Invitations non envoyées
+      not_shared: Non partagé
       not_taken_after_3_weeks: 3 semaines sans réponse
       old_active_invitation_not_accepted: Invitations non acceptées (+ de 6 mois)
       opco: Opco
@@ -89,6 +95,7 @@ fr:
       recent_active_invitation_not_accepted: Invitations non acceptées (- de 6 mois)
       relevant_for_skills: Compétences visibles
       sent: Mises en relation envoyées
+      shared: Partagé
       status_step_company: Étape entreprise
       status_step_description: Étape description
       step_complete: Terminées
@@ -213,6 +220,8 @@ fr:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
         landing: Page d’atterrissage
+        shared: Partagé
+        shared_satisfactions: Le partage de satisfaction
         solicitation_email_cont: Email du contact
         solicitation_mtm_campaign: Campagne
         solicitation_mtm_kwd: Mots-clés
@@ -704,6 +713,9 @@ fr:
       search:
         one: Recherche
         other: Recherches
+      shared_satisfaction:
+        one: Le partage de satisfaction
+        other: Le partage des satisfactions
       solicitation:
         one: Sollicitation
         other: Sollicitations
@@ -973,6 +985,10 @@ fr:
     sent_needs:
       one: Besoin analysé
       other: Besoins analysés
+    shared_company_satisfactions:
+      one: Satisfaction partagée
+      other: Satisfactions partagées
+    shared_with: Partagé avec
     show_on_list: Afficher le nom sur la liste des partenaires
     siren: SIREN
     siret: SIRET

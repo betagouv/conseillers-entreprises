@@ -19,10 +19,6 @@
 #
 #  index_match_filters_on_antenne_id  (antenne_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (antenne_id => antennes.id)
-#
 class MatchFilter < ApplicationRecord
   ## Associations
   #

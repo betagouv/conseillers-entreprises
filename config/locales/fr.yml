@@ -187,6 +187,7 @@ fr:
         other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
     missing_inherited_method: Méthode manquante dans la classe enfant
     page_title: Erreur - %{title}
+    satisfaction_without_comment: Vous ne pouvez pas partager une satisfaction sans commentaire
     template:
       body: 'Veuillez vérifier les champs suivants : '
       header:
