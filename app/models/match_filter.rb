@@ -49,12 +49,12 @@ class MatchFilter < ApplicationRecord
   end
 
   def raw_accepted_naf_codes=(naf_codes)
-    updated_naf_codes = naf_codes.split(/[,\s]/).delete_if(&:empty?)
+    updated_naf_codes = naf_codes.delete('.').split(/[,\s]/).delete_if(&:empty?)
     self.accepted_naf_codes = updated_naf_codes
   end
 
   def raw_excluded_naf_codes=(naf_codes)
-    updated_naf_codes = naf_codes.split(/[,\s]/).delete_if(&:empty?)
+    updated_naf_codes = naf_codes.delete('.').split(/[,\s]/).delete_if(&:empty?)
     self.excluded_naf_codes = updated_naf_codes
   end
 
