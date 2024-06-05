@@ -38,6 +38,8 @@ class Institution < ApplicationRecord
   has_one :logo, inverse_of: :institution
   has_many :facilities, inverse_of: :opco
   has_many :institution_filters, dependent: :destroy, as: :institution_filtrable, inverse_of: :institution_filtrable
+  has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
+  accepts_nested_attributes_for :match_filters, allow_destroy: true
 
   has_one :api_key
 

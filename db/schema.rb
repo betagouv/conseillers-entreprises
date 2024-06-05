@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_21_125443) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_29_132601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -457,8 +457,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_21_125443) do
     t.string "accepted_legal_forms", array: true
     t.string "excluded_legal_forms", array: true
     t.string "excluded_naf_codes", array: true
-    t.bigint "antenne_id"
-    t.index ["antenne_id"], name: "index_match_filters_on_antenne_id"
+    t.string "filtrable_element_type"
+    t.bigint "filtrable_element_id", null: false
+    t.index ["filtrable_element_type", "filtrable_element_id"], name: "index_match_filters_on_filtrable_element"
   end
 
   create_table "match_filters_subjects", id: false, force: :cascade do |t|

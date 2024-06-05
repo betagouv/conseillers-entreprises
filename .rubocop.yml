@@ -5,6 +5,7 @@ require:
   - rubocop-i18n
   - rubocop-capybara
   - rubocop-factory_bot
+  - rubocop-rspec_rails
 
 AllCops:
   TargetRubyVersion: 2.7
