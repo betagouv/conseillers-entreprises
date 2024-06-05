@@ -833,12 +833,12 @@ fr:
         carsat: CARSAT
         creation: Création
         employee_labor_law: Salarié Droit du travail
-        independent_tva: SIE - TVA et autres
         intermediary: Intermédiaire
         kbis_extract: Extrait Kbis
         moderation: Modération
         no_expert: Pas d’expert
         recruitment_foreign_worker: Travailleur étranger
+        sie_tva_and_others: SIE - TVA et autres
         siret: SIRET
         tns_training: Formation TNS du dirigeant
   stats:

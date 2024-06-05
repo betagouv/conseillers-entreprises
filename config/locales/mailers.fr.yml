@@ -178,11 +178,6 @@ fr:
         dreets_phone_number_html: Vous pouvez composer le <b>0806 000 126</b> [prix d’un appel local - pas de surcoût] du lundi au vendredi, de 8h45 à 11h30 et de 13h45 à 16h30.
         intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant le <b>droit du travail</b>. Il s'agit cependant d'un service public destiné aux chefs d'entreprises. Nous ne sommes donc pas en mesure de vous apporter une réponse.
         other_informations: 'Vous trouverez également des informations en droit du travail sur :'
-      independent_tva:
-        no_tva_number: Votre question (TVA, seuil de déclaration, CFE, assujettissement aux taxes…) relève de votre service des impôts des entreprises (SIE).
-        sie_annuaire_html: "<b>Malheureusement ce service n’est pas partenaire de Conseillers-Entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href='https://lannuaire.service-public.fr/navigation/sie'>https://lannuaire.service-public.fr/navigation/sie</a>."
-        sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr%2F%3Fopenidconnectcallback%3D1&nonce=1644578731_23573&client_id=id_cfspro_prod&display=&state=1644578731_4749&scope=openid%20profile%20email%20info'>impot.gouv.fr</a>, dans votre espace de messagerie personnalisée.
-        solicitation_subject_html: concernant des questions relatives à la fiscalité
       intermediary:
         explications_2_html: Les demandes déposées par les intermédiaires, quel que soit le mandat, ne sont pas transmises. C’est pourquoi <strong>nous vous invitons à accompagner votre interlocuteur / client</strong> pour qu’il dépose lui-même une demande sur le site.
         explications_html: Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 40 partenaires publics et parapublics du service ont à cœur <strong>d’échanger directement</strong> avec les entreprises pour répondre au mieux à leur problématique.
@@ -214,6 +209,11 @@ fr:
         interior_ministry_html: 'La demande d’autorisation de travail relève d’un service en ligne du Ministère de l’Intérieur : <a href=''https://administration-etrangers-en-france.interieur.gouv.fr/immiprousager/#/authentification''>https://administration-etrangers-en-france.interieur.gouv.fr</a>.'
         phone_number_html: 'Pour plus d’informations : <b>0806 001 620</b> (appel gratuit).'
         solicitation_subject_html: concernant <b>le recrutement d’un travailleur étranger</b>
+      sie_tva_and_others:
+        no_tva_number: Votre question (TVA, seuil de déclaration, CFE, assujettissement aux taxes…) relève de votre service des impôts des entreprises (SIE).
+        sie_annuaire_html: "<b>Malheureusement ce service n’est pas partenaire de Conseillers-Entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href='https://lannuaire.service-public.fr/navigation/sie'>https://lannuaire.service-public.fr/navigation/sie</a>."
+        sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr%2F%3Fopenidconnectcallback%3D1&nonce=1644578731_23573&client_id=id_cfspro_prod&display=&state=1644578731_4749&scope=openid%20profile%20email%20info'>impot.gouv.fr</a>, dans votre espace de messagerie personnalisée.
+        solicitation_subject_html: concernant des questions relatives à la fiscalité
       siret:
         commune_name_html: Par précaution, indiquez également <b>la commune</b> sur laquelle vous exercez votre activité.
         siret_error: Il semble cependant qu’il y ait une erreur sur votre numéro de Siret. Pourriez-vous nous le faire parvenir à nouveau ?
