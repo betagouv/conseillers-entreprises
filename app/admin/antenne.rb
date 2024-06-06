@@ -110,7 +110,25 @@ ActiveAdmin.register Antenne do
       end
     end
 
-    attributes_table title: I18n.t('activerecord.attributes.antenne.match_filters') do
+    attributes_table title: I18n.t('active_admin.antenne.institution_match_filters') do
+      antenne.institution.match_filters.map.with_index do |mf, index|
+        panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
+          attributes_table_for mf do
+            row :min_years_of_existence
+            row :max_years_of_existence
+            row :effectif_min
+            row :effectif_max
+            row :subjects
+            row :raw_accepted_legal_forms
+            row :raw_excluded_legal_forms
+            row :raw_accepted_naf_codes
+            row :raw_excluded_naf_codes
+          end
+        end
+      end
+    end
+
+    attributes_table title: I18n.t('active_admin.antenne.match_filters') do
       antenne.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
           attributes_table_for mf do

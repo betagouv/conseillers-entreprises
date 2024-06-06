@@ -99,6 +99,9 @@ class Need < ApplicationRecord
   # :subject
   has_one :theme, through: :subject, inverse_of: :needs
 
+  # :company_satisfaction
+  has_many :shared_satisfactions, through: :company_satisfaction, source: :shared_satisfactions
+
   ## Scopes
   #
   NO_ACTIVITY_DELAY = 14.days
@@ -190,7 +193,7 @@ class Need < ApplicationRecord
   end
 
   # For Reminders, find Needs without taking care since NO_ACTIVITY_DELAY
-  scope :no_activity, -> { joins(:matches).where("matches.created_at < ?", NO_ACTIVITY_DELAY.ago) }
+  scope :no_activity, -> { joins(:matches).where(matches: { created_at: ...NO_ACTIVITY_DELAY.ago }) }
 
   scope :with_some_matches_in_status, -> (status) do
     # status can be an array

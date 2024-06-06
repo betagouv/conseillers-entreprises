@@ -1,5 +1,5 @@
 {
-  "engines": { 
+  "engines": {
     "node": ">=20.0.0 <=21.7.1"
   },
   "dependencies": {

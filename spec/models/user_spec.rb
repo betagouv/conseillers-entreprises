@@ -122,6 +122,20 @@ RSpec.describe User do
         it{ is_expected.to contain_exactly(user_manager, user_poly) }
       end
     end
+
+    describe 'omnisearch' do
+      let(:user) { create :user, :invitation_accepted, email: 'a.lovelace@example.com', full_name: 'Ada Lovelace' }
+
+      it 'finds by name' do
+        expect(described_class.omnisearch("ada")).to contain_exactly(user)
+        expect(described_class.omnisearch("dodo")).to be_empty
+      end
+
+      it 'finds by email' do
+        expect(described_class.omnisearch("lolo@mail.com")).to be_empty
+        expect(described_class.omnisearch("a.lovelace")).to contain_exactly(user)
+      end
+    end
   end
 
   describe '#password_required?' do

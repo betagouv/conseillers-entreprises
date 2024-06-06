@@ -32,13 +32,13 @@ class Conseiller::SolicitationsController < ApplicationController
     nb_per_page = Solicitation.page(1).limit_value
     case @solicitation.status
     when 'canceled'
-      page = (Solicitation.status_canceled.where('completed_at < ?', @solicitation.completed_at).count / nb_per_page) + 1
+      page = (Solicitation.status_canceled.where(completed_at: ...@solicitation.completed_at).count / nb_per_page) + 1
       redirect_to canceled_conseiller_solicitations_path(anchor: @solicitation.id, page: page)
     when 'processed'
-      page = (Solicitation.status_processed.where('completed_at < ?', @solicitation.completed_at).count / nb_per_page) + 1
+      page = (Solicitation.status_processed.where(completed_at: ...@solicitation.completed_at).count / nb_per_page) + 1
       redirect_to processed_conseiller_solicitations_path(anchor: @solicitation.id, page: page)
     else
-      page = (Solicitation.status_in_progress.where('completed_at < ?', @solicitation.completed_at).count / nb_per_page) + 1
+      page = (Solicitation.status_in_progress.where(completed_at: ...@solicitation.completed_at).count / nb_per_page) + 1
       redirect_to conseiller_solicitations_path(anchor: @solicitation.id, page: page)
     end
   end

@@ -49,6 +49,7 @@
 class User < ApplicationRecord
   ##
   #
+  include PgSearch::Model
   include PersonConcern
   include InvolvementConcern
   include SoftDeletable
@@ -61,11 +62,21 @@ class User < ApplicationRecord
 
   store_accessor :app_info, ['bascule_seen']
 
+  pg_search_scope :omnisearch,
+    against: [:full_name, :email, :job],
+    associated_against: {
+      antenne: [:name]
+    },
+    using: { tsearch: { prefix: true } },
+    ignoring: :accents
+
   ## Associations
   #
   belongs_to :antenne, inverse_of: :advisors
 
   has_and_belongs_to_many :experts, -> { not_deleted }, inverse_of: :users
+  has_many :shared_satisfactions, inverse_of: :user
+  has_many :shared_company_satisfactions, through: :shared_satisfactions, source: :company_satisfaction
 
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
   has_many :feedbacks, inverse_of: :user
@@ -196,14 +207,6 @@ class User < ApplicationRecord
       .where(antennes: { territories: { id: [region_id] } })
       .or(self.select('"antennes".*, "users".*').where(experts: { is_global_zone: true }))
       .distinct
-  end
-
-  ## Search
-  #
-  scope :omnisearch, -> (query) do
-    if query.present?
-      by_name(query)
-    end
   end
 
   ## Password

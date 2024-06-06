@@ -102,7 +102,7 @@ class Diagnosis < ApplicationRecord
       .where(needs: { matches: { experts: { id: expert.id } } })
   end
 
-  scope :after_step, -> (minimum_step) { where('step >= ?', minimum_step) }
+  scope :after_step, -> (minimum_step) { where(step: minimum_step..) }
 
   scope :min_closed_at, -> (range) do
     joins(:matches)

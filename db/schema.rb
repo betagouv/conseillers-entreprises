@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_16_092522) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_29_132601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -451,14 +451,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_16_092522) do
     t.integer "effectif_min"
     t.integer "effectif_max"
     t.integer "min_years_of_existence"
-    t.bigint "antenne_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "max_years_of_existence"
     t.string "accepted_legal_forms", array: true
     t.string "excluded_legal_forms", array: true
     t.string "excluded_naf_codes", array: true
-    t.index ["antenne_id"], name: "index_match_filters_on_antenne_id"
+    t.string "filtrable_element_type"
+    t.bigint "filtrable_element_id", null: false
+    t.index ["filtrable_element_type", "filtrable_element_id"], name: "index_match_filters_on_filtrable_element"
   end
 
   create_table "match_filters_subjects", id: false, force: :cascade do |t|
@@ -547,6 +548,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_16_092522) do
     t.integer "expired_count", default: 0
     t.index ["expert_id"], name: "index_reminders_registers_on_expert_id"
     t.index ["run_number", "expert_id"], name: "index_reminders_registers_on_run_number_and_expert_id", unique: true
+  end
+
+  create_table "shared_satisfactions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "company_satisfaction_id", null: false
+    t.bigint "expert_id", null: false
+    t.datetime "seen_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_satisfaction_id"], name: "index_shared_satisfactions_on_company_satisfaction_id"
+    t.index ["expert_id"], name: "index_shared_satisfactions_on_expert_id"
+    t.index ["user_id", "company_satisfaction_id", "expert_id"], name: "shared_satisfactions_references_index", unique: true
+    t.index ["user_id"], name: "index_shared_satisfactions_on_user_id"
   end
 
   create_table "solicitations", force: :cascade do |t|
@@ -698,7 +712,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_16_092522) do
   add_foreign_key "landing_subjects", "subjects"
   add_foreign_key "landings", "institutions"
   add_foreign_key "logos", "institutions"
-  add_foreign_key "match_filters", "antennes"
   add_foreign_key "matches", "experts"
   add_foreign_key "matches", "needs"
   add_foreign_key "matches", "subjects"
@@ -709,6 +722,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_16_092522) do
   add_foreign_key "referencement_coverages", "institutions_subjects"
   add_foreign_key "reminders_actions", "needs"
   add_foreign_key "reminders_registers", "experts"
+  add_foreign_key "shared_satisfactions", "company_satisfactions"
+  add_foreign_key "shared_satisfactions", "experts"
+  add_foreign_key "shared_satisfactions", "users"
   add_foreign_key "solicitations", "institutions"
   add_foreign_key "solicitations", "landing_subjects"
   add_foreign_key "solicitations", "landings"

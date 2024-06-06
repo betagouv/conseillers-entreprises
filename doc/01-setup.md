@@ -11,8 +11,8 @@
 
 1. Clone the repository.
 
-        $ git clone git@github.com:betagouv/place-des-entreprises.git
-        $ cd place-des-entreprises
+        $ git clone git@github.com:betagouv/conseillers-entreprises.git
+        $ cd conseillers-entreprises
 
 2. Install Ruby using **rbenv**. See `.ruby-version` file to know which Ruby version is needed.
 

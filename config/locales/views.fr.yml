@@ -29,6 +29,9 @@ fr:
       temoignage_alt: Photo de %{author}
   active_admin:
     admin_link: Lien admin
+    antenne:
+      institution_match_filters: Filtres de mise en relation de l’institution
+      match_filters: Filtres de mise en relation de l’antenne
     badges:
       add_remove: Ajouter / supprimer un tag sur
       modified: Le tag a été %{action}
@@ -126,6 +129,7 @@ fr:
   attributes:
     is_global_zone: Territoire national
   autocomplete_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
+  back_to_admin: Retourner à l’admin
   badges:
     create:
       badge_created: Le tag a bien été créé
@@ -262,6 +266,22 @@ fr:
           need_content_placeholder: Plus d’infos sur ce besoin
           save_and_return_solicitation_page: Enregistrer et revenir à la sollicitation
           select_at_least_one_need: Cochez au minimum un besoin identifié.
+    shared_satisfactions:
+      callout:
+        text: À la suite de leurs mises en relation, les entreprises ont la possibilité de s'exprimer au sujet de l’utilité du service. Les retours des entreprises partagés ici concernent les besoins clôturés par « aide proposée ». Ils sont donc destinés à l’ensemble des partenaires intervenus sur leurs besoins.
+      index:
+        no_results: Aucun résultat
+        short_title: Retours
+        title: Retours des entreprises aidées
+      need:
+        comment_date: Retour de %{author}, le %{date}
+        need_date: Besoin du %{date}
+        process: Marquer comme "vu"
+        see_need: Voir le besoin
+      satifaction_seen: Le retour a été marqué comme vu
+      titles:
+        seen: Retours vus
+        unseen: Nouveaux retours
     sitemap:
       sitemap:
         general: Liens rapides

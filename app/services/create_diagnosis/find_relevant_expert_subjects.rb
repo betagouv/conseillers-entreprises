@@ -80,6 +80,10 @@ module CreateDiagnosis
       expert_subjects.select do |es|
         # On retire les filtres sur les sujets autres que celui du besoin
         examined_match_filters = es.match_filters.reject{ |mf| other_subject_filter?(mf) }
+        # On retire les filtres aux institutions si on a le même filtre à une antenne
+        examined_match_filters = examined_match_filters.reject do |mf|
+          mf.same_antenne_match_filter?(examined_match_filters)
+        end
         # On garde les experts_subjects
         # - qui n'ont pas de filtres
         # - ou bien où au moins un filtre passe

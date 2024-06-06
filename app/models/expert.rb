@@ -63,7 +63,8 @@ class Expert < ApplicationRecord
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :antenne_experts
   has_many :antenne_territories, -> { distinct }, through: :antenne, source: :territories, inverse_of: :antenne_experts
   has_many :antenne_regions, -> { distinct.regions }, through: :antenne, source: :regions, inverse_of: :antenne_experts
-  has_many :match_filters, through: :antenne, source: :match_filters, inverse_of: :experts
+  has_many :antenne_match_filters, through: :antenne, source: :match_filters # , inverse_of: :experts
+  has_many :institution_match_filters, through: :institution, source: :match_filters # , source_type: :Institution
 
   # :received_matches
   has_many :received_needs, through: :received_matches, source: :need, inverse_of: :experts
@@ -76,6 +77,10 @@ class Expert < ApplicationRecord
 
   # :users
   has_many :feedbacks, through: :users, source: :feedbacks, inverse_of: :experts
+
+  # :shared_satisfaction
+  has_many :shared_satisfactions, inverse_of: :expert
+  has_many :shared_company_satisfactions, -> { distinct }, through: :shared_satisfactions, source: :company_satisfaction
 
   # Callbacks
   after_update :synchronize_single_member, if: :personal_skillset?
@@ -224,6 +229,8 @@ class Expert < ApplicationRecord
   scope :inputs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_input_category) }
   scope :outputs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_output_category) }
   scope :expired_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_expired_need_category) }
+
+  scope :without_shared_satisfaction, -> { where.missing(:shared_satisfactions) }
 
   def self.apply_filters(params)
     klass = self

@@ -22,7 +22,7 @@
 #  fk_rails_...  (expert_id => experts.id)
 #
 class RemindersRegister < ApplicationRecord
-  belongs_to :expert
+  belongs_to :expert, touch: true
 
   validates :run_number, presence: true, uniqueness: { scope: :expert_id }
 

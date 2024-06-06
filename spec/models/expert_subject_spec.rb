@@ -78,8 +78,8 @@ RSpec.describe ExpertSubject do
     describe 'without_irrelevant_opcos' do
       subject{ described_class.without_irrelevant_opcos(facility) }
 
-      let(:opco) { create :opco }
-      let(:other_opco) { create :opco }
+      let(:opco) { create :institution, :opco }
+      let(:other_opco) { create :institution, :opco }
       let!(:expert_subject) do
         create :expert_subject,
                institution_subject: create(:institution_subject, institution: opco)

@@ -1,6 +1,6 @@
 # Conseillers-entreprises.service-public.fr
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/betagouv/place-des-entreprises/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/betagouv/place-des-entreprises/tree/main) [![Maintainability](https://api.codeclimate.com/v1/badges/12cdf35ab56d27c64046/maintainability)](https://codeclimate.com/github/betagouv/place-des-entreprises/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/12cdf35ab56d27c64046/test_coverage)](https://codeclimate.com/github/betagouv/place-des-entreprises/test_coverage)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/betagouv/conseillers-entreprises/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/betagouv/conseillers-entreprises/tree/main) [![Maintainability](https://api.codeclimate.com/v1/badges/0aac54cabd32aa282dc5/maintainability)](https://codeclimate.com/github/betagouv/conseillers-entreprises/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/0aac54cabd32aa282dc5/test_coverage)](https://codeclimate.com/github/betagouv/conseillers-entreprises/test_coverage)
 
 # Conseillers-Entreprises
 

@@ -4,7 +4,7 @@ require 'rails_helper'
 require 'api_helper'
 
 describe UseCases::SearchFacility do
-  let!(:opco) { create :opco, siren: "851296632", france_competence_code: "03" }
+  let!(:opco) { create :institution, :opco, siren: "851296632", france_competence_code: "03" }
   let(:siret) { '41816609600051' }
   let(:siren) { siret[0..8] }
   let(:token) { '1234' }
