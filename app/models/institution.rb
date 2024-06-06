@@ -31,7 +31,7 @@ class Institution < ApplicationRecord
   ## Associations
   #
   has_many :antennes, -> { not_deleted }, inverse_of: :institution
-  has_many :institutions_subjects, inverse_of: :institution
+  has_many :institutions_subjects, dependent: :destroy, inverse_of: :institution, after_add: :update_antennes_referencement_coverage, after_remove: :update_antennes_referencement_coverage
   has_many :landings, inverse_of: :institution
   has_many :solicitations, inverse_of: :institution
   has_and_belongs_to_many :categories # Une institution peut avoir plusieurs categories a la fois, donc une enum serait trop limitante
@@ -197,6 +197,10 @@ class Institution < ApplicationRecord
     klass = klass.joins(:themes).where(themes: { id: params[:theme] }) if params[:theme].present?
     klass = klass.joins(:subjects).where(subjects: { id: params[:subject] }) if params[:subject].present?
     klass.all
+  end
+
+  def update_antennes_referencement_coverage(*args)
+    antennes.map(&:update_referencement_coverages)
   end
 
   ## Soft deletion
