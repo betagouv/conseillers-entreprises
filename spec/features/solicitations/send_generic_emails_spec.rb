@@ -13,28 +13,12 @@ describe 'send generic emails' do
     expect(page).to have_css('#generic-emails', count: 1)
   end
 
-  it 'send bad_quality email' do
-    click_on I18n.t('solicitations.solicitation_actions.emails.bad_quality')
-    expect(page.html).to include I18n.t('emails.sent')
-  end
-
-  it 'send employee_labor_law email' do
-    click_on I18n.t('solicitations.solicitation_actions.emails.employee_labor_law')
-    expect(page.html).to include I18n.t('emails.sent')
-  end
-
-  it 'send creation email' do
-    click_on I18n.t('solicitations.solicitation_actions.emails.creation')
-    expect(page.html).to include I18n.t('emails.sent')
-  end
-
-  it 'send siret email' do
-    click_on I18n.t('solicitations.solicitation_actions.emails.siret')
-    expect(page.html).to include I18n.t('emails.sent')
-  end
-
-  it 'send moderation email' do
-    click_on I18n.t('solicitations.solicitation_actions.emails.moderation')
-    expect(page.html).to include I18n.t('emails.sent')
+  describe "send all emails in GENERIC_EMAILS_TYPES" do
+    Solicitation::GENERIC_EMAILS_TYPES.each do |email_type|
+      it "displays #{email_type}" do
+        click_on I18n.t(email_type, scope: "solicitations.solicitation_actions.emails")
+        expect(page.html).to include I18n.t('emails.sent')
+      end
+    end
   end
 end
