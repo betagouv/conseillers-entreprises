@@ -57,6 +57,7 @@ ActiveAdmin.register CompanySatisfaction do
   filter :created_at
   filter :contacted_by_expert
   filter :useful_exchange
+  filter :with_comment, as: :select, collection: [["Avec commentaire", 'with_comment'], ["Sans commentaire", 'without_comment']]
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
   filter :done_institutions, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }

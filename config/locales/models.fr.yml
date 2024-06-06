@@ -226,6 +226,7 @@ fr:
         solicitation_mtm_campaign: Campagne
         solicitation_mtm_kwd: Mots-clés
         useful_exchange: Échange utile
+        with_comment: Commentaire
       contact:
         company: Entreprise
         job: Fonction
