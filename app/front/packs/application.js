@@ -14,19 +14,11 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-// Compatibilité navigateurs anciens dont IE11
-import "core-js/stable";
 import "whatwg-fetch";
 import "@hotwired/turbo-rails";
 
 require("@rails/ujs").start();
-require('remixicon/fonts/remixicon.css')
-require('@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.css')
-require('@gouvfr/dsfr/dist/dsfr/dsfr.css')
-require('stylesheets/application.sass')
-
 require("jquery");
-require("@selectize/selectize");
 
-import "javascripts/shared";
-import "javascripts/application";
+import "../javascripts/shared";
+import "../javascripts/application";

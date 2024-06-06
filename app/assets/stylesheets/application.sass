@@ -11,7 +11,39 @@
  * It is generally better to create a new file per style scope.
  *
  */
+@import 'shared/base'
+@import 'shared/typo'
+@import 'shared/utilities'
+@import 'shared/tarteaucitron-dsfr'
+@import 'shared/environment_ribbon'
+@import 'shared/user_impersonate'
+@import 'shared/dsfr_overload'
 
-@import application/*
-@import shared/*
+// Components
+@import 'components/alertes'
+@import "components/autocomplete"
+@import 'components/buttons'
+@import 'components/callout'
+@import 'components/cards'
+@import 'components/components'
+@import 'components/forms'
+@import 'components/labels'
+@import 'components/navigation'
+@import "components/pagination"
+@import 'components/table'
+@import 'components/tabs'
+@import 'components/tags'
+@import 'components/charts'
+@import 'components/tarteaucitron'
+@import 'components/solicitation_actions'
+@import 'components/tooltip'
 
+//pages
+@import "application/annuaire"
+@import "application/need_show"
+@import "application/reminders"
+@import "application/reports"
+@import "application/steps"
+@import "application/tuto"
+@import "application/layout"
+@import "application/custom_components"

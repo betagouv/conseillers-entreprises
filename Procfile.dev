@@ -1,5 +1,2 @@
-web: bundle exec puma -C config/puma.rb
-clock: bundle exec clockwork app/models/clockwork.rb
-delayedjob: bundle exec rake jobs:work
-log: tail -f log/development.log
-webpack:  ./bin/webpack-dev-server
+web: rails server
+js: yarn build --watch

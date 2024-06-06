@@ -1,30 +1,32 @@
 {
+  "engines": {
+    "node": ">=20.0.0 <=21.7.1"
+  },
   "dependencies": {
-    "@babel/plugin-proposal-private-methods": "^7.18.6",
-    "@babel/plugin-proposal-private-property-in-object": "^7.18.6",
-    "@gouvfr/dsfr": "1.9.0",
+    "@gouvfr/dsfr": "^1.10.0",
     "@hotwired/turbo-rails": "^7.2.4",
     "@rails/ujs": "^6.0.3-4",
-    "@rails/webpacker": "5.4.4",
-    "@selectize/selectize": "^0.15.2",
     "accessible-autocomplete": "^2.0.3",
-    "expose-loader": "^1.0.1",
-    "glob-parent": "^5.1.2",
     "jquery": "^3.5.1",
     "mjml": "^4.15.3",
-    "normalize-url": "^4.5.1",
-    "postcss": "^8.2.10",
-    "remixicon": "^3.5.0",
+    "remixicon": "^4.2.0",
+    "slim-select": "^2.8.1",
     "stimulus": "^2.0.0",
-    "trim-newlines": "^3.0.1",
     "whatwg-fetch": "^3.5.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.3",
     "@babel/eslint-parser": "^7.19.1",
+    "@babel/preset-env": "^7.24.3",
+    "babel-loader": "^9.1.3",
     "eslint": "^7.14.0",
+    "webpack": "^5.90.0",
+    "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "lint:js": "eslint ./app/front/javascripts ./app/assets/javascripts ./config/webpack"
+    "lint:js": "eslint ./app/front/javascripts ./app/assets/javascripts ./config/webpack",
+    "dev": "webpack serve --config ./config/webpack/webpack.config.js --mode development --progress",
+    "build": "webpack --config ./config/webpack/webpack.config.js --mode production --progress"
   }
 }

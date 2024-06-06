@@ -10,7 +10,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '3.1.2'
+ruby '3.2.3'
 
 gem 'rails', '~> 7.0.8'
 
@@ -22,11 +22,11 @@ gem 'puma'
 # Assets
 gem 'haml-rails'
 gem 'jquery-rails'
-gem 'sassc-rails'
+gem 'dartsass-sprockets'
 gem 'terser'
 gem 'premailer-rails'
 gem 'css_parser'
-gem 'webpacker'
+gem 'jsbundling-rails'
 
 # Parallel processes
 gem 'clockwork'

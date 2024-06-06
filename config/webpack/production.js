@@ -1,21 +1,21 @@
-process.env.NODE_ENV = process.env.NODE_ENV || 'production'
-const webpack = require('webpack');
+const webpack = require("webpack")
 
-const environment = require('./environment')
-
-// Config speciique pour eviter une erreur CSP
-// cf https://github.com/webpack/webpack/issues/5627#issuecomment-394309966
-const extraConfig = {
-  node: {
+module.exports = (webpackConfig) => {
+  webpackConfig.devtool = 'source-map'
+  webpackConfig.stats = 'normal'
+  webpackConfig.node = {
     global: false,
   },
-  plugins: [
+
+  webpackConfig.plugins.push(
     new webpack.DefinePlugin({
       global: "window", // Placeholder for global used in any node_modules
     }),
-  ],
-};
+    new webpack.ProvidePlugin({
+      $: 'jquery/src/jquery',
+      jQuery: 'jquery/src/jquery'
+    })
+  )
 
-environment.config.merge(extraConfig);
-
-module.exports = environment.toWebpackConfig()
+  return webpackConfig;
+}

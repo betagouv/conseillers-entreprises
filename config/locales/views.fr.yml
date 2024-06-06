@@ -13,8 +13,6 @@ fr:
       meta_title: Comment ça marche
       partners: 'Conseillers-Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
       pde_testimonial: Témoignage d’un chef d’entreprise.
-      pde_testimonial_transcription: Transcription textuelle de la vidéo du témoignage d’un chef d’entreprise.
-      read_transcription: Lire la transcription
       subtitle: Porté par le Ministère de l’Économie et le Ministère du Travail, le service Conseillers-Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
     equipe:
@@ -595,8 +593,6 @@ fr:
       expert_contacts_you_html: "<span class='blue'>Le conseiller vous contacte</span> directement pour vous aider sous 5 jours*."
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Conseillers-entreprises.service-public.fr</a>
       pde_presentation: Présentation de Conseillers-Entreprises, un service de Service-Public.fr
-      pde_presentation_transcription: Transcription textuelle de la vidéo de présentation du service Conseillers-Entreprises
-      read_transcription: Lire la transcription
       select_expert_description: Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
     how_it_works_short:
       human_description: Vous échangez au téléphone avec une personne experte.
@@ -606,6 +602,7 @@ fr:
       quick_description: Une personne vous rappelle dans les 5 jours.
       quick_title: Rapide
     navbar:
+      close: Fermer
       extend: Agrandir
   person:
     deleted_person: Compte supprimé
@@ -727,6 +724,8 @@ fr:
       fast_access: Accès rapide
       footer: Pied de page
       menu: Menu
+    transcription:
+      read_transcription: Lire la transcription
   sitemap:
     sitemap:
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
@@ -1107,9 +1106,7 @@ fr:
       notifications_explanations_3_html: Lorsque le besoin est clôturé, vous ne recevez plus de notification.
       notifications_question: Quand recevez-vous une notification ?
       notifications_title: Comprendre les notifications
-      pde_tutorial_transcription: Transcription textuelle de la vidéo tutorielle de Conseillers-Entreprises.
       question_emails: Je ne reçois pas les emails de Conseillers-Entreprises, que faire ?
-      read_transcription: Lire la transcription
       step_1: Je me positionne sur le besoin de l’entreprise adressé sur mon champ de compétences, en cliquant sur le bouton de prise en charge (« J’appelle ») ou de refus (« Ce n’est pas pour moi »).
       step_2: Lorsque j’ai cliqué sur le bouton vert "J’appelle", je contacte le chef d’entreprise par téléphone pour préciser avec lui sa problématique et identifier l’aide ou l’accompagnement que ma structure peut lui proposer.
       step_3: Après l’appel, je clôture mon intervention en fonction de la réponse apportée ou de l’impossibilité de joindre le chef d’entreprise (n'oubliez alors pas de laisser vos coordonnées sur le répondeur).

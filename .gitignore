@@ -64,3 +64,8 @@ yarn-debug.log*
 .yarn-integrity
 /storage
 /dump.rdb
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+/config/master.key

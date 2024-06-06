@@ -15,7 +15,7 @@ Rails.application.config.content_security_policy do |p|
   p.script_src  :self, :blob, 'https://browser.sentry-cdn.com', 'sentry.io', 'stats.data.gouv.fr', 'https://stats.beta.gouv.fr/', 'https://cdn.jsdelivr.net/', 'https://www.googletagmanager.com/', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com', 'www.pagespeed-mod.com'
   p.frame_src :self, 'stats.data.gouv.fr', 'stats.beta.gouv.fr', 'browser.sentry-cdn.com', 'https://cdn.jsdelivr.net/', 'https://bid.g.doubleclick.net', 'https://tube.nocturlab.fr', 'https://tpc.googlesyndication.com', 'https://www.youtube-nocookie.com'
   if Rails.env.development?
-    p.connect_src :self, 'localhost:3035', 'ws://localhost:3035', 'https://api-adresse.data.gouv.fr/'
+    p.connect_src :self, 'https://api-adresse.data.gouv.fr/'
   else
     p.connect_src :self, '*.sentry.io', 'https://api-adresse.data.gouv.fr/', '*.google.com', 'https://adservice.google.com', 'https://pagead2.googlesyndication.com', 'https://tpc.googlesyndication.com', 'https://googleads.g.doubleclick.net', 'stats.data.gouv.fr', 'https://stats.beta.gouv.fr/', 'https://www.googletagmanager.com', 'https://browser.sentry-cdn.com', 'https://cdn.jsdelivr.net/'
     if ENV["CSP_REPORT_URI"].present?

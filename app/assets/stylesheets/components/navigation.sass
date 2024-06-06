@@ -22,7 +22,7 @@
   .fr-header
     .fr-nav
       display: flex
-      justify-content: space-between
+      justify-content: space-between !important
   .fr-header--hidden
     display: none
   .fr-header--displayed
@@ -32,7 +32,7 @@
   .fr-menu__list
       width: 15rem
 
-// Side menu
+// Left menu
 
 @media (min-width: 48em)
   .fr-sidemenu
@@ -49,18 +49,16 @@
         display: contents
     .fr-tag
       height: fit-content
-  
+
   .fr-sidemenu__item.grey
     a
       color: $grey-dark
     .fr-tag
       color: $grey-dark
 
-// Other
 .item-with-tag
   display: flex
   align-items: center
-
 
 a.fr-nav__link[href]:hover
     color: $blue

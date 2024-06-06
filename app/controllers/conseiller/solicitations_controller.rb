@@ -63,7 +63,10 @@ class Conseiller::SolicitationsController < ApplicationController
       @solicitation.update(badges_params)
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
-      redirect_to [:conseiller, @solicitation]
+      respond_to do |format|
+        format.js
+        format.html { redirect_to [:conseiller, @solicitation] }
+      end
     end
   end
 
