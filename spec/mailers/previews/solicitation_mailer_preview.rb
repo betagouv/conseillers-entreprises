@@ -23,6 +23,10 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.sie_tva_and_others(random_solicitation)
   end
 
+  def sie_sip_declare_and_pay
+    SolicitationMailer.sie_sip_declare_and_pay(random_solicitation)
+  end
+
   def intermediary
     SolicitationMailer.intermediary(random_solicitation)
   end

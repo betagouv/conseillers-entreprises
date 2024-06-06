@@ -209,11 +209,18 @@ fr:
         interior_ministry_html: 'La demande d’autorisation de travail relève d’un service en ligne du Ministère de l’Intérieur : <a href=''https://administration-etrangers-en-france.interieur.gouv.fr/immiprousager/#/authentification''>https://administration-etrangers-en-france.interieur.gouv.fr</a>.'
         phone_number_html: 'Pour plus d’informations : <b>0806 001 620</b> (appel gratuit).'
         solicitation_subject_html: concernant <b>le recrutement d’un travailleur étranger</b>
+      sie_sip_declare_and_pay:
+        income_and_taxation: Les questions relatives à la déclaration de vos revenus et à leur imposition relèvent de votre service des impôts des particuliers (SIP), tandis que les questions relatives à la CFE et à la TVA  relèvent de votre service des impôts des entreprises (SIE).
+        not_partner_html: "<strong>Malheureusement ce service n’est pas partenaire de Conseillers-Entreprises à ce jour</strong>.<br>Nous vous invitons à les solliciter directement :"
+        sie_html: 'Service des impôts des entreprises (SIE) : <a href=''https://lannuaire.service-public.fr/navigation/sie''>https://lannuaire.service-public.fr/navigation/sie</a>'
+        sie_on_impots_html: Vous pouvez également joindre ces services sur votre compte professionnel ou votre compte particulier <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr'>impot.gouv.fr</a>, via votre messagerie personnalisée.
+        sip_html: 'Service des impôts des particuliers (SIP)  : <a href=''https://www.impots.gouv.fr/contacts''>https://www.impots.gouv.fr/contacts</a>'
+        solicitation_subject_html: concernant votre déclaration de revenus ou le paiement de vos impôts
       sie_tva_and_others:
         no_tva_number: Les démarches et les questions relatives à la TVA (déclaration et paiement de la TVA, obtention d’un n° de TVA intracommunautaire, seuil et changement de régime de TVA …) relèvent de votre service des impôts des entreprises (SIE).
         sie_annuaire_html: "<b>Malheureusement ce service n’est pas partenaire de Conseillers-Entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href='https://lannuaire.service-public.fr/navigation/sie'>https://lannuaire.service-public.fr/navigation/sie</a>."
-        sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr%2F%3Fopenidconnectcallback%3D1&nonce=1644578731_23573&client_id=id_cfspro_prod&display=&state=1644578731_4749&scope=openid%20profile%20email%20info'>impot.gouv.fr</a>, dans votre espace de messagerie personnalisée.
-        solicitation_subject_html: concernant la TVA
+        sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/'>impot.gouv.fr</a>, dans votre espace de messagerie personnalisée.
+        solicitation_subject_html: concerna4t la TVA
       siret:
         commune_name_html: Par précaution, indiquez également <b>la commune</b> sur laquelle vous exercez votre activité.
         siret_error: Il semble cependant qu’il y ait une erreur sur votre numéro de Siret. Pourriez-vous nous le faire parvenir à nouveau ?
