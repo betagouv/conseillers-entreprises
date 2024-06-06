@@ -45,6 +45,7 @@
                 - cache([current_user, current_user.needs_quo_active.size]) do
                   - if current_user.needs_quo_active.size > 0
                     %span.count-notification.fr-tag.fr-tag--sm.fr-ml-1w= current_user.needs_quo_active.size
+            - if policy(:shared_satisfaction).show_navbar?
               = active_link_to conseiller_shared_satisfactions_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-chat-heart-line.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('conseiller.shared_satisfactions.index.short_title')

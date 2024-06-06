@@ -70,8 +70,15 @@ class CompanySatisfaction < ApplicationRecord
     self.send(query)
   end
 
+  scope :with_comment_eq, -> (query) {
+    query == 'with_comment' ? where.not(comment: "") : where(comment: "")
+  }
+
   def self.ransackable_scopes(auth_object = nil)
-    %w[solicitation_mtm_campaign_cont solicitation_mtm_campaign_eq solicitation_mtm_campaign_start solicitation_mtm_campaign_end shared_eq experts_id_eq]
+    %w[
+      solicitation_mtm_campaign_cont solicitation_mtm_campaign_eq solicitation_mtm_campaign_start
+      solicitation_mtm_campaign_end shared_eq experts_id_eq with_comment_eq
+    ]
   end
 
   def self.ransackable_attributes(auth_object = nil)
