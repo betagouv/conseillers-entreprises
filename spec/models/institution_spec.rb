@@ -24,6 +24,33 @@ RSpec.describe Institution do
     end
   end
 
+  describe 'callbacks' do
+    context 'update_referencement_coverages' do
+      let(:institution) { create :institution }
+      let(:antenne) { create :antenne, institution: institution }
+
+      context 'add institution_subject' do
+        it 'calls update_referencement_coverages' do
+          allow(antenne).to receive(:update_referencement_coverages)
+          institution.institutions_subjects.create(subject: create(:subject))
+          expect(antenne).to have_received(:update_referencement_coverages)
+        end
+      end
+
+      context 'remove institution_subject' do
+        let(:institution_subject) { create :institution_subject, institution: institution }
+
+        before { institution.institutions_subjects << institution_subject }
+
+        it 'calls update_referencement_coverages' do
+          allow(antenne).to receive(:update_referencement_coverages)
+          institution.institutions_subjects.delete(institution_subject)
+          expect(antenne).to have_received(:update_referencement_coverages)
+        end
+      end
+    end
+  end
+
   describe 'to_s' do
     it do
       institution = create :institution, name: 'Direccte'
