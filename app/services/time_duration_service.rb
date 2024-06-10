@@ -1,5 +1,5 @@
 class TimeDurationService
-  def self.past_eight_quarters
+  def self.past_year_quarters
     today = Date.today
 
     years = [today.year - 1, today.year]
