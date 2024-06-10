@@ -19,8 +19,12 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.moderation(random_solicitation)
   end
 
-  def independent_tva
-    SolicitationMailer.independent_tva(random_solicitation)
+  def sie_tva_and_others
+    SolicitationMailer.sie_tva_and_others(random_solicitation)
+  end
+
+  def sie_sip_declare_and_pay
+    SolicitationMailer.sie_sip_declare_and_pay(random_solicitation)
   end
 
   def intermediary

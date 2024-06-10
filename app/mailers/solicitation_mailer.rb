@@ -28,7 +28,11 @@ class SolicitationMailer < ApplicationMailer
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 
-  def independent_tva(solicitation)
+  def sie_tva_and_others(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
+
+  def sie_sip_declare_and_pay(solicitation)
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 
