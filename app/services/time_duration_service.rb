@@ -2,7 +2,7 @@ class TimeDurationService
   def self.past_eight_quarters
     today = Date.today
 
-    years = [today.year - 2, today.year - 1, today.year]
+    years = [today.year - 1, today.year]
     quarters = []
     years.each do |year|
       date ||= Date.new(year, 1, 1)
@@ -12,7 +12,7 @@ class TimeDurationService
         date = date.end_of_quarter + 1.day
       end
     end
-    quarters.last(8).reverse
+    quarters.reverse
   end
 
   def self.find_quarter_for_month(month)

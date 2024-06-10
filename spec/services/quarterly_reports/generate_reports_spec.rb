@@ -39,20 +39,12 @@ describe QuarterlyReports::GenerateReports do
         it('return one past quarters') { expect(quarters.length).to eq 1 }
       end
 
-      context 'with first national matches a year half ago' do
+      context 'with first national matches a year ago' do
         let!(:expert) { create :expert_with_users, antenne: antenne }
-        let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 18.months.ago) }
+        let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 1.year.ago) }
         let!(:other_match) { create :match, expert: create(:expert, antenne: local_antenne), need: create(:need, created_at: 5.months.ago) }
 
-        it('return 5 past quarters') { expect(quarters.length).to eq 6 }
-      end
-
-      context 'with first national matches a two years ago' do
-        let!(:expert) { create :expert_with_users, antenne: antenne }
-        let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 2.years.ago) }
-        let!(:other_match) { create :match, expert: create(:expert, antenne: local_antenne), need: create(:need, created_at: 5.months.ago) }
-
-        it('return 8 past quarters') { expect(quarters.length).to eq 8 }
+        it('return only current and last year quarters') { expect(quarters.length).to eq 4 }
       end
 
       context 'with first national matches a three years ago' do
@@ -60,7 +52,10 @@ describe QuarterlyReports::GenerateReports do
         let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 3.years.ago) }
         let!(:other_match) { create :match, expert: create(:expert, antenne: local_antenne), need: create(:need, created_at: 5.months.ago) }
 
-        it('return only 8 past quarters') { expect(quarters.length).to eq 8 }
+        it('return only current and last year quarters') do
+          expect(quarters.last.first.strftime('%Y-%m-%d')).to eq 1.year.ago.beginning_of_year.strftime('%Y-%m-%d')
+          expect(quarters.length).to be > 4
+        end
       end
     end
   end
@@ -69,7 +64,7 @@ describe QuarterlyReports::GenerateReports do
     let(:antenne) { create :antenne }
     let!(:expert) { create :expert_with_users, antenne: antenne }
     let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 2.years.ago) }
-    let!(:quarterly_report_ok) { create :quarterly_report, :category_matches, antenne: antenne, start_date: 24.months.ago }
+    let!(:quarterly_report_ok) { create :quarterly_report, :category_matches, antenne: antenne, start_date: 18.months.ago }
     let!(:quarterly_report_ko) { create :quarterly_report, :category_matches, antenne: antenne, start_date: 3.years.ago }
     let(:quarters) { described_class.new(antenne).send(:last_quarters) }
     let(:destroy_old_report) { described_class.new(antenne).send(:destroy_old_report_files, quarters) }
