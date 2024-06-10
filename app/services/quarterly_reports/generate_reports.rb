@@ -64,7 +64,7 @@ module QuarterlyReports
       needs = @antenne.perimeter_received_needs
       return if needs.blank?
       first_need_date = needs.minimum(:created_at).to_date
-      quarters = TimeDurationService.past_year_quarters
+      quarters = TimeDurationService.past_years_quarters
       quarters.reject! { |range| first_need_date > range.last }
       quarters
     end

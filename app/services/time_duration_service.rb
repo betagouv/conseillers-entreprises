@@ -1,18 +1,18 @@
 class TimeDurationService
-  def self.past_year_quarters
+  def self.past_years_quarters
     today = Date.today
 
-    years = [today.year - 1, today.year]
+    years = [today.year - 2, today.year - 1, today.year]
     quarters = []
     years.each do |year|
-      date ||= 1.year.ago
+      date ||= Date.new(year, 1, 1)
       4.times do
         next if date.end_of_quarter >= today
         quarters << [date.beginning_of_quarter, date.end_of_quarter]
         date = date.end_of_quarter + 1.day
       end
     end
-    quarters.last(4).reverse
+    quarters.last(8).reverse
   end
 
   def self.find_quarter(month)
