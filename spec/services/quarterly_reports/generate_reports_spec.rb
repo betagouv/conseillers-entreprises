@@ -47,7 +47,7 @@ describe QuarterlyReports::GenerateReports do
         it('return only current and last year quarters') { expect(quarters.length).to eq 4 }
       end
 
-      context 'with first national matches a three years ago' do
+      context 'with first national matches three years ago' do
         let!(:expert) { create :expert_with_users, antenne: antenne }
         let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 3.years.ago) }
         let!(:other_match) { create :match, expert: create(:expert, antenne: local_antenne), need: create(:need, created_at: 5.months.ago) }
