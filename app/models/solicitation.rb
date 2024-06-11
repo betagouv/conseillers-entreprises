@@ -67,8 +67,8 @@ class Solicitation < ApplicationRecord
   belongs_to :institution, inverse_of: :solicitations, optional: true
   has_many :badge_badgeables, as: :badgeable
   has_many :badges, through: :badge_badgeables, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
-  has_many :institution_filters, dependent: :destroy, as: :institution_filtrable, inverse_of: :institution_filtrable
-  accepts_nested_attributes_for :institution_filters, allow_destroy: false
+  has_many :subject_answers, dependent: :destroy, as: :subject_questioned, inverse_of: :subject_questioned
+  accepts_nested_attributes_for :subject_answers, allow_destroy: false
 
   before_create :set_uuid
   before_create :set_institution_from_landing
@@ -150,8 +150,8 @@ class Solicitation < ApplicationRecord
   # Il y a des solicitation sans landing_subject jusqu'en octobre 2020
   validates :landing_subject, presence: true, allow_blank: false, if: -> { created_at.nil? || created_at > "20201101".to_date }
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
-  validates :institution_filters, presence: true, if: -> { subject_with_additional_questions? }
-  validate :correct_institution_filters, if: -> { subject_with_additional_questions? }
+  validates :subject_answers, presence: true, if: -> { subject_with_additional_questions? }
+  validate :correct_subject_answers, if: -> { subject_with_additional_questions? }
   # Todo : à décommenter une fois que la migration api_url est passée
   # validates :origin_url, presence: true, if: -> { landing&.api? }
   validates :completed_at, presence: true, if: -> { step_complete? }
@@ -199,12 +199,12 @@ class Solicitation < ApplicationRecord
   end
 
   def subject_with_additional_questions?
-    status_in_progress? && self.subject&.additional_subject_questions&.any?
+    status_in_progress? && self.subject&.subject_questions&.any?
   end
 
-  def correct_institution_filters
-    if (self.institution_filters.to_set{ |f| f.additional_subject_question_id } != self.subject&.additional_subject_question_ids.to_set)
-      errors.add(:institution_filters, :incorrect)
+  def correct_subject_answers
+    if (self.subject_answers.to_set{ |f| f.subject_question_id } != self.subject&.subject_question_ids.to_set)
+      errors.add(:subject_answers, :incorrect)
     end
   end
 
@@ -627,7 +627,7 @@ class Solicitation < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [
       "badge_badgeables", "badges", "diagnosis", "diagnosis_regions", "facility", "company", "feedbacks", "institution",
-      "institution_filters", "landing", "landing_subject", "landing_theme", "matches", "needs", "subject", "theme", "visitee"
+      "subject_answers", "landing", "landing_subject", "landing_theme", "matches", "needs", "subject", "theme", "visitee"
     ]
   end
 end

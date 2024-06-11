@@ -49,12 +49,12 @@ ActiveAdmin.register Solicitation do
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
 
       ul class: 'mb-1' do
-        s.institution_filters.each do |filter|
+        s.subject_answers.each do |answer|
           answer = I18n.t(
-            filter.filter_value, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key],
-            default: I18n.t(filter.filter_value, scope: [:boolean, :text])
+            answer.filter_value, scope: [:activerecord, :attributes, :subject_questions, filter.key],
+            default: I18n.t(answer.filter_value, scope: [:boolean, :text])
           )
-          li "- #{I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])} #{tag.strong(answer)} <br>".html_safe
+          li "- #{I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, answer.key])} #{tag.strong(answer)} <br>".html_safe
         end
       end
       div raw diagnosis_link(s.diagnosis)
@@ -186,12 +186,12 @@ ActiveAdmin.register Solicitation do
       end
       blockquote simple_format(solicitation.description)
       ul class: 'mb-1' do
-        solicitation.institution_filters.each do |filter|
+        solicitation.subject_answers.each do |filter|
           answer = I18n.t(
-            filter.filter_value, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key],
+            filter.filter_value, scope: [:activerecord, :attributes, :subject_questions, filter.key],
             default: I18n.t(filter.filter_value, scope: [:boolean, :text])
           )
-          li "#{I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])} #{tag.strong(answer)} <br>".html_safe
+          li "#{I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, filter.key])} #{tag.strong(answer)} <br>".html_safe
         end
       end
     end

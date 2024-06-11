@@ -49,11 +49,11 @@ module ApiSpecHelper
   end
 
   def create_cadre_question(pde_subject)
-    create :additional_subject_question, subject: pde_subject, key: 'recrutement_poste_cadre', position: 1
+    create :subject_question, subject: pde_subject, key: 'recrutement_poste_cadre', position: 1
   end
 
   def create_apprentissage_question(pde_subject)
-    create :additional_subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage', position: 2
+    create :subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage', position: 2
   end
 
   ## Environnement

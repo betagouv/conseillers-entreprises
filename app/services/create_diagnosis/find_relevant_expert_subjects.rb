@@ -9,7 +9,7 @@ module CreateDiagnosis
     def call
       expert_subjects = apply_base_query
       [
-        apply_institution_filters(expert_subjects),
+        apply_subject_answers_filters(expert_subjects),
         apply_match_filters(expert_subjects)
       ].reduce(:&)
     end
@@ -24,8 +24,8 @@ module CreateDiagnosis
         .without_irrelevant_opcos(facility)
     end
 
-    def apply_institution_filters(expert_subjects)
-      need.institution_filters.each do |need_filter|
+    def apply_subject_answers_filters(expert_subjects)
+      need.subject_answers.each do |need_subject_answer|
         expert_subjects = expert_subjects.select do |es|
           adie = Institution.find_by(slug: 'adie')
           initiative = Institution.find_by(slug: 'initiative-france')
@@ -37,14 +37,14 @@ module CreateDiagnosis
           if ((ENV['FEATURE_QUESTIONS_INVESTISSEMENT'].to_b && es.subject.id == 55) || Rails.env.test?) &&
             (es_institution == adie || es_institution == initiative || es_institution == bpi || es_institution == bdf)
             # on récupère les questions additionnelles liés entre elles
-            less_than_10k_question = AdditionalSubjectQuestion.find_by(key: 'moins_de_10k_restant_a_financer')
-            bank_question = AdditionalSubjectQuestion.find_by(key: 'financement_bancaire_envisage')
-            less_than_10k_institution_filter = need.institution_filters.find_by(additional_subject_question_id: less_than_10k_question.id)
-            bank_institution_filter = need.institution_filters.find_by(additional_subject_question_id: bank_question.id)
+            less_than_10k_question = SubjectQuestion.find_by(key: 'moins_de_10k_restant_a_financer')
+            bank_question = SubjectQuestion.find_by(key: 'financement_bancaire_envisage')
+            less_than_10k_subject_answer = need.subject_answers.find_by(subject_question_id: less_than_10k_question.id)
+            bank_subject_answer = need.subject_answers.find_by(subject_question_id: bank_question.id)
 
             # Réponses aux questions
-            less_than_10k = less_than_10k_institution_filter.filter_value
-            bank = bank_institution_filter.filter_value
+            less_than_10k = less_than_10k_subject_answer.filter_value
+            bank = bank_subject_answer.filter_value
 
             #   moins de 10 000 + oui banque = Adie, Initiative
             #   moins de 10 000 + non banque = Adie
@@ -63,13 +63,13 @@ module CreateDiagnosis
             end
 
           else
-            need_question_id = need_filter.additional_subject_question_id
-            need_value = need_filter.filter_value
-            institution_filter = es.expert.institution.institution_filters.find_by(additional_subject_question_id: need_question_id)
+            need_question_id = need_subject_answer.subject_question_id
+            need_value = need_subject_answer.filter_value
+            subject_answer = es.expert.institution.subject_answers.find_by(subject_question_id: need_question_id)
             # On garde les expert_subjects
             # - qui n'ont pas de filtre sur cette question additionnelle
             # - qui ont la même filter_value que la solicitation
-            institution_filter.nil? || (institution_filter.filter_value == need_value)
+            subject_answer.nil? || (subject_answer.filter_value == need_value)
           end
         end
       end

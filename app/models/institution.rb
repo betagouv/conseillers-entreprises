@@ -37,7 +37,9 @@ class Institution < ApplicationRecord
   has_and_belongs_to_many :categories # Une institution peut avoir plusieurs categories a la fois, donc une enum serait trop limitante
   has_one :logo, inverse_of: :institution
   has_many :facilities, inverse_of: :opco
-  has_many :institution_filters, dependent: :destroy, as: :institution_filtrable, inverse_of: :institution_filtrable
+  has_many :subject_answers, dependent: :destroy, as: :subject_questioned, inverse_of: :subject_questioned
+  # has_many :grouped_subject_answers, dependent: :destroy, inverse_of: :institution
+  # has_many :subject_answers, through: :grouped_subject_answers, inverse_of: :landing_themes
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
   accepts_nested_attributes_for :match_filters, allow_destroy: true
 
@@ -224,6 +226,6 @@ class Institution < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["advisors", "antennes", "api_key", "categories", "experts", "experts_including_deleted", "facilities", "institution_filters", "institutions_subjects", "landing_subjects", "landing_themes", "landings", "logo", "not_deleted_antennes", "received_diagnoses", "received_diagnoses_including_from_deleted_experts", "received_matches", "received_matches_including_from_deleted_experts", "received_needs", "received_needs_including_from_deleted_experts", "received_solicitations", "received_solicitations_including_from_deleted_experts", "sent_diagnoses", "sent_matches", "sent_needs", "solicitations", "subjects", "themes"]
+    ["advisors", "antennes", "api_key", "categories", "experts", "experts_including_deleted", "facilities", "subject_answers", "institutions_subjects", "landing_subjects", "landing_themes", "landings", "logo", "not_deleted_antennes", "received_diagnoses", "received_diagnoses_including_from_deleted_experts", "received_matches", "received_matches_including_from_deleted_experts", "received_needs", "received_needs_including_from_deleted_experts", "received_solicitations", "received_solicitations_including_from_deleted_experts", "sent_diagnoses", "sent_matches", "sent_needs", "solicitations", "subjects", "themes"]
   end
 end

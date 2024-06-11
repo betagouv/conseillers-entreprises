@@ -14,8 +14,8 @@ describe 'solicitation_form', :js, type: :feature do
       create :landing_subject, landing_theme: landing_theme, subject: pde_subject,
                                     title: "Super sujet", description: "Description LS", requires_siret: true
     end
-    let!(:additional_question_1) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_poste_cadre' }
-    let!(:additional_question_2) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
+    let!(:additional_question_1) { create :subject_question, subject: pde_subject, key: 'recrutement_poste_cadre' }
+    let!(:additional_question_2) { create :subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
     let(:siret) { '41816609600069' }
     let(:solicitation) { Solicitation.last }
     let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{query}" }
@@ -48,8 +48,8 @@ describe 'solicitation_form', :js, type: :feature do
       # Third step
       is_expected.to be_accessible
       fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
-      choose 'Oui', name: 'solicitation[institution_filters_attributes][0][filter_value]', allow_label_click: true
-      choose 'Oui', name: 'solicitation[institution_filters_attributes][1][filter_value]', allow_label_click: true
+      choose 'Oui', name: 'solicitation[subject_answers_attributes][0][filter_value]', allow_label_click: true
+      choose 'Oui', name: 'solicitation[subject_answers_attributes][1][filter_value]', allow_label_click: true
       click_on 'Envoyer ma demande'
       # Thank's step
       is_expected.to be_accessible

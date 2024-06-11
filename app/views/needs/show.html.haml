@@ -12,16 +12,16 @@
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
         = need_general_context(@need)
-        - if @need.institution_filters.any? || @need.solicitation&.origin_url.present?
+        - if @need.subject_answers.any? || @need.solicitation&.origin_url.present?
           %hr
           .need-description__meta.fr-text--sm
-            - if @need.institution_filters.any?
+            - if @need.subject_answers.any?
               %ul
-                - @need.institution_filters.each do |filter|
-                  - answer = I18n.t(filter.filter_value, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key], default: I18n.t(filter.filter_value, scope: [:boolean, :text]))
+                - @need.subject_answers.each do |answer|
+                  - answer_label = I18n.t(answer.filter_value, scope: [:activerecord, :attributes, :subject_questions, answer.key], default: I18n.t(answer.filter_value, scope: [:boolean, :text]))
                   %li
-                    = I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key])
-                    %strong= answer
+                    = I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, answer.key])
+                    %strong= answer_label
             - if @need.solicitation.present? && @need.solicitation.origin_url.present?
               %div
                 = t('.origin_source')

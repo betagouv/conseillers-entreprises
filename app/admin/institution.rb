@@ -108,9 +108,9 @@ ActiveAdmin.register Institution do
       end
     end
 
-    attributes_table title: I18n.t('activerecord.models.additional_subject_question.other') do
-      table_for institution.institution_filters do
-        column(:label) { |filter| I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key]) }
+    attributes_table title: I18n.t('activerecord.models.subject_question.other') do
+      table_for institution.subject_answers do
+        column(:label) { |filter| I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, filter.key]) }
         column(:key)
         column(:filter_value)
       end

@@ -95,7 +95,7 @@ RSpec.describe "Solicitations API" do
             expect(new_solicitation.code_region).to eq(11)
             expect(new_solicitation.api_calling_url).to eq('http://mon-partenaire.fr/page-recrutement')
             expect(new_solicitation.status).to eq('in_progress')
-            expect(new_solicitation.institution_filters.size).to eq(2)
+            expect(new_solicitation.subject_answers.size).to eq(2)
             expect(new_solicitation.institution).to eq(institution)
           end
         end
@@ -211,8 +211,8 @@ RSpec.describe "Solicitations API" do
                     }
             }
             let(:siret) { 13002526500013 }
-            let(:other_question_01) { create :additional_subject_question }
-            let(:other_question_02) { create :additional_subject_question }
+            let(:other_question_01) { create :subject_question }
+            let(:other_question_02) { create :subject_question }
             let(:solicitation) do
               {
                 solicitation: base_solicitation.merge({

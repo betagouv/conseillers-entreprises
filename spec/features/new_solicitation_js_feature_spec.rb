@@ -28,13 +28,13 @@ describe 'New Solicitation', :js, :flaky do
       end
 
       # Features tests sont coûteux, je tests deux éléments indépendants dans un test
-      context "from siret, with additional_subject_questions in url" do
+      context "from siret, with subject_questions in url" do
         let!(:api_url) { "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{query}" }
         let!(:fixture_file) { 'api_insee_siret.json' }
         let!(:query) { siret }
         let!(:other_siret) { '89448692700011' }
-        let!(:additional_question_1) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_poste_cadre' }
-        let!(:additional_question_2) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
+        let!(:additional_question_1) { create :subject_question, subject: pde_subject, key: 'recrutement_poste_cadre' }
+        let!(:additional_question_2) { create :subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
 
         before do
           stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=zzzzzz")
@@ -115,11 +115,11 @@ describe 'New Solicitation', :js, :flaky do
           # Etape description
           fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
           # radio button sur 'Oui' pour recrutement_poste_cadre
-          expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_true', checked: true, visible: :hidden)
-          expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_false', checked: false, visible: :hidden)
+          expect(page).to have_field('solicitation_subject_answers_attributes_0_filter_value_true', checked: true, visible: :hidden)
+          expect(page).to have_field('solicitation_subject_answers_attributes_0_filter_value_false', checked: false, visible: :hidden)
           # radio button sur 'Non' pour recrutement_en_apprentissage
-          expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_true", checked: false, visible: :hidden)
-          expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_false", checked: true, visible: :hidden)
+          expect(page).to have_field("solicitation_subject_answers_attributes_1_filter_value_true", checked: false, visible: :hidden)
+          expect(page).to have_field("solicitation_subject_answers_attributes_1_filter_value_false", checked: true, visible: :hidden)
           click_on 'Envoyer ma demande'
 
           expect(page).to have_content('Merci')

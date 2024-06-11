@@ -56,7 +56,7 @@ class Need < ApplicationRecord
   has_many :reminder_feedbacks, -> { where(category: :need_reminder) }, class_name: :Feedback, dependent: :destroy, as: :feedbackable, inverse_of: :feedbackable
   has_many :reminders_actions, inverse_of: :need, dependent: :destroy
   has_one :company_satisfaction, dependent: :destroy, inverse_of: :need
-  has_many :institution_filters, dependent: :destroy, as: :institution_filtrable, inverse_of: :institution_filtrable
+  has_many :subject_answers, dependent: :destroy, as: :subject_questioned, inverse_of: :subject_questioned
   has_many :badge_badgeables, as: :badgeable
   has_many :badges, through: :badge_badgeables, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
 
@@ -65,7 +65,7 @@ class Need < ApplicationRecord
   validates :subject, uniqueness: { scope: :diagnosis_id }
 
   accepts_nested_attributes_for :matches, allow_destroy: true
-  accepts_nested_attributes_for :institution_filters, allow_destroy: false
+  accepts_nested_attributes_for :subject_answers, allow_destroy: false
 
   ## Callbacks
   #
@@ -428,7 +428,7 @@ class Need < ApplicationRecord
     [
       "advisor", "advisor_antenne", "advisor_institution", "badge_badgeables", "badges", "company", "company_satisfaction",
       "contacted_users", "diagnosis", "expert_antennes", "expert_institutions", "experts", "facility", "facility_regions",
-      "facility_territories", "feedbacks", "institution_filters", "matches", "reminder_feedbacks", "reminders_actions",
+      "facility_territories", "feedbacks", "subject_answers", "matches", "reminder_feedbacks", "reminders_actions",
       "solicitation", "subject", "theme", "visitee"
     ]
   end

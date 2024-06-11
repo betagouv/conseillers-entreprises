@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :institution_filter do
-    additional_subject_question
+  factory :subject_answer do
+    subject_question
     filter_value { Faker::Boolean.boolean }
 
     trait :for_institution do

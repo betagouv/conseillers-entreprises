@@ -37,7 +37,7 @@ class Subject < ApplicationRecord
   has_many :needs, inverse_of: :subject
   has_many :landing_subjects, inverse_of: :subject
   has_many :institutions_subjects, inverse_of: :subject
-  has_many :additional_subject_questions, inverse_of: :subject
+  has_many :subject_questions, inverse_of: :subject
   has_and_belongs_to_many :match_filters
 
   ## Validations
@@ -131,7 +131,7 @@ class Subject < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["additional_subject_questions", "diagnoses", "experts", "experts_subjects", "institutions", "institutions_subjects", "landing_subjects", "match_filters", "matches", "needs", "theme"]
+    ["subject_questions", "diagnoses", "experts", "experts_subjects", "institutions", "institutions_subjects", "landing_subjects", "match_filters", "matches", "needs", "theme"]
   end
 
   private

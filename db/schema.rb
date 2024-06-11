@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_29_132601) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_11_131949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -79,14 +79,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_132601) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "additional_subject_questions", force: :cascade do |t|
-    t.bigint "subject_id"
-    t.string "key"
-    t.integer "position"
-    t.index ["subject_id", "key"], name: "additional_subject_question_subject_key_index", unique: true
-    t.index ["subject_id"], name: "index_additional_subject_questions_on_subject_id"
   end
 
   create_table "antennes", force: :cascade do |t|
@@ -321,16 +313,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_132601) do
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
-  create_table "institution_filters", force: :cascade do |t|
-    t.bigint "additional_subject_question_id"
-    t.string "institution_filtrable_type"
-    t.bigint "institution_filtrable_id"
-    t.boolean "filter_value"
+  create_table "grouped_subject_answers", force: :cascade do |t|
+    t.bigint "institution_id", null: false
+    t.bigint "company_satisfaction_id", null: false
+    t.bigint "expert_id", null: false
+    t.datetime "seen_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["additional_subject_question_id"], name: "index_institution_filters_on_additional_subject_question_id"
-    t.index ["institution_filtrable_id", "institution_filtrable_type", "additional_subject_question_id"], name: "institution_filtrable_additional_subject_question_index", unique: true
-    t.index ["institution_filtrable_type", "institution_filtrable_id"], name: "index_institution_filters_on_institution_filtrable"
+    t.index ["company_satisfaction_id"], name: "index_grouped_subject_answers_on_company_satisfaction_id"
+    t.index ["expert_id"], name: "index_grouped_subject_answers_on_expert_id"
+    t.index ["institution_id"], name: "index_grouped_subject_answers_on_institution_id"
   end
 
   create_table "institutions", force: :cascade do |t|
@@ -593,6 +585,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_132601) do
     t.index ["uuid"], name: "index_solicitations_on_uuid"
   end
 
+  create_table "subject_answers", force: :cascade do |t|
+    t.bigint "subject_question_id"
+    t.string "subject_questioned_type"
+    t.bigint "subject_questioned_id"
+    t.boolean "filter_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_question_id"], name: "index_subject_answers_on_subject_question_id"
+    t.index ["subject_questioned_id", "subject_questioned_type", "subject_question_id"], name: "institution_filtrable_additional_subject_question_index", unique: true
+    t.index ["subject_questioned_type", "subject_questioned_id"], name: "index_institution_filters_on_institution_filtrable"
+  end
+
+  create_table "subject_questions", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.string "key"
+    t.integer "position"
+    t.index ["subject_id", "key"], name: "additional_subject_question_subject_key_index", unique: true
+    t.index ["subject_id"], name: "index_subject_questions_on_subject_id"
+  end
+
   create_table "subjects", id: :serial, force: :cascade do |t|
     t.string "label", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -706,6 +718,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_132601) do
   add_foreign_key "facilities", "companies"
   add_foreign_key "facilities", "institutions", column: "opco_id"
   add_foreign_key "feedbacks", "users"
+  add_foreign_key "grouped_subject_answers", "company_satisfactions"
+  add_foreign_key "grouped_subject_answers", "experts"
+  add_foreign_key "grouped_subject_answers", "institutions"
   add_foreign_key "institutions_subjects", "institutions"
   add_foreign_key "institutions_subjects", "subjects"
   add_foreign_key "landing_subjects", "landing_themes"

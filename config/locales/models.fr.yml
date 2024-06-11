@@ -176,29 +176,6 @@ fr:
       need_created_at: Date de création du besoin
   activerecord:
     attributes:
-      additional_subject_questions:
-        ameliorer_conditions_travail:
-          label: Cet investissement permet-il de réduire la pénibilité au travail de vos salariés ou de renforcer leur sécurité ?
-        entreprise_a_reprendre_trouvee:
-          label: Avez-vous déjà trouvé une entreprise à reprendre ?
-        etalement_cotisations_sociales:
-          label: Souhaitez-vous étaler vos cotisations sociales ?
-        financement_bancaire_envisage:
-          label: Certains accompagnements publics ne viennent qu’en complément d’un financement bancaire. Envisagez-vous un financement bancaire pour votre projet ?
-        formee_est_salariee_de_lentreprise:
-          label: La personne que vous souhaitez former est-elle salariée de votre entreprise ?
-        moins_de_10k_restant_a_financer:
-          'false': 10 000 euros et plus
-          label: Quel est le montant qu’il reste à financer pour votre projet (hors apport et prêt bancaire) ?
-          'true': moins de 10 000 euros
-        outside_europe:
-          label: Votre projet concerne-t-il un pays hors de l’Union européenne (27 pays) ?
-        recrutement_en_apprentissage:
-          label: Souhaitez-vous recruter en apprentissage ?
-        recrutement_handicape:
-          label: Êtes-vous ouvert aux candidatures de personnes en situation de handicap avec l’aide d’un conseiller dédié ?
-        recrutement_poste_cadre:
-          label: Recherchez-vous un profil pour un poste d’ingénieur, de manager ou de niveau Bac +3 ?
       antenne:
         match_filters: Filtres pour les mises en relation
       antenne/territorial_levels:
@@ -493,7 +470,6 @@ fr:
         email: Email
         facility_naf_code: Code NAF établissement
         full_name: Prénom et nom
-        institution_filters: Questions additionnelles
         landing: Page d’atterrissage
         landing_subject: Sujet choisi sur le site
         landing_theme: Thématique choisie sur le site
@@ -516,6 +492,7 @@ fr:
         siret: SIRET
         slug: Slug
         subject: Sujet réel
+        subject_answers: Questions additionnelles
         theme: Thématique réelle
         tracking: Suivi
       solicitation/statuses:
@@ -541,6 +518,29 @@ fr:
           other: mises en relation
       subject:
         is_support: Support
+      subject_questions:
+        ameliorer_conditions_travail:
+          label: Cet investissement permet-il de réduire la pénibilité au travail de vos salariés ou de renforcer leur sécurité ?
+        entreprise_a_reprendre_trouvee:
+          label: Avez-vous déjà trouvé une entreprise à reprendre ?
+        etalement_cotisations_sociales:
+          label: Souhaitez-vous étaler vos cotisations sociales ?
+        financement_bancaire_envisage:
+          label: Certains accompagnements publics ne viennent qu’en complément d’un financement bancaire. Envisagez-vous un financement bancaire pour votre projet ?
+        formee_est_salariee_de_lentreprise:
+          label: La personne que vous souhaitez former est-elle salariée de votre entreprise ?
+        moins_de_10k_restant_a_financer:
+          'false': 10 000 euros et plus
+          label: Quel est le montant qu’il reste à financer pour votre projet (hors apport et prêt bancaire) ?
+          'true': moins de 10 000 euros
+        outside_europe:
+          label: Votre projet concerne-t-il un pays hors de l’Union européenne (27 pays) ?
+        recrutement_en_apprentissage:
+          label: Souhaitez-vous recruter en apprentissage ?
+        recrutement_handicape:
+          label: Êtes-vous ouvert aux candidatures de personnes en situation de handicap avec l’aide d’un conseiller dédié ?
+        recrutement_poste_cadre:
+          label: Recherchez-vous un profil pour un poste d’ingénieur, de manager ou de niveau Bac +3 ?
       territory:
         advisors: Conseillers
         antennes: Antennes
@@ -630,10 +630,10 @@ fr:
             solicitations: Vous ne pouvez pas supprimer la thématique car des solicitations y font référence
         solicitation:
           attributes:
-            institution_filters:
-              incorrect: doivent correspondre aux questions du sujet de la demande
             siret:
               must_be_a_valid_siret: doit être un numéro à 14 chiffres valide
+            subject_answers:
+              incorrect: doivent correspondre aux questions du sujet de la demande
         territory:
           attributes:
             insee_codes:
@@ -643,9 +643,6 @@ fr:
             email:
               taken: est déjà inscrit sur conseillers-entreprises.service-public.fr.
     models:
-      additional_subject_question:
-        one: Question additionnelle
-        other: Questions additionnelles
       antenne:
         one: Antenne
         other: Antennes
@@ -682,9 +679,6 @@ fr:
       institution:
         one: Institution
         other: Institutions
-      institution_filter:
-        one: Filtre de l'institution
-        other: Filtres de l'institution
       institution_subject:
         one: Compétence d’institution
         other: Compétences d’institutions
@@ -724,6 +718,12 @@ fr:
       subject:
         one: Sujet
         other: Sujets
+      subject_answer:
+        one: Filtre de l'institution
+        other: Filtres de l'institution
+      subject_question:
+        one: Question additionnelle
+        other: Questions additionnelles
       territory:
         one: Territoire
         other: Territoires
