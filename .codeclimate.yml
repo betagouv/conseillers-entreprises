@@ -44,7 +44,7 @@ checks:
 #     enabled: true
 #     channel: "rubocop-0-79"
 
-exclude_patterns:
+exclude_paths:
   - "config/"
   - "db/"
   - "dist/"
