@@ -12,7 +12,9 @@ module XlsxExport
         generate_base_stats
         generate_matches_stats
         generate_needs_stats
-        generate_themes_stats
+        generate_institution_themes_stats
+        generate_occasional_themes_stats
+        add_help_row
         finalise_style
       end
 
@@ -27,16 +29,35 @@ module XlsxExport
         sheet.add_row
       end
 
-      def generate_themes_stats
+      def generate_institution_themes_stats
         # On ne prend que les thèmes principaux
-        themes = Theme.for_interview.limit(10)
+        themes = @antenne.institution.themes.for_interview
 
         sheet.add_row [
-          Theme.model_name.human,
+          I18n.t('antenne_stats_exporter.institution_themes'),
           I18n.t('antenne_stats_exporter.count'),
           I18n.t('antenne_stats_exporter.percentage')
         ], style: count_rate_header_style
 
+        generate_themes_rows(themes)
+      end
+
+      def generate_occasional_themes_stats
+        themes = Theme.for_interview
+        # On ne prend que les thèmes que l'antenne n'a pas et sur lesquels elle a été notifiée quand même
+        themes = themes.reject do |theme|
+          @antenne.institution.themes.include?(theme) ||
+          calculate_needs_by_theme_size(theme).zero?
+        end
+
+        return if calculate_needs_by_themes_size(themes).zero?
+
+        sheet.add_row [I18n.t('antenne_stats_exporter.occasional_themes'), '', ''], style: count_rate_header_style
+
+        generate_themes_rows(themes)
+      end
+
+      def generate_themes_rows(themes)
         needs_by_themes = {}
         themes.each do |theme|
           needs_by_themes[theme.label] = theme.present? ? calculate_needs_by_theme_size(theme) : nil
@@ -98,6 +119,11 @@ module XlsxExport
             calculate_rate(by_status_size, recipient)
           ], style: count_rate_row_style
         end
+      end
+
+      def add_help_row
+        sheet.add_row [I18n.t('antenne_stats_exporter.count_difference')], style: [@italic]
+        sheet.add_row [I18n.t('antenne_stats_exporter.work_in_progress'),], style: [@italic]
       end
 
       def finalise_style
@@ -164,6 +190,10 @@ module XlsxExport
         @needs.joins(subject: :theme).where(subject: { theme: theme }).size
       end
 
+      def calculate_needs_by_themes_size(themes)
+        @needs.joins(subject: :theme).where(subject: { theme: themes }).size
+      end
+
       def calculate_needs_by_subject_size(subject)
         @needs.where(subject: subject).size
       end
@@ -173,6 +203,7 @@ module XlsxExport
       def create_styles(s)
         @subtitle     = s.add_style bg_color: 'eadecd', sz: 14, b: true, alignment: { horizontal: :center, vertical: :center }, border: { color: 'AAAAAA', style: :thin }
         @bold         = s.add_style b: true
+        @italic       = s.add_style i: true
         @left_header  = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :left }, border: { color: 'AAAAAA', style: :thin }
         @right_header = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :right }, border: { color: 'AAAAAA', style: :thin }
         @label        = s.add_style alignment: { indent: 1 }

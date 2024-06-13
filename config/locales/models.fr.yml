@@ -755,6 +755,7 @@ fr:
     closed_with_help: "- dont clôturés par « aide proposée »"
     closed_without_help: "- dont clôturés par « pas d’aide »"
     count: Nombre
+    count_difference: "* La différence avec la ligne 4 peut être liée à des doubles notifications ponctuelles sur un même besoin."
     done_caption_definition: Besoin pris en charge par un expert et clôturé par une proposition d’aide au sens large (conseils, accompagnement technique, aide financière).
     done_caption_label: Aide proposée
     done_no_help_caption_definition: Besoin pris en charge par un expert mais l’échange téléphonique n’a pu aboutir à une proposition d’aide (critère non rempli, situation spécifique...).
@@ -777,6 +778,7 @@ fr:
       status_quo: Taux de sans réponse
       status_taking_care: "  -  dont en cours de traitement"
       taken_care_of: Taux de prise en charge
+    institution_themes: Thématiques de l’institution
     matches: Mises en relation
     needs: Besoins
     needs_count: Nb de besoins
@@ -784,6 +786,7 @@ fr:
     not_for_me_caption_definition: Part des besoins pour lesquels les experts ont indiqué refuser car ils savaient d’emblée qu’ils ne pourraient pas aider l’entreprise.
     not_for_me_caption_label: Taux de refus
     not_for_me_rate: Taux de refus
+    occasional_themes: Thématiques ponctuelles
     percentage: Pourcentage
     positionning_accepted_caption_definition: Part des besoins pour lesquels les experts ont indiqué prendre en charge en appelant l’entreprise, toutes clôtures confondues (aide proposée, injoignage, pas d’aide).
     positionning_accepted_caption_label: Taux de prise en charge
@@ -807,9 +810,10 @@ fr:
     taking_care_caption_definition: Besoins pris en charge par un expert, qui n’a pas encore été clôturé après l’appel de l’entreprise.
     taking_care_caption_label: En cours de traitement
     total: Tous sujets
-    transmitted_needs: Besoins transmis
+    transmitted_needs: Besoins transmis *
     without_response_caption_definition: Part des besoins pour lesquels les experts n’ont rien indiqué
     without_response_caption_label: Taux de sans réponse
+    work_in_progress: Des travaux d’amélioration sont en cours.
     year_stats: Stats ann.
     year_stats_by_subject: Stats ann. par sujet
   archivable:
