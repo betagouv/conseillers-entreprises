@@ -49,13 +49,16 @@ describe QuarterlyReports::GenerateReports do
 
       context 'with first national matches three years ago' do
         let!(:expert) { create :expert_with_users, antenne: antenne }
-        let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 3.years.ago) }
-        let!(:other_match) { create :match, expert: create(:expert, antenne: local_antenne), need: create(:need, created_at: 5.months.ago) }
+        let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: travel_to(Time.zone.local('2021', '06', '13'))) } # 3 years ago
+        let!(:other_match) { create :match, expert: create(:expert, antenne: local_antenne), need: create(:need, created_at: travel_to(Time.zone.local('2024', '02', '08'))) } # 5 months ago
 
-        it('return only current and last year quarters') do
-          expect(quarters.last.first.strftime('%Y-%m-%d')).to eq 1.year.ago.beginning_of_year.strftime('%Y-%m-%d')
-          expect(quarters.length).to be > 4
+        let(:quarters) do
+          travel_to(Time.zone.local('2024', '07', '13')) do
+            described_class.new(antenne).send(:last_quarters)
+          end
         end
+
+        it('return only current and last year quarters') { expect(quarters.length).to eq 6 }
       end
     end
   end
