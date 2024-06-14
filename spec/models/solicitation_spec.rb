@@ -149,15 +149,15 @@ end
         end
 
         context 'with correct subject_answers' do
-          let!(:subject_answer_01) { create :subject_answer, subject_questioned: solicitation, subject_question: subject_question_01 }
-          let!(:subject_answer_02) { create :subject_answer, subject_questioned: solicitation, subject_question: subject_question_02 }
+          let!(:subject_answer_01) { create :subject_answer, subject_questionable: solicitation, subject_question: subject_question_01 }
+          let!(:subject_answer_02) { create :subject_answer, subject_questionable: solicitation, subject_question: subject_question_02 }
 
           it { expect(solicitation).to be_valid }
         end
 
         context 'with incorrect subject_answers' do
-          let!(:subject_answer_01) { create :subject_answer, subject_questioned: solicitation, subject_question: create(:subject_question) }
-          let!(:subject_answer_02) { create :subject_answer, subject_questioned: solicitation, subject_question: create(:subject_question) }
+          let!(:subject_answer_01) { create :subject_answer, subject_questionable: solicitation, subject_question: create(:subject_question) }
+          let!(:subject_answer_02) { create :subject_answer, subject_questionable: solicitation, subject_question: create(:subject_question) }
 
           it { expect(solicitation).not_to be_valid }
         end

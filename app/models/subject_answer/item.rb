@@ -19,12 +19,16 @@
 #  index_subject_answers_on_subject_question_id             (subject_question_id)
 #  institution_filtrable_additional_subject_question_index  (subject_questionable_id,subject_questionable_type,subject_question_id) UNIQUE
 #
-## Voir les sous-classes SubjectAnswer::Filter et SubjectAnswer::Item
-#
-class SubjectAnswer < ApplicationRecord
+class SubjectAnswer::Item < SubjectAnswer
+  ## subject_questionable_type
+  # Solicitation : Sert pour sauvegarder la réponse à la question additionnelle
+  # Need : Sert pour sauvegarder la réponse au niveau du besoin et la comparer à l'institution
+
   ## Associations
   #
-  belongs_to :subject_question
+  belongs_to :subject_questionable, polymorphic: true
 
-  delegate :key, to: :subject_question
+  ## Validations
+  #
+  validates :subject_questionable_id, uniqueness: { scope: %i[subject_questionable_type subject_question_id] }
 end

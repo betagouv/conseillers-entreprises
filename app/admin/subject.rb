@@ -13,7 +13,7 @@ ActiveAdmin.register Subject do
 
   ## Index
   #
-  includes :theme, :institutions_subjects, :experts, :matches, :needs, :institutions
+  includes :theme, :institutions_subjects, :experts, :matches, :needs, :institutions, :subject_answer_filters
   config.sort_order = 'interview_sort_order_asc'
 
   index do
@@ -71,6 +71,16 @@ ActiveAdmin.register Subject do
       row(:matches) { |s| admin_link_to(s, :matches) }
       row(:institutions) { |s| admin_link_to(s, :institutions) }
       row(:experts) { |s| admin_link_to(s, :experts) }
+    end
+
+    attributes_table title: I18n.t('activerecord.models.subject_question.other') do
+      table_for subject.subject_questions do |question|
+        column(:key)
+        column(:label) { |question| I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, question.key]) }
+        column(:institutions) do |question|
+          question.subject_answer_filters.map{ |saf| admin_link_to(saf, :institution) }.uniq
+        end
+      end
     end
   end
 

@@ -56,7 +56,7 @@ class Need < ApplicationRecord
   has_many :reminder_feedbacks, -> { where(category: :need_reminder) }, class_name: :Feedback, dependent: :destroy, as: :feedbackable, inverse_of: :feedbackable
   has_many :reminders_actions, inverse_of: :need, dependent: :destroy
   has_one :company_satisfaction, dependent: :destroy, inverse_of: :need
-  has_many :subject_answers, dependent: :destroy, as: :subject_questioned, inverse_of: :subject_questioned
+  has_many :subject_answers, dependent: :destroy, as: :subject_questionable, inverse_of: :subject_questionable, class_name: 'SubjectAnswer::Item'
   has_many :badge_badgeables, as: :badgeable
   has_many :badges, through: :badge_badgeables, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
 

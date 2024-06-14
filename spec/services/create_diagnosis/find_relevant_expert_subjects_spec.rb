@@ -503,37 +503,85 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
     end
   end
 
-  describe 'apply_subject_answers_filters' do
-    subject{ described_class.new(need).apply_subject_answers_filters(ExpertSubject.of_subject(need.subject)) }
+  describe 'apply_subject_question_filters' do
+    subject{ described_class.new(need).apply_subject_question_filters(ExpertSubject.of_subject(need.subject)) }
 
     let(:common_subject) { create :subject }
     let(:additional_question) { create :subject_question, subject: common_subject }
 
-    let(:subject_answer_ok) { create :institution }
-    let!(:es_filter_ok) { create :expert_subject, subject: common_subject, expert: (create :expert, antenne: (create :antenne, institution: subject_answer_ok)) }
-    let(:subject_answer_ko) { create :institution }
-    let!(:es_filter_ko) { create :expert_subject, subject: common_subject, expert: (create :expert, antenne: (create :antenne, institution: subject_answer_ko)) }
+    let(:institution_ok) { create :institution }
+    let!(:institution_ok_grouping) { create :subject_answer_grouping, institution: institution_ok }
+    let!(:es_answer_ok) { create :expert_subject, subject: common_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_ok)) }
+    let(:institution_ko) { create :institution }
+    let!(:institution_ko_grouping) { create :subject_answer_grouping, institution: institution_ko }
+    let!(:es_answer_ko) { create :expert_subject, subject: common_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_ko)) }
     let!(:es_temoin) { create :expert_subject, subject: common_subject }
 
     let(:need) { create :need, subject: common_subject }
 
-    context 'need with filter' do
-      before do
-        need.subject_answers.create(subject_question: additional_question, filter_value: true)
-        subject_answer_ok.subject_answers.create(subject_question: additional_question, filter_value: true)
-        subject_answer_ko.subject_answers.create(subject_question: additional_question, filter_value: false)
-      end
-
-      it { is_expected.to contain_exactly(es_temoin, es_filter_ok) }
+    before do
+      need.subject_answers = subject_answers
+      institution_ok_grouping.subject_answers = institution_ok_subject_answers
+      institution_ko_grouping.subject_answers = institution_ko_subject_answers
     end
 
-    context 'need no filter' do
-      before do
-        subject_answer_ok.subject_answers.create(subject_question: additional_question, filter_value: true)
-        subject_answer_ko.subject_answers.create(subject_question: additional_question, filter_value: false)
+    context 'need with simple question filter' do
+      let(:subject_answers) { [create(:need_subject_answer, subject_question: additional_question, filter_value: true, subject_questionable: need)] }
+      let(:institution_ok_subject_answers) { [create(:subject_answer_filter, subject_question: additional_question, filter_value: true)] }
+      let(:institution_ko_subject_answers) { [create(:subject_answer_filter, subject_question: additional_question, filter_value: false)] }
+
+      it { is_expected.to contain_exactly(es_temoin, es_answer_ok) }
+    end
+
+    context 'need with complex question filter' do
+      let(:other_question) { create :subject_question, subject: common_subject }
+
+      let(:subject_answers) do
+  [
+    create(:need_subject_answer, subject_question: additional_question, filter_value: true, subject_questionable: need),
+    create(:need_subject_answer, subject_question: other_question, filter_value: false, subject_questionable: need)
+  ]
+end
+      let(:institution_ok_subject_answers) do
+  [
+    create(:subject_answer_filter, subject_question: additional_question, filter_value: true),
+    create(:subject_answer_filter, subject_question: other_question, filter_value: false)
+  ]
+end
+      let(:institution_ko_subject_answers) do
+  [
+    create(:subject_answer_filter, subject_question: additional_question, filter_value: false),
+    create(:subject_answer_filter, subject_question: other_question, filter_value: false)
+  ]
+end
+
+      context 'only one grouping' do
+        it { is_expected.to contain_exactly(es_temoin, es_answer_ok) }
       end
 
-      it { is_expected.to contain_exactly(es_temoin, es_filter_ok, es_filter_ko) }
+      context 'many groupings' do
+        let!(:institution_ok_falsy_grouping) { create :subject_answer_grouping, institution: institution_ok }
+        let(:institution_ok_falsy_subject_answers) do
+  [
+    create(:subject_answer_filter, subject_question: additional_question, filter_value: true),
+    create(:subject_answer_filter, subject_question: other_question, filter_value: true)
+  ]
+end
+
+        before { institution_ok_falsy_grouping.subject_answers = institution_ok_falsy_subject_answers }
+
+        # Du moment qu'il y a un bon grouping, meme si les autres le sont pas, ça marche
+        it { is_expected.to contain_exactly(es_temoin, es_answer_ok) }
+      end
+    end
+
+    context 'need no question filter' do
+      before do
+        institution_ok.subject_answers.create(subject_question: additional_question, filter_value: true)
+        institution_ko.subject_answers.create(subject_question: additional_question, filter_value: false)
+      end
+
+      it { is_expected.to contain_exactly(es_temoin, es_answer_ok, es_answer_ko) }
     end
 
     context 'multiple interrelated questions' do

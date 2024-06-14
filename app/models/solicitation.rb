@@ -67,7 +67,7 @@ class Solicitation < ApplicationRecord
   belongs_to :institution, inverse_of: :solicitations, optional: true
   has_many :badge_badgeables, as: :badgeable
   has_many :badges, through: :badge_badgeables, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
-  has_many :subject_answers, dependent: :destroy, as: :subject_questioned, inverse_of: :subject_questioned
+  has_many :subject_answers, dependent: :destroy, as: :subject_questionable, inverse_of: :subject_questionable, class_name: 'SubjectAnswer::Item'
   accepts_nested_attributes_for :subject_answers, allow_destroy: false
 
   before_create :set_uuid

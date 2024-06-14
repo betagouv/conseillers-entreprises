@@ -17,6 +17,7 @@ class SubjectQuestion < ApplicationRecord
   #
   belongs_to :subject, inverse_of: :subject_questions
   has_many :subject_answers, dependent: :destroy, inverse_of: :subject_question
+  has_many :subject_answer_filters, class_name: 'SubjectAnswer::Filter', dependent: :destroy, inverse_of: :subject_question
 
   ## Validations
   #

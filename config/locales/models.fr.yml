@@ -140,6 +140,8 @@ fr:
       copy_experts_title: Référencement
       define_as_support: Définir comme sujet support
       done: Ce sujet est maintenant le seul sujet support
+    subject_answer_grouping:
+      title_with_index: Question filtrante %{index}
     territory:
       assign_entire_territory: "[compléter]"
       communes_list: Liste des communes
@@ -536,11 +538,15 @@ fr:
         outside_europe:
           label: Votre projet concerne-t-il un pays hors de l’Union européenne (27 pays) ?
         recrutement_en_apprentissage:
-          label: Souhaitez-vous recruter en apprentissage ?
+          label: Recrutez-vous un apprenti ou un stagiaire ?
         recrutement_handicape:
           label: Êtes-vous ouvert aux candidatures de personnes en situation de handicap avec l’aide d’un conseiller dédié ?
+        recrutement_identifie:
+          label: Avez-vous déjà identifié la personne à recruter ?
         recrutement_poste_cadre:
-          label: Recherchez-vous un profil pour un poste d’ingénieur, de manager ou de niveau Bac +3 ?
+          label: Recrutez-vous sur un poste d’ingénieur, de manager ou de niveau Bac +3 ?
+        recrutement_premier:
+          label: S'agit-il d’un premier recrutement pour votre entreprise ?
       territory:
         advisors: Conseillers
         antennes: Antennes

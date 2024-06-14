@@ -37,9 +37,8 @@ class Institution < ApplicationRecord
   has_and_belongs_to_many :categories # Une institution peut avoir plusieurs categories a la fois, donc une enum serait trop limitante
   has_one :logo, inverse_of: :institution
   has_many :facilities, inverse_of: :opco
-  has_many :subject_answers, dependent: :destroy, as: :subject_questioned, inverse_of: :subject_questioned
-  # has_many :grouped_subject_answers, dependent: :destroy, inverse_of: :institution
-  # has_many :subject_answers, through: :grouped_subject_answers, inverse_of: :landing_themes
+  has_many :subject_answer_groupings, dependent: :destroy, inverse_of: :institution
+  has_many :subject_answers, through: :subject_answer_groupings, class_name: 'SubjectAnswer::Filter'
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
   accepts_nested_attributes_for :match_filters, allow_destroy: true
 

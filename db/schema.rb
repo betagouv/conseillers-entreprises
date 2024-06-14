@@ -313,18 +313,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_131949) do
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
-  create_table "grouped_subject_answers", force: :cascade do |t|
-    t.bigint "institution_id", null: false
-    t.bigint "company_satisfaction_id", null: false
-    t.bigint "expert_id", null: false
-    t.datetime "seen_at", precision: nil
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["company_satisfaction_id"], name: "index_grouped_subject_answers_on_company_satisfaction_id"
-    t.index ["expert_id"], name: "index_grouped_subject_answers_on_expert_id"
-    t.index ["institution_id"], name: "index_grouped_subject_answers_on_institution_id"
-  end
-
   create_table "institutions", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -585,16 +573,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_131949) do
     t.index ["uuid"], name: "index_solicitations_on_uuid"
   end
 
+  create_table "subject_answer_groupings", force: :cascade do |t|
+    t.bigint "institution_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["institution_id"], name: "index_subject_answer_groupings_on_institution_id"
+  end
+
   create_table "subject_answers", force: :cascade do |t|
     t.bigint "subject_question_id"
-    t.string "subject_questioned_type"
-    t.bigint "subject_questioned_id"
+    t.string "subject_questionable_type"
+    t.bigint "subject_questionable_id"
     t.boolean "filter_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type"
+    t.bigint "subject_answer_grouping_id"
+    t.index ["subject_answer_grouping_id"], name: "index_subject_answers_on_subject_answer_grouping_id"
     t.index ["subject_question_id"], name: "index_subject_answers_on_subject_question_id"
-    t.index ["subject_questioned_id", "subject_questioned_type", "subject_question_id"], name: "institution_filtrable_additional_subject_question_index", unique: true
-    t.index ["subject_questioned_type", "subject_questioned_id"], name: "index_institution_filters_on_institution_filtrable"
+    t.index ["subject_questionable_id", "subject_questionable_type", "subject_question_id"], name: "institution_filtrable_additional_subject_question_index", unique: true
+    t.index ["subject_questionable_type", "subject_questionable_id"], name: "index_institution_filters_on_institution_filtrable"
   end
 
   create_table "subject_questions", force: :cascade do |t|
@@ -718,9 +716,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_131949) do
   add_foreign_key "facilities", "companies"
   add_foreign_key "facilities", "institutions", column: "opco_id"
   add_foreign_key "feedbacks", "users"
-  add_foreign_key "grouped_subject_answers", "company_satisfactions"
-  add_foreign_key "grouped_subject_answers", "experts"
-  add_foreign_key "grouped_subject_answers", "institutions"
   add_foreign_key "institutions_subjects", "institutions"
   add_foreign_key "institutions_subjects", "subjects"
   add_foreign_key "landing_subjects", "landing_themes"
@@ -743,6 +738,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_131949) do
   add_foreign_key "solicitations", "institutions"
   add_foreign_key "solicitations", "landing_subjects"
   add_foreign_key "solicitations", "landings"
+  add_foreign_key "subject_answer_groupings", "institutions"
   add_foreign_key "subjects", "themes"
   add_foreign_key "user_rights", "antennes"
   add_foreign_key "user_rights", "users"

@@ -19,12 +19,9 @@
 #  index_subject_answers_on_subject_question_id             (subject_question_id)
 #  institution_filtrable_additional_subject_question_index  (subject_questionable_id,subject_questionable_type,subject_question_id) UNIQUE
 #
-## Voir les sous-classes SubjectAnswer::Filter et SubjectAnswer::Item
-#
-class SubjectAnswer < ApplicationRecord
+class SubjectAnswer::Filter < SubjectAnswer
   ## Associations
   #
-  belongs_to :subject_question
-
-  delegate :key, to: :subject_question
+  belongs_to :subject_answer_grouping
+  has_one :institution, through: :subject_answer_grouping
 end
