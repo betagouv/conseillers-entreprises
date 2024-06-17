@@ -25,8 +25,8 @@ class ChangeSubjectQuestions < ActiveRecord::Migration[7.0]
             type: 'SubjectAnswer::Filter'
           )
 
-          sa.subject_questionable_type = nil
-          sa.subject_questionable_id = nil
+          subject_answer.subject_questionable_type = nil
+          subject_answer.subject_questionable_id = nil
         end
         ## Création des questions groupées investissement =====================
         #
@@ -64,7 +64,7 @@ class ChangeSubjectQuestions < ActiveRecord::Migration[7.0]
 
         initiative = Institution.find_by(slug: 'initiative-france')
         initiative.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
-        initiative.subject_answer_groupings.where(subject_answers: []).destroy_all
+        initiative.subject_answer_groupings.where.missing(:subject_answers).destroy_all
         first = initiative.subject_answer_groupings.create
         first.subject_answers = [
           SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: true),
@@ -78,7 +78,7 @@ class ChangeSubjectQuestions < ActiveRecord::Migration[7.0]
 
         bpi = Institution.find_by(slug: 'bpifrance')
         bpi.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
-        bpi.subject_answer_groupings.where(subject_answers: []).destroy_all
+        bpi.subject_answer_groupings.where.missing(:subject_answers).destroy_all
         first = bpi.subject_answer_groupings.create
         first.subject_answers = [
           SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: false),
@@ -87,7 +87,7 @@ class ChangeSubjectQuestions < ActiveRecord::Migration[7.0]
 
         bdf = Institution.find_by(slug: 'banque-de-france')
         bdf.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
-        bdf.subject_answer_groupings.where(subject_answers: []).destroy_all
+        bdf.subject_answer_groupings.where.missing(:subject_answers).destroy_all
         first = bdf.subject_answer_groupings.create
         first.subject_answers = [
           SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: false),

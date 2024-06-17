@@ -593,6 +593,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_131949) do
     t.index ["subject_question_id"], name: "index_subject_answers_on_subject_question_id"
     t.index ["subject_questionable_id", "subject_questionable_type", "subject_question_id"], name: "institution_filtrable_additional_subject_question_index", unique: true
     t.index ["subject_questionable_type", "subject_questionable_id"], name: "index_institution_filters_on_institution_filtrable"
+    t.index ["type"], name: "index_subject_answers_on_type"
   end
 
   create_table "subject_questions", force: :cascade do |t|

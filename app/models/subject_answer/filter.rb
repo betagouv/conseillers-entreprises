@@ -17,6 +17,7 @@
 #  index_institution_filters_on_institution_filtrable       (subject_questionable_type,subject_questionable_id)
 #  index_subject_answers_on_subject_answer_grouping_id      (subject_answer_grouping_id)
 #  index_subject_answers_on_subject_question_id             (subject_question_id)
+#  index_subject_answers_on_type                            (type)
 #  institution_filtrable_additional_subject_question_index  (subject_questionable_id,subject_questionable_type,subject_question_id) UNIQUE
 #
 class SubjectAnswer::Filter < SubjectAnswer
