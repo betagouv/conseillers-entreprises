@@ -170,11 +170,13 @@ ActiveAdmin.register Institution do
                 search_fields: [:name]
               }
     end
-    f.has_many :institutions_subjects, heading: t('activerecord.attributes.institution.subjects'), allow_destroy: true do |sub_f|
-      themes = Theme.all.ordered_for_interview
-      collection = option_groups_from_collection_for_select(themes, :subjects_ordered_for_interview, :label, :id, :label, sub_f.object&.subject&.id)
-      sub_f.input :subject, collection: collection
-      sub_f.input :description
+    f.inputs do
+      f.has_many :institutions_subjects, heading: t('activerecord.attributes.institution.subjects'), allow_destroy: true do |sub_f|
+        themes = Theme.all.ordered_for_interview
+        collection = option_groups_from_collection_for_select(themes, :subjects_ordered_for_interview, :label, :id, :label, sub_f.object&.subject&.id)
+        sub_f.input :subject, collection: collection
+        sub_f.input :description
+      end
     end
 
     f.inputs do
