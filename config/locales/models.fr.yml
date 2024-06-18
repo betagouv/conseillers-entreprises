@@ -287,6 +287,7 @@ fr:
         themes: Thèmes
         users: Conseillers
       landing:
+        api: Api
         custom_css: CSS personnalisé
         display_pde_partnership_mention: Afficher le partenariat Conseillers-Entreprises (logo + phrase en bas d’iframe)
         emphasis: Mettre en avant sur la page d’accueil

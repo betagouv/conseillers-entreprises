@@ -77,12 +77,12 @@ describe Stats::Filters::Matches do
     it { is_expected.to eq [match_inside] }
   end
 
-  describe 'iframe_filter' do
+  describe 'landing_filter' do
     let(:iframe) { create(:landing, iframe_category: :themes) }
     let(:need_inside) { create :need, solicitation: create(:solicitation, landing: iframe) }
     let!(:match_inside) { create :match, need: need_inside }
 
-    subject { described_class.new(query, open_struct_graph).send(:iframe_filter, iframe.id) }
+    subject { described_class.new(query, open_struct_graph).send(:landing_filter, iframe.id) }
 
     it { is_expected.to eq [match_inside] }
   end

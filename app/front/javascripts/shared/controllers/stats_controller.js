@@ -1,8 +1,16 @@
+import { exists } from '../utils.js';
+
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ['institution', 'antennes', 'themes', 'subjects', 'iframes', 'loader', 'url']
-
+  static targets = ['institution', 'antennes', 'themes', 'subjects', 'loader', 'url']
+  
+  BLOCKS = {
+    0: 'intern',
+    1: 'iframe',
+    2: 'api'
+  }
+  
   initialize() {
     this.url = this.element.dataset.url
   }
@@ -56,14 +64,17 @@ export default class extends Controller {
     }
   }
 
-  toggleIframeSelect(data) {
-    let selectedIntegration = data.target.value
-    // On utilise 1 au lieu de 'iframe' car ça déclenche une erreur Postgres dans les filtres
-    if (selectedIntegration == 1) {
-      this.iframesTarget.parentElement.style.display = 'block'
-    } else {
-      this.iframesTarget.value = ''
-      this.iframesTarget.parentElement.style.display = 'none'
+  toggleIntegrationSelect(data) {
+    let selectedIntegration = this.BLOCKS[data.target.value];
+    this.element.querySelectorAll(`[data-integration]`).forEach((integrationSelect) => {
+      integrationSelect.value = '';
+      integrationSelect.setAttribute("disabled", true);
+      integrationSelect.parentElement.style.display = 'none';
+    })
+    let chosenSelect = this.element.querySelector(`[data-integration='${selectedIntegration}']`)
+    if (exists(chosenSelect)) {
+      chosenSelect.parentElement.style.display = 'block'
+      chosenSelect.removeAttribute("disabled");
     }
   }
 }

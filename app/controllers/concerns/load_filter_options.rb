@@ -15,6 +15,7 @@ module LoadFilterOptions
 
   def init_filters
     @iframes = Landing.iframe.not_archived.order(:slug)
+    @apis = Landing.api.not_archived.order(:slug)
     @institution_antennes = []
     @themes = Theme.for_interview
     @subjects = Subject.not_archived.for_interview
