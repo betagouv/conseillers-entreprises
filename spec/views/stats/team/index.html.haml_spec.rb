@@ -62,4 +62,5 @@ def assign_base_data
   assign(:themes, [])
   assign(:subjects, [])
   assign(:iframes, Landing.iframe.not_archived.order(:slug))
+  assign(:apis, Landing.api.not_archived.order(:slug))
 end
