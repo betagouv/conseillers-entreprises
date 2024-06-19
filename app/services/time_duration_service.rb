@@ -2,7 +2,7 @@ class TimeDurationService
   def self.past_year_quarters
     today = Date.today
 
-    years = [today.year - 1, today.year]
+    years = past_two_years
     quarters = []
     years.each do |year|
       date ||= Date.new(year, 1, 1)
@@ -25,6 +25,18 @@ class TimeDurationService
       "3"
     when 10,11,12
       "4"
+    end
+  end
+
+  private
+
+  def self.past_two_years
+    today = Date.today
+    # Don't take into account the current year if we are before the end of the first quarter
+    if today.month <= 3
+      [today.year - 2, today.year - 1]
+    else
+      [today.year - 1, today.year]
     end
   end
 end
