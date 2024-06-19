@@ -38,7 +38,6 @@ describe QuarterlyReports::GenerateReports do
 
         it('return one past quarters') { expect(quarters.length).to eq 1 }
       end
-      
 
       context 'with first national matches a year ago' do
         let!(:expert) { create :expert_with_users, antenne: antenne }
