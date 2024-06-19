@@ -50,5 +50,6 @@
                         = t('.file_infos', weight: matches_report.file.byte_size / 1000) if matches_report.file.present?
 
   - else
-    .fr-alert.fr-alert--info{ role: "alert" }
-      %p.fr-alert__title= t('.no_export_available')
+    .fr-my-4v
+      .fr-alert.fr-alert--info{ role: "alert" }
+        %p.fr-alert__title= t('.no_export_available')
