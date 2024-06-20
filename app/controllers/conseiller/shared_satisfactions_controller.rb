@@ -27,11 +27,10 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
     @shared_satisfaction = SharedSatisfaction.find(params[:id])
     if @shared_satisfaction.touch(:seen_at)
       flash.notice = t('conseiller.shared_satisfactions.satifaction_seen')
-      redirect_back_or_to(unseen_conseiller_shared_satisfactions_path)
     else
       flash.alert = @shared_satisfaction.errors.full_messages.to_sentence
-      redirect_back_or_to(unseen_conseiller_shared_satisfactions_path)
     end
+    redirect_to action: :unseen
   end
 
   private
