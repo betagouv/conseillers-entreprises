@@ -27,5 +27,5 @@
               - shared_satisfaction = need.shared_satisfactions.find_by(user: current_user)
               - if shared_satisfaction.unseen?
                 %li
-                  = form_with model: shared_satisfaction, url: mark_as_seen_conseiller_shared_satisfaction_path(shared_satisfaction), method: :patch, local: true, data: { turbo: false } do |f|
+                  = form_with model: shared_satisfaction, url: mark_as_seen_conseiller_shared_satisfaction_path(shared_satisfaction), local: true, data: { turbo: false } do |f|
                     = f.submit t('.process'), class: 'fr-btn fr-mr-2v'
