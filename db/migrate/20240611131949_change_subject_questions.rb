@@ -14,6 +14,8 @@ class ChangeSubjectQuestions < ActiveRecord::Migration[7.0]
     end
 
     add_reference :subject_answers, :subject_answer_grouping, index: true
+    change_column_null :subject_answers, :subject_question_id, false
+    change_column_null :subject_questions, :subject_id, false
 
     reversible do |direction|
       direction.up do
@@ -48,11 +50,15 @@ class ChangeSubjectQuestions < ActiveRecord::Migration[7.0]
 
         adie = Institution.find_by(slug: 'adie')
         adie.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
-        adie.subject_answer_groupings.first.subject_answers = [
+        adie.subject_answer_groupings.where.missing(:subject_answers).destroy_all
+
+        first= adie.subject_answer_groupings.create
+        first.subject_answers = [
           SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: true),
           SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: true)
         ]
-        adie.subject_answer_groupings.second.subject_answers = [
+        second = adie.subject_answer_groupings.create
+        second.subject_answers = [
           SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: true),
           SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: false)
         ]

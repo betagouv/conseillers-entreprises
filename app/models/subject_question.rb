@@ -5,7 +5,7 @@
 #  id         :bigint(8)        not null, primary key
 #  key        :string
 #  position   :integer
-#  subject_id :bigint(8)
+#  subject_id :bigint(8)        not null
 #
 # Indexes
 #

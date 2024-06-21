@@ -9,7 +9,7 @@
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  subject_answer_grouping_id :bigint(8)
-#  subject_question_id        :bigint(8)
+#  subject_question_id        :bigint(8)        not null
 #  subject_questionable_id    :bigint(8)
 #
 # Indexes

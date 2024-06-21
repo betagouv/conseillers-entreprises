@@ -28,6 +28,9 @@ def create_base_dummy_data
   create(:theme)
   create(:user)
   create(:solicitation)
+  create(:solicitation_subject_answer)
+  create(:need_subject_answer)
+  create(:subject_answer_grouping)
 end
 
 def side_menu_link(path)

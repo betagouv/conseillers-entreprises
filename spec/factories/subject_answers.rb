@@ -8,11 +8,11 @@ FactoryBot.define do
     end
 
     factory :solicitation_subject_answer, class: "SubjectAnswer::Item" do
-      subject_questionable factory: %i[solicitation]
+      subject_questionable factory: :solicitation
     end
 
     factory :need_subject_answer, class: "SubjectAnswer::Item" do
-      subject_questionable factory: %i[need]
+      subject_questionable factory: :need
     end
   end
 end

@@ -581,7 +581,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_131949) do
   end
 
   create_table "subject_answers", force: :cascade do |t|
-    t.bigint "subject_question_id"
+    t.bigint "subject_question_id", null: false
     t.string "subject_questionable_type"
     t.bigint "subject_questionable_id"
     t.boolean "filter_value"
@@ -597,7 +597,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_131949) do
   end
 
   create_table "subject_questions", force: :cascade do |t|
-    t.bigint "subject_id"
+    t.bigint "subject_id", null: false
     t.string "key"
     t.integer "position"
     t.index ["subject_id", "key"], name: "additional_subject_question_subject_key_index", unique: true
