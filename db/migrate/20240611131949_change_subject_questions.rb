@@ -52,7 +52,7 @@ class ChangeSubjectQuestions < ActiveRecord::Migration[7.0]
         adie.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
         adie.subject_answer_groupings.where.missing(:subject_answers).destroy_all
 
-        first= adie.subject_answer_groupings.create
+        first = adie.subject_answer_groupings.create
         first.subject_answers = [
           SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: true),
           SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: true)
