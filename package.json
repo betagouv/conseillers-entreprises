@@ -4,7 +4,7 @@
   },
   "dependencies": {
     "@gouvfr/dsfr": "^1.10.0",
-    "@hotwired/turbo-rails": "^7.2.4",
+    "@hotwired/turbo-rails": "^8.0.4",
     "@rails/ujs": "^6.0.3-4",
     "accessible-autocomplete": "^2.0.3",
     "jquery": "^3.5.1",

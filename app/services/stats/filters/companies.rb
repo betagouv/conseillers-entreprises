@@ -28,10 +28,10 @@ module Stats::Filters
         .where(landing: { integration: integration })
     end
 
-    def iframe_filter(iframe_id)
-      return if iframe_id.blank?
+    def landing_filter(landing_id)
+      return if landing_id.blank?
       @query.merge! Company.joins(facilities: { diagnoses: { solicitation: :landing } })
-        .where(landing: { id: iframe_id })
+        .where(landing: { id: landing_id })
     end
 
     def theme_filter(theme)

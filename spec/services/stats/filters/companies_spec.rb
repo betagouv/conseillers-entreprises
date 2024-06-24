@@ -82,11 +82,11 @@ end
     it { is_expected.to eq [diagnosis_inside.company] }
   end
 
-  describe 'iframe_filter' do
+  describe 'landing_filter' do
     let(:iframe) { create(:landing, iframe_category: :themes) }
     let!(:diagnosis_inside) { create :diagnosis, solicitation: create(:solicitation, landing: iframe) }
 
-    subject { described_class.new(query, open_struct_graph).send(:iframe_filter, iframe.id) }
+    subject { described_class.new(query, open_struct_graph).send(:landing_filter, iframe.id) }
 
     it { is_expected.to eq [diagnosis_inside.company] }
   end

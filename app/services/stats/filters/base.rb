@@ -11,7 +11,7 @@ module Stats::Filters
       antenne_or_institution_filter(@graph_struct.antenne_or_institution, @graph_struct.with_agglomerate_data)
       subject_filter(@graph_struct.subject)
       integration_filter(@graph_struct.integration)
-      iframe_filter(@graph_struct.iframe_id)
+      landing_filter(@graph_struct.landing_id)
       theme_filter(@graph_struct.theme)
       mtm_campaign_filter(@graph_struct.mtm_campaign)
       mtm_kwd_filter(@graph_struct.mtm_kwd)

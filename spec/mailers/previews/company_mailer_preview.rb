@@ -3,7 +3,7 @@ class CompanyMailerPreview < ActionMailer::Preview
     CompanyMailer.confirmation_solicitation(Solicitation.where(institution: nil).where.associated(:landing_subject).sample)
   end
 
-  def confirmation_solicitation_from_iframe
+  def confirmation_solicitation_from_iframe_or_api
     CompanyMailer.confirmation_solicitation(Solicitation.where.not(institution: nil).where.associated(:landing_subject).sample)
   end
 
