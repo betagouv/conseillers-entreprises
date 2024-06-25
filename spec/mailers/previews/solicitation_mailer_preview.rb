@@ -51,6 +51,10 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.kbis_extract(random_solicitation)
   end
 
+  def retirement_liberal_professions
+    SolicitationMailer.retirement_liberal_professions(random_solicitation)
+  end
+
   private
 
   def random_solicitation

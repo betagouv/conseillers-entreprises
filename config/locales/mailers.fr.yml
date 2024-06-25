@@ -209,6 +209,12 @@ fr:
         interior_ministry_html: 'La demande d’autorisation de travail relève d’un service en ligne du Ministère de l’Intérieur : <a href=''https://administration-etrangers-en-france.interieur.gouv.fr/immiprousager/#/authentification''>https://administration-etrangers-en-france.interieur.gouv.fr</a>.'
         phone_number_html: 'Pour plus d’informations : <b>0806 001 620</b> (appel gratuit).'
         solicitation_subject_html: concernant <b>le recrutement d’un travailleur étranger</b>
+      retirement_liberal_professions:
+        carpimko: 'la CARPIMKO au 01 30 48 10 00 : Du lundi au vendredi, de 8h45 à 12h45, la Carpimko répond à vos questions et vous guide dans vos démarches.'
+        cipav_html: 'la CIPAV au 01 44 95 68 20 du lundi au vendredi, de 8h30 à 18h00 ou sur le lien suivant : <a href=''https://www.lacipav.fr/nous-contacter''>https://www.lacipav.fr/nous-contacter</a>'
+        direct_contact: 'Nous vous invitons à les contacter en direct :'
+        no_expert: Malheureusement, les organismes compétents, la CIPAV (caisse de retraite des professions libérales) et la CARPIMKO (caisse de retraite des auxiliaires médicaux), ne sont pas encore partenaires du service.
+        solicitation_subject: concernant votre retraite
       sie_sip_declare_and_pay:
         income_and_taxation: Les questions relatives à la déclaration de vos revenus et à leur imposition relèvent de votre service des impôts des particuliers (SIP), tandis que les questions relatives à la CFE et à la TVA relèvent de votre service des impôts des entreprises (SIE).
         not_partner_html: "<strong>Malheureusement ces deux services ne sont pas partenaires de Conseillers-Entreprises à ce jour</strong>.<br>Nous vous invitons à les solliciter directement :"
