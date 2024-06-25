@@ -1,4 +1,4 @@
-version: "2"         # required to adjust maintainability checks
+version: "2" # required to adjust maintainability checks
 
 checks:
   argument-count:
@@ -47,22 +47,14 @@ checks:
 exclude_patterns:
   - "config/"
   - "db/"
-  - "dist/"
-  - "features/"
   - "**/node_modules/"
-  - "script/"
   - "**/spec/"
-  - "**/test/"
-  - "**/tests/"
-  - "Tests/"
   - "**/vendor/"
-  - "**/*_test.go"
-  - "**/*.d.ts"
-  - "app/admin/"
-  - 'app/services/xlsx_export/'
-  - 'app/services/csv_export/'
-  - 'app/services/csv_import/'
-  - 'app/models/clockwork.rb'
-  - 'app/helpers/sitemap_helper.rb'
+  - "**/admin/"
+  - '**/services/xlsx_export/'
+  - '**/services/csv_export/'
+  - '**/services/csv_import/'
+  - '**/models/clockwork.rb'
+  - 'helpers/sitemap_helper.rb'
   - 'babel.config.js'
-  - 'app/services/sitemap_generator.rb'
+  - 'services/sitemap_generator.rb'
