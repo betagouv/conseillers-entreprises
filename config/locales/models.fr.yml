@@ -748,6 +748,7 @@ fr:
     annual_stats_by_antenne: Stats ann. par antenne
     annual_stats_by_region: Stats ann. par région
     antenne: Antenne
+    antenne_subjects: Sujets de l’antenne
     by_antenne: Par antenne
     by_region: Par région
     caption_title: Aide à la lecture
@@ -786,6 +787,7 @@ fr:
     not_for_me_caption_definition: Part des besoins pour lesquels les experts ont indiqué refuser car ils savaient d’emblée qu’ils ne pourraient pas aider l’entreprise.
     not_for_me_caption_label: Taux de refus
     not_for_me_rate: Taux de refus
+    occasional_subjects: Sujets ponctuels
     occasional_themes: Thématiques ponctuelles
     percentage: Pourcentage
     positionning_accepted_caption_definition: Part des besoins pour lesquels les experts ont indiqué prendre en charge en appelant l’entreprise, toutes clôtures confondues (aide proposée, injoignage, pas d’aide).
