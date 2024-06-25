@@ -503,70 +503,132 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
     end
   end
 
-  describe 'apply_institution_filters' do
-    subject{ described_class.new(need).apply_institution_filters(ExpertSubject.of_subject(need.subject)) }
+  describe 'apply_subject_question_filters' do
+    subject{ described_class.new(need).apply_subject_question_filters(ExpertSubject.of_subject(need.subject)) }
 
-    let(:common_subject) { create :subject }
-    let(:additional_question) { create :additional_subject_question, subject: common_subject }
+    context 'fictive case' do
+      let(:common_subject) { create :subject }
+      let(:additional_question) { create :subject_question, subject: common_subject }
 
-    let(:institution_filter_ok) { create :institution }
-    let!(:es_filter_ok) { create :expert_subject, subject: common_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_filter_ok)) }
-    let(:institution_filter_ko) { create :institution }
-    let!(:es_filter_ko) { create :expert_subject, subject: common_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_filter_ko)) }
-    let!(:es_temoin) { create :expert_subject, subject: common_subject }
+      let(:institution_ok) { create :institution }
+      let!(:institution_ok_grouping) { create :subject_answer_grouping, institution: institution_ok }
+      let!(:es_answer_ok) { create :expert_subject, subject: common_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_ok)) }
+      let(:institution_ko) { create :institution }
+      let!(:institution_ko_grouping) { create :subject_answer_grouping, institution: institution_ko }
+      let!(:es_answer_ko) { create :expert_subject, subject: common_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_ko)) }
+      let!(:es_temoin) { create :expert_subject, subject: common_subject }
 
-    let(:need) { create :need, subject: common_subject }
+      let(:need) { create :need, subject: common_subject }
 
-    context 'need with filter' do
       before do
-        need.institution_filters.create(additional_subject_question: additional_question, filter_value: true)
-        institution_filter_ok.institution_filters.create(additional_subject_question: additional_question, filter_value: true)
-        institution_filter_ko.institution_filters.create(additional_subject_question: additional_question, filter_value: false)
+        need.subject_answers = subject_answers
+        institution_ok_grouping.subject_answers = institution_ok_subject_answers
+        institution_ko_grouping.subject_answers = institution_ko_subject_answers
       end
 
-      it { is_expected.to contain_exactly(es_temoin, es_filter_ok) }
-    end
+      context 'need with simple question filter' do
+        let(:subject_answers) { [create(:need_subject_answer, subject_question: additional_question, filter_value: true, subject_questionable: need)] }
+        let(:institution_ok_subject_answers) { [create(:subject_answer_filter, subject_question: additional_question, filter_value: true)] }
+        let(:institution_ko_subject_answers) { [create(:subject_answer_filter, subject_question: additional_question, filter_value: false)] }
 
-    context 'need no filter' do
-      before do
-        institution_filter_ok.institution_filters.create(additional_subject_question: additional_question, filter_value: true)
-        institution_filter_ko.institution_filters.create(additional_subject_question: additional_question, filter_value: false)
+        it { is_expected.to contain_exactly(es_temoin, es_answer_ok) }
       end
 
-      it { is_expected.to contain_exactly(es_temoin, es_filter_ok, es_filter_ko) }
+      context 'need with complex question filter' do
+        let(:other_question) { create :subject_question, subject: common_subject }
+
+        let(:subject_answers) do
+          [
+            create(:need_subject_answer, subject_question: additional_question, filter_value: true, subject_questionable: need),
+            create(:need_subject_answer, subject_question: other_question, filter_value: false, subject_questionable: need)
+          ]
+        end
+        let(:institution_ok_subject_answers) do
+          [
+            create(:subject_answer_filter, subject_question: additional_question, filter_value: true),
+            create(:subject_answer_filter, subject_question: other_question, filter_value: false)
+          ]
+        end
+        let(:institution_ko_subject_answers) do
+          [
+            create(:subject_answer_filter, subject_question: additional_question, filter_value: false),
+            create(:subject_answer_filter, subject_question: other_question, filter_value: false)
+          ]
+        end
+
+        context 'only one grouping' do
+          it { is_expected.to contain_exactly(es_temoin, es_answer_ok) }
+        end
+
+        context 'many groupings' do
+          let!(:institution_ok_falsy_grouping) { create :subject_answer_grouping, institution: institution_ok }
+          let(:institution_ok_falsy_subject_answers) do
+            [
+              create(:subject_answer_filter, subject_question: additional_question, filter_value: true),
+              create(:subject_answer_filter, subject_question: other_question, filter_value: true)
+            ]
+          end
+
+          before { institution_ok_falsy_grouping.subject_answers = institution_ok_falsy_subject_answers }
+
+          # Du moment qu'il y a un bon grouping, meme si les autres le sont pas, ça marche
+          it { is_expected.to contain_exactly(es_temoin, es_answer_ok) }
+        end
+      end
+
+      context 'need no question filter' do
+        let(:subject_answers) { [] }
+        let!(:institution_ok_subject_answers) { [create(:subject_answer_filter, subject_question: additional_question, filter_value: true)] }
+        let!(:institution_ko_subject_answers) { [create(:subject_answer_filter, subject_question: additional_question, filter_value: false)] }
+
+        it { is_expected.to contain_exactly(es_temoin, es_answer_ok, es_answer_ko) }
+      end
     end
 
-    context 'multiple interrelated questions' do
+    context 'real practical case' do
       # moins de 10 000 + oui banque = Adie, Initiative
       # moins de 10 000 + non banque = Adie
       # plus de 10 000 + oui banque = Bpi, BDF, Initiative
       # plus de 10 000 + non banque = BDF, Adie
 
       let(:investment_subject) { create :subject, label: 'Investissement' }
+      let(:less_than_10k_question) { create :subject_question, key: 'moins_de_10k_restant_a_financer', subject: investment_subject }
+      let(:bank_question) { create :subject_question, key: 'financement_bancaire_envisage', subject: investment_subject }
+
       let(:adie) { create :institution, slug: 'adie' }
+      let!(:adie_grouping_1) { create :subject_answer_grouping, institution: adie }
+      let!(:adie_grouping_2) { create :subject_answer_grouping, institution: adie }
+      let!(:adie_grouping_3) { create :subject_answer_grouping, institution: adie }
       let!(:es_adie) { create :expert_subject, expert: create(:expert, institution: adie), subject: investment_subject }
       let(:initiative) { create :institution, slug: 'initiative-france' }
+      let!(:initiative_grouping_1) { create :subject_answer_grouping, institution: initiative }
+      let!(:initiative_grouping_2) { create :subject_answer_grouping, institution: initiative }
       let!(:es_initiative) { create :expert_subject, expert: create(:expert, institution: initiative), subject: investment_subject }
       let(:bpi) { create :institution, slug: 'bpifrance' }
+      let!(:bpi_grouping) { create :subject_answer_grouping, institution: bpi }
       let!(:es_bpi) { create :expert_subject, expert: create(:expert, institution: bpi), subject: investment_subject }
       let(:bdf) { create :institution, slug: 'banque-de-france' }
+      let!(:bdf_grouping_1) { create :subject_answer_grouping, institution: bdf }
+      let!(:bdf_grouping_2) { create :subject_answer_grouping, institution: bdf }
       let!(:es_bdf) { create :expert_subject, expert: create(:expert, institution: bdf), subject: investment_subject }
 
       let(:need) { create :need, subject: investment_subject }
-      let(:less_than_10k_question) { create :additional_subject_question, key: 'moins_de_10k_restant_a_financer' }
-      let(:bank_question) { create :additional_subject_question, key: 'financement_bancaire_envisage' }
 
       before do
-        adie.institution_filters.create(additional_subject_question: less_than_10k_question, filter_value: true)
-        initiative.institution_filters.create(additional_subject_question: less_than_10k_question, filter_value: true)
-        bpi.institution_filters.create(additional_subject_question: bank_question, filter_value: true)
-        bdf.institution_filters.create(additional_subject_question: bank_question, filter_value: true)
+        adie_grouping_1.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: true), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
+        adie_grouping_2.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: true), create(:subject_answer_filter, subject_question: bank_question, filter_value: false)]
+        adie_grouping_3.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: false)]
+        initiative_grouping_1.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: true), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
+        initiative_grouping_2.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
+        bpi_grouping.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
+        bdf_grouping_1.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
+        bdf_grouping_2.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: false)]
       end
 
       describe 'moins de 10 000 + oui banque' do
         before do
-          need.institution_filters.create(additional_subject_question: less_than_10k_question, filter_value: true)
-          need.institution_filters.create(additional_subject_question: bank_question, filter_value: true)
+          need.subject_answers.create(subject_question: less_than_10k_question, filter_value: true)
+          need.subject_answers.create(subject_question: bank_question, filter_value: true)
         end
 
         it { is_expected.to contain_exactly(es_adie, es_initiative) }
@@ -574,8 +636,8 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
       describe 'moins de 10 000 + non banque' do
         before do
-          need.institution_filters.create(additional_subject_question: less_than_10k_question, filter_value: true)
-          need.institution_filters.create(additional_subject_question: bank_question, filter_value: false)
+          need.subject_answers.create(subject_question: less_than_10k_question, filter_value: true)
+          need.subject_answers.create(subject_question: bank_question, filter_value: false)
         end
 
         it { is_expected.to contain_exactly(es_adie) }
@@ -583,8 +645,8 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
       describe 'plus de 10 000 + oui banque' do
         before do
-          need.institution_filters.create(additional_subject_question: less_than_10k_question, filter_value: false)
-          need.institution_filters.create(additional_subject_question: bank_question, filter_value: true)
+          need.subject_answers.create(subject_question: less_than_10k_question, filter_value: false)
+          need.subject_answers.create(subject_question: bank_question, filter_value: true)
         end
 
         it { is_expected.to contain_exactly(es_bpi, es_bdf, es_initiative) }
@@ -592,8 +654,8 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
       describe 'plus de 10 000 + non banque' do
         before do
-          need.institution_filters.create(additional_subject_question: less_than_10k_question, filter_value: false)
-          need.institution_filters.create(additional_subject_question: bank_question, filter_value: false)
+          need.subject_answers.create(subject_question: less_than_10k_question, filter_value: false)
+          need.subject_answers.create(subject_question: bank_question, filter_value: false)
         end
 
         it { is_expected.to contain_exactly(es_bdf, es_adie) }

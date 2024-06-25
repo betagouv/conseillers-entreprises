@@ -2,7 +2,7 @@ class Api::V1::SolicitationSerializer < ActiveModel::Serializer
   attributes :uuid, :code_region, :description, :email, :full_name, :status,
              :location, :phone_number, :siret, :landing_subject, :api_calling_url, :origin_url
 
-  has_many :institution_filters, key: :questions_additionnelles, serializer: Api::V1::SimpleInstitutionFilterSerializer
+  has_many :subject_answers, key: :questions_additionnelles, serializer: Api::V1::SimpleSubjectAnswerSerializer
 
   def landing_theme_slug
     object.landing_theme.slug
@@ -17,7 +17,7 @@ class Api::V1::SolicitationSerializer < ActiveModel::Serializer
     object.landings.merge(current_institution.landings).first.id
   end
 
-  def additional_subject_questions
-    object.subject.additional_subject_questions
+  def subject_questions
+    object.subject.subject_questions
   end
 end

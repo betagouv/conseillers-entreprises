@@ -108,11 +108,16 @@ ActiveAdmin.register Institution do
       end
     end
 
-    attributes_table title: I18n.t('activerecord.models.additional_subject_question.other') do
-      table_for institution.institution_filters do
-        column(:label) { |filter| I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, filter.key]) }
-        column(:key)
-        column(:filter_value)
+    attributes_table title: I18n.t('activerecord.models.subject_question.other') do
+      institution.subject_answer_groupings.map.with_index do |sag, index|
+        panel I18n.t('active_admin.subject_answer_grouping.title_with_index', index: index + 1) do
+          table_for sag.subject_answers do
+            column(:subject) { |answer| admin_link_to(answer.subject_question, :subject) }
+            column(:label) { |answer| I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, answer.key]) }
+            column(:key)
+            column(:filter_value)
+          end
+        end
       end
     end
 
@@ -165,11 +170,13 @@ ActiveAdmin.register Institution do
                 search_fields: [:name]
               }
     end
-    f.has_many :institutions_subjects, heading: t('activerecord.attributes.institution.subjects'), allow_destroy: true do |sub_f|
-      themes = Theme.all.ordered_for_interview
-      collection = option_groups_from_collection_for_select(themes, :subjects_ordered_for_interview, :label, :id, :label, sub_f.object&.subject&.id)
-      sub_f.input :subject, collection: collection
-      sub_f.input :description
+    f.inputs do
+      f.has_many :institutions_subjects, heading: t('activerecord.attributes.institution.subjects'), allow_destroy: true do |sub_f|
+        themes = Theme.all.ordered_for_interview
+        collection = option_groups_from_collection_for_select(themes, :subjects_ordered_for_interview, :label, :id, :label, sub_f.object&.subject&.id)
+        sub_f.input :subject, collection: collection
+        sub_f.input :description
+      end
     end
 
     f.inputs do

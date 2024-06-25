@@ -6,7 +6,7 @@ module SolicitationModification
     end
 
     def base_call
-      update_institution_filters if @solicitation.institution_filters.present?
+      update_subject_answers if @solicitation.subject_answers.present?
       @solicitation.assign_attributes(@params)
       manage_completion_step
     end
@@ -35,13 +35,13 @@ module SolicitationModification
       @solicitation.send(next_possible_events.first) unless next_possible_events.empty?
     end
 
-    def update_institution_filters
-      institution_filters_params = @params[:institution_filters_attributes]
-      institution_filters_params.to_h.each_value do |params|
-        is = @solicitation.institution_filters.find_by(additional_subject_question_id: params[:additional_subject_question_id])
+    def update_subject_answers
+      subject_answers_params = @params[:subject_answers_attributes]
+      subject_answers_params.to_h.each_value do |params|
+        is = @solicitation.subject_answers.find_by(subject_question_id: params[:subject_question_id])
         is.update(filter_value: params[:filter_value])
       end
-      @params[:institution_filters_attributes] = []
+      @params[:subject_answers_attributes] = []
     end
   end
 end

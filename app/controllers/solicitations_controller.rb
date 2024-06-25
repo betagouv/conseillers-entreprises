@@ -120,7 +120,7 @@ class SolicitationsController < PagesController
   # Step description
   #
   def step_description
-    with_step_data { build_institution_filters }
+    with_step_data { build_subject_answers }
   end
 
   def update_step_description
@@ -134,7 +134,7 @@ class SolicitationsController < PagesController
         end
       else
         flash.now.alert = @solicitation.errors.full_messages.to_sentence
-        build_institution_filters if @solicitation.institution_filters.blank?
+        build_subject_answers if @solicitation.subject_answers.blank?
         render :step_description
       end
     end
@@ -167,16 +167,16 @@ class SolicitationsController < PagesController
     params.require(:solicitation)
       .permit(:landing_id, :landing_subject_id, :description, :code_region, :status,
               *Solicitation::FIELD_TYPES.keys,
-              institution_filters_attributes: [:id, :additional_subject_question_id, :filter_value])
+              subject_answers_attributes: [:id, :subject_question_id, :filter_value])
   end
 
   def search_params
     params.permit(:query)
   end
 
-  def build_institution_filters
-    @solicitation.subject.additional_subject_questions.order(:position).each do |question|
-      @solicitation.institution_filters.where(additional_subject_question: question).first_or_initialize
+  def build_subject_answers
+    @solicitation.subject.subject_questions.order(:position).each do |question|
+      @solicitation.subject_answers.where(subject_question: question).first_or_initialize
     end
   end
 

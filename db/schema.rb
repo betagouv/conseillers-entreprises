@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_29_132601) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_11_131949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -79,14 +79,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_132601) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "additional_subject_questions", force: :cascade do |t|
-    t.bigint "subject_id"
-    t.string "key"
-    t.integer "position"
-    t.index ["subject_id", "key"], name: "additional_subject_question_subject_key_index", unique: true
-    t.index ["subject_id"], name: "index_additional_subject_questions_on_subject_id"
   end
 
   create_table "antennes", force: :cascade do |t|
@@ -319,18 +311,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_132601) do
     t.index ["category"], name: "index_feedbacks_on_category"
     t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable_type_and_feedbackable_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
-  end
-
-  create_table "institution_filters", force: :cascade do |t|
-    t.bigint "additional_subject_question_id"
-    t.string "institution_filtrable_type"
-    t.bigint "institution_filtrable_id"
-    t.boolean "filter_value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["additional_subject_question_id"], name: "index_institution_filters_on_additional_subject_question_id"
-    t.index ["institution_filtrable_id", "institution_filtrable_type", "additional_subject_question_id"], name: "institution_filtrable_additional_subject_question_index", unique: true
-    t.index ["institution_filtrable_type", "institution_filtrable_id"], name: "index_institution_filters_on_institution_filtrable"
   end
 
   create_table "institutions", force: :cascade do |t|
@@ -593,6 +573,37 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_132601) do
     t.index ["uuid"], name: "index_solicitations_on_uuid"
   end
 
+  create_table "subject_answer_groupings", force: :cascade do |t|
+    t.bigint "institution_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["institution_id"], name: "index_subject_answer_groupings_on_institution_id"
+  end
+
+  create_table "subject_answers", force: :cascade do |t|
+    t.bigint "subject_question_id", null: false
+    t.string "subject_questionable_type"
+    t.bigint "subject_questionable_id"
+    t.boolean "filter_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "type"
+    t.bigint "subject_answer_grouping_id"
+    t.index ["subject_answer_grouping_id"], name: "index_subject_answers_on_subject_answer_grouping_id"
+    t.index ["subject_question_id"], name: "index_subject_answers_on_subject_question_id"
+    t.index ["subject_questionable_id", "subject_questionable_type", "subject_question_id"], name: "institution_filtrable_additional_subject_question_index", unique: true
+    t.index ["subject_questionable_type", "subject_questionable_id"], name: "index_institution_filters_on_institution_filtrable"
+    t.index ["type"], name: "index_subject_answers_on_type"
+  end
+
+  create_table "subject_questions", force: :cascade do |t|
+    t.bigint "subject_id", null: false
+    t.string "key"
+    t.integer "position"
+    t.index ["subject_id", "key"], name: "additional_subject_question_subject_key_index", unique: true
+    t.index ["subject_id"], name: "index_subject_questions_on_subject_id"
+  end
+
   create_table "subjects", id: :serial, force: :cascade do |t|
     t.string "label", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -728,6 +739,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_132601) do
   add_foreign_key "solicitations", "institutions"
   add_foreign_key "solicitations", "landing_subjects"
   add_foreign_key "solicitations", "landings"
+  add_foreign_key "subject_answer_groupings", "institutions"
   add_foreign_key "subjects", "themes"
   add_foreign_key "user_rights", "antennes"
   add_foreign_key "user_rights", "users"

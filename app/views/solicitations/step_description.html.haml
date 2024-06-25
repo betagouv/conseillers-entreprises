@@ -23,20 +23,20 @@
           - if @solicitation.errors.present?
             .fr-error-text= @solicitation.errors.full_messages_for(:description).to_sentence
 
-      = f.fields_for :institution_filters, @solicitation.institution_filters do |ff|
+      = f.fields_for :subject_answers, @solicitation.subject_answers do |ff|
         - key = ff.object.key
         %fieldset.fr-fieldset{ 'aria-labelledby': "#{key}-legend" }
-          %legend.fr-fieldset__legend{ id: "#{key}-legend" }= I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, key])
+          %legend.fr-fieldset__legend{ id: "#{key}-legend" }= I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, key])
           = ff.hidden_field :id
-          = ff.hidden_field :additional_subject_question_id
+          = ff.hidden_field :subject_question_id
           .fr-fieldset__element.fr-fieldset__element--inline
             .fr-radio-group
               = ff.radio_button :filter_value, true, required: true
-              = ff.label :filter_value, I18n.t('true', scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('yes').titleize), value: true, class: 'fr-label'
+              = ff.label :filter_value, I18n.t('true', scope: [:activerecord, :attributes, :subject_questions, key], default: t('yes').titleize), value: true, class: 'fr-label'
           .fr-fieldset__element.fr-fieldset__element--inline
             .fr-radio-group
               = ff.radio_button :filter_value, false, required: true
-              = ff.label :filter_value, I18n.t('false', scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
+              = ff.label :filter_value, I18n.t('false', scope: [:activerecord, :attributes, :subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
 
       .form__group.submit-buttons
         = render 'previous_button', path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')

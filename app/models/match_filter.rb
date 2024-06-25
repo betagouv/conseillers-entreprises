@@ -14,7 +14,7 @@
 #  min_years_of_existence :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  filtrable_element_id   :bigint(8)
+#  filtrable_element_id   :bigint(8)        not null
 #
 # Indexes
 #
