@@ -31,12 +31,8 @@ class TimeDurationService
   private
 
   def self.past_two_years
-    today = Date.today
     # Don't take into account the current year if we are before the end of the first quarter
-    if today.month <= 3
-      [today.year - 2, today.year - 1]
-    else
-      [today.year - 1, today.year]
-    end
+    reference_date = 3.months.ago
+    [reference_date.year - 1, reference_date.year]
   end
 end
