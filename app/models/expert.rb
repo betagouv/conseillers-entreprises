@@ -197,6 +197,13 @@ class Expert < ApplicationRecord
     active.without_subjects
   end
 
+  scope :active_with_matches_and_without_subjects, -> do
+    active
+      .without_subjects
+      .left_joins(:received_matches)
+      .where.not(received_matches: { id: nil })
+  end
+
   scope :with_subjects, -> do
     left_outer_joins(:experts_subjects)
       .where.not(experts_subjects: { id: nil })
