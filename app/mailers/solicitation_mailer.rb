@@ -59,4 +59,8 @@ class SolicitationMailer < ApplicationMailer
   def kbis_extract(solicitation)
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
+
+  def retirement_liberal_professions(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
 end
