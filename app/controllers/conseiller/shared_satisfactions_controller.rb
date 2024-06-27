@@ -1,5 +1,5 @@
 class Conseiller::SharedSatisfactionsController < ApplicationController
-  before_action :collections_counts
+  before_action :collections_counts, except: :mark_as_seen
 
   layout 'side_menu'
 
