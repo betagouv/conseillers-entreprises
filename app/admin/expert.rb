@@ -24,6 +24,7 @@ ActiveAdmin.register Expert do
   scope :with_custom_communes
 
   scope :active_without_users, group: :debug
+  scope :active_with_matches_and_without_subjects, group: :debug
   scope :active_without_subjects, group: :debug
 
   index do
