@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe 'reminders experts', :js do
+  before { create_home_landing }
+
   login_admin
 
   context 'show expert reminder by duration' do
