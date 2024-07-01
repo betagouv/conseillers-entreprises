@@ -59,7 +59,6 @@ describe 'reminders experts', :js do
     context 'outputs_reminders_experts' do
       it 'displays page' do
         visit outputs_reminders_experts_path
-        save_and_open_page
         expect(page).to have_css('.card', count: 3, wait: 10)
         expect(page).to be_accessible
       end
