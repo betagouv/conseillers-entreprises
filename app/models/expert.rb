@@ -315,13 +315,6 @@ class Expert < ApplicationRecord
     end
   end
 
-  def deep_soft_delete
-    self.transaction do
-      users.each { |user| user.soft_delete }
-      update_columns(SoftDeletable.persons_attributes)
-    end
-  end
-
   ## Updates
   #
   def personal_skillset_synchronisation_ok

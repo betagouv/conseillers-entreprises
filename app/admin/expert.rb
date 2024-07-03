@@ -243,15 +243,6 @@ ActiveAdmin.register Expert do
     link_to t('active_admin.expert.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.expert.delete_confirmation') }
   end
 
-  action_item :deep_soft_delete, only: :show do
-    link_to t('active_admin.expert.deep_soft_delete'), { action: :deep_soft_delete }, method: :delete, data: { confirm: t('active_admin.expert.deep_soft_delete_confirmation') }
-  end
-
-  member_action :deep_soft_delete, method: :delete do
-    resource.deep_soft_delete
-    redirect_to collection_path, notice: t('active_admin.person.deep_soft_delete_done')
-  end
-
   member_action :normalize_values do
     resource.normalize_values!
     redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')
@@ -262,11 +253,6 @@ ActiveAdmin.register Expert do
       expert.normalize_values!
     end
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
-  end
-
-  batch_action I18n.t('active_admin.expert.deep_soft_delete'), { action: :deep_soft_delete, confirm: I18n.t('active_admin.expert.deep_soft_delete_confirmation') } do |ids|
-    Expert.where(id: ids).find_each { |u| u.deep_soft_delete }
-    redirect_to collection_path, notice: I18n.t('active_admin.experts.deep_soft_deleted')
   end
 
   batch_action :destroy, confirm: I18n.t('active_admin.expert.delete_confirmation') do |ids|

@@ -254,17 +254,6 @@ class User < ApplicationRecord
     end
   end
 
-  # Suppression de l'utilisateur + tous ses experts solo
-  def deep_soft_delete
-    self.transaction do
-      experts.each do |expert|
-        next if expert.users.many?
-        expert.update_columns(SoftDeletable.persons_attributes)
-      end
-      update_columns(SoftDeletable.persons_attributes)
-    end
-  end
-
   # Override from Devise::Validatable
   def email_required?
     !deleted?
