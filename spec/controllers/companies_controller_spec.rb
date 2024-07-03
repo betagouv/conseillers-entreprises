@@ -81,7 +81,7 @@ RSpec.describe CompaniesController do
     subject(:request) { get :needs, params: { id: facility.id } }
 
     let(:facility) { create :facility }
-    let(:expert) { current_user.experts.first }
+    let(:expert) { create :expert, users: [current_user] }
     let(:another_expert) { create :expert }
     # Besoin avec MER status: :quo de l'expert
     let(:quo_diagnosis) { create :diagnosis, facility: facility }

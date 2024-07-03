@@ -108,7 +108,7 @@ RSpec.describe Expert do
   end
 
   describe 'update user with personal_skillset' do
-    let(:user) { create :user, email: 'user@example' }
+    let(:user) { create :user, :with_expert, email: 'user@example' }
 
     subject(:expert) { user.experts.first }
 
