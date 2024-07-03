@@ -34,6 +34,13 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
     redirect_to action: :unseen, anchor: 'side-menu-main'
   end
 
+  def mark_all_as_seen
+    @shared_satisfactions = SharedSatisfaction.where(id: params[:shared_satisfactions_id])
+    @shared_satisfactions.update_all(seen_at: Time.zone.now)
+    flash.notice = t('conseiller.shared_satisfactions.satifaction_seen')
+    redirect_to action: :unseen, anchor: 'side-menu-main'
+  end
+
   private
 
   def retrieve_unseen_satisfactions
@@ -45,6 +52,7 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
 
   def retrieve_seen_satisfactions
     @seen_satisfactions ||= base_needs
+      .includes(:company, :subject, :facility, :company_satisfaction)
       .joins(company_satisfaction: :shared_satisfactions)
       .merge(SharedSatisfaction.seen.where(user_id: current_user.id))
       .distinct

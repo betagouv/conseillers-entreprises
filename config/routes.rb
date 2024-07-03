@@ -113,6 +113,7 @@ Rails.application.routes.draw do
       collection do
         get :unseen, path: 'nouveaux'
         get :seen, path: 'vus'
+        patch :mark_all_as_seen
       end
       member do
         patch :mark_as_seen

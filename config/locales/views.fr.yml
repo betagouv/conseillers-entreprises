@@ -271,7 +271,9 @@ fr:
         text: À la suite de leurs mises en relation, les entreprises ont la possibilité de s'exprimer au sujet de l’utilité du service. Les retours des entreprises partagés ici concernent les besoins clôturés par « aide proposée ». Ils sont donc destinés à l’ensemble des partenaires intervenus sur leurs besoins.
         warning: Toute réutilisation de ces retours nécessite le recueil par vos soins du consentement de la personne dirigeante. Une mention du service public Conseillers-Entreprises est également bienvenue pour promouvoir notre coopération. Nous comptons sur vous !
       index:
+        mark_all_as_seen: Tout marquer comme "vu"
         no_results: Aucun résultat
+        select_all: Sélectionner tous les retours de la page
         short_title: Retours
         title: Retours des entreprises aidées
       need:

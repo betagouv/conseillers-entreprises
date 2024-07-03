@@ -4,26 +4,32 @@
 - content_for :callout, render('callout')
 
 - if current_user.is_manager?
-  .fr-container--fluid.fr-mb-2w
-
-    = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true, class: 'fr-grid-row' do |f|
-      = hidden_field_tag :anchor, 'side-menu-main'
-      .fr-col-12.fr-mb-1w
-        - if @antennes.many?
-          .fr-select-group
-            = f.label :antenne_id, t('activerecord.models.antenne.one'), class: 'fr-label'
-            = f.select :antenne_id, options_for_select(@antennes.pluck(:name, :id), selected: params[:antenne_id]), { include_blank: t('all.feminine') }, class: "fr-select"
-      .fr-col-12
-        .fr-input-group
-          = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
-          - if request.fullpath.include?("?")
-            = link_to t('clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--tertiary-no-outline'
+  .fr-container--fluid.fr-mb-4w
+    .fr-grid-row
+      .fr-col-12.fr-col-md-8
+        = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true, class: 'fr-grid-row' do |f|
+          = hidden_field_tag :anchor, 'side-menu-main'
+          - if @antennes.many?
+            .fr-select-group.fr-mb-2v
+              = f.label :antenne_id, t('activerecord.models.antenne.one'), class: 'fr-label'
+              = f.select :antenne_id, options_for_select(@antennes.pluck(:name, :id), selected: params[:antenne_id]), { include_blank: t('all.feminine') }, class: "fr-select"
+          .fr-input-group
+            = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
+            - if request.fullpath.include?("?")
+              = link_to t('clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--tertiary-no-outline'
+      .fr-col-12.fr-col-md-4.aligned-bottom
+        = form_with url: mark_all_as_seen_conseiller_shared_satisfactions_path, id: 'mark-all-as-seen', method: :patch, turbo: false do |form|
+          = form.submit t('.mark_all_as_seen'), class: 'fr-btn fr-btn--secondary fr-mt-2w'
 
 - if @needs.to_a.size == 0
   .fr-container.text-center.fr-mt-18v
     .fr-h3= t('.no_results')
 - else
   = paginate @needs
+
+  .fr-checkbox-group.fr-mb-2v
+    = check_box_tag 'select_all', 'select_all', false, data: { action: 'select_all' }
+    = label_tag 'select_all', t('.select_all'), class: 'fr-label', for: "select_all"
 
   = render partial: 'need', collection: @needs
 
