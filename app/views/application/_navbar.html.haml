@@ -55,7 +55,7 @@
                 = t('conseiller.shared_satisfactions.index.short_title')
                 - cache([current_user, current_user.shared_satisfactions.unseen.size]) do
                   - if current_user.shared_satisfactions.unseen.size > 0
-                    %span.count-notification.count-notification--green.fr-tag.fr-tag--sm.fr-ml-1w= current_user.shared_satisfactions.unseen.size
+                    %span.count-notification.count-notification--green.fr-tag.fr-tag--sm.fr-ml-1w#counter-unseen-nav= current_user.shared_satisfactions.unseen.size
             - if policy(User).manager?
               = active_link_to manager_stats_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-line-chart-line.fr-mr-1w{ 'aria-hidden': 'true' }

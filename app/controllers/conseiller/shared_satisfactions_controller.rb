@@ -1,5 +1,5 @@
 class Conseiller::SharedSatisfactionsController < ApplicationController
-  before_action :collections_counts, except: :mark_as_seen
+  before_action :collections_counts, except: [:mark_as_seen, :mark_all_as_seen]
 
   layout 'side_menu'
 
@@ -26,19 +26,23 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
 
   def mark_as_seen
     @shared_satisfaction = SharedSatisfaction.find(params[:id])
-    if @shared_satisfaction.touch(:seen_at)
-      flash.notice = t('conseiller.shared_satisfactions.satifaction_seen')
-    else
-      flash.alert = @shared_satisfaction.errors.full_messages.to_sentence
+    @shared_satisfaction.touch(:seen_at)
+    respond_to do |format|
+      format.turbo_stream do
+        collections_counts
+      end
+      format.html do
+        flash.notice = t('conseiller.shared_satisfactions.satifaction_seen')
+        redirect_to action: :unseen, anchor: 'side-menu-main'
+      end
     end
-    redirect_to action: :unseen, anchor: 'side-menu-main'
   end
 
   def mark_all_as_seen
     @shared_satisfactions = SharedSatisfaction.where(id: params[:shared_satisfactions_id])
     @shared_satisfactions.update_all(seen_at: Time.zone.now)
     flash.notice = t('conseiller.shared_satisfactions.satifaction_seen')
-    redirect_to action: :unseen, anchor: 'side-menu-main'
+    redirect_to action: :unseen
   end
 
   private
@@ -52,18 +56,18 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
 
   def retrieve_seen_satisfactions
     @seen_satisfactions ||= base_needs
-      .includes(:company, :subject, :facility, :company_satisfaction)
       .joins(company_satisfaction: :shared_satisfactions)
       .merge(SharedSatisfaction.seen.where(user_id: current_user.id))
       .distinct
   end
 
   def base_needs
-    if current_user.is_manager?
+    base_needs = if current_user.is_manager?
       current_user.antenne.perimeter_received_needs.apply_filters(filter_params)
     else
       current_user.received_needs
     end
+    base_needs.includes(:company, :subject, :facility, company_satisfaction: :shared_satisfactions)
   end
 
   def retrieve_antennes

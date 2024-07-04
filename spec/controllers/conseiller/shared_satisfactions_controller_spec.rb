@@ -47,7 +47,7 @@ RSpec.describe Conseiller::SharedSatisfactionsController do
 
       before { request }
 
-      it { expect(response).to redirect_to(unseen_conseiller_shared_satisfactions_path) }
+      it { expect(response).to redirect_to(unseen_conseiller_shared_satisfactions_path(anchor: 'side-menu-main')) }
       it { expect(expert.shared_satisfactions.unseen.size).to eq(0) }
     end
   end
