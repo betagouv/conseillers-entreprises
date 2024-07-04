@@ -738,6 +738,8 @@ Rails/Exit:
 Rails/FilePath:
   Enabled: true
   EnforcedStyle: arguments
+  Exclude:
+    - spec/helpers/*
 
 Rails/FindBy:
   Enabled: true
@@ -848,10 +850,6 @@ RSpec/DescribeClass:
 
 RSpec/ExampleLength:
   Enabled: false
-
-RSpec/FilePath:
-  Exclude:
-    - spec/helpers/*
 
 RSpec/ImplicitSubject:
   Enabled: false
