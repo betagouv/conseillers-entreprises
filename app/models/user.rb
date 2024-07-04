@@ -272,7 +272,7 @@ class User < ApplicationRecord
   end
 
   def single_user_experts
-    experts.only_expert_of_user
+    experts.with_one_user
   end
 
   def create_single_user_experts

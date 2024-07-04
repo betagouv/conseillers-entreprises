@@ -50,7 +50,6 @@ class Expert < ApplicationRecord
   validates :email, presence: true, unless: :deleted?
   validates :full_name, presence: true
   validates_associated :experts_subjects, on: :import
-  validate :personal_skillset_synchronisation_ok, on: :update, if: -> { full_name_changed? || email_changed? }
 
   ## “Through” Associations
   #
@@ -82,9 +81,6 @@ class Expert < ApplicationRecord
   has_many :shared_satisfactions, inverse_of: :expert
   has_many :shared_company_satisfactions, -> { distinct }, through: :shared_satisfactions, source: :company_satisfaction
 
-  # Callbacks
-  after_update :synchronize_single_member, if: :personal_skillset?
-
   ##
   #
   accepts_nested_attributes_for :users, allow_destroy: true
@@ -100,21 +96,15 @@ class Expert < ApplicationRecord
   end
 
   # Team stuff
-  scope :personal_skillsets, -> do
-    # Experts with only one member only represent this user’s skills.
-    single_member = Expert.unscoped.joins(:users)
-      .merge(User.unscoped.not_deleted)
+  scope :with_one_user, -> do
+    joins(:users)
       .group(:id)
       .having("COUNT(users.id)=1")
-
-    joins(:users)
-      .where(id: single_member)
-      .where("users.email = experts.email")
   end
 
-  scope :only_expert_of_user, -> do
-    joins(:users)
-      .where(users: { id: User.unscoped.single_expert })
+  scope :teams, -> do
+    where.not(id: Expert.unscoped.without_users)
+         .where.not(id: Expert.unscoped.with_one_user)
   end
 
   scope :with_users, -> { joins(:users) }
@@ -132,11 +122,7 @@ class Expert < ApplicationRecord
     active.without_users
   end
 
-  scope :teams, -> do
-    # Experts (with members) that are not personal_skillsets are proper teams
-    where.not(id: Expert.unscoped.without_users)
-      .where.not(id: Expert.unscoped.personal_skillsets)
-  end
+
 
   # Activity stuff
   # Utilisé pour les mails de relance
@@ -212,7 +198,7 @@ class Expert < ApplicationRecord
 
   scope :relevant_for_skills, -> do
     not_deleted.where(id: unscoped.teams)
-      .or(not_deleted.where(id: unscoped.only_expert_of_user))
+      .or(not_deleted.where(id: unscoped.with_one_user))
       .or(not_deleted.where(id: unscoped.with_subjects))
   end
 
@@ -267,23 +253,16 @@ class Expert < ApplicationRecord
     reminders_registers.current_expired_need_category.first
   end
 
-  ## Team stuff
-  def personal_skillset?
-    users.size == 1 &&
-      users.first.email.casecmp(self.email)&.zero?
-  end
-
-  def was_personal_skillset_before_update?
-    users.size == 1 &&
-      users.first.email.casecmp(self.email_was)&.zero?
-  end
-
   def without_users?
     users.empty?
   end
 
   def team?
-    !without_users? && !personal_skillset?
+    users.size > 1
+  end
+
+  def with_one_user?
+    users.size == 1
   end
 
   ## Referencing
@@ -308,27 +287,12 @@ class Expert < ApplicationRecord
 
   def soft_delete
     self.transaction do
-      if personal_skillset?
-        users.each { |u| u.update_columns(SoftDeletable.persons_attributes) }
-      end
       update_columns(SoftDeletable.persons_attributes)
     end
   end
 
   ## Updates
   #
-  def personal_skillset_synchronisation_ok
-    return true if deleted?
-    return true unless (email_changed? && full_name_changed? && was_personal_skillset_before_update?)
-
-    errors.add :full_name, I18n.t('activerecord.attributes.user.errors.cant_change_email_and_full_name')
-    false
-  end
-
-  def synchronize_single_member
-    users.first.update_columns(self.user_personal_skillsets_shared_attributes)
-  end
-
   def update_antenne_referencement_coverage(*args)
     antenne.update_referencement_coverages
   end
