@@ -281,7 +281,7 @@ fr:
         need_date: Besoin du %{date}
         process: Marquer comme "vu"
         see_need: Voir le besoin
-      satifaction_seen: Le retour a été marqué comme vu
+      satifaction_seen: Les retours ont été marqués comme vu
       titles:
         seen: Retours vus
         unseen: Nouveaux retours
