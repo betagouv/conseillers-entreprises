@@ -195,7 +195,7 @@ fr:
         use_for_commercant_html: Ces deux documents sont à télécharger gratuitement sur <a href=''https://annuaire-entreprises.data.gouv.fr''>annuaire-entreprises.data.gouv.fr</a>.
       moderation:
         no_new_element: En l’absence d’élément nouveau, nous ne pouvons réaliser de nouvelles mises en relation vers ce dernier.
-        quality_monitoring: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller.
+        quality_monitoring_html: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller. Nous vous invitons à bien <b>vérifier votre messagerie</b> électronique, vos courriers indésirables (spams) et votre messagerie vocale.
         taking_care_by_experts: Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.
       no_expert:
         erp_html: 'pour votre établissement recevant du public (ERP) et son accessibilité : <a href=''https://entreprendre.service-public.fr/vosdroits/F32351''>https://entreprendre.service-public.fr/vosdroits/F32351</a>'

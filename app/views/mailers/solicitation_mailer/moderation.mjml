@@ -6,7 +6,7 @@
 
     <mj-text><%= t('.taking_care_by_experts') %></mj-text>
 
-    <mj-text><%= t('.quality_monitoring') %></mj-text>
+    <mj-text><%= t('.quality_monitoring_html') %></mj-text>
 
     <mj-text><%= t('.no_new_element') %></mj-text>
 
