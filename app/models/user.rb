@@ -249,7 +249,6 @@ class User < ApplicationRecord
   # Suppression de l'utilisateur + personal_skillsets
   def soft_delete
     self.transaction do
-      personal_skillsets.each { |e| e.update_columns(SoftDeletable.persons_attributes) }
       update_columns(SoftDeletable.persons_attributes)
     end
   end
@@ -267,10 +266,6 @@ class User < ApplicationRecord
 
   ## Expert associations helpers
   #
-  def personal_skillsets
-    experts.personal_skillsets
-  end
-
   def single_user_experts
     experts.with_one_user
   end
@@ -304,17 +299,17 @@ class User < ApplicationRecord
     if user_experts.present?
       new_user.relevant_experts.concat(user_experts)
       new_user.save
-    # si c'est un expert personnel on attribue les sujets à l'expert personnel du nouvel utilisateur
-    # elsif self.personal_skillsets.first.experts_subjects.present?
-    #   self.personal_skillsets.first.experts_subjects.each do |es|
-    #     ExpertSubject.create(institution_subject: es.institution_subject,
-    #                          expert: new_user.personal_skillsets.first,
-    #                          intervention_criteria: es.intervention_criteria)
-    #   end
-    #   # et les territoires spécifiques si on a coché l'option
-    #   if params[:specifics_territories].to_b
-    #     new_user.personal_skillsets.first.communes = self.personal_skillsets.first.communes
-    #   end
+      # si c'est un expert personnel on attribue les sujets à l'expert personnel du nouvel utilisateur
+      # elsif self.personal_skillsets.first.experts_subjects.present?
+      #   self.personal_skillsets.first.experts_subjects.each do |es|
+      #     ExpertSubject.create(institution_subject: es.institution_subject,
+      #                          expert: new_user.personal_skillsets.first,
+      #                          intervention_criteria: es.intervention_criteria)
+      #   end
+      #   # et les territoires spécifiques si on a coché l'option
+      #   if params[:specifics_territories].to_b
+      #     new_user.personal_skillsets.first.communes = self.personal_skillsets.first.communes
+      #   end
     end
     self.user_rights.each { |right| right.dup.update(user_id: new_user.id) }
     new_user

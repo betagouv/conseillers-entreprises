@@ -104,7 +104,7 @@ class Expert < ApplicationRecord
 
   scope :teams, -> do
     where.not(id: Expert.unscoped.without_users)
-         .where.not(id: Expert.unscoped.with_one_user)
+      .where.not(id: Expert.unscoped.with_one_user)
   end
 
   scope :with_users, -> { joins(:users) }
@@ -121,8 +121,6 @@ class Expert < ApplicationRecord
   scope :active_without_users, -> do
     active.without_users
   end
-
-
 
   # Activity stuff
   # Utilisé pour les mails de relance

@@ -23,7 +23,7 @@ RSpec.describe SoftDeletable do
         let!(:user_1) { create :user }
         let!(:expert_1) { create :expert, users: [user_1] }
         let!(:user_2) { create :user }
-        let!(:expert_2) { create :expert, users: [user_2]}
+        let!(:expert_2) { create :expert, users: [user_2] }
         let!(:user_3) { create :user }
         # Expert avec d'autres utilisateurs KO
         let!(:team_1) { create :expert, users: [user_1, user_2, user_3] }
@@ -71,29 +71,6 @@ RSpec.describe SoftDeletable do
           expect(expert_1.reload.deleted?).to be false
           expect(user_2.reload.deleted?).to be false
           expect(expert_2.reload.deleted?).to be false
-        end
-      end
-
-      context 'With users with many experts' do
-        # Utilisateur avec plusieurs experts KO
-        let(:user) { create :user }
-        let(:another_user) { create :user }
-        let!(:personal_skillset) { user.personal_skillsets.first }
-        let!(:another_personal_skillset) { another_user.personal_skillsets.first }
-        # Expert que l'on supprime OK
-        let!(:expert) { create :expert, users: [user] }
-        # Autre Expert avec plusieurs utilisateurs KO
-        let!(:expert_2) { create :expert, users: [user, another_user] }
-
-        before { expert.destroy }
-
-        it 'Soft delete only expert' do
-          expect(expert.deleted?).to be true
-          expect(expert_2.reload.deleted?).to be false
-          expect(user.reload.deleted?).to be false
-          expect(personal_skillset.reload.deleted?).to be false
-          expect(another_user.reload.deleted?).to be false
-          expect(another_personal_skillset.reload.deleted?).to be false
         end
       end
 
@@ -148,10 +125,15 @@ RSpec.describe SoftDeletable do
         context 'with deleted experts and advisors' do
           before do
             antenne.destroy
+            user_1.destroy
+            user_2.destroy
+            expert.destroy
+            expert_2.destroy
           end
 
-          it 'Delete antenne' do
-            expect(antenne.deleted?).to be true
+          it 'Don’t delete antenne' do
+            # We can't delete an antenne with soft deleted users
+            expect(antenne.deleted?).to be false
           end
         end
       end

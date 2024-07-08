@@ -35,7 +35,8 @@ describe CsvExport::UserExporter, CsvExport do
     let(:theme) { create :theme, label: 'Test Theme' }
     let(:the_subject) { create :subject, theme: theme, label: 'Test Subject' }
     let(:institution_subject) { create :institution_subject, institution: institution, subject: the_subject, description: 'Description for institution' }
-    let!(:expert_subject) { create :expert_subject, expert: user.personal_skillsets.first, institution_subject: institution_subject, intervention_criteria: 'Intervention criteria' }
+    let!(:expert_subject) { create :expert_subject, expert: expert, institution_subject: institution_subject, intervention_criteria: 'Intervention criteria' }
+    let(:expert) { create :expert, antenne: antenne, users: [user] }
 
     subject do
       institution.reload
