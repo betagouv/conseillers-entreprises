@@ -95,10 +95,10 @@ class CompanySatisfaction < ApplicationRecord
   # Partage aux conseillers
   #
   def share
-    done_experts.find_each do |e|
-      e.users.find_each{ |u| self.shared_satisfactions.create(user: u, expert: e) }
+    done_experts.active.find_each do |e|
+      e.users.active.find_each{ |u| self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
       expert_antenne = e.antenne
-      expert_antenne.managers.each{ |u| self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
+      expert_antenne.managers.active.each{ |u| self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
       share_with_higher_manager(e, expert_antenne)
     end
     return true if self.valid?
@@ -110,7 +110,7 @@ class CompanySatisfaction < ApplicationRecord
 
   def share_with_higher_manager(e, antenne)
     if antenne.parent_antenne.present?
-      antenne.parent_antenne.managers.each{ |u| self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
+      antenne.parent_antenne.managers.active.each{ |u| self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
       share_with_higher_manager(e, antenne.parent_antenne)
     end
   end
