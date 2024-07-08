@@ -12,7 +12,7 @@ FactoryBot.define do
 
     trait :with_expert do
       after(:create) do |user, _|
-        user.experts << create(:expert)
+        user.experts << create(:expert, antenne: user.antenne)
       end
     end
 
