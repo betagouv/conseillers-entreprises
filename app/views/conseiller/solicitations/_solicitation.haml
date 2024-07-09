@@ -9,23 +9,23 @@
       .card__info
         %ul.card__fields.list-unstyled.fr-p-0
           - if solicitation.siret.present?
-            %li.item
+            %li.item.fr-p-0
               = t('.siret')
               %strong= link_to(solicitation.normalized_siret, show_with_siret_companies_path(solicitation.siret), data: { turbo: false })
-          %li.item
+          %li.item.fr-p-0
             = t('.email')
             %strong= mail_to(solicitation.email, solicitation.email, target: '_blank')
           - solicitation.display_attributes.each do |attribut|
             - if solicitation.send(attribut).present?
-              %li.item
+              %li.item.fr-p-0
                 = Solicitation.human_attribute_name(attribut) + ' : '
                 %strong= solicitation.send(attribut)
           - if solicitation.landing.present?
-            %li.item
+            %li.item.fr-p-0
               = t('.source')
               %strong= link_to solicitation.landing.slug, landing_path(solicitation.landing)
           - if solicitation.landing_subject.present?
-            %li.item
+            %li.item.fr-p-0
               = t('.landing_subjects')
               = subject_button(solicitation, "fr-btn fr-btn--secondary fr-btn--sm")
           = display_region(solicitation.region, params[:territory])
