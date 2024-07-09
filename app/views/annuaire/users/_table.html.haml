@@ -46,7 +46,7 @@
                   = link_to antenne, admin_antenne_path(antenne)
               - if index_in_team == 0
                 %td.td-header.td-header--expert{ rowspan: users.size }
-                  - if user.relevant_expert.team?
+                  - if user.relevant_expert.present?
                     = link_to user.relevant_expert.full_name, edit_admin_expert_path(user.relevant_expert), title: t('.edit_expert', expert_name: user.relevant_expert.full_name, antenne: antenne)
 
               %td.td-header.td-header--user

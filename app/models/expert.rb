@@ -255,10 +255,6 @@ class Expert < ApplicationRecord
     users.empty?
   end
 
-  def team?
-    users.size > 1
-  end
-
   def with_one_user?
     users.size == 1
   end
