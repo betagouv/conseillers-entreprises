@@ -142,6 +142,9 @@ group :development do
   gem 'rubocop-rails', require: false
   gem 'rubocop-faker', require: false
   gem 'rubocop-i18n', require: false
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-rspec_rails', require: false
   gem 'brakeman', require: false
   gem "rails-erd"
 end
