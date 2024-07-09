@@ -38,7 +38,7 @@ module CsvImport
 
     def postprocess(user, attributes)
       expert = import_team(user, attributes)
-      unless expert.present?
+      if expert.blank?
         expert = user.create_single_user_experts
       end
       import_several_subjects(expert, attributes)
