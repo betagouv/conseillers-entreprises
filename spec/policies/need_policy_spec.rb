@@ -52,11 +52,13 @@ RSpec.describe NeedPolicy, type: :policy do
         it { is_expected.not_to permit(user, need) }
       end
 
-      context "manager and need in perimeter received needs" do
+      context "manager and need in other managed antenne perimeter needs" do
+        let(:regional_antenne) { create :antenne, :regional }
         let(:user) { create :user, :manager, antenne: create(:antenne) }
 
         before do
-          allow(user.antenne).to receive(:perimeter_received_needs).and_return([need])
+          user.managed_antennes.push(regional_antenne)
+          need.expert_antennes.first.update(parent_antenne_id: regional_antenne.id)
         end
 
         it { is_expected.to permit(user, need) }
