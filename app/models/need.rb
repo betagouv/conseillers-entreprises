@@ -228,6 +228,16 @@ class Need < ApplicationRecord
     where(id: quo_matches_needs)
   end
 
+  scope :with_filtered_matches_taking_care, -> do
+    taking_care_matches = Match.sent
+      .status_taking_care
+      .where(taken_care_of_at: ..1.month.ago.beginning_of_day)
+    taking_care_matches_needs = Need.diagnosis_completed
+      .joins(:matches)
+      .where(matches: taking_care_matches)
+    where(id: taking_care_matches_needs)
+  end
+
   scope :starred, -> do
     where.not(starred_at: nil)
       .without_action(:starred_need)
