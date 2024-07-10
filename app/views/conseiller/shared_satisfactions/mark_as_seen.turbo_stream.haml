@@ -1,3 +1,4 @@
 = turbo_stream.remove(@shared_satisfaction.need)
 = turbo_stream.update("counter-unseen", @satisfaction_collections_count[:unseen])
 = turbo_stream.update("counter-unseen-nav", @satisfaction_collections_count[:unseen])
+= turbo_stream.update("counter-seen", @satisfaction_collections_count[:seen])

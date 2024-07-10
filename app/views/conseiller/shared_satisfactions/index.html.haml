@@ -22,15 +22,16 @@
     .fr-container.text-center.fr-mt-18v
       .fr-h3= t('.no_results')
   - else
-    .fr-container--fluid.fr-mb-2w
-      = form_with url: mark_all_as_seen_conseiller_shared_satisfactions_path, id: 'mark-all-as-seen', method: :patch, local: true, data: { turbo: false } do |form|
-        .fr-grid-row
-          .fr-col-12.fr-col-md-6.vertical-centered
-            .fr-checkbox-group.fr-mb-2v
-              = check_box_tag 'select_all', 'select_all', false, data: { 'batch-check-target': 'allCheckbox', action: 'change->batch-check#toggleAll' }
-              = label_tag 'select_all', t('.select_all'), class: 'fr-label', for: "select_all"
-          .fr-col-12.fr-col-md-6.bottom-actions
-            = form.submit t('.mark_all_as_seen'), class: 'fr-btn fr-btn--secondary', data: { 'batch-check-target': 'button' }
+    - if controller.action_name == 'unseen'
+      .fr-container--fluid.fr-mb-2w
+        = form_with url: mark_all_as_seen_conseiller_shared_satisfactions_path, id: 'mark-all-as-seen', method: :patch, local: true, data: { turbo: false } do |form|
+          .fr-grid-row
+            .fr-col-12.fr-col-md-6.vertical-centered
+              .fr-checkbox-group.fr-mb-2v
+                = check_box_tag 'select_all', 'select_all', false, data: { 'batch-check-target': 'allCheckbox', action: 'change->batch-check#toggleAll' }
+                = label_tag 'select_all', t('.select_all'), class: 'fr-label', for: "select_all"
+            .fr-col-12.fr-col-md-6.bottom-actions
+              = form.submit t('.mark_all_as_seen'), class: 'fr-btn fr-btn--secondary', data: { 'batch-check-target': 'button' }
 
     = render partial: 'need', collection: @needs
 

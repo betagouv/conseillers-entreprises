@@ -276,7 +276,7 @@ fr:
         select_all: Sélectionner tous les retours de la page
         short_title: Retours
         title: Retours des entreprises aidées
-      need:
+      need_card:
         comment_date: Retour de %{author}, le %{date}
         need_date: Besoin du %{date}
         process: Marquer comme "vu"

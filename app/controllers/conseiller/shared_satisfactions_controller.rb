@@ -1,4 +1,5 @@
 class Conseiller::SharedSatisfactionsController < ApplicationController
+  before_action :retrieve_antennes, only: [:unseen, :seen]
   before_action :collections_counts, except: [:mark_as_seen, :mark_all_as_seen]
 
   layout 'side_menu'
@@ -8,7 +9,6 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
   end
 
   def unseen
-    @antennes = retrieve_antennes if current_user.is_manager?
     @needs = retrieve_unseen_satisfactions
       .order(:created_at)
       .page(params[:page])
@@ -68,7 +68,7 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
   end
 
   def retrieve_antennes
-    current_user.supervised_antennes.not_deleted.order(:name)
+    @antennes = current_user.supervised_antennes.not_deleted.order(:name) if current_user.is_manager?
   end
 
   def collections_counts

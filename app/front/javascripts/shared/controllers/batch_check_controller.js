@@ -15,11 +15,13 @@ export default class extends Controller {
   }
   
   verifyChecked() {
-    let checked = this.cardCheckboxTargets.filter((checkbox) => checkbox.checked)
-    if (checked.length > 0) {
-      this.buttonTarget.removeAttribute("disabled");
-    } else {
-      this.buttonTarget.setAttribute("disabled", true);
+    if (this.hasButtonTarget) {
+      let checked = this.cardCheckboxTargets.filter((checkbox) => checkbox.checked)
+      if (checked.length > 0) {
+        this.buttonTarget.removeAttribute("disabled");
+      } else {
+        this.buttonTarget.setAttribute("disabled", true);
+      }
     }
   }
 }
