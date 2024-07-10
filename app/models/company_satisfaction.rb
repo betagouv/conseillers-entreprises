@@ -74,24 +74,6 @@ class CompanySatisfaction < ApplicationRecord
     query == 'with_comment' ? where.not(comment: "") : where(comment: "")
   }
 
-  def self.ransackable_scopes(auth_object = nil)
-    %w[
-      solicitation_mtm_campaign_cont solicitation_mtm_campaign_eq solicitation_mtm_campaign_start
-      solicitation_mtm_campaign_end shared_eq experts_id_eq with_comment_eq
-    ]
-  end
-
-  def self.ransackable_attributes(auth_object = nil)
-    ["comment", "contacted_by_expert", "created_at", "id", "id_value", "need_id", "updated_at", "useful_exchange"]
-  end
-
-  def self.ransackable_associations(auth_object = nil)
-    [
-      "done_antennes", "done_experts", "done_institutions", "done_matches", "facility_regions", "landing",
-      "landing_subject", "matches", "need", "diagnosis", "solicitation", "subject", "theme", "facility", "experts"
-    ]
-  end
-
   # Partage aux conseillers
   #
   def share
@@ -117,5 +99,23 @@ class CompanySatisfaction < ApplicationRecord
 
   def shared
     shared_satisfactions.any?
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    %w[
+      solicitation_mtm_campaign_cont solicitation_mtm_campaign_eq solicitation_mtm_campaign_start
+      solicitation_mtm_campaign_end shared_eq experts_id_eq with_comment_eq
+    ]
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["comment", "contacted_by_expert", "created_at", "id", "id_value", "need_id", "updated_at", "useful_exchange"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "done_antennes", "done_experts", "done_institutions", "done_matches", "facility_regions", "landing",
+      "landing_subject", "matches", "need", "diagnosis", "solicitation", "subject", "theme", "facility", "experts"
+    ]
   end
 end

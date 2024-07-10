@@ -62,17 +62,13 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
   end
 
   def base_needs
-    base_needs = if current_user.is_manager?
-      current_user.antenne.perimeter_received_needs.apply_filters(filter_params)
-    else
-      current_user.received_needs
-    end
+    base_needs = current_user.needs_with_shared_satisfaction
+    base_needs = base_needs.apply_filters(filter_params) if current_user.is_manager?
     base_needs.includes(:company, :subject, :facility, company_satisfaction: :shared_satisfactions)
   end
 
   def retrieve_antennes
-    ids = (current_user.managed_antenne_ids + current_user.managed_antennes.map { |a| a.territorial_antennes.pluck(:id) }).flatten
-    Antenne.with_experts_subjects.not_deleted.where(id: ids).order(:name)
+    current_user.supervised_antennes.not_deleted.order(:name)
   end
 
   def collections_counts

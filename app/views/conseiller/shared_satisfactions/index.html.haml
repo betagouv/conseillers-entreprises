@@ -4,20 +4,19 @@
 - content_for :callout, render('callout')
 
 .fr-container--fluid{ data: { controller: "batch-check" } }
-  .fr-container--fluid.fr-mb-4w
-    .fr-grid-row
-      - if current_user.is_manager?
+  - if current_user.is_manager? && @antennes.many?
+    .fr-container--fluid.fr-mb-4w
+      = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true, class: 'fr-grid-row fr-grid-row--gutters fr-grid-row--center' do |f|
         .fr-col-12.fr-col-md-8
-          = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true, class: 'fr-grid-row' do |f|
-            = hidden_field_tag :anchor, 'side-menu-main'
-            - if @antennes.many?
-              .fr-select-group.fr-mb-2v
-                = f.label :antenne_id, t('activerecord.models.antenne.one'), class: 'fr-label'
-                = f.select :antenne_id, options_for_select(@antennes.pluck(:name, :id), selected: params[:antenne_id]), { include_blank: t('all.feminine') }, class: "fr-select"
-            .fr-input-group
-              = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
-              - if request.fullpath.include?("?")
-                = link_to t('clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--tertiary-no-outline'
+          = hidden_field_tag :anchor, 'side-menu-main'
+          .fr-select-group
+            = f.label :antenne_id, t('activerecord.models.antenne.one'), class: 'fr-label'
+            = f.select :antenne_id, options_for_select(@antennes.pluck(:name, :id), selected: params[:antenne_id]), { include_blank: t('all.feminine') }, class: "fr-select"
+        .fr-col-12.fr-col-md-4.aligned-bottom
+          .fr-input-group
+            = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
+            - if request.fullpath.include?("?")
+              = link_to t('clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--tertiary-no-outline'
 
   - if @needs.to_a.size == 0
     .fr-container.text-center.fr-mt-18v
