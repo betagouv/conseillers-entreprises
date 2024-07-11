@@ -54,7 +54,7 @@ ActiveAdmin.register Solicitation do
             answer.filter_value, scope: [:activerecord, :attributes, :subject_questions, answer.key],
             default: I18n.t(answer.filter_value, scope: [:boolean, :text])
           )
-          li "- #{I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, answer.key])} #{tag.strong(label)} <br>".html_safe
+          li "- #{question_label(answer.key, :short)} #{tag.strong(label)} <br>".html_safe
         end
       end
       div raw diagnosis_link(s.diagnosis)
@@ -191,7 +191,7 @@ ActiveAdmin.register Solicitation do
             filter.filter_value, scope: [:activerecord, :attributes, :subject_questions, filter.key],
             default: I18n.t(filter.filter_value, scope: [:boolean, :text])
           )
-          li "#{I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, filter.key])} #{tag.strong(answer)} <br>".html_safe
+          li "#{question_label(filter.key, :short)} #{tag.strong(answer)} <br>".html_safe
         end
       end
     end

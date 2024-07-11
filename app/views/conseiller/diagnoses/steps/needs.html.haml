@@ -39,7 +39,7 @@
                         - key = answer_form.object.key
                         .fr-form-group.additional_questions.fr-mt-2v
                           %fieldset.fr-fieldset.fr-fieldset--inline
-                            %legend.fr-fieldset__legend.fr-text--regular= I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, key])
+                            %legend.fr-fieldset__legend.fr-text--regular= question_label(key, :long)
                             .fr-fieldset__content
                               = answer_form.hidden_field :id
                               = answer_form.hidden_field :subject_question_id
