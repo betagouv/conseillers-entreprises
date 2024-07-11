@@ -20,4 +20,8 @@ class SubjectAnswerGrouping < ApplicationRecord
   #
   belongs_to :institution
   has_many :subject_answers, dependent: :destroy, inverse_of: :subject_answer_grouping, class_name: 'SubjectAnswer::Filter'
+
+  scope :by_subject, -> (subject_id) do
+    joins(:subject_answers).merge(SubjectAnswer.by_subject(subject_id)).distinct
+  end
 end
