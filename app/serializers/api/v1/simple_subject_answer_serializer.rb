@@ -1,4 +1,6 @@
 class Api::V1::SimpleSubjectAnswerSerializer < ActiveModel::Serializer
+  include NeedsHelper
+
   attributes :question_id, :question_label, :answer
 
   def question_label
