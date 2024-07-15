@@ -8,10 +8,6 @@ class Conseiller::VeilleController < ApplicationController
 
   layout 'side_menu'
 
-  def index
-    redirect_to action: :starred_needs
-  end
-
   def starred_needs
     @needs = retrieve_starred_needs
       .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
