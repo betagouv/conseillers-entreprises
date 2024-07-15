@@ -26,4 +26,9 @@ class SubjectAnswer < ApplicationRecord
   belongs_to :subject_question
 
   delegate :key, to: :subject_question
+
+  scope :by_subject, -> (subject_id) do
+    joins(subject_question: :subject)
+      .where(subject_question: { subject_id: subject_id })
+  end
 end

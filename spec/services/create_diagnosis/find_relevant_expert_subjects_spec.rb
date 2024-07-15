@@ -640,7 +640,17 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
           need.subject_answers.create(subject_question: bank_question, filter_value: false)
         end
 
-        it { is_expected.to contain_exactly(es_adie) }
+        context 'no other institution filters' do
+          it { is_expected.to contain_exactly(es_adie) }
+        end
+
+        context 'with other institution filter' do
+          before do
+            create(:subject_answer_grouping, institution: initiative)
+          end
+
+          it { is_expected.to contain_exactly(es_adie) }
+        end
       end
 
       describe 'plus de 10 000 + oui banque' do
