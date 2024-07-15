@@ -1,0 +1,16 @@
+- meta title: t('.title')
+- content_for :header, render('header', title: t('.title'))
+- content_for :menu, render('menu', collections_count: @collections_by_veille_count)
+
+= render 'filters', experts: @experts
+
+- if @experts.to_a.size == 0
+  .fr-container.text-center.fr-mt-18v
+    .fr-h3= t('.no_results')
+- else
+  = paginate @experts
+
+  = render partial: 'experts/expert', collection: @experts,
+    locals: { action: @action, complete_card: false }
+
+  = paginate @experts

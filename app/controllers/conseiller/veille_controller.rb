@@ -1,5 +1,7 @@
 class Conseiller::VeilleController < ApplicationController
   include PersistedSearch
+  include Inbox
+  helper_method :inbox_collections_counts
 
   before_action :authenticate_admin!
   before_action :collections_counts
@@ -16,35 +18,36 @@ class Conseiller::VeilleController < ApplicationController
       .order(created_at: :asc)
       .page(params[:page])
     @action = :starred_need
-
-    render :index
   end
 
   def taking_care_matches
-    @needs = retrieve_taking_care_matches_needs
-      .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
+    @experts = retrieve_taking_care_matches_experts
+      .includes(:received_needs)
+      .preload(:users, :antenne)
       .order(created_at: :asc)
       .page(params[:page])
-    @action = :quo_match
-
-    render :index
+    @action = :taking_care_matches
   end
 
   private
 
   def retrieve_starred_needs
-    @starred_needs ||= Need.apply_filters(index_search_params).starred
+    Need.starred.apply_filters(index_search_params)
   end
 
-  def retrieve_taking_care_matches_needs
-    @taking_care_matches_needs ||= Need.apply_filters(index_search_params).with_filtered_matches_taking_care
+  def retrieve_taking_care_matches_experts
+    Expert
+      .with_taking_care_stock
+      .active
+      .apply_filters(index_search_params)
+      .distinct
   end
 
   def collections_counts
-    @collections_by_veille_count = Rails.cache.fetch(['veille', retrieve_taking_care_matches_needs.size, retrieve_starred_needs.size]) do
+    @collections_by_veille_count = Rails.cache.fetch(['veille', retrieve_taking_care_matches_experts.size, retrieve_starred_needs.size]) do
       {
         starred_needs: retrieve_starred_needs.size,
-        taking_care_matches: retrieve_taking_care_matches_needs.size
+        taking_care_matches: retrieve_taking_care_matches_experts.to_a.size
       }
     end
   end
