@@ -287,6 +287,33 @@ RSpec.describe Expert do
     end
   end
 
+  describe 'with_taking_care_stock' do
+    let(:expert_with_taking_care_stock) { create :expert }
+    let(:expert_with_other_stock) { create :expert }
+    let(:expert_with_recent_taking_care_stock) { create :expert }
+    let(:expert_with_low_taking_care_stock) { create :expert }
+
+    before do
+      11.times do |index|
+        create(:match, expert: expert_with_taking_care_stock, status: :taking_care, created_at: 1.month.ago, taken_care_of_at: 40.days.ago)
+      end
+      11.times do |index|
+        create(:match, expert: expert_with_other_stock, status: :quo, created_at: 1.month.ago, taken_care_of_at: 40.days.ago)
+      end
+      11.times do |index|
+        create(:match, expert: expert_with_recent_taking_care_stock, status: :taking_care, created_at: 1.month.ago, taken_care_of_at: 10.days.ago)
+      end
+      8.times do |index|
+        create(:match, expert: expert_with_low_taking_care_stock, status: :taking_care, created_at: 1.month.ago, taken_care_of_at: 40.days.ago)
+      end
+    end
+
+    it 'selects concerned experts' do
+      expect(described_class.with_taking_care_stock).to contain_exactly(expert_with_taking_care_stock)
+    end
+
+  end
+
   describe 'synchronize_single_member' do
     let(:antenne_1) { create :antenne }
     let(:antenne_2) { create :antenne }

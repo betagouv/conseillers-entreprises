@@ -76,7 +76,7 @@
               = active_link_to conseiller_suivi_qualite_index_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
                 %span.ri-radar-line.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('conseiller.suivi_qualite.index.title')
-              = active_link_to conseiller_veille_index_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
+              = active_link_to starred_needs_conseiller_veille_index_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
                 %span.ri-radar-line.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('conseiller.veille.index.title')
           %ul.fr-nav__list
