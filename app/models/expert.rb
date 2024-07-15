@@ -132,6 +132,17 @@ class Expert < ApplicationRecord
       .order('COUNT(matches.id) DESC')
   end
 
+  # Expert ayant plus de 10 besoins en cours avec date de prise en charge > 1 mois
+  scope :with_taking_care_stock, -> do
+    taking_care_matches = Match.sent
+      .status_taking_care
+      .where(taken_care_of_at: ..1.month.ago.beginning_of_day)
+    Expert.joins(:received_matches)
+      .merge(taking_care_matches)
+      .group(:id)
+      .having("COUNT(matches.id)>10")
+  end
+
   # Referencing
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
@@ -156,7 +167,7 @@ class Expert < ApplicationRecord
   end
 
   scope :by_region, -> (region_id) {
-    Territory.find(region_id).territorial_experts
+    merge(Territory.find(region_id).territorial_experts)
   }
 
   # param peut être un id de Territory ou une clé correspondant à un scope ("with_national_perimeter" par ex)
