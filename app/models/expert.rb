@@ -102,11 +102,6 @@ class Expert < ApplicationRecord
       .having("COUNT(users.id)=1")
   end
 
-  scope :teams, -> do
-    where.not(id: Expert.unscoped.without_users)
-      .where.not(id: Expert.unscoped.with_one_user)
-  end
-
   scope :with_users, -> { joins(:users) }
 
   # On s'appuie sur table de jointure pour éviter les faux positifs
@@ -195,9 +190,7 @@ class Expert < ApplicationRecord
   end
 
   scope :relevant_for_skills, -> do
-    not_deleted.where(id: unscoped.teams)
-      .or(not_deleted.where(id: unscoped.with_one_user))
-      .or(not_deleted.where(id: unscoped.with_subjects))
+    not_deleted.where(id: unscoped.with_subjects)
   end
 
   scope :omnisearch, -> (query) do

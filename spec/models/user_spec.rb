@@ -88,8 +88,8 @@ RSpec.describe User do
     end
 
     describe "relevant_for_skills" do
-      let!(:expert1) { create :expert, users: [user] }
-      let!(:expert2) { create :expert, users: [user] }
+      let!(:expert1) { create :expert, :with_expert_subjects, users: [user] }
+      let!(:expert2) { create :expert, :with_expert_subjects, users: [user] }
       let!(:user) { create :user }
 
       subject(:relevant_users_for_skills) { described_class.relevant_for_skills }

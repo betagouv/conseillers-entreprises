@@ -21,9 +21,6 @@ ActiveAdmin.register User do
   scope :admin, group: :role
   scope :managers, group: :role
 
-  scope :team_members, group: :teams
-  scope :no_team, group: :teams
-
   scope :managers_not_invited, group: :invitations
   scope :not_invited, group: :invitations
   scope :recent_active_invitation_not_accepted, group: :invitations

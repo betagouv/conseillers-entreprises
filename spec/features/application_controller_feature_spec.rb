@@ -28,7 +28,7 @@ describe 'ApplicationController specific features' do
 
   describe 'general navigation' do
     login_user
-    let!(:expert) { create :expert, users: [current_user] }
+    let!(:expert) { create :expert, :with_expert_subjects, users: [current_user] }
 
     context 'user is simple user' do
       it 'shows no errors' do

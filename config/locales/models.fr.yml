@@ -103,11 +103,7 @@ fr:
         from_solicitation: Analyses à partir d’une sollicitation directe
         from_visit: Analyses faites par des conseillers suite à une visite
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
-        no_team: Utilisateurs non membres d’une équipe. Ils n’ont qu’un seul expert, qui correspond à leur domaine de compétence personnel.
-        personal_skillsets: 'Domaine de compétences d’un seul utilisateur : experts avec un seul utilisateur dont l’adresse email est identique à l’expert.'
         relevant_for_skills: 'Tous les experts utiles à afficher pour le choix des domaines d’intervention : toutes les équipes (plusieurs membres), tous les experts ayant des compétences, ainsi que les experts qui sont le seul expert d’un utilisateur.'
-        team_members: Utilisateurs membres d’une équipe
-        teams: 'Équipes : plusieurs membres, ou un seul mais dont l’adresse email diffère de celle de l’expert'
       with_custom_communes: Zone spécifique
       with_deleted_expert: Expert supprimé
       without_communes: Sans zone d’intervention

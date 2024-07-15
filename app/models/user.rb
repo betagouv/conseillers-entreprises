@@ -177,8 +177,6 @@ class User < ApplicationRecord
 
   # Team stuff
   scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
-  scope :team_members, -> { not_deleted.joins(:experts).merge(Expert.teams) }
-  scope :no_team, -> { not_deleted.where.not(id: unscoped.team_members) }
   scope :without_experts, -> { where.missing(:experts) }
 
   ## Relevant Experts stuff

@@ -51,7 +51,6 @@ RSpec.describe Expert do
         is_expected.to be_with_one_user
         is_expected.not_to be_without_users
         expect(described_class.with_one_user).to include(expert)
-        expect(described_class.teams).not_to include(expert)
         expect(described_class.without_users).not_to include(expert)
       end
     end
@@ -63,7 +62,6 @@ RSpec.describe Expert do
         is_expected.not_to be_with_one_user
         is_expected.to be_without_users
         expect(described_class.with_one_user).not_to include(expert)
-        expect(described_class.teams).not_to include(expert)
         expect(described_class.without_users).to include(expert)
       end
     end

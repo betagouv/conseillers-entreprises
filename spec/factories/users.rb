@@ -16,6 +16,12 @@ FactoryBot.define do
       end
     end
 
+    trait :with_expert_relevant_for_skills do
+      after(:create) do |user, _|
+        user.experts << create(:expert, :with_expert_subjects, antenne: user.antenne)
+      end
+    end
+
     trait :invitation_accepted do
       invitation_accepted_at { Time.zone.now }
     end
