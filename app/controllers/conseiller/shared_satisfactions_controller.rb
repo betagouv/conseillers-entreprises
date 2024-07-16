@@ -1,5 +1,6 @@
 class Conseiller::SharedSatisfactionsController < ApplicationController
   before_action :collections_counts, except: :mark_as_seen
+  skip_before_action :verify_authenticity_token, only: :mark_as_seen
 
   layout 'side_menu'
 
@@ -25,6 +26,7 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
 
   def mark_as_seen
     @shared_satisfaction = SharedSatisfaction.find(params[:id])
+    authorize @shared_satisfaction
     if @shared_satisfaction.touch(:seen_at)
       flash.notice = t('conseiller.shared_satisfactions.satifaction_seen')
     else
