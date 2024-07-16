@@ -21,7 +21,7 @@
   %ul.list-unstyled.fr-p-0
     - if @user.antenne.experts.not_deleted.none?
       %li= t('.no_team')
-    -else
+    - else
       - @user.antenne.experts.not_deleted.each do |team|
         - members = team.users.not_deleted
         %li.fr-mb-1v.fr-mb-0.fr-mb-0
@@ -32,4 +32,3 @@
           = team.full_name
           %br
           = members.pluck(:full_name).to_sentence
-

@@ -43,7 +43,7 @@
 
     - if current_user.experts.relevant_for_skills.many?
       %li
-        = "#{t('users.menu.subjects')} :"
+        "#{t('users.menu.subjects')} :"
         %ul
           - current_user.experts.relevant_for_skills.each do |expert|
             %li

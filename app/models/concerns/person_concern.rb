@@ -73,7 +73,7 @@ module PersonConcern
   end
 
   def user_shared_attributes
-    shared_attributes = %w[email full_name phone_number job antenne_id]
+    shared_attributes = %w[email full_name phone_number antenne_id]
     self.attributes.slice(*shared_attributes)
   end
 end
