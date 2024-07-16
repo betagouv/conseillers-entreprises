@@ -270,7 +270,7 @@ class User < ApplicationRecord
   def create_single_user_experts
     return if single_user_experts.present?
 
-    self.experts.create!(self.user_personal_skillsets_shared_attributes)
+    self.experts.create!(self.user_shared_attributes)
   end
 
   ## Rights
@@ -292,28 +292,17 @@ class User < ApplicationRecord
     new_user = User.create(params.merge(antenne: antenne))
     return new_user unless new_user.valid?
     user_experts = self.relevant_experts
-    # si c'est une équipe
     if user_experts.present?
       new_user.relevant_experts.concat(user_experts)
       new_user.save
-      # si c'est un expert personnel on attribue les sujets à l'expert personnel du nouvel utilisateur
-      # elsif self.personal_skillsets.first.experts_subjects.present?
-      #   self.personal_skillsets.first.experts_subjects.each do |es|
-      #     ExpertSubject.create(institution_subject: es.institution_subject,
-      #                          expert: new_user.personal_skillsets.first,
-      #                          intervention_criteria: es.intervention_criteria)
-      #   end
-      #   # et les territoires spécifiques si on a coché l'option
-      #   if params[:specifics_territories].to_b
-      #     new_user.personal_skillsets.first.communes = self.personal_skillsets.first.communes
-      #   end
     end
     self.user_rights.each { |right| right.dup.update(user_id: new_user.id) }
     new_user
   end
 
+  # Utilisé pour la réattribution des matches d'un expert, souvent seul dans son équipe
   def transfer_in_progress_matches(user)
-    raise StandardError.new(I18n.t('activerecord.attributes.user.have_not_personal_skillsets', user: self)) if self.single_user_experts.relevant_for_skills.blank?
+    raise StandardError.new(I18n.t('activerecord.attributes.user.have_not_relevant_expert', user: self)) if self.single_user_experts.relevant_for_skills.blank?
     ActiveRecord::Base.transaction do
       if user.single_user_experts.blank?
         user.create_single_user_experts
