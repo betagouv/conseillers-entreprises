@@ -32,7 +32,7 @@ class CompanySatisfaction < ApplicationRecord
   has_many :facility_regions, through: :need, inverse_of: :needs
   has_one :facility, through: :need, inverse_of: :needs
 
-  has_many :shared_satisfactions, inverse_of: :company_satisfaction
+  has_many :shared_satisfactions, inverse_of: :company_satisfaction, dependent: :destroy
   has_many :shared_satisfaction_users, through: :shared_satisfactions, source: :user
   has_many :shared_satisfaction_experts, -> { distinct }, through: :shared_satisfactions, source: :expert
 
