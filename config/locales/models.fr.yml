@@ -107,6 +107,7 @@ fr:
       with_custom_communes: Zone spécifique
       with_deleted_expert: Expert supprimé
       without_communes: Sans zone d’intervention
+      without_experts: Sans expert
       without_subjects: Sans compétence
       without_users: Aucun membre
     solicitations:

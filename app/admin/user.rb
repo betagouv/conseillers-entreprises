@@ -26,6 +26,8 @@ ActiveAdmin.register User do
   scope :recent_active_invitation_not_accepted, group: :invitations
   scope :old_active_invitation_not_accepted, group: :invitations
 
+  scope :without_experts, group: :debug
+
   index do
     selectable_column
     column(:full_name) do |u|

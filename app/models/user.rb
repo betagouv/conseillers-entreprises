@@ -244,7 +244,6 @@ class User < ApplicationRecord
     super && !deleted?
   end
 
-  # Suppression de l'utilisateur + personal_skillsets
   def soft_delete
     self.transaction do
       update_columns(SoftDeletable.persons_attributes)
