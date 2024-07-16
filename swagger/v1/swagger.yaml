@@ -1,15 +1,15 @@
 ---
 openapi: 3.0.1
 info:
-  title: API Conseillers-entreprises.service-public.fr V1
-  description: "## Bienvenue sur la documentation de l’API de Conseillers-entreprises.service-public.fr\n
+  title: API Conseillers-Entreprises V1
+  description: "## Bienvenue sur la documentation de l’API de conseillers-entreprises.service-public.fr\n
     \       \nCette API permet à une organisation de proposer un formulaire de dépôt
-    de besoin d'entreprise connecté à Conseillers-entreprises.service-public.fr sur son propre site internet.\n
-    \       \nConcrètement, cette API permet de :\n        \n- récupérer la liste
-    des pages d'atterrisage, thèmes et sujets autorisés pour l'organisation concernée,\n
-    \       \n- d'envoyer à Conseillers-entreprises.service-public.fr un besoin\n        \n### Limite
-    des requêtes\n        \nLe serveur accepte un maximum de 300 appels  par 5 minutes.\n
-    \       "
+    de besoin d'entreprise connecté à Conseillers-entreprises.service-public.fr sur
+    son propre site internet.\n        \nConcrètement, cette API permet de :\n        \n-
+    récupérer la liste des pages d'atterrisage, thèmes et sujets autorisés pour l'organisation
+    concernée,\n        \n- d'envoyer à Conseillers-entreprises.service-public.fr
+    un besoin\n        \n### Limite des requêtes\n        \nLe serveur accepte un
+    maximum de 300 appels par 5 minutes.\n        "
   version: 1.0.0
   contact:
     name: Équipe technique
@@ -42,40 +42,11 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 33
-                      title: Recruter un ou plusieurs salariés
-                      slug: recruter
-                      landing_id: 34
-                      landing_theme_id: 38
-                      landing_theme_slug: recrutement-formation
-                      description: "<ul><li>S’informer sur les aides à l'embauche
-                        des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
-                        francs en quartiers prioritaires, le contrat de professionnalisation,
-                        le VTE Vert sur les métiers de la transition écologique</li><li>Trouver
-                        des candidats</li></ul>"
-                      description_explanation: "<ul><li>le type de poste</li><li>si
-                        l'offre est déjà connue de Pôle emploi</li><li>si vous envisagez
-                        de recruter une personne en situation de handicap</li></ul>"
-                      requires_siret: true
-                      requires_location: false
-                      questions_additionnelles:
-                      - id: 25
-                        key: recrutement_poste_cadre
-                        position: 1
-                        question: Souhaitez-vous recruter sur un poste d’ingénieur, de manager ou de niveau Bac +3 ?
-                        question_type: boolean
-                      - id: 26
-                        key: recrutement_en_apprentissage
-                        position: 2
-                        question: Souhaitez-vous recruter en apprentissage ?
-                        question_type: boolean
-                      institutions_partenaires:
-                      - Chambre de Commerce et d'Industrie (CCI)
-                    - id: 34
+                    - id: 181
                       title: Mettre en place un projet de formation
                       slug: former
-                      landing_id: 34
-                      landing_theme_id: 38
+                      landing_id: 165
+                      landing_theme_id: 165
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>Choisir la bonne formation</li><li>Trouver
                         votre OPCO, financer la formation</li><li>Mettre en place
@@ -89,6 +60,36 @@ paths:
                       requires_location: false
                       questions_additionnelles: []
                       institutions_partenaires: []
+                    - id: 180
+                      title: Recruter un ou plusieurs salariés
+                      slug: recruter
+                      landing_id: 165
+                      landing_theme_id: 165
+                      landing_theme_slug: recrutement-formation
+                      description: "<ul><li>S’informer sur les aides à l'embauche
+                        des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
+                        francs en quartiers prioritaires, le contrat de professionnalisation,
+                        le VTE Vert sur les métiers de la transition écologique</li><li>Trouver
+                        des candidats</li></ul>"
+                      description_explanation: "<ul><li>le type de poste</li><li>si
+                        l'offre est déjà connue de Pôle emploi</li><li>si vous envisagez
+                        de recruter une personne en situation de handicap</li></ul>"
+                      requires_siret: true
+                      requires_location: false
+                      questions_additionnelles:
+                      - id: 562
+                        key: recrutement_poste_cadre
+                        position: 1
+                        question: Recrutez-vous sur un poste d’ingénieur, de manager
+                          ou de niveau Bac +3 ?
+                        question_type: boolean
+                      - id: 563
+                        key: recrutement_en_apprentissage
+                        position: 2
+                        question: Recrutez-vous un apprenti ou un stagiaire ?
+                        question_type: boolean
+                      institutions_partenaires:
+                      - Chambre de Commerce et d'Industrie (CCI)
                     metadata:
                       total_results: 2
               schema:
@@ -134,11 +135,11 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 36
+                      id: 183
                       title: Recruter un ou plusieurs salariés
                       slug: recruter
-                      landing_id: 36
-                      landing_theme_id: 40
+                      landing_id: 167
+                      landing_theme_id: 167
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>S’informer sur les aides à l'embauche
                         des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
@@ -151,15 +152,16 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles:
-                      - id: 27
+                      - id: 564
                         key: recrutement_poste_cadre
                         position: 1
-                        question: Souhaitez-vous recruter sur un poste d’ingénieur, de manager ou de niveau Bac +3 ?
+                        question: Recrutez-vous sur un poste d’ingénieur, de manager
+                          ou de niveau Bac +3 ?
                         question_type: boolean
-                      - id: 28
+                      - id: 565
                         key: recrutement_en_apprentissage
                         position: 2
-                        question: Souhaitez-vous recruter en apprentissage ?
+                        question: Recrutez-vous un apprenti ou un stagiaire ?
                         question_type: boolean
                       institutions_partenaires:
                       - Chambre de Commerce et d'Industrie (CCI)
@@ -229,11 +231,11 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 42
+                      id: 189
                       title: Recruter un ou plusieurs salariés
                       slug: recruter
-                      landing_id: 39
-                      landing_theme_id: 43
+                      landing_id: 170
+                      landing_theme_id: 170
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>S’informer sur les aides à l'embauche
                         des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
@@ -246,15 +248,16 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles:
-                      - id: 33
+                      - id: 570
                         key: recrutement_poste_cadre
                         position: 1
-                        question: Souhaitez-vous recruter sur un poste d’ingénieur, de manager ou de niveau Bac +3 ?
+                        question: Recrutez-vous sur un poste d’ingénieur, de manager
+                          ou de niveau Bac +3 ?
                         question_type: boolean
-                      - id: 34
+                      - id: 571
                         key: recrutement_en_apprentissage
                         position: 2
-                        question: Souhaitez-vous recruter en apprentissage ?
+                        question: Recrutez-vous un apprenti ou un stagiaire ?
                         question_type: boolean
                       institutions_partenaires:
                       - Chambre de Commerce et d'Industrie (CCI)
@@ -289,7 +292,7 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 44
+                    - id: 171
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -297,11 +300,11 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 44
+                      - id: 191
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_id: 40
-                        landing_theme_id: 44
+                        landing_id: 171
+                        landing_theme_id: 171
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -312,11 +315,11 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 45
+                      - id: 192
                         title: Gestion de l’eau
                         slug: eau
-                        landing_id: 40
-                        landing_theme_id: 44
+                        landing_id: 171
+                        landing_theme_id: 171
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -329,7 +332,7 @@ paths:
                           en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                    - id: 46
+                    - id: 173
                       title: Recruter ou former vos salariés, améliorer l’organisation
                         du travail
                       slug: recrutement-formation
@@ -382,7 +385,7 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 49
+                      id: 176
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -390,11 +393,11 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 50
+                      - id: 197
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_id: 43
-                        landing_theme_id: 49
+                        landing_id: 174
+                        landing_theme_id: 176
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -405,11 +408,11 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 51
+                      - id: 198
                         title: Gestion de l’eau
                         slug: eau
-                        landing_id: 43
-                        landing_theme_id: 49
+                        landing_id: 174
+                        landing_theme_id: 176
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -451,19 +454,19 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 44
+                    - id: 175
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com
                       landing_themes:
-                      - id: 50
+                      - id: 177
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 51
+                      - id: 178
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -528,19 +531,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 47
+                      id: 179
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com
                       landing_themes:
-                      - id: 56
+                      - id: 183
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 57
+                      - id: 184
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -615,19 +618,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 50
+                      id: 182
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com
                       landing_themes:
-                      - id: 62
+                      - id: 189
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 63
+                      - id: 190
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -695,10 +698,10 @@ paths:
           content:
             application/json:
               examples:
-                url_d_appel_manquante:
+                url_d_origine_manquante:
                   value:
                     errors:
-                    - source: Url d’appel
+                    - source: Url page d’origine
                       message: doit être rempli(e)
                 siret_invalide:
                   value:
@@ -710,6 +713,13 @@ paths:
                     errors:
                     - source: Questions additionnelles
                       message: doit être rempli(e)
+                    - source: Questions additionnelles
+                      message: doivent correspondre aux questions du sujet de la demande
+                solicitation_creee_meme_avec_de_mauvais_id_de_questions_additionnelles:
+                  value:
+                    errors:
+                    - source: Questions additionnelles
+                      message: doivent correspondre aux questions du sujet de la demande
                 page_introuvable:
                   value:
                     errors:
@@ -819,6 +829,8 @@ components:
               type: string
             api_calling_url:
               type: string
+            origin_url:
+              type: string
             questions_additionnelles:
               type: array
               items:
@@ -861,6 +873,8 @@ components:
             "$ref": "#/components/schemas/question_additionnelle_long"
         api_calling_url:
           type: string
+        origin_url:
+          type: string
       required:
       - landing_id
       - landing_subject_id
@@ -895,9 +909,8 @@ components:
     bearer_auth:
       type: http
       scheme: bearer
-      description: "Le jeton vous est fourni après étude de votre demande par Place
-        des Entreprises.\n            \nIl doit être placé dans le header '`Authorization:
-        Bearer VOTRE_JETON`'.\n            \nSa validité est de 18 mois, renouvelable
-        sur demande."
+      description: "Le jeton vous est fourni après étude de votre demande par Conseillers-entreprises.service-public.fr.\n
+        \           \nIl doit être placé dans le header '`Authorization: Bearer VOTRE_JETON`'.\n
+        \           \nSa validité est de 18 mois, renouvelable sur demande."
 security:
 - bearer_auth: []

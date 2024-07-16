@@ -1,8 +1,10 @@
 class Api::V1::SimpleSubjectAnswerSerializer < ActiveModel::Serializer
+  include NeedsHelper
+
   attributes :question_id, :question_label, :answer
 
   def question_label
-    I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, question.key])
+    question_label(question.key, :long)
   end
 
   def question_id

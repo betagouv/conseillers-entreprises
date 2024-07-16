@@ -76,7 +76,7 @@ ActiveAdmin.register Subject do
     attributes_table title: I18n.t('activerecord.models.subject_question.other') do
       table_for subject.subject_questions do |question|
         column(:key)
-        column(:label) { |question| I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, question.key]) }
+        column(:label) { |question| question_label(question.key, :long) }
         column(:institutions) do |question|
           question.subject_answer_filters.map{ |saf| admin_link_to(saf, :institution) }.uniq
         end

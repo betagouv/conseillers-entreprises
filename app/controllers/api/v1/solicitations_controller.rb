@@ -41,7 +41,7 @@ class Api::V1::SolicitationsController < Api::V1::BaseController
   end
 
   def format_params(params)
-    params = params.merge(origin_url: params[:api_calling_url])
+    params = params.merge(origin_url: params[:api_calling_url]) if params[:origin_url].blank?
     return params if params[:questions_additionnelles].nil?
     formatted_questions_additionnelles = params.delete(:questions_additionnelles).map{ |question| { subject_question_id: question['question_id'], filter_value: question['answer'] } }
     params.merge(subject_answers_attributes: formatted_questions_additionnelles)
