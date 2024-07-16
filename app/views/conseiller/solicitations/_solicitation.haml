@@ -58,7 +58,8 @@
           - if solicitation.subject_answers.any?
             %ul
               - solicitation.subject_answers.each do |answer|
-                - answer_label = I18n.t(answer.filter_value, scope: [:activerecord, :attributes, :subject_questions, answer.key], default: I18n.t(answer.filter_value, scope: [:boolean, :text]))
+                - answer_label = I18n.t(answer.filter_value, scope: [:activerecord, :attributes, :subject_questions, answer.key],
+                  default: I18n.t(answer.filter_value, scope: [:boolean, :text]))
                 %li
                   = question_label(answer.key, :short)
                   %strong= answer_label

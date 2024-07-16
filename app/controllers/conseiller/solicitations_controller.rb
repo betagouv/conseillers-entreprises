@@ -84,7 +84,8 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def ordered_solicitations(status)
     Solicitation
-      .includes(:badge_badgeables, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne }, landing_subject: :subject, institution: :logo, subject_answers: :subject_question)
+      .includes(:badge_badgeables, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne },
+        landing_subject: :subject, institution: :logo, subject_answers: :subject_question)
       .where(status: status)
       .apply_filters(index_search_params)
       .order(:completed_at)
