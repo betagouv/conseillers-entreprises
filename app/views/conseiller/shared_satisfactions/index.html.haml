@@ -3,12 +3,36 @@
 - content_for :menu, render('menu', collections_count: @satisfaction_collections_count)
 - content_for :callout, render('callout')
 
-- if @needs.to_a.size == 0
-  .fr-container.text-center.fr-mt-18v
-    .fr-h3= t('.no_results')
-- else
-  = paginate @needs
+.fr-container--fluid{ data: { controller: "batch-check" } }
+  - if current_user.is_manager? && @antennes.many?
+    .fr-container--fluid.fr-mb-4w
+      = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true, class: 'fr-grid-row fr-grid-row--gutters fr-grid-row--center' do |f|
+        .fr-col-12.fr-col-md-8
+          = hidden_field_tag :anchor, 'side-menu-main'
+          .fr-select-group
+            = f.label :antenne_id, t('activerecord.models.antenne.one'), class: 'fr-label'
+            = f.select :antenne_id, options_for_select(@antennes.pluck(:name, :id), selected: params[:antenne_id]), { include_blank: t('all.feminine') }, class: "fr-select"
+        .fr-col-12.fr-col-md-4.aligned-bottom
+          .fr-input-group
+            = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
+            - if request.fullpath.include?("?")
+              = link_to t('clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--tertiary-no-outline'
 
-  = render partial: 'need', collection: @needs
+  - if @needs.to_a.size == 0
+    .fr-container.text-center.fr-mt-18v
+      .fr-h3= t('.no_results')
+  - else
+    - if controller.action_name == 'unseen'
+      .fr-container--fluid.fr-mb-2w
+        = form_with url: mark_all_as_seen_conseiller_shared_satisfactions_path, id: 'mark-all-as-seen', method: :patch, local: true, data: { turbo: false } do |form|
+          .fr-grid-row
+            .fr-col-12.fr-col-md-6.vertical-centered
+              .fr-checkbox-group.fr-mb-2v
+                = check_box_tag 'select_all', 'select_all', false, data: { 'batch-check-target': 'allCheckbox', action: 'change->batch-check#toggleAll' }
+                = label_tag 'select_all', t('.select_all'), class: 'fr-label', for: "select_all"
+            .fr-col-12.fr-col-md-6.bottom-actions
+              = form.submit t('.mark_all_as_seen'), class: 'fr-btn fr-btn--secondary', data: { 'batch-check-target': 'button' }
 
-  = paginate @needs
+    = render partial: 'need', collection: @needs
+
+    = paginate @needs

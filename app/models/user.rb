@@ -77,6 +77,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :experts, -> { not_deleted }, inverse_of: :users
   has_many :shared_satisfactions, inverse_of: :user
   has_many :shared_company_satisfactions, through: :shared_satisfactions, source: :company_satisfaction
+  has_many :needs_with_shared_satisfaction, through: :shared_company_satisfactions, source: :need
 
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
   has_many :feedbacks, inverse_of: :user
@@ -358,6 +359,18 @@ class User < ApplicationRecord
       personal_skillsets.first.received_matches.in_progress.each do |match|
         match.update(expert: user.personal_skillsets.first)
       end
+    end
+  end
+
+  def supervised_antennes
+    if self.is_manager?
+      ids = self.managed_antennes.each_with_object([]) do |managed_antenne, array|
+        array.push(*managed_antenne.territorial_antennes.pluck(:id))
+      end
+      ids.push(*self.managed_antenne_ids).uniq
+      Antenne.where(id: ids)
+    else
+      self.antenne
     end
   end
 
