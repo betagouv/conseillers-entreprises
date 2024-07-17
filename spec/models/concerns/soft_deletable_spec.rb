@@ -12,7 +12,7 @@ RSpec.describe SoftDeletable do
 
         before { user.destroy }
 
-        it 'Soft delete the user and his expert' do
+        it 'Soft delete the user but not his expert' do
           expect(user.deleted?).to be true
           expect(expert.reload.deleted?).to be false
         end
@@ -30,7 +30,7 @@ RSpec.describe SoftDeletable do
 
         before { user_1.destroy }
 
-        it "Soft delete only user expert with one user" do
+        it "Soft delete only user" do
           expect(user_1.deleted?).to be true
           expect(user_2.reload.deleted?).to be false
           expect(expert_2.reload.deleted?).to be false
@@ -60,7 +60,6 @@ RSpec.describe SoftDeletable do
         let!(:expert_1) { create :expert, users: [user_1] }
         let(:user_2) { create :user }
         let!(:expert_2) { create :expert, users: [user_2] }
-        # Expert qui a plusieurs utilisateurs qui on eux même que cet expert OK
         let(:team) { create :expert, users: [user_1, user_2] }
 
         before { team.destroy }

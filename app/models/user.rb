@@ -179,7 +179,6 @@ class User < ApplicationRecord
   scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
   scope :without_experts, -> { where.missing(:experts) }
 
-  # TODO Il doit y avoir moyen de simplifier 'relevant_for_skills'
   ## Relevant Experts stuff
   # User objects fetched through this scope have an additional attribute :relevant_expert_id
   # Note: This scope will return DUPLICATE ROWS FOR THE SAME USER, if there are several relevant experts.)
@@ -264,6 +263,7 @@ class User < ApplicationRecord
 
   ## Expert associations helpers
   #
+  # Used for matches transfer
   def single_user_experts
     experts.with_one_user
   end

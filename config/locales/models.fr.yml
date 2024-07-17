@@ -108,7 +108,7 @@ fr:
       without_communes: Sans zone d’intervention
       without_experts: Sans expert
       without_subjects: Sans compétence
-      without_users: Aucun membre
+      without_users: Sans utilisateur
     solicitations:
       batch_delete: Supprimer
       delete: Supprimer la sollicitation
