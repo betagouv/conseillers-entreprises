@@ -144,8 +144,8 @@ fr:
     user:
       connection: Connexion
       created: Utilisateur créé avec succès
-      delete: Supprimer l’utilisateur et son expert personnel
-      delete_confirmation: Voulez-vous supprimer cet utilisateur ? Cela va aussi supprimer son expert personnel.
+      delete: Supprimer l’utilisateur
+      delete_confirmation: Voulez-vous supprimer cet utilisateur ?
       deleted: Utilisateurs supprimés avec succès
       do_invite: Envoyer la ou les invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
