@@ -123,16 +123,15 @@ RSpec.describe SoftDeletable do
 
         context 'with deleted experts and advisors' do
           before do
-            antenne.destroy
             user_1.destroy
             user_2.destroy
             expert.destroy
             expert_2.destroy
+            antenne.destroy
           end
 
-          it 'Don’t delete antenne' do
-            # We can't delete an antenne with soft deleted users
-            expect(antenne.deleted?).to be false
+          it 'Deletes antenne' do
+            expect(antenne.deleted?).to be true
           end
         end
       end
