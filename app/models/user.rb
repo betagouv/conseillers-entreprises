@@ -271,7 +271,7 @@ class User < ApplicationRecord
   def create_single_user_experts
     return if single_user_experts.present?
 
-    self.experts.create!(self.user_shared_attributes)
+    self.experts.create!(self.user_expert_shared_attributes)
   end
 
   ## Rights
