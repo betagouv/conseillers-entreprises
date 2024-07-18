@@ -44,7 +44,7 @@ RSpec.describe Expert do
 
     subject(:expert) { create :expert, users: expert_users }
 
-    context 'an expert with a single is a single user expert' do
+    context 'an expert with a single user is a single user expert' do
       let(:expert_users) { [user2] }
 
       it do
