@@ -5,7 +5,7 @@
   };
 <% end %>
 
-<%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.16.1/tarteaucitron.min.js', crossorigin: 'anonymous', integrity: "sha384-AcN5kJiCfqbrk/SICuAawqTeUR7KQrKpXMeDFL5XZh7x+IBWERL5to8nwE0gapz6", nonce: true %>
+<%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.16.1/tarteaucitron.min.js', crossorigin: 'anonymous', integrity: "sha384-AcN5kJiCfqbrk/SICuAawqTeUR7KQrKpXMeDFL5XZh7x+IBWERL5to8nwE0gapz6", nonce: true, rel: "dns-prefetch" %>
 
 <%= javascript_tag nonce: true do -%>
   document.addEventListener("turbo:load", function() {
