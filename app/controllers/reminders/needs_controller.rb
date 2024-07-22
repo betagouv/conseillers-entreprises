@@ -24,7 +24,7 @@ module Reminders
       @needs = @expert.received_needs
         .reminders_to(:last_chance)
         .joins(:matches, :experts)
-        .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
+        .with_card_includes
         .order(:created_at)
         .distinct
         .page(params[:page])
@@ -76,7 +76,7 @@ module Reminders
       @needs = filtered_needs
         .reminders_to(action)
         .joins(:matches, :experts)
-        .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
+        .with_card_includes
         .distinct
         .order(:created_at)
         .page(params[:page])

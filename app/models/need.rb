@@ -335,6 +335,10 @@ class Need < ApplicationRecord
     Need.where(id: antennes.map(&:perimeter_received_needs).flatten)
   end
 
+  scope :with_card_includes, -> do 
+    includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
+  end
+
   def self.apply_filters(params)
     klass = self
     klass = klass.by_region(params[:by_region]) if params[:by_region].present?

@@ -12,7 +12,7 @@ class Conseiller::SuiviQualiteController < ApplicationController
 
   def quo_matches
     @needs = retrieve_quo_matches_needs
-      .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
+      .with_card_includes
       .order(created_at: :asc)
       .page(params[:page])
     @action = :quo_match
