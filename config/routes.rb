@@ -106,7 +106,6 @@ Rails.application.routes.draw do
     resources :suivi_qualite, only: %i[index], path: 'suivi-qualite' do
       collection do
         get :quo_matches, path: 'mer-en-attente'
-        get :refused_feedbacks, path: 'mer-refuses_commentaires'
       end
     end
     resources :veille, only: %i[index], path: 'veille' do
