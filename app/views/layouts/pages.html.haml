@@ -1,11 +1,12 @@
 !!!
 %html{ lang: 'fr' }
   %head
+    %meta{ charset: 'UTF-8' }
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
     - if request.path == root_path
       = metamagic
     - else
       = metamagic site: t('app_name'), title: %i[title site], separator: ' | '
-    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
     = canonical_tags
     = csrf_meta_tags
     = csp_meta_tag
