@@ -5,11 +5,9 @@
   = active_link_to t('.password'), password_user_path, { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
   -# More User settings (Antenne)
   = active_link_to t('.antenne'), antenne_user_path, { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
-  - if user.experts.teams.any?
-    -# Expert teams info
+  - if user.experts.any?
     %li.fr-sidemenu__item
-      = experts_items_in_section(user.experts.teams, :edit, t('.team'))
+      = experts_items_in_section(user.experts, :edit, t('.expert'))
   - if user.experts.relevant_for_skills.any?
-    -# Expert subjects (teams and non-empty personal skillsets)
     %li.fr-sidemenu__item
       = experts_items_in_section(user.experts.relevant_for_skills, :subjects, t('.subjects'))

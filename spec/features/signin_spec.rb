@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'the signin process' do
-  let!(:user) { create :user, email: 'user@example.com', password: 'yX*4Ubo_xPW!u' }
+  let!(:user) { create :user, :with_expert, email: 'user@example.com', password: 'yX*4Ubo_xPW!u' }
 
   before do
     create_home_landing

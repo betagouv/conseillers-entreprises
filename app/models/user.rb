@@ -98,9 +98,6 @@ class User < ApplicationRecord
   validates :full_name, presence: true, unless: :deleted?
   validates :job, presence: true
   validate :password_complexity
-  validate :personal_skillset_synchronisation_ok, on: :update, if: -> { full_name_changed? || email_changed? }
-  after_create :create_personal_skillset_if_needed
-  after_update :synchronize_personal_skillsets
   validates_associated :experts, on: :import
 
   ## “Through” Associations
@@ -180,12 +177,6 @@ class User < ApplicationRecord
 
   # Team stuff
   scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
-  scope :team_members, -> { not_deleted.joins(:experts).merge(Expert.teams) }
-  scope :no_team, -> { not_deleted.where.not(id: unscoped.team_members) }
-  # A user without experts is not supposed to happen:
-  # `create_personal_skillset_if_needed` makes sure there is one after a user is created.
-  # However there is nothing preventing an expert to be removed afterwards.
-  # This can reasonably happen when expert teams are reorganized.
   scope :without_experts, -> { where.missing(:experts) }
 
   ## Relevant Experts stuff
@@ -253,21 +244,8 @@ class User < ApplicationRecord
     super && !deleted?
   end
 
-  # Suppression de l'utilisateur + personal_skillsets
   def soft_delete
     self.transaction do
-      personal_skillsets.each { |e| e.update_columns(SoftDeletable.persons_attributes) }
-      update_columns(SoftDeletable.persons_attributes)
-    end
-  end
-
-  # Suppression de l'utilisateur + tous ses experts solo
-  def deep_soft_delete
-    self.transaction do
-      experts.each do |expert|
-        next if expert.users.many?
-        expert.update_columns(SoftDeletable.persons_attributes)
-      end
       update_columns(SoftDeletable.persons_attributes)
     end
   end
@@ -285,33 +263,15 @@ class User < ApplicationRecord
 
   ## Expert associations helpers
   #
-  def personal_skillsets
-    experts.personal_skillsets
+  # Used for matches transfer
+  def single_user_experts
+    experts.with_one_user
   end
 
-  def create_personal_skillset_if_needed
-    return if personal_skillsets.present?
+  def create_single_user_experts
+    return if single_user_experts.present?
 
-    self.experts.create!(self.user_personal_skillsets_shared_attributes)
-  end
-
-  def personal_skillset_synchronisation_ok
-    return true if self.deleted?
-    return true unless (self.email_changed? && self.full_name_changed?)
-
-    errors.add :full_name, I18n.t('activerecord.attributes.user.errors.cant_change_email_and_full_name')
-    false
-  end
-
-  # Bizarrement, qq utilisateurs sont créés sans personal_skillsets (investigation en cours)
-  def synchronize_personal_skillsets
-    user_personal_skillsets = personal_skillsets.presence ||
-      self.experts.where(full_name: self.full_name).or(self.experts.where(email: self.email))
-    if user_personal_skillsets.present?
-      user_personal_skillsets.update_all(self.user_personal_skillsets_shared_attributes)
-    else
-      self.experts.create!(self.user_personal_skillsets_shared_attributes)
-    end
+    self.experts.create!(self.user_expert_shared_attributes)
   end
 
   ## Rights
@@ -332,32 +292,24 @@ class User < ApplicationRecord
     params[:job] ||= self.job
     new_user = User.create(params.merge(antenne: antenne))
     return new_user unless new_user.valid?
-    user_experts = self.relevant_experts - self.personal_skillsets
-    # si c'est une équipe
+    user_experts = self.relevant_experts
     if user_experts.present?
       new_user.relevant_experts.concat(user_experts)
       new_user.save
-    # si c'est un expert personnel on attribue les sujets à l'expert personnel du nouvel utilisateur
-    elsif self.personal_skillsets.first.experts_subjects.present?
-      self.personal_skillsets.first.experts_subjects.each do |es|
-        ExpertSubject.create(institution_subject: es.institution_subject,
-                             expert: new_user.personal_skillsets.first,
-                             intervention_criteria: es.intervention_criteria)
-      end
-      # et les territoires spécifiques si on a coché l'option
-      if params[:specifics_territories].to_b
-        new_user.personal_skillsets.first.communes = self.personal_skillsets.first.communes
-      end
     end
     self.user_rights.each { |right| right.dup.update(user_id: new_user.id) }
     new_user
   end
 
+  # Utilisé pour la réattribution des matches d'un expert, souvent seul dans son équipe
   def transfer_in_progress_matches(user)
-    raise StandardError.new(I18n.t('activerecord.attributes.user.have_not_personal_skillsets', user: self)) if self.personal_skillsets.relevant_for_skills.blank?
+    raise StandardError.new(I18n.t('activerecord.attributes.user.have_not_relevant_expert', user: self)) if self.single_user_experts.relevant_for_skills.blank?
     ActiveRecord::Base.transaction do
-      personal_skillsets.first.received_matches.in_progress.each do |match|
-        match.update(expert: user.personal_skillsets.first)
+      if user.single_user_experts.blank?
+        user.create_single_user_experts
+      end
+      single_user_experts.first.received_matches.in_progress.each do |match|
+        match.update(expert: user.single_user_experts.first)
       end
     end
   end

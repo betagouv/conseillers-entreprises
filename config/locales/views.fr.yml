@@ -695,7 +695,7 @@ fr:
       send_failure_email:
         email_sent: Email d’échec envoyé à l’entreprise
       send_last_chance_email:
-        email_send: Email de la dernière chance envoyé à %{teams}
+        email_send: Email de la dernière chance envoyé à %{experts}
     needs_badges:
       add_remove_badges: Ajouter ou retirer un tag
     section:
@@ -1122,10 +1122,11 @@ fr:
       title: Mon compte
     menu:
       antenne: Antenne
+      expert: Équipe
       informations: Informations
       password: Mot de passe
       subjects: Domaines d’intervention
-      team: Équipe
+      teams: 'Équipes :'
     registrations:
       antenne:
         antenne_within_institution: Antenne (au sein de %{institution})

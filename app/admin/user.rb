@@ -21,13 +21,12 @@ ActiveAdmin.register User do
   scope :admin, group: :role
   scope :managers, group: :role
 
-  scope :team_members, group: :teams
-  scope :no_team, group: :teams
-
   scope :managers_not_invited, group: :invitations
   scope :not_invited, group: :invitations
   scope :recent_active_invitation_not_accepted, group: :invitations
   scope :old_active_invitation_not_accepted, group: :invitations
+
+  scope :without_experts, group: :debug
 
   index do
     selectable_column
@@ -204,15 +203,6 @@ ActiveAdmin.register User do
     link_to t('active_admin.user.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.user.delete_confirmation') }
   end
 
-  action_item :deep_soft_delete, only: :show do
-    link_to t('active_admin.user.deep_soft_delete'), { action: :deep_soft_delete }, method: :delete, data: { confirm: t('active_admin.user.deep_soft_delete_confirmation') }
-  end
-
-  member_action :deep_soft_delete, method: :delete do
-    resource.deep_soft_delete
-    redirect_to collection_path, notice: t('active_admin.person.deep_soft_delete_done')
-  end
-
   member_action :normalize_values do
     resource.normalize_values!
     redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')
@@ -233,11 +223,6 @@ ActiveAdmin.register User do
   batch_action :destroy, confirm: I18n.t('active_admin.users.delete_confirmation') do |ids|
     User.where(id: ids).find_each { |u| u.soft_delete }
     redirect_to collection_path, notice: I18n.t('active_admin.user.deleted')
-  end
-
-  batch_action I18n.t('active_admin.user.deep_soft_delete'), { action: :deep_soft_delete, confirm: I18n.t('active_admin.user.deep_soft_delete_confirmation') } do |ids|
-    User.where(id: ids).find_each { |u| u.deep_soft_delete }
-    redirect_to collection_path, notice: I18n.t('active_admin.users.deep_soft_deleted')
   end
 
   controller do

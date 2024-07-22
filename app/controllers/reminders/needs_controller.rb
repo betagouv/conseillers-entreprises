@@ -43,12 +43,12 @@ module Reminders
     end
 
     def send_last_chance_email
-      reminded_teams = []
+      reminded_experts = []
       @need.matches.with_status_quo_active.each do |match|
-        reminded_teams << "#{match.expert.full_name} (#{match.expert.institution.name})"
+        reminded_experts << "#{match.expert.full_name} (#{match.expert.institution.name})"
         ExpertMailer.with(expert: match.expert, support_user: current_user, need: @need).last_chance.deliver_later
       end
-      @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_send', teams: reminded_teams.to_sentence),
+      @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_send', experts: reminded_experts.to_sentence),
                                   feedbackable_type: 'Need', feedbackable_id: @need.id)
       respond_to do |format|
         format.js { render template: 'reminders/needs/add_feedback', layout: false }

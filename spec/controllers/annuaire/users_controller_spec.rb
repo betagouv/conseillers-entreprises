@@ -11,10 +11,10 @@ RSpec.describe Annuaire::UsersController do
     let(:subject_1) { create :subject }
     let!(:institution_subject) { create :institution_subject, institution: institution_1, subject: subject_1 }
     let!(:antenne_1) { create :antenne, communes: [commune_ouest], institution: institution_1 }
-    let!(:user_1) { create :user, :invitation_accepted, antenne: antenne_1 }
-    let!(:user_1_same_antenne) { create :user, :invitation_accepted, antenne: antenne_1 }
+    let!(:user_1) { create :user, :with_expert_subjects, :invitation_accepted, antenne: antenne_1 }
+    let!(:user_1_same_antenne) { create :user, :with_expert_subjects, :invitation_accepted, antenne: antenne_1 }
     let!(:antenne_2) { create :antenne, communes: [commune_est], institution: institution_1 }
-    let!(:user_2) { create :user, :invitation_accepted, antenne: antenne_2 }
+    let!(:user_2) { create :user, :with_expert_subjects, :invitation_accepted, antenne: antenne_2 }
     let!(:region_ouest) { create :territory, code_region: 1 }
     let!(:region_est) { create :territory, code_region: 2 }
     let!(:commune_ouest) { create :commune, regions: [region_ouest] }

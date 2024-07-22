@@ -16,5 +16,11 @@ FactoryBot.define do
         create :reminders_register, expert: expert, run_number: RemindersRegister.last_run_number.presence || 0, category: :remainder, processed: true
       end
     end
+
+    trait :with_expert_subjects do
+      after(:create) do |expert, _|
+        create :expert_subject, expert: expert, institution_subject: create(:institution_subject, institution: expert.antenne.institution)
+      end
+    end
   end
 end

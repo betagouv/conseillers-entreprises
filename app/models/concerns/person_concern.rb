@@ -72,8 +72,8 @@ module PersonConcern
     self.job = self.job.squish.titleize
   end
 
-  def user_personal_skillsets_shared_attributes
-    shared_attributes = %w[email full_name phone_number job antenne_id]
+  def user_expert_shared_attributes
+    shared_attributes = %w[email full_name phone_number antenne_id]
     self.attributes.slice(*shared_attributes)
   end
 end

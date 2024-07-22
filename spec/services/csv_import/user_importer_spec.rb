@@ -13,7 +13,7 @@ describe CsvImport::UserImporter, CsvImport do
     create :institution_subject, institution: institution, subject: the_subject, description: 'Second IS'
   end
 
-  context 'two users, no team' do
+  context 'two users, no expert' do
     let(:csv) do
       <<~CSV
         Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction
@@ -23,13 +23,13 @@ describe CsvImport::UserImporter, CsvImport do
     end
 
     it do
-      expect(institution.experts.teams.count).to eq 0
+      expect(institution.experts.count).to eq 0
       expect(result).to be_success
       expect(institution.advisors.pluck(:email)).to contain_exactly('marie.dupont@antenne.com', 'mario.dupont@antenne.com')
     end
   end
 
-  context 'set teams' do
+  context 'set experts' do
     describe 'without typo' do
       let(:csv) do
         <<~CSV
@@ -41,11 +41,11 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        expect(institution.experts.teams.count).to eq 1
-        team = institution.experts.teams.first
-        expect(team.email).to eq 'equipe@antenne.com'
-        expect(team.job).to be_nil
-        expect(team.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com', 'mario.dupont@antenne.com')
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.email).to eq 'equipe@antenne.com'
+        expect(imported_expert.job).to be_nil
+        expect(imported_expert.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com', 'mario.dupont@antenne.com')
       end
     end
 
@@ -59,10 +59,10 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        expect(institution.experts.teams.count).to eq 1
-        team = institution.experts.teams.first
-        expect(team.phone_number).to eq '09 87 65 43 21'
-        expect(team.users.pluck(:phone_number)).to contain_exactly('01 23 45 67 89')
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.phone_number).to eq '09 87 65 43 21'
+        expect(imported_expert.users.pluck(:phone_number)).to contain_exactly('01 23 45 67 89')
       end
     end
 
@@ -76,10 +76,10 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        expect(institution.experts.teams.count).to eq 1
-        team = institution.experts.teams.first
-        expect(team.email).to eq 'equipe@antenne.com'
-        expect(team.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com')
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.email).to eq 'equipe@antenne.com'
+        expect(imported_expert.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com')
       end
     end
 
@@ -93,10 +93,10 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        expect(institution.experts.teams.count).to eq 1
-        team = institution.experts.teams.first
-        expect(team.email).to eq 'equipe@antenne.com'
-        expect(team.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com')
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.email).to eq 'equipe@antenne.com'
+        expect(imported_expert.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com')
       end
     end
 
@@ -105,15 +105,15 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        expect(institution.experts.teams.count).to eq 1
-        team = institution.experts.teams.first
-        expect(team.email).to eq 'equipe@antenne.com'
-        expect(team.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com')
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.email).to eq 'equipe@antenne.com'
+        expect(imported_expert.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com')
       end
     end
   end
 
-  context 'set teams and user without phone number' do
+  context 'set experts and user without phone number' do
     let(:csv) do
       <<~CSV
         Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe
@@ -124,15 +124,15 @@ describe CsvImport::UserImporter, CsvImport do
 
     it do
       expect(result).to be_success
-      expect(institution.experts.teams.count).to eq 1
-      team = institution.experts.teams.first
-      expect(team.email).to eq 'equipe@antenne.com'
-      expect(team.job).to be_nil
-      expect(team.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com', 'mario.dupont@antenne.com')
+      expect(institution.experts.count).to eq 1
+      imported_expert = institution.experts.first
+      expect(imported_expert.email).to eq 'equipe@antenne.com'
+      expect(imported_expert.job).to be_nil
+      expect(imported_expert.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com', 'mario.dupont@antenne.com')
     end
   end
 
-  context 'add user to existing team' do
+  context 'add user to existing expert' do
     let!(:expert_antenne) { create :antenne, name: 'Antenna', institution: institution }
     let!(:expert) { create :expert_with_users, email: 'equipe@antenne.com', antenne: expert_antenne }
 
@@ -146,11 +146,11 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        expect(institution.experts.teams.count).to eq 1
-        team = institution.experts.teams.first
-        expect(team.email).to eq 'equipe@antenne.com'
-        expect(team.job).to be_nil
-        expect(team.users.count).to eq 2
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.email).to eq 'equipe@antenne.com'
+        expect(imported_expert.job).to be_nil
+        expect(imported_expert.users.count).to eq 2
         expect(User.find_by(email: 'marie.dupont@antenne.com').experts).to include(expert)
       end
     end
@@ -165,9 +165,9 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        expect(institution.experts.teams.count).to eq 1
-        team = institution.experts.teams.first
-        expect(team.email).to eq 'equipe@antenne.com'
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.email).to eq 'equipe@antenne.com'
         expect(User.find_by(email: 'mario.dupont@antenne.com').experts).to include(expert)
       end
     end
@@ -182,9 +182,9 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        expect(institution.experts.teams.count).to eq 1
-        team = institution.experts.teams.first
-        expect(team.email).to eq 'equipe@antenne.com'
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.email).to eq 'equipe@antenne.com'
         expect(User.find_by(email: 'mario.dupont@antenne.com').experts).to include(expert)
       end
     end
@@ -201,17 +201,16 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        marie = result.objects.first
-        expect(marie.personal_skillsets.count).to eq 1
-        expect(marie.experts.teams.count).to eq 0
-        skillet = marie.personal_skillsets.first
-        expect(skillet.experts_subjects.count).to eq 1
-        expect(skillet.experts_subjects.first.intervention_criteria).to eq 'First ES'
-        expect(skillet.experts_subjects.first.subject).to eq the_subject
+        imported_user = result.objects.first
+        expect(imported_user.experts.count).to eq 1
+        imported_user_expert = imported_user.experts.first
+        expect(imported_user_expert.experts_subjects.count).to eq 1
+        expect(imported_user_expert.experts_subjects.first.intervention_criteria).to eq 'First ES'
+        expect(imported_user_expert.experts_subjects.first.subject).to eq the_subject
       end
     end
 
-    context 'different users, same team, different subjects' do
+    context 'different users, same expert, different subjects' do
       let(:csv) do
         <<~CSV
           Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,First IS,Second IS
@@ -227,7 +226,7 @@ describe CsvImport::UserImporter, CsvImport do
       end
     end
 
-    context 'different users, same team, same subjects' do
+    context 'different users, same expert, same subjects' do
       let(:csv) do
         <<~CSV
           Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,First IS,Second IS
@@ -240,10 +239,10 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        team = Expert.teams.first
-        expect(team.users.count).to eq 4
-        expect(team.experts_subjects.count).to eq 1
-        expect(team.institutions_subjects.pluck(:description)).to contain_exactly('Second IS')
+        imported_expert = Expert.first
+        expect(imported_expert.users.count).to eq 4
+        expect(imported_expert.experts_subjects.count).to eq 1
+        expect(imported_expert.institutions_subjects.pluck(:description)).to contain_exactly('Second IS')
       end
     end
   end
@@ -259,13 +258,12 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        marie = result.objects.first
-        expect(marie.personal_skillsets.count).to eq 1
-        expect(marie.experts.teams.count).to eq 0
-        skillet = marie.personal_skillsets.first
-        expect(skillet.experts_subjects.count).to eq 1
-        expect(skillet.experts_subjects.first.intervention_criteria).to be_blank
-        expect(skillet.experts_subjects.first.subject).to eq the_subject
+        imported_user = result.objects.first
+        expect(imported_user.experts.count).to eq 1
+        user_expert = imported_user.experts.first
+        expect(user_expert.experts_subjects.count).to eq 1
+        expect(user_expert.experts_subjects.first.intervention_criteria).to be_blank
+        expect(user_expert.experts_subjects.first.subject).to eq the_subject
       end
     end
 
@@ -288,7 +286,7 @@ describe CsvImport::UserImporter, CsvImport do
       end
     end
 
-    context 'merge the subjects of users in the same team' do
+    context 'merge the subjects of users in the same expert' do
       let(:csv) do
         <<~CSV
           Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,Sujet
@@ -301,10 +299,10 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        team = Expert.teams.first
-        expect(team.users.count).to eq 4
-        expect(team.experts_subjects.count).to eq 2
-        expect(team.institutions_subjects.pluck(:description)).to contain_exactly('First IS', 'Second IS')
+        imported_expert = Expert.first
+        expect(imported_expert.users.count).to eq 4
+        expect(imported_expert.experts_subjects.count).to eq 2
+        expect(imported_expert.institutions_subjects.pluck(:description)).to contain_exactly('First IS', 'Second IS')
       end
     end
   end
@@ -320,13 +318,12 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        marie = result.objects.first
-        expect(marie.personal_skillsets.count).to eq 1
-        expect(marie.experts.teams.count).to eq 0
-        skillet = marie.personal_skillsets.first
-        expect(skillet.experts_subjects.count).to eq 1
-        expect(skillet.experts_subjects.first.intervention_criteria).to be_blank
-        expect(skillet.experts_subjects.first.subject).to eq the_subject
+        imported_user = result.objects.first
+        expect(imported_user.experts.count).to eq 1
+        imported_user_expert = imported_user.experts.first
+        expect(imported_user_expert.experts_subjects.count).to eq 1
+        expect(imported_user_expert.experts_subjects.first.intervention_criteria).to be_blank
+        expect(imported_user_expert.experts_subjects.first.subject).to eq the_subject
       end
     end
 
@@ -387,7 +384,7 @@ describe CsvImport::UserImporter, CsvImport do
     end
   end
 
-  context 'update existing team subjects' do
+  context 'update existing expert subjects' do
     let(:first_csv) do
       <<~CSV
         Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,First IS,Second IS
@@ -407,11 +404,11 @@ describe CsvImport::UserImporter, CsvImport do
     end
 
     it do
-      team = Expert.teams.first
-      expect(team.experts_subjects.count).to eq 2
+      imported_expert = Expert.first
+      expect(imported_expert.experts_subjects.count).to eq 2
       expect(result).to be_success
-      expect(team.experts_subjects.count).to eq 1
-      expect(team.institutions_subjects.pluck(:description)).to contain_exactly('Second IS')
+      expect(imported_expert.experts_subjects.count).to eq 1
+      expect(imported_expert.institutions_subjects.pluck(:description)).to contain_exactly('Second IS')
     end
   end
 

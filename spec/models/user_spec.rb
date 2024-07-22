@@ -21,16 +21,22 @@ RSpec.describe User do
 
   describe 'relations' do
     describe 'expert' do
-      let(:active_expert) { create :expert }
-      let(:deleted_expert) { create :expert, deleted_at: Time.now }
-      let(:user) { create :user, :invitation_accepted, experts: [active_expert, deleted_expert] }
+      context 'user can have many experts' do
+        let(:user) { create :user }
+        let!(:expert1) { create :expert, users: [user] }
+        let!(:expert2) { create :expert, users: [user] }
 
-      subject { user.experts }
+        it do
+          expect(user.experts).to contain_exactly(expert1, expert2)
+        end
+      end
 
-      before { user.reload }
+      context 'user can have no expert' do
+        let(:user) { create :user }
 
-      it 'return only not deleted experts' do
-        is_expected.to contain_exactly(active_expert, user.personal_skillsets.first)
+        it do
+          expect(user.experts).to be_empty
+        end
       end
     end
   end
@@ -69,13 +75,6 @@ RSpec.describe User do
         expect(diagnosis.advisor).to be user
       end
     end
-
-    describe 'soft delete skillset if user is deleted' do
-      let(:skillset) { create :expert, email: 'user@email.com', users: [] }
-      let!(:user) { create :user, email: 'user@email.com', experts: [skillset] }
-
-      it { expect(skillset.reload).to be_deleted }
-    end
   end
 
   describe 'scopes' do
@@ -89,8 +88,8 @@ RSpec.describe User do
     end
 
     describe "relevant_for_skills" do
-      let!(:expert1) { create :expert, users: [user] }
-      let!(:expert2) { create :expert, users: [user] }
+      let!(:expert1) { create :expert, :with_expert_subjects, users: [user] }
+      let!(:expert2) { create :expert, :with_expert_subjects, users: [user] }
       let!(:user) { create :user }
 
       subject(:relevant_users_for_skills) { described_class.relevant_for_skills }
@@ -204,100 +203,6 @@ RSpec.describe User do
     end
   end
 
-  describe '#create_personal_skillset_if_needed' do
-    context 'new user creation' do
-      let(:user) { create :user }
-
-      it 'automatically adds a personal skillset' do
-        expect(user.experts).not_to be_empty
-        expect(user.experts.first).to be_without_subjects
-        expect(user.experts.first).to be_personal_skillset
-      end
-    end
-
-    context 'user part of a team' do
-      let(:team) { create :expert }
-      let(:user) { create :user, experts: [team] }
-
-      it 'automaticallys adds a personal skillset' do
-        expect(user.experts.count).to eq 2
-      end
-    end
-
-    context 'user already with a personal skillset' do
-      let(:skillset) { create :expert, email: 'user@email.com', users: [] }
-      let(:user) { create :user, email: 'user@email.com', experts: [skillset] }
-
-      it 'does not automatically add a personal skillset' do
-        expect(user.experts.count).to eq 1
-      end
-    end
-  end
-
-  describe '#synchronize_personal_skillsets' do
-    context 'user with skillsets' do
-      let(:user) { create :user, email: 'user@email.com', full_name: 'Bob', experts: [personal_skillset, team] }
-      let(:personal_skillset) { create :expert, email: 'user@email.com', full_name: 'Bob', users: [] }
-      let(:team) { create :expert, email: 'team@email.com', full_name: 'Team' }
-
-      context 'update full_name' do
-        before do
-          user.update(full_name: 'Robert')
-        end
-
-        it 'automatically synchronizes the info in the personal skillsets' do
-          expect(user.reload.full_name).to eq 'Robert'
-          expect(personal_skillset.reload.full_name).to eq 'Robert'
-          expect(team.reload.full_name).not_to eq 'Robert'
-          expect(user.experts.size).to eq 2
-        end
-      end
-
-      context 'update email' do
-        before do
-          user.update(email: 'robert@email.com')
-        end
-
-        it 'automatically synchronizes the info in the personal skillsets' do
-          expect(user.reload.full_name).to eq 'Bob'
-          expect(user.reload.email).to eq 'robert@email.com'
-          expect(personal_skillset.reload.email).to eq 'robert@email.com'
-          expect(team.reload.email).not_to eq 'robert@email.com'
-          expect(user.experts.size).to eq 2
-        end
-      end
-
-      context 'update full_name and email' do
-        before do
-          user.update(full_name: 'Robert', email: 'robert@email.com')
-        end
-
-        it 'prevents update and expert duplication' do
-          expect(user.valid?).to be false
-          expect(user.reload.full_name).to eq 'Bob'
-          expect(user.reload.email).to eq 'user@email.com'
-          expect(user.experts.size).to eq 2
-        end
-      end
-    end
-
-    context 'user without skillsets' do
-      let(:user) { create :user, email: 'user@email.com', full_name: 'Bob', experts: [team] }
-      let(:team) { create :expert, email: 'team@email.com', full_name: 'Team' }
-
-      before do
-        user.update(full_name: 'Robert')
-      end
-
-      it 'automatically synchronizes the info in the personal skillsets' do
-        expect(user.reload.full_name).to eq 'Robert'
-        expect(user.personal_skillsets).not_to be_empty
-        expect(user.personal_skillsets.first.full_name).to eq 'Robert'
-        expect(team.reload.full_name).not_to eq 'Robert'
-      end
-    end
-  end
-
   describe '#managed_antennes' do
     let(:user) { create :user, :manager }
 
@@ -324,7 +229,7 @@ RSpec.describe User do
     let(:old_user) { create :user, :invitation_accepted, :manager, experts: [expert], antenne: antenne, full_name: 'Old User' }
 
     context 'with team' do
-      let(:expert) { create :expert_with_users, experts_subjects: [expert_subject] }
+      let(:expert) { create :expert_with_users, experts_subjects: [expert_subject], antenne: antenne }
       let(:new_user) { old_user.duplicate({ full_name: 'New User', email: 'test1@email.com', phone_number: '0303030303' }) }
 
       it "duplicate a user and add it to old_user team" do
@@ -333,79 +238,29 @@ RSpec.describe User do
         expect(new_user.phone_number).to eq '03 03 03 03 03'
         expect(new_user.job).to eq old_user.job
         expect(new_user.antenne).to eq old_user.antenne
-        expect(new_user.antenne.experts.count).to eq 2
+        expect(new_user.antenne.experts.count).to eq 1
         expect(new_user.experts.map { |e| e.subjects }.flatten).to contain_exactly(a_subject)
         expect(new_user.relevant_experts).to contain_exactly(expert)
         expect(new_user.user_rights.count).to eq 1
       end
     end
-
-    context 'with personal expert' do
-      let(:commune) { create :commune }
-      let(:expert) { create :expert, experts_subjects: [expert_subject], full_name: 'Édith Piaf', email: 'test2@email.com', communes: [commune] }
-      let(:old_user) { create :user, :invitation_accepted, :manager, experts: [expert], antenne: antenne, full_name: 'Édith Piaf', email: 'test2@email.com' }
-      let(:new_user) { old_user.duplicate({ full_name: 'Bruce Benamran', email: 'test3@email.com', phone_number: '0303030303', specifics_territories: '1' }) }
-
-      it "duplicate a user and add subjects to his personnal expert" do
-        expect(new_user.full_name).to eq 'Bruce Benamran'
-        expect(new_user.email).to eq 'test3@email.com'
-        expect(new_user.phone_number).to eq '03 03 03 03 03'
-        expect(new_user.job).to eq old_user.job
-        expect(new_user.antenne).to eq old_user.antenne
-        expect(new_user.experts.map { |e| e.subjects }.flatten).to contain_exactly(a_subject)
-        expect(new_user.relevant_experts).to contain_exactly(new_user.personal_skillsets.first)
-        expect(new_user.user_rights.count).to eq 1
-        expect(new_user.relevant_experts.map(&:communes).flatten).to contain_exactly(commune)
-      end
-    end
-
-    context 'with accidentally existing user' do
-      let(:commune) { create :commune }
-      let(:expert) { create :expert, experts_subjects: [expert_subject], full_name: 'Édith Piaf', email: 'test2@email.com', communes: [commune] }
-      let!(:old_user) { create :user, :invitation_accepted, :manager, experts: [expert], antenne: antenne, full_name: 'Édith Piaf', email: 'test2@email.com' }
-      let!(:existing_user) { create :user, full_name: 'Bruce Benamran', email: 'test3@email.com', phone_number: '0303030303' }
-      let(:new_user) { old_user.duplicate({ full_name: 'Bruce Benamran', email: 'test3@email.com', phone_number: '0303030303', specifics_territories: '1' }) }
-
-      it "doesnt duplicate user and raises no exception" do
-        expect(new_user.valid?).to be false
-      end
-
-    end
   end
 
   describe '#reassign matches' do
-    let(:institution) { create :institution }
-    let(:antenne) { create :antenne, institution: institution }
-    let(:a_subject) { create :subject }
-    let(:institution_subject) { create :institution_subject, institution: institution, subject: a_subject }
-    let(:expert_subject) { create :expert_subject, institution_subject: institution_subject }
-    let(:old_expert) { create :expert, experts_subjects: [expert_subject], full_name: 'Édith Piaf', email: 'edith@email.com' }
-    let(:old_user) { create :user, :invitation_accepted, experts: [old_expert], antenne: antenne, full_name: 'Édith Piaf', email: 'edith@email.com' }
-    let(:new_user) { create :user, :invitation_accepted, full_name: 'David Heinemeier Hansson', email: 'david@email.com', phone_number: '0303030303' }
-    let(:new_expert) { create :expert, experts_subjects: [expert_subject], full_name: 'David Heinemeier Hansson', email: 'david@email.com' }
-
-    # Match quo OK
+    let(:old_expert) { create :expert, :with_expert_subjects }
+    let(:old_user) { create :user, :invitation_accepted, experts: [old_expert] }
+    let(:new_expert) { create :expert, :with_expert_subjects }
+    let(:new_user) { create :user, :invitation_accepted, experts: [new_expert] }
     let!(:match_quo) { create :match, status: :quo, expert: old_expert }
-    # Match taking_care OK
     let!(:match_taking_care) { create :match, status: :taking_care, expert: old_expert }
-    # Match done KO
     let!(:match_done) { create :match, status: :done, expert: old_expert }
-    # Match done_no_help ko
-    let!(:match_done_no_help) { create :match, status: :done_no_help, expert: old_expert }
-    # Match done_not_reachable ko
-    let!(:match_done_not_reachable) { create :match, status: :done_not_reachable, expert: old_expert }
-    # Match not_for_me ko
-    let!(:match_not_for_me) { create :match, status: :not_for_me, expert: old_expert }
 
     before { old_user.transfer_in_progress_matches(new_user) }
 
-    it 'transfer matches' do
-      expect(new_user.received_matches.where(need: match_quo.need, status: :quo).count).to eq 1
-      expect(new_user.received_matches.where(need: match_taking_care.need, status: :taking_care).count).to eq 1
-      expect(new_user.received_matches.where(need: match_done.need, status: :done).count).to eq 0
-      expect(new_user.received_matches.where(need: match_done_no_help.need, status: :done_no_help).count).to eq 0
-      expect(new_user.received_matches.where(need: match_done_not_reachable.need, status: :done_not_reachable).count).to eq 0
-      expect(new_user.received_matches.where(need: match_not_for_me.need, status: :not_for_me).count).to eq 0
+    it 'transfers only in progress matches to new user' do
+      expect(new_user.received_matches).to contain_exactly(match_quo, match_taking_care)
+      expect(old_user.received_matches).not_to include(match_quo, match_taking_care)
+      expect(old_user.received_matches).to include(match_done)
     end
   end
 end

@@ -18,7 +18,7 @@ describe CsvExport::UserExporter, CsvExport do
   end
 
   describe 'with teams' do
-    let!(:expert) { create :expert, antenne: antenne, users: [user], full_name: 'Team 1', email: 'team@team.com', phone_number: '0987654321', communes: [create(:commune, insee_code: '22101')] }
+    let!(:expert) { create :expert, :with_expert_subjects, antenne: antenne, users: [user], full_name: 'Team 1', email: 'team@team.com', phone_number: '0987654321', communes: [create(:commune, insee_code: '22101')] }
 
     subject { User.relevant_for_skills.export_csv(include_expert_team: true).csv }
 
@@ -35,7 +35,8 @@ describe CsvExport::UserExporter, CsvExport do
     let(:theme) { create :theme, label: 'Test Theme' }
     let(:the_subject) { create :subject, theme: theme, label: 'Test Subject' }
     let(:institution_subject) { create :institution_subject, institution: institution, subject: the_subject, description: 'Description for institution' }
-    let!(:expert_subject) { create :expert_subject, expert: user.personal_skillsets.first, institution_subject: institution_subject, intervention_criteria: 'Intervention criteria' }
+    let!(:expert_subject) { create :expert_subject, expert: expert, institution_subject: institution_subject, intervention_criteria: 'Intervention criteria' }
+    let(:expert) { create :expert, antenne: antenne, users: [user] }
 
     subject do
       institution.reload

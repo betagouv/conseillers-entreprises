@@ -25,7 +25,7 @@ RSpec.describe ContactPolicy, type: :policy do
     end
 
     context 'User is not admin' do
-      let(:user) { create :user }
+      let(:user) { create :user, :with_expert }
       let(:expert) { user.experts.first }
       let(:diagnosis) { create :diagnosis, visitee: contact, solicitation: solicitation }
       let(:need) { create :need_with_matches, diagnosis: diagnosis, status: :quo }
