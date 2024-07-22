@@ -335,7 +335,7 @@ class Need < ApplicationRecord
     Need.where(id: antennes.map(&:perimeter_received_needs).flatten)
   end
 
-  scope :with_card_includes, -> do 
+  scope :with_card_includes, -> do
     includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
   end
 
