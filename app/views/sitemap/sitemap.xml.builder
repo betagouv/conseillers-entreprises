@@ -8,7 +8,7 @@ def site_map_xml(element, xml)
         xml.loc e[:loc]
         xml.lastmod e[:lastmod]
         xml.priority e[:priority]
-        xml.changefreq 'weekly'
+        xml.changefreq e[:changefreq]
       end
     end
     if e[:elements]
