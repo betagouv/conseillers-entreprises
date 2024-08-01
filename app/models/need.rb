@@ -293,7 +293,7 @@ class Need < ApplicationRecord
         INNER JOIN "facilities" ON "facilities"."id" = "diagnoses"."facility_id"
         INNER JOIN "solicitations" ON "solicitations"."id" = "diagnoses"."solicitation_id"
       ')
-      .where(solicitations: { email: emails })
+      .where(solicitations: { email: emails.compact })
       .or(Need.diagnosis_completed.where(diagnosis: { facilities: { siret: sirets.compact } }))
   end
 
