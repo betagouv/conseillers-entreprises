@@ -47,6 +47,7 @@ module Stats::Companies
     def merge_categories(results)
       merged_categories = {}
       results.each do |key, value|
+        key = nil if key == ""
         new_code = I18n.t(key, scope: 'code_to_range', default: I18n.t('00', scope: 'code_to_range')).to_s
         merged_categories[new_code] ||= {}
         merged_categories[new_code].merge!(value) { |_, o, n| o + n }
