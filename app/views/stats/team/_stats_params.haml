@@ -51,15 +51,19 @@
         = f.select :integration, Landing.integrations.map { |i| [I18n.t(i.first, scope: 'activerecord.attributes.landing/integrations'), i.last] },
         { selected: params[:integration], include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#toggleIntegrationSelect' }
       -# Select iframe
-      .fr-select-group{ class: "#{'hidden' unless params[:integration] == '1'}" }
-        = f.label :landing_id, t('activerecord.attributes.landing.iframe'), class: 'fr-label'
-        = f.select :landing_id, iframes.map { |iframe| [iframe.slug, iframe.id] },
-        { selected: params[:landing_id], include_blank: t('all.feminine') }, class: "fr-select", data: { integration: 'iframe' }
+      .fr-select-group{ class: "#{'hidden' unless params[:integration] == '1'}", data: { 'stats-target': 'iframeSelect' } }
+        = f.label :landing_id_iframe, t('activerecord.attributes.landing.iframe'), class: 'fr-label'
+        = f.select :landing_id_iframe, iframes.map { |iframe| [iframe.slug, iframe.id] },
+          { selected: params[:landing_id_iframe], include_blank: t('all.feminine') }, class: "fr-select",
+          data: { integration: 'iframe', action: 'change->stats#fillHiddenLandingId' }
       -# Select api
-      .fr-select-group{ class: "#{'hidden' unless params[:integration] == '2'}" }
-        = f.label :landing_id, t('activerecord.attributes.landing.api'), class: 'fr-label'
-        = f.select :landing_id, apis.map { |api| [api.slug, api.id] },
-        { selected: params[:landing_id], include_blank: t('all.feminine') }, class: "fr-select", data: { integration: 'api' }
+      .fr-select-group{ class: "#{'hidden' unless params[:integration] == '2'}", data: { 'stats-target': 'apiSelect' } }
+        = f.label :landing_id_api, t('activerecord.attributes.landing.api'), class: 'fr-label'
+        = f.select :landing_id_api, apis.map { |api| [api.slug, api.id] },
+          { selected: params[:landing_id_api], include_blank: t('all.feminine') }, class: "fr-select",
+          data: { integration: 'api', action: 'change->stats#fillHiddenLandingId' }
+
+      = f.hidden_field :landing_id, value: params[:landing_id], data: { 'stats-target': 'landingId' }
 
     .fr-col-12.fr-p-2w
       .fr-input-group
