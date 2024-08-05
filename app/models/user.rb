@@ -301,19 +301,6 @@ class User < ApplicationRecord
     new_user
   end
 
-  # Utilisé pour la réattribution des matches d'un expert, souvent seul dans son équipe
-  def transfer_in_progress_matches(user)
-    raise StandardError.new(I18n.t('activerecord.attributes.user.have_not_relevant_expert', user: self)) if self.single_user_experts.relevant_for_skills.blank?
-    ActiveRecord::Base.transaction do
-      if user.single_user_experts.blank?
-        user.create_single_user_experts
-      end
-      single_user_experts.first.received_matches.in_progress.each do |match|
-        match.update(expert: user.single_user_experts.first)
-      end
-    end
-  end
-
   def supervised_antennes
     if self.is_manager?
       ids = self.managed_antennes.each_with_object([]) do |managed_antenne, array|

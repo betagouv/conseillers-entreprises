@@ -166,6 +166,14 @@ ActiveAdmin.register Expert do
     end
   end
 
+  sidebar I18n.t('active_admin.actions'), only: :show do
+    ul class: 'actions' do
+      unless resource.deleted?
+        li link_to t('annuaire.users.table.reassign_matches'), admin_expert_reassign_matches_path(expert), class: 'action'
+      end
+    end
+  end
+
   ## Form
   #
   permit_params [

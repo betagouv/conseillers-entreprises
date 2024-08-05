@@ -18,6 +18,9 @@ fr:
       delete: Supprimer l’expert (sans ses utilisateurs)
       delete_confirmation: Voulez-vous supprimer cet expert ?
       no_specifique_zone: Cet expert n’a pas de zone spécifique
+      reassign_matches_done:
+        one: "%{count} mise en relation réattribuée à %{expert}"
+        other: "%{count} mises en relation réattribuées à %{expert}"
       skills: Compétences
       specifique_zone: Zone spécifique
     experts:
@@ -151,9 +154,6 @@ fr:
       do_invite_done: Invitation(s) envoyée(s)
       duplicate_territories: Dupliquer les territoires spécifiques
       impersonate: Voir le site comme %{name}
-      reassign_matches_done:
-        one: "%{count} mise en relation réattribuée à %{user}"
-        other: "%{count} mises en relation réattribuées à %{user}"
       roles: Rôles
       saved: Conseiller mis à jour
       user_info: Informations utilisateur
@@ -220,6 +220,8 @@ fr:
         subject: Sujet initial
         waiting_time: délai (en mois)
       expert:
+        errors:
+          cant_transfer_match: 'Les mises en relation n’ont pas pu être transférés : %{error}'
         full_name: Nom de l’équipe
         is_global_zone: Global
         job: Fonction
@@ -572,9 +574,6 @@ fr:
         current_sign_in_at: Date de connexion
         current_sign_in_ip: IP de connexion
         encrypted_password: Mot de passe chiffré
-        errors:
-          cant_change_email_and_full_name: Vous ne pouvez pas modifier en même temps le nom ET l’email, sous peine de désynchroniser l’utilisateur et son expert personnel. Changez-les l’un après l’autre, ou demandez à votre équipe de développement d’assumer la complexité du système qu’elle a elle-même créé et de faire la modification elle-même !
-          cant_transfer_match: 'Les mises en relation n’ont pas pu être transférés : %{error}'
         experts:
           one: Équipe
           other: Équipes

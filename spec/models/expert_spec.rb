@@ -178,6 +178,22 @@ RSpec.describe Expert do
     end
   end
 
+  describe '#reassign matches' do
+    let(:old_expert) { create :expert, :with_expert_subjects }
+    let(:new_expert) { create :expert, :with_expert_subjects }
+    let!(:match_quo) { create :match, status: :quo, expert: old_expert }
+    let!(:match_taking_care) { create :match, status: :taking_care, expert: old_expert }
+    let!(:match_done) { create :match, status: :done, expert: old_expert }
+
+    before { old_expert.transfer_in_progress_matches(new_expert) }
+
+    it 'transfers only in progress matches to new expert' do
+      expect(new_expert.received_matches).to contain_exactly(match_quo, match_taking_care)
+      expect(old_expert.received_matches).not_to include(match_quo, match_taking_care)
+      expect(old_expert.received_matches).to include(match_done)
+    end
+  end
+
   describe 'with_taking_care_stock' do
     let(:expert_with_taking_care_stock) { create :expert }
     let(:expert_with_other_stock) { create :expert }

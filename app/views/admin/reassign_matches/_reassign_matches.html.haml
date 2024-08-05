@@ -2,9 +2,9 @@
   %div{ id: 'main_content_wrapper' }
     %div{ id: 'main_content' }
       .active-admin-form.panel
-        %h3= t('.select_user')
+        %h3= t('.select_expert')
         .panel_contents
-          = form_with(url: admin_user_reassign_matches_reassign_path, local: true) do |f|
+          = form_with(url: admin_expert_reassign_matches_reassign_path, local: true) do |f|
             %li.input.required.stringish
-              = f.select(:selected_user_id, options_from_collection_for_select(user.antenne.advisors, :id, :full_name))
+              = f.select(:selected_expert_id, options_from_collection_for_select(expert.antenne.experts, :id, :full_name))
             = f.submit t('.save')
