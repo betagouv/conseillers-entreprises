@@ -426,4 +426,20 @@ describe CsvImport::UserImporter, CsvImport do
       expect(Antenne.count).to eq 1
     end
   end
+
+  context 'Add expert with specific communes' do
+    let(:csv) do
+      <<~CSV
+        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe, Territoire spécifique (CODE INSEE)
+        The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,"77067, 77122, 77251, 77296, 77326, 77384"
+      CSV
+    end
+
+    it do
+      expect(result).to be_success
+      expect(institution.experts.count).to eq 1
+      imported_expert = institution.experts.first
+      expect(imported_expert.communes.pluck(:insee_code)).to contain_exactly('77067', '77122', '77251', '77296', '77326', '77384')
+    end
+  end
 end

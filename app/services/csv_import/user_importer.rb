@@ -70,10 +70,17 @@ module CsvImport
 
       if attributes[:email].present?
         attributes[:antenne] = user.antenne
-        team = @options[:institution].experts.find_or_initialize_by(email: attributes[:email])
-        team.update(attributes)
+        expert = @options[:institution].experts.find_or_initialize_by(email: attributes[:email])
 
-        team
+        if attributes[:custom_communes].present?
+          custom_communes = attributes[:custom_communes].split(',').map(&:strip)
+          custom_communes.map! { |code| Commune.find_or_create_by(insee_code: code) }
+          attributes.delete(:custom_communes)
+        end
+        expert.update(attributes)
+        expert.communes = custom_communes if custom_communes.present?
+
+        expert
       end
     end
 
