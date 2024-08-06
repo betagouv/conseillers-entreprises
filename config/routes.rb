@@ -106,7 +106,7 @@ Rails.application.routes.draw do
     resources :suivi_qualite, only: %i[index], path: 'suivi-qualite' do
       collection do
         get :quo_matches, path: 'mer-en-attente'
-        get :refused_feedbacks, path: 'mer-refuses_commentaires'
+        get :refused_feedbacks, path: 'mer-refuses-commentaires'
       end
     end
     resources :veille, only: %i[index], path: 'veille' do
@@ -119,6 +119,7 @@ Rails.application.routes.draw do
       collection do
         get :unseen, path: 'nouveaux'
         get :seen, path: 'vus'
+        patch :mark_all_as_seen
       end
       member do
         patch :mark_as_seen

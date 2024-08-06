@@ -3,12 +3,9 @@ fr:
   active_admin:
     actions: Actions
     antenne:
-      deep_soft_delete: Supprimer l’antenne et ses experts
-      deep_soft_delete_confirmation: Voulez-vous supprimer cette antenne, tous ses experts et ses utilisateurs ?
       delete: Supprimer l’antenne
       delete_confirmation: Voulez-vous supprimer cette antenne ? Assurez-vous d’avoir déplacé ou supprimé ses experts et utilisateurs.
     antennes:
-      deep_soft_deleted: Antennes, experts et utilisateurs supprimés avec succès
       deleted: Antennes supprimées avec succès
       stats_reports: Rapports statistiques
       territorial_antennes: 'Antennes du territoire : '
@@ -18,15 +15,12 @@ fr:
       shared: Le commentaire a bien été partagé
       shared_with: 'Partagé avec :'
     expert:
-      deep_soft_delete: Supprimer l’expert et ses utilisateurs
-      deep_soft_delete_confirmation: Voulez-vous supprimer cet expert et tous ses utilisateurs ?
       delete: Supprimer l’expert (sans ses utilisateurs)
       delete_confirmation: Voulez-vous supprimer cet expert ?
       no_specifique_zone: Cet expert n’a pas de zone spécifique
       skills: Compétences
       specifique_zone: Zone spécifique
     experts:
-      deep_soft_deleted: Experts et utilisateurs supprimés avec succès
       deleted: Experts supprimés avec succès
     flag:
       action:
@@ -53,7 +47,6 @@ fr:
       need_page: Page besoin
     move: Déplacer
     person:
-      deep_soft_delete_done: Suppression effectuée
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
     scopes:
@@ -92,7 +85,6 @@ fr:
       not_taken_after_3_weeks: 3 semaines sans réponse
       old_active_invitation_not_accepted: Invitations non acceptées (+ de 6 mois)
       opco: Opco
-      personal_skillsets: Individuel
       recent_active_invitation_not_accepted: Invitations non acceptées (- de 6 mois)
       relevant_for_skills: Compétences visibles
       sent: Mises en relation envoyées
@@ -110,16 +102,13 @@ fr:
         from_solicitation: Analyses à partir d’une sollicitation directe
         from_visit: Analyses faites par des conseillers suite à une visite
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
-        no_team: Utilisateurs non membres d’une équipe. Ils n’ont qu’un seul expert, qui correspond à leur domaine de compétence personnel.
-        personal_skillsets: 'Domaine de compétences d’un seul utilisateur : experts avec un seul utilisateur dont l’adresse email est identique à l’expert.'
         relevant_for_skills: 'Tous les experts utiles à afficher pour le choix des domaines d’intervention : toutes les équipes (plusieurs membres), tous les experts ayant des compétences, ainsi que les experts qui sont le seul expert d’un utilisateur.'
-        team_members: Utilisateurs membres d’une équipe
-        teams: 'Équipes : plusieurs membres, ou un seul mais dont l’adresse email diffère de celle de l’expert'
       with_custom_communes: Zone spécifique
       with_deleted_expert: Expert supprimé
       without_communes: Sans zone d’intervention
+      without_experts: Sans expert
       without_subjects: Sans compétence
-      without_users: Aucun membre
+      without_users: Sans utilisateur
     solicitations:
       batch_delete: Supprimer
       delete: Supprimer la sollicitation
@@ -155,10 +144,8 @@ fr:
     user:
       connection: Connexion
       created: Utilisateur créé avec succès
-      deep_soft_delete: Supprimer l’utilisateur et ses experts solo
-      deep_soft_delete_confirmation: Voulez-vous supprimer cet utilisateur et ses experts ayant un seul membre ?
-      delete: Supprimer l’utilisateur et son expert personnel
-      delete_confirmation: Voulez-vous supprimer cet utilisateur ? Cela va aussi supprimer son expert personnel.
+      delete: Supprimer l’utilisateur
+      delete_confirmation: Voulez-vous supprimer cet utilisateur ?
       deleted: Utilisateurs supprimés avec succès
       do_invite: Envoyer la ou les invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
@@ -171,7 +158,6 @@ fr:
       saved: Conseiller mis à jour
       user_info: Informations utilisateur
     users:
-      deep_soft_deleted: Utilisateurs et experts solo supprimés avec succès
       delete_confirmation: Voulez-vous supprimer ces utilisateurs ? Cela va aussi supprimer leur expert personnel.
   activeadmin:
     feedback:
@@ -523,31 +509,55 @@ fr:
         is_support: Support
       subject_questions:
         ameliorer_conditions_travail:
-          label: Cet investissement permet-il de réduire la pénibilité au travail de vos salariés ou de renforcer leur sécurité ?
+          label:
+            long: Cet investissement permet-il de réduire la pénibilité au travail de vos salariés ou de renforcer leur sécurité ?
+            short: Investissement pour réduire la pénibilité ?
         entreprise_a_reprendre_trouvee:
-          label: Avez-vous déjà trouvé une entreprise à reprendre ?
+          label:
+            long: Avez-vous déjà trouvé une entreprise à reprendre ?
+            short: Entreprise à reprendre trouvée ?
         etalement_cotisations_sociales:
-          label: Souhaitez-vous étaler vos cotisations sociales ?
+          label:
+            long: Souhaitez-vous étaler vos cotisations sociales ?
+            short: Etalement des cotisations sociales ?
         financement_bancaire_envisage:
-          label: Certains accompagnements publics ne viennent qu’en complément d’un financement bancaire. Envisagez-vous un financement bancaire pour votre projet ?
+          label:
+            long: Certains accompagnements publics ne viennent qu’en complément d’un financement bancaire. Envisagez-vous un financement bancaire pour votre projet ?
+            short: Financement bancaire envisagé ?
         formee_est_salariee_de_lentreprise:
-          label: La personne que vous souhaitez former est-elle salariée de votre entreprise ?
+          label:
+            long: La personne que vous souhaitez former est-elle salariée de votre entreprise ?
+            short: Personne à former salariée de l'entreprise ?
         moins_de_10k_restant_a_financer:
           'false': 10 000 euros et plus
-          label: Quel est le montant qu’il reste à financer pour votre projet (hors apport et prêt bancaire) ?
+          label:
+            long: Quel est le montant qu’il reste à financer pour votre projet (hors apport et prêt bancaire) ?
+            short: Montant restant à financer ?
           'true': moins de 10 000 euros
         outside_europe:
-          label: Votre projet concerne-t-il un pays hors de l’Union européenne (27 pays) ?
+          label:
+            long: Votre projet concerne-t-il un pays hors de l’Union européenne (27 pays) ?
+            short: Projet hors UE ?
         recrutement_en_apprentissage:
-          label: Recrutez-vous un apprenti ou un stagiaire ?
+          label:
+            long: Recrutez-vous un apprenti ou un stagiaire ?
+            short: Recrutement apprenti ou stagiaire ?
         recrutement_handicape:
-          label: Êtes-vous ouvert aux candidatures de personnes en situation de handicap avec l’aide d’un conseiller dédié ?
+          label:
+            long: Êtes-vous ouvert aux candidatures de personnes en situation de handicap avec l’aide d’un conseiller dédié ?
+            short: Recrutement d'une personne en situation de handicap possible ?
         recrutement_identifie:
-          label: Avez-vous déjà identifié la personne à recruter ?
+          label:
+            long: Avez-vous déjà identifié la personne à recruter ?
+            short: Personne à recruter identifiée ?
         recrutement_poste_cadre:
-          label: Recrutez-vous sur un poste d’ingénieur, de manager ou de niveau Bac +3 ?
+          label:
+            long: Recrutez-vous sur un poste d’ingénieur, de manager ou de niveau Bac +3 ?
+            short: Recrutement ingénieur, manager ou Bac +3 ?
         recrutement_premier:
-          label: S'agit-il d’un premier recrutement pour votre entreprise ?
+          label:
+            long: S'agit-il d’un premier recrutement pour votre entreprise ?
+            short: Premier recrutement ?
       territory:
         advisors: Conseillers
         antennes: Antennes
@@ -568,7 +578,7 @@ fr:
         experts:
           one: Équipe
           other: Équipes
-        have_not_personal_skillsets: "%{user} n’a pas d’expert personnel avec des compétences"
+        have_not_relevant_expert: "%{user} n’a pas d’expert personnel avec des compétences"
         invitation_accepted_at: Invitation acceptée
         invitation_sent_at: Invitation envoyée
         invitees: Invités

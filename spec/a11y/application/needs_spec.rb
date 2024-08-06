@@ -4,12 +4,13 @@ require 'rails_helper'
 
 describe 'needs', :js, type: :feature do
   login_user
+  let(:expert) { create :expert, users: [current_user] }
 
   subject { page }
 
   describe '/besoins/boite_de_reception' do
     before do
-      create_list :match, 2, expert: current_user.experts.first
+      create_list :match, 2, expert: expert
       visit '/besoins/boite_de_reception'
     end
 
@@ -20,25 +21,25 @@ describe 'needs', :js, type: :feature do
     before { visit "/besoins/#{a_match.need.id}" }
 
     context 'match quo' do
-      let(:a_match) { create :match, expert: current_user.experts.first, status: :quo }
+      let(:a_match) { create :match, expert: expert, status: :quo }
 
       it { is_expected.to be_accessible }
     end
 
     context 'match taking_care' do
-      let(:a_match) { create :match, expert: current_user.experts.first, status: :taking_care }
+      let(:a_match) { create :match, expert: expert, status: :taking_care }
 
       it { is_expected.to be_accessible }
     end
 
     context 'match done' do
-      let(:a_match) { create :match, expert: current_user.experts.first, status: :done }
+      let(:a_match) { create :match, expert: expert, status: :done }
 
       it { is_expected.to be_accessible }
     end
 
     context 'match not_for_me' do
-      let(:a_match) { create :match, expert: current_user.experts.first, status: :not_for_me }
+      let(:a_match) { create :match, expert: expert, status: :not_for_me }
 
       it { is_expected.to be_accessible }
     end
@@ -49,11 +50,11 @@ describe 'needs', :js, type: :feature do
     let(:solicitation_1) { create :solicitation, email: visitee.email }
     let(:diagnosis_1) { create :diagnosis_completed, visitee: visitee, solicitation: solicitation_1 }
     let!(:need_1) { create :need, diagnosis: diagnosis_1 }
-    let!(:match_1) { create :match, expert: current_user.experts.first, need: need_1, status: :taking_care }
+    let!(:match_1) { create :match, expert: expert, need: need_1, status: :taking_care }
     let(:solicitation_2) { create :solicitation, email: visitee.email }
     let(:diagnosis_2) { create :diagnosis_completed, visitee: visitee, solicitation: solicitation_2 }
     let!(:need_2) { create :need, diagnosis: diagnosis_2 }
-    let!(:match_2) { create :match, expert: current_user.experts.first, need: need_2, status: :done }
+    let!(:match_2) { create :match, expert: expert, need: need_2, status: :done }
 
     before { visit "/contacts/#{visitee.id}/historique-des-besoins" }
 
@@ -63,7 +64,7 @@ describe 'needs', :js, type: :feature do
   describe '/besoins/:id' do
     let(:solicitation) { create :solicitation, :with_diagnosis }
     let(:need) { create :need, advisor: current_user, diagnosis: solicitation.diagnosis }
-    let(:a_match) { create :match, expert: current_user.experts.first, need: need }
+    let(:a_match) { create :match, expert: expert, need: need }
     let(:another_match) { create :match, need: need }
     let(:feedback) { create :feedback, :for_need, feedbackable: need }
 

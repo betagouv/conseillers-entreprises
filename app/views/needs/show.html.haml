@@ -18,9 +18,10 @@
             - if @need.subject_answers.any?
               %ul
                 - @need.subject_answers.each do |answer|
-                  - answer_label = I18n.t(answer.filter_value, scope: [:activerecord, :attributes, :subject_questions, answer.key], default: I18n.t(answer.filter_value, scope: [:boolean, :text]))
+                  - answer_label = I18n.t(answer.filter_value, scope: [:activerecord, :attributes, :subject_questions, answer.key],
+                    default: I18n.t(answer.filter_value, scope: [:boolean, :text]))
                   %li
-                    = I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, answer.key])
+                    = question_label(answer.key, :long)
                     %strong= answer_label
             - if @need.solicitation.present? && @need.solicitation.origin_url.present?
               %div

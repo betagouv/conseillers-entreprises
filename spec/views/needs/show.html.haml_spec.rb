@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'needs/show' do
   login_user
+  let(:expert) { create :expert, users: [current_user] }
   let(:need) { create :need_with_matches, status: :quo }
   let(:matches) { need.matches }
   let!(:taken_care_match) { create :match, need: need, status: :taking_care }
@@ -17,7 +18,7 @@ RSpec.describe 'needs/show' do
   end
 
   context 'for expert user' do
-    let!(:a_match) { create :match, expert: current_user.experts.first, need: need }
+    let!(:a_match) { create :match, expert: expert, need: need }
 
     describe 'display page' do
       before { assignments }

@@ -31,8 +31,8 @@
     %tbody
       -# `users` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
         We’ll group by Antenne and by Expert team, and span the first two columns as needed.
-      - grouped_users.each do |antenne, teams|
-        - teams.each_with_index do |key_and_value, index_in_antenne|
+      - grouped_users.each do |antenne, experts|
+        - experts.each_with_index do |key_and_value, index_in_antenne|
           - users = key_and_value.last
           - users.each_with_index do |user, index_in_team|
             - highlighted_ids = flash[:table_highlighted_ids]
@@ -42,11 +42,11 @@
             - highlighted_class = highlighted_ids&.include?(user.id) ? 'blue' : ''
             %tr{ class: [antenne_separation_class, highlighted_class].compact.join(" ") }
               - if antenne_first_row
-                %td.td-header.td-header--antenne{ rowspan: teams.values.sum(&:size), title: antenne.name }
+                %td.td-header.td-header--antenne{ rowspan: experts.values.sum(&:size), title: antenne.name }
                   = link_to antenne, admin_antenne_path(antenne)
               - if index_in_team == 0
                 %td.td-header.td-header--expert{ rowspan: users.size }
-                  - if user.relevant_expert.team?
+                  - if user.relevant_expert.present?
                     = link_to user.relevant_expert.full_name, edit_admin_expert_path(user.relevant_expert), title: t('.edit_expert', expert_name: user.relevant_expert.full_name, antenne: antenne)
 
               %td.td-header.td-header--user

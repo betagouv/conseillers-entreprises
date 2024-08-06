@@ -53,7 +53,18 @@
             .logo-institution= institution_image(solicitation.institution.logo&.filename)
       .card__description
         .card__description__label= t('.description')
-        .card__description__content.break-word= simple_format(solicitation.description)
+        .card__description__content.break-word
+          = simple_format(solicitation.description)
+          - if solicitation.subject_answers.any?
+            %ul
+              - solicitation.subject_answers.each do |answer|
+                - answer_label = I18n.t(answer.filter_value, scope: [:activerecord, :attributes, :subject_questions, answer.key],
+                  default: I18n.t(answer.filter_value, scope: [:boolean, :text]))
+                %li
+                  = question_label(answer.key, :short)
+                  %strong= answer_label
+
+
       .card__feedbacks
         %div{ id: "display-feedbacks-#{solicitation.id}" }
           = render partial: 'feedbacks/feedback', collection: solicitation.feedbacks

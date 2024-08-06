@@ -42,7 +42,7 @@ namespace :anonymize do
       name = Faker::Name.name
       phone_number = Faker::PhoneNumber.phone_number
       email = Faker::Internet.email
-      personal_experts = record.personal_skillsets.active.presence || record.experts.active.where(full_name: record.full_name).or(record.experts.active.where(email: record.email))
+      personal_experts = record.single_user_experts.active.presence || record.experts.active.where(full_name: record.full_name).or(record.experts.active.where(email: record.email))
       personal_experts.update_all(email: email, phone_number: phone_number, full_name: name) if personal_experts.any?
       record.update_columns(email: email, phone_number: phone_number, full_name: name, current_sign_in_ip: Faker::Internet.ip_v4_address, last_sign_in_ip: Faker::Internet.ip_v4_address)
       updated_experts_id << personal_experts.pluck(:id)

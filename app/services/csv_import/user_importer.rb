@@ -37,27 +37,20 @@ module CsvImport
     end
 
     def postprocess(user, attributes)
-      # Debug user sans personal skillsets
-      if user.personal_skillsets.empty?
-        Sentry.with_scope do |scope|
-          scope.set_tags({ user_id: user.id })
-          Sentry.capture_message("import user sans personal_skillset")
-        end
+      expert = import_team(user, attributes)
+      if expert.blank?
+        expert = user.create_single_user_experts
       end
-      team = import_team(user, attributes)
-      expert = team || user.personal_skillsets.first
-      if expert.present?
-        import_several_subjects(expert, attributes)
-        import_one_subject(expert, attributes)
+      import_several_subjects(expert, attributes)
+      import_one_subject(expert, attributes)
 
-        # Force-trigger validations in User: expert can be already in the user experts, not in the experts but saved, or not saved at all.
-        # Setting .experts = to a failing object raises an error, and we don‘t want that
-        if expert.persisted?
-          other_experts = user.experts - [expert]
-          user.experts = other_experts + [expert]
-        else
-          user.experts.build(expert.attributes)
-        end
+      # Force-trigger validations in User: expert can be already in the user experts, not in the experts but saved, or not saved at all.
+      # Setting .experts = to a failing object raises an error, and we don‘t want that
+      if expert.persisted?
+        other_experts = user.experts - [expert]
+        user.experts = other_experts + [expert]
+      else
+        user.experts.build(expert.attributes)
       end
       user
     end

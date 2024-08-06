@@ -26,7 +26,7 @@
       = f.fields_for :subject_answers, @solicitation.subject_answers do |ff|
         - key = ff.object.key
         %fieldset.fr-fieldset{ 'aria-labelledby': "#{key}-legend" }
-          %legend.fr-fieldset__legend{ id: "#{key}-legend" }= I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, key])
+          %legend.fr-fieldset__legend{ id: "#{key}-legend" }= question_label(key, :short)
           = ff.hidden_field :id
           = ff.hidden_field :subject_question_id
           .fr-fieldset__element.fr-fieldset__element--inline

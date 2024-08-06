@@ -113,7 +113,7 @@ ActiveAdmin.register Institution do
         panel I18n.t('active_admin.subject_answer_grouping.title_with_index', index: index + 1) do
           table_for sag.subject_answers do
             column(:subject) { |answer| admin_link_to(answer.subject_question, :subject) }
-            column(:label) { |answer| I18n.t(:label, scope: [:activerecord, :attributes, :subject_questions, answer.key]) }
+            column(:label) { |answer| question_label(answer.key, :long) }
             column(:key)
             column(:filter_value)
           end

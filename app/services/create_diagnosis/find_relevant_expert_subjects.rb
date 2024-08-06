@@ -26,7 +26,8 @@ module CreateDiagnosis
 
     def apply_subject_question_filters(expert_subjects)
       expert_subjects.select do |es|
-        institution_answer_groupings = es.expert.institution.subject_answer_groupings
+        # On n'examine que les filtres qui concernent le sujet
+        institution_answer_groupings = es.expert.institution.subject_answer_groupings.by_subject(need.subject)
         institution_answer_groupings.empty? || institution_answer_groupings.any?{ |ag| accepting_subject_answers(ag) }
       end
     end
@@ -66,9 +67,7 @@ module CreateDiagnosis
       institution_answer_grouping.subject_answers.each do |institution_answer|
         question_id = institution_answer.subject_question_id
         need_answer = need.subject_answers.find_by(subject_question_id: question_id)
-        # On garde les expert_subjects
-        # - qui n'ont pas de filtre sur cette question additionnelle
-        # - qui ont la même filter_value que la solicitation
+        # On garde les expert_subjects qui ont la même filter_value que la solicitation
         raise FilterError if need_answer.present? && (institution_answer.filter_value != need_answer.filter_value)
       end
       return true

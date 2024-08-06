@@ -30,15 +30,6 @@ RSpec.describe Conseiller::SuiviQualiteController do
 
         it { expect(assigns(:needs)).to contain_exactly(done_need_with_quo_match) }
       end
-
     end
-
-    # describe 'GET #refused_feedbacks' do
-    #   let!(:starred_need) { create :need, starred_at: Time.zone.now }
-
-    #   before { get :refused_feedbacks }
-
-    #   it { expect(assigns(:needs)).to contain_exactly(starred_need) }
-    # end
   end
 end

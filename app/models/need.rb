@@ -303,7 +303,7 @@ class Need < ApplicationRecord
         INNER JOIN "facilities" ON "facilities"."id" = "diagnoses"."facility_id"
         INNER JOIN "solicitations" ON "solicitations"."id" = "diagnoses"."solicitation_id"
       ')
-      .where(solicitations: { email: emails })
+      .where(solicitations: { email: emails.compact })
       .or(Need.diagnosis_completed.where(diagnosis: { facilities: { siret: sirets.compact } }))
   end
 
@@ -333,6 +333,10 @@ class Need < ApplicationRecord
 
   scope :in_antennes_perimeters, -> (antennes) do
     Need.where(id: antennes.map(&:perimeter_received_needs).flatten)
+  end
+
+  scope :with_card_includes, -> do
+    includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
   end
 
   def self.apply_filters(params)

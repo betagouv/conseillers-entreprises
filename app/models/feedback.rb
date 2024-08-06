@@ -109,7 +109,7 @@ class Feedback < ApplicationRecord
   # don't send an email to their personal address
   def persons_to_notify
     users_and_experts_to_notify = if self.user.is_admin?
-      self.need.matches.where(status: [:quo, :taking_care, :done_not_reachable]).map(&:expert)
+      self.need.matches.where(status: [:quo, :taking_care]).map(&:expert)
     else
       self.need.matches.where(status: [:taking_care, :done_not_reachable]).map(&:expert)
     end

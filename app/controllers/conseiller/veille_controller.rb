@@ -10,7 +10,7 @@ class Conseiller::VeilleController < ApplicationController
 
   def starred_needs
     @needs = retrieve_starred_needs
-      .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
+      .with_card_includes
       .order(created_at: :asc)
       .page(params[:page])
     @action = :starred_need

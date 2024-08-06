@@ -2,4 +2,4 @@
   - collections_count.each do |name, count|
     - label = t(name, scope: [:conseiller, :shared_satisfactions, :titles])
     - url = [name, :conseiller, :shared_satisfactions]
-    = menu_link_with_count(label, count, url, class: 'item')
+    = menu_link_with_count(label, count, url, class: 'item', name: name)

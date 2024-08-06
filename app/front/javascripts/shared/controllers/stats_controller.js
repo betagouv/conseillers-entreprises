@@ -3,7 +3,7 @@ import { exists } from '../utils.js';
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ['institution', 'antennes', 'themes', 'subjects', 'loader', 'url']
+  static targets = ['institution', 'antennes', 'themes', 'subjects', 'loader', 'url', 'landingId']
   
   BLOCKS = {
     0: 'intern',
@@ -76,5 +76,9 @@ export default class extends Controller {
       chosenSelect.parentElement.style.display = 'block'
       chosenSelect.removeAttribute("disabled");
     }
+  }
+
+  fillHiddenLandingId(data) {
+    this.landingIdTarget.value = data.target.value;
   }
 }

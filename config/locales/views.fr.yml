@@ -271,15 +271,17 @@ fr:
         text: À la suite de leurs mises en relation, les entreprises ont la possibilité de s'exprimer au sujet de l’utilité du service. Les retours des entreprises partagés ici concernent les besoins clôturés par « aide proposée ». Ils sont donc destinés à l’ensemble des partenaires intervenus sur leurs besoins.
         warning: Toute réutilisation de ces retours nécessite le recueil par vos soins du consentement de la personne dirigeante. Une mention du service public Conseillers-Entreprises est également bienvenue pour promouvoir notre coopération. Nous comptons sur vous !
       index:
+        mark_all_as_seen: Tout marquer comme "vu"
         no_results: Aucun résultat
+        select_all: Sélectionner tous les retours de la page
         short_title: Retours
         title: Retours des entreprises aidées
-      need:
+      need_card:
         comment_date: Retour de %{author}, le %{date}
         need_date: Besoin du %{date}
         process: Marquer comme "vu"
         see_need: Voir le besoin
-      satifaction_seen: Le retour a été marqué comme vu
+      satifaction_seen: Les retours ont été marqués comme vu
       titles:
         seen: Retours vus
         unseen: Nouveaux retours
@@ -710,7 +712,7 @@ fr:
       send_failure_email:
         email_sent: Email d’échec envoyé à l’entreprise
       send_last_chance_email:
-        email_send: Email de la dernière chance envoyé à %{teams}
+        email_send: Email de la dernière chance envoyé à %{experts}
     needs_badges:
       add_remove_badges: Ajouter ou retirer un tag
     section:
@@ -1137,10 +1139,11 @@ fr:
       title: Mon compte
     menu:
       antenne: Antenne
+      expert: Équipe
       informations: Informations
       password: Mot de passe
       subjects: Domaines d’intervention
-      team: Équipe
+      teams: 'Équipes :'
     registrations:
       antenne:
         antenne_within_institution: Antenne (au sein de %{institution})

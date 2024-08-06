@@ -10,9 +10,6 @@ class ExpertsController < ApplicationController
   end
 
   def edit
-    if !@expert.team?
-      redirect_to subjects_expert_path(@expert)
-    end
     @user = current_user
   end
 

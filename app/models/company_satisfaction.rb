@@ -32,7 +32,7 @@ class CompanySatisfaction < ApplicationRecord
   has_many :facility_regions, through: :need, inverse_of: :needs
   has_one :facility, through: :need, inverse_of: :needs
 
-  has_many :shared_satisfactions, inverse_of: :company_satisfaction
+  has_many :shared_satisfactions, inverse_of: :company_satisfaction, dependent: :destroy
   has_many :shared_satisfaction_users, through: :shared_satisfactions, source: :user
   has_many :shared_satisfaction_experts, -> { distinct }, through: :shared_satisfactions, source: :expert
 
@@ -74,6 +74,33 @@ class CompanySatisfaction < ApplicationRecord
     query == 'with_comment' ? where.not(comment: "") : where(comment: "")
   }
 
+  # Partage aux conseillers
+  #
+  def share
+    done_experts.active.find_each do |e|
+      e.users.active.find_each{ |u| self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
+      expert_antenne = e.antenne
+      expert_antenne.managers.active.each{ |u| self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
+      share_with_higher_manager(e, expert_antenne)
+    end
+    return true if self.valid?
+    self.shared_satisfactions.map{ |us| us.errors.full_messages.to_sentence }.uniq.each do |error|
+      self.errors.add(:base, error)
+    end
+    false
+  end
+
+  def share_with_higher_manager(e, antenne)
+    if antenne.parent_antenne.present?
+      antenne.parent_antenne.managers.active.each{ |u| self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
+      share_with_higher_manager(e, antenne.parent_antenne)
+    end
+  end
+
+  def shared
+    shared_satisfactions.any?
+  end
+
   def self.ransackable_scopes(auth_object = nil)
     %w[
       solicitation_mtm_campaign_cont solicitation_mtm_campaign_eq solicitation_mtm_campaign_start
@@ -90,22 +117,5 @@ class CompanySatisfaction < ApplicationRecord
       "done_antennes", "done_experts", "done_institutions", "done_matches", "facility_regions", "landing",
       "landing_subject", "matches", "need", "diagnosis", "solicitation", "subject", "theme", "facility", "experts"
     ]
-  end
-
-  # Partage aux conseillers
-  #
-  def share
-    done_experts.find_each do |e|
-      e.users.find_each{ |u| self.shared_satisfactions.create(user: u, expert: e) }
-    end
-    return true if self.valid?
-    self.shared_satisfactions.map{ |us| us.errors.full_messages.to_sentence }.uniq.each do |error|
-      self.errors.add(:base, error)
-    end
-    false
-  end
-
-  def shared
-    shared_satisfactions.any?
   end
 end

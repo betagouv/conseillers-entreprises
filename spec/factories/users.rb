@@ -10,6 +10,18 @@ FactoryBot.define do
     password_confirmation { 'yX*4Ubo_xPW!u' }
     antenne
 
+    trait :with_expert do
+      after(:create) do |user, _|
+        user.experts << create(:expert, antenne: user.antenne)
+      end
+    end
+
+    trait :with_expert_subjects do
+      after(:create) do |user, _|
+        user.experts << create(:expert, :with_expert_subjects, antenne: user.antenne)
+      end
+    end
+
     trait :invitation_accepted do
       invitation_accepted_at { Time.zone.now }
     end
