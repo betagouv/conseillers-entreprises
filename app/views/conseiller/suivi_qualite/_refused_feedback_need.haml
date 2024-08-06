@@ -1,9 +1,12 @@
-- cache [need] do
+- cache [need, action] do
   .card-reminders-need.fr-my-4w.card
     .card__header
       .card__title
         %h2.fr-h4= link_to need.company.name, need_path(need, origin: 'reminders')
-        %span.subtitle= I18n.l(need.display_date, format: :long)
+        .subtitle.subtitle--dates
+          = t('needs.dates.creation', date: l(need.display_date, format: :long))
+        .subtitle.subtitle--dates
+          = t('needs.dates.last_not_for_me', date: l(need.matches.status_not_for_me.maximum(:taken_care_of_at).to_time, format: :sentence))
       = render 'reminders/needs_badges', need: need
     .fr-card__body.fr-text--sm
       .fr-card__content

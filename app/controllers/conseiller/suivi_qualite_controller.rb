@@ -21,9 +21,13 @@ class Conseiller::SuiviQualiteController < ApplicationController
   end
 
   def refused_feedbacks
+    # Code compliqué pour ordonner par un champs des matches
+    # tout en supprimant les needs en doublon
     @needs = retrieve_refused_feedbacks
       .with_card_includes
-      .order(created_at: :asc)
+      .select('needs.*, MAX(matches.taken_care_of_at) AS latest_taken_care_of_at')
+      .group('needs.id')
+      .order('latest_taken_care_of_at ASC, needs.updated_at ASC')
       .page(params[:page])
     @action = :refused_feedback
 
@@ -44,7 +48,7 @@ class Conseiller::SuiviQualiteController < ApplicationController
     @collections_by_suivi_qualite_count = Rails.cache.fetch(['suivi_qualite', retrieve_quo_matches_needs.size, retrieve_refused_feedbacks.size]) do
       {
         quo_matches: retrieve_quo_matches_needs.size,
-        refused_feedbacks: retrieve_refused_feedbacks.size
+        refused_feedbacks: retrieve_refused_feedbacks.distinct.size
       }
     end
   end

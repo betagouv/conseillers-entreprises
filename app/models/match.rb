@@ -160,7 +160,6 @@ class Match < ApplicationRecord
     joins("INNER JOIN feedbacks ON feedbacks.feedbackable_id = matches.need_id AND feedbacks.feedbackable_type = 'Need'")
       .where(status: :not_for_me, taken_care_of_at: 15.days.ago..)
       .where('feedbacks.user_id IN (SELECT user_id FROM experts_users WHERE expert_id = matches.expert_id)')
-      .distinct
   }
 
   def self.ransackable_scopes(auth_object = nil)
@@ -219,10 +218,6 @@ class Match < ApplicationRecord
     # The subject of the expert that was used for matching;
     # it might be nil: it can be removed, or the match can be created without it.
     expert&.experts_subjects&.find { |es| es.subject == self.subject }
-  end
-
-  def feedbacks
-    need.feedbacks.where(user: self.expert.users)
   end
 
   def self.ransackable_attributes(auth_object = nil)
