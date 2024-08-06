@@ -38,6 +38,16 @@ RSpec.describe User do
           expect(user.experts).to be_empty
         end
       end
+
+      context 'user can have many relevant experts' do
+        let(:user) { create :user }
+        let!(:expert1) { create :expert, :with_expert_subjects, users: [user] }
+        let!(:expert2) { create :expert, :with_expert_subjects, users: [user] }
+
+        it do
+          expect(user.relevant_experts).to contain_exactly(expert1, expert2)
+        end
+      end
     end
   end
 
