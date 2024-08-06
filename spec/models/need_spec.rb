@@ -658,4 +658,16 @@ RSpec.describe Need do
       expect(described_class.omnisearch("jerome")).to contain_exactly(need1, need2)
     end
   end
+
+  describe '#refused_feedbacks' do
+    let(:need) { create :need }
+    let(:match_1) { create :match, status: :not_for_me, need: need }
+    let!(:feedback_1) { create :feedback, user: match_1.expert.users.first, feedbackable: need, category: :need }
+    let(:match_2) { create :match, status: :done, need: need }
+    let!(:feedback_2) { create :feedback, user: match_2.expert.users.first, feedbackable: need, category: :need }
+
+    it 'returns feedbacks from users who refused the match' do
+      expect(need.refused_feedbacks).to contain_exactly(feedback_1)
+    end
+  end
 end

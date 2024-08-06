@@ -4,12 +4,12 @@
 
 = render 'filters', needs: @needs
 
-- if @needs.to_a.size == 0
+- if @needs.empty?
   .fr-container.text-center.fr-mt-18v
     .fr-h3= t('.no_results')
 - else
   = paginate @needs
 
-  = render partial: 'need', collection: @needs, locals: { action: @action }
+  = render partial: "#{@action}_need", collection: @needs, as: :need, locals: { action: @action }
 
   = paginate @needs

@@ -382,6 +382,11 @@ class Need < ApplicationRecord
     Expert.joins(:received_matches).merge(matches.status_quo)
   end
 
+  def refused_feedbacks
+    refused_experts = matches.where(status: :not_for_me).pluck(:expert_id)
+    feedbacks.joins(user: :experts).where(user: { experts: { id: refused_experts } })
+  end
+
   def update_status
     self.matches.reload # Make sure the matches are fresh from DB; see #1421
     new_status = computed_status

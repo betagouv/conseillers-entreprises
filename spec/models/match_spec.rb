@@ -176,5 +176,23 @@ RSpec.describe Match do
 
       it { is_expected.to contain_exactly(match1) }
     end
+
+    describe '#with_recent_refused_feedbacks' do
+      let!(:match1) { create(:match, status: :not_for_me, taken_care_of_at: 5.days.ago) }
+      let!(:match2) { create(:match, status: :not_for_me, taken_care_of_at: 14.days.ago) }
+      let!(:match3) { create(:match, status: :not_for_me, taken_care_of_at: 20.days.ago) }
+      let!(:match4) { create(:match, status: :taking_care, taken_care_of_at: 14.days.ago) }
+      let!(:match5) { create(:match, status: :not_for_me, taken_care_of_at: 10.days.ago) }
+
+      before do
+        [match1, match2, match3, match4].each do |match|
+          create(:feedback, user: match.expert.users.first, feedbackable: match.need, category: :need)
+        end
+      end
+
+      it 'returns matches with recent refused feedbacks' do
+        expect(described_class.with_recent_refused_feedbacks).to contain_exactly(match1, match2)
+      end
+    end
   end
 end

@@ -330,6 +330,8 @@ fr:
       instructions:
         quo_matches: MER en attente de réponse depuis + de 9 jours et - de 45 jours hors PQ
         refused_feedbacks: Besoins refusés avec un commentaire
+      refused_feedback_need:
+        comment_date: Retour de %{author}, le %{date}
       titles:
         quo_matches: MER en attente
         refused_feedbacks: Refusées avec commentaire

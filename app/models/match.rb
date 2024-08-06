@@ -156,18 +156,11 @@ class Match < ApplicationRecord
     joins(:solicitation).merge(Solicitation.mtm_campaign_end(query))
   }
 
-  scope :with_recent_refused_feedbacks_2, -> {
-    joins(expert: :users, need: :feedbacks)
-    where(status: :not_for_me, taken_care_of_at: 5.days.ago..)
-    .select{ |match| (match.expert.user_ids & match.need.feedbacks.pluck(:user_id)).any? }
-    .uniq
-  }
-
   scope :with_recent_refused_feedbacks, -> {
     joins("INNER JOIN feedbacks ON feedbacks.feedbackable_id = matches.need_id AND feedbacks.feedbackable_type = 'Need'")
-    .where(status: :not_for_me, taken_care_of_at: 5.days.ago..)
-    .where('feedbacks.user_id IN (SELECT user_id FROM experts_users WHERE expert_id = matches.expert_id)')
-    .distinct
+      .where(status: :not_for_me, taken_care_of_at: 15.days.ago..)
+      .where('feedbacks.user_id IN (SELECT user_id FROM experts_users WHERE expert_id = matches.expert_id)')
+      .distinct
   }
 
   def self.ransackable_scopes(auth_object = nil)
@@ -228,8 +221,7 @@ class Match < ApplicationRecord
     expert&.experts_subjects&.find { |es| es.subject == self.subject }
   end
 
-  def refused_feedbacks
-    return [] unless self.status_not_for_me?
+  def feedbacks
     need.feedbacks.where(user: self.expert.users)
   end
 
