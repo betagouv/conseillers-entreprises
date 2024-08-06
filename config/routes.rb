@@ -103,10 +103,15 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :veille, only: %i[index], path: 'veille' do
+    resources :suivi_qualite, only: %i[index], path: 'suivi-qualite' do
       collection do
         get :quo_matches, path: 'mer-en-attente'
+      end
+    end
+    resources :veille, only: %i[index], path: 'veille' do
+      collection do
         get :starred_needs, path: 'besoins-suivis'
+        get :taking_care_matches, path: 'stock-en-cours'
       end
     end
     resources :shared_satisfactions, only: %i[index], path: 'retours' do

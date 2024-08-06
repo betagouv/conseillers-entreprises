@@ -228,6 +228,16 @@ class Need < ApplicationRecord
     where(id: quo_matches_needs)
   end
 
+  scope :with_filtered_matches_taking_care, -> do
+    taking_care_matches = Match.sent
+      .status_taking_care
+      .where(taken_care_of_at: ..1.month.ago.beginning_of_day)
+    taking_care_matches_needs = Need.diagnosis_completed
+      .joins(:matches)
+      .where(matches: taking_care_matches)
+    where(id: taking_care_matches_needs)
+  end
+
   scope :starred, -> do
     where.not(starred_at: nil)
       .without_action(:starred_need)
@@ -323,6 +333,10 @@ class Need < ApplicationRecord
 
   scope :in_antennes_perimeters, -> (antennes) do
     Need.where(id: antennes.map(&:perimeter_received_needs).flatten)
+  end
+
+  scope :with_card_includes, -> do
+    includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
   end
 
   def self.apply_filters(params)

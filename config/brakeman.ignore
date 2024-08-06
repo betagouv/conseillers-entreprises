@@ -3,19 +3,30 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "1839e26d1c37970b580b6cf6c0947b8e2f12f8f5ced90abdbd02496971dad3ac",
+      "fingerprint": "306e329d9942f9afca8b3b6338ce90887ba0559dd3208b45f40b090b3b576598",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/conseiller/veille/_need.haml",
       "line": 32,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "build_reminders_card_footer(:quo_match, (Unresolved Model).new)",
+      "code": "build_reminders_card_footer(:starred_need, (Unresolved Model).new)",
       "render_path": [
         {
+          "type": "controller",
+          "class": "Conseiller::VeilleController",
+          "method": "starred_needs",
+          "line": 21,
+          "file": "app/controllers/conseiller/veille_controller.rb",
+          "rendered": {
+            "name": "conseiller/veille/starred_needs",
+            "file": "app/views/conseiller/veille/starred_needs.haml"
+          }
+        },
+        {
           "type": "template",
-          "name": "conseiller/veille/index",
-          "line": 12,
-          "file": "app/views/conseiller/veille/index.html.haml",
+          "name": "conseiller/veille/starred_needs",
+          "line": 13,
+          "file": "app/views/conseiller/veille/starred_needs.haml",
           "rendered": {
             "name": "conseiller/veille/_need",
             "file": "app/views/conseiller/veille/_need.haml"
@@ -58,6 +69,50 @@
       "location": {
         "type": "template",
         "template": "reminders/_need"
+      },
+      "user_input": "(Unresolved Model).new",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "51c3d74d511105419c6c51d88a6e6ed3410f0924d4d6bda43de638efd9ba203c",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/conseiller/suivi_qualite/_need.haml",
+      "line": 32,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "build_reminders_card_footer(:quo_match, (Unresolved Model).new)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Conseiller::SuiviQualiteController",
+          "method": "quo_matches",
+          "line": 20,
+          "file": "app/controllers/conseiller/suivi_qualite_controller.rb",
+          "rendered": {
+            "name": "conseiller/suivi_qualite/index",
+            "file": "app/views/conseiller/suivi_qualite/index.html.haml"
+          }
+        },
+        {
+          "type": "template",
+          "name": "conseiller/suivi_qualite/index",
+          "line": 13,
+          "file": "app/views/conseiller/suivi_qualite/index.html.haml",
+          "rendered": {
+            "name": "conseiller/suivi_qualite/_need",
+            "file": "app/views/conseiller/suivi_qualite/_need.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "conseiller/suivi_qualite/_need"
       },
       "user_input": "(Unresolved Model).new",
       "confidence": "Weak",
@@ -113,6 +168,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-03-21 16:36:54 +0100",
+  "updated": "2024-07-15 14:24:12 +0200",
   "brakeman_version": "6.1.2"
 }

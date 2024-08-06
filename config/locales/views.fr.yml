@@ -325,16 +325,31 @@ fr:
         start_manual_diagnosis: Analyse manuelle
       solicitation_badges:
         add_remove_badges: Ajouter / Enlever des tags
-    veille:
+    suivi_qualite:
       index:
         no_results: Aucun résultat
-        title: Veille
+        title: Suivi qualité
       instructions:
         quo_matches: MER en attente de réponse depuis + de 9 jours et - de 45 jours hors PQ
-        starred_needs: Besoins marqués comme suivi lors de l'analyse
+        refused_feedbacks: Besoins refusés avec un commentaire
       titles:
         quo_matches: MER en attente
+        refused_feedbacks: Refusées avec commentaire
+    veille:
+      index:
+        title: Veille
+      instructions:
+        starred_needs: Besoins marqués comme suivi lors de l'analyse
+        taking_care_matches_experts: Experts ayant en stock + de 7 besoins pris en charge il y a + d'un mois
+      starred_needs:
+        no_results: Aucun résultat
+        title: Veille - besoins suivis
+      taking_care_matches:
+        no_results: Aucun résultat
+        title: Veille - Stock en cours
+      titles:
         starred_needs: Besoins suivis
+        taking_care_matches: Stock en cours
   contacts:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
@@ -351,6 +366,18 @@ fr:
       team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Conseillers-Entreprises.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
       team_members: Membres de l’équipe
       team_name_explanation: C’est le nom d’équipe qui sera indiqué au conseiller pour vous envoyer des besoins. Votre antenne et votre structure figurent automatiquement, ne les précisez pas dans le nom d’équipe.
+    expert:
+      expert_creation_date: Inscription le %{date}
+      manager_name: 'Responsable : %{name}'
+      matches_total: Mises en relation reçues depuis le début
+      needs_in_last_chance: Besoins en risque d’abandon
+      process: Vu
+      received_matches: reçues
+      send_one_pending_need_email: Envoyer l’email de réengagement
+      send_reminders_email: Envoyer l’email de relance
+      team_composition: Composition de l'équipe
+    expert_feedbacks:
+      see_remaining_feedbacks: Voir les commentaires plus anciens (%{count})
     subjects:
       contact_us_to_change_subjects_html: Pour <b>changer vos domaines d’intervention</b>, <a href="mailto:%{email}">contactez-nous</a>.
       expert_subject_title_solo: Vos domaines d'intervention
@@ -614,18 +641,6 @@ fr:
     stats_file_name: export-stats-%{antenne}-%{year}T%{number}.xlsx
   reminders:
     experts:
-      expert:
-        expert_creation_date: Inscription le %{date}
-        manager_name: 'Responsable : %{name}'
-        matches_total: Mises en relation reçues depuis le début
-        needs_in_last_chance: Besoins en risque d’abandon
-        process: Vu
-        received_matches: reçues
-        send_one_pending_need_email: Envoyer l’email de réengagement
-        send_reminders_email: Envoyer l’email de relance
-        team_composition: Composition de l'équipe
-      expert_feedbacks:
-        see_remaining_feedbacks: Voir les commentaires plus anciens (%{count})
       filters:
         by_full_name: Par nom d’expert ou d’utilisateur
         search: Rechercher

@@ -1,50 +1,49 @@
 class Conseiller::VeilleController < ApplicationController
   include PersistedSearch
+  include Inbox
+  helper_method :inbox_collections_counts
 
   before_action :authenticate_admin!
   before_action :collections_counts
 
   layout 'side_menu'
 
-  def index
-    redirect_to action: :quo_matches
-  end
-
-  def quo_matches
-    @needs = retrieve_quo_matches_needs
-      .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
-      .order(created_at: :asc)
-      .page(params[:page])
-    @action = :quo_match
-
-    render :index
-  end
-
   def starred_needs
     @needs = retrieve_starred_needs
-      .includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
+      .with_card_includes
       .order(created_at: :asc)
       .page(params[:page])
     @action = :starred_need
+  end
 
-    render :index
+  def taking_care_matches
+    @experts = retrieve_taking_care_matches_experts
+      .includes(:received_needs)
+      .preload(:users, :antenne)
+      .order(created_at: :asc)
+      .page(params[:page])
+    @action = :taking_care_matches
   end
 
   private
 
-  def retrieve_quo_matches_needs
-    @quo_matches_needs ||= Need.apply_filters(index_search_params).with_filtered_matches_quo
+  def retrieve_starred_needs
+    Need.starred.apply_filters(index_search_params)
   end
 
-  def retrieve_starred_needs
-    @starred_needs ||= Need.apply_filters(index_search_params).starred
+  def retrieve_taking_care_matches_experts
+    Expert
+      .with_taking_care_stock
+      .active
+      .apply_filters(index_search_params)
+      .distinct
   end
 
   def collections_counts
-    @collections_by_veille_count = Rails.cache.fetch(['veille', retrieve_quo_matches_needs.size, retrieve_starred_needs.size]) do
+    @collections_by_veille_count = Rails.cache.fetch(['veille', retrieve_taking_care_matches_experts.size, retrieve_starred_needs.size]) do
       {
-        quo_matches: retrieve_quo_matches_needs.size,
-        starred_needs: retrieve_starred_needs.size
+        starred_needs: retrieve_starred_needs.size,
+        taking_care_matches: retrieve_taking_care_matches_experts.to_a.size
       }
     end
   end
