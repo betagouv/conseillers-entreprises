@@ -30,14 +30,11 @@
 
     %tbody
       - grouped_experts.each do |antenne, experts|
-        - experts.each_with_index do |expert, index_in_antenne|
-          - if expert.users.empty?
-            -# permet d'afficher les experts sans utilisateurs
-            - expert.users.build
-          - expert.users.each_with_index do |user, index_in_expert|
+        - experts.each do |expert, users|
+          - users.each_with_index do |user, index_in_expert|
             - highlighted_ids = flash[:table_highlighted_ids]
             - expert_first_row = index_in_expert == 0
-            - antenne_first_row = index_in_antenne == 0 && expert_first_row
+            - antenne_first_row = expert == experts.keys.first && expert_first_row
             - antenne_separation_class = antenne_first_row ? 'tr--distinct' : ''
             - highlighted_class = highlighted_ids&.include?(user.id) ? 'blue' : ''
             %tr{ class: [antenne_separation_class, highlighted_class].compact.join(" ") }
@@ -46,9 +43,11 @@
                 %td.td-header.td-header--antenne{ rowspan: total_users(experts), title: antenne.name }
                   = link_to antenne, admin_antenne_path(antenne)
               -# expert cell
-              - if index_in_expert == 0
-                %td.td-header.td-header--expert{ rowspan: expert.users.size }
-                  = link_to expert.full_name, edit_admin_expert_path(expert), title: t('.edit_expert', expert_name: expert.full_name, antenne: antenne)
+              - if expert_first_row
+                %td.td-header.td-header--expert{ rowspan: users.size }
+                  - if expert.persisted?
+                    = link_to expert.full_name, edit_admin_expert_path(expert), title: t('.edit_expert', expert_name: expert.full_name, antenne: antenne)
+
               -# user cell
               %td.td-header.td-header--user
                 - if user.persisted?
@@ -59,11 +58,11 @@
                   - subjects.each_value do |institutions_subjects|
                     - institutions_subjects.each do |institution_subject|
                       -# We’re using `&` instead of .merge to use the preloaded relations instead of doing a new DB query.
-                      - experts_subjects = expert.experts_subjects & institution_subject.experts_subjects
+                      - experts_subjects = expert&.experts_subjects & institution_subject.experts_subjects
                       - raise 'There should only be one ExpertSubject' if experts_subjects.size > 1
                       - expert_subject = experts_subjects.first
                       -# The InstitutionSubjects cells themselves are spanned on all the rows of the members of the expert team.
-                      %td{ rowspan: expert.users.size, class: ('yellow' if expert_subject.present?) }
+                      %td{ rowspan: users.size, class: ('yellow' if expert_subject.present?) }
                         - if expert_subject.present?
                           - intervention_criteria = expert_subject.intervention_criteria
                           - if intervention_criteria.present?
