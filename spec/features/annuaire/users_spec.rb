@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Annuaire::Users', type: :feature do
+describe 'Annuaire::Users' do
   login_admin
 
   before { create_home_landing }
@@ -24,7 +24,7 @@ describe 'Annuaire::Users', type: :feature do
       before { visit institution_users_path(institution_slug: institution_1.slug) }
 
       it 'return all users for the institution' do
-        save_and_open_page
+        expect(page).to have_content(antenne_1.name)
         expect(page).to have_content(expert_1.full_name)
         expect(page).to have_content(expert_1_same_antenne.full_name)
         expect(page).to have_content(expert_2.full_name)
@@ -35,6 +35,7 @@ describe 'Annuaire::Users', type: :feature do
       before { visit institution_users_path(institution_slug: institution_1.slug, advisor: user_1, antenne_id: antenne_1.id) }
 
       it 'return all users for the user antenne' do
+        expect(page).to have_content(antenne_1.name)
         expect(page).to have_content(expert_1.full_name)
         expect(page).to have_content(user_1.full_name)
         expect(page).to have_content(expert_1_same_antenne.full_name)
@@ -45,8 +46,23 @@ describe 'Annuaire::Users', type: :feature do
       before { visit institution_users_path(institution_slug: institution_1.slug, antenne_id: antenne_1.id) }
 
       it 'return all users for the antenne' do
+        expect(page).to have_content(antenne_1.name)
         expect(page).to have_content(expert_1.full_name)
         expect(page).to have_content(expert_1_same_antenne.full_name)
+      end
+    end
+
+    context 'with a manager without experts' do
+      let!(:manager) { create :user, antenne: antenne_1 }
+
+      before do
+        manager.managed_antennes.push(antenne_1)
+        visit institution_users_path(institution_slug: institution_1.slug)
+      end
+
+      it 'return all users for the antenne' do
+        expect(page).to have_content(antenne_1.name)
+        expect(page).to have_content(manager.full_name)
       end
     end
   end

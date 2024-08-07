@@ -27,6 +27,8 @@ RSpec.describe Annuaire::UsersController do
       it 'return all users for the user antenne' do
         request
         expect(assigns(:experts)).to contain_exactly(expert_1, expert_1_same_antenne)
+        expect(assigns(:grouped_experts).keys).to contain_exactly(antenne_1)
+        expect(assigns(:grouped_experts)[antenne_1].keys).to contain_exactly(expert_1, expert_1_same_antenne)
       end
     end
 
@@ -36,6 +38,8 @@ RSpec.describe Annuaire::UsersController do
       it 'return all users for the antenne' do
         request
         expect(assigns(:experts)).to contain_exactly(expert_1, expert_1_same_antenne)
+        expect(assigns(:grouped_experts).keys).to contain_exactly(antenne_1)
+        expect(assigns(:grouped_experts)[antenne_1].keys).to contain_exactly(expert_1, expert_1_same_antenne)
       end
     end
 
@@ -45,6 +49,30 @@ RSpec.describe Annuaire::UsersController do
       it 'return all users for the institution' do
         request
         expect(assigns(:experts)).to contain_exactly(expert_1, expert_1_same_antenne, expert_2)
+        expect(assigns(:grouped_experts).keys).to contain_exactly(antenne_1, antenne_2)
+        expect(assigns(:grouped_experts)[antenne_1].keys).to contain_exactly(expert_1, expert_1_same_antenne)
+        expect(assigns(:grouped_experts)[antenne_2].keys).to contain_exactly(expert_2)
+      end
+    end
+
+    context 'with a manager without experts' do
+      let!(:manager) { create :user, antenne: antenne_1 }
+
+      before do
+        manager.managed_antennes.push(antenne_1)
+      end
+
+      subject(:request) { get :index, params: { institution_slug: institution_1.slug } }
+
+      it 'return all users for the institution' do
+        request
+        expect(assigns(:experts)).to contain_exactly(expert_1, expert_1_same_antenne, expert_2)
+        expect(assigns(:grouped_experts).keys).to contain_exactly(antenne_1, antenne_2)
+        expect(assigns(:grouped_experts)[antenne_1].keys).to contain_exactly(
+                                                               expert_1,
+                                                               expert_1_same_antenne,
+                                                               an_instance_of(Expert).and(have_attributes(id: nil))
+                                                             )
       end
     end
   end

@@ -3,6 +3,7 @@ module  Annuaire
     before_action :retrieve_institution
     before_action :retrieve_antenne, only: :index
     before_action :retrieve_experts, only: :index
+    before_action :group_experts, only: :index
     before_action :retrieve_subjects, only: :index
 
     def index
@@ -12,7 +13,6 @@ module  Annuaire
       institutions_subjects_exportable = institutions_subjects_by_theme.values.flatten
 
       @grouped_subjects = institutions_subjects_by_theme.transform_values{ |is| is.group_by(&:subject) }
-      @grouped_experts = @experts.group_by(&:antenne)
 
       @not_invited_users = []
       # @not_invited_users = not_invited_users
@@ -80,22 +80,25 @@ module  Annuaire
         .not_deleted
         .order('antennes.name', 'full_name')
         .preload(:antenne, :experts_subjects, :communes, :antenne, users: :user_rights_manager)
-        # .select('"antennes".*, "users".*')
         .by_region(index_search_params[:region])
         .by_theme(index_search_params[:theme])
         .by_subject(index_search_params[:subject])
     end
 
-    # def retrieve_users
-    #   @users = base_users
-    #     .relevant_for_skills
-    #     .order('antennes.name', 'team_name', 'users.full_name')
-    #     .preload(:antenne, :user_rights_manager, relevant_expert: [:users, :antenne, :experts_subjects, :communes])
-    #     .select('"antennes".*, "users".*')
-    #     .by_region(index_search_params[:region])
-    #     .by_theme(index_search_params[:theme])
-    #     .by_subject(index_search_params[:subject])
-    # end
+    def group_experts
+      @grouped_experts = @experts.group_by(&:antenne).transform_values do |experts|
+        experts.index_with do |expert|
+          expert.users.presence || [User.new]
+        end
+      end
+
+      @grouped_experts.each_key do |antenne|
+        next unless antenne.managers.any?
+
+        @grouped_experts[antenne][Expert.new] = antenne.managers
+      end
+      @grouped_experts
+    end
 
     # def base_users
     #   if params[:advisor].present?
