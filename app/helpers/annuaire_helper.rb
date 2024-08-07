@@ -37,4 +37,9 @@ module AnnuaireHelper
       value
     end
   end
+
+  def total_users(experts)
+    # Permet de compter le nombre de users même non persistés pour afficher les experts sans user
+    experts.flatten.sum{ |e| [e.users.size, 1].max }
+  end
 end

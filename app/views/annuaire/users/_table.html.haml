@@ -31,6 +31,9 @@
     %tbody
       - grouped_experts.each do |antenne, experts|
         - experts.each_with_index do |expert, index_in_antenne|
+          - if expert.users.empty?
+            -# permet d'afficher les experts sans utilisateurs
+            - expert.users.build
           - expert.users.each_with_index do |user, index_in_expert|
             - highlighted_ids = flash[:table_highlighted_ids]
             - expert_first_row = index_in_expert == 0
@@ -40,7 +43,7 @@
             %tr{ class: [antenne_separation_class, highlighted_class].compact.join(" ") }
               -# antenne cell
               - if antenne_first_row
-                %td.td-header.td-header--antenne{ rowspan: experts.flatten.sum{ |e| e.users.size }, title: antenne.name }
+                %td.td-header.td-header--antenne{ rowspan: total_users(experts), title: antenne.name }
                   = link_to antenne, admin_antenne_path(antenne)
               -# expert cell
               - if index_in_expert == 0
@@ -48,7 +51,8 @@
                   = link_to expert.full_name, edit_admin_expert_path(expert), title: t('.edit_expert', expert_name: expert.full_name, antenne: antenne)
               -# user cell
               %td.td-header.td-header--user
-                = build_user_name_cell(user, antenne)
+                - if user.persisted?
+                  = build_user_name_cell(user, antenne)
 
               - if expert_first_row
                 - grouped_subjects.each_value do |subjects|

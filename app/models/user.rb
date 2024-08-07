@@ -115,7 +115,7 @@ class User < ApplicationRecord
   has_many :received_matches, through: :experts, source: :received_matches, inverse_of: :contacted_users
   has_many :received_needs, through: :experts, source: :received_needs, inverse_of: :contacted_users
   has_many :received_diagnoses, through: :experts, source: :received_diagnoses, inverse_of: :contacted_users
-  has_and_belongs_to_many :relevant_experts, -> { relevant_for_skills }, class_name: 'Expert'
+  has_and_belongs_to_many :relevant_experts, -> { not_deleted.with_subjects }, class_name: 'Expert'
   has_many :antenne_regions, through: :experts, inverse_of: :advisors
   has_many :themes, through: :experts, inverse_of: :advisors
   has_many :subjects, through: :experts, inverse_of: :advisors
@@ -179,6 +179,7 @@ class User < ApplicationRecord
   scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
   scope :without_experts, -> { where.missing(:experts) }
 
+  # TODO supprimer cette partie
   ## Relevant Experts stuff
   # User objects fetched through this scope have an additional attribute :relevant_expert_id
   # Note: This scope will return DUPLICATE ROWS FOR THE SAME USER, if there are several relevant experts.)
