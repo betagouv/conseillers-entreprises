@@ -6,7 +6,7 @@ require 'api_helper'
 
 describe 'invitations', :js do
   describe 'new invitations' do
-    login_user
+    login_admin
 
     let!(:antenne) { create :antenne, name: 'Agence tous risques' }
 
