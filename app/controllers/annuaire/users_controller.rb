@@ -2,7 +2,7 @@ module  Annuaire
   class UsersController < BaseController
     before_action :retrieve_institution
     before_action :retrieve_antenne, only: :index
-    before_action :retrieve_users, only: :index
+    before_action :retrieve_experts, only: :index
     before_action :retrieve_subjects, only: :index
 
     def index
@@ -12,9 +12,10 @@ module  Annuaire
       institutions_subjects_exportable = institutions_subjects_by_theme.values.flatten
 
       @grouped_subjects = institutions_subjects_by_theme.transform_values{ |is| is.group_by(&:subject) }
-      @grouped_users = @users.select(:antennes).group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
+      @grouped_experts = @experts.group_by(&:antenne)
 
-      @not_invited_users = not_invited_users
+      @not_invited_users = []
+      # @not_invited_users = not_invited_users
 
       respond_to do |format|
         format.html
@@ -74,29 +75,51 @@ module  Annuaire
       @referencement_coverages = @antenne.referencement_coverages if @antenne.present?
     end
 
-    def retrieve_users
-      @users = base_users
-        .relevant_for_skills
-        .order('antennes.name', 'team_name', 'users.full_name')
-        .preload(:antenne, :user_rights_manager, relevant_expert: [:users, :antenne, :experts_subjects, :communes])
-        .select('"antennes".*, "users".*')
+    def retrieve_experts
+      @experts = base_experts
+        .not_deleted
+        .order('antennes.name', 'full_name')
+        .preload(:antenne, :experts_subjects, :communes, :antenne, users: :user_rights_manager)
+        # .select('"antennes".*, "users".*')
         .by_region(index_search_params[:region])
         .by_theme(index_search_params[:theme])
         .by_subject(index_search_params[:subject])
     end
 
-    def base_users
+    # def retrieve_users
+    #   @users = base_users
+    #     .relevant_for_skills
+    #     .order('antennes.name', 'team_name', 'users.full_name')
+    #     .preload(:antenne, :user_rights_manager, relevant_expert: [:users, :antenne, :experts_subjects, :communes])
+    #     .select('"antennes".*, "users".*')
+    #     .by_region(index_search_params[:region])
+    #     .by_theme(index_search_params[:theme])
+    #     .by_subject(index_search_params[:subject])
+    # end
+
+    # def base_users
+    #   if params[:advisor].present?
+    #     searched_advisor = User.find(params[:advisor])
+    #     flash[:table_highlighted_ids] = [searched_advisor.id]
+    #     advisors = @antenne.advisors.joins(:antenne)
+    #   elsif session[:highlighted_antennes_ids] && @antenne.nil?
+    #     advisors = @institution.advisors.joins(:antenne).where(antenne: { id: session[:highlighted_antennes_ids] })
+    #   else
+    #     advisors = (@antenne || @institution).advisors.joins(:antenne)
+    #   end
+    #   session.delete(:highlighted_antennes_ids)
+    #   advisors
+    # end
+
+    def base_experts
       if params[:advisor].present?
         searched_advisor = User.find(params[:advisor])
         flash[:table_highlighted_ids] = [searched_advisor.id]
-        advisors = @antenne.advisors.joins(:antenne)
-      elsif session[:highlighted_antennes_ids] && @antenne.nil?
-        advisors = @institution.advisors.joins(:antenne).where(antenne: { id: session[:highlighted_antennes_ids] })
+        experts = @antenne.experts.joins(:antenne)
       else
-        advisors = (@antenne || @institution).advisors.joins(:antenne)
+        experts = (@antenne || @institution).experts.joins(:antenne)
       end
-      session.delete(:highlighted_antennes_ids)
-      advisors
+      experts
     end
   end
 end

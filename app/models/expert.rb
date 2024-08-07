@@ -166,9 +166,20 @@ class Expert < ApplicationRecord
     joins(:antenne).with_global_zone.or(joins(:antenne).merge(Antenne.territorial_level_national))
   end
 
-  scope :by_region, -> (region_id) {
+  scope :by_region, -> (region_id) do
+    return all if region_id.blank?
     merge(Territory.find(region_id).territorial_experts)
-  }
+  end
+
+  scope :by_theme, -> (theme_id) do
+    return all if theme_id.blank?
+    joins(:themes).where(themes: theme_id).distinct
+  end
+
+  scope :by_subject, -> (subject_id) do
+    return all if subject_id.blank?
+    joins(:subjects).where(subjects: subject_id).distinct
+  end
 
   # param peut être un id de Territory ou une clé correspondant à un scope ("with_national_perimeter" par ex)
   scope :by_possible_region, -> (param) {
