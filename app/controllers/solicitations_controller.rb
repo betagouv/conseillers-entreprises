@@ -141,7 +141,8 @@ class SolicitationsController < PagesController
   end
 
   def form_complete
-    @displayable_institutions = @landing_subject.solicitable_institutions.with_solicitable_logo.order(:name)
+    # TODO : mieux gérer les institutions en expérimentations (cf reject by slug)
+    @displayable_institutions = @landing_subject.solicitable_institutions.with_solicitable_logo.where.not(slug: ['ademe']).order(:name)
     @opco = @landing_subject.solicitable_institutions.opco.any? ? @landing_subject.solicitable_institutions.opco.first : nil
   end
 
