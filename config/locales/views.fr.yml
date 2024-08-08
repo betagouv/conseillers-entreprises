@@ -50,7 +50,7 @@ fr:
     reassign_matches:
       reassign_matches:
         save: Enregistrer
-        select_user: Utilisateur pour la réatribution des mises en relation
+        select_expert: Expert pour la réatribution des mises en relation
   admin_link: Lien admin
   annuaire:
     antennes:

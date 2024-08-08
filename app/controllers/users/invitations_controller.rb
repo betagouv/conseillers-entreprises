@@ -2,6 +2,7 @@
 
 module Users
   class InvitationsController < Devise::InvitationsController
+    before_action :authenticate_admin!, only: [:new]
     before_action :configure_permitted_parameters, only: %i[create update]
 
     def after_invite_path_for(inviter, invitee = nil)
