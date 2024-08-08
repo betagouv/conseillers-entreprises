@@ -9,7 +9,7 @@
       "file": "app/views/conseiller/veille/_need.haml",
       "line": 32,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "build_reminders_card_footer(:starred_need, (Unresolved Model).new)",
+      "code": "build_admin_card_footer(:starred_need, (Unresolved Model).new)",
       "render_path": [
         {
           "type": "controller",
@@ -53,7 +53,7 @@
       "file": "app/views/reminders/_need.haml",
       "line": 32,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "build_reminders_card_footer(action, (Unresolved Model).new)",
+      "code": "build_admin_card_footer(action, (Unresolved Model).new)",
       "render_path": [
         {
           "type": "template",
@@ -86,7 +86,7 @@
       "file": "app/views/conseiller/suivi_qualite/_need.haml",
       "line": 32,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "build_reminders_card_footer(:quo_match, (Unresolved Model).new)",
+      "code": "build_admin_card_footer(:quo_match, (Unresolved Model).new)",
       "render_path": [
         {
           "type": "controller",

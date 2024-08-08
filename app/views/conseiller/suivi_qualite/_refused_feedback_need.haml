@@ -1,11 +1,11 @@
 - cache [need, action] do
-  .card-reminders-need.fr-my-4w.card
+  .card-admin-need.fr-my-4w.card
     .card__header
       .card__title
         %h2.fr-h4= link_to need.company.name, need_path(need, origin: 'reminders')
-        .subtitle.subtitle--dates
+        %p.fr-card__detail.fr-card__detail__lg.fr-mt-2v
           = t('needs.dates.creation', date: l(need.display_date, format: :long))
-        .subtitle.subtitle--dates
+        %p.fr-card__detail.fr-card__detail__lg
           = t('needs.dates.last_not_for_me', date: l(need.matches.status_not_for_me.maximum(:taken_care_of_at).to_time, format: :sentence))
       = render 'reminders/needs_badges', need: need
     .fr-card__body.fr-text--sm
@@ -15,15 +15,15 @@
             %h3.fr-h6
               = need.subject
             .subtitle
-              = need.matches.human_count
+              %p.fr-card__detail.fr-card__detail__lg= need.matches.human_count
               - if need.no_activity?
-                .label.label--sm.orange= t('conseiller.diagnoses.last_activity_date', l: l(need.updated_at.to_date, format: :long))
+                %p.fr-badge.fr-badge--new.fr-badge--no-icon.fr-badge--sm.fr-ml-1w= t('conseiller.diagnoses.last_activity_date', l: l(need.updated_at.to_date, format: :long))
         .refused-feedbacks
           - need.refused_feedbacks.find_each do |feedback|
             .comment__container.fr-mb-4w
-              .comment__title
+              %p.comment__title
                 = feedback.description
-              .comment__meta
+              %p.comment__meta
                 - date = I18n.l(feedback.created_at, format: :sentence)
                 = t('.comment_date', date: date, author: [feedback.user.full_name, feedback.user.antenne.name].join(', '))
 

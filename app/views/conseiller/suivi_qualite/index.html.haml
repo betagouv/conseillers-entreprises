@@ -10,6 +10,8 @@
 - else
   = paginate @needs
 
-  = render partial: "#{@action}_need", collection: @needs, as: :need, locals: { action: @action }
+  - partial_name = (@action == :refused_feedback ? 'refused_feedback_need' : 'needs/admin_need')
+
+  = render partial: partial_name, collection: @needs, as: :need, locals: { action: @action }
 
   = paginate @needs
