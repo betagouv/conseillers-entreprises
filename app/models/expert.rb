@@ -263,6 +263,15 @@ class Expert < ApplicationRecord
     users.size == 1
   end
 
+  # Utilisé pour la réattribution des matches d'un expert
+  def transfer_in_progress_matches(expert)
+    ActiveRecord::Base.transaction do
+      received_matches.in_progress.each do |match|
+        match.update(expert: expert)
+      end
+    end
+  end
+
   ## Referencing
   def custom_communes?
     communes.any?

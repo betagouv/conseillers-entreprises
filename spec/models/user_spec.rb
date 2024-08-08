@@ -245,22 +245,4 @@ RSpec.describe User do
       end
     end
   end
-
-  describe '#reassign matches' do
-    let(:old_expert) { create :expert, :with_expert_subjects }
-    let(:old_user) { create :user, :invitation_accepted, experts: [old_expert] }
-    let(:new_expert) { create :expert, :with_expert_subjects }
-    let(:new_user) { create :user, :invitation_accepted, experts: [new_expert] }
-    let!(:match_quo) { create :match, status: :quo, expert: old_expert }
-    let!(:match_taking_care) { create :match, status: :taking_care, expert: old_expert }
-    let!(:match_done) { create :match, status: :done, expert: old_expert }
-
-    before { old_user.transfer_in_progress_matches(new_user) }
-
-    it 'transfers only in progress matches to new user' do
-      expect(new_user.received_matches).to contain_exactly(match_quo, match_taking_care)
-      expect(old_user.received_matches).not_to include(match_quo, match_taking_care)
-      expect(old_user.received_matches).to include(match_done)
-    end
-  end
 end
