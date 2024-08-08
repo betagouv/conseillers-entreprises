@@ -178,6 +178,13 @@ fr:
         dreets_phone_number_html: Vous pouvez composer le <b>0806 000 126</b> [prix d’un appel local - pas de surcoût] du lundi au vendredi, de 8h45 à 11h30 et de 13h45 à 16h30.
         intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant le <b>droit du travail</b>. Il s'agit cependant d'un service public destiné aux chefs d'entreprises. Nous ne sommes donc pas en mesure de vous apporter une réponse.
         other_informations: 'Vous trouverez également des informations en droit du travail sur :'
+      formalites_asso_agri_sci:
+        agri_html: 'Pour les activités agricoles : <a href=''https://chambres-agriculture.fr/chambres-dagriculture/nous-connaitre/lannuaire-des-chambres-dagriculture/''>L’annuaire des Chambres d’agriculture</a>'
+        asso_html: 'Pour les associations : <ul><li><a href=''https://www.service-public.fr/particuliers/vosdroits/R1757''>Création d’une association en ligne</a></li><li><a href=''https://www.service-public.fr/particuliers/vosdroits/R37933''>Modification d’une association en ligne</a></li><li><a href=''https://lannuaire.service-public.fr/navigation/prefecture''>Annuaire des préfectures</a></li></ul>'
+        direct_contact: 'Nous vous conseillons de contacter :'
+        no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
+        sci_html: Pour les agents commerciaux et les SCI   <a href='https://www.infogreffe.fr/rechercher-un-greffe'>Moteur de recherche de greffes</a>
+        solicitation_subject_html: concernant vos formalités
       intermediary:
         explications_2_html: Les demandes déposées par les intermédiaires, quel que soit le mandat, ne sont pas transmises. C’est pourquoi <strong>nous vous invitons à accompagner votre interlocuteur / client</strong> pour qu’il dépose lui-même une demande sur le site.
         explications_html: Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 40 partenaires publics et parapublics du service ont à cœur <strong>d’échanger directement</strong> avec les entreprises pour répondre au mieux à leur problématique.
@@ -193,6 +200,21 @@ fr:
         only_commercial_html: "<strong>Attention : l’extrait Kbis ne concerne que les activités commerciales</strong>."
         rne: un extrait de votre inscription au Registre national des entreprises (extrait RNE)
         use_for_commercant_html: Ces deux documents sont à télécharger gratuitement sur <a href=''https://annuaire-entreprises.data.gouv.fr''>annuaire-entreprises.data.gouv.fr</a>.
+      mediateurs:
+        conseil: 'Nous vous conseillons de :'
+        juriste_conseil_html: 'se faire conseiller par un juriste via les informations suivantes : <a href=''https://www.service-public.fr/particuliers/vosdroits/F20706''>Comment consulter gratuitement un avocat ?</a>'
+        litige_agricole_html: 'Litige lié au domaine agricole : <ul><li>Médiateur des relations commerciales agricoles : <a href=''https://agriculture.gouv.fr/le-mediateur-des-relations-commerciales-agricoles''>https://agriculture.gouv.fr</a></li></ul>'
+        litige_assurance_html: 'Litige lié aux assurances : <ul><li>Médiateur des assurances : <a href=''https://www.mediation-assurance.org''>https://www.mediation-assurance.org</a></li></ul>'
+        litige_cotisation_html: 'Litige avec un gestionnaire des cotisations sociales : <ul><li>Médiateur de la MSA : <a href=''https://www.msa.fr/lfp/le-mediateur-de-la-msa''>https://www.msa.fr</a></li><li>Médiateur de l’URSSAF : <a href=''https://www.urssaf.fr/portail/home/utile-et-pratique/mediation.html''>https://www.urssaf.fr</a></li></ul>'
+        litige_energie_html: 'Litige lié à l’énergie : <ul><li>Médiateur National de l''énergie : <a href=''https://www.energie-mediateur.fr''>https://www.energie-mediateur.fr</a></li></ul>'
+        litige_formation_pro_html: 'Litige lié à la formation professionnelle : <ul><li>Médiateur de France Compétences : <a href=''https://www.francecompetences.fr/espace-mediation-de-france-competences''>https://www.francecompetences.fr</a></li></ul>'
+        litige_france_travail_html: 'Litige avec France Travail : <ul><li>Médiateur France Travail : <a href=''https://www.francetravail.fr/candidat/vos-droits-et-demarches/reclamations/le-mediateur-de-pole-emploi.html''>https://www.francetravail.fr</a></li></ul>'
+        litige_impots_html: 'Litige avec les impôts et services douaniers : <ul><li>Médiateur de Bercy : <a href=''https://www.economie.gouv.fr/mediateur/mediateur-bercy''>https://www.economie.gouv.fr</a></li></ul>'
+        litige_paris_idf_html: 'Litige avec la ville de Paris ou de la Région Île de France : <ul><li>Médiateur de la ville de Paris : <a href=''https://www.paris.fr/pages/le-mediateur-de-paris-2687/''>https://www.paris.fr</a></li><li>Médiateur de le région Île de France : <a href=''https://www.iledefrance.fr/saisir-le-mediateur-de-la-region-ile-de-france''>https://www.iledefrance.fr</a></li></ul>'
+        mediateurs_list: 'Voici également la liste des différents médiateurs en fonction de votre besoin :'
+        no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
+        recouvrement_html: 'procéder à un recouvrement amiable : par voie d’huissier, par exemple. La procédure est simplifiée jusqu’à 5 000 euros. Elle est enclenchée à l’initiative du créancier qui peut le faire directement via la plateforme de traitement des petites créances de la Chambre nationale des commissaires de justice : <a href=''https://www.credicys.fr''>https://www.credicys.fr</a>'
+        solicitation_subject_html: concernant un litige
       moderation:
         no_new_element: En l’absence d’élément nouveau, nous ne pouvons réaliser de nouvelles mises en relation vers ce dernier.
         quality_monitoring_html: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller. Nous vous invitons à bien <b>vérifier votre messagerie</b> électronique, vos courriers indésirables (spams) et votre messagerie vocale.
