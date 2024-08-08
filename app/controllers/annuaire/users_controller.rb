@@ -14,8 +14,7 @@ module  Annuaire
 
       @grouped_subjects = institutions_subjects_by_theme.transform_values{ |is| is.group_by(&:subject) }
 
-      @not_invited_users = []
-      # @not_invited_users = not_invited_users
+      @not_invited_users = not_invited_users
 
       respond_to do |format|
         format.html
@@ -66,7 +65,8 @@ module  Annuaire
       if flash[:table_highlighted_ids].present?
         User.where(id: flash[:table_highlighted_ids]).where(invitation_sent_at: nil)
       else
-        @users.where(invitation_sent_at: nil)
+        # Ne prend pas @experts directement pour avoir les responsables sans experts
+        User.joins(:antenne).where(antennes: @grouped_experts.keys, invitation_sent_at: nil)
       end
     end
 
@@ -93,7 +93,7 @@ module  Annuaire
       end
 
       @grouped_experts.each_key do |antenne|
-        managers = antenne.managers.reject { |manager| manager.experts.any? }
+        managers = antenne.managers.not_deleted.reject { |manager| manager.experts.any? }
         next unless managers.any?
 
         @grouped_experts[antenne][Expert.new] = managers
@@ -120,6 +120,9 @@ module  Annuaire
         searched_advisor = User.find(params[:advisor])
         flash[:table_highlighted_ids] = [searched_advisor.id]
         experts = @antenne.experts.joins(:antenne)
+      elsif session[:highlighted_antennes_ids] && @antenne.nil?
+        advisors = @institution.advisors.joins(:antenne).where(antenne: { id: session[:highlighted_antennes_ids] })
+        experts = Expert.joins(:antenne).where(antenne: advisors.map(&:antenne))
       else
         experts = (@antenne || @institution).experts.joins(:antenne)
       end
