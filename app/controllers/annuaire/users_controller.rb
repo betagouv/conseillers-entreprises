@@ -93,9 +93,10 @@ module  Annuaire
       end
 
       @grouped_experts.each_key do |antenne|
-        next unless antenne.managers.any?
+        managers = antenne.managers.reject { |manager| manager.experts.any? }
+        next unless managers.any?
 
-        @grouped_experts[antenne][Expert.new] = antenne.managers
+        @grouped_experts[antenne][Expert.new] = managers
       end
       @grouped_experts
     end
