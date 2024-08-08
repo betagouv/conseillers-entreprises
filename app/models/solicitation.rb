@@ -80,7 +80,7 @@ class Solicitation < ApplicationRecord
   GENERIC_EMAILS_TYPES = %i[
     bad_quality creation employee_labor_law siret moderation sie_tva_and_others
     sie_sip_declare_and_pay intermediary recruitment_foreign_worker no_expert carsat tns_training kbis_extract
-    retirement_liberal_professions formalites_asso_agri_sci
+    retirement_liberal_professions formalites_asso_agri_sci mediateurs
   ]
 
   ## Status
