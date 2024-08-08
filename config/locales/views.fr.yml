@@ -332,6 +332,8 @@ fr:
       instructions:
         quo_matches: MER en attente de réponse depuis + de 9 jours et - de 45 jours hors PQ
         refused_feedbacks: Besoins refusés avec un commentaire
+      refused_feedback_need:
+        comment_date: "%{author}, le %{date}"
       titles:
         quo_matches: MER en attente
         refused_feedbacks: Refusées avec commentaire
@@ -528,6 +530,9 @@ fr:
       not_for_me: Refusé
       quo_active: Boite de réception
       taking_care: Prise en charge
+    dates:
+      creation: Besoin du %{date}
+      last_not_for_me: Dernier refus le %{date}
     empty_placeholder:
       title: Aucun besoin
       welcome_help_html: Un problème ? Une question ? %{mailto_link}.
