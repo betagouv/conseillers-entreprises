@@ -93,6 +93,7 @@ fr:
     build_user_name_cell:
       antenne_manager: Responsables d’antenne.
       edit_expert: Modifier %{expert_name} - %{antenne}
+      edit_user: Modifier %{user_name} - %{antenne}
       not_invited: Invitation pas encore envoyée.
       specific_territories: Équipe avec des territoires spécifiques.
   application:
