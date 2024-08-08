@@ -69,10 +69,10 @@ RSpec.describe Annuaire::UsersController do
         expect(assigns(:experts)).to contain_exactly(expert_1, expert_1_same_antenne, expert_2)
         expect(assigns(:grouped_experts).keys).to contain_exactly(antenne_1, antenne_2)
         expect(assigns(:grouped_experts)[antenne_1].keys).to contain_exactly(
-                                                               expert_1,
+          expert_1,
                                                                expert_1_same_antenne,
                                                                an_instance_of(Expert).and(have_attributes(id: nil))
-                                                             )
+        )
       end
     end
   end
