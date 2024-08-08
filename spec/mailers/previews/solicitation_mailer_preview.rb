@@ -15,6 +15,14 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.siret(random_solicitation)
   end
 
+  def mediateurs
+    SolicitationMailer.mediateurs(random_solicitation)
+  end
+
+  def formalites_asso_agri_sci
+    SolicitationMailer.formalites_asso_agri_sci(random_solicitation)
+  end
+
   def moderation
     SolicitationMailer.moderation(random_solicitation)
   end
