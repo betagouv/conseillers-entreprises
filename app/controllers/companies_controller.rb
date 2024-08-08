@@ -77,6 +77,9 @@ class CompaniesController < ApplicationController
       end
     rescue ApiEntreprise::ApiEntrepriseError => e
       @message = I18n.t("api_requests.generic_error")
+    rescue StandardError => e
+      Sentry.capture_message(e)
+      @message = I18n.t("api_requests.generic_error")
     end
   end
 
