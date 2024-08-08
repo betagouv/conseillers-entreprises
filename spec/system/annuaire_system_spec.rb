@@ -216,17 +216,19 @@ describe 'annuaire', :js do
         end
       end
 
-      describe 'without user' do
-        let!(:institution_subject) { create :institution_subject, institution: institution }
+    end
 
-        before { AntenneCoverage::UpdateJob.perform_sync(antenne.id) }
+    describe 'without user' do
+      let!(:institution_subject) { create :institution_subject, institution: institution }
 
-        it 'display users with no expert warning' do
-          visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
-          expect(page).to have_css 'h1', text: institution.name
-          expect(page).to have_css('.fr-alert--info')
-          expect(page).to have_text(I18n.t('annuaire.users.index.no_users'))
-        end
+      before { AntenneCoverage::UpdateJob.perform_sync(antenne.id) }
+
+      it 'display users with no expert warning' do
+        visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
+        save_and_open_page
+        expect(page).to have_css 'h1', text: institution.name
+        expect(page).to have_css('.fr-alert--info')
+        expect(page).to have_text(I18n.t('annuaire.users.index.no_users'))
       end
     end
   end
