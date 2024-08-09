@@ -27,7 +27,8 @@ module ApiRne::Token
     end
 
     def invalid_cache_if_error
-      Rails.cache.delete('rne_token') if Rails.cache.fetch('rne_token')&.dig("rne")&.key?("error")
+      token = Rails.cache.fetch('rne_token')
+      Rails.cache.delete('rne_token') if token&.is_a?(Hash) && token&.dig("rne")&.key?("error")
     end
 
     def first_try
