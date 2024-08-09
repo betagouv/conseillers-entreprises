@@ -13,6 +13,7 @@ module ApiRne::Token
     # rubocop:enable Style/RedundantInitialize
 
     def call
+      invalid_cache_if_error
       Rails.cache.fetch('rne_token', expires_in: 58.minutes) do
         http_request = Request.new(@username, @password)
         if http_request.success?
@@ -23,6 +24,10 @@ module ApiRne::Token
           handle_error(http_request)
         end
       end
+    end
+
+    def invalid_cache_if_error
+      Rails.cache.delete('rne_token') if Rails.cache.fetch('rne_token')&.dig("rne")&.key?("error")
     end
 
     def first_try
