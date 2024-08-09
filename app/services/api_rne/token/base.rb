@@ -1,23 +1,39 @@
 module ApiRne::Token
   class Base < ApiRne::Base
+    USERNAME_1 = ENV.fetch('RNE_USERNAME')
+    PASSWORD_1 = ENV.fetch('RNE_PASSWORD')
+    USERNAME_2 = ENV.fetch('RNE_USERNAME_2')
+    PASSWORD_2 = ENV.fetch('RNE_PASSWORD_2')
+
     # rubocop:disable Style/RedundantInitialize
-    def initialize; end
+    def initialize(username = USERNAME_1, password = PASSWORD_1)
+      @username = username
+      @password = password
+    end
     # rubocop:enable Style/RedundantInitialize
 
     def call
-      Rails.cache.fetch('rne_token', expires_in: 1.hour) do
-        http_request = Request.new
+      Rails.cache.fetch('rne_token', expires_in: 58.minutes) do
+        http_request = Request.new(@username, @password)
         if http_request.success?
           Responder.new(http_request).call
+        elsif first_try
+          ApiRne::Token::Base.new(USERNAME_2, PASSWORD_2).call
         else
           handle_error(http_request)
         end
       end
     end
+
+    def first_try
+      @username == USERNAME_1
+    end
   end
 
   class Request < ApiRne::Request
-    def initialize
+    def initialize(username, password)
+      @username = username
+      @password = password
       @http_response = HTTP.post(base_url, json: json_params)
       begin
         @data = @http_response.parse(:json)
@@ -30,17 +46,9 @@ module ApiRne::Token
 
     def json_params
       {
-        username: username,
-        password: password
+        username: @username,
+        password: @password
       }.as_json
-    end
-
-    def username
-      @username ||= ENV.fetch('RNE_USERNAME')
-    end
-
-    def password
-      @password ||= ENV.fetch('RNE_PASSWORD')
     end
 
     def base_url
