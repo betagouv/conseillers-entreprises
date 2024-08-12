@@ -1,25 +1,19 @@
 module ApiRne::Token
   class Base < ApiRne::Base
-    USERNAME_1 = ENV.fetch('RNE_USERNAME')
-    PASSWORD_1 = ENV.fetch('RNE_PASSWORD')
-    USERNAME_2 = ENV.fetch('RNE_USERNAME_2')
-    PASSWORD_2 = ENV.fetch('RNE_PASSWORD_2')
-
     # rubocop:disable Style/RedundantInitialize
-    def initialize(username = USERNAME_1, password = PASSWORD_1)
-      @username = username
-      @password = password
+    def initialize(call_count = 0)
+      @call_count = call_count
     end
     # rubocop:enable Style/RedundantInitialize
 
     def call
       invalid_cache_if_error
       Rails.cache.fetch('rne_token', expires_in: 58.minutes) do
-        http_request = Request.new(@username, @password)
+        http_request = Request.new(@call_count)
         if http_request.success?
           Responder.new(http_request).call
         elsif first_try
-          ApiRne::Token::Base.new(USERNAME_2, PASSWORD_2).call
+          ApiRne::Token::Base.new(@call_count + 1).call
         else
           handle_error(http_request)
         end
@@ -28,18 +22,17 @@ module ApiRne::Token
 
     def invalid_cache_if_error
       token = Rails.cache.fetch('rne_token')
-      Rails.cache.delete('rne_token') if token&.is_a?(Hash) && token&.dig("rne")&.key?("error")
+      Rails.cache.delete('rne_token') if token.is_a?(Hash) && token&.dig("rne")&.key?("error")
     end
 
     def first_try
-      @username == USERNAME_1
+      @call_count == 0
     end
   end
 
   class Request < ApiRne::Request
-    def initialize(username, password)
-      @username = username
-      @password = password
+    def initialize(call_count)
+      @call_count = call_count
       @http_response = HTTP.post(base_url, json: json_params)
       begin
         @data = @http_response.parse(:json)
@@ -51,10 +44,14 @@ module ApiRne::Token
     private
 
     def json_params
-      {
-        username: @username,
-        password: @password
-      }.as_json
+      auth_array[@call_count].as_json
+    end
+
+    def auth_array
+      [
+        { username: ENV.fetch('RNE_USERNAME'), password: ENV.fetch('RNE_PASSWORD') },
+        { username: ENV.fetch('RNE_USERNAME_2'), password: ENV.fetch('RNE_PASSWORD_2') }
+      ]
     end
 
     def base_url
