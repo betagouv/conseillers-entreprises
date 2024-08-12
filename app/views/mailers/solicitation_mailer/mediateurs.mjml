@@ -1,0 +1,36 @@
+<mj-section>
+  <mj-column>
+    <mj-text><%= t('mailers.hello') %></mj-text>
+
+    <mj-text><%= t('mailers.solicitation_mailer.intro_with_subject_html', link_to_root: link_to(t('app_name'), root_url), solicitation_subject: t('.solicitation_subject_html')) %></mj-text>
+
+    <mj-text><%= t('.no_expert') %></mj-text>
+
+    <mj-text>
+      <%= t('.conseil') %>
+      <ul>
+        <li><%= t('.recouvrement_html') %></li>
+        <li><%= t('.juriste_conseil_html') %></li>
+      </ul>
+    </mj-text>
+
+    <mj-text><%= t('.mediateurs_list') %>
+      <ul>
+        <li><%= t('.litige_cotisation_html') %></li>
+        <li><%= t('.litige_impots_html') %></li>
+        <li><%= t('.litige_france_travail_html') %></li>
+        <li><%= t('.litige_formation_pro_html') %></li>
+        <li><%= t('.litige_energie_html') %></li>
+        <li><%= t('.litige_agricole_html') %></li>
+        <li><%= t('.litige_assurance_html') %></li>
+        <li><%= t('.litige_paris_idf_html') %></li>
+      </ul>
+    </mj-text>
+
+    <mj-text><%= t('mailers.hope_to_helped') %></mj-text>
+
+    <mj-text><%= t('mailers.best_regards') %></mj-text>
+
+    <%= render 'mailers/solicitation_mailer/footer' %>
+  </mj-column>
+</mj-section>
