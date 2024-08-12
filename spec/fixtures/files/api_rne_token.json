@@ -1,0 +1,21 @@
+{
+  "token": "123456789",
+  "user": {
+    "roles": ["ROLE_NIVEAU_1_COMPANIES_METADATA", "ROLE_API"],
+    "id": 123,
+    "email": "contact@entreprises.service-public.fr",
+    "firstname": "Service Public",
+    "lastname": "ENTREPRISES",
+    "civilityCode": "MS",
+    "address1": "6 rue Louise Weiss",
+    "zipCode": "75013",
+    "city": "Paris",
+    "countryCode": "FR",
+    "isManager": false,
+    "mobilePhone": "0628055148",
+    "lastLogin": "2024-08-12T11:10:56+02:00",
+    "statusHabilitation": "Fait",
+    "active": true,
+    "originCreation": "SSO_INPI"
+  }
+}
