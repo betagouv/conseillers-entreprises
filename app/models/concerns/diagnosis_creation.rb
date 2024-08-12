@@ -41,7 +41,7 @@ module DiagnosisCreation
         end
       end
 
-      params[:step] = :contact
+      params[:step] = :contact unless diagnosis.persisted?
       params[:content] = get_solicitation_description(params)
       diagnosis.attributes = params
       diagnosis.save
