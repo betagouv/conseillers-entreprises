@@ -102,10 +102,6 @@ jobs:
             CI: 'true'
             RORVSWILD_KEY: 'rorvswild'
             REDIS_URL: 'redis://localhost:6379/1'
-            RNE_USERNAME: 'rene nereux'
-            RNE_PASSWORD: 'p4ssw0rd'
-            RNE_USERNAME_2: 'toto'
-            RNE_PASSWORD_2: 'password'
           name: Run Tests, Split by Timings
           command: |
             bundle exec rspec --profile 10 \
