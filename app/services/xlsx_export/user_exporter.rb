@@ -30,10 +30,10 @@ module XlsxExport
 
     def fields_for_team
       {
-        team_full_name: -> { relevant_expert.full_name if relevant_expert.present? },
-        team_email: -> { relevant_expert.email if relevant_expert.present? },
-        team_phone_number: -> { relevant_expert.phone_number if relevant_expert.present? },
-        team_custom_communes: -> { relevant_expert.communes.pluck(:insee_code).join(', ') if relevant_expert.custom_communes? },
+        team_full_name: -> { experts.not_deleted.with_subjects&.first&.full_name if experts.not_deleted.with_subjects&.first.present? },
+        team_email: -> { experts.not_deleted.with_subjects&.first&.email if experts.not_deleted.with_subjects&.first.present? },
+        team_phone_number: -> { experts.not_deleted.with_subjects&.first&.phone_number if experts.not_deleted.with_subjects&.first.present? },
+        team_custom_communes: -> { experts.not_deleted.with_subjects&.first&.communes.pluck(:insee_code).join(', ') if experts.not_deleted.with_subjects&.first&.custom_communes? },
       }
     end
 
@@ -49,10 +49,11 @@ module XlsxExport
         lambda = -> {
           # This block is executed in the context of a User
           # (`self` is a User; See `object.instance_exec(&lambda)` in CsvExport::Base.)
+          return if experts.not_deleted.with_subjects.empty?
 
           # We’re using `&` instead of .merge to use the preloaded relations instead of doing a new DB query.
-          experts_subjects = relevant_expert.experts_subjects & institution_subject.experts_subjects
-          raise 'There should only be one ExpertSubject' if experts_subjects.size > 1
+          experts_subjects = experts.not_deleted.with_subjects&.first&.experts_subjects & institution_subject.experts_subjects
+          raise 'There should only be one ExpertSubject' if experts_subjects.present? && experts_subjects.size > 1
           expert_subject = experts_subjects.first
           expert_subject&.csv_description
         }
@@ -61,7 +62,7 @@ module XlsxExport
     end
 
     def sort_relation(relation)
-      relation.preload(*preloaded_associations).sort_by{ |u| [u.antenne.name, u.relevant_expert&.full_name] }
+      relation.preload(*preloaded_associations).sort_by{ |u| [u.antenne.name, u.experts.not_deleted.with_subjects&.first&.full_name.to_s] }
     end
 
     def create_styles(s)

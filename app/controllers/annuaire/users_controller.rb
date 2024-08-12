@@ -4,6 +4,7 @@ module  Annuaire
     before_action :retrieve_antenne, only: :index
     before_action :retrieve_experts, only: :index
     before_action :group_experts, only: :index
+    before_action :retrieve_managers, only: :index
     before_action :retrieve_subjects, only: :index
 
     def index
@@ -19,10 +20,12 @@ module  Annuaire
       respond_to do |format|
         format.html
         format.csv do
+          retrieve_users
           result = @users.export_csv(include_expert_team: true, institutions_subjects: institutions_subjects_exportable)
           send_data result.csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{result.filename}.csv"
         end
         format.xlsx do
+          retrieve_users
           xlsx_filename = "#{(@antenne || @institution).name.parameterize}-#{@users.model_name.human.pluralize.parameterize}.xlsx"
           result = @users.export_xlsx(include_expert_team: true, institutions_subjects: institutions_subjects_exportable)
           send_data result.xlsx.to_stream.read, type: "application/xlsx", filename: xlsx_filename
@@ -91,29 +94,20 @@ module  Annuaire
           expert.users.presence || [User.new]
         end
       end
+    end
 
+    def retrieve_managers
       @grouped_experts.each_key do |antenne|
         managers = antenne.managers.not_deleted.reject { |manager| manager.experts.any? }
         next unless managers.any?
-
         @grouped_experts[antenne][Expert.new] = managers
       end
-      @grouped_experts
     end
 
-    # def base_users
-    #   if params[:advisor].present?
-    #     searched_advisor = User.find(params[:advisor])
-    #     flash[:table_highlighted_ids] = [searched_advisor.id]
-    #     advisors = @antenne.advisors.joins(:antenne)
-    #   elsif session[:highlighted_antennes_ids] && @antenne.nil?
-    #     advisors = @institution.advisors.joins(:antenne).where(antenne: { id: session[:highlighted_antennes_ids] })
-    #   else
-    #     advisors = (@antenne || @institution).advisors.joins(:antenne)
-    #   end
-    #   session.delete(:highlighted_antennes_ids)
-    #   advisors
-    # end
+    def retrieve_users
+      user_ids = @grouped_experts.values.flat_map(&:values).flatten.map(&:id).uniq
+      @users = User.where(id: user_ids)
+    end
 
     def base_experts
       if params[:advisor].present?

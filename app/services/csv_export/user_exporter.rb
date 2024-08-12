@@ -31,11 +31,11 @@ module CsvExport
 
     def fields_for_team
       {
-        team_id: -> { relevant_expert.id },
-        team_full_name: -> { relevant_expert.full_name },
-        team_email: -> { relevant_expert.email },
-        team_phone_number: -> { relevant_expert.phone_number },
-        team_custom_communes: -> { relevant_expert.communes.pluck(:insee_code).join(', ') if relevant_expert.custom_communes? }
+        team_id: -> { experts.not_deleted.with_subjects&.first&.id },
+        team_full_name: -> { experts.not_deleted.with_subjects&.first&.full_name },
+        team_email: -> { experts.not_deleted.with_subjects&.first&.email },
+        team_phone_number: -> { experts.not_deleted.with_subjects&.first&.phone_number },
+        team_custom_communes: -> { experts.not_deleted.with_subjects&.first&.communes.pluck(:insee_code).join(', ') if experts.not_deleted.with_subjects&.first&.custom_communes? }
       }
     end
 
@@ -49,8 +49,9 @@ module CsvExport
           # (`self` is a User; See `object.instance_exec(&lambda)` in CsvExport::Base.)
 
           # We’re using `&` instead of .merge to use the preloaded relations instead of doing a new DB query.
-          experts_subjects = relevant_expert.experts_subjects & institution_subject.experts_subjects
-          raise 'There should only be one ExpertSubject' if experts_subjects.size > 1
+          return if experts.not_deleted.with_subjects.empty?
+          experts_subjects = experts.not_deleted.with_subjects&.first&.experts_subjects & institution_subject.experts_subjects
+          raise 'There should only be one ExpertSubject' if experts_subjects.present? && experts_subjects.size > 1
           expert_subject = experts_subjects.first
           expert_subject&.csv_description
         }
@@ -59,7 +60,7 @@ module CsvExport
     end
 
     def sort_relation(relation)
-      relation.preload(*preloaded_associations).sort_by{ |u| [u.antenne.name, u.relevant_expert&.full_name] }
+      relation.preload(*preloaded_associations).sort_by{ |u| [u.antenne.name, u.experts.first&.full_name.to_s] }
     end
   end
 end
