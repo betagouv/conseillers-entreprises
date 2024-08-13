@@ -29,6 +29,7 @@ module CsvImport
       attributes[:institution] = attributes[:institution].strip if attributes[:institution].present?
       attributes[:antenne] = attributes[:antenne].strip if attributes[:antenne].present?
       attributes[:email] = attributes[:email].strip.downcase if attributes[:email].present?
+      attributes.delete(:id)
       attributes
     end
 
@@ -57,7 +58,7 @@ module CsvImport
 
     def team_mapping
       @team_mapping ||=
-        %i[team_email team_full_name team_phone_number team_custom_communes]
+        %i[team_id team_email team_full_name team_phone_number team_custom_communes]
           .index_by{ |k| User.human_attribute_name(k) }
     end
 
