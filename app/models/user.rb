@@ -192,6 +192,11 @@ class User < ApplicationRecord
   # This makes it possible to preload it in views.
   belongs_to :relevant_expert, class_name: 'Expert', optional: true
 
+  # utilisé dans l'export en attendant de faire une version qui accepte plusieurs experts avec des sujets
+  def first_expert_with_subject
+    experts.not_deleted.with_subjects.first
+  end
+
   scope :in_region, -> (region_id) do
     return all if region_id.blank?
     left_joins(antenne: :regions)

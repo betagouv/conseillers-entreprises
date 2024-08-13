@@ -31,11 +31,11 @@ module CsvExport
 
     def fields_for_team
       {
-        team_id: -> { experts.not_deleted.with_subjects&.first&.id },
-        team_full_name: -> { experts.not_deleted.with_subjects&.first&.full_name },
-        team_email: -> { experts.not_deleted.with_subjects&.first&.email },
-        team_phone_number: -> { experts.not_deleted.with_subjects&.first&.phone_number },
-        team_custom_communes: -> { experts.not_deleted.with_subjects&.first&.communes.pluck(:insee_code).join(', ') if experts.not_deleted.with_subjects&.first&.custom_communes? }
+        team_id: -> { first_expert_with_subject&.id },
+        team_full_name: -> { first_expert_with_subject&.full_name },
+        team_email: -> { first_expert_with_subject&.email },
+        team_phone_number: -> { first_expert_with_subject&.phone_number },
+        team_custom_communes: -> { first_expert_with_subject&.communes.pluck(:insee_code).join(', ') if first_expert_with_subject&.custom_communes? }
       }
     end
 
@@ -50,7 +50,7 @@ module CsvExport
 
           # We’re using `&` instead of .merge to use the preloaded relations instead of doing a new DB query.
           return if experts.not_deleted.with_subjects.empty?
-          experts_subjects = experts.not_deleted.with_subjects&.first&.experts_subjects & institution_subject.experts_subjects
+          experts_subjects = first_expert_with_subject&.experts_subjects & institution_subject.experts_subjects
           raise 'There should only be one ExpertSubject' if experts_subjects.present? && experts_subjects.size > 1
           expert_subject = experts_subjects.first
           expert_subject&.csv_description
