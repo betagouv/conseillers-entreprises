@@ -1,7 +1,7 @@
 module CsvExport
   # UserExporter supports two options.
   # Both require the relation to be fetched using User.relevant_for_skills.
-  # include_expert_team: include the “relevant_expert” team.
+  # include_expert_team
   # institutions_subjects: the institutions_subjects to add as csv columns for the relevant expert.
   class UserExporter < BaseExporter
     def fields

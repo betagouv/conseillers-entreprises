@@ -6,7 +6,7 @@ class ExpertsController < ApplicationController
   layout 'user_tabs'
 
   def index
-    redirect_to subjects_expert_path(current_user.experts.relevant_for_skills.first)
+    redirect_to subjects_expert_path(current_user.experts.first)
   end
 
   def edit

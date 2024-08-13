@@ -175,22 +175,7 @@ class User < ApplicationRecord
     joins(experts: :themes).where(experts: { themes: theme_id }).distinct
   end
 
-  # Team stuff
-  scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
   scope :without_experts, -> { where.missing(:experts) }
-
-  # TODO supprimer cette partie
-  ## Relevant Experts stuff
-  # User objects fetched through this scope have an additional attribute :relevant_expert_id
-  # Note: This scope will return DUPLICATE ROWS FOR THE SAME USER, if there are several relevant experts.)
-  scope :relevant_for_skills, -> do
-    not_deleted
-      .joins(:relevant_experts)
-      .select('users.*', 'experts.id as relevant_expert_id', 'experts.full_name as team_name')
-  end
-  # User objects fetched through relevant_for_skills have an addition association to a single expert.
-  # This makes it possible to preload it in views.
-  belongs_to :relevant_expert, class_name: 'Expert', optional: true
 
   # utilisé dans l'export en attendant de faire une version qui accepte plusieurs experts avec des sujets
   def first_expert_with_subject
@@ -333,8 +318,8 @@ class User < ApplicationRecord
     [
       "antenne", "antenne_communes", "antenne_regions", "antenne_territories", "csv_exports_attachments",
       "csv_exports_blobs", "experts", "feedbacks", "institution", "invited_by", "invitees", "inviter", "managed_antennes",
-      "received_diagnoses", "received_matches", "received_needs", "relevant_expert", "relevant_experts",
-      "sent_diagnoses", "sent_matches", "sent_needs", "supported_territories", "themes", "user_rights",
+      "received_diagnoses", "received_matches", "received_needs", "sent_diagnoses", "sent_matches", "sent_needs",
+      "supported_territories", "themes", "user_rights",
       "user_rights_admin", "user_rights_manager"
     ]
   end

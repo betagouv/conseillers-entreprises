@@ -211,10 +211,6 @@ class Expert < ApplicationRecord
       .distinct
   end
 
-  scope :relevant_for_skills, -> do
-    not_deleted.where(id: unscoped.with_subjects)
-  end
-
   scope :omnisearch, -> (query) do
     joins(antenne: :institution)
       .where('experts.full_name ILIKE ?', "%#{query}%")

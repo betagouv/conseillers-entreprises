@@ -41,16 +41,13 @@
       %li
         = link_to t('users.menu.teams'), experts_path
 
-    - if current_user.experts.relevant_for_skills.many?
+    - if current_user.experts.with_subjects.many?
       %li
         "#{t('users.menu.subjects')} :"
         %ul
-          - current_user.experts.relevant_for_skills.each do |expert|
+          - current_user.experts.with_subjects.each do |expert|
             %li
               = link_to expert, polymorphic_path([:subjects, expert])
-    - elsif current_user.experts.relevant_for_skills.any?
-      %li
-        = link_to t('users.menu.subjects'), polymorphic_path([:subjects, current_user.experts.relevant_for_skills.first])
 
   %h2.fr-h3.fr-mt-10v= t('.general')
   %ul

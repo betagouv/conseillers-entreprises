@@ -97,19 +97,6 @@ RSpec.describe User do
       it{ is_expected.to match_array user1 }
     end
 
-    describe "relevant_for_skills" do
-      let!(:expert1) { create :expert, :with_expert_subjects, users: [user] }
-      let!(:expert2) { create :expert, :with_expert_subjects, users: [user] }
-      let!(:user) { create :user }
-
-      subject(:relevant_users_for_skills) { described_class.relevant_for_skills }
-
-      it {
-        expect(relevant_users_for_skills.ids).to contain_exactly(user.id, user.id)
-        expect(relevant_users_for_skills.map(&:relevant_expert)).to contain_exactly(expert1, expert2)
-      }
-    end
-
     describe 'rights scopes' do
       let(:user_advisor) { create :user }
       let(:user_manager) { create :user, :manager }

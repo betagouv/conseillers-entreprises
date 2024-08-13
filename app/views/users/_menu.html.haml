@@ -8,6 +8,5 @@
   - if user.experts.any?
     %li.fr-sidemenu__item
       = experts_items_in_section(user.experts, :edit, t('.expert'))
-  - if user.experts.relevant_for_skills.any?
     %li.fr-sidemenu__item
-      = experts_items_in_section(user.experts.relevant_for_skills, :subjects, t('.subjects'))
+      = experts_items_in_section(user.experts, :subjects, t('.subjects'))
