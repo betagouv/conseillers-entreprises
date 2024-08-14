@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_21_135114) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_14_125841) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -376,7 +376,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_21_135114) do
     t.text "description_prefill"
     t.index ["archived_at"], name: "index_landing_subjects_on_archived_at"
     t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
-    t.index ["slug"], name: "index_landing_subjects_on_slug", unique: true
+    t.index ["slug", "landing_theme_id"], name: "index_landing_subjects_on_slug_and_landing_theme_id", unique: true
     t.index ["subject_id"], name: "index_landing_subjects_on_subject_id"
   end
 
