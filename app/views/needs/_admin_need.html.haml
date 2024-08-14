@@ -1,9 +1,9 @@
-- cache [need] do
-  .card-reminders-need.fr-my-4w.card
+- cache [need, action, need.experts.pluck(:updated_at)] do
+  .card-admin-need.fr-my-4w.card
     .card__header
       .card__title
         %h2.fr-h4= link_to need.company.name, need_path(need, origin: 'reminders')
-        %span.subtitle= I18n.l(need.display_date, format: :long)
+        %p.fr-card__detail.fr-card__detail__lg.fr-mt-2v= I18n.l(need.display_date, format: :long)
       = render 'reminders/needs_badges', need: need
     .fr-card__body.fr-text--sm
       .fr-card__content
@@ -12,9 +12,9 @@
             %h3.fr-h6
               = need.subject
             .subtitle
-              = need.matches.human_count
+              %p.fr-card__detail.fr-card__detail__lg= need.matches.human_count
               - if need.no_activity?
-                .label.label--sm.orange= t('conseiller.diagnoses.last_activity_date', l: l(need.updated_at.to_date, format: :long))
+                %p.fr-badge.fr-badge--new.fr-badge--no-icon.fr-badge--sm.fr-ml-1w= t('conseiller.diagnoses.last_activity_date', l: l(need.updated_at.to_date, format: :long))
         .card__match-list.fr-mb-2w
           %ul.fr-p-0.list-dash
             - need.matches.preload(expert: :antenne).find_each do |match|
@@ -29,4 +29,4 @@
             = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks, cached: true
           = render 'feedbacks/form', feedback: need.reminder_feedbacks.new
     .card__footer
-      = raw build_reminders_card_footer(action, need)
+      = raw build_admin_card_footer(action, need)

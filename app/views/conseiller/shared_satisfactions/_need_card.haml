@@ -7,9 +7,9 @@
         %p.fr-card__desc
           = [need.company.name, need.facility.commune_name].join(', ')
         .comment__container
-          .comment__title
+          %p.comment__title
             = need.company_satisfaction.comment
-          .comment__meta
+          %p.comment__meta
             - date = I18n.l(need.company_satisfaction.created_at, format: :sentence)
             = t('.comment_date', date: date, author: need.visitee.full_name)
         .fr-card__start
