@@ -1,12 +1,12 @@
 module XlsxExport
   # UserExporter supports two options.
   # Both require the relation to be fetched using User.relevant_for_skills.
-  # include_expert_team
+  # include_expert
   # institutions_subjects: the institutions_subjects to add as csv columns for the relevant expert.
   class UserExporter < BaseExporter
     def fields
       fields = base_fields
-      fields.merge!(fields_for_team) if @options[:include_expert_team]
+      fields.merge!(fields_for_team) if @options[:include_expert]
       fields.merge!(fields_for_subjects) if @options[:institutions_subjects]
 
       fields

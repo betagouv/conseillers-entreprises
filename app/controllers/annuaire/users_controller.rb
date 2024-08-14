@@ -21,13 +21,13 @@ module  Annuaire
         format.html
         format.csv do
           retrieve_users
-          result = @users.export_csv(include_expert_team: true, institutions_subjects: institutions_subjects_exportable)
+          result = @users.export_csv(include_expert: true, institutions_subjects: institutions_subjects_exportable)
           send_data result.csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{result.filename}.csv"
         end
         format.xlsx do
           retrieve_users
           xlsx_filename = "#{(@antenne || @institution).name.parameterize}-#{@users.model_name.human.pluralize.parameterize}.xlsx"
-          result = @users.export_xlsx(include_expert_team: true, institutions_subjects: institutions_subjects_exportable)
+          result = @users.export_xlsx(include_expert: true, institutions_subjects: institutions_subjects_exportable)
           send_data result.xlsx.to_stream.read, type: "application/xlsx", filename: xlsx_filename
         end
       end
