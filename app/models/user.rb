@@ -115,7 +115,6 @@ class User < ApplicationRecord
   has_many :received_matches, through: :experts, source: :received_matches, inverse_of: :contacted_users
   has_many :received_needs, through: :experts, source: :received_needs, inverse_of: :contacted_users
   has_many :received_diagnoses, through: :experts, source: :received_diagnoses, inverse_of: :contacted_users
-  has_and_belongs_to_many :relevant_experts, -> { not_deleted.with_subjects }, class_name: 'Expert'
   has_many :antenne_regions, through: :experts, inverse_of: :advisors
   has_many :themes, through: :experts, inverse_of: :advisors
   has_many :subjects, through: :experts, inverse_of: :advisors
@@ -283,9 +282,9 @@ class User < ApplicationRecord
     params[:job] ||= self.job
     new_user = User.create(params.merge(antenne: antenne))
     return new_user unless new_user.valid?
-    user_experts = self.relevant_experts
+    user_experts = self.experts
     if user_experts.present?
-      new_user.relevant_experts.concat(user_experts)
+      new_user.experts.concat(user_experts)
       new_user.save
     end
     self.user_rights.each { |right| right.dup.update(user_id: new_user.id) }

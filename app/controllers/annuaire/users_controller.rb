@@ -120,6 +120,7 @@ module  Annuaire
       else
         experts = (@antenne || @institution).experts.joins(:antenne)
       end
+      session.delete(:highlighted_antennes_ids)
       experts
     end
   end

@@ -9,10 +9,7 @@ ActiveAdmin.register User do
 
   # Index
   #
-  includes :antenne, :institution, :feedbacks,
-           :sent_diagnoses, :sent_needs, :sent_matches,
-           :relevant_experts,
-           :invitees
+  includes :antenne, :institution, :feedbacks, :sent_diagnoses, :sent_needs, :sent_matches, :invitees
   config.sort_order = 'created_at_desc'
 
   scope :active, default: true
@@ -44,7 +41,7 @@ ActiveAdmin.register User do
       div admin_link_to(u, :institution)
     end
     column(:experts) do |u|
-      div admin_link_to(u, :relevant_experts, list: true)
+      div admin_link_to(u, :experts, list: true)
     end
     column(:activity) do |u|
       div admin_link_to(u, :sent_diagnoses, blank_if_empty: true)

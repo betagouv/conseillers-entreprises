@@ -38,16 +38,6 @@ RSpec.describe User do
           expect(user.experts).to be_empty
         end
       end
-
-      context 'user can have many relevant experts' do
-        let(:user) { create :user }
-        let!(:expert1) { create :expert, :with_expert_subjects, users: [user] }
-        let!(:expert2) { create :expert, :with_expert_subjects, users: [user] }
-
-        it do
-          expect(user.relevant_experts).to contain_exactly(expert1, expert2)
-        end
-      end
     end
   end
 
@@ -237,7 +227,7 @@ RSpec.describe User do
         expect(new_user.antenne).to eq old_user.antenne
         expect(new_user.antenne.experts.count).to eq 1
         expect(new_user.experts.map { |e| e.subjects }.flatten).to contain_exactly(a_subject)
-        expect(new_user.relevant_experts).to contain_exactly(expert)
+        expect(new_user.experts).to contain_exactly(expert)
         expect(new_user.user_rights.count).to eq 1
       end
     end
