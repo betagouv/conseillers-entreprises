@@ -1,0 +1,7 @@
+{
+  "code": "401",
+  "webserviceCode": "LOGIN_AUTHENTICATOR",
+  "errorCode": "unauthorized",
+  "message": "Identifiants invalides.",
+  "type": "unauthorized"
+}

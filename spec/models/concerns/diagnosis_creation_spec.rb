@@ -76,7 +76,7 @@ RSpec.describe DiagnosisCreation do
     context 'with existing diagnosis' do
       subject(:create_or_update_diagnosis) { described_class.create_or_update_diagnosis(params, diagnosis) }
 
-      let(:diagnosis) { create :diagnosis }
+      let(:diagnosis) { create :diagnosis, step: :needs }
       let(:advisor) { create :user }
       let(:params) { { advisor: advisor, facility_attributes: facility_params } }
 
@@ -99,6 +99,10 @@ RSpec.describe DiagnosisCreation do
 
           it 'fetches info for ApiEntreprise and creates the diagnosis' do
             expect(create_or_update_diagnosis).to be_valid
+          end
+
+          it 'doesnt change diagnosis step' do
+            expect { create_or_update_diagnosis }.not_to change(diagnosis, :step)
           end
         end
 
