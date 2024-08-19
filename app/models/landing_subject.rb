@@ -25,10 +25,10 @@
 #
 # Indexes
 #
-#  index_landing_subjects_on_archived_at       (archived_at)
-#  index_landing_subjects_on_landing_theme_id  (landing_theme_id)
-#  index_landing_subjects_on_slug              (slug) UNIQUE
-#  index_landing_subjects_on_subject_id        (subject_id)
+#  index_landing_subjects_on_archived_at                (archived_at)
+#  index_landing_subjects_on_landing_theme_id           (landing_theme_id)
+#  index_landing_subjects_on_slug_and_landing_theme_id  (slug,landing_theme_id) UNIQUE
+#  index_landing_subjects_on_subject_id                 (subject_id)
 #
 # Foreign Keys
 #
@@ -58,12 +58,10 @@ class LandingSubject < ApplicationRecord
   before_save :autoclean_textareas
 
   validate :unique_required_field_if_siret
+  validate :unique_slug_in_landing
+  validates :slug, uniqueness: { scope: :landing_theme_id }
 
   def to_s
-    slug
-  end
-
-  def to_param
     slug
   end
 
@@ -93,6 +91,15 @@ class LandingSubject < ApplicationRecord
       errors.add(:base, "ne peut être coché en même temps que d'autres champs")
       landing_theme.errors.add(:base, "ne peut être coché en même temps que d'autres champs")
     end
+  end
+
+  def unique_slug_in_landing
+    similar_landing_subjects = LandingSubject
+      .joins(landing_theme: :landing_joint_themes)
+      .where(landing_theme: { landing_joint_themes: { landing_id: self.landing_ids } }, slug: self.slug)
+      .where.not(id: self.id)
+
+    errors.add(:slug, :taken) if similar_landing_subjects.present?
   end
 
   def solicitable_institutions_names

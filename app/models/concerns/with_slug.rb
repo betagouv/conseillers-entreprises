@@ -2,7 +2,6 @@ module WithSlug
   extend ActiveSupport::Concern
 
   included do
-    validates :slug, presence: true, uniqueness: true
     before_validation :compute_slug
   end
 

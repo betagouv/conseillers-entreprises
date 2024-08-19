@@ -34,6 +34,8 @@ class LandingTheme < ApplicationRecord
 
   accepts_nested_attributes_for :landing_subjects, allow_destroy: true
 
+  validates :slug, presence: true, uniqueness: true
+
   def to_s
     title
   end

@@ -48,6 +48,7 @@ class Institution < ApplicationRecord
   #
   auto_strip_attributes :name
   validates :name, presence: true, uniqueness: true
+  validates :slug, presence: true, uniqueness: true
 
   ## Through Associations
   #

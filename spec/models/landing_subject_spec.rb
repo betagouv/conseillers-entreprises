@@ -19,4 +19,52 @@ RSpec.describe LandingSubject do
       expect(landing_subject.form_description).to eq('<p>Quelque chose.</p>')
     end
   end
+
+  describe 'slug uniqueness' do
+    subject { build :landing_subject, slug: slug, landing_theme: landing_theme }
+
+    let(:landing_1) { create :landing }
+    let(:landing_theme_1) { create :landing_theme }
+    let!(:landing_subject_1) { create :landing_subject, slug: 'tata-yoyo', landing_theme: landing_theme_1 }
+
+    before { landing_1.landing_themes << landing_theme_1 }
+
+    context 'taken slug in other landing & landing_theme' do
+      let(:landing_theme) { create(:landing_theme) }
+      let(:landing) { create(:landing) }
+      let(:slug) { 'tata-yoyo' }
+
+      before { landing.landing_themes << landing_theme }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'taken slug in same landing' do
+      let(:landing_theme) { create(:landing_theme) }
+      let(:landing) { landing_1 }
+      let(:slug) { 'tata-yoyo' }
+
+      before { landing_1.landing_themes << landing_theme }
+
+      it { is_expected.not_to be_valid }
+    end
+
+    context 'taken slug in same landing_theme' do
+      let(:landing_theme) { landing_theme_1 }
+      let(:landing) { create(:landing) }
+      let(:slug) { 'tata-yoyo' }
+
+      before { landing.landing_themes << landing_theme }
+
+      it { is_expected.not_to be_valid }
+    end
+
+    context 'other slug in same landing' do
+      let(:landing_theme) { landing_theme_1 }
+      let(:landing) { landing_1 }
+      let(:slug) { 'grand-chapeau' }
+
+      it { is_expected.to be_valid }
+    end
+  end
 end
