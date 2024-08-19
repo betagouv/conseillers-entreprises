@@ -26,7 +26,8 @@ module XlsxExport
         match_status_by_expert: -> { human_attribute_value(:status, context: :short) },
         match_taken_care_of_at: -> { I18n.l(taken_care_of_at, format: :fr) if taken_care_of_at.present? },
         match_closed_at: -> { I18n.l(closed_at, format: :fr) if closed_at.present? },
-        global_need_status: -> { need.human_attribute_value(:status, context: :csv) }
+        global_need_status: -> { need.human_attribute_value(:status, context: :csv) },
+        need_url: -> { Rails.application.routes.url_helpers.need_url(need) }
       }
     end
 

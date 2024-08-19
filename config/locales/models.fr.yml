@@ -969,6 +969,7 @@ fr:
     need_last_chance_at: Date d’envoi mail de la dernière chance
     need_reminder: Relances par besoin
     need_status: Statut du besoin
+    need_url: Page du besoin
     needs:
       one: Besoin
       other: Besoins
