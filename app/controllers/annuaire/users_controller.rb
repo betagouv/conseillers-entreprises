@@ -12,15 +12,13 @@ module  Annuaire
         .group_by(&:theme)
       institutions_subjects_exportable = institutions_subjects_by_theme.values.flatten
 
-      retrieve_experts_and_managers
       @grouped_subjects = institutions_subjects_by_theme.transform_values{ |is| is.group_by(&:subject) }
       @not_invited_users = not_invited_users
 
       respond_to do |format|
         format.html
         format.csv do
-          users = retrieve_users
-          result = users.export_csv(include_expert: true, institutions_subjects: institutions_subjects_exportable)
+          result = retrieve_users.export_csv(include_expert: true, institutions_subjects: institutions_subjects_exportable)
           send_data result.csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{result.filename}.csv"
         end
         format.xlsx do
@@ -64,9 +62,12 @@ module  Annuaire
     private
 
     def retrieve_experts_and_managers
-      retrieve_experts
-      group_experts
-      retrieve_managers
+      @grouped_experts = group_experts
+      @grouped_experts.each_key do |antenne|
+        managers = antenne.managers.not_deleted.without_experts
+        next unless managers.any?
+        @grouped_experts[antenne][Expert.new] = managers
+      end
     end
 
     def not_invited_users
@@ -83,8 +84,8 @@ module  Annuaire
       @referencement_coverages = @antenne.referencement_coverages if @antenne.present?
     end
 
-    def retrieve_experts
-      @experts = base_experts
+    def filtered_experts
+      base_experts
         .not_deleted
         .order('antennes.name', 'full_name')
         .preload(:antenne, :experts_subjects, :communes, :antenne, users: :user_rights_manager)
@@ -94,30 +95,22 @@ module  Annuaire
     end
 
     def group_experts
-      @grouped_experts = @experts.group_by(&:antenne).transform_values do |experts|
+      filtered_experts.group_by(&:antenne).transform_values do |experts|
         experts.index_with do |expert|
           expert.users.presence || [User.new]
         end
       end
     end
 
-    def retrieve_managers
-      @grouped_experts.each_key do |antenne|
-        managers = antenne.managers.not_deleted.without_experts
-        next unless managers.any?
-        @grouped_experts[antenne][Expert.new] = managers
-      end
-    end
-
     def retrieve_users
       user_ids = @grouped_experts.values.flat_map(&:values).flatten.map(&:id).uniq
-      @users = User.where(id: user_ids)
+      User.where(id: user_ids)
     end
 
     def base_experts
       if params[:advisor].present?
-        searched_advisor = User.find(params[:advisor])
-        flash[:table_highlighted_ids] = [searched_advisor.id]
+        searched_user = User.find(params[:advisor])
+        flash[:table_highlighted_ids] = [searched_user.id]
         experts = @antenne.experts.joins(:antenne)
       elsif session[:highlighted_antennes_ids] && @antenne.nil?
         users = @institution.advisors.joins(:antenne).where(antenne: { id: session[:highlighted_antennes_ids] })
