@@ -2,9 +2,8 @@ module  Annuaire
   class UsersController < BaseController
     before_action :retrieve_institution
     before_action :retrieve_antenne, only: :index
-    before_action :retrieve_experts, only: :index
-    before_action :group_experts, only: :index
-    before_action :retrieve_managers, only: :index
+    before_action :retrieve_experts_and_managers, only: :index
+
     before_action :retrieve_subjects, only: :index
 
     def index
@@ -13,8 +12,8 @@ module  Annuaire
         .group_by(&:theme)
       institutions_subjects_exportable = institutions_subjects_by_theme.values.flatten
 
+      retrieve_experts_and_managers
       @grouped_subjects = institutions_subjects_by_theme.transform_values{ |is| is.group_by(&:subject) }
-
       @not_invited_users = not_invited_users
 
       respond_to do |format|
@@ -63,6 +62,12 @@ module  Annuaire
     end
 
     private
+
+    def retrieve_experts_and_managers
+      retrieve_experts
+      group_experts
+      retrieve_managers
+    end
 
     def not_invited_users
       if flash[:table_highlighted_ids].present?
