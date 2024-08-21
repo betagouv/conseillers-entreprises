@@ -49,7 +49,7 @@ module CsvExport
           # (`self` is a User; See `object.instance_exec(&lambda)` in CsvExport::Base.)
 
           # We’re using `&` instead of .merge to use the preloaded relations instead of doing a new DB query.
-          return if experts.not_deleted.with_subjects.empty?
+          return if first_expert_with_subject.empty?
           experts_subjects = first_expert_with_subject&.experts_subjects & institution_subject.experts_subjects
           raise 'There should only be one ExpertSubject' if experts_subjects.present? && experts_subjects.size > 1
           expert_subject = experts_subjects.first

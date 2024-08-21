@@ -29,6 +29,7 @@ module CsvImport
       attributes[:institution] = attributes[:institution].strip if attributes[:institution].present?
       attributes[:antenne] = attributes[:antenne].strip if attributes[:antenne].present?
       attributes[:email] = attributes[:email].strip.downcase if attributes[:email].present?
+      # supprime l'id pour la mise à jour de l'expert
       attributes.delete(:id)
       attributes
     end
