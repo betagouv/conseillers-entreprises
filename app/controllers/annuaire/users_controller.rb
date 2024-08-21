@@ -103,7 +103,7 @@ module  Annuaire
 
     def retrieve_managers
       @grouped_experts.each_key do |antenne|
-        managers = antenne.managers.not_deleted.reject { |manager| manager.experts.any? }
+        managers = antenne.managers.not_deleted.without_experts
         next unless managers.any?
         @grouped_experts[antenne][Expert.new] = managers
       end
@@ -120,8 +120,8 @@ module  Annuaire
         flash[:table_highlighted_ids] = [searched_advisor.id]
         experts = @antenne.experts.joins(:antenne)
       elsif session[:highlighted_antennes_ids] && @antenne.nil?
-        advisors = @institution.advisors.joins(:antenne).where(antenne: { id: session[:highlighted_antennes_ids] })
-        experts = Expert.joins(:antenne).where(antenne: advisors.map(&:antenne))
+        users = @institution.advisors.joins(:antenne).where(antenne: { id: session[:highlighted_antennes_ids] })
+        experts = Expert.joins(:antenne).where(antenne: users.map(&:antenne))
       else
         experts = (@antenne || @institution).experts.joins(:antenne)
       end
