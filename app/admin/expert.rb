@@ -164,6 +164,42 @@ ActiveAdmin.register Expert do
         end
       end
     end
+
+    attributes_table title: I18n.t('active_admin.antenne.institution_match_filters') do
+      expert.institution.match_filters.map.with_index do |mf, index|
+        panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
+          attributes_table_for mf do
+            MatchFilter::FILTERS.each do |filter|
+              row filter if mf.send(filter).present?
+            end
+          end
+        end
+      end
+    end
+
+    attributes_table title: I18n.t('active_admin.antenne.match_filters') do
+      expert.antenne.match_filters.map.with_index do |mf, index|
+        panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
+          attributes_table_for mf do
+            MatchFilter::FILTERS.each do |filter|
+              row filter if mf.send(filter).present?
+            end
+          end
+        end
+      end
+    end
+
+    attributes_table title: I18n.t('active_admin.expert.match_filters') do
+      expert.antenne.match_filters.map.with_index do |mf, index|
+        panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
+          attributes_table_for mf do
+            MatchFilter::FILTERS.each do |filter|
+              row filter if mf.send(filter).present?
+            end
+          end
+        end
+      end
+    end
   end
 
   sidebar I18n.t('active_admin.actions'), only: :show do

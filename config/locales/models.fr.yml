@@ -17,6 +17,7 @@ fr:
     expert:
       delete: Supprimer l’expert (sans ses utilisateurs)
       delete_confirmation: Voulez-vous supprimer cet expert ?
+      match_filters: Filtres de mise en relation de l’expert
       no_specifique_zone: Cet expert n’a pas de zone spécifique
       reassign_matches_done:
         one: "%{count} mise en relation réattribuée à %{expert}"

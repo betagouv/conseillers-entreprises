@@ -32,6 +32,7 @@ class ExpertSubject < ApplicationRecord
   has_one :subject, through: :institution_subject, inverse_of: :experts_subjects
   has_one :theme, through: :subject, inverse_of: :experts_subjects
 
+  has_many :expert_match_filters, through: :expert, source: :match_filters
   has_many :antenne_match_filters, through: :expert, source: :antenne_match_filters
   has_many :institution_match_filters, through: :expert, source: :institution_match_filters
 
@@ -104,7 +105,7 @@ class ExpertSubject < ApplicationRecord
   ##
   #
   def match_filters
-    antenne_match_filters + institution_match_filters
+    expert_match_filters + antenne_match_filters + institution_match_filters
   end
 
   ## used for serialization in advisors csv

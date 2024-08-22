@@ -104,7 +104,7 @@ class MatchFilter < ApplicationRecord
     return false if filtrable_element_type != 'Institution'
     match_filter_collection.any? do |mf|
       mf != self &&
-      mf.filtrable_element_type == 'Antenne' &&
+      (mf.filtrable_element_type == 'Antenne') &&
         mf.filtrable_element.institution_id == filtrable_element.id &&
         mf.has_same_fields_filled?(self)
     end
