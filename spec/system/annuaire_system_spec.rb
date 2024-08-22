@@ -79,13 +79,16 @@ describe 'annuaire', :js do
   end
 
   context '/annuaire/institutions/:slug/antennes/:antenne_id/conseillers' do
-    context 'without user' do
+    describe 'without user' do
+      let!(:institution_subject) { create :institution_subject, institution: institution }
+
+      before { AntenneCoverage::UpdateJob.perform_sync(antenne.id) }
+
       it 'displays no users' do
         visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
-
         expect(page).to have_css 'h1', text: institution.name
-        expect(page).to have_css('.fr-alert', text: I18n.t('annuaire.users.index.no_users'))
-        expect(page).to have_css('.fr-table--c-annuaire', count: 0)
+        expect(page).to have_css('.fr-alert--info')
+        expect(page).to have_text(I18n.t('annuaire.users.index.no_users'))
       end
     end
 
@@ -213,19 +216,6 @@ describe 'annuaire', :js do
           expect(page).to have_css('.td-header--user', count: 1)
           expect(page).to have_css('.error-table-cell')
           expect(page).to have_button('?', title: "Aucun expert - Voir le détail")
-        end
-      end
-
-      describe 'without user' do
-        let!(:institution_subject) { create :institution_subject, institution: institution }
-
-        before { AntenneCoverage::UpdateJob.perform_sync(antenne.id) }
-
-        it 'display users with no expert warning' do
-          visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
-          expect(page).to have_css 'h1', text: institution.name
-          expect(page).to have_css('.fr-alert--info')
-          expect(page).to have_text(I18n.t('annuaire.users.index.no_users'))
         end
       end
     end

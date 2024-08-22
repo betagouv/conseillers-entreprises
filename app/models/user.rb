@@ -115,7 +115,6 @@ class User < ApplicationRecord
   has_many :received_matches, through: :experts, source: :received_matches, inverse_of: :contacted_users
   has_many :received_needs, through: :experts, source: :received_needs, inverse_of: :contacted_users
   has_many :received_diagnoses, through: :experts, source: :received_diagnoses, inverse_of: :contacted_users
-  has_and_belongs_to_many :relevant_experts, -> { relevant_for_skills }, class_name: 'Expert'
   has_many :antenne_regions, through: :experts, inverse_of: :advisors
   has_many :themes, through: :experts, inverse_of: :advisors
   has_many :subjects, through: :experts, inverse_of: :advisors
@@ -175,21 +174,12 @@ class User < ApplicationRecord
     joins(experts: :themes).where(experts: { themes: theme_id }).distinct
   end
 
-  # Team stuff
-  scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
   scope :without_experts, -> { where.missing(:experts) }
 
-  ## Relevant Experts stuff
-  # User objects fetched through this scope have an additional attribute :relevant_expert_id
-  # Note: This scope will return DUPLICATE ROWS FOR THE SAME USER, if there are several relevant experts.)
-  scope :relevant_for_skills, -> do
-    not_deleted
-      .joins(:relevant_experts)
-      .select('users.*', 'experts.id as relevant_expert_id', 'experts.full_name as team_name')
+  # utilisé dans l'export en attendant de faire une version qui accepte plusieurs experts avec des sujets
+  def first_expert_with_subject
+    experts.not_deleted.with_subjects.first
   end
-  # User objects fetched through relevant_for_skills have an addition association to a single expert.
-  # This makes it possible to preload it in views.
-  belongs_to :relevant_expert, class_name: 'Expert', optional: true
 
   scope :in_region, -> (region_id) do
     return all if region_id.blank?
@@ -292,9 +282,9 @@ class User < ApplicationRecord
     params[:job] ||= self.job
     new_user = User.create(params.merge(antenne: antenne))
     return new_user unless new_user.valid?
-    user_experts = self.relevant_experts
+    user_experts = self.experts
     if user_experts.present?
-      new_user.relevant_experts.concat(user_experts)
+      new_user.experts.concat(user_experts)
       new_user.save
     end
     self.user_rights.each { |right| right.dup.update(user_id: new_user.id) }
@@ -327,8 +317,8 @@ class User < ApplicationRecord
     [
       "antenne", "antenne_communes", "antenne_regions", "antenne_territories", "csv_exports_attachments",
       "csv_exports_blobs", "experts", "feedbacks", "institution", "invited_by", "invitees", "inviter", "managed_antennes",
-      "received_diagnoses", "received_matches", "received_needs", "relevant_expert", "relevant_experts",
-      "sent_diagnoses", "sent_matches", "sent_needs", "supported_territories", "themes", "user_rights",
+      "received_diagnoses", "received_matches", "received_needs", "sent_diagnoses", "sent_matches", "sent_needs",
+      "supported_territories", "themes", "user_rights",
       "user_rights_admin", "user_rights_manager"
     ]
   end

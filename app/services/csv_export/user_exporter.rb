@@ -1,12 +1,12 @@
 module CsvExport
   # UserExporter supports two options.
   # Both require the relation to be fetched using User.relevant_for_skills.
-  # include_expert_team: include the “relevant_expert” team.
+  # include_expert
   # institutions_subjects: the institutions_subjects to add as csv columns for the relevant expert.
   class UserExporter < BaseExporter
     def fields
       fields = base_fields
-      fields.merge!(fields_for_team) if @options[:include_expert_team]
+      fields.merge!(fields_for_team) if @options[:include_expert]
       fields.merge!(fields_for_subjects) if @options[:institutions_subjects]
 
       fields
@@ -31,11 +31,11 @@ module CsvExport
 
     def fields_for_team
       {
-        team_id: -> { relevant_expert.id },
-        team_full_name: -> { relevant_expert.full_name },
-        team_email: -> { relevant_expert.email },
-        team_phone_number: -> { relevant_expert.phone_number },
-        team_custom_communes: -> { relevant_expert.communes.pluck(:insee_code).join(', ') if relevant_expert.custom_communes? }
+        team_id: -> { first_expert_with_subject&.id },
+        team_full_name: -> { first_expert_with_subject&.full_name },
+        team_email: -> { first_expert_with_subject&.email },
+        team_phone_number: -> { first_expert_with_subject&.phone_number },
+        team_custom_communes: -> { first_expert_with_subject&.communes.pluck(:insee_code).join(', ') if first_expert_with_subject&.custom_communes? }
       }
     end
 
@@ -49,8 +49,9 @@ module CsvExport
           # (`self` is a User; See `object.instance_exec(&lambda)` in CsvExport::Base.)
 
           # We’re using `&` instead of .merge to use the preloaded relations instead of doing a new DB query.
-          experts_subjects = relevant_expert.experts_subjects & institution_subject.experts_subjects
-          raise 'There should only be one ExpertSubject' if experts_subjects.size > 1
+          return if first_expert_with_subject.blank?
+          experts_subjects = first_expert_with_subject&.experts_subjects & institution_subject.experts_subjects
+          raise 'There should only be one ExpertSubject' if experts_subjects.present? && experts_subjects.size > 1
           expert_subject = experts_subjects.first
           expert_subject&.csv_description
         }
@@ -59,7 +60,7 @@ module CsvExport
     end
 
     def sort_relation(relation)
-      relation.preload(*preloaded_associations).sort_by{ |u| [u.antenne.name, u.relevant_expert&.full_name] }
+      relation.preload(*preloaded_associations).sort_by{ |u| [u.antenne.name, u.experts.first&.full_name.to_s] }
     end
   end
 end

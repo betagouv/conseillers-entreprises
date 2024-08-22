@@ -29,6 +29,8 @@ module CsvImport
       attributes[:institution] = attributes[:institution].strip if attributes[:institution].present?
       attributes[:antenne] = attributes[:antenne].strip if attributes[:antenne].present?
       attributes[:email] = attributes[:email].strip.downcase if attributes[:email].present?
+      # supprime l'id pour la mise à jour de l'expert
+      attributes.delete(:id)
       attributes
     end
 
@@ -57,7 +59,7 @@ module CsvImport
 
     def team_mapping
       @team_mapping ||=
-        %i[team_email team_full_name team_phone_number team_custom_communes]
+        %i[team_id team_email team_full_name team_phone_number team_custom_communes]
           .index_by{ |k| User.human_attribute_name(k) }
     end
 
@@ -70,10 +72,17 @@ module CsvImport
 
       if attributes[:email].present?
         attributes[:antenne] = user.antenne
-        team = @options[:institution].experts.find_or_initialize_by(email: attributes[:email])
-        team.update(attributes)
+        expert = @options[:institution].experts.find_or_initialize_by(email: attributes[:email])
 
-        team
+        if attributes[:custom_communes].present?
+          custom_communes = attributes[:custom_communes].split(',').map(&:strip)
+          custom_communes.map! { |code| Commune.find_or_create_by(insee_code: code) }
+          attributes.delete(:custom_communes)
+        end
+        expert.update(attributes)
+        expert.communes = custom_communes if custom_communes.present?
+
+        expert
       end
     end
 

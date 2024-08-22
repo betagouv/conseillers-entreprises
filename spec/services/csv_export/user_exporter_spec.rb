@@ -20,7 +20,7 @@ describe CsvExport::UserExporter, CsvExport do
   describe 'with teams' do
     let!(:expert) { create :expert, :with_expert_subjects, antenne: antenne, users: [user], full_name: 'Team 1', email: 'team@team.com', phone_number: '0987654321', communes: [create(:commune, insee_code: '22101')] }
 
-    subject { User.relevant_for_skills.export_csv(include_expert_team: true).csv }
+    subject { User.all.export_csv(include_expert: true).csv }
 
     it do
       csv = <<~CSV
@@ -40,7 +40,7 @@ describe CsvExport::UserExporter, CsvExport do
 
     subject do
       institution.reload
-      User.relevant_for_skills.export_csv(institutions_subjects: institution.institutions_subjects).csv
+      User.all.export_csv(institutions_subjects: institution.institutions_subjects).csv
     end
 
     it do

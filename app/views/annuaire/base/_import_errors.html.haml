@@ -12,24 +12,28 @@
           %li= error.message
 
 - if result.rows.present?
-  %table.fr-table
-    %thead
-      %tr
-        %th{ scope: "col" }
-        - result.rows.first.each_key do |header|
-          %th{ scope: "col" }= header
-    %tbody
-      - result.rows.each_with_index do |row, index|
-        - object = result.objects[index]
-        - next if object.nil?
-        %tr
-          - has_errors = object.errors.present?
-          %td{ rowspan: has_errors ? 2 : 1 }
-            #{index + 1}
-          - row.each_value do |value|
-            %td= value
-        - if has_errors
-          %tr.red
-            %td.rowspanned
-            %td{ colspan: row.count + 1 }
-              = simple_format(nested_errors_messages(object))
+  .fr-table.fr-table--bordered
+    .fr-table__wrapper
+      .fr-table__container
+        .fr-table__content
+          %table
+            %thead
+              %tr
+                %th{ scope: "col" }
+                - result.rows.first.each_key do |header|
+                  %th{ scope: "col" }= header
+            %tbody
+              - result.rows.each_with_index do |row, index|
+                - object = result.objects[index]
+                - next if object.nil?
+                %tr
+                  - has_errors = object.errors.present?
+                  %td{ rowspan: has_errors ? 2 : 1 }
+                    #{index + 1}
+                  - row.each_value do |value|
+                    %td= value
+                - if has_errors
+                  %tr.red
+                    %td.rowspanned
+                    %td{ colspan: row.count + 1 }
+                      = simple_format(nested_errors_messages(object))

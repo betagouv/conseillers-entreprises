@@ -111,6 +111,24 @@ describe CsvImport::UserImporter, CsvImport do
         expect(imported_expert.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com')
       end
     end
+
+    context 'with extra column team id' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Id de l’équipe,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,123,Equipe,equipe@antenne.com,0987654321
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.email).to eq 'equipe@antenne.com'
+        expect(imported_expert.job).to be_nil
+        expect(imported_expert.users.pluck(:email)).to contain_exactly('marie.dupont@antenne.com')
+      end
+    end
   end
 
   context 'set experts and user without phone number' do
@@ -424,6 +442,22 @@ describe CsvImport::UserImporter, CsvImport do
     it do
       expect(result).not_to be_success
       expect(Antenne.count).to eq 1
+    end
+  end
+
+  context 'Add expert with specific communes' do
+    let(:csv) do
+      <<~CSV
+        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe, Territoire spécifique (CODE INSEE)
+        The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,"77067, 77122, 77251, 77296, 77326, 77384"
+      CSV
+    end
+
+    it do
+      expect(result).to be_success
+      expect(institution.experts.count).to eq 1
+      imported_expert = institution.experts.first
+      expect(imported_expert.communes.pluck(:insee_code)).to contain_exactly('77067', '77122', '77251', '77296', '77326', '77384')
     end
   end
 end

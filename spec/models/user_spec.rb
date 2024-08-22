@@ -87,19 +87,6 @@ RSpec.describe User do
       it{ is_expected.to match_array user1 }
     end
 
-    describe "relevant_for_skills" do
-      let!(:expert1) { create :expert, :with_expert_subjects, users: [user] }
-      let!(:expert2) { create :expert, :with_expert_subjects, users: [user] }
-      let!(:user) { create :user }
-
-      subject(:relevant_users_for_skills) { described_class.relevant_for_skills }
-
-      it {
-        expect(relevant_users_for_skills.ids).to contain_exactly(user.id, user.id)
-        expect(relevant_users_for_skills.map(&:relevant_expert)).to contain_exactly(expert1, expert2)
-      }
-    end
-
     describe 'rights scopes' do
       let(:user_advisor) { create :user }
       let(:user_manager) { create :user, :manager }
@@ -240,7 +227,7 @@ RSpec.describe User do
         expect(new_user.antenne).to eq old_user.antenne
         expect(new_user.antenne.experts.count).to eq 1
         expect(new_user.experts.map { |e| e.subjects }.flatten).to contain_exactly(a_subject)
-        expect(new_user.relevant_experts).to contain_exactly(expert)
+        expect(new_user.experts).to contain_exactly(expert)
         expect(new_user.user_rights.count).to eq 1
       end
     end
