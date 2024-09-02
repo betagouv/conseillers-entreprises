@@ -3,8 +3,8 @@ class SolicitationsController < PagesController
 
   layout 'solicitation_form'
 
-  before_action :prevent_completed_solicitation_modification, except: [:new, :create, :form_complete]
   before_action :redirect_entreprendre_solicitations
+  before_action :prevent_completed_solicitation_modification, except: [:new, :create, :form_complete]
   before_action :calculate_needs_count
 
   # Step contact
@@ -224,12 +224,8 @@ class SolicitationsController < PagesController
 
   # http://localhost:3000/aide-entreprise/accueil/demande/transport-mobilite/?mtm_campaign=entreprendre&mtm_kwd=F123
   def redirect_entreprendre_solicitations
-    # Si la demande vient d'entreprendre et qu'elle n'a pas encore été redirigée
-    if (query_params[:mtm_campaign] == 'entreprendre') && !(session.dig('solicitation_form_info', 'redirected') == 'entreprendre')
-      session[:solicitation_form_info] ||= query_params
-      session[:solicitation_form_info]['redirected'] = 'entreprendre'
-
-      redirect_to root_path(query_params.merge(redirected: 'entreprendre'))
+    if request.headers['referer'] == 'https://entreprendre.service-public.fr/'
+      redirect_to root_path(query_params)
     end
   end
 
