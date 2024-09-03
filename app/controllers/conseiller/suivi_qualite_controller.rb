@@ -41,7 +41,11 @@ class Conseiller::SuiviQualiteController < ApplicationController
   end
 
   def retrieve_refused_feedbacks
-    @refused_feedbacks ||= Need.joins(:matches).merge(Match.with_recent_refused_feedbacks).apply_filters(index_search_params)
+    @refused_feedbacks ||= Need
+      .joins(:matches)
+      .merge(Match.with_recent_refused_feedbacks)
+      .without_action(:refused_feedback)
+      .apply_filters(index_search_params)
   end
 
   def collections_counts

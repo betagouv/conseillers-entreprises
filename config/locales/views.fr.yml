@@ -337,7 +337,7 @@ fr:
         comment_date: "%{author}, le %{date}"
       titles:
         quo_matches: MER en attente
-        refused_feedbacks: Refusées avec commentaire
+        refused_feedbacks: MER Refusées avec commentaire
     veille:
       index:
         title: Veille
@@ -707,6 +707,7 @@ fr:
           poke: Experts relancés
           quo_match: Traiter
           refused: Traiter
+          refused_feedback: Marquer comme vu
           starred_need: Traiter
         name:
           last_chance: Risque d’abandon

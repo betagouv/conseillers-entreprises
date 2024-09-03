@@ -39,21 +39,35 @@
     border-right: 0
     margin-left: -13px
     margin-bottom: -26px
-.comment__meta
-  font-size: 0.75rem
-  line-height: 1.5rem
-  margin-top: 0.5rem
-  text-align: right
-.comment__title
-  position: relative
-  &::before
-    content: open-quote
-    margin-right: 0.5rem
-  &::after
-    content: close-quote 
-    margin-left: 0.5rem
-  &::before, &::after
-    font-size: 2rem
+  .comment__antenne
+    font-weight: bold
+    margin-bottom: 1.125rem
+    &::before
+      content: ' → '
+  .comment__meta
+    font-size: 0.75rem
+    line-height: 1.5rem
+    margin-top: 0.5rem
+    text-align: right
+  .comment__title
+    position: relative
+    &::before
+      content: open-quote
+      margin-right: 0.5rem
+    &::after
+      content: close-quote 
+      margin-left: 0.5rem
+    &::before, &::after
+      font-size: 2rem
+  &.comment__container--refused-fb
+    background-color: $red-lighter
+    &::after
+      border-top-color: $red-lighter
+    .comment__title
+      margin-bottom: 0 
+    .comment__meta
+      margin-top: 0.25rem
+      margin-bottom: 0
 
 // Carte reminders need =================================
 .card-admin-need
