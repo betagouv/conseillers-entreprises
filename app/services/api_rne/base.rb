@@ -49,8 +49,8 @@ module ApiRne
     def initialize(siren_or_siret, options = {})
       @siren_or_siret = siren_or_siret
       @options = options
-      @http_response = HTTP.auth("Bearer #{token}").get(url)
       begin
+        @http_response = HTTP.auth("Bearer #{token}").get(url)
         @data = @http_response.parse(:json)
       rescue StandardError => e
         @error = e
