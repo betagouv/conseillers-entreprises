@@ -119,9 +119,10 @@ ActiveAdmin.register Match do
       end
       row :created_at
       row :updated_at
-      row :archived_at
+      row :sent_at
       row :taken_care_of_at
       row :closed_at
+      row :archived_at
       row :advisor do |m|
         if m.advisor.present?
           div admin_link_to(m, :advisor)
