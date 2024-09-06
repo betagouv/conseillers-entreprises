@@ -65,7 +65,7 @@ module DiagnosisCreation
       return unless may_prepare_diagnosis?
 
       prepare_diagnosis_errors = nil
-      diagnosis = self.diagnosis || nil
+      diagnosis = nil
       Diagnosis.transaction do
         # Step 0: create with the facility
         diagnosis = DiagnosisCreation.create_or_update_diagnosis(
@@ -73,7 +73,7 @@ module DiagnosisCreation
             advisor: advisor,
             solicitation: self,
             facility_attributes: computed_facility_attributes
-          }, diagnosis
+          }, self.diagnosis
         )
 
         diagnosis.autofill_steps
