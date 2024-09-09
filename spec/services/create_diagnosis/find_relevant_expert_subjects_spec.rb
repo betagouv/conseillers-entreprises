@@ -6,6 +6,7 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
     let(:institution) { create :institution }
     let!(:es_temoin) { create :expert_subject }
     let(:antenne) { create :antenne, institution: institution }
+    let(:expert) { create :expert, antenne: antenne }
 
     subject{ described_class.new(need).apply_match_filters(ExpertSubject.all) }
 
@@ -15,19 +16,20 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       let!(:es_01) { create :expert_subject }
 
       describe 'min_years_of_existence' do
-        let(:match_filter_01) { create :match_filter, antenne: antenne, min_years_of_existence: 5 }
-        let(:match_filter_02) { create :match_filter, institution: institution, min_years_of_existence: 3 }
+        let(:match_filter_01) { create :match_filter, expert: expert, min_years_of_existence: 6 }
+        let(:match_filter_02) { create :match_filter, antenne: antenne, min_years_of_existence: 4 }
+        let(:match_filter_03) { create :match_filter, institution: institution, min_years_of_existence: 2 }
 
         context 'with expert filter only' do
           before { es_01.expert.match_filters << match_filter_01 }
 
-          context 'young company' do
-            let(:company) { create :company, date_de_creation: 4.years.ago }
+          context '5 years old company' do
+            let(:company) { create :company, date_de_creation: 5.years.ago }
 
             it { is_expected.to contain_exactly(es_temoin) }
           end
 
-          context 'old company' do
+          context '7 years old company' do
             let(:company) { create :company, date_de_creation: 7.years.ago }
 
             it { is_expected.to contain_exactly(es_01, es_temoin) }
@@ -35,15 +37,15 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
         end
 
         context 'with antenne filter only' do
-          before { es_01.expert.antenne.match_filters << match_filter_01 }
+          before { es_01.expert.antenne.match_filters << match_filter_02 }
 
-          context 'young company' do
-            let(:company) { create :company, date_de_creation: 4.years.ago }
+          context '3 years old company' do
+            let(:company) { create :company, date_de_creation: 3.years.ago }
 
             it { is_expected.to contain_exactly(es_temoin) }
           end
 
-          context 'old company' do
+          context '7 years ld company' do
             let(:company) { create :company, date_de_creation: 7.years.ago }
 
             it { is_expected.to contain_exactly(es_01, es_temoin) }
@@ -51,36 +53,35 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
         end
 
         context 'with institution filter only' do
-          before { es_01.expert.institution.match_filters << match_filter_02 }
+          before { es_01.expert.institution.match_filters << match_filter_03 }
 
-          context 'young company' do
-            let(:company) { create :company, date_de_creation: 2.years.ago }
+          context '1 year old company' do
+            let(:company) { create :company, date_de_creation: 1.year.ago }
 
             it { is_expected.to contain_exactly(es_temoin) }
           end
 
-          context 'old company' do
-            let(:company) { create :company, date_de_creation: 4.years.ago }
+          context '5 years old company' do
+            let(:company) { create :company, date_de_creation: 5.years.ago }
 
             it { is_expected.to contain_exactly(es_01, es_temoin) }
           end
         end
 
-        # TODO les filtres avec des expert passent sans changements
         context 'with antenne and expert filter' do
           before do
             es_01.expert.match_filters << match_filter_01
             es_01.expert.antenne.match_filters << match_filter_02
           end
 
-          context 'young company' do
-            let(:company) { create :company, date_de_creation: 2.years.ago }
+          context '3 years old company' do
+            let(:company) { create :company, date_de_creation: 3.years.ago }
 
             it { is_expected.to contain_exactly(es_temoin) }
           end
 
-          context 'old company' do
-            let(:company) { create :company, date_de_creation: 5.years.ago }
+          context '7 years old company' do
+            let(:company) { create :company, date_de_creation: 7.years.ago }
 
             it { is_expected.to contain_exactly(es_01, es_temoin) }
           end
@@ -89,17 +90,17 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
         context 'with institution and expert filter' do
           before do
             es_01.expert.match_filters << match_filter_01
-            es_01.expert.institution.match_filters << match_filter_02
+            es_01.expert.institution.match_filters << match_filter_03
           end
 
-          context 'young company' do
-            let(:company) { create :company, date_de_creation: 2.years.ago }
+          context '3 years old company' do
+            let(:company) { create :company, date_de_creation: 4.years.ago }
 
             it { is_expected.to contain_exactly(es_temoin) }
           end
 
-          context 'old company' do
-            let(:company) { create :company, date_de_creation: 5.years.ago }
+          context '7 years old company' do
+            let(:company) { create :company, date_de_creation: 7.years.ago }
 
             it { is_expected.to contain_exactly(es_01, es_temoin) }
           end
@@ -107,17 +108,17 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
         context 'with institution and antenne filter' do
           before do
-            es_01.expert.antenne.match_filters << match_filter_01
-            es_01.expert.institution.match_filters << match_filter_02
+            es_01.expert.antenne.match_filters << match_filter_02
+            es_01.expert.institution.match_filters << match_filter_03
           end
 
-          context 'young company' do
-            let(:company) { create :company, date_de_creation: 2.years.ago }
+          context '3 years old company' do
+            let(:company) { create :company, date_de_creation: 3.years.ago }
 
             it { is_expected.to contain_exactly(es_temoin) }
           end
 
-          context 'old company' do
+          context '5 years old company' do
             let(:company) { create :company, date_de_creation: 5.years.ago }
 
             it { is_expected.to contain_exactly(es_01, es_temoin) }

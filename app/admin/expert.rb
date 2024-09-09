@@ -190,7 +190,7 @@ ActiveAdmin.register Expert do
     end
 
     attributes_table title: I18n.t('active_admin.expert.match_filters') do
-      expert.antenne.match_filters.map.with_index do |mf, index|
+      expert.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
           attributes_table_for mf do
             MatchFilter::FILTERS.each do |filter|
@@ -212,6 +212,10 @@ ActiveAdmin.register Expert do
 
   ## Form
   #
+  match_filters_attributes = [
+    :id, :min_years_of_existence, :max_years_of_existence, :effectif_max, :effectif_min,
+    :raw_accepted_naf_codes, :raw_excluded_naf_codes, :raw_accepted_legal_forms, :raw_excluded_legal_forms, :_destroy, subject_ids: []
+  ]
   permit_params [
     :full_name,
     :job,
@@ -222,7 +226,8 @@ ActiveAdmin.register Expert do
     :is_global_zone,
     user_ids: [],
     experts_subjects_ids: [],
-    experts_subjects_attributes: %i[id intervention_criteria institution_subject_id _create _update _destroy]
+    experts_subjects_attributes: %i[id intervention_criteria institution_subject_id _create _update _destroy],
+    match_filters_attributes: match_filters_attributes
   ]
 
   form do |f|
@@ -269,6 +274,24 @@ ActiveAdmin.register Expert do
           sub_f.input :institution_subject, collection: collection
           sub_f.input :intervention_criteria
         end
+      end
+    end
+
+    f.inputs do
+      f.has_many :match_filters, allow_destroy: true, new_record: true do |mf|
+        if resource.institution.present?
+          mf.input :subjects, as: :ajax_select, collection: resource.institution.subjects, data: { url: :admin_subjects_path, search_fields: [:label] }
+        else
+          mf.input :subjects, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
+        end
+        mf.input :min_years_of_existence
+        mf.input :max_years_of_existence
+        mf.input :effectif_min
+        mf.input :effectif_max
+        mf.input :raw_accepted_legal_forms
+        mf.input :raw_excluded_legal_forms
+        mf.input :raw_accepted_naf_codes, as: :text
+        mf.input :raw_excluded_naf_codes, as: :text
       end
     end
 
