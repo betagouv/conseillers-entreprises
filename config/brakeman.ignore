@@ -3,6 +3,50 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
+      "fingerprint": "343e3eddcc9eba6bd9a7768e7e9e19f48b76e90692bdf9ae4d3e10ec43ade890",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/conseiller/suivi_qualite/_refused_feedback_need.haml",
+      "line": 35,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "build_admin_card_footer(:refused_feedback, (Unresolved Model).new)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Conseiller::SuiviQualiteController",
+          "method": "refused_feedbacks",
+          "line": 34,
+          "file": "app/controllers/conseiller/suivi_qualite_controller.rb",
+          "rendered": {
+            "name": "conseiller/suivi_qualite/index",
+            "file": "app/views/conseiller/suivi_qualite/index.html.haml"
+          }
+        },
+        {
+          "type": "template",
+          "name": "conseiller/suivi_qualite/index",
+          "line": 15,
+          "file": "app/views/conseiller/suivi_qualite/index.html.haml",
+          "rendered": {
+            "name": "conseiller/suivi_qualite/_refused_feedback_need",
+            "file": "app/views/conseiller/suivi_qualite/_refused_feedback_need.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "conseiller/suivi_qualite/_refused_feedback_need"
+      },
+      "user_input": "(Unresolved Model).new",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
       "fingerprint": "6425e46bf263b1a2746d17a6de34ad8c801b0184ed3c8080de77c590fe49db96",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
@@ -91,6 +135,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-08-08 17:25:09 +0200",
+  "updated": "2024-09-03 14:49:27 +0200",
   "brakeman_version": "6.1.2"
 }
