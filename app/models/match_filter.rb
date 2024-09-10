@@ -42,8 +42,8 @@ class MatchFilter < ApplicationRecord
     ExpertSubject.where(expert_id: experts.ids)
   end
 
-  def expert
-    filtrable_element.expert
+  def experts
+    filtrable_element.experts
   end
 
   def expert=(expert)
