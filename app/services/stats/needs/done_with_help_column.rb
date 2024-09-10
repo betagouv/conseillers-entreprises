@@ -1,10 +1,9 @@
 # Stats montrant l'evolution du nombre de demandes donnant lieu à échange avec un conseiller
 module Stats::Needs
-  class ExchangeWithExpertColumn
+  class DoneWithHelpColumn
     include ::Stats::BaseStats
 
     def initialize(params)
-      params = OpenStruct.new(params)
       @start_date = Time.zone.now.beginning_of_month - 11.months
       @end_date = Time.zone.now.end_of_day
     end
@@ -12,7 +11,7 @@ module Stats::Needs
     def main_query
       Need.diagnosis_completed
         .joins(:diagnosis).merge(Diagnosis.from_solicitation)
-        .with_exchange
+        .where(status: :done)
     end
 
     # Stat principale, on ne filtre pas
@@ -33,7 +32,7 @@ module Stats::Needs
     end
 
     def category_name(_)
-      I18n.t('stats.series.exchange_with_expert_column.series')
+      I18n.t('stats.series.done_with_help_column.series')
     end
 
     def chart

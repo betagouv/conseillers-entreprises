@@ -26,7 +26,7 @@ RSpec.describe 'stats/team/index' do
 
     it "displays correctly needs stats" do
       assign_base_data
-      assign(:main_stat, Stats::Needs::ExchangeWithExpertColumn.new({ start_date: start_date, end_date: end_date }))
+      assign(:main_stat, Stats::Needs::DoneWithHelpColumn.new({ start_date: start_date, end_date: end_date }))
       assign(:charts_names, [
         :transmitted_less_than_72h_stats, :needs_done, :needs_done_no_help, :needs_done_not_reachable,
         :needs_not_for_me, :needs_abandoned, :needs_abandoned_total_count

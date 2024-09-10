@@ -5,7 +5,7 @@ module Stats
     def index
       @stats_params = stats_params
       session[:public_stats_params] = @stats_params
-      @main_stat = Stats::Needs::ExchangeWithExpertColumn.new(@stats_params)
+      @main_stat = Stats::Needs::DoneWithHelpColumn.new(@stats_params)
     end
 
     def load_data
