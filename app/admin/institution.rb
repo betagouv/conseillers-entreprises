@@ -49,6 +49,9 @@ ActiveAdmin.register Institution do
       div admin_link_to(i, :sent_matches, blank_if_empty: true)
       div admin_link_to(i, :received_matches, blank_if_empty: true)
     end
+    column(:filters) do |i|
+      div i.match_filters.count if i.match_filters.any?
+    end
   end
 
   filter :name

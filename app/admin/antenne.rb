@@ -39,6 +39,9 @@ ActiveAdmin.register Antenne do
       div admin_link_to(a, :sent_matches, blank_if_empty: true)
       div admin_link_to(a, :received_matches, blank_if_empty: true)
     end
+    column(:filters) do |i|
+      div i.match_filters.count if i.match_filters.any?
+    end
     column(:manager) do |a|
       if a.managers.any?
         div admin_link_to(a, :managers, list: true)

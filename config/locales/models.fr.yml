@@ -914,6 +914,7 @@ fr:
       one: Commentaire
       other: Commentaires
     filter_value: Valeur du filtre
+    filters: Filtres
     find_my_facility: Votre numéro SIRET
     flags: Options
     forme_exercice: Nature de l’entreprise

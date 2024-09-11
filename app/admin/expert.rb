@@ -68,6 +68,9 @@ ActiveAdmin.register Expert do
       div admin_link_to(e, :received_matches, blank_if_empty: true)
       admin_link_to_expert_shared_satisfaction(e)
     end
+    column(:filters) do |i|
+      div i.match_filters.count if i.match_filters.any?
+    end
   end
 
   before_action :only => :index do
