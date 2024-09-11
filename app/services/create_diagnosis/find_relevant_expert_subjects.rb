@@ -46,12 +46,12 @@ module CreateDiagnosis
         examined_match_filters = es.match_filters.reject{ |mf| other_subject_filter?(mf) }
         # On retire les filtres aux institutions si on a le même filtre à une antenne ou expert
         examined_match_filters = examined_match_filters.reject do |mf|
-          mf.same_institution_match_filter?(examined_match_filters)
+          mf.same_antenne_or_expert_match_filter?(examined_match_filters)
         end
         # On retire les filtres aux antennes si on a le même filtre à un expert
         # En deux étapes pour éviter de supprimer tous les filtres dans une même boucle
         examined_match_filters = examined_match_filters.reject do |mf|
-          mf.same_antenne_match_filter?(examined_match_filters)
+          mf.same_expert_match_filter?(examined_match_filters)
         end
         # On garde les experts_subjects
         # - qui n'ont pas de filtres

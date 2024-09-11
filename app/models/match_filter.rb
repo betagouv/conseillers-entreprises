@@ -102,22 +102,24 @@ class MatchFilter < ApplicationRecord
     self.excluded_legal_forms = updated_legal_form_code
   end
 
-  def same_institution_match_filter?(match_filter_collection)
+  def same_antenne_or_expert_match_filter?(match_filter_collection)
     # un filtre expert prévaut sur un filtre antenne
     # un filtre antenne prévaut sur un filtre institution
     return false if filtrable_element_type != 'Institution'
     match_filter_collection.any? do |mf|
       mf != self &&
         (((mf.filtrable_element_type == 'Antenne') && mf.filtrable_element.institution_id == filtrable_element.id && mf.has_same_fields_filled?(self)) ||
-        (mf.filtrable_element_type == 'Expert' && (filtrable_element.experts.exists? mf.filtrable_element.id))) &&
+        (filter_on_expert_exist?(mf))) &&
         mf.has_same_fields_filled?(self)
     end
   end
 
-  def same_antenne_match_filter?(match_filter_collection)
+  def same_expert_match_filter?(match_filter_collection)
     return false if filtrable_element_type != 'Antenne'
     match_filter_collection.any? do |mf|
-      mf != self && mf.filtrable_element_type == 'Institution' && mf.filtrable_element_id == filtrable_element.institution_id && mf.has_same_fields_filled?(self)
+      mf != self &&
+        filter_on_expert_exist?(mf) &&
+      mf.has_same_fields_filled?(self)
     end
   end
 
@@ -130,5 +132,11 @@ class MatchFilter < ApplicationRecord
     fields_to_compare.all? do |field|
       self.send(field).present? == other_match_filter.send(field).present?
     end
+  end
+
+  private
+
+  def filter_on_expert_exist?(mf)
+    mf.filtrable_element_type == 'Expert' && (filtrable_element.experts.exists? mf.filtrable_element.id)
   end
 end
