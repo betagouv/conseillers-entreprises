@@ -1,0 +1,14 @@
+---
+fr:
+  natures_entreprise:
+    ACTIF_AGRICOLE: Actif agricole
+    AGENT_COMMERCIAL: Agent commercial
+    AGRICOLE (NON ACTIF): Agricole non actif
+    AGRICOLE_NON_ACTIF: Agricole non actif
+    ARTISANALE: Artisanale
+    ARTISANALE_REGLEMENTEE: Artisanale réglementée
+    COMMERCIALE: Commerciale
+    GESTION_DE_BIENS: Gestion de biens
+    INDEPENDANTE: Indépendante
+    LIBERALE_NON_REGLEMENTEE: Libérale non réglementée
+    LIBERALE_REGLEMENTEE: Libérale réglementée

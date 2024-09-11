@@ -4,7 +4,8 @@ module ApiConsumption::Agregators
       api_entreprise_etablissement: ApiEntreprise::Etablissement::Base,
       api_entreprise_effectifs: ApiEntreprise::EtablissementEffectifMensuel::Base,
       opco: ApiCfadock::Opco,
-      opco_fc: ApiFranceCompetence::Siret::Base
+      opco_fc: ApiFranceCompetence::Siret::Base,
+      api_rne_companies: ApiRne::Companies::Base
     }
 
     def initialize(siret, options = {})
@@ -14,7 +15,10 @@ module ApiConsumption::Agregators
 
     def item_params
       requests.each_with_object(base_hash.with_indifferent_access) do |request, hash|
+        pp request
         response = request.new(@siret).call
+        pp response
+        p '========================='
         hash["etablissement"].deep_merge! response
       end
     end
@@ -30,7 +34,7 @@ module ApiConsumption::Agregators
     end
 
     def request_keys
-      @options&.dig(:request_keys) || [:api_entreprise_effectifs, :opco, :opco_fc]
+      @options&.dig(:request_keys) || [:api_entreprise_effectifs, :opco, :opco_fc, :api_rne_companies]
     end
 
     def requests

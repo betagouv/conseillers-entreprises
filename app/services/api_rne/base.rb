@@ -3,7 +3,7 @@ module ApiRne
     attr_reader :siren_or_siret
 
     def initialize(siren_or_siret, options = {})
-      @siren_or_siret = FormatSiret.clean_siret(siren_or_siret)
+      @siren_or_siret = FormatSiret.clean_siret(siren_or_siret[0..8])
       raise ApiRneError, I18n.t('api_requests.invalid_siret_or_siren') unless valid_siren_or_siret?
       @options = options
     end

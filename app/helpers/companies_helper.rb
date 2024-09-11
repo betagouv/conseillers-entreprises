@@ -10,12 +10,17 @@ module CompaniesHelper
     "(#{annee})"
   end
 
-  def inscription_registre(registre, value)
-    label = I18n.t(registre, scope: 'activerecord.attributes.company')
-    t_value = I18n.t(value, scope: [:boolean, :text], default: I18n.t('boolean.text.false'))
-
-    html = tag.span("#{label} : ", class: 'fr-text--bold')
-    html << t_value
-    html
+  def natures_entreprise(natures)
+    return nil unless natures.any?
+    natures.map{ |nature| I18n.t(nature, scope: 'natures_entreprise') }
   end
+
+  # def inscription_registre(registre, value)
+  #   label = I18n.t(registre, scope: 'activerecord.attributes.company')
+  #   t_value = I18n.t(value, scope: [:boolean, :text], default: I18n.t('boolean.text.false'))
+
+  #   html = tag.span("#{label} : ", class: 'fr-text--bold')
+  #   html << t_value
+  #   html
+  # end
 end

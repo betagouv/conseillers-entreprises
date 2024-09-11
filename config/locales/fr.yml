@@ -29,7 +29,7 @@ fr:
   app_name: conseillers-entreprises.service-public.fr
   app_name_domain: service-public.fr
   app_name_subdomain: conseillers-entreprises
-  app_tagline: Le service public d'accompagnement des entreprises
+  app_tagline: Le service public d’accompagnement des entreprises
   boolean:
     text:
       'false': non

@@ -166,7 +166,7 @@ fr:
       date_creation: Date de création
       denomination: Dénomination
       diffusable_commercialement: Diffusable commercialement
-      forme_exercice: Nature de l’entreprise
+      forme_exercice: Nature(s) de l’entreprise
       forme_juridique: Forme juridique
       information: Informations sur l’entreprise
       siren: SIREN
@@ -312,7 +312,7 @@ fr:
         similar_abandonned_solicitations_explanation: 'Cycle d’abandon suspecté : cette entreprise a déjà déposé une demande qui n’a pas été mise en relation'
         siret: 'Siret :'
         solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres besoins récemment'
-        solicitation_no_register_company_explanation: Entreprise ni RCS ni RM
+        solicitation_no_nature_activites: Aucune nature de l'entreprise connue
         solicitation_relance_explanation: 'Relance suspectée : une mise en relation pour la même entreprise sur le même sujet a été faite il y a moins de 3 semaines'
         source: 'Page d’atterrissage :'
       solicitation_actions:

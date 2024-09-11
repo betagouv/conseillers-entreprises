@@ -414,12 +414,6 @@ class Solicitation < ApplicationRecord
       .uniq
   end
 
-  def from_no_register_company?
-    company = self&.facility&.company
-    return false if company.nil?
-    !company.inscrit_rcs && !company.inscrit_rm
-  end
-
   def from_intermediary?
     facility = self&.facility
     return false if facility.nil?

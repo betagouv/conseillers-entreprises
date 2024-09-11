@@ -28,40 +28,45 @@ module ApiRne::Companies
       registres = @http_request.data.dig('formality','content','registreAnterieur')
       {
         "forme_exercice" => @http_request.data.dig('formality', 'content', 'formeExerciceActivitePrincipale'),
-        "activites_secondaires" => grab_activites_secondaires(@http_request.data),
-        "rne_rcs" => registres.present? ? registres['rncs'] : nil,
-        "rne_rnm" => registres.present? ? registres['rnm'] : nil,
+        "activites_secondaires" => grab_activites_secondaires(@http_request.data)
       }
     end
 
     private
 
     def grab_activites_secondaires(data)
-      activites_secondaires = []
+      etablissement_principal = {}
       personne = data.dig('formality', 'content', 'personneMorale') || data.dig('formality', 'content', 'personnePhysique') || data.dig('formality', 'content', 'exploitation')
+      etablissement_principal['siret'] = personne.dig('etablissementPrincipal', 'descriptionEtablissement', 'siret')
 
-      activites_etablissement_principal = personne.dig('etablissementPrincipal', 'activites')
-      activites_etablissement_principal&.each do |activite|
-        activites_secondaires << {
+      activites_etablissement_principal = personne.dig('etablissementPrincipal', 'activites') || []
+      etablissement_principal['activites'] = activites_etablissement_principal.map do |activite|
+        {
           'formeExercice' => activite['formeExercice'],
-          "descriptionDetaillee" => activite['descriptionDetaillee'],
           'codeApe' => activite['codeApe'],
           'codeAprm' => activite['codeAprm']
         }
       end
 
+      autres_etablissements = []
       personne['autresEtablissements']&.each do |etablissement|
-        activites_autres_etablissements = etablissement['activites']
-        activites_autres_etablissements&.each do |activite|
-          activites_secondaires << {
+        item = {}
+        item['siret'] = etablissement['descriptionEtablissement']['siret']
+
+        activites = etablissement['activites'] || []
+        item['activites'] = activites.map do |activite|
+          {
             'formeExercice' => activite['formeExercice'],
-            "descriptionDetaillee" => activite['descriptionDetaillee'],
-            'codeApe' => activite['codeApe'],
-            'codeAprm' => activite['codeAprm']
+              'codeApe' => activite['codeApe'],
+              'codeAprm' => activite['codeAprm']
           }
         end
+        autres_etablissements << item
       end
-      activites_secondaires
+      {
+        'etablissement_principal' => etablissement_principal,
+        'autres_etablissements' => autres_etablissements
+      }
     end
   end
 end

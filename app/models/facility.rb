@@ -85,6 +85,22 @@ class Facility < ApplicationRecord
     readable_locality || insee_code
   end
 
+  def all_nature_activites
+    (nature_activites + [company.forme_exercice]).uniq
+  end
+
+  def has_artisanale_activites
+    all_nature_activites.any? { |a| ["ARTISANALE", "ARTISANALE_REGLEMENTEE"].include?(a) }
+  end
+
+  def has_commerciale_activites
+    forme_exercice.present? && ["COMMERCIALE"].include?(forme_exercice)
+  end
+
+  def has_liberal_activities
+    forme_exercice.present? && ["LIBERALE_REGLEMENTEE", "LIBERALE_NON_REGLEMENTEE"].include?(forme_exercice)
+  end
+
   ##
   #
   def to_s

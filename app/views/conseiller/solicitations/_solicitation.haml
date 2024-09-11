@@ -32,14 +32,15 @@
 
         .card__meta
           %ul.list-unstyled.meta__warnings
-            - if solicitation.facility&.company&.forme_exercice.present?
-              %li.meta__warnings__item= solicitation.facility.company.forme_exercice.humanize
+            - if solicitation.facility&.all_nature_activites&.any?
+              - natures_entreprise(solicitation.facility&.all_nature_activites).each do |nature|
+                %li.meta__warnings__item= nature
+            - else
+              %li.meta__warnings__item{ title: t('.solicitation_no_nature_activites') } ?
             - if solicitation.recent_matched_solicitations.any?
               %li.meta__warnings__item{ title: t('.solicitation_relance_explanation') } R
             - if solicitation.doublon_solicitations.any?
               %li.meta__warnings__item{ title: t('.solicitation_doublon_explanation') } D
-            - if solicitation.from_no_register_company?
-              %li.meta__warnings__item{ title: t('.solicitation_no_register_company_explanation') } ?
             - if solicitation.similar_abandonned_solicitations.any?
               %li.meta__warnings__item{ title: t('.similar_abandonned_solicitations_explanation') } A
             - if solicitation.from_intermediary?

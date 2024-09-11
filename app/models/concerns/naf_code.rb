@@ -17,4 +17,10 @@ module NafCode
     return if naf_code.nil?
     naf_code[0..1]
   end
+
+  def self.nafa_libelle(nafa_code)
+    return I18n.t('no_data') if nafa_code.nil?
+    nafa_code = nafa_code.gsub(/[^A-Za-z0-9]/, '')
+    I18n.t(nafa_code, scope: "nafa_code_to_libelle", default: I18n.t('naf_libelle.code_not_found'))
+  end
 end

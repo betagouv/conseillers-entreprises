@@ -42,7 +42,9 @@ module UseCases
           effectif: api_facility.effectif,
           naf_libelle: api_facility.naf_libelle,
           naf_code_a10: api_facility.naf_code_a10,
-          opco: api_facility.opco
+          opco: api_facility.opco,
+          nature_activites: api_facility.nature_activites,
+          nafa_codes: api_facility.nafa_codes
         )
         facility
       end
