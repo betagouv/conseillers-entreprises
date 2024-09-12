@@ -156,7 +156,7 @@ ActiveAdmin.register User do
   # Form
   #
   user_rights_attributes = [:id, :antenne_id, :category, :_destroy]
-  permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id,
+  permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id, :create_expert,
                 expert_ids: [], user_rights_attributes: user_rights_attributes
 
   form do |f|
@@ -185,6 +185,10 @@ ActiveAdmin.register User do
         ur.input :category, as: :select, collection: UserRight.categories.keys.map{ |cat| [I18n.t(cat, scope: "activerecord.attributes.user_right/categories"), cat] }, include_blank: false
         ur.input :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
       end
+    end
+
+    f.inputs I18n.t('activerecord.models.expert.one') do
+      f.input :create_expert, as: :boolean, label: I18n.t('active_admin.user.create_expert')
     end
 
     f.actions

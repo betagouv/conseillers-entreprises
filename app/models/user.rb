@@ -58,9 +58,11 @@ class User < ApplicationRecord
          :validatable,
          :invitable, invited_by_class_name: 'User', validate_on_invite: true
 
-  attr_accessor :cgu_accepted, :specifics_territories
+  attr_accessor :cgu_accepted, :specifics_territories, :create_expert
 
   store_accessor :app_info, ['bascule_seen']
+
+  after_create_commit :create_single_user_experts, if: :create_expert
 
   pg_search_scope :omnisearch,
     against: [:full_name, :email, :job],
@@ -260,7 +262,7 @@ class User < ApplicationRecord
 
   def create_single_user_experts
     return if single_user_experts.present?
-
+    # self.update(create_expert: false)
     self.experts.create!(self.user_expert_shared_attributes)
   end
 

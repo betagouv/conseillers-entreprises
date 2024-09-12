@@ -144,6 +144,7 @@ fr:
       entire_territory_assigned: Territoire ajouté
     user:
       connection: Connexion
+      create_expert: Créer un expert identique
       created: Utilisateur créé avec succès
       delete: Supprimer l’utilisateur
       delete_confirmation: Voulez-vous supprimer cet utilisateur ?
