@@ -117,6 +117,7 @@ ActiveAdmin.register User do
         li link_to t('annuaire.users.table.duplicate_user'), admin_user_duplicate_user_path(user), class: 'action'
       end
       li link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user), class: 'action'
+      li link_to t('active_admin.user.create_expert'), create_expert_admin_user_path(user), class: 'action'
     end
   end
 
@@ -211,6 +212,11 @@ ActiveAdmin.register User do
   member_action :invite_user do
     resource.invite!(current_user) unless resource.deleted?
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_invite_done')
+  end
+
+  member_action :create_expert do
+    resource.create_single_user_experts
+    redirect_back fallback_location: collection_path, notice: t('active_admin.user.create_expert_done')
   end
 
   batch_action I18n.t('active_admin.user.do_invite') do |ids|
