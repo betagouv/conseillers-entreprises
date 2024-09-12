@@ -23,7 +23,7 @@
                   %li
                     = question_label(answer.key, :long)
                     %strong= answer_label
-            - if @need.solicitation.present? && (@need.solicitation.origin_url.present? || @need.solicitation.landing.display_partner_url)
+            - if @need.solicitation.present? && @need.solicitation.landing.display_partner_url
               %div
                 = t('.origin_source')
                 %br
