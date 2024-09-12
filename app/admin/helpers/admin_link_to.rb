@@ -59,6 +59,8 @@ module Admin
         klass = object.class
         if klass.column_for_attribute(attribute).type == :datetime
           value = I18n.l(object.send(attribute), format: :admin)
+        elsif klass.column_for_attribute(attribute).array == true
+          value = object.send(attribute).join(', ')
         else
           value = object.send(attribute)
         end

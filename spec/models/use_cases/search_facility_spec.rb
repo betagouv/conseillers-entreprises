@@ -51,16 +51,16 @@ describe UseCases::SearchFacility do
         expect(company.siren).to eq siren
         expect(company.legal_form_code).to eq '5710'
         expect(company.code_effectif).to eq '41'
-        expect(company.inscrit_rcs).to be true
-        expect(company.inscrit_rm).to be true
         expect(company.forme_exercice).to eq 'COMMERCIALE'
-
+        
         expect(facility.reload.siret).to eq siret
         expect(facility.commune.insee_code).to eq '75102'
         expect(facility.naf_code).to eq '6202A'
         expect(facility.code_effectif).to eq '41'
         expect(facility.opco).to eq opco
         expect(facility.readable_locality).to eq '75002 PARIS 2'
+        expect(facility.nature_activites).to eq ["COMMERCIALE"]
+        expect(facility.nafa_codes).to eq []
       end
     end
 

@@ -15,10 +15,7 @@ module ApiConsumption::Agregators
 
     def item_params
       requests.each_with_object(base_hash.with_indifferent_access) do |request, hash|
-        pp request
         response = request.new(@siret).call
-        pp response
-        p '========================='
         hash["etablissement"].deep_merge! response
       end
     end

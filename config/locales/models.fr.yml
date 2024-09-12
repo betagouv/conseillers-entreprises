@@ -917,7 +917,7 @@ fr:
     filters: Filtres
     find_my_facility: Votre numéro SIRET
     flags: Options
-    forme_exercice: Nature(s) de l’entreprise
+    forme_exercice: Nature de l’entreprise
     full_name: Prénom et nom
     global_need_status: Statut du besoin au global
     happened_on: Date de la visite
@@ -965,6 +965,7 @@ fr:
     naf_code: Code NAF
     nafa_codes: Codes NAFA
     name: Nom
+    nature_activites: Nature des activités
     need: Besoin
     need_abandoned_at: Date d’abandon
     need_closed_at: Date de clôture du besoin
