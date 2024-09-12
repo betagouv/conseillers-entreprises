@@ -28,7 +28,7 @@ module CreateDiagnosis
         .in_commune(facility.commune)
         .of_subject(need.subject)
         .of_institution(institutions)
-        .in_company_registres(company)
+        .without_irrelevant_chambres(facility)
         .without_irrelevant_opcos(facility)
     end
 

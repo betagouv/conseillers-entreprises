@@ -2,6 +2,7 @@
 fr:
   natures_entreprise:
     ACTIF_AGRICOLE: Actif agricole
+    ACTIVITE_DE_PROSPECTION_UNIQUEMENT_NON_COMMERCIALE: Activité de prospection uniquement (non commerciale)
     AGENT_COMMERCIAL: Agent commercial
     AGRICOLE (NON ACTIF): Agricole non actif
     AGRICOLE_NON_ACTIF: Agricole non actif
@@ -12,3 +13,7 @@ fr:
     INDEPENDANTE: Indépendante
     LIBERALE_NON_REGLEMENTEE: Libérale non réglementée
     LIBERALE_REGLEMENTEE: Libérale réglementée
+    LOUEUR_MEUBLE: Loueur meublé
+    LOUEUR_TERRE_AGRICOLE: Loueur terre agricole
+    SANS_ACTIVITE: Sans activité
+    TOUTE_FORME_ACTIVITE: Toute forme activité
