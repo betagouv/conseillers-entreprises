@@ -32,9 +32,12 @@ ActiveAdmin.register Landing do
     column :landing_themes do |l|
       div l.landing_themes.count
     end
-    column :solicitations do |l|
-      div l.solicitations.count
+    column(:solicitations) do |l|
+      div  admin_link_to(l, :solicitations)
+      div  admin_link_to(l, :needs)
     end
+
+    column :display_partner_url
     column :is_archived
     actions dropdown: true do |l|
       item t('active_admin.landings.update_iframe_360_button'), update_iframe_360_admin_landing_path(l), method: :put
@@ -73,6 +76,7 @@ ActiveAdmin.register Landing do
     attributes_table title: I18n.t("landings.landings.admin.iframe_and_api_fields") do
       row :institution
       row :partner_url
+      row :display_partner_url
     end
 
     attributes_table title: I18n.t("landings.landings.admin.iframe_fields") do

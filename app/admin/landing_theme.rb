@@ -38,9 +38,7 @@ ActiveAdmin.register LandingTheme do
     column :slug
     column(:title) { |t| admin_link_to t }
     column(:landings){ |t| admin_link_to(t, :landings) }
-    column :solicitations do |l|
-      div l.solicitations.count
-    end
+    column(:solicitations){ |t| admin_link_to(t, :solicitations) }
     column :is_archived
     actions dropdown: true
   end

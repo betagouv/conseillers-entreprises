@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_14_125841) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_12_095206) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -294,6 +294,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_14_125841) do
     t.string "naf_code_a10"
     t.bigint "opco_id"
     t.float "effectif"
+    t.string "nature_activites", default: [], array: true
+    t.string "nafa_codes", default: [], array: true
     t.index ["commune_id"], name: "index_facilities_on_commune_id"
     t.index ["company_id"], name: "index_facilities_on_company_id"
     t.index ["opco_id"], name: "index_facilities_on_opco_id"
@@ -412,6 +414,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_14_125841) do
     t.boolean "display_pde_partnership_mention", default: false
     t.datetime "archived_at", precision: nil
     t.integer "integration", default: 0
+    t.boolean "display_partner_url", default: false
     t.index ["archived_at"], name: "index_landings_on_archived_at"
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true

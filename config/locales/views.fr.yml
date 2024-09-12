@@ -589,7 +589,7 @@ fr:
       needs_historic: Historique des besoins
       no_comment: Aucun commentaire
       no_match: Aucun expert de notifié
-      origin_source: 'Demande effectuée depuis la page : '
+      origin_source: 'Demande effectuée depuis :'
       origin_source_title: Lien vers la page du site dont est issue le besoin
       person_company_contact: Contact entreprise
       title: Visite de la société « %{company} »

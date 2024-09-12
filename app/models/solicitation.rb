@@ -588,15 +588,6 @@ class Solicitation < ApplicationRecord
     pk_campaign.presence || mtm_campaign.presence
   end
 
-  def origin_link_title
-    return if origin_url.blank?
-    if origin_title.present?
-      "#{origin_title} (#{landing.partner_url})"
-    else
-      origin_url
-    end
-  end
-
   # Else ---------------------
   def to_s
     "#{self.class.model_name.human} #{id}"
