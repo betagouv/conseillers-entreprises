@@ -145,6 +145,7 @@ fr:
     user:
       connection: Connexion
       create_expert: Créer un expert identique
+      create_expert_done: L’expert a bien été créé
       created: Utilisateur créé avec succès
       delete: Supprimer l’utilisateur
       delete_confirmation: Voulez-vous supprimer cet utilisateur ?
@@ -156,7 +157,6 @@ fr:
       roles: Rôles
       saved: Conseiller mis à jour
       user_info: Informations utilisateur
-      create_expert_done: "L’expert a bien été créé"
     users:
       delete_confirmation: Voulez-vous supprimer ces utilisateurs ? Cela va aussi supprimer leur expert personnel.
   activeadmin:
