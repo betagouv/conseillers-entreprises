@@ -82,7 +82,7 @@ module ApiFranceCompetence
     private
 
     def base_url
-      @base_url ||= "https://api-preprod.francecompetences.fr/"
+      @base_url ||= "https://api.francecompetences.fr/"
     end
 
     def url_key

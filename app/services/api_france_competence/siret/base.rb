@@ -28,7 +28,7 @@ module ApiFranceCompetence::Siret
     private
 
     def url_key
-      @url_key ||= 'siropartfc/'
+      @url_key ||= 'siropartfc/v1/api/partenaire/'
     end
   end
 
