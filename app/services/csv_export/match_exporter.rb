@@ -1,5 +1,6 @@
 module CsvExport
   class MatchExporter < BaseExporter
+    extend CompaniesHelper
     def fields
       # /!\ les fields de MatchExporter et SolicitationExporter doivent correspondre pour garantir la cohérence du fichier
       {
@@ -18,12 +19,11 @@ module CsvExport
         facility_regions: -> { facility_regions&.pluck(:name).uniq.join(", ") },
         company_name: -> { company&.name },
         company_categorie_juridique: -> { company.categorie_juridique },
-        company_naf: -> { facility.naf_code },
+        facility_naf: -> { facility.naf_code },
+        facility_nafa: -> { facility.nafa_codes&.join(", ") },
         company_effectif: -> { Effectif::CodeEffectif.new(facility.displayable_code_effectif).intitule_effectif },
-        company_forme_exercice: -> { company&.forme_exercice&.humanize },
-        inscrit_rcs: -> { I18n.t(company.inscrit_rcs, scope: [:boolean, :text], default: I18n.t('boolean.text.false')) },
-        inscrit_rm: -> { I18n.t(company.inscrit_rm, scope: [:boolean, :text], default: I18n.t('boolean.text.false')) },
-        activite_liberale: -> { I18n.t(company.activite_liberale, scope: [:boolean, :text], default: I18n.t('boolean.text.false')) },
+        company_forme_exercice: -> {  I18n.t(company&.forme_exercice, scope: 'natures_entreprise', default: '') },
+        facility_nature_activites: -> { facility.nature_activites.map{ |nature| I18n.t(nature, scope: 'natures_entreprise') }.join(', ') },
         solicitation_full_name: -> { solicitation&.full_name },
         solicitation_email: -> { solicitation&.email },
         solicitation_phone_number: -> { solicitation&.phone_number },
@@ -62,6 +62,8 @@ module CsvExport
         facility: :commune, diagnosis: :visitee, need: [:reminders_actions]
       ]
     end
+
+    def translated_thing; end
 
     def sort_relation(relation)
       relation.includes(*preloaded_associations).sort_by{ |m| [(m.solicitation&.created_at || m.created_at), m.created_at] }

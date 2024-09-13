@@ -33,7 +33,7 @@
         .card__meta
           %ul.list-unstyled.meta__warnings
             - if solicitation.facility&.all_nature_activites&.any?
-              - natures_entreprise(solicitation.facility&.all_nature_activites).each do |nature|
+              - translated_nature_activites(solicitation.facility&.all_nature_activites).each do |nature|
                 %li.meta__warnings__item= nature
             - else
               %li.meta__warnings__item{ title: t('.solicitation_no_nature_activites') } ?

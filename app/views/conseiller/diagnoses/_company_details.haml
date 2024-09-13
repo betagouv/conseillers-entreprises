@@ -13,7 +13,7 @@
         = facility.nafa_codes.map{ |code| "#{NafCode.nafa_libelle(code)} (#{code})" }.join(', ')
     %li
       %span.fr-text--bold #{t('attributes.forme_exercice')} : 
-      = natures_entreprise(facility.all_nature_activites)&.join(', ')
+      = translated_nature_activites(facility.all_nature_activites)&.join(', ')
 
     - if facility.code_effectif.present?
       %li

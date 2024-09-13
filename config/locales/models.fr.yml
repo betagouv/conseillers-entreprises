@@ -866,7 +866,7 @@ fr:
     community: Communauté
     company_categorie_juridique: Catégorie juridique
     company_effectif: Effectifs
-    company_naf: Code NAF
+    company_forme_exercice: Nature de l’entreprise
     company_name: Nom de l’entreprise
     company_satisfaction: Satisfaction
     completed_at: Date de complétion
@@ -908,6 +908,9 @@ fr:
       one: Établissement
       other: Établissements
     facility: Établissement
+    facility_naf: Code NAF
+    facility_nafa: Codes NAFA
+    facility_nature_activites: Nature des activités
     facility_regions: Région de l’établissement
     facility_territories: Territoires des établissements
     feedbacks:
