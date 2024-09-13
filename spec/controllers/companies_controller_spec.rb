@@ -22,7 +22,7 @@ RSpec.describe CompaniesController do
   let(:rm_url) { "https://entreprise.api.gouv.fr/v3/cma_france/rnm/unites_legales/#{siren}?#{suffix_url}" }
   let(:mandataires_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/mandataires_sociaux?#{suffix_url}" }
   let(:rne_companies_url) { "https://registre-national-entreprises.inpi.fr/api/companies/#{siren}" }
-  let(:france_competence_url) { "https://api-preprod.francecompetences.fr/siropartfc/#{siret}" }
+  let(:france_competence_url) { "https://api.francecompetences.fr/siropartfc/v1/api/partenaire/#{siret}" }
 
   before do
     ENV['API_ENTREPRISE_TOKEN'] = token

@@ -26,7 +26,7 @@ RSpec.describe ApiConsumption::Facility do
     let(:api_facility) { described_class.new(siret).call }
     let(:api_ets_base_url) { 'https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements' }
     let(:cfadock_base_url) { 'https://www.cfadock.fr/api/opcos?siret=' }
-    let(:france_competence_url) { "https://api-preprod.francecompetences.fr/siropartfc/#{siret}" }
+    let(:france_competence_url) { "https://api.francecompetences.fr/siropartfc/v1/api/partenaire/#{siret}" }
     let(:effectifs_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/#{siret}/effectifs_mensuels/#{searched_month}/annee/#{searched_year}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
     before { Rails.cache.clear }

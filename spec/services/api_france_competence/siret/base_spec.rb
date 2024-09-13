@@ -5,7 +5,7 @@ require 'api_helper'
 
 RSpec.describe ApiFranceCompetence::Siret::Base do
   let(:api_opco) { described_class.new(siret).call }
-  let(:url) { "https://api-preprod.francecompetences.fr/siropartfc/#{siret}" }
+  let(:url) { "https://api.francecompetences.fr/siropartfc/v1/api/partenaire/#{siret}" }
 
   context 'SIRET reconnu' do
     let(:siret) { '41816609600069' }
