@@ -5,6 +5,7 @@
 #  id                              :bigint(8)        not null, primary key
 #  archived_at                     :datetime
 #  custom_css                      :string
+#  display_partner_url             :boolean          default(FALSE)
 #  display_pde_partnership_mention :boolean          default(FALSE)
 #  emphasis                        :boolean          default(FALSE)
 #  home_description                :text             default("")
@@ -64,6 +65,7 @@ class Landing < ApplicationRecord
 
   has_many :solicitations, inverse_of: :landing
   has_many :diagnoses, through: :solicitations, inverse_of: :landing
+  has_many :needs, through: :diagnoses, inverse_of: :landing
   has_many :matches, through: :diagnoses, inverse_of: :landing
 
   accepts_nested_attributes_for :landing_joint_themes, allow_destroy: true

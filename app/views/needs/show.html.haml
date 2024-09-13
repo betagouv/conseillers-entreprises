@@ -23,11 +23,11 @@
                   %li
                     = question_label(answer.key, :long)
                     %strong= answer_label
-            - if @need.solicitation.present? && @need.solicitation.origin_url.present?
+            - if @need.solicitation.present? && @need.solicitation.landing.display_partner_url
               %div
                 = t('.origin_source')
                 %br
-                = link_to @need.solicitation.origin_link_title, @need.solicitation.origin_url, title: "#{to_new_window_title(t('.origin_source_title'))}", target: '_blank', rel: 'noopener'
+                = link_to partner_title(@need.solicitation), partner_url(@need.solicitation), title: "#{to_new_window_title(t('.origin_source_title'))}", target: '_blank', rel: 'noopener'
 
     .fr-col-md-4.order-minus-one.bp-sm
       .fr-grid-row.need-metadata
