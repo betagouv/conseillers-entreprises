@@ -22,14 +22,6 @@ RSpec.describe ApiEntreprise::Entreprise::Base do
       expect(api_company['siren']).to be_present
       expect(api_company["personne_morale_attributs"]['raison_sociale']).to be_present
     end
-
-    it 'doesnt set rcs subscription' do
-      expect(api_company['inscrit_rcs']).to be_nil
-    end
-
-    it 'doesnt set rm subscription' do
-      expect(api_company['inscrit_rm']).to be_nil
-    end
   end
 
   context 'SIREN is missing' do

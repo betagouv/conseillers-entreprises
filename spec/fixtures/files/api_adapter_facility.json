@@ -14,13 +14,15 @@
       "de": 500,
       "a": 999,
       "code": "41",
-      "date_reference": "2020",
+      "date_reference": "2021",
       "intitule": "500 à 999 salariés"
     },
     "diffusable_commercialement": true,
+    "status_diffusion": "diffusible",
     "date_creation": 1480287600,
     "unite_legale": {
       "siren": "418166096",
+      "rna": null,
       "siret_siege_social": "41816609600069",
       "type": "personne_morale",
       "personne_morale_attributs": {
@@ -39,6 +41,7 @@
         "sexe": null
       },
       "categorie_entreprise": "GE",
+      "status_diffusion": "diffusible",
       "diffusable_commercialement": true,
       "forme_juridique": {
         "code": "5710",
@@ -53,24 +56,22 @@
         "de": 500,
         "a": 999,
         "code": "41",
-        "date_reference": "2020",
+        "date_reference": "2021",
         "intitule": "500 à 999 salariés"
       },
       "economie_sociale_et_solidaire": false,
       "date_creation": 891381600,
-      "etat_administratif": "A",
-      "date_derniere_mise_a_jour": 1661724000,
-      "redirect_from_siren": null
+      "etat_administratif": "A"
     },
     "adresse": {
-      "siret": "41816609600069",
+      "status_diffusion": "diffusible",
       "complement_adresse": null,
       "numero_voie": "34",
       "indice_repetition_voie": null,
       "type_voie": "AVENUE",
-      "libelle_voie": "DE L OPERA",
+      "libelle_voie": "DE L'OPERA",
       "code_postal": "75002",
-      "libelle_commune": "PARIS 2",
+      "libelle_commune": "PARIS",
       "libelle_commune_etranger": null,
       "distribution_speciale": null,
       "code_commune": "75102",
@@ -82,55 +83,109 @@
         "l1": "OCTO-TECHNOLOGY",
         "l2": "",
         "l3": "",
-        "l4": "34 AVENUE DE L OPERA",
+        "l4": "34 AVENUE DE L'OPERA",
         "l5": "",
-        "l6": "75002 PARIS 2",
+        "l6": "75002 PARIS",
         "l7": "FRANCE"
       }
     },
-    "date_derniere_mise_a_jour": 1661724000,
+    "date_derniere_mise_a_jour": 1717106400,
     "redirect_from_siret": null,
     "effectifs_etablissement_mensuel": {
       "siret": "41816609600069",
       "effectifs_mensuels": [
         {
-          "regime": "regime_general",
-          "annee": "2023",
-          "mois": "05",
-          "nature": "effectif_moyen_mensuel",
-          "value": 745.82,
-          "date_derniere_mise_a_jour": "2023-06-20"
-        },
-        {
           "regime": "regime_agricole",
-          "annee": "2023",
-          "mois": "05",
+          "annee": "2024",
+          "mois": "07",
           "nature": "effectif_moyen_mensuel",
           "value": null,
           "date_derniere_mise_a_jour": null
+        },
+        {
+          "regime": "regime_general",
+          "annee": "2024",
+          "mois": "07",
+          "nature": "effectif_moyen_mensuel",
+          "value": 734.32,
+          "date_derniere_mise_a_jour": "2024-09-10"
         }
       ]
     },
     "idcc": 1486,
     "opcoName": "ATLAS",
     "opcoSiren": "851296632",
-    "opco_fc": {
-      "code":"01",
-      "opcoRattachement": {
-        "code":"03",
-        "nom":"ATLAS"
+    "opco_fc": { "error": "unexpected token at 'Unauthorized'" },
+    "forme_exercice": "COMMERCIALE",
+    "activites_secondaires": {
+      "etablissement_principal": {
+        "siret": "41816609600069",
+        "activites": [
+          {
+            "formeExercice": "COMMERCIALE",
+            "codeApe": "6202A",
+            "codeAprm": null
+          },
+          {
+            "formeExercice": "LIBERALE_NON_REGLEMENTEE",
+            "codeApe": "6202A",
+            "codeAprm": null
+          }
+        ]
       },
-      "opcoGestion": {
-        "code":"N/C",
-        "nom":"N/C"
-      }
+      "autres_etablissements": [
+        {
+          "siret": "41816609600010",
+          "activites": [
+            { "formeExercice": null, "codeApe": "721Z", "codeAprm": null }
+          ]
+        },
+        {
+          "siret": "41816609600028",
+          "activites": [
+            { "formeExercice": null, "codeApe": "721Z", "codeAprm": null }
+          ]
+        },
+        {
+          "siret": "41816609600036",
+          "activites": [
+            { "formeExercice": null, "codeApe": "721Z", "codeAprm": null }
+          ]
+        },
+        {
+          "siret": "41816609600044",
+          "activites": [
+            { "formeExercice": null, "codeApe": "721Z", "codeAprm": null }
+          ]
+        },
+        {
+          "siret": "41816609600051",
+          "activites": [
+            {
+              "formeExercice": "LIBERALE_NON_REGLEMENTEE",
+              "codeApe": "6202A",
+              "codeAprm": null
+            }
+          ]
+        },
+        {
+          "siret": "41816609600077",
+          "activites": [
+            {
+              "formeExercice": "COMMERCIALE",
+              "codeApe": "7112B",
+              "codeAprm": null
+            }
+          ]
+        }
+      ]
     }
   },
   "links": {
     "unite_legale": "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/418166096"
   },
   "meta": {
-    "date_derniere_mise_a_jour": 1661724000,
+    "date_derniere_mise_a_jour": 1717106400,
     "redirect_from_siret": null
   }
 }

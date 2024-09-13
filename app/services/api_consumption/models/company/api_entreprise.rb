@@ -16,14 +16,10 @@ module ApiConsumption::Models
         :economie_sociale_et_solidaire,
         :date_cessation,
         :date_creation,
-        :rcs,
-        :rm,
         :effectifs,
         :effectifs_entreprise_annuel,
         :mandataires_sociaux,
-        :forme_exercice,
-        :rne_rcs,
-        :rne_rnm
+        :forme_exercice
       ]
     end
 
@@ -33,24 +29,6 @@ module ApiConsumption::Models
         personne_morale_name
       when "personne_physique"
         personne_physique_name
-      end
-    end
-
-    def inscrit_rcs
-      # api rcs peut retourner false juste parce qu'il n'a pas la donnée
-      if api_rne_rcs_value == true
-        return true
-      else
-        return api_rcs_value
-      end
-    end
-
-    def inscrit_rm
-      # api rm peut retourner false juste parce qu'il n'a pas la donnée
-      if api_rne_rnm_value == true
-        return true
-      else
-        return api_rm_value
       end
     end
 
@@ -109,7 +87,7 @@ module ApiConsumption::Models
     end
 
     def capital_social
-      @capital_social ||= rcs&.dig('capital', 'montant')
+      # @capital_social ||= rcs&.dig('capital', 'montant')
     end
 
     def activite_liberale
@@ -160,28 +138,6 @@ module ApiConsumption::Models
 
     def effectifs_entreprise_annuel_annee
       effectifs_entreprise_annuel['annee'] || nil
-    end
-
-    def api_rcs_value
-      return false if rcs.nil?
-      rcs["error"].nil?
-    end
-
-    def api_rne_rcs_value
-      return true if has_commerciale_forme_exercice
-      return false if rne_rcs.nil?
-      rne_rcs['estPresent']
-    end
-
-    def api_rm_value
-      return false if rm.nil?
-      rm["error"].nil?
-    end
-
-    def api_rne_rnm_value
-      return true if has_artisanale_forme_exercice
-      return false if rne_rnm.nil?
-      rne_rnm['estPresent']
     end
   end
 end
