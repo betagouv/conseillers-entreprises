@@ -38,7 +38,6 @@ ActiveAdmin.register Landing do
     end
 
     column :display_partner_url
-    column :is_archived
     actions dropdown: true do |l|
       item t('active_admin.landings.update_iframe_360_button'), update_iframe_360_admin_landing_path(l), method: :put
     end
