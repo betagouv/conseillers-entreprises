@@ -21,7 +21,7 @@ describe UseCases::SearchFacility do
   let(:effectif_etablissement_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/#{siret}/effectifs_mensuels/#{searched_month}/annee/#{searched_year}?#{suffix_url}" }
   let(:opco_url) { "https://www.cfadock.fr/api/opcos?siret=#{siret}" }
   let(:rne_companies_url) { "https://registre-national-entreprises.inpi.fr/api/companies/#{siren}" }
-  let(:france_competence_url) { "https://api-preprod.francecompetences.fr/siropartfc/#{siret}" }
+  let(:france_competence_url) { "https://api.francecompetences.fr/siropartfc/v1/api/partenaire/#{siret}" }
 
   describe 'with_siret_and_save' do
     before do
