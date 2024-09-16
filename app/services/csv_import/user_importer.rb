@@ -67,7 +67,7 @@ module CsvImport
       attributes = all_attributes.slice(*team_mapping.keys)
         .transform_keys{ |k| team_mapping[k] }
         .transform_keys{ |k| k.to_s.delete_prefix('team_').to_sym }
-        .select { |_, v| v.present? }
+        .compact_blank
       attributes = sanitize_inputs(attributes)
 
       if attributes[:email].present?
