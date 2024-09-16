@@ -11,11 +11,12 @@ module CompaniesHelper
   end
 
   def translated_nature_activites(natures)
-    return nil unless natures.any?
-    natures.map{ |nature| translated_nature_activite(nature) }
+    return [] unless natures.any?
+    natures.filter_map{ |nature| translated_nature_activite(nature) }
   end
 
   def translated_nature_activite(nature)
-    I18n.t(nature, scope: 'natures_entreprise')
+    return nil if nature.nil?
+    I18n.t(nature, scope: 'natures_entreprise', default: nature.humanize)
   end
 end

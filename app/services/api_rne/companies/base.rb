@@ -35,38 +35,35 @@ module ApiRne::Companies
     private
 
     def grab_activites_secondaires(data)
-      etablissement_principal = {}
       personne = data.dig('formality', 'content', 'personneMorale') || data.dig('formality', 'content', 'personnePhysique') || data.dig('formality', 'content', 'exploitation')
-      etablissement_principal['siret'] = personne.dig('etablissementPrincipal', 'descriptionEtablissement', 'siret')
 
+      etablissement_principal = {}
+      etablissement_principal['siret'] = personne.dig('etablissementPrincipal', 'descriptionEtablissement', 'siret')
       activites_etablissement_principal = personne.dig('etablissementPrincipal', 'activites') || []
-      etablissement_principal['activites'] = activites_etablissement_principal.map do |activite|
-        {
-          'formeExercice' => activite['formeExercice'],
-          'codeApe' => activite['codeApe'],
-          'codeAprm' => activite['codeAprm']
-        }
-      end
+      etablissement_principal['activites'] = grab_etablissement_activites(activites_etablissement_principal)
 
       autres_etablissements = []
       personne['autresEtablissements']&.each do |etablissement|
         item = {}
         item['siret'] = etablissement['descriptionEtablissement']['siret']
-
         activites = etablissement['activites'] || []
-        item['activites'] = activites.map do |activite|
-          {
-            'formeExercice' => activite['formeExercice'],
-              'codeApe' => activite['codeApe'],
-              'codeAprm' => activite['codeAprm']
-          }
-        end
+        item['activites'] = grab_etablissement_activites(activites)
         autres_etablissements << item
       end
       {
         'etablissement_principal' => etablissement_principal,
         'autres_etablissements' => autres_etablissements
       }
+    end
+
+    def grab_etablissement_activites(activites)
+      activites.map do |activite|
+        {
+          'formeExercice' => activite['formeExercice'],
+          'codeApe' => activite['codeApe'],
+          'codeAprm' => activite['codeAprm']
+        }
+      end
     end
   end
 end

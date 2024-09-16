@@ -42,4 +42,21 @@ RSpec.describe NafCode do
       it{ is_expected.to be_nil }
     end
   end
+
+  describe 'nafa_libelle' do
+    subject { described_class.nafa_libelle(nafa_code) }
+
+    context 'valid code no level' do
+      let(:nafa_code) { '0162ZP' }
+
+      it{ is_expected.to eq 'Maréchalerie' }
+    end
+
+    context 'nil code' do
+      let(:nafa_code) { nil }
+
+      it{ is_expected.to be_nil }
+    end
+
+  end
 end
