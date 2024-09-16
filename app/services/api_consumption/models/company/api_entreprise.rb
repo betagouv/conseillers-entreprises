@@ -19,7 +19,9 @@ module ApiConsumption::Models
         :effectifs,
         :effectifs_entreprise_annuel,
         :mandataires_sociaux,
-        :forme_exercice
+        :forme_exercice,
+        :description,
+        :montant_capital
       ]
     end
 
@@ -83,7 +85,7 @@ module ApiConsumption::Models
     end
 
     def capital_social
-      # @capital_social ||= rcs&.dig('capital', 'montant')
+      montant_capital
     end
 
     private

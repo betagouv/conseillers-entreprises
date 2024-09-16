@@ -89,6 +89,40 @@
       "note": ""
     },
     {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "881c3875aef58dc4fcc156e5c49653cd2be4886aa1d76feffb806d39446921c8",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/views/needs/show.html.haml",
+      "line": 79,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`#{NafCode.nafa_libelle(Need.find(params.require(:id)).facility.nafa_codes.first)} (#{Need.find(params.require(:id)).facility.nafa_codes.first})`",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "NeedsController",
+          "method": "show",
+          "line": 52,
+          "file": "app/controllers/needs_controller.rb",
+          "rendered": {
+            "name": "needs/show",
+            "file": "app/views/needs/show.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "needs/show"
+      },
+      "user_input": "Need.find(params.require(:id)).facility",
+      "confidence": "High",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "a848f2ec57900fe0a8e2cc8aeab00277657870582bef079fa2f2d539a0b7d060",
@@ -135,6 +169,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-09-03 14:49:27 +0200",
+  "updated": "2024-09-16 20:54:10 +0200",
   "brakeman_version": "6.1.2"
 }

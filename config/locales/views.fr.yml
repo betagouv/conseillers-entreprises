@@ -165,6 +165,7 @@ fr:
       date_cessation: Date de cessation
       date_creation: Date de création
       denomination: Dénomination
+      description: Description
       diffusable_commercialement: Diffusable commercialement
       forme_exercice: Nature de l’entreprise
       forme_juridique: Forme juridique
@@ -178,6 +179,8 @@ fr:
       date_mise_a_jour: Date de mise à jour
       idcc: IDCC
       naf: Code NAF
+      nafa: Code(s) NAFA
+      nature_activites: Nature des activités
       opco: Opco
       region_implantation: Région d’implantation
       siret: SIRET
@@ -578,6 +581,7 @@ fr:
       search: Rechercher
       search_placeholder: 'Ex : La mie tendre, Lucie Martin, plomberie, financement...'
     show:
+      activities: Activités
       all_experts: Experts notifiés
       all_needs: Tous les besoins
       blank_advisor: "-"

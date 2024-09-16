@@ -75,10 +75,12 @@ module ApiConsumption::Models
     end
 
     def nature_activites
+      return [] if rne_etablissement.blank?
       rne_etablissement['activites'].pluck('formeExercice').uniq.compact
     end
 
     def nafa_codes
+      return [] if rne_etablissement.blank?
       rne_etablissement['activites'].pluck('codeAprm').uniq.compact
     end
 

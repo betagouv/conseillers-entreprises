@@ -5,6 +5,13 @@
       %tr
         %td= t('.denomination')
         %td= entreprise.name
+      - if entreprise.description.present?
+        %tr
+          %td= t('.description')
+          %td= entreprise.description
+      %tr
+        %td= t('.forme_exercice')
+        %td= translated_nature_activite(entreprise.forme_exercice) || t('undefined')
       %tr
         %td= t('.categorie_entreprise')
         %td= entreprise.categorie_entreprise
@@ -17,7 +24,7 @@
       - if entreprise.capital_social
         %tr
           %td= t('.capital_social')
-          %td #{entreprise.capital_social} €
+          %td= number_to_currency(entreprise.capital_social, unit: "€", separator: ",", delimiter: " ")
       %tr
         %td= t('.forme_juridique')
         %td= entreprise.forme_juridique_libelle
@@ -27,9 +34,6 @@
       %tr
         %td= t('.date_cessation')
         %td= date_from_timestamp(entreprise.date_cessation) || '/'
-      %tr
-        %td= t('.forme_exercice')
-        %td= entreprise.forme_exercice&.humanize || t('undefined')
       %tr
         %td= t('.diffusable_commercialement')
         %td= t(entreprise.diffusable_commercialement.to_b, scope: [:boolean, :text])

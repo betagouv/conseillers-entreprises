@@ -25,18 +25,19 @@ module ApiRne::Companies
 
   class Responder < ApiRne::Responder
     def format_data
-      registres = @http_request.data.dig('formality','content','registreAnterieur')
+      data = @http_request.data
+      personne = data.dig('formality', 'content', 'personneMorale') || data.dig('formality', 'content', 'personnePhysique') || data.dig('formality', 'content', 'exploitation')
       {
-        "forme_exercice" => @http_request.data.dig('formality', 'content', 'formeExerciceActivitePrincipale'),
-        "activites_secondaires" => grab_activites_secondaires(@http_request.data)
+        "forme_exercice" => data.dig('formality', 'content', 'formeExerciceActivitePrincipale'),
+        "description" => personne.dig('identite', 'description', 'objet'),
+        "montant_capital" => personne.dig('identite', 'description', 'montantCapital'),
+        "activites_secondaires" => grab_activites_secondaires(personne)
       }
     end
 
     private
 
-    def grab_activites_secondaires(data)
-      personne = data.dig('formality', 'content', 'personneMorale') || data.dig('formality', 'content', 'personnePhysique') || data.dig('formality', 'content', 'exploitation')
-
+    def grab_activites_secondaires(personne)
       etablissement_principal = {}
       etablissement_principal['siret'] = personne.dig('etablissementPrincipal', 'descriptionEtablissement', 'siret')
       activites_etablissement_principal = personne.dig('etablissementPrincipal', 'activites') || []
