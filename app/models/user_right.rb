@@ -24,11 +24,11 @@ class UserRight < ApplicationRecord
   belongs_to :antenne, inverse_of: :user_rights, optional: true
   belongs_to :user, inverse_of: :user_rights
 
-  enum category: {
+  enum :category, {
     manager: 0,
     admin: 1,
     national_referent: 2
-  }, _prefix: true
+  }, prefix: true
 
   validates :user_id, uniqueness: { scope: [:category, :antenne_id] }
   validate :manager_has_managed_antennes

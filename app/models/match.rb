@@ -35,14 +35,14 @@ class Match < ApplicationRecord
 
   ## Constants
   #
-  enum status: {
+  enum :status, {
     quo: 'quo',
     taking_care: 'taking_care',
     done: 'done',
     done_no_help: 'done_no_help',
     done_not_reachable: 'done_not_reachable',
     not_for_me: 'not_for_me'
-  }, _prefix: true
+  }, prefix: true
 
   ## Associations
   #
