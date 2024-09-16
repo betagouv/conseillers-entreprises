@@ -26,12 +26,28 @@ class MatchFilter < ApplicationRecord
   belongs_to :filtrable_element, polymorphic: true
   has_and_belongs_to_many :subjects
 
+  FILTERS = %i[
+    min_years_of_existence
+    max_years_of_existence
+    effectif_min
+    effectif_max
+    subjects
+    raw_accepted_legal_forms
+    raw_excluded_legal_forms
+    raw_accepted_naf_codes
+    raw_excluded_naf_codes
+  ]
+
   def experts_subjects
     ExpertSubject.where(expert_id: experts.ids)
   end
 
   def experts
     filtrable_element.experts
+  end
+
+  def expert=(expert)
+    self.filtrable_element = expert
   end
 
   def antenne
@@ -86,15 +102,24 @@ class MatchFilter < ApplicationRecord
     self.excluded_legal_forms = updated_legal_form_code
   end
 
-  def same_antenne_match_filter?(match_filter_collection)
+  def same_antenne_or_expert_match_filter?(match_filter_collection)
+    # un filtre expert prévaut sur un filtre antenne
     # un filtre antenne prévaut sur un filtre institution
-    # on enlève les filtres des institution quand il y a le même sur l'antenne
     return false if filtrable_element_type != 'Institution'
     match_filter_collection.any? do |mf|
       mf != self &&
-      mf.filtrable_element_type == 'Antenne' &&
-        mf.filtrable_element.institution_id == filtrable_element.id &&
+        (((mf.filtrable_element_type == 'Antenne') && mf.filtrable_element.institution_id == filtrable_element.id && mf.has_same_fields_filled?(self)) ||
+        (filter_on_expert_exist?(mf))) &&
         mf.has_same_fields_filled?(self)
+    end
+  end
+
+  def same_expert_match_filter?(match_filter_collection)
+    return false if filtrable_element_type != 'Antenne'
+    match_filter_collection.any? do |mf|
+      mf != self &&
+        filter_on_expert_exist?(mf) &&
+      mf.has_same_fields_filled?(self)
     end
   end
 
@@ -107,5 +132,11 @@ class MatchFilter < ApplicationRecord
     fields_to_compare.all? do |field|
       self.send(field).present? == other_match_filter.send(field).present?
     end
+  end
+
+  private
+
+  def filter_on_expert_exist?(mf)
+    mf.filtrable_element_type == 'Expert' && (filtrable_element.experts.exists? mf.filtrable_element.id)
   end
 end

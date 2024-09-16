@@ -49,6 +49,9 @@ ActiveAdmin.register Institution do
       div admin_link_to(i, :sent_matches, blank_if_empty: true)
       div admin_link_to(i, :received_matches, blank_if_empty: true)
     end
+    column(:filters) do |i|
+      div i.match_filters.count if i.match_filters.any?
+    end
   end
 
   filter :name
@@ -125,15 +128,9 @@ ActiveAdmin.register Institution do
       institution.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
           attributes_table_for mf do
-            row :min_years_of_existence
-            row :max_years_of_existence
-            row :effectif_min
-            row :effectif_max
-            row :subjects
-            row :raw_accepted_legal_forms
-            row :raw_excluded_legal_forms
-            row :raw_accepted_naf_codes
-            row :raw_excluded_naf_codes
+            MatchFilter::FILTERS.each do |filter|
+              row filter if mf.send(filter).present?
+            end
           end
         end
       end

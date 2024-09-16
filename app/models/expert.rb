@@ -44,6 +44,7 @@ class Expert < ApplicationRecord
   has_many :received_quo_matches, -> { sent.status_quo.distinct }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
   has_many :reminder_feedbacks, -> { where(category: :expert_reminder) }, class_name: :Feedback, dependent: :destroy, as: :feedbackable, inverse_of: :feedbackable
   has_many :reminders_registers, inverse_of: :expert
+  has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
 
   ## Validations & callbacks
   #
@@ -85,6 +86,7 @@ class Expert < ApplicationRecord
   #
   accepts_nested_attributes_for :users, allow_destroy: true
   accepts_nested_attributes_for :experts_subjects, allow_destroy: true
+  accepts_nested_attributes_for :match_filters, allow_destroy: true
 
   paginates_per 25
 
