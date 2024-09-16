@@ -1,4 +1,4 @@
-= form_with model: @expert do |f|
+= form_with model: @expert, local: true do |f|
   = hidden_field_tag :update_context, :edit
   .fr-input-group
     = f.label :email, class: 'fr-label'
@@ -11,13 +11,9 @@
     = f.label :phone_number, class: 'fr-label'
     = f.text_field :phone_number, placeholder: t('attributes.placeholder.phone_number'), class: 'fr-input', autocomplete: 'off', required: true
 
-  .required.fr-input-group
+  .fr-input-group
     = f.label :full_name, t('activerecord.attributes.expert.full_name'), class: 'fr-label'
-    = f.text_field :full_name, placeholder: t('attributes.placeholder.team_name'), class: 'fr-input',
-      autocomplete: 'off', required: true
-  %p.fr-mb-3w
-    %span.blue.ri-information-fill{ 'aria-hidden': 'true' }
-    = t('.team_name_explanation')
+    = f.text_field :full_name, placeholder: t('attributes.placeholder.team_name'), class: 'fr-input', disabled: 'disabled'
 
   .required.fr-input-group
     = f.label :job, class: 'fr-label'
@@ -47,10 +43,10 @@
               %span.blue.ri-user-fill{ title: t('users.thats_you'), 'aria-hidden': 'true' }
             - else
               %span.ri-user-fill{ 'aria-hidden': 'true' }
-            %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag{ 'aria-controls': "modal-user-#{member.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
+            %button.fr-tag.fr-icon-information-line.fr-tag--icon-left.custom-modal-tag{ type: 'button', 'aria-controls': "modal-user-#{member.id}", 'data-fr-opened': 'false', title: t('application.modal.see_person_coordinates') }
               = member.full_name
 
             = render 'application/person_modal', person: member
 
   .actions
-    = f.submit t('update'), class: 'fr-btn btn-green'
+    = f.submit t('update'), class: 'fr-btn'

@@ -22,20 +22,13 @@ class ExpertsController < ApplicationController
 
   def update
     @expert.update(expert_params)
-    case params[:update_context]&.to_sym
-    when :subjects
-      redirect_to subjects_expert_path(@expert)
-    when :subjects_modal
-      head :no_content
-    else
-      redirect_to edit_expert_path(@expert)
-    end
+    redirect_to edit_expert_path(@expert), notice: t('.success')
   end
 
   private
 
   def expert_params
-    params.require(:expert).permit(:full_name, :phone_number, :job, :experts_subjects_attributes => {})
+    params.require(:expert).permit(:phone_number, :job)
   end
 
   def find_expert
