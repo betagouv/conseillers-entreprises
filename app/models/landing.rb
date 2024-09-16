@@ -34,23 +34,23 @@ class Landing < ApplicationRecord
   include WithSlug
   include Archivable
 
-  enum integration: {
+  enum :integration, {
     intern: 0,
     iframe: 1,
     api: 2
   }
 
-  enum layout: {
+  enum :layout, {
     multiple_steps: 1,
     single_page: 2
-  }, _prefix: true
+  }, prefix: true
 
-  enum iframe_category: {
+  enum :iframe_category, {
     integral: 1,
     themes: 2,
     subjects: 3,
     form: 4
-  }, _suffix: :iframe
+  }, suffix: :iframe
 
   ## Associations
   #

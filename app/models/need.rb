@@ -35,7 +35,7 @@ class Need < ApplicationRecord
   include Archivable
   include RangeScopes
 
-  enum status: {
+  enum :status, {
     diagnosis_not_complete: 'diagnosis_not_complete',
       quo: 'quo',
       taking_care: 'taking_care',
@@ -43,7 +43,7 @@ class Need < ApplicationRecord
       done_no_help: 'done_no_help',
       done_not_reachable: 'done_not_reachable',
       not_for_me: 'not_for_me'
-  }, _prefix: true
+  }, prefix: true
 
   paginates_per 25
 

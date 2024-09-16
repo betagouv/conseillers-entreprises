@@ -31,11 +31,11 @@ class Antenne < ApplicationRecord
   include InvolvementConcern
   include TerritoryNeedsStatus
 
-  enum territorial_level: {
+  enum :territorial_level, {
     local: 'local',
     regional: 'regional',
     national: 'national'
-  }, _prefix: true
+  }, prefix: true
 
   TERRITORIAL_ORDER = {
     national: 0,

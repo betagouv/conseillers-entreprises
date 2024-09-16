@@ -15,9 +15,9 @@
 #
 
 class Badge < ApplicationRecord
-  enum category: {
+  enum :category, {
     solicitations: 0, needs: 1
-  }, _prefix: true
+  }, prefix: true
 
   ## Associations
   #
