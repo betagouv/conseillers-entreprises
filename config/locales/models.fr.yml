@@ -178,11 +178,8 @@ fr:
       commune:
         insee_code: Code commune
       company:
-        activite_liberale: Activité libérale
         facilities_naf_code: Code NAF établissements
         facilities_regions: Régions
-        inscrit_rcs: Inscrit au RCS
-        inscrit_rm: Inscrit au RM
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert

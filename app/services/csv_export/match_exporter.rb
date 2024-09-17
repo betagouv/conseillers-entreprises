@@ -1,6 +1,5 @@
 module CsvExport
   class MatchExporter < BaseExporter
-    extend CompaniesHelper
     def fields
       # /!\ les fields de MatchExporter et SolicitationExporter doivent correspondre pour garantir la cohérence du fichier
       {
@@ -62,8 +61,6 @@ module CsvExport
         facility: :commune, diagnosis: :visitee, need: [:reminders_actions]
       ]
     end
-
-    def translated_thing; end
 
     def sort_relation(relation)
       relation.includes(*preloaded_associations).sort_by{ |m| [(m.solicitation&.created_at || m.created_at), m.created_at] }

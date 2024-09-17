@@ -2,20 +2,16 @@
 #
 # Table name: companies
 #
-#  id                :integer          not null, primary key
-#  activite_liberale :boolean          default(FALSE)
-#  code_effectif     :string
-#  date_de_creation  :date
-#  effectif          :float
-#  forme_exercice    :string
-#  independant       :boolean          default(FALSE)
-#  inscrit_rcs       :boolean
-#  inscrit_rm        :boolean
-#  legal_form_code   :string
-#  name              :string
-#  siren             :string
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id               :integer          not null, primary key
+#  code_effectif    :string
+#  date_de_creation :date
+#  effectif         :float
+#  forme_exercice   :string
+#  legal_form_code  :string
+#  name             :string
+#  siren            :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #
 # Indexes
 #
