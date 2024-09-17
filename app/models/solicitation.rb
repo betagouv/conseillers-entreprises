@@ -392,8 +392,12 @@ class Solicitation < ApplicationRecord
   # Solicitations similaires
   #
   scope :from_same_company, -> (solicitation) {
-    where(siret: solicitation.valid_sirets)
-      .or(where(email: solicitation.email))
+    if solicitation.siret.present?
+      where(siret: solicitation.valid_sirets)
+        .or(where(email: solicitation.email))
+    else
+      where(email: solicitation.email)
+    end
   }
 
   def self.apply_filters(params)
@@ -432,10 +436,11 @@ class Solicitation < ApplicationRecord
       .distinct
   end
 
-  def similar_abandonned_needs
-    Need.for_emails_and_sirets([self.email], self.valid_sirets)
-      .by_subject(self.landing_subject&.subject)
-      .with_action('abandon')
+  def similar_abandonned_solicitations
+    Solicitation.where(status: [:canceled])
+      .where.not(id: self.id)
+      .from_same_company(self)
+      .uniq
   end
 
   def update_diagnosis

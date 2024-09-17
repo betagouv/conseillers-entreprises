@@ -309,7 +309,7 @@ fr:
         from_intermediary: Sollicitation provenant d’un intermédiaire
         landing_subjects: 'Aides demandées :'
         needs_historic: 'Historique de l’entreprise :'
-        similar_abandonned_needs_explanation: 'Cycle d’abandon suspecté : cette entreprise a déjà eu un besoin pour le même sujet abandonné'
+        similar_abandonned_solicitations_explanation: 'Cycle d’abandon suspecté : cette entreprise a déjà déposé une demande qui n’a pas été mise en relation'
         siret: 'Siret :'
         solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres besoins récemment'
         solicitation_no_register_company_explanation: Entreprise ni RCS ni RM

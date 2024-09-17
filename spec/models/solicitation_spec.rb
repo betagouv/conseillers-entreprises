@@ -521,45 +521,33 @@ end
     end
   end
 
-  describe "similar_abandonned_needs" do
+  describe "similar_abandonned_solicitations" do
     let(:landing_subject) { create :landing_subject, subject: sol_subject }
-    let(:solicitation) { create :solicitation, email: email, siret: siret, landing_subject: landing_subject }
-    let(:need_subject) { create :subject }
+    let(:solicitation) { create :solicitation, email: 'hedy@lamarr.bzh', siret: '41816609600069' }
+    let!(:old_solicitation) { create :solicitation, email: email, siret: siret, status: status }
 
-    let!(:need) do
-      create :need_with_matches,
-      subject: need_subject,
-      diagnosis: create(:diagnosis,
-        solicitation: create(:solicitation, email: 'need@mail.com'),
-        facility: create(:facility, siret: '41816609600069'))
+    subject { solicitation.similar_abandonned_solicitations }
+
+    context 'same email abandonned' do
+      let(:email) { 'hedy@lamarr.bzh' }
+      let(:siret) { '71816609600054' }
+      let(:status) { :canceled }
+
+      it { is_expected.to contain_exactly(old_solicitation) }
     end
 
-    subject { solicitation.similar_abandonned_needs }
-
-    context 'same company same subject abandonned' do
-      let(:email) { 'need@mail.com' }
+    context 'same siret abandonned' do
+      let(:email) { 'other@mail.com' }
       let(:siret) { '41816609600069' }
-      let(:sol_subject) { need_subject }
+      let(:status) { :canceled }
 
-      before { need.reminders_actions.create(category: 'abandon') }
-
-      it { is_expected.to contain_exactly(need) }
+      it { is_expected.to contain_exactly(old_solicitation) }
     end
 
-    context 'same company same subject not abandonned' do
-      let(:email) { 'need@mail.com' }
+    context 'same siret not abandonned' do
+      let(:email) { 'hedy@lamarr.bzh' }
       let(:siret) { '41816609600069' }
-      let(:sol_subject) { need_subject }
-
-      it { is_expected.to be_empty }
-    end
-
-    context 'same company other subject' do
-      let(:email) { 'need@mail.com' }
-      let(:siret) { '41816609600069' }
-      let(:sol_subject) { create :subject }
-
-      before { need.reminders_actions.create(category: 'abandon') }
+      let(:status) { :processed }
 
       it { is_expected.to be_empty }
     end
