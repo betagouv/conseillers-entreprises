@@ -55,28 +55,19 @@
                 %span.ri-exchange-2-line.fr-mr-1v{ 'aria-hidden': 'true' }
                 %b= t('.activities').upcase
                 %ul.list-unstyled.fr-pl-0.fr-mt-0
-                  - company = @facility.company
-                  %li
-                    - if company.forme_exercice
-                      %span.fr-text--bold #{t('attributes.forme_exercice')} : 
-                      -# %p.fr-badge.fr-badge--sm= translated_nature_activite(company.forme_exercice)
-                      %span.fr-text--sm= translated_nature_activite(company.forme_exercice).upcase
-                    - else
-                      %span.fr-text--bold #{t('attributes.forme_exercice')} : 
-                      %span.fr-text--sm= t('undefined')
-                  - if @facility.nature_activites.any?
+                  - if @facility.all_nature_activites.any?
                     %li
-                      %span.fr-text--bold #{t('attributes.nature_activites')} : 
                       - translated_nature_activites(@facility.nature_activites).each do |nature|
-                        -# %p.fr-badge.fr-badge--sm= nature
-                        %span.fr-text--sm= nature.upcase
+                        %p.fr-badge.fr-badge--sm= nature
                   - if @facility.naf_libelle.present?
                     %li.fr-text--sm
                       = @facility.naf_libelle
                       = " (#{@facility.naf_code})"
                   - if @facility.nafa_codes.any?
                     - code = @facility.nafa_codes.first
-                    %li.fr-text--sm= `#{NafCode.nafa_libelle(code)} (#{code})`
+                    %li.fr-text--sm
+                      = NafCode.nafa_libelle(code)
+                      = " (#{code})"
               %li.fr-mt-3v= link_to t('.more_informations'), company_path(@facility.id), class: 'fr-link', data: { turbo: false }
               - if defined?(@facility_needs) && @facility_needs.present? && policy(@facility).show_needs_history? && @facility_needs.any?
                 %li= link_to t('.needs_historic'), needs_company_path(@facility), class: 'fr-link'
