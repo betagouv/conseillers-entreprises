@@ -43,6 +43,7 @@ fr:
       title: Dupliquer un utilisateur
     reassign_matches:
       title: Transférer les mises en relation
+    save: Sauvegarder
     solicitations:
       diagnosis_in_progress: " (En cours)"
       id: Sollicitation %{id}

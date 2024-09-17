@@ -53,6 +53,7 @@ fr:
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
+    save_and_edit: Sauvegarder et revenir à l’édition
     scopes:
       acquisition: Acquisition
       active: Actifs

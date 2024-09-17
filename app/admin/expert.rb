@@ -6,6 +6,18 @@ ActiveAdmin.register Expert do
   controller do
     include SoftDeletable::ActiveAdminResourceController
     include DynamicallyFiltrable
+
+    def create
+      create! do |success, failure|
+        success.html do
+          if params[:save_and_edit]
+            redirect_to edit_admin_expert_path(resource)
+          else
+            redirect_to admin_expert_path(resource)
+          end
+        end
+      end
+    end
   end
 
   # Index
@@ -298,7 +310,15 @@ ActiveAdmin.register Expert do
       end
     end
 
-    f.actions
+    f.actions do
+      if resource.persisted?
+        f.actions
+      else
+        f.action :submit, label: t('active_admin.save')
+        f.action :submit, label: 'Save and Edit', button_html: { name: 'save_and_edit', value: I18n.t('active_admin.save_and_edit') }
+        f.action :cancel, wrapper_html: { class: 'cancel' }
+      end
+    end
   end
 
   ## Actions
