@@ -8,7 +8,9 @@ module Manager
     before_action :set_stats_params, only: :index
     before_action :set_charts_names, only: %i[index load_data]
 
-    def index; end
+    def index
+      @antenne = Antenne.find(@stats_params[:antenne]) if @stats_params[:antenne].present?
+    end
 
     def load_data
       name = params.permit(:chart_name)[:chart_name]

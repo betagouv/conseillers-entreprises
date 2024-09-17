@@ -502,6 +502,7 @@ fr:
         one_antenne_title: Antenne %{name} - tous les besoins
     stats:
       index:
+        antenne_title: Statistiques de l’antenne %{name}
         no_experts_subjects: Votre antenne ne semble pas pouvoir recevoir de besoins. Nous ne pouvons donc pas afficher de statistiques.
         stats: Statistiques
         support_user_html: Vous pouvez contacter votre référent <strong>%{name}</strong> au <strong>%{phone}</strong> ou par email <strong><a href='mailto:%{email}'>%{email}</a></strong>.
