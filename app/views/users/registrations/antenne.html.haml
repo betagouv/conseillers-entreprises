@@ -1,11 +1,11 @@
 %h2.fr-h5= t('.antenne_within_institution', institution: @user.institution.name)
 .fr-highlight.fr-mb-6w
-  = @user.antenne.name
+  = @antenne.name
 
 %h2.fr-h5= t('attributes.advisors.other')
 .fr-highlight.fr-mb-6w
   %ul.list-unstyled.fr-p-0
-    - @user.antenne.advisors.not_deleted.each do |advisor|
+    - @antenne.advisors.not_deleted.each do |advisor|
       %li.fr-mb-1v.person-list-item
         - if advisor == @user
           %span.ri-user-fill.blue{ title: t('users.thats_you'), 'aria-hidden': 'true' }
@@ -16,13 +16,13 @@
 
         = render 'application/person_modal', person: advisor
 
-%h2.fr-h5= t('attributes.teams', count: @user.antenne.experts.not_deleted.count)
+%h2.fr-h5= t('attributes.teams', count: @antenne.experts.not_deleted.count)
 .fr-highlight
   %ul.list-unstyled.fr-p-0
-    - if @user.antenne.experts.not_deleted.none?
+    - if @antenne.experts.not_deleted.none?
       %li= t('.no_team')
     - else
-      - @user.antenne.experts.not_deleted.each do |team|
+      - @antenne.experts.not_deleted.each do |team|
         - members = team.users.not_deleted
         %li.fr-mb-1v.fr-mb-0.fr-mb-0
           - if @user.in?(members)

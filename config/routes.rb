@@ -52,7 +52,7 @@ Rails.application.routes.draw do
       get :edit, path: 'informations'
       get :password, path: 'mot_de_passe'
       put :update_password
-      get :antenne
+      get 'antenne/:id', action: :antenne, as: :antenne
     end
   end
 

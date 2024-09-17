@@ -38,7 +38,10 @@ module Users
     # views for actions declared in Devise::RegistrationsController are in /views/devise/registrations.
     def password; end
 
-    def antenne; end
+    def antenne
+      @antenne = Antenne.find(params.permit(:id)[:id])
+      authorize @antenne, :show?
+    end
 
     # Override
     def after_update_path_for(_resource)

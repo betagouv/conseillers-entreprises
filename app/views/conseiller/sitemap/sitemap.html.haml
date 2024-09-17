@@ -29,7 +29,7 @@
     %li
       = link_to t('users.menu.password'), password_user_path
     %li
-      = link_to t('users.menu.antenne'), antenne_user_path
+      = link_to t('users.menu.antenne'), antenne_user_path(current_user.antenne)
     - if current_user.experts.many?
       %li
         = t('users.menu.teams')
