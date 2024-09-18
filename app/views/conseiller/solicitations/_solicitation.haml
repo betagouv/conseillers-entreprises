@@ -40,8 +40,8 @@
               %li.meta__warnings__item{ title: t('.solicitation_doublon_explanation') } D
             - if solicitation.from_no_register_company?
               %li.meta__warnings__item{ title: t('.solicitation_no_register_company_explanation') } ?
-            - if solicitation.similar_abandonned_needs.any?
-              %li.meta__warnings__item{ title: t('.similar_abandonned_needs_explanation') } A
+            - if solicitation.similar_abandonned_solicitations.any?
+              %li.meta__warnings__item{ title: t('.similar_abandonned_solicitations_explanation') } A
             - if solicitation.from_intermediary?
               %li.meta__warnings__item{ title: t('.from_intermediary') } I
           - if facilities[solicitation.id].present?
