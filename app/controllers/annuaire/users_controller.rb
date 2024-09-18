@@ -65,8 +65,24 @@ module  Annuaire
       @grouped_experts = group_experts
       @grouped_experts.each_key do |antenne|
         managers = antenne.managers.not_deleted.without_experts
-        next unless managers.any?
-        @grouped_experts[antenne][Expert.new] = managers
+        managers.each do |manager|
+          next if manager.experts.any?
+          @grouped_experts[antenne][Expert.new] = [manager]
+        end
+      end
+      retrieve_antennes_without_experts
+    end
+
+    def retrieve_antennes_without_experts
+      if index_search_params[:region].present? && index_search_params[:theme].blank? && index_search_params[:subject].blank?
+        antennes = @institution.antennes_in_region(index_search_params[:region]).where.missing(:experts)
+      elsif index_search_params[:theme].blank? && index_search_params[:subject].blank?
+        antennes = @institution.antennes.where.missing(:experts)
+      else
+        antennes = []
+      end
+      antennes.each do |antenne|
+        @grouped_experts[antenne] = { Expert.new => antenne.advisors }
       end
     end
 
