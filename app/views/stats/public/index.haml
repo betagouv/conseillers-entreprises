@@ -9,7 +9,7 @@
 
 .fr-container.fr-py-7w
   - cache("stats_charts-#{@main_stat}", expires_in: 1.hour) do
-    = render 'stats/main_stats_chart', data: @main_stat, name: :exchange_with_expert_column
+    = render 'stats/main_stats_chart', data: @main_stat, name: :done_with_help_column
 
 .fr-container--fluid.fr-py-12w.light-blue-bg#section-stats
   .fr-container

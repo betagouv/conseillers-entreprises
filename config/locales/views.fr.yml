@@ -898,11 +898,11 @@ fr:
       companies_by_naf_code:
         title: Secteurs d’activité des entreprises utilisatrices du service
         title_table: Secteurs d’activité des entreprises utilisatrices du service
-      exchange_with_expert_column:
-        series: Besoins suivis d'un échange avec un conseiller
-        subtitle_html: "<p>La promesse du service Conseillers-Entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p>"
-        title: besoins d’entreprises ont donné lieu à un échange avec un conseiller depuis l'ouverture du service
-        title_table: Nombre de besoins d’entreprises ayant donné lieu à un échange avec un conseiller depuis l'ouverture du service
+      done_with_help_column:
+        series: Besoins cloturés par une proposition d’aide
+        subtitle_html: "<p>Depuis l’ouverture du service, la promesse de Conseillers-Entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p>"
+        title: besoins d'entreprises ont été clôturés par une proposition d'aide après échange avec un conseiller.
+        title_table: Nombre de besoins d’entreprises ayant été cloturés par une aide proposée depuis l’ouverture du service
       experts:
         title: Experts
         title_table: Nombre d'experts
