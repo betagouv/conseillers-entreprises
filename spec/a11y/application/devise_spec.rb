@@ -35,7 +35,7 @@ describe 'devise', :js, type: :feature do
     end
 
     context '/mon_compte/antenne' do
-      before { visit '/mon_compte/antenne' }
+      before { visit "/mon_compte/antenne/#{current_user.antenne.id}" }
 
       it { is_expected.to be_accessible }
     end

@@ -82,7 +82,7 @@ module  Annuaire
         antennes = []
       end
       antennes.each do |antenne|
-        @grouped_experts[antenne] = { Expert.new => antenne.advisors }
+        @grouped_experts[antenne] = { Expert.new => antenne.advisors } if antenne.advisors.any?
       end
     end
 
