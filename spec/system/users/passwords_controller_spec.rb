@@ -26,9 +26,9 @@ describe 'passwords', :js do
 
     it 'enables re-sign in despite invitation token' do
       expect(page).to have_css 'h1', text: "Tutoriel"
-      expect(current_path).to eq tutoriels_path
+      expect(page).to have_current_path tutoriels_path, ignore_query: true
       logout :user
-      
+
       visit new_user_session_path
       user.reload
 

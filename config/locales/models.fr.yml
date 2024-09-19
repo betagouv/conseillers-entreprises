@@ -153,10 +153,13 @@ fr:
       deleted: Utilisateurs supprimés avec succès
       do_invite: Envoyer la ou les invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
+      do_reset_password: Réinitialiser le mot de passe
+      do_reset_password_done: Réinitialisation du mot de passe envoyée
       duplicate_territories: Dupliquer les territoires spécifiques
       impersonate: Voir le site comme %{name}
       roles: Rôles
       saved: Conseiller mis à jour
+      send_emails: Envoi d’emails
       user_info: Informations utilisateur
     users:
       delete_confirmation: Voulez-vous supprimer ces utilisateurs ? Cela va aussi supprimer leur expert personnel.
