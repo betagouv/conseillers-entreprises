@@ -24,7 +24,7 @@ module  Annuaire
         format.xlsx do
           users = retrieve_users
           xlsx_filename = "#{(@antenne || @institution).name.parameterize}-#{users.model_name.human.pluralize.parameterize}.xlsx"
-          result = users.export_xlsx(include_expert: true, institutions_subjects: institutions_subjects_exportable)
+          result = XlsxExport::AnnuaireUserExporter.new(@grouped_experts, { relation_name: 'User', institutions_subjects: institutions_subjects_exportable }).export
           send_data result.xlsx.to_stream.read, type: "application/xlsx", filename: xlsx_filename
         end
       end

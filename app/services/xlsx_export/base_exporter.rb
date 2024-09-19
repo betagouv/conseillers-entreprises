@@ -13,7 +13,13 @@ module XlsxExport
     end
 
     def xlsx
-      klass = @relation.klass
+      if @options[:relation_name].present?
+        klass = @options[:relation_name]
+        klass_human_name = @options[:relation_name]
+      else
+        klass_human_name = klass.model_name.human
+        klass = @relation.klass
+      end
       attributes = fields # implemented by subclasses
 
       p = Axlsx::Package.new
@@ -21,7 +27,7 @@ module XlsxExport
 
       create_styles wb.styles
 
-      wb.add_worksheet(name: @relation.klass.model_name.human.pluralize) do |sheet|
+      wb.add_worksheet(name: klass_human_name) do |sheet|
         build_headers_rows sheet, attributes, klass
         build_rows sheet, attributes
         apply_style sheet, attributes
