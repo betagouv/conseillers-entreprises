@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'the signin process' do
-  let!(:user) { create :user, :with_expert, email: 'user@example.com', password: 'yX*4Ubo_xPW!u' }
+  let!(:user) { create :user, :with_expert, email: 'user@example.com', password: 'yX*4Ubo_xPW!u', invitation_token: invitation_token }
 
   before do
     create_home_landing
@@ -14,13 +14,30 @@ describe 'the signin process' do
     end
   end
 
-  context 'active user' do
-    it do
+  context 'regular sign in' do
+    let(:invitation_token) { nil }
+
+    context 'active user' do
+      it do
+        within '.new_user' do
+          click_on 'Accès conseillers', class: 'fr-btn'
+        end
+
+        expect(page.html).to include 'Besoins reçus'
+      end
+    end
+  end
+
+  context 'sign in while invited' do
+    let(:invitation_token) { 'aaabbbccc111222333' }
+
+    it 'doesnt connect if invitation token present' do
       within '.new_user' do
         click_on 'Accès conseillers', class: 'fr-btn'
       end
 
-      expect(page.html).to include 'Besoins reçus'
+      expect(page.html).not_to include 'Besoins reçus'
+      expect(current_url).to eq new_user_session_url
     end
   end
 end
