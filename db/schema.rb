@@ -290,6 +290,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_13_145633) do
     t.string "naf_code_a10"
     t.bigint "opco_id"
     t.float "effectif"
+    t.string "nature_activites", default: [], array: true
+    t.string "nafa_codes", default: [], array: true
     t.index ["commune_id"], name: "index_facilities_on_commune_id"
     t.index ["company_id"], name: "index_facilities_on_company_id"
     t.index ["opco_id"], name: "index_facilities_on_opco_id"

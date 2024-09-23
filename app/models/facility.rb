@@ -8,6 +8,8 @@
 #  naf_code          :string
 #  naf_code_a10      :string
 #  naf_libelle       :string
+#  nafa_codes        :string           default([]), is an Array
+#  nature_activites  :string           default([]), is an Array
 #  readable_locality :string
 #  siret             :string
 #  created_at        :datetime         not null
