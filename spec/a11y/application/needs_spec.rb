@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe 'needs', :js, type: :feature do
+  before { create_home_landing }
+
   login_user
   let(:expert) { create :expert, users: [current_user] }
 
