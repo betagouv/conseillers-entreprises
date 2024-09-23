@@ -87,6 +87,7 @@ module ApiConsumption::Models
     private
 
     def rne_etablissement
+      return nil if activites_secondaires.blank?
       @rne_etablissement = if activites_secondaires.dig('etablissement_principal', 'siret') == siret
         activites_secondaires['etablissement_principal']
       else
