@@ -1,0 +1,492 @@
+---
+fr:
+  nafa_code_to_libelle:
+    0162ZP: Maréchalerie
+    '0729ZP': Orpaillage
+    '0811ZA': Extraction de pierres ornementales et de construction et d’ardoise
+    '0811ZB': Extraction de calcaire industriel, de gypse et de craie
+    '0812ZZ': Exploitation de gravières et sablières, extraction d’argiles et de kaolin
+    '0891ZZ': Extraction des minéraux chimiques et d’engrais minéraux
+    '0892ZZ': Extraction de tourbe
+    '0893ZZ': Production de sel
+    '0899ZZ': Autres activités extractives n.c.a.
+    '0990ZP': Activités de soutien aux autres industries extractives
+    1011ZZ: Transformation et conservation de la viande de boucherie
+    1012ZZ: Transformation et conservation de la viande de volaille
+    1013AZ: Préparation industrielle de produits à base de viande
+    1013BZ: Charcuterie
+    1020ZZ: Transformation et conservation de poisson, de crustacés et de mollusques
+    1031ZZ: Transformation et conservation de pommes de terre
+    1032ZZ: Préparation de jus de fruits et légumes
+    1039AP: Autre transformation et conservation de longue durée de légumes
+    1039BP: Transformation et conservation de fruits
+    1041AZ: Fabrication d’huiles et graisses brutes
+    1041BZ: Fabrication d’huiles et graisses raffinées
+    1042ZZ: Fabrication de margarine et graisses comestibles similaires
+    1051AZ: Fabrication de lait liquide et de produits frais
+    1051BZ: Fabrication de beurre
+    1051CZ: Fabrication de fromage
+    1051DZ: Fabrication d’autres produits laitiers
+    1052ZZ: Fabrication de glaces et sorbets
+    1061AZ: Meunerie
+    1061BZ: Autres activités du travail des grains
+    1062ZZ: Fabrication de produits amylacés
+    1071AA: Fabrication industrielle de pain
+    1071AB: Fabrication industrielle de pât isserie fraîche
+    1071CA: Boulangerie
+    1071CB: Boulangerie-pâtisserie
+    1071DZ: Pâtisserie
+    1072ZZ: Fabrication de biscuits, biscottes et pâtisseries de conservation
+    1073ZZ: Fabrication de pâtes alimentaires
+    1081ZZ: Fabrication de sucre
+    1082ZZ: Fabrication de cacao, chocolat et de produits de confiserie
+    1083ZZ: Transformation du thé et du café
+    1084ZZ: Fabrication de condiments et assaisonnements
+    1085ZZ: Fabrication de plats préparés
+    1086ZZ: Fabrication d’aliments homogénéisés et diététiques
+    1089ZZ: Fabrication d’autres produits alimentaires n.c.a.
+    1091ZZ: Fabrication d’aliments pour animaux de ferme
+    1092ZZ: Fabrication d’aliments pour animaux de compagnie
+    1101ZQ: Production d’eaux de vie naturelles
+    1101ZR: Fabrication de spiritueux
+    1102AP: Fabrication de vins effervescents selon la méthode champenoise ou autres méthodes
+    1103ZZ: Fabrication de cidre et de vins de fruits
+    1104ZZ: Production d’autres boissons fermentées non distillées
+    1105ZZ: Fabrication de bière
+    1106ZZ: Fabrication de malt
+    1107AZ: Industrie des eaux de table
+    1107BZ: Production de boissons rafraîchissantes
+    1310ZA: Filature et préparation de la laine
+    1310ZB: Moulinage et texturation de la soie et des textiles artificiels ou synthétiques
+    1310ZC: Préparation et filature d’autres fibres
+    1320ZA: Tissage de l’industrie cotonnière
+    1320ZB: Tissage de l’industrie lainière
+    1320ZC: Tissage de soieries
+    1320ZD: Tissage d’autres textiles
+    1330ZZ: Ennoblissement textile
+    1391ZZ: Fabrication d’étoffes à mailles
+    1392ZA: Fabrication de linge de maison et d’articles d’ameublement
+    1392ZB: Fabrication de tapisserie à la main
+    1392ZC: Fabrication de coussins et petits articles textiles divers
+    1392ZD: Voilerie
+    1392ZE: Fabrication d’articles de campement en textile
+    1392ZF: Fabrication de bâches, lambrequins et autres articles en textile
+    1393ZZ: Fabrication de tapis et moquettes
+    1394ZZ: Fabrication de ficelles, cordes et filets
+    1395ZZ: Fabrication de non-tissés, sauf habillement
+    1396ZZ: Fabrication de textiles techniques et industriels
+    1399ZA: Fabrication de feutres
+    1399ZB: Fabrication de tulles, lacets et autres textiles n.c.a.
+    1411ZZ: Fabrication de vêtements en cuir
+    1412ZZ: Fabrication de vêtements de travail
+    1413ZA: Modéliste-styliste
+    1413ZB: Fabrication de vêtements féminins sur mesure
+    1413ZC: Fabrication de vêtements masculins sur mesure
+    1413ZD: Chemiserie sur mesure
+    1413ZE: Fabrication de gaines, corsets et autres vêtements sur mesure
+    1413ZF: Fabrication de vêtements de dessus pour hommes et garçonnets
+    1413ZG: Fabrication de vêtements de dessus pour femmes et fillettes
+    1414ZZ: Fabrication de vêtements de dessous
+    1419ZA: Fabrication de layette
+    1419ZB: Fabrication de chapellerie
+    1419ZC: Modiste
+    1419ZD: Fabrication d’écharpes, cravates, foulards
+    1419ZE: Fabrication d’autres vêtements et accessoires
+    1419ZF: Fabrication d’accessoires en cuir
+    1420ZZ: Fabrication d’articles en fourrure
+    1431ZZ: Fabrication d’articles chaussants à mailles
+    1439ZA: Fabrication de lainages à la main
+    1439ZB: Fabrication de lainages à la machine
+    1511ZZ: Apprêt et tannage des cuirs
+    1512ZA: Fabrication d’articles de maroquinerie
+    1512ZB: Gainerie
+    1512ZC: Sellerie
+    1512ZD: Bourrellerie
+    1520ZA: Fabrication de sabots
+    1520ZB: Fabrication de chaussures et de bottes
+    1520ZC: Fabrication de chaussures et de bottes sur mesure
+    1610AQ: Sciage et rabotage du bois
+    1610AR: Fabrication de parquets, moulures et baguettes
+    1610BZ: Imprégnation du bois
+    1621ZZ: Fabrication de placage et de panneaux de bois
+    1622ZZ: Fabrication de parquets assemblés
+    1623ZZ: Fabrication de charpentes et d’autres menuiseries
+    1624ZA: Fabrication de caisses et de palettes en bois
+    1624ZB: Tonnellerie
+    1629ZA: Fabrication d’objets divers en bois
+    1629ZB: Vannerie, sparterie, travail de la paille
+    1629ZC: Fabrication d’objets en liège
+    1711ZZ: Fabrication de pâte à papier
+    1712ZZ: Fabrication de papier et de carton
+    1721AZ: Fabrication de carton ondulé
+    1721BZ: Fabrication de cartonnages
+    1721CZ: Fabrication d’emballages en papier
+    1722ZZ: Fabrication d’articles en papier à usage sanitaire ou domestique
+    1723ZZ: Fabrication d’articles de papeterie
+    1724ZZ: Fabrication de papiers peints
+    1729ZZ: Fabrication d’autres articles en papier ou en carton
+    1812ZA: Imprimerie de labeur
+    1812ZB: Sérigraphie de type imprimerie
+    1813ZA: Travaux de préparation d’impression
+    1813ZB: Graphisme-décoration
+    1813ZC: Activités graphiques n.c.a.
+    1814ZZ: Reliure et activités connexes
+    1820ZZ: Reproduction d’enregistrements
+    1910ZP: Production de brai et de coke de brai
+    1920ZP: Agglomération de la tourbe
+    2011ZZ: Fabrication de gaz industriels
+    2012ZZ: Fabrication de colorants et de pigments
+    2013AZ: Enrichissement et retraitement de matières nucléaires
+    2013BZ: Fabrication d’autres produits chimiques inorganiques de base n.c.a.
+    2014ZA: Fabrication d’autres produits organiques de base
+    2014ZB: Fabrication de produits de la distillation du bois
+    2015ZZ: Fabrication de produits azotés et d’engrais
+    2016ZZ: Fabrication de matières plastiques de base
+    2017ZZ: Fabrication de caoutchouc synthétique
+    2020ZZ: Fabrication de pesticides et d’autres produits agrochimiques
+    2030ZZ: Fabrication de peintures, vernis, encres et mastics
+    2041ZZ: Fabrication de savons, détergents et produits d’entretien
+    2042ZZ: Fabrication de parfums et de produits pour la toilette
+    2051ZZ: Fabrication de produits explosifs
+    2052ZZ: Fabrication de colles
+    2053ZZ: Fabrication d’huiles essentielles
+    2059ZZ: Fabrication d’autres produits chimiques n.c.a.
+    2060ZZ: Fabrication de fibres artificiel les ou synthétiques
+    2110ZP: Fabrication d’édulcorants de synthèse
+    2120ZP: Fabrication de substances radioactives de diagnostic et de pansements
+    2211ZZ: Fabrication et rechapage de pneumatiques
+    2219ZZ: Fabrication d’autres articles en caoutchouc
+    2221ZZ: Fabrication de plaques, feuilles, tubes et profilés en matières plastiques
+    2222ZZ: Fabrication d’emballages en ma tières plastiques
+    2223ZZ: Fabrication d’éléments en matières plastiques pour la construction
+    2229AZ: Fabrication de pièces techniques à base de matières plastiques
+    2229BZ: Fabrication d’éléments divers en matières plastiques
+    2311ZZ: Fabrication de verre plat
+    2312ZZ: Façonnage et transformation du verre plat
+    2313ZA: Fabrication de verre creux ou autres verres
+    2313ZB: Soufflage de verre
+    2313ZC: Façonnage de verre et de cristal
+    2314ZZ: Fabrication de fibres de verre
+    2319ZA: Fabrication de vitraux
+    2319ZB: Fabrication d’articles techniques en verre
+    2320ZZ: Fabrication de produits réfractaires
+    2331ZZ: Fabrication de carreaux en céramique
+    2332ZA: Fabrication de briques
+    2332ZB: Fabrication de tuiles
+    2332ZC: Fabrication de produits divers en terre cuite
+    2341ZZ: Fabrication d’articles céramiques à usage domestique ou ornemental
+    2342ZZ: Fabrication d’appareils sanitaires en céramique
+    2343ZZ: Fabrication d’isolateurs et pièces isolantes en céramique
+    2344ZZ: Fabrication d’autres produits céramiques à usage technique
+    2349ZZ: Fabrication d’autres produits céramiques
+    2351ZZ: Fabrication de ciment céramiques
+    2352ZZ: Fabrication de chaux et plâtre
+    2361ZZ: Fabrication d’éléments en béton pour la construction
+    2362ZZ: Fabrication d’éléments en plâtre pour la construction
+    2363ZZ: Fabrication de béton prêt à l’emploi
+    2364ZZ: Fabrication de mortiers et bétons secs
+    2365ZZ: Fabrication d’ouvrages en fibre-ciment
+    2369ZA: Fabrication de cheminées décoratives
+    2369ZB: Fabrication d’éléments décoratifs en béton ou en plâtre
+    2370ZZ: Taille, façonnage et finissage de pierres
+    2391ZZ: Fabrication de produits abrasifs
+    2399ZZ: Fabrication d’autres produits minéraux non métalliques n.c.a.
+    2410ZZ: Sidérurgie
+    2420ZZ: Fabrication de tubes, tuyaux, profilés creux et accessoires correspondants en acier
+    2431ZZ: Etirage à froid de barres
+    2432ZZ: Laminage à froid de feuillards
+    2433ZZ: Profilage à froid par formage ou pliage
+    2434ZZ: Tréfilage à froid
+    2441ZZ: Production de métaux précieux
+    2442ZA: Production d’aluminium
+    2442ZB: Première transformation de l’aluminium
+    2443ZZ: Métallurgie du plomb, du zinc ou de l’étain
+    2444ZZ: Métallurgie du cuivre
+    2445ZZ: Métallurgie des autres métaux non ferreux
+    2446ZZ: Elaboration et transformation de matières nucléaires
+    2451ZZ: Fonderie de fonte
+    2452ZZ: Fonderie d’acier
+    2453ZZ: Fonderie de métaux légers
+    2454ZZ: Fonderie d’autres métaux non ferreux
+    2511ZZ: Fabrication de structures métalliques et de parties de structures
+    2512ZZ: Fabrication de portes et fenêtres en métal
+    2521ZZ: Fabrication de radiateurs et de chaudières pour le chauffage central
+    2529ZZ: Fabrication d’autres réservoirs, citernes et conteneurs métalliques
+    2530ZA: Fabrication de générateurs de vapeur
+    2530ZB: Chaudronnerie nucléaire
+    2540ZZ: Fabrication d’armes et de munitions
+    2550AZ: Forge, estampage, matriçage, métallurgie des poudres
+    2550BZ: Découpage, emboutissage
+    2561ZA: Sérigraphie de type marquage
+    2561ZB: Traitement et revêtement des métaux
+    2562AZ: Décolletage
+    2562BZ: Mécanique industrielle
+    2571ZZ: Fabrication de coutellerie
+    2572ZZ: Fabrication de serrures et de ferrures
+    2573AZ: Fabrication de moules et modèles ferrures
+    2573BA: Fabrication d’outillage à main
+    2573BB: Fabrication d’outillage mécanique
+    2591ZZ: Fabrication de fûts et emballages métalliques similaires
+    2592ZZ: Fabrication d’emballages métalliques légers
+    2593ZA: Fabrication d’articles en fils métalliques et de chaînes
+    2593ZB: Fabrication de ressorts
+    2594ZZ: Fabrication de vis et de boulons
+    2599AA: Dinanderie
+    2599AB: Autres fabrications d’articles de ménage
+    2599BA: Fabrication de petits articles métalliques
+    2599BB: Fabrication de coffres-forts
+    2599BC: Fabrication d’autres articles métalliques n.c.a.
+    2611ZA: Fabrication de composants électroniques (hors capteurs solaires)
+    2611ZB: Fabrication de capteurs solaires photovoltaïques
+    2612ZZ: Fabrication de cartes électroniques assemblées
+    2620ZZ: Fabrication d’ordinateurs et d’autres équipements informatiques
+    2630ZZ: Fabrication d’équipements de communication
+    2640ZZ: Fabrication de produits électroniques grand public
+    2651AZ: Fabrication d’équipements d’aide à la navigation
+    2651BZ: Fabrication d’instrumentation scientifique et technique
+    2652ZZ: Horlogerie
+    2660ZZ: Fabrication d’équipements d’irradiation médicale, d’équipements électromédicaux et électrothérapeutiques
+    2670ZA: Fabrication de matériels photographiques et cinématographiques
+    2670ZB: Fabrication d’instruments d’optique
+    2680ZZ: Fabrication de supports magnétiques et optiques
+    2711ZA: Fabrication de moteurs électriques
+    2711ZB: Fabrication de transformateurs électriques
+    2711ZC: Fabrication de groupes électrogènes
+    2712ZZ: Fabrication de matériel de distribution et de commande électrique
+    2720ZZ: Fabrication de piles et d’accumula teurs électriques
+    2731ZZ: Fabrication de câbles de fibres optiques
+    2732ZZ: Fabrication d’autres fils et câbles électroniques ou électriques
+    2733ZZ: Fabrication de matériel d’installation électrique
+    2740ZA: Fabrication de lampes
+    2740ZB: Fabrication de luminaires
+    2740ZC: Fabrication d’abat-jour
+    2740ZD: Fabrication d’autres appareils d’éclairage
+    2751ZZ: Fabrication d’appareils électroménagers
+    2752ZZ: Fabrication d’appareils ménagers non électriques
+    2790ZZ: Fabrication d’autres matériels électriques
+    2811ZA: Fabrication de moteurs et turbines, à l’exception des moteurs d’avion et de véhicules
+    2811ZB: Fabrication de turbines éoliennes
+    2812ZZ: Fabrication d’équipements hydrauliques et pneumatiques
+    2813ZA: Fabrication de pompes
+    2813ZB: Fabrication de compresseurs
+    2814ZZ: Fabrication d’autres articles de robinetterie
+    2815ZZ: Fabrication d’engrenages et d’organes mécaniques de transmission
+    2821ZA: Fabrication de fours et brûleurs non solaires
+    2821ZB: Fabrication de chauffages solaires
+    2822ZA: Fabrication d’ascenseurs, monte-charges et escaliers mécaniques
+    2822ZB: Fabrication d’équipements de levage et de manutention
+    2823ZZ: Fabrication de machines de bureau (à l’exception des ordinateurs et équipements périphériques)
+    2824ZZ: Fabrication d’outillage portatif à moteur incorporé
+    2825ZA: Fabrication d’équipements de réfrigération industrielle
+    2825ZB: Fabrication d’équipements de réfrigération industrielle
+    2825ZC: Fabrication d’équipements aérauliques
+    2829AA: Fabrication d’équipements d’emballage et de conditionnement
+    2829AB: Fabrication d’appareils de pesage
+    2829BZ: Fabrication d’autres machines d’usage général
+    2830ZZ: Fabrication de machines agricoles et forestières
+    2841ZZ: Fabrication de machines-outils pour le travail des métaux
+    2849ZZ: Fabrication d’autres machines-outils
+    2891ZZ: Fabrication de machines pour la métallurgie
+    2892ZA: Fabrication de matériels de mines pour l’extraction
+    2892ZB: Fabrication de matériels de travaux publics
+    2893ZZ: Fabrication de machines pour l’industrie agro-alimentaire
+    2894ZZ: Fabrication de machines pour les industries textiles
+    2895ZZ: Fabrication de machines pour les industries du papier et du carton
+    2896ZZ: Fabrication de machines pour le travail du caoutchouc ou des plastiques
+    2899AZ: Fabrication de machines d’imprimerie
+    2899BZ: Fabrication d’autres machines spécialisées
+    2910ZA: Construction de voiturettes
+    2910ZB: Construction d’autres véhicules automobiles
+    2920ZA: Fabrication de carrosseries
+    2920ZB: Aménagement de véhicules
+    2920ZC: Fabrication de remorques et de semi-remorques
+    2931ZZ: Fabrication de matériels électriques et électroniques automobiles
+    2932ZZ: Fabrication d’autres équipements automobiles
+    3011ZA: Construction de navires
+    3011ZB: Transformation et équipement des navires
+    3012ZZ: Construction de bateaux de plaisance
+    3020ZZ: Construction de locomotives et d’autre matériel ferroviaire roulant
+    3030ZA: Construction de moteurs pour aéronefs
+    3030ZB: Construction de cellules d’aéronefs
+    3030ZC: Construction de lanceurs et engins spatiaux
+    3040ZZ: Construction de véhicules militaires de combat
+    3091ZA: Construction de motocycles
+    3091ZB: Fabrication d’équipements pour motocycles
+    3092ZA: Construction de bicyclettes
+    3092ZB: Fabrication d’équipements pour bicyclettes
+    3092ZC: Fabrication de véhicules pour invalides et enfants
+    3099ZZ: Fabrication d’autres équipements de transport n.c.a.
+    3101ZZ: Fabrication de meubles de bureau et de magasin
+    3102ZZ: Fabrication de meubles de cuisine
+    3103ZZ: Fabrication de matelas
+    3109AZ: Fabrication de sièges d’ameublement d’intérieur
+    3109BA: Fabrication et finissage de meubles divers
+    3109BB: Fabrication de meubles de jardin et d’extérieur
+    3109BC: Fabrication de meubles en rotin
+    3211ZZ: Frappe de monnaies
+    3212ZZ: Fabrication d’articles de joaillerie et de bijouterie
+    3213ZZ: Fabrication d’articles de bijouterie fantaisie et articles similaires
+    3220ZA: Lutherie
+    3220ZB: Facteur d’orgues
+    3220ZC: Fabrication d’autres instruments de musique
+    3230ZZ: Fabrication d’articles de sport
+    3240ZZ: Fabrication de jeux et jouets
+    3250AA: Fabrication de prothèses dentaires
+    3250AC: Fabrication de prothèses et orthèses diverses
+    3250AD: Fabrication d’équipements médico-chirurgicaux
+    3250BP: Fabrication de lunettes de protection
+    3291ZZ: Fabrication d’articles de brosserie
+    3299ZA: Fabrication de bougies
+    3299ZB: Fabrication d’accessoires du vêtements
+    3299ZC: Fabrication d’articles de Paris, d’arts ou religieux
+    3299ZD: Fabrication d’articles de fumeurs
+    3299ZE: Taxidermie
+    3299ZF: Fabrication d’équipements de protection et de sécurité
+    3299ZG: Fabrication de produits manufacturés non classés ailleurs
+    3311ZZ: Réparation d’ouvrages en métaux
+    3312ZA: Réparation de matériel agricole
+    3312ZB: Réparation d’autres machines
+    3313ZZ: Réparation de matériels électroniques et optiques
+    3314ZZ: Réparation d’équipements électriques
+    3315ZZ: Réparation et maintenance navale
+    3316ZZ: Réparation et maintenance d’aéronefs et d’engins spatiaux
+    3317ZZ: Réparation et maintenance d’autres équipements de transport
+    3319ZZ: Réparation d’autres équipements
+    3320AZ: Installation de structures métalliques, chaudronnées et de tuyauterie
+    3320BZ: Installation de machines et équipements mécaniques
+    3320CZ: Conception d’ensemble et assemblage sur site industriel d’équipements de contrôle des processus industriels
+    3320DZ: Installation d’équipements électriques, de matériels électroniques et optiques ou d’autres matériels
+    3700ZP: Entretien de fosses septiques
+    3812ZP: Collecte des déchets nucléaires
+    3821ZP: Incinération des déchets non dangereux et production de cendres et scories associée
+    3822ZP: Traitement et élimination de déchets nucléaires radioactifs
+    3831ZA: Démantèlement d’épaves en vue de la récupération de matières métalliques
+    3831ZB: Démantèlement d’épaves en vue de la récupération de matières non métalliques
+    3832ZA: Traitement de matières métalliques recyclables
+    3832ZB: Traitement de matières non métalliques recyclables
+    3900ZP: Désamiantage
+    4120AZ: Construction de maisons individuelles
+    4120BA: Construction de bâtiments
+    4120BB: Réhabilitation de bâtiments
+    4211ZA: Pose de signalisation routière verticale
+    4211ZB: Aménagement de chaussées
+    4212ZZ: Construction de voies ferrées de surface et souterraines
+    4213AZ: Construction d’ouvrages d’art
+    4213BZ: Construction et entretien de tunnels
+    4221ZA: Construction d’installations de réseaux pour fluides
+    4221ZB: Forage des puits d’eau
+    4222ZA: Construction de centrales électriques
+    4222ZB: Construction de lignes électriques et de télécommunication
+    4291ZZ: Construction d’ouvrages maritimes et fluviaux
+    4299ZP: Construction d’installations sportives et d’ouvrages industriels ou miniers
+    4311ZZ: Travaux de démolition
+    4312AZ: Travaux de terrassement courants et travaux préparatoires
+    4312BA: Terrassements
+    4312BB: Artificiers
+    4313ZZ: Forages et sondages
+    4321AA: Installation d’antennes
+    4321AB: Installation électrique
+    4321BZ: Travaux d’installation électrique sur la voie publique
+    4322AZ: Travaux d’installation d’eau et de gaz en tous locaux
+    4322BA: Installation et entretien de climatisation et chaufferie
+    4322BB: Installation de chauffage individuel
+    4322BC: Entretien de chaudières domestiques
+    4329AZ: Travaux d’isolation
+    4329BA: Installation d’ascenseurs
+    4329BB: Montage de clôtures et de grilles
+    4329BC: Installation de stores et bannes
+    4329BD: Autres travaux d’installation divers
+    4331ZA: Travaux de plâtrerie d’extérieur
+    4331ZB: Travaux de plâtrerie d’intérieur
+    4332AA: Menuiserie bois
+    4332AB: Menuiserie PVC
+    4332BA: Installation de serres et de vérandas
+    4332BB: Métallerie, serrurerie
+    4332CZ: Agencement de lieux de vente
+    4333ZZ: Travaux de revêtement des sols et des murs
+    4334ZA: Travaux de miroiterie de bâtiment, vitrerie
+    4334ZB: Travaux de peinture extérieure
+    4334ZC: Travaux de peinture intérieure et peinture plâtrerie
+    4334ZD: Travaux de peinture en lettres sur bâtiments
+    4339ZZ: Autres travaux de finition
+    4391AZ: Travaux de charpente
+    4391BZ: Travaux de couverture par éléments
+    4399AZ: Travaux d’étanchéification
+    4399BZ: Travaux de montage de structures métalliques
+    4399CZ: Travaux de maçonnerie générale et gros œuvre de bâtiment
+    4399DA: Installation de piscines de résidence et construction de piscines extérieures
+    4399DB: Construction de cheminées et de fours industriels
+    4399DC: Autres travaux spéciaux de construction
+    4399EZ: Location avec opérateur de matériel de construction
+    4520AA: 'Réparation automobile de véhicules automobiles légers: entretien courant'
+    4520AB: 'Réparation automobile de véhicules automobiles légers: mécanique'
+    4520AC: 'Réparation automobile de véhicules automobiles légers: carrosserie'
+    4520AD: 'Réparation automobile de véhicules automobiles légers: électricité, électronique'
+    4520BA: 'Réparation automobile d’autres véhicules automobiles: entretien courant'
+    4520BB: 'Réparation automobile d’autres véhicules automobiles: mécanique'
+    4520BC: 'Réparation automobile d’autres véhicules automobiles: diesel'
+    4520BD: 'Réparation automobile d’autres véhicules automobiles: carrosserie'
+    4520BE: 'Réparation automobile d’autres véhicules automobiles: électricité, électronique'
+    4540ZP: Réparation de motocycles
+    4722ZA: Boucherie
+    4722ZB: Boucherie charcuterie
+    4722ZC: Boucherie chevaline
+    4722ZD: Volailles, gibiers
+    4722ZE: Triperie
+    4723ZP: Préparation de poissons, crustacés et mollusques
+    4776ZP: Commerce de détail de fleurs
+    4781ZQ: Boucherie sur éventaires et marchés
+    4781ZR: Boucherie charcuterie sur éventaires et marchés
+    4781ZS: Boucherie chevaline sur éventaires et marchés
+    4781ZT: Volailles, gibiers sur éventaires et marchés
+    4781ZU: Triperie sur éventaires et marchés
+    4781ZV: Préparation de poissons, crustacés, mollusques sur éventaires, marchés
+    4789ZP: Commerce de détail de fleurs sur éventaires et marchés
+    4932ZA: Taxis
+    4932ZB: Location de voitures avec chauffeur
+    4942ZZ: Services de déménagement
+    5221ZP: Assistance et remorquage de véhicules automobiles
+    5610CQ: Fabrication artisanale associée à la vente de plats pour consommation immédiate en magasins sédentaires ou sur éventaires et marchés
+    5610CR: Fabrication artisanale associée à la vente de plats pour consommation immédiate en véhicules motorisés ou non
+    5819ZP: Edition d’imprimés fiduciaires, imprimés commerciaux, formulaires imprimés
+    7120AZ: Contrôle technique automobile
+    7311ZP: Pose d’affiches
+    7410ZP: Conception de modèles pour étalages et décoration
+    7420ZQ: Studio de photographie
+    7420ZR: Portrait, reportage
+    7420ZS: Photographie industrielle et publicitaire
+    7420ZT: Laboratoires techniques de développement et de tirage
+    8020ZP: Activité de surveillance et installation de systèmes d’alarme non dissociées
+    8121ZZ: Nettoyage courant des bâtiments
+    8122ZZ: Autres activités de nettoyage des bâtiments et nettoyage industriel
+    8129AZ: Désinfection, désinsectisation, dératisation
+    8129BP: Autres services de nettoyage
+    8211ZP: Services administratifs divers
+    8219ZP: Travaux à façon divers
+    8292ZZ: Activités de conditionnement
+    8690AZ: Ambulances
+    9001ZP: Spectacles de marionnettes
+    9003AP: Restauration d’objets d’art
+    9511ZZ: Réparation d’ordinateurs et d’équipements périphériques
+    9512ZZ: Réparation d’équipements de communication
+    9521ZZ: Réparation de produits électroniques grand public
+    9522ZA: Réparation de tondeuses à gazon
+    9522ZB: Réparation d’appareils électroménagers
+    9523ZZ: Réparation de chaussures et d’articles en cuir
+    9524ZZ: Réparation de meubles et d’équipements du foyer
+    9525ZZ: Réparation d’articles d’horlogerie et de bijouterie
+    9529ZA: Aiguisage de coutellerie
+    9529ZB: Réparation de cycles
+    9529ZC: Atelier de retouches
+    9529ZD: Réparation d’articles de sport et de campement
+    9529ZE: Accordeurs de piano et restauration d’autres instruments de musique
+    9529ZF: Réparation non classées ailleurs
+    9601AZ: Blanchisserie-teinturerie de gros
+    9601BQ: Laveries, blanchisseries et teintureries de détail
+    9601BR: Pressings
+    9602AA: Coiffure en salon
+    9602AB: Coiffure hors salon
+    9602BA: Soins de beauté en salon
+    9602BB: Soins de beauté hors salon
+    9603ZP: Embaumement, soins mortuaires
+    9609ZP: Toilettage d’animaux de compagnie

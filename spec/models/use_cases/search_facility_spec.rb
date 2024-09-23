@@ -14,8 +14,6 @@ describe UseCases::SearchFacility do
   let(:suffix_url) { "context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
   let(:entreprise_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/#{siren}?#{suffix_url}" }
   let(:effectif_entreprise_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/unites_legales/#{siren}/effectifs_annuels/#{1.year.ago.year}?#{suffix_url}" }
-  let(:rcs_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/extrait_kbis?#{suffix_url}" }
-  let(:rm_url) { "https://entreprise.api.gouv.fr/v3/cma_france/rnm/unites_legales/#{siren}?#{suffix_url}" }
   let(:mandataires_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/mandataires_sociaux?#{suffix_url}" }
   let(:etablissement_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{siret}?#{suffix_url}" }
   let(:effectif_etablissement_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/#{siret}/effectifs_mensuels/#{searched_month}/annee/#{searched_year}?#{suffix_url}" }
@@ -30,8 +28,6 @@ describe UseCases::SearchFacility do
       authorize_france_competence_token
       stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_entreprise.json'))
       stub_request(:get, effectif_entreprise_url).to_return(body: file_fixture('api_entreprise_effectifs_entreprise.json'))
-      stub_request(:get, rcs_url).to_return(body: file_fixture('api_entreprise_rcs.json'))
-      stub_request(:get, rm_url).to_return(body: file_fixture('api_entreprise_rm.json'))
       stub_request(:get, mandataires_url).to_return(body: file_fixture('api_entreprise_mandataires_sociaux.json'))
       stub_request(:get, etablissement_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
       stub_request(:get, effectif_etablissement_url).to_return(body: file_fixture('api_entreprise_effectifs_etablissement.json'))
@@ -51,8 +47,6 @@ describe UseCases::SearchFacility do
         expect(company.siren).to eq siren
         expect(company.legal_form_code).to eq '5710'
         expect(company.code_effectif).to eq '41'
-        expect(company.inscrit_rcs).to be true
-        expect(company.inscrit_rm).to be true
         expect(company.forme_exercice).to eq 'COMMERCIALE'
 
         expect(facility.reload.siret).to eq siret
@@ -61,6 +55,8 @@ describe UseCases::SearchFacility do
         expect(facility.code_effectif).to eq '41'
         expect(facility.opco).to eq opco
         expect(facility.readable_locality).to eq '75002 PARIS 2'
+        expect(facility.nature_activites).to eq ["COMMERCIALE"]
+        expect(facility.nafa_codes).to eq []
       end
     end
 

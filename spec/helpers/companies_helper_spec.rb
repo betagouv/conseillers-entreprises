@@ -42,4 +42,37 @@ describe CompaniesHelper do
       it { is_expected.to be_nil }
     end
   end
+
+  describe 'translated_nature_activites' do
+    subject { helper.translated_nature_activites natures }
+
+    context 'no natures' do
+      let(:natures) { [] }
+
+      it { is_expected.to eq [] }
+    end
+
+    context 'existing natures' do
+      let(:natures) { ['LIBERALE_NON_REGLEMENTEE', 'AGRICOLE (NON ACTIF)'] }
+
+      it { is_expected.to eq ['Libérale non réglementée','Agricole non actif'] }
+    end
+
+    context 'inexisting natures' do
+      let(:natures) { ['ROCK_STAR'] }
+
+      it { is_expected.to eq ['Rock star'] }
+    end
+  end
+
+  describe 'translated_nature_activite' do
+    subject { helper.translated_nature_activite nature }
+
+    context 'no nature' do
+      let(:nature) { nil }
+
+      it { is_expected.to be_nil }
+    end
+
+  end
 end

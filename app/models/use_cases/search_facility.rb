@@ -18,11 +18,7 @@ module UseCases
           legal_form_code: api_company.forme_juridique_code,
           code_effectif: api_company.code_effectif,
           effectif: api_company.effectif,
-          forme_exercice: api_company.forme_exercice,
-          inscrit_rcs: api_company.inscrit_rcs,
-          inscrit_rm: api_company.inscrit_rm,
-          activite_liberale: api_company.activite_liberale,
-          independant: api_company.independant
+          forme_exercice: api_company.forme_exercice
         )
         company
       end
@@ -42,7 +38,9 @@ module UseCases
           effectif: api_facility.effectif,
           naf_libelle: api_facility.naf_libelle,
           naf_code_a10: api_facility.naf_code_a10,
-          opco: api_facility.opco
+          opco: api_facility.opco,
+          nature_activites: api_facility.nature_activites,
+          nafa_codes: api_facility.nafa_codes
         )
         facility
       end

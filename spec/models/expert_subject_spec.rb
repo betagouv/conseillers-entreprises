@@ -102,10 +102,10 @@ RSpec.describe ExpertSubject do
       end
     end
 
-    describe 'in_company_registres' do
-      subject{ described_class.in_company_registres(company) }
+    describe 'without_irrelevant_chambres' do
+      subject{ described_class.without_irrelevant_chambres(facility) }
 
-      let(:need) { create :need, company: company }
+      let(:need) { create :need, facility: facility }
       let!(:expert_subject_cci) do
         create :expert_subject,
                institution_subject: create(:institution_subject, institution: create(:institution, name: 'cci'))
@@ -119,51 +119,81 @@ RSpec.describe ExpertSubject do
                institution_subject: create(:institution_subject, institution: create(:institution, name: 'unapl'))
       end
 
-      let!(:expert_subject_other) do
+      let!(:expert_subject_temoin) do
         create :expert_subject,
                institution_subject: create(:institution_subject, institution: create(:institution, name: 'other'))
       end
+      let(:company) { create :company, forme_exercice: forme_exercice }
+      let(:facility) { create :facility, company: company, nature_activites: nature_activites }
 
-      context 'when company is none' do
-        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false, activite_liberale: false }
+      context 'when facility has no nature activites' do
+        let(:forme_exercice) { nil }
+        let(:nature_activites) { [] }
 
-        it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_other) }
+        it{ is_expected.to contain_exactly(expert_subject_temoin) }
       end
 
-      context 'when company is only rcs' do
-        let(:company) { create :company, inscrit_rcs: true, inscrit_rm: false, activite_liberale: false }
+      context 'when only facility has cci nature activites' do
+        let(:forme_exercice) { nil }
+        let(:nature_activites) { ['COMMERCIALE'] }
 
-        it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_other) }
+        it{ is_expected.to contain_exactly(expert_subject_temoin, expert_subject_cci) }
       end
 
-      context 'when company is only rm' do
-        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: true, activite_liberale: false }
+      context 'when only company has cma nature activites' do
+        let(:forme_exercice) { 'ARTISANALE' }
+        let(:nature_activites) { [] }
 
-        it{ is_expected.to contain_exactly(expert_subject_cma, expert_subject_other) }
+        it{ is_expected.to contain_exactly(expert_subject_temoin, expert_subject_cma) }
       end
 
-      context 'when company is only liberal' do
-        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false, activite_liberale: true }
+      context 'when only liberale nature activites' do
+        let(:forme_exercice) { 'LIBERALE_REGLEMENTEE' }
+        let(:nature_activites) { [] }
 
-        it{ is_expected.to contain_exactly(expert_subject_unapl, expert_subject_other) }
+        it{ is_expected.to contain_exactly(expert_subject_temoin, expert_subject_unapl) }
       end
 
-      context 'when company is rcs & rm' do
-        let(:company) { create :company, inscrit_rcs: true, inscrit_rm: true, activite_liberale: false }
+      context 'when cci + cma nature activites' do
+        let(:forme_exercice) { 'ARTISANALE_REGLEMENTEE' }
+        let(:nature_activites) { ['AGENT_COMMERCIAL'] }
 
-        it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_other) }
+        it{ is_expected.to contain_exactly(expert_subject_temoin, expert_subject_cma, expert_subject_cci) }
       end
 
-      context 'when company is rcs & rm && unapl' do
-        let(:company) { create :company, inscrit_rcs: true, inscrit_rm: true, activite_liberale: true }
+      context 'when liberale + cma nature activites' do
+        let(:forme_exercice) { 'ARTISANALE_REGLEMENTEE' }
+        let(:nature_activites) { ['LIBERALE_NON_REGLEMENTEE'] }
 
-        it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_unapl, expert_subject_other) }
+        it{ is_expected.to contain_exactly(expert_subject_temoin, expert_subject_cma, expert_subject_unapl) }
       end
 
-      context 'when company is independant' do
-        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false, activite_liberale: false, independant: true }
+      context 'when independant nature activites' do
+        let(:forme_exercice) { 'INDEPENDANTE' }
+        let(:nature_activites) { [] }
 
-        it{ is_expected.to contain_exactly(expert_subject_cci, expert_subject_cma, expert_subject_unapl, expert_subject_other) }
+        it{ is_expected.to contain_exactly(expert_subject_temoin, expert_subject_cci, expert_subject_cma, expert_subject_unapl) }
+      end
+
+      context 'when GESTION_DE_BIENS nature activites' do
+        let(:forme_exercice) { 'GESTION_DE_BIENS' }
+        let(:nature_activites) { [] }
+
+        it{ is_expected.to contain_exactly(expert_subject_temoin, expert_subject_cci, expert_subject_cma, expert_subject_unapl) }
+      end
+
+      context 'when agricole nature activites' do
+        let(:forme_exercice) { 'ACTIF_AGRICOLE' }
+        let(:nature_activites) { ['AGRICOLE_NON_ACTIF'] }
+
+        it{ is_expected.to contain_exactly(expert_subject_temoin) }
+      end
+
+      context 'when other nature activites' do
+        let(:forme_exercice) { 'SANS_ACTIVITE' }
+        let(:nature_activites) { [] }
+
+        it{ is_expected.to contain_exactly(expert_subject_temoin) }
       end
     end
   end

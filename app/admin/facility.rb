@@ -16,17 +16,20 @@ ActiveAdmin.register Facility do
       div admin_link_to(f)
       div admin_attr(f, :siret)
       div admin_attr(f, :naf_code)
+      if f.nafa_codes.any?
+        div admin_attr(f, :nafa_codes)
+      end
       if f.code_effectif?
         div admin_attr(f, :code_effectif), title: f.intitule_effectif
       end
     end
-    column(:nature) do |f|
+    column(:natures) do |f|
       if f.company.forme_exercice?
         div admin_attr(f.company, :forme_exercice), title: f.company.forme_exercice
       end
-      div inscription_registre(:inscrit_rcs, f.company.inscrit_rcs)
-      div inscription_registre(:inscrit_rm, f.company.inscrit_rm)
-      div inscription_registre(:activite_liberale, f.company.activite_liberale)
+      if f.nature_activites.any?
+        div admin_attr(f, :nature_activites)
+      end
     end
 
     column :created_at
@@ -68,16 +71,15 @@ ActiveAdmin.register Facility do
     attributes_table do
       row :siret
       row :naf_code
+      row :nafa_codes
       row :code_effectif
       row(:company) do |f|
         div admin_link_to(f, :company)
         if f.company.forme_exercice?
           div admin_attr(f.company, :forme_exercice), title: f.company.forme_exercice
         end
-        div inscription_registre(:inscrit_rcs, f.company.inscrit_rcs)
-        div inscription_registre(:inscrit_rm, f.company.inscrit_rm)
-        div inscription_registre(:activite_liberale, f.company.activite_liberale)
       end
+      row :nature_activites
       row :commune
       row :readable_locality
       row :created_at

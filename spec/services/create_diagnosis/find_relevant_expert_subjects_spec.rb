@@ -739,7 +739,7 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
     subject{ described_class.new(need).call }
 
     let(:diagnosis) { create :diagnosis, company: company }
-    let(:need) { create :need, diagnosis: diagnosis }
+    let(:need) { create :need, diagnosis: diagnosis, facility: facility }
 
     let!(:es_always) do
       create :expert_subject,
@@ -766,9 +766,10 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
     end
 
     context 'no registre' do
-      let(:company) { create :company, inscrit_rcs: true, inscrit_rm: true }
+      let(:company) { create :company, forme_exercice: 'COMMERCIALE' }
+      let(:facility) { create :facility, company: company, nature_activites: ["ARTISANALE"] }
       let(:the_subject) { need.subject }
-      let(:communes) { [need.facility.commune] }
+      let(:communes) { [facility.commune] }
 
       it{ is_expected.to contain_exactly(es_always, es_cci, es_cma) }
     end

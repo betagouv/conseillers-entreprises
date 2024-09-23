@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_12_095206) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_13_145633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -171,12 +171,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_12_095206) do
     t.string "legal_form_code"
     t.string "code_effectif"
     t.date "date_de_creation"
-    t.boolean "inscrit_rcs"
-    t.boolean "inscrit_rm"
     t.float "effectif"
     t.string "forme_exercice"
-    t.boolean "activite_liberale", default: false
-    t.boolean "independant", default: false
     t.index ["siren"], name: "index_companies_on_siren", unique: true, where: "((siren)::text <> NULL::text)"
   end
 
@@ -294,6 +290,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_12_095206) do
     t.string "naf_code_a10"
     t.bigint "opco_id"
     t.float "effectif"
+    t.string "nature_activites", default: [], array: true
+    t.string "nafa_codes", default: [], array: true
     t.index ["commune_id"], name: "index_facilities_on_commune_id"
     t.index ["company_id"], name: "index_facilities_on_company_id"
     t.index ["opco_id"], name: "index_facilities_on_opco_id"

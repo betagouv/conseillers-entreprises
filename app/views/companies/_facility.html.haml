@@ -5,9 +5,19 @@
       %tr
         %td= t('.siret')
         %td= etablissement.siret
+      - if etablissement.nature_activites.any?
+        %tr
+          %td= t('.nature_activites')
+          %td
+            = translated_nature_activites(etablissement.nature_activites).join(', ')
       %tr
         %td= t('.naf')
         %td #{etablissement.naf_code} - #{etablissement.naf_libelle}
+      - if etablissement.nafa_codes.any?
+        %tr
+          %td= t('.nafa')
+          %td
+            = etablissement.nafa_codes.map{ |code| [code, NafCode.nafa_libelle(code)].join(' - ') }.join(', ')
       %tr
         %td= t('.date_mise_a_jour')
         %td= date_from_timestamp(etablissement.date_derniere_mise_a_jour)

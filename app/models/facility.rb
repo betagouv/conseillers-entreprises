@@ -8,6 +8,8 @@
 #  naf_code          :string
 #  naf_code_a10      :string
 #  naf_libelle       :string
+#  nafa_codes        :string           default([]), is an Array
+#  nature_activites  :string           default([]), is an Array
 #  readable_locality :string
 #  siret             :string
 #  created_at        :datetime         not null
@@ -83,6 +85,22 @@ class Facility < ApplicationRecord
 
   def commune_name
     readable_locality || insee_code
+  end
+
+  def all_nature_activites
+    (nature_activites + [company.forme_exercice]).compact.uniq
+  end
+
+  def has_artisanale_activites
+    all_nature_activites.any? { |a| ["ARTISANALE", "ARTISANALE_REGLEMENTEE", "INDEPENDANTE", "GESTION_DE_BIENS"].include?(a) }
+  end
+
+  def has_commerciale_activites
+    all_nature_activites.any?{ |a| ["COMMERCIALE", "AGENT_COMMERCIAL", "INDEPENDANTE", "GESTION_DE_BIENS"].include?(a) }
+  end
+
+  def has_liberal_activities
+    all_nature_activites.any? { |a| ["LIBERALE_REGLEMENTEE", "LIBERALE_NON_REGLEMENTEE", "INDEPENDANTE", "GESTION_DE_BIENS"].include?(a) }
   end
 
   ##

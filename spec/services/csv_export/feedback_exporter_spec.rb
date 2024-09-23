@@ -8,7 +8,7 @@ describe CsvExport::FeedbackExporter, CsvExport do
   let!(:landing) { create :landing, landing_themes: [landing_theme], integration: :iframe, slug: 'landing-slug', partner_url: "www.example.fr" }
   let!(:need) { create :need, diagnosis: diagnosis, subject: pde_subject }
   let!(:diagnosis) { create :diagnosis, solicitation: solicitation, facility: facility, advisor: create(:user, full_name: 'Valérie Masson-Delmotte') }
-  let!(:facility) { create :facility, code_effectif: 12, naf_code: '4618Z', siret: '12345678900011', commune: commune, company: create(:company, name: 'Fossil', inscrit_rcs: true, legal_form_code: "5710",) }
+  let!(:facility) { create :facility, code_effectif: 12, naf_code: '4618Z', siret: '12345678900011', commune: commune, company: create(:company, name: 'Fossil', legal_form_code: "5710",) }
   let!(:commune) { create :commune, insee_code: '22100', territories: [region] }
   let!(:region) { create :territory, :region, name: 'Région Bretagne' }
   let!(:match) { create :match, need: need, created_at: date, status: :taking_care, subject: pde_subject, expert: expert }

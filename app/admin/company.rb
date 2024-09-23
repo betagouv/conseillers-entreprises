@@ -20,13 +20,13 @@ ActiveAdmin.register Company do
         div admin_attr(c, :code_effectif), title: c.intitule_effectif
       end
     end
-    column(:nature) do |c|
+    column(:natures) do |c|
       if c.forme_exercice?
         div admin_attr(c, :forme_exercice), title: c.forme_exercice
       end
-      div inscription_registre(:inscrit_rcs, c.inscrit_rcs)
-      div inscription_registre(:inscrit_rm, c.inscrit_rm)
-      div inscription_registre(:activite_liberale, c.activite_liberale)
+      if c.facilities.first&.nature_activites&.any?
+        div admin_attr(c.facilities.first, :nature_activites)
+      end
     end
     column :created_at
     column(:facilities) do |c|
@@ -75,9 +75,9 @@ ActiveAdmin.register Company do
       end
       row :code_effectif
       row :forme_exercice
-      row :inscrit_rcs
-      row :inscrit_rm
-      row :activite_liberale
+      row :nature_activites do |c|
+        c.facilities.first.nature_activites&.join(', ')
+      end
       row :created_at
       row(:facilities) do |c|
         div admin_link_to(c, :facilities)
@@ -93,5 +93,5 @@ ActiveAdmin.register Company do
 
   ## Form
   #
-  permit_params :name, :siren, :legal_form_code, :code_effectif, :forme_exercice, :inscrit_rcs, :inscrit_rm, :activite_liberale
+  permit_params :name, :siren, :legal_form_code, :code_effectif, :forme_exercice
 end

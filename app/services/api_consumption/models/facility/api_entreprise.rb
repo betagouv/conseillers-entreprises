@@ -17,7 +17,8 @@ module ApiConsumption::Models
         :opcoSiren, # a partir d'ici, données agglomérées d'autres appels API
         :idcc,
         :effectifs_etablissement_mensuel,
-        :opco_fc
+        :opco_fc,
+        :activites_secondaires
       ]
     end
 
@@ -73,7 +74,25 @@ module ApiConsumption::Models
       @opco ||= Institution.opco.find_by(france_competence_code: france_competence_code)
     end
 
+    def nature_activites
+      return [] if rne_etablissement.blank?
+      rne_etablissement['activites'].pluck('formeExercice').uniq.compact
+    end
+
+    def nafa_codes
+      return [] if rne_etablissement.blank?
+      rne_etablissement['activites'].pluck('codeAprm').uniq.compact
+    end
+
     private
+
+    def rne_etablissement
+      @rne_etablissement = if activites_secondaires.dig('etablissement_principal', 'siret') == siret
+        activites_secondaires['etablissement_principal']
+      else
+        activites_secondaires["autres_etablissements"].find{ |etablissement| etablissement['siret'] == siret }
+      end
+    end
 
     def effectifs_etablissement_mensuel_array
       effectifs_etablissement_mensuel['effectifs_mensuels'] || []

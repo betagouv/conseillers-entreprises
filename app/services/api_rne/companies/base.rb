@@ -25,12 +25,46 @@ module ApiRne::Companies
 
   class Responder < ApiRne::Responder
     def format_data
-      registres = @http_request.data.dig('formality','content','registreAnterieur')
+      data = @http_request.data
+      personne = data.dig('formality', 'content', 'personneMorale') || data.dig('formality', 'content', 'personnePhysique') || data.dig('formality', 'content', 'exploitation')
       {
-        "forme_exercice" => @http_request.data.dig('formality', 'content', 'formeExerciceActivitePrincipale'),
-        "rne_rcs" => registres.present? ? registres['rncs'] : nil,
-        "rne_rnm" => registres.present? ? registres['rnm'] : nil,
+        "forme_exercice" => data.dig('formality', 'content', 'formeExerciceActivitePrincipale'),
+        "description" => personne.dig('identite', 'description', 'objet'),
+        "montant_capital" => personne.dig('identite', 'description', 'montantCapital'),
+        "activites_secondaires" => grab_activites_secondaires(personne)
       }
+    end
+
+    private
+
+    def grab_activites_secondaires(personne)
+      etablissement_principal = {}
+      etablissement_principal['siret'] = personne.dig('etablissementPrincipal', 'descriptionEtablissement', 'siret')
+      activites_etablissement_principal = personne.dig('etablissementPrincipal', 'activites') || []
+      etablissement_principal['activites'] = grab_etablissement_activites(activites_etablissement_principal)
+
+      autres_etablissements = []
+      personne['autresEtablissements']&.each do |etablissement|
+        item = {}
+        item['siret'] = etablissement['descriptionEtablissement']['siret']
+        activites = etablissement['activites'] || []
+        item['activites'] = grab_etablissement_activites(activites)
+        autres_etablissements << item
+      end
+      {
+        'etablissement_principal' => etablissement_principal,
+        'autres_etablissements' => autres_etablissements
+      }
+    end
+
+    def grab_etablissement_activites(activites)
+      activites.map do |activite|
+        {
+          'formeExercice' => activite['formeExercice'],
+          'codeApe' => activite['codeApe'],
+          'codeAprm' => activite['codeAprm']
+        }
+      end
     end
   end
 end
