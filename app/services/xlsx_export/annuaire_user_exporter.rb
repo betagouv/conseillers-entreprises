@@ -103,9 +103,9 @@ module XlsxExport
       row.map do |key, val|
         if key == :antenne
           antenne.send(val)
-        elsif base_fields.keys.include? key
+        elsif base_fields.key? key
           user.send(val)
-        else key.to_s.include? 'team'
+        else
           next unless expert.persisted?
           val.respond_to?(:call) ? expert.instance_exec(&val) : expert.send(val)
         end
