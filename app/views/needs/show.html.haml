@@ -57,7 +57,7 @@
                 %ul.list-unstyled.fr-pl-0.fr-mt-0
                   - if @facility.all_nature_activites.any?
                     %li
-                      - translated_nature_activites(@facility.nature_activites).each do |nature|
+                      - translated_nature_activites(@facility.all_nature_activites).each do |nature|
                         %p.fr-badge.fr-badge--sm= nature
                   - if @facility.naf_libelle.present?
                     %li.fr-text--sm
