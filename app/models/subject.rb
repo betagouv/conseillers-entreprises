@@ -41,6 +41,7 @@ class Subject < ApplicationRecord
   has_many :subject_answer_filters, through: :subject_questions, class_name: 'SubjectAnswer::Filter', source: :subject_answer_filters
 
   has_and_belongs_to_many :match_filters
+  has_and_belongs_to_many :territories
 
   ## Validations
   #

@@ -23,8 +23,8 @@ ActiveAdmin.register Subject do
     end
     column :theme, sortable: 'themes.interview_sort_order'
     column :interview_sort_order
-    column :is_support do |d|
-      status_tag t('activerecord.attributes.subject.is_support') if d.is_support
+    column :regions do |d|
+      d.territories.map(&:name).join(', ')
     end
     column(:needs) do |s|
       div admin_link_to(s, :needs)
@@ -62,6 +62,9 @@ ActiveAdmin.register Subject do
     attributes_table do
       row :theme
       row :label
+      row t('attributes.territories.other') do |s|
+        s.territories.map { |t| admin_link_to t }.join(', ').html_safe
+      end
       row :interview_sort_order
       row :archived_at
       row :is_support
@@ -95,12 +98,13 @@ ActiveAdmin.register Subject do
 
   ## Form
   #
-  permit_params :theme_id, :label, :interview_sort_order
+  permit_params :theme_id, :label, :interview_sort_order, territory_ids: []
 
   form do |f|
     f.inputs do
       f.input :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
       f.input :label
+      f.input :territories, as: :ajax_select, collection: Territory.order(:name), multiple: true, data: { url: :admin_territories_path, search_fields: [:name] }
       f.input :interview_sort_order
     end
 

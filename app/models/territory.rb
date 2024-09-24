@@ -23,6 +23,7 @@ class Territory < ApplicationRecord
   include ManyCommunes
 
   belongs_to :support_contact, class_name: 'User', optional: true
+  has_and_belongs_to_many :subjects
 
   ## Through Associations
   #

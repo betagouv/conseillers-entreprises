@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_13_145633) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_24_132540) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -619,6 +619,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_13_145633) do
     t.index ["theme_id"], name: "index_subjects_on_theme_id"
   end
 
+  create_table "subjects_territories", force: :cascade do |t|
+    t.bigint "subject_id", null: false
+    t.bigint "territory_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_subjects_territories_on_subject_id"
+    t.index ["territory_id"], name: "index_subjects_territories_on_territory_id"
+  end
+
   create_table "territories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
@@ -740,6 +749,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_13_145633) do
   add_foreign_key "solicitations", "landings"
   add_foreign_key "subject_answer_groupings", "institutions"
   add_foreign_key "subjects", "themes"
+  add_foreign_key "subjects_territories", "subjects"
+  add_foreign_key "subjects_territories", "territories"
   add_foreign_key "user_rights", "antennes"
   add_foreign_key "user_rights", "users"
   add_foreign_key "users", "antennes"

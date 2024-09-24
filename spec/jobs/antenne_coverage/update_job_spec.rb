@@ -288,5 +288,35 @@ RSpec.describe AntenneCoverage::UpdateJob do
         end
       end
     end
+
+    context 'subjects with territories' do
+      let(:a_subject) { create(:subject, territories: [region]) }
+      let(:institution_subject) { create(:institution_subject, subject: a_subject, institution: institution) }
+
+      describe 'Une antenne dans la région avec des trou de référencement sur ce sujet apparait comme non couverte' do
+        let!(:expert_without_users) { create(:expert, antenne: local_antenne, communes: communes, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+
+        before { subject }
+
+        it do
+          expect(local_antenne.referencement_coverages.first.anomalie).to eq('no_user')
+        end
+      end
+
+      describe 'Une antenne hors région n’apparait pas dans comme anomalie' do
+        let!(:out_of_region_antenne) { create(:antenne, :local, institution: institution, communes: [create(:commune)]) }
+        let!(:expert_without_users) { create(:expert, antenne: out_of_region_antenne, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+
+        before { described_class.perform_sync(out_of_region_antenne.id) }
+
+        it do
+          expect(out_of_region_antenne.referencement_coverages.count).to eq(1)
+          expect(out_of_region_antenne.referencement_coverages.first.antenne).to eq(out_of_region_antenne)
+          expect(out_of_region_antenne.referencement_coverages.first.anomalie).to eq('no_anomalie')
+          expect(out_of_region_antenne.referencement_coverages.first.coverage).to eq('local')
+          expect(out_of_region_antenne.referencement_coverages.first.anomalie_details).to be_nil
+        end
+      end
+    end
   end
 end
