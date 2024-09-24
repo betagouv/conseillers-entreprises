@@ -63,6 +63,11 @@ module  Annuaire
 
     def retrieve_experts_and_managers
       @grouped_experts = group_experts
+      retrieve_managers_without_experts
+      retrieve_antennes_without_experts
+    end
+
+    def retrieve_managers_without_experts
       @grouped_experts.each_key do |antenne|
         managers = antenne.managers.not_deleted
         managers.each do |manager|
@@ -70,7 +75,6 @@ module  Annuaire
           @grouped_experts[antenne][Expert.new] = [manager]
         end
       end
-      retrieve_antennes_without_experts
     end
 
     def retrieve_antennes_without_experts
