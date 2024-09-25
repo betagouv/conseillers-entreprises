@@ -144,12 +144,15 @@ ActiveAdmin.register User do
     end
   end
 
-  action_item :impersonate, only: :show do
-    link_to t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
+  sidebar I18n.t('active_admin.user.send_emails'), only: :show do
+    ul class: 'actions' do
+      li link_to t('active_admin.user.do_invite'), invite_user_admin_user_path(user), class: 'action'
+      li link_to t('active_admin.user.do_reset_password'), reset_password_admin_user_path(user), class: 'action'
+    end
   end
 
-  sidebar :invite_user, only: :show do
-    link_to t('active_admin.user.do_invite'), invite_user_admin_user_path(user)
+  action_item :impersonate, only: :show do
+    link_to t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
   end
 
   # Form
@@ -210,6 +213,11 @@ ActiveAdmin.register User do
   member_action :invite_user do
     resource.invite!(current_user) unless resource.deleted?
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_invite_done')
+  end
+
+  member_action :reset_password do
+    resource.send_reset_password_instructions
+    redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_reset_password_done')
   end
 
   member_action :create_expert do

@@ -303,6 +303,10 @@ class User < ApplicationRecord
     end
   end
 
+  def after_database_authentication
+    self.update_columns(invitation_token: nil) if self.invitation_token.present?
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     [
       "antenne_id", "cgu_accepted_at", "created_at", "current_sign_in_at", "current_sign_in_ip", "deleted_at", "email",
