@@ -11,6 +11,8 @@ ActiveAdmin.register Subject do
   scope :not_archived, default: true
   scope :is_archived
 
+  scope :with_territories, group: :territories
+
   ## Index
   #
   includes :theme, :institutions_subjects, :experts, :matches, :needs, :institutions, :subject_answer_filters

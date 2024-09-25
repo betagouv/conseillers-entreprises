@@ -108,6 +108,7 @@ fr:
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
       with_custom_communes: Zone spécifique
       with_deleted_expert: Expert supprimé
+      with_territories: Avec territoires spécifiques
       without_communes: Sans zone d’intervention
       without_subjects: Sans compétence
       without_users: Sans utilisateur

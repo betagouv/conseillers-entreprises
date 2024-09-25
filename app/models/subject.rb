@@ -80,6 +80,10 @@ class Subject < ApplicationRecord
       .where(is_support: false)
   end
 
+  scope :with_territories, -> do
+    joins(:territories)
+  end
+
   def copy_experts_from_other(other)
     self.transaction do
       self.institutions_subjects.destroy_all
