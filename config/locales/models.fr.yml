@@ -53,6 +53,7 @@ fr:
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
+    save_and_edit: Sauvegarder et revenir à l’édition
     scopes:
       acquisition: Acquisition
       active: Actifs
@@ -108,7 +109,6 @@ fr:
       with_custom_communes: Zone spécifique
       with_deleted_expert: Expert supprimé
       without_communes: Sans zone d’intervention
-      without_experts: Sans expert
       without_subjects: Sans compétence
       without_users: Sans utilisateur
     solicitations:

@@ -32,10 +32,4 @@ describe 'pages', :js, type: :feature do
 
     it { is_expected.to be_accessible }
   end
-
-  describe '/mon_compte/antenne' do
-    before { visit '/mon_compte/antenne' }
-
-    it { is_expected.to be_accessible }
-  end
 end

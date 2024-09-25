@@ -4,7 +4,15 @@
   -# More User settings (password)
   = active_link_to t('.password'), password_user_path, { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
   -# More User settings (Antenne)
-  = active_link_to t('.antenne'), antenne_user_path, { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
+  - if user.is_manager? && user.managed_antennes.many?
+    %li.fr-sidemenu__item
+      .fr-sidemenu__link= t('activerecord.models.antenne.other')
+      %ul.fr-sidemenu__list
+        - user.managed_antennes.each do |antenne|
+          = active_link_to antenne.name, antenne_user_path(antenne), { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
+  - else
+    = active_link_to t('.antenne'), antenne_user_path(user.antenne), { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
+
   - if user.experts.any?
     %li.fr-sidemenu__item
       = experts_items_in_section(user.experts, :edit, t('.expert'))

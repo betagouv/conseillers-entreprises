@@ -1,5 +1,11 @@
 = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
-  .fr-grid-row.fr-grid-row--gutters.fr-mb-3w.white-bg#stats-params{ data: { controller: 'stats', url: manager_load_filter_options_path } }
+  .fr-grid-row.fr-grid-row--gutters.fr-mb-3w#stats-params{ data: { controller: 'stats', url: manager_load_filter_options_path } }
+
+    - if filters[:antennes].many?
+      .fr-col-12
+        .fr-select-group
+          = f.label :antenne, t('filters.select_antenne'), class: 'fr-label'
+          = f.select :antenne, options_for_select(filters[:antennes].pluck(:name, :id), selected: stats[:antenne]), {}, class: "fr-select"
 
     .fr-col-12.fr-col-md-4
       .fr-input-group
@@ -24,16 +30,12 @@
         = f.collection_select :subject, filters[:subjects], :id, :label, { selected: stats[:subject],
         include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
 
-    .fr-col-12.fr-col-md-4
-      - if filters[:regions].many?
+    - if filters[:regions].many?
+      .fr-col-12.fr-col-md-4
         .fr-select-group
           = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
           = f.collection_select :territory, filters[:regions], :id, :name, { selected: stats[:territory],
             include_blank: t('all.feminine') }, class: "fr-select"
-      - if filters[:antennes].many?
-        .fr-select-group
-          = f.label :antenne, t('activerecord.models.antenne.one'), class: 'fr-label'
-          = f.select :antenne, options_for_select(filters[:antennes].pluck(:name, :id), selected: stats[:antenne]), {}, class: "fr-select"
 
     .fr-col-12
       .fr-input-group

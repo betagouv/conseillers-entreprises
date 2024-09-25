@@ -176,8 +176,6 @@ class User < ApplicationRecord
     joins(experts: :themes).where(experts: { themes: theme_id }).distinct
   end
 
-  scope :without_experts, -> { where.missing(:experts) }
-
   # utilisé dans l'export en attendant de faire une version qui accepte plusieurs experts avec des sujets
   def first_expert_with_subject
     experts.not_deleted.with_subjects.first

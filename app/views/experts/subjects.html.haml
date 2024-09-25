@@ -31,11 +31,12 @@
             %br= expert_subject.intervention_criteria
 
 - if @remaining_institution_subjects.any?
-  %section.fr-mb-6w
-    %details.details--with-title
-      %summary
-        %h2.fr-h3= t('.institution_subject_title')
+  %section.fr-accordion
+    %h2.fr-accordion__title
+      %button.fr-accordion__btn{ 'aria-controls': "accordion-subjects", 'aria-expanded': "false" }
+        = t('.institution_subject_title')
 
+    .fr-collapse#accordion-subjects
       - institution_subjects = @remaining_institution_subjects.grouped_by_theme
       - institution_subjects.each do |theme, institutions_subjects|
         %h3.fr-h5= theme.label
