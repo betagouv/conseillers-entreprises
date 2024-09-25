@@ -78,6 +78,8 @@ module  Annuaire
     end
 
     def retrieve_antennes_without_experts
+      # Si il y a des filtres de recherche par theme ou sujet
+      # on ne prend pas les antennes sans experts pour ne pas polluer l'affichage
       if index_search_params[:region].present? && index_search_params[:theme].blank? && index_search_params[:subject].blank?
         antennes = @institution.antennes_in_region(index_search_params[:region]).where.missing(:experts)
       elsif index_search_params[:theme].blank? && index_search_params[:subject].blank?
