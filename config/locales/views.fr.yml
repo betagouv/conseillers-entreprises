@@ -604,8 +604,8 @@ fr:
       warning_comments: Attention ! Cette discussion n’est pas visible par l’entreprise.
       workforce: 'Effectifs de l’établissement : %{range}'
     star_btn:
-      need_starred: Besoin suivi
       star_need: Suivre le besoin
+      unstar_need: Ne plus suivre
   pages:
     breadcrumbs:
       see_breadcrumb: Voir le fil d’Ariane

@@ -80,4 +80,32 @@ RSpec.describe NeedsController do
       end
     end
   end
+
+  describe 'POST #star' do
+    login_admin
+
+    let(:need) { create(:need, starred_at: nil) }
+
+    subject(:request) { post :star, params: { id: need.id, format: :js } }
+
+    it 'stars the need' do
+      request
+      expect(response).to have_http_status(:success)
+      expect(need.reload.starred_at).not_to be_nil
+    end
+  end
+
+  describe 'POST #unstar' do
+    login_admin
+
+    let(:need) { create(:need, starred_at: Time.zone.now) }
+
+    subject(:request) { post :unstar, params: { id: need.id, format: :js } }
+
+    it 'unstars the need' do
+      request
+      expect(response).to have_http_status(:success)
+      expect(need.reload.starred_at).to be_nil
+    end
+  end
 end
