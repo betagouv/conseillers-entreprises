@@ -113,7 +113,7 @@ fr:
         its_been_a_while: Cela n’était pas arrivé depuis un bon moment !
         position_yourself_html: Nous vous invitons à vous positionner sur ce besoin <strong>à l'aide du bouton « J’appelle » ou « Ce n’est pas pour moi »</strong>.
         subject: Service public Conseillers-Entreprises - Nous vous accompagnons !
-        you_received_need_html: 'Vous venez de recevoir un besoin de l’entreprise <strong>%{company}</strong> sur le sujet %{subject}. Vous pouvez le retrouver ici : <a href=''''%{url}''''>%{url}</a>'
+        you_received_need_html: 'Vous venez de recevoir un besoin de l’entreprise <strong>%{company}</strong> sur le sujet %{subject}. Vous pouvez le retrouver ici : <a href="%{url}">%{url}</a>'
       remind_involvement:
         needs_for_you: Les entreprises ci-dessous ont souhaité bénéficier de votre expertise via le service public Conseillers-Entreprises.
         needs_quo: Pourriez-vous nous partager votre position sur ces besoins ?
