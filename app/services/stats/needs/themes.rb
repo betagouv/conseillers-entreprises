@@ -9,20 +9,24 @@ module Stats::Needs
         .joins(subject: :theme)
     end
 
+    def build_series
+      query = filtered_main_query
+
+      results = Theme.order(interview_sort_order: :asc).each_with_object({}) do |theme, hash|
+        hash_count = hash[theme.stats_label] || {}
+        new_count = query.where(subjects: { theme_id: theme.id }).group("DATE_TRUNC('month', needs.created_at)").count
+        hash[theme.stats_label] = new_count.merge(hash_count) { |key, old, new| old + new }
+      end.reject{ |k,v| v.empty? }
+
+      as_series(results)
+    end
+
     def filtered(query)
       Stats::Filters::Needs.new(query, self).call
     end
 
     def subtitle
       I18n.t('stats.series.needs_themes.subtitle')
-    end
-
-    def category_group_attribute
-      'themes.label'
-    end
-
-    def category_order_attribute
-      'themes.interview_sort_order'
     end
 
     def count

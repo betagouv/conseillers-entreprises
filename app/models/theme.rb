@@ -65,6 +65,10 @@ class Theme < ApplicationRecord
     label
   end
 
+  def stats_label
+    self.cooperation ? I18n.t('activerecord.attributes.theme.stats_label.cooperation') : label
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "id", "id_value", "interview_sort_order", "label", "updated_at"]
   end
