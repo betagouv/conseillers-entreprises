@@ -92,7 +92,7 @@ class Facility < ApplicationRecord
   end
 
   def has_artisanale_activites
-    all_nature_activites.any? { |a| ["ARTISANALE", "ARTISANALE_REGLEMENTEE", "INDEPENDANTE", "GESTION_DE_BIENS"].include?(a) }
+    all_nature_activites.any? { |a| ["ARTISANALE", "ARTISANALE_REGLEMENTEE", "INDEPENDANTE", "GESTION_DE_BIENS"].include?(a) } || nafa_codes.any?
   end
 
   def has_commerciale_activites

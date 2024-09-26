@@ -81,9 +81,9 @@ class ExpertSubject < ApplicationRecord
 
   scope :without_irrelevant_chambres, -> (facility) do
     klass = self
-    klass = klass.not_of_institution(Institution.find_by(slug: 'cma')) unless facility.has_artisanale_activites
-    klass = klass.not_of_institution(Institution.find_by(slug: 'cci')) unless facility.has_commerciale_activites
-    klass = klass.not_of_institution(Institution.find_by(slug: 'unapl')) unless facility.has_liberal_activities
+    klass = klass.not_of_institution(Institution.find_by(slug: 'cma')) unless (facility.has_artisanale_activites || facility.all_nature_activites.empty?)
+    klass = klass.not_of_institution(Institution.find_by(slug: 'cci')) unless (facility.has_commerciale_activites || facility.all_nature_activites.empty?)
+    klass = klass.not_of_institution(Institution.find_by(slug: 'unapl')) unless (facility.has_liberal_activities || facility.all_nature_activites.empty?)
     klass
   end
 
