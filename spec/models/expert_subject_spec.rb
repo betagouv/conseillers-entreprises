@@ -130,7 +130,7 @@ RSpec.describe ExpertSubject do
         let(:forme_exercice) { nil }
         let(:nature_activites) { [] }
 
-        it{ is_expected.to contain_exactly(expert_subject_temoin) }
+        it{ is_expected.to contain_exactly(expert_subject_temoin, expert_subject_cci, expert_subject_cma, expert_subject_unapl) }
       end
 
       context 'when only facility has cci nature activites' do
@@ -166,6 +166,15 @@ RSpec.describe ExpertSubject do
         let(:nature_activites) { ['LIBERALE_NON_REGLEMENTEE'] }
 
         it{ is_expected.to contain_exactly(expert_subject_temoin, expert_subject_cma, expert_subject_unapl) }
+      end
+
+      context 'when commercial nature activites + nafa_codes' do
+        let(:forme_exercice) { 'COMMERCIALE' }
+        let(:nature_activites) { [] }
+
+        before { facility.update(nafa_codes: ['4002CZ']) }
+
+        it{ is_expected.to contain_exactly(expert_subject_temoin, expert_subject_cma, expert_subject_cci) }
       end
 
       context 'when independant nature activites' do
