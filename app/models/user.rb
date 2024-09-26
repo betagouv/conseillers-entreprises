@@ -62,7 +62,7 @@ class User < ApplicationRecord
 
   store_accessor :app_info, ['bascule_seen']
 
-  after_create_commit :create_single_user_experts, if: :create_expert
+  after_create_commit :create_single_user_experts, if: -> { create_expert.to_b }
 
   pg_search_scope :omnisearch,
     against: [:full_name, :email, :job],
