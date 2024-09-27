@@ -37,6 +37,11 @@ ActiveAdmin.register Landing do
       div  admin_link_to(l, :needs)
     end
 
+    column t('active_admin.particularities') do |l|
+      div t('active_admin.specific_theme') if l.has_specific_themes?
+      div t('active_admin.regional_theme') if l.has_regional_themes?
+    end
+
     column :display_partner_url
     actions dropdown: true do |l|
       item t('active_admin.landings.update_iframe_360_button'), update_iframe_360_admin_landing_path(l), method: :put
@@ -93,6 +98,10 @@ ActiveAdmin.register Landing do
       table_for landing.landing_themes do
         column(:title) { |t| admin_link_to t }
         column(:landing_subjects) { |t| div t.landing_subjects.map { |l| div l.title } }
+        column(t('active_admin.particularities')) do |lt|
+          div lt.theme_territories.map(&:name).join(', ') if lt.has_regional_themes?
+          div t('active_admin.specific_theme') if lt.has_specific_themes?
+        end
       end
     end
   end

@@ -6,7 +6,10 @@ ActiveAdmin.register Theme do
   ## Index
   #
   config.sort_order = 'interview_sort_order_asc'
-  includes :subjects, :institutions, :needs, :matches
+  includes :subjects, :institutions, :needs, :matches, :territories
+
+  scope :all, group: :territories
+  scope :with_territories, group: :territories
 
   index do
     selectable_column
@@ -21,6 +24,9 @@ ActiveAdmin.register Theme do
     column(:needs) do |t|
       div admin_link_to(t, :needs)
       div admin_link_to(t, :matches)
+    end
+    column :territory do |t|
+      t.territories.map(&:name).join(', ')
     end
     actions dropdown: true
   end
@@ -48,10 +54,23 @@ ActiveAdmin.register Theme do
     attributes_table do
       row(:needs) { |t| admin_link_to(t, :needs) }
       row(:matches) { |t| admin_link_to(t, :matches) }
+      row t('attributes.territories.other') do |t|
+        t.territories.map { |r| admin_link_to r }.join(', ').html_safe
+      end
     end
   end
 
   ## Form
   #
-  permit_params :label, :interview_sort_order
+  permit_params :label, :interview_sort_order, territory_ids: []
+
+  form do |f|
+    f.inputs do
+      f.input :label
+      f.input :territories, as: :ajax_select, collection: Territory.order(:name), multiple: true, data: { url: :admin_territories_path, search_fields: [:name] }
+      f.input :interview_sort_order
+    end
+
+    actions
+  end
 end

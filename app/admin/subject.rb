@@ -11,11 +11,9 @@ ActiveAdmin.register Subject do
   scope :not_archived, default: true
   scope :is_archived
 
-  scope :with_territories, group: :territories
-
   ## Index
   #
-  includes :theme, :institutions_subjects, :experts, :matches, :needs, :institutions, :subject_answer_filters
+  includes :theme, :institutions_subjects, :experts, :matches, :needs, :institutions, :subject_answer_filters, :territories, :intern_landings, :iframe_landings, :api_landings
   config.sort_order = 'interview_sort_order_asc'
 
   index do
@@ -25,9 +23,6 @@ ActiveAdmin.register Subject do
     end
     column :theme, sortable: 'themes.interview_sort_order'
     column :interview_sort_order
-    column :regions do |d|
-      d.territories.map(&:name).join(', ')
-    end
     column(:needs) do |s|
       div admin_link_to(s, :needs)
       div admin_link_to(s, :matches)
@@ -35,6 +30,13 @@ ActiveAdmin.register Subject do
     column(:institutions) do |s|
       div admin_link_to(s, :institutions)
       div admin_link_to(s, :experts)
+    end
+    column(:landings) do |s|
+      div simple_count(s, :intern_landings)
+      div simple_count(s, :iframe_landings)
+    end
+    column :territory do |s|
+      div s.territories.map(&:name).join(', ')
     end
     actions dropdown: true do |d|
       index_row_archive_actions(d)
@@ -64,9 +66,6 @@ ActiveAdmin.register Subject do
     attributes_table do
       row :theme
       row :label
-      row t('attributes.territories.other') do |s|
-        s.territories.map { |t| admin_link_to t }.join(', ').html_safe
-      end
       row :interview_sort_order
       row :archived_at
       row :is_support
@@ -78,6 +77,11 @@ ActiveAdmin.register Subject do
       row(:experts) { |s| admin_link_to(s, :experts) }
     end
 
+    attributes_table title: I18n.t('activerecord.models.landing.other') do
+      row(:intern_landings) { |s| s.intern_landings.map{ |l| admin_link_to(l) } }.join(', ')
+      row(:iframe_landings) { |s| s.iframe_landings.map{ |l| admin_link_to(l) } }.join(', ')
+      row(:api_landings) { |s| s.api_landings.map{ |l| admin_link_to(l) } }.join(', ')
+    end
     attributes_table title: I18n.t('activerecord.models.subject_question.other') do
       table_for subject.subject_questions do |question|
         column(:key)
@@ -100,13 +104,12 @@ ActiveAdmin.register Subject do
 
   ## Form
   #
-  permit_params :theme_id, :label, :interview_sort_order, territory_ids: []
+  permit_params :theme_id, :label, :interview_sort_order
 
   form do |f|
     f.inputs do
       f.input :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
       f.input :label
-      f.input :territories, as: :ajax_select, collection: Territory.order(:name), multiple: true, data: { url: :admin_territories_path, search_fields: [:name] }
       f.input :interview_sort_order
     end
 

@@ -60,6 +60,7 @@ class Landing < ApplicationRecord
   has_many :landing_joint_themes, -> { order(:position) }, inverse_of: :landing, dependent: :destroy
   has_many :landing_themes, through: :landing_joint_themes, inverse_of: :landings
   has_many :landing_subjects, through: :landing_themes, inverse_of: :landing_theme
+  has_many :subjects, through: :landing_subjects, inverse_of: :landings
 
   belongs_to :institution, inverse_of: :landings, optional: true
 
@@ -90,6 +91,12 @@ class Landing < ApplicationRecord
 
   def to_param
     slug
+  end
+
+  def has_specific_themes?; end
+
+  def has_regional_themes?
+    landing_themes.any?{ |t| t.has_regional_themes? }
   end
 
   # Pour permettre l'affichage de la phrase "voiture-balais" sur les iframes 360

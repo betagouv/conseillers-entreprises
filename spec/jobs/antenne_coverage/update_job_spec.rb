@@ -289,8 +289,9 @@ RSpec.describe AntenneCoverage::UpdateJob do
       end
     end
 
-    context 'subjects with territories' do
-      let(:a_subject) { create(:subject, territories: [region]) }
+    context 'themes with territories' do
+      let(:a_theme) { create(:theme, territories: [region]) }
+      let(:a_subject) { create(:subject, theme: a_theme) }
       let(:institution_subject) { create(:institution_subject, subject: a_subject, institution: institution) }
 
       describe 'Une antenne dans la région avec des trou de référencement sur ce sujet apparait comme non couverte' do
