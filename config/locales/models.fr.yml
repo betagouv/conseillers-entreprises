@@ -576,7 +576,7 @@ fr:
         support_contact: Contact support
       theme:
         stats_label:
-          cooperation: Autres coopérations
+          cooperation: Thèmes spécifiques coopération
       user:
         created_at: Création
         current_password: Mot de passe actuel
