@@ -1,39 +1,30 @@
 module XlsxExport
-  # UserExporter supports two options.
-  # Both require the relation to be fetched using User.relevant_for_skills.
-  # include_expert
-  # institutions_subjects: the institutions_subjects to add as csv columns for the relevant expert.
-  class UserExporter < BaseExporter
+  class AnnuaireUserExporter < BaseExporter
     def fields
       fields = base_fields
-      fields.merge!(fields_for_team) if @options[:include_expert]
-      fields.merge!(fields_for_subjects) if @options[:institutions_subjects]
-
+      fields.merge!(fields_for_team)
+      fields.merge!(fields_for_subjects)
       fields
     end
+
+    private
 
     def base_fields
       {
         full_name: :full_name,
-        antenne: -> { antenne.name },
+        antenne: :name,
         email: :email,
         phone_number: :phone_number,
         job: :job,
       }
     end
 
-    def preloaded_associations
-      [
-        :antenne
-      ]
-    end
-
     def fields_for_team
       {
-        team_full_name: -> { first_expert_with_subject&.full_name if first_expert_with_subject.present? },
-        team_email: -> { first_expert_with_subject&.email if first_expert_with_subject.present? },
-        team_phone_number: -> { first_expert_with_subject&.phone_number if first_expert_with_subject.present? },
-        team_custom_communes: -> { first_expert_with_subject&.communes.pluck(:insee_code).join(', ') if first_expert_with_subject&.custom_communes? },
+        team_full_name: :full_name,
+        team_email: :email,
+        team_phone_number: :phone_number,
+        team_custom_communes: -> { communes.pluck(:insee_code).join(', ') if custom_communes? },
       }
     end
 
@@ -47,22 +38,15 @@ module XlsxExport
         # * There can be only one expert_subject for an (expert, institution_subject) pair.
         title = institution_subject.unique_name
         lambda = -> {
-          # This block is executed in the context of a User
-          # (`self` is a User; See `object.instance_exec(&lambda)` in CsvExport::Base.)
-          return if first_expert_with_subject.blank?
+          # This block is executed in the context of a Expert
 
-          # We’re using `&` instead of .merge to use the preloaded relations instead of doing a new DB query.
-          experts_subjects = first_expert_with_subject&.experts_subjects & institution_subject.experts_subjects
+          experts_subjects = self.experts_subjects.merge(institution_subject.experts_subjects)
           raise 'There should only be one ExpertSubject' if experts_subjects.present? && experts_subjects.size > 1
           expert_subject = experts_subjects.first
           expert_subject&.csv_description
         }
         [title, lambda]
       end
-    end
-
-    def sort_relation(relation)
-      relation.preload(*preloaded_associations).sort_by{ |u| [u.antenne.name, u.first_expert_with_subject&.full_name.to_s] }
     end
 
     def create_styles(s)
@@ -82,11 +66,11 @@ module XlsxExport
       s
     end
 
-    def build_headers_rows(sheet, attributes, klass)
+    def build_headers_rows(sheet, attributes, _)
       # first row
       sheet.add_row(headers, height: 60)
       # second row, columns titles
-      sheet.add_row(attributes.keys.map{ |attr| klass.human_attribute_name(attr, default: attr) }, height: 60, widths: [:ignore, :auto,80])
+      sheet.add_row(attributes.keys.map{ |attr| User.human_attribute_name(attr, default: attr) }, height: 60, widths: [:ignore, :auto,80])
       # third row, institution subject description
       third_row = fields.values
       third_row[0] = ''
@@ -104,18 +88,31 @@ module XlsxExport
     end
 
     def build_rows(sheet, attributes)
-      # Users lines
-      row = attributes.values
-      sort_relation(@relation).each do |object|
-        sheet.add_row(row.map do |val|
-          if val.respond_to? :call
-            lambda = val
-            object.instance_exec(&lambda)
-          else
-            object.send(val)
+      row = attributes
+      @relation.each do |antenne, expert_users|
+        expert_users.each do |expert, users|
+          users.each do |user|
+            sheet.add_row(build_row_data(row, antenne, expert, user), height: 30)
           end
-        end, height: 30)
+        end
       end
+      sheet
+    end
+
+    def build_row_data(row, antenne, expert, user)
+      row.map do |key, val|
+        if key == :antenne
+          antenne.send(val)
+        elsif base_fields.key? key
+          user.send(val)
+        else
+          next unless expert.persisted?
+          val.respond_to?(:call) ? expert.instance_exec(&val) : expert.send(val)
+        end
+      end
+    end
+
+    def apply_style(sheet, attributes)
       sheet.rows.each_index do |i|
         case i
         when 0
@@ -132,11 +129,7 @@ module XlsxExport
           sheet.rows[i].cells[8].style = @green_bg
         end
       end
-      sheet
-    end
 
-    def apply_style(sheet, attributes)
-      # Style
       sheet.merge_cells('A1:C1')
       sheet.merge_cells('F1:I1')
       sheet.merge_cells('B3:E3')
