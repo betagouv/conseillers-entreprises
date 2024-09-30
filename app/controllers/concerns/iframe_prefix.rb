@@ -53,7 +53,7 @@ module IframePrefix
   end
 
   def view_params
-    params.permit(:landing_slug, :slug, :siret, *Solicitation::FORM_INFO_KEYS, SubjectQuestion.pluck(:key), :redirected)
+    params.permit(:landing_slug, :slug, :siret, :redirected, *Solicitation::FORM_INFO_KEYS, SubjectQuestion.pluck(:key))
   end
 
   def allow_in_iframe
