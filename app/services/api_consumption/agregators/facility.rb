@@ -4,8 +4,8 @@ module ApiConsumption::Agregators
       api_entreprise_etablissement: ApiEntreprise::Etablissement::Base,
       api_entreprise_effectifs: ApiEntreprise::EtablissementEffectifMensuel::Base,
       opco: ApiCfadock::Opco,
-      opco_fc: ApiFranceCompetence::Siret::Base,
-      api_rne_companies: ApiRne::Companies::Base
+      opco_fc: Api::FranceCompetence::Siret::Base,
+      api_rne_companies: Api::Rne::Companies::Base
     }
 
     def initialize(siret, options = {})

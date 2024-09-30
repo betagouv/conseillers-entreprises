@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'api_helper'
 
-RSpec.describe ApiRne::Token::Base do
+RSpec.describe Api::Rne::Token::Base do
 
   ENV['RNE_USERNAME'] = 'François Premier'
   ENV['RNE_PASSWORD'] = 'p4ssw0rd'

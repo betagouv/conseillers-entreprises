@@ -26,6 +26,7 @@ fr:
     generic_error: Nous n’avons pas pu récupérer les détails de votre entité auprès de nos partenaires
     invalid_siret_or_siren: L’identifiant (siret ou siren) est invalide
     non_diffusible_error: Nous n’avons pas pu identifier votre entité. Peut-être est-elle non diffusible ?
+    partner_error: Il semble que les partenaires auprès de qui nous récupérons les données entreprises rencontrent temporairement des difficultés. Veuillez réessayer ultérieurement.
   app_name: conseillers-entreprises.service-public.fr
   app_name_domain: service-public.fr
   app_name_subdomain: conseillers-entreprises

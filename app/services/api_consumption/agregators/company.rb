@@ -4,7 +4,7 @@ module ApiConsumption::Agregators
       api_entreprise_entreprise: ApiEntreprise::Entreprise::Base,
       api_entreprise_effectifs_annuel: ApiEntreprise::EntrepriseEffectifAnnuel::Base,
       api_entreprise_mandataires_sociaux: ApiEntreprise::EntrepriseMandatairesSociaux::Base,
-      api_rne_companies: ApiRne::Companies::Base,
+      api_rne_companies: Api::Rne::Companies::Base,
     }
 
     def initialize(siren, options = {})
