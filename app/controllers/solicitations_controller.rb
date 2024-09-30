@@ -230,7 +230,7 @@ class SolicitationsController < PagesController
   end
 
   def from_entreprendre_via_view_params
-    query_params[:mtm_campaign] == 'entreprendre' &&!(view_params[:redirected] == 'entreprendre')
+    query_params[:mtm_campaign] == 'entreprendre' && !(view_params[:redirected] == 'entreprendre')
   end
 
   def from_entreprendre_via_referer

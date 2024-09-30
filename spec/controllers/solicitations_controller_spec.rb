@@ -67,7 +67,7 @@ RSpec.describe SolicitationsController do
             expect(response).to redirect_to root_path({ mtm_campaign: 'entreprendre', mtm_kwd: 'F12345', redirected: 'entreprendre' })
           end
         end
-  
+
         context 'further navigation with entreprendre params' do
           it do
             get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre', mtm_kwd: 'F12345', redirected: 'entreprendre' }
