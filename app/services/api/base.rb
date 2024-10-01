@@ -90,7 +90,7 @@ module Api
     end
 
     def has_tech_error?
-      error_code.nil? || (error_code.present? && error_code != 400)
+      error_code.nil? || (error_code.present? && [500, 501, 502, 503, 504].include?(error_code))
     end
 
     def error_code

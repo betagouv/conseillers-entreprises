@@ -104,7 +104,7 @@ module DiagnosisCreation
     def retrieve_insee_code
       # TODO : à revoir quand on aura une meilleure gestion des zones
       query = location.parameterize
-      ApiAdresse::SearchMunicipality.new(query).call[:insee_code]
+      Api::Adresse::SearchMunicipality.new(query).call[:insee_code]
     end
 
     ## Store ActiveModel::Errors details as json…

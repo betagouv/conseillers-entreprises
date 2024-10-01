@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'api_helper'
 
-RSpec.describe ApiRechercheEntreprises::Search::Base do
+RSpec.describe Api::RechercheEntreprises::Search::Base do
   let(:api) { described_class.new(query).call }
   let(:url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
 
@@ -47,7 +47,7 @@ RSpec.describe ApiRechercheEntreprises::Search::Base do
     end
 
     it 'raises an error' do
-      expect { api }.to raise_error "Nous n’avons pas pu récupérer les détails de votre entité auprès de nos partenaires"
+      expect { api }.to raise_error "Nous n’avons pas pu récupérer les données entreprises auprès de nos partenaires. Notre équipe technique en a été informée, veuillez réessayer ultérieurement."
     end
   end
 
@@ -62,7 +62,7 @@ RSpec.describe ApiRechercheEntreprises::Search::Base do
     end
 
     it 'raises an error' do
-      expect { api }.to raise_error "Nous n’avons pas pu récupérer les détails de votre entité auprès de nos partenaires"
+      expect { api }.to raise_error "Nous n’avons pas pu récupérer les données entreprises auprès de nos partenaires. Notre équipe technique en a été informée, veuillez réessayer ultérieurement."
     end
   end
 
