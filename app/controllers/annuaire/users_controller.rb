@@ -63,8 +63,8 @@ module  Annuaire
 
     def retrieve_experts_and_managers
       @grouped_experts = group_experts
-      retrieve_managers_without_experts
-      retrieve_antennes_without_experts
+      retrieve_managers_without_experts if @antenne.blank?
+      retrieve_antennes_without_experts if @antenne.blank?
     end
 
     def retrieve_managers_without_experts

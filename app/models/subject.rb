@@ -42,13 +42,6 @@ class Subject < ApplicationRecord
 
   has_and_belongs_to_many :match_filters
 
-  ## Validations
-  #
-  validates :slug, presence: true
-  validates :label, presence: true, uniqueness: true
-  before_validation :compute_slug
-  before_save :set_support
-
   ## Through Associations
   #
   # :needs
@@ -63,6 +56,21 @@ class Subject < ApplicationRecord
   has_many :experts_subjects, through: :institutions_subjects, inverse_of: :subject
   has_many :experts, through: :institutions_subjects, inverse_of: :subjects
   has_many :advisors, class_name: 'User', through: :institutions_subjects, source: :users
+
+  ## themes
+  has_many :territories, through: :theme, inverse_of: :subjects
+  has_many :landing_themes, -> { distinct }, through: :landing_subjects, inverse_of: :subjects
+  has_many :landings, through: :landing_subjects, inverse_of: :subjects
+  has_many :intern_landings, -> { intern }, through: :landing_subjects, inverse_of: :subjects, source: :landings
+  has_many :iframe_landings, -> { iframe }, through: :landing_subjects, inverse_of: :subjects, source: :landings
+  has_many :api_landings, -> { api }, through: :landing_subjects, inverse_of: :subjects, source: :landings
+
+  ## Validations
+  #
+  validates :slug, presence: true
+  validates :label, presence: true, uniqueness: true
+  before_validation :compute_slug
+  before_save :set_support
 
   ## Scopes
   #

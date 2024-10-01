@@ -13,7 +13,7 @@ ActiveAdmin.register Subject do
 
   ## Index
   #
-  includes :theme, :institutions_subjects, :experts, :matches, :needs, :institutions, :subject_answer_filters
+  includes :theme, :institutions_subjects, :experts, :matches, :needs, :institutions, :subject_answer_filters, :territories, :intern_landings, :iframe_landings, :api_landings
   config.sort_order = 'interview_sort_order_asc'
 
   index do
@@ -23,9 +23,6 @@ ActiveAdmin.register Subject do
     end
     column :theme, sortable: 'themes.interview_sort_order'
     column :interview_sort_order
-    column :is_support do |d|
-      status_tag t('activerecord.attributes.subject.is_support') if d.is_support
-    end
     column(:needs) do |s|
       div admin_link_to(s, :needs)
       div admin_link_to(s, :matches)
@@ -33,6 +30,13 @@ ActiveAdmin.register Subject do
     column(:institutions) do |s|
       div admin_link_to(s, :institutions)
       div admin_link_to(s, :experts)
+    end
+    column(:landings) do |s|
+      div simple_count(s, :intern_landings)
+      div simple_count(s, :iframe_landings)
+    end
+    column :territory do |s|
+      div s.territories.map(&:name).join(', ')
     end
     actions dropdown: true do |d|
       index_row_archive_actions(d)
@@ -73,6 +77,11 @@ ActiveAdmin.register Subject do
       row(:experts) { |s| admin_link_to(s, :experts) }
     end
 
+    attributes_table title: I18n.t('activerecord.models.landing.other') do
+      row(:intern_landings) { |s| s.intern_landings.map{ |l| admin_link_to(l) } }.join(', ')
+      row(:iframe_landings) { |s| s.iframe_landings.map{ |l| admin_link_to(l) } }.join(', ')
+      row(:api_landings) { |s| s.api_landings.map{ |l| admin_link_to(l) } }.join(', ')
+    end
     attributes_table title: I18n.t('activerecord.models.subject_question.other') do
       table_for subject.subject_questions do |question|
         column(:key)

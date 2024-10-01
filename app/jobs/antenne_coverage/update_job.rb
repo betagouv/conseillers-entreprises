@@ -40,7 +40,10 @@ class AntenneCoverage::UpdateJob
   end
 
   def register_coverage(institution_subject, subject_hash)
-    if subject_hash.values.all?([])
+    if institution_subject.subject.territories.any? &&
+      (institution_subject.subject.territories & @antenne.regions).empty?
+      good_coverage(institution_subject, subject_hash)
+    elsif subject_hash.values.all?([])
       no_expert(institution_subject)
     elsif subject_hash.values.any?([])
       missing_insee_codes(institution_subject, subject_hash)

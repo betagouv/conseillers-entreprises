@@ -3,6 +3,7 @@
 # Table name: themes
 #
 #  id                   :bigint(8)        not null, primary key
+#  cooperation          :boolean          default(FALSE)
 #  interview_sort_order :integer
 #  label                :string           not null
 #  created_at           :datetime         not null
@@ -19,6 +20,7 @@ class Theme < ApplicationRecord
   ## Associations
   #
   has_many :subjects, inverse_of: :theme
+  has_and_belongs_to_many :territories
 
   ## Validations
   #
@@ -32,6 +34,8 @@ class Theme < ApplicationRecord
   has_many :diagnoses, through: :needs, inverse_of: :themes
   has_many :matches, through: :subjects, inverse_of: :theme
   has_many :institutions_subjects, through: :subjects, inverse_of: :theme
+  has_many :landing_subjects, through: :subjects, inverse_of: :themes
+  has_many :landing_themes, -> { distinct }, through: :subjects, inverse_of: :themes
 
   # :institutions_subjects
   has_many :institutions, through: :institutions_subjects, inverse_of: :themes
@@ -45,6 +49,10 @@ class Theme < ApplicationRecord
   scope :ordered_for_interview, -> { order(:interview_sort_order, :id) }
 
   scope :for_interview, -> { ordered_for_interview.where.not(label: "Support") }
+
+  scope :with_territories, -> do
+    joins(:territories)
+  end
 
   ##
   #

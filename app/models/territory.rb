@@ -24,6 +24,10 @@ class Territory < ApplicationRecord
 
   belongs_to :support_contact, class_name: 'User', optional: true
 
+  has_and_belongs_to_many :themes
+  has_many :subjects, through: :themes, inverse_of: :territories
+  has_many :landing_themes, through: :subject, inverse_of: :theme_territories
+
   ## Through Associations
   #
   # :communes

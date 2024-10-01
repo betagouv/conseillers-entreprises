@@ -50,9 +50,11 @@ fr:
       diagnosis_page: Page analyse
       need_page: Page besoin
     move: Déplacer
+    particularities: Particularités
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
+    regional_theme: Thème régional
     save_and_edit: Sauvegarder et revenir à l’édition
     scopes:
       acquisition: Acquisition
@@ -108,6 +110,7 @@ fr:
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
       with_custom_communes: Zone spécifique
       with_deleted_expert: Expert supprimé
+      with_territories: Avec territoires spécifiques
       without_communes: Sans zone d’intervention
       without_subjects: Sans compétence
       without_users: Sans utilisateur
@@ -124,6 +127,7 @@ fr:
       not_deleted:
         one: Une sollicitation n’a pas été supprimée car une analyse transmise existe.
         other: "%{count} sollicitations n'ont pas été supprimées car une analyse transmise existe."
+    specific_theme: Thème spécifique
     subject:
       copy_experts_button: Copier le référencement
       copy_experts_confirm: Copier le référencement ? Vous ne pourrez pas annuler.
@@ -694,12 +698,18 @@ fr:
       feedback:
         one: Commentaire
         other: Commentaires
+      iframe_landing:
+        one: Iframe
+        other: Iframes
       institution:
         one: Institution
         other: Institutions
       institution_subject:
         one: Compétence d’institution
         other: Compétences d’institutions
+      intern_landing:
+        one: Page interne
+        other: Pages internes
       landing:
         one: Landing
         other: Landings
@@ -930,12 +940,14 @@ fr:
       location: Choisir une commune de votre périmètre de recherche
       no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).<br/>Vous pourrez peut-être le trouver sur <a href='https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises' target='_blank' class='blue' title='annuaire-entreprises.data.gouv.fr - ouvre une nouvelle fenêtre'>https://annuaire-entreprises.data.gouv.fr</a>.
       phone_number_html: 'Exemple : 0612345678 ou +33 6 12 34 56 78'
+    iframe_landings: Iframes
     insee_codes: Codes communes
     institution: Institution
     institution_antenne: Institution / Antenne
     institutions_subjects: Domaines de l’institution
+    intern_landings: Page interne
     intervention_zone: Zone d’intervention
-    interview_sort_order: Ordre dans le questionnaire
+    interview_sort_order: Ordre
     intitule_effectif: Effectif
     is_abandoned: Abandonné
     is_archived: Archivé
@@ -1052,6 +1064,7 @@ fr:
     territories:
       one: Territoire
       other: Territoires
+    territory: Territoire
     theme: Thématique
     title: Titre
     updated_at: Date de mise à jour

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_13_145633) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_24_132540) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -630,11 +630,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_13_145633) do
     t.index ["support_contact_id"], name: "index_territories_on_support_contact_id"
   end
 
+  create_table "territories_themes", force: :cascade do |t|
+    t.bigint "theme_id", null: false
+    t.bigint "territory_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["territory_id"], name: "index_territories_themes_on_territory_id"
+    t.index ["theme_id"], name: "index_territories_themes_on_theme_id"
+  end
+
   create_table "themes", force: :cascade do |t|
     t.string "label", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "interview_sort_order"
+    t.boolean "cooperation", default: false
     t.index ["interview_sort_order"], name: "index_themes_on_interview_sort_order"
     t.index ["label"], name: "index_themes_on_label", unique: true
     t.index ["updated_at"], name: "index_themes_on_updated_at"
@@ -740,6 +750,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_13_145633) do
   add_foreign_key "solicitations", "landings"
   add_foreign_key "subject_answer_groupings", "institutions"
   add_foreign_key "subjects", "themes"
+  add_foreign_key "territories_themes", "territories"
+  add_foreign_key "territories_themes", "themes"
   add_foreign_key "user_rights", "antennes"
   add_foreign_key "user_rights", "users"
   add_foreign_key "users", "antennes"

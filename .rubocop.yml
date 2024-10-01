@@ -343,6 +343,10 @@ Lint/DeprecatedClassMethods:
 Lint/DeprecatedOpenSSLConstant:
   Enabled: true
 
+Lint/DuplicateBranch:
+  Exclude:
+    - 'app/jobs/antenne_coverage/update_job.rb'
+
 Lint/DuplicateCaseCondition:
   Enabled: true
 
