@@ -42,19 +42,37 @@ RSpec.describe SolicitationsController do
     end
 
     context 'entreprendre redirection' do
-      context 'first access from entreprendre' do
-        it do
-          request.headers['referer'] = 'https://entreprendre.service-public.fr/'
-          get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre', mtm_kwd: 'F12345' }
-          expect(response).to redirect_to root_path({ mtm_campaign: 'entreprendre', mtm_kwd: 'F12345' })
+      context 'via request referer' do
+        context 'first access from entreprendre' do
+          it do
+            request.headers['referer'] = 'https://entreprendre.service-public.fr/'
+            get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre', mtm_kwd: 'F12345' }
+            expect(response).to redirect_to root_path({ mtm_campaign: 'entreprendre', mtm_kwd: 'F12345', redirected: 'entreprendre' })
+          end
+        end
+
+        context 'further navigation with entreprendre params' do
+          it do
+            request.headers['referer'] = 'https://conseillers-entreprises.service-public.fr/aide-entreprise/accueil/demande/tresorerie'
+            get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre', mtm_kwd: 'F12345', redirected: 'entreprendre' }
+            expect(response).not_to redirect_to root_path({ mtm_campaign: 'entreprendre', mtm_kwd: 'F12345', redirected: 'entreprendre' })
+          end
         end
       end
 
-      context 'further navigation with entreprendre params' do
-        it do
-          request.headers['referer'] = 'https://conseillers-entreprises.service-public.fr/aide-entreprise/accueil/demande/tresorerie'
-          get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre', mtm_kwd: 'F12345' }
-          expect(response).not_to redirect_to root_path({ mtm_campaign: 'entreprendre', mtm_kwd: 'F12345' })
+      context 'via view params' do
+        context 'first access with entreprendre params' do
+          it do
+            get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre', mtm_kwd: 'F12345' }
+            expect(response).to redirect_to root_path({ mtm_campaign: 'entreprendre', mtm_kwd: 'F12345', redirected: 'entreprendre' })
+          end
+        end
+
+        context 'further navigation with entreprendre params' do
+          it do
+            get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre', mtm_kwd: 'F12345', redirected: 'entreprendre' }
+            expect(response).not_to redirect_to root_path({ mtm_campaign: 'entreprendre', mtm_kwd: 'F12345', redirected: 'entreprendre' })
+          end
         end
       end
 

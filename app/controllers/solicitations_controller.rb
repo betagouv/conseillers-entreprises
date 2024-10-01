@@ -224,9 +224,17 @@ class SolicitationsController < PagesController
 
   # http://localhost:3000/aide-entreprise/accueil/demande/transport-mobilite/?mtm_campaign=entreprendre&mtm_kwd=F123
   def redirect_entreprendre_solicitations
-    if request.headers['referer'] == 'https://entreprendre.service-public.fr/'
-      redirect_to root_path(query_params)
+    if from_entreprendre_via_view_params || from_entreprendre_via_referer
+      redirect_to root_path(query_params.merge(redirected: 'entreprendre'))
     end
+  end
+
+  def from_entreprendre_via_view_params
+    query_params[:mtm_campaign] == 'entreprendre' && !(view_params[:redirected] == 'entreprendre')
+  end
+
+  def from_entreprendre_via_referer
+    request.headers['referer'] == 'https://entreprendre.service-public.fr/'
   end
 
   def calculate_needs_count
