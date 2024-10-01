@@ -1,22 +1,16 @@
 # frozen_string_literal: true
 
-module ApiEntreprise::EntrepriseEffectifAnnuel
-  class Base < ApiEntreprise::Base
-    def request
-      Request.new(@siren_or_siret, @options)
-    end
-
-    def responder(http_request)
-      Responder.new(http_request)
-    end
-
-    # Retourne hash vide en cas d'erreur
+module Api::ApiEntreprise::EntrepriseEffectifAnnuel
+  class Base < Api::ApiEntreprise::Base
     def handle_error(http_request)
+      if http_request.has_tech_error?
+        notify_tech_error(http_request)
+      end
       return { "effectifs_entreprise_annuel" => { "error" => http_request.error_message } }
     end
   end
 
-  class Request < ApiEntreprise::Request
+  class Request < Api::ApiEntreprise::Request
     private
 
     def url_key
@@ -33,7 +27,7 @@ module ApiEntreprise::EntrepriseEffectifAnnuel
     end
   end
 
-  class Responder < ApiEntreprise::Responder
+  class Responder < Api::ApiEntreprise::Responder
     def format_data
       { "effectifs_entreprise_annuel" => @http_request.data['data'] }
     end

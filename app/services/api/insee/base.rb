@@ -66,5 +66,4 @@ module Api::Insee
       raise ApiError, I18n.t('api_requests.foreign_facility', country: foreign_country.capitalize) if foreign_country.present?
     end
   end
-
 end

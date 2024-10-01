@@ -1,17 +1,10 @@
 # frozen_string_literal: true
 
-module ApiEntreprise::Etablissement
-  class Base < ApiEntreprise::Base
-    def request
-      Request.new(@siren_or_siret, @options)
-    end
-
-    def responder(http_request)
-      Responder.new(http_request)
-    end
+module Api::ApiEntreprise::Etablissement
+  class Base < Api::ApiEntreprise::Base
   end
 
-  class Request < ApiEntreprise::Request
+  class Request < Api::ApiEntreprise::Request
     private
 
     # /v3/insee/sirene/etablissements
@@ -20,7 +13,7 @@ module ApiEntreprise::Etablissement
     end
   end
 
-  class Responder < ApiEntreprise::Responder
+  class Responder < Api::ApiEntreprise::Responder
     def format_data
       return {
         etablissement: @http_request.data["data"].merge(@http_request.data["meta"]),

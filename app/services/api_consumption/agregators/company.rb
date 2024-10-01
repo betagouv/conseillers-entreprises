@@ -1,9 +1,9 @@
 module ApiConsumption::Agregators
   class Company
     REQUESTS = {
-      api_entreprise_entreprise: ApiEntreprise::Entreprise::Base,
-      api_entreprise_effectifs_annuel: ApiEntreprise::EntrepriseEffectifAnnuel::Base,
-      api_entreprise_mandataires_sociaux: ApiEntreprise::EntrepriseMandatairesSociaux::Base,
+      api_entreprise_entreprise: Api::ApiEntreprise::Entreprise::Base,
+      api_entreprise_effectifs_annuel: Api::ApiEntreprise::EntrepriseEffectifAnnuel::Base,
+      api_entreprise_mandataires_sociaux: Api::ApiEntreprise::EntrepriseMandatairesSociaux::Base,
       api_rne_companies: Api::Rne::Companies::Base,
     }
 

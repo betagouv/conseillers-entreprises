@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ApiEntreprise::Entreprise::Base do
+RSpec.describe Api::ApiEntreprise::Entreprise::Base do
   let(:api_company) { described_class.new(siren).call[:entreprise] }
   let(:suffix_url) { "context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
   let(:url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/#{siren}?#{suffix_url}" }
@@ -36,7 +36,7 @@ RSpec.describe ApiEntreprise::Entreprise::Base do
     end
 
     it 'raises an error' do
-      expect { api_company }.to raise_error ApiEntreprise::ApiEntrepriseError
+      expect { api_company }.to raise_error Api::ApiError
     end
   end
 
@@ -53,7 +53,7 @@ RSpec.describe ApiEntreprise::Entreprise::Base do
     end
 
     it 'raises an error' do
-      expect { api_company }.to raise_error ApiEntreprise::ApiEntrepriseError
+      expect { api_company }.to raise_error Api::ApiError
     end
   end
 
@@ -70,7 +70,7 @@ RSpec.describe ApiEntreprise::Entreprise::Base do
     end
 
     it 'raises an error' do
-      expect { api_company }.to raise_error ApiEntreprise::ApiEntrepriseError
+      expect { api_company }.to raise_error Api::ApiError
     end
   end
 end

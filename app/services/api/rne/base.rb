@@ -47,5 +47,4 @@ module Api::Rne
 
   class Responder < Api::Responder
   end
-
 end
