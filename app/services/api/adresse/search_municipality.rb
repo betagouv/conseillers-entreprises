@@ -13,7 +13,6 @@ module Api::Adresse
           responder(http_request).call
         else
           handle_error(http_request)
-          return { "search_municipality" => { "error" => http_request.error_message } }
         end
       end
     end
@@ -21,13 +20,13 @@ module Api::Adresse
     def handle_error(http_request)
       if http_request.has_tech_error?
         notify_tech_error(http_request)
+        return { "search_municipality" => { "error" => Request::DEFAULT_TECHNICAL_ERROR_MESSAGE } }
       end
       return { "search_municipality" => { "error" => http_request.error_message } }
     end
   end
 
   class Request < Api::Request
-    # BASE_URL = 'https://api-adresse.data.gouv.fr/search/?type=municipality&q='
     DEFAULT_ERROR_MESSAGE = I18n.t('api_requests.default_error_message.etablissement')
 
     attr_reader :data
@@ -43,7 +42,7 @@ module Api::Adresse
     end
 
     def data_error_message
-      @data['searchStatus']
+      @data['message'] || @data['searchStatus']
     end
 
     private
