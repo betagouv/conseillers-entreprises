@@ -9,15 +9,16 @@
         %th{ rowspan: 3 }= User.human_attribute_name(:user)
         -# Subjects columns, first row: the themes, column-spanned for the two remaining header rows
         - grouped_subjects.each do |theme, subjects|
-          %th{ colspan: subjects.values.sum(&:size) }= theme.label
+          %th{ colspan: subjects.values.sum(&:size) }
+            = theme.label
+            - if theme.territories.any?
+              %span.ri-map-2-line.blue.fr-ml-1v
       %tr.subjects
         -# Subjects columns, first row: the subjects, column-spanned for the remaining header row
         - grouped_subjects.each_value do |subjects|
           - subjects.each do |subject, institutions_subjects|
             %th{ colspan: institutions_subjects.size, title: subject.label }
               = subject.label.truncate(30)
-              - if subject.territories.any?
-                %span.ri-map-2-line.blue.fr-ml-1v
       %tr.users-count
         - if referencement_coverages
           - grouped_subjects.each_value do |subjects|
