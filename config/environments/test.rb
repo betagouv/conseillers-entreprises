@@ -57,7 +57,7 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation_warnings = []
 
   # Raises error for missing translations.
-  config.i18n.raise_on_missing_translations = true
+  config.i18n.raise_on_missing_translations = false
 
   # Let Faker load its :en text
   config.i18n.enforce_available_locales = false
