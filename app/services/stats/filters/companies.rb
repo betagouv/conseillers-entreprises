@@ -19,7 +19,7 @@ module Stats::Filters
     def subject_filter(subject)
       return if subject.blank?
       @query.merge! Company.joins(facilities: { diagnoses: { solicitation: { landing_subject: :subject } } })
-        .where(landing_subjects: { subjects: subject })
+        .where(landing_subjects: { subject: subject })
     end
 
     def integration_filter(integration)
