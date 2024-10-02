@@ -18,7 +18,7 @@ module Stats::Filters
 
     def subject_filter(subject)
       return if subject.blank?
-      @query.merge! Solicitation.joins(landing_subject: :subject).where(subjects: subject)
+      @query.merge! Solicitation.joins(landing_subject: :subject).where(landing_subject: { subject: subject })
     end
 
     def integration_filter(integration)
@@ -33,7 +33,7 @@ module Stats::Filters
 
     def theme_filter(theme)
       return if theme.blank?
-      @query.merge! Solicitation.joins(landing_subject: { subject: :theme }).where(subjects: { themes: theme })
+      @query.merge! Solicitation.joins(landing_subject: { subject: :theme }).where(landing_subject: { subjects: { theme: theme } })
     end
 
     def mtm_campaign_filter(mtm_campaign)
