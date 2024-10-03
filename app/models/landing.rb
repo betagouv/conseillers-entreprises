@@ -93,7 +93,10 @@ class Landing < ApplicationRecord
     slug
   end
 
-  def has_specific_themes?; end
+  # TODO : delegate ?
+  def has_specific_themes?
+    landing_themes.any?{ |t| t.has_specific_themes? }
+  end
 
   def has_regional_themes?
     landing_themes.any?{ |t| t.has_regional_themes? }

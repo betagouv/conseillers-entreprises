@@ -48,7 +48,9 @@ class LandingTheme < ApplicationRecord
     slug
   end
 
-  def has_specific_themes?; end
+  def has_specific_themes?
+    themes.any?{ |t| t.cooperation? }
+  end
 
   def has_regional_themes?
     themes.any?{ |t| t.territories.any? }

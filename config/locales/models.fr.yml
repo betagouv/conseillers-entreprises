@@ -574,6 +574,9 @@ fr:
         experts: Experts
         insee_codes: Codes communes
         support_contact: Contact support
+      theme:
+        stats_label:
+          cooperation: Thèmes spécifiques coopération
       user:
         created_at: Création
         current_password: Mot de passe actuel
