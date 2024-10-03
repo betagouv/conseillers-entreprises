@@ -156,6 +156,22 @@ class Match < ApplicationRecord
     joins(:solicitation).merge(Solicitation.mtm_campaign_end(query))
   }
 
+  scope :solicitation_mtm_kwd_cont, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_kwd_cont(query))
+  }
+
+  scope :solicitation_mtm_kwd_eq, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_kwd_eq(query))
+  }
+
+  scope :solicitation_mtm_kwd_start, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_kwd_start(query))
+  }
+
+  scope :solicitation_mtm_kwd_end, -> (query) {
+    joins(:solicitation).merge(Solicitation.mtm_kwd_end(query))
+  }
+
   scope :with_recent_refused_feedbacks, -> {
     joins("INNER JOIN feedbacks ON feedbacks.feedbackable_id = matches.need_id AND feedbacks.feedbackable_type = 'Need'")
       .where(status: :not_for_me, taken_care_of_at: 15.days.ago..)
@@ -165,7 +181,8 @@ class Match < ApplicationRecord
   def self.ransackable_scopes(auth_object = nil)
     [
       :sent, :solicitation_created_at_gteq, :solicitation_created_at_lteq,
-      :solicitation_mtm_campaign_cont, :solicitation_mtm_campaign_eq, :solicitation_mtm_campaign_start, :solicitation_mtm_campaign_end
+      :solicitation_mtm_campaign_cont, :solicitation_mtm_campaign_eq, :solicitation_mtm_campaign_start, :solicitation_mtm_campaign_end,
+      :solicitation_mtm_kwd_cont, :solicitation_mtm_kwd_eq, :solicitation_mtm_kwd_start, :solicitation_mtm_kwd_end
     ]
   end
 

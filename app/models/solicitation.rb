@@ -286,16 +286,6 @@ class Solicitation < ApplicationRecord
     where('solicitations.siret ILIKE ?', "%#{query}%")
   end
 
-  scope :mtm_kwd_cont, -> (query) {
-    where("solicitations.form_info::json->>'mtm_kwd' ILIKE ?", "%#{query}%")
-      .or(where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{query}%"))
-  }
-
-  scope :mtm_campaign_cont, -> (query) {
-    where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}%")
-      .or(where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%"))
-  }
-
   scope :relaunch_cont, -> (query) {
     where("solicitations.form_info::json->>'relaunch' ILIKE ?", "%#{query}%")
   }
@@ -319,6 +309,26 @@ class Solicitation < ApplicationRecord
   scope :mtm_campaign_cont, -> (query) {
     where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%")
       .or(where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}%"))
+  }
+
+  scope :mtm_kwd_eq, -> (query) {
+    where('form_info @> ?', { pk_kwd: query }.to_json)
+      .or(where('form_info @> ?', { mtm_kwd: query }.to_json))
+  }
+
+  scope :mtm_kwd_start, -> (query) {
+    where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "#{query}%")
+      .or(where("solicitations.form_info::json->>'mtm_kwd' ILIKE ?", "#{query}%"))
+  }
+
+  scope :mtm_kwd_end, -> (query) {
+    where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{query}")
+      .or(where("solicitations.form_info::json->>'mtm_kwd' ILIKE ?", "%#{query}"))
+  }
+
+  scope :mtm_kwd_cont, -> (query) {
+    where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{query}%")
+      .or(where("solicitations.form_info::json->>'mtm_kwd' ILIKE ?", "%#{query}%"))
   }
 
   # pragmatisme : pas réussi à bien faire fonctionner le filtre relaunch_eq, mais filtre utilisé automatiquement en admin
