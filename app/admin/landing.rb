@@ -98,6 +98,7 @@ ActiveAdmin.register Landing do
       table_for landing.landing_themes do
         column(:title) { |t| admin_link_to t }
         column(:landing_subjects) { |t| div t.landing_subjects.map { |l| div l.title } }
+        column(t('active_admin.liens_fin')) { |t| div t.landing_subjects.map { |l| div link_to new_solicitation_url(landing_slug: landing.slug, landing_subject_slug: l.slug), new_solicitation_url(landing_slug: landing.slug, landing_subject_slug: l.slug) } }
         column(t('active_admin.particularities')) do |lt|
           div lt.theme_territories.map(&:name).join(', ') if lt.has_regional_themes?
           div t('active_admin.specific_theme') if lt.has_specific_themes?

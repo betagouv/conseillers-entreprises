@@ -44,6 +44,7 @@ fr:
     landings:
       update_iframe_360_button: Mettre à jour iframe 360°
       update_iframe_360_done: Mise à jour iframe 360° faite.
+    liens_fin: Liens fins
     match_filter:
       title_with_index: Filtre %{index}
     matches:
