@@ -10,8 +10,7 @@ module StatsHelper
 
   def build_manager_antennes_collection(user)
     manager_antennes = manager_antennes_included_regionals(user)
-    antennes_collection = antennes_collection_hash(Antenne.with_experts_subjects.not_deleted, manager_antennes_included_regionals(user))
-
+    antennes_collection = antennes_collection_hash(Antenne.with_experts_subjects.not_deleted, manager_antennes)
     add_locals_antennes(antennes_collection, manager_antennes)
   end
 
@@ -52,12 +51,10 @@ module StatsHelper
   end
 
   def manager_antennes_included_regionals(user)
-    antennes = user.managed_antennes.ids
-    user.managed_antennes.each do |antenne|
-      next unless antenne.national?
-
-      antennes << Antenne.where(institution: antenne.institution, territorial_level: :regional).not_deleted.ids
+    antennes_ids = user.managed_antennes.ids
+    user.managed_antennes.territorial_level_national.each do |antenne|
+      antennes_ids << Antenne.where(institution: antenne.institution, territorial_level: :regional).not_deleted.ids
     end
-    Antenne.where(id: antennes.flatten)
+    Antenne.where(id: antennes_ids.flatten)
   end
 end
