@@ -219,4 +219,41 @@ RSpec.describe Expert do
       expect(described_class.with_taking_care_stock).to contain_exactly(expert_with_taking_care_stock)
     end
   end
+
+  describe '#with_identical_user?' do
+    let(:user) { build :user, email: 'numerobis@architecte.com', full_name: 'Numérobis' }
+    let(:expert) { build :expert, email: 'numerobis@architecte.com', full_name: 'Numérobis', users: [user] }
+
+    subject { expert.with_identical_user? }
+
+    context 'when expert has one user with identical email and full name' do
+      it { expect(expert).to be_with_identical_user }
+    end
+
+    context 'when expert has one user with different email' do
+      before { user.email = 'otis@scribe.com' }
+
+      it { expect(expert).not_to be_with_identical_user }
+    end
+
+    context 'when expert has one user with different full name' do
+      before { user.full_name = 'Otis' }
+
+      it { expect(expert).not_to be_with_identical_user }
+    end
+
+    context 'when expert has no users' do
+      before { expert.users = [] }
+
+      it { expect(expert).not_to be_with_identical_user }
+    end
+
+    context 'when expert has multiple users' do
+      let(:user2) { build :user, email: 'amonbofis@architecte.com', full_name: 'Amonbofis' }
+
+      before { expert.users << user2 }
+
+      it { expect(expert).not_to be_with_identical_user }
+    end
+  end
 end
