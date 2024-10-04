@@ -9,9 +9,9 @@ module StatsHelper
   end
 
   def build_manager_antennes_collection(user)
-    antennes_collection = antennes_collection_hash(Antenne.with_experts_subjects.not_deleted, user.managed_antennes)
-
-    add_locals_antennes(antennes_collection, user.managed_antennes)
+    manager_antennes = manager_antennes_included_regionals(user)
+    antennes_collection = antennes_collection_hash(Antenne.with_experts_subjects.not_deleted, manager_antennes)
+    add_locals_antennes(antennes_collection, manager_antennes)
   end
 
   def build_institution_antennes_collection(institution)
@@ -43,9 +43,18 @@ module StatsHelper
   def add_locals_antennes(antennes_collection, recipient_antennes)
     recipient_antennes.includes(:child_antennes).find_each do |antenne|
       next if antenne.local? || antenne.territorial_antennes.empty?
-      #  Ajoute la possibilité pour les antennes régionale d'avoir les stats agglomérés
-      antennes_collection << { name: I18n.t('helpers.stats_helper.antenne_with_locales', name: antenne.name), id: "#{antenne[:id]}#{t('helpers.stats_helper.with_locales')}", territorial_level: Antenne::TERRITORIAL_ORDER[antenne.territorial_level.to_sym] }
+      # Pour les antennes régionales et nationales on affiche uniquement les stats agglomérés des antennes locales
+      antennes_collection.delete_if { |a| a[:id] == antenne.id }
+      antennes_collection << { name: antenne.name, id: "#{antenne[:id]}#{t('helpers.stats_helper.with_locales')}", territorial_level: Antenne::TERRITORIAL_ORDER[antenne.territorial_level.to_sym] }
     end
     antennes_collection.sort_by { |a| [a[:territorial_level], a[:name]] }
+  end
+
+  def manager_antennes_included_regionals(user)
+    antennes_ids = user.managed_antennes.ids
+    user.managed_antennes.territorial_level_national.each do |antenne|
+      antennes_ids << Antenne.where(institution: antenne.institution, territorial_level: :regional).not_deleted.ids
+    end
+    Antenne.where(id: antennes_ids.flatten)
   end
 end
