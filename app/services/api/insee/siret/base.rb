@@ -12,7 +12,7 @@ module Api::Insee::Siret
     end
 
     def url
-      @url ||= "#{base_url}#{url_key}?q=siret:#{@siren_or_siret}"
+      @url ||= "#{base_url}#{url_key}?q=siret:#{@query}"
     end
   end
 

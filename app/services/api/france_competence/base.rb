@@ -45,7 +45,7 @@ module Api::FranceCompetence
     end
 
     def url
-      @url ||= "#{base_url}#{url_key}#{@siren_or_siret}"
+      @url ||= "#{base_url}#{url_key}#{@query}"
     end
   end
 

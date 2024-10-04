@@ -33,7 +33,7 @@ module Api::Cfadock
     end
 
     def url
-      @url ||= [base_url, @siren_or_siret].join
+      @url ||= [base_url, @query].join
     end
   end
 

@@ -2,16 +2,16 @@ module Api
   # Api Call abstract implementation, to be subclassed for specific models.
   #
   class Base
-    attr_reader :siren_or_siret
+    attr_reader :query
 
-    def initialize(siren_or_siret, options = {})
-      @siren_or_siret = FormatSiret.clean_siret(siren_or_siret)
-      raise ApiError, I18n.t('api_requests.invalid_siret_or_siren') unless valid_siren_or_siret?
+    def initialize(query, options = {})
+      @query = FormatSiret.clean_siret(query)
+      raise ApiError, I18n.t('api_requests.invalid_siret_or_siren') unless valid_query?
       @options = options
     end
 
     def call
-      Rails.cache.fetch([id_key, @siren_or_siret].join('-'), expires_in: 12.hours) do
+      Rails.cache.fetch([id_key, @query].join('-'), expires_in: 12.hours) do
         http_request = request
         if http_request.success?
           responder(http_request).call
@@ -23,7 +23,7 @@ module Api
 
     def request
       request_class_name = [self.class.name.deconstantize, 'Request'].join('::')
-      request_class_name.constantize.new(@siren_or_siret, @options)
+      request_class_name.constantize.new(@query, @options)
     end
 
     def responder(http_request)
@@ -55,8 +55,8 @@ module Api
       self.class.name.parameterize
     end
 
-    def valid_siren_or_siret?
-      FormatSiret.siren_is_valid(@siren_or_siret) || FormatSiret.siret_is_valid(@siren_or_siret)
+    def valid_query?
+      FormatSiret.siren_is_valid(@query) || FormatSiret.siret_is_valid(@query)
     end
   end
 
@@ -66,8 +66,8 @@ module Api
 
     attr_reader :data
 
-    def initialize(siren_or_siret, options = {})
-      @siren_or_siret = siren_or_siret
+    def initialize(query, options = {})
+      @query = query
       @options = options
       begin
         @http_response = get_url

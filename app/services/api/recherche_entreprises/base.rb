@@ -7,17 +7,6 @@ module Api::RechercheEntreprises
       @options = options
     end
 
-    def call
-      Rails.cache.fetch([id_key, @query].join('-'), expires_in: 12.hours) do
-        http_request = request
-        if http_request.success?
-          responder(http_request).call
-        else
-          handle_error(http_request)
-        end
-      end
-    end
-
     def request
       request_class_name = [self.class.name.deconstantize, 'Request'].join('::')
       request_class_name.constantize.new(@query, @options)

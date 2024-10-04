@@ -20,7 +20,7 @@ module Api::ApiEntreprise::EtablissementEffectifMensuel
 
     # https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/{siret}/effectifs_mensuels/{month}/annee/{year}
     def specific_url
-      @specific_url ||= "#{url_key}#{@siren_or_siret}/effectifs_mensuels/#{search_month}/annee/#{search_year}"
+      @specific_url ||= "#{url_key}#{@query}/effectifs_mensuels/#{search_month}/annee/#{search_year}"
     end
 
     def searched_date

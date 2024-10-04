@@ -1,7 +1,7 @@
 module Api::Rne
   class Base < Api::Base
-    def initialize(siren_or_siret, options = {})
-      siren_or_siret = siren_or_siret[0..8]
+    def initialize(query, options = {})
+      query = query[0..8]
       super
     end
 
@@ -38,7 +38,7 @@ module Api::Rne
     end
 
     def url
-      @url ||= "#{base_url}#{url_key}#{@siren_or_siret}"
+      @url ||= "#{base_url}#{url_key}#{@query}"
     end
   end
 

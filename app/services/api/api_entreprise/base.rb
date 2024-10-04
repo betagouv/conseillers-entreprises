@@ -36,7 +36,7 @@ module Api::ApiEntreprise
     end
 
     def specific_url
-      [url_key, @siren_or_siret].join
+      [url_key, @query].join
     end
 
     def url

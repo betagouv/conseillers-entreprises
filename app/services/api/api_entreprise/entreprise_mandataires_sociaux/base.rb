@@ -20,7 +20,7 @@ module Api::ApiEntreprise::EntrepriseMandatairesSociaux
 
     # infogreffe/rcs/unites_legales/{siren}/mandataires_sociaux
     def specific_url
-      @specific_url ||= "#{url_key}#{@siren_or_siret}/mandataires_sociaux"
+      @specific_url ||= "#{url_key}#{@query}/mandataires_sociaux"
     end
   end
 

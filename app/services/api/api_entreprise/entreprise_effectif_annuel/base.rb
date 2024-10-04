@@ -19,7 +19,7 @@ module Api::ApiEntreprise::EntrepriseEffectifAnnuel
 
     # https://entreprise.api.gouv.fr/v3/gip_mds/unites_legales/{siren}/effectifs_annuels/{year}
     def specific_url
-      @specific_url ||= "#{url_key}#{@siren_or_siret}/effectifs_annuels/#{search_year}"
+      @specific_url ||= "#{url_key}#{@query}/effectifs_annuels/#{search_year}"
     end
 
     def search_year

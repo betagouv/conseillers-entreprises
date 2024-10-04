@@ -1,7 +1,7 @@
 module Api::Insee
   class Base < Api::Base
     def call
-      Rails.cache.fetch([id_key, @siren_or_siret].join('-'), expires_in: 12.hours) do
+      Rails.cache.fetch([id_key, @query].join('-'), expires_in: 12.hours) do
         http_request = request
         if http_request.success?
           responder(http_request).call
@@ -47,7 +47,7 @@ module Api::Insee
     end
 
     def url
-      @url ||= "#{base_url}#{url_key}#{@siren_or_siret}"
+      @url ||= "#{base_url}#{url_key}#{@query}"
     end
   end
 
