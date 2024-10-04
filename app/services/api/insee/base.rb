@@ -6,22 +6,13 @@ module Api::Insee
         if http_request.success?
           responder(http_request).call
         elsif http_request.not_found?
-          raise ApiError, I18n.t('api_requests.non_diffusible_error')
-        elsif http_request.unavailable_api?
-          raise UnavailableApiError, I18n.t('api_requests.generic_error')
+          raise Api::ApiError, I18n.t('api_requests.non_diffusible_error')
         else
-          handle_error(http_request)
+          notify_tech_error(http_request)
+          raise Api::UnavailableApiError, Request::DEFAULT_TECHNICAL_ERROR_MESSAGE
         end
       end
     end
-
-    def handle_error(http_request)
-      notify_tech_error(http_request)
-      raise ApiError, Request::DEFAULT_TECHNICAL_ERROR_MESSAGE
-    end
-
-    # TODO
-    def notify_tech_error; end
   end
 
   class Request < Api::Request

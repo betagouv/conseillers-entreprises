@@ -68,6 +68,4 @@ module Api::RechercheEntreprises
 
   class Responder < Api::Responder
   end
-
-  class ApiError < StandardError; end
 end

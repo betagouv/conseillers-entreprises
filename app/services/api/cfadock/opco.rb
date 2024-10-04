@@ -5,6 +5,7 @@ module Api::Cfadock
     def handle_error(http_request)
       if http_request.has_tech_error?
         notify_tech_error(http_request)
+        return { "opco_cfadock" => { "error" => Request::DEFAULT_TECHNICAL_ERROR_MESSAGE } }
       end
       return { "opco_cfadock" => { "error" => http_request.error_message } }
     end

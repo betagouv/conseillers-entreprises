@@ -33,12 +33,15 @@ def authorize_france_competence_token
     )
 end
 
-def stub_france_competence_siret(url, body)
+def stub_france_competence_siret(url, body, status_code = 200)
   ENV['FRANCE_COMPETENCE_SIRO_KEY'] = 'fc_siro_key'
   stub_request(:get, url)
     .with(headers: {
       'X-Gravitee-Api-Key' => 'fc_siro_key',
       'Authorization' => 'Bearer token1234'
     })
-    .to_return(body: body)
+    .to_return(
+      status: status_code,
+      body: body
+    )
 end

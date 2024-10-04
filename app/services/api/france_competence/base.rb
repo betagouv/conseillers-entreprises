@@ -3,6 +3,7 @@ module Api::FranceCompetence
     def handle_error(http_request)
       if http_request.has_tech_error?
         notify_tech_error(http_request)
+        return { "opco_fc" => { "error" => Request::DEFAULT_TECHNICAL_ERROR_MESSAGE } }
       end
       return { "opco_fc" => { "error" => http_request.error_message } }
     end
@@ -27,10 +28,6 @@ module Api::FranceCompetence
 
     def success?
       @error.nil? && response_status.success? && !ERROR_CODES.key?(data['code'])
-    end
-
-    def has_tech_error?
-      error_code.nil? || (error_code.present? && error_code != 400)
     end
 
     def data_error_message

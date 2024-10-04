@@ -8,6 +8,7 @@ module Api::Rne
     def handle_error(http_request)
       if http_request.has_tech_error?
         notify_tech_error(http_request)
+        return { "rne" => { "error" => Request::DEFAULT_TECHNICAL_ERROR_MESSAGE } }
       end
       return { "rne" => { "error" => http_request.error_message } }
     end
@@ -20,10 +21,6 @@ module Api::Rne
 
     def token
       @token ||= Api::Rne::Token::Base.new.call
-    end
-
-    def has_tech_error?
-      @data.present? && @data["errorCode"].nil?
     end
 
     def data_error_message
