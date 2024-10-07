@@ -42,7 +42,7 @@ module Api
 
     def notify_tech_error(http_request)
       tags = {
-        error_message: http_request.error_message
+        error_message: http_request.error_message.gsub(/[\n\r]/, " ").strip
       }
       tags.merge({ error_code: http_request.error_code }) if http_request.error_code.present?
       Sentry.with_scope do |scope|

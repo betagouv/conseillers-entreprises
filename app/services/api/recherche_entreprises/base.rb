@@ -7,11 +7,6 @@ module Api::RechercheEntreprises
       @options = options
     end
 
-    def request
-      request_class_name = [self.class.name.deconstantize, 'Request'].join('::')
-      request_class_name.constantize.new(@query, @options)
-    end
-
     def encode_query(query)
       query = I18n.transliterate(query, locale: :fr)
         .strip

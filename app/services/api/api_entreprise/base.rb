@@ -52,19 +52,5 @@ module Api::ApiEntreprise
     end
   end
 
-  class Responder < Api::Responder
-    # def initialize(http_request)
-    #   @http_request = http_request
-    # end
-
-    # def call
-    #   format_data
-    # end
-
-    # def format_data
-    #   @http_request.data
-    # end
-  end
-
-  # class Api::ApiEntrepriseError < StandardError; end
+  class Responder < Api::Responder; end
 end

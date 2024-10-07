@@ -24,10 +24,6 @@ module Api::Insee
       @token ||= Api::Insee::Token::Base.new.call
     end
 
-    def unavailable_api?
-      response_status.internal_server_error? || response_status.bad_gateway? || response_status.service_unavailable?
-    end
-
     def not_found?
       response_status.not_found?
     end

@@ -7,7 +7,7 @@ module Api::ApiEntreprise::EntrepriseMandatairesSociaux
       if http_request.has_tech_error?
         notify_tech_error(http_request)
       end
-      return { "mandataires sociaux" => { "error" => http_request.error_message } }
+      return { "mandataires_sociaux" => { "error" => http_request.error_message } }
     end
   end
 
