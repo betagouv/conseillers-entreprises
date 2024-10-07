@@ -17,12 +17,8 @@ module Api::Adresse
       end
     end
 
-    def handle_error(http_request)
-      if http_request.has_tech_error?
-        notify_tech_error(http_request)
-        return { "search_municipality" => { "error" => Request::DEFAULT_TECHNICAL_ERROR_MESSAGE } }
-      end
-      return { "search_municipality" => { "error" => http_request.error_message } }
+    def api_result_key
+      "search_municipality"
     end
   end
 
@@ -43,6 +39,10 @@ module Api::Adresse
 
     def data_error_message
       @data['message'] || @data['searchStatus']
+    end
+
+    def has_tech_error?
+      error_code.present? && [401, 403].include?(error_code)
     end
 
     private

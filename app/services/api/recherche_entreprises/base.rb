@@ -13,6 +13,10 @@ module Api::RechercheEntreprises
         .squeeze(' ')
       ERB::Util.url_encode(query)
     end
+
+    def handle_error(http_request)
+      handle_error_loudly(http_request)
+    end
   end
 
   class Request < Api::Request

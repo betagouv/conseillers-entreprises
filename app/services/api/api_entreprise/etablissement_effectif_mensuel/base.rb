@@ -2,12 +2,8 @@
 
 module Api::ApiEntreprise::EtablissementEffectifMensuel
   class Base < Api::ApiEntreprise::Base
-    # Retourne hash vide en cas d'erreur
-    def handle_error(http_request)
-      if http_request.has_tech_error?
-        notify_tech_error(http_request)
-      end
-      return { "effectifs_etablissement_mensuel" => { "error" => http_request.error_message } }
+    def api_result_key
+      "effectifs_etablissement_mensuel"
     end
   end
 

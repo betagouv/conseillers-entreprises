@@ -5,12 +5,8 @@ module Api::Rne
       super
     end
 
-    def handle_error(http_request)
-      if http_request.has_tech_error?
-        notify_tech_error(http_request)
-        return { "rne" => { "error" => Request::DEFAULT_TECHNICAL_ERROR_MESSAGE } }
-      end
-      return { "rne" => { "error" => http_request.error_message } }
+    def api_result_key
+      "rne"
     end
   end
 

@@ -32,7 +32,19 @@ module Api
     end
 
     def handle_error(http_request)
-      if http_request.has_tech_error?
+      handle_error_silently(http_request)
+    end
+
+    def handle_error_silently(http_request)
+      if http_request.has_tech_error? || http_request.has_server_error?
+        notify_tech_error(http_request)
+        return { api_result_key => { "error" => Request::DEFAULT_TECHNICAL_ERROR_MESSAGE } }
+      end
+      return { api_result_key => { "error" => http_request.error_message } }
+    end
+
+    def handle_error_loudly(http_request)
+      if http_request.has_tech_error? || http_request.has_server_error?
         notify_tech_error(http_request)
         raise ApiError, Request::DEFAULT_TECHNICAL_ERROR_MESSAGE
       else
@@ -53,6 +65,11 @@ module Api
 
     def id_key
       self.class.name.parameterize
+    end
+
+    # clé permettant d'identifier les données agglomérées
+    def api_result_key
+      ""
     end
 
     def valid_query?
@@ -90,6 +107,10 @@ module Api
     end
 
     def has_tech_error?
+      error_code.present? && [400, 401, 403].include?(error_code)
+    end
+
+    def has_server_error?
       error_code.nil? || (error_code.present? && [500, 501, 502, 503, 504].include?(error_code))
     end
 

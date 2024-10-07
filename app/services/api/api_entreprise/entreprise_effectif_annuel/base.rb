@@ -2,11 +2,8 @@
 
 module Api::ApiEntreprise::EntrepriseEffectifAnnuel
   class Base < Api::ApiEntreprise::Base
-    def handle_error(http_request)
-      if http_request.has_tech_error?
-        notify_tech_error(http_request)
-      end
-      return { "effectifs_entreprise_annuel" => { "error" => http_request.error_message } }
+    def api_result_key
+      "effectifs_entreprise_annuel"
     end
   end
 

@@ -1,11 +1,7 @@
 module Api::FranceCompetence
   class Base < Api::Base
-    def handle_error(http_request)
-      if http_request.has_tech_error?
-        notify_tech_error(http_request)
-        return { "opco_fc" => { "error" => Request::DEFAULT_TECHNICAL_ERROR_MESSAGE } }
-      end
-      return { "opco_fc" => { "error" => http_request.error_message } }
+    def api_result_key
+      "opco_fc"
     end
   end
 

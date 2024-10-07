@@ -65,7 +65,7 @@ RSpec.describe Api::Rne::Token::Base do
     end
 
     it 'returns an error' do
-      expect(token).to eq({ "rne" => { "error" => "Identifiants invalides." } })
+      expect(token).to eq({ "rne" => { "error" => "Nous n’avons pas pu récupérer les données entreprises auprès de nos partenaires. Notre équipe technique en a été informée, veuillez réessayer ultérieurement." } })
     end
   end
 end

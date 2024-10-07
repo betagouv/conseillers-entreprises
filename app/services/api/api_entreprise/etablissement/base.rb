@@ -2,6 +2,9 @@
 
 module Api::ApiEntreprise::Etablissement
   class Base < Api::ApiEntreprise::Base
+    def handle_error(http_request)
+      handle_error_loudly(http_request)
+    end
   end
 
   class Request < Api::ApiEntreprise::Request
