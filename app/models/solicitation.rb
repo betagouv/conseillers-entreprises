@@ -583,6 +583,11 @@ class Solicitation < ApplicationRecord
     end
   end
 
+  def provenance_title_sanitized
+    return nil if provenance_title.nil?
+    provenance_title[/googleads/i] || provenance_title
+  end
+
   def provenance_detail
     if from_campaign?
       pk_kwd.presence || mtm_kwd.presence
