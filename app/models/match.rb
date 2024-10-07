@@ -172,6 +172,10 @@ class Match < ApplicationRecord
     joins(:solicitation).merge(Solicitation.mtm_kwd_end(query))
   }
 
+  scope :facility_regions_id_eq, -> (query) {
+    joins(:facility_regions).where(territories: { id: query })
+  }
+
   scope :with_recent_refused_feedbacks, -> {
     joins("INNER JOIN feedbacks ON feedbacks.feedbackable_id = matches.need_id AND feedbacks.feedbackable_type = 'Need'")
       .where(status: :not_for_me, taken_care_of_at: 15.days.ago..)
@@ -182,7 +186,7 @@ class Match < ApplicationRecord
     [
       :sent, :solicitation_created_at_gteq, :solicitation_created_at_lteq,
       :solicitation_mtm_campaign_cont, :solicitation_mtm_campaign_eq, :solicitation_mtm_campaign_start, :solicitation_mtm_campaign_end,
-      :solicitation_mtm_kwd_cont, :solicitation_mtm_kwd_eq, :solicitation_mtm_kwd_start, :solicitation_mtm_kwd_end
+      :solicitation_mtm_kwd_cont, :solicitation_mtm_kwd_eq, :solicitation_mtm_kwd_start, :solicitation_mtm_kwd_end, :facility_regions_id_eq
     ]
   end
 
