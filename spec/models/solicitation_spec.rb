@@ -514,4 +514,74 @@ end
       it { is_expected.to be_empty }
     end
   end
+
+  describe '#provenance_title' do
+    subject { solicitation.provenance_title }
+
+    context 'intern' do
+      let(:solicitation) { create :solicitation, landing: landing }
+      let(:landing) { create :landing, title: 'Landing title', slug: 'landing-title', integration: :intern }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'iframe' do
+      let(:solicitation) { create :solicitation, landing: landing }
+      let(:landing) { create :landing, title: 'Landing title', slug: 'landing-title', integration: :iframe, partner_url: 'https://www.partner.com' }
+
+      it { is_expected.to eq 'landing-title' }
+    end
+
+    context 'api' do
+      let(:landing) { create :landing, title: 'Landing title', slug: 'landing-title', integration: :api, partner_url: 'https://www.partner.com' }
+      let(:solicitation) { create :solicitation, landing: landing, origin_url: 'https://www.partner.com/formulaire', api_calling_url: 'https://www.partner.com' }
+
+      it { is_expected.to eq 'https://www.partner.com' }
+    end
+
+    context 'campaign' do
+      let(:solicitation) { create :solicitation, mtm_campaign: 'googleads-19133358444', mtm_kwd: '639333221110-opco', landing: landing }
+      let(:landing) { create :landing, title: 'Landing title', slug: 'landing-title', integration: :intern }
+
+      it { is_expected.to eq 'googleads-19133358444' }
+    end
+  end
+
+  describe "#provenance_detail" do
+    subject { solicitation.provenance_detail }
+
+    context 'from campaign' do
+      let(:solicitation) { create :solicitation, mtm_campaign: 'googleads-19133358444', mtm_kwd: '639333221110-opco' }
+
+      it { is_expected.to eq '639333221110-opco' }
+    end
+
+    context 'with origin_title' do
+      let(:solicitation) { create :solicitation, origin_title: 'origin title' }
+
+      it { is_expected.to eq 'origin title' }
+    end
+
+    context 'with origin_url' do
+      let(:solicitation) { create :solicitation, origin_url: 'https://www.partner.com/formulaire' }
+
+      it { is_expected.to eq 'https://www.partner.com/formulaire' }
+    end
+  end
+
+  describe '#provenance_title_sanitized' do
+    subject { solicitation.provenance_title_sanitized }
+
+    context 'from Google ads' do
+      let(:solicitation) { create :solicitation, mtm_campaign: 'googleads-19133358444', mtm_kwd: '639333221110-opco' }
+
+      it { is_expected.to eq 'googleads' }
+    end
+
+    context 'from other campaign' do
+      let(:solicitation) { create :solicitation, mtm_campaign: 'campagne-123', mtm_kwd: 'campagne fine' }
+
+      it { is_expected.to eq 'campagne-123' }
+    end
+  end
 end

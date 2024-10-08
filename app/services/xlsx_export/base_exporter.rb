@@ -17,8 +17,8 @@ module XlsxExport
         klass = @options[:relation_name]
         klass_human_name = @options[:relation_name]
       else
-        klass_human_name = klass.model_name.human
         klass = @relation.klass
+        klass_human_name = klass.model_name.human
       end
       attributes = fields # implemented by subclasses
 
