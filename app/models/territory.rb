@@ -26,7 +26,7 @@ class Territory < ApplicationRecord
 
   has_and_belongs_to_many :themes
   has_many :subjects, through: :themes, inverse_of: :territories
-  has_many :landing_themes, through: :subject, inverse_of: :theme_territories
+  has_many :landing_themes, through: :subjects, inverse_of: :theme_territories
 
   ## Through Associations
   #
@@ -39,7 +39,6 @@ class Territory < ApplicationRecord
   has_many :facilities, through: :communes, inverse_of: :territories
 
   has_many :bassins_emploi, -> { distinct.bassins_emploi }, through: :communes, source: :territories
-  has_many :regions, -> { distinct.regions }, through: :communes, source: :territories, inverse_of: :regions
 
   # :facilities
   has_many :diagnoses, through: :facilities, inverse_of: :facility_territories
