@@ -805,6 +805,9 @@ Rails/RequestReferer:
 Rails/ReversibleMigration:
   Enabled: false
 
+Rails/RootPathnameMethods:
+  Enabled: false
+
 Rails/SafeNavigation:
   Enabled: true
 

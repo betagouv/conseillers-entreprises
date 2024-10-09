@@ -6,7 +6,7 @@ class TemoignageGenerator
   end
 
   def entry
-    @entry ||= I18n.t(@subject, scope: 'temoignages')
+    @entry ||= I18n.t(@subject, scope: 'temoignages', default: '')
   end
 
   def published?

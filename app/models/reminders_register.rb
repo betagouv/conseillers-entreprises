@@ -26,8 +26,8 @@ class RemindersRegister < ApplicationRecord
 
   validates :run_number, presence: true, uniqueness: { scope: :expert_id }
 
-  enum category: { remainder: 0, input: 1, output: 2, expired_needs: 3 }, _suffix: true
-  enum basket: { many_pending_needs: 0, medium_pending_needs: 1, one_pending_need: 2 }, _suffix: true
+  enum :category, { remainder: 0, input: 1, output: 2, expired_needs: 3 }, suffix: true
+  enum :basket, { many_pending_needs: 0, medium_pending_needs: 1, one_pending_need: 2 }, suffix: true
 
   # current_remainder_category = dans les paniers sauf inputs et outputs
   scope :current_remainder_category, -> {

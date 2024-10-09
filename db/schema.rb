@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_24_132540) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_02_095924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -70,7 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_24_132540) do
     t.text "metadata"
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum"
     t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -644,7 +644,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_24_132540) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "interview_sort_order"
-    t.boolean "cooperation", default: false
     t.index ["interview_sort_order"], name: "index_themes_on_interview_sort_order"
     t.index ["label"], name: "index_themes_on_label", unique: true
     t.index ["updated_at"], name: "index_themes_on_updated_at"
