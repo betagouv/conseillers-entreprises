@@ -35,6 +35,7 @@ module Stats
 
     def load_data
       name = params.permit(:chart_name)[:chart_name]
+      session[:team_stats_params][:detailed_graphs] = true # Affiche le detail des graphiques par thème
       data = Rails.cache.fetch(['team-public-stats', name, session[:team_stats_params]], expires_in: 6.hours) do
         invoke_stats(name, session[:team_stats_params])
       end

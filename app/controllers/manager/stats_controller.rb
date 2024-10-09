@@ -14,6 +14,7 @@ module Manager
 
     def load_data
       name = params.permit(:chart_name)[:chart_name]
+      session[:manager_stats_params][:detailed_graphs] = true # Affiche le detail des graphiques par thème
       data = Rails.cache.fetch(['manager-stats', name, session[:manager_stats_params]], expires_in: 6.hours) do
         invoke_stats(name, session[:manager_stats_params]) if @charts_names.include?(name)
       end
