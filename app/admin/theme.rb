@@ -25,8 +25,9 @@ ActiveAdmin.register Theme do
       div admin_link_to(t, :needs)
       div admin_link_to(t, :matches)
     end
-    column :territory do |t|
-      t.territories.map(&:name).join(', ')
+    column t('active_admin.particularities') do |t|
+      div t.territories.map(&:name).join(', ')
+      div t('active_admin.specific_theme') if t.cooperation
     end
     actions dropdown: true
   end
@@ -57,18 +58,20 @@ ActiveAdmin.register Theme do
       row t('attributes.territories.other') do |t|
         t.territories.map { |r| admin_link_to r }.join(', ').html_safe
       end
+      row :cooperation
     end
   end
 
   ## Form
   #
-  permit_params :label, :interview_sort_order, territory_ids: []
+  permit_params :label, :interview_sort_order, :cooperation, territory_ids: []
 
   form do |f|
     f.inputs do
       f.input :label
       f.input :territories, as: :ajax_select, collection: Territory.order(:name), multiple: true, data: { url: :admin_territories_path, search_fields: [:name] }
       f.input :interview_sort_order
+      f.input :cooperation
     end
 
     actions
