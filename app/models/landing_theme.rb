@@ -32,7 +32,7 @@ class LandingTheme < ApplicationRecord
 
   has_many :subjects, through: :landing_subjects, inverse_of: :landing_themes
   has_many :themes, -> { distinct }, through: :subjects, inverse_of: :landing_themes
-  has_many :theme_territories, -> { distinct }, through: :themes, inverse_of: :landing_themes, source: :territories
+  has_many :theme_territories, -> { distinct }, through: :subjects, inverse_of: :landing_themes, source: :territories
   has_many :solicitations, through: :landing_subjects, inverse_of: :landing_theme
   has_many :matches, through: :solicitations, inverse_of: :landing_theme
 

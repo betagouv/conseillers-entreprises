@@ -78,10 +78,6 @@ class CompanySatisfaction < ApplicationRecord
     joins(:solicitation).merge(Solicitation.mtm_kwd_end(query))
   }
 
-  scope :facility_regions_id_eq, -> (query) {
-    joins(:facility_regions).where(territories: { id: query })
-  }
-
   scope :shared, -> { joins(:shared_satisfactions) }
   scope :not_shared, -> { where.missing(:shared_satisfactions) }
 
@@ -125,7 +121,7 @@ class CompanySatisfaction < ApplicationRecord
     %w[
       solicitation_mtm_campaign_cont solicitation_mtm_campaign_eq solicitation_mtm_campaign_start solicitation_mtm_campaign_end
       solicitation_mtm_kwd_cont solicitation_mtm_kwd_eq solicitation_mtm_kwd_start solicitation_mtm_kwd_end
-      shared_eq experts_id_eq with_comment_eq facility_regions_id_eq
+      shared_eq experts_id_eq with_comment_eq
     ]
   end
 
