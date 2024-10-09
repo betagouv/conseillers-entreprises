@@ -64,7 +64,7 @@ ActiveAdmin.register Theme do
 
   ## Form
   #
-  permit_params :label, :interview_sort_order, territory_ids: []
+  permit_params :label, :interview_sort_order, :cooperation, territory_ids: []
 
   form do |f|
     f.inputs do
