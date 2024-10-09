@@ -45,7 +45,7 @@ namespace :rattrapage_analyse do
     volumetry_total = 0
     solicitations_to_update.find_each do |solicitation|
       begin
-        etablissement_data = ApiEntreprise::Etablissement::Base.new(solicitation.siret).call
+        etablissement_data = Api::ApiEntreprise::Etablissement::Base.new(solicitation.siret).call
         return if etablissement_data.blank?
         code_region = ApiConsumption::Models::Facility::ApiEntreprise.new(etablissement_data).code_region
         solicitation.update(code_region: code_region)

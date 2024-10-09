@@ -75,8 +75,8 @@ class CompaniesController < ApplicationController
       unless @facility.siege_social
         @siege_facility = ApiConsumption::Facility.new(@company.siret_siege_social).call
       end
-    rescue ApiEntreprise::ApiEntrepriseError => e
-      @message = I18n.t("api_requests.generic_error")
+    rescue Api::ApiError => e
+      @message = e.message || I18n.t("api_requests.generic_error")
     rescue StandardError => e
       Sentry.capture_message(e)
       @message = I18n.t("api_requests.generic_error")

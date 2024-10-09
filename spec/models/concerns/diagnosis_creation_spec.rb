@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'api_entreprise/base'
+require 'api/api_entreprise/base'
 
 RSpec.describe DiagnosisCreation do
   describe 'new_diagnosis' do
@@ -48,7 +48,7 @@ RSpec.describe DiagnosisCreation do
 
         context 'when ApiEntreprise returns an error' do
           before do
-            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { raise ApiEntreprise::ApiEntrepriseError, 'some error message' }
+            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { raise Api::ApiError, 'some error message' }
           end
 
           it 'returns the message in the errors' do
@@ -108,7 +108,7 @@ RSpec.describe DiagnosisCreation do
 
         context 'when ApiEntreprise returns an error' do
           before do
-            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { raise ApiEntreprise::ApiEntrepriseError, 'some error message' }
+            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { raise Api::ApiError, 'some error message' }
           end
 
           it 'returns the message in the errors' do

@@ -4,10 +4,10 @@ module SearchFacility
       return blank_query if @query.blank?
       siren = FormatSiret.siren_from_query(@query[0..8])
       begin
-        data_company = ApiEntreprise::Entreprise::Base.new(siren).call[:entreprise]
-        data_siege = ApiEntreprise::Etablissement::Base.new(data_company["siret_siege_social"]).call[:etablissement]
+        data_company = Api::ApiEntreprise::Entreprise::Base.new(siren).call[:entreprise]
+        data_siege = Api::ApiEntreprise::Etablissement::Base.new(data_company["siret_siege_social"]).call[:etablissement]
         formatted_items(data_siege, data_company)
-      rescue ApiEntreprise::ApiEntrepriseError => e
+      rescue Api::ApiError => e
         message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
         return { items: [], error: message }
       end
@@ -18,10 +18,10 @@ module SearchFacility
       siret = FormatSiret.siret_from_query(@query[0..13])
       siren = FormatSiret.siren_from_query(@query[0..8])
       begin
-        data_company = ApiEntreprise::Entreprise::Base.new(siren).call[:entreprise]
-        data_facility = ApiEntreprise::Etablissement::Base.new(siret).call[:etablissement]
+        data_company = Api::ApiEntreprise::Entreprise::Base.new(siren).call[:entreprise]
+        data_facility = Api::ApiEntreprise::Etablissement::Base.new(siret).call[:etablissement]
         formatted_items(data_facility, data_company)
-      rescue ApiEntreprise::ApiEntrepriseError => e
+      rescue Api::ApiError => e
         message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
         return { items: [], error: message }
       end

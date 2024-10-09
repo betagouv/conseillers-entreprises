@@ -33,9 +33,8 @@ module DiagnosisCreation
           #   * would just set an error instead of raising an exception.
           #   Related to #622
           params[:facility] = UseCases::SearchFacility.with_siret_and_save(facility_params[:siret])
-        rescue ApiEntreprise::ApiEntrepriseError => e
+        rescue Api::ApiError => e
           # Eat the exception and build a Diagnosis object just to hold the error
-
           diagnosis.errors.add(:base, e.message)
           return diagnosis
         end
@@ -105,7 +104,7 @@ module DiagnosisCreation
     def retrieve_insee_code
       # TODO : à revoir quand on aura une meilleure gestion des zones
       query = location.parameterize
-      ApiAdresse::SearchMunicipality.new(query).call[:insee_code]
+      Api::Adresse::SearchMunicipality.new(query).call[:insee_code]
     end
 
     ## Store ActiveModel::Errors details as json…

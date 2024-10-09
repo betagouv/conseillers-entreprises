@@ -14,7 +14,7 @@
       "de": 500,
       "a": 999,
       "code": "41",
-      "date_reference": "2021",
+      "date_reference": "2022",
       "intitule": "500 à 999 salariés"
     },
     "diffusable_commercialement": true,
@@ -56,7 +56,7 @@
         "de": 500,
         "a": 999,
         "code": "41",
-        "date_reference": "2021",
+        "date_reference": "2022",
         "intitule": "500 à 999 salariés"
       },
       "economie_sociale_et_solidaire": false,
@@ -95,28 +95,36 @@
       "siret": "41816609600069",
       "effectifs_mensuels": [
         {
+          "regime": "regime_general",
+          "annee": "2024",
+          "mois": "08",
+          "nature": "effectif_moyen_mensuel",
+          "value": 731.64,
+          "date_derniere_mise_a_jour": "2024-09-10"
+        },
+        {
           "regime": "regime_agricole",
           "annee": "2024",
-          "mois": "07",
+          "mois": "08",
           "nature": "effectif_moyen_mensuel",
           "value": null,
           "date_derniere_mise_a_jour": null
-        },
-        {
-          "regime": "regime_general",
-          "annee": "2024",
-          "mois": "07",
-          "nature": "effectif_moyen_mensuel",
-          "value": 734.32,
-          "date_derniere_mise_a_jour": "2024-09-10"
         }
       ]
     },
-    "idcc": 1486,
-    "opcoName": "ATLAS",
-    "opcoSiren": "851296632",
-    "opco_fc": { "error": "unexpected token at 'Unauthorized'" },
+    "opco_cfadock": {
+      "idcc": 1486,
+      "opcoName": "ATLAS",
+      "opcoSiren": "851296632"
+    },
+    "opco_fc": {
+      "code": "01",
+      "opcoRattachement": { "code": "03", "nom": "ATLAS" },
+      "opcoGestion": { "code": "N/C", "nom": "N/C" }
+    },
     "forme_exercice": "COMMERCIALE",
+    "description": "La conception le développement et la mise en oeuvre d'information et d'applications par le conseil et la mise en oeuvre innovante d'expertises technologiques et méthodologiques , la conception le développement et la distribution de solutions logicielles , l'accompagnement technologique méthodologique et culturel pour la réalisation de produits logiciels innovants et pour la transformation digitale des pratiques, processus et organisations des entreprises la formation dans le domaine des expertises technologiques et méthodologiques.",
+    "montant_capital": 509525.3,
     "activites_secondaires": {
       "etablissement_principal": {
         "siret": "41816609600069",
