@@ -11,7 +11,7 @@ RSpec.describe UpdateAntenneHierarchyJob do
     let!(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, communes: [commune1, commune2] }
     let!(:local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune1] }
     let!(:other_local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune2] }
-    let!(:random_local_antenne_i1) { create :antenne, :local, institution: institution1 }
+    let!(:local_antenne_without_regional_i1) { create :antenne, :local, institution: institution1 }
     let!(:local_antenne_i2) { create :antenne, :local, institution: create(:institution), communes: [commune1] }
 
     describe 'national antenne' do
@@ -22,7 +22,7 @@ RSpec.describe UpdateAntenneHierarchyJob do
 
       it 'sets hierarchy' do
         expect(national_antenne_i1.parent_antenne).to be_nil
-        expect(national_antenne_i1.child_antennes).to contain_exactly(regional_antenne_i1)
+        expect(national_antenne_i1.child_antennes).to contain_exactly(regional_antenne_i1, local_antenne_without_regional_i1)
       end
     end
 
