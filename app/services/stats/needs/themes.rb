@@ -14,7 +14,7 @@ module Stats::Needs
 
       results = Theme.order(interview_sort_order: :asc).each_with_object({}) do |theme, hash|
         hash_count = hash[theme.stats_label] || {}
-        new_count = query.where(subjects: { theme_id: theme.id }).group("DATE_TRUNC('month', needs.created_at)").count
+        new_count = query.where(subject: { theme_id: theme.id }).group("DATE_TRUNC('month', needs.created_at)").count
         hash[theme.stats_label] = new_count.merge(hash_count) { |key, old, new| old + new }
       end.reject{ |k,v| v.empty? }
 
