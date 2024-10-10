@@ -1,0 +1,126 @@
+{
+  "entreprise": {
+    "siren": "418166096",
+    "rna": null,
+    "siret_siege_social": "41816609600069",
+    "categorie_entreprise": "GE",
+    "type": "personne_morale",
+    "personne_morale_attributs": {
+      "raison_sociale": "OCTO-TECHNOLOGY",
+      "sigle": null
+    },
+    "personne_physique_attributs": {
+      "pseudonyme": null,
+      "prenom_usuel": null,
+      "prenom_1": null,
+      "prenom_2": null,
+      "prenom_3": null,
+      "prenom_4": null,
+      "nom_usage": null,
+      "nom_naissance": null,
+      "sexe": null
+    },
+    "diffusable_commercialement": true,
+    "status_diffusion": "diffusible",
+    "forme_juridique": {
+      "code": "5710",
+      "libelle": "SAS, société par actions simplifiée"
+    },
+    "activite_principale": {
+      "code": "62.02A",
+      "nomenclature": "NAFRev2",
+      "libelle": "Conseil en systèmes et logiciels informatiques"
+    },
+    "tranche_effectif_salarie": {
+      "de": 500,
+      "a": 999,
+      "code": "41",
+      "date_reference": "2022",
+      "intitule": "500 à 999 salariés"
+    },
+    "etat_administratif": "A",
+    "economie_sociale_et_solidaire": false,
+    "date_cessation": null,
+    "date_creation": 891381600,
+    "effectifs_entreprise_annuel": 
+    {"error": 
+      "Entité non trouvée : L'identifiant indiqué n'existe pas, n'est pas connu ou ne comporte aucune information pour cet appel. Veuillez vérifier que l'identifiant correspond au périmètre couvert par l'API."},
+   "mandataires_sociaux": 
+    {"error": 
+      "Entité non trouvée : Le siren indiqué n'existe pas, n'est pas connu ou ne comporte aucune information pour cet appel. Veuillez vérifier que l'identifiant correspond au périmètre couvert par l'API."},
+    "forme_exercice": "COMMERCIALE",
+    "description": "La conception le développement et la mise en oeuvre d'information et d'applications par le conseil et la mise en oeuvre innovante d'expertises technologiques et méthodologiques , la conception le développement et la distribution de solutions logicielles , l'accompagnement technologique méthodologique et culturel pour la réalisation de produits logiciels innovants et pour la transformation digitale des pratiques, processus et organisations des entreprises la formation dans le domaine des expertises technologiques et méthodologiques.",
+    "montant_capital": 509525.3,
+    "activites_secondaires": {
+      "etablissement_principal": {
+        "siret": "41816609600069",
+        "activites": [
+          {
+            "formeExercice": "COMMERCIALE",
+            "codeApe": "6202A",
+            "codeAprm": null
+          },
+          {
+            "formeExercice": "LIBERALE_NON_REGLEMENTEE",
+            "codeApe": "6202A",
+            "codeAprm": null
+          }
+        ]
+      },
+      "autres_etablissements": [
+        {
+          "siret": "41816609600010",
+          "activites": [
+            { "formeExercice": null, "codeApe": "721Z", "codeAprm": null }
+          ]
+        },
+        {
+          "siret": "41816609600028",
+          "activites": [
+            { "formeExercice": null, "codeApe": "721Z", "codeAprm": null }
+          ]
+        },
+        {
+          "siret": "41816609600036",
+          "activites": [
+            { "formeExercice": null, "codeApe": "721Z", "codeAprm": null }
+          ]
+        },
+        {
+          "siret": "41816609600044",
+          "activites": [
+            { "formeExercice": null, "codeApe": "721Z", "codeAprm": null }
+          ]
+        },
+        {
+          "siret": "41816609600051",
+          "activites": [
+            {
+              "formeExercice": "LIBERALE_NON_REGLEMENTEE",
+              "codeApe": "6202A",
+              "codeAprm": null
+            }
+          ]
+        },
+        {
+          "siret": "41816609600077",
+          "activites": [
+            {
+              "formeExercice": "COMMERCIALE",
+              "codeApe": "7112B",
+              "codeAprm": null
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "links": {
+    "siege_social": "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/41816609600069",
+    "siege_social_adresse": "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/41816609600069/adresse"
+  },
+  "meta": {
+    "date_derniere_mise_a_jour": 1717106400,
+    "redirect_from_siren": null
+  }
+}
