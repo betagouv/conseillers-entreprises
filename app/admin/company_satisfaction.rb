@@ -112,12 +112,12 @@ ActiveAdmin.register CompanySatisfaction do
   end
 
   member_action :share do
-    CreateSharedSatisfactionJob.perform_later(resource.id)
+    CreateSharedSatisfactionJob.perform_now(resource.id)
     redirect_back fallback_location: collection_path, notice: t('active_admin.company_satisfaction.shared')
   end
 
   batch_action I18n.t('active_admin.company_satisfaction.share'), { action: :share, confirm: I18n.t('active_admin.company_satisfaction.share_confirmation') } do |ids|
-    CompanySatisfaction.where(id: ids).find_each { |satisfaction| CreateSharedSatisfactionJob.perform_later(satisfaction.id) }
+    CompanySatisfaction.where(id: ids).find_each { |satisfaction| CreateSharedSatisfactionJob.perform_now(satisfaction.id) }
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.company_satisfaction.shared')
   end
 end
