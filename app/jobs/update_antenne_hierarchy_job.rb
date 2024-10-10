@@ -28,12 +28,11 @@ class UpdateAntenneHierarchyJob
   private
 
   def get_associated_antennes(targeted_territorial_level, antenne)
-    institution_id = antenne.institution_id
-    commune_ids = antenne.commune_ids
-    Antenne.not_deleted.where(institution_id: institution_id, territorial_level: targeted_territorial_level)
+    Antenne.not_deleted.where(institution_id: antenne.institution_id, territorial_level: targeted_territorial_level)
       .left_joins(:communes, :experts)
-      .where(communes: { id: commune_ids })
-      .or(Antenne.not_deleted.where(institution_id: institution_id, territorial_level: targeted_territorial_level).where(experts: { is_global_zone: true }))
+      .where(communes: { id: antenne.commune_ids })
+      .or(Antenne.not_deleted.where(institution_id: antenne.institution_id, territorial_level: targeted_territorial_level)
+                      .where(experts: { is_global_zone: true }))
       .distinct
   end
 end
