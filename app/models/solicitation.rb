@@ -472,6 +472,8 @@ class Solicitation < ApplicationRecord
   ## JSON Accessors
   #
   MATOMO_KEYS = %i[pk_campaign pk_kwd mtm_campaign mtm_kwd]
+  # Paramètres qu'il est possible de passer dans l'url des iframes pour pré-remplir
+  PREFILL_PARAMS = %i[full_name phone_number email siret]
   # TODO remove api_calling_url
   FORM_INFO_KEYS = MATOMO_KEYS + %i[gclid api_calling_url relaunch origin_title origin_id origin_url]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)

@@ -61,27 +61,42 @@ describe 'New Solicitation' do
         end
       end
 
-      context "with siret in url" do
+      context "with prefilled params in url" do
+        let(:full_name) { "Ada Lovelace" }
+        let(:email) { "ada@lovelace.com" }
+        let(:phone_number) { "0101010101" }
         let(:siret) { "41816609600069" }
 
         before do
-          visit "/?siret=#{siret}"
+          visit "/?siret=#{siret}&email=#{email}&full_name=#{full_name}&phone_number=#{phone_number}"
           click_on 'Test Landing Theme', match: :first
           click_on 'Super sujet'
-          fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'Email', with: 'user@example.com'
-          fill_in 'Téléphone', with: '0123456789'
-          click_on 'Suivant'
+
         end
 
         it do
+          # Les champs sont pré-remplis par les params
+          expect(page).to have_field('solicitation_full_name', with: full_name)
+          expect(page).to have_field('solicitation_email', with: email)
+          expect(page).to have_field('solicitation_phone_number', with: phone_number)
+          click_on 'Suivant'
+
           expect(solicitation.persisted?).to be true
           expect(solicitation.landing).to eq landing
           expect(solicitation.landing_subject).to eq landing_subject
+          expect(solicitation.full_name).to eq full_name
+          expect(solicitation.email).to eq email
+          expect(solicitation.phone_number).to eq phone_number
           expect(solicitation.siret).to eq siret
           expect(solicitation.pk_campaign).to be_nil
           expect(solicitation.mtm_campaign).to be_nil
           expect(solicitation.status_step_company?).to be true
+
+          # Les champs sont pré-remplis par les valeurs persistés
+          click_on 'Précédent'
+          expect(page).to have_field('solicitation_full_name', with: full_name)
+          expect(page).to have_field('solicitation_email', with: email)
+          expect(page).to have_field('solicitation_phone_number', with: phone_number)
         end
       end
     end
