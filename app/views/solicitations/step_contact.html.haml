@@ -42,7 +42,8 @@
                 required: true,
                 class: 'fr-input white-bg',
                 autocomplete: Solicitation::AUTOCOMPLETE_TYPES[field],
-                minlength: (field == :phone_number ? '10' : nil)
+                minlength: (field == :phone_number ? '10' : nil),
+                value: (f.object.send(field) || params[field])
 
           - if @solicitation.errors.present?
             .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
