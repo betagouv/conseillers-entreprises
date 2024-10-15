@@ -4,18 +4,6 @@ require 'rails_helper'
 require 'api/api_entreprise/base'
 
 RSpec.describe DiagnosisCreation do
-  describe 'new_diagnosis' do
-    context 'with a solicitation' do
-      subject(:diagnosis){ described_class.new_diagnosis(solicitation) }
-
-      let(:solicitation) { build :solicitation, full_name: 'my company' }
-
-      it do
-        expect(diagnosis.facility.company.name).to eq 'my company'
-      end
-    end
-  end
-
   describe 'create_or_update_diagnosis' do
     context 'with new diagnosis' do
       # the subject has to be called as a block (expect{create_or_update_diagnosis}) for raise matchers to work correctly.

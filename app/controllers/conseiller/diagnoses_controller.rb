@@ -6,7 +6,7 @@ class Conseiller::DiagnosesController < ApplicationController
   def new
     authorize Diagnosis
     @current_solicitation = Solicitation.find_by(id: params[:solicitation])
-    @diagnosis = DiagnosisCreation.new_diagnosis(@current_solicitation)
+    @diagnosis = CreateDiagnosis::NewDiagnosis.new(@current_solicitation).call
     if @current_solicitation.present?
       @needs = Need.for_emails_and_sirets([@current_solicitation&.email], [@current_solicitation&.siret])
       @tab = 'search_manually' if @current_solicitation.siret.nil?
