@@ -29,7 +29,7 @@ module Stats
       end_date = params.end_date&.to_date || Date.today
       @end_date = end_date.end_of_day.in_time_zone
       @colors = params.colors
-      @detailed_graphs = params.detailed_graphs || false
+      @detailed_graphs = params.detailed_graphs
     end
 
     def date_group_attribute

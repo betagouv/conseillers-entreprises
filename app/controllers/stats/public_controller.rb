@@ -5,6 +5,7 @@ module Stats
     def index
       @stats_params = stats_params
       session[:public_stats_params] = @stats_params
+      session[:public_stats_params][:detailed_graphs] = false
       @main_stat = Stats::Needs::DoneWithHelpColumn.new
     end
 
