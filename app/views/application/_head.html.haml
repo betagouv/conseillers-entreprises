@@ -1,6 +1,7 @@
 %head
-  = metamagic site: t('app_name'), title: %i[title site], separator: " | "
+  %meta{ charset: 'UTF-8' }
   %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
+  = metamagic site: t('app_name'), title: %i[title site], separator: " | "
   = csrf_meta_tags
   = csp_meta_tag
   = render 'dsfr_api'
