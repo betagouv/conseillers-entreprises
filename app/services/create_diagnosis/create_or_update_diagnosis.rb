@@ -1,7 +1,5 @@
 module CreateDiagnosis
   class CreateOrUpdateDiagnosis
-    attr_accessor :params, :diagnosis
-
     def initialize(params, diagnosis = nil)
       @params = params
       @diagnosis = diagnosis
@@ -9,8 +7,8 @@ module CreateDiagnosis
 
     def call
       begin
+        @diagnosis ||= Diagnosis.new
         Diagnosis.transaction do
-          @diagnosis ||= Diagnosis.new
           if @params[:facility_attributes].include? :siret
             @params = @params.dup # avoid modifying the params hash at the call site
             # Facility attributes are nested in the hash; if there is no siret, we use the insee_code.
@@ -20,7 +18,7 @@ module CreateDiagnosis
           end
 
           @params[:step] = :contact unless @diagnosis.persisted?
-          @params[:content] = solicitation_description(@params)
+          @params[:content] = solicitation_description
           @diagnosis.attributes = @params
           @diagnosis.save
           @diagnosis
@@ -34,11 +32,11 @@ module CreateDiagnosis
 
     private
 
-    def solicitation_description(params)
-      if params[:solicitation].present?
-        params[:solicitation].description
-      elsif params[:solicitation_id].present?
-        Solicitation.find(params[:solicitation_id])&.description
+    def solicitation_description
+      if @params[:solicitation].present?
+        @params[:solicitation].description
+      elsif @params[:solicitation_id].present?
+        Solicitation.find(@params[:solicitation_id])&.description
       end
     end
   end

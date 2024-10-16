@@ -43,7 +43,6 @@
 
 class Solicitation < ApplicationRecord
   include AASM
-  include DiagnosisCreation::SolicitationMethods
   include RangeScopes
 
   ## Associations
@@ -415,6 +414,27 @@ class Solicitation < ApplicationRecord
     klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
     klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
     klass.all
+  end
+
+  ## Diagnosis preparation
+
+  def may_prepare_diagnosis?
+    self.preselected_subject.present? &&
+      FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret))
+  end
+
+  def prepare_diagnosis_errors=(diagnosis_errors)
+    self.prepare_diagnosis_errors_details = diagnosis_errors&.details
+  end
+
+  def prepare_diagnosis_errors
+    diagnosis_errors = Diagnosis.new.errors
+
+    self.prepare_diagnosis_errors_details&.each do |attr, errors|
+      errors.each { |h| h.each_value { |error| diagnosis_errors.add(attr, error.to_sym) } }
+    end
+
+    diagnosis_errors
   end
 
   def doublon_solicitations
