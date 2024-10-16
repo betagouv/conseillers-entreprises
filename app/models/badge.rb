@@ -4,10 +4,14 @@
 #
 #  id         :bigint(8)        not null, primary key
 #  category   :integer          not null
-#  color      :string           not null
+#  color      :string           default("#000000"), not null
 #  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_badges_on_title_and_category  (title,category) UNIQUE
 #
 
 class Badge < ApplicationRecord
@@ -31,6 +35,7 @@ class Badge < ApplicationRecord
   ## Validations
   #
   validates :title, :color, :category, presence: true, allow_blank: false
+  validates :title, uniqueness: { scope: :category }
 
   ##
   #
