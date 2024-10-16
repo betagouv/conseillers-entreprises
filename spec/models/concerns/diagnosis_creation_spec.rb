@@ -4,109 +4,6 @@ require 'rails_helper'
 require 'api/api_entreprise/base'
 
 RSpec.describe DiagnosisCreation do
-  describe 'create_or_update_diagnosis' do
-    context 'with new diagnosis' do
-      # the subject has to be called as a block (expect{create_or_update_diagnosis}) for raise matchers to work correctly.
-      subject(:create_or_update_diagnosis) { described_class.create_or_update_diagnosis(params) }
-
-      let(:advisor) { create :user }
-      let(:params) { { advisor: advisor, facility_attributes: facility_params } }
-
-      context 'with invalid facility data' do
-        let(:facility_params) { { invalid: 'value' } }
-
-        it do
-          expect{ create_or_update_diagnosis }.to raise_error ActiveModel::UnknownAttributeError
-        end
-      end
-
-      context 'with a facility siret' do
-        let(:siret) { '12345678901234' }
-        let(:facility_params) { { siret: siret } }
-
-        context 'when ApiEntreprise accepts the SIRET' do
-          before do
-            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { create(:facility, siret: siret) }
-          end
-
-          it 'fetches info for ApiEntreprise and creates the diagnosis' do
-            expect(create_or_update_diagnosis).to be_valid
-          end
-        end
-
-        context 'when ApiEntreprise returns an error' do
-          before do
-            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { raise Api::ApiError, 'some error message' }
-          end
-
-          it 'returns the message in the errors' do
-            expect(create_or_update_diagnosis.errors.details).to eq({ base: [{ error: 'some error message' }] })
-          end
-        end
-      end
-
-      context 'with manual facility info' do
-        let(:insee_code) { '78586' }
-        let(:facility_params) { { insee_code: insee_code, company_attributes: { name: 'Boucherie Sanzot' } } }
-
-        before do
-          city_json = JSON.parse(file_fixture('geo_api_communes_78586.json').read)
-          allow(ApiGeo::Query).to receive(:city_with_code).with(insee_code) { city_json }
-        end
-
-        it 'creates a new diagnosis without siret' do
-          expect(create_or_update_diagnosis).to be_valid
-          expect(create_or_update_diagnosis.company.name).to eq 'Boucherie Sanzot'
-        end
-      end
-    end
-
-    context 'with existing diagnosis' do
-      subject(:create_or_update_diagnosis) { described_class.create_or_update_diagnosis(params, diagnosis) }
-
-      let(:diagnosis) { create :diagnosis, step: :needs }
-      let(:advisor) { create :user }
-      let(:params) { { advisor: advisor, facility_attributes: facility_params } }
-
-      context 'with invalid facility data' do
-        let(:facility_params) { { invalid: 'value' } }
-
-        it do
-          expect{ create_or_update_diagnosis }.to raise_error ActiveModel::UnknownAttributeError
-        end
-      end
-
-      context 'with a facility siret' do
-        let(:siret) { '12345678901234' }
-        let(:facility_params) { { siret: siret } }
-
-        context 'when ApiEntreprise accepts the SIRET' do
-          before do
-            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { create(:facility, siret: siret) }
-          end
-
-          it 'fetches info for ApiEntreprise and creates the diagnosis' do
-            expect(create_or_update_diagnosis).to be_valid
-          end
-
-          it 'doesnt change diagnosis step' do
-            expect { create_or_update_diagnosis }.not_to change(diagnosis, :step)
-          end
-        end
-
-        context 'when ApiEntreprise returns an error' do
-          before do
-            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { raise Api::ApiError, 'some error message' }
-          end
-
-          it 'returns the message in the errors' do
-            expect(create_or_update_diagnosis.errors.details).to eq({ base: [{ error: 'some error message' }] })
-          end
-        end
-      end
-    end
-  end
-
   describe 'may_prepare_diagnosis' do
     subject(:may_prepare_diagnosis) { solicitation.may_prepare_diagnosis? }
 
@@ -139,10 +36,22 @@ RSpec.describe DiagnosisCreation do
   describe 'prepare_diagnosis' do
     let(:user) { create :user }
     let(:api_url) { "https://api-adresse.data.gouv.fr/search/?q=matignon&type=municipality" }
+    let(:some_params) do
+      {
+        advisor: user,
+      facility_attributes: facility_attributes,
+      solicitation: solicitation
+      }
+    end
+    let(:facility_attributes) { { siret: solicitation.siret } }
+    let!(:intermediary_result) { CreateDiagnosis::CreateOrUpdateDiagnosis.new(some_params, diagnosis) }
 
     before do
       allow(solicitation).to receive(:may_prepare_diagnosis?).and_return(true)
-      allow(described_class).to receive(:create_or_update_diagnosis) { diagnosis }
+      # suivant le contexte, ce ne sont pas toujours les memes arguments qui sont envoyés
+      allow(CreateDiagnosis::CreateOrUpdateDiagnosis).to receive(:new).with(some_params, diagnosis) { intermediary_result }
+      allow(CreateDiagnosis::CreateOrUpdateDiagnosis).to receive(:new).with(some_params, nil) { intermediary_result }
+      allow(intermediary_result).to receive(:call) { diagnosis }
       allow_any_instance_of(Diagnosis).to(receive(:prepare_needs_from_solicitation)) { prepare_needs }
       allow_any_instance_of(Diagnosis).to receive(:prepare_happened_on_from_solicitation)
       allow_any_instance_of(Diagnosis).to receive(:prepare_visitee_from_solicitation)
@@ -191,6 +100,7 @@ RSpec.describe DiagnosisCreation do
     context 'solicitation without siret' do
       let(:location) { "matignon" }
       let(:solicitation) { create :solicitation, siret: nil, location: location }
+      let(:facility_attributes) { { insee_code: '22143', company_attributes: { name: solicitation.full_name } } }
 
       context 'all is well' do
         let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }

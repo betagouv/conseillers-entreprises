@@ -4,46 +4,6 @@ module DiagnosisCreation
   # The creation params hash for a diagnosis has nested attributes for #facility and #facility#company.
   # These will be used `fields_for` form helpers.
 
-  def self.get_solicitation_description(params)
-    if params[:solicitation].present?
-      params[:solicitation].description
-    elsif params[:solicitation_id].present?
-      Solicitation.find(params[:solicitation_id])&.description
-    end
-  end
-
-  # Actually create a diagnosis with nested attributes for #facility and #company
-  def self.create_or_update_diagnosis(params, diagnosis = nil)
-    Diagnosis.transaction do
-      diagnosis ||= Diagnosis.new
-      if params[:facility_attributes].include? :siret
-        params = params.dup # avoid modifying the params hash at the call site
-        # Facility attributes are nested in the hash; if there is no siret, we use the insee_code.
-        # In particular, the facility.insee_code= setter will fetch the readable locality name from the geo api.
-        facility_params = params.delete(:facility_attributes)
-        begin
-          # TODO: Get rid of UseCases::SearchFacility and build it implicitely in `facility#siret=`
-          #   This would be somewhat magic, but:
-          #   * would let us use the params hash as provided.
-          #   * remove a lot of machinery
-          #   * would just set an error instead of raising an exception.
-          #   Related to #622
-          params[:facility] = UseCases::SearchFacility.with_siret_and_save(facility_params[:siret])
-        rescue Api::ApiError => e
-          # Eat the exception and build a Diagnosis object just to hold the error
-          diagnosis.errors.add(:base, e.message)
-          return diagnosis
-        end
-      end
-
-      params[:step] = :contact unless diagnosis.persisted?
-      params[:content] = get_solicitation_description(params)
-      diagnosis.attributes = params
-      diagnosis.save
-      diagnosis
-    end
-  end
-
   module SolicitationMethods
     # Some preconditions can be verified without actually trying to create the Diagnosis
     def may_prepare_diagnosis?
@@ -63,13 +23,13 @@ module DiagnosisCreation
       diagnosis = nil
       Diagnosis.transaction do
         # Step 0: create with the facility
-        diagnosis = DiagnosisCreation.create_or_update_diagnosis(
+        diagnosis = CreateDiagnosis::CreateOrUpdateDiagnosis.new(
           {
             advisor: advisor,
             solicitation: self,
             facility_attributes: computed_facility_attributes
           }, self.diagnosis
-        )
+        ).call
 
         diagnosis.autofill_steps
 
