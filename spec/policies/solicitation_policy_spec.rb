@@ -50,13 +50,24 @@ RSpec.describe SolicitationPolicy, type: :policy do
    end
 
   permissions :destroy? do
-     context "grants access to admin" do
-       it { is_expected.to permit(admin, solicitation) }
-     end
+    context "grants access to admin" do
+      it { is_expected.to permit(admin, solicitation) }
+    end
 
-     context "denies access to no admin user" do
-       it { is_expected.not_to permit(user, solicitation) }
-       it { is_expected.not_to permit(no_user, solicitation) }
-     end
-   end
+    context "denies access to no admin user" do
+      it { is_expected.not_to permit(user, solicitation) }
+      it { is_expected.not_to permit(no_user, solicitation) }
+    end
+  end
+
+  permissions :mark_as_spam? do
+    context "grants access to admin" do
+      it { is_expected.to permit(admin, solicitation) }
+    end
+
+    context "denies access to no admin user" do
+      it { is_expected.not_to permit(user, solicitation) }
+      it { is_expected.not_to permit(no_user, solicitation) }
+    end
+  end
 end

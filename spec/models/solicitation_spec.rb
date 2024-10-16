@@ -613,4 +613,32 @@ end
       it { is_expected.to eq 'campagne-123' }
     end
   end
+
+  describe 'mark_as_spam' do
+    let(:solicitation) { create(:solicitation, email: email, status: 'in_progress') }
+    let(:email) { Faker::Internet.email }
+
+    context 'when email is not already marked as spam' do
+      before { solicitation.mark_as_spam }
+
+      it 'creates Spam record and cancels the solicitation' do
+        expect(Spam.count).to eq 1
+        expect(Spam.first.email).to eq email
+        expect(solicitation).to be_canceled
+        expect(solicitation.badges.pluck(:title)).to include('Spam')
+      end
+    end
+
+    context 'when email is already marked as spam' do
+      let!(:spam) { create(:spam, email: email) }
+
+      before { solicitation.mark_as_spam }
+
+      it 'cancels the solicitation' do
+        expect(Spam.count).to eq 1
+        expect(solicitation).to be_canceled
+        expect(solicitation.badges.pluck(:title)).to include('Spam')
+      end
+    end
+  end
 end
