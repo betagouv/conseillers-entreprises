@@ -21,7 +21,7 @@ module CreateDiagnosis
           }, solicitation.diagnosis
         ).call
 
-        diagnosis.autofill_steps
+        CreateDiagnosis::Steps.new(diagnosis).autofill_steps
 
         # Rollback on error!
         if diagnosis.errors.present?

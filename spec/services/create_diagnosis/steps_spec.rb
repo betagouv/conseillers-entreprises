@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'api/api_entreprise/base'
+require 'api/base'
 
-RSpec.describe DiagnosisCreation do
+describe CreateDiagnosis::Steps do
   describe 'prepare_needs_from_solicitation' do
     let(:diagnosis) { create :diagnosis, solicitation: solicitation }
     let(:solicitation) { create :solicitation }
 
     before do
       allow(solicitation).to receive(:preselected_subject).and_return(pde_subject)
-      diagnosis.prepare_needs_from_solicitation
+      described_class.new(diagnosis).prepare_needs_from_solicitation
     end
 
     context 'solicitation has preselected subjects' do
@@ -35,7 +35,7 @@ RSpec.describe DiagnosisCreation do
     let(:diagnosis) { create :diagnosis, solicitation: solicitation, visitee: nil }
 
     before do
-      diagnosis.prepare_visitee_from_solicitation
+      described_class.new(diagnosis).prepare_visitee_from_solicitation
     end
 
     context 'solicitation has all details' do
@@ -70,7 +70,7 @@ RSpec.describe DiagnosisCreation do
     let(:institution) { create :institution }
 
     before do
-      diagnosis.prepare_matches_from_solicitation
+      described_class.new(diagnosis).prepare_matches_from_solicitation
     end
 
     context 'there are relevant experts' do

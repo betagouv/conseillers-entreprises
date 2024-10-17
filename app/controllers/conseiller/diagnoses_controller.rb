@@ -19,7 +19,7 @@ class Conseiller::DiagnosesController < ApplicationController
     @diagnosis = CreateDiagnosis::CreateOrUpdateDiagnosis.new(diagnosis_params.merge(advisor: current_user)).call
 
     if @diagnosis.persisted?
-      @diagnosis.autofill_steps
+      CreateDiagnosis::Steps.new(@diagnosis).autofill_steps
       redirect_to controller: 'conseiller/diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     else
       flash.now[:alert] = @diagnosis.errors.full_messages.to_sentence

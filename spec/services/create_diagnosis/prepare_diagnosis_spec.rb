@@ -14,6 +14,7 @@ describe CreateDiagnosis::PrepareDiagnosis do
     end
     let(:facility_attributes) { { siret: solicitation.siret } }
     let!(:intermediary_result) { CreateDiagnosis::CreateOrUpdateDiagnosis.new(some_params, diagnosis) }
+    let!(:diagnosis_steps) { CreateDiagnosis::Steps.new(diagnosis) }
 
     before do
       allow(solicitation).to receive(:may_prepare_diagnosis?).and_return(true)
@@ -21,10 +22,12 @@ describe CreateDiagnosis::PrepareDiagnosis do
       allow(CreateDiagnosis::CreateOrUpdateDiagnosis).to receive(:new).with(some_params, diagnosis) { intermediary_result }
       allow(CreateDiagnosis::CreateOrUpdateDiagnosis).to receive(:new).with(some_params, nil) { intermediary_result }
       allow(intermediary_result).to receive(:call) { diagnosis }
-      allow_any_instance_of(Diagnosis).to(receive(:prepare_needs_from_solicitation)) { prepare_needs }
-      allow_any_instance_of(Diagnosis).to receive(:prepare_happened_on_from_solicitation)
-      allow_any_instance_of(Diagnosis).to receive(:prepare_visitee_from_solicitation)
-      allow_any_instance_of(Diagnosis).to receive(:prepare_matches_from_solicitation)
+
+      allow(CreateDiagnosis::Steps).to receive(:new).with(diagnosis) { diagnosis_steps }
+      allow(diagnosis_steps).to receive(:prepare_needs_from_solicitation) { prepare_needs }
+      allow(diagnosis_steps).to receive(:prepare_happened_on_from_solicitation)
+      allow(diagnosis_steps).to receive(:prepare_visitee_from_solicitation)
+      allow(diagnosis_steps).to receive(:prepare_matches_from_solicitation)
       stub_request(:get, api_url).to_return(
         body: file_fixture('api_adresse_search_municipality.json')
       )
