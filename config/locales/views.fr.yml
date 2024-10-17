@@ -320,6 +320,7 @@ fr:
         solicitation_relance_explanation: 'Relance suspectée : une mise en relation pour la même entreprise sur le même sujet a été faite il y a moins de 3 semaines'
         source: 'Page d’atterrissage :'
       solicitation_actions:
+        add_email_as_spam: Ajouter l’email comme spam
         prepare_diagnosis_errors:
           one: Erreur à la préparation
           other: "%{count} erreurs à préparation"
@@ -848,6 +849,7 @@ fr:
       title: Sollicitations
     institutions_tiles_block:
       partners_that_may_call: 'Les conseillers compétents sur ce sujet :'
+    mark_as_spam: L’email a été ajouté à la liste des spam
     search_company:
       select_your_company: 'Sélectionnez votre entreprise :'
     search_facility:

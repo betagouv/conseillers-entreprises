@@ -146,6 +146,14 @@ RSpec.describe DiagnosisCreation do
 
       it { is_expected.to be false }
     end
+
+    context 'with email in spam list' do
+      let(:email) { Faker::Internet.email }
+      let(:solicitation) { create :solicitation, email: email }
+      let!(:spawn) { create :spam, email: email }
+
+      it { is_expected.to be false }
+    end
   end
 
   describe 'prepare_diagnosis' do

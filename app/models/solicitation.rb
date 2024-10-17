@@ -109,7 +109,8 @@ class Solicitation < ApplicationRecord
 
     event :complete, before: :format_solicitation do
       # canceled : cas des mauvaises qualités modifiés par le chef d'entreprise
-      transitions from: [:step_description, :canceled], to: :in_progress
+      transitions from: [:step_description, :canceled], to: :in_progress, guard: :not_spam?
+      transitions from: :step_description, to: :canceled, after: :tag_as_spam
     end
 
     event :process do
@@ -624,6 +625,25 @@ class Solicitation < ApplicationRecord
   def region
     return if code_region.nil?
     Territory.find_by(code_region: self.code_region)
+  end
+
+  def spam?
+    Spam.find_by(email: email).present?
+  end
+
+  def not_spam?
+    !spam?
+  end
+
+  def tag_as_spam
+    tag = Badge.find_or_create_by(title: 'Spam', category: 'solicitations')
+    self.badges << tag
+  end
+
+  def mark_as_spam
+    Spam.find_or_create_by(email: email)
+    self.cancel!
+    tag_as_spam
   end
 
   def self.ransackable_attributes(auth_object = nil)

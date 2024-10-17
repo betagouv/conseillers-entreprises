@@ -80,6 +80,13 @@ class Conseiller::SolicitationsController < ApplicationController
     end
   end
 
+  def mark_as_spam
+    @solicitation = Solicitation.find(params.permit(:id)[:id])
+    authorize @solicitation, :mark_as_spam?
+    @solicitation.mark_as_spam
+    redirect_to conseiller_solicitations_path, notice: t('solicitations.mark_as_spam')
+  end
+
   private
 
   def ordered_solicitations(status)
