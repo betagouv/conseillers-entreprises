@@ -1,4 +1,4 @@
-module CreateDiagnosis
+module DiagnosisCreation
   class NewDiagnosis
     attr_accessor :solicitation
 

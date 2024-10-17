@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'api/base'
 
-describe CreateDiagnosis::Steps do
+describe DiagnosisCreation::Steps do
   describe 'prepare_needs_from_solicitation' do
     let(:diagnosis) { create :diagnosis, solicitation: solicitation }
     let(:solicitation) { create :solicitation }

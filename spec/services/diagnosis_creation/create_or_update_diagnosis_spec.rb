@@ -4,7 +4,7 @@ require 'rails_helper'
 # Nécessaire pour que la constante Api::ApiError soit initialisée
 require 'api/base'
 
-describe CreateDiagnosis::CreateOrUpdateDiagnosis do
+describe DiagnosisCreation::CreateOrUpdateDiagnosis do
   describe 'call' do
     # the subject has to be called as a block (expect{created_or_updated_diagnosis}) for raise matchers to work correctly.
     subject(:created_or_updated_diagnosis) { described_class.new(params, diagnosis).call }

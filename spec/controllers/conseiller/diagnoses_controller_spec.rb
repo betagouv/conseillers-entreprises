@@ -10,10 +10,10 @@ RSpec.describe Conseiller::DiagnosesController do
   describe 'POST #create' do
     let(:some_params) { { facility_attributes: { siret: '41816609600069' } } }
     let(:some_params_permitted) { ActionController::Parameters.new(some_params).permit(facility_attributes: [ :siret ]).merge(advisor: advisor) }
-    let!(:intermediary_result) { CreateDiagnosis::CreateOrUpdateDiagnosis.new(some_params_permitted) }
+    let!(:intermediary_result) { DiagnosisCreation::CreateOrUpdateDiagnosis.new(some_params_permitted) }
 
     before do
-      allow(CreateDiagnosis::CreateOrUpdateDiagnosis).to receive(:new).with(some_params_permitted) { intermediary_result }
+      allow(DiagnosisCreation::CreateOrUpdateDiagnosis).to receive(:new).with(some_params_permitted) { intermediary_result }
       allow(intermediary_result).to receive(:call) { result }
     end
 

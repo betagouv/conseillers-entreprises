@@ -7,7 +7,7 @@ namespace :rattrapage_analyse do
     puts "Sollicitations sans analyses des #{@days_count} derniers jours : #{solicitations_to_update.count}"
     total = 0
     solicitations_to_update.find_each do |solicitation|
-      CreateDiagnosis::PrepareDiagnosis.new(solicitation, nil).call
+      DiagnosisCreation::PrepareDiagnosis.new(solicitation, nil).call
       total += 1 if solicitation.diagnosis.present?
     end
     puts "#{total} sollicitations mises a jour"

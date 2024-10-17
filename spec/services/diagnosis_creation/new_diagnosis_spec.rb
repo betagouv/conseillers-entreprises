@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-describe CreateDiagnosis::NewDiagnosis do
+describe DiagnosisCreation::NewDiagnosis do
   describe 'call' do
     subject(:diagnosis){ described_class.new(solicitation).call }
 

@@ -1,4 +1,4 @@
-module CreateDiagnosis
+module DiagnosisCreation
   class Steps
     attr_accessor :diagnosis, :solicitation
 
@@ -53,7 +53,7 @@ module CreateDiagnosis
       return if other_subject_solicitation?
       diagnosis.step_matches!
 
-      CreateDiagnosis::CreateMatches.new(diagnosis).call
+      DiagnosisCreation::CreateMatches.new(diagnosis).call
     end
 
     def autofill_steps

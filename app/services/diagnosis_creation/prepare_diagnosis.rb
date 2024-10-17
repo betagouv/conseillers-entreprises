@@ -1,4 +1,4 @@
-module CreateDiagnosis
+module DiagnosisCreation
   class PrepareDiagnosis
     attr_accessor :solicitation, :advisor
 
@@ -13,7 +13,7 @@ module CreateDiagnosis
       diagnosis = nil
       Diagnosis.transaction do
         # Step 0: create with the facility
-        diagnosis = CreateDiagnosis::CreateOrUpdateDiagnosis.new(
+        diagnosis = DiagnosisCreation::CreateOrUpdateDiagnosis.new(
           {
             advisor: advisor,
             solicitation: solicitation,
@@ -21,7 +21,7 @@ module CreateDiagnosis
           }, solicitation.diagnosis
         ).call
 
-        CreateDiagnosis::Steps.new(diagnosis).autofill_steps
+        DiagnosisCreation::Steps.new(diagnosis).autofill_steps
 
         # Rollback on error!
         if diagnosis.errors.present?

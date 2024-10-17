@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-describe CreateDiagnosis::PrepareDiagnosis do
+describe DiagnosisCreation::PrepareDiagnosis do
   describe 'call' do
     let(:user) { create :user }
     let(:api_url) { "https://api-adresse.data.gouv.fr/search/?q=matignon&type=municipality" }
@@ -13,17 +13,17 @@ describe CreateDiagnosis::PrepareDiagnosis do
       }
     end
     let(:facility_attributes) { { siret: solicitation.siret } }
-    let!(:intermediary_result) { CreateDiagnosis::CreateOrUpdateDiagnosis.new(some_params, diagnosis) }
-    let!(:diagnosis_steps) { CreateDiagnosis::Steps.new(diagnosis) }
+    let!(:intermediary_result) { DiagnosisCreation::CreateOrUpdateDiagnosis.new(some_params, diagnosis) }
+    let!(:diagnosis_steps) { DiagnosisCreation::Steps.new(diagnosis) }
 
     before do
       allow(solicitation).to receive(:may_prepare_diagnosis?).and_return(true)
       # suivant le contexte, ce ne sont pas toujours les memes arguments qui sont envoyés
-      allow(CreateDiagnosis::CreateOrUpdateDiagnosis).to receive(:new).with(some_params, diagnosis) { intermediary_result }
-      allow(CreateDiagnosis::CreateOrUpdateDiagnosis).to receive(:new).with(some_params, nil) { intermediary_result }
+      allow(DiagnosisCreation::CreateOrUpdateDiagnosis).to receive(:new).with(some_params, diagnosis) { intermediary_result }
+      allow(DiagnosisCreation::CreateOrUpdateDiagnosis).to receive(:new).with(some_params, nil) { intermediary_result }
       allow(intermediary_result).to receive(:call) { diagnosis }
 
-      allow(CreateDiagnosis::Steps).to receive(:new).with(diagnosis) { diagnosis_steps }
+      allow(DiagnosisCreation::Steps).to receive(:new).with(diagnosis) { diagnosis_steps }
       allow(diagnosis_steps).to receive(:prepare_needs_from_solicitation) { prepare_needs }
       allow(diagnosis_steps).to receive(:prepare_happened_on_from_solicitation)
       allow(diagnosis_steps).to receive(:prepare_visitee_from_solicitation)

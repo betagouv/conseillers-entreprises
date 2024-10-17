@@ -1,4 +1,4 @@
-module CreateDiagnosis
+module DiagnosisCreation
   class CreateOrUpdateDiagnosis
     def initialize(params, diagnosis = nil)
       @params = params

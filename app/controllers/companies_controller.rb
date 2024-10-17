@@ -27,7 +27,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @diagnosis = CreateDiagnosis::NewDiagnosis.new.call
+    @diagnosis = DiagnosisCreation::NewDiagnosis.new.call
     facility = Facility.find(params.permit(:id)[:id])
 
     search_facility_informations(facility.siret)
@@ -38,7 +38,7 @@ class CompaniesController < ApplicationController
 
   def show_with_siret
     current_solicitation = get_current_solicitation
-    @diagnosis = CreateDiagnosis::NewDiagnosis.new(current_solicitation).call
+    @diagnosis = DiagnosisCreation::NewDiagnosis.new(current_solicitation).call
 
     siret = params.permit(:siret)[:siret]
     clean_siret = FormatSiret.clean_siret(siret)
