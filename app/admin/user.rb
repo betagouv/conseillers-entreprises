@@ -189,8 +189,10 @@ ActiveAdmin.register User do
       end
     end
 
-    f.inputs I18n.t('activerecord.models.expert.one') do
-      f.input :create_expert, as: :boolean, label: I18n.t('active_admin.user.create_expert')
+    unless resource.persisted?
+      f.inputs I18n.t('activerecord.models.expert.one') do
+        f.input :create_expert, as: :boolean, label: I18n.t('active_admin.user.create_expert')
+      end
     end
 
     f.actions
