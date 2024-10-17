@@ -108,7 +108,9 @@ class CompanySatisfaction < ApplicationRecord
 
   def share_with_higher_manager(e, antenne)
     if antenne.parent_antenne.present?
-      antenne.parent_antenne.managers.active.each{ |u| self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
+      antenne.parent_antenne.managers.active.each do |u|
+        u.with_lock { self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
+      end
       share_with_higher_manager(e, antenne.parent_antenne)
     end
   end
