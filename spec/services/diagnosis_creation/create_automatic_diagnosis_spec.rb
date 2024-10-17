@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-describe DiagnosisCreation::PrepareDiagnosis do
+describe DiagnosisCreation::CreateAutomaticDiagnosis do
   describe 'call' do
     let(:user) { create :user }
     let(:api_url) { "https://api-adresse.data.gouv.fr/search/?q=matignon&type=municipality" }

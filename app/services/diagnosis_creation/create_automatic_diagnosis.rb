@@ -1,5 +1,5 @@
 module DiagnosisCreation
-  class PrepareDiagnosis
+  class CreateAutomaticDiagnosis
     attr_accessor :solicitation, :advisor
 
     def initialize(solicitation, advisor)

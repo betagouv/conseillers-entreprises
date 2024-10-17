@@ -128,7 +128,7 @@ class SolicitationsController < PagesController
       @solicitation.complete if @solicitation.may_complete?
       if @solicitation.update(sanitize_params(solicitation_params))
         ActiveRecord::Base.transaction do
-          PrepareSolicitationDiagnosisJob.perform_later(@solicitation.id)
+          CreateAutomaticDiagnosisJob.perform_later(@solicitation.id)
           CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
           redirect_to form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
         end

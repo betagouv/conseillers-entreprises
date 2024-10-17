@@ -71,7 +71,7 @@ class Conseiller::SolicitationsController < ApplicationController
   end
 
   def prepare_diagnosis
-    diagnosis = DiagnosisCreation::PrepareDiagnosis.new(@solicitation, current_user).call
+    diagnosis = DiagnosisCreation::CreateAutomaticDiagnosis.new(@solicitation, current_user).call
     if diagnosis
       redirect_to [:conseiller, diagnosis]
     else

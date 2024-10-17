@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe PrepareSolicitationDiagnosisJob do
+RSpec.describe CreateAutomaticDiagnosisJob do
   describe 'enqueue a job with a solicitation' do
     let(:solicitation) { create(:solicitation) }
 
