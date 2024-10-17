@@ -108,6 +108,7 @@ class User < ApplicationRecord
   has_one :institution, through: :antenne, source: :institution, inverse_of: :advisors
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :advisors
   has_many :antenne_territories, through: :antenne, source: :territories, inverse_of: :advisors
+  has_many :antenne_regions, through: :antenne, source: :regions, inverse_of: :advisors
 
   # :sent_diagnoses
   has_many :sent_needs, through: :sent_diagnoses, source: :needs, inverse_of: :advisor
@@ -117,7 +118,6 @@ class User < ApplicationRecord
   has_many :received_matches, through: :experts, source: :received_matches, inverse_of: :contacted_users
   has_many :received_needs, through: :experts, source: :received_needs, inverse_of: :contacted_users
   has_many :received_diagnoses, through: :experts, source: :received_diagnoses, inverse_of: :contacted_users
-  has_many :antenne_regions, through: :experts, inverse_of: :advisors
   has_many :themes, through: :experts, inverse_of: :advisors
   has_many :subjects, through: :experts, inverse_of: :advisors
 
