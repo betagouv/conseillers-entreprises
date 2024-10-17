@@ -31,7 +31,7 @@ describe CreateDiagnosis::CreateMatches do
     let!(:cma) { create :institution, name: 'cma' }
 
     before do
-      diagnosis.prepare_matches_from_solicitation
+      CreateDiagnosis::Steps.new(diagnosis).prepare_matches_from_solicitation
     end
 
     context 'there are relevant experts' do
