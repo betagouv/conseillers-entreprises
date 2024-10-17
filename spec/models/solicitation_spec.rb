@@ -584,4 +584,33 @@ end
       it { is_expected.to eq 'campagne-123' }
     end
   end
+
+  describe 'may_prepare_diagnosis' do
+    subject(:may_prepare_diagnosis) { solicitation.may_prepare_diagnosis? }
+
+    context 'with_siret' do
+      let(:solicitation) { create :solicitation }
+
+      it { is_expected.to be true }
+    end
+
+    context 'with_location' do
+      let(:solicitation) { create :solicitation, siret: nil, location: "Matignon" }
+      let(:api_url) { "https://api-adresse.data.gouv.fr/search/?q=matignon&type=municipality" }
+
+      before do
+        stub_request(:get, api_url).to_return(
+          body: file_fixture('api_adresse_search_municipality.json')
+        )
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'without_location' do
+      let(:solicitation) { create :solicitation, siret: nil }
+
+      it { is_expected.to be false }
+    end
+  end
 end

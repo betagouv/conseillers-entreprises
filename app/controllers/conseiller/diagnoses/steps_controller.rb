@@ -2,8 +2,8 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
   before_action :retrieve_diagnosis
 
   def contact
-    @diagnosis.prepare_happened_on_from_solicitation
-    @diagnosis.prepare_visitee_from_solicitation
+    CreateDiagnosis::Steps.new(@diagnosis).prepare_happened_on_from_solicitation
+    CreateDiagnosis::Steps.new(@diagnosis).prepare_visitee_from_solicitation
   end
 
   def update_contact
@@ -23,8 +23,7 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
 
   def needs
     @themes = Theme.ordered_for_interview
-
-    @diagnosis.prepare_needs_from_solicitation
+    CreateDiagnosis::Steps.new(@diagnosis).prepare_needs_from_solicitation
   end
 
   def update_needs
@@ -46,7 +45,7 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
   end
 
   def matches
-    @diagnosis.prepare_matches_from_solicitation
+    CreateDiagnosis::Steps.new(@diagnosis).prepare_matches_from_solicitation
     @company_needs = @diagnosis.facility.needs.diagnosis_completed
     @contact_needs = Need.for_emails_and_sirets([@diagnosis.visitee.email])
   end
