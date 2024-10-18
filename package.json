@@ -10,7 +10,7 @@
     "jquery": "^3.5.1",
     "mjml": "^4.15.3",
     "remixicon": "^4.2.0",
-    "slim-select": "^2.8.1",
+    "slim-select": "^2.9.2",
     "stimulus": "^2.0.0",
     "whatwg-fetch": "^3.5.0"
   },
