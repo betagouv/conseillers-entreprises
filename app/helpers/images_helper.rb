@@ -21,6 +21,12 @@ module ImagesHelper
     display_all_logos(logos, 'institutions/')
   end
 
+  def display_svg(path)
+    Rails.root.join('app', 'assets', 'images', path).open('r') do |file|
+      raw file.read
+    end
+  end
+
   private
 
   def display_all_logos(logos, path)
