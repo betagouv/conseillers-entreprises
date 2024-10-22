@@ -52,5 +52,8 @@ module Clockwork
     every(1.day, 'reminders_registers', :at => ['01:00', '13:00'], tz: 'UTC') do
       Admin::CreateRemindersRegistersJob.perform_later
     end
+    every(1.day, 'rattrapage_api_rne', :at => ['02:30', '12:30'], tz: 'UTC') do
+      `rake rattrapage_api_rne`
+    end
   end
 end
