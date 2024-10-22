@@ -1,0 +1,60 @@
+module Stats::Acquisitions
+  class GoogleAds
+    include ::Stats::BaseStats
+    include Stats::Needs::Base
+
+    def main_query
+      needs_base_scope
+        .joins(diagnosis: :solicitation)
+    end
+
+    def build_series
+      query = main_query
+      query = Stats::Filters::Needs.new(query, self).call
+
+      @needs_from_google = []
+      @from_others = []
+
+      search_range_by_month.each do |range|
+        month_query = query.created_between(range.first, range.last)
+        from_google_count = month_query.where(solicitations: Solicitation.mtm_campaign_start('googleads')).count
+        @needs_from_google << from_google_count
+        @from_others << month_query.count - from_google_count
+      end
+
+      as_series(@needs_from_google)
+    end
+
+    def chart
+      'line-chart'
+    end
+
+    def count
+      build_series
+      percentage_two_numbers(@needs_from_google, @from_others)
+    end
+
+    def secondary_count
+      @needs_from_google.sum
+    end
+
+    def colors
+      needs_colors
+    end
+
+    def format
+      '{series.name} : <b>{point.y}</b>'
+    end
+
+    private
+
+    def as_series(needs)
+      [
+        {
+          name: I18n.t('stats.series.transmitted_needs.title'),
+          data: needs
+        }
+      ]
+    end
+  end
+end
