@@ -9,7 +9,6 @@ namespace :rattrapage_api_rne do
     puts "Entreprise sans nature activite des #{@days_count} derniers jours : #{companies_to_update.count}"
     facilities_to_update.find_each do |facility|
       UseCases::SearchFacility.with_siret_and_save(facility.siret)
-      total += 1 if facility.nature_activites.any?
     end
     puts "Etablissements restant sans nature activite : #{no_nature_activite_facilities.count}"
     puts "Entreprises restant sans nature activite : #{no_nature_activite_companies.count}"
