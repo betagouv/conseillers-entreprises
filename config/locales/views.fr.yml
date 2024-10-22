@@ -897,6 +897,16 @@ fr:
       stats_params:
         datepicker_format: 'Format attendu : JJ/MM/AAAA'
     series:
+      acquisitions_entreprendre:
+        title:
+          one: des besoins transmis aux conseillers proviennent du site Entreprendre.Service-Public.fr, soit %{secondary_count} besoin
+          other: des besoins transmis aux conseillers proviennent du site Entreprendre.Service-Public.fr, soit %{secondary_count} besoins
+          zero: des besoins transmis aux conseillers proviennent du site Entreprendre.Service-Public.fr, soit %{secondary_count} besoin
+      acquisitions_google_ads:
+        title:
+          one: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
+          other: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoins
+          zero: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
       advisors:
         title: Conseillers publics
         title_table: Nombre de conseillers de service public
@@ -1052,6 +1062,10 @@ fr:
         visits: Visites par un conseiller
       transmitted_needs:
         title: Besoins transmis
+      from_entreprendre:
+        title: "Entreprendre"
+      from_others:
+        title: "Autres provenances"
     skeleton_card:
       loading: Graphique en cours de chargement...
     stats_chart:
@@ -1111,6 +1125,7 @@ fr:
     taken_care_before: Moins de 5 jours
     taking_care_status: Statut « pris en charge »
     team:
+      acquisition: Acquisition
       index:
         select_partner: Attention ! Pensez à sélectionner un partenaire
         title: Statistiques équipe
