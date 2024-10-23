@@ -25,10 +25,6 @@ module Stats::Acquisitions
       as_series(@needs_from_google)
     end
 
-    def chart
-      'line-chart'
-    end
-
     def count
       build_series
       percentage_two_numbers(@needs_from_google, @from_others)
