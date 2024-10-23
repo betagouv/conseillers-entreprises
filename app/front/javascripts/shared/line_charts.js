@@ -1,4 +1,4 @@
-export function LineCharts (container, months, max_value, series, colors, format, subtitle) {
+export function lineCharts (container, months, max_value, series, colors, format, subtitle) {
   Highcharts.chart(container, {
     colors: colors,
     title: {

@@ -1,4 +1,4 @@
-export function percentageStatsCharts (container, months, max_value, series, colors, format, subtitle) {
+export function percentageColumnCharts (container, months, max_value, series, colors, format, subtitle) {
   Highcharts.chart(container, {
     colors: colors,
     chart: {

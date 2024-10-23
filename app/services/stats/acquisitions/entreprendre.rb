@@ -19,7 +19,7 @@ module Stats::Acquisitions
         month_query = query.created_between(range.first, range.last)
         from_entreprendre_count = month_query.where(solicitations: Solicitation.mtm_campaign_eq('entreprendre')).count
         @needs_from_entreprendre << from_entreprendre_count
-        @from_others << month_query.count - from_entreprendre_count
+        @from_others << (month_query.count - from_entreprendre_count)
       end
 
       as_series(@needs_from_entreprendre)
@@ -41,8 +41,6 @@ module Stats::Acquisitions
     def colors
       needs_colors
     end
-
-
 
     private
 
