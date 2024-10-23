@@ -1,12 +1,7 @@
 module Stats::Acquisitions
   class Entreprendre
     include ::Stats::BaseStats
-    include Stats::Needs::Base
-
-    def main_query
-      needs_base_scope
-        .joins(diagnosis: :solicitation)
-    end
+    include Stats::Acquisitions::Base
 
     def build_series
       query = main_query

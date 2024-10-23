@@ -1,4 +1,9 @@
 module Stats::Acquisitions::Base
+  def main_query
+    needs_base_scope
+      .joins(diagnosis: :solicitation)
+  end
+
   def needs_base_scope
     Need.diagnosis_completed
       .joins(:diagnosis).merge(Diagnosis.from_solicitation)
