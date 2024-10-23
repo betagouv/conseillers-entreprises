@@ -8,4 +8,12 @@ module Stats::Acquisitions::Base
   def category_group_attribute
     :status
   end
+
+  def chart
+    'line-chart'
+  end
+
+  def colors
+    needs_colors
+  end
 end

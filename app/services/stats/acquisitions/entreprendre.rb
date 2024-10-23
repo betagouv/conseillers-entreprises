@@ -25,10 +25,6 @@ module Stats::Acquisitions
       as_series(@needs_from_entreprendre)
     end
 
-    def chart
-      'line-chart'
-    end
-
     def count
       build_series
       percentage_two_numbers(@needs_from_entreprendre, @from_others)
@@ -36,10 +32,6 @@ module Stats::Acquisitions
 
     def secondary_count
       @needs_from_entreprendre.sum
-    end
-
-    def colors
-      needs_colors
     end
 
     private
