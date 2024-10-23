@@ -1,13 +1,7 @@
 module Stats::Acquisitions
   class GoogleAds
     include ::Stats::BaseStats
-    include Stats::Needs::Base
-
-    def main_query
-      needs_base_scope
-        .joins(diagnosis: :solicitation)
-    end
-
+    include Stats::Acquisitions::Base
     def build_series
       query = main_query
       query = Stats::Filters::Needs.new(query, self).call
@@ -47,7 +41,7 @@ module Stats::Acquisitions
     def as_series(needs)
       [
         {
-          name: I18n.t('stats.series.transmitted_needs.title'),
+          name: I18n.t('stats.series.from_google_ads.title'),
           data: needs
         }
       ]

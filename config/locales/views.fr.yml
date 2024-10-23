@@ -907,6 +907,11 @@ fr:
           one: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
           other: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoins
           zero: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
+      acquisitions_redirections:
+        title:
+          one: des besoins transmis aux conseillers proviennent de la redirection de sites partenaires, soit %{secondary_count} besoin
+          other: des besoins transmis aux conseillers proviennent de la redirection de sites partenaires, soit %{secondary_count} besoins
+          zero: des besoins transmis aux conseillers proviennent de la redirection de sites partenaires, soit %{secondary_count} besoin
       advisors:
         title: Conseillers publics
         title_table: Nombre de conseillers de service public
@@ -927,8 +932,12 @@ fr:
         title_table: Nombre d'experts
       from_entreprendre:
         title: Entreprendre
+      from_google_ads:
+        title: Google Ads
       from_others:
         title: Autres provenances
+      from_redirections:
+        title: Redirections
       matches:
         title: Mises en relation
         title_table: Nombre de mises en relation
