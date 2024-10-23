@@ -925,6 +925,10 @@ fr:
       experts:
         title: Experts
         title_table: Nombre d'experts
+      from_entreprendre:
+        title: Entreprendre
+      from_others:
+        title: Autres provenances
       matches:
         title: Mises en relation
         title_table: Nombre de mises en relation
@@ -1062,10 +1066,6 @@ fr:
         visits: Visites par un conseiller
       transmitted_needs:
         title: Besoins transmis
-      from_entreprendre:
-        title: "Entreprendre"
-      from_others:
-        title: "Autres provenances"
     skeleton_card:
       loading: Graphique en cours de chargement...
     stats_chart:

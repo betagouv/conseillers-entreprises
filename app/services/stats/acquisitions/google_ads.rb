@@ -19,7 +19,7 @@ module Stats::Acquisitions
         month_query = query.created_between(range.first, range.last)
         from_google_count = month_query.where(solicitations: Solicitation.mtm_campaign_start('googleads')).count
         @needs_from_google << from_google_count
-        @from_others << month_query.count - from_google_count
+        @from_others << (month_query.count - from_google_count)
       end
 
       as_series(@needs_from_google)
