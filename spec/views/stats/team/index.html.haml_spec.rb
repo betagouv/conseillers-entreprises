@@ -53,6 +53,19 @@ RSpec.describe 'stats/team/index' do
       expect(rendered).to have_css('h1', text: t('stats.team.matches'))
       expect(rendered).to have_css('.fr-col-12.card.stats', count: 7)
     end
+
+    it "displays correctly acquisitions stats" do
+      assign_base_data
+      assign(:charts_names, [
+        :entreprendre, :google_ads
+      ])
+      allow(view).to receive(:action_name).and_return("acquisition")
+
+      render
+
+      expect(rendered).to have_css('h1', text: t('stats.team.acquisition'))
+      expect(rendered).to have_css('.fr-col-12.card.stats', count: 2)
+    end
   end
 end
 
