@@ -35,6 +35,10 @@ module Stats::Needs
       I18n.t('stats.series.done_with_help_column.series')
     end
 
+    def chart
+      'column-chart'
+    end
+
     def format
       'Total : <b>{point.stackTotal}</b>'
     end
