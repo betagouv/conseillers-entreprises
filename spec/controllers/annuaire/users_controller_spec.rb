@@ -109,12 +109,44 @@ RSpec.describe Annuaire::UsersController do
       controller.send(:retrieve_users_without_experts)
     end
 
-    it 'adds users without experts' do
-      expect(grouped_experts[antenne].keys).to include(an_instance_of(Expert))
-      expect(grouped_experts[antenne].first.last).to include(user_without_experts)
+    context 'normal user' do
+      it 'adds users without experts' do
+        expect(grouped_experts[antenne].keys).to include(an_instance_of(Expert))
+        expect(grouped_experts[antenne].first.last).to include(user_without_experts)
+      end
+
+      it 'does not add users with experts' do
+        expect(grouped_experts[antenne].keys).not_to include(expert)
+      end
     end
 
-    it 'does not add users with experts' do
+    context 'manager' do
+      before { user_without_experts.update(managed_antennes: [create(:antenne)]) }
+
+      it 'does not add users who manage other antennes' do
+        expect(grouped_experts[antenne].first.last).to include(user_without_experts)
+      end
+    end
+  end
+
+  describe '#retrieve_managers_without_experts' do
+    let(:antenne) { create(:antenne) }
+    let(:manager_with_experts) { create(:user, :manager, antenne: antenne) }
+    let!(:manager_without_experts) { create(:user, :manager, antenne: antenne) }
+    let!(:expert) { create(:expert, users: [manager_with_experts]) }
+    let(:grouped_experts) { { antenne => {} } }
+
+    before do
+      controller.instance_variable_set(:@grouped_experts, grouped_experts)
+      controller.send(:retrieve_managers_without_experts)
+    end
+
+    it 'adds managers without experts' do
+      expect(grouped_experts[antenne].keys).to include(an_instance_of(Expert))
+      expect(grouped_experts[antenne].first.last).to include(manager_without_experts)
+    end
+
+    it 'does not add managers with experts' do
       expect(grouped_experts[antenne].keys).not_to include(expert)
     end
   end
