@@ -2,7 +2,7 @@ module  Annuaire
   class UsersController < BaseController
     before_action :retrieve_institution
     before_action :retrieve_antenne, only: :index
-    before_action :retrieve_experts_and_managers, only: :index
+    before_action :retrieve_experts_and_users, only: :index
 
     before_action :retrieve_subjects, only: :index
 
@@ -61,17 +61,27 @@ module  Annuaire
 
     private
 
-    def retrieve_experts_and_managers
+    def retrieve_experts_and_users
       @grouped_experts = group_experts
-      retrieve_managers_without_experts if @antenne.blank?
       retrieve_antennes_without_experts if @antenne.blank?
+      retrieve_managers_without_experts
+      retrieve_users_without_experts
+    end
+
+    def retrieve_users_without_experts
+      @grouped_experts.each_key do |antenne|
+        users = antenne.advisors.not_deleted.where.missing(:experts)
+        users.each do |user|
+          next if user.managed_antennes.any?
+          @grouped_experts[antenne][Expert.new] = [user]
+        end
+      end
     end
 
     def retrieve_managers_without_experts
       @grouped_experts.each_key do |antenne|
-        managers = antenne.managers.not_deleted
+        managers = antenne.managers.not_deleted.where.missing(:experts)
         managers.each do |manager|
-          next if manager.experts.any?
           @grouped_experts[antenne][Expert.new] = [manager]
         end
       end
