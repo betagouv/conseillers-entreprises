@@ -12,7 +12,7 @@ module Stats::Acquisitions
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        from_entreprendre_count = month_query.where(solicitations: Solicitation.mtm_campaign_eq('entreprendre')).count
+        from_entreprendre_count = month_query.from_campaign('entreprendre').count
         @needs_from_entreprendre << from_entreprendre_count
         @from_others << (month_query.count - from_entreprendre_count)
       end

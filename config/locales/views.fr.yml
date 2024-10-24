@@ -907,6 +907,8 @@ fr:
           one: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
           other: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoins
           zero: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
+      acquisitions_overall_distribution:
+        title: Répartition globale des canaux d’acquisition
       acquisitions_redirections:
         title:
           one: des besoins transmis aux conseillers proviennent de la redirection de sites partenaires, soit %{secondary_count} besoin
@@ -930,10 +932,14 @@ fr:
       experts:
         title: Experts
         title_table: Nombre d'experts
+      from_api:
+        title: API
       from_entreprendre:
         title: Entreprendre
       from_google_ads:
         title: Google Ads
+      from_iframes:
+        title: Iframes
       from_others:
         title: Autres provenances
       from_redirections:

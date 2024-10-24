@@ -34,7 +34,7 @@ module Stats
     end
 
     def acquisition
-      @charts_names = %w[acquisitions_entreprendre acquisitions_google_ads acquisitions_redirections]
+      @charts_names = %w[acquisitions_overall_distribution acquisitions_entreprendre acquisitions_google_ads acquisitions_redirections]
       render :index
     end
 
