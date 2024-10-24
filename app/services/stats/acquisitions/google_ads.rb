@@ -12,7 +12,7 @@ module Stats::Acquisitions
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        from_google_count = month_query.where(solicitations: Solicitation.mtm_campaign_start('googleads')).count
+        from_google_count = month_query.from_campaign('googleads').count
         @needs_from_google << from_google_count
         @from_others << (month_query.count - from_google_count)
       end
@@ -27,14 +27,6 @@ module Stats::Acquisitions
 
     def secondary_count
       @needs_from_google.sum
-    end
-
-    def colors
-      needs_colors
-    end
-
-    def format
-      '{series.name} : <b>{point.y}</b>'
     end
 
     private

@@ -12,8 +12,8 @@ module Stats::Acquisitions
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        from_redirections_count = month_query.where(solicitations: Solicitation.mtm_campaign_cont('orientation-partenaire')
-                                                                               .or(Solicitation.mtm_campaign_cont('compartenaire'))).count
+        from_redirections_count = month_query.from_campaign('orientation-partenaire')
+          .or(month_query.from_campaign('compartenaire')).count
         @needs_from_redirections << from_redirections_count
         @from_others << (month_query.count - from_redirections_count)
       end
