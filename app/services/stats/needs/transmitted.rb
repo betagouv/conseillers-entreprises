@@ -23,7 +23,7 @@ module Stats::Needs
     end
 
     def chart
-      'line-chart'
+      'column-chart'
     end
 
     def count

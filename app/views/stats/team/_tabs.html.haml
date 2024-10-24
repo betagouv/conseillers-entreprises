@@ -1,23 +1,38 @@
 .fr-container--fluid.fr-mb-3w
   .fr-grid-row.fr-grid-row--gutters
-    .fr-col-12.fr-col-md-4
-      .fr-tile.fr-enlarge-link
+    .fr-col-12.fr-col-md-3
+      .fr-tile.fr-tile--sm.fr-enlarge-link
         .fr-tile__body
-          %h2.fr-tile__title
-            = active_link_to public_team_index_path(params: filter_params), class: 'fr-tile__link' do
-              %span.ri-bar-chart-fill.tile__icon.fr-mr-2v{ 'aria-hidden': 'true' }
-              = t('stats.team.public')
-    .fr-col-12.fr-col-md-4
-      .fr-tile.fr-enlarge-link
+          .fr-tile__content
+            %h2.fr-tile__title
+              = link_to t('stats.team.public'), public_team_index_path(params: filter_params)
+        .fr-tile__header
+          .fr-tile__pictogram
+            = display_svg("pictos-dsfr/internet.svg")
+    .fr-col-12.fr-col-md-3
+      .fr-tile.fr-tile--sm.fr-enlarge-link
         .fr-tile__body
-          %h2.fr-tile__title
-            = active_link_to needs_team_index_path(params: filter_params), class: 'fr-tile__link' do
-              %span.ri-file-copy-2-line.tile__icon.fr-mr-2v{ 'aria-hidden': 'true' }
-              = t('stats.team.needs')
-    .fr-col-12.fr-col-md-4
-      .fr-tile.fr-enlarge-link
+          .fr-tile__content
+            %h2.fr-tile__title
+              = link_to t('stats.team.needs'), needs_team_index_path(params: filter_params)
+        .fr-tile__header
+          .fr-tile__pictogram
+            = display_svg("pictos-dsfr/document.svg")
+    .fr-col-12.fr-col-md-3
+      .fr-tile.fr-tile--sm.fr-enlarge-link
         .fr-tile__body
-          %h2.fr-tile__title
-            = active_link_to matches_team_index_path(params: filter_params), class: 'fr-tile__link' do
-              %span.ri-group-line.tile__icon.fr-mr-2v{ 'aria-hidden': 'true' }
-              = t('stats.team.matches')
+          .fr-tile__content
+            %h2.fr-tile__title
+              = link_to t('stats.team.matches'), matches_team_index_path(params: filter_params)
+        .fr-tile__header
+          .fr-tile__pictogram
+            = display_svg("pictos-dsfr/city-hall.svg")
+    .fr-col-12.fr-col-md-3
+      .fr-tile.fr-tile--sm.fr-enlarge-link
+        .fr-tile__body
+          .fr-tile__content
+            %h2.fr-tile__title
+              = link_to t('stats.team.acquisition'), acquisition_team_index_path(params: filter_params)
+        .fr-tile__header
+          .fr-tile__pictogram
+            = display_svg("pictos-dsfr/data-visualization.svg")

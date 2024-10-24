@@ -314,6 +314,7 @@ Rails.application.routes.draw do
         get :public, path: 'public'
         get :needs, path: 'besoins'
         get :matches, path: 'mises-en-relation'
+        get :acquisition, path: 'acquisition'
         get :load_data
         get :load_filter_options
       end
