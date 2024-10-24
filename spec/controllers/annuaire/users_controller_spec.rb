@@ -96,4 +96,26 @@ RSpec.describe Annuaire::UsersController do
       expect(old_user.reload.invitation_sent_at.beginning_of_hour).to eq one_day_ago.beginning_of_hour
     end
   end
+
+  describe '#retrieve_users_without_experts' do
+    let(:antenne) { create(:antenne) }
+    let(:user_with_experts) { create(:user, antenne: antenne) }
+    let!(:user_without_experts) { create(:user, antenne: antenne) }
+    let!(:expert) { create(:expert, users: [user_with_experts]) }
+    let(:grouped_experts) { { antenne => {} } }
+
+    before do
+      controller.instance_variable_set(:@grouped_experts, grouped_experts)
+      controller.send(:retrieve_users_without_experts)
+    end
+
+    it 'adds users without experts' do
+      expect(grouped_experts[antenne].keys).to include(an_instance_of(Expert))
+      expect(grouped_experts[antenne].first.last).to include(user_without_experts)
+    end
+
+    it 'does not add users with experts' do
+      expect(grouped_experts[antenne].keys).not_to include(expert)
+    end
+  end
 end
