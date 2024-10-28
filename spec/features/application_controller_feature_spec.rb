@@ -9,11 +9,10 @@ describe 'ApplicationController specific features' do
     login_user
 
     context 'user is not admin' do
-
       it do
-        expect do
-          visit '/admin'
-        end.to raise_error ActionController::RoutingError
+        visit '/admin'
+        expect(page).to have_content("Routing Error")
+        expect(page.status_code).to eq 404
       end
     end
 
