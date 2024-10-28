@@ -13,6 +13,7 @@ module Stats::Acquisitions
       query = Stats::Filters::Needs.new(query, self).call
 
       @results = Hash.new { |hash, key| hash[key] = [] }
+      @results['from_others'] = []
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
@@ -26,7 +27,6 @@ module Stats::Acquisitions
         @results['from_redirections'] << from_redirections.count
         from_api = month_query.from_integration('api')
         @results['from_api'] << from_api.count
-
 
         month_query = month_query - (from_entreprendre + from_google + from_iframes + from_redirections + from_api)
         @results['from_others'] << month_query.count

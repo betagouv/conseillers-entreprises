@@ -908,6 +908,8 @@ fr:
           other: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoins
           zero: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
       acquisitions_overall_distribution:
+        title: Évolution globale des canaux d’acquisition
+      acquisitions_overall_distribution_column:
         title: Répartition globale des canaux d’acquisition
       acquisitions_redirections:
         title:
