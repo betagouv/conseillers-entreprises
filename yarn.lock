@@ -5091,10 +5091,10 @@ slick@^1.12.2:
   resolved "https://registry.yarnpkg.com/slick/-/slick-1.12.2.tgz#bd048ddb74de7d1ca6915faa4a57570b3550c2d7"
   integrity sha512-4qdtOGcBjral6YIBCWJ0ljFSKNLz9KkhbWtuGvUyRowl1kxfuE1x/Z/aJcaiilpb3do9bl5K7/1h9XC5wWpY/A==
 
-slim-select@^2.8.1:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/slim-select/-/slim-select-2.9.0.tgz#79e8ac9bb23b0727c1e78f363e3d62ab6bbfe525"
-  integrity sha512-AwAm4kliM1utztdXfKyiidgnQanAKQVJ1+61rJYHwDfzu3LAn/spFKb+xBiSqr3E/dlZu0MrBxflBL2sN5q2xA==
+slim-select@^2.9.2:
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/slim-select/-/slim-select-2.9.2.tgz#cfb99c3f65190cef06c88e4c5723a0f6a7770710"
+  integrity sha512-3Kxgj7Nk7sHHEu8Xzq70pkNNNdKmOr3OwKOjqSzcGeJ9j2hCOxIvIdYcAqKUM1eRnl+3ycKKK/YrzsjxrxAoZg==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
