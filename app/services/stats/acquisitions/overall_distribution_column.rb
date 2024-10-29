@@ -17,19 +17,19 @@ module Stats::Acquisitions
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        from_entreprendre = month_query.from_campaign('entreprendre')
-        @results['from_entreprendre'] << from_entreprendre.count
-        from_google = month_query.from_campaign('googleads')
-        @results['from_google_ads'] << from_google.count
-        from_iframes = month_query.from_integration('iframe')
-        @results['from_iframes'] << from_iframes.count
-        from_redirections = month_query.from_campaign('orientation-partenaire').or(month_query.from_campaign('compartenaire'))
-        @results['from_redirections'] << from_redirections.count
-        from_api = month_query.from_integration('api')
-        @results['from_api'] << from_api.count
 
-        month_query = month_query - (from_entreprendre + from_google + from_iframes + from_redirections + from_api)
-        @results['from_others'] << month_query.count
+        from_entreprendre = month_query.from_campaign('entreprendre')
+        from_google_ads = month_query.from_campaign('googleads')
+        from_iframes = month_query.from_integration('iframe')
+        from_redirections = month_query.from_campaign('orientation-partenaire').or(month_query.from_campaign('compartenaire'))
+        from_api = month_query.from_integration('api')
+
+        @results['from_entreprendre'] << from_entreprendre.count
+        @results['from_google_ads'] << from_google_ads.count
+        @results['from_iframes'] << from_iframes.count
+        @results['from_redirections'] << from_redirections.count
+        @results['from_api'] << from_api.count
+        @results['from_others'] << (month_query - (from_entreprendre + from_google_ads + from_iframes + from_redirections + from_api)).count
       end
 
       as_series(@results)
@@ -47,8 +47,8 @@ module Stats::Acquisitions
 
     private
 
-    def as_series(from_entreprendre)
-      from_entreprendre.map do |key, value|
+    def as_series(results)
+      results.map do |key, value|
         {
           name: I18n.t("stats.series.#{key}.title"),
           data: value
