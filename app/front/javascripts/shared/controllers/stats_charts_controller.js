@@ -21,10 +21,6 @@ export default class extends Controller {
       'column-chart': columnCharts,
       'line-chart': lineCharts
     }
-    console.log('===')
-    console.log(type)
-    console.log(chartFunctions[type])
     chartFunctions[type](container, months, maxValue, series, colors, format, subtitle);
-
   }
 }

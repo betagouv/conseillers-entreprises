@@ -22,7 +22,7 @@ module Stats::Acquisitions
     end
 
     def count
-      build_series
+      series
       percentage_two_numbers(@needs_from_redirections, @from_others)
     end
 
