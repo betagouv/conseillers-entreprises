@@ -29,6 +29,7 @@ module ApiConsumption::Models
         :siret,
         :tranche_effectif_salarie,
         :type_voie,
+        :errors,
       ]
     end
 

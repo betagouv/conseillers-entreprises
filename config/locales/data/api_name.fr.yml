@@ -1,0 +1,20 @@
+---
+fr:
+  api_name:
+    api-adresse-searchmunicipality: Api Adresse
+    api-apientreprise-entreprise-base: Api Entreprise (entreprise)
+    api-apientreprise-entrepriseeffectifannuel-base: Api Entreprise (effectif annuel entreprise)
+    api-apientreprise-entreprisemandatairessociaux-base: Api Entreprise (mandataires sociaux entreprise)
+    api-apientreprise-etablissement-base: Api Entreprise (établissement)
+    api-apientreprise-etablissementeffectifannuel-base: Api Entreprise (effectif annuel établissement)
+    api-apientreprise-etablissementeffectifmensuel-base: Api Entreprise (effectif mensuel établissement)
+    api-cfadock-opco: Api CFA Dock
+    api-francecompetence-siret-base: Api France Compétence (siret)
+    api-francecompetence-token-base: Api France Compétence (token)
+    api-insee-siren-base: Api Insee (siren)
+    api-insee-siret-base: Api Insee (siret)
+    api-insee-siretsbysiren-base: Api Insee (sirets par siren)
+    api-insee-token-base: Api Insee (token)
+    api-rechercheentreprises-search-base: Api Recherche Entreprises
+    api-rne-companies-base: Api RNE (entreprises)
+    api-rne-token-base: Api RNE (token)

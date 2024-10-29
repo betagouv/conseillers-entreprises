@@ -38,7 +38,7 @@ describe UseCases::SearchFacility do
 
     context 'first call' do
       before do
-        described_class.with_siret_and_save siret
+        described_class.new(siret).with_siret_and_save
       end
 
       it 'sets company and facility' do
@@ -62,8 +62,8 @@ describe UseCases::SearchFacility do
 
     context 'two calls' do
       it 'does not duplicate Company or Facility' do
-        described_class.with_siret_and_save siret
-        described_class.with_siret_and_save siret
+        described_class.new(siret).with_siret_and_save
+        described_class.new(siret).with_siret_and_save
 
         expect(Company.count).to eq 1
         expect(Facility.count).to eq 1

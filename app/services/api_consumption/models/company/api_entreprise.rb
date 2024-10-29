@@ -21,7 +21,8 @@ module ApiConsumption::Models
         :mandataires_sociaux,
         :forme_exercice,
         :description,
-        :montant_capital
+        :montant_capital,
+        :errors
       ]
     end
 
@@ -107,10 +108,12 @@ module ApiConsumption::Models
     end
 
     def effectifs_entreprise_annuel_array
+      return [] unless effectifs_entreprise_annuel
       effectifs_entreprise_annuel['effectifs_annuel'] || []
     end
 
     def effectifs_entreprise_annuel_annee
+      return [] unless effectifs_entreprise_annuel
       effectifs_entreprise_annuel['annee'] || nil
     end
   end

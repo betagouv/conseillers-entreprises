@@ -8,25 +8,37 @@ module DiagnosisCreation
     def call
       begin
         @diagnosis ||= Diagnosis.new
+        @errors = {}
         Diagnosis.transaction do
           if @params[:facility_attributes].include? :siret
             @params = @params.dup # avoid modifying the params hash at the call site
             # Facility attributes are nested in the hash; if there is no siret, we use the insee_code.
             # In particular, the facility.insee_code= setter will fetch the readable locality name from the geo api.
             facility_params = @params.delete(:facility_attributes)
-            @params[:facility] = UseCases::SearchFacility.with_siret_and_save(facility_params[:siret])
+            facility_api_result = UseCases::SearchFacility.new(facility_params[:siret]).with_siret_and_save
+            @params[:facility] = facility_api_result[:facility]
+            @errors.deep_merge!(facility_api_result[:errors])
           end
 
           @params[:step] = :contact unless @diagnosis.persisted?
           @params[:content] = solicitation_description
           @diagnosis.attributes = @params
           @diagnosis.save
-          @diagnosis
+          {
+            diagnosis: @diagnosis,
+            errors: @errors
+          }
         end
-      rescue ::Api::ApiError => e
-        # Eat the exception and build a Diagnosis object just to hold the error
-        @diagnosis.errors.add(:base, e.message)
-        return @diagnosis
+      rescue Api::TechnicalError => e
+        return {
+          diagnosis: @diagnosis,
+          errors: { e.severity => { e.api => e.message } }
+        }
+      rescue Api::BasicError => e
+        return {
+          diagnosis: @diagnosis,
+          errors: { standard: e.message }
+        }
       end
     end
 

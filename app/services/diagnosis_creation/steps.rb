@@ -7,26 +7,6 @@ module DiagnosisCreation
       @solicitation = diagnosis.solicitation
     end
 
-    def prepare_needs_from_solicitation
-      return unless solicitation.present? && diagnosis.needs.blank?
-
-      subject = solicitation.preselected_subject
-      if subject.nil?
-        diagnosis.errors.add(:needs, :solicitation_has_no_preselected_subject)
-        return diagnosis
-      end
-
-      needs_params = { subject: subject }
-      need = diagnosis.needs.create(needs_params)
-      # On duplique les filtres pour pouvoir les éditer
-      solicitation.subject_answers.each do |filter|
-        need.subject_answers.push(filter.dup)
-      end
-      diagnosis.step_needs!
-
-      diagnosis
-    end
-
     def prepare_happened_on_from_solicitation
       return unless solicitation.present? && diagnosis.happened_on.blank?
 
@@ -43,6 +23,26 @@ module DiagnosisCreation
                          company: diagnosis.facility.company)
       diagnosis.step = :contact
       diagnosis.save # Validate and save both the new visitee and the diagnosis
+
+      diagnosis
+    end
+
+    def prepare_needs_from_solicitation
+      return unless solicitation.present? && diagnosis.needs.blank?
+
+      subject = solicitation.preselected_subject
+      if subject.nil?
+        diagnosis.errors.add(:needs, :solicitation_has_no_preselected_subject)
+        return diagnosis
+      end
+
+      needs_params = { subject: subject }
+      need = diagnosis.needs.create(needs_params)
+      # On duplique les filtres pour pouvoir les éditer
+      solicitation.subject_answers.each do |filter|
+        need.subject_answers.push(filter.dup)
+      end
+      diagnosis.step_needs!
 
       diagnosis
     end

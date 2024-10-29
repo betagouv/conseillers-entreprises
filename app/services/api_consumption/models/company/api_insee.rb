@@ -44,7 +44,8 @@ module ApiConsumption::Models
         :nicSiegeUniteLegale,
         :dateDernierTraitementUniteLegale,
         :categorieEntreprise,
-        :anneeCategorieEntreprise
+        :anneeCategorieEntreprise,
+        :errors
       ]
     end
 

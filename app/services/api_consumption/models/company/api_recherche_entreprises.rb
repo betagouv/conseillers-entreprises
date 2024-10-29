@@ -17,6 +17,7 @@ module ApiConsumption::Models
         :section_activite_principale,
         :siren,
         :tranche_effectif_salarie,
+        :errors
       ]
     end
 

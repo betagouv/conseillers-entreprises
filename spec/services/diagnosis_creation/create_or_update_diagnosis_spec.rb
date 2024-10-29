@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-# Nécessaire pour que la constante Api::ApiError soit initialisée
+# Nécessaire pour que la constante Api::BasicError soit initialisée
 require 'api/base'
 
 describe DiagnosisCreation::CreateOrUpdateDiagnosis do
@@ -33,17 +33,28 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
           end
 
           it 'fetches info for ApiEntreprise and creates the diagnosis' do
-            expect(created_or_updated_diagnosis).to be_valid
+            expect(created_or_updated_diagnosis[:diagnosis]).to be_valid
           end
         end
 
-        context 'when ApiEntreprise returns an error' do
+        context 'when Api returns a standard error' do
           before do
-            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { raise Api::ApiError, 'some error message' }
+            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { raise Api::BasicError, 'some error message' }
+          end
+
+          it 'returns the message in diagnosis errors' do
+            expect(created_or_updated_diagnosis[:errors]).to eq({ standard: [{ error: 'some error message' }] })
+          end
+        end
+
+        context 'when ApiEntreprise returns a technical error' do
+          before do
+            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { raise Api::TechnicalError.new(api: "api-apientreprise-entreprise-base"), 'some error message' }
           end
 
           it 'returns the message in the errors' do
-            expect(created_or_updated_diagnosis.errors.details).to eq({ base: [{ error: 'some error message' }] })
+            expect(created_or_updated_diagnosis[:diagnosis]).not_to be_valid
+            expect(created_or_updated_diagnosis[:errors]).to eq({ major: [{ "Api Entreprise - Entreprise" => { error: "some error message" } }] })
           end
         end
       end
@@ -58,8 +69,9 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
         end
 
         it 'creates a new diagnosis without siret' do
-          expect(created_or_updated_diagnosis).to be_valid
-          expect(created_or_updated_diagnosis.company.name).to eq 'Boucherie Sanzot'
+          diagnosis = created_or_updated_diagnosis[:diagnosis]
+          expect(diagnosis).to be_valid
+          expect(diagnosis.company.name).to eq 'Boucherie Sanzot'
         end
       end
     end
@@ -85,7 +97,7 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
           end
 
           it 'fetches info for ApiEntreprise and creates the diagnosis' do
-            expect(created_or_updated_diagnosis).to be_valid
+            expect(created_or_updated_diagnosis[:diagnosis]).to be_valid
           end
 
           it 'doesnt change diagnosis step' do
@@ -93,13 +105,13 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
           end
         end
 
-        context 'when ApiEntreprise returns an error' do
+        context 'when ApiEntreprise returns a standard error' do
           before do
-            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { raise Api::ApiError, 'some error message' }
+            allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { raise Api::BasicError, 'some error message' }
           end
 
           it 'returns the message in the errors' do
-            expect(created_or_updated_diagnosis.errors.details).to eq({ base: [{ error: 'some error message' }] })
+            expect(created_or_updated_diagnosis[:errors]).to eq({ standard: [{ error: 'some error message' }] })
           end
         end
       end

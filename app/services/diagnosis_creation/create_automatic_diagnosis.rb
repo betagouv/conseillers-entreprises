@@ -13,7 +13,7 @@ module DiagnosisCreation
       diagnosis = nil
       Diagnosis.transaction do
         # Step 0: create with the facility
-        diagnosis = DiagnosisCreation::CreateOrUpdateDiagnosis.new(
+        diagnosis_creation = DiagnosisCreation::CreateOrUpdateDiagnosis.new(
           {
             advisor: advisor,
             solicitation: solicitation,
@@ -21,13 +21,26 @@ module DiagnosisCreation
           }, solicitation.diagnosis
         ).call
 
+        diagnosis = diagnosis_creation[:diagnosis]
+        pp "CREATION"
+        pp diagnosis
+
         DiagnosisCreation::Steps.new(diagnosis).autofill_steps
+
+        pp "STEPS"
+        pp diagnosis
 
         # Rollback on error!
         if diagnosis.errors.present?
           prepare_diagnosis_errors = diagnosis.errors
           diagnosis = nil
           raise ActiveRecord::Rollback
+        elsif diagnosis_creation[:errors].present?
+          prepare_diagnosis_errors = diagnosis_creation[:errors]
+          if diagnosis_creation[:errors][:major]
+            diagnosis = nil
+            raise ActiveRecord::Rollback
+          end
         end
       end
 

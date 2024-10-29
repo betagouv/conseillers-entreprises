@@ -37,7 +37,7 @@ module SearchFacility
           ApiConsumption::Models::FacilityAutocomplete::ApiRechercheEntreprises.new(entreprise_params)
         end
         return { items: items, error: nil }
-      rescue Api::ApiError => e
+      rescue Api::BasicError, Api::TechnicalError => e
         message = e.message.truncate(1000)
         return { items: [], error: message }
       end

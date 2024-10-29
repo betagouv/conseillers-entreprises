@@ -7,7 +7,7 @@ module SearchFacility
         data_company = Api::ApiEntreprise::Entreprise::Base.new(siren).call[:entreprise]
         data_siege = Api::ApiEntreprise::Etablissement::Base.new(data_company["siret_siege_social"]).call[:etablissement]
         formatted_items(data_siege, data_company)
-      rescue Api::ApiError => e
+      rescue Api::BasicError, Api::TechnicalError => e
         message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
         return { items: [], error: message }
       end
@@ -21,7 +21,7 @@ module SearchFacility
         data_company = Api::ApiEntreprise::Entreprise::Base.new(siren).call[:entreprise]
         data_facility = Api::ApiEntreprise::Etablissement::Base.new(siret).call[:etablissement]
         formatted_items(data_facility, data_company)
-      rescue Api::ApiError => e
+      rescue Api::BasicError, Api::TechnicalError => e
         message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
         return { items: [], error: message }
       end

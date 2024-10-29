@@ -21,7 +21,12 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
       # suivant le contexte, ce ne sont pas toujours les memes arguments qui sont envoyés
       allow(DiagnosisCreation::CreateOrUpdateDiagnosis).to receive(:new).with(some_params, diagnosis) { intermediary_result }
       allow(DiagnosisCreation::CreateOrUpdateDiagnosis).to receive(:new).with(some_params, nil) { intermediary_result }
-      allow(intermediary_result).to receive(:call) { diagnosis }
+      allow(intermediary_result).to receive(:call) {
+  {
+    diagnosis: diagnosis,
+        errors: errors
+  }
+}
 
       allow(DiagnosisCreation::Steps).to receive(:new).with(diagnosis) { diagnosis_steps }
       allow(diagnosis_steps).to receive(:prepare_needs_from_solicitation) { prepare_needs }
@@ -39,31 +44,69 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
 
       context 'all is well' do
         let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
+        let(:errors) { {} }
         let(:prepare_needs) { [] }
 
         it do
           expect(solicitation.diagnosis).not_to be_nil
-          expect(solicitation.prepare_diagnosis_errors).to be_empty
+          expect(solicitation.prepare_diagnosis_errors).to be_nil
         end
       end
 
       context 'creation fails' do
         let(:diagnosis) { Diagnosis.create(facility: nil, advisor: user) }
+        let(:errors) { {} }
         let(:prepare_needs) { [] }
 
         it do
           expect(solicitation.diagnosis).to be_nil
-          expect(solicitation.prepare_diagnosis_errors.details).to eq({ facility: [{ error: :blank }] })
+          expect(solicitation.prepare_diagnosis_errors).to eq({ 'facility' => ["doit exister"] })
+          expect(solicitation.prepare_diagnosis_errors_to_s).to eq('Etablissement : doit exister')
+        end
+      end
+
+      context 'with major api error' do
+        let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
+        let(:errors) { { major: [{ "api-apientreprise-entreprise-base" => { error: "Caramba !" } }] } }
+        let(:prepare_needs) { [] }
+
+        it do
+          expect(solicitation.diagnosis).to be_nil
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "major" => [{ "api-apientreprise-entreprise-base" => { "error" => "Caramba !" } }] })
+          expect(solicitation.prepare_diagnosis_errors_to_s).to eq('Api Entreprise - Entreprise : Caramba !')
+        end
+      end
+
+      context 'with minor api error' do
+        let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
+        let(:errors) { { minor: [{ "api-rne-companies-base" => { error: "Caramba !" } }] } }
+        let(:prepare_needs) { [] }
+
+        it do
+          expect(solicitation.diagnosis).not_to be_nil
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "minor" => [{ "api-rne-companies-base" => { "error" => "Caramba !" } }] })
+        end
+      end
+
+      context 'with standard api error' do
+        let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
+        let(:errors) { { standard: [{ "api-rne-companies-base" => { error: "Caramba !" } }] } }
+        let(:prepare_needs) { [] }
+
+        it do
+          expect(solicitation.diagnosis).not_to be_nil
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "standard" => [{ "api-rne-companies-base" => { "error" => "Caramba !" } }] })
         end
       end
 
       context 'preparation fails' do
         let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
-        let(:prepare_needs) { diagnosis.errors.add(:needs, :some_failure) }
+        let(:errors) { {} }
+        let(:prepare_needs) { diagnosis.errors.add(:needs, :solicitation_has_no_preselected_subject) }
 
         it do
           expect(solicitation.diagnosis).to be_nil
-          expect(solicitation.prepare_diagnosis_errors.details).to eq({ needs: [{ error: :some_failure }] })
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "needs" => ["il n’y a pas de sujet présélectionné"] })
         end
       end
     end
@@ -75,31 +118,34 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
 
       context 'all is well' do
         let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
+        let(:errors) { {} }
         let(:prepare_needs) { [] }
 
         it do
           expect(solicitation.diagnosis).not_to be_nil
-          expect(solicitation.prepare_diagnosis_errors).to be_empty
+          expect(solicitation.prepare_diagnosis_errors).to be_nil
         end
       end
 
       context 'creation fails' do
         let(:diagnosis) { Diagnosis.create(facility: nil, advisor: user) }
+        let(:errors) { {} }
         let(:prepare_needs) { [] }
 
         it do
           expect(solicitation.diagnosis).to be_nil
-          expect(solicitation.prepare_diagnosis_errors.details).to eq({ facility: [{ error: :blank }] })
+          expect(solicitation.prepare_diagnosis_errors).to eq({ 'facility' => ["doit exister"] })
         end
       end
 
       context 'preparation fails' do
         let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
-        let(:prepare_needs) { diagnosis.errors.add(:needs, :some_failure) }
+        let(:errors) { {} }
+        let(:prepare_needs) { diagnosis.errors.add(:needs, :solicitation_has_no_preselected_subject) }
 
         it do
           expect(solicitation.diagnosis).to be_nil
-          expect(solicitation.prepare_diagnosis_errors.details).to eq({ needs: [{ error: :some_failure }] })
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "needs" => ["il n’y a pas de sujet présélectionné"] })
         end
       end
     end

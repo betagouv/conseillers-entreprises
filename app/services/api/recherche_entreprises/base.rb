@@ -14,8 +14,8 @@ module Api::RechercheEntreprises
       ERB::Util.url_encode(query)
     end
 
-    def handle_error(http_request)
-      handle_error_loudly(http_request)
+    def severity
+      :major
     end
   end
 

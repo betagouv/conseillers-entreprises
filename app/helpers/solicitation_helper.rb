@@ -63,6 +63,10 @@ module SolicitationHelper
     end
   end
 
+  def has_unreachable_apis_errors(solicitation)
+    solicitation.prepare_diagnosis_errors.present? && solicitation.prepare_diagnosis_errors["unreachable_apis"].present?
+  end
+
   private
 
   def button_for_editable_subject(need, classes)

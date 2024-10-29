@@ -75,7 +75,7 @@ class Conseiller::SolicitationsController < ApplicationController
     if diagnosis
       redirect_to [:conseiller, diagnosis]
     else
-      flash.alert = @solicitation.prepare_diagnosis_errors.full_messages.to_sentence
+      flash.alert = @solicitation.prepare_diagnosis_errors_to_s.to_sentence
       redirect_to [:conseiller, @solicitation]
     end
   end
