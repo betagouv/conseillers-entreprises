@@ -43,7 +43,7 @@
                 class: 'fr-input white-bg',
                 autocomplete: Solicitation::AUTOCOMPLETE_TYPES[field],
                 minlength: (field == :phone_number ? '10' : nil),
-                pattern: (field == :phone_number ? '\+?[0-9]+' : nil),
+                pattern: (field == :phone_number ? '\+?[0-9\s]+' : nil),
                 value: (f.object.send(field) || params[field])
 
           - if @solicitation.errors.present?
