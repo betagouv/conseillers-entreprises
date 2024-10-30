@@ -37,7 +37,7 @@ module Stats::Solicitations
     end
 
     def count
-      build_series
+      series
       percentage_two_numbers(@less_than_72h, @more_than_72h)
     end
 

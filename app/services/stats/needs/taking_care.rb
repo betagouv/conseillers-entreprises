@@ -25,7 +25,7 @@ module Stats::Needs
     end
 
     def count
-      build_series
+      series
       percentage_two_numbers(@needs_taking_care, @needs_other_status)
     end
 

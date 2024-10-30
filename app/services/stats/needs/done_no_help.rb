@@ -34,7 +34,7 @@ module Stats::Needs
     end
 
     def count
-      build_series
+      series
       percentage_two_numbers(@needs_done_no_help, @needs_others_status)
     end
 

@@ -31,7 +31,7 @@ module Stats::Solicitations
     end
 
     def count
-      build_series
+      series
       percentage_two_numbers(@with_diagnosis, @without_diagnosis)
     end
 
