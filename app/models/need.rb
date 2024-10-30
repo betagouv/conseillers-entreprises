@@ -340,6 +340,15 @@ class Need < ApplicationRecord
     includes(:subject, :feedbacks, :company, :solicitation, :badges, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
   end
 
+  # Scopes for stats
+  scope :from_campaign, -> (campaign) do
+    joins(diagnosis: :solicitation).where(solicitations: Solicitation.mtm_campaign_cont(campaign))
+  end
+
+  scope :from_integration, -> (integration) do
+    joins(diagnosis: :solicitation).where(solicitations: { landings: { integration: integration } })
+  end
+
   def self.apply_filters(params)
     klass = self
     klass = klass.by_region(params[:by_region]) if params[:by_region].present?

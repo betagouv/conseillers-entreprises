@@ -37,10 +37,6 @@ module Stats::Needs
       I18n.t('stats.series.needs_abandoned_total_count.subtitle')
     end
 
-    def chart
-      'stats-chart'
-    end
-
     def format
       'Total : <b>{point.stackTotal}</b>'
     end
