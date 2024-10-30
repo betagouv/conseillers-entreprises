@@ -38,7 +38,7 @@ describe 'passwords', :js do
       within '.new_user' do
         click_on 'Accès conseillers', class: 'fr-btn'
       end
-      expect(page.html).to include 'Besoins reçus'
+      expect(page).to have_content 'Besoins reçus'
     end
   end
 end
