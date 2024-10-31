@@ -70,7 +70,9 @@ module  Annuaire
 
     def retrieve_users_without_experts
       @grouped_experts.each_key do |antenne|
-        users = antenne.advisors.not_deleted.where.missing(:experts)
+        users = User.joins('LEFT OUTER JOIN experts_users ON experts_users.user_id = users.id')
+          .where(experts_users: { expert_id: nil })
+          .where(antenne: antenne, deleted_at: nil)
         users.each do |user|
           next if user.managed_antennes.any?
           @grouped_experts[antenne][Expert.new] = [user]
@@ -80,8 +82,9 @@ module  Annuaire
 
     def retrieve_managers_without_experts
       @grouped_experts.each_key do |antenne|
-        managers = antenne.managers.not_deleted.where.missing(:experts)
+        managers = antenne.managers.not_deleted
         managers.each do |manager|
+          next if manager.experts.any?
           @grouped_experts[antenne][Expert.new] = [manager]
         end
       end
