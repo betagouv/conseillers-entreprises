@@ -36,7 +36,7 @@ RSpec.describe Api::ApiEntreprise::Entreprise::Base do
     end
 
     it 'raises an error' do
-      expect { api_company }.to raise_error Api::ApiError
+      expect { api_company }.to raise_error Api::BasicError
     end
   end
 
@@ -53,7 +53,7 @@ RSpec.describe Api::ApiEntreprise::Entreprise::Base do
     end
 
     it 'raises an error' do
-      expect { api_company }.to raise_error Api::ApiError
+      expect { api_company }.to raise_error Api::BasicError
     end
   end
 
@@ -70,7 +70,7 @@ RSpec.describe Api::ApiEntreprise::Entreprise::Base do
     end
 
     it 'raises an error' do
-      expect { api_company }.to raise_error Api::ApiError
+      expect { api_company }.to raise_error Api::TechnicalError
     end
   end
 end

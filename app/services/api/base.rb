@@ -5,6 +5,9 @@ module Api
     attr_reader :query
 
     def initialize(query, options = {})
+      p self
+      p query
+      p self.class.name
       @query = FormatSiret.clean_siret(query)
       raise Api::BasicError, I18n.t('api_requests.invalid_siret_or_siren') unless valid_query?
       @options = options
@@ -75,8 +78,8 @@ module Api
   class Request
     DEFAULT_ERROR_MESSAGE = I18n.t('api_requests.generic_error')
     DEFAULT_TECHNICAL_ERROR_MESSAGE = I18n.t('api_requests.partner_error')
-    CLIENT_HTTP_ERRORS = [400, 401, 403].freeze
-    SERVER_ERRORS = [ 500, 501, 502, 503, 504].freeze
+    CLIENT_HTTP_ERRORS = [400, 401, 403]
+    SERVER_ERRORS = [ 500, 501, 502, 503, 504]
 
     attr_reader :data
 
@@ -86,7 +89,9 @@ module Api
       begin
         @http_response = get_url
         @data = @http_response.parse(:json)
+        pp @data
       rescue StandardError => e
+        pp e
         @error = e
       end
     end
@@ -100,7 +105,7 @@ module Api
     end
 
     def has_unreachable_api_error?
-      error_code.nil? || (CLIENT_HTTP_ERRORS + SERVER_ERRORS).include?(error_code)
+      error_code.nil? || (self.class::CLIENT_HTTP_ERRORS + self.class::SERVER_ERRORS).include?(error_code)
     end
 
     def response_status
@@ -132,12 +137,12 @@ module Api
     end
 
     def format_data
+      pp @http_request.data
       @http_request.data
     end
   end
 
   class BasicError < StandardError; end
-  class UnavailableApiError < StandardError; end
 
   class TechnicalError < StandardError
     attr_reader :api, :severity

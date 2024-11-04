@@ -54,7 +54,7 @@ RSpec.describe Api::Adresse::SearchMunicipality do
     end
 
     it 'returns an error' do
-      expect(api).to eq({ "search_municipality" => { "error" => "q must contain between 3 and 200 chars and start with a number or a letter" } })
+      expect(api).to eq(errors: { basic_errors: { "api-adresse-searchmunicipality" => "q must contain between 3 and 200 chars and start with a number or a letter" } })
     end
   end
 
@@ -69,7 +69,7 @@ RSpec.describe Api::Adresse::SearchMunicipality do
     end
 
     it 'raises an error' do
-      expect(api).to eq({ "search_municipality" => { "error" => "Nous n’avons pas pu récupérer les données entreprises auprès de nos partenaires. Notre équipe technique en a été informée, veuillez réessayer ultérieurement." } })
+      expect(api).to eq({ errors: { unreachable_apis: { "api-adresse-searchmunicipality" => "Internal Server Error" } } })
     end
   end
 

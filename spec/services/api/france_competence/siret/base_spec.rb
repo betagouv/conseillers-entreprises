@@ -29,7 +29,7 @@ RSpec.describe Api::FranceCompetence::Siret::Base do
     end
 
     it 'returns an error' do
-      expect(api['opco_fc']).to eq("error" => "Siret Not Found")
+      expect(api).to eq({ errors: { basic_errors: { "api-francecompetence-siret-base" => "Siret Not Found" } } })
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe Api::FranceCompetence::Siret::Base do
     end
 
     it 'returns a technical error' do
-      expect(api['opco_fc']).to eq("error" => "Nous n’avons pas pu récupérer les données entreprises auprès de nos partenaires. Notre équipe technique en a été informée, veuillez réessayer ultérieurement.")
+      expect(api).to eq({ errors: { unreachable_apis: { "api-francecompetence-siret-base" => "Internal Server Error" } } })
     end
   end
 end

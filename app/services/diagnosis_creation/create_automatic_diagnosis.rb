@@ -12,7 +12,6 @@ module DiagnosisCreation
       prepare_diagnosis_errors = nil
       diagnosis = nil
       Diagnosis.transaction do
-        # Step 0: create with the facility
         diagnosis_creation = DiagnosisCreation::CreateOrUpdateDiagnosis.new(
           {
             advisor: advisor,
@@ -34,6 +33,7 @@ module DiagnosisCreation
         if diagnosis.errors.present?
           prepare_diagnosis_errors = diagnosis.errors
           diagnosis = nil
+          solicitation.diagnosis.destroy if solicitation&.diagnosis&.persisted?
           raise ActiveRecord::Rollback
         elsif diagnosis_creation[:errors].present?
           prepare_diagnosis_errors = diagnosis_creation[:errors]
@@ -43,6 +43,8 @@ module DiagnosisCreation
           end
         end
       end
+      p "ERRRORS FINAL"
+      pp prepare_diagnosis_errors
 
       # Save or clear the error
       solicitation.update(prepare_diagnosis_errors: prepare_diagnosis_errors, diagnosis: diagnosis)

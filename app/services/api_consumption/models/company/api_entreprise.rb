@@ -40,10 +40,12 @@ module ApiConsumption::Models
     end
 
     def forme_juridique_libelle
+      return nil unless forme_juridique
       forme_juridique["libelle"]
     end
 
     def forme_juridique_code
+      return nil unless forme_juridique
       forme_juridique["code"]
     end
 

@@ -31,10 +31,6 @@ module Api::RechercheEntreprises
       end
     end
 
-    def has_tech_error?
-      error_code.nil? || (error_code.present? && [429, 500, 501, 502, 503, 504].include?(error_code))
-    end
-
     def data_error_message
       @data['erreur']
     end

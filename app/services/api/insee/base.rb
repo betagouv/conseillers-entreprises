@@ -12,6 +12,10 @@ module Api::Insee
         end
       end
     end
+
+    def severity
+      :major
+    end
   end
 
   class Request < Api::Request

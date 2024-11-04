@@ -60,20 +60,20 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
 
         it do
           expect(solicitation.diagnosis).to be_nil
-          expect(solicitation.prepare_diagnosis_errors).to eq({ 'facility' => ["doit exister"] })
-          expect(solicitation.prepare_diagnosis_errors_to_s).to eq('Etablissement : doit exister')
+          expect(solicitation.prepare_diagnosis_errors).to eq({ 'facility' => [{ "error" => "blank" }] })
+          expect(solicitation.prepare_diagnosis_errors_to_s).to eq(["Établissement doit être rempli(e)"])
         end
       end
 
       context 'with major api error' do
         let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
-        let(:errors) { { major: [{ "api-apientreprise-entreprise-base" => { error: "Caramba !" } }] } }
+        let(:errors) { { major: { "api-apientreprise-entreprise-base" => "Caramba !" } } }
         let(:prepare_needs) { [] }
 
         it do
           expect(solicitation.diagnosis).to be_nil
-          expect(solicitation.prepare_diagnosis_errors).to eq({ "major" => [{ "api-apientreprise-entreprise-base" => { "error" => "Caramba !" } }] })
-          expect(solicitation.prepare_diagnosis_errors_to_s).to eq('Api Entreprise - Entreprise : Caramba !')
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "major" => { "api-apientreprise-entreprise-base" => "Caramba !" } })
+          expect(solicitation.prepare_diagnosis_errors_to_s).to eq(["Api Entreprise (entreprise) : Caramba !"])
         end
       end
 
@@ -106,7 +106,7 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
 
         it do
           expect(solicitation.diagnosis).to be_nil
-          expect(solicitation.prepare_diagnosis_errors).to eq({ "needs" => ["il n’y a pas de sujet présélectionné"] })
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "needs" => [{ "error" => "solicitation_has_no_preselected_subject" }] })
         end
       end
     end
@@ -134,7 +134,7 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
 
         it do
           expect(solicitation.diagnosis).to be_nil
-          expect(solicitation.prepare_diagnosis_errors).to eq({ 'facility' => ["doit exister"] })
+          expect(solicitation.prepare_diagnosis_errors).to eq({ 'facility' => [{ "error" => "blank" }] })
         end
       end
 
@@ -145,7 +145,7 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
 
         it do
           expect(solicitation.diagnosis).to be_nil
-          expect(solicitation.prepare_diagnosis_errors).to eq({ "needs" => ["il n’y a pas de sujet présélectionné"] })
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "needs" => [{ "error" => "solicitation_has_no_preselected_subject" }] })
         end
       end
     end

@@ -34,7 +34,7 @@ RSpec.describe Api::Insee::Siret::Base do
     end
 
     it 'returns an error' do
-      expect { api }.to raise_error(Api::ApiError, "Nous n’avons pas pu identifier votre entité. Peut-être est-elle non diffusible ?")
+      expect { api }.to raise_error(Api::BasicError, "Nous n’avons pas pu identifier votre entité. Peut-être est-elle non diffusible ?")
     end
   end
 
@@ -50,7 +50,7 @@ RSpec.describe Api::Insee::Siret::Base do
     end
 
     it 'returns a technical error' do
-      expect { api }.to raise_error(Api::UnavailableApiError, "Nous n’avons pas pu récupérer les données entreprises auprès de nos partenaires. Notre équipe technique en a été informée, veuillez réessayer ultérieurement.")
+      expect { api }.to raise_error(Api::TechnicalError, "Internal Server Error")
     end
   end
 end

@@ -613,4 +613,35 @@ end
       it { is_expected.to be false }
     end
   end
+
+  describe 'prepare_diagnosis_errors_to_s' do
+    let(:solicitation) { create :solicitation, prepare_diagnosis_errors: errors }
+
+    subject(:prepare_diagnosis_errors_to_s) { solicitation.prepare_diagnosis_errors_to_s }
+
+    context 'model error' do
+      let(:errors) { { "matches" => [{ "error" => "preselected_institution_has_no_relevant_experts" }] } }
+
+      it { is_expected.to eq ['Mises en relation : aucun expert de l’institution présélectionnée ne peut prendre en charge cette entreprise.'] }
+    end
+
+    context 'standard error' do
+      let(:errors) { { "standard" => I18n.t('api_requests.invalid_siret_or_siren') } }
+
+      it { is_expected.to eq ['L’identifiant (siret ou siren) est invalide'] }
+    end
+
+    context 'major error' do
+      let(:errors) { { "major" => { "api-apientreprise-entreprise-base" => "Caramba !" } } }
+
+      it { is_expected.to eq ['Api Entreprise (entreprise) : Caramba !'] }
+    end
+
+    context 'unreachable_api error' do
+      let(:errors) { { "unreachable_apis" => { "api-rne-companies-base" => "Caramba !" } } }
+
+      it { is_expected.to eq ['Api RNE (entreprises) : Caramba !'] }
+    end
+  end
+
 end

@@ -47,7 +47,7 @@ RSpec.describe Api::RechercheEntreprises::Search::Base do
     end
 
     it 'raises an error' do
-      expect { api }.to raise_error "Nous n’avons pas pu récupérer les données entreprises auprès de nos partenaires. Notre équipe technique en a été informée, veuillez réessayer ultérieurement."
+      expect { api }.to raise_error(Api::TechnicalError, "Trop de requêtes.")
     end
   end
 
@@ -62,7 +62,7 @@ RSpec.describe Api::RechercheEntreprises::Search::Base do
     end
 
     it 'raises an error' do
-      expect { api }.to raise_error "Nous n’avons pas pu récupérer les données entreprises auprès de nos partenaires. Notre équipe technique en a été informée, veuillez réessayer ultérieurement."
+      expect { api }.to raise_error(Api::TechnicalError, "Connection refused")
     end
   end
 
