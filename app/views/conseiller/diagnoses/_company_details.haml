@@ -1,4 +1,6 @@
 - facility = diagnosis.facility
+- unreachable_apis_error = diagnosis.solicitation.prepare_diagnosis_errors_to_s
+
 %h1.fr-h2= facility.company.name
 %ul
   %li
@@ -25,3 +27,12 @@
   - else
     %li
       = t('.need_without_siret')
+- if unreachable_apis_error.present?
+  .fr-container.fr-mt-4w
+    .fr-grid-row.fr-grid-row--center
+      .fr-col-12.fr-col-md-10.fr-col-lg-8
+        .fr-alert.fr-alert--warning.fr-alert--sm
+          %h3.fr-alert__title= t('api_requests.unreachable_apis_errors_present')
+          %ul
+            - unreachable_apis_error.each do |error|
+              %li= error

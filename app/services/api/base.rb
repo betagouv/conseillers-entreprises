@@ -98,10 +98,6 @@ module Api
       error_code.nil? || (self.class::CLIENT_HTTP_ERRORS + self.class::SERVER_ERRORS).include?(error_code)
     end
 
-    def response_status
-      @http_response.status
-    end
-
     def error_code
       @http_response&.code
     end
@@ -110,13 +106,19 @@ module Api
       @error&.message || data_error_message || response_status.reason || DEFAULT_ERROR_MESSAGE
     end
 
-    def data_error_message
-      @data['erreur']
-    end
-
     # clé permettant d'identifier les données agglomérées
     def api_result_key
       ""
+    end
+
+    private
+
+    def response_status
+      @http_response.status
+    end
+
+    def data_error_message
+      @data['erreur']
     end
   end
 

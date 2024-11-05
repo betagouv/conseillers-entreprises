@@ -3,9 +3,11 @@
     - if solicitation.may_prepare_diagnosis?
       - if solicitation.prepare_diagnosis_errors.present?
         - error_text = solicitation.prepare_diagnosis_errors_to_s.to_sentence
-        .actions.error-425-bg.info{ title: error_text }
+        %button.fr-btn.actions.error-425-bg.info{ aria: { describedby: "tooltip-diagnosis-major-errors" } }
           %span.ri-error-warning-line.fr-mr-2v{ 'aria-hidden': 'true' }
           = t('.prepare_diagnosis_errors', count: solicitation.prepare_diagnosis_errors.count)
+        %span.fr-tooltip.fr-placement#tooltip-diagnosis-major-errors{ role: "tooltip" }
+          = error_text
         = render 'retry_diagnosis', solicitation: solicitation
       - else
         .actions.success-main-525-bg
