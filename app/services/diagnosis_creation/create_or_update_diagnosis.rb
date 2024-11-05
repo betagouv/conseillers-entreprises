@@ -2,13 +2,12 @@ module DiagnosisCreation
   class CreateOrUpdateDiagnosis
     def initialize(params, diagnosis = nil)
       @params = params
-      @diagnosis = diagnosis
+      @diagnosis = diagnosis || Diagnosis.new
+      @errors = {}
     end
 
     def call
       begin
-        @diagnosis ||= Diagnosis.new
-        @errors = {}
         Diagnosis.transaction do
           if @params[:facility_attributes].include? :siret
             @params = @params.dup # avoid modifying the params hash at the call site

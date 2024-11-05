@@ -2,9 +2,6 @@
 
 module Api::ApiEntreprise::EtablissementEffectifMensuel
   class Base < Api::ApiEntreprise::Base
-    def api_result_key
-      "effectifs_etablissement_mensuel"
-    end
   end
 
   class Request < Api::ApiEntreprise::Request
@@ -14,6 +11,10 @@ module Api::ApiEntreprise::EtablissementEffectifMensuel
 
     def has_unreachable_api_error?
       false
+    end
+
+    def api_result_key
+      "effectifs_etablissement_mensuel"
     end
 
     private
@@ -43,7 +44,7 @@ module Api::ApiEntreprise::EtablissementEffectifMensuel
 
   class Responder < Api::ApiEntreprise::Responder
     def format_data
-      { "effectifs_etablissement_mensuel" => @http_request.data['data'] }
+      { @http_request.api_result_key => @http_request.data['data'] }
     end
   end
 end

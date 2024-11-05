@@ -27,6 +27,7 @@ module ApiConsumption::Models
     end
 
     def display_mandataires_sociaux?
+      return false unless mandataires_sociaux
       !(mandataires_sociaux.is_a?(Hash) && mandataires_sociaux['error'])
     end
 

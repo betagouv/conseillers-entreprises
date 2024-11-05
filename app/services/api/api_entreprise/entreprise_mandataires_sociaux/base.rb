@@ -2,12 +2,13 @@
 
 module Api::ApiEntreprise::EntrepriseMandatairesSociaux
   class Base < Api::ApiEntreprise::Base
-    def api_result_key
-      "mandataires_sociaux"
-    end
   end
 
   class Request < Api::ApiEntreprise::Request
+    def api_result_key
+      "mandataires_sociaux"
+    end
+
     private
 
     def url_key
@@ -22,7 +23,7 @@ module Api::ApiEntreprise::EntrepriseMandatairesSociaux
 
   class Responder < Api::ApiEntreprise::Responder
     def format_data
-      { "mandataires_sociaux" => @http_request.data['data'] }
+      { @http_request.api_result_key => @http_request.data['data'] }
     end
   end
 end

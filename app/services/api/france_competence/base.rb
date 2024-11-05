@@ -1,8 +1,5 @@
 module Api::FranceCompetence
   class Base < Api::Base
-    def api_result_key
-      "opco_fc"
-    end
   end
 
   class Request < Api::Request
@@ -28,6 +25,10 @@ module Api::FranceCompetence
 
     def data_error_message
       @data['errors']&.join('\n')
+    end
+
+    def api_result_key
+      "opco_fc"
     end
 
     private

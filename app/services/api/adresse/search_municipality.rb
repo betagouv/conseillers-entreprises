@@ -16,10 +16,6 @@ module Api::Adresse
         end
       end
     end
-
-    def api_result_key
-      "search_municipality"
-    end
   end
 
   class Request < Api::Request
@@ -40,6 +36,10 @@ module Api::Adresse
 
     def data_error_message
       @data['message'] || @data['searchStatus']
+    end
+
+    def api_result_key
+      "search_municipality"
     end
 
     private

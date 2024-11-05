@@ -2,9 +2,6 @@
 
 module Api::Cfadock
   class Opco < Api::ApiEntreprise::Base
-    def api_result_key
-      "opco_cfadock"
-    end
   end
 
   class Request < Api::Request
@@ -20,6 +17,10 @@ module Api::Cfadock
 
     def data_error_message
       @data['searchStatus']
+    end
+
+    def api_result_key
+      "opco_cfadock"
     end
 
     private
@@ -39,7 +40,7 @@ module Api::Cfadock
     end
 
     def call
-      { "opco_cfadock" => @http_request.data.slice('idcc', 'opcoName', 'opcoSiren') }
+      { @http_request.api_result_key => @http_request.data.slice('idcc', 'opcoName', 'opcoSiren') }
     end
   end
 

@@ -5,17 +5,12 @@ module Api
     attr_reader :query
 
     def initialize(query, options = {})
-      p self
-      p query
-      p self.class.name
       @query = FormatSiret.clean_siret(query)
       raise Api::BasicError, I18n.t('api_requests.invalid_siret_or_siren') unless valid_query?
       @options = options
     end
 
     def call
-      p '=================================='
-      p api_result_key
       Rails.cache.fetch([id_key, @query].join('-'), expires_in: 12.hours) do
         http_request = request
         if http_request.success?
@@ -63,11 +58,6 @@ module Api
 
     def id_key
       self.class.name.parameterize
-    end
-
-    # clé permettant d'identifier les données agglomérées
-    def api_result_key
-      ""
     end
 
     def valid_query?
@@ -124,7 +114,10 @@ module Api
       @data['erreur']
     end
 
-    private
+    # clé permettant d'identifier les données agglomérées
+    def api_result_key
+      ""
+    end
   end
 
   class Responder

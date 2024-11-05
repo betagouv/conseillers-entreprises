@@ -4,10 +4,6 @@ module Api::Rne
       query = query[0..8]
       super
     end
-
-    def api_result_key
-      "rne"
-    end
   end
 
   class Request < Api::Request
@@ -21,6 +17,10 @@ module Api::Rne
 
     def data_error_message
       @data["message"]
+    end
+
+    def api_result_key
+      "rne"
     end
 
     private
