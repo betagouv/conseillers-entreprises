@@ -35,7 +35,7 @@ module Reminders
     end
 
     def quo_active
-      retrieve_needs(@expert, :quo_active, view: :quo)
+      retrieve_needs(@expert, :quo_active, view: :quo, order: :asc)
     end
 
     def taking_care

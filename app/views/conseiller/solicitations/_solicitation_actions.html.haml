@@ -54,3 +54,6 @@
       %li.fr-menu__item
         .fr-nav__link.show-feedbacks-form.clickable{ 'data-feedbackable': "#{solicitation.id}", tabindex: "0" }
           = t('feedbacks.add')
+      %li.fr-menu__item
+        = link_to mark_as_spam_conseiller_solicitation_path(solicitation), class: 'fr-nav__link', method: :patch do
+          = t('.add_email_as_spam')

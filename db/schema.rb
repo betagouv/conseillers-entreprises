@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_24_132540) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_15_093219) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -125,10 +125,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_24_132540) do
 
   create_table "badges", force: :cascade do |t|
     t.string "title", null: false
-    t.string "color", null: false
+    t.string "color", default: "#000000", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "category", null: false
+    t.index ["title", "category"], name: "index_badges_on_title_and_category", unique: true
   end
 
   create_table "categories", force: :cascade do |t|
@@ -570,6 +571,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_24_132540) do
     t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"
     t.index ["status"], name: "index_solicitations_on_status"
     t.index ["uuid"], name: "index_solicitations_on_uuid"
+  end
+
+  create_table "spams", force: :cascade do |t|
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_spams_on_email", unique: true
   end
 
   create_table "subject_answer_groupings", force: :cascade do |t|

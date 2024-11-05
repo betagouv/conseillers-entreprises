@@ -53,7 +53,6 @@ module Api::Insee
   class Responder < Api::Responder
     def check_if_foreign_facility(etablissement)
       foreign_country = etablissement['adresseEtablissement']["libellePaysEtrangerEtablissement"]
-      # raise_technical_error(message: I18n.t('api_requests.foreign_facility', country: foreign_country.capitalize)) if foreign_country.present?
 
       raise Api::BasicError, I18n.t('api_requests.foreign_facility', country: foreign_country.capitalize) if foreign_country.present?
     end

@@ -29,6 +29,7 @@ module Stats
       end_date = params.end_date&.to_date || Date.today
       @end_date = end_date.end_of_day.in_time_zone
       @colors = params.colors
+      @detailed_graphs = params.detailed_graphs
     end
 
     def date_group_attribute
@@ -56,10 +57,10 @@ module Stats
     end
 
     def max_value
-      if additive_values || build_series.blank?
+      if additive_values || series.blank?
         count
       else
-        @max_value ||= build_series.first[:data].max
+        @max_value ||= series.first[:data].max
       end
     end
 

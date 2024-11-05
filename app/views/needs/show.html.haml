@@ -12,7 +12,8 @@
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
         = need_general_context(@need)
-        - if @need.subject_answers.any? || @need.solicitation&.origin_url.present?
+        - display_partner_url = @need.solicitation&.landing&.display_partner_url
+        - if @need.subject_answers.any? || (partner_url(@need.solicitation).present? && display_partner_url)
           %hr
           .need-description__meta.fr-text--sm
             - if @need.subject_answers.any?
@@ -24,7 +25,7 @@
                     = question_label(answer.key, :long)
                     %strong= answer_label
             - if @need.solicitation.present? && @need.solicitation.landing.display_partner_url
-              %div
+              %p.fr-text--sm
                 = t('.origin_source')
                 %br
                 = link_to partner_title(@need.solicitation), partner_url(@need.solicitation), title: "#{to_new_window_title(t('.origin_source_title'))}", target: '_blank', rel: 'noopener'

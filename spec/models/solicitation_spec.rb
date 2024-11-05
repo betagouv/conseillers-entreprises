@@ -220,6 +220,35 @@ end
         end
       end
     end
+
+    describe 'AASM' do
+      describe 'complete' do
+        let(:email) { Faker::Internet.email }
+
+        context 'with spam email' do
+          let(:solicitation) { create :solicitation, status: :step_description, email: email }
+          let!(:spam) { create :spam, email: email }
+
+          before { solicitation.complete! }
+
+          it 'cancel the solicitation' do
+            expect(solicitation).to be_status_canceled
+            expect(solicitation.badges.pluck(:title)).to include('Spam')
+          end
+        end
+
+        context 'with non spam email' do
+          let(:solicitation) { create :solicitation, status: :step_description }
+
+          before { solicitation.complete! }
+
+          it 'does not cancel the solicitation' do
+            expect(solicitation).to be_status_in_progress
+            expect(solicitation.badges).to be_empty
+          end
+        end
+      end
+    end
   end
 
   describe '#preselected_subject' do
@@ -612,6 +641,14 @@ end
 
       it { is_expected.to be false }
     end
+
+    context 'with email in spam list' do
+      let(:email) { Faker::Internet.email }
+      let(:solicitation) { create :solicitation, email: email }
+      let!(:spawn) { create :spam, email: email }
+
+      it { is_expected.to be false }
+    end
   end
 
   describe 'prepare_diagnosis_errors_to_s' do
@@ -644,4 +681,31 @@ end
     end
   end
 
+  describe 'mark_as_spam' do
+    let(:solicitation) { create(:solicitation, email: email, status: 'in_progress') }
+    let(:email) { Faker::Internet.email }
+
+    context 'when email is not already marked as spam' do
+      before { solicitation.mark_as_spam }
+
+      it 'creates Spam record and cancels the solicitation' do
+        expect(Spam.count).to eq 1
+        expect(Spam.first.email).to eq email
+        expect(solicitation).to be_canceled
+        expect(solicitation.badges.pluck(:title)).to include('Spam')
+      end
+    end
+
+    context 'when email is already marked as spam' do
+      let!(:spam) { create(:spam, email: email) }
+
+      before { solicitation.mark_as_spam }
+
+      it 'cancels the solicitation' do
+        expect(Spam.count).to eq 1
+        expect(solicitation).to be_canceled
+        expect(solicitation.badges.pluck(:title)).to include('Spam')
+      end
+    end
+  end
 end

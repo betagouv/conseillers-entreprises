@@ -1,6 +1,7 @@
 import { Controller } from "stimulus"
-import { percentageStatsCharts } from '../percentage_column_chart'
-import { simpleColumnCharts } from '../simple_column_charts'
+import { columnCharts } from '../column_charts'
+import { lineCharts } from "../line_charts"
+import { percentageColumnCharts } from "../percentage_column_chart"
 
 export default class extends Controller {
   static targets = ['graph']
@@ -15,10 +16,11 @@ export default class extends Controller {
     const colors = JSON.parse(chart.dataset.colors);
     const format = JSON.parse(chart.dataset.format);
     const subtitle = JSON.parse(chart.dataset.subtitle);
-    if (type === 'percentage-column-chart') {
-      percentageStatsCharts(container, months, maxValue, series, colors, format, subtitle);
-    } else {
-      simpleColumnCharts(container, months, maxValue, series, colors, format, subtitle);
+    const chartFunctions = {
+      'percentage-column-chart': percentageColumnCharts,
+      'column-chart': columnCharts,
+      'line-chart': lineCharts
     }
+    chartFunctions[type](container, months, maxValue, series, colors, format, subtitle);
   }
 }

@@ -70,6 +70,7 @@ Rails.application.routes.draw do
         post :update_status
         post :update_badges
         post :prepare_diagnosis
+        patch :mark_as_spam
       end
       collection do
         get :processed, path: 'mises-en-relation'
@@ -313,6 +314,7 @@ Rails.application.routes.draw do
         get :public, path: 'public'
         get :needs, path: 'besoins'
         get :matches, path: 'mises-en-relation'
+        get :acquisition, path: 'acquisition'
         get :load_data
         get :load_filter_options
       end

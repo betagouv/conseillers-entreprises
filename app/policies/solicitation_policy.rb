@@ -14,4 +14,8 @@ class SolicitationPolicy < ApplicationPolicy
   def destroy?
     admin?
   end
+
+  def mark_as_spam?
+    admin?
+  end
 end

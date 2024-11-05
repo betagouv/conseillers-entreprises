@@ -1,4 +1,4 @@
-= form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
+= form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true, data: { turbo: false } do |f|
   .fr-grid-row.fr-py-3w.fr-mb-3w.white-bg#stats-params{ data: { controller: 'stats', url: load_filter_options_team_index_path } }
 
     .fr-col-12.fr-col-md-4.fr-p-2w
@@ -70,4 +70,4 @@
         = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
         -# Affiche le bouton s'il y a plus de filtres que les dates début et fin qui sont présentes dès le début
         - if stats.keys.count > 2
-          = link_to t('clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--tertiary-no-outline'
+          = link_to t('clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--tertiary-no-outline', data: { turbo: false }

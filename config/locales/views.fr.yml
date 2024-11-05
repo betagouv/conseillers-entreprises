@@ -88,15 +88,15 @@ fr:
           other: "%{count} invitations envoyées"
       table:
         duplicate_user: Dupliquer cet utilisateur
-        edit_expert: Modifier %{expert_name} - %{antenne}
+        expert: "%{expert_name} - %{antenne}"
         reassign_matches: Réassigner les mises en relation
   annuaire_helper:
     build_user_name_cell:
       antenne_manager: Responsables d’antenne.
-      edit_expert: Modifier %{expert_name} - %{antenne}
-      edit_user: Modifier %{user_name} - %{antenne}
+      expert: "%{expert_name} - %{antenne}"
       not_invited: Invitation pas encore envoyée.
       specific_territories: Équipe avec des territoires spécifiques.
+      user: "%{user_name} - %{antenne}"
   application:
     bandeau_info:
       button_title: Masquer le message
@@ -324,6 +324,7 @@ fr:
         solicitation_relance_explanation: 'Relance suspectée : une mise en relation pour la même entreprise sur le même sujet a été faite il y a moins de 3 semaines'
         source: 'Page d’atterrissage :'
       solicitation_actions:
+        add_email_as_spam: Ajouter l’email comme spam
         prepare_diagnosis_errors:
           one: Erreur à la préparation
           other: "%{count} erreurs à préparation"
@@ -850,6 +851,7 @@ fr:
       title: Sollicitations
     institutions_tiles_block:
       partners_that_may_call: 'Les conseillers compétents sur ce sujet :'
+    mark_as_spam: L’email a été ajouté à la liste des spam
     search_company:
       select_your_company: 'Sélectionnez votre entreprise :'
     search_facility:
@@ -897,6 +899,25 @@ fr:
       stats_params:
         datepicker_format: 'Format attendu : JJ/MM/AAAA'
     series:
+      acquisitions_entreprendre:
+        title:
+          one: des besoins transmis aux conseillers proviennent du site Entreprendre.Service-Public.fr, soit %{secondary_count} besoin
+          other: des besoins transmis aux conseillers proviennent du site Entreprendre.Service-Public.fr, soit %{secondary_count} besoins
+          zero: des besoins transmis aux conseillers proviennent du site Entreprendre.Service-Public.fr, soit %{secondary_count} besoin
+      acquisitions_google_ads:
+        title:
+          one: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
+          other: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoins
+          zero: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
+      acquisitions_overall_distribution:
+        title: Évolution globale des canaux d’acquisition
+      acquisitions_overall_distribution_column:
+        title: Répartition globale des canaux d’acquisition
+      acquisitions_redirections:
+        title:
+          one: des besoins transmis aux conseillers proviennent de la redirection de sites partenaires, soit %{secondary_count} besoin
+          other: des besoins transmis aux conseillers proviennent de la redirection de sites partenaires, soit %{secondary_count} besoins
+          zero: des besoins transmis aux conseillers proviennent de la redirection de sites partenaires, soit %{secondary_count} besoin
       advisors:
         title: Conseillers publics
         title_table: Nombre de conseillers de service public
@@ -915,6 +936,18 @@ fr:
       experts:
         title: Experts
         title_table: Nombre d'experts
+      from_api:
+        title: API
+      from_entreprendre:
+        title: Entreprendre
+      from_google_ads:
+        title: Google Ads
+      from_iframes:
+        title: Iframes
+      from_others:
+        title: Autres provenances
+      from_redirections:
+        title: Redirections
       matches:
         title: Mises en relation
         title_table: Nombre de mises en relation
@@ -1111,6 +1144,7 @@ fr:
     taken_care_before: Moins de 5 jours
     taking_care_status: Statut « pris en charge »
     team:
+      acquisition: Acquisition
       index:
         select_partner: Attention ! Pensez à sélectionner un partenaire
         title: Statistiques équipe

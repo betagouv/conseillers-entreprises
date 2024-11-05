@@ -27,7 +27,7 @@ module Stats::Solicitations
     end
 
     def chart
-      'stats-chart'
+      'column-chart'
     end
 
     def subtitle

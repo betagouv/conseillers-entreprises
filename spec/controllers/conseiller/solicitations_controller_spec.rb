@@ -62,4 +62,17 @@ RSpec.describe Conseiller::SolicitationsController do
 
     it { expect(solicitation.badges).to contain_exactly(badge) }
   end
+
+  describe 'PATCH #mark_as_spam' do
+    let(:email) { Faker::Internet.email }
+    let(:solicitation) { create :solicitation, email: email, status: 'in_progress' }
+
+    before { patch :mark_as_spam, params: { id: solicitation.id } }
+
+    it 'marks solicitation as spam' do
+      request
+      expect(solicitation.reload.status).to eq("canceled")
+      expect(solicitation.badges.pluck(:title)).to include('Spam')
+    end
+  end
 end

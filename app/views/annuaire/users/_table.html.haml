@@ -50,7 +50,7 @@
               - if expert_first_row
                 %td.td-header.td-header--expert{ rowspan: users.size }
                   - if expert.persisted?
-                    = link_to expert.full_name, edit_admin_expert_path(expert), title: t('.edit_expert', expert_name: expert.full_name, antenne: antenne)
+                    = link_to expert.full_name, admin_expert_path(expert), title: t('.expert', expert_name: expert.full_name, antenne: antenne)
 
               -# user cell
               %td.td-header.td-header--user

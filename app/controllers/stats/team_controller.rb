@@ -3,7 +3,7 @@ module Stats
     include LoadFilterOptions
     before_action :authorize_team
     before_action :init_filters, except: %i[search_antennes]
-    before_action :set_stats_params, only: %i[public needs matches]
+    before_action :set_stats_params, only: %i[public needs matches acquisition]
 
     def index
       redirect_to action: :public
@@ -30,6 +30,11 @@ module Stats
         needs_transmitted matches_positioning matches_taking_care matches_done
         matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
       ]
+      render :index
+    end
+
+    def acquisition
+      @charts_names = %w[acquisitions_overall_distribution acquisitions_overall_distribution_column acquisitions_entreprendre acquisitions_google_ads acquisitions_redirections]
       render :index
     end
 

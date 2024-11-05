@@ -93,14 +93,14 @@ class CompanySatisfaction < ApplicationRecord
   # Partage aux conseillers
   #
   def share
-    done_experts.active.find_each do |e|
-      e.users.active.find_each{ |u| self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
-      expert_antenne = e.antenne
-      expert_antenne.managers.active.each{ |u| self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
-      share_with_higher_manager(e, expert_antenne)
+    done_experts.active.find_each do |done_expert|
+      done_expert.users.active.find_each{ |user| self.shared_satisfactions.where(user: user).first_or_create(expert: done_expert) }
+      expert_antenne = done_expert.antenne
+      expert_antenne.managers.active.each{ |manager| self.shared_satisfactions.where(user: manager).first_or_create(expert: done_expert) }
+      share_with_higher_manager(done_expert, expert_antenne)
     end
     return true if self.valid?
-    self.shared_satisfactions.map{ |us| us.errors.full_messages.to_sentence }.uniq.each do |error|
+    self.shared_satisfactions.map{ |shared_satisfaction| shared_satisfaction.errors.full_messages.to_sentence }.uniq.each do |error|
       self.errors.add(:base, error)
     end
     false
@@ -108,7 +108,9 @@ class CompanySatisfaction < ApplicationRecord
 
   def share_with_higher_manager(e, antenne)
     if antenne.parent_antenne.present?
-      antenne.parent_antenne.managers.active.each{ |u| self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
+      antenne.parent_antenne.managers.active.each do |u|
+        u.with_lock { self.shared_satisfactions.where(user: u).first_or_create(expert: e) }
+      end
       share_with_higher_manager(e, antenne.parent_antenne)
     end
   end

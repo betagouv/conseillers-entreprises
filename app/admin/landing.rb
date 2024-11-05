@@ -113,7 +113,7 @@ ActiveAdmin.register Landing do
                 :layout,
                 :emphasis, :home_description, :main_logo,
                 :meta_title, :meta_description,
-                :integration, :institution_id, :partner_url,
+                :integration, :institution_id, :partner_url, :display_partner_url,
                 :iframe_category, :custom_css, :display_pde_partnership_mention,
                 landing_joint_themes_attributes: landing_joint_themes_attributes
 
@@ -134,6 +134,7 @@ ActiveAdmin.register Landing do
     f.inputs I18n.t("landings.landings.admin.iframe_and_api_fields") do
       f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
       f.input :partner_url
+      f.input :display_partner_url
     end
 
     f.inputs I18n.t("landings.landings.admin.iframe_fields") do
