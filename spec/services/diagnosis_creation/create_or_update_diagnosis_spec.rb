@@ -27,15 +27,15 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
       context 'with a facility siret' do
         let(:siret) { '12345678901234' }
         let(:facility_params) { { siret: siret } }
-        let!(:intermediary_result) { UseCases::SearchFacility.new(siret) }
+        let!(:intermediary_result) { DiagnosisCreation::CreateOrUpdateFacilityAndCompany.new(siret) }
 
         before do
-          allow(UseCases::SearchFacility).to receive(:new).with(siret) { intermediary_result }
+          allow(DiagnosisCreation::CreateOrUpdateFacilityAndCompany).to receive(:new).with(siret) { intermediary_result }
         end
 
         context 'when ApiEntreprise accepts the SIRET' do
           before do
-            allow(intermediary_result).to receive(:with_siret_and_save) {
+            allow(intermediary_result).to receive(:call) {
               {
                 facility: create(:facility, siret: siret),
               errors: {}
@@ -50,7 +50,7 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
 
         context 'when Api returns a standard error' do
           before do
-            allow(intermediary_result).to receive(:with_siret_and_save) { raise Api::BasicError, 'some error message' }
+            allow(intermediary_result).to receive(:call) { raise Api::BasicError, 'some error message' }
           end
 
           it 'returns the message in diagnosis errors' do
@@ -60,7 +60,7 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
 
         context 'when ApiEntreprise returns a technical error' do
           before do
-            allow(intermediary_result).to receive(:with_siret_and_save) { raise Api::TechnicalError.new(api: "api-apientreprise-entreprise-base", severity: "major"), 'some error message' }
+            allow(intermediary_result).to receive(:call) { raise Api::TechnicalError.new(api: "api-apientreprise-entreprise-base", severity: "major"), 'some error message' }
           end
 
           it 'returns the message in the errors' do
@@ -101,11 +101,11 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
       context 'with a facility siret' do
         let(:siret) { '12345678901234' }
         let(:facility_params) { { siret: siret } }
-        let!(:intermediary_result) { UseCases::SearchFacility.new(siret) }
+        let!(:intermediary_result) { DiagnosisCreation::CreateOrUpdateFacilityAndCompany.new(siret) }
 
         context 'when ApiEntreprise accepts the SIRET' do
           before do
-            allow(intermediary_result).to receive(:with_siret_and_save) { raise Api::BasicError.new(:facility_commune_not_found) }
+            allow(intermediary_result).to receive(:call) { raise Api::BasicError.new(:facility_commune_not_found) }
           end
 
           it 'fetches info for ApiEntreprise and creates the diagnosis' do
@@ -120,7 +120,7 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
         context 'when ApiEntreprise returns a standard error' do
           before do
             allow(Api::Base).to receive(:new)
-            allow(intermediary_result).to receive(:with_siret_and_save) {
+            allow(intermediary_result).to receive(:call) {
   {
     facility: create(:facility, siret: siret),
               errors: {}

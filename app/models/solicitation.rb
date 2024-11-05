@@ -421,7 +421,8 @@ class Solicitation < ApplicationRecord
 
   def may_prepare_diagnosis?
     self.preselected_subject.present? &&
-      FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret))
+    FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret)) &&
+    self.not_spam?
   end
 
   # diagnosis_errors peut être un ActiveModel::Errors ou un Hash (erreur API)

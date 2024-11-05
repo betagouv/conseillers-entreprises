@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'api_helper'
 
-describe UseCases::SearchFacility do
+describe DiagnosisCreation::CreateOrUpdateFacilityAndCompany do
   let!(:opco) { create :institution, :opco, siren: "851296632", france_competence_code: "03" }
   let(:siret) { '41816609600051' }
   let(:siren) { siret[0..8] }
@@ -21,7 +21,7 @@ describe UseCases::SearchFacility do
   let(:rne_companies_url) { "https://registre-national-entreprises.inpi.fr/api/companies/#{siren}" }
   let(:france_competence_url) { "https://api.francecompetences.fr/siropartfc/v1/api/partenaire/#{siret}" }
 
-  describe 'with_siret_and_save' do
+  describe 'call' do
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
       authorize_rne_token
@@ -38,7 +38,7 @@ describe UseCases::SearchFacility do
 
     context 'first call' do
       before do
-        described_class.new(siret).with_siret_and_save
+        described_class.new(siret).call
       end
 
       it 'sets company and facility' do
@@ -62,8 +62,8 @@ describe UseCases::SearchFacility do
 
     context 'two calls' do
       it 'does not duplicate Company or Facility' do
-        described_class.new(siret).with_siret_and_save
-        described_class.new(siret).with_siret_and_save
+        described_class.new(siret).call
+        described_class.new(siret).call
 
         expect(Company.count).to eq 1
         expect(Facility.count).to eq 1

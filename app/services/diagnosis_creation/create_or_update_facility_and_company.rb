@@ -1,12 +1,12 @@
-module UseCases
-  class SearchFacility
+module DiagnosisCreation
+  class CreateOrUpdateFacilityAndCompany
     def initialize(siret, options = {})
       @siret = siret
       @options = options
       @errors = {}
     end
 
-    def with_siret_and_save
+    def call
       company = create_or_update_company
       facility = create_or_update_facility(company)
       return {

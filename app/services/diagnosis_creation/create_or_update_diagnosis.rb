@@ -15,7 +15,7 @@ module DiagnosisCreation
             # Facility attributes are nested in the hash; if there is no siret, we use the insee_code.
             # In particular, the facility.insee_code= setter will fetch the readable locality name from the geo api.
             facility_params = @params.delete(:facility_attributes)
-            facility_api_result = UseCases::SearchFacility.new(facility_params[:siret]).with_siret_and_save
+            facility_api_result = DiagnosisCreation::CreateOrUpdateFacilityAndCompany.new(facility_params[:siret]).call
             @params[:facility] = facility_api_result[:facility]
             @errors.deep_merge!(facility_api_result[:errors])
           end
