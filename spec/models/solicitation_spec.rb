@@ -663,13 +663,13 @@ end
     end
 
     context 'standard error' do
-      let(:errors) { { "standard" => I18n.t('api_requests.invalid_siret_or_siren') } }
+      let(:errors) { { "basic_errors" => I18n.t('api_requests.invalid_siret_or_siren') } }
 
       it { is_expected.to eq ['L’identifiant (siret ou siren) est invalide'] }
     end
 
     context 'major error' do
-      let(:errors) { { "major" => { "api-apientreprise-entreprise-base" => "Caramba !" } } }
+      let(:errors) { { "major_api_error" => { "api-apientreprise-entreprise-base" => "Caramba !" } } }
 
       it { is_expected.to eq ['Api Entreprise (entreprise) : Caramba !'] }
     end
@@ -678,6 +678,12 @@ end
       let(:errors) { { "unreachable_apis" => { "api-rne-companies-base" => "Caramba !" } } }
 
       it { is_expected.to eq ['Api RNE (entreprises) : Caramba !'] }
+    end
+
+    context 'standard_api_errors' do
+      let(:errors) { { "standard_api_errors" => { "api-rne-companies-base" => "Caramba !" } } }
+
+      it { is_expected.to eq [] }
     end
   end
 

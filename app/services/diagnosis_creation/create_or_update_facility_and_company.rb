@@ -29,10 +29,6 @@ module DiagnosisCreation
         effectif: api_company.effectif,
         forme_exercice: api_company.forme_exercice
       )
-      pp " api_company.errors"
-      pp api_company.errors
-      pp "@errors"
-      pp @errors
       @errors.deep_merge!(api_company.errors) if api_company.errors
       company
     end
@@ -56,9 +52,6 @@ module DiagnosisCreation
         nature_activites: api_facility.nature_activites,
         nafa_codes: api_facility.nafa_codes
       )
-      pp api_facility.errors
-      pp '----------'
-      pp @errors
       @errors.deep_merge!(api_facility.errors) if api_facility.errors
       facility
     end

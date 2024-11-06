@@ -21,13 +21,8 @@ module DiagnosisCreation
         ).call
 
         diagnosis = diagnosis_creation[:diagnosis]
-        pp "CREATION"
-        pp diagnosis
 
         DiagnosisCreation::Steps.new(diagnosis).autofill_steps
-
-        pp "STEPS"
-        pp diagnosis
 
         # Rollback on error!
         if diagnosis.errors.present?
@@ -43,8 +38,6 @@ module DiagnosisCreation
           end
         end
       end
-      p "ERRRORS FINAL"
-      pp prepare_diagnosis_errors
 
       # Save or clear the error
       solicitation.update(prepare_diagnosis_errors: prepare_diagnosis_errors, diagnosis: diagnosis)

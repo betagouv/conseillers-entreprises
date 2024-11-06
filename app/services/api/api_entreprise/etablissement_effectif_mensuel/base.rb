@@ -5,14 +5,6 @@ module Api::ApiEntreprise::EtablissementEffectifMensuel
   end
 
   class Request < Api::ApiEntreprise::Request
-    def success?
-      false
-    end
-
-    def has_unreachable_api_error?
-      false
-    end
-
     def api_result_key
       "effectifs_etablissement_mensuel"
     end

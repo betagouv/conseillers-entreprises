@@ -141,12 +141,11 @@ module Api
   class BasicError < StandardError; end
 
   class TechnicalError < StandardError
-    attr_reader :api, :severity
+    attr_reader :api
 
-    def initialize(api:, severity: :minor)
+    def initialize(api:)
       super
       @api = api
-      @severity = severity
     end
   end
 end

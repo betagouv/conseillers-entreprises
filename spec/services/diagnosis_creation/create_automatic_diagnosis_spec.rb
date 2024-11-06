@@ -79,7 +79,7 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
 
         it do
           expect(solicitation.diagnosis).not_to be_nil
-          expect(solicitation.prepare_diagnosis_errors).to eq({ "basic_errors" => "Caramba !" } )
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "basic_errors" => "Caramba !" })
         end
       end
 
