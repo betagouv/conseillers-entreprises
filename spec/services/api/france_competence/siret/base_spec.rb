@@ -29,7 +29,7 @@ RSpec.describe Api::FranceCompetence::Siret::Base do
     end
 
     it 'returns an error' do
-      expect(api).to eq({ errors: { basic_errors: { "api-francecompetence-siret-base" => "Siret Not Found" } } })
+      expect(api).to eq({ errors: { standard_api_errors: { "api-francecompetence-siret-base" => "Siret Not Found" } } })
     end
   end
 

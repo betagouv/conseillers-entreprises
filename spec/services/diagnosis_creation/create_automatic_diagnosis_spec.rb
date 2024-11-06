@@ -21,12 +21,7 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
       # suivant le contexte, ce ne sont pas toujours les memes arguments qui sont envoyés
       allow(DiagnosisCreation::CreateOrUpdateDiagnosis).to receive(:new).with(some_params, diagnosis) { intermediary_result }
       allow(DiagnosisCreation::CreateOrUpdateDiagnosis).to receive(:new).with(some_params, nil) { intermediary_result }
-      allow(intermediary_result).to receive(:call) {
-  {
-    diagnosis: diagnosis,
-        errors: errors
-  }
-}
+      allow(intermediary_result).to receive(:call) { { diagnosis: diagnosis, errors: errors } }
 
       allow(DiagnosisCreation::Steps).to receive(:new).with(diagnosis) { diagnosis_steps }
       allow(diagnosis_steps).to receive(:prepare_needs_from_solicitation) { prepare_needs }
@@ -67,35 +62,46 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
 
       context 'with major api error' do
         let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
-        let(:errors) { { major: { "api-apientreprise-entreprise-base" => "Caramba !" } } }
+        let(:errors) { { major_api_error: { "api-apientreprise-entreprise-base" => "Caramba !" } } }
         let(:prepare_needs) { [] }
 
         it do
           expect(solicitation.diagnosis).to be_nil
-          expect(solicitation.prepare_diagnosis_errors).to eq({ "major" => { "api-apientreprise-entreprise-base" => "Caramba !" } })
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "major_api_error" => { "api-apientreprise-entreprise-base" => "Caramba !" } })
           expect(solicitation.prepare_diagnosis_errors_to_s).to eq(["Api Entreprise (entreprise) : Caramba !"])
         end
       end
 
-      context 'with minor api error' do
+      context 'with basic error' do
         let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
-        let(:errors) { { minor: [{ "api-rne-companies-base" => { error: "Caramba !" } }] } }
+        let(:errors) { { basic_errors: "Caramba !" } }
         let(:prepare_needs) { [] }
 
         it do
           expect(solicitation.diagnosis).not_to be_nil
-          expect(solicitation.prepare_diagnosis_errors).to eq({ "minor" => [{ "api-rne-companies-base" => { "error" => "Caramba !" } }] })
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "basic_errors" => "Caramba !" } )
         end
       end
 
-      context 'with standard api error' do
+      context 'with minor unreachable api error' do
         let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
-        let(:errors) { { standard: [{ "api-rne-companies-base" => { error: "Caramba !" } }] } }
+        let(:errors) { { unreachable_apis: [{ "api-rne-companies-base" => { error: "Caramba !" } }] } }
         let(:prepare_needs) { [] }
 
         it do
           expect(solicitation.diagnosis).not_to be_nil
-          expect(solicitation.prepare_diagnosis_errors).to eq({ "standard" => [{ "api-rne-companies-base" => { "error" => "Caramba !" } }] })
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "unreachable_apis" => [{ "api-rne-companies-base" => { "error" => "Caramba !" } }] })
+        end
+      end
+
+      context 'with minor standard api error' do
+        let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
+        let(:errors) { { standard_api_errors: [{ "api-rne-companies-base" => { error: "Caramba !" } }] } }
+        let(:prepare_needs) { [] }
+
+        it do
+          expect(solicitation.diagnosis).not_to be_nil
+          expect(solicitation.prepare_diagnosis_errors).to eq({ "standard_api_errors" => [{ "api-rne-companies-base" => { "error" => "Caramba !" } }] })
         end
       end
 

@@ -54,7 +54,7 @@ RSpec.describe Api::Adresse::SearchMunicipality do
     end
 
     it 'returns an error' do
-      expect(api).to eq(errors: { basic_errors: { "api-adresse-searchmunicipality" => "q must contain between 3 and 200 chars and start with a number or a letter" } })
+      expect(api).to eq(errors: { standard_api_errors: { "api-adresse-searchmunicipality" => "q must contain between 3 and 200 chars and start with a number or a letter" } })
     end
   end
 

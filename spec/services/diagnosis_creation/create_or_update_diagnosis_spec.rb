@@ -54,7 +54,7 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
           end
 
           it 'returns the message in diagnosis errors' do
-            expect(create_or_update_diagnosis[:errors]).to eq({ standard: "some error message" })
+            expect(create_or_update_diagnosis[:errors]).to eq({ basic_errors: "some error message" })
           end
         end
 
@@ -65,7 +65,7 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
 
           it 'returns the message in the errors' do
             expect(create_or_update_diagnosis[:diagnosis]).not_to be_valid
-            expect(create_or_update_diagnosis[:errors]).to eq({ "major" => { "api-apientreprise-entreprise-base" => "some error message" } })
+            expect(create_or_update_diagnosis[:errors]).to eq({ major_api_error: { "api-apientreprise-entreprise-base" => "some error message" } })
           end
         end
       end

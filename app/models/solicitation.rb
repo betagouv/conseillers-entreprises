@@ -427,8 +427,6 @@ class Solicitation < ApplicationRecord
 
   # diagnosis_errors peut être un ActiveModel::Errors ou un Hash (erreur API)
   def prepare_diagnosis_errors=(diagnosis_errors)
-    p "prepare_diagnosis_errors= (details)"
-    p diagnosis_errors
     error_details = diagnosis_errors.is_a?(Hash) ? diagnosis_errors : diagnosis_errors&.details
     self.prepare_diagnosis_errors_details = error_details
   end
@@ -437,18 +435,16 @@ class Solicitation < ApplicationRecord
     prepare_diagnosis_errors_details
   end
 
+  # TODO : a ameliorer
   def prepare_diagnosis_errors_to_s
     prepare_diagnosis_errors.flat_map do |attr, errors|
-      pp attr
-      pp errors
-      if ['major', 'minor', 'unreachable_apis'].include?(attr)
+      next [] if attr == 'standard_api_errors'
+      if ['major_api_error', 'unreachable_apis'].include?(attr)
         errors.flat_map do |key, value|
           [I18n.t(key, scope: 'api_name'), value].join(' : ')
         end
-      elsif ['standard'].include?(attr)
+      elsif ['basic_errors'].include?(attr)
         errors
-      elsif ["basic_errors"].include?(attr)
-        []
       else
         diagnosis_errors = Diagnosis.new.errors
         errors.each { |h| h.each_value { |error| diagnosis_errors.add(attr, error.to_sym) } }

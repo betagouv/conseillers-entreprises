@@ -33,12 +33,16 @@ module Api
 
     def handle_error(http_request)
       notify_tech_error(http_request) if http_request.has_unreachable_api_error?
-      raise TechnicalError.new(api: id_key, severity: severity), http_request.error_message if (severity == :major)
-
-      error_type = http_request.has_unreachable_api_error? ? :unreachable_apis : :basic_errors
-      return {
-        errors: { error_type => { id_key => http_request.error_message } }
-      }
+      # On raise les erreurs api qu'on souhaite "bloquantes" (=pas de process si l'API est en carafe)
+      if (severity == :major)
+        raise TechnicalError.new(api: id_key), http_request.error_message
+      else
+        # on enregistre les autres erreurs pour pouvoir les traiter + tard
+        error_type = http_request.has_unreachable_api_error? ? :unreachable_apis : :standard_api_errors
+        return {
+          errors: { error_type => { id_key => http_request.error_message } }
+        }
+      end
     end
 
     def severity
@@ -79,9 +83,7 @@ module Api
       begin
         @http_response = get_url
         @data = @http_response.parse(:json)
-        pp @data
       rescue StandardError => e
-        pp e
         @error = e
       end
     end
@@ -132,7 +134,6 @@ module Api
     end
 
     def format_data
-      pp @http_request.data
       @http_request.data
     end
   end

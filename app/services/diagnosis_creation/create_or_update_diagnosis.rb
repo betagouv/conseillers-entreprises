@@ -31,12 +31,12 @@ module DiagnosisCreation
       rescue Api::TechnicalError => e
         return {
           diagnosis: @diagnosis,
-          errors: { e.severity => { e.api => e.message } }
+          errors: { major_api_error: { e.api => e.message } }
         }
       rescue Api::BasicError => e
         return {
           diagnosis: @diagnosis,
-          errors: { standard: e.message }
+          errors: { basic_errors: e.message }
         }
       end
     end

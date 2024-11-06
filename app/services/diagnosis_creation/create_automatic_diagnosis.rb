@@ -37,7 +37,7 @@ module DiagnosisCreation
           raise ActiveRecord::Rollback
         elsif diagnosis_creation[:errors].present?
           prepare_diagnosis_errors = diagnosis_creation[:errors]
-          if diagnosis_creation[:errors][:major]
+          if diagnosis_creation[:errors][:major_api_error]
             diagnosis = nil
             raise ActiveRecord::Rollback
           end

@@ -23,7 +23,7 @@
 
     -# Analyse existante
   - else
-    - if has_unreachable_apis_errors(solicitation)
+    - if solicitation.prepare_diagnosis_errors_to_s.present?
       - error_text = solicitation.prepare_diagnosis_errors_to_s.to_sentence
       .actions.warning-main-525-bg
         = link_to_diagnosis(solicitation.diagnosis)
