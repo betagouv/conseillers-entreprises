@@ -60,7 +60,7 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
 
         context 'when ApiEntreprise returns a technical error' do
           before do
-            allow(intermediary_result).to receive(:call) { raise Api::TechnicalError.new(api: "api-apientreprise-entreprise-base", severity: "major"), 'some error message' }
+            allow(intermediary_result).to receive(:call) { raise Api::TechnicalError.new(api: "api-apientreprise-entreprise-base"), 'some error message' }
           end
 
           it 'returns the message in the errors' do

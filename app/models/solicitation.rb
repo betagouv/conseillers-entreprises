@@ -432,7 +432,7 @@ class Solicitation < ApplicationRecord
   end
 
   def prepare_diagnosis_errors
-    prepare_diagnosis_errors_details
+    prepare_diagnosis_errors_details || {}
   end
 
   # TODO : a ameliorer
