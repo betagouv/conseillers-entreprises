@@ -19,27 +19,20 @@ module DiagnosisCreation
             facility_attributes: computed_facility_attributes
           }, solicitation.diagnosis
         ).call
-
         diagnosis = diagnosis_creation[:diagnosis]
 
         DiagnosisCreation::Steps.new(diagnosis).autofill_steps
 
-        # Rollback on error!
-        if diagnosis.errors.present?
-          prepare_diagnosis_errors = diagnosis.errors
+        prepare_diagnosis_errors = diagnosis.errors.presence || diagnosis_creation[:errors].presence
+        # Rollback on major error!
+        has_major_error = diagnosis.errors.present? || diagnosis_creation.dig(:errors, :major_api_error).present?
+        if has_major_error
           diagnosis = nil
           solicitation.diagnosis.destroy if solicitation&.diagnosis&.persisted?
           raise ActiveRecord::Rollback
-        elsif diagnosis_creation[:errors].present?
-          prepare_diagnosis_errors = diagnosis_creation[:errors]
-          if diagnosis_creation[:errors][:major_api_error]
-            diagnosis = nil
-            raise ActiveRecord::Rollback
-          end
         end
       end
 
-      # Save or clear the error
       solicitation.update(prepare_diagnosis_errors: prepare_diagnosis_errors, diagnosis: diagnosis)
       return diagnosis
     end
