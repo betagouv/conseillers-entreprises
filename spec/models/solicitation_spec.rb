@@ -516,6 +516,7 @@ end
     let(:landing_subject) { create :landing_subject, subject: sol_subject }
     let(:solicitation) { create :solicitation, email: 'hedy@lamarr.bzh', siret: '41816609600069' }
     let!(:old_solicitation) { create :solicitation, email: email, siret: siret, status: status }
+    let(:has_similar_abandonned_solicitations) { solicitation.has_similar_abandonned_solicitations? }
 
     subject { solicitation.similar_abandonned_solicitations }
 
@@ -524,7 +525,18 @@ end
       let(:siret) { '71816609600054' }
       let(:status) { :canceled }
 
-      it { is_expected.to contain_exactly(old_solicitation) }
+      context '1 solicitation' do
+        it { is_expected.to contain_exactly(old_solicitation) }
+        it { expect(has_similar_abandonned_solicitations).to be false }
+      end
+
+      context 'many solicitations' do
+        before do
+          3.times { create :solicitation, email: email, siret: siret, status: status }
+        end
+
+        it { expect(has_similar_abandonned_solicitations).to be true }
+      end
     end
 
     context 'same siret abandonned' do
@@ -533,6 +545,7 @@ end
       let(:status) { :canceled }
 
       it { is_expected.to contain_exactly(old_solicitation) }
+      it { expect(has_similar_abandonned_solicitations).to be false }
     end
 
     context 'same siret not abandonned' do
@@ -541,6 +554,7 @@ end
       let(:status) { :processed }
 
       it { is_expected.to be_empty }
+      it { expect(has_similar_abandonned_solicitations).to be false }
     end
   end
 
