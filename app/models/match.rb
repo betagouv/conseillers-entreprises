@@ -275,7 +275,7 @@ class Match < ApplicationRecord
   end
 
   def auto_close_other_pole_emploi_matches
-    pole_emploi = Institution.find_by(slug: 'pole-emploi')
+    pole_emploi = Institution.find_by(slug: 'france-travail')
     return if pole_emploi.nil? || self.status != 'taking_care'
     other_pole_emploi_matches = self.need.matches.joins(:expert_institution)
       .where(expert: { antenne: Antenne.where(institution_id: pole_emploi.id) })
