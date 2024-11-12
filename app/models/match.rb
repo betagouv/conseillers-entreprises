@@ -55,7 +55,7 @@ class Match < ApplicationRecord
   validates :expert, uniqueness: { scope: :need_id }
   after_update :update_taken_care_of_at
   after_update :update_closed_at
-  after_update :auto_close_other_pole_emploi_matches
+  after_update :auto_close_other_france_travail_matches
 
   ## Through Associations
   #
@@ -274,14 +274,14 @@ class Match < ApplicationRecord
     end
   end
 
-  def auto_close_other_pole_emploi_matches
-    pole_emploi = Institution.find_by(slug: 'france-travail')
-    return if pole_emploi.nil? || self.status != 'taking_care'
-    other_pole_emploi_matches = self.need.matches.joins(:expert_institution)
-      .where(expert: { antenne: Antenne.where(institution_id: pole_emploi.id) })
+  def auto_close_other_france_travail_matches
+    france_travail = Institution.find_by(slug: 'france-travail')
+    return if france_travail.nil? || self.status != 'taking_care'
+    other_france_travail_matches = self.need.matches.joins(:expert_institution)
+      .where(expert: { antenne: Antenne.where(institution_id: france_travail.id) })
       .where.not(id: self.id)
-    if self.expert_institution == pole_emploi && other_pole_emploi_matches.any?
-      other_pole_emploi_matches.update_all(status: 'not_for_me')
+    if self.expert_institution == france_travail && other_france_travail_matches.any?
+      other_france_travail_matches.update_all(status: 'not_for_me')
     end
   end
 end
