@@ -1,5 +1,5 @@
 module Stats::Acquisitions
-  class OverallDistribution
+  class OverallDistributionNeedsTransmitted
     include ::Stats::BaseStats
     include Stats::Acquisitions::Base
 

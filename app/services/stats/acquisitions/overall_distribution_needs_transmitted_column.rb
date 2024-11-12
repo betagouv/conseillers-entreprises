@@ -1,5 +1,5 @@
 module Stats::Acquisitions
-  class OverallDistributionColumn
+  class OverallDistributionNeedsTransmittedColumn
     include ::Stats::BaseStats
     include Stats::Acquisitions::Base
 

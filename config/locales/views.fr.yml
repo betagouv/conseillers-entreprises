@@ -911,10 +911,10 @@ fr:
           one: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
           other: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoins
           zero: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
-      acquisitions_overall_distribution:
-        title: Évolution globale des canaux d’acquisition
-      acquisitions_overall_distribution_column:
-        title: Répartition globale des canaux d’acquisition
+      acquisitions_overall_distribution_needs_transmitted:
+        title: Évolution des provenances des besoins transmis
+      acquisitions_overall_distribution_needs_transmitted_column:
+        title: Répartition des provenances des besoins transmis
       acquisitions_redirections:
         title:
           one: des besoins transmis aux conseillers proviennent de la redirection de sites partenaires, soit %{secondary_count} besoin
