@@ -3,10 +3,10 @@
     - if solicitation.may_prepare_diagnosis?
       - if solicitation.prepare_diagnosis_errors.present?
         - error_text = solicitation.prepare_diagnosis_errors_to_s.to_sentence
-        %button.fr-btn.actions.error-425-bg.info{ aria: { describedby: "tooltip-diagnosis-major-errors" } }
+        %button.fr-btn.actions.error-425-bg.info{ aria: { describedby: "tooltip-diagnosis-major-errors-#{solicitation.id}" } }
           %span.ri-error-warning-line.fr-mr-2v{ 'aria-hidden': 'true' }
           = t('.prepare_diagnosis_errors', count: solicitation.prepare_diagnosis_errors.count)
-        %span.fr-tooltip.fr-placement#tooltip-diagnosis-major-errors{ role: "tooltip" }
+        %span.fr-tooltip.fr-placement{ id: "tooltip-diagnosis-major-errors-#{solicitation.id}", role: "tooltip" }
           = error_text
         = render 'retry_diagnosis', solicitation: solicitation
       - else
@@ -27,8 +27,8 @@
       - error_text = solicitation.prepare_diagnosis_errors_to_s.to_sentence
       .actions.warning-main-525-bg
         = link_to_diagnosis(solicitation.diagnosis)
-      %button.fr-btn.ri-error-warning-line.warning-main-525-bg{ aria: { describedby: "tooltip-diagnosis-errors" } }
-      %span.fr-tooltip.fr-placement#tooltip-diagnosis-errors{ role: "tooltip" }
+      %button.fr-btn.ri-error-warning-line.warning-main-525-bg{ aria: { describedby: "tooltip-diagnosis-errors-#{solicitation.id}" } }
+      %span.fr-tooltip.fr-placement{ id: "tooltip-diagnosis-errors-#{solicitation.id}", role: "tooltip" }
         = error_text
       = render 'retry_diagnosis', solicitation: solicitation
 
