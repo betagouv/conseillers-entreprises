@@ -448,6 +448,10 @@ class Solicitation < ApplicationRecord
       .uniq
   end
 
+  def has_similar_abandonned_solicitations?
+    similar_abandonned_solicitations.size >= 4
+  end
+
   def update_diagnosis
     return if diagnosis.nil?
     return if status_processed?
