@@ -12,25 +12,25 @@ module Api::Insee::Siret
     end
 
     def url
-      @url ||= "#{base_url}#{url_key}?q=siret:#{@query}"
+      @url ||= "#{base_url}#{url_key}#{@query}"
     end
   end
 
   class Responder < Api::Insee::Responder
     def format_data
       data = @http_request.data
-      etablissements = data["etablissements"]
-      check_if_foreign_facility(etablissements.first)
-      entreprise = format_entreprise(data["etablissements"][0])
+      etablissement = data["etablissement"]
+      check_if_foreign_facility(etablissement)
+      entreprise = format_entreprise(etablissement)
       {
         entreprise: entreprise,
-        etablissements: etablissements,
+        etablissements: [etablissement],
         nombre_etablissements_ouverts: 1,
       }
     end
 
-    def format_entreprise(first_etablissement)
-      { siren: first_etablissement['siren'] }.merge(first_etablissement['uniteLegale'])
+    def format_entreprise(etablissement)
+      { siren: etablissement['siren'] }.merge(etablissement['uniteLegale'])
     end
   end
 end
