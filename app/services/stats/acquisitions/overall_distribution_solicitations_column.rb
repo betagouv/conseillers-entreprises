@@ -1,10 +1,10 @@
 module Stats::Acquisitions
-  class OverallDistributionNeedsTransmittedColumn
+  class OverallDistributionSolicitationsColumn
     include ::Stats::BaseStats
     include Stats::Acquisitions::Base
 
     def main_query
-      needs_main_query
+      solicitations_main_query
     end
 
     def build_series
@@ -17,10 +17,10 @@ module Stats::Acquisitions
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
 
-        from_entreprendre = month_query.from_campaign('entreprendre')
-        from_google_ads = month_query.from_campaign('googleads')
+        from_entreprendre = month_query.mtm_campaign_cont('entreprendre')
+        from_google_ads = month_query.mtm_campaign_cont('googleads')
         from_iframes = month_query.from_integration('iframe')
-        from_redirections = month_query.from_campaign('orientation-partenaire').or(month_query.from_campaign('compartenaire'))
+        from_redirections = month_query.mtm_campaign_cont('orientation-partenaire').or(month_query.mtm_campaign_cont('compartenaire'))
         from_api = month_query.from_integration('api')
 
         @results['from_entreprendre'] << from_entreprendre.count

@@ -34,7 +34,7 @@ module Stats
     end
 
     def acquisition
-      @charts_names = %w[acquisitions_overall_distribution_needs_transmitted acquisitions_overall_distribution_needs_transmitted_column]
+      @charts_names = %w[acquisitions_overall_distribution_solicitations acquisitions_overall_distribution_solicitations_column acquisitions_overall_distribution_needs_transmitted acquisitions_overall_distribution_needs_transmitted_column]
       render :index
     end
 

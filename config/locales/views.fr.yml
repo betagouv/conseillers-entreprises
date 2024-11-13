@@ -915,6 +915,10 @@ fr:
         title: Évolution des provenances des besoins transmis
       acquisitions_overall_distribution_needs_transmitted_column:
         title: Répartition des provenances des besoins transmis
+      acquisitions_overall_distribution_solicitations:
+        title: Évolution des provenances des sollicitations
+      acquisitions_overall_distribution_solicitations_column:
+        title: Répartition des provenances des sollicitations
       acquisitions_redirections:
         title:
           one: des besoins transmis aux conseillers proviennent de la redirection de sites partenaires, soit %{secondary_count} besoin
