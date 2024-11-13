@@ -4,7 +4,7 @@ module Stats::Acquisitions
     include Stats::Acquisitions::Base
 
     def main_query
-      solicitations_main_query
+      Solicitation.step_complete
     end
 
     def build_series

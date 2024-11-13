@@ -1,22 +1,18 @@
 module Stats::Acquisitions
-  class OverallDistributionNeedsTransmittedColumn
+  class OverallDistributionNeedsDoneWithHelp
     include ::Stats::BaseStats
     include Stats::Acquisitions::NeedsBase
 
     def main_query
-      base_scope
+      base_scope.where(status: :done)
     end
 
     def build_series
-      build_columns_series
+      build_lines_series
     end
 
     def colors
-      columns_colors
-    end
-
-    def chart
-      'percentage-column-chart'
+      lines_colors
     end
   end
 end

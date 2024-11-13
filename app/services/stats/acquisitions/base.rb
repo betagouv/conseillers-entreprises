@@ -1,14 +1,4 @@
 module Stats::Acquisitions::Base
-  def needs_main_query
-    Need.diagnosis_completed
-      .joins(diagnosis: { solicitation: :landing }).merge(Diagnosis.from_solicitation)
-      .where(created_at: @start_date..@end_date)
-  end
-
-  def solicitations_main_query
-    Solicitation.step_complete
-  end
-
   def category_group_attribute
     :status
   end

@@ -1,10 +1,10 @@
 module Stats::Acquisitions
-  class OverallDistributionNeedsTransmittedColumn
+  class OverallDistributionNeedsDoneWithHelpColumn
     include ::Stats::BaseStats
     include Stats::Acquisitions::NeedsBase
 
     def main_query
-      base_scope
+      base_scope.where(status: :done)
     end
 
     def build_series

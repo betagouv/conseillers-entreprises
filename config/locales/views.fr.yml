@@ -911,6 +911,10 @@ fr:
           one: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
           other: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoins
           zero: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
+      acquisitions_overall_distribution_needs_done_with_help:
+        title: Évolution des provenances des besoins clôturés par une aide
+      acquisitions_overall_distribution_needs_done_with_help_column:
+        title: Répartition des provenances des besoins clôturés par une aide
       acquisitions_overall_distribution_needs_transmitted:
         title: Évolution des provenances des besoins transmis
       acquisitions_overall_distribution_needs_transmitted_column:
