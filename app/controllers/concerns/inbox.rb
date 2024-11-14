@@ -71,14 +71,12 @@ module Inbox
     end
   end
 
-  def possible_themes_subjects_collection(collection_name)
-    # Build a hash with themes and subjects covered by recipient_for_search with a counter for needs in current collection
-    # Example: { themes: [theme1, theme2], subjects: { subject1.id => 'subject1 (2)', subject2.id => 'subject2 (1)' } }
+  def possible_themes_subjects_collection
+    # Build a hash with themes and subjects covered by recipient_for_search
     hash = { themes: recipient_for_search.themes.ordered_for_interview.uniq, subjects: [] }
     hash[:themes].each do |theme|
       theme.subjects_ordered_for_interview.each do |subject|
-        count = recipient_for_search.send(:"needs_#{collection_name}").where(subject: subject).size
-        hash[:subjects][subject.id] = "#{subject.label} (#{count.positive? ? count : '-'})"
+        hash[:subjects][subject.id] = subject.label
       end
     end
     hash
