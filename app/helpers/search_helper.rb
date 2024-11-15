@@ -1,7 +1,7 @@
 module SearchHelper
-  def build_collection_for_select(collection_name)
+  def build_collection_for_select
     # Build a collection_for_select with a list of subjects ordered by themes
-    themes_and_subjects_collection = possible_themes_subjects_collection(collection_name)
+    themes_and_subjects_collection = possible_themes_subjects_collection
     option_groups_from_collection_for_select(themes_and_subjects_collection[:themes],
                                              :subjects_ordered_for_interview,
                                              :label,

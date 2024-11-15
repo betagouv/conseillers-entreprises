@@ -41,7 +41,7 @@
               %li.meta__warnings__item{ title: t('.solicitation_relance_explanation') } R
             - if solicitation.doublon_solicitations.any?
               %li.meta__warnings__item{ title: t('.solicitation_doublon_explanation') } D
-            - if solicitation.similar_abandonned_solicitations.any?
+            - if solicitation.has_similar_abandonned_solicitations?
               %li.meta__warnings__item{ title: t('.similar_abandonned_solicitations_explanation') } A
             - if solicitation.from_intermediary?
               %li.meta__warnings__item{ title: t('.from_intermediary') } I

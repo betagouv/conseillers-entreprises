@@ -84,12 +84,12 @@ RSpec.describe Match do
     end
   end
 
-  describe 'auto_close_other_pole_emploi_matches' do
+  describe 'auto_close_other_france_travail_matches' do
     let(:need) { create :need }
-    let(:pole_emploi) { create :institution, name: 'Pole Emploi', slug: 'pole-emploi' }
+    let(:france_travail) { create :institution, name: 'France Travail', slug: 'france-travail' }
     let!(:match_pe_01) do
       create :match, need: need, status: :quo,
-      expert: create(:expert, antenne: create(:antenne, institution: pole_emploi))
+      expert: create(:expert, antenne: create(:antenne, institution: france_travail))
     end
     let!(:match_02) do
       create :match, need: need, status: :quo,
@@ -97,8 +97,8 @@ RSpec.describe Match do
     end
     let!(:match_03) { create :match, need: need, status: :quo }
 
-    context 'pole emploi refusing' do
-      let(:institution) { pole_emploi }
+    context 'France Travail refusing' do
+      let(:institution) { france_travail }
 
       before { match_pe_01.update status: :not_for_me }
 
@@ -106,7 +106,7 @@ RSpec.describe Match do
         expect(match_pe_01.reload.status).to eq('not_for_me')
       end
 
-      it 'doesnt change other pole emploi match status' do
+      it 'doesnt change other France Travail match status' do
         expect(match_02.reload.status).to eq('quo')
       end
 
@@ -115,17 +115,17 @@ RSpec.describe Match do
       end
     end
 
-    context 'pole emploi taking care' do
+    context 'France Travail taking care' do
       before { match_pe_01.update status: :taking_care }
 
-      context 'with 2 pole_emploi matches' do
-        let(:institution) { pole_emploi }
+      context 'with 2 france_travail matches' do
+        let(:institution) { france_travail }
 
         it 'doesnt changes current match status' do
           expect(match_pe_01.reload.status).to eq('taking_care')
         end
 
-        it 'changes other pole emploi match status' do
+        it 'changes other France Travail match status' do
           expect(match_02.reload.status).to eq('not_for_me')
         end
 
@@ -134,7 +134,7 @@ RSpec.describe Match do
         end
       end
 
-      context 'with 1 pole_emploi match' do
+      context 'with 1 france_travail match' do
         let(:institution) { create :institution }
 
         it 'doesnt change match status' do

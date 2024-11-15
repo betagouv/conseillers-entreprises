@@ -10,13 +10,13 @@ class ChangeLandingSubjectLogos < ActiveRecord::Migration[7.0]
       Institution.find_by(slug: 'cap-emploi').institutions_subjects.where(subject_id: 44).update_all(description: "Les conseillers de Cap emploi vous aident sur le recrutement de personnes en situation de handicap.")
       Institution.find_by(slug: 'cci').institutions_subjects.where(subject_id: 44).update_all(description: "Les conseillers des CCI vous aident sur le recrutement en alternance en lien avec les centres de formation.")
       Institution.find_by(slug: 'cma').institutions_subjects.where(subject_id: 44).update_all(description: "Les conseillers des CMA vous aident sur le recrutement en alternance en lien avec les centres de formation.")
-      Institution.find_by(slug: 'pole_emploi').institutions_subjects.where(subject_id: 44).update_all(description: "Les conseillers de Pôle emploi vous aident sur le recrutement de tous profils.")
+      Institution.find_by(slug: 'france-travail').institutions_subjects.where(subject_id: 44).update_all(description: "Les conseillers de Pôle emploi vous aident sur le recrutement de tous profils.")
 
       # Accompagner et financer un projet de formation
       InstitutionSubject.where(subject_id: 45).joins(:institution).merge(Institution.opco).update_all(description: "Les conseillers des OPCO vous aident sur le financement de la formation de vos salariés selon votre secteur.")
       Institution.find_by(slug: 'cci').institutions_subjects.where(subject_id: 45).update_all(description: "Les conseillers des CCI vous aident à former vos salariés ou en tant que dirigeant.")
       Institution.find_by(slug: 'cma').institutions_subjects.where(subject_id: 45).update_all(description: "Les conseillers des CMA vous aident à former vos salariés ou en tant que dirigeant.")
-      Institution.find_by(slug: 'pole_emploi').institutions_subjects.where(subject_id: 45).update_all(description: "Les conseillers de Pôle emploi vous aident sur la formation de futurs salariés pour leur prise de poste.")
+      Institution.find_by(slug: 'france-travail').institutions_subjects.where(subject_id: 45).update_all(description: "Les conseillers de Pôle emploi vous aident sur la formation de futurs salariés pour leur prise de poste.")
 
       # Optimiser l'organisation du travail et la gestion des carrières
       InstitutionSubject.where(subject_id: 46).joins(:institution).merge(Institution.opco).update_all(description: "Les conseillers des OPCO vous aident sur la gestion des ressources humaines.")

@@ -92,7 +92,8 @@ namespace :staging do
     expert.update({
       full_name: 'Laurent Dubois',
       email: 'l.dubois@cma-hautsdefrance.fr',
-      phone_number: '0605040302'
+      phone_number: '0605040302',
+      deleted_at: nil
     })
 
     match = Match.find(12026)
@@ -108,7 +109,8 @@ namespace :staging do
     expert.update({
       full_name: 'Equipe Correspondants Tpe Pas De Calais',
       email: 'tpme_62@banque-france.fr',
-      phone_number: '0605040302'
+      phone_number: '0605040302',
+      deleted_at: nil
     })
 
     match = Match.find(12027)
@@ -123,7 +125,8 @@ namespace :staging do
     # Expert personnel, modif doit se faire en 2 temps
     expert.update({
       full_name: 'Djamal Humette',
-      phone_number: '0605040302'
+      phone_number: '0605040302',
+      deleted_at: nil
     })
     expert.update(email: 'd.humette@artois.cci.fr')
 
@@ -140,7 +143,8 @@ namespace :staging do
     # Expert personnel, modif doit se faire en 2 temps
     expert.update({
       full_name: 'Brigitte Tonot',
-      phone_number: '0605040302'
+      phone_number: '0605040302',
+      deleted_at: nil
     })
     expert.update(email: 'brigitte.tonot@hautsdefrance.fr')
 
@@ -157,7 +161,8 @@ namespace :staging do
     expert.update({
       full_name: 'Equipe DDFIP 62 - Pierrette Brindy et Mahmoud Kabann',
       email: "ddfip.62.actioneconomique.pgp@dgfip.finances.gouv.fr",
-      phone_number: '0605040302'
+      phone_number: '0605040302',
+      deleted_at: nil
     })
   end
 
@@ -167,7 +172,8 @@ namespace :staging do
     feedback.user.update({
       full_name: 'Latifa Gault',
       email: 'latifa.gault@banque-france.fr',
-      phone_number: '0605040302'
+      phone_number: '0605040302',
+      deleted_at: nil
     })
 
     # Utilisation de find_by, au cas où il aurait déjà été supprimé
@@ -178,7 +184,8 @@ namespace :staging do
     feedback.user.update({
       full_name: 'Pierrette Brindy',
       email: 'pierrette.brindy@dgfip.finances.gouv.fr',
-      phone_number: '0605040302'
+      phone_number: '0605040302',
+      deleted_at: nil
     })
 
     feedback = Feedback.find(8883)
@@ -186,7 +193,8 @@ namespace :staging do
     feedback.user.update({
       full_name: 'Djamal Humette',
       email: 'd.humette@artois.cci.fr',
-      phone_number: '0605040302'
+      phone_number: '0605040302',
+      deleted_at: nil
     })
 
     Feedback.find(8891).update(description: "Face à l'urgence de la situation (règlement des salaires), le mandataire a conseillé  à M. Cagette de déposer un dossier de demande de liquidation de l'entreprise.\nSeule une mesure rapide de prêt permettrait d'éviter cette dissolution et la mise au chômage des salariés. M. Cagette indique ne plus disposer de suffisamment de temps pour remonter des dossiers de demande d'une hypothétique aide.")
@@ -196,7 +204,8 @@ namespace :staging do
     feedback.user.update({
       full_name: 'Brigitte Tonneau',
       email: 'brigitte.tonneau@hautsdefrance.fr',
-      phone_number: '0605040302'
+      phone_number: '0605040302',
+      deleted_at: nil
     })
   end
 
