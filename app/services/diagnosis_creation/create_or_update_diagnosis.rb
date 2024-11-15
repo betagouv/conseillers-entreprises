@@ -10,13 +10,7 @@ module DiagnosisCreation
       begin
         Diagnosis.transaction do
           if @params[:facility_attributes].include? :siret
-            @params = @params.dup # avoid modifying the params hash at the call site
-            # Facility attributes are nested in the hash; if there is no siret, we use the insee_code.
-            # In particular, the facility.insee_code= setter will fetch the readable locality name from the geo api.
-            facility_params = @params.delete(:facility_attributes)
-            facility_api_result = DiagnosisCreation::CreateOrUpdateFacilityAndCompany.new(facility_params[:siret]).call
-            @params[:facility] = facility_api_result[:facility]
-            @errors.deep_merge!(facility_api_result[:errors])
+            set_facility
           end
 
           @params[:step] = :contact unless @diagnosis.persisted?
@@ -42,6 +36,16 @@ module DiagnosisCreation
     end
 
     private
+
+    def set_facility
+      @params = @params.dup # avoid modifying the params hash at the call site
+      # Facility attributes are nested in the hash; if there is no siret, we use the insee_code.
+      # In particular, the facility.insee_code= setter will fetch the readable locality name from the geo api.
+      facility_params = @params.delete(:facility_attributes)
+      facility_api_result = DiagnosisCreation::CreateOrUpdateFacilityAndCompany.new(facility_params[:siret]).call
+      @params[:facility] = facility_api_result[:facility]
+      @errors.deep_merge!(facility_api_result[:errors])
+    end
 
     def solicitation_description
       if @params[:solicitation].present?

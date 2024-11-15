@@ -5,10 +5,6 @@ module Api::ApiEntreprise::EtablissementEffectifMensuel
   end
 
   class Request < Api::ApiEntreprise::Request
-    def api_result_key
-      "effectifs_etablissement_mensuel"
-    end
-
     private
 
     def url_key
@@ -36,7 +32,7 @@ module Api::ApiEntreprise::EtablissementEffectifMensuel
 
   class Responder < Api::ApiEntreprise::Responder
     def format_data
-      { @http_request.api_result_key => @http_request.data['data'] }
+      { "effectifs_etablissement_mensuel" => @http_request.data['data'] }
     end
   end
 end

@@ -108,11 +108,6 @@ module Api
       @error&.message || data_error_message || response_status.reason || DEFAULT_ERROR_MESSAGE
     end
 
-    # clé permettant d'identifier les données agglomérées
-    def api_result_key
-      ""
-    end
-
     private
 
     def response_status

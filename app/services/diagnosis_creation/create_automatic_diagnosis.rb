@@ -2,39 +2,38 @@ module DiagnosisCreation
   class CreateAutomaticDiagnosis
     attr_accessor :solicitation, :advisor
 
-    def initialize(solicitation, advisor)
+    def initialize(solicitation, advisor = nil)
       @solicitation = solicitation
       @advisor = advisor
     end
 
     def call
       return unless solicitation.may_prepare_diagnosis?
-      prepare_diagnosis_errors = nil
-      diagnosis = nil
-      Diagnosis.transaction do
-        diagnosis_creation = DiagnosisCreation::CreateOrUpdateDiagnosis.new(
+
+      preparation_errors = nil
+      diagnosis = Diagnosis.transaction do
+        creation_result = DiagnosisCreation::CreateOrUpdateDiagnosis.new(
           {
             advisor: advisor,
             solicitation: solicitation,
             facility_attributes: computed_facility_attributes
           }, solicitation.diagnosis
         ).call
-        diagnosis = diagnosis_creation[:diagnosis]
 
+        diagnosis = creation_result[:diagnosis]
         DiagnosisCreation::Steps.new(diagnosis).autofill_steps
 
-        prepare_diagnosis_errors = diagnosis.errors.presence || diagnosis_creation[:errors].presence
-        # Rollback on major error!
-        has_major_error = diagnosis.errors.present? || diagnosis_creation.dig(:errors, :major_api_error).present?
-        if has_major_error
-          diagnosis = nil
+        preparation_errors = diagnosis.errors.presence || creation_result[:errors].presence
+        if preparation_errors&.dig(:major_api_error)
           solicitation.diagnosis.destroy if solicitation&.diagnosis&.persisted?
           raise ActiveRecord::Rollback
         end
+
+        preparation_errors ? nil : diagnosis
       end
 
-      solicitation.update(prepare_diagnosis_errors: prepare_diagnosis_errors, diagnosis: diagnosis)
-      return diagnosis
+      solicitation.update(prepare_diagnosis_errors: preparation_errors, diagnosis: diagnosis)
+      diagnosis
     end
 
     private

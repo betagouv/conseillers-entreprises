@@ -27,10 +27,6 @@ module Api::FranceCompetence
       @data['errors']&.join('\n')
     end
 
-    def api_result_key
-      "opco_fc"
-    end
-
     private
 
     def base_url

@@ -19,10 +19,6 @@ module Api::Cfadock
       @data['searchStatus']
     end
 
-    def api_result_key
-      "opco_cfadock"
-    end
-
     private
 
     def base_url
@@ -36,11 +32,7 @@ module Api::Cfadock
 
   class Responder < Api::Responder
     def format_data
-      { "effectifs_etablissement_mensuel" => @http_request.data['data'] }
-    end
-
-    def call
-      { @http_request.api_result_key => @http_request.data.slice('idcc', 'opcoName', 'opcoSiren') }
+      { "opco_cfadock" => @http_request.data.slice('idcc', 'opcoName', 'opcoSiren') }
     end
   end
 

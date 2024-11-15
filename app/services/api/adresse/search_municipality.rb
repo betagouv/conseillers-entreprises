@@ -38,10 +38,6 @@ module Api::Adresse
       @data['message'] || @data['searchStatus']
     end
 
-    def api_result_key
-      "search_municipality"
-    end
-
     private
 
     def base_url

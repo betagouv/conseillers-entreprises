@@ -19,10 +19,6 @@ module Api::Rne
       @data["message"]
     end
 
-    def api_result_key
-      "rne"
-    end
-
     private
 
     def base_url
