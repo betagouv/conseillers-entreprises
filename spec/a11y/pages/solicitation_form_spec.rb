@@ -18,15 +18,16 @@ describe 'solicitation_form', :js, type: :feature do
     let!(:additional_question_2) { create :subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
     let(:siret) { '41816609600069' }
     let(:solicitation) { Solicitation.last }
-    let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3.11/siret/?q=siret:#{query}" }
+    let(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{query}" }
     let(:fixture_file) { 'api_insee_siret.json' }
     let(:query) { siret }
 
+    ENV['SIRENE_API_KEY'] = 'api_key'
+
     before do
-      authorize_insee_token
-      stub_request(:get, api_url).to_return(
-        body: file_fixture(fixture_file)
-      )
+      stub_request(:get, api_url)
+        .with(headers: { 'X-INSEE-Api-Key-Integration' => 'api_key' })
+        .to_return(body: file_fixture(fixture_file))
     end
 
     it do
@@ -46,7 +47,7 @@ describe 'solicitation_form', :js, type: :feature do
       is_expected.to be_accessible
       click_on "#{query} - Octo Technology"
       # Third step
-      is_expected.to be_accessible
+      is_expected.to be_axe_clean
       fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
       choose 'Oui', name: 'solicitation[subject_answers_attributes][0][filter_value]', allow_label_click: true
       choose 'Oui', name: 'solicitation[subject_answers_attributes][1][filter_value]', allow_label_click: true
