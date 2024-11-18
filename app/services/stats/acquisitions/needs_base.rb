@@ -17,10 +17,10 @@ module Stats::Acquisitions::NeedsBase
     search_range_by_month.each do |range|
       month_query = query.created_between(range.first, range.last)
 
-      from_entreprendre = month_query.from_campaign('entreprendre')
-      from_google_ads = month_query.from_campaign('googleads')
+      from_entreprendre = month_query.mtm_campaign_cont('entreprendre')
+      from_google_ads = month_query.mtm_campaign_cont('googleads')
       from_iframes = month_query.from_integration('iframe')
-      from_redirections = month_query.from_campaign('orientation-partenaire').or(month_query.from_campaign('compartenaire'))
+      from_redirections = month_query.mtm_campaign_cont('orientation-partenaire').or(month_query.mtm_campaign_cont('compartenaire'))
       from_api = month_query.from_integration('api')
 
       @results['from_entreprendre'] << from_entreprendre.count
@@ -42,10 +42,10 @@ module Stats::Acquisitions::NeedsBase
 
     search_range_by_month.each do |range|
       month_query = query.created_between(range.first, range.last)
-      @results['from_entreprendre'] << month_query.from_campaign('entreprendre').count
-      @results['from_google_ads'] << month_query.from_campaign('googleads').count
+      @results['from_entreprendre'] << month_query.mtm_campaign_cont('entreprendre').count
+      @results['from_google_ads'] << month_query.mtm_campaign_cont('googleads').count
       @results['from_iframes'] << month_query.from_integration('iframe').count
-      @results['from_redirections'] << month_query.from_campaign('orientation-partenaire').or(month_query.from_campaign('compartenaire')).count
+      @results['from_redirections'] << month_query.mtm_campaign_cont('orientation-partenaire').or(month_query.mtm_campaign_cont('compartenaire')).count
       @results['from_api'] << month_query.from_integration('api').count
     end
 

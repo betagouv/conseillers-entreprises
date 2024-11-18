@@ -341,7 +341,7 @@ class Need < ApplicationRecord
   end
 
   # Scopes for stats
-  scope :from_campaign, -> (campaign) do
+  scope :mtm_campaign_cont, -> (campaign) do
     joins(diagnosis: :solicitation).where(solicitations: Solicitation.mtm_campaign_cont(campaign))
   end
 
