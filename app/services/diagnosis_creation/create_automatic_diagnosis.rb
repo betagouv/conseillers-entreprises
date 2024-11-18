@@ -11,7 +11,8 @@ module DiagnosisCreation
       return unless solicitation.may_prepare_diagnosis?
 
       preparation_errors = nil
-      diagnosis = Diagnosis.transaction do
+      diagnosis = nil
+      Diagnosis.transaction do
         creation_result = DiagnosisCreation::CreateOrUpdateDiagnosis.new(
           {
             advisor: advisor,
@@ -24,12 +25,12 @@ module DiagnosisCreation
         DiagnosisCreation::Steps.new(diagnosis).autofill_steps
 
         preparation_errors = diagnosis.errors.presence || creation_result[:errors].presence
-        if preparation_errors&.dig(:major_api_error)
+        has_major_error = diagnosis.errors.present? || creation_result.dig(:errors, :major_api_error).present?
+        if has_major_error
+          diagnosis = nil
           solicitation.diagnosis.destroy if solicitation&.diagnosis&.persisted?
           raise ActiveRecord::Rollback
         end
-
-        preparation_errors ? nil : diagnosis
       end
 
       solicitation.update(prepare_diagnosis_errors: preparation_errors, diagnosis: diagnosis)
