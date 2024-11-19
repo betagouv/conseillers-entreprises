@@ -82,8 +82,6 @@ ActiveAdmin.register LandingTheme do
             row :requires_location
             row :requires_requested_help_amount
             row :requires_siret
-            row :logos
-            row :display_region_logo
             row :meta_title
             row :meta_description
           end
@@ -96,8 +94,8 @@ ActiveAdmin.register LandingTheme do
   #
   landing_subjects_attributes = [
     :id, :title, :slug, :subject_id, :description, :description_explanation, :description_prefill, :form_title, :form_description,
-    :meta_title, :logo_ids, :meta_description, :requires_location, :requires_requested_help_amount, :requires_siret, :archived_at,
-    :display_region_logo, :position, :_destroy, logo_ids: []
+    :meta_title, :meta_description, :requires_location, :requires_requested_help_amount, :requires_siret, :archived_at,
+    :position, :_destroy
   ]
 
   permit_params :title, :page_title, :slug, :description, :meta_title, :meta_description,
@@ -130,7 +128,6 @@ ActiveAdmin.register LandingTheme do
         ls.input :requires_requested_help_amount
         ls.input :requires_siret
         ls.input :form_description, as: :quill_editor
-        ls.input :display_region_logo
         ls.input :meta_title
         ls.input :meta_description
         ls.input :archived_at, as: :datepicker, datepicker_options: { min_date: "2017-01-01" }

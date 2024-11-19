@@ -7,7 +7,6 @@
 #  description                    :text
 #  description_explanation        :text
 #  description_prefill            :text
-#  display_region_logo            :boolean          default(FALSE)
 #  form_description               :text
 #  form_title                     :string
 #  meta_description               :string
@@ -114,7 +113,7 @@ class LandingSubject < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     [
       "archived", "archived_at", "created_at", "description", "description_explanation", "description_prefill",
-      "display_region_logo", "form_description", "form_title", "id", "id_value", "landing_theme_id", "meta_description",
+      "form_description", "form_title", "id", "id_value", "landing_theme_id", "meta_description",
       "meta_title", "position", "requires_location", "requires_requested_help_amount", "requires_siret", "slug",
       "subject_id", "title", "updated_at"
     ]

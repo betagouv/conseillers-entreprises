@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_19_103228) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -70,7 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
     t.text "metadata"
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum"
     t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -370,7 +370,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
     t.boolean "requires_location", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "display_region_logo", default: false
     t.datetime "archived_at", precision: nil
     t.text "description_prefill"
     t.index ["archived_at"], name: "index_landing_subjects_on_archived_at"
@@ -405,7 +404,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
     t.string "custom_css"
     t.string "partner_url"
     t.boolean "emphasis", default: false
-    t.string "main_logo"
     t.integer "layout", default: 1
     t.integer "iframe_category", default: 1
     t.boolean "display_pde_partnership_mention", default: false
@@ -422,8 +420,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "institution_id"
-    t.index ["institution_id"], name: "index_logos_on_institution_id"
+    t.string "logoable_type"
+    t.bigint "logoable_id"
+    t.index ["logoable_type", "logoable_id"], name: "index_logos_on_logoable"
   end
 
   create_table "match_filters", force: :cascade do |t|
@@ -739,7 +738,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
   add_foreign_key "landing_subjects", "landing_themes"
   add_foreign_key "landing_subjects", "subjects"
   add_foreign_key "landings", "institutions"
-  add_foreign_key "logos", "institutions"
   add_foreign_key "matches", "experts"
   add_foreign_key "matches", "needs"
   add_foreign_key "matches", "subjects"

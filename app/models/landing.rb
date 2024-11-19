@@ -12,7 +12,6 @@
 #  iframe_category                 :integer          default("integral")
 #  integration                     :integer          default("intern")
 #  layout                          :integer          default("multiple_steps")
-#  main_logo                       :string
 #  meta_description                :string
 #  meta_title                      :string
 #  partner_url                     :string
@@ -69,6 +68,8 @@ class Landing < ApplicationRecord
   has_many :needs, through: :diagnoses, inverse_of: :landing
   has_many :matches, through: :diagnoses, inverse_of: :landing
 
+  has_one :logo, as: :logoable, dependent: :destroy, inverse_of: :logoable
+
   accepts_nested_attributes_for :landing_joint_themes, allow_destroy: true
 
   before_save :set_emphasis
@@ -123,7 +124,7 @@ class Landing < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     [
       "archived", "archived_at", "created_at", "custom_css", "display_pde_partnership_mention", "emphasis",
-      "home_description", "id", "id_value", "iframe_category", "institution_id", "integration", "layout", "main_logo",
+      "home_description", "id", "id_value", "iframe_category", "institution_id", "integration", "layout",
       "meta_description", "meta_title", "partner_url", "slug", "title", "updated_at"
     ]
   end
