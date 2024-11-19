@@ -35,7 +35,8 @@ class Institution < ApplicationRecord
   has_many :landings, inverse_of: :institution
   has_many :solicitations, inverse_of: :institution
   has_and_belongs_to_many :categories # Une institution peut avoir plusieurs categories a la fois, donc une enum serait trop limitante
-  has_one :logo, inverse_of: :institution
+  has_one :logo, as: :logoable, dependent: :destroy, inverse_of: :logoable
+
   has_many :facilities, inverse_of: :opco
   has_many :subject_answer_groupings, dependent: :destroy, inverse_of: :institution
   has_many :subject_answers, through: :subject_answer_groupings, class_name: 'SubjectAnswer::Filter'
@@ -226,6 +227,11 @@ class Institution < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["advisors", "antennes", "api_key", "categories", "experts", "experts_including_deleted", "facilities", "subject_answers", "institutions_subjects", "landing_subjects", "landing_themes", "landings", "logo", "not_deleted_antennes", "received_diagnoses", "received_diagnoses_including_from_deleted_experts", "received_matches", "received_matches_including_from_deleted_experts", "received_needs", "received_needs_including_from_deleted_experts", "received_solicitations", "received_solicitations_including_from_deleted_experts", "sent_diagnoses", "sent_matches", "sent_needs", "solicitations", "subjects", "themes"]
+    [
+      "advisors", "antennes", "api_key", "categories", "experts", "experts_including_deleted", "facilities", "subject_answers", "institutions_subjects", "landing_subjects",
+      "landing_themes", "landings", "logo", "not_deleted_antennes", "received_diagnoses", "received_diagnoses_including_from_deleted_experts",
+      "received_matches", "received_matches_including_from_deleted_experts", "received_needs", "received_needs_including_from_deleted_experts", "received_solicitations", "received_solicitations_including_from_deleted_experts",
+      "sent_diagnoses", "sent_matches", "sent_needs", "solicitations", "subjects", "themes"
+    ]
   end
 end

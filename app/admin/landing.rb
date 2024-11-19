@@ -75,7 +75,6 @@ ActiveAdmin.register Landing do
     attributes_table title: I18n.t("activerecord.attributes.landing.featured_on_home") do
       row :emphasis
       row :home_description
-      row :main_logo
     end
 
     attributes_table title: I18n.t("landings.landings.admin.iframe_and_api_fields") do
@@ -111,7 +110,7 @@ ActiveAdmin.register Landing do
 
   permit_params :slug, :title,
                 :layout,
-                :emphasis, :home_description, :main_logo,
+                :emphasis, :home_description,
                 :meta_title, :meta_description,
                 :integration, :institution_id, :partner_url, :display_partner_url,
                 :iframe_category, :custom_css, :display_pde_partnership_mention,
@@ -129,7 +128,6 @@ ActiveAdmin.register Landing do
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
       f.input :emphasis, as: :boolean
       f.input :home_description, input_html: { rows: 2 }
-      f.input :main_logo
     end
 
     f.inputs I18n.t("landings.landings.admin.iframe_and_api_fields") do

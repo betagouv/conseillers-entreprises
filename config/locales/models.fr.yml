@@ -277,7 +277,7 @@ fr:
         landing_subjects: Sujets de landing
         landing_themes: Thématiques de landing
         layout: Mise en page
-        main_logo: Logo mis en avant
+        logo: Logo mis en avant
         meta_description: Description méta
         meta_title: Titre méta
         partner_url: Url du site partenaire
@@ -299,7 +299,6 @@ fr:
       landing_subject:
         description_explanation: Explications de la description
         description_prefill: Préremplissage de la description
-        display_region_logo: Logo de la région
         form_description: Description du formulaire
         form_title: Titre du formulaire
         meta_description: Description méta
@@ -315,6 +314,7 @@ fr:
         landing_subjects: Sujets de landing
       logo:
         filename: Nom du fichier image (non modifiable)
+        logoable: Element lié
       match:
         closed_at: Date de clôture
         company_legal_form_code: Forme juridique entreprise
