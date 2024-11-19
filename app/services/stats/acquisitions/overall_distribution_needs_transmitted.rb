@@ -7,12 +7,12 @@ module Stats::Acquisitions
       base_scope
     end
 
-    def colors
-      lines_colors
+    def build_series
+      build_series_for_type(chart)
     end
 
-    def build_series
-      build_lines_series
+    def colors
+      lines_colors
     end
   end
 end

@@ -6,12 +6,6 @@ module Stats::Acquisitions::SolicitationsBase
     Solicitation.step_complete
   end
 
-  def base_scope
-    Need.diagnosis_completed
-      .joins(diagnosis: { solicitation: :landing }).merge(Diagnosis.from_solicitation)
-      .where(created_at: @start_date..@end_date)
-  end
-
   private
 
   def as_series(results)

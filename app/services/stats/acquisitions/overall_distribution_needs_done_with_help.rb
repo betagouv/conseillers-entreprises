@@ -8,7 +8,7 @@ module Stats::Acquisitions
     end
 
     def build_series
-      build_lines_series
+      build_series_for_type(chart)
     end
 
     def colors
