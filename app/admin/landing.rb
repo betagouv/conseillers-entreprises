@@ -68,6 +68,7 @@ ActiveAdmin.register Landing do
         row :archived_at
         row(:layout) { |landing| human_attribute_status_tag landing, :layout }
         row(:integration) { |landing| human_attribute_status_tag landing, :integration }
+        row :display_partner_url
       end
     end
 
@@ -80,7 +81,6 @@ ActiveAdmin.register Landing do
     attributes_table title: I18n.t("landings.landings.admin.iframe_and_api_fields") do
       row :institution
       row :partner_url
-      row :display_partner_url
     end
 
     attributes_table title: I18n.t("landings.landings.admin.iframe_fields") do
@@ -123,6 +123,7 @@ ActiveAdmin.register Landing do
       f.input :slug
       f.input :layout, as: :select, collection: Landing.human_attribute_values(:layout).invert
       f.input :integration, as: :select, collection: Landing.human_attribute_values(:integration).invert
+      f.input :display_partner_url
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
@@ -134,7 +135,6 @@ ActiveAdmin.register Landing do
     f.inputs I18n.t("landings.landings.admin.iframe_and_api_fields") do
       f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
       f.input :partner_url
-      f.input :display_partner_url
     end
 
     f.inputs I18n.t("landings.landings.admin.iframe_fields") do
