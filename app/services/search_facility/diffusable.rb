@@ -11,9 +11,9 @@ module SearchFacility
         end
         return { items: items, error: nil }
       # fallback si l'API Insee est en carafe
-      rescue Api::UnavailableApiError => e
+      rescue Api::TechnicalError => e
         from_full_text
-      rescue Api::ApiError => e
+      rescue Api::BasicError => e
         message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
         return { items: [], error: message }
       end
@@ -30,7 +30,7 @@ module SearchFacility
         end
         return { items: items, error: nil }
       # pas de fallback pour le moment, on trouve pas d'API "equivalente"
-      rescue Api::UnavailableApiError, Api::ApiError => e
+      rescue Api::BasicError, Api::TechnicalError => e
         message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
         return { items: [], error: message }
       end

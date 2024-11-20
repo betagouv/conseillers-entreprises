@@ -21,11 +21,13 @@ module ApiConsumption::Models
         :mandataires_sociaux,
         :forme_exercice,
         :description,
-        :montant_capital
+        :montant_capital,
+        :errors
       ]
     end
 
     def display_mandataires_sociaux?
+      return false unless mandataires_sociaux
       !(mandataires_sociaux.is_a?(Hash) && mandataires_sociaux['error'])
     end
 
@@ -39,10 +41,12 @@ module ApiConsumption::Models
     end
 
     def forme_juridique_libelle
+      return nil unless forme_juridique
       forme_juridique["libelle"]
     end
 
     def forme_juridique_code
+      return nil unless forme_juridique
       forme_juridique["code"]
     end
 
@@ -107,10 +111,12 @@ module ApiConsumption::Models
     end
 
     def effectifs_entreprise_annuel_array
+      return [] unless effectifs_entreprise_annuel
       effectifs_entreprise_annuel['effectifs_annuel'] || []
     end
 
     def effectifs_entreprise_annuel_annee
+      return [] unless effectifs_entreprise_annuel
       effectifs_entreprise_annuel['annee'] || nil
     end
   end

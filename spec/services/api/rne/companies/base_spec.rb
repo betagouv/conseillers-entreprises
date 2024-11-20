@@ -34,7 +34,7 @@ RSpec.describe Api::Rne::Companies::Base do
     end
 
     it 'returns an error' do
-      expect(api['rne']).to eq("error" => "Impossible de trouver la ressource demandée")
+      expect(api[:errors]).to eq(standard_api_errors: { "api-rne-companies-base" => "Impossible de trouver la ressource demandée" })
     end
   end
 
@@ -49,7 +49,7 @@ RSpec.describe Api::Rne::Companies::Base do
     end
 
     it 'returns an error' do
-      expect(api['rne']).to eq("error" => "Nous n’avons pas pu récupérer les données entreprises auprès de nos partenaires. Notre équipe technique en a été informée, veuillez réessayer ultérieurement.")
+      expect(api[:errors]).to eq({ :unreachable_apis => { "api-rne-companies-base" => "Internal Server Error" } })
     end
   end
 end

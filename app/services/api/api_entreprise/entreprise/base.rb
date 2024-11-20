@@ -2,8 +2,8 @@
 
 module Api::ApiEntreprise::Entreprise
   class Base < Api::ApiEntreprise::Base
-    def handle_error(http_request)
-      handle_error_loudly(http_request)
+    def severity
+      :major
     end
   end
 

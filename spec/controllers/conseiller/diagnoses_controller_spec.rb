@@ -8,10 +8,13 @@ RSpec.describe Conseiller::DiagnosesController do
   let(:advisor) { current_user }
 
   describe 'POST #create' do
-    let(:some_params) { { facility_attributes: { siret: '12345678901234' } } }
+    let(:some_params) { { facility_attributes: { siret: '41816609600069' } } }
+    let(:some_params_permitted) { ActionController::Parameters.new(some_params).permit(facility_attributes: [ :siret ]).merge(advisor: advisor) }
+    let!(:intermediary_result) { DiagnosisCreation::CreateOrUpdateDiagnosis.new(some_params_permitted) }
 
     before do
-      allow(DiagnosisCreation).to receive(:create_or_update_diagnosis) { result }
+      allow(DiagnosisCreation::CreateOrUpdateDiagnosis).to receive(:new).with(some_params_permitted) { intermediary_result }
+      allow(intermediary_result).to receive(:call) { result }
     end
 
     context 'when creation fails' do

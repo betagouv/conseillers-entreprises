@@ -1,4 +1,4 @@
-module CreateDiagnosis
+module DiagnosisCreation
   class CreateMatches
     attr_accessor :solicitation, :diagnosis
 
@@ -9,7 +9,7 @@ module CreateDiagnosis
 
     def call
       diagnosis.needs.each do |need|
-        expert_subjects = CreateDiagnosis::FindRelevantExpertSubjects.new(need).call
+        expert_subjects = DiagnosisCreation::FindRelevantExpertSubjects.new(need).call
 
         if expert_subjects.present?
           matches_params = expert_subjects.map{ |es| { expert: es.expert, subject: es.subject } }

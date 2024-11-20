@@ -2,9 +2,6 @@
 
 module Api::ApiEntreprise::EtablissementEffectifMensuel
   class Base < Api::ApiEntreprise::Base
-    def api_result_key
-      "effectifs_etablissement_mensuel"
-    end
   end
 
   class Request < Api::ApiEntreprise::Request

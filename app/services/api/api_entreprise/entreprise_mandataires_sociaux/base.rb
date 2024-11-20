@@ -2,9 +2,6 @@
 
 module Api::ApiEntreprise::EntrepriseMandatairesSociaux
   class Base < Api::ApiEntreprise::Base
-    def api_result_key
-      "mandataires_sociaux"
-    end
   end
 
   class Request < Api::ApiEntreprise::Request

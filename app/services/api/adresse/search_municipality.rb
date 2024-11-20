@@ -16,13 +16,10 @@ module Api::Adresse
         end
       end
     end
-
-    def api_result_key
-      "search_municipality"
-    end
   end
 
   class Request < Api::Request
+    CLIENT_HTTP_ERRORS = [401, 403]
     DEFAULT_ERROR_MESSAGE = I18n.t('api_requests.default_error_message.etablissement')
 
     attr_reader :data
@@ -39,10 +36,6 @@ module Api::Adresse
 
     def data_error_message
       @data['message'] || @data['searchStatus']
-    end
-
-    def has_tech_error?
-      error_code.present? && [401, 403].include?(error_code)
     end
 
     private

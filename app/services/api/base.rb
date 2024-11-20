@@ -6,7 +6,7 @@ module Api
 
     def initialize(query, options = {})
       @query = FormatSiret.clean_siret(query)
-      raise ApiError, I18n.t('api_requests.invalid_siret_or_siren') unless valid_query?
+      raise Api::BasicError, I18n.t('api_requests.invalid_siret_or_siren') unless valid_query?
       @options = options
     end
 
@@ -32,24 +32,21 @@ module Api
     end
 
     def handle_error(http_request)
-      handle_error_silently(http_request)
-    end
-
-    def handle_error_silently(http_request)
-      if http_request.has_tech_error? || http_request.has_server_error?
-        notify_tech_error(http_request)
-        return { api_result_key => { "error" => Request::DEFAULT_TECHNICAL_ERROR_MESSAGE } }
-      end
-      return { api_result_key => { "error" => http_request.error_message } }
-    end
-
-    def handle_error_loudly(http_request)
-      if http_request.has_tech_error? || http_request.has_server_error?
-        notify_tech_error(http_request)
-        raise ApiError, Request::DEFAULT_TECHNICAL_ERROR_MESSAGE
+      notify_tech_error(http_request) if http_request.has_unreachable_api_error?
+      # On raise les erreurs api qu'on souhaite "bloquantes" (=pas de process si l'API est en carafe)
+      if (severity == :major)
+        raise TechnicalError.new(api: id_key), http_request.error_message
       else
-        raise ApiError, http_request.error_message
+        # on enregistre les autres erreurs pour pouvoir les traiter + tard
+        error_type = http_request.has_unreachable_api_error? ? :unreachable_apis : :standard_api_errors
+        return {
+          errors: { error_type => { id_key => http_request.error_message } }
+        }
       end
+    end
+
+    def severity
+      :minor
     end
 
     def notify_tech_error(http_request)
@@ -67,11 +64,6 @@ module Api
       self.class.name.parameterize
     end
 
-    # clé permettant d'identifier les données agglomérées
-    def api_result_key
-      ""
-    end
-
     def valid_query?
       FormatSiret.siren_is_valid(@query) || FormatSiret.siret_is_valid(@query)
     end
@@ -80,6 +72,8 @@ module Api
   class Request
     DEFAULT_ERROR_MESSAGE = I18n.t('api_requests.generic_error')
     DEFAULT_TECHNICAL_ERROR_MESSAGE = I18n.t('api_requests.partner_error')
+    CLIENT_HTTP_ERRORS = [400, 401, 403]
+    SERVER_ERRORS = [ 500, 501, 502, 503, 504]
 
     attr_reader :data
 
@@ -102,16 +96,8 @@ module Api
       @error.nil? && response_status.success?
     end
 
-    def response_status
-      @http_response.status
-    end
-
-    def has_tech_error?
-      error_code.present? && [400, 401, 403].include?(error_code)
-    end
-
-    def has_server_error?
-      error_code.nil? || (error_code.present? && [500, 501, 502, 503, 504].include?(error_code))
+    def has_unreachable_api_error?
+      error_code.nil? || (self.class::CLIENT_HTTP_ERRORS + self.class::SERVER_ERRORS).include?(error_code)
     end
 
     def error_code
@@ -119,14 +105,18 @@ module Api
     end
 
     def error_message
-      @error&.message || data_error_message || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
+      @error&.message || data_error_message || response_status.reason || DEFAULT_ERROR_MESSAGE
+    end
+
+    private
+
+    def response_status
+      @http_response.status
     end
 
     def data_error_message
       @data['erreur']
     end
-
-    private
   end
 
   class Responder
@@ -143,6 +133,14 @@ module Api
     end
   end
 
-  class ApiError < StandardError; end
-  class UnavailableApiError < StandardError; end
+  class BasicError < StandardError; end
+
+  class TechnicalError < StandardError
+    attr_reader :api
+
+    def initialize(api:)
+      super
+      @api = api
+    end
+  end
 end

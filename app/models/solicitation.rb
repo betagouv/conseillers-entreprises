@@ -43,7 +43,6 @@
 
 class Solicitation < ApplicationRecord
   include AASM
-  include DiagnosisCreation::SolicitationMethods
   include RangeScopes
 
   ## Associations
@@ -416,6 +415,42 @@ class Solicitation < ApplicationRecord
     klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
     klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
     klass.all
+  end
+
+  ## Diagnosis preparation
+
+  def may_prepare_diagnosis?
+    self.preselected_subject.present? &&
+    FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret)) &&
+    self.not_spam?
+  end
+
+  # diagnosis_errors peut être un ActiveModel::Errors ou un Hash (erreur API)
+  def prepare_diagnosis_errors=(diagnosis_errors)
+    error_details = diagnosis_errors.is_a?(Hash) ? diagnosis_errors : diagnosis_errors&.details
+    self.prepare_diagnosis_errors_details = error_details
+  end
+
+  def prepare_diagnosis_errors
+    prepare_diagnosis_errors_details || {}
+  end
+
+  # TODO : a ameliorer
+  def prepare_diagnosis_errors_to_s
+    prepare_diagnosis_errors.flat_map do |attr, errors|
+      next [] if attr == 'standard_api_errors'
+      if ['major_api_error', 'unreachable_apis'].include?(attr)
+        errors.flat_map do |key, value|
+          [I18n.t(key, scope: 'api_name'), value].join(' : ')
+        end
+      elsif ['basic_errors'].include?(attr)
+        errors
+      else
+        diagnosis_errors = Diagnosis.new.errors
+        errors.each { |h| h.each_value { |error| diagnosis_errors.add(attr, error.to_sym) } }
+        diagnosis_errors.full_messages
+      end
+    end
   end
 
   def doublon_solicitations

@@ -1,8 +1,5 @@
 module Api::FranceCompetence
   class Base < Api::Base
-    def api_result_key
-      "opco_fc"
-    end
   end
 
   class Request < Api::Request

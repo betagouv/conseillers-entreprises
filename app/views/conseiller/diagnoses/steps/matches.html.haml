@@ -29,7 +29,7 @@
             %h2.fr-text--lead= need.subject
           #experts-subject-checkboxes
             = turbo_frame_tag "match-checkboxes-#{need.id}" do
-              - experts_subjects = CreateDiagnosis::FindRelevantExpertSubjects.new(need).call
+              - experts_subjects = DiagnosisCreation::FindRelevantExpertSubjects.new(need).call
               - other_matches = need.matches.where.not(expert_id: [experts_subjects.pluck(:expert_id)])
               - support_subject = ExpertSubject.support_for(@diagnosis)
               - if experts_subjects.present? || other_matches.present?

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-describe CreateDiagnosis::FindRelevantExpertSubjects do
+describe DiagnosisCreation::FindRelevantExpertSubjects do
   describe 'apply_match_filters' do
     let(:institution) { create :institution }
     let!(:es_temoin) { create :expert_subject }

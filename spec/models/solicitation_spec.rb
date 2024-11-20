@@ -628,6 +628,79 @@ end
     end
   end
 
+  describe 'may_prepare_diagnosis' do
+    subject(:may_prepare_diagnosis) { solicitation.may_prepare_diagnosis? }
+
+    context 'with_siret' do
+      let(:solicitation) { create :solicitation }
+
+      it { is_expected.to be true }
+    end
+
+    context 'with_location' do
+      let(:solicitation) { create :solicitation, siret: nil, location: "Matignon" }
+      let(:api_url) { "https://api-adresse.data.gouv.fr/search/?q=matignon&type=municipality" }
+
+      before do
+        stub_request(:get, api_url).to_return(
+          body: file_fixture('api_adresse_search_municipality.json')
+        )
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'without_location' do
+      let(:solicitation) { create :solicitation, siret: nil }
+
+      it { is_expected.to be false }
+    end
+
+    context 'with email in spam list' do
+      let(:email) { Faker::Internet.email }
+      let(:solicitation) { create :solicitation, email: email }
+      let!(:spawn) { create :spam, email: email }
+
+      it { is_expected.to be false }
+    end
+  end
+
+  describe 'prepare_diagnosis_errors_to_s' do
+    let(:solicitation) { create :solicitation, prepare_diagnosis_errors: errors }
+
+    subject(:prepare_diagnosis_errors_to_s) { solicitation.prepare_diagnosis_errors_to_s }
+
+    context 'model error' do
+      let(:errors) { { "matches" => [{ "error" => "preselected_institution_has_no_relevant_experts" }] } }
+
+      it { is_expected.to eq ['Mises en relation : aucun expert de l’institution présélectionnée ne peut prendre en charge cette entreprise.'] }
+    end
+
+    context 'standard error' do
+      let(:errors) { { "basic_errors" => I18n.t('api_requests.invalid_siret_or_siren') } }
+
+      it { is_expected.to eq ['L’identifiant (siret ou siren) est invalide'] }
+    end
+
+    context 'major error' do
+      let(:errors) { { "major_api_error" => { "api-apientreprise-entreprise-base" => "Caramba !" } } }
+
+      it { is_expected.to eq ['Api Entreprise (entreprise) : Caramba !'] }
+    end
+
+    context 'unreachable_api error' do
+      let(:errors) { { "unreachable_apis" => { "api-rne-companies-base" => "Caramba !" } } }
+
+      it { is_expected.to eq ['Api RNE (entreprises) : Caramba !'] }
+    end
+
+    context 'standard_api_errors' do
+      let(:errors) { { "standard_api_errors" => { "api-rne-companies-base" => "Caramba !" } } }
+
+      it { is_expected.to eq [] }
+    end
+  end
+
   describe 'mark_as_spam' do
     let(:solicitation) { create(:solicitation, email: email, status: 'in_progress') }
     let(:email) { Faker::Internet.email }

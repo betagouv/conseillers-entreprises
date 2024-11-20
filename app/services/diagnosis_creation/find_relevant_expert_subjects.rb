@@ -1,4 +1,4 @@
-module CreateDiagnosis
+module DiagnosisCreation
   class FindRelevantExpertSubjects
     attr_accessor :need
 

@@ -102,6 +102,7 @@ ignore_unused:
   - 'landings.new_solicitation_form.attributes.*'
   - 'stats.stats_table.*'
   - 'stats.series.*'
+  - 'api_name.*'
   - 'categories_juridiques.*'
   - 'code_to_range.*'
   - 'simple_effectif.*'

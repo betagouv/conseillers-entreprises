@@ -27,7 +27,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @diagnosis = DiagnosisCreation.new_diagnosis
+    @diagnosis = DiagnosisCreation::NewDiagnosis.new.call
     facility = Facility.find(params.permit(:id)[:id])
 
     search_facility_informations(facility.siret)
@@ -38,7 +38,7 @@ class CompaniesController < ApplicationController
 
   def show_with_siret
     current_solicitation = get_current_solicitation
-    @diagnosis = DiagnosisCreation.new_diagnosis(current_solicitation)
+    @diagnosis = DiagnosisCreation::NewDiagnosis.new(current_solicitation).call
 
     siret = params.permit(:siret)[:siret]
     clean_siret = FormatSiret.clean_siret(siret)
@@ -75,8 +75,10 @@ class CompaniesController < ApplicationController
       unless @facility.siege_social
         @siege_facility = ApiConsumption::Facility.new(@company.siret_siege_social).call
       end
-    rescue Api::ApiError => e
+    rescue Api::BasicError => e
       @message = e.message || I18n.t("api_requests.generic_error")
+    rescue Api::TechnicalError => e
+      @message = I18n.t("api_requests.technical_error", api: e.api)
     rescue StandardError => e
       Sentry.capture_message(e)
       @message = I18n.t("api_requests.generic_error")

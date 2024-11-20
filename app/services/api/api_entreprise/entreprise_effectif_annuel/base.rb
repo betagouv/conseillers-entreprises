@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 module Api::ApiEntreprise::EntrepriseEffectifAnnuel
-  class Base < Api::ApiEntreprise::Base
-    def api_result_key
-      "effectifs_entreprise_annuel"
-    end
-  end
+  class Base < Api::ApiEntreprise::Base; end
 
   class Request < Api::ApiEntreprise::Request
     private

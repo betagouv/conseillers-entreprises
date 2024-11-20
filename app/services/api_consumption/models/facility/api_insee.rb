@@ -15,7 +15,8 @@ module ApiConsumption::Models
         :nombrePeriodesEtablissement,
         :adresseEtablissement,
         :adresse2Etablissement,
-        :periodesEtablissement
+        :periodesEtablissement,
+        :errors
       ]
     end
 

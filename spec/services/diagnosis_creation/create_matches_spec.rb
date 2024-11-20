@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-describe CreateDiagnosis::CreateMatches do
+describe DiagnosisCreation::CreateMatches do
   describe 'prepare_matches_from_solicitation' do
     let(:diagnosis) { create :diagnosis, solicitation: solicitation }
     let(:solicitation) { create :solicitation }
@@ -31,7 +31,7 @@ describe CreateDiagnosis::CreateMatches do
     let!(:cma) { create :institution, name: 'cma' }
 
     before do
-      diagnosis.prepare_matches_from_solicitation
+      DiagnosisCreation::Steps.new(diagnosis).prepare_matches_from_solicitation
     end
 
     context 'there are relevant experts' do

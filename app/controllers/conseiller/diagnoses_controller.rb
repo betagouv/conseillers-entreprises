@@ -6,7 +6,7 @@ class Conseiller::DiagnosesController < ApplicationController
   def new
     authorize Diagnosis
     @current_solicitation = Solicitation.find_by(id: params[:solicitation])
-    @diagnosis = DiagnosisCreation.new_diagnosis(@current_solicitation)
+    @diagnosis = DiagnosisCreation::NewDiagnosis.new(@current_solicitation).call
     if @current_solicitation.present?
       @needs = Need.for_emails_and_sirets([@current_solicitation&.email], [@current_solicitation&.siret])
       @tab = 'search_manually' if @current_solicitation.siret.nil?
@@ -16,10 +16,10 @@ class Conseiller::DiagnosesController < ApplicationController
   end
 
   def create
-    @diagnosis = DiagnosisCreation.create_or_update_diagnosis(diagnosis_params.merge(advisor: current_user))
+    @diagnosis = DiagnosisCreation::CreateOrUpdateDiagnosis.new(diagnosis_params.merge(advisor: current_user)).call
 
     if @diagnosis.persisted?
-      @diagnosis.autofill_steps
+      DiagnosisCreation::Steps.new(@diagnosis).autofill_steps
       redirect_to controller: 'conseiller/diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     else
       flash.now[:alert] = @diagnosis.errors.full_messages.to_sentence

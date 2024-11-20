@@ -17,7 +17,8 @@ module ApiConsumption::Models
         :effectifs_etablissement_mensuel, # a partir d'ici, données agglomérées d'autres appels API
         :opco_cfadock,
         :opco_fc,
-        :activites_secondaires
+        :activites_secondaires,
+        :errors
       ]
     end
 
@@ -70,10 +71,12 @@ module ApiConsumption::Models
     end
 
     def opco
+      return nil if (france_competence_code.blank? && opco_cfadock.blank?)
       @opco ||= (Institution.opco.find_by(france_competence_code: france_competence_code) || Institution.opco.find_by(siren: opco_cfadock['opcoSiren']))
     end
 
     def idcc
+      return nil if opco_cfadock.blank?
       @idcc ||= opco_cfadock['idcc']
     end
 
@@ -99,15 +102,17 @@ module ApiConsumption::Models
     end
 
     def effectifs_etablissement_mensuel_array
+      return [] unless effectifs_etablissement_mensuel
       effectifs_etablissement_mensuel['effectifs_mensuels'] || []
     end
 
     def effectifs_etablissement_mensuel_annee
+      return [] unless effectifs_etablissement_mensuel
       effectifs_etablissement_mensuel['annee'] || nil
     end
 
     def france_competence_code
-      @france_competence_code ||= opco_fc.dig('opcoRattachement', 'code')
+      @france_competence_code ||= opco_fc&.dig('opcoRattachement', 'code')
     end
   end
 end

@@ -23,9 +23,11 @@ fr:
     embraced_error_html: 'La recherche de votre entreprise auprès de nos partenaires a rencontré une erreur : "%{message}". Veuillez modifier votre recherche, réessayer ultérieurement ou <a href=%{url}>renseigner votre SIRET manuellement</a>.'
     embraced_error_title: Nous n’avons pas trouvé votre entreprise
     foreign_facility: Votre établissement est identifié dans un pays étranger (%{country}), nous ne pouvons prendre en charge votre demande.
-    generic_error: Nous n’avons pas pu récupérer les détails de votre entité auprès de nos partenaires
+    generic_error: Nous n’avons pas pu récupérer les détails de l'entité auprès de nos partenaires
     invalid_siret_or_siren: L’identifiant (siret ou siren) est invalide
     partner_error: Nous n’avons pas pu récupérer les données entreprises auprès de nos partenaires. Notre équipe technique en a été informée, veuillez réessayer ultérieurement.
+    technical_error: Un problème technique est survenu chez l'un des partenaires fournissant les données entreprises, veuillez réessayer ultérieurement
+    unreachable_apis_errors_present: 'Attention, quelques API partenaires sont actuellement injoignables :'
   app_name: conseillers-entreprises.service-public.fr
   app_name_domain: service-public.fr
   app_name_subdomain: conseillers-entreprises

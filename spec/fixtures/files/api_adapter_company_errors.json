@@ -42,12 +42,12 @@
     "economie_sociale_et_solidaire": false,
     "date_cessation": null,
     "date_creation": 891381600,
-    "effectifs_entreprise_annuel": 
-    {"error": 
-      "Entité non trouvée : L'identifiant indiqué n'existe pas, n'est pas connu ou ne comporte aucune information pour cet appel. Veuillez vérifier que l'identifiant correspond au périmètre couvert par l'API."},
-   "mandataires_sociaux": 
-    {"error": 
-      "Entité non trouvée : Le siren indiqué n'existe pas, n'est pas connu ou ne comporte aucune information pour cet appel. Veuillez vérifier que l'identifiant correspond au périmètre couvert par l'API."},
+    "effectifs_entreprise_annuel": {
+      "error": "Entité non trouvée : L'identifiant indiqué n'existe pas, n'est pas connu ou ne comporte aucune information pour cet appel. Veuillez vérifier que l'identifiant correspond au périmètre couvert par l'API."
+    },
+    "mandataires_sociaux": {
+      "error": "Entité non trouvée : Le siren indiqué n'existe pas, n'est pas connu ou ne comporte aucune information pour cet appel. Veuillez vérifier que l'identifiant correspond au périmètre couvert par l'API."
+    },
     "forme_exercice": "COMMERCIALE",
     "description": "La conception le développement et la mise en oeuvre d'information et d'applications par le conseil et la mise en oeuvre innovante d'expertises technologiques et méthodologiques , la conception le développement et la distribution de solutions logicielles , l'accompagnement technologique méthodologique et culturel pour la réalisation de produits logiciels innovants et pour la transformation digitale des pratiques, processus et organisations des entreprises la formation dans le domaine des expertises technologiques et méthodologiques.",
     "montant_capital": 509525.3,

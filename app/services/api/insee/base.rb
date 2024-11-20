@@ -6,10 +6,13 @@ module Api::Insee
         if http_request.success?
           responder(http_request).call
         else
-          notify_tech_error(http_request)
-          raise Api::UnavailableApiError, Request::DEFAULT_TECHNICAL_ERROR_MESSAGE
+          handle_error(http_request)
         end
       end
+    end
+
+    def severity
+      :major
     end
   end
 
@@ -24,12 +27,8 @@ module Api::Insee
       }
     end
 
-    def not_found?
-      response_status.not_found?
-    end
-
     def data_error_message
-      @data['errors']&.join('\n')
+      @data.dig('header', 'message')
     end
 
     private
@@ -50,7 +49,8 @@ module Api::Insee
   class Responder < Api::Responder
     def check_if_foreign_facility(etablissement)
       foreign_country = etablissement['adresseEtablissement']["libellePaysEtrangerEtablissement"]
-      raise Api::ApiError, I18n.t('api_requests.foreign_facility', country: foreign_country.capitalize) if foreign_country.present?
+
+      raise Api::BasicError, I18n.t('api_requests.foreign_facility', country: foreign_country.capitalize) if foreign_country.present?
     end
   end
 end

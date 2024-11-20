@@ -35,7 +35,7 @@ RSpec.describe Api::ApiEntreprise::Etablissement::Base do
     end
 
     it 'raises an error' do
-      expect { facility }.to raise_error Api::ApiError
+      expect { facility }.to raise_error(Api::BasicError, I18n.t('api_requests.invalid_siret_or_siren'))
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe Api::ApiEntreprise::Etablissement::Base do
     end
 
     it 'raises an error' do
-      expect { facility }.to raise_error Api::ApiError
+      expect { facility }.to raise_error Api::BasicError, I18n.t('api_requests.invalid_siret_or_siren')
     end
   end
 
@@ -69,7 +69,7 @@ RSpec.describe Api::ApiEntreprise::Etablissement::Base do
     end
 
     it 'raises an error' do
-      expect { facility }.to raise_error Api::ApiError
+      expect { facility }.to raise_error Api::TechnicalError, "Interdit : Votre token n'est pas valide ou n'est pas renseigné"
     end
   end
 end

@@ -9,10 +9,6 @@ module Api::ApiEntreprise
       HTTP.auth("Bearer #{token}").get(url)
     end
 
-    def has_tech_error?
-      error_code.nil? || (error_code.present? && [502, 504].include?(error_code))
-    end
-
     def data_error_message
       [@data['errors']&.first&.dig("title"), @data['errors']&.first&.dig("detail")].join(' : ')
     end

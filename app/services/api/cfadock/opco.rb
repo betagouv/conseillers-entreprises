@@ -2,9 +2,6 @@
 
 module Api::Cfadock
   class Opco < Api::ApiEntreprise::Base
-    def api_result_key
-      "opco_cfadock"
-    end
   end
 
   class Request < Api::Request
@@ -35,10 +32,6 @@ module Api::Cfadock
 
   class Responder < Api::Responder
     def format_data
-      { "effectifs_etablissement_mensuel" => @http_request.data['data'] }
-    end
-
-    def call
       { "opco_cfadock" => @http_request.data.slice('idcc', 'opcoName', 'opcoSiren') }
     end
   end

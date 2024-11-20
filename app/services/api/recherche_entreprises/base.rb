@@ -14,8 +14,8 @@ module Api::RechercheEntreprises
       ERB::Util.url_encode(query)
     end
 
-    def handle_error(http_request)
-      handle_error_loudly(http_request)
+    def severity
+      :major
     end
   end
 
@@ -29,10 +29,6 @@ module Api::RechercheEntreprises
       rescue StandardError => e
         @error = e
       end
-    end
-
-    def has_tech_error?
-      error_code.nil? || (error_code.present? && [429, 500, 501, 502, 503, 504].include?(error_code))
     end
 
     def data_error_message
