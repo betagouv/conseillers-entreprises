@@ -5,8 +5,6 @@ module Api::Insee
         http_request = request
         if http_request.success?
           responder(http_request).call
-        elsif http_request.not_found?
-          raise Api::BasicError, I18n.t('api_requests.non_diffusible_error')
         else
           handle_error(http_request)
         end
@@ -20,25 +18,23 @@ module Api::Insee
 
   class Request < Api::Request
     def get_url
-      HTTP.auth("Bearer #{token}").get(url)
+      HTTP.get(url, headers: headers)
     end
 
-    def token
-      @token ||= Api::Insee::Token::Base.new.call
-    end
-
-    def not_found?
-      response_status.not_found?
+    def headers
+      @headers ||= {
+        'X-INSEE-Api-Key-Integration' => ENV.fetch('SIRENE_API_KEY')
+      }
     end
 
     def data_error_message
-      @data['errors']&.join('\n')
+      @data.dig('header', 'message')
     end
 
     private
 
     def base_url
-      @base_url ||= "https://api.insee.fr/entreprises/sirene/V3.11/"
+      @base_url ||= "https://api.insee.fr/api-sirene/3.11/"
     end
 
     def url_key
