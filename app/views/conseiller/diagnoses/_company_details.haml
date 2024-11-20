@@ -32,7 +32,7 @@
     .fr-grid-row.fr-grid-row--center
       .fr-col-12.fr-col-md-10.fr-col-lg-8
         .fr-alert.fr-alert--warning.fr-alert--sm
-          %h3.fr-alert__title= t('api_requests.unreachable_apis_errors_present')
+          %h2.fr-alert__title= t('api_requests.unreachable_apis_errors_present')
           %ul
             - unreachable_apis_error.each do |error|
               %li= error
