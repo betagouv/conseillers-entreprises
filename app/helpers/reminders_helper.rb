@@ -40,9 +40,11 @@ module RemindersHelper
   end
 
   def action_button(action, need)
-    button_to t(action, scope: 'reminders.needs.scopes.mark_done'), reminders_actions_path,
-              { params: { need_id: need.id, category: action },
-                method: :post, class: 'fr-btn btn-green', data: { turbo: false } }
+    form_with model: need, url: reminders_actions_path, method: :post, data: { turbo: false } do |f|
+      f.hidden_field(:need_id, value: need.id) +
+        f.hidden_field(:category, value: action) +
+        f.submit(t(action, scope: 'reminders.needs.scopes.mark_done'), class: 'fr-btn btn-green')
+    end
   end
 
   # Todo : probable possibilité de factoriser aussi ici
