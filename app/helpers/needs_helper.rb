@@ -16,18 +16,18 @@ module NeedsHelper
 
   def partner_title(solicitation)
     return if solicitation.nil?
-    if solicitation.origin_title.present? && solicitation.landing.partner_url.present?
+    if solicitation.origin_title.present? && solicitation.landing&.partner_url.present?
       "#{solicitation.origin_title} (#{solicitation.landing.partner_url})"
     elsif solicitation.origin_url.present?
       solicitation.origin_url
     else
-      solicitation.landing.partner_url
+      solicitation.landing&.partner_url
     end
   end
 
   def partner_url(solicitation)
     return if solicitation.nil?
     return solicitation.origin_url if solicitation.origin_url.present?
-    solicitation.landing.partner_url
+    solicitation.landing&.partner_url
   end
 end
