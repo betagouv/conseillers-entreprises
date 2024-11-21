@@ -483,6 +483,14 @@ class Solicitation < ApplicationRecord
       .uniq
   end
 
+  def not_sas?
+    # Sur le sujet "Vous former en tant que dirigeant(e) d'entreprise"
+    # Quand l’entreprises n’est pas une SAS ou SASU
+    company.present? &&
+      landing_subject.subject.id == 261 &&
+      company.legal_form_code[0...2] != "57"
+  end
+
   def has_similar_abandonned_solicitations?
     similar_abandonned_solicitations.size >= 4
   end

@@ -558,6 +558,47 @@ end
     end
   end
 
+  describe "not_sas" do
+    subject { solicitation.not_sas? }
+
+    context 'solicitation with diagnosis' do
+      let(:other_landing_subject) { create :landing_subject, subject: other_subject }
+      let(:formation_subject) { create :subject, id: 261 }
+      let(:other_subject) { create :subject }
+      let(:sas_company) { create :company, legal_form_code: '5710' }
+      let(:non_sas_company) { create :company, legal_form_code: '6533' }
+      let(:solicitation) { create :solicitation, landing_subject: landing_subject }
+      let!(:diagnosis) { create :diagnosis, company: company, solicitation: solicitation }
+
+      describe 'with subject and not SAS' do
+        let(:landing_subject) { create :landing_subject, subject: formation_subject }
+        let(:company) { non_sas_company }
+
+        it { is_expected.to be true }
+      end
+
+      describe 'with subject an SAS' do
+        let(:landing_subject) { create :landing_subject, subject: formation_subject }
+        let(:company) { sas_company }
+
+        it { is_expected.to be false }
+      end
+
+      describe 'for others subjects' do
+        let(:landing_subject) { other_landing_subject }
+        let(:company) { sas_company }
+
+        it { is_expected.to be false }
+      end
+    end
+
+    context 'solicitation without diagnosis' do
+      let(:solicitation) { create :solicitation }
+
+      it { is_expected.to be false }
+    end
+  end
+
   describe '#provenance_title' do
     subject { solicitation.provenance_title }
 
