@@ -140,7 +140,7 @@ module Stats
 
     def grouped_by_month(query)
       # Ici les mois sont en UTC
-      query.group("DATE_TRUNC('month', #{query.model.name.pluralize}.created_at)")
+      query.group("DATE_TRUNC('month', #{query.model.table_name}.created_at)")
     end
 
     def grouped_by_category(query)
