@@ -16,14 +16,15 @@ class Conseiller::DiagnosesController < ApplicationController
   end
 
   def create
-    @diagnosis = DiagnosisCreation::CreateOrUpdateDiagnosis.new(diagnosis_params.merge(advisor: current_user)).call
+    creation_result = DiagnosisCreation::CreateOrUpdateDiagnosis.new(diagnosis_params.merge(advisor: current_user)).call
+    @diagnosis = creation_result[:diagnosis]
 
     if @diagnosis.persisted?
       DiagnosisCreation::Steps.new(@diagnosis).autofill_steps
       redirect_to controller: 'conseiller/diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     else
-      flash.now[:alert] = @diagnosis.errors.full_messages.to_sentence
-      render :new, status: :unprocessable_entity
+      flash[:alert] = @diagnosis.errors.full_messages.to_sentence
+      redirect_back(fallback_location: new_conseiller_diagnosis_path(solicitation: diagnosis_params[:solicitation_id]))
     end
   end
 
