@@ -6,20 +6,18 @@ module Stats::Solicitations
       Solicitation.step_complete.where(completed_at: @start_date..@end_date)
     end
 
-    def filtered(query)
-      Stats::Filters::Solicitations.new(query, self).call
-    end
+    def build_series
+      query = main_query
+      query = Stats::Filters::Solicitations.new(query, self).call
 
-    def category_group_attribute
-      Arel.sql('true')
-    end
+      @solicitations = []
 
-    def category_name(_)
-      I18n.t('stats.series.solicitations_completed.series')
-    end
+      search_range_by_month.each do |range|
+        month_query = query.where(completed_at: range.first..range.last)
+        @solicitations.push(month_query.count)
+      end
 
-    def category_order_attribute
-      Arel.sql('true')
+      as_series(@solicitations)
     end
 
     def format
@@ -34,13 +32,15 @@ module Stats::Solicitations
       I18n.t('stats.series.solicitations_completed.subtitle_html')
     end
 
-    def date_group_attribute
-      'completed_at'
-    end
+    private
 
-    def grouped_by_month(query)
-      # Ici les mois sont en UTC
-      query.group("DATE_TRUNC('month', #{ActiveRecord::Base::sanitize_sql(query.model.name.pluralize)}.completed_at)")
+    def as_series(solicitations)
+      [
+        {
+          name: I18n.t('stats.series.solicitations_completed.series'),
+          data: solicitations
+        }
+      ]
     end
   end
 end
