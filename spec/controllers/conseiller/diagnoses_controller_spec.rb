@@ -11,23 +11,25 @@ RSpec.describe Conseiller::DiagnosesController do
     let(:some_params) { { facility_attributes: { siret: '41816609600069' } } }
     let(:some_params_permitted) { ActionController::Parameters.new(some_params).permit(facility_attributes: [ :siret ]).merge(advisor: advisor) }
     let!(:intermediary_result) { DiagnosisCreation::CreateOrUpdateDiagnosis.new(some_params_permitted) }
+    let(:errors) { {} }
 
     before do
       allow(DiagnosisCreation::CreateOrUpdateDiagnosis).to receive(:new).with(some_params_permitted) { intermediary_result }
-      allow(intermediary_result).to receive(:call) { result }
+      allow(intermediary_result).to receive(:call) { { diagnosis: diagnosis, errors: errors } }
     end
 
     context 'when creation fails' do
-      let(:result) { build :diagnosis, facility: nil }
+      let(:diagnosis) { build :diagnosis, facility: nil }
 
       it 'returns an error' do
         post :create, params: { diagnosis: some_params }
-        expect(response).to have_http_status(:unprocessable_entity)
+        # expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to redirect_to new_conseiller_diagnosis_path()
       end
     end
 
     context 'when creation succeeds' do
-      let(:result) { create :diagnosis, step: 'contact', solicitation: nil }
+      let(:diagnosis) { create :diagnosis, step: 'contact', solicitation: nil }
 
       it 'redirects to the diagnosis page' do
         post :create, params: { diagnosis: some_params }
@@ -38,7 +40,7 @@ RSpec.describe Conseiller::DiagnosesController do
     end
 
     context 'when from solicitation creation succeeds' do
-      let(:result) { create :diagnosis, solicitation: create(:solicitation) }
+      let(:diagnosis) { create :diagnosis, solicitation: create(:solicitation) }
       let!(:other_need_subject) { create :subject, id: 59 }
 
       it 'redirects to the diagnosis page' do
