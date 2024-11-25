@@ -24,11 +24,11 @@ module Stats::Needs
     end
 
     def category_group_attribute
-      Arel.sql('true')
+      :status
     end
 
     def category_order_attribute
-      Arel.sql('true')
+      :status
     end
 
     def category_name(_)
