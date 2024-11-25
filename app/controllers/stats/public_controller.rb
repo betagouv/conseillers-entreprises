@@ -21,7 +21,7 @@ module Stats
 
     def set_charts_names
       @charts_names = %w[
-        solicitations_completed solicitations_diagnoses needs_exchange_with_expert
+        solicitations_diagnoses needs_exchange_with_expert
         needs_done solicitations_taking_care_time needs_themes companies_by_employees companies_by_naf_code
       ]
     end
