@@ -8,7 +8,7 @@ namespace :rattrapage_api_rne do
     puts "Etablissement sans nature activite des #{@days_count} derniers jours : #{facilities_to_update.count}"
     puts "Entreprise sans nature activite des #{@days_count} derniers jours : #{companies_to_update.count}"
     facilities_to_update.find_each do |facility|
-      DiagnosisCreation::CreateOrUpdateFacilityAndCompany.call(facility.siret)
+      DiagnosisCreation::CreateOrUpdateFacilityAndCompany.new(facility.siret).call
     end
     puts "Etablissements restant sans nature activite : #{no_nature_activite_facilities.count}"
     puts "Entreprises restant sans nature activite : #{no_nature_activite_companies.count}"
