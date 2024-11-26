@@ -71,8 +71,7 @@ module ApiConsumption::Models
     end
 
     def opco
-      return nil if (france_competence_code.blank? && opco_cfadock.blank?)
-      @opco ||= (Institution.opco.find_by(france_competence_code: france_competence_code) || Institution.opco.find_by(siren: opco_cfadock['opcoSiren']))
+      @opco ||= (france_competence_opco || cfa_dock_opco)
     end
 
     def idcc
@@ -91,6 +90,14 @@ module ApiConsumption::Models
     end
 
     private
+
+    def france_competence_opco
+      Institution.opco.find_by(france_competence_code: france_competence_code)
+    end
+
+    def cfa_dock_opco
+      Institution.opco.find_by(siren: opco_cfadock['opcoSiren']) if opco_cfadock.present?
+    end
 
     def rne_etablissement
       return nil if activites_secondaires.blank?

@@ -491,7 +491,7 @@ class Solicitation < ApplicationRecord
     # Sur le sujet "Vous former en tant que dirigeant(e) d'entreprise"
     # Quand l’entreprises n’est pas une SAS ou SASU
     company.present? &&
-      landing_subject.subject.id == 261 &&
+      landing_subject.present? && landing_subject.subject.id == 261 &&
       company.legal_form_code[0...2] != "57"
   end
 
