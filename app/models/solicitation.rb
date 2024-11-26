@@ -156,8 +156,7 @@ class Solicitation < ApplicationRecord
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
   validates :subject_answers, presence: true, if: -> { subject_with_additional_questions? }
   validate :correct_subject_answers, if: -> { subject_with_additional_questions? }
-  # Todo : à décommenter une fois que la migration api_url est passée
-  # validates :origin_url, presence: true, if: -> { landing&.api? }
+  validates :origin_url, presence: true, if: -> { landing&.api? }
   validates :completed_at, presence: true, if: -> { step_complete? }
 
   # Todo : à supprimer une fois que la migration api_url est passée ?
@@ -654,7 +653,11 @@ class Solicitation < ApplicationRecord
   end
 
   def campaign
-    pk_campaign.presence || mtm_campaign.presence
+    mtm_campaign.presence || pk_campaign.presence
+  end
+
+  def kwd
+    mtm_kwd.presence || pk_kwd.presence
   end
 
   # Else ---------------------

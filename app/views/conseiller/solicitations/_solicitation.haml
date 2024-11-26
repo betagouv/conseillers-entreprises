@@ -15,11 +15,11 @@
           %li.item.fr-p-0
             = t('.email')
             %strong= mail_to(solicitation.email, solicitation.email, target: '_blank')
-          - solicitation.display_attributes.each do |attribut|
-            - if solicitation.send(attribut).present?
+          - solicitation.display_attributes.each do |attribute|
+            - if solicitation.send(attribute).present?
               %li.item.fr-p-0
-                = Solicitation.human_attribute_name(attribut) + ' : '
-                %strong= solicitation.send(attribut)
+                = Solicitation.human_attribute_name(attribute) + ' : '
+                %strong= display_solicitation_attribute(solicitation, attribute)
           - if solicitation.landing.present?
             %li.item.fr-p-0
               = t('.source')

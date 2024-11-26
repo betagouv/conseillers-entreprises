@@ -34,4 +34,48 @@ describe SolicitationHelper do
       end
     end
   end
+
+  describe 'partner_title' do
+    subject { helper.partner_title(solicitation) }
+
+    context 'entreprendre solicitation' do
+      let(:solicitation) { create :solicitation, mtm_campaign: 'entreprendre', mtm_kwd: 'F1111' }
+
+      it { is_expected.to eq "https://entreprendre.service-public.fr/vosdroits/F1111" }
+    end
+
+    context 'with landing url' do
+      let(:solicitation) { create :solicitation, landing: create(:landing, partner_url: 'https://exemple.fr') }
+
+      it { is_expected.to eq 'https://exemple.fr' }
+    end
+
+    context 'with origin_url' do
+      let(:solicitation) { create :solicitation, form_info: { "origin_url" => "exemple.fr/super-aide", "origin_title" => "Super aide" }, landing: create(:landing, partner_url: 'https://exemple.fr') }
+
+      it { is_expected.to eq "Super aide (https://exemple.fr)" }
+    end
+  end
+
+  describe 'partner_url' do
+    subject { helper.partner_url(solicitation) }
+
+    context 'entreprendre solicitation' do
+      let(:solicitation) { create :solicitation, mtm_campaign: 'entreprendre', mtm_kwd: 'F1111' }
+
+      it { is_expected.to eq "https://entreprendre.service-public.fr/vosdroits/F1111" }
+    end
+
+    context 'with landing url' do
+      let(:solicitation) { create :solicitation, landing: create(:landing, partner_url: 'https://exemple.fr') }
+
+      it { is_expected.to eq 'https://exemple.fr' }
+    end
+
+    context 'with origin_url' do
+      let(:solicitation) { create :solicitation, form_info: { "origin_url" => "exemple.fr/super-aide", "origin_title" => "Super aide" }, landing: create(:landing, partner_url: 'https://exemple.fr') }
+
+      it { is_expected.to eq "exemple.fr/super-aide" }
+    end
+  end
 end
