@@ -6,9 +6,13 @@ module Stats::Solicitations
       Solicitation.step_complete.where(completed_at: @start_date..@end_date)
     end
 
+    def filtered(query)
+      Stats::Filters::Solicitations.new(main_query, self).call
+    end
+
     def build_series
       query = main_query
-      query = Stats::Filters::Solicitations.new(query, self).call
+      query = filtered(query)
 
       @solicitations = []
 
