@@ -913,16 +913,22 @@ fr:
           zero: des besoins transmis aux conseillers proviennent de l’achat de mots clés, soit %{secondary_count} besoin
       acquisitions_overall_distribution_needs_done_with_help:
         title: Évolution des provenances des besoins clôturés par une aide
+        title_table: Évolution des provenances des besoins clôturés par une aide
       acquisitions_overall_distribution_needs_done_with_help_column:
         title: Répartition des provenances des besoins clôturés par une aide
+        title_table: Répartition des provenances des besoins clôturés par une aide
       acquisitions_overall_distribution_needs_transmitted:
         title: Évolution des provenances des besoins transmis
+        title_table: Évolution des provenances des besoins transmis
       acquisitions_overall_distribution_needs_transmitted_column:
         title: Répartition des provenances des besoins transmis
+        title_table: Répartition des provenances des besoins transmis
       acquisitions_overall_distribution_solicitations:
         title: Évolution des provenances des sollicitations
+        title_table: Évolution des provenances des sollicitations
       acquisitions_overall_distribution_solicitations_column:
         title: Répartition des provenances des sollicitations
+        title_table: Répartition des provenances des sollicitations
       acquisitions_redirections:
         title:
           one: des besoins transmis aux conseillers proviennent de la redirection de sites partenaires, soit %{secondary_count} besoin
