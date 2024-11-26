@@ -590,6 +590,13 @@ end
 
         it { is_expected.to be false }
       end
+
+      context 'old solicitation without landing subject' do
+        let(:solicitation) { build :solicitation, landing_subject: nil }
+        let(:company) { sas_company }
+
+        it { is_expected.to be false }
+      end
     end
 
     context 'solicitation without diagnosis' do

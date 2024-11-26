@@ -7,6 +7,7 @@ module ApiConsumption
     end
 
     def call
+      pp params
       model.new(params["etablissement"])
     end
 
