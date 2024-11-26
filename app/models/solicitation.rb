@@ -410,6 +410,11 @@ class Solicitation < ApplicationRecord
     end
   }
 
+  # Scope for stats
+  scope :from_integration, -> (integration) do
+    joins(:landing).where(landings: { integration: integration })
+  end
+
   def self.apply_filters(params)
     klass = self
     klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
