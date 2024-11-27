@@ -13,6 +13,7 @@ ActiveAdmin.register Landing do
   scope :intern
   scope :iframe
   scope :api
+  scope :cooperation
   scope :is_archived
 
   ## Index
@@ -20,21 +21,27 @@ ActiveAdmin.register Landing do
   index do
     selectable_column
     column :slug do |l|
-      admin_link_to l
+      div admin_link_to l
+      status_tag t('attributes.is_archived'), class: :ok if l.is_archived
     end
     column :title do |l|
-      div admin_link_to l.institution if l.institution.present?
       div link_to l.title, l if l.slug.present?
-    end
-    column :iframe_category do |l|
-      div l.iframe? ? (human_attribute_status_tag l, :iframe_category) : '-'
-    end
-    column :landing_themes do |l|
-      div l.landing_themes.count
     end
     column(:solicitations) do |l|
       div  admin_link_to(l, :solicitations)
       div  admin_link_to(l, :needs)
+      div  admin_link_to(l, :landing_themes)
+    end
+    column(:cooperation) do |l|
+      div  admin_link_to(l, :cooperation)
+      if l.institution.present?
+        div t('activerecord.attributes.landing.institution') + ' : ' do
+          div admin_link_to(l.institution)
+        end
+      end
+    end
+    column :iframe_category do |l|
+      div l.iframe? ? (human_attribute_status_tag l, :iframe_category) : '-'
     end
 
     column t('active_admin.particularities') do |l|

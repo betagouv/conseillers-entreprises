@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_19_103228) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_21_144559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -70,7 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_19_103228) do
     t.text "metadata"
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
-    t.string "checksum"
+    t.string "checksum", null: false
     t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -195,6 +195,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_19_103228) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "full_name"
     t.index ["company_id"], name: "index_contacts_on_company_id"
+  end
+
+  create_table "cooperation_themes", force: :cascade do |t|
+    t.bigint "cooperation_id", null: false
+    t.bigint "theme_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cooperation_id"], name: "index_cooperation_themes_on_cooperation_id"
+    t.index ["theme_id"], name: "index_cooperation_themes_on_theme_id"
+  end
+
+  create_table "cooperations", force: :cascade do |t|
+    t.string "name"
+    t.string "mtm_campaign"
+    t.string "url"
+    t.boolean "display_url", default: false
+    t.bigint "institution_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["institution_id"], name: "index_cooperations_on_institution_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -410,7 +430,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_19_103228) do
     t.datetime "archived_at", precision: nil
     t.integer "integration", default: 0
     t.boolean "display_partner_url", default: false
+    t.bigint "cooperation_id"
     t.index ["archived_at"], name: "index_landings_on_archived_at"
+    t.index ["cooperation_id"], name: "index_landings_on_cooperation_id"
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
   end
@@ -717,6 +739,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_19_103228) do
   add_foreign_key "communes_territories", "territories"
   add_foreign_key "company_satisfactions", "needs"
   add_foreign_key "contacts", "companies"
+  add_foreign_key "cooperation_themes", "cooperations"
+  add_foreign_key "cooperation_themes", "themes"
+  add_foreign_key "cooperations", "institutions"
   add_foreign_key "diagnoses", "contacts", column: "visitee_id"
   add_foreign_key "diagnoses", "facilities"
   add_foreign_key "diagnoses", "solicitations"
@@ -737,6 +762,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_19_103228) do
   add_foreign_key "institutions_subjects", "subjects"
   add_foreign_key "landing_subjects", "landing_themes"
   add_foreign_key "landing_subjects", "subjects"
+  add_foreign_key "landings", "cooperations"
   add_foreign_key "landings", "institutions"
   add_foreign_key "matches", "experts"
   add_foreign_key "matches", "needs"

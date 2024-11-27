@@ -36,6 +36,7 @@ class Institution < ApplicationRecord
   has_many :solicitations, inverse_of: :institution
   has_and_belongs_to_many :categories # Une institution peut avoir plusieurs categories a la fois, donc une enum serait trop limitante
   has_one :logo, as: :logoable, dependent: :destroy, inverse_of: :logoable
+  has_many :cooperations, dependent: :destroy, inverse_of: :institution
 
   has_many :facilities, inverse_of: :opco
   has_many :subject_answer_groupings, dependent: :destroy, inverse_of: :institution

@@ -19,16 +19,19 @@
 #  title                           :string
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
+#  cooperation_id                  :bigint(8)
 #  institution_id                  :bigint(8)
 #
 # Indexes
 #
 #  index_landings_on_archived_at     (archived_at)
+#  index_landings_on_cooperation_id  (cooperation_id)
 #  index_landings_on_institution_id  (institution_id)
 #  index_landings_on_slug            (slug) UNIQUE
 #
 # Foreign Keys
 #
+#  fk_rails_...  (cooperation_id => cooperations.id)
 #  fk_rails_...  (institution_id => institutions.id)
 #
 
@@ -61,7 +64,10 @@ class Landing < ApplicationRecord
   has_many :landing_subjects, through: :landing_themes, inverse_of: :landing_theme
   has_many :subjects, through: :landing_subjects, inverse_of: :landings
 
+  # TODO : supprimer institution, lié maintenant à cooperation ?
   belongs_to :institution, inverse_of: :landings, optional: true
+  belongs_to :cooperation, inverse_of: :landings, optional: true
+  # has_one :institution, through: :cooperation, inverse_of: :landings
 
   has_many :solicitations, inverse_of: :landing
   has_many :diagnoses, through: :solicitations, inverse_of: :landing
@@ -82,6 +88,8 @@ class Landing < ApplicationRecord
   ## Scopes
   #
   scope :emphasis, -> { where(emphasis: true) }
+  scope :cooperation, -> { where.not(cooperation_id: nil) }
+
   def self.accueil
     Landing.find_by(slug: 'accueil')
   end
@@ -130,7 +138,7 @@ class Landing < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["institution", "landing_joint_themes", "landing_subjects", "landing_themes", "solicitations"]
+    ["institution", "landing_joint_themes", "landing_subjects", "landing_themes", "solicitations", "cooperation"]
   end
 
   private
