@@ -6,13 +6,9 @@ module Stats::Solicitations
       Solicitation.step_complete.where(completed_at: @start_date..@end_date)
     end
 
-    def filtered(query)
-      Stats::Filters::Solicitations.new(main_query, self).call
-    end
-
     def build_series
       query = main_query
-      query = filtered(query)
+      query = Stats::Filters::Solicitations.new(query, self).call
 
       @solicitations = []
 
@@ -30,6 +26,10 @@ module Stats::Solicitations
 
     def chart
       'column-chart'
+    end
+
+    def count
+      Stats::Filters::Solicitations.new(main_query, self).call.size
     end
 
     def subtitle
