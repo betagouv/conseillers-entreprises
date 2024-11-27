@@ -777,6 +777,7 @@ fr:
       all_fields_compulsary: Tous les champs sont obligatoires.
       already_submitted_solicitation: Cette demande a déjà été envoyée aux conseillers.
       average_delays: "(délai moyen de prise en charge)"
+      be_the_manager_boolean: Je certifie être dirigeant(e) de l’entreprise ou mandaté(e) officiellement par ma direction. Toute demande de salarié(e) ne sera pas prise en charge.
       better_taking_care_html: 'Pour vous aider, les conseillers ont besoin d’<b>éléments de contexte</b> :'
       buttons:
         manual_step_company: Je ne trouve pas mon entreprise
