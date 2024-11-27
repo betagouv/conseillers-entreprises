@@ -20,6 +20,7 @@ class Theme < ApplicationRecord
   ## Associations
   #
   has_many :subjects, inverse_of: :theme
+  has_many :cooperation_themes, dependent: :destroy, inverse_of: :theme
   has_and_belongs_to_many :territories
 
   ## Validations
