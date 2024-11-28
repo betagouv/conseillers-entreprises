@@ -6,6 +6,7 @@ module Api::RechercheEntreprises::Search
 
   class Request < Api::RechercheEntreprises::Request
     CLIENT_HTTP_ERRORS = [401, 403]
+
     private
 
     def url_key
