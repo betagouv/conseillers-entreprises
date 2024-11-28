@@ -8,9 +8,12 @@ module Stats::Needs
       needs_base_scope
     end
 
+    def filtered(query)
+      Stats::Filters::Needs.new(query, self).call
+    end
+
     def build_series
-      query = main_query
-      query = Stats::Filters::Needs.new(query, self).call
+      query = filtered(main_query)
 
       @needs = []
 
@@ -24,10 +27,6 @@ module Stats::Needs
 
     def chart
       'column-chart'
-    end
-
-    def count
-      Stats::Filters::Needs.new(main_query, self).call.size
     end
 
     def colors
