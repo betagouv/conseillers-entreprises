@@ -20,7 +20,7 @@
 #  fk_rails_...  (antenne_id => antennes.id)
 #
 class QuarterlyReport < ApplicationRecord
-  enum category: { matches: 'matches', stats: 'stats' }, _prefix: true
+  enum :category, { matches: 'matches', stats: 'stats' }, prefix: true
 
   belongs_to :antenne, inverse_of: :quarterly_reports
   has_one_attached :file

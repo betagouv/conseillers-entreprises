@@ -37,7 +37,7 @@ class Diagnosis < ApplicationRecord
 
   ## Constants
   #
-  enum step: { not_started: 1, contact: 2, needs: 3, matches: 4, completed: 5 }, _prefix: true
+  enum :step, { not_started: 1, contact: 2, needs: 3, matches: 4, completed: 5 }, prefix: true
 
   ## Associations
   #
