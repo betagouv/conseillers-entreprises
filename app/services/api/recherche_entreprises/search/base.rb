@@ -5,6 +5,7 @@ module Api::RechercheEntreprises::Search
   end
 
   class Request < Api::RechercheEntreprises::Request
+    CLIENT_HTTP_ERRORS = [401, 403]
     private
 
     def url_key
