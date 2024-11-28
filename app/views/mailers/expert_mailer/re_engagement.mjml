@@ -20,4 +20,5 @@
     </mj-text>
   </mj-column>
 </mj-section>
+
 <%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user %>

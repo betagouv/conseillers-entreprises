@@ -7,7 +7,7 @@
   </mj-column>
 </mj-section>
 
-<%= render 'mailers/expert_mailer/need_card', need: @need, visited_at: false %>
+<!--<%= render 'mailers/expert_mailer/need_card', need: @need, visited_at: false %>-->
 
 <mj-section>
   <mj-column>
@@ -20,4 +20,5 @@
     </mj-text>
   </mj-column>
 </mj-section>
+
 <%= render 'mailers/expert_mailer/support_contact_block', antenne: @expert.antenne, support_contact_label: t('.support_contact_label') %>

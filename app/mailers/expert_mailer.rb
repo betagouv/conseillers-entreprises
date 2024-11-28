@@ -20,9 +20,12 @@ class ExpertMailer < ApplicationMailer
   end
 
   def first_notification_help
+    # Email du premier besoin reçu
     with_expert_init do
+      @support_user = @expert.antenne.support_user
       mail(
         to: @expert.email_with_display_name,
+        reply_to: @support_user.email_with_display_name,
         subject: t('mailers.expert_mailer.first_notification_help.subject')
       )
     end
@@ -54,6 +57,7 @@ class ExpertMailer < ApplicationMailer
   end
 
   def re_engagement
+    # Email pour ceux n'ont pas reçu de besoin depuis un moment
     with_expert_init do
       @need = params[:need]
       @support_user = params[:support_user]
