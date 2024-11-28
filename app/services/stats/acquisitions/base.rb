@@ -1,7 +1,7 @@
 module Stats::Acquisitions::Base
   def build_series_for_type(type)
     query = main_query
-    query = Stats::Filters::Needs.new(query, self).call
+    query = filtered(query)
 
     @results = Hash.new { |hash, key| hash[key] = [] }
     @results['from_others'] = [] if type == 'percentage-column-chart'

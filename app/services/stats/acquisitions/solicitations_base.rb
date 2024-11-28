@@ -6,6 +6,10 @@ module Stats::Acquisitions::SolicitationsBase
     Solicitation.step_complete
   end
 
+  def filtered(query)
+    Stats::Filters::Solicitations.new(query, self).call
+  end
+
   private
 
   def as_series(results)
