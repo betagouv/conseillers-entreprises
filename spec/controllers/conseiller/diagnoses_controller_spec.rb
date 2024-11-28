@@ -18,13 +18,22 @@ RSpec.describe Conseiller::DiagnosesController do
       allow(intermediary_result).to receive(:call) { { diagnosis: diagnosis, errors: errors } }
     end
 
-    context 'when creation fails' do
+    context 'when creation fails with invalid diagnosis' do
       let(:diagnosis) { build :diagnosis, facility: nil }
 
       it 'returns an error' do
         post :create, params: { diagnosis: some_params }
-        # expect(response).to have_http_status(:unprocessable_entity)
-        expect(response).to redirect_to new_conseiller_diagnosis_path()
+        expect(response).to redirect_to new_conseiller_diagnosis_path
+      end
+    end
+
+    context 'when creation fails with other errors' do
+      let(:diagnosis) { build :diagnosis, facility: create(:facility) }
+      let(:errors) { { "major_api_error" => { "api-apientreprise-entreprise-base" => "Caramba !" } } }
+
+      it 'returns an error' do
+        post :create, params: { diagnosis: some_params }
+        expect(response).to redirect_to new_conseiller_diagnosis_path
       end
     end
 

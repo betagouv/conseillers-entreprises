@@ -91,14 +91,6 @@ module ApiConsumption::Models
 
     private
 
-    def france_competence_opco
-      Institution.opco.find_by(france_competence_code: france_competence_code)
-    end
-
-    def cfa_dock_opco
-      Institution.opco.find_by(siren: opco_cfadock['opcoSiren']) if opco_cfadock.present?
-    end
-
     def rne_etablissement
       return nil if activites_secondaires.blank?
       @rne_etablissement = if activites_secondaires.dig('etablissement_principal', 'siret') == siret
@@ -116,6 +108,14 @@ module ApiConsumption::Models
     def effectifs_etablissement_mensuel_annee
       return [] unless effectifs_etablissement_mensuel
       effectifs_etablissement_mensuel['annee'] || nil
+    end
+
+    def france_competence_opco
+      Institution.opco.find_by(france_competence_code: france_competence_code)
+    end
+
+    def cfa_dock_opco
+      Institution.opco.find_by(siren: opco_cfadock['opcoSiren']) if opco_cfadock.present?
     end
 
     def france_competence_code

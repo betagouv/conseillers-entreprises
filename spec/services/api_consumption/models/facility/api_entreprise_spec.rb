@@ -15,6 +15,64 @@ RSpec.describe ApiConsumption::Models::Facility::ApiEntreprise do
     end
   end
 
+  describe 'opcos' do
+    let!(:opco) { create :institution, :opco, siren: "851296632", france_competence_code: "01" }
+
+    context 'with both opcos' do
+      let!(:params) do
+        {
+          opco_cfadock: {
+            idcc: 1486,
+            opcoName: "ATLAS",
+            opcoSiren: "851296632"
+          },
+          opco_fc: {
+            code: "01",
+            opcoRattachement: { code: "03", nom: "ATLAS" },
+            opcoGestion: { code: "N/C", nom: "N/C" }
+          },
+        }
+      end
+
+      it 'returns correct opco' do
+        expect(described_class.new(params).opco).to eq(opco)
+      end
+    end
+
+    context 'with only cfadock opcos' do
+      let!(:params) do
+        {
+          opco_cfadock: {
+            idcc: 1486,
+            opcoName: "ATLAS",
+            opcoSiren: "851296632"
+          }
+        }
+      end
+
+      it 'returns correct opco' do
+        expect(described_class.new(params).opco).to eq(opco)
+      end
+    end
+
+    context 'with no not_found france competenceopco' do
+      let!(:params) do
+        {
+          opco_fc: {
+            code: "01",
+            opcoRattachement: { code: "N/C", nom: "N/C" },
+            opcoGestion: { code: "N/C", nom: "N/C" }
+          },
+        }
+      end
+
+      it 'returns correct opco' do
+        expect(described_class.new(params).opco).to be_nil
+      end
+    end
+
+  end
+
   describe 'etablissement principal' do
     context 'no data' do
       let!(:params) do
@@ -47,7 +105,7 @@ RSpec.describe ApiConsumption::Models::Facility::ApiEntreprise do
         expect(described_class.new(params).nature_activites).to be_empty
       end
 
-      it 'returns correct nafa' do
+      it 'returns empty nafa' do
         expect(described_class.new(params).nafa_codes).to be_empty
       end
     end
