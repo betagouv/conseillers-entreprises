@@ -107,10 +107,10 @@ module  Annuaire
 
     def not_invited_users
       if flash[:table_highlighted_ids].present?
-        User.where(id: flash[:table_highlighted_ids]).where(invitation_sent_at: nil)
+        User.not_deleted.where(id: flash[:table_highlighted_ids]).where(invitation_sent_at: nil)
       else
         # Ne prend pas @experts directement pour avoir les responsables sans experts
-        User.joins(:antenne).where(antennes: @grouped_experts.keys, invitation_sent_at: nil)
+        User.not_deleted.joins(:antenne).where(antennes: @grouped_experts.keys, invitation_sent_at: nil)
       end
     end
 

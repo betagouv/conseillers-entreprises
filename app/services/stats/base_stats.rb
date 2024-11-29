@@ -60,7 +60,7 @@ module Stats
       if additive_values || series.blank?
         count
       else
-        @max_value ||= series.first[:data].max
+        @max_value ||= series.flat_map { |s| s[:data] }.max
       end
     end
 

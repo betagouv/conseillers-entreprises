@@ -7,6 +7,10 @@ module Stats::Acquisitions::NeedsBase
       .where(created_at: @start_date..@end_date)
   end
 
+  def filtered(query)
+    Stats::Filters::Needs.new(query, self).call
+  end
+
   private
 
   def as_series(results)
