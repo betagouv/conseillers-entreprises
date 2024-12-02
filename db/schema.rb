@@ -584,7 +584,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_144559) do
     t.integer "status", default: 0
     t.uuid "uuid"
     t.datetime "completed_at", precision: nil
+    t.bigint "cooperation_id"
     t.index ["code_region"], name: "index_solicitations_on_code_region"
+    t.index ["cooperation_id"], name: "index_solicitations_on_cooperation_id"
     t.index ["email"], name: "index_solicitations_on_email"
     t.index ["institution_id"], name: "index_solicitations_on_institution_id"
     t.index ["landing_id"], name: "index_solicitations_on_landing_id"
@@ -776,6 +778,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_144559) do
   add_foreign_key "shared_satisfactions", "company_satisfactions"
   add_foreign_key "shared_satisfactions", "experts"
   add_foreign_key "shared_satisfactions", "users"
+  add_foreign_key "solicitations", "cooperations"
   add_foreign_key "solicitations", "institutions"
   add_foreign_key "solicitations", "landing_subjects"
   add_foreign_key "solicitations", "landings"
