@@ -60,7 +60,7 @@ module Reminders
 
     def send_reminder_email
       expert = Expert.find(params.permit(:id)[:id])
-      ExpertMailer.with(expert: expert, support_user: current_user).positioning_rate_reminders.deliver_later
+      ExpertMailer.with(expert: expert).positioning_rate_reminders.deliver_later
       Feedback.create(user: current_user, category: :expert_reminder, description: t('.email_send'),
                       feedbackable_type: 'Expert', feedbackable_id: expert.id)
 

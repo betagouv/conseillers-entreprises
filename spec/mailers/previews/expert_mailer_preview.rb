@@ -29,7 +29,7 @@ class ExpertMailerPreview < ActionMailer::Preview
 
   def positioning_rate_reminders
     expert = Expert.not_deleted.many_pending_needs.sample
-    ExpertMailer.with(expert: expert, support_user: User.support_users.sample).positioning_rate_reminders
+    ExpertMailer.with(expert: expert).positioning_rate_reminders
   end
 
   def last_chance

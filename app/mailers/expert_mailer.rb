@@ -47,8 +47,10 @@ class ExpertMailer < ApplicationMailer
   end
 
   def positioning_rate_reminders
+    # Envoyé depuis les paniers qualité
     with_expert_init do
-      @support_user = params[:support_user]
+      @support_user = @expert.support_user
+      @sent_personally = true
       mail(
         to: @expert.email_with_display_name,
         reply_to: @support_user.email_with_display_name,

@@ -12,8 +12,10 @@
       <p><%= t('mailers.thank_you') %></p>
 
       <p><%= t('mailers.sincerely') %></p>
+
+      <p><%= @support_user.full_name %></p>
     </mj-text>
   </mj-column>
 </mj-section>
 
-<%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user %>
+<%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user, sent_personally: true %>
