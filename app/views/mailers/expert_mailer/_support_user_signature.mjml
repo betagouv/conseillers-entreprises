@@ -1,31 +1,36 @@
 <mj-section background-color='#efefef' border-left='3px solid #888' padding-bottom="5px" padding-top="5px" padding-left="35px">
-    <mj-column width="100%">
-        <mj-text  font-size="14px" color="#000000" font-weight="bold" padding-bottom="5px">
-            Pour toute question, contactez votre référent
-        </mj-text>
-    </mj-column>
+        <mj-column width="100%">
+            <mj-text  font-size="14px" color="#000000" font-weight="bold" padding-bottom="5px">
+                <% if defined?(sent_personally) && sent_personally %>
+                    <%= t('mailers.contact_me') %>
+                <% else %>
+                    <%= t('mailers.contact_your_referent') %>
+                <% end %>
+            </mj-text>
+        </mj-column>
 
-    <mj-column width="15%" vertical-align="middle">
-        <mj-image width="65px" height="65px" padding="0" padding-left="20px" border-radius="50%"
-                  src="https://www.online-image-editor.com//styles/2014/images/example_image.png" alt="" />
-    </mj-column>
-
-    <mj-column width="85%" vertical-align="middle">
-        <mj-text font-size="10px">
-            <ul style="list-style: none; padding: 0">
-                <li style="font-size: 12px; font-weight: bold; line-height: 0.5rem">
-                    <%= support_user.full_name %>
-                </li>
-                <li style="color: #666666; margin-bottom: 0.2rem">
-                    <%= support_user.job %>
-                </li>
-                <li style="; line-height: 0.5rem"><a href="mailto:niels.juliensaintamand@betagouv.fr">
-                    <%= support_user.email %>
-                </a></li>
-                <li>
-                    <%= support_user.phone_number %>
-                </li>
-            </ul>
-        </mj-text>
-    </mj-column>
+        <% if support_user.profil_picture.present? %>
+            <mj-column width="15%" vertical-align="middle">
+                <mj-image width="65px" height="65px" padding="0" padding-left="20px" border-radius="50%"
+                          src="<%= image_url('equipe/portraits-emails/' + support_user.profil_picture.filename) %>" alt="" />
+            </mj-column>
+        <% end %>
+        <mj-column width="85%" vertical-align="middle">
+            <mj-text font-size="10px">
+                <ul style="list-style: none; padding: 0">
+                    <li style="font-size: 12px; font-weight: bold; line-height: 0.5rem">
+                        <%= support_user.full_name %>
+                    </li>
+                    <li style="color: #666666; margin-bottom: 0.2rem">
+                        <%= support_user.job %>
+                    </li>
+                    <li style="; line-height: 0.5rem">
+                        <a href="<%= support_user.email %>"><%= support_user.email %></a>
+                    </li>
+                    <li>
+                        <%= support_user.phone_number %>
+                    </li>
+                </ul>
+            </mj-text>
+        </mj-column>
 </mj-section>
