@@ -25,8 +25,16 @@ ActiveAdmin.register Cooperation do
     end
     column :institution do |c|
       div admin_link_to c.institution if c.institution.present?
+      status_tag t('attributes.display_url'), class: :ok if c.display_url
     end
-    column(:landings){ |c| admin_link_to(c, :landings, list: true) }
+    column(:landings) do |c|
+      div admin_link_to(c, :landings, list: true)
+      div c.mtm_campaign
+    end
+    column(:solicitations) do |l|
+      div admin_link_to(l, :solicitations)
+    end
+
     actions dropdown: true
   end
 

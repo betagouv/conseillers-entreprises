@@ -166,26 +166,26 @@ end
   end
 
   describe 'callbacks' do
-    describe 'set_institution_from_landing' do
-      subject { solicitation.institution }
+    describe 'set_cooperation_from_landing' do
+      subject { solicitation.cooperation }
 
-      context 'with institution from a landing page' do
-        let(:institution) { build :institution }
-        let(:landing) { build :landing, institution: institution }
+      context 'with cooperation from a landing page' do
+        let(:cooperation) { create :cooperation }
+        let(:landing) { build :landing, cooperation: cooperation }
         let(:solicitation) { create :solicitation, landing: landing }
 
-        it { is_expected.to eq institution }
+        it { is_expected.to eq cooperation }
       end
 
-      context 'with a solicitation slug in the query_params' do
-        let(:institution) { create :institution }
-        let(:solicitation) { create :solicitation, form_info: { institution: institution.slug } }
+      context 'with a cooperation mtm_campaign in the query_params' do
+        let!(:cooperation) { create :cooperation, mtm_campaign: 'une-campagne' }
+        let(:solicitation) { create :solicitation, form_info: { mtm_campaign: 'une-campagne' } }
 
-        it { is_expected.to eq institution }
+        it { is_expected.to eq cooperation }
       end
 
-      context 'with no institution' do
-        let(:landing) { build :landing, institution: nil }
+      context 'with no cooperation' do
+        let(:landing) { build :landing, cooperation: nil }
         let(:solicitation) { create :solicitation, landing: landing, form_info: {} }
 
         it { is_expected.to be_nil }

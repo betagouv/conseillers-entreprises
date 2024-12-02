@@ -19,6 +19,7 @@
 #  uuid                             :uuid
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
+#  cooperation_id                   :bigint(8)
 #  institution_id                   :bigint(8)
 #  landing_id                       :bigint(8)
 #  landing_subject_id               :bigint(8)
@@ -26,6 +27,7 @@
 # Indexes
 #
 #  index_solicitations_on_code_region         (code_region)
+#  index_solicitations_on_cooperation_id      (cooperation_id)
 #  index_solicitations_on_email               (email)
 #  index_solicitations_on_institution_id      (institution_id)
 #  index_solicitations_on_landing_id          (landing_id)
@@ -36,6 +38,7 @@
 #
 # Foreign Keys
 #
+#  fk_rails_...  (cooperation_id => cooperations.id)
 #  fk_rails_...  (institution_id => institutions.id)
 #  fk_rails_...  (landing_id => landings.id)
 #  fk_rails_...  (landing_subject_id => landing_subjects.id)
@@ -47,7 +50,9 @@ class Solicitation < ApplicationRecord
 
   ## Associations
   #
+  belongs_to :cooperation, inverse_of: :solicitations, optional: true
   belongs_to :landing, inverse_of: :solicitations, optional: true
+
   belongs_to :landing_subject, inverse_of: :solicitations, optional: true
   has_one :landing_theme, through: :landing_subject, source: :landing_theme, inverse_of: :landing_subjects
   has_one :subject, through: :landing_subject, source: :subject, inverse_of: :landing_subjects
@@ -63,6 +68,8 @@ class Solicitation < ApplicationRecord
   has_many :matches, through: :diagnosis, inverse_of: :solicitation
   has_many :company_satisfactions, through: :diagnosis, inverse_of: :solicitation
   has_many :needs, through: :diagnosis, inverse_of: :solicitation
+
+  # TODO : a supprimer ?
   belongs_to :institution, inverse_of: :solicitations, optional: true
   has_many :badge_badgeables, as: :badgeable
   has_many :badges, through: :badge_badgeables, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
@@ -72,7 +79,7 @@ class Solicitation < ApplicationRecord
   attr_accessor :certify_being_company_boss
 
   before_create :set_uuid
-  before_create :set_institution_from_landing
+  before_create :set_cooperation_from_landing
 
   after_update :update_diagnosis
 
@@ -215,8 +222,9 @@ class Solicitation < ApplicationRecord
 
   ## Callbacks
   #
-  def set_institution_from_landing
-    self.institution ||= landing&.institution || Institution.find_by(slug: form_info&.fetch('institution', nil))
+
+  def set_cooperation_from_landing
+    self.cooperation ||= landing&.cooperation || Cooperation.find_by(mtm_campaign: form_info&.fetch('mtm_campaign', nil))
   end
 
   def set_uuid
@@ -711,7 +719,7 @@ class Solicitation < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     [
       "code_region", "completed_at", "created_at", "description", "email", "form_info", "full_name", "id", "id_value",
-      "institution_id", "landing_id", "landing_slug", "landing_subject_id", "location", "phone_number",
+      "institution_id", "cooperation_id", "landing_id", "landing_slug", "landing_subject_id", "location", "phone_number",
       "prepare_diagnosis_errors_details", "requested_help_amount", "siret", "status", "updated_at", "uuid", "mtm_campaign",
       "mtm_kwd", "relaunch"
     ]
@@ -719,7 +727,7 @@ class Solicitation < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     [
-      "badge_badgeables", "badges", "diagnosis", "diagnosis_regions", "facility", "company", "feedbacks", "institution",
+      "badge_badgeables", "badges", "diagnosis", "diagnosis_regions", "facility", "company", "feedbacks", "institution", "cooperation",
       "subject_answers", "landing", "landing_subject", "landing_theme", "matches", "needs", "subject", "theme", "visitee"
     ]
   end

@@ -17,8 +17,11 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    add_reference :landings, :cooperation, foreign_key: true
     remove_column :themes, :cooperation, :boolean, default: false
+    add_reference :landings, :cooperation, foreign_key: true, index: true
+
+    add_reference :solicitations, :cooperation, foreign_key: true, index: true
+    # remove_reference :solicitations, :institution, foreign_key: true, index: true
 
     up_only do
       ## Entreprendre Service Public
@@ -27,6 +30,8 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
       cooperation = institution.cooperations.create!(name: "Entreprendre", url: 'https://entreprendre.service-public.fr', mtm_campaign: 'entreprendre', display_url: true)
       cooperation.landings.push(Landing.find_by(slug: 'entreprendre-service-public-fr'))
       cooperation.create_logo(name: 'Entreprendre', filename: 'entreprendre')
+
+      Solicitation.mtm_campaign_eq('entreprendre').update_all(cooperation_id: cooperation.id)
 
       ## Mon entreprise - URSSAF
       p "Mon entreprise - URSSAF"
@@ -127,29 +132,12 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
       institution = Institution.find_by(slug: 'unapl')
       cooperation = institution.cooperations.create!(name: "Portail Maisons des professions libérales", url: nil)
       cooperation.landings.push(Landing.find_by(slug: 'maison-des-professions-liberales'))
+
+      ## Mise à jour des sollicitations
+      p "Mise à jour des sollicitations"
+      Cooperation.find_each do |cooperation|
+        Solicitation.joins(landing: :cooperation).where(landing: { cooperation_id: cooperation.id }).update_all(cooperation_id: cooperation.id)
+      end
     end
   end
 end
-
-# up_only do
-#   cooperation_labels = [
-#     "Brexit","Problématiques des travailleurs indépendants handicapés","Problématiques de ressources humaines",
-#     "Problématiques des fournisseurs des ministères économiques et financiers","Problématiques des organismes de formation"
-#   ]
-#   Theme.where(label: cooperation_labels).update_all(cooperation: true)
-# end
-
-# up_only do
-#   # "Problématiques de ressources humaines" -> Occitanie
-#   # "Problématiques des organismes de formation" -> Aura
-#   [
-#     { theme: 55, region: 133 },
-#     { theme: 53, region: 137 },
-#   ].each do |hash|
-#     Theme.find(hash[:theme]).territories << Territory.find(hash[:region])
-#   end
-# end
-# cf https://github.com/betagouv/conseillers-entreprises/pull/3612/files
-
-# Landing.where(display_partner_url: true).pluck(:slug)
-# => ["entreprendre-service-public-fr", "cci-les-aides-fr", "espace-fournisseurs", "team-rh-occitanie", "transition-ecologique-entreprises-api", "zetwal"]
