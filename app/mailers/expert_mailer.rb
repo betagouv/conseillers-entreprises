@@ -61,7 +61,8 @@ class ExpertMailer < ApplicationMailer
     # Email pour ceux n'ont pas reçu de besoin depuis un moment
     with_expert_init do
       @need = params[:need]
-      @support_user = params[:support_user]
+      @support_user = @expert.support_user
+      @sent_personally = true
 
       mail(
         to: @expert.email_with_display_name,

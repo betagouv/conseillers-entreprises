@@ -276,6 +276,16 @@ class Expert < ApplicationRecord
     users.size == 1 && users.first.email == email && users.first.full_name == full_name
   end
 
+  def support_user
+    # si antenne national ou pas de support_user = Ludivine
+    # sinon support_user de l'antenne
+    if antenne.territorial_level_national? || antenne.support_user.nil?
+      User.national_referent.first
+    else
+      antenne.support_user
+    end
+  end
+
   # Utilisé pour la réattribution des matches d'un expert
   def transfer_in_progress_matches(expert)
     ActiveRecord::Base.transaction do
