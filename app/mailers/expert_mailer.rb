@@ -22,7 +22,8 @@ class ExpertMailer < ApplicationMailer
   def first_notification_help
     # Email du premier besoin reçu
     with_expert_init do
-      @support_user = @expert.antenne.support_user
+      @support_user = @expert.support_user
+
       mail(
         to: @expert.email_with_display_name,
         reply_to: @support_user.email_with_display_name,
@@ -35,6 +36,7 @@ class ExpertMailer < ApplicationMailer
     with_expert_init do
       # On ne relance pas les MER les + recentes
       @needs_quo = @expert.needs_quo.matches_sent_at(Range.new(nil, 4.days.ago))
+      @support_user = @expert.support_user
 
       return if @needs_quo.empty?
 
@@ -50,7 +52,7 @@ class ExpertMailer < ApplicationMailer
     # Envoyé depuis les paniers qualité
     with_expert_init do
       @support_user = @expert.support_user
-      @sent_personally = true
+
       mail(
         to: @expert.email_with_display_name,
         reply_to: @support_user.email_with_display_name,
@@ -64,7 +66,6 @@ class ExpertMailer < ApplicationMailer
     with_expert_init do
       @need = params[:need]
       @support_user = @expert.support_user
-      @sent_personally = true
 
       mail(
         to: @expert.email_with_display_name,
@@ -78,7 +79,6 @@ class ExpertMailer < ApplicationMailer
     with_expert_init do
       @need = params[:need]
       @support_user = @expert.support_user
-      @sent_personally = true
       @match = @expert.received_matches.find_by(need: @need)
 
       mail(
