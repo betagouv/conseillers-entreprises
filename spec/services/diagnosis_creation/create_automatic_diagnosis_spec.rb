@@ -78,7 +78,7 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
         let(:prepare_needs) { [] }
 
         it do
-          expect(solicitation.diagnosis).not_to be_nil
+          expect(solicitation.diagnosis).to be_nil
           expect(solicitation.prepare_diagnosis_errors).to eq({ "basic_errors" => "Caramba !" })
         end
       end

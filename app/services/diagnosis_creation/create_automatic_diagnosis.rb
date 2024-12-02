@@ -25,7 +25,7 @@ module DiagnosisCreation
         DiagnosisCreation::Steps.new(diagnosis).autofill_steps
 
         preparation_errors = diagnosis.errors.presence || creation_result[:errors].presence
-        has_major_error = diagnosis.errors.present? || creation_result.dig(:errors, :major_api_error).present?
+        has_major_error = diagnosis.errors.present? || creation_result.dig(:errors, :major_api_error).present? || creation_result.dig(:errors, :basic_errors).present?
         if has_major_error
           diagnosis = nil
           solicitation.diagnosis.destroy if solicitation&.diagnosis&.persisted?
