@@ -11,7 +11,6 @@
 
 <%= ActionView::Base.full_sanitizer.sanitize(t('mailers.see_you_on_service_html', link_to_root: link_to_root)) %>
 
-<%= t('.support_contact_label') %>
-<%= render 'mailers/expert_mailer/support_contacts', antenne: @expert.antenne %>
+<%= @support_user.full_name %>
 
-<%= render 'mailers/footer' %>
+<%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user, sent_personally: true %>
