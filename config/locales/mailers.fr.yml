@@ -77,6 +77,8 @@ fr:
         your_solicitation_cooperation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site <strong>%{website}</strong>, en partenariat avec le service public Conseillers-Entreprises.
         your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site conseillers-entreprises.service-public.fr.
       why_this_message_html: "<strong>Pourquoi recevez-vous ce message ?</strong>"
+    contact_me: Pour toute question, contactez-moi
+    contact_your_referent: Pour toute question, contactez votre référent
     cordially: Cordialement,
     email_sent: L’email a bien été envoyé
     expert_mailer:
@@ -127,9 +129,6 @@ fr:
         national_referent_contact_html: "%{name} - %{function} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a>"
         support_contact: "%{regions} : %{name} – tel: %{tel} – email: %{email}"
         support_contact_html: "%{name} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a> :"
-      support_user_signature:
-        service_ce: Service public Conseillers-Entreprises
-        tutelles: DGE / DGEFP / DILA
     footer:
       contact_us_html: N’hésitez pas à %{mailto_link} pour toute question, nous sommes à votre service.
       contact_us_mailto_text: nous contacter

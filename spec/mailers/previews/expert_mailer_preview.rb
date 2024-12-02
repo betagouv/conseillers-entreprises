@@ -41,7 +41,7 @@ class ExpertMailerPreview < ActionMailer::Preview
   def re_engagement
     expert = active_expert
     need = expert.received_needs.sample
-    ExpertMailer.with(expert: expert, support_user: User.support_users.sample, need: need).re_engagement
+    ExpertMailer.with(expert: expert, need: need).re_engagement
   end
 
   private
