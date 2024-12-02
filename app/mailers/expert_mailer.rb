@@ -75,7 +75,8 @@ class ExpertMailer < ApplicationMailer
   def last_chance
     with_expert_init do
       @need = params[:need]
-      @support_user = params[:support_user]
+      @support_user = @expert.support_user
+      @sent_personally = true
       @match = @expert.received_matches.find_by(need: @need)
 
       mail(
