@@ -23,9 +23,12 @@ class Cooperation < ApplicationRecord
   ## Associations
   #
   belongs_to :institution, inverse_of: :cooperations
+  has_many :landings, dependent: :restrict_with_exception
+  has_many :solicitations, dependent: :restrict_with_exception
+
   has_many :cooperation_themes, dependent: :destroy, inverse_of: :cooperation
   has_many :themes, through: :cooperation_themes, inverse_of: :cooperations
-  has_many :landings, dependent: :restrict_with_exception
+
   has_one :logo, dependent: :destroy, as: :logoable, inverse_of: :logoable
 
   ##
