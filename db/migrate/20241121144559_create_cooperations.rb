@@ -18,6 +18,7 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
     end
 
     add_reference :landings, :cooperation, foreign_key: true
+    remove_column :themes, :cooperation, :boolean, default: false
 
     up_only do
       ## Entreprendre Service Public

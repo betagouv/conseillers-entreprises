@@ -673,7 +673,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_144559) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "interview_sort_order"
-    t.boolean "cooperation", default: false
     t.index ["interview_sort_order"], name: "index_themes_on_interview_sort_order"
     t.index ["label"], name: "index_themes_on_label", unique: true
     t.index ["updated_at"], name: "index_themes_on_updated_at"
