@@ -75,6 +75,7 @@ class User < ApplicationRecord
   ## Associations
   #
   belongs_to :antenne, inverse_of: :advisors
+  has_one :profil_picture
 
   has_and_belongs_to_many :experts, -> { not_deleted }, inverse_of: :users
   has_many :shared_satisfactions, inverse_of: :user
