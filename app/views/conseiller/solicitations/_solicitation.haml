@@ -65,8 +65,8 @@
               .item= t('.needs_historic')
               - facilities[solicitation.id].each do |facility|
                 = link_to facility[:company_name], needs_company_path(facility[:id])
-          - if solicitation.institution.present?
-            .logo-institution= institution_image(solicitation.institution.logo&.filename)
+          - if solicitation.cooperation.present?
+            .logo-institution= display_logo(name: solicitation.cooperation.logo&.filename, path: "cooperations/", extra_params: { class: 'institution-logo' })
       .card__description
         .card__description__label= t('.description')
         .card__description__content.break-word
