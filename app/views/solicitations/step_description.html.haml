@@ -38,7 +38,7 @@
               = ff.radio_button :filter_value, false, required: true
               = ff.label :filter_value, I18n.t('false', scope: [:activerecord, :attributes, :subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
 
-      - if @solicitation.has_required_questions?
+      - if @solicitation.certify_being_company_boss_required?
         %fieldset.fr-fieldset
           .fr-checkbox-group
             = check_box_tag :certify_being_company_boss, false, @solicitation.certify_being_company_boss, class: 'fr-checkbox', required: true

@@ -584,7 +584,7 @@ class Solicitation < ApplicationRecord
     email: 'email'
   }
 
-  def has_required_questions?
+  def certify_being_company_boss_required?
     # Pour les sujets de landings "Former un ou plusieurs salariés" et "Obtenir un renseignement en droit du travail"
     landing_subject.id == 2 || landing_subject.id == 12
   end
