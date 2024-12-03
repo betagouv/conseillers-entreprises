@@ -625,6 +625,7 @@ fr:
       user_right/categories:
         admin: Admin
         advisor: Conseiller
+        main_referent: Référent principal
         manager: Responsable d’antenne
         national_referent: Référent national
     errors:

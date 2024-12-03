@@ -12,13 +12,14 @@
 
     <mj-text><%= t('.answer_continuation') %></mj-text>
 
-    <mj-text><%= t('.answer_3') %></mj-text>
-
-    <mj-text><%= t('.response_delay') %></mj-text>
+    <mj-text>
+      <%= t('.answer_3') %><br />
+      <%= t('.response_delay') %>
+    </mj-text>
 
     <mj-text><%= t('.watch_videos_html') %></mj-text>
 
-    <mj-text><%= t('mailers.see_you_on_service_html', link_to_root: link_to(t('app_name'), root_url)) %></mj-text>
+    <mj-text><%= t('mailers.looking_forward') %></mj-text>
 
     <mj-text><%= @support_user.full_name %></mj-text>
   </mj-column>
