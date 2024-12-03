@@ -69,6 +69,8 @@ class Solicitation < ApplicationRecord
   has_many :subject_answers, dependent: :destroy, as: :subject_questionable, inverse_of: :subject_questionable, class_name: 'SubjectAnswer::Item'
   accepts_nested_attributes_for :subject_answers, allow_destroy: false
 
+  attr_accessor :certify_being_company_boss
+
   before_create :set_uuid
   before_create :set_institution_from_landing
 
@@ -581,6 +583,11 @@ class Solicitation < ApplicationRecord
     phone_number: 'tel',
     email: 'email'
   }
+
+  def certify_being_company_boss_required?
+    # Pour les sujets de landings "Former un ou plusieurs salariés" et "Obtenir un renseignement en droit du travail"
+    landing_subject.id == 2 || landing_subject.id == 12
+  end
 
   ## Preselection
   #
