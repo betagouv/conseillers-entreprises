@@ -232,4 +232,31 @@ RSpec.describe User do
       end
     end
   end
+
+  describe '#support_user' do
+    # Si responsable d'une antenne national => referent principal
+    # autres cas => referent de l'antenne
+    context 'national manager' do
+      let(:antenne) { create :antenne, :national }
+      let(:manager) { create :user, :manager, antenne: antenne }
+      let!(:main_referent) { create :user, :main_referent }
+
+      it do
+        expect(manager.support_user).to eq main_referent
+      end
+    end
+
+    context 'regional manager' do
+      let!(:commune1) { create :commune }
+      let!(:region1) { create :territory, :region, code_region: 999, communes: [commune1], support_contact: regional_referent }
+      let!(:regional_referent) { create :user }
+
+      let(:antenne) { create :antenne, :regional, communes: [commune1] }
+      let(:manager) { create :user, :manager, antenne: antenne }
+
+      it do
+        expect(manager.support_user).to eq regional_referent
+      end
+    end
+  end
 end
