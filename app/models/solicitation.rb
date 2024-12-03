@@ -69,7 +69,7 @@ class Solicitation < ApplicationRecord
   has_many :subject_answers, dependent: :destroy, as: :subject_questionable, inverse_of: :subject_questionable, class_name: 'SubjectAnswer::Item'
   accepts_nested_attributes_for :subject_answers, allow_destroy: false
 
-  attr_accessor :be_the_manager_boolean
+  attr_accessor :certify_being_company_boss
 
   before_create :set_uuid
   before_create :set_institution_from_landing

@@ -41,8 +41,8 @@
       - if @solicitation.has_required_questions?
         %fieldset.fr-fieldset
           .fr-checkbox-group
-            = check_box_tag :be_the_manager_boolean, false, @solicitation.be_the_manager_boolean, class: 'fr-checkbox', required: true
-            = label_tag :be_the_manager_boolean, t('solicitations.creation_form.be_the_manager_boolean'), class: 'fr-label'
+            = check_box_tag :certify_being_company_boss, false, @solicitation.certify_being_company_boss, class: 'fr-checkbox', required: true
+            = label_tag :certify_being_company_boss, t('solicitations.creation_form.certify_being_company_boss'), class: 'fr-label'
 
       .form__group.submit-buttons
         = render 'previous_button', path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
