@@ -8,8 +8,9 @@ FactoryBot.define do
     end
 
     trait :api do
+      cooperation
       integration { :api }
-      partner_url { 'https://www.example.com' }
+      url_path { '/aide-1' }
     end
 
     trait :home do

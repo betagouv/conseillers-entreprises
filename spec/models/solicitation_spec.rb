@@ -617,15 +617,17 @@ end
     end
 
     context 'iframe' do
+      let(:cooperation) { create :cooperation, root_url: 'https://www.partner.com' }
       let(:solicitation) { create :solicitation, landing: landing }
-      let(:landing) { create :landing, title: 'Landing title', slug: 'landing-title', integration: :iframe, partner_url: 'https://www.partner.com' }
+      let(:landing) { create :landing, title: 'Landing title', slug: 'landing-title', integration: :iframe, cooperation: cooperation }
 
       it { is_expected.to eq 'landing-title' }
     end
 
     context 'api' do
-      let(:landing) { create :landing, title: 'Landing title', slug: 'landing-title', integration: :api, partner_url: 'https://www.partner.com' }
+      let(:cooperation) { create :cooperation, root_url: 'https://www.partner.com' }
       let(:solicitation) { create :solicitation, landing: landing, origin_url: 'https://www.partner.com/formulaire', api_calling_url: 'https://www.partner.com' }
+      let(:landing) { create :landing, title: 'Landing title', slug: 'landing-title', integration: :api, cooperation: cooperation }
 
       it { is_expected.to eq 'https://www.partner.com' }
     end

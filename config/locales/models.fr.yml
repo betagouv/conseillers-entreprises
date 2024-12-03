@@ -202,6 +202,9 @@ fr:
       contact:
         company: Entreprise
         job: Fonction
+      cooperation:
+        display_pde_partnership_mention: Afficher le partenariat Conseillers-Entreprises (logo + phrase en bas d’iframe)
+        display_url: Afficher l’url du partenaire
       diagnosis:
         content: Commentaire
         step: Étape
@@ -263,8 +266,6 @@ fr:
       landing:
         api: Api
         custom_css: CSS personnalisé
-        display_partner_url: Afficher l’url de la source
-        display_pde_partnership_mention: Afficher le partenariat Conseillers-Entreprises (logo + phrase en bas d’iframe)
         emphasis: Mettre en avant sur la page d’accueil
         featured_on_home: Champs encart page d’accueil
         home_description: Description sur la page d’accueil
@@ -282,6 +283,7 @@ fr:
         meta_title: Titre méta
         partner_url: Url du site partenaire
         slug: Slug
+        url_path: chemin (fin de l'url) du site partenaire
       landing/iframe_categories:
         form: formulaire un sujet
         integral: 360°

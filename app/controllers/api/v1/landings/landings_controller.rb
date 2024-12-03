@@ -14,8 +14,9 @@ class Api::V1::Landings::LandingsController < Api::V1::BaseController
       errors = [{ source: I18n.t('api_pde.query_parameters'), message: I18n.t('api_pde.errors.unrecognized') }]
       render_error_payload(errors: errors, status: 400)
     else
-      landing = base_scope.find_by!(partner_url: search_params[:url])
-      render json: landing, serializer: serializer, meta: { total_themes: landing.landing_themes.size }
+      cooperation = Cooperation.find_by!(root_url: search_params[:url])
+      landings = base_scope.joins(:cooperation).where(cooperation: cooperation)
+      render json: landings, each_serializer: serializer, meta: { total_results: landings.size }
     end
   end
 

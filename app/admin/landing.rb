@@ -49,7 +49,6 @@ ActiveAdmin.register Landing do
       div t('active_admin.regional_theme') if l.has_regional_themes?
     end
 
-    column :display_partner_url
     actions dropdown: true do |l|
       item t('active_admin.landings.update_iframe_360_button'), update_iframe_360_admin_landing_path(l), method: :put
     end
@@ -75,7 +74,6 @@ ActiveAdmin.register Landing do
         row :archived_at
         row(:layout) { |landing| human_attribute_status_tag landing, :layout }
         row(:integration) { |landing| human_attribute_status_tag landing, :integration }
-        row :display_partner_url
       end
     end
 
@@ -86,7 +84,7 @@ ActiveAdmin.register Landing do
 
     attributes_table title: I18n.t("landings.landings.admin.iframe_and_api_fields") do
       row :institution
-      row :partner_url
+      row :url_path
     end
 
     attributes_table title: I18n.t("landings.landings.admin.iframe_fields") do
@@ -119,8 +117,8 @@ ActiveAdmin.register Landing do
                 :layout,
                 :emphasis, :home_description,
                 :meta_title, :meta_description,
-                :integration, :institution_id, :partner_url, :display_partner_url,
-                :iframe_category, :custom_css, :display_pde_partnership_mention,
+                :integration, :institution_id, :url_path,
+                :iframe_category, :custom_css,
                 landing_joint_themes_attributes: landing_joint_themes_attributes
 
   form title: :title do |f|
@@ -129,7 +127,6 @@ ActiveAdmin.register Landing do
       f.input :slug
       f.input :layout, as: :select, collection: Landing.human_attribute_values(:layout).invert
       f.input :integration, as: :select, collection: Landing.human_attribute_values(:integration).invert
-      f.input :display_partner_url
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
@@ -139,7 +136,7 @@ ActiveAdmin.register Landing do
 
     f.inputs I18n.t("landings.landings.admin.iframe_and_api_fields") do
       f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-      f.input :partner_url
+      f.input :url_path
     end
 
     f.inputs I18n.t("landings.landings.admin.iframe_fields") do
