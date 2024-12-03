@@ -777,13 +777,13 @@ fr:
       all_fields_compulsary: Tous les champs sont obligatoires.
       already_submitted_solicitation: Cette demande a déjà été envoyée aux conseillers.
       average_delays: "(délai moyen de prise en charge)"
-      certify_being_company_boss: Je certifie être dirigeant(e) de l’entreprise ou mandaté(e) officiellement par ma direction. Toute demande de salarié(e) ne sera pas prise en charge.
       better_taking_care_html: 'Pour vous aider, les conseillers ont besoin d’<b>éléments de contexte</b> :'
       buttons:
         manual_step_company: Je ne trouve pas mon entreprise
         next: Suivant
         previous: Précédent
         send: Envoyer ma demande
+      certify_being_company_boss: Je certifie être dirigeant(e) de l’entreprise ou mandaté(e) officiellement par ma direction. Toute demande de salarié(e) ne sera pas prise en charge.
       description: Quelle est votre demande ?
       empty_result_help_html: La recherche de votre entreprise n’a pas été concluante ? Renseignez manuellement votre numéro de SIRET ici ou effectuez une <a href=%{path}> nouvelle recherche</a>.
       find_my_facility: Recherchez votre entreprise (SIRET, SIREN, nom...)
