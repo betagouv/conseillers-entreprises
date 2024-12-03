@@ -16,9 +16,7 @@
 
     <mj-text><%= t('mailers.sincerely') %></mj-text>
 
-  <% if @support_user.present? %>
     <mj-text><%= @support_user.full_name %></mj-text>
-  <% end %>
   </mj-column>
 </mj-section>
 
