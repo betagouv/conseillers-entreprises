@@ -86,12 +86,10 @@ fr:
         answer: Financé par le Ministère de l’Économie et le Ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE & PME. L’objectif est de faciliter la vie des petites entreprises en apportant une réponse collectivement plus efficace.
         answer_3: Vous pouvez ainsi échanger sur un besoin d’entreprise avec des conseillers du service public travaillant dans d’autres structures. Le service compte plus de 40 partenaires !
         answer_continuation: En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations et des organismes publics ou parapublics compétents sur son territoire.
-        need_help: Besoin d’aide ?
-        pde_contact: 'Votre contact pour vous aider au sein de l’équipe en charge du service :'
         received_need: Vous venez de recevoir votre premier besoin d’entreprise sur le service public Conseillers-Entreprises.
         response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
         subject: Conseillers-entreprises.service-public.fr - Besoin d’aide ?
-        watch_videos_html: Jetez un œil sur <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>les vidéos de démonstration ici</a> !
+        watch_videos_html: N’hésitez pas à jeter un oeil sur <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>la vidéo de démonstration ici</a> !
         what_is_pde: Comment fonctionne Conseillers-Entreprises, un service de Service-Public.fr ?
       last_chance:
         at_your_disposal: Je reste à votre disposition si vous avez besoin d’aide.
@@ -135,6 +133,7 @@ fr:
     hello: Bonjour,
     hello_name: Bonjour %{name},
     hope_to_helped: En espérant que ces informations vous soient utiles,
+    looking_forward: Au plaisir d’échanger,
     see_diagnosis: Voir le besoin de l’entreprise
     see_you_on_service_html: À très vite sur %{link_to_root}.
     sincerely: Bien à vous,

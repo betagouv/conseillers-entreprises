@@ -18,6 +18,7 @@ class CustomDeviseMailer < Devise::Mailer
 
   def invitation_instructions(record, token, opts = {})
     @institution_logo_name = record.institution.logo&.filename
+    @support_user = record.support_user
     super
   end
 
