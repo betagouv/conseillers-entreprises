@@ -14,9 +14,9 @@
 #  layout                          :integer          default("multiple_steps")
 #  meta_description                :string
 #  meta_title                      :string
-#  partner_url                     :string
 #  slug                            :string           not null
 #  title                           :string
+#  url_path                        :string
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  cooperation_id                  :bigint(8)
@@ -64,10 +64,8 @@ class Landing < ApplicationRecord
   has_many :landing_subjects, through: :landing_themes, inverse_of: :landing_theme
   has_many :subjects, through: :landing_subjects, inverse_of: :landings
 
-  # TODO : supprimer institution, lié maintenant à cooperation ?
-  belongs_to :institution, inverse_of: :landings, optional: true
   belongs_to :cooperation, inverse_of: :landings, optional: true
-  # has_one :institution, through: :cooperation, inverse_of: :landings
+  has_one :institution, through: :cooperation, inverse_of: :landings
 
   has_many :solicitations, inverse_of: :landing
   has_many :diagnoses, through: :solicitations, inverse_of: :landing

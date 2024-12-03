@@ -209,8 +209,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_144559) do
   create_table "cooperations", force: :cascade do |t|
     t.string "name"
     t.string "mtm_campaign"
-    t.string "url"
+    t.string "root_url"
     t.boolean "display_url", default: false
+    t.boolean "display_pde_partnership_mention", default: false
     t.bigint "institution_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -422,7 +423,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_144559) do
     t.string "meta_description"
     t.string "title"
     t.string "custom_css"
-    t.string "partner_url"
+    t.string "url_path"
     t.boolean "emphasis", default: false
     t.integer "layout", default: 1
     t.integer "iframe_category", default: 1

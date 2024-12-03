@@ -4,7 +4,7 @@ require 'swagger_helper'
 RSpec.describe "Landings API" do
   let(:institution) { create(:institution) }
   let(:Authorization) { "Bearer token=#{find_token(institution)}" }
-  let(:landing_01) { create_base_landing(institution) }
+  let(:landing_01) { create_cooperation_landing(institution) }
   let!(:ecolo_theme) { create_ecolo_theme([landing_01]) }
   let!(:sante_theme) { create_sante_theme([landing_01]) }
 
@@ -51,7 +51,7 @@ RSpec.describe "Landings API" do
                    }
                  }
           let!(:other_landing) { create(:landing, :api, :with_subjects) }
-          let!(:iframe_landing) { create(:landing, :iframe, institution: institution, partner_url: 'example.fr') }
+          let!(:iframe_landing) { create(:landing, :iframe, cooperation: institution.cooperations.first, partner_url: 'example.fr') }
 
           before do |example|
             submit_request(example.metadata)

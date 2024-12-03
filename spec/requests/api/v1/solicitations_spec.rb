@@ -4,7 +4,8 @@ require 'swagger_helper'
 RSpec.describe "Solicitations API" do
   let(:institution) { create(:institution, name: 'Institution Partenaire') }
   let(:Authorization) { "Bearer token=#{find_token(institution)}" }
-  let(:landing_01) { create_base_landing(institution) }
+  # let(:cooperation) { create(:cooperation, institution: institution) }
+  let(:landing_01) { create_cooperation_landing(institution) }
   let!(:rh_theme) { create_rh_theme([landing_01]) }
   let!(:recrutement_subject) { create_recrutement_subject(rh_theme) }
   let!(:cadre_question) { create_cadre_question(recrutement_subject.subject) }
@@ -96,6 +97,7 @@ RSpec.describe "Solicitations API" do
             expect(new_solicitation.api_calling_url).to eq('http://mon-partenaire.fr/page-recrutement')
             expect(new_solicitation.status).to eq('in_progress')
             expect(new_solicitation.subject_answers.size).to eq(2)
+            expect(new_solicitation.cooperation).to eq(landing_01.cooperation)
             expect(new_solicitation.institution).to eq(institution)
           end
         end
