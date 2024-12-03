@@ -277,13 +277,7 @@ class Expert < ApplicationRecord
   end
 
   def support_user
-    # si antenne national ou pas de support_user = Ludivine
-    # sinon support_user de l'antenne
-    if antenne.territorial_level_national? || antenne.support_user.nil?
-      User.national_referent.first
-    else
-      antenne.support_user
-    end
+    antenne.support_user
   end
 
   # Utilisé pour la réattribution des matches d'un expert

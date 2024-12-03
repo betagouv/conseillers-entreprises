@@ -481,4 +481,49 @@ RSpec.describe Antenne do
       expect(local_antenne1.regional?).to be false
     end
   end
+
+  describe "#support_user" do
+    # si pas national && une seule region => referent regional
+    # autre cas => referent national
+    let!(:commune1) { create :commune }
+    let!(:commune2) { create :commune }
+    let!(:region1) { create :territory, :region, code_region: 999, communes: [commune1], support_contact: regional_referent }
+    let!(:region2) { create :territory, :region, code_region: 000, communes: [commune2] }
+    let(:institution) { create :institution, name: 'Institution 1' }
+    let(:national_antenne) { create :antenne, :national, institution: institution }
+    let(:regional_antenne) { create :antenne, :regional, institution: institution, parent_antenne: national_antenne, communes: [commune1] }
+    let(:local_antenne) { create :antenne, :local, institution: institution, parent_antenne: regional_antenne, communes: [commune1] }
+    let!(:national_referent) { create :user, :national_referent }
+    let!(:regional_referent) { create :user }
+
+    context 'national antenne' do
+      let(:antenne) { national_antenne }
+
+      it { expect(antenne.support_user).to eq national_referent }
+    end
+
+    context 'regional antenne' do
+      let(:antenne) { regional_antenne }
+
+      it { expect(antenne.support_user).to eq regional_referent }
+    end
+
+    context 'local antenne' do
+      let(:antenne) { local_antenne }
+
+      it { expect(antenne.support_user).to eq regional_referent }
+    end
+
+    context 'without region' do
+      let(:antenne) { create :antenne, institution: institution }
+
+      it { expect(antenne.support_user).to eq national_referent }
+    end
+
+    context 'with many regions' do
+      let(:antenne) { create :antenne, communes: [commune1, commune2] }
+
+      it { expect(antenne.support_user).to eq national_referent }
+    end
+  end
 end
