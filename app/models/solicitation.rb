@@ -50,8 +50,9 @@ class Solicitation < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :cooperation, inverse_of: :solicitations, optional: true
   belongs_to :landing, inverse_of: :solicitations, optional: true
+  belongs_to :cooperation, inverse_of: :solicitations, optional: true
+  has_one :institution, through: :cooperation, source: :institution, inverse_of: :cooperations
 
   belongs_to :landing_subject, inverse_of: :solicitations, optional: true
   has_one :landing_theme, through: :landing_subject, source: :landing_theme, inverse_of: :landing_subjects
@@ -69,8 +70,6 @@ class Solicitation < ApplicationRecord
   has_many :company_satisfactions, through: :diagnosis, inverse_of: :solicitation
   has_many :needs, through: :diagnosis, inverse_of: :solicitation
 
-  # TODO : a supprimer ?
-  belongs_to :institution, inverse_of: :solicitations, optional: true
   has_many :badge_badgeables, as: :badgeable
   has_many :badges, through: :badge_badgeables, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
   has_many :subject_answers, dependent: :destroy, as: :subject_questionable, inverse_of: :subject_questionable, class_name: 'SubjectAnswer::Item'
@@ -646,7 +645,7 @@ class Solicitation < ApplicationRecord
     if from_iframe?
       landing.slug
     elsif from_api?
-      landing.partner_url
+      landing.partner_full_url
     elsif from_campaign?
       campaign
     end
