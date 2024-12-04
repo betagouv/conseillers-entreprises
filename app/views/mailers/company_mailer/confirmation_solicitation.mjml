@@ -2,8 +2,8 @@
   <mj-column>
     <mj-text><%= t('mailers.hello') %></mj-text>
 
-      <% if @solicitation.landing.partner_url.present? %>
-          <mj-text><%= t('.content_for_iframe_html', website: @solicitation.landing.partner_url) %></mj-text>
+      <% if partner_url(@solicitation).present? %>
+          <mj-text><%= t('.content_for_iframe_html', website: partner_url(@solicitation)) %></mj-text>
       <% else %>
           <mj-text><%= t('.content') %></mj-text>
       <% end %>
