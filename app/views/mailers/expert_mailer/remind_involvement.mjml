@@ -9,9 +9,20 @@
 </mj-section>
 
 <%= render 'mailers/expert_mailer/remind_received_needs',
-  received_needs: @needs_quo,
+  received_needs: @firsts_needs_quo,
   title: t('.needs_quo'),
   visited_at: false %>
+
+<% if @others_needs_quo_count.positive? %>
+  <mj-section>
+    <mj-column>
+      <mj-text>
+        <% account_link = link_to t('.user_account'), quo_active_needs_url %>
+        <%= t('.other_needs_quo_html', count: @others_needs_quo_count, account_link: account_link) %>
+      </mj-text>
+    </mj-column>
+  </mj-section>
+<% end %>
 
 <mj-section>
   <mj-column>
@@ -20,4 +31,4 @@
   </mj-column>
 </mj-section>
 
-<%= render 'mailers/expert_mailer/support_contact_block', antenne: @expert.antenne, support_contact_label: t('.support_contact_label') %>
+<%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user %>
