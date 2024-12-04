@@ -35,6 +35,7 @@ class UserMailer < ApplicationMailer
   def with_user_init
     @user = params[:user]
     return false if @user.nil? || @user.deleted?
+    @support_user = @user.support_user
     @institution_logo_name = @user.institution.logo&.filename
     yield
   end
