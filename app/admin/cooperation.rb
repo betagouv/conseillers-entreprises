@@ -1,17 +1,12 @@
 ActiveAdmin.register Cooperation do
   menu parent: :themes, priority: 4
 
-  # include AdminArchivable
+  include AdminArchivable
 
   includes :institution, :cooperation_themes, :landings, :logo
 
-  # controller do
-  #   defaults :finder => :find_by_slug!
-  # end
-
-  # scope :not_archived, default: true
-
-  # scope :is_archived
+  scope :not_archived, default: true
+  scope :is_archived
 
   ## Index
   #
