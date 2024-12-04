@@ -83,7 +83,9 @@ module SolicitationHelper
   def partner_url(solicitation, full: false)
     return if solicitation.nil?
     return solicitation.origin_url if solicitation.origin_url.present?
-    return "https://entreprendre.service-public.fr/vosdroits/#{solicitation.kwd}" if (solicitation.campaign == 'entreprendre' && solicitation.kwd.present?)
+    if (solicitation.campaign == 'entreprendre' && solicitation.kwd.present?)
+      return (full ? "https://entreprendre.service-public.fr/vosdroits/#{solicitation.kwd}" : "https://entreprendre.service-public.fr")
+    end
     full ? solicitation.landing.partner_full_url : solicitation.landing.partner_url
   end
 

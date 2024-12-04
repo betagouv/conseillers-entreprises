@@ -4,8 +4,11 @@ class CompanyMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/company_mailer'
 
+  helper :solicitation, :images
+
   def confirmation_solicitation(solicitation)
     @solicitation = solicitation
+    @cooperation_logo_name = @solicitation.cooperation&.logo&.filename
     mail(
       to: @solicitation.email,
       subject: t('mailers.company_mailer.confirmation_solicitation.subject', subject: solicitation.landing_subject.title)

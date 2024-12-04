@@ -17,7 +17,7 @@
         margin: 0;
       }
       .institution-logo {
-        max-height: 75px;
+        max-height: 50px;
         max-width: 90%;
         padding: 10px 25px;
       }
@@ -80,7 +80,7 @@
   </mj-head>
 
   <mj-body width='650px'>
-    <%= render 'mailers/header' %>
+    <%= render 'mailers/header' , cooperation_logo_name: @cooperation_logo_name %>
     <%= yield %>
     <%= render partial: 'mailers/footer' %>
   </mj-body>
