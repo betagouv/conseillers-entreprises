@@ -1,6 +1,6 @@
 <mj-section>
   <mj-column>
-    <mj-image align='left' width="150px" src="<%= image_url 'Republique_Francaise_RVB.png' %>"></mj-image>
+    <mj-image align='left' width="150px" src="<%= image_url 'Republique_Francaise_RVB.png' %>" />
   </mj-column>
 </mj-section>
 
