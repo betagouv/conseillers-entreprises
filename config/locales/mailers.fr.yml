@@ -100,7 +100,6 @@ fr:
       notify_company_needs:
         company_needs_you_html: Une entreprise a besoin de votre expertise sur <strong>« %{subject} »</strong>
         subject: L’entreprise %{company_name} a besoin de vous
-        support_contact_label: 'Si vous n’arrivez pas à accéder au détail du besoin, contactez :'
         via_partner_html: Ce besoin a été déposé sur le site <a href='%{url}' target='_blank'>%{url}</a>, en partenariat avec le service public Conseillers-Entreprises.
       positioning_rate_reminders:
         at_your_disposal: Je me tiens également à votre disposition pour toute modification de référencement ou si vous souhaitez faire un point sur la qualité des besoins transmis. Vos retours sont précieux pour nous aider à améliorer le service.

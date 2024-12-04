@@ -2,16 +2,25 @@
 
 <%= t('.new_feedback') %>
 
+
 <%= Subject.model_name.human %> : <%= @feedback.need.subject %>
+
 
 <%= ActionView::Base.full_sanitizer.sanitize(t('.feedback_by_html', author: @author.full_name, antenne: @author.antenne, company: @feedback.need.company, date: I18n.l(@feedback.need.diagnosis.display_date))) %>
 
 <%= @feedback.description %>
 
+
 <% if @match.present? %>
 <%= t('.match_status_html', status: @match.human_attribute_value(:status, context: :long)) %>
+
 <% end %>
 
 <%= t('mailers.see_diagnosis') %> : <%= need_url(@feedback.need) %>
 
+
 <%= t('mailers.see_you_on_service_html', link_to_root: root_url) %>
+
+---
+<%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user %>
+
