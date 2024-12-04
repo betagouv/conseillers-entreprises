@@ -17,7 +17,7 @@ module ApiSpecHelper
   # Base data -----------------------------
 
   def create_cooperation_landing(institution)
-    cooperation = create(:cooperation, institution: institution)
+    cooperation = create(:cooperation, institution: institution, root_url: "https://#{Faker::Internet.domain_name}")
     create(:landing, :api, cooperation: cooperation, title: 'Page d’atterrissage 01', slug: 'page-atterrissage-01')
   end
 
