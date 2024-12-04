@@ -85,6 +85,19 @@ class ExpertMailer < ApplicationMailer
     end
   end
 
+  def match_feedback
+    with_expert_init do
+      @feedback = params[:feedback]
+      return if @feedback.nil?
+
+      @author = @feedback.user
+      @match = @expert.received_matches.find_by(need: @feedback.need.id)
+
+      mail(to: @expert.email_with_display_name,
+           subject: t('mailers.expert_mailer.match_feedback.subject', company_name: @feedback.need.company))
+    end
+  end
+
   private
 
   def with_expert_init
