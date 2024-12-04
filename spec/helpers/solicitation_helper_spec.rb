@@ -44,7 +44,7 @@ describe SolicitationHelper do
     context 'entreprendre solicitation' do
       let(:solicitation) { create :solicitation, mtm_campaign: 'entreprendre', mtm_kwd: 'F1111', cooperation: cooperation }
 
-      it { is_expected.to eq "https://entreprendre.service-public.fr/vosdroits/F1111" }
+      it { is_expected.to eq "https://entreprendre.service-public.fr" }
     end
 
     context 'with landing url' do
@@ -71,7 +71,7 @@ describe SolicitationHelper do
       context 'entreprendre solicitation' do
         let(:solicitation) { create :solicitation, mtm_campaign: 'entreprendre', mtm_kwd: 'F1111' }
 
-        it { is_expected.to eq "https://entreprendre.service-public.fr/vosdroits/F1111" }
+        it { is_expected.to eq "https://entreprendre.service-public.fr" }
       end
 
       context 'with landing url' do
