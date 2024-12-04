@@ -8,19 +8,6 @@ class UserMailer < ApplicationMailer
 
   layout 'expert_mailers'
 
-  def match_feedback
-    with_user_init do
-      @feedback = params[:feedback]
-      return if @feedback.nil?
-
-      @author = @feedback.user
-      @match = @user.received_matches.find_by(need: @feedback.need.id)
-
-      mail(to: @user.email_with_display_name,
-          subject: t('mailers.user_mailer.match_feedback.subject', company_name: @feedback.need.company))
-    end
-  end
-
   def quarterly_report
     with_user_init do
       mail(

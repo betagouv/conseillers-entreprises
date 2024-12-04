@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 describe MatchMailerService do
+  let!(:national_referent) { create :user, :national_referent }
 
   before do
     ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr'
