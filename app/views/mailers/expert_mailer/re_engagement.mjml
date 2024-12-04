@@ -15,7 +15,7 @@
 
       <p><%= t('.at_your_service') %></p>
 
-      <p><%= t('see_you_soon') %></p>
+      <p><%= t('mailers.see_you_soon') %></p>
 
       <p><%= @support_user.full_name %></p>
     </mj-text>

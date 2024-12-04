@@ -36,7 +36,6 @@ class ExpertMailer < ApplicationMailer
     with_expert_init do
       # On ne relance pas les MER les + recentes
       @needs_quo = @expert.needs_quo.matches_sent_at(Range.new(nil, 4.days.ago))
-      @support_user = @expert.support_user
 
       return if @needs_quo.empty?
 
@@ -51,7 +50,6 @@ class ExpertMailer < ApplicationMailer
   def positioning_rate_reminders
     # Envoyé depuis les paniers qualité
     with_expert_init do
-      @support_user = @expert.support_user
 
       mail(
         to: @expert.email_with_display_name,
@@ -65,7 +63,6 @@ class ExpertMailer < ApplicationMailer
     # Email pour ceux n'ont pas reçu de besoin depuis un moment
     with_expert_init do
       @need = params[:need]
-      @support_user = @expert.support_user
 
       mail(
         to: @expert.email_with_display_name,
@@ -78,7 +75,6 @@ class ExpertMailer < ApplicationMailer
   def last_chance
     with_expert_init do
       @need = params[:need]
-      @support_user = @expert.support_user
       @match = @expert.received_matches.find_by(need: @need)
 
       mail(
@@ -94,6 +90,7 @@ class ExpertMailer < ApplicationMailer
   def with_expert_init
     @expert = params[:expert]
     return if @expert.deleted?
+    @support_user = @expert.support_user
     @institution_logo_name = @expert.institution.logo&.filename
     yield
   end

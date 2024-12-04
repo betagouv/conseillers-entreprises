@@ -136,6 +136,7 @@ fr:
     looking_forward: Au plaisir d’échanger,
     see_diagnosis: Voir le besoin de l’entreprise
     see_you_on_service_html: À très vite sur %{link_to_root}.
+    see_you_soon: À très vite !
     sincerely: Bien à vous,
     solicitation:
       base_intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service).
