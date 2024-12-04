@@ -4,6 +4,8 @@ require 'rails_helper'
 require 'api_helper'
 
 RSpec.describe 'mailers/expert_mailer/notify_company_needs' do
+  let!(:national_referent) { create :user, :national_referent }
+
   context 'hash with several information' do
     let(:contact) { create :contact }
     let(:user) { create :user }
