@@ -210,6 +210,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_144559) do
     t.string "name"
     t.string "mtm_campaign"
     t.string "root_url"
+    t.datetime "archived_at", precision: nil
     t.boolean "display_url", default: false
     t.boolean "display_pde_partnership_mention", default: false
     t.bigint "institution_id", null: false

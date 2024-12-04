@@ -4,6 +4,7 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :mtm_campaign
       t.string :root_url
+      t.datetime :archived_at, precision: nil
       t.boolean :display_url, default: false
       t.boolean :display_pde_partnership_mention, default: false
       t.references :institution, null: false, foreign_key: true, index: true
@@ -148,23 +149,27 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
     ## ARCHIVES
     p "Entreprises ma région Sud"
     institution = Institution.find_by(slug: 'conseil_regional_de_provence_alpes_cotes_d_azur')
-    cooperation = institution.cooperations.create!(name: "Entreprises ma région Sud", root_url: 'https://entreprises.maregionsud.fr')
-    cooperation.landings.push(Landing.find_by(slug: 'entreprises-ma-region-sud'))
+    landing = Landing.find_by(slug: 'entreprises-ma-region-sud')
+    cooperation = institution.cooperations.create!(name: "Entreprises ma région Sud", root_url: 'https://entreprises.maregionsud.fr', archived_at: landing.archived_at)
+    cooperation.landings.push(landing)
 
     p "Entreprises Haut de France"
     institution = Institution.find_by(slug: 'conseil-regional-des-hauts-de-france')
-    cooperation = institution.cooperations.create!(name: "Entreprises Haut de France", root_url: 'https://entreprises.hautsdefrance.fr/Contact')
-    cooperation.landings.push(Landing.find_by(slug: 'entreprises-haut-de-france'))
+    landing = Landing.find_by(slug: 'entreprises-haut-de-france')
+    cooperation = institution.cooperations.create!(name: "Entreprises Haut de France", root_url: 'https://entreprises.hautsdefrance.fr/Contact', archived_at: landing.archived_at)
+    cooperation.landings.push(landing)
 
     p "Brexit"
     institution = Institution.find_by(slug: 'douanes')
-    cooperation = institution.cooperations.create!(name: "Brexit", root_url: 'https://brexit.hautsdefrance.fr')
-    cooperation.landings.push(Landing.find_by(slug: 'brexit'))
+    landing = Landing.find_by(slug: 'brexit')
+    cooperation = institution.cooperations.create!(name: "Brexit", root_url: 'https://brexit.hautsdefrance.fr', archived_at: landing.archived_at)
+    cooperation.landings.push(landing)
 
     p "Relance Hauts de France"
     institution = Institution.find_by(slug: 'conseil-regional-des-hauts-de-france')
-    cooperation = institution.cooperations.create!(name: "Relance Hauts de France", root_url: nil)
-    cooperation.landings.push(Landing.find_by(slug: 'relance-hautsdefrance'))
+    landing = Landing.find_by(slug: 'relance-hautsdefrance')
+    cooperation = institution.cooperations.create!(name: "Relance Hauts de France", root_url: nil, archived_at: landing.archived_at)
+    cooperation.landings.push(landing)
   end
 
   def update_solicitations
