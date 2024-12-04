@@ -81,7 +81,6 @@ class Landing < ApplicationRecord
   ## Validation
   #
   validates :slug, presence: true, uniqueness: true
-  validates :partner_url, presence: true, if: -> { iframe? || api? }
 
   ## Scopes
   #
@@ -127,11 +126,19 @@ class Landing < ApplicationRecord
     end
   end
 
+  def partner_url
+    cooperation&.root_url
+  end
+
+  def partner_full_url
+    [cooperation&.root_url, url_path].compact.join
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     [
       "archived", "archived_at", "created_at", "custom_css", "display_pde_partnership_mention", "emphasis",
       "home_description", "id", "id_value", "iframe_category", "institution_id", "integration", "layout",
-      "meta_description", "meta_title", "partner_url", "slug", "title", "updated_at"
+      "meta_description", "meta_title", "url_path", "slug", "title", "updated_at"
     ]
   end
 

@@ -645,7 +645,7 @@ class Solicitation < ApplicationRecord
     if from_iframe?
       landing.slug
     elsif from_api?
-      landing.partner_url
+      landing.partner_full_url
     elsif from_campaign?
       campaign
     end

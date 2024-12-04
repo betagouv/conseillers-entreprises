@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Solicitations" do
   describe "with query params" do
     context "iframe landing" do
-      let!(:landing) { create :landing, integration: :iframe, slug: 'iframe-01', partner_url: 'example.com' }
+      let!(:landing) { create :landing, integration: :iframe, slug: 'iframe-01' }
       let(:landing_theme) { create :landing_theme, slug: "recrutement-formation" }
       let(:landing_subject) { create :landing_subject, slug: "recruter" }
 

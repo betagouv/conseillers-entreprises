@@ -74,7 +74,7 @@ describe Stats::Filters::Companies do
     let(:integration) { 1 }
     let(:diagnosis_inside) do
   create :diagnosis, needs: [create(:need)],
-                         solicitation: create(:solicitation, landing: create(:landing, integration: integration, partner_url: 'https://www.example.com'))
+                         solicitation: create(:solicitation, landing: create(:landing, integration: integration))
 end
 
     subject { described_class.new(query, open_struct_graph).send(:integration_filter, integration) }

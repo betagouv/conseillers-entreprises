@@ -24,6 +24,7 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
     up_only do
       generate_cooperations
       update_solicitations
+      Landing.update_all(partner_url: nil)
     end
 
     rename_column :landings, :partner_url, :url_path
@@ -143,6 +144,27 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
     institution = Institution.find_by(slug: 'unapl')
     cooperation = institution.cooperations.create!(name: "Portail Maisons des professions libérales", root_url: nil)
     cooperation.landings.push(Landing.find_by(slug: 'maison-des-professions-liberales'))
+
+    ## ARCHIVES
+    p "Entreprises ma région Sud"
+    institution = Institution.find_by(slug: 'conseil_regional_de_provence_alpes_cotes_d_azur')
+    cooperation = institution.cooperations.create!(name: "Entreprises ma région Sud", root_url: 'https://entreprises.maregionsud.fr')
+    cooperation.landings.push(Landing.find_by(slug: 'entreprises-ma-region-sud'))
+
+    p "Entreprises Haut de France"
+    institution = Institution.find_by(slug: 'conseil-regional-des-hauts-de-france')
+    cooperation = institution.cooperations.create!(name: "Entreprises Haut de France", root_url: 'https://entreprises.hautsdefrance.fr/Contact')
+    cooperation.landings.push(Landing.find_by(slug: 'entreprises-haut-de-france'))
+
+    p "Brexit"
+    institution = Institution.find_by(slug: 'douanes')
+    cooperation = institution.cooperations.create!(name: "Brexit", root_url: 'https://brexit.hautsdefrance.fr')
+    cooperation.landings.push(Landing.find_by(slug: 'brexit'))
+
+    p "Relance Hauts de France"
+    institution = Institution.find_by(slug: 'conseil-regional-des-hauts-de-france')
+    cooperation = institution.cooperations.create!(name: "Relance Hauts de France", root_url: nil)
+    cooperation.landings.push(Landing.find_by(slug: 'relance-hautsdefrance'))
   end
 
   def update_solicitations
