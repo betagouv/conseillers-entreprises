@@ -97,6 +97,11 @@ fr:
         subject: Risque d’abandon pour le besoin de l’entreprise %{company}
         we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant ou à la dirigeante resté(e) sans nouvelles.
         will_you_act: Souhaitez-vous intervenir ?
+      match_feedback:
+        feedback_by_html: 'Commentaire de %{author} (%{antenne}) :'
+        match_status_html: 'Votre positionnement sur ce besoin d’entreprise : %{status}'
+        new_feedback: 'Un besoin a reçu un nouveau commentaire :'
+        subject: Des nouvelles de l’entreprise %{company_name}
       notify_company_needs:
         company_needs_you_html: Une entreprise a besoin de votre expertise sur <strong>« %{subject} »</strong>
         subject: L’entreprise %{company_name} a besoin de vous
@@ -123,10 +128,6 @@ fr:
         user_account: compte utilisateur
         visited_days_ago: transmis il y a %{days} par %{advisor}, votre contact territorial
         visited_on: transmis le %{date}
-      support_contacts:
-        national_referent_contact_html: "%{name} - %{function} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a>"
-        support_contact: "%{regions} : %{name} – tel: %{tel} – email: %{email}"
-        support_contact_html: "%{name} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a> :"
     footer:
       contact_us_html: N’hésitez pas à %{mailto_link} pour toute question, nous sommes à votre service.
       contact_us_mailto_text: nous contacter
@@ -270,11 +271,6 @@ fr:
     thanks_for_your_comprehension: Nous vous remercions pour votre compréhension.
     thanks_for_your_trust: Merci pour votre confiance,
     user_mailer:
-      match_feedback:
-        feedback_by_html: 'Commentaire de %{author} (%{antenne}) :'
-        match_status_html: 'Votre positionnement sur ce besoin d’entreprise : %{status}'
-        new_feedback: 'Un besoin a reçu un nouveau commentaire :'
-        subject: Des nouvelles de l’entreprise %{company_name}
       quarterly_report:
         antenne_manager:
           one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service Conseillers-Entreprises.

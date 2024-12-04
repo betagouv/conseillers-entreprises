@@ -44,6 +44,11 @@ class ExpertMailerPreview < ActionMailer::Preview
     ExpertMailer.with(expert: expert, need: need).re_engagement
   end
 
+  def match_feedback
+    feedback = Feedback.category_need.sample
+    ExpertMailer.with(expert: feedback.need.experts.sample, feedback: feedback).match_feedback
+  end
+
   private
 
   def active_expert
