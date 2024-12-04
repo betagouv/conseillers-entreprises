@@ -22,8 +22,6 @@ class ExpertMailer < ApplicationMailer
   def first_notification_help
     # Email du premier besoin reçu
     with_expert_init do
-      @support_user = @expert.support_user
-
       mail(
         to: @expert.email_with_display_name,
         reply_to: @support_user.email_with_display_name,
@@ -35,9 +33,11 @@ class ExpertMailer < ApplicationMailer
   def remind_involvement
     with_expert_init do
       # On ne relance pas les MER les + recentes
-      @needs_quo = @expert.needs_quo.matches_sent_at(Range.new(nil, 4.days.ago))
+      needs_quo = @expert.needs_quo.matches_sent_at(Range.new(nil, 4.days.ago))
+      @firsts_needs_quo = needs_quo.first(7)
+      @others_needs_quo_count = (needs_quo - @firsts_needs_quo).count
 
-      return if @needs_quo.empty?
+      return if needs_quo.empty?
 
       mail(
         to: @expert.email_with_display_name,
