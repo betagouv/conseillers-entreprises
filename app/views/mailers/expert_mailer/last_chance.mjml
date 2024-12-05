@@ -1,22 +1,24 @@
 <mj-section>
   <mj-column>
-    <mj-text><%= t('mailers.hello_name', name: @expert.full_name) %></mj-text>
+    <mj-text>
+      <p><%= t('mailers.hello_name', name: @expert.full_name) %></p>
 
-    <mj-text><%= t('.company_solicitation_html', company: @need.company.name, date: I18n.l(@match.created_at, format: :sentence)) %></mj-text>
+      <p><%= t('.company_solicitation_html', company: @need.company.name, date: I18n.l(@match.created_at, format: :sentence)) %></p>
 
-    <mj-text><%= t('.we_will_cancel_need') %></mj-text>
+      <p><%= t('.we_will_cancel_need') %></p>
 
-    <mj-text font-weight='700'><%= t('.will_you_act') %></mj-text>
+      <p><strong><%= t('.will_you_act') %></strong></p>
+    </mj-text>
+      <mj-button background-color="#000091" color="white" border-radius="0" font-weight="700">
+        <%= link_to t('mailers.see_diagnosis'), need_url(@need), style: 'color: white; text-decoration: none' %>
+      </mj-button>
+    <mj-text>
+      <p><%= t('.at_your_disposal') %></p>
 
-    <mj-button background-color="#000091" color="white" border-radius="0" font-weight="700">
-      <%= link_to t('mailers.see_diagnosis'), need_url(@need), style: 'color: white; text-decoration: none' %>
-    </mj-button>
+      <p><%= t('mailers.sincerely') %></p>
 
-    <mj-text><%= t('.at_your_disposal') %></mj-text>
-
-    <mj-text><%= t('mailers.sincerely') %></mj-text>
-
-    <mj-text><%= @support_user.full_name %></mj-text>
+      <p><%= @support_user.full_name %></p>
+    </mj-text>
   </mj-column>
 </mj-section>
 

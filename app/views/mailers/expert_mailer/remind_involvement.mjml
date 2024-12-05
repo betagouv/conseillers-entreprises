@@ -2,7 +2,7 @@
   <mj-column>
     <mj-text><%= t('mailers.hello') %></mj-text>
     <mj-text>
-      <%= t('.needs_for_you') %>
+      <p><%= t('.needs_for_you') %></p>
       <p><%= t('.needs_quo') %></p>
     </mj-text>
   </mj-column>
@@ -18,7 +18,7 @@
     <mj-column>
       <mj-text>
         <% account_link = link_to t('.user_account'), quo_active_needs_url %>
-        <%= t('.other_needs_quo_html', count: @others_needs_quo_count, account_link: account_link) %>
+        <p><%= t('.other_needs_quo_html', count: @others_needs_quo_count, account_link: account_link) %></p>
       </mj-text>
     </mj-column>
   </mj-section>
@@ -27,7 +27,9 @@
 <mj-section>
   <mj-column>
     <% link_to_root = link_to t('app_name'), root_url %>
-    <mj-text><%= t('mailers.see_you_on_service_html', link_to_root: link_to_root) %></mj-text>
+    <mj-text>
+      <p><%= t('mailers.see_you_on_service_html', link_to_root: link_to_root) %></p>
+    </mj-text>
   </mj-column>
 </mj-section>
 
