@@ -1,27 +1,27 @@
 <mj-section>
   <mj-column>
-    <mj-text><%= t('mailers.hello') %></mj-text>
-
-    <mj-text><%= t('.received_need') %></mj-text>
-
-    <mj-text font-weight='700'>
-      <%= t('.what_is_pde') %>
-    </mj-text>
-
-    <mj-text><%= t('.answer') %></mj-text>
-
-    <mj-text><%= t('.answer_continuation') %></mj-text>
-
     <mj-text>
-      <%= t('.answer_3') %><br />
-      <%= t('.response_delay') %>
+      <p><%= t('mailers.hello') %></p>
+
+      <p><%= t('.received_need') %></p>
+
+      <strong><%= t('.what_is_pde') %></strong>
+
+      <p><%= t('.answer') %></p>
+
+      <p><%= t('.answer_continuation') %></p>
+
+      <p>
+        <%= t('.answer_3') %><br />
+        <%= t('.response_delay') %>
+      </p>
+
+      <p><%= t('.watch_videos_html') %></p>
+
+      <p><%= t('mailers.looking_forward') %></p>
+
+      <p><%= @support_user.full_name %></p>
     </mj-text>
-
-    <mj-text><%= t('.watch_videos_html') %></mj-text>
-
-    <mj-text><%= t('mailers.looking_forward') %></mj-text>
-
-    <mj-text><%= @support_user.full_name %></mj-text>
   </mj-column>
 </mj-section>
 
