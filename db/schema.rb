@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_21_144559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -197,6 +197,28 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
     t.index ["company_id"], name: "index_contacts_on_company_id"
   end
 
+  create_table "cooperation_themes", force: :cascade do |t|
+    t.bigint "cooperation_id", null: false
+    t.bigint "theme_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cooperation_id"], name: "index_cooperation_themes_on_cooperation_id"
+    t.index ["theme_id"], name: "index_cooperation_themes_on_theme_id"
+  end
+
+  create_table "cooperations", force: :cascade do |t|
+    t.string "name"
+    t.string "mtm_campaign"
+    t.string "root_url"
+    t.datetime "archived_at", precision: nil
+    t.boolean "display_url", default: false
+    t.boolean "display_pde_partnership_mention", default: false
+    t.bigint "institution_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["institution_id"], name: "index_cooperations_on_institution_id"
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
@@ -370,7 +392,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
     t.boolean "requires_location", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "display_region_logo", default: false
     t.datetime "archived_at", precision: nil
     t.text "description_prefill"
     t.index ["archived_at"], name: "index_landing_subjects_on_archived_at"
@@ -403,16 +424,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
     t.string "meta_description"
     t.string "title"
     t.string "custom_css"
-    t.string "partner_url"
+    t.string "url_path"
     t.boolean "emphasis", default: false
-    t.string "main_logo"
     t.integer "layout", default: 1
     t.integer "iframe_category", default: 1
     t.boolean "display_pde_partnership_mention", default: false
     t.datetime "archived_at", precision: nil
     t.integer "integration", default: 0
     t.boolean "display_partner_url", default: false
+    t.bigint "cooperation_id"
     t.index ["archived_at"], name: "index_landings_on_archived_at"
+    t.index ["cooperation_id"], name: "index_landings_on_cooperation_id"
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
   end
@@ -422,8 +444,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "institution_id"
-    t.index ["institution_id"], name: "index_logos_on_institution_id"
+    t.string "logoable_type"
+    t.bigint "logoable_id"
+    t.index ["logoable_type", "logoable_id"], name: "index_logos_on_logoable"
   end
 
   create_table "match_filters", force: :cascade do |t|
@@ -563,7 +586,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
     t.integer "status", default: 0
     t.uuid "uuid"
     t.datetime "completed_at", precision: nil
+    t.bigint "cooperation_id"
     t.index ["code_region"], name: "index_solicitations_on_code_region"
+    t.index ["cooperation_id"], name: "index_solicitations_on_cooperation_id"
     t.index ["email"], name: "index_solicitations_on_email"
     t.index ["institution_id"], name: "index_solicitations_on_institution_id"
     t.index ["landing_id"], name: "index_solicitations_on_landing_id"
@@ -652,7 +677,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "interview_sort_order"
-    t.boolean "cooperation", default: false
     t.index ["interview_sort_order"], name: "index_themes_on_interview_sort_order"
     t.index ["label"], name: "index_themes_on_label", unique: true
     t.index ["updated_at"], name: "index_themes_on_updated_at"
@@ -718,6 +742,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
   add_foreign_key "communes_territories", "territories"
   add_foreign_key "company_satisfactions", "needs"
   add_foreign_key "contacts", "companies"
+  add_foreign_key "cooperation_themes", "cooperations"
+  add_foreign_key "cooperation_themes", "themes"
+  add_foreign_key "cooperations", "institutions"
   add_foreign_key "diagnoses", "contacts", column: "visitee_id"
   add_foreign_key "diagnoses", "facilities"
   add_foreign_key "diagnoses", "solicitations"
@@ -738,8 +765,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
   add_foreign_key "institutions_subjects", "subjects"
   add_foreign_key "landing_subjects", "landing_themes"
   add_foreign_key "landing_subjects", "subjects"
+  add_foreign_key "landings", "cooperations"
   add_foreign_key "landings", "institutions"
-  add_foreign_key "logos", "institutions"
   add_foreign_key "matches", "experts"
   add_foreign_key "matches", "needs"
   add_foreign_key "matches", "subjects"
@@ -753,6 +780,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_101607) do
   add_foreign_key "shared_satisfactions", "company_satisfactions"
   add_foreign_key "shared_satisfactions", "experts"
   add_foreign_key "shared_satisfactions", "users"
+  add_foreign_key "solicitations", "cooperations"
   add_foreign_key "solicitations", "institutions"
   add_foreign_key "solicitations", "landing_subjects"
   add_foreign_key "solicitations", "landings"

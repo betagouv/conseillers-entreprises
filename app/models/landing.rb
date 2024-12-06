@@ -12,24 +12,26 @@
 #  iframe_category                 :integer          default("integral")
 #  integration                     :integer          default("intern")
 #  layout                          :integer          default("multiple_steps")
-#  main_logo                       :string
 #  meta_description                :string
 #  meta_title                      :string
-#  partner_url                     :string
 #  slug                            :string           not null
 #  title                           :string
+#  url_path                        :string
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
+#  cooperation_id                  :bigint(8)
 #  institution_id                  :bigint(8)
 #
 # Indexes
 #
 #  index_landings_on_archived_at     (archived_at)
+#  index_landings_on_cooperation_id  (cooperation_id)
 #  index_landings_on_institution_id  (institution_id)
 #  index_landings_on_slug            (slug) UNIQUE
 #
 # Foreign Keys
 #
+#  fk_rails_...  (cooperation_id => cooperations.id)
 #  fk_rails_...  (institution_id => institutions.id)
 #
 
@@ -62,12 +64,15 @@ class Landing < ApplicationRecord
   has_many :landing_subjects, through: :landing_themes, inverse_of: :landing_theme
   has_many :subjects, through: :landing_subjects, inverse_of: :landings
 
-  belongs_to :institution, inverse_of: :landings, optional: true
+  belongs_to :cooperation, inverse_of: :landings, optional: true
+  has_one :institution, through: :cooperation, inverse_of: :landings
 
   has_many :solicitations, inverse_of: :landing
   has_many :diagnoses, through: :solicitations, inverse_of: :landing
   has_many :needs, through: :diagnoses, inverse_of: :landing
   has_many :matches, through: :diagnoses, inverse_of: :landing
+
+  has_one :logo, as: :logoable, dependent: :destroy, inverse_of: :logoable
 
   accepts_nested_attributes_for :landing_joint_themes, allow_destroy: true
 
@@ -76,11 +81,12 @@ class Landing < ApplicationRecord
   ## Validation
   #
   validates :slug, presence: true, uniqueness: true
-  validates :partner_url, presence: true, if: -> { iframe? || api? }
 
   ## Scopes
   #
   scope :emphasis, -> { where(emphasis: true) }
+  scope :cooperation, -> { where.not(cooperation_id: nil) }
+
   def self.accueil
     Landing.find_by(slug: 'accueil')
   end
@@ -120,16 +126,24 @@ class Landing < ApplicationRecord
     end
   end
 
+  def partner_url
+    cooperation&.root_url
+  end
+
+  def partner_full_url
+    [cooperation&.root_url, url_path].compact.join
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     [
       "archived", "archived_at", "created_at", "custom_css", "display_pde_partnership_mention", "emphasis",
-      "home_description", "id", "id_value", "iframe_category", "institution_id", "integration", "layout", "main_logo",
-      "meta_description", "meta_title", "partner_url", "slug", "title", "updated_at"
+      "home_description", "id", "id_value", "iframe_category", "institution_id", "integration", "layout",
+      "meta_description", "meta_title", "url_path", "slug", "title", "updated_at"
     ]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["institution", "landing_joint_themes", "landing_subjects", "landing_themes", "solicitations"]
+    ["institution", "landing_joint_themes", "landing_subjects", "landing_themes", "solicitations", "cooperation"]
   end
 
   private

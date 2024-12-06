@@ -13,6 +13,7 @@ ActiveAdmin.register Landing do
   scope :intern
   scope :iframe
   scope :api
+  scope :cooperation
   scope :is_archived
 
   ## Index
@@ -20,21 +21,27 @@ ActiveAdmin.register Landing do
   index do
     selectable_column
     column :slug do |l|
-      admin_link_to l
+      div admin_link_to l
+      status_tag t('attributes.is_archived'), class: :ok if l.is_archived
     end
     column :title do |l|
-      div admin_link_to l.institution if l.institution.present?
       div link_to l.title, l if l.slug.present?
-    end
-    column :iframe_category do |l|
-      div l.iframe? ? (human_attribute_status_tag l, :iframe_category) : '-'
-    end
-    column :landing_themes do |l|
-      div l.landing_themes.count
     end
     column(:solicitations) do |l|
       div  admin_link_to(l, :solicitations)
       div  admin_link_to(l, :needs)
+      div  admin_link_to(l, :landing_themes)
+    end
+    column(:cooperation) do |l|
+      div  admin_link_to(l, :cooperation)
+      if l.institution.present?
+        div t('activerecord.attributes.landing.institution') + ' : ' do
+          div admin_link_to(l.institution)
+        end
+      end
+    end
+    column :iframe_category do |l|
+      div l.iframe? ? (human_attribute_status_tag l, :iframe_category) : '-'
     end
 
     column t('active_admin.particularities') do |l|
@@ -42,7 +49,6 @@ ActiveAdmin.register Landing do
       div t('active_admin.regional_theme') if l.has_regional_themes?
     end
 
-    column :display_partner_url
     actions dropdown: true do |l|
       item t('active_admin.landings.update_iframe_360_button'), update_iframe_360_admin_landing_path(l), method: :put
     end
@@ -68,19 +74,17 @@ ActiveAdmin.register Landing do
         row :archived_at
         row(:layout) { |landing| human_attribute_status_tag landing, :layout }
         row(:integration) { |landing| human_attribute_status_tag landing, :integration }
-        row :display_partner_url
       end
     end
 
     attributes_table title: I18n.t("activerecord.attributes.landing.featured_on_home") do
       row :emphasis
       row :home_description
-      row :main_logo
     end
 
     attributes_table title: I18n.t("landings.landings.admin.iframe_and_api_fields") do
       row :institution
-      row :partner_url
+      row :url_path
     end
 
     attributes_table title: I18n.t("landings.landings.admin.iframe_fields") do
@@ -111,10 +115,10 @@ ActiveAdmin.register Landing do
 
   permit_params :slug, :title,
                 :layout,
-                :emphasis, :home_description, :main_logo,
+                :emphasis, :home_description,
                 :meta_title, :meta_description,
-                :integration, :institution_id, :partner_url, :display_partner_url,
-                :iframe_category, :custom_css, :display_pde_partnership_mention,
+                :integration, :institution_id, :url_path,
+                :iframe_category, :custom_css,
                 landing_joint_themes_attributes: landing_joint_themes_attributes
 
   form title: :title do |f|
@@ -123,18 +127,16 @@ ActiveAdmin.register Landing do
       f.input :slug
       f.input :layout, as: :select, collection: Landing.human_attribute_values(:layout).invert
       f.input :integration, as: :select, collection: Landing.human_attribute_values(:integration).invert
-      f.input :display_partner_url
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
       f.input :emphasis, as: :boolean
       f.input :home_description, input_html: { rows: 2 }
-      f.input :main_logo
     end
 
     f.inputs I18n.t("landings.landings.admin.iframe_and_api_fields") do
       f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-      f.input :partner_url
+      f.input :url_path
     end
 
     f.inputs I18n.t("landings.landings.admin.iframe_fields") do

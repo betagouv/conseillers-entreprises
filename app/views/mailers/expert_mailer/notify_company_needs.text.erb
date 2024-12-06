@@ -4,8 +4,8 @@
 
 <%= render 'mailers/expert_mailer/need_card', need: @need, visited_at: false %>
 
-<% if @solicitation.present? && @solicitation.landing&.partner_url.present? %>
-<%= ActionView::Base.full_sanitizer.sanitize(t('.via_partner_html', url: @solicitation.landing.partner_url)) %>
+<% if @solicitation.present? && @solicitation.landing&.partner_full_url.present? %>
+<%= ActionView::Base.full_sanitizer.sanitize(t('.via_partner_html', url: @solicitation.landing.partner_full_url)) %>
 <% end %>
 
 

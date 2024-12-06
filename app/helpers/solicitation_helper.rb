@@ -65,7 +65,7 @@ module SolicitationHelper
 
   def display_solicitation_attribute(solicitation, attribute)
     if attribute == :provenance_detail && solicitation.campaign == 'entreprendre'
-      link_to solicitation.send(attribute), partner_url(solicitation), title: "#{to_new_window_title(t('needs.show.origin_source_title'))}", target: '_blank', rel: 'noopener'
+      link_to solicitation.send(attribute), partner_url(solicitation, full: true), title: "#{to_new_window_title(t('needs.show.origin_source_title'))}", target: '_blank', rel: 'noopener'
     else
       solicitation.send(attribute)
     end
@@ -80,11 +80,11 @@ module SolicitationHelper
     end
   end
 
-  def partner_url(solicitation)
+  def partner_url(solicitation, full: false)
     return if solicitation.nil?
     return solicitation.origin_url if solicitation.origin_url.present?
-    return "https://entreprendre.service-public.fr/vosdroits/#{solicitation.kwd}" if (solicitation.campaign == 'entreprendre' && solicitation.kwd.present?)
-    solicitation.landing.partner_url
+    return entreprendre_url(solicitation, full: full) if (solicitation.campaign == 'entreprendre' && solicitation.kwd.present?)
+    return landing_partner_url(solicitation, full: full)
   end
 
   private
@@ -97,5 +97,13 @@ module SolicitationHelper
 
   def button_for_non_editable_subject(solicitation, classes)
     tag.button(class: classes, disabled: 'disabled') { solicitation.landing_subject.title }
+  end
+
+  def entreprendre_url(solicitation, full: false)
+    full ? "https://entreprendre.service-public.fr/vosdroits/#{solicitation.kwd}" : "https://entreprendre.service-public.fr"
+  end
+
+  def landing_partner_url(solicitation, full: false)
+    full ? solicitation.landing.partner_full_url : solicitation.landing.partner_url
   end
 end

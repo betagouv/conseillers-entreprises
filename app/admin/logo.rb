@@ -13,7 +13,7 @@ ActiveAdmin.register Logo do
     column :image, class: 'logo' do |l|
       display_logo(name: l.filename, path: "institutions/")
     end
-    column :institution
+    column :logoable
     actions dropdown: true
   end
 
@@ -23,7 +23,7 @@ ActiveAdmin.register Logo do
     attributes_table do
       row :name
       row :filename
-      row :institution
+      row :logoable
       row :image, class: 'logo' do |l|
         display_logo(name: l.filename, path: "institutions/")
       end
@@ -32,16 +32,12 @@ ActiveAdmin.register Logo do
 
   ## Form
   #
-  permit_params :filename, :name, :institution_id
+  permit_params :filename, :name, :logoable_id, :logoable_type
 
   form do |f|
     f.inputs do
       f.input :name
       f.input :filename
-      f.input :institution, as: :ajax_select, data: {
-        url: :admin_institutions_path,
-        search_fields: [:name]
-      }
     end
     f.actions
   end
