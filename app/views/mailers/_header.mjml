@@ -5,7 +5,7 @@
 </mj-section>
 
 <mj-section>
-  <% if defined? cooperation_logo_name %>
+  <% if defined?(cooperation_logo_name) && cooperation_logo_name.present? %>
     <mj-column width="50%" vertical-align="middle">
       <mj-raw>
         <%= display_logo(name: cooperation_logo_name, path: "cooperations/", extra_params: { class: 'institution-logo' }) %>
