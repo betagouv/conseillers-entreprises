@@ -4,7 +4,6 @@ ActiveAdmin.register ProfilPicture do
   permit_params :filename, :user_id
 
   index do
-    selectable_column
     id_column
     column :picture do |profil_picture|
       image_tag "equipe/portraits-emails/#{profil_picture.filename}", size: '50x50'
