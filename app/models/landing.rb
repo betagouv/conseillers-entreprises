@@ -2,37 +2,32 @@
 #
 # Table name: landings
 #
-#  id                              :bigint(8)        not null, primary key
-#  archived_at                     :datetime
-#  custom_css                      :string
-#  display_partner_url             :boolean          default(FALSE)
-#  display_pde_partnership_mention :boolean          default(FALSE)
-#  emphasis                        :boolean          default(FALSE)
-#  home_description                :text             default("")
-#  iframe_category                 :integer          default("integral")
-#  integration                     :integer          default("intern")
-#  layout                          :integer          default("multiple_steps")
-#  meta_description                :string
-#  meta_title                      :string
-#  slug                            :string           not null
-#  title                           :string
-#  url_path                        :string
-#  created_at                      :datetime         not null
-#  updated_at                      :datetime         not null
-#  cooperation_id                  :bigint(8)
-#  institution_id                  :bigint(8)
+#  id               :bigint(8)        not null, primary key
+#  archived_at      :datetime
+#  custom_css       :string
+#  emphasis         :boolean          default(FALSE)
+#  home_description :text             default("")
+#  iframe_category  :integer          default("integral")
+#  integration      :integer          default("intern")
+#  layout           :integer          default("multiple_steps")
+#  meta_description :string
+#  meta_title       :string
+#  slug             :string           not null
+#  title            :string
+#  url_path         :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  cooperation_id   :bigint(8)
 #
 # Indexes
 #
 #  index_landings_on_archived_at     (archived_at)
 #  index_landings_on_cooperation_id  (cooperation_id)
-#  index_landings_on_institution_id  (institution_id)
 #  index_landings_on_slug            (slug) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_...  (cooperation_id => cooperations.id)
-#  fk_rails_...  (institution_id => institutions.id)
 #
 
 class Landing < ApplicationRecord
@@ -134,16 +129,20 @@ class Landing < ApplicationRecord
     [cooperation&.root_url, url_path].compact.join
   end
 
+  def display_pde_partnership_mention?
+    cooperation&.display_pde_partnership_mention
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     [
-      "archived", "archived_at", "created_at", "custom_css", "display_pde_partnership_mention", "emphasis",
-      "home_description", "id", "id_value", "iframe_category", "institution_id", "integration", "layout",
+      "archived", "archived_at", "created_at", "custom_css", "emphasis",
+      "home_description", "id", "id_value", "iframe_category", "cooperation_id", "integration", "layout",
       "meta_description", "meta_title", "url_path", "slug", "title", "updated_at"
     ]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["institution", "landing_joint_themes", "landing_subjects", "landing_themes", "solicitations", "cooperation"]
+    ["landing_joint_themes", "landing_subjects", "landing_themes", "solicitations", "cooperation"]
   end
 
   private
