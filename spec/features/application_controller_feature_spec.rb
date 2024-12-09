@@ -49,7 +49,7 @@ describe 'ApplicationController specific features' do
     end
 
     context 'user is manager' do
-      before { current_user.user_rights.create(category: 'manager') }
+      before { current_user.user_rights.create(category: 'manager', antenne: current_user.antenne) }
 
       it 'shows no errors' do
         visit '/besoins'
