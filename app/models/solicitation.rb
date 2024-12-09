@@ -20,7 +20,6 @@
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  cooperation_id                   :bigint(8)
-#  institution_id                   :bigint(8)
 #  landing_id                       :bigint(8)
 #  landing_subject_id               :bigint(8)
 #
@@ -29,7 +28,6 @@
 #  index_solicitations_on_code_region         (code_region)
 #  index_solicitations_on_cooperation_id      (cooperation_id)
 #  index_solicitations_on_email               (email)
-#  index_solicitations_on_institution_id      (institution_id)
 #  index_solicitations_on_landing_id          (landing_id)
 #  index_solicitations_on_landing_slug        (landing_slug)
 #  index_solicitations_on_landing_subject_id  (landing_subject_id)
@@ -39,7 +37,6 @@
 # Foreign Keys
 #
 #  fk_rails_...  (cooperation_id => cooperations.id)
-#  fk_rails_...  (institution_id => institutions.id)
 #  fk_rails_...  (landing_id => landings.id)
 #  fk_rails_...  (landing_subject_id => landing_subjects.id)
 #

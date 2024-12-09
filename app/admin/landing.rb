@@ -57,7 +57,7 @@ ActiveAdmin.register Landing do
   filter :title
   filter :slug
   filter :landing_themes, as: :ajax_select, data: { url: :admin_landing_themes_path, search_fields: [:title] }
-  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :cooperation, as: :ajax_select, data: { url: :admin_cooperations_path, search_fields: [:name] }
   filter :iframe_category, as: :select, collection: -> { Landing.human_attribute_values(:iframe_category, raw_values: true).invert.to_a }
 
   ## Show
@@ -83,14 +83,13 @@ ActiveAdmin.register Landing do
     end
 
     attributes_table title: I18n.t("landings.landings.admin.iframe_and_api_fields") do
-      row :institution
+      row :cooperation
       row :url_path
     end
 
     attributes_table title: I18n.t("landings.landings.admin.iframe_fields") do
       row(:iframe_category) { |landing| human_attribute_status_tag landing, :iframe_category }
       row :custom_css
-      row :display_pde_partnership_mention
     end
 
     attributes_table title: I18n.t("active_admin.meta") do
@@ -117,7 +116,7 @@ ActiveAdmin.register Landing do
                 :layout,
                 :emphasis, :home_description,
                 :meta_title, :meta_description,
-                :integration, :institution_id, :url_path,
+                :integration, :cooperation_id, :url_path,
                 :iframe_category, :custom_css,
                 landing_joint_themes_attributes: landing_joint_themes_attributes
 
@@ -135,14 +134,13 @@ ActiveAdmin.register Landing do
     end
 
     f.inputs I18n.t("landings.landings.admin.iframe_and_api_fields") do
-      f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+      f.input :cooperation, as: :ajax_select, data: { url: :admin_cooperations_path, search_fields: [:name] }
       f.input :url_path
     end
 
     f.inputs I18n.t("landings.landings.admin.iframe_fields") do
       f.input :iframe_category, as: :select, collection: Landing.human_attribute_values(:iframe_category).invert
       f.input :custom_css, as: :text, input_html: { style: 'font-family:monospace', rows: 10 }
-      f.input :display_pde_partnership_mention
     end
 
     panel I18n.t("active_admin.meta") do

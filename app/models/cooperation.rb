@@ -7,7 +7,7 @@
 #  display_pde_partnership_mention :boolean          default(FALSE)
 #  display_url                     :boolean          default(FALSE)
 #  mtm_campaign                    :string
-#  name                            :string
+#  name                            :string           not null
 #  root_url                        :string
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
@@ -16,6 +16,7 @@
 # Indexes
 #
 #  index_cooperations_on_institution_id  (institution_id)
+#  index_cooperations_on_name            (name) UNIQUE
 #
 # Foreign Keys
 #
@@ -34,6 +35,11 @@ class Cooperation < ApplicationRecord
   has_many :themes, through: :cooperation_themes, inverse_of: :cooperations
 
   has_one :logo, dependent: :destroy, as: :logoable, inverse_of: :logoable
+
+  ## Hooks and Validations
+  #
+  auto_strip_attributes :name
+  validates :name, presence: true, uniqueness: true
 
   ##
   #

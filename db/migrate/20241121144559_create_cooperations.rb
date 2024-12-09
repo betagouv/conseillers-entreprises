@@ -1,9 +1,9 @@
 class CreateCooperations < ActiveRecord::Migration[7.0]
   def change
     create_table :cooperations do |t|
-      t.string :name
-      t.string :mtm_campaign
+      t.string :name, null: false, index: { unique: true }
       t.string :root_url
+      t.string :mtm_campaign
       t.datetime :archived_at, precision: nil
       t.boolean :display_url, default: false
       t.boolean :display_pde_partnership_mention, default: false
@@ -29,10 +29,10 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
     end
 
     rename_column :landings, :partner_url, :url_path
-    # remove_column :landings, :display_partner_url, :boolean, default: false
-    # remove_column :landings, :display_pde_partnership_mention, :boolean, default: false
-    # remove_reference :landings, :institution, foreign_key: true, index: true
-    # remove_reference :solicitations, :institution, foreign_key: true, index: true
+    remove_column :landings, :display_partner_url, :boolean, default: false
+    remove_column :landings, :display_pde_partnership_mention, :boolean, default: false
+    remove_reference :landings, :institution, foreign_key: true, index: true
+    remove_reference :solicitations, :institution, foreign_key: true, index: true
     remove_column :themes, :cooperation, :boolean, default: false
   end
 
