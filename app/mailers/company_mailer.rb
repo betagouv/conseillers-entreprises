@@ -4,8 +4,11 @@ class CompanyMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/company_mailer'
 
+  helper :solicitation, :images
+
   def confirmation_solicitation(solicitation)
     @solicitation = solicitation
+    @cooperation_logo_name = @solicitation.cooperation&.logo&.filename
     mail(
       to: @solicitation.email,
       subject: t('mailers.company_mailer.confirmation_solicitation.subject', subject: solicitation.landing_subject.title)
@@ -61,11 +64,13 @@ class CompanyMailer < ApplicationMailer
 
   def solicitation_relaunch_company(solicitation)
     @solicitation = solicitation
+    @cooperation_logo_name = @solicitation.cooperation&.logo&.filename
     mail(to: @solicitation.email, subject: t('mailers.company_mailer.solicitation_relaunch_company.subject', subject: solicitation.subject))
   end
 
   def solicitation_relaunch_description(solicitation)
     @solicitation = solicitation
+    @cooperation_logo_name = @solicitation.cooperation&.logo&.filename
     mail(to: @solicitation.email, subject: t('mailers.company_mailer.solicitation_relaunch_description.subject', subject: solicitation.subject))
   end
 

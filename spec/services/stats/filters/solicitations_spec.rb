@@ -72,7 +72,7 @@ describe Stats::Filters::Solicitations do
 
   describe 'integration_filter' do
     let(:integration) { :iframe }
-    let!(:solicitation_inside) { create :solicitation, landing: create(:landing, integration: integration, partner_url: 'https://www.example.com') }
+    let!(:solicitation_inside) { create :solicitation, landing: create(:landing, integration: integration, url_path: 'https://www.example.com') }
 
     subject { described_class.new(query, open_struct_graph).send(:integration_filter, integration) }
 

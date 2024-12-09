@@ -3,7 +3,6 @@
 # Table name: themes
 #
 #  id                   :bigint(8)        not null, primary key
-#  cooperation          :boolean          default(FALSE)
 #  interview_sort_order :integer
 #  label                :string           not null
 #  created_at           :datetime         not null
@@ -20,6 +19,8 @@ class Theme < ApplicationRecord
   ## Associations
   #
   has_many :subjects, inverse_of: :theme
+  has_many :cooperation_themes, dependent: :destroy, inverse_of: :theme
+  has_many :cooperations, through: :cooperation_themes, inverse_of: :themes
   has_and_belongs_to_many :territories
 
   ## Validations
@@ -65,10 +66,14 @@ class Theme < ApplicationRecord
     label
   end
 
+  def cooperation?
+    cooperations.any?
+  end
+
   def stats_label(detailed)
     detailed = true if detailed.nil?
-    # Si on ne veux pas le détail on affiche les thèmes de coopération sous un même label
-    !self.cooperation || detailed ? label : I18n.t('activerecord.attributes.theme.stats_label.cooperation')
+    # Si on ne veut pas le détail on affiche les thèmes de coopération sous un même label
+    !self.cooperation? || detailed ? label : I18n.t('activerecord.attributes.theme.stats_label.cooperation')
   end
 
   def self.ransackable_attributes(auth_object = nil)

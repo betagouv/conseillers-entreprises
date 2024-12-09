@@ -52,7 +52,7 @@ describe BreadcrumbsHelper do
     end
 
     context 'integral iframe landing' do
-      let(:landing) { create :landing, slug: 'iframe-01', integration: :iframe, partner_url: 'example.fr', layout: :multiple_steps, iframe_category: :integral }
+      let(:landing) { create :landing, slug: 'iframe-01', integration: :iframe, layout: :multiple_steps, iframe_category: :integral }
 
       context 'landing page' do
         let(:landing_theme) { nil }
@@ -105,7 +105,7 @@ describe BreadcrumbsHelper do
     end
 
     context 'subjects iframe landing' do
-      let(:landing) { create :landing, slug: 'iframe-01', integration: :iframe, partner_url: 'example.fr', layout: :multiple_steps, iframe_category: :subjects }
+      let(:landing) { create :landing, slug: 'iframe-01', integration: :iframe, layout: :multiple_steps, iframe_category: :subjects }
 
       context 'landing_subject page' do
         let(:landing_theme) { create :landing_theme, slug: 'theme-01',title: "Thème 01" }
