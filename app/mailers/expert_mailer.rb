@@ -3,6 +3,7 @@
 class ExpertMailer < ApplicationMailer
   default template_path: 'mailers/expert_mailer'
   helper :institutions
+  helper :status
 
   layout 'expert_mailers'
 
