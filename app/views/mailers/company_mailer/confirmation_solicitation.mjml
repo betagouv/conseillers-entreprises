@@ -3,7 +3,7 @@
     <mj-text><%= t('mailers.hello') %></mj-text>
 
       <% if partner_url(@solicitation).present? %>
-          <mj-text><%= t('.content_for_iframe_html', website: partner_url(@solicitation)) %></mj-text>
+          <mj-text><%= t('.content_for_cooperation_html', website: partner_url(@solicitation)) %></mj-text>
       <% else %>
           <mj-text><%= t('.content') %></mj-text>
       <% end %>
