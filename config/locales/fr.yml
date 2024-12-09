@@ -143,6 +143,7 @@ fr:
       year: Année
   download_csv: Télécharger CSV
   errors:
+    admin_for_referents: Rôle disponible pour les admins uniquement.
     cancel_solicitation_with_email: La sollicitation ne peut pas être mise à jour (solicitation ou type d'email invalide)
     contact: Contactez-nous
     format: "%{attribute} %{message}"
@@ -188,6 +189,7 @@ fr:
         one: ne fait pas la bonne longueur (doit comporter un seul caractère)
         other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
     missing_inherited_method: Méthode manquante dans la classe enfant
+    one_user_for_referents: Un seul reférent est autorisé.
     page_title: Erreur - %{title}
     satisfaction_without_comment: Vous ne pouvez pas partager une satisfaction sans commentaire
     template:
