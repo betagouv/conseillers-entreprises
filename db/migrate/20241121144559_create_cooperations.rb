@@ -44,8 +44,6 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
     cooperation.landings.push(Landing.find_by(slug: 'entreprendre-service-public-fr'))
     cooperation.create_logo(name: 'Entreprendre', filename: 'entreprendre')
 
-    Solicitation.mtm_campaign_eq('entreprendre').update_all(cooperation_id: cooperation.id)
-
     ## Mon entreprise - URSSAF
     p "Mon entreprise - URSSAF"
     institution = Institution.find_by(slug: 'urssaf')

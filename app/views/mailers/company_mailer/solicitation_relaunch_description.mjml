@@ -2,7 +2,11 @@
   <mj-column>
     <mj-text><%= t('mailers.hello') %></mj-text>
 
-    <mj-text><%= t('.your_solicitation_html', subject: @solicitation.subject) %></mj-text>
+    <% if partner_url(@solicitation).present? %>
+      <mj-text><%= t('.your_solicitation_cooperation_html', subject: @solicitation.subject, website: partner_url(@solicitation)) %></mj-text>
+    <% else %>
+      <mj-text><%= t('.your_solicitation_html', subject: @solicitation.subject) %></mj-text>
+    <% end %>
 
     <mj-text><%= t('.incomplete_step_explanation') %></mj-text>
 
