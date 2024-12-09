@@ -12,7 +12,7 @@
       </mj-raw>
     </mj-column>
   <% end %>
-  <mj-column width="50%" vertical-align="middle">
+  <mj-column width="50%" vertical-align="middle" padding-left="25px" padding-right="25px" padding-bottom="10px">
     <mj-text font-size='16px' line-height=1.5 padding=0 css-class="fr-header__service-title">
       <span class="red"><%= t('app_name_subdomain').sp_titleize_url %></span><%= "." + t('app_name_domain').sp_titleize_url %>
     </mj-text>

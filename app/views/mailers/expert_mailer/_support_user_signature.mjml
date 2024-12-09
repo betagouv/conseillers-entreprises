@@ -1,36 +1,40 @@
 <mj-section background-color='#efefef' border-left='3px solid #888' padding-bottom="5px" padding-top="5px" padding-left="35px">
-        <mj-column width="100%">
-            <mj-text  font-size="14px" color="#000000" font-weight="bold" padding-bottom="5px">
-                <% if defined?(sent_personally) && sent_personally %>
-                    <%= t('mailers.contact_me') %>
-                <% else %>
-                    <%= t('mailers.contact_your_referent') %>
-                <% end %>
-            </mj-text>
-        </mj-column>
+  <mj-column>
+    <mj-text font-size="14px" color="#000000" font-weight="bold" padding-bottom="5px" padding-left="25px">
+      <% if defined?(sent_personally) && sent_personally %>
+      <p style="margin: 0"><%= t('mailers.contact_me') %></p>
+      <% else %>
+      <p style="margin: 0"><%= t('mailers.contact_your_referent') %></p>
+      <% end %>
+    </mj-text>
+  </mj-column>
+</mj-section>
 
-        <% if support_user.profil_picture.present? %>
-            <mj-column width="15%" vertical-align="middle">
-                <mj-image width="65px" height="65px" padding="0" padding-left="20px" border-radius="50%"
-                          src="<%= image_url('equipe/portraits-emails/' + support_user.profil_picture.filename) %>" alt="" />
-            </mj-column>
-        <% end %>
-        <mj-column width="85%" vertical-align="middle">
-            <mj-text font-size="10px">
-                <ul style="list-style: none; padding: 0">
-                    <li style="font-size: 12px; font-weight: bold; line-height: 0.5rem">
-                        <%= support_user.full_name %>
-                    </li>
-                    <li style="color: #666666; margin-bottom: 0.2rem">
-                        <%= support_user.job %>
-                    </li>
-                    <li style="; line-height: 0.5rem">
-                        <a href="<%= support_user.email %>"><%= support_user.email %></a>
-                    </li>
-                    <li>
-                        <%= support_user.phone_number %>
-                    </li>
-                </ul>
-            </mj-text>
-        </mj-column>
+<mj-section background-color='#efefef' border-left='3px solid #888' padding-bottom="5px" padding-top="5px" padding-left="35px">
+
+  <% if support_user.profil_picture.present? %>
+  <mj-column width="20%" vertical-align="middle" >
+    <mj-image width="65px" height="65px" border-radius="50%"
+              src="<%= image_url('equipe/portraits-emails/' + support_user.profil_picture.filename) %>" alt="" />
+  </mj-column>
+  <% end %>
+
+  <mj-column width="80%" vertical-align="middle" >
+    <mj-text font-size="10px" padding-left="10px">
+      <ul style="list-style: none; padding: 0">
+        <li style="font-size: 12px; font-weight: bold; line-height: 0.5rem">
+          <%= support_user.full_name %>
+        </li>
+        <li style="color: #666666; margin-bottom: 0.2rem">
+          <%= support_user.job %>
+        </li>
+        <li style="; line-height: 0.5rem">
+          <a href="<%= support_user.email %>"><%= support_user.email %></a>
+        </li>
+        <li>
+          <%= support_user.phone_number %>
+        </li>
+      </ul>
+    </mj-text>
+  </mj-column>
 </mj-section>
