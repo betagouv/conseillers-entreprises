@@ -745,6 +745,9 @@ fr:
       need:
         one: Besoin
         other: Besoins
+      profil_picture:
+        one: Image de profil
+        other: Images de profil
       search:
         one: Recherche
         other: Recherches
