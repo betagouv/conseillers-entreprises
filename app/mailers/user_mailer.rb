@@ -4,7 +4,6 @@ class UserMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/user_mailer'
   helper :institutions
-  helper :status
 
   layout 'expert_mailers'
 
