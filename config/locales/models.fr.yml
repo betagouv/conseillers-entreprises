@@ -689,6 +689,9 @@ fr:
       contact:
         one: Contact
         other: Contacts
+      cooperation:
+        one: Coopération
+        other: Coopérations
       diagnosis:
         one: Analyse
         other: Analyses

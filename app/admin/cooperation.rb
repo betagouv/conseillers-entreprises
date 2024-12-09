@@ -41,7 +41,6 @@ ActiveAdmin.register Cooperation do
   #
   show do
     attributes_table do
-      # row(:deleted_at) if resource.deleted?
       row :name
       row(:institution) do |c|
         div admin_link_to(c, :institution)
