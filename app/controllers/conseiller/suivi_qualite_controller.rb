@@ -62,6 +62,6 @@ class Conseiller::SuiviQualiteController < ApplicationController
   end
 
   def search_fields
-    [:by_region]
+    [:by_region, :institution_id]
   end
 end

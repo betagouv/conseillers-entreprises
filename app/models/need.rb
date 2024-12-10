@@ -321,7 +321,11 @@ class Need < ApplicationRecord
   end
 
   scope :by_antenne, -> (antenne_id) do
-    joins(matches: { expert: :antenne }).merge(Match.by_antenne(antenne_id))
+    joins(:matches).merge(Match.by_antenne(antenne_id))
+  end
+
+  scope :by_institution, -> (institution_id) do
+    joins(:matches).merge(Match.by_institution(institution_id))
   end
 
   scope :created_since, -> (date) do
@@ -359,6 +363,7 @@ class Need < ApplicationRecord
     klass = klass.created_since(params[:created_since]) if params[:created_since].present?
     klass = klass.created_until(params[:created_until]) if params[:created_until].present?
     klass = klass.by_antenne(params[:antenne_id]) if params[:antenne_id].present?
+    klass = klass.by_institution(params[:institution_id]) if params[:institution_id].present?
     klass.all
   end
 
