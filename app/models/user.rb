@@ -237,6 +237,7 @@ class User < ApplicationRecord
   def soft_delete
     self.transaction do
       update_columns(SoftDeletable.persons_attributes)
+      self.user_rights.destroy_all
     end
   end
 
