@@ -131,6 +131,10 @@ class Match < ApplicationRecord
     joins(expert: :antenne).where(expert: { antenne_id: antenne_id })
   end
 
+  scope :by_institution, -> (institution_id) do
+    joins(:expert_institution).where(expert_institution: { id: institution_id })
+  end
+
   # Pour ransacker, en admin
   scope :solicitation_created_at_gteq, -> (val) do
     joins(:solicitation).where(solicitations: { created_at: val.. })
