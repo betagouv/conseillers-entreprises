@@ -4,7 +4,7 @@
 <%= t('.needs_for_you', link_to_root: link_to_root) %>
 
 <%= render 'mailers/expert_mailer/remind_received_needs',
-  received_needs: @firsts_needs_quo,
+  received_needs: @displayed_needs,
   title: t('.needs_quo'),
   visited_at: false %>
 

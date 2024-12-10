@@ -34,11 +34,10 @@ class ExpertMailer < ApplicationMailer
   def remind_involvement
     with_expert_init do
       # On ne relance pas les MER les + recentes
-      needs_quo = @expert.needs_quo.matches_sent_at(Range.new(nil, 4.days.ago))
-      @firsts_needs_quo = needs_quo.first(7)
-      @others_needs_quo_count = (needs_quo - @firsts_needs_quo).count
-
-      return if needs_quo.empty?
+      inbox_needs = @expert.needs_quo_active
+      @displayed_needs = inbox_needs.matches_sent_at(Range.new(nil, 4.days.ago)).first(7)
+      return if @displayed_needs.empty?
+      @others_needs_quo_count = (inbox_needs - @displayed_needs).count
 
       mail(
         to: @expert.email_with_display_name,
