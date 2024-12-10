@@ -62,7 +62,7 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
 
     ## « mission transition écologique des entreprises » - institution Ademe
     p "mission transition ecologique des entreprises"
-    institution = Institution.find_by(slug: 'ministere_de_la_transition_ecologique_et_solidaire_acquisition')
+    institution = Institution.find_by(slug: 'ademe')
     cooperation = institution.cooperations.create!(name: "Mission transition écologique des entreprises", root_url: 'https://mission-transition-ecologique.beta.gouv.fr', display_url: true, display_pde_partnership_mention: true)
     ['france-transition-ecologique', 'transition-ecologique-entreprises-api'].each do |slug|
       cooperation.landings.push(Landing.find_by(slug: slug))

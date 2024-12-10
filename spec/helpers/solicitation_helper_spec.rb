@@ -108,6 +108,5 @@ describe SolicitationHelper do
         it { is_expected.to eq "exemple-bis.fr/super-aide" }
       end
     end
-
   end
 end

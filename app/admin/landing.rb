@@ -1,5 +1,5 @@
 ActiveAdmin.register Landing do
-  menu parent: :themes, priority: 3
+  menu parent: :themes, priority: 4
 
   include AdminArchivable
 

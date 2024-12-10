@@ -4,7 +4,6 @@ require 'swagger_helper'
 RSpec.describe "Solicitations API" do
   let(:institution) { create(:institution, name: 'Institution Partenaire') }
   let(:Authorization) { "Bearer token=#{find_token(institution)}" }
-  # let(:cooperation) { create(:cooperation, institution: institution) }
   let(:landing_01) { create_cooperation_landing(institution) }
   let!(:rh_theme) { create_rh_theme([landing_01]) }
   let!(:recrutement_subject) { create_recrutement_subject(rh_theme) }

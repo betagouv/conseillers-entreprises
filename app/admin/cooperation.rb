@@ -1,5 +1,5 @@
 ActiveAdmin.register Cooperation do
-  menu parent: :themes, priority: 4
+  menu parent: :themes, priority: 3
 
   include AdminArchivable
 
@@ -22,7 +22,7 @@ ActiveAdmin.register Cooperation do
       div admin_link_to c.institution if c.institution.present?
       status_tag t('attributes.display_url'), class: :ok if c.display_url
     end
-    column(:landings) do |c|
+    column(:landings_or_mtm) do |c|
       div admin_link_to(c, :landings, list: true)
       div c.mtm_campaign
     end
