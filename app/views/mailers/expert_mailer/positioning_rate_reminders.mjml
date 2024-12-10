@@ -12,6 +12,8 @@
       <p><%= t('mailers.thank_you') %></p>
 
       <p><%= t('mailers.sincerely') %></p>
+
+      <p><%= @support_user.full_name %></p>
     </mj-text>
   </mj-column>
 </mj-section>

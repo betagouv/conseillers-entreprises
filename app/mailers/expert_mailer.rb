@@ -3,6 +3,7 @@
 class ExpertMailer < ApplicationMailer
   default template_path: 'mailers/expert_mailer'
   helper :institutions
+  helper :status
 
   layout 'expert_mailers'
 
@@ -20,9 +21,11 @@ class ExpertMailer < ApplicationMailer
   end
 
   def first_notification_help
+    # Email du premier besoin reçu
     with_expert_init do
       mail(
         to: @expert.email_with_display_name,
+        reply_to: @support_user.email_with_display_name,
         subject: t('mailers.expert_mailer.first_notification_help.subject')
       )
     end
@@ -31,20 +34,23 @@ class ExpertMailer < ApplicationMailer
   def remind_involvement
     with_expert_init do
       # On ne relance pas les MER les + recentes
-      @needs_quo = @expert.needs_quo.matches_sent_at(Range.new(nil, 4.days.ago))
-
-      return if @needs_quo.empty?
+      inbox_needs = @expert.needs_quo_active
+      @displayed_needs = inbox_needs.matches_sent_at(Range.new(nil, 4.days.ago)).first(7)
+      return if @displayed_needs.empty?
+      @others_needs_quo_count = (inbox_needs - @displayed_needs).count
 
       mail(
         to: @expert.email_with_display_name,
+        reply_to: @support_user.email_with_display_name,
         subject: t('mailers.expert_mailer.remind_involvement.subject')
       )
     end
   end
 
   def positioning_rate_reminders
+    # Envoyé depuis les paniers qualité
     with_expert_init do
-      @support_user = params[:support_user]
+
       mail(
         to: @expert.email_with_display_name,
         reply_to: @support_user.email_with_display_name,
@@ -54,9 +60,9 @@ class ExpertMailer < ApplicationMailer
   end
 
   def re_engagement
+    # Email pour ceux n'ont pas reçu de besoin depuis un moment
     with_expert_init do
       @need = params[:need]
-      @support_user = params[:support_user]
 
       mail(
         to: @expert.email_with_display_name,
@@ -69,7 +75,6 @@ class ExpertMailer < ApplicationMailer
   def last_chance
     with_expert_init do
       @need = params[:need]
-      @support_user = params[:support_user]
       @match = @expert.received_matches.find_by(need: @need)
 
       mail(
@@ -80,11 +85,25 @@ class ExpertMailer < ApplicationMailer
     end
   end
 
+  def match_feedback
+    with_expert_init do
+      @feedback = params[:feedback]
+      return if @feedback.nil?
+
+      @author = @feedback.user
+      @match = @expert.received_matches.find_by(need: @feedback.need.id)
+
+      mail(to: @expert.email_with_display_name,
+           subject: t('mailers.expert_mailer.match_feedback.subject', company_name: @feedback.need.company))
+    end
+  end
+
   private
 
   def with_expert_init
     @expert = params[:expert]
     return if @expert.deleted?
+    @support_user = @expert.support_user
     @institution_logo_name = @expert.institution.logo&.filename
     yield
   end

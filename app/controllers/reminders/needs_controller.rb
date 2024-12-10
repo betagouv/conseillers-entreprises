@@ -46,7 +46,7 @@ module Reminders
       reminded_experts = []
       @need.matches.with_status_quo_active.each do |match|
         reminded_experts << "#{match.expert.full_name} (#{match.expert.institution.name})"
-        ExpertMailer.with(expert: match.expert, support_user: current_user, need: @need).last_chance.deliver_later
+        ExpertMailer.with(expert: match.expert, need: @need).last_chance.deliver_later
       end
       @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_send', experts: reminded_experts.to_sentence),
                                   feedbackable_type: 'Need', feedbackable_id: @need.id)
