@@ -123,7 +123,7 @@ fr:
       remind_involvement:
         needs_for_you: Les entreprises ci-dessous ont souhaité bénéficier de votre expertise via le service public Conseillers-Entreprises.
         needs_quo: Pourriez-vous nous partager votre position sur ces besoins ?
-        other_needs_quo_html: Les %{count} autres besoins d’entreprises sont à retrouver facilement en vous connectant à votre %{account_link}.
+        other_needs_quo_html: Les %{count} autres besoins d’entreprises sans positionnement sont à retrouver facilement en vous connectant à votre %{account_link}.
         subject: 'Récap : Des entreprises ont besoin de vous !'
         user_account: compte utilisateur
         visited_days_ago: transmis il y a %{days} par %{advisor}, votre contact territorial

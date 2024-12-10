@@ -9,7 +9,7 @@
 </mj-section>
 
 <%= render 'mailers/expert_mailer/remind_received_needs',
-  received_needs: @firsts_needs_quo,
+  received_needs: @displayed_needs,
   title: t('.needs_quo'),
   visited_at: false %>
 
