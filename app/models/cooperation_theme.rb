@@ -27,8 +27,6 @@ class CooperationTheme < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    [
-      "cooperation", "theme"
-    ]
+    [ "cooperation", "theme" ]
   end
 end

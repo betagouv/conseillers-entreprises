@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_21_144559) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_28_160019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -505,6 +505,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_144559) do
     t.index ["subject_id"], name: "index_needs_on_subject_id"
   end
 
+  create_table "profil_pictures", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "filename", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profil_pictures_on_user_id", unique: true
+  end
+
   create_table "quarterly_reports", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
@@ -766,6 +774,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_144559) do
   add_foreign_key "matches", "subjects"
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
+  add_foreign_key "profil_pictures", "users"
   add_foreign_key "quarterly_reports", "antennes"
   add_foreign_key "referencement_coverages", "antennes"
   add_foreign_key "referencement_coverages", "institutions_subjects"
