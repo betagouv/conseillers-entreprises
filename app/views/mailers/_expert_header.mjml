@@ -5,7 +5,7 @@
 </mj-section>
 
 <mj-section>
-  <% if defined? institution_logo_name %>
+  <% if defined?(institution_logo_name) && institution_logo_name.present? %>
     <mj-column width="50%" vertical-align="middle">
       <mj-raw>
         <%= institution_image institution_logo_name %>

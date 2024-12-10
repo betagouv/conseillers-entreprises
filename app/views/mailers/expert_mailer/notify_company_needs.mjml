@@ -12,8 +12,8 @@
 <mj-section>
   <mj-column>
     <mj-text>
-      <% if @solicitation.present? && @solicitation.landing&.partner_url.present? %>
-        <p><%= t('.via_partner_html', url: @solicitation.landing.partner_url) %></p>
+      <% if @solicitation.present? && @solicitation.landing&.partner_full_url.present? %>
+        <p><%= t('.via_partner_html', url: @solicitation.landing.partner_full_url) %></p>
       <% end %>
       <p><%= t('mailers.thanks_for_your_trust') %></p>
       <p><%= t('mailers.see_you_on_service_html', link_to_root: link_to(t('app_name'), root_url)) %></p>
