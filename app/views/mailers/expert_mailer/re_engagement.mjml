@@ -3,11 +3,9 @@
     <mj-text>
       <p><%= t('mailers.hello') %></p>
 
-      <p><%= t('.you_received_need_html', company: @need.company.name, subject: @need.subject.label.downcase, url: need_url(@need)) %></p>
+      <p><%= t('.you_received_need_html', company: @need.company.name, subject: @need.subject.label.downcase, url: quo_active_needs_url) %></p>
 
-      <p><%= t('.its_been_a_while') %></p>
-
-      <p style='margin:0'><%= t('.position_yourself_html') %></p>
+      <p style='margin:0'><%= t('.position_yourself') %></p>
 
       <p><%= t('.if_you_need_a_demo_html') %></p>
 

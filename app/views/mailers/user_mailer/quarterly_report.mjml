@@ -17,7 +17,7 @@
     <mj-text>
       <p><%= t('.at_your_disposal') %></p>
       <p><%= t('mailers.thanks_for_your_trust') %></p>
-      <p><%= t('mailers.team') %></p>
+      <p><%= t('mailers.see_you_on_service_html', link_to_root: link_to(t('app_name'), root_url))%></p>
     </mj-text>
   </mj-column>
 </mj-section>

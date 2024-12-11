@@ -89,45 +89,42 @@ fr:
         received_need: Vous venez de recevoir votre premier besoin d’entreprise sur le service public Conseillers-Entreprises.
         response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
         subject: Conseillers-entreprises.service-public.fr - Besoin d’aide ?
-        watch_videos_html: N’hésitez pas à jeter un oeil sur <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>la vidéo de démonstration ici</a> !
-        what_is_pde: Comment fonctionne Conseillers-Entreprises, un service de Service-Public.fr ?
+        watch_videos_html: N’hésitez pas à jeter un oeil à <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>la vidéo de démonstration ici</a> !
+        what_is_pde: Comment fonctionne le service public Conseillers-Entreprises ?
       last_chance:
         at_your_disposal: Je reste à votre disposition si vous avez besoin d’aide.
         company_solicitation_html: Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier.
         subject: Risque d’abandon pour le besoin de l’entreprise %{company}
         we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant ou à la dirigeante resté(e) sans nouvelles.
-        will_you_act: Souhaitez-vous intervenir ?
+        will_you_act: Pouvez-vous intervenir ?
       match_feedback:
         feedback_by_html: 'Commentaire de %{author} (%{antenne}) :'
         match_status_html: 'Votre positionnement sur ce besoin d’entreprise : %{status}'
         new_feedback: 'Un besoin a reçu un nouveau commentaire :'
         subject: Des nouvelles de l’entreprise %{company_name}
       notify_company_needs:
-        company_needs_you_html: Une entreprise a besoin de votre expertise sur <strong>« %{subject} »</strong>
+        company_needs_you: Une entreprise a besoin de votre expertise sur « %{subject} ».
         subject: L’entreprise %{company_name} a besoin de vous
         via_partner_html: Ce besoin a été déposé sur le site <a href='%{url}' target='_blank'>%{url}</a>, en partenariat avec le service public Conseillers-Entreprises.
       positioning_rate_reminders:
         at_your_disposal: Je me tiens également à votre disposition pour toute modification de référencement ou si vous souhaitez faire un point sur la qualité des besoins transmis. Vos retours sont précieux pour nous aider à améliorer le service.
         call_me: Si jamais vous ne recevez pas les besoins par mail, appelez-moi pour que nous regardions ensemble.
-        needs_quo_html: Je me permets de vous écrire car vous avez <strong>%{count} besoins d’entreprise</strong> en attente de votre positionnement sur le service public Conseillers-Entreprises. Vous pouvez les retrouver facilement en vous connectant sur votre %{account_link}.
+        needs_quo_html: Je vous écris car vous avez <strong>%{count} besoins d’entreprise</strong> en attente de votre positionnement sur le service public Conseillers-Entreprises. Vous pouvez les retrouver facilement en vous connectant sur votre %{account_link}.
         subject: Rappel : des entreprises ont besoin de vous !
         user_account: compte utilisateur
       re_engagement:
         ask_questions: N’hésitez pas à venir poser vos questions.
         at_your_service: Je me tiens également à votre disposition par téléphone.
-        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service public Conseillers-Entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque jeudi à 14h30 (heure de Paris) </strong> sur ce lien de visio : <a href="https://webinaire.numerique.gouv.fr/meeting/signin/11932/creator/6579/hash/75c0b4e988e0f7de9a3e69f4f3aa60af92b9cb17"> https://webinaire.numerique.gouv.fr</a>.'
-        its_been_a_while: Cela n’était pas arrivé depuis un bon moment !
-        position_yourself_html: Nous vous invitons à vous positionner sur ce besoin <strong>à l'aide du bouton « J’appelle » ou « Ce n’est pas pour moi »</strong>.
+        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service public Conseillers-Entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque jeudi à 14h30</strong> (heure de Paris) sur ce lien de visio : <a href="https://webinaire.numerique.gouv.fr/meeting/signin/11932/creator/6579/hash/75c0b4e988e0f7de9a3e69f4f3aa60af92b9cb17"> https://webinaire.numerique.gouv.fr</a>.'
+        position_yourself: Comme cela n’étais pas arrivé depuis longtemps, nous vous invitons à vous positionner sur ce besoin à l'aide du bouton « J’appelle » ou « Ce n’est pas pour moi ».
         subject: Service public Conseillers-Entreprises - Nous vous accompagnons !
-        you_received_need_html: 'Vous venez de recevoir un besoin de l’entreprise <strong>%{company}</strong> sur le sujet %{subject}. Vous pouvez le retrouver ici : <a href="%{url}">%{url}</a>'
+        you_received_need_html: Vous venez de recevoir un besoin de l’entreprise <strong>%{company}</strong> sur le sujet %{subject}. Vous pouvez le retrouver sur votre <a href="%{url}">compte utilisateur</a>.
       remind_involvement:
         needs_for_you: Les entreprises ci-dessous ont souhaité bénéficier de votre expertise via le service public Conseillers-Entreprises.
-        needs_quo: Pourriez-vous nous partager votre position sur ces besoins ?
-        other_needs_quo_html: Les %{count} autres besoins d’entreprises sans positionnement sont à retrouver facilement en vous connectant à votre %{account_link}.
+        needs_quo: Pourriez-vous nous partager votre position concernant ces besoins ?
+        other_needs_quo_html: Retrouvez facilement les autres besoins en attente de positionnement en vous connectant à votre %{account_link}.
         subject: 'Récap : Des entreprises ont besoin de vous !'
         user_account: compte utilisateur
-        visited_days_ago: transmis il y a %{days} par %{advisor}, votre contact territorial
-        visited_on: transmis le %{date}
     footer:
       contact_us_html: N’hésitez pas à %{mailto_link} pour toute question, nous sommes à votre service.
       contact_us_mailto_text: nous contacter
@@ -137,7 +134,7 @@ fr:
     looking_forward: Au plaisir d’échanger,
     see_diagnosis: Voir le besoin de l’entreprise
     see_you_on_service_html: À très vite sur %{link_to_root}.
-    see_you_soon: À très vite !
+    see_you_soon: À très bientôt,
     sincerely: Bien à vous,
     solicitation:
       base_intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service).
@@ -277,7 +274,7 @@ fr:
           other: Vous êtes identifié(e) comme responsable des antennes %{antennes} au sein du service Conseillers-Entreprises.
         at_your_disposal: Nous restons à votre entière disposition pour toute question sur l’interprétation de ces données.
         discover_dynamic_stats: Découvrir mes statistiques
-        dynamic_stats_html: "<strong>NOUVEAU !</strong> Nous mettons à votre disposition des <strong>statistiques dynamiques</strong> pour le pilotage et l’analyse de l’activité générée par le service pour votre institution."
+        dynamic_stats_html: Nous mettons à votre disposition des <strong>statistiques dynamiques</strong> pour le pilotage de l’activité générée par le service pour votre institution.
         quarterly_report_available_html: Le <strong>rapport statistique</strong> des besoins transmis à vos équipes, sur le dernier trimestre et depuis le début de l’année, est à télécharger dans votre compte. Le détail des besoins est disponible dans un second fichier.
         subject: Vos statistiques de pilotage sont disponibles
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.

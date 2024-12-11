@@ -18,7 +18,7 @@
     <mj-column>
       <mj-text>
         <% account_link = link_to t('.user_account'), quo_active_needs_url %>
-        <p><%= t('.other_needs_quo_html', count: @others_needs_quo_count, account_link: account_link) %></p>
+        <p><%= t('.other_needs_quo_html', account_link: account_link) %></p>
       </mj-text>
     </mj-column>
   </mj-section>

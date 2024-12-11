@@ -1,6 +1,6 @@
 <%= t('mailers.hello') %>
 
-<%= ActionView::Base.full_sanitizer.sanitize(t('.company_needs_you_html', subject: @need.subject)) %> :
+<%= ActionView::Base.full_sanitizer.sanitize(t('.company_needs_you', subject: @need.subject)) %> :
 
 <%= render 'mailers/expert_mailer/need_card', need: @need, visited_at: false %>
 
