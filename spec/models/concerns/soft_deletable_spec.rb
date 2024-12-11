@@ -39,6 +39,17 @@ RSpec.describe SoftDeletable do
         end
       end
     end
+
+    context 'User manager' do
+      let(:user) { create :user, :manager }
+
+      before { user.destroy }
+
+      it 'Removes user rights' do
+        expect(user.reload.deleted?).to be true
+        expect(user.reload.is_manager?).to be false
+      end
+    end
   end
 
   describe 'For Experts' do
