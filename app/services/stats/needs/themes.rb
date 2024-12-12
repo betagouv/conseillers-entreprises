@@ -9,16 +9,21 @@ module Stats::Needs
         .joins(subject: :theme)
     end
 
+    def date_group_attribute
+      :created_at
+    end
+
+    def category_group_attribute
+      'themes.label'
+    end
+
+    def category_order_attribute
+      'themes.interview_sort_order'
+    end
+
     def build_series
-      query = filtered_main_query
-
-      results = Theme.order(interview_sort_order: :asc).each_with_object({}) do |theme, hash|
-        hash_count = hash[theme.stats_label(@detailed_graphs)] || {}
-        new_count = query.where(subject: { theme_id: theme.id }).group("DATE_TRUNC('month', needs.created_at)").count
-        hash[theme.stats_label(@detailed_graphs)] = new_count.merge(hash_count) { |key, old, new| old + new }
-      end.reject{ |k,v| v.empty? }
-
-      as_series(results)
+      result = super
+      result.reject { |item| item[:data].all?(0) }
     end
 
     def filtered(query)
