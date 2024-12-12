@@ -2,7 +2,7 @@ class ExpertMailerPreview < ActionMailer::Preview
   def notify_company_needs_from_pde
     expert = active_expert
     need = expert.received_needs.sample
-    need.solicitation = Solicitation.joins(:landing).where(landing: { partner_url: [nil, ''] }).sample
+    need.solicitation = Solicitation.where(cooperation_id: nil).sample
     ExpertMailer.with(expert: expert, need: need).notify_company_needs
   end
 
