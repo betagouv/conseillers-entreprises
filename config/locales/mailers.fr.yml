@@ -146,7 +146,8 @@ fr:
       bad_quality:
         complete_solicitation: Compléter ma demande
         for_better_taking_care_html: 'Pour pouvoir vous aider, les conseillers ont impérativement besoin d’éléments de contexte :'
-        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site partenaire) pour <strong>"%{subject_title}"</strong>.
+        intro_cooperation_html: Vous avez récemment déposé une demande sur le sujet « <strong>%{subject}</strong> » sur le site <strong>%{website}</strong>, en partenariat avec le service public Conseillers-Entreprises.
+        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} pour <strong>"%{subject}"</strong>.
         investment_html: "<strong>pour votre projet d’investissement :</strong> type d’investissement, but et montant du besoin"
         recruitment_html: "<strong>pour votre projet de recrutement :</strong> contexte du recrutement et type de contrat"
         treasury_html: "<strong>pour votre problème de trésorerie :</strong> contexte des difficultés et montant du besoin"

@@ -4,8 +4,11 @@ class SolicitationMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/solicitation_mailer'
 
+  helper :solicitation, :images
+
   def bad_quality(solicitation)
     @solicitation = solicitation
+    @cooperation_logo_name = @solicitation.cooperation&.logo&.filename
     @landing_subject = LandingSubject.joins(landing_theme: :landings).find_by(subject: @solicitation.needs&.first&.subject, landings: [@solicitation.landing])
     @landing_subject = @solicitation.landing_subject if @landing_subject.nil?
 
