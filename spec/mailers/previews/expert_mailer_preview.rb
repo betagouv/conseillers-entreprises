@@ -11,8 +11,9 @@ class ExpertMailerPreview < ActionMailer::Preview
     need = expert.received_needs.sample
     solicitation = Solicitation.all.sample
     need.solicitation = solicitation
-    solicitation.landing = Landing.all.sample
-    solicitation.landing.update(partner_url: 'https://test.com/formulaire')
+    solicitation.landing = Landing.cooperation.sample
+    solicitation.landing.cooperation.update(root_url: 'https://test.com')
+    solicitation.landing.update(url_path: '/formulaire')
     ExpertMailer.with(expert: expert, need: need).notify_company_needs
   end
 

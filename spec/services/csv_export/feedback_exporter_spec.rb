@@ -5,7 +5,8 @@ describe CsvExport::FeedbackExporter, CsvExport do
 
   let!(:date) { d = DateTime.parse('3rd Feb 2022 04:05:06+01:00') }
   let!(:solicitation) { create :solicitation, created_at: date, id: 1234, full_name: 'Dennis Meadows', email: 'meadows@fossil.com', phone_number: 'xx', siret: '12345678900011', description: 'Description', landing_subject: landing_subject, status: :processed, landing: landing, form_info: { origin_id: 'test123', origin_url: 'www.example.fr' } }
-  let!(:landing) { create :landing, landing_themes: [landing_theme], integration: :iframe, slug: 'landing-slug', partner_url: "www.example.fr" }
+  let!(:cooperation) { create :cooperation, root_url: "www.example.fr" }
+  let!(:landing) { create :landing, landing_themes: [landing_theme], integration: :iframe, slug: 'landing-slug' }
   let!(:need) { create :need, diagnosis: diagnosis, subject: pde_subject }
   let!(:diagnosis) { create :diagnosis, solicitation: solicitation, facility: facility, advisor: create(:user, full_name: 'Valérie Masson-Delmotte') }
   let!(:facility) { create :facility, code_effectif: 12, naf_code: '4618Z', siret: '12345678900011', commune: commune, company: create(:company, name: 'Fossil', legal_form_code: "5710",) }

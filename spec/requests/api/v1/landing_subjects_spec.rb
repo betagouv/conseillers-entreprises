@@ -4,7 +4,7 @@ require 'swagger_helper'
 RSpec.describe "Landing Subjects API" do
   let(:institution) { create(:institution) }
   let(:Authorization) { "Bearer token=#{find_token(institution)}" }
-  let(:landing_01) { create_base_landing(institution) }
+  let(:landing_01) { create_cooperation_landing(institution) }
   let(:landing_id) { landing_01.id }
   let!(:rh_theme) { create_rh_theme([landing_01]) }
   let!(:recrutement_subject) { create_recrutement_subject(rh_theme) }

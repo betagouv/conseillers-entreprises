@@ -32,10 +32,12 @@ class Institution < ApplicationRecord
   #
   has_many :antennes, -> { not_deleted }, inverse_of: :institution
   has_many :institutions_subjects, dependent: :destroy, inverse_of: :institution, after_add: :update_antennes_referencement_coverage, after_remove: :update_antennes_referencement_coverage
-  has_many :landings, inverse_of: :institution
-  has_many :solicitations, inverse_of: :institution
   has_and_belongs_to_many :categories # Une institution peut avoir plusieurs categories a la fois, donc une enum serait trop limitante
   has_one :logo, as: :logoable, dependent: :destroy, inverse_of: :logoable
+
+  has_many :cooperations, dependent: :destroy, inverse_of: :institution
+  has_many :solicitations, through: :cooperations, inverse_of: :cooperation
+  has_many :landings, through: :cooperations, inverse_of: :cooperation
 
   has_many :facilities, inverse_of: :opco
   has_many :subject_answer_groupings, dependent: :destroy, inverse_of: :institution

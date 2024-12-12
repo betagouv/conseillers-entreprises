@@ -202,6 +202,10 @@ fr:
       contact:
         company: Entreprise
         job: Fonction
+      cooperation:
+        display_pde_partnership_mention: Afficher le partenariat Conseillers-Entreprises (logo + phrase en bas d’iframe)
+        display_url: Afficher l’url du partenaire
+        landings_or_mtm: Landing / Campagne
       diagnosis:
         content: Commentaire
         step: Étape
@@ -263,8 +267,6 @@ fr:
       landing:
         api: Api
         custom_css: CSS personnalisé
-        display_partner_url: Afficher l’url de la source
-        display_pde_partnership_mention: Afficher le partenariat Conseillers-Entreprises (logo + phrase en bas d’iframe)
         emphasis: Mettre en avant sur la page d’accueil
         featured_on_home: Champs encart page d’accueil
         home_description: Description sur la page d’accueil
@@ -282,6 +284,7 @@ fr:
         meta_title: Titre méta
         partner_url: Url du site partenaire
         slug: Slug
+        url_path: chemin (fin de l'url) du site partenaire
       landing/iframe_categories:
         form: formulaire un sujet
         integral: 360°
@@ -687,6 +690,9 @@ fr:
       contact:
         one: Contact
         other: Contacts
+      cooperation:
+        one: Coopération
+        other: Coopérations
       diagnosis:
         one: Analyse
         other: Analyses
@@ -904,6 +910,7 @@ fr:
     diagnosis_regions: Région
     display_logo_in_partner_list: Afficher le logo dans la liste des institutions conseillères (page remerciement, etc)
     display_logo_on_home_page: Afficher le logo sur la page d’accueil
+    display_url: Url affichée
     done_institutions: Institution ayant clôturé avec aide
     effectif: Effectif
     email: Email

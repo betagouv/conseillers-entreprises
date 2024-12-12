@@ -68,7 +68,7 @@ describe Stats::Filters::Matches do
   describe 'integration_filter' do
     let(:integration) { :iframe }
     let(:need_inside) do
-      create :need, solicitation: create(:solicitation, landing: create(:landing, integration: integration, partner_url: 'https://www.example.com'))
+      create :need, solicitation: create(:solicitation, landing: create(:landing, integration: integration))
     end
     let!(:match_inside) { create :match, need: need_inside }
 

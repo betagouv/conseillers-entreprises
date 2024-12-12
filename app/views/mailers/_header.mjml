@@ -5,6 +5,13 @@
 </mj-section>
 
 <mj-section>
+  <% if defined?(cooperation_logo_name) && cooperation_logo_name.present? %>
+    <mj-column width="50%" vertical-align="middle">
+      <mj-raw>
+        <%= display_logo(name: cooperation_logo_name, path: "cooperations/", extra_params: { class: 'institution-logo' }) %>
+      </mj-raw>
+    </mj-column>
+  <% end %>
   <mj-column width="50%" vertical-align="middle">
     <mj-text font-size='16px' line-height=1.5 padding=0 css-class="fr-header__service-title">
       <span class="red"><%= t('app_name_subdomain').sp_titleize_url %></span><%= "." + t('app_name_domain').sp_titleize_url %>

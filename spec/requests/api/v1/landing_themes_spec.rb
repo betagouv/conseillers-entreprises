@@ -4,7 +4,7 @@ require 'swagger_helper'
 RSpec.describe "Landing Themes API" do
   let(:institution) { create(:institution) }
   let(:Authorization) { "Bearer token=#{find_token(institution)}" }
-  let(:landing_01) { create_base_landing(institution) }
+  let(:landing_01) { create_cooperation_landing(institution) }
   let(:landing_id) { landing_01.id }
   let!(:ecolo_theme) { create_ecolo_theme([landing_01]) }
   let!(:dechet_subject) { create_dechet_subject(ecolo_theme) }

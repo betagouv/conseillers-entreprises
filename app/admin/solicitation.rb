@@ -130,6 +130,7 @@ ActiveAdmin.register Solicitation do
   filter :badges, as: :select, collection: -> { Badge.category_solicitations.order(:title).pluck(:title, :id) }
 
   # Filtres acquisition
+  filter :cooperation, as: :ajax_select, collection: -> { Cooperation.pluck(:name, :id) }, data: { url: :admin_cooperations_path, search_fields: [:name] }
   filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
   filter :mtm_campaign, as: :string
   filter :mtm_kwd, as: :string
