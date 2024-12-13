@@ -16,6 +16,16 @@ class UserMailer < ApplicationMailer
     end
   end
 
+  def invite_to_demo
+    with_user_init do
+      @demo_dates = DemoPlanning.new.call
+      mail(
+        to: @user.email_with_display_name,
+        subject: t('mailers.user_mailer.invite_to_demo.subject')
+      )
+    end
+  end
+
   private
 
   def with_user_init

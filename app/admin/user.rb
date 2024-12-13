@@ -52,6 +52,7 @@ ActiveAdmin.register User do
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
       item t('active_admin.user.do_invite'), invite_user_admin_user_path(u)
+      item t('active_admin.user.invite_to_demo'), invite_to_demo_admin_user_path(u)
     end
   end
 
@@ -141,12 +142,14 @@ ActiveAdmin.register User do
       row :inviter
       row :invitation_sent_at
       row :invitation_accepted_at
+      row :demo_invited_at
     end
   end
 
   sidebar I18n.t('active_admin.user.send_emails'), only: :show do
     ul class: 'actions' do
       li link_to t('active_admin.user.do_invite'), invite_user_admin_user_path(user), class: 'action'
+      li link_to t('active_admin.user.invite_to_demo'), invite_to_demo_admin_user_path(user), class: 'action'
       li link_to t('active_admin.user.do_reset_password'), reset_password_admin_user_path(user), class: 'action'
     end
   end
@@ -225,6 +228,11 @@ ActiveAdmin.register User do
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_invite_done')
   end
 
+  member_action :invite_to_demo do
+    resource.invite_to_demo unless resource.deleted?
+    redirect_back fallback_location: collection_path, notice: t('active_admin.user.invited_to_demo')
+  end
+
   member_action :reset_password do
     resource.send_reset_password_instructions
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_reset_password_done')
@@ -240,6 +248,13 @@ ActiveAdmin.register User do
       user.invite!(current_user) unless user.deleted?
     end
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.do_invite_done')
+  end
+
+  batch_action I18n.t('active_admin.user.invite_to_demo') do |ids|
+    batch_action_collection.find(ids).each do |user|
+      user.invite_to_demo unless user.deleted?
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.invited_to_demo')
   end
 
   batch_action :destroy, confirm: I18n.t('active_admin.users.delete_confirmation') do |ids|
