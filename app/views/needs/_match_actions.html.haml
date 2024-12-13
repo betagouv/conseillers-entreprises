@@ -25,7 +25,7 @@
           %p.explanations= text
           - partner_full_link = match.solicitation&.landing&.partner_full_url
           - if partner_full_link.present?
-            %p.sub-content= t('.deposited_on_partner_website_html', partner_full_link: link_to(match.solicitation.landing.partner_url, partner_link, target: '_blank', rel: 'noopener'))
+            %p.sub-content= t('.deposited_on_partner_website_html', partner_link: link_to(match.solicitation.landing.partner_url, partner_full_link, target: '_blank', rel: 'noopener'))
         = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :quo, class: 'gray-link', id: "cancel-match" do
             = t('.cancel_taking_care')
