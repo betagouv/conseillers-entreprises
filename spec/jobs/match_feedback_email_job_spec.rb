@@ -6,6 +6,7 @@ RSpec.describe MatchFeedbackEmailJob do
 
   describe "perform" do
     let(:user) { create :user }
+    let!(:national_referent) { create :user, :national_referent }
 
     describe 'with feedback present' do
       let(:feedback) { create :feedback, :for_need, user: user }

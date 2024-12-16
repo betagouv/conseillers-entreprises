@@ -49,7 +49,16 @@ FactoryBot.define do
     trait :national_referent do
       antenne factory: [:antenne, :with_experts_subjects], strategy: :create
       after(:create) do |user, _|
+        user.user_rights.create(category: 'admin')
         user.user_rights.create(category: 'national_referent')
+      end
+    end
+
+    trait :main_referent do
+      antenne factory: [:antenne, :with_experts_subjects], strategy: :create
+      after(:create) do |user, _|
+        user.user_rights.create(category: 'admin')
+        user.user_rights.create(category: 'main_referent')
       end
     end
   end

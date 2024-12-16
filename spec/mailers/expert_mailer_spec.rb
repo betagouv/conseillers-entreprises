@@ -5,6 +5,7 @@ require 'mailers/shared_examples_for_an_email'
 require 'api_helper'
 
 describe ExpertMailer do
+  let!(:national_referent) { create :user, :national_referent }
 
   describe '#notify_company_needs' do
     subject(:mail) { described_class.with(expert: expert, need: need).notify_company_needs.deliver_now }
@@ -50,6 +51,28 @@ describe ExpertMailer do
       it_behaves_like 'an email'
 
       it { expect(mail.header[:from].value).to eq described_class::SENDER }
+    end
+
+    describe 'when the recipient is deleted' do
+      before { expert.soft_delete }
+
+      let(:mail) { subject }
+
+      it { expect(mail).to be_nil }
+    end
+  end
+
+  describe '#match_feedback' do
+    subject(:mail) { described_class.with(expert: expert, feedback: feedback).match_feedback.deliver_now }
+
+    let(:feedback) { create :feedback, :for_need }
+    let(:advisor) { create :user }
+    let(:expert) { create :expert }
+
+    describe 'when the recipient is not deleted' do
+      it_behaves_like 'an email'
+
+      it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
     end
 
     describe 'when the recipient is deleted' do

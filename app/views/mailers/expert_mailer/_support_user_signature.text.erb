@@ -1,0 +1,10 @@
+<% if defined?(sent_personally) && sent_personally %>
+<%= t('mailers.contact_me') %>
+<% else %>
+<%= t('mailers.contact_your_referent') %>
+<% end %>
+
+<%= support_user.full_name %>
+<%= support_user.job %>
+<%= support_user.email %>
+<%= support_user.phone_number %>

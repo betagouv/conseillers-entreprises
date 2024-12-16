@@ -1,6 +1,6 @@
 <%= t('mailers.hello') %>
 
-<%= ActionView::Base.full_sanitizer.sanitize(t('.company_needs_you_html', subject: @need.subject)) %> :
+<%= ActionView::Base.full_sanitizer.sanitize(t('.company_needs_you', subject: @need.subject)) %> :
 
 <%= render 'mailers/expert_mailer/need_card', need: @need, visited_at: false %>
 
@@ -8,10 +8,9 @@
 <%= ActionView::Base.full_sanitizer.sanitize(t('.via_partner_html', url: @solicitation.landing.partner_full_url)) %>
 <% end %>
 
-
 <%= t('mailers.thanks_for_your_trust') %>
 <%= t('mailers.see_you_on_service_html', link_to_root: root_url) %>
 
 ---
-<%= render 'mailers/expert_mailer/support_contact_block', antenne: @expert.antenne, support_contact_label: t('.support_contact_label') %>
+<%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user %>
 

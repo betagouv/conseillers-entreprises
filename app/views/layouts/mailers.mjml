@@ -1,8 +1,8 @@
 <mjml>
   <mj-head>
     <mj-attributes>
-      <mj-text line-height='22px' font-size='14px'>
-        <mj-all font-family="Arial" />
+      <mj-text line-height='22px' font-size='14px' />
+      <mj-all font-family="Arial" />
     </mj-attributes>
     <mj-style>
       .fr-header__service-title {

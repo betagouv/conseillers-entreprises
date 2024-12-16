@@ -1,5 +1,5 @@
 module ImagesHelper
-  EXTENSIONS = %w[png svg jpg jpeg]
+  EXTENSIONS = %w[png svg jpg jpeg webp]
 
   def display_logo(name: "", path: "", extra_params: {})
     return if name.blank?

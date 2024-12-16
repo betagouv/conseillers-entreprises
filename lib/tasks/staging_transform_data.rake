@@ -217,7 +217,8 @@ namespace :staging do
       expert_id: expert.id,
       sent_at: Time.zone.now
     })
-    expert.antenne.update(name: 'Métropole Démo')
+    expert.institution = Institution.find(80)
+    expert.antenne.update(name: 'Urssaf Démo')
   end
 
   desc 'transform data for staging'

@@ -2,22 +2,35 @@
   <mj-column>
     <mj-text><%= t('mailers.hello') %></mj-text>
     <mj-text>
-      <%= t('.needs_for_you') %>
+      <p><%= t('.needs_for_you') %></p>
       <p><%= t('.needs_quo') %></p>
     </mj-text>
   </mj-column>
 </mj-section>
 
 <%= render 'mailers/expert_mailer/remind_received_needs',
-  received_needs: @needs_quo,
+  received_needs: @displayed_needs,
   title: t('.needs_quo'),
   visited_at: false %>
+
+<% if @others_needs_quo_count.positive? %>
+  <mj-section>
+    <mj-column>
+      <mj-text>
+        <% account_link = link_to t('.user_account'), quo_active_needs_url %>
+        <p><%= t('.other_needs_quo_html', account_link: account_link) %></p>
+      </mj-text>
+    </mj-column>
+  </mj-section>
+<% end %>
 
 <mj-section>
   <mj-column>
     <% link_to_root = link_to t('app_name'), root_url %>
-    <mj-text><%= t('mailers.see_you_on_service_html', link_to_root: link_to_root) %></mj-text>
+    <mj-text>
+      <p><%= t('mailers.see_you_on_service_html', link_to_root: link_to_root) %></p>
+    </mj-text>
   </mj-column>
 </mj-section>
 
-<%= render 'mailers/expert_mailer/support_contact_block', antenne: @expert.antenne, support_contact_label: t('.support_contact_label') %>
+<%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user %>

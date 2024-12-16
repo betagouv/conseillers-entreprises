@@ -27,13 +27,13 @@ class UserRight < ApplicationRecord
   enum :category, {
     manager: 0,
     admin: 1,
-    national_referent: 2
+    national_referent: 2,
+    main_referent: 3,
   }, prefix: true
 
   validates :user_id, uniqueness: { scope: [:category, :antenne_id] }
-  validate :manager_has_managed_antennes
-
-  before_validation :add_default_managed_antenne
+  validates :category, presence: true
+  validate :manager_has_managed_antennes, :only_one_user_by_referent, :be_admin_to_be_referent
 
   private
 
@@ -41,7 +41,17 @@ class UserRight < ApplicationRecord
     self.errors.add(:antenne_id, I18n.t('errors.manager_without_managed_antennes')) if (category_manager? && antenne.blank?)
   end
 
-  def add_default_managed_antenne
-    self.antenne = user.antenne if (category_manager? && antenne.blank?)
+  def be_admin_to_be_referent
+    if (category_national_referent? && !user.is_admin?) || (category_main_referent? && !user.is_admin?)
+      self.errors.add(:category, I18n.t('errors.admin_for_referents'))
+    end
+  end
+
+  def only_one_user_by_referent
+    # Un seul user pour les referents nationaux et principaux car il sont utilisé dans les signatures de mails et comme contact par défaut
+    if (category_national_referent? && UserRight.category_national_referent.count >= 1) ||
+      (category_main_referent? && UserRight.category_main_referent.count >= 1)
+      self.errors.add(:category, I18n.t('errors.one_user_for_referents'))
+    end
   end
 end

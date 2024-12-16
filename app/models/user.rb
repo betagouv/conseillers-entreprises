@@ -75,6 +75,7 @@ class User < ApplicationRecord
   ## Associations
   #
   belongs_to :antenne, inverse_of: :advisors
+  has_one :profil_picture
 
   has_and_belongs_to_many :experts, -> { not_deleted }, inverse_of: :users
   has_many :shared_satisfactions, inverse_of: :user
@@ -271,10 +272,6 @@ class User < ApplicationRecord
     user_rights_manager.any?
   end
 
-  def is_national_referent?
-    user_rights_national_referent.any?
-  end
-
   def is_admin?
     user_rights_admin.any?
   end
@@ -306,6 +303,14 @@ class User < ApplicationRecord
 
   def after_database_authentication
     self.update_columns(invitation_token: nil) if self.invitation_token.present?
+  end
+
+  def support_user
+    if self.is_manager? && self.antenne.national?
+      UserRight.category_main_referent.first&.user
+    else
+      self.antenne.support_user
+    end
   end
 
   def self.ransackable_attributes(auth_object = nil)

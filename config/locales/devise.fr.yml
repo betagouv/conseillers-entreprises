@@ -13,7 +13,7 @@ fr:
     invitations:
       edit:
         accept_cgu_html: J’ai lu et j’accepte les <a href='%{cgu_path}'>conditions d’utilisation de Conseillers-Entreprises</a>
-        header: Bienvenue sur Conseillers-Entreprises, un service de Service-Public.fr
+        header: Bienvenue sur le service public Conseillers-Entreprises
         password_description: 'Choisissez un mot de passe pour créer votre compte :'
         prefilled_description: 'Certaines informations ont été préremplies ; vous pouvez les corriger si nécessaire :'
         submit_button: Enregistrer
@@ -39,9 +39,9 @@ fr:
         discover_partners_html: Découvrez %{link} et rejoignez la communauté en choisissant votre mot de passe en un clic !
         insitution_engagment: Au regard de ses missions, %{institution} est pleinement engagé(e) dans cette nouvelle dynamique collective.
         livestorm_permalink: lien permanent livestorm
-        looking_forward: Au plaisir d’échanger à cette occasion !
+        looking_forward: Au plaisir d’échanger à cette occasion,
         question_one: Pourquoi recevez-vous ce mail ?
-        question_two: Comment fonctionne Conseillers-Entreprises, un service de Service-Public.fr ?
+        question_two: Comment fonctionne le service public Conseillers-Entreprises ?
         subject: Invitation à rejoindre le service public Conseillers-Entreprises, partenaire de %{institution}
         support_contact_label: 'Si vous avez le moindre souci pour votre compte, contactez :'
         training_html: "<strong>Pour en savoir plus, inscrivez-vous à la prochaine démonstration du service</strong> : %{link}"

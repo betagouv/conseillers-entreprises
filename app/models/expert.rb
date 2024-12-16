@@ -276,6 +276,10 @@ class Expert < ApplicationRecord
     users.size == 1 && users.first.email == email && users.first.full_name == full_name
   end
 
+  def support_user
+    antenne.support_user
+  end
+
   # Utilisé pour la réattribution des matches d'un expert
   def transfer_in_progress_matches(expert)
     ActiveRecord::Base.transaction do

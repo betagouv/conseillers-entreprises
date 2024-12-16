@@ -117,9 +117,6 @@ class Feedback < ApplicationRecord
     # don’t notify the author themselves
     users_and_experts_to_notify -= self.user.experts
 
-    # Notify the advisor only if he's not the author or the author is not an admin
-    users_and_experts_to_notify << self.need.advisor if (!self.user.is_admin? && self.user != self.need.advisor)
-
     users_and_experts_to_notify
   end
 
