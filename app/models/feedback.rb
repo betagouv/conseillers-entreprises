@@ -23,12 +23,12 @@
 #
 
 class Feedback < ApplicationRecord
-  enum category: {
+  enum :category, {
     need: 'need',
     need_reminder: 'need_reminder',
     expert_reminder: 'expert_reminder',
     solicitation: 'solicitation'
-  }, _prefix: true
+  }, prefix: true
 
   ## Associations
   #

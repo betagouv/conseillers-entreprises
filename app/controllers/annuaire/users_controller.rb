@@ -110,7 +110,7 @@ module  Annuaire
         User.not_deleted.where(id: flash[:table_highlighted_ids]).where(invitation_sent_at: nil)
       else
         # Ne prend pas @experts directement pour avoir les responsables sans experts
-        User.not_deleted.joins(:antenne).where(antennes: @grouped_experts.keys, invitation_sent_at: nil)
+        User.not_deleted.joins(:antenne).where(antenne: @grouped_experts.keys, invitation_sent_at: nil)
       end
     end
 

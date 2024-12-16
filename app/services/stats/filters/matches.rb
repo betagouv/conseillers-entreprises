@@ -18,7 +18,7 @@ module Stats::Filters
 
     def subject_filter(subject)
       return if subject.blank?
-      @query.merge! Match.joins(:subject).where(subjects: subject)
+      @query.merge! Match.joins(:subject).where(subject: subject)
     end
 
     def integration_filter(integration)
