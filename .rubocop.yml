@@ -1280,6 +1280,9 @@ Style/RescueStandardError:
 Style/ReturnNil:
   Enabled: false
 
+Style/SafeNavigationChainLength:
+  Enabled: false
+
 Style/Sample:
   Enabled: true
 
