@@ -52,7 +52,7 @@ ActiveAdmin.register User do
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
       item t('active_admin.user.do_invite'), invite_user_admin_user_path(u)
-      item t('active_admin.user.invite_to_demo'), invite_to_demo_admin_user_path(u)
+      item(t('active_admin.user.invite_to_demo'), invite_to_demo_admin_user_path(u)) if u.first_expert_with_subject.present?
     end
   end
 
@@ -149,7 +149,9 @@ ActiveAdmin.register User do
   sidebar I18n.t('active_admin.user.send_emails'), only: :show do
     ul class: 'actions' do
       li link_to t('active_admin.user.do_invite'), invite_user_admin_user_path(user), class: 'action'
-      li link_to t('active_admin.user.invite_to_demo'), invite_to_demo_admin_user_path(user), class: 'action'
+      if user.first_expert_with_subject.present?
+        li link_to t('active_admin.user.invite_to_demo'), invite_to_demo_admin_user_path(user), class: 'action'
+      end
       li link_to t('active_admin.user.do_reset_password'), reset_password_admin_user_path(user), class: 'action'
     end
   end

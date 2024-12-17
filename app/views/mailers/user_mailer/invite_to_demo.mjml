@@ -3,7 +3,7 @@
     <mj-text>      
       <p><%= t('devise.mailer.hello', user_full_name: @user.full_name) %></p>
       <p><%= t('.intro_html', link_to_root: link_to(t('app_name'), root_url)) %></p>
-      <p><%= t('.confirmation_html', user_email: @user.email, expert_email: @user.first_expert_with_subject&.email || @user.experts.not_deleted.first.email) %></p>
+      <p><%= t('.confirmation_html', user_email: @user.email, expert_email: @expert_email) %></p>
       <p><%= t('.demo_time_intro') %></p>
     </mj-text>
 
@@ -21,8 +21,12 @@
     <mj-text>
       <p><%= t('.webinaire_link_html') %></p>
       <p><%= t('.video_tutorial_html') %></p>
+      <p><%= t('mailers.looking_forward') %></p>
+
+      <p><%= @support_user.full_name %></p>
+
     </mj-text>
   </mj-column>
 </mj-section>
 
-<%= render 'mailers/expert_mailer/support_contact_block', antenne: @user.antenne, support_contact_label: t('.support_contact_label'), user: @user %>
+<%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user, sent_personally: true %>
