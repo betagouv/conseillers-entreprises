@@ -138,8 +138,16 @@ fr:
     sincerely: Bien à vous,
     solicitation:
       base_intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service).
-      subject: Votre demande sur Conseillers-Entreprises
+      subject: Votre demande sur le service public Conseillers-Entreprises
     solicitation_mailer:
+      administrations_collectivites:
+        apprentissage_html: 'pour les questions liées à l’apprentissage : <a href=''https://www.fonction-publique.gouv.fr/devenir-agent-public/lapprentissage-dans-la-fonction-publique''>https://www.fonction-publique.gouv.fr/devenir-agent-public/lapprentissage-dans-la-fonction-publique</a>'
+        erp_html: 'pour votre établissement recevant du public (ERP) et son accessibilité : <a href=''https://www.ecologie.gouv.fr/politiques-publiques/laccessibilite-etablissements-recevant-du-public-erp''>https://www.ecologie.gouv.fr/politiques-publiques/laccessibilite-etablissements-recevant-du-public-erp</a>'
+        formation_agents_html: 'pour les questions liées à la formation professionnelle des agents : <a href=''https://www.service-public.fr/particuliers/vosdroits/N186''>https://www.service-public.fr/particuliers/vosdroits/N186</a>'
+        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} destiné aux TPE & PME (ou un site intégrant ce service).
+        local_project_html: 'pour tous vos projets locaux : <a href=''https://aides-territoires.beta.gouv.fr''>https://aides-territoires.beta.gouv.fr</a>'
+        no_administration_experts: Malheureusement, nous n’avons pas d’expert en mesure de répondre aux problématiques des administrations et des collectivités.
+        useful_links: 'Liens utiles selon votre démarche : '
       bad_quality:
         complete_solicitation: Compléter ma demande
         for_better_taking_care_html: 'Pour pouvoir vous aider, les conseillers ont impérativement besoin d’éléments de contexte :'
@@ -195,7 +203,7 @@ fr:
         base_intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant l’extrait Kbis.
         insee: un avis de situation de l’Insee
         liberal_instruction: 'De façon générale, il est souvent possible de fournir d’autres justificatifs d’existence comme :'
-        no_expert_monidenum_html: 'Si vous rencontrez des difficultés techniques sur le site MonIdenum et <a href=''https://monidenum.fr/contact''>son support</a>, ce document est également disponible pour les activités commerciales sur le site du greffe : <a href=''https://www.infogreffe.fr/documents-officiels/extrait-kbis''>www.infogreffe.fr/documents-officiels/extrait-kbis</a>. Le coût de la formalité est définie par le greffe.'
+        no_expert_monidenum_html: 'Si vous rencontrez des difficultés techniques sur le site MonIdenum et <a href=''https://monidenum.fr/contact''>son support</a>, ce document est également disponible pour les activités commerciales sur le site du greffe : <a href=''https://www.infogreffe.fr/documents-officiels/extrait-kbis''>www.infogreffe.fr/documents-officiels/extrait-kbis</a>. Le coût de la formalité est défini par le greffe.'
         non_diffusible_help_html: 'Enfin, si votre entreprise est « non diffusible », vous avez la possibilité de modifier ce statut pour télécharger vos documents : <a href=''https://statut-diffusion-sirene.insee.fr''>Accueil - Statut de diffusion Sirene - Insee</a>'
         only_commercial_html: "<strong>Attention : l’extrait Kbis ne concerne que les activités commerciales</strong>."
         rne: un extrait de votre inscription au Registre national des entreprises (extrait RNE)
@@ -241,13 +249,13 @@ fr:
         income_and_taxation: Les questions relatives à la déclaration de vos revenus et à leur imposition relèvent de votre service des impôts des particuliers (SIP), tandis que les questions relatives à la CFE et à la TVA relèvent de votre service des impôts des entreprises (SIE).
         not_partner_html: "<strong>Malheureusement ces deux services ne sont pas partenaires de Conseillers-Entreprises à ce jour</strong>.<br>Nous vous invitons à les solliciter directement :"
         sie_html: 'Service des impôts des entreprises (SIE) : <a href=''https://lannuaire.service-public.fr/navigation/sie''>https://lannuaire.service-public.fr/navigation/sie</a>'
-        sie_on_impots_html: Vous pouvez également joindre ces services sur votre compte professionnel ou votre compte particulier <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr'>impot.gouv.fr</a>, via votre messagerie personnalisée.
-        sip_html: 'Service des impôts des particuliers (SIP)  : <a href=''https://www.impots.gouv.fr/contacts''>https://www.impots.gouv.fr/contacts</a>'
+        sie_on_impots_html: Vous pouvez également joindre ces services sur votre compte professionnel ou votre compte particulier <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr'>impots.gouv.fr</a>, via votre messagerie personnalisée.
+        sip_html: 'Service des impôts des particuliers (SIP)  : <a href=''https://lannuaire.service-public.fr/navigation/sip''>https://lannuaire.service-public.fr/navigation/sip</a>'
         solicitation_subject_html: concernant votre déclaration de revenus ou le paiement de vos impôts
       sie_tva_and_others:
         no_tva_number: Les démarches et les questions relatives à la TVA (déclaration et paiement de la TVA, obtention d’un n° de TVA intracommunautaire, seuil et changement de régime de TVA …) relèvent de votre service des impôts des entreprises (SIE).
         sie_annuaire_html: "<b>Malheureusement ce service n’est pas partenaire de Conseillers-Entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href='https://lannuaire.service-public.fr/navigation/sie'>https://lannuaire.service-public.fr/navigation/sie</a>."
-        sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/'>impot.gouv.fr</a>, dans votre espace de messagerie personnalisée.
+        sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/'>impots.gouv.fr</a>, dans votre espace de messagerie personnalisée.
         solicitation_subject_html: concernant la TVA
       siret:
         commune_name_html: Par précaution, indiquez également <b>la commune</b> sur laquelle vous exercez votre activité.
@@ -255,12 +263,13 @@ fr:
         siret_infos_html: 'Le numéro de Siret comporte <b>14 chiffres</b>. Si vous ne le connaissez pas, vous le trouverez facilement ici : <a href=''https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises''>https://annuaire-entreprises.data.gouv.fr</a>'
         solicitation_transmission: Dès réception de ces éléments, nous transmettons votre demande au(x) conseiller(s) compétent(s) pour vous aider sur votre territoire. Ce(s) conseiller(s) vous rappelleront directement.
       tns_training:
-        artisans_html: "<strong>pour les artisans</strong> : <a href='https://www.fafcea.com/'>https://www.fafcea.com/</a>"
+        agricole_html: "<strong>pour les professions agricoles </strong> : <a href='https://vivea.fr'>https://vivea.fr</a>"
+        artisans_html: "<strong>pour les artisans</strong> : <a href='https://www.fafcea.com/'>https://www.fafcea.com</a>"
         intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant le financement de votre formation.
-        liberal_professions_html: "<strong>pour les professions libérales</strong> : <a href='https://www.fifpl.fr/'>https://www.fifpl.fr/</a>"
+        liberal_professions_html: "<strong>pour les professions libérales</strong> : <a href='https://www.fifpl.fr/'>https://www.fifpl.fr</a>"
         no_expert: Malheureusement nous n’avons pas encore d'expert en mesure de répondre à votre problématique.
         tradespeople_html: "<strong>pour les commerçants</strong> : <a href='https://communication-agefice.fr'>https://communication-agefice.fr</a>"
-        useful_links: 'Selon votre statut social de Travailleur Non Salarié, 3 organismes sont compétents :'
+        useful_links: 'Selon votre statut social de Travailleur Non Salarié, 4 organismes sont compétents :'
     team: L’équipe Conseillers-Entreprises, un service de Service-Public.fr
     team_html: L’équipe <a href=%{url}>Conseillers-Entreprises</a>
     thank_you: Merci beaucoup,

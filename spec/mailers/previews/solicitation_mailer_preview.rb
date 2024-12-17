@@ -63,6 +63,10 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.retirement_liberal_professions(random_solicitation)
   end
 
+  def administrations_collectivites
+    SolicitationMailer.administrations_collectivites(random_solicitation)
+  end
+
   private
 
   def random_solicitation

@@ -6,6 +6,10 @@ class SolicitationMailer < ApplicationMailer
 
   helper :solicitation, :images
 
+  def administrations_collectivites(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
+
   def bad_quality(solicitation)
     @solicitation = solicitation
     @cooperation_logo_name = @solicitation.cooperation&.logo&.filename

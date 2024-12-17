@@ -863,6 +863,7 @@ fr:
       tags: Tags
     solicitation_actions:
       emails:
+        administrations_collectivites: Administrations et collectivités
         bad_quality: Mauvaise qualité générique
         carsat: CARSAT
         creation: Création
