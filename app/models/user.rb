@@ -8,6 +8,7 @@
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  deleted_at             :datetime
+#  demo_invited_at        :datetime
 #  email                  :string           default("")
 #  encrypted_password     :string           default(""), not null
 #  full_name              :string
@@ -227,6 +228,11 @@ class User < ApplicationRecord
 
   def invitation_not_accepted?
     invitation_accepted_at.nil?
+  end
+
+  def invite_to_demo
+    UserMailer.with(user: self).invite_to_demo.deliver_later
+    self.update(demo_invited_at: Time.zone.now)
   end
 
   ## Deactivation and soft deletion

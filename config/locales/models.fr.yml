@@ -162,6 +162,8 @@ fr:
       do_reset_password_done: Réinitialisation du mot de passe envoyée
       duplicate_territories: Dupliquer les territoires spécifiques
       impersonate: Voir le site comme %{name}
+      invite_to_demo: Inviter à une démo
+      invited_to_demo: Invitation(s) à la démo envoyée(s)
       roles: Rôles
       saved: Conseiller mis à jour
       send_emails: Envoi d’emails
@@ -586,6 +588,7 @@ fr:
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
         current_sign_in_ip: IP de connexion
+        demo_invited_at: Invitation démo
         encrypted_password: Mot de passe chiffré
         experts:
           one: Équipe
