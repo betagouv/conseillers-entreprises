@@ -50,7 +50,10 @@ class Conseiller::SolicitationsController < ApplicationController
     if @solicitation.valid?
       done = Solicitation.human_attribute_value(:status, status, context: :done, count: 1)
       flash.notice = "#{@solicitation} #{done}"
-      render 'remove'
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.remove(@solicitation) }
+        format.html         { redirect_back fallback_location: conseiller_solicitations_path }
+      end
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
       redirect_to [:conseiller, @solicitation]
