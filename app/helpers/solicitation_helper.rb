@@ -33,7 +33,7 @@ module SolicitationHelper
     path = update_status_conseiller_solicitation_path(solicitation, status: new_status)
     classes += STATUS_ACTION_COLORS[new_status.to_sym]
     tag.li class: 'fr-menu__item' do
-      link_to name, path, method: :post, remote: true, class: classes.join(' ')
+      link_to name, path, method: :post, class: classes.join(' ')
     end
   end
 
