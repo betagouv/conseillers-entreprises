@@ -144,10 +144,10 @@ fr:
         apprentissage_html: 'pour les questions liées à l’apprentissage : <a href=''https://www.fonction-publique.gouv.fr/devenir-agent-public/lapprentissage-dans-la-fonction-publique''>https://www.fonction-publique.gouv.fr/devenir-agent-public/lapprentissage-dans-la-fonction-publique</a>'
         erp_html: 'pour votre établissement recevant du public (ERP) et son accessibilité : <a href=''https://www.ecologie.gouv.fr/politiques-publiques/laccessibilite-etablissements-recevant-du-public-erp''>https://www.ecologie.gouv.fr/politiques-publiques/laccessibilite-etablissements-recevant-du-public-erp</a>'
         formation_agents_html: 'pour les questions liées à la formation professionnelle des agents : <a href=''https://www.service-public.fr/particuliers/vosdroits/N186''>https://www.service-public.fr/particuliers/vosdroits/N186</a>'
-        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} destiné aux TPE & PME (ou un site intégrant ce service).
+        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root}, ou un site intégrant ce service.
         local_project_html: 'pour tous vos projets locaux : <a href=''https://aides-territoires.beta.gouv.fr''>https://aides-territoires.beta.gouv.fr</a>'
-        no_administration_experts: Malheureusement, nous n’avons pas d’expert en mesure de répondre aux problématiques des administrations et des collectivités.
-        useful_links: 'Liens utiles selon votre démarche : '
+        no_administration_experts: Ce service public est destiné aux TPE et PME. Nous n’avons pas d’expert en mesure de répondre aux problématiques des administrations et des collectivités.
+        useful_links: 'Liens utiles selon votre démarche :'
       bad_quality:
         complete_solicitation: Compléter ma demande
         for_better_taking_care_html: 'Pour pouvoir vous aider, les conseillers ont impérativement besoin d’éléments de contexte :'
