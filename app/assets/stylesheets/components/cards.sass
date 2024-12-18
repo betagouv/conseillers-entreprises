@@ -101,13 +101,15 @@
 
 // Carte solicitation =================================
 .card-solicitation
-  .subtitle
-    color: $grey-dark
-    font-size: 0.875rem
-  h2
-    font-size: 1.25rem
-    line-height: 1.5rem
-    margin-bottom: 0
+  .card__title
+    flex: 1 1 auto
+    .subtitle
+      color: $grey-dark
+      font-size: 0.875rem
+    h2
+      font-size: 1.25rem
+      line-height: 1.5rem
+      margin-bottom: 0
   .fr-card__content
     padding: 1rem 2rem
   .fr-card__body
@@ -145,7 +147,7 @@
   display: flex
   justify-content: flex-end
   align-items: center
-  flex: 0 1 50%
+  flex: 0 1 45%
   .modify-badges
     cursor: pointer
     font-size: 1.5rem
@@ -156,6 +158,9 @@
     .badge-select
       flex: 1 1 auto
   .badges-list
+    display: flex
+    flex-wrap: wrap
+    justify-content: flex-end
     .label
       margin: 2px
   .dropdown
