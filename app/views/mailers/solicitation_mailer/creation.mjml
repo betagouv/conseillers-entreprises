@@ -15,7 +15,7 @@
         </li>
         <li>
           <b><%= t('.artisanal_activities') %></b>
-          <%= link_to "Le portail des Chambres de Métiers et de l’Artisanat en France | Artisanat.fr", 'https://www.artisanat.fr/' %>
+          <%= link_to "Le portail des Chambres de Métiers et de l’Artisanat en France | Artisanat.fr", 'https://www.artisanat.fr/nous-connaitre/contactez-cma' %>
         </li>
         <li>
             <b><%= t('.liberal_activities') %></b>

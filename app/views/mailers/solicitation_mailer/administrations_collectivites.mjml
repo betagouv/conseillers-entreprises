@@ -4,15 +4,16 @@
 
     <mj-text><%= t('.intro_html', link_to_root: link_to(t('app_name'), root_url)) %></mj-text>
 
-    <mj-text><%= t('.no_expert') %></mj-text>
+    <mj-text><%= t('.no_administration_experts') %></mj-text>
 
-    <mj-text><%= t('.useful_links') %>
+    <mj-text>
+      <%= t('.useful_links') %>
       <ul>
-        <li><%= t('.tradespeople_html') %></li>
-        <li><%= t('.artisans_html') %></li>
-        <li><%= t('.liberal_professions_html') %></li>
-        <li><%= t('.agricole_html') %></li>
-        </ul>
+        <li><%= t('.local_project_html') %></li>
+        <li><%= t('.erp_html') %></li>
+        <li><%= t('.formation_agents_html') %></li>
+        <li><%= t('.apprentissage_html') %></li>
+      </ul>
     </mj-text>
 
     <mj-text><%= t('mailers.thanks_for_your_comprehension') %></mj-text>
