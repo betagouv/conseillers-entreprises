@@ -312,19 +312,14 @@ fr:
         start_auto_diagnosis: Analyse automatique
         start_manual_diagnosis: Analyse manuelle
       solicitation:
-        description: 'Description :'
-        email: 'Email :'
         from_intermediary: Sollicitation provenant d’un intermédiaire
-        landing_subjects: 'Aides demandées :'
         needs_historic: 'Historique de l’entreprise :'
         not_sas_explanation: La forme juridique de l’entreprise n’est pas une SAS ou SASU
         not_sas_html: "<span class='crossed-out-text'>SAS</span>"
         similar_abandonned_solicitations_explanation: 'Cycle d’abandon suspecté : cette entreprise a déjà déposé au moins 3 demandes qui n’ont pas été mises en relation'
-        siret: 'Siret :'
         solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres besoins récemment'
         solicitation_no_nature_activites: Aucune nature de l'entreprise connue
         solicitation_relance_explanation: 'Relance suspectée : une mise en relation pour la même entreprise sur le même sujet a été faite il y a moins de 3 semaines'
-        source: 'Page d’atterrissage :'
       solicitation_actions:
         add_email_as_spam: Ajouter l’email comme spam
         prepare_diagnosis_errors:
@@ -453,10 +448,11 @@ fr:
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       localisation_html: 'Localisation : <strong>%{region}</strong>'
-      modify_subject: 'Modifier le sujet : %{subject}'
+      modify_subject: Modifier le sujet de la sollicitation
       uncategorisable_label: Inclassables
       uncategorisable_value: uncategorisable
       view_completed_analysis: Voir l’analyse réalisée
+    solicitation_number: Sollicitation %{id}
     stats_helper:
       antenne_with_locales: "%{name} avec antennes locales"
       with_locales: " avec antennes locales"
