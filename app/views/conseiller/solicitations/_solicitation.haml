@@ -1,74 +1,43 @@
 .card-solicitation.fr-my-4w.card{ id: solicitation.id }
   .card__header
     .card__title
-      %h2= [solicitation.to_s, solicitation.full_name].join(' - ')
+      %h2= subject_link(solicitation)
       %span.subtitle= I18n.l(solicitation.completed_at, format: :long)
     = render 'solicitation_badges', solicitation: solicitation
   .fr-card__body.fr-text--sm
     .fr-card__content
-      .card__info
-        %ul.card__fields.list-unstyled.fr-p-0
-          - if solicitation.siret.present?
-            %li.item.fr-p-0
-              = t('.siret')
-              %strong= link_to(solicitation.normalized_siret, show_with_siret_companies_path(solicitation.siret), data: { turbo: false })
-          %li.item.fr-p-0
-            = t('.email')
-            %strong= mail_to(solicitation.email, solicitation.email, target: '_blank')
-          - solicitation.display_attributes.each do |attribute|
-            - if solicitation.send(attribute).present?
-              %li.item.fr-p-0
-                = Solicitation.human_attribute_name(attribute) + ' : '
-                %strong= display_solicitation_attribute(solicitation, attribute)
-          - if solicitation.landing.present?
-            %li.item.fr-p-0
-              = t('.source')
-              %strong= link_to solicitation.landing.slug, landing_path(solicitation.landing)
-          - if solicitation.landing_subject.present?
-            %li.item.fr-p-0
-              = t('.landing_subjects')
-              = subject_button(solicitation, "fr-btn fr-btn--secondary fr-btn--sm")
-          = display_region(solicitation.region, params[:territory])
+      .card__meta
+        %ul.fr-badge-group.meta__warnings
+          - if solicitation.facility&.all_nature_activites&.any?
+            - translated_nature_activites(solicitation.facility&.all_nature_activites).each do |nature|
+              %li.fr-badge.fr-badge--info.fr-badge--no-icon= nature
+          - else
+            %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-no-nature-activite-#{solicitation.id}", href: '#' } ?
+            %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-no-nature-activite-#{solicitation.id}" }
+              = t('.solicitation_no_nature_activites')
+          - if solicitation.recent_matched_solicitations.any?
+            %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-recent-matched-#{solicitation.id}", href: '#' } R
+            %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-recent-matched-#{solicitation.id}" }
+              = t('.solicitation_relance_explanation')
+          - if solicitation.doublon_solicitations.any?
+            %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-doublon-#{solicitation.id}", href: '#' } D
+            %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-doublon-#{solicitation.id}" }
+              = t('.solicitation_doublon_explanation')
+          - if solicitation.has_similar_abandonned_solicitations?
+            %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-from-similar-#{solicitation.id}", href: '#' } A
+            %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-from-similar-#{solicitation.id}" }
+              = t('.similar_abandonned_solicitations_explanation')
+          - if solicitation.from_intermediary?
+            %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-from-intermediary-#{solicitation.id}", href: '#' } I
+            %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-from-intermediary-#{solicitation.id}" }
+              = t('.from_intermediary')
+          - if solicitation.not_sas?
+            %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-not-sas-#{solicitation.id}", href: '#' }
+              = t('.not_sas_html')
+            %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-not-sas-#{solicitation.id}" }
+              = t('.not_sas_explanation')
 
-        .card__meta
-          %ul.fr-badge-group.meta__warnings
-            - if solicitation.facility&.all_nature_activites&.any?
-              - translated_nature_activites(solicitation.facility&.all_nature_activites).each do |nature|
-                %li.fr-badge.fr-badge--info.fr-badge--no-icon= nature
-            - else
-              %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-no-nature-activite-#{solicitation.id}", href: '#' } ?
-              %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-no-nature-activite-#{solicitation.id}" }
-                = t('.solicitation_no_nature_activites')
-            - if solicitation.recent_matched_solicitations.any?
-              %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-recent-matched-#{solicitation.id}", href: '#' } R
-              %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-recent-matched-#{solicitation.id}" }
-                = t('.solicitation_relance_explanation')
-            - if solicitation.doublon_solicitations.any?
-              %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-doublon-#{solicitation.id}", href: '#' } D
-              %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-doublon-#{solicitation.id}" }
-                = t('.solicitation_doublon_explanation')
-            - if solicitation.has_similar_abandonned_solicitations?
-              %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-from-similar-#{solicitation.id}", href: '#' } A
-              %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-from-similar-#{solicitation.id}" }
-                = t('.similar_abandonned_solicitations_explanation')
-            - if solicitation.from_intermediary?
-              %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-from-intermediary-#{solicitation.id}", href: '#' } I
-              %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-from-intermediary-#{solicitation.id}" }
-                = t('.from_intermediary')
-            - if solicitation.not_sas?
-              %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-not-sas-#{solicitation.id}", href: '#' }
-                = t('.not_sas_html')
-              %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-not-sas-#{solicitation.id}" }
-                = t('.not_sas_explanation')
-          - if facilities[solicitation.id].present?
-            .meta__items
-              .item= t('.needs_historic')
-              - facilities[solicitation.id].each do |facility|
-                = link_to facility[:company_name], needs_company_path(facility[:id])
-          - if solicitation.cooperation.present?
-            .logo-institution= display_logo(name: solicitation.cooperation.logo&.filename, path: "cooperations/", extra_params: { class: 'institution-logo' })
       .card__description
-        .card__description__label= t('.description')
         .card__description__content.break-word
           = simple_format(solicitation.description)
           - if solicitation.subject_answers.any?
@@ -80,8 +49,23 @@
                   = question_label(answer.key, :short)
                   %strong= answer_label
 
+      .card__info
+        %ul.card__fields.list-unstyled.fr-p-0
+          - solicitation.display_attributes.each do |attribute|
+            - if solicitation.send(attribute).present?
+              %li.item.fr-p-0
+                = Solicitation.human_attribute_name(attribute) + ' : '
+                = display_solicitation_attribute(solicitation, attribute)
+        .card__meta
+          %ul.fr-badge-group.meta__warnings
+            - if facilities[solicitation.id].present?
+              .meta__items
+                .item= t('.needs_historic')
+                - facilities[solicitation.id].each do |facility|
+                  = link_to facility[:company_name], needs_company_path(facility[:id])
 
       .card__feedbacks
+        %hr
         %div{ id: "display-feedbacks-#{solicitation.id}" }
           = render partial: 'feedbacks/feedback', collection: solicitation.feedbacks
         = render 'feedbacks/form', feedback: solicitation.feedbacks.new(category: :solicitation)
