@@ -13,14 +13,14 @@ class Conseiller::SolicitationsController < ApplicationController
   end
 
   def processed
-    @solicitations = ordered_solicitations(:processed)
+    @solicitations = ordered_solicitations(:processed, :desc)
     @facilities = get_and_format_facilities
     @status = t('solicitations.header.processed')
     render :index
   end
 
   def canceled
-    @solicitations = ordered_solicitations(:canceled)
+    @solicitations = ordered_solicitations(:canceled, :desc)
     @facilities = get_and_format_facilities
     @status = t('solicitations.header.canceled')
     render :index
@@ -92,13 +92,13 @@ class Conseiller::SolicitationsController < ApplicationController
 
   private
 
-  def ordered_solicitations(status)
+  def ordered_solicitations(status, order = :asc)
     Solicitation
       .includes(:badge_badgeables, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne },
         landing_subject: :subject, institution: :logo, subject_answers: :subject_question)
       .where(status: status)
       .apply_filters(index_search_params)
-      .order(:completed_at)
+      .order(completed_at: order)
       .page(params[:page])
   end
 
