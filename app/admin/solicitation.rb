@@ -138,10 +138,6 @@ ActiveAdmin.register Solicitation do
   filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }, name: nil
   filter :landing_subject, as: :ajax_select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }, name: nil
 
-  # controller do
-
-  # end
-
   ## Batch actions
   # Statuses
   Solicitation.statuses.each_key do |status|
