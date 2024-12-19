@@ -106,6 +106,80 @@ RSpec.describe Conseiller::Diagnoses::StepsController do
         expect(response).to redirect_to conseiller_solicitation_path(diagnosis.solicitation)
       end
     end
+
+    context 'Change from subject without questions to subject with questions' do
+      let!(:additional_question) { create :subject_question, subject: new_subject }
+      let(:params) do
+        {
+          id: diagnosis.id,
+          diagnosis: {
+            needs_attributes: [
+              {
+                id: need.id,
+                subject_id: new_subject.id,
+                description: 'description',
+                subject_answers_attributes: subject_answers_attributes
+              }
+            ]
+          }
+        }
+      end
+
+      context 'no answers provided' do
+        let(:subject_answers_attributes) { [] }
+
+        it 'doesnt update need' do
+          post :update_needs, params: params
+          diagnosis.reload
+          expect(diagnosis.step).not_to eq 'matches'
+          expect(diagnosis.needs.first.subject).not_to eq new_subject
+          expect(response).to render_template("needs")
+        end
+      end
+
+      context 'with answers provided' do
+        let(:subject_answers_attributes) { [ subject_question_id: additional_question.id, filter_value: true] }
+
+        it 'updates need' do
+          post :update_needs, params: params
+          diagnosis.reload
+          expect(diagnosis.step).to eq 'matches'
+          expect(diagnosis.needs.first.subject).to eq new_subject
+          expect(diagnosis.needs.first.subject_answers.size).to eq 1
+          expect(diagnosis.needs.first.subject_answers.first.filter_value).to be true
+          expect(response).to redirect_to matches_conseiller_diagnosis_path(diagnosis)
+        end
+      end
+    end
+
+    context 'Change from subject with questions to subject without questions' do
+      let(:additional_question) { create :subject_question, subject: need.subject }
+      let!(:subject_answers) { [create(:need_subject_answer, subject_question: additional_question, filter_value: true, subject_questionable: need)] }
+
+      let(:params) do
+        {
+          id: diagnosis.id,
+          diagnosis: {
+            needs_attributes: [
+              {
+                id: need.id,
+                subject_id: new_subject.id,
+                description: 'description'
+              }
+            ]
+          }
+        }
+      end
+
+      it 'removes answers' do
+        post :update_needs, params: params
+        diagnosis.reload
+        expect(diagnosis.step).to eq 'matches'
+        expect(diagnosis.needs.first.subject).to eq new_subject
+        expect(diagnosis.needs.first.subject_answers.size).to eq 0
+        expect(response).to redirect_to matches_conseiller_diagnosis_path(diagnosis)
+      end
+    end
   end
 
   describe 'GET #matches' do
