@@ -27,6 +27,6 @@ module MandatoryAnswers
   end
 
   def remove_unused_subject_answers
-    self.subject_answers.where.not(subject_question_id: self.subject&.subject_question_ids).destroy_all
+    self.subject_answers.where.not(subject_question_id: self.subject&.subject_questions&.pluck(:id)).destroy_all
   end
 end
