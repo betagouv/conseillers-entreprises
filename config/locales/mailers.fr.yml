@@ -283,8 +283,8 @@ fr:
         intro_html: Dans le cadre de votre référencement au sein du service %{link_to_root}, je viens de vous envoyer une invitation afin de valider votre compte utilisateur. Attention, elle peut arriver dans vos indésirables.
         next_dates: 'Les prochaines dates :'
         subject: Vous êtes invité(e) ! Webinaire de présentation de Conseillers-Entreprises.Service-Public.fr
-        video_tutorial_html: 'Ou venez découvrir notre tutoriel vidéo : <a href=''https://conseillers-entreprises.service-public.fr/tutoriels''>conseillers-entreprises.service-public.fr/tutoriels</a>'
-        webinaire_link_html: 'Lien participant : Cliquez ici => <a href=''https://webinaire.numerique.gouv.fr//meeting/signin/34546/creator/17678/hash/0033028ea90c21b6bb2cca160d0e663f85b82f7d''>lien de visio</a>'
+        video_tutorial_html: 'Ou venez découvrir notre tutoriel vidéo : <a href=''https://conseillers-entreprises.service-public.fr/tutoriels''>conseillers-entreprises.service-public.fr/tutoriels</a>'
+        webinaire_link_html: 'Lien participant : <a href=''https://webinaire.numerique.gouv.fr//meeting/signin/34546/creator/17678/hash/0033028ea90c21b6bb2cca160d0e663f85b82f7d''>cliquez ici pour accéder à la visio</a>'
       quarterly_report:
         antenne_manager:
           one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service Conseillers-Entreprises.
