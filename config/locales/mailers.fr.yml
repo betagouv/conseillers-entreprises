@@ -277,6 +277,14 @@ fr:
     thanks_for_your_comprehension: Nous vous remercions pour votre compréhension.
     thanks_for_your_trust: Merci pour votre confiance,
     user_mailer:
+      invite_to_demo:
+        confirmation_html: Après avoir choisi votre mot de passe, vous recevrez sur le mail <a href="mailto:%{expert_email}">%{expert_email}</a> les besoins d'entreprises sur votre champ de compétences. Vous pourrez échanger avec d’autres institutions partenaires sur les situations d’entreprise.
+        demo_time_intro: Je vous invite à participer au webinaire de présentation du service (30 minutes) qui se déroule chaque jeudi à 14h30 (heure de Paris).
+        intro_html: Dans le cadre de votre référencement au sein du service %{link_to_root}, je viens de vous envoyer une invitation afin de valider votre compte utilisateur. Attention, elle peut arriver dans vos indésirables.
+        next_dates: 'Les prochaines dates :'
+        subject: Vous êtes invité(e) ! Webinaire de présentation de Conseillers-Entreprises.Service-Public.fr
+        video_tutorial_html: 'Ou venez découvrir notre tutoriel vidéo : <a href=''https://conseillers-entreprises.service-public.fr/tutoriels''>conseillers-entreprises.service-public.fr/tutoriels</a>'
+        webinaire_link_html: 'Lien participant : <a href=''https://webinaire.numerique.gouv.fr//meeting/signin/34546/creator/17678/hash/0033028ea90c21b6bb2cca160d0e663f85b82f7d''>cliquez ici pour accéder à la visio</a>'
       quarterly_report:
         antenne_manager:
           one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service Conseillers-Entreprises.
