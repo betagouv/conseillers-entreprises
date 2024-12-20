@@ -63,7 +63,7 @@
                 .meta__items
                   .item= t('.needs_historic')
                   - facilities[solicitation.id].each do |facility|
-                    = link_to facility[:company_name], needs_company_path(facility[:id])
+                    = link_to facility[:company_name], needs_company_path(facility[:id]), 'data-turbo': false
 
         .card__feedbacks
           %hr

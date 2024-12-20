@@ -4,6 +4,7 @@ class ApplicationController < SharedController
 
   before_action :authenticate_user!
   before_action :fetch_themes, if: :devise_controller?
+  before_action :clear_flash
 
   def authenticate_admin!
     current_user.is_admin? || not_found
@@ -25,5 +26,11 @@ class ApplicationController < SharedController
 
   def after_sign_out_path_for(resource_or_scope)
     root_path
+  end
+
+  private
+
+  def clear_flash
+    flash.clear
   end
 end
