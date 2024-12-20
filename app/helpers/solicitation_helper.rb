@@ -54,12 +54,12 @@ module SolicitationHelper
       t('helpers.solicitation.analysis_in_progress', step: diagnosis.human_attribute_value(:step))
     end
 
-    link_to text, [:conseiller, diagnosis], class: 'button'
+    link_to text, [:conseiller, diagnosis], class: 'button', 'data-turbo': false
   end
 
   def display_solicitation_attribute(solicitation, attribute)
     if attribute == :provenance_detail && solicitation.campaign == 'entreprendre'
-      link_to solicitation.send(attribute), partner_url(solicitation, full: true), title: "#{to_new_window_title(t('needs.show.origin_source_title'))}", target: '_blank', rel: 'noopener'
+      link_to solicitation.send(attribute), partner_url(solicitation, full: true), title: "#{to_new_window_title(t('needs.show.origin_source_title'))}", target: '_blank', rel: 'noopener', data: { turbo: false }
     elsif attribute == :siret
       link_to(solicitation.normalized_siret, show_with_siret_companies_path(solicitation.siret), data: { turbo: false })
     else
@@ -90,7 +90,7 @@ module SolicitationHelper
     path = needs_conseiller_diagnosis_path(need.diagnosis)
     aria_describedby = "tooltip-#{need.id}"
     tag.div do
-      concat(link_to need.subject.label, path, title: title, 'aria-describedby': aria_describedby)
+      concat(link_to need.subject.label, path, title: title, 'aria-describedby': aria_describedby, 'data-turbo': false)
       concat(tag.span title, class: 'fr-tooltip fr-placement', id: "tooltip-#{need.id}", role: 'tooltip', 'aria-hidden': true)
     end
   end
