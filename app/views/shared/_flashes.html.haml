@@ -1,12 +1,13 @@
-- if flash.present?
-  .fr-container.fr-mt-6v.fr-mb-1w
-    - flash.each do |type, message|
-      - case type
-      - when 'notice'
-        .fr-alert.fr-alert--success{ role: "alert" }
-          %h2.fr-alert__title
-            = message.html_safe
-      - when 'alert'
-        .fr-alert.fr-alert--error{ role: "alert" }
-          %h2.fr-alert__title
-            = message.html_safe
+= turbo_frame_tag 'flash' do
+  - if flash.present?
+    .fr-container.fr-mt-6v.fr-mb-1w
+      - flash.each do |type, message|
+        - case type
+        - when 'notice'
+          .fr-alert.fr-alert--success{ role: "alert" }
+            %h2.fr-alert__title
+              = message.html_safe
+        - when 'alert'
+          .fr-alert.fr-alert--error{ role: "alert" }
+            %h2.fr-alert__title
+              = message.html_safe
