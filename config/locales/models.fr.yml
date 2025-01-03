@@ -622,15 +622,17 @@ fr:
       user/user_rights:
         antenne: Antenne
         category: Droit
+        rightable_element: Element
       user_right:
         antenne: Antenne
         category: Droit
       user_right/categories:
         admin: Admin
         advisor: Conseiller
-        main_referent: Référent principal
+        cooperation_manager: Responsable de coopération
+        main_referent: Admin - référent principal
         manager: Responsable d’antenne
-        national_referent: Référent national
+        national_referent: Admin - référent national
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
@@ -781,6 +783,15 @@ fr:
       user_right:
         one: Droit utilisateur
         other: Droits utilisateur
+      user_rights_cooperation_manager:
+        one: Droit responsable de coopération
+        other: Droits responsable de coopération
+      user_rights_for_admin:
+        one: Droit admin
+        other: Droits admin
+      user_rights_manager:
+        one: Droit responsable d'antenne
+        other: Droits responsable d'antenne
   antenne_stats_exporter:
     annual_national_stats: Repères nationaux
     annual_stats_by_antenne: Stats ann. par antenne

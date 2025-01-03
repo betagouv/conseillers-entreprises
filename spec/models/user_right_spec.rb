@@ -34,7 +34,7 @@ RSpec.describe UserRight do
 
       it do
         user_right.valid?
-        expect(user_right.errors[:antenne_id]).to include(I18n.t('errors.manager_without_managed_antennes'))
+        expect(user_right.errors[:rightable_element_id]).to include(I18n.t('errors.manager_without_managed_antennes'))
         expect(user_right).not_to be_valid
       end
     end
