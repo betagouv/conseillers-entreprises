@@ -41,6 +41,12 @@ RSpec.describe NafCode do
 
       it{ is_expected.to be_nil }
     end
+
+    context 'blank code' do
+      let(:naf_code) { "" }
+
+      it{ is_expected.to be_nil }
+    end
   end
 
   describe 'nafa_libelle' do
@@ -54,6 +60,12 @@ RSpec.describe NafCode do
 
     context 'nil code' do
       let(:nafa_code) { nil }
+
+      it{ is_expected.to be_nil }
+    end
+
+    context 'blank code' do
+      let(:nafa_code) { "" }
 
       it{ is_expected.to be_nil }
     end
