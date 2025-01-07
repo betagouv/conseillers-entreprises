@@ -2,7 +2,9 @@
 
 module Manager
   class StatsController < ApplicationController
+    include StatsUtilities
     include StatsHelper
+
     before_action :authorize_index_manager_stats, only: %i[index load_data]
     before_action :set_filters_collections, only: :index
     before_action :set_stats_params, only: :index

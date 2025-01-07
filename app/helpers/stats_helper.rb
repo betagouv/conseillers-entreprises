@@ -3,22 +3,10 @@ module StatsHelper
     params.permit(Stats::BaseStats::FILTER_PARAMS)
   end
 
-  def invoke_stats(name, params)
-    graph = constantize_chart_name(name)
-    graph.new(params)
-  end
-
   def build_manager_antennes_collection(user)
     manager_antennes = manager_antennes_included_regionals(user)
     antennes_collection = antennes_collection_hash(Antenne.with_experts_subjects.not_deleted, manager_antennes)
     add_locals_antennes(antennes_collection, manager_antennes)
-  end
-
-  def build_institution_antennes_collection(institution)
-    institution_antennes = institution.antennes.not_deleted
-    antennes_collection = antennes_collection_hash(institution_antennes, institution_antennes)
-
-    add_locals_antennes(antennes_collection, institution_antennes)
   end
 
   def stats_count(count)
@@ -31,13 +19,6 @@ module StatsHelper
     base_antennes
       .where(id: [looking_for_antennes.ids, looking_for_antennes.map { |a| a.territorial_antennes.pluck(:id) }].flatten)
       .map { |a| { name: a.name, id: a.id, territorial_level: Antenne::TERRITORIAL_ORDER[a.territorial_level.to_sym] } }
-  end
-
-  def constantize_chart_name(name)
-    name_splitted = name.split('_')
-    category = name_splitted.first.capitalize
-    graph = name_splitted[1..].map(&:capitalize).join
-    "Stats::#{category}::#{graph}".constantize
   end
 
   def add_locals_antennes(antennes_collection, recipient_antennes)

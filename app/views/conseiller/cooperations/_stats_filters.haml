@@ -1,0 +1,38 @@
+= form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
+  .fr-grid-row.fr-grid-row--gutters.fr-mb-3w#stats-params{ data: { controller: 'stats', url: manager_load_filter_options_path } }
+
+    .fr-col-12.fr-col-md-4
+      .fr-input-group
+        = f.label :start_date, t('stats.stats_params.start_date'), class: 'fr-label'
+        .fr-input-wrap
+          = f.date_field :start_date, { value: params[:start_date], class: 'fr-input' }
+      .fr-input-group
+        = f.label :end_date, t('stats.stats_params.end_date'), class: 'fr-label'
+        .fr-input-wrap
+          = f.date_field :end_date, { value: params[:end_date], class: 'fr-input' }
+
+    .fr-col-12.fr-col-md-4
+      .fr-select-group
+        = f.label :theme, class: 'fr-label' do
+          = t('stats.stats_params.theme')
+        = f.collection_select :theme, filters[:themes], :id, :label, { selected: params[:theme],
+          include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#fetchFilters', 'stats-target': 'themes' }
+      .fr-select-group
+        = f.label :subject, class: 'fr-label' do
+          = t('activerecord.models.subject.one')
+          .loader.loader--sm.hidden{ data: { 'stats-target': 'loader' } }
+        = f.collection_select :subject, filters[:subjects], :id, :label, { selected: params[:subject],
+        include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
+
+    - if filters[:regions].many?
+      .fr-col-12.fr-col-md-4
+        .fr-select-group
+          = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
+          = f.collection_select :territory, filters[:regions], :id, :name, { selected: params[:territory],
+            include_blank: t('all.feminine') }, class: "fr-select"
+
+    .fr-col-12
+      .fr-input-group
+        = f.submit t('stats.stats_params.filter'), class: 'fr-btn'
+        - if request.fullpath.include?("?")
+          = link_to t('clear_search'), request.fullpath.split('?').first, class: 'fr-btn fr-btn--tertiary-no-outline'
