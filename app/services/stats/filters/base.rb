@@ -12,6 +12,7 @@ module Stats::Filters
       subject_filter(@graph_struct.subject)
       integration_filter(@graph_struct.integration)
       landing_filter(@graph_struct.landing_id)
+      cooperation_filter(@graph_struct.cooperation_id)
       theme_filter(@graph_struct.theme)
       mtm_campaign_filter(@graph_struct.mtm_campaign)
       mtm_kwd_filter(@graph_struct.mtm_kwd)

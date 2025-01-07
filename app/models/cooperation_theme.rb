@@ -18,6 +18,7 @@
 #  fk_rails_...  (cooperation_id => cooperations.id)
 #  fk_rails_...  (theme_id => themes.id)
 #
+# => Thèmes spécifiques à une coopération, hors des thèmes courants de CE
 class CooperationTheme < ApplicationRecord
   belongs_to :cooperation, inverse_of: :cooperation_themes
   belongs_to :theme, inverse_of: :cooperation_themes
