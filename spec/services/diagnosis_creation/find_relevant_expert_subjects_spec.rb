@@ -674,7 +674,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
       let!(:bdf_grouping_2) { create :subject_answer_grouping, institution: bdf }
       let!(:es_bdf) { create :expert_subject, expert: create(:expert, institution: bdf), subject: investment_subject }
 
-      let(:need) { create :need, subject: investment_subject }
+      let(:need) { create :need, :skip_validate, subject: investment_subject }
 
       before do
         adie_grouping_1.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: true), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
