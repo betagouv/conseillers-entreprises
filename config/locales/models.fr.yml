@@ -705,6 +705,9 @@ fr:
           attributes:
             email:
               taken: est déjà inscrit sur conseillers-entreprises.service-public.fr.
+        territorial_zones:
+          code:
+            format_invalid: "Format pour %{zone_type} est invalide."
     models:
       antenne:
         one: Antenne
