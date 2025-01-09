@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_12_161520) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_09_094556) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -250,6 +250,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_12_161520) do
     t.index ["advisor_id"], name: "index_diagnoses_on_advisor_id"
     t.index ["facility_id"], name: "index_diagnoses_on_facility_id"
     t.index ["solicitation_id"], name: "index_diagnoses_on_solicitation_id"
+    t.index ["step", "created_at"], name: "index_diagnoses_on_step_and_created_at"
     t.index ["visitee_id"], name: "index_diagnoses_on_visitee_id"
   end
 
@@ -653,6 +654,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_12_161520) do
     t.index ["label"], name: "index_subjects_on_label", unique: true
     t.index ["slug"], name: "index_subjects_on_slug", unique: true
     t.index ["theme_id"], name: "index_subjects_on_theme_id"
+  end
+
+  create_table "territorial_zones", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "zone_type", null: false
+    t.string "zoneable_type", null: false
+    t.bigint "zoneable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code", "zone_type", "zoneable_type", "zoneable_id"], name: "idx_on_code_zone_type_zoneable_type_zoneable_id_0c5f85b4e4", unique: true
+    t.index ["zoneable_type", "zoneable_id"], name: "index_territorial_zones_on_zoneable"
   end
 
   create_table "territories", force: :cascade do |t|

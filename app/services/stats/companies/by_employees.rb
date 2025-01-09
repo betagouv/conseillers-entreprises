@@ -4,7 +4,7 @@ module Stats::Companies
 
     def main_query
       Company
-        .includes(:needs, :diagnoses).references(:needs, :diagnoses)
+        .includes(:diagnoses).references(:diagnoses)
         .where(facilities: { diagnoses: { step: :completed, created_at: @start_date..@end_date } })
     end
 
