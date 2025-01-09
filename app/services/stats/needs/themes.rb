@@ -23,6 +23,18 @@ module Stats::Needs
 
     def build_series
       result = super
+      # regroupe les themes issus de la coopération si @detailed_graphs est à false
+      cooperation_label = I18n.t('activerecord.attributes.theme.stats_label.cooperation')
+      result << { name: cooperation_label, data: Array.new(result.first[:data].size, 0) }
+      result.map do |item|
+        next if item[:name] == cooperation_label
+        label = Theme.stats_label(item[:name], @detailed_graphs)
+        if label != item[:name]
+          result.last[:data] = result.last[:data].zip(item[:data]).map { |a, b| a + b }
+          item[:data].map! { |x| x = 0 }
+        end
+        item
+      end
       result.reject { |item| item[:data].all?(0) }
     end
 

@@ -70,10 +70,11 @@ class Theme < ApplicationRecord
     cooperations.any?
   end
 
-  def stats_label(detailed)
+  def self.stats_label(label, detailed)
+    theme = Theme.find_by(label: label)
     detailed = true if detailed.nil?
     # Si on ne veut pas le détail on affiche les thèmes de coopération sous un même label
-    !self.cooperation? || detailed ? label : I18n.t('activerecord.attributes.theme.stats_label.cooperation')
+    !theme.cooperation? || detailed ? label : I18n.t('activerecord.attributes.theme.stats_label.cooperation')
   end
 
   def self.ransackable_attributes(auth_object = nil)
