@@ -1,5 +1,5 @@
 = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
-  .fr-grid-row.fr-grid-row--gutters.fr-mb-3w#stats-params{ data: { controller: 'stats', url: manager_load_filter_options_path } }
+  .fr-grid-row.fr-grid-row--gutters.fr-mb-3w#stats-params{ data: { controller: 'stats', url: load_filter_options_conseiller_cooperation_path(cooperation) } }
 
     .fr-col-12.fr-col-md-4
       .fr-input-group
