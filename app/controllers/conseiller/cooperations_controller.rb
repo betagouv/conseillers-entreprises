@@ -3,19 +3,21 @@ class Conseiller::CooperationsController < ApplicationController
   # include LoadFilterOptions
   # include StatsHelper
 
-  before_action :authorize_cooperation, :get_cooperation
-  before_action :init_filters, only: %i[needs]
+  before_action :get_cooperation, only: %i[load_filter_options needs]
+  before_action :init_filters, only: %i[load_filter_options needs]
   before_action :set_stats_params, only: %i[needs]
 
   def index
+    authorize Cooperation, :index?
     cooperation = current_user.managed_cooperations.first
     redirect_to action: :needs, id: cooperation.id
   end
 
   def needs
     @charts_names = %w[
-      solicitations_completed solicitations_diagnoses needs_exchange_with_expert
-      needs_done solicitations_taking_care_time needs_themes companies_by_employees companies_by_naf_code
+      solicitations_completed solicitations_diagnoses
+      needs_positioning needs_done needs_done_no_help needs_done_not_reachable needs_not_for_me needs_taking_care
+      needs_themes needs_subjects companies_by_employees companies_by_naf_code
     ]
   end
 
@@ -27,15 +29,15 @@ class Conseiller::CooperationsController < ApplicationController
     render partial: 'stats/load_stats', locals: { data: data, name: name }
   end
 
-  private
-
-  def authorize_cooperation
-    true
+  def load_filter_options
+    render json: @filters.as_json
   end
 
+  private
+
   def get_cooperation
-    # Find the cooperation by its id in the params, or use the first one from user's managed cooperations.
-    @cooperation = params[:id].present? ? current_user.managed_cooperations.find(params[:id]) : current_user.managed_cooperations.first
+    @cooperation = Cooperation.find_by(id: params[:id])
+    authorize @cooperation, :manage?
   end
 
   def init_filters
@@ -43,8 +45,8 @@ class Conseiller::CooperationsController < ApplicationController
     subjects = @cooperation.subjects.not_archived.order(:label)
 
     # on verifie que le theme précédemment sélectionné fait bien partie des thèmes possibles
-    if params[:theme].present? && @themes.map(&:id).include?(params[:theme].to_i)
-      subjects = @subjects.where(theme_id: params[:theme])
+    if params[:theme].present? && themes.map(&:id).include?(params[:theme].to_i)
+      subjects = subjects.where(theme_id: params[:theme])
     end
     @filters = {
       themes: themes,

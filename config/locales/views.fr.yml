@@ -1059,9 +1059,19 @@ fr:
       needs_not_for_me:
         title: des besoins transmis sont refusés, soit %{secondary_count} besoins
         title_table: Nombre de besoins refusés
+      needs_positioning:
+        subtitle: Au moins un exeprt s’est positionné pour indiquer prendre en charge ou refuser le besoin.
+        title:
+          one: des besoins transmis ont reçu un positionnement d'un expert, soit %{secondary_count} besoin
+          other: des besoins transmis ont reçu un positionnement d'un expert, soit %{secondary_count} besoins
+          zero: des besoins transmis ont reçu un positionnement d'un expert, soit %{secondary_count} besoin
+        title_table: Taux de réponse
       needs_quo:
         title: des besoins transmis sont en attente de prise en charge par les conseillers
         title_table: Nombre de besoins en attente de prise en charge par les conseillers
+      needs_subjects:
+        title: Sujets choisis par les entreprises
+        title_table: Sujets choisis par les entreprises
       needs_taking_care:
         title: des besoins transmis sont en cours de prise en charge par les conseillers
         title_table: Nombre de besoins en cours de prise en charge par les conseillers
