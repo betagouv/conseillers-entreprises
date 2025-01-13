@@ -27,7 +27,7 @@ module Stats::Solicitations
     end
 
     def secondary_count
-      filtered_main_query.joins(:diagnosis).merge(Diagnosis.completed).size
+      @secondary_count ||= filtered_main_query.joins(:diagnosis).merge(Diagnosis.completed).size
     end
 
     def count

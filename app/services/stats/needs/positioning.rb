@@ -21,7 +21,7 @@ module Stats::Needs
     end
 
     def secondary_count
-      filtered_main_query.not_status_quo.size
+      @secondary_count ||= filtered_main_query.not_status_quo.size
     end
 
     private

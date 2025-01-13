@@ -29,7 +29,7 @@ module Stats::Needs
     end
 
     def secondary_count
-      filtered(main_query).size
+      @secondary_count ||= filtered(main_query).size
     end
 
     def subtitle
