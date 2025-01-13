@@ -26,7 +26,7 @@ module Stats::Needs
     end
 
     def secondary_count
-      filtered_main_query.status_done.size
+      @secondary_count ||= filtered_main_query.status_done.size
     end
 
     def subtitle

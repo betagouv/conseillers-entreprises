@@ -34,7 +34,7 @@ module Stats::Needs
     end
 
     def secondary_count
-      filtered_main_query.with_exchange.size
+      @secondary_count ||= filtered_main_query.with_exchange.size
     end
 
     private

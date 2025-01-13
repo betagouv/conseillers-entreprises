@@ -3,7 +3,6 @@
 module Manager
   class StatsController < ApplicationController
     include StatsUtilities
-    include StatsHelper
 
     before_action :authorize_index_manager_stats, only: %i[index load_data]
     before_action :set_filters_collections, only: :index
@@ -74,7 +73,7 @@ module Manager
     end
 
     def base_antennes
-      @base_antennes ||= build_manager_antennes_collection(current_user)
+      @base_antennes ||= BuildManagerAntennesCollection.new(current_user).call
     end
   end
 end

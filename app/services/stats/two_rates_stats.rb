@@ -14,6 +14,6 @@ module Stats::TwoRatesStats
   end
 
   def secondary_count
-    main_array.sum
+    @secondary_count ||= main_array.sum
   end
 end
