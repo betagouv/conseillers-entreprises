@@ -9,5 +9,5 @@
       {},
       { multiple: true, class: 'badge-select', 'data-badges-target': 'select', id: "solicitation-#{solicitation.id}-select-badges" })
 
-      = f.submit t('ok'), class: 'fr-btn fr-btn--sm'
+      = f.submit t('ok'), class: 'fr-btn fr-btn--sm', 'data-turbo': false
   %button.ri-price-tag-3-line.fr-mr-1w.modify-badges{ data: { action: 'click->badges#toggleForm', id: "#{solicitation.id}" }, title: t('.add_remove_badges') }

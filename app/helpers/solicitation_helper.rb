@@ -33,15 +33,17 @@ module SolicitationHelper
     path = update_status_conseiller_solicitation_path(solicitation, status: new_status)
     classes += STATUS_ACTION_COLORS[new_status.to_sym]
     tag.li class: 'fr-menu__item' do
-      link_to name, path, method: :post, remote: true, class: classes.join(' ')
+      link_to name, path, method: :post, class: classes.join(' ')
     end
   end
 
-  def subject_button(solicitation, classes = %[])
+  def subject_link(solicitation)
     if solicitation.diagnosis.present? && solicitation.diagnosis.needs.present?
-      button_for_editable_subject(solicitation.diagnosis.needs.first, classes)
+      link_for_editable_subject(solicitation.diagnosis.needs.first)
+    elsif solicitation.landing_subject.present?
+      solicitation.landing_subject.title
     else
-      button_for_non_editable_subject(solicitation, classes)
+      I18n.t('helpers.solicitation_number', id: solicitation.id)
     end
   end
 
@@ -52,20 +54,14 @@ module SolicitationHelper
       t('helpers.solicitation.analysis_in_progress', step: diagnosis.human_attribute_value(:step))
     end
 
-    link_to text, [:conseiller, diagnosis], class: 'button'
-  end
-
-  def display_region(region, territory_params)
-    # display region if there is no region filter
-    return unless ((territory_params.present? && (territory_params == 'uncategorisable')) || territory_params.blank?) && region.present?
-    tag.li(class: 'item') do
-      t('helpers.solicitation.localisation_html', region: region.name)
-    end
+    link_to text, [:conseiller, diagnosis], class: 'button', 'data-turbo': false
   end
 
   def display_solicitation_attribute(solicitation, attribute)
     if attribute == :provenance_detail && solicitation.campaign == 'entreprendre'
-      link_to solicitation.send(attribute), partner_url(solicitation, full: true), title: "#{to_new_window_title(t('needs.show.origin_source_title'))}", target: '_blank', rel: 'noopener'
+      link_to solicitation.send(attribute), partner_url(solicitation, full: true), title: "#{to_new_window_title(t('needs.show.origin_source_title'))}", target: '_blank', rel: 'noopener', data: { turbo: false }
+    elsif attribute == :siret
+      link_to(solicitation.normalized_siret, show_with_siret_companies_path(solicitation.siret), data: { turbo: false })
     else
       solicitation.send(attribute)
     end
@@ -89,14 +85,14 @@ module SolicitationHelper
 
   private
 
-  def button_for_editable_subject(need, classes)
-    title = t('helpers.solicitation.modify_subject', subject: need.subject)
+  def link_for_editable_subject(need)
+    title = t('helpers.solicitation.modify_subject')
     path = needs_conseiller_diagnosis_path(need.diagnosis)
-    link_to need.subject.label, path, class: classes + ' fr-icon-settings-5-fill fr-btn--icon-right ', title: title
-  end
-
-  def button_for_non_editable_subject(solicitation, classes)
-    tag.button(class: classes, disabled: 'disabled') { solicitation.landing_subject.title }
+    aria_describedby = "tooltip-#{need.id}"
+    tag.div do
+      concat(link_to need.subject.label, path, title: title, 'aria-describedby': aria_describedby, 'data-turbo': false)
+      concat(tag.span title, class: 'fr-tooltip fr-placement', id: "tooltip-#{need.id}", role: 'tooltip', 'aria-hidden': true)
+    end
   end
 
   def entreprendre_url(solicitation, full: false)

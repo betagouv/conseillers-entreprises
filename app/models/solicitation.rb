@@ -664,7 +664,7 @@ class Solicitation < ApplicationRecord
   end
 
   def display_attributes
-    %i[normalized_phone_number institution requested_help_amount location provenance_title provenance_detail relaunch]
+    %i[full_name email siret provenance_detail cooperation]
   end
 
   def normalized_siret

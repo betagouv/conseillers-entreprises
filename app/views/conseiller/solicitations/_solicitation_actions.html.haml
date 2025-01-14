@@ -11,13 +11,13 @@
         = render 'retry_diagnosis', solicitation: solicitation
       - else
         .actions.success-main-525-bg
-          = link_to prepare_diagnosis_conseiller_solicitation_path(solicitation), class: 'button', method: :post do
+          = link_to prepare_diagnosis_conseiller_solicitation_path(solicitation), class: 'button', method: :post, 'data-turbo': false do
             %span.ri-rocket-2-fill.fr-mr-1w{ 'aria-hidden': 'true' }
             = t('.start_auto_diagnosis')
             %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
     - else
       .actions.success-main-525-bg
-        = link_to new_conseiller_diagnosis_path(solicitation: solicitation.id), class: 'button' do
+        = link_to new_conseiller_diagnosis_path(solicitation: solicitation.id), class: 'button', 'data-turbo': false do
           = t('.start_diagnosis')
           %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
 
@@ -46,7 +46,7 @@
         %li.fr-menu__item
           = link_to t(email_type, scope: 'solicitations.solicitation_actions.emails'),
             emails_solicitation_generic_path(email_type: email_type, id: solicitation.id, query: params[:query]),
-            method: :post, class: 'fr-nav__link'
+            method: :post, class: 'fr-nav__link', 'data-turbo': false
 
   .dropdown.actions.grey-medium-bg
     %button.button
