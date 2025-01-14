@@ -48,7 +48,7 @@ ActiveAdmin.register Cooperation do
       row(:logo) do |i|
         display_logo(name: i.logo&.filename, path: "cooperations/") if i.logo.present?
       end
-      row :url
+      row :root_url
       row :display_url
       row :mtm_campaign
       row(:landings) do |c|
@@ -58,7 +58,7 @@ ActiveAdmin.register Cooperation do
   end
 
   permit_params :name,
-                :logo_id, :mtm_campaign, :url, :display_url,
+                :logo_id, :mtm_campaign, :root_url, :display_url,
                 :institution_id, landing_ids: []
 
   form do |f|
@@ -77,7 +77,7 @@ ActiveAdmin.register Cooperation do
           search_fields: [:slug]
         }
 
-      f.input :url
+      f.input :root_url
       f.input :display_url
       f.input :mtm_campaign
     end
