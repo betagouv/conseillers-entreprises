@@ -73,7 +73,7 @@ module Manager
     end
 
     def base_antennes
-      @base_antennes ||= BuildManagerAntennesCollection.new(current_user).call
+      @base_antennes ||= BuildAntennesCollection.new(current_user).for_manager
     end
   end
 end

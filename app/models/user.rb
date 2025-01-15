@@ -313,7 +313,8 @@ class User < ApplicationRecord
       ids.push(*self.managed_antenne_ids).uniq
       Antenne.where(id: ids)
     else
-      self.antenne
+      # pour avoir une collection, utile dans certaines méthodes
+      Antenne.where(id: self.antenne.id)
     end
   end
 
