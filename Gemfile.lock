@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/betagouv/decoupage-administratif-gem
+  revision: 5b6b9ee82b55939925e97040a980fd5c07df0b9b
+  specs:
+    decoupage_administratif (0.1.0)
+      rake
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -777,6 +784,7 @@ DEPENDENCIES
   css_parser
   daemons
   dartsass-sprockets
+  decoupage_administratif!
   devise
   devise-async
   devise_invitable
