@@ -10,8 +10,14 @@ RSpec.describe 'stats/team/index' do
     let(:start_date) { 6.months.ago.beginning_of_month.to_date }
     let(:end_date) { Date.today }
 
-    it "displays correctly public stats" do
+    before do
       assign_base_data
+      without_partial_double_verification do
+        allow(view).to receive(:stats_filter_params).and_return({ start_date: start_date, end_date: end_date })
+      end
+    end
+
+    it "displays correctly public stats" do
       assign(:charts_names, [
         :solicitations, :solicitations_diagnoses,
         :exchange_with_expert, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code
@@ -25,7 +31,6 @@ RSpec.describe 'stats/team/index' do
     end
 
     it "displays correctly needs stats" do
-      assign_base_data
       assign(:main_stat, Stats::Needs::DoneWithHelpColumn.new)
       assign(:charts_names, [
         :transmitted_less_than_72h_stats, :needs_done, :needs_done_no_help, :needs_done_not_reachable,
@@ -40,7 +45,6 @@ RSpec.describe 'stats/team/index' do
     end
 
     it "displays correctly matches stats" do
-      assign_base_data
       assign(:charts_names, [
         :positioning_rate, :taking_care_rate_stats, :done_rate_stats,
         :done_no_help_rate_stats, :done_not_reachable_rate_stats, :not_for_me_rate_stats,
@@ -55,7 +59,6 @@ RSpec.describe 'stats/team/index' do
     end
 
     it "displays correctly acquisitions stats" do
-      assign_base_data
       assign(:charts_names, [
         :entreprendre, :google_ads
       ])
@@ -71,6 +74,7 @@ end
 
 def assign_base_data
   assign(:stats_params, { start_date: start_date, end_date: end_date })
+  assign(:stats_filter_params, { start_date: start_date, end_date: end_date })
   assign(:institution_antennes, [])
   assign(:themes, [])
   assign(:subjects, [])

@@ -10,7 +10,7 @@ module Stats::Matches
     end
 
     def build_series
-      query = filtered_main_query
+      query = filtered(main_query)
       @done_no_help = []
       @other_status = []
 

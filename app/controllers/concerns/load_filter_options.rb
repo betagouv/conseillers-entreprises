@@ -22,7 +22,7 @@ module LoadFilterOptions
 
     if params[:institution].present?
       institution = Institution.find(params[:institution])
-      @institution_antennes = build_institution_antennes_collection(institution)
+      @institution_antennes = BuildAntennesCollection.new(institution).for_institution
       @themes = @themes.merge(institution.themes).select(:id, :label).order(:label).uniq
       @subjects = @subjects.merge(institution.subjects.not_archived.order(:label))
     end
@@ -30,12 +30,5 @@ module LoadFilterOptions
     if params[:theme].present? && @themes.map(&:id).include?(params[:theme].to_i)
       @subjects = @subjects.where(theme_id: params[:theme])
     end
-  end
-
-  def build_institution_antennes_collection(institution)
-    institution_antennes = institution.antennes.not_deleted
-    antennes_collection = antennes_collection_hash(institution_antennes, institution_antennes)
-
-    add_locals_antennes(antennes_collection, institution_antennes)
   end
 end

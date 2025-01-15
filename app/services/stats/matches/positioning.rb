@@ -9,7 +9,7 @@ module Stats::Matches
     end
 
     def build_series
-      query = filtered_main_query
+      query = filtered(main_query)
       @positioning, @not_positioning = [], []
       search_range_by_month.each do |range|
         month_query = get_month_query(query, range)

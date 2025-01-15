@@ -1,15 +1,30 @@
-class BuildManagerAntennesCollection
-  def initialize(user)
-    @user = user
+class BuildAntennesCollection
+  # item peut être un user ou une institution
+  def initialize(item)
+    @item = item
   end
 
-  def call
+  def for_manager
     manager_antennes = manager_antennes_included_regionals
     antennes_collection = antennes_collection_hash(Antenne.with_experts_subjects.not_deleted, manager_antennes)
     add_locals_antennes(antennes_collection, manager_antennes)
   end
 
+  def for_institution
+    institution_antennes = institution.antennes.not_deleted
+    antennes_collection = antennes_collection_hash(institution_antennes, institution_antennes)
+    add_locals_antennes(antennes_collection, institution_antennes)
+  end
+
   private
+
+  def user
+    @user ||= (@item.is_a?(User) ? @item : nil)
+  end
+
+  def institution
+    @institution ||= (@item.is_a?(Institution) ? @item : nil)
+  end
 
   def antennes_collection_hash(base_antennes, looking_for_antennes)
     base_antennes
@@ -28,8 +43,8 @@ class BuildManagerAntennesCollection
   end
 
   def manager_antennes_included_regionals
-    antennes_ids = @user.managed_antennes.ids
-    @user.managed_antennes.territorial_level_national.each do |antenne|
+    antennes_ids = user.managed_antennes.ids
+    user.managed_antennes.territorial_level_national.each do |antenne|
       antennes_ids << Antenne.where(institution: antenne.institution, territorial_level: :regional).not_deleted.ids
     end
     Antenne.where(id: antennes_ids.flatten)
