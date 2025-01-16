@@ -499,8 +499,9 @@ fr:
   manager:
     needs:
       index:
-        many_antennes_title: Tous les besoins reçus des antennes
+        many_antennes_title: Tous les besoins reçus par les antennes
         one_antenne_title: Antenne %{name} - tous les besoins
+        title: Vue responsable
     stats:
       index:
         antenne_title: Statistiques de l’antenne %{name}
@@ -548,7 +549,7 @@ fr:
         other: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.
       welcome_title: Bienvenue sur Conseillers-Entreprises, un service de Service-Public.fr
     index:
-      title: Besoins reçus
+      title: Mes besoins
     match_actions:
       call_company: 1. J’appelle l’entreprise
       can_you_help: Pouvez-vous aider l’entreprise %{company} ?

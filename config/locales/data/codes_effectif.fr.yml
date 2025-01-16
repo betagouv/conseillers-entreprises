@@ -36,8 +36,8 @@ fr:
     '53': 10 000 salariés et plus
     NN: Unités non employeuses
     NR: Non répertorié sur api entreprise
-    other: nil
     missing: Données manquantes
+    other: nil
   simple_effectif:
     '0': 0 salarié, entreprise non employeuse et auto-entrepreneur
     '1': 1 à 5 salariés
