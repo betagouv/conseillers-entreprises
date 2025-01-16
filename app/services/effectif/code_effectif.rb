@@ -26,7 +26,7 @@ module Effectif
 
     def intitule_effectif
       if @code.blank?
-        return I18n.t('other')
+        I18n.t(:missing, scope: 'codes_effectif')
       end
 
       I18n.t(@code, scope: 'codes_effectif', default: I18n.t('other'))
