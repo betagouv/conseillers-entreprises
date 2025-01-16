@@ -12,8 +12,8 @@
 #
 # Indexes
 #
-#  index_territorial_zones_on_code_and_zone_type_and_zoneable_id  (code,zone_type,zoneable_id) UNIQUE
-#  index_territorial_zones_on_zoneable                            (zoneable_type,zoneable_id)
+#  idx_on_code_zone_type_zoneable_type_zoneable_id_0c5f85b4e4  (code,zone_type,zoneable_type,zoneable_id) UNIQUE
+#  index_territorial_zones_on_zoneable                         (zoneable_type,zoneable_id)
 #
 class TerritorialZone < ApplicationRecord
   enum zone_type: { commune: 0, epci: 1, departement: 2, region: 3 }
@@ -21,7 +21,7 @@ class TerritorialZone < ApplicationRecord
   belongs_to :zoneable, polymorphic: true
 
   validates :code, :zone_type, presence: true
-  validate :validate_code_format
+  # validate :validate_code_format
 
   private
 
