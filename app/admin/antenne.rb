@@ -117,6 +117,13 @@ ActiveAdmin.register Antenne do
       end
     end
 
+    attributes_table title: I18n.t('active_admin.antenne.territorial_zones') do
+      antenne.territorial_zones.map do |tz|
+        row('zone_type') { tz.zone_type }
+        row('code') { tz.code }
+      end
+    end
+
     attributes_table title: I18n.t('active_admin.antenne.institution_match_filters') do
       antenne.institution.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
@@ -149,7 +156,7 @@ ActiveAdmin.register Antenne do
     :raw_accepted_naf_codes, :raw_excluded_naf_codes, :raw_accepted_legal_forms, :raw_excluded_legal_forms, :_destroy, subject_ids: []
   ]
   permit_params :name, :institution_id, :insee_codes, :territorial_level,
-                advisor_ids: [], expert_ids: [], manager_ids: [], match_filters_attributes: match_filters_attributes
+                advisor_ids: [], expert_ids: [], manager_ids: [], match_filters_attributes: match_filters_attributes, territorial_zones_attributes: [:id, :zone_type, :code, :_destroy]
 
   form do |f|
     f.inputs do
@@ -187,6 +194,18 @@ ActiveAdmin.register Antenne do
                 url: :admin_experts_path,
                 search_fields: [:full_name]
               }
+    end
+
+    f.inputs do
+      f.has_many :territorial_zones, allow_destroy: true, new_record: true do |tz|
+        tz.input :zone_type,
+          as: :select,
+          collection: TerritorialZone.zone_types.map { |k, _|
+            [I18n.t("activerecord.attributes.territorial_zone.zone_types.#{k}"), k]
+          },
+          include_blank: false
+        tz.input :code
+      end
     end
 
     f.inputs do
