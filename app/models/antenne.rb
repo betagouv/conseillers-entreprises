@@ -54,6 +54,8 @@ class Antenne < ApplicationRecord
   has_many :experts_including_deleted, class_name: 'Expert', inverse_of: :antenne
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
+  has_many :territorial_zones, as: :zoneable, dependent: :destroy, inverse_of: :zoneable
+  accepts_nested_attributes_for :territorial_zones, allow_destroy: true
   accepts_nested_attributes_for :match_filters, allow_destroy: true
 
   has_many :activity_reports, as: :reportable, dependent: :destroy, inverse_of: :reportable
