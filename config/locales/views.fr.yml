@@ -314,7 +314,7 @@ fr:
       solicitation:
         from_intermediary: Sollicitation provenant d’un intermédiaire
         needs_historic: 'Historique de l’entreprise :'
-        not_sas_explanation: La forme juridique de l’entreprise n’est pas une SAS ou SASU
+        not_sas_explanation: Si formation méier -> mail TNS (La forme juridique de l’entreprise n’est pas une SAS ou SASU)
         not_sas_html: "<span class='crossed-out-text'>SAS</span>"
         similar_abandonned_solicitations_explanation: 'Cycle d’abandon suspecté : cette entreprise a déjà déposé au moins 3 demandes qui n’ont pas été mises en relation'
         solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres besoins récemment'
