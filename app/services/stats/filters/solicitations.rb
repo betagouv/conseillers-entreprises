@@ -26,6 +26,11 @@ module Stats::Filters
       @query.merge! Solicitation.joins(:landing).where(landings: { integration: integration })
     end
 
+    def cooperation_filter(cooperation_id)
+      return if cooperation_id.blank?
+      @query.merge! Solicitation.where(cooperation_id: cooperation_id)
+    end
+
     def landing_filter(landing_id)
       return if landing_id.blank?
       @query.merge! Solicitation.where(landing_id: landing_id)

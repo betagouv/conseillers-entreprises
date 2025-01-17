@@ -22,7 +22,7 @@ module LoadFilterOptions
 
     if params[:institution].present?
       institution = Institution.find(params[:institution])
-      @institution_antennes = build_institution_antennes_collection(institution)
+      @institution_antennes = BuildAntennesCollection.new(institution).for_institution
       @themes = @themes.merge(institution.themes).select(:id, :label).order(:label).uniq
       @subjects = @subjects.merge(institution.subjects.not_archived.order(:label))
     end

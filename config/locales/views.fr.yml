@@ -115,6 +115,8 @@ fr:
       antenne_needs: Besoins de l’antenne
       antennes_needs: Besoins des antennes
       badges: Tags
+      cooperation: Coopération
+      cooperation_needs: Pilotage par besoin
       csv_exports: Exports csv
       invite: Inviter des utilisateurs
       profile: Profil
@@ -221,6 +223,13 @@ fr:
     thank_you:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
   conseiller:
+    cooperations:
+      needs:
+        title: Pilotage par besoin
+        decalage_alert: 
+          title: Possibilité de décalage du nombre de besoins
+          description: Le total des besoins transmis peut à partir d’ici différer. Certains besoins ont été requalifiés par notre équipe pour être affectés au bon sujet.
+      title: Coopération %{name}
     csv_exports:
       index:
         no_export: Vous n'avez pas d'export actif
@@ -314,7 +323,7 @@ fr:
       solicitation:
         from_intermediary: Sollicitation provenant d’un intermédiaire
         needs_historic: 'Historique de l’entreprise :'
-        not_sas_explanation: La forme juridique de l’entreprise n’est pas une SAS ou SASU
+        not_sas_explanation: Si formation méier -> mail TNS (La forme juridique de l’entreprise n’est pas une SAS ou SASU)
         not_sas_html: "<span class='crossed-out-text'>SAS</span>"
         similar_abandonned_solicitations_explanation: 'Cycle d’abandon suspecté : cette entreprise a déjà déposé au moins 3 demandes qui n’ont pas été mises en relation'
         solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres besoins récemment'
@@ -499,8 +508,9 @@ fr:
   manager:
     needs:
       index:
-        many_antennes_title: Tous les besoins reçus des antennes
+        many_antennes_title: Tous les besoins reçus par les antennes
         one_antenne_title: Antenne %{name} - tous les besoins
+        title: Vue responsable
     stats:
       index:
         antenne_title: Statistiques de l’antenne %{name}
@@ -548,7 +558,7 @@ fr:
         other: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.
       welcome_title: Bienvenue sur Conseillers-Entreprises, un service de Service-Public.fr
     index:
-      title: Besoins reçus
+      title: Mes besoins
     match_actions:
       call_company: 1. J’appelle l’entreprise
       can_you_help: Pouvez-vous aider l’entreprise %{company} ?
@@ -1051,9 +1061,19 @@ fr:
       needs_not_for_me:
         title: des besoins transmis sont refusés, soit %{secondary_count} besoins
         title_table: Nombre de besoins refusés
+      needs_positioning:
+        subtitle: Au moins un exeprt s’est positionné pour indiquer prendre en charge ou refuser le besoin.
+        title:
+          one: des besoins transmis ont reçu un positionnement d'un expert, soit %{secondary_count} besoin
+          other: des besoins transmis ont reçu un positionnement d'un expert, soit %{secondary_count} besoins
+          zero: des besoins transmis ont reçu un positionnement d'un expert, soit %{secondary_count} besoin
+        title_table: Taux de réponse
       needs_quo:
         title: des besoins transmis sont en attente de prise en charge par les conseillers
         title_table: Nombre de besoins en attente de prise en charge par les conseillers
+      needs_subjects:
+        title: Sujets choisis par les entreprises
+        title_table: Sujets choisis par les entreprises
       needs_taking_care:
         title: des besoins transmis sont en cours de prise en charge par les conseillers
         title_table: Nombre de besoins en cours de prise en charge par les conseillers

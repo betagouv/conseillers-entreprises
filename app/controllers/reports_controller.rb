@@ -5,6 +5,7 @@ class ReportsController < ApplicationController
 
   def index
     authorize @antenne, policy_class: ReportPolicy
+    @antennes_for_select = BuildAntennesCollection.new(current_user).for_manager
   end
 
   def download

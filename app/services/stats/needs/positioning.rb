@@ -1,18 +1,14 @@
-module Stats::Matches
+module Stats::Needs
   class Positioning
     include ::Stats::BaseStats
     include ::Stats::TwoRatesStats
-    include Stats::Matches::Base
-
-    def main_query
-      matches_base_scope
-    end
+    include Stats::Needs::Base
 
     def build_series
-      query = filtered(main_query)
+      query = filtered_main_query
       @positioning, @not_positioning = [], []
       search_range_by_month.each do |range|
-        month_query = get_month_query(query, range)
+        month_query = query.created_between(range.first, range.last)
         @positioning.push(month_query.not_status_quo.count)
         @not_positioning.push(month_query.status_quo.count)
       end
@@ -21,7 +17,11 @@ module Stats::Matches
     end
 
     def subtitle
-      I18n.t('stats.series.matches_positioning.subtitle')
+      I18n.t('stats.series.needs_positioning.subtitle')
+    end
+
+    def secondary_count
+      @secondary_count ||= filtered_main_query.not_status_quo.size
     end
 
     private

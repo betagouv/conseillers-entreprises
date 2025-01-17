@@ -4,10 +4,6 @@ module Stats::Needs
     include ::Stats::BaseStats
     include Stats::Needs::Base
 
-    def main_query
-      needs_base_scope
-    end
-
     def filtered(query)
       Stats::Filters::Needs.new(query, self).call
     end

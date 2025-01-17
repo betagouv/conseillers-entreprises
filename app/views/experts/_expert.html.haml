@@ -30,6 +30,10 @@
             %li
               %span.picto.ri-nurse-fill{ 'aria-hidden': 'true' }
               = t('.manager_name', name: manager.full_name)
+            - if manager.job.present?
+              %li
+                %span.picto.ri-contacts-book-fill{ 'aria-hidden': 'true' }
+                = manager.job
             %li
               %span.picto.ri-mail-fill{ 'aria-hidden': 'true' }
               = mail_to manager.email, manager.email, class: 'break-word'

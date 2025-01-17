@@ -84,6 +84,7 @@ ignore_missing:
   - 'DOMContentLoaded'
   - 'abort'
   - 'error'
+  - 'active_admin.has_many_new'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 

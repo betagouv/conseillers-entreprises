@@ -3,10 +3,6 @@ module Stats::Needs
     include ::Stats::BaseStats
     include Stats::Needs::Base
 
-    def main_query
-      needs_base_scope
-    end
-
     def build_series
       query = main_query
       query = Stats::Filters::Needs.new(query, self).call
@@ -31,7 +27,7 @@ module Stats::Needs
     end
 
     def secondary_count
-      filtered_main_query.status_done_not_reachable.size
+      @secondary_count ||= filtered_main_query.status_done_not_reachable.size
     end
 
     private

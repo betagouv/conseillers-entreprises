@@ -146,6 +146,7 @@ fr:
     admin_for_referents: Rôle disponible pour les admins uniquement.
     cancel_solicitation_with_email: La sollicitation ne peut pas être mise à jour (solicitation ou type d'email invalide)
     contact: Contactez-nous
+    cooperation_manager_without_managed_cooperation: Une coopération doit être attribuée à ce responsable de coopération
     format: "%{attribute} %{message}"
     homepage: Page d’accueil
     manager_without_managed_antennes: Une antenne doit être attribuée à ce responsable d'antenne

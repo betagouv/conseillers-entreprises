@@ -34,8 +34,31 @@ RSpec.describe UserRight do
 
       it do
         user_right.valid?
-        expect(user_right.errors[:antenne_id]).to include(I18n.t('errors.manager_without_managed_antennes'))
+        expect(user_right.errors[:rightable_element_id]).to include(I18n.t('errors.manager_without_managed_antennes'))
         expect(user_right).not_to be_valid
+      end
+    end
+
+    describe 'cooperation_manager_has_managed_cooperation' do
+      let(:user) { create :user }
+
+      context 'without cooperation' do
+        let(:user_right) { build :user_right, user: user, category: :cooperation_manager }
+
+        it do
+          user_right.valid?
+          expect(user_right).not_to be_valid
+          expect(user_right.errors[:rightable_element_id]).to include(I18n.t('errors.cooperation_manager_without_managed_cooperation'))
+        end
+      end
+
+      context 'with cooperation' do
+        let(:user_right) { build :user_right, user: user, category: :cooperation_manager, rightable_element: create(:cooperation) }
+
+        it do
+          user_right.valid?
+          expect(user_right).to be_valid
+        end
       end
     end
 
