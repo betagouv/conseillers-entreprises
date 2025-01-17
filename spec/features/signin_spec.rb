@@ -23,7 +23,7 @@ describe 'the signin process' do
           click_on 'Accès conseillers', class: 'fr-btn'
         end
 
-        expect(page.html).to include 'Besoins reçus'
+        expect(page.html).to include 'Mes besoins'
       end
     end
   end
@@ -36,7 +36,7 @@ describe 'the signin process' do
         click_on 'Accès conseillers', class: 'fr-btn'
       end
 
-      expect(page.html).not_to include 'Besoins reçus'
+      expect(page.html).not_to include 'Mes besoins'
       expect(current_url).to eq new_user_session_url
     end
   end
