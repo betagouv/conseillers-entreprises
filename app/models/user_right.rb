@@ -42,12 +42,16 @@ class UserRight < ApplicationRecord
   validates :user_id, uniqueness: { scope: %i[category rightable_element_type rightable_element_id] }
 
   validates :category, presence: true
-  validate :manager_has_managed_antennes, :only_one_user_by_referent, :be_admin_to_be_referent
+  validate :manager_has_managed_antennes, :cooperation_manager_has_managed_cooperation,:only_one_user_by_referent, :be_admin_to_be_referent
 
   private
 
   def manager_has_managed_antennes
     self.errors.add(:rightable_element_id, I18n.t('errors.manager_without_managed_antennes')) if (category_manager? && (rightable_element.blank? || !rightable_element.is_a?(Antenne)))
+  end
+
+  def cooperation_manager_has_managed_cooperation
+    self.errors.add(:rightable_element_id, I18n.t('errors.cooperation_manager_without_managed_cooperation')) if (category_cooperation_manager? && (rightable_element.blank? || !rightable_element.is_a?(Cooperation)))
   end
 
   def be_admin_to_be_referent
