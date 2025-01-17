@@ -21,3 +21,9 @@
       .fr-col-12.fr-mb-4w
         = turbo_frame_tag name, stats_params: @stats_params, src: load_data_conseiller_cooperation_path(@cooperation.id, chart_name: name) do
           = render 'stats/skeleton_card'
+      - if name == 'solicitations_diagnoses'
+        .fr-col-12.fr-mb-4w
+          .fr-px-3w
+            .fr-alert.fr-alert--info
+              %h3.fr-alert__title= t('.decalage_alert.title')
+              %p= t('.decalage_alert.description')
