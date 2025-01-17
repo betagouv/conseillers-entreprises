@@ -34,8 +34,10 @@ module Inbox
 
     @needs = @recipient.perimeter_received_needs.merge!(@recipient.send(:"territory_needs_#{@collection_name}"))
 
+    # on reject antenne_id, sinon le filtre by_antenne peut venir enlever des besoins
+    # (cas des antennes régionales)
     @needs = @needs.includes(:company, :advisor, :subject)
-      .apply_filters(needs_search_params)
+      .apply_filters(needs_search_params.except(:antenne_id))
       .order(created_at: order)
       .page params[:page]
     render view
