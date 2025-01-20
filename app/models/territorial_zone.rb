@@ -16,12 +16,12 @@
 #  index_territorial_zones_on_zoneable                         (zoneable_type,zoneable_id)
 #
 class TerritorialZone < ApplicationRecord
-  enum zone_type: { commune: 0, epci: 1, departement: 2, region: 3 }
+  enum zone_type: { commune: 'commune', epci: 'epci', departement: 'departement', region: 'region' }
 
   belongs_to :zoneable, polymorphic: true
 
   validates :code, :zone_type, presence: true
-  # validate :validate_code_format
+  validate :validate_code_format
 
   private
 
