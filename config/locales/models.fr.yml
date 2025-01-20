@@ -598,6 +598,11 @@ fr:
           label:
             long: S'agit-il d’un premier recrutement pour votre entreprise ?
             short: Premier recrutement ?
+      territorial_zones:
+        commune: Commune
+        departement: Département
+        epci: EPCI
+        region: Région
       territory:
         advisors: Conseillers
         antennes: Antennes
@@ -699,6 +704,9 @@ fr:
               must_be_a_valid_siret: doit être un numéro à 14 chiffres valide
             subject_answers:
               incorrect: doivent correspondre aux questions du sujet de la demande
+        territorial_zones:
+          code:
+            format_invalid: Format pour %{zone_type} est invalide.
         territory:
           attributes:
             insee_codes:
@@ -706,10 +714,7 @@ fr:
         user:
           attributes:
             email:
-              taken: est déjà inscrit sur conseillers-entreprises.service-public.gouv.fr.
-        territorial_zones:
-          code:
-            format_invalid: "Format pour %{zone_type} est invalide."
+              taken: est déjà inscrit sur conseillers-entreprises.service-public.fr.
     models:
       antenne:
         one: Antenne
@@ -804,6 +809,9 @@ fr:
       subject_question:
         one: Question additionnelle
         other: Questions additionnelles
+      territorial_zone:
+        one: Territoire
+        other: Territoires
       territory:
         one: Territoire
         other: Territoires
