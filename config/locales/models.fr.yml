@@ -20,7 +20,7 @@ fr:
       delete: Supprimer l’expert (sans ses utilisateurs)
       delete_confirmation: Voulez-vous supprimer cet expert ?
       match_filters: Filtres de mise en relation de l’expert
-      no_specifique_zone: Cet expert n’a pas de zone spécifique
+      no_specifique_zone: Cet expert n’a pas de territoire spécifique
       reassign_matches_done:
         one: "%{count} mise en relation réattribuée à %{expert}"
         other: "%{count} mises en relation réattribuées à %{expert}"
@@ -598,11 +598,13 @@ fr:
           label:
             long: S'agit-il d’un premier recrutement pour votre entreprise ?
             short: Premier recrutement ?
-      territorial_zones:
+      territorial_zone:
+        code: Code
         commune: Commune
         departement: Département
         epci: EPCI
         region: Région
+        zone_type: Type
       territory:
         advisors: Conseillers
         antennes: Antennes
@@ -706,7 +708,7 @@ fr:
               incorrect: doivent correspondre aux questions du sujet de la demande
         territorial_zones:
           code:
-            format_invalid: Format pour %{zone_type} est invalide.
+            invalid_format: Format pour %{zone_type} est invalide.
         territory:
           attributes:
             insee_codes:
