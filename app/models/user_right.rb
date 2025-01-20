@@ -42,7 +42,8 @@ class UserRight < ApplicationRecord
   validates :user_id, uniqueness: { scope: %i[category rightable_element_type rightable_element_id] }
 
   validates :category, presence: true
-  validate :manager_has_managed_antennes, :cooperation_manager_has_managed_cooperation,:only_one_user_by_referent, :be_admin_to_be_referent
+  validate :manager_has_managed_antennes, :cooperation_manager_has_managed_cooperation,
+    :only_one_user_by_referent, :be_admin_to_be_referent
 
   private
 

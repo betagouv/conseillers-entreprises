@@ -1,7 +1,5 @@
 class Conseiller::CooperationsController < ApplicationController
   include StatsUtilities
-  # include LoadFilterOptions
-  # include StatsHelper
 
   before_action :get_cooperation, only: %i[load_filter_options needs]
   before_action :init_filters, only: %i[load_filter_options needs]

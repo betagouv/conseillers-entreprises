@@ -12,17 +12,18 @@
         = f.label :start_date, t('stats.stats_params.start_date'), class: 'fr-label'
         .fr-input-wrap
           = f.date_field :start_date, { value: stats[:start_date], class: 'fr-input' }
+      .fr-input-group
+        = f.label :end_date, t('stats.stats_params.end_date'), class: 'fr-label'
+        .fr-input-wrap
+          = f.date_field :end_date, { value: stats[:end_date], class: 'fr-input' }
+
+    .fr-col-12.fr-col-md-4
       .fr-select-group
         = f.label :theme, class: 'fr-label' do
           = t('stats.stats_params.theme')
         = f.collection_select :theme, filters[:themes], :id, :label, { selected: stats[:theme],
           include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->stats#fetchFilters', 'stats-target': 'themes' }
 
-    .fr-col-12.fr-col-md-4
-      .fr-input-group
-        = f.label :end_date, t('stats.stats_params.end_date'), class: 'fr-label'
-        .fr-input-wrap
-          = f.date_field :end_date, { value: stats[:end_date], class: 'fr-input' }
       .fr-select-group
         = f.label :subject, class: 'fr-label' do
           = t('activerecord.models.subject.one')

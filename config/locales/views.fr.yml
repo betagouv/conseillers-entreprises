@@ -225,10 +225,10 @@ fr:
   conseiller:
     cooperations:
       needs:
-        title: Pilotage par besoin
-        decalage_alert: 
-          title: Possibilité de décalage du nombre de besoins
+        decalage_alert:
           description: Le total des besoins transmis peut à partir d’ici différer. Certains besoins ont été requalifiés par notre équipe pour être affectés au bon sujet.
+          title: Possibilité de décalage du nombre de besoins
+        title: Pilotage par besoin
       title: Coopération %{name}
     csv_exports:
       index:

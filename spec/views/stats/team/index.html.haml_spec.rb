@@ -74,7 +74,6 @@ end
 
 def assign_base_data
   assign(:stats_params, { start_date: start_date, end_date: end_date })
-  assign(:stats_filter_params, { start_date: start_date, end_date: end_date })
   assign(:institution_antennes, [])
   assign(:themes, [])
   assign(:subjects, [])
