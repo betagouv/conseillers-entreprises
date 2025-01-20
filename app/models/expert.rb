@@ -45,6 +45,8 @@ class Expert < ApplicationRecord
   has_many :reminder_feedbacks, -> { where(category: :expert_reminder) }, class_name: :Feedback, dependent: :destroy, as: :feedbackable, inverse_of: :feedbackable
   has_many :reminders_registers, inverse_of: :expert
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
+  has_many :territorial_zones, as: :zoneable, dependent: :destroy, inverse_of: :zoneable
+  accepts_nested_attributes_for :territorial_zones, allow_destroy: true
 
   ## Validations & callbacks
   #
