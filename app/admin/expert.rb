@@ -215,6 +215,20 @@ ActiveAdmin.register Expert do
       end
     end
 
+    panel I18n.t('activerecord.models.territorial_zone.other') do
+      div I18n.t('active_admin.expert.no_specifique_zone') if expert.territorial_zones.empty?
+      TerritorialZone.zone_types.each_key do |zone_type|
+        antenne_territorial_zones = expert.territorial_zones.select { |tz| tz.zone_type == zone_type }
+        next if antenne_territorial_zones.empty?
+        attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
+          model = "DecoupageAdministratif::#{zone_type.camelize}".constantize
+          antenne_territorial_zones.map do |tz|
+            row(tz.code) { model.send(:find_by_code, tz.code).nom }
+          end
+        end
+      end
+    end
+
     attributes_table title: I18n.t('active_admin.antenne.institution_match_filters') do
       expert.institution.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
@@ -277,7 +291,8 @@ ActiveAdmin.register Expert do
     user_ids: [],
     experts_subjects_ids: [],
     experts_subjects_attributes: %i[id intervention_criteria institution_subject_id _create _update _destroy],
-    match_filters_attributes: match_filters_attributes
+    match_filters_attributes: match_filters_attributes,
+    territorial_zones_attributes: [:id, :zone_type, :code, :_destroy]
   ]
 
   form do |f|
@@ -311,6 +326,14 @@ ActiveAdmin.register Expert do
 
     f.inputs t('attributes.is_global_zone') do
       f.input :is_global_zone
+    end
+
+    f.inputs do
+      f.has_many :territorial_zones, allow_destroy: true, new_record: true do |tz|
+
+        tz.input :zone_type, as: :select, collection: TerritorialZone.zone_types.keys.map{ |zone| [I18n.t(zone, scope: "activerecord.attributes.territorial_zone"), zone] }, include_blank: false
+        tz.input :code
+      end
     end
 
     if resource.institution.present?

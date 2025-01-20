@@ -26,7 +26,7 @@ class TerritorialZone < ApplicationRecord
   private
 
   def validate_code_format
-    error_message = I18n.t('activerecord.errors.models.territorial_zones.code.format_invalid', zone_type: zone_type)
+    error_message = I18n.t('activerecord.errors.models.territorial_zones.code.invalid_format', zone_type: zone_type)
     case zone_type
     when 'commune'
       errors.add(:code, error_message) unless code.match?(/^\d{5}$/)
