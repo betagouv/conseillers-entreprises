@@ -1,15 +1,9 @@
 class Conseiller::CooperationsController < ApplicationController
   include StatsUtilities
 
-  before_action :get_cooperation, only: %i[load_filter_options needs]
-  before_action :init_filters, only: %i[load_filter_options needs]
+  before_action :retrieve_cooperation, only: %i[needs load_filter_options]
+  before_action :init_filters, only: %i[needs load_filter_options]
   before_action :set_stats_params, only: %i[needs]
-
-  def index
-    authorize Cooperation, :index?
-    cooperation = current_user.managed_cooperations.first
-    redirect_to action: :needs, id: cooperation.id
-  end
 
   def needs
     @charts_names = %w[
@@ -33,8 +27,12 @@ class Conseiller::CooperationsController < ApplicationController
 
   private
 
-  def get_cooperation
-    @cooperation = Cooperation.find_by(id: params[:id])
+  def retrieve_cooperation
+    @cooperation = if params[:cooperation_id].present?
+      Cooperation.find_by(id: params[:cooperation_id])
+    else
+      current_user.managed_cooperations.first
+    end
     authorize @cooperation, :manage?
   end
 

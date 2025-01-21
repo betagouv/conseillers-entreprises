@@ -126,8 +126,8 @@ Rails.application.routes.draw do
         patch :mark_as_seen
       end
     end
-    resources :cooperations, only: %i[index], path: 'cooperation' do
-      member do
+    resources :cooperations, only: %i[], path: 'cooperation' do
+      collection do
         get :needs, path: 'pilotage-besoin'
         get :matches, path: 'pilotage-partenaire'
         get :rapport_activite, path: 'rapports-activite'

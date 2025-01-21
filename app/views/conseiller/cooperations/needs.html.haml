@@ -9,17 +9,17 @@
     .fr-col
       %h1.fr-h2
         = title
-      = render 'shared/breadcrumb', pages: [{ title: cooperation_title, path: needs_conseiller_cooperation_path(@cooperation) }], current_page: title
+      = render 'shared/breadcrumb', pages: [{ title: cooperation_title, path: needs_conseiller_cooperations_path }], current_page: title
 
 .fr-container
   .fr-grid-row
-    = render 'stats_filters', params: @stats_params, filters: @filters, cooperation: @cooperation
+    = render 'stats_filters', params: @stats_params, filters: @filters
 
 .fr-container
   .fr-grid-row.fr-grid-row--gutters#stats-charts
     - @charts_names.each do |name|
       .fr-col-12.fr-mb-4w
-        = turbo_frame_tag name, stats_params: @stats_params, src: load_data_conseiller_cooperation_path(@cooperation.id, chart_name: name) do
+        = turbo_frame_tag name, stats_params: @stats_params, src: load_data_conseiller_cooperations_path(chart_name: name) do
           = render 'stats/skeleton_card'
       - if name == 'solicitations_diagnoses'
         .fr-col-12.fr-mb-4w

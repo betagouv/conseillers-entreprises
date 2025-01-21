@@ -71,7 +71,7 @@
                   = t('.cooperation')
                 .fr-collapse.fr-menu#nav-cooperation-2
                   %ul.fr-menu__list
-                    = active_link_to conseiller_cooperations_path, class: 'fr-nav__link', wrap_tag: :li do
+                    = active_link_to needs_conseiller_cooperations_path, class: 'fr-nav__link', wrap_tag: :li do
                       = t('.cooperation_needs')
             - if policy(User).admin?
               = active_link_to conseiller_solicitations_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
