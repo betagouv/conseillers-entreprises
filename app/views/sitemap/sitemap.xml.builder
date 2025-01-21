@@ -9,7 +9,7 @@ def site_map_xml(element, xml)
         xml.lastmod e[:lastmod]
         xml.priority e[:priority]
         xml.changefreq e[:changefreq]
-      end
+      end.to_s
     end
     if e[:elements]
       e[:elements].each do |elem|
