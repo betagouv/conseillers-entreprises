@@ -121,7 +121,7 @@ ActiveAdmin.register Antenne do
       TerritorialZone.zone_types.each_key do |zone_type|
         antenne_territorial_zones = antenne.territorial_zones.select { |tz| tz.zone_type == zone_type }
         next if antenne_territorial_zones.empty?
-        attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zones").pluralize do
+        attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
           model = "DecoupageAdministratif::#{zone_type.camelize}".constantize
           antenne_territorial_zones.map do |tz|
             row(tz.code) { model.send(:find_by_code, tz.code).nom }
@@ -205,7 +205,10 @@ ActiveAdmin.register Antenne do
     f.inputs do
       f.has_many :territorial_zones, allow_destroy: true, new_record: true do |tz|
 
-        tz.input :zone_type, as: :select, collection: TerritorialZone.zone_types.keys.map{ |zone| [I18n.t(zone, scope: "activerecord.attributes.territorial_zone"), zone] }, include_blank: false
+        tz.input :zone_type,
+          as: :select,
+          collection: TerritorialZone.zone_types.map { |k, v| [I18n.t(k, scope: "activerecord.attributes.territorial_zone"), v] },
+          include_blank: false
         tz.input :code
       end
     end
