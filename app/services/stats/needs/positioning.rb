@@ -1,8 +1,7 @@
 module Stats::Needs
   class Positioning
-    include ::Stats::BaseStats
-    include ::Stats::TwoRatesStats
     include Stats::Needs::Base
+    include ::Stats::TwoRatesStats
 
     def build_series
       query = filtered_main_query

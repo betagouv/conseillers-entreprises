@@ -1,6 +1,5 @@
 module Stats::Needs
   class Done
-    include ::Stats::BaseStats
     include Stats::Needs::Base
 
     def build_series

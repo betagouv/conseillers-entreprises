@@ -1,4 +1,6 @@
 module Stats::Needs::Base
+  include ::Stats::BaseStats
+
   def needs_base_scope
     Need.diagnosis_completed
       .joins(:diagnosis).merge(Diagnosis.from_solicitation)

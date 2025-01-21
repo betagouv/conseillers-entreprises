@@ -1,6 +1,5 @@
 module Stats::Needs
   class NotForMe
-    include ::Stats::BaseStats
     include Stats::Needs::Base
 
     def build_series

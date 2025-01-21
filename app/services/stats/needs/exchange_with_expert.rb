@@ -1,6 +1,5 @@
 module Stats::Needs
   class ExchangeWithExpert
-    include ::Stats::BaseStats
     include Stats::Needs::Base
 
     def main_query

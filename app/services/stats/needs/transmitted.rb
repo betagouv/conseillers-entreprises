@@ -1,7 +1,6 @@
 module Stats::Needs
   # Besoins mis en relation
   class Transmitted
-    include ::Stats::BaseStats
     include Stats::Needs::Base
 
     def filtered(query)
