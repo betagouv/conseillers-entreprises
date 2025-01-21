@@ -709,6 +709,7 @@ fr:
         territorial_zones:
           code:
             invalid_format: Format pour %{zone_type} est invalide.
+            not_found: '%{zone_type} non trouvé'
         territory:
           attributes:
             insee_codes:

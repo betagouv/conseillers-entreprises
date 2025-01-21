@@ -22,6 +22,7 @@ class TerritorialZone < ApplicationRecord
 
   validates :code, :zone_type, presence: true
   validate :validate_code_format
+  validate :validate_existence
 
   private
 
@@ -37,5 +38,12 @@ class TerritorialZone < ApplicationRecord
     when 'epci'
       errors.add(:code, error_message) unless code.match?(/^\d{9}$/)
     end
+  end
+
+  def validate_existence
+    zone = I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone')
+    error_message = I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: zone)
+    model = "DecoupageAdministratif::#{zone_type.classify}".constantize.send(:find_by_code, code)
+    return errors.add(:code, error_message) if model.nil?
   end
 end
