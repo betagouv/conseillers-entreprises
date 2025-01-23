@@ -642,7 +642,7 @@ class Solicitation < ApplicationRecord
 
   def provenance_detail
     if from_campaign?
-      pk_kwd.presence || mtm_kwd.presence
+      kwd
     elsif origin_title.present?
       origin_title
     elsif origin_url.present?

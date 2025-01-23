@@ -48,6 +48,8 @@ class Cooperation < ApplicationRecord
   auto_strip_attributes :name
   validates :name, presence: true, uniqueness: true
 
+  WITH_PROVENANCE_DETAILS_IDS = [1, 3, 4]
+
   ##
   #
   def to_s
@@ -62,6 +64,10 @@ class Cooperation < ApplicationRecord
   def unarchive!
     self.landings.update_all(archived_at: nil)
     super
+  end
+
+  def with_provenance_details?
+    WITH_PROVENANCE_DETAILS_IDS.include?(id)
   end
 
   def self.ransackable_attributes(auth_object = nil)
