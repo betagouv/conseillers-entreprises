@@ -8,20 +8,22 @@ module Stats::Needs
         .with_action(:abandon)
     end
 
-    def category_group_attribute
-      :status
-    end
-
-    def category_order_attribute
-      :status
-    end
-
     def category_name(category)
       I18n.t('stats.series.needs_abandoned_total_count.series')
     end
 
     def filtered(query)
       Stats::Filters::Needs.new(query, self).call
+    end
+
+    def build_series
+      @needs = []
+
+      search_range_by_month.each do |range|
+        @needs << filtered_main_query.created_between(range.first, range.last).count
+      end
+
+      as_series(@needs)
     end
 
     def count
@@ -39,6 +41,19 @@ module Stats::Needs
 
     def format
       'Total : <b>{point.stackTotal}</b>'
+    end
+
+    def chart
+      'column-chart'
+    end
+
+    def as_series(needs)
+      [
+        {
+          name: I18n.t('stats.series.needs_abandoned_total_count.series'),
+          data: needs
+        }
+      ]
     end
   end
 end
