@@ -214,10 +214,12 @@ export default class Autocomplete extends Controller {
   doFetch = async (url) => {
     const response = await fetch(url, this.optionsForFetch())
     const html = await response.text()
+    console.log(html)
     return html
   }
 
   replaceResults(html) {
+    console.log(this.resultsTarget)
     this.resultsTarget.innerHTML = html
     this.identifyOptions()
     if (!!this.options) {
