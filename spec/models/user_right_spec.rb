@@ -22,9 +22,8 @@ RSpec.describe UserRight do
       let(:duplicate_user_right) { build :user_right, user: user, category: :manager, antenne: antenne }
 
       it do
-        duplicate_user_right.valid?
-        expect(duplicate_user_right.errors[:user_id]).to include(I18n.t('errors.messages.taken'))
         expect(duplicate_user_right).not_to be_valid
+        expect(duplicate_user_right.errors[:user_id]).to include(I18n.t('errors.messages.taken'))
       end
     end
 
@@ -33,9 +32,8 @@ RSpec.describe UserRight do
       let(:user_right) { build :user_right, user: user, category: :manager }
 
       it do
-        user_right.valid?
-        expect(user_right.errors[:rightable_element_id]).to include(I18n.t('errors.manager_without_managed_antennes'))
         expect(user_right).not_to be_valid
+        expect(user_right.errors[:rightable_element_id]).to include(I18n.t('errors.manager_without_managed_antennes'))
       end
     end
 
@@ -46,7 +44,6 @@ RSpec.describe UserRight do
         let(:user_right) { build :user_right, user: user, category: :cooperation_manager }
 
         it do
-          user_right.valid?
           expect(user_right).not_to be_valid
           expect(user_right.errors[:rightable_element_id]).to include(I18n.t('errors.cooperation_manager_without_managed_cooperation'))
         end
@@ -56,7 +53,6 @@ RSpec.describe UserRight do
         let(:user_right) { build :user_right, user: user, category: :cooperation_manager, rightable_element: create(:cooperation) }
 
         it do
-          user_right.valid?
           expect(user_right).to be_valid
         end
       end
@@ -68,12 +64,10 @@ RSpec.describe UserRight do
 
       context 'normal user can’t be referent' do
         it do
-          national_referent.valid?
-          main_referent.valid?
-          expect(national_referent.errors[:category]).to include(I18n.t('.errors.admin_for_referents'))
-          expect(main_referent.errors[:category]).to include(I18n.t('.errors.admin_for_referents'))
           expect(national_referent).not_to be_valid
           expect(main_referent).not_to be_valid
+          expect(national_referent.errors[:category]).to include(I18n.t('.errors.admin_for_referents'))
+          expect(main_referent.errors[:category]).to include(I18n.t('.errors.admin_for_referents'))
         end
       end
 
@@ -95,12 +89,10 @@ RSpec.describe UserRight do
       let(:another_main_referent) { build :user_right, user: user, category: :national_referent }
 
       it 'expect not to be valid' do
-        another_national_referent.valid?
-        another_main_referent.valid?
-        expect(another_national_referent.errors[:category]).to include(I18n.t('.errors.one_user_for_referents'))
-        expect(another_main_referent.errors[:category]).to include(I18n.t('.errors.one_user_for_referents'))
         expect(another_national_referent).not_to be_valid
         expect(another_main_referent).not_to be_valid
+        expect(another_national_referent.errors[:category]).to include(I18n.t('.errors.one_user_for_referents'))
+        expect(another_main_referent.errors[:category]).to include(I18n.t('.errors.one_user_for_referents'))
       end
     end
   end

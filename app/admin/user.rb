@@ -191,7 +191,7 @@ ActiveAdmin.register User do
 
     f.inputs I18n.t('active_admin.user.roles') do
       # Droits responsables d'antenne
-      label_base = t('activerecord.models.user_rights_manager')
+      label_base = t('activerecord.models.user_right.manager')
       f.has_many :user_rights_manager, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
         ur.input :category, as: :hidden, input_html: { value: 'manager' }
         ur.input :antenne,
@@ -205,7 +205,7 @@ ActiveAdmin.register User do
       end
 
       # Droits responsables de coopération
-      label_base = t('activerecord.models.user_rights_cooperation_manager')
+      label_base = t('activerecord.models.user_right.cooperation_manager')
       f.has_many :user_rights_cooperation_manager, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
         ur.input :category, as: :hidden, input_html: { value: 'cooperation_manager' }
         ur.input :cooperation,
@@ -219,7 +219,7 @@ ActiveAdmin.register User do
       end
 
       # Droits admin
-      label_base = t('activerecord.models.user_rights_for_admin')
+      label_base = t('activerecord.models.user_right.for_admin')
       f.has_many :user_rights_for_admin, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
         ur.input :category, as: :select, collection: UserRight::FOR_ADMIN.map{ |cat| [I18n.t(cat, scope: "activerecord.attributes.user_right/categories"), cat] }, include_blank: false
       end

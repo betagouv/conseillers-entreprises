@@ -14,7 +14,7 @@ module StatsHelper
   private
 
   def stats_title_simple(data, name)
-    default = t('title', scope: stats_title_scope(name), count: data.count)
+    t('title', scope: stats_title_scope(name), count: data.count)
   end
 
   def stats_title_with_secondary_count(data, name)

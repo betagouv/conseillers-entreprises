@@ -781,17 +781,17 @@ fr:
         one: Utilisateur
         other: Utilisateurs
       user_right:
+        cooperation_manager:
+          one: Droit responsable de coopération
+          other: Droits responsable de coopération
+        for_admin:
+          one: Droit admin
+          other: Droits admin
+        manager:
+          one: Droit responsable d'antenne
+          other: Droits responsable d'antenne
         one: Droit utilisateur
         other: Droits utilisateur
-      user_rights_cooperation_manager:
-        one: Droit responsable de coopération
-        other: Droits responsable de coopération
-      user_rights_for_admin:
-        one: Droit admin
-        other: Droits admin
-      user_rights_manager:
-        one: Droit responsable d'antenne
-        other: Droits responsable d'antenne
   antenne_stats_exporter:
     annual_national_stats: Repères nationaux
     annual_stats_by_antenne: Stats ann. par antenne

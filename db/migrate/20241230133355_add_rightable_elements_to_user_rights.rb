@@ -13,7 +13,7 @@ class AddRightableElementsToUserRights < ActiveRecord::Migration[7.2]
   def down
     add_reference :user_rights, :antenne, index: true
 
-    UserRight.find_each do |user_right|
+    UserRight.where(rightable_element_type: 'Antenne').find_each do |user_right|
       user_right.update(antenne: user_right.rightable_element)
     end
 
