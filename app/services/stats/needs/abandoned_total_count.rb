@@ -5,53 +5,42 @@ module Stats::Needs
 
     def main_query
       needs_base_scope
-        .with_action(:abandon)
-    end
-
-    def category_name(category)
-      I18n.t('stats.series.needs_abandoned_total_count.series')
-    end
-
-    def filtered(query)
-      Stats::Filters::Needs.new(query, self).call
     end
 
     def build_series
-      @needs = []
+      @abandoned_needs = []
+      @not_abandoned_needs = []
 
       search_range_by_month.each do |range|
-        @needs << filtered_main_query.created_between(range.first, range.last).count
+        @abandoned_needs << filtered_main_query.created_between(range.first, range.last).with_action(:abandon).count
+        @not_abandoned_needs << filtered_main_query.created_between(range.first, range.last).without_action(:abandon).count
       end
 
-      as_series(@needs)
+      as_series(@abandoned_needs, @not_abandoned_needs)
     end
 
     def count
-      total = filtered(needs_base_scope).size
-      total == 0 ? "0" : "#{(secondary_count * 100).fdiv(total).round}%"
+      series
+      percentage_two_numbers(@abandoned_needs, @not_abandoned_needs)
     end
 
     def secondary_count
-      filtered(main_query).size
+      filtered_main_query.with_action(:abandon).size
     end
 
     def subtitle
       I18n.t('stats.series.needs_abandoned_total_count.subtitle')
     end
 
-    def format
-      'Total : <b>{point.stackTotal}</b>'
-    end
-
-    def chart
-      'column-chart'
-    end
-
-    def as_series(needs)
+    def as_series(abandoned_needs, not_abandoned_needs)
       [
         {
-          name: I18n.t('stats.series.needs_abandoned_total_count.series'),
-          data: needs
+          name: I18n.t('stats.series.needs_abandoned_total_count.other_needs'),
+          data: not_abandoned_needs
+        },
+        {
+          name: I18n.t('stats.series.needs_abandoned_total_count.abandoned_needs'),
+          data: abandoned_needs
         }
       ]
     end
