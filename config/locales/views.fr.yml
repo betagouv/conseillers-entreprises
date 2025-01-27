@@ -1019,7 +1019,8 @@ fr:
         title: Évolution des besoins abandonnés dans le temps
         title_table: Nombre de besoins abandonnés
       needs_abandoned_total_count:
-        series: Besoins abandonnés
+        abandoned_needs: Besoins abandonnés
+        other_needs: Autres besoins
         subtitle: Besoins triés par mois selon leur date de création
         title: de besoins transmis sont abandonnés en l’absence de positionnement des conseillers, soit %{secondary_count} besoins
         title_table: Nombre total de besoins abandonnés

@@ -30,16 +30,17 @@ class Conseiller::SolicitationsController < ApplicationController
     authorize @solicitation
     reset_session
     nb_per_page = Solicitation.page(1).limit_value
+    anchor = "solicitation_#{@solicitation.id}"
     case @solicitation.status
     when 'canceled'
       page = (Solicitation.status_canceled.where(completed_at: ...@solicitation.completed_at).count / nb_per_page) + 1
-      redirect_to canceled_conseiller_solicitations_path(anchor: @solicitation.id, page: page)
+      redirect_to canceled_conseiller_solicitations_path(anchor: anchor, page: page)
     when 'processed'
       page = (Solicitation.status_processed.where(completed_at: ...@solicitation.completed_at).count / nb_per_page) + 1
-      redirect_to processed_conseiller_solicitations_path(anchor: @solicitation.id, page: page)
+      redirect_to processed_conseiller_solicitations_path(anchor: anchor, page: page)
     else
       page = (Solicitation.status_in_progress.where(completed_at: ...@solicitation.completed_at).count / nb_per_page) + 1
-      redirect_to conseiller_solicitations_path(anchor: @solicitation.id, page: page)
+      redirect_to conseiller_solicitations_path(anchor: anchor, page: page)
     end
   end
 
