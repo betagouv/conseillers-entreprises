@@ -86,7 +86,7 @@ RSpec.describe Match do
 
   describe 'auto_close_other_france_travail_matches' do
     let(:need) { create :need }
-    let(:france_travail) { create :institution, name: 'France Travail', slug: 'france-travail' }
+    let(:france_travail) { create :institution, name: 'France Travail', slug: 'france-travail-pro' }
     let!(:match_pe_01) do
       create :match, need: need, status: :quo,
       expert: create(:expert, antenne: create(:antenne, institution: france_travail))

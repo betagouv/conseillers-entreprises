@@ -279,7 +279,7 @@ class Match < ApplicationRecord
   end
 
   def auto_close_other_france_travail_matches
-    france_travail = Institution.find_by(slug: 'france-travail')
+    france_travail = Institution.find_by(slug: 'france-travail-pro')
     return if france_travail.nil? || self.status != 'taking_care'
     other_france_travail_matches = self.need.matches.joins(:expert_institution)
       .where(expert: { antenne: Antenne.where(institution_id: france_travail.id) })
