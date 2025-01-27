@@ -50,7 +50,7 @@ module CsvExport
     def self.display_comments(expert, need)
       comments = expert.feedbacks.where(user: expert.users, feedbackable: need).order(:created_at)
       comments_displays = comments.map do |comment|
-        "- #{I18n.l(comment.created_at, format: :fr)} #{comment.description}"
+        "- #{I18n.l(comment.created_at, format: :fr)}, #{comment.user.full_name}: #{comment.description}"
       end
       comments_displays.join("\n")
     end
