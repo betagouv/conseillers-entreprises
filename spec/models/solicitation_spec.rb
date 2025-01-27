@@ -166,7 +166,7 @@ end
   end
 
   describe 'callbacks' do
-    describe 'set_cooperation_from_landing' do
+    describe 'set_cooperation' do
       subject { solicitation.cooperation }
 
       context 'with cooperation from a landing page' do
@@ -184,9 +184,23 @@ end
         it { is_expected.to eq cooperation }
       end
 
+      context 'with entreprendre mtm_kwd in the query_params' do
+        let!(:cooperation) { create :cooperation, mtm_campaign: 'entreprendre' }
+        let(:solicitation) { create :solicitation, form_info: { mtm_kwd: 'F12345' } }
+
+        it { is_expected.to eq cooperation }
+      end
+
       context 'with no cooperation' do
         let(:landing) { build :landing, cooperation: nil }
         let(:solicitation) { create :solicitation, landing: landing, form_info: {} }
+
+        it { is_expected.to be_nil }
+      end
+
+      context 'with random mtm_kwd' do
+        let!(:cooperation) { create :cooperation, mtm_campaign: 'entreprendre' }
+        let(:solicitation) { create :solicitation, form_info: { mtm_kwd: 'FrouFrou' } }
 
         it { is_expected.to be_nil }
       end
