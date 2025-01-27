@@ -24,6 +24,10 @@ class TerritorialZone < ApplicationRecord
   validate :validate_code_format
   validate :validate_existence
 
+  def antenne
+    zoneable.instance_of?(Antenne) ? zoneable : nil
+  end
+
   private
 
   def validate_code_format
@@ -32,7 +36,7 @@ class TerritorialZone < ApplicationRecord
     when 'commune'
       errors.add(:code, error_message) unless code.match?(/^\d{5}$/)
     when 'departement'
-      errors.add(:code, error_message) unless code.match?(/^\d{2,3}$/)
+      errors.add(:code, error_message) unless code.match?(/^(?:[0-9]{2}|2[AB]|[0-9]{3})$/)
     when 'region'
       errors.add(:code, error_message) unless code.match?(/^\d{2}$/)
     when 'epci'
