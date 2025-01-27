@@ -13,6 +13,7 @@
 #  location                         :string
 #  phone_number                     :string
 #  prepare_diagnosis_errors_details :jsonb
+#  provenance_detail                :string
 #  requested_help_amount            :string
 #  siret                            :string
 #  status                           :integer          default("step_contact")
@@ -74,7 +75,7 @@ class Solicitation < ApplicationRecord
   attr_accessor :certify_being_company_boss
 
   before_create :set_uuid
-  before_create :set_cooperation_from_landing
+  before_create :set_cooperation
 
   after_update :update_diagnosis
 
@@ -206,8 +207,8 @@ class Solicitation < ApplicationRecord
   ## Callbacks
   #
 
-  def set_cooperation_from_landing
-    self.cooperation ||= landing&.cooperation || Cooperation.find_by(mtm_campaign: form_info&.fetch('mtm_campaign', nil))
+  def set_cooperation
+    self.cooperation ||= landing&.cooperation || Cooperation.find_by(mtm_campaign: form_info&.fetch('mtm_campaign', nil)) || (Cooperation.find_by(mtm_campaign: 'entreprendre') if self.from_entreprendre)
   end
 
   def set_uuid
@@ -226,6 +227,12 @@ class Solicitation < ApplicationRecord
   def formatted_email
     # cas des double point qui empêche l'envoi d'email
     self.email&.squeeze('.')
+  end
+
+  # Format fiche : F1234..
+  def from_entreprendre
+    self.cooperation&.mtm_campaign == 'entreprendre' || 
+    QueryFromEntreprendre.new(campaign: self.campaign, kwd: self.kwd).call
   end
 
   ## Scopes
