@@ -1,11 +1,6 @@
 module Stats::Needs
   class Done
-    include ::Stats::BaseStats
     include Stats::Needs::Base
-
-    def main_query
-      needs_base_scope
-    end
 
     def build_series
       query = filtered_main_query
@@ -29,12 +24,8 @@ module Stats::Needs
       percentage_two_numbers(@needs_done, @needs_other_status)
     end
 
-    def filtered_main_query
-      Stats::Filters::Needs.new(main_query, self).call
-    end
-
     def secondary_count
-      filtered_main_query.status_done.size
+      @secondary_count ||= filtered_main_query.status_done.size
     end
 
     def subtitle

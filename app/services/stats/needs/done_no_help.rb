@@ -1,11 +1,6 @@
 module Stats::Needs
   class DoneNoHelp
-    include ::Stats::BaseStats
     include Stats::Needs::Base
-
-    def main_query
-      needs_base_scope
-    end
 
     def build_series
       query = main_query
@@ -39,7 +34,7 @@ module Stats::Needs
     end
 
     def secondary_count
-      filtered_main_query.status_done_no_help.size
+      @secondary_count ||= filtered_main_query.status_done_no_help.size
     end
 
     private

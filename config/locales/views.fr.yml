@@ -115,6 +115,8 @@ fr:
       antenne_needs: Besoins de l’antenne
       antennes_needs: Besoins des antennes
       badges: Tags
+      cooperation: Coopération
+      cooperation_needs: Pilotage par besoin
       csv_exports: Exports csv
       invite: Inviter des utilisateurs
       profile: Profil
@@ -221,6 +223,13 @@ fr:
     thank_you:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
   conseiller:
+    cooperations:
+      needs:
+        decalage_alert:
+          description: Le total des besoins transmis peut à partir d’ici différer. Certains besoins ont été requalifiés par notre équipe pour être affectés au bon sujet.
+          title: Possibilité de décalage du nombre de besoins
+        title: "%{cooperation_name} - Pilotage par besoin"
+      title: Coopération %{name}
     csv_exports:
       index:
         no_export: Vous n'avez pas d'export actif
@@ -1053,9 +1062,19 @@ fr:
       needs_not_for_me:
         title: des besoins transmis sont refusés, soit %{secondary_count} besoins
         title_table: Nombre de besoins refusés
+      needs_positioning:
+        subtitle: Au moins un exeprt s’est positionné pour indiquer prendre en charge ou refuser le besoin.
+        title:
+          one: des besoins transmis ont reçu un positionnement d'un expert, soit %{secondary_count} besoin
+          other: des besoins transmis ont reçu un positionnement d'un expert, soit %{secondary_count} besoins
+          zero: des besoins transmis ont reçu un positionnement d'un expert, soit %{secondary_count} besoin
+        title_table: Taux de réponse
       needs_quo:
         title: des besoins transmis sont en attente de prise en charge par les conseillers
         title_table: Nombre de besoins en attente de prise en charge par les conseillers
+      needs_subjects:
+        title: Sujets choisis par les entreprises
+        title_table: Sujets choisis par les entreprises
       needs_taking_care:
         title: des besoins transmis sont en cours de prise en charge par les conseillers
         title_table: Nombre de besoins en cours de prise en charge par les conseillers

@@ -1,6 +1,5 @@
 module Stats::Needs
   class ExchangeWithExpert
-    include ::Stats::BaseStats
     include Stats::Needs::Base
 
     def main_query
@@ -33,17 +32,9 @@ module Stats::Needs
       percentage_two_numbers(@needs_with_exchange, @needs_without_exchange)
     end
 
-    def filtered_main_query
-      Stats::Filters::Needs.new(main_query, self).call
-    end
-
     def secondary_count
-      filtered_main_query.with_exchange.size
+      @secondary_count ||= filtered_main_query.with_exchange.size
     end
-
-    # def format
-    #   '{series.name} : <b>{point.percentage:.0f}%</b> (Total : {point.y})'
-    # end
 
     private
 

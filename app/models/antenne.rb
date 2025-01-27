@@ -60,9 +60,9 @@ class Antenne < ApplicationRecord
   has_many :stats_reports, -> { category_stats }, class_name: 'QuarterlyReport', dependent: :destroy, inverse_of: :antenne
 
   # rights / roles
-  has_many :user_rights, inverse_of: :antenne, dependent: :destroy
-  has_many :user_rights_manager, ->{ category_manager }, class_name: 'UserRight', inverse_of: :antenne
-  has_many :managers, -> { distinct }, through: :user_rights_manager, source: :user, inverse_of: :managed_antennes
+  has_many :user_rights, as: :rightable_element, dependent: :destroy, inverse_of: :rightable_element
+  has_many :user_rights_managers, ->{ category_manager }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
+  has_many :managers, -> { distinct }, through: :user_rights_managers, source: :user, inverse_of: :managed_antennes
 
   has_many :referencement_coverages, dependent: :destroy, inverse_of: :antenne
 

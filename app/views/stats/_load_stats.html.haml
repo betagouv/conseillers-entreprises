@@ -5,10 +5,7 @@
     %h2.fr-h3
       - if data.count.present?
         %span= stats_count(data.count)
-      - if data.secondary_count.present?
-        = t('title', scope: ['stats', 'series', name], count: data.secondary_count, secondary_count: stats_count(data.secondary_count))
-      - else
-        = t('title', scope: ['stats', 'series', name], count: data.count)
+      = stats_title(data, name)
 
     %p.fr-m-0{ id: chart_name,
       'data-stats-charts-target': 'graph',

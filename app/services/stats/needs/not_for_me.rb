@@ -1,11 +1,6 @@
 module Stats::Needs
   class NotForMe
-    include ::Stats::BaseStats
     include Stats::Needs::Base
-
-    def main_query
-      needs_base_scope
-    end
 
     def build_series
       query = main_query
@@ -31,7 +26,7 @@ module Stats::Needs
     end
 
     def secondary_count
-      filtered_main_query.status_not_for_me.size
+      @secondary_count ||= filtered_main_query.status_not_for_me.size
     end
 
     private

@@ -126,10 +126,11 @@ ActiveAdmin.register User do
         resource.user_rights.each do |ur|
           li do
             right = I18n.t(ur.category, scope: "activerecord.attributes.user_right/categories")
-            if ur.antenne.present?
-              right = "#{right} : #{admin_link_to(ur.antenne)}".html_safe
+            if ur.rightable_element.present?
+              right = "#{right} : #{admin_link_to(ur.rightable_element)}".html_safe
+            else
+              right
             end
-            right
           end
         end
       end
@@ -162,9 +163,10 @@ ActiveAdmin.register User do
 
   # Form
   #
-  user_rights_attributes = [:id, :antenne_id, :category, :_destroy]
+  user_rights_attributes = [:id, :rightable_element_id, :rightable_element_type, :category, :_destroy]
   permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id, :create_expert,
-                expert_ids: [], user_rights_attributes: user_rights_attributes
+                expert_ids: [], user_rights_attributes: user_rights_attributes, user_rights_for_admin_attributes: user_rights_attributes,
+                user_rights_manager_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
@@ -188,17 +190,38 @@ ActiveAdmin.register User do
     end
 
     f.inputs I18n.t('active_admin.user.roles') do
-      f.has_many :user_rights, allow_destroy: true, new_record: true do |ur|
-        ur.input :category, as: :select, collection: UserRight.categories.keys.map{ |cat| [I18n.t(cat, scope: "activerecord.attributes.user_right/categories"), cat] }, include_blank: false
+      # Droits responsables d'antenne
+      label_base = t('activerecord.models.user_right.manager')
+      f.has_many :user_rights_manager, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
+        ur.input :category, as: :hidden, input_html: { value: 'manager' }
         ur.input :antenne,
-                 as: :ajax_select,
                  collection: [[resource.antenne&.name, resource.antenne&.id]],
+                 as: :ajax_select,
                  data: {
                    url: :admin_antennes_path,
-                   search_fields: [:name],
-                   selected: resource.antenne&.id
-                 },
-                 selected: resource.antenne&.id
+                   search_fields: [:name]
+                 }
+        ur.input :rightable_element_type, as: :hidden, input_html: { value: 'Antenne' }
+      end
+
+      # Droits responsables de coopération
+      label_base = t('activerecord.models.user_right.cooperation_manager')
+      f.has_many :user_rights_cooperation_manager, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
+        ur.input :category, as: :hidden, input_html: { value: 'cooperation_manager' }
+        ur.input :cooperation,
+                 collection: Cooperation.not_archived.pluck(:name, :id),
+                 as: :ajax_select,
+                 data: {
+                   url: :admin_cooperations_path,
+                   search_fields: [:name]
+                 }
+        ur.input :rightable_element_type, as: :hidden, input_html: { value: 'Cooperation' }
+      end
+
+      # Droits admin
+      label_base = t('activerecord.models.user_right.for_admin')
+      f.has_many :user_rights_for_admin, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
+        ur.input :category, as: :select, collection: UserRight::FOR_ADMIN.map{ |cat| [I18n.t(cat, scope: "activerecord.attributes.user_right/categories"), cat] }, include_blank: false
       end
     end
 

@@ -1,6 +1,5 @@
 module Stats::Needs
   class AbandonedTotalCount
-    include ::Stats::BaseStats
     include Stats::Needs::Base
 
     def main_query
@@ -25,7 +24,7 @@ module Stats::Needs
     end
 
     def secondary_count
-      filtered_main_query.with_action(:abandon).size
+      @secondary_count ||= filtered_main_query.size
     end
 
     def subtitle

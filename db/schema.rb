@@ -687,13 +687,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_09_094556) do
   end
 
   create_table "user_rights", force: :cascade do |t|
-    t.bigint "antenne_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "category", null: false
-    t.index ["antenne_id"], name: "index_user_rights_on_antenne_id"
-    t.index ["user_id", "antenne_id", "category"], name: "index_user_rights_on_user_id_and_antenne_id_and_category", unique: true
+    t.string "rightable_element_type"
+    t.bigint "rightable_element_id"
+    t.index ["rightable_element_type", "rightable_element_id"], name: "index_user_rights_on_rightable_element"
+    t.index ["user_id", "category", "rightable_element_id", "rightable_element_type"], name: "unique_category_rightable_element_index", unique: true
     t.index ["user_id"], name: "index_user_rights_on_user_id"
   end
 
@@ -792,7 +793,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_09_094556) do
   add_foreign_key "subjects", "themes"
   add_foreign_key "territories_themes", "territories"
   add_foreign_key "territories_themes", "themes"
-  add_foreign_key "user_rights", "antennes"
   add_foreign_key "user_rights", "users"
   add_foreign_key "users", "antennes"
   add_foreign_key "users", "users", column: "inviter_id"
