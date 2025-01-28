@@ -32,7 +32,6 @@ class Conseiller::CooperationsController < ApplicationController
 
   private
 
-
   def retrieve_cooperation
     authorize Cooperation, :index?
     @cooperation = if params[:cooperation_id].present?

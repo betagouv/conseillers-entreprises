@@ -230,8 +230,7 @@ class SolicitationsController < PagesController
   end
 
   def from_entreprendre_via_view_params
-    QueryFromEntreprendre.new(campaign: query_params[:mtm_campaign], kwd: query_params[:mtm_kwd]).call
-      && !(view_params[:redirected] == 'entreprendre')
+    QueryFromEntreprendre.new(campaign: query_params[:mtm_campaign], kwd: query_params[:mtm_kwd]).call && !(view_params[:redirected] == 'entreprendre')
   end
 
   def from_entreprendre_via_referer

@@ -30,12 +30,13 @@
           = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
           = f.collection_select :territory, filters[:regions], :id, :name, { selected: params[:territory],
             include_blank: t('all.feminine') }, class: "fr-select"
-      .fr-input-group.fr-pr-2v
-        .autocomplete-field{ 'data-autocomplete-url-value': "#{provenance_detail_autocomplete_conseiller_cooperations_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length': 3 }
-          = f.label :provenance_detail, t('provenance_detail'), class: 'fr-label'
-          = f.hidden_field :provenance_detail, 'data-autocomplete-target': 'hidden'
-          %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text' }= params[:provenance_detail].presence
-          %ul.list-group{ 'data-autocomplete-target': 'results' }
+      - if cooperation.with_provenance_details?
+        .fr-input-group.fr-pr-2v
+          .autocomplete-field{ 'data-autocomplete-url-value': "#{provenance_detail_autocomplete_conseiller_cooperations_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length-value': 2 }
+            = f.label :provenance_detail, t('stats.stats_params.provenance_detail'), class: 'fr-label'
+            = f.hidden_field :provenance_detail, 'data-autocomplete-target': 'hidden'
+            %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text', value: params[:provenance_detail].presence }
+            %ul.list-group{ 'data-autocomplete-target': 'results' }
 
 
     .fr-col-12
