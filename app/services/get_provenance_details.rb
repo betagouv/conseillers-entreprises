@@ -6,7 +6,8 @@ class GetProvenanceDetails
 
   def call
     return [] unless @cooperation.with_provenance_details?
-    provenance_details_list.grep(/#{@query}/i)
+    sanitized_query = Regexp.escape(@query)
+    provenance_details_list.grep(/#{sanitized_query}/i)
   end
 
   private

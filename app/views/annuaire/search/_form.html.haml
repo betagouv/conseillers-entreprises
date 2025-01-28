@@ -4,7 +4,7 @@
   .fr-grid-row.fr-grid-row--gutters{ data: { controller: 'stats', url: annuaire_load_filter_options_path } }
     .fr-col
       .fr-input-group.fr-pr-2v
-        .autocomplete-field{ 'data-autocomplete-url-value': "#{annuaire_autocomplete_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length': 3 }
+        .autocomplete-field{ 'data-autocomplete-url-value': "#{annuaire_autocomplete_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length-value': 3 }
           = f.label :query, t('search'), class: 'fr-label'
           = f.hidden_field :query, 'data-autocomplete-target': 'hidden'
           %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text' }

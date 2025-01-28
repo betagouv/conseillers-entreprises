@@ -48,8 +48,6 @@ class Cooperation < ApplicationRecord
   auto_strip_attributes :name
   validates :name, presence: true, uniqueness: true
 
-  WITH_PROVENANCE_DETAILS_IDS = [1, 3, 4]
-
   ##
   #
   def to_s
@@ -67,7 +65,7 @@ class Cooperation < ApplicationRecord
   end
 
   def with_provenance_details?
-    WITH_PROVENANCE_DETAILS_IDS.include?(id)
+    self.solicitations.pluck(:provenance_detail).compact_blank.uniq.any?
   end
 
   def self.ransackable_attributes(auth_object = nil)

@@ -207,7 +207,9 @@ class Solicitation < ApplicationRecord
   #
 
   def set_cooperation
-    self.cooperation ||= landing&.cooperation || (Cooperation.find_by(mtm_campaign: self.campaign) if self.campaign.present?) || (Cooperation.find_by(mtm_campaign: 'entreprendre') if self.from_entreprendre) # si pas de mtm_campaign enregistré
+    self.cooperation ||= landing&.cooperation ||
+      (Cooperation.find_by(mtm_campaign: self.campaign) if self.campaign.present?) ||
+      (Cooperation.find_by(mtm_campaign: 'entreprendre') if self.from_entreprendre) # si pas de mtm_campaign enregistré
   end
 
   def set_provenance_detail
@@ -216,13 +218,13 @@ class Solicitation < ApplicationRecord
 
   def calculate_provenance_detail
     # On regarde en priorité les cooperations
-    return self.kwd if self.from_entreprendre
-    return self.origin_title if self.cooperation&.id == 3 # les-aides
-    return self.origin_url&.gsub("https://mission-transition-ecologique.beta.gouv.fr/", "") if self.cooperation&.id == 4 # MTEE
+    return kwd if from_entreprendre
+    return origin_title if cooperation&.id == 3 # les-aides
+    return origin_url&.gsub("https://mission-transition-ecologique.beta.gouv.fr/", "") if cooperation&.id == 4 # MTEE
     # puis le reste
-    return self.kwd if self.from_campaign?
-    return self.origin_title if self.origin_title.present?
-    return self.origin_url if self.origin_url.present?
+    return kwd if from_campaign?
+    return origin_title if origin_title.present?
+    return origin_url if origin_url.present?
   end
 
   def set_uuid
