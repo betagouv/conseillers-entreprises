@@ -3,7 +3,7 @@
 require 'rails_helper'
 describe QueryFromEntreprendre do
   describe 'call' do
-  subject { described_class.new(campaign: campaign, kwd: kwd).call }
+    subject { described_class.new(campaign: campaign, kwd: kwd).call }
 
     context 'with nil values' do
       let(:campaign) { nil }
