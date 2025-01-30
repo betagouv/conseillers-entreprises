@@ -6,7 +6,7 @@ class BuildAntennesCollection
 
   def for_manager
     manager_antennes = manager_antennes_included_regionals
-    antennes_collection = antennes_collection_hash(Antenne.with_experts_subjects.not_deleted, manager_antennes)
+    antennes_collection = antennes_collection_hash(Antenne.not_deleted, manager_antennes)
     add_locals_antennes(antennes_collection, manager_antennes)
   end
 
