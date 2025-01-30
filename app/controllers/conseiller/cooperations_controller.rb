@@ -37,7 +37,7 @@ class Conseiller::CooperationsController < ApplicationController
   end
 
   def init_filters
-    themes = @cooperation.themes.select(:id, :label).order(:label).uniq
+    themes = @cooperation.themes.select(:id, :label).order(:label)
     subjects = @cooperation.subjects.not_archived.order(:label)
 
     # on verifie que le theme précédemment sélectionné fait bien partie des thèmes possibles
@@ -45,8 +45,8 @@ class Conseiller::CooperationsController < ApplicationController
       subjects = subjects.where(theme_id: params[:theme])
     end
     @filters = {
-      themes: themes,
-      subjects: subjects,
+      themes: themes.uniq,
+      subjects: subjects.uniq,
       regions: Territory.regions
     }
   end
