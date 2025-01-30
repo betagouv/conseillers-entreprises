@@ -7,7 +7,7 @@ ActiveAdmin.register Antenne do
     def scoped_collection
       # NOTE: Don’t `includes` lots of related tables, as this causes massive leaks in ActiveAdmin.
       # Preferring N+1 queries fasten x2 index display
-      super.includes :institution, :advisors, :experts
+      super.includes :institution, :advisors, :experts, :territorial_zones
     end
   end
 
@@ -28,6 +28,13 @@ ActiveAdmin.register Antenne do
     column(:community) do |a|
       div admin_link_to(a, :advisors)
       div admin_link_to(a, :experts)
+    end
+    column(:territoral_zones) do |a|
+      zone_types = TerritorialZone.zone_types.keys
+      zone_types.each do |zone_type|
+        count = a.territorial_zones.count { |tz| tz.zone_type == zone_type }
+        div(I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone') + ' : ' + count.to_s) if count.positive?
+      end
     end
     column(:intervention_zone) do |a|
       div admin_link_to(a, :territories)
