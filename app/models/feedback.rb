@@ -94,7 +94,7 @@ class Feedback < ApplicationRecord
   scope :need_created_at_gteq, -> (val) { joins(:feedback_need).where(needs: { created_at: val.. }) }
   scope :need_created_at_lteq, -> (val) { joins(:feedback_need).where(needs: { created_at: ..val }) }
   scope :user_antenne_eq, -> (antenne) { joins(:user).where(users: { antenne: antenne }) }
-  scope :user_institution_eq, -> (institution) { joins(user: { antenne: :institution }).where(users: { institutions: institution }) }
+  scope :user_institution_eq, -> (institution) { joins(user: { antenne: :institution }).where(users: { antennes: { institution: institution } }) }
 
   ##
   #
