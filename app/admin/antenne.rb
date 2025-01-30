@@ -9,7 +9,7 @@ ActiveAdmin.register Antenne do
     def scoped_collection
       # NOTE: Don’t `includes` lots of related tables, as this causes massive leaks in ActiveAdmin.
       # Preferring N+1 queries fasten x2 index display
-      super.includes :institution, :advisors, :experts
+      super.includes :institution, :advisors, :experts, :territorial_zones
     end
   end
 
@@ -30,6 +30,13 @@ ActiveAdmin.register Antenne do
     column(:community) do |a|
       div admin_link_to(a, :advisors)
       div admin_link_to(a, :experts)
+    end
+    column(:territoral_zones) do |a|
+      zone_types = TerritorialZone.zone_types.keys
+      zone_types.each do |zone_type|
+        count = a.territorial_zones.count { |tz| tz.zone_type == zone_type }
+        div(I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone') + ' : ' + count.to_s) if count.positive?
+      end
     end
     column(:intervention_zone) do |a|
       div admin_link_to(a, :territories)
@@ -114,6 +121,19 @@ ActiveAdmin.register Antenne do
       end
     end
 
+    panel I18n.t('activerecord.models.territorial_zone.other') do
+      TerritorialZone.zone_types.each_key do |zone_type|
+        antenne_territorial_zones = antenne.territorial_zones.select { |tz| tz.zone_type == zone_type }
+        next if antenne_territorial_zones.empty?
+        attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
+          model = "DecoupageAdministratif::#{zone_type.camelize}".constantize
+          antenne_territorial_zones.map do |tz|
+            row(tz.code) { model.send(:find_by_code, tz.code).nom }
+          end
+        end
+      end
+    end
+
     attributes_table title: I18n.t('active_admin.antenne.institution_match_filters') do
       antenne.institution.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
@@ -146,7 +166,7 @@ ActiveAdmin.register Antenne do
     :raw_accepted_naf_codes, :raw_excluded_naf_codes, :raw_accepted_legal_forms, :raw_excluded_legal_forms, :_destroy, subject_ids: []
   ]
   permit_params :name, :institution_id, :insee_codes, :territorial_level,
-                advisor_ids: [], expert_ids: [], manager_ids: [], match_filters_attributes: match_filters_attributes
+                advisor_ids: [], expert_ids: [], manager_ids: [], match_filters_attributes: match_filters_attributes, territorial_zones_attributes: [:id, :zone_type, :code, :_destroy]
 
   form do |f|
     f.inputs do
@@ -184,6 +204,17 @@ ActiveAdmin.register Antenne do
                 url: :admin_experts_path,
                 search_fields: [:full_name]
               }
+    end
+
+    f.inputs do
+      f.has_many :territorial_zones, allow_destroy: true, new_record: true do |tz|
+
+        tz.input :zone_type,
+          as: :select,
+          collection: TerritorialZone.zone_types.map { |k, v| [I18n.t(k, scope: "activerecord.attributes.territorial_zone"), v] },
+          include_blank: false
+        tz.input :code
+      end
     end
 
     f.inputs do
