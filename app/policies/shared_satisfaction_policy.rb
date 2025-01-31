@@ -1,6 +1,5 @@
 class SharedSatisfactionPolicy < ApplicationPolicy
   def show_navbar?
-    return false if @user&.is_admin?
-    true
+    Institution.expert_provider.include?(@user.institution)
   end
 end
