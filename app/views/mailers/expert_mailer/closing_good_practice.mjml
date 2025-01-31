@@ -1,0 +1,17 @@
+<mj-section>
+  <mj-column>
+    <mj-text>
+      <p><%= t('mailers.hello') %></p>
+
+      <p><%= t('.please_close_html', link_to_needs: link_to(t('app_name'), taking_care_needs_url)) %></p>
+
+      <p><%= t('.at_your_service') %></p>
+
+      <p><%= t('mailers.sincerely') %></p>
+
+      <p><%= @support_user.full_name %></p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+
+<%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user, sent_personally: true %>

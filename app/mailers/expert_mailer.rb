@@ -72,6 +72,17 @@ class ExpertMailer < ApplicationMailer
     end
   end
 
+  def closing_good_practice
+    # Envoyé depuis veille - stock en cours
+    with_expert_init do
+      mail(
+        to: @expert.email_with_display_name,
+        reply_to: @support_user.email_with_display_name,
+        subject: t('mailers.expert_mailer.closing_good_practice.subject')
+      )
+    end
+  end
+
   def last_chance
     with_expert_init do
       @need = params[:need]
