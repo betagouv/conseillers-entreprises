@@ -7,6 +7,7 @@ module AdminExpertCardFooterHelper
   end
 
   EXPERT_EMAILS = {
+    inputs: :reminder_email,
     many_pending_needs: :reminder_email,
     medium_pending_needs: :reminder_email,
     one_pending_need: :re_engagement_email,
