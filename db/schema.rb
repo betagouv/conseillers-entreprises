@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_09_094556) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_23_101225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -592,6 +592,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_09_094556) do
     t.uuid "uuid"
     t.datetime "completed_at", precision: nil
     t.bigint "cooperation_id"
+    t.string "provenance_detail"
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["cooperation_id"], name: "index_solicitations_on_cooperation_id"
     t.index ["email"], name: "index_solicitations_on_email"

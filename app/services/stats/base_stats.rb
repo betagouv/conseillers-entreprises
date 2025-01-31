@@ -8,7 +8,7 @@ module Stats
   module BaseStats
     FILTER_PARAMS = [
       :territory, :institution, :antenne, :landing_id, :integration, :cooperation_id, :mtm_campaign, :mtm_kwd,
-      :start_date, :end_date, :theme, :subject, :colors, :with_agglomerate_data
+      :start_date, :end_date, :theme, :subject, :colors, :with_agglomerate_data, :provenance_detail
     ]
     attr_reader(*FILTER_PARAMS)
 
@@ -23,6 +23,7 @@ module Stats
       @landing_id = params.landing_id
       @mtm_campaign = params.mtm_campaign
       @mtm_kwd = params.mtm_kwd
+      @provenance_detail = params.provenance_detail
       @cooperation_id = params.cooperation_id
       @theme = Theme.find_by(id: params.theme) if params.theme.present?
       start_date = params.start_date&.to_date || (Date.today - 6.months)

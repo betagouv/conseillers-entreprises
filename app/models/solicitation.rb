@@ -13,6 +13,7 @@
 #  location                         :string
 #  phone_number                     :string
 #  prepare_diagnosis_errors_details :jsonb
+#  provenance_detail                :string
 #  requested_help_amount            :string
 #  siret                            :string
 #  status                           :integer          default("step_contact")
@@ -73,8 +74,7 @@ class Solicitation < ApplicationRecord
 
   attr_accessor :certify_being_company_boss
 
-  before_create :set_uuid
-  before_create :set_cooperation_from_landing
+  before_create :set_uuid, :set_cooperation, :set_provenance_detail
 
   after_update :update_diagnosis
 
@@ -206,8 +206,25 @@ class Solicitation < ApplicationRecord
   ## Callbacks
   #
 
-  def set_cooperation_from_landing
-    self.cooperation ||= landing&.cooperation || Cooperation.find_by(mtm_campaign: form_info&.fetch('mtm_campaign', nil))
+  def set_cooperation
+    self.cooperation ||= landing&.cooperation ||
+      (Cooperation.find_by(mtm_campaign: self.campaign) if self.campaign.present?) ||
+      (Cooperation.find_by(mtm_campaign: 'entreprendre') if self.from_entreprendre) # si pas de mtm_campaign enregistré
+  end
+
+  def set_provenance_detail
+    self.provenance_detail ||= calculate_provenance_detail
+  end
+
+  def calculate_provenance_detail
+    # On regarde en priorité les cooperations
+    return kwd if from_entreprendre
+    return origin_title if cooperation&.id == 3 # les-aides
+    return origin_url&.gsub("https://mission-transition-ecologique.beta.gouv.fr/", "") if cooperation&.id == 4 # MTEE
+    # puis le reste
+    return kwd if from_campaign?
+    return origin_title if origin_title.present?
+    return origin_url if origin_url.present?
   end
 
   def set_uuid
@@ -226,6 +243,12 @@ class Solicitation < ApplicationRecord
   def formatted_email
     # cas des double point qui empêche l'envoi d'email
     self.email&.squeeze('.')
+  end
+
+  # Format fiche : F1234..
+  def from_entreprendre
+    self.cooperation&.mtm_campaign == 'entreprendre' ||
+    QueryFromEntreprendre.new(campaign: self.campaign, kwd: self.kwd).call
   end
 
   ## Scopes
@@ -638,16 +661,6 @@ class Solicitation < ApplicationRecord
   def provenance_title_sanitized
     return nil if provenance_title.nil?
     provenance_title[/googleads/i] || provenance_title
-  end
-
-  def provenance_detail
-    if from_campaign?
-      pk_kwd.presence || mtm_kwd.presence
-    elsif origin_title.present?
-      origin_title
-    elsif origin_url.present?
-      origin_url
-    end
   end
 
   def campaign

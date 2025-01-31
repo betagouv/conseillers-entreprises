@@ -40,6 +40,12 @@ module Stats::Filters
         .where(landing: { id: landing_id })
     end
 
+    def provenance_detail_filter(provenance_detail)
+      return if provenance_detail.blank?
+      @query.merge! Company.joins(facilities: { diagnoses: :solicitation })
+        .where(solicitation: { provenance_detail: provenance_detail })
+    end
+
     def theme_filter(theme)
       return if theme.blank?
       @query.merge! Company.joins(facilities: { diagnoses: { solicitation: { landing_subject: { subject: :theme } } } })

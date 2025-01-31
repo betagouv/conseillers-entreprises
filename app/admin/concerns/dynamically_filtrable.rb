@@ -1,5 +1,3 @@
-## Support for :archive and :unarchive actions in /admin
-#
 module DynamicallyFiltrable
   extend ActiveSupport::Concern
 

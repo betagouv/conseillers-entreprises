@@ -16,6 +16,7 @@ module Stats::Filters
       theme_filter(@graph_struct.theme)
       mtm_campaign_filter(@graph_struct.mtm_campaign)
       mtm_kwd_filter(@graph_struct.mtm_kwd)
+      provenance_detail_filter(@graph_struct.provenance_detail)
       @query
     end
 
