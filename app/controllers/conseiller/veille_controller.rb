@@ -25,6 +25,22 @@ class Conseiller::VeilleController < ApplicationController
     @action = :taking_care_matches
   end
 
+  def send_closing_good_practice_email
+    expert = Expert.find(params.permit(:id)[:id])
+    ExpertMailer.with(expert: expert).closing_good_practice.deliver_later
+    Feedback.create(user: current_user, category: :expert_reminder, description: t('reminders.experts.send_closing_good_practice_email.email_send'),
+                    feedbackable_type: 'Expert', feedbackable_id: expert.id)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update("display-feedbacks-#{expert.id}",
+                                                 partial: "experts/expert_feedbacks",
+                                                 locals: { expert: expert })
+        format.html { redirect_back fallback_location: many_pending_need_reminders_experts_path }
+      end
+    end
+  end
+
   private
 
   def retrieve_starred_needs

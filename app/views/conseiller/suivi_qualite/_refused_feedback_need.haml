@@ -32,4 +32,4 @@
             = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks, cached: true
           = render 'feedbacks/form', feedback: need.reminder_feedbacks.new
     .card__footer
-      = raw build_admin_card_footer(action, need)
+      = raw build_admin_need_card_footer(action, need)
