@@ -201,16 +201,16 @@ RSpec.describe Expert do
     let(:expert_with_low_taking_care_stock) { create :expert }
 
     before do
-      11.times do |index|
+      6.times do |index|
         create(:match, expert: expert_with_taking_care_stock, status: :taking_care, created_at: 1.month.ago, taken_care_of_at: 40.days.ago)
       end
-      11.times do |index|
+      6.times do |index|
         create(:match, expert: expert_with_other_stock, status: :quo, created_at: 1.month.ago, taken_care_of_at: 40.days.ago)
       end
-      11.times do |index|
+      6.times do |index|
         create(:match, expert: expert_with_recent_taking_care_stock, status: :taking_care, created_at: 1.month.ago, taken_care_of_at: 10.days.ago)
       end
-      8.times do |index|
+      4.times do |index|
         create(:match, expert: expert_with_low_taking_care_stock, status: :taking_care, created_at: 1.month.ago, taken_care_of_at: 40.days.ago)
       end
     end

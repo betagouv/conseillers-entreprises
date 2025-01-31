@@ -10,6 +10,6 @@
     .fr-container.text-center.fr-mt-18v
       .fr-h3= t('.no_results')
   - else
-    = render partial: 'experts/expert', collection: @active_experts, locals: { action: @action, complete_card: true }
+    = render partial: 'experts/expert', collection: @active_experts, locals: { action: @action }
 
 = paginate @active_experts

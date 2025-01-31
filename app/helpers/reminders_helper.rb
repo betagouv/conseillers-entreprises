@@ -1,5 +1,5 @@
 module RemindersHelper
-  def build_admin_card_footer(action, need)
+  def build_admin_need_card_footer(action, need)
     #  Sans réponse :
     #  - bouton Experts relancés (reminders_action :poke)
     #  Risque abandon :

@@ -356,7 +356,7 @@ fr:
         title: Veille
       instructions:
         starred_needs: Besoins marqués comme suivi lors de l'analyse
-        taking_care_matches_experts: Experts ayant en stock + de 7 besoins pris en charge il y a + d'un mois
+        taking_care_matches: Experts ayant en stock + de 5 besoins pris en charge il y a + d'un mois
       starred_needs:
         no_results: Aucun résultat
         title: Veille - besoins suivis
@@ -386,10 +386,7 @@ fr:
       manager_name: 'Responsable : %{name}'
       matches_total: Mises en relation reçues depuis le début
       needs_in_last_chance: Besoins en risque d’abandon
-      process: Vu
       received_matches: reçues
-      send_one_pending_need_email: Envoyer l’email de réengagement
-      send_reminders_email: Envoyer l’email de relance
       team_composition: Composition de l'équipe
     expert_feedbacks:
       see_remaining_feedbacks: Voir les commentaires plus anciens (%{count})
@@ -695,10 +692,15 @@ fr:
           medium_pending_needs: Plus de 2 besoins en attente
           one_pending_need: Nouveaux besoins depuis 3 mois
           outputs: Sorties
+      send_closing_good_practice_email:
+        email_send: Email des « en cours » envoyé
+        label: Envoyer l'email des « en cours »
       send_re_engagement_email:
+        label: Envoyer l’email de réengagement
         re_engagement_email_send: Email de ré-engagement envoyé
       send_reminder_email:
         email_send: Email de relance envoyé
+        label: Envoyer l’email de relance
     index:
       title: Risques d’échec
     needs:
@@ -737,6 +739,7 @@ fr:
         email_send: Email de la dernière chance envoyé à %{experts}
     needs_badges:
       add_remove_badges: Ajouter ou retirer un tag
+    process: Vu
     section:
       experts: Paniers qualité
       needs: Risques d’échec

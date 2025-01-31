@@ -134,7 +134,7 @@ class Expert < ApplicationRecord
       .order('COUNT(matches.id) DESC')
   end
 
-  # Expert ayant plus de 10 besoins en cours avec date de prise en charge > 1 mois
+  # Expert ayant plus de 5 besoins en cours avec date de prise en charge > 1 mois
   scope :with_taking_care_stock, -> do
     taking_care_matches = Match.sent
       .status_taking_care
@@ -142,7 +142,7 @@ class Expert < ApplicationRecord
     Expert.joins(:received_matches)
       .merge(taking_care_matches)
       .group(:id)
-      .having("COUNT(matches.id)>10")
+      .having("COUNT(matches.id)>5")
   end
 
   # Referencing

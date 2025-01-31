@@ -115,6 +115,9 @@ Rails.application.routes.draw do
         get :starred_needs, path: 'besoins-suivis'
         get :taking_care_matches, path: 'stock-en-cours'
       end
+      member do
+        post :send_closing_good_practice_email
+      end
     end
     resources :shared_satisfactions, only: %i[index], path: 'retours' do
       collection do

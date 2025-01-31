@@ -49,6 +49,11 @@ class ExpertMailerPreview < ActionMailer::Preview
     ExpertMailer.with(expert: feedback.need.experts.sample, feedback: feedback).match_feedback
   end
 
+  def closing_good_practice
+    expert = active_expert
+    ExpertMailer.with(expert: expert).closing_good_practice
+  end
+
   private
 
   def active_expert
