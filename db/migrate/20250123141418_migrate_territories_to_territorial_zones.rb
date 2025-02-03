@@ -5,6 +5,7 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
   end
 
   def down
+    # TODO pas sure de garder ce bout de code
     TerritorialZone.delete_all
   end
 
@@ -29,52 +30,42 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
   end
 
   def create_local_zones
-    local_antennes = Antenne.not_deleted.territorial_level_local
-    @antennes_without_zones = []
     puts "Antennes locales"
+    local_antennes = Antenne.not_deleted.territorial_level_local
     local_antennes_bar = ProgressBar.new(local_antennes.count)
-    presque_departementalles = []
-    total_antennes = local_antennes.count
-    puts "Nombre d'antennes locales : #{total_antennes}"
     avec_code = []
     transaction do
       local_antennes.each do |antenne|
-        communes_codes = antenne.communes.pluck(:insee_code).uniq
-        communes_codes, presque_departementalles = check_and_create_if_departement(communes_codes, antenne, presque_departementalles)
+        communes_codes = antenne.communes.pluck(:insee_code)
+        communes_codes = check_and_create_if_departement(communes_codes, antenne)
         if communes_codes.size > 1
-          check_and_create_if_epci(communes_codes, antenne)
+          communes_codes = check_and_create_if_epci(communes_codes, antenne)
         end
-        if communes_codes.empty?
-          total_antennes -= 1
-        else
-          avec_code << antenne.name
+        if communes_codes.size > 1
+          communes_codes = create_communes(communes_codes, antenne)
         end
-
+        avec_code << "antenne #{antenne.id} sans zone : #{communes_codes.join(', ')}" if communes_codes.size >= 1
         local_antennes_bar.increment!
       end
-      # puts "#{presque_departementalles.size} antennes presque départementales"
-      # presque_departementalles.each { |a| puts a }
-      puts "avec code #{avec_code.size}"
-      puts "Il reste #{total_antennes} antennes locales"
+      puts "Antennes restantes avec codes non créés"
+      avec_code.each { |a| puts a }
     end
   end
 
-  def check_and_create_if_departement(communes_codes, antenne, presque_departementalles)
+  def check_and_create_if_departement(communes_codes, antenne)
     code_departements = communes_codes.map do |code|
       code[0..1].to_i < 96 ? code[0..1] : code[0..2]
     end.uniq
+    # TODO next si l'antenne a été annoncée pas dépaertemental par les bizdevs
     code_departements.each do |code_departement|
       communes_departement_size = communes_codes.count { |code| code.start_with?(code_departement) }
       reel_departement_size = DecoupageAdministratif::Departement.find_by_code(code_departement).communes.size
       if communes_departement_size >= reel_departement_size || communes_departement_size >= (reel_departement_size * 0.60)
         antenne.territorial_zones.create!(zone_type: :departement, code: code_departement)
-        if communes_departement_size < (reel_departement_size * 0.80) && communes_departement_size >= (reel_departement_size * 0.60)
-          presque_departementalles << "#{antenne.id}; #{code_departement}; #{antenne.name}; #{communes_departement_size}; #{reel_departement_size}"
-        end
         communes_codes.reject! { |code| code.start_with?(code_departement) }
       end
     end
-    [communes_codes, presque_departementalles]
+    communes_codes
   end
 
   def check_and_create_if_epci(communes_codes, antenne)
@@ -82,6 +73,18 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
     epcis.each do |epci|
       antenne.territorial_zones.create!(zone_type: :epci, code: epci.code)
       communes_codes.reject! { |code| epci.membres.pluck("code") }
+    end
+    communes_codes
+  end
+
+  def create_communes(communes_codes, antenne)
+    communes_codes.flatten.each do |code|
+      tz = TerritorialZone.new(code: code, zone_type: :commune, zoneable: antenne)
+      if tz.save
+        communes_codes.reject! { |c| c == code }
+      else
+        puts "Erreur #{tz.errors.full_messages.join(', ')} : #{code}"
+      end
     end
     communes_codes
   end
