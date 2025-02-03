@@ -13,7 +13,7 @@ module XlsxExport
           needs_by_subjects[subject.label] = @needs.where(subject: subject)
         end
 
-        needs_by_antenne_subjects = needs_by_subjects.select { |subject_label, _| antenne_subjects_labels.include?(subject_label) }
+        needs_by_antenne_subjects = needs_by_subjects.slice(*antenne_subjects_labels)
         needs_by_occasional_subjects = needs_by_subjects.except(*antenne_subjects_labels)
 
         generate_subjects_row(needs_by_antenne_subjects)

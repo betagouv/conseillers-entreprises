@@ -34,7 +34,7 @@ module ApiConsumption::Agregators
     end
 
     def requests
-      REQUESTS.select{ |k,v| request_keys.include?(k) }.values
+      REQUESTS.slice(*request_keys).values
     end
   end
 end
