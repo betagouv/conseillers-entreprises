@@ -33,11 +33,10 @@ class Conseiller::CooperationsController < ApplicationController
   private
 
   def retrieve_cooperation
-    authorize Cooperation, :index?
     @cooperation = if params[:cooperation_id].present?
       Cooperation.find_by(id: params[:cooperation_id])
     else
-      current_user.managed_cooperations.first
+      current_user.managed_cooperations&.first
     end
     authorize @cooperation, :manage?
   end

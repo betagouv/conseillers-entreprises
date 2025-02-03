@@ -4,8 +4,7 @@ class InitSolicitationsProvenanceDetailJob < ApplicationJob
 
   def perform
     # Correction des solicitations Entreprendre mal affectées
-    Solicitation.where(cooperation_id: 2).where(provenance_detail: nil).where("solicitations.form_info::json->>'mtm_kwd' LIKE ?", "F%").update_all(cooperation_id: 1)
-    Solicitation.where(cooperation_id: nil).where(provenance_detail: nil).where("solicitations.form_info::json->>'mtm_kwd' LIKE ?", "F%").update_all(cooperation_id: 1)
+    Solicitation.where(cooperation_id: [2, nil]).where(provenance_detail: nil).where("solicitations.form_info::json->>'mtm_kwd' LIKE ?", "F%").update_all(cooperation_id: 1)
 
     Solicitation.where(provenance_detail: nil).where.not(form_info: {}).find_each do |solicitation|
       solicitation.set_provenance_detail
