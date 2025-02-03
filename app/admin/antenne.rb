@@ -17,6 +17,7 @@ ActiveAdmin.register Antenne do
 
   scope :active, default: true
   scope :deleted
+  scope :without_territorial_zones
   scope :without_communes
 
   index do
@@ -31,9 +32,11 @@ ActiveAdmin.register Antenne do
     end
     column(:territoral_zones) do |a|
       zone_types = TerritorialZone.zone_types.keys
-      zone_types.each do |zone_type|
-        count = a.territorial_zones.count { |tz| tz.zone_type == zone_type }
-        div(I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone') + ' : ' + count.to_s) if count.positive?
+      div do
+        zone_types.each do |zone_type|
+          count = a.territorial_zones.count { |tz| tz.zone_type == zone_type }
+          div(I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone') + ' : ' + count.to_s) if count.positive?
+        end
       end
     end
     column(:intervention_zone) do |a|
@@ -131,7 +134,18 @@ ActiveAdmin.register Antenne do
         attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
           model = "DecoupageAdministratif::#{zone_type.camelize}".constantize
           antenne_territorial_zones.map do |tz|
-            row(tz.code) { model.send(:find_by_code, tz.code).nom }
+            row(tz.code) do
+              model_instance = model.send(:find_by_code, tz.code)
+              name = model_instance.nom
+              if zone_type == "epci"
+                communes_names = []
+                model_instance.communes.sort_by(&:nom).map do |commune|
+                  communes_names << "#{commune.nom} (#{commune.code})"
+                end
+                name = name + "<br/>" + communes_names.join(', ')
+              end
+              name.html_safe
+            end
           end
         end
       end

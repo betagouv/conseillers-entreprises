@@ -122,7 +122,8 @@ fr:
       with_custom_communes: Zone spécifique
       with_deleted_expert: Expert supprimé
       with_territories: Avec territoires spécifiques
-      without_communes: Sans zone d’intervention
+      without_communes: Sans zone d’intervention (old)
+      without_territorial_zones: Sans zone d'intervention
       without_subjects: Sans compétence
       without_users: Sans utilisateur
     solicitations:
