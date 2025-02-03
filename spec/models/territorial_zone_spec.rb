@@ -66,7 +66,7 @@ RSpec.describe TerritorialZone do
       context 'Commune' do
         describe 'when code is valid' do
           let(:code) { '64474' }
-          let(:response) { instance_double('DecoupageAdministratif::Commune', nom: 'Saint-Dos', code: code) }
+          let(:response) { instance_double(DecoupageAdministratif::Commune, nom: 'Saint-Dos', code: code) }
           let(:valid_commune) { build(:territorial_zone, :commune, code: code) }
 
           it('is valid') { expect(valid_commune).to be_valid }
