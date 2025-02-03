@@ -114,6 +114,7 @@ class Antenne < ApplicationRecord
   ##
   #
   scope :without_communes, -> { where.missing(:communes) }
+  scope :without_territorial_zones, -> { where.missing(:territorial_zones) }
 
   scope :without_managers, -> { where.missing(:managers) }
 
