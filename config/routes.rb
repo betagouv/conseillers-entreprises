@@ -124,6 +124,7 @@ Rails.application.routes.draw do
         get :unseen, path: 'nouveaux'
         get :seen, path: 'vus'
         patch :mark_all_as_seen
+        get :load_filter_options
       end
       member do
         patch :mark_as_seen
@@ -154,6 +155,7 @@ Rails.application.routes.draw do
         get :done, path: 'cloturees'
         get :not_for_me, path: 'refusees'
         get :expired, path: 'expirees'
+        get :load_filter_options
       end
     end
   end

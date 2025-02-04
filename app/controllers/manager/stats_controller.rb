@@ -5,12 +5,12 @@ module Manager
     include StatsUtilities
 
     before_action :authorize_index_manager_stats, only: %i[index load_data]
-    before_action :set_filters_collections, only: :index
+    before_action :initialize_filters, only: :index
     before_action :set_stats_params, only: :index
     before_action :set_charts_names, only: %i[index load_data]
 
     def index
-      @antenne = Antenne.find(@stats_params[:antenne]) if @stats_params[:antenne].present?
+      @antenne = Antenne.find(@stats_params[:antenne_id]) if @stats_params[:antenne_id].present?
     end
 
     def load_data
@@ -37,7 +37,7 @@ module Manager
       authorize [:manager, :stats], :index?
     end
 
-    def set_filters_collections
+    def initialize_filters
       managed_antennes = current_user.managed_antennes
       @filters = {
         antennes: base_antennes,
@@ -52,7 +52,7 @@ module Manager
       @stats_params[:start_date] ||= 6.months.ago.beginning_of_month.to_date
       @stats_params[:end_date] ||= Date.today
       # '.to_s' to keep 'plus antennes locales' in params // base_antennes peut être vide
-      @stats_params[:antenne] ||= base_antennes&.first&.dig(:id)&.to_s
+      @stats_params[:antenne_id] ||= base_antennes&.first&.dig(:id)&.to_s
       @stats_params[:institution_id] = current_user.institution.id
       @stats_params[:colors] = %w[#cacafb #000091]
       session[:manager_stats_params] = @stats_params
@@ -68,7 +68,7 @@ module Manager
 
     def base_subjects
       @base_subjects = current_user.institution.subjects.not_archived.for_interview.order(:label)
-      @base_subjects = @base_subjects.where(theme_id: params[:theme]) if params[:theme].present?
+      @base_subjects = @base_subjects.where(theme_id: params[:theme_id]) if params[:theme_id].present?
       @base_subjects
     end
 

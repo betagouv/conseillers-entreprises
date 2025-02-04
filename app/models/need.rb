@@ -307,12 +307,12 @@ class Need < ApplicationRecord
       .or(Need.diagnosis_completed.where(diagnosis: { facilities: { siret: sirets.compact } }))
   end
 
-  scope :in_antenne_perimeters, -> (antenne) do
-    where(id: antenne.perimeter_received_needs)
-  end
-
   scope :by_region, -> (region_id) do
     joins(facility: :commune).merge(Commune.by_region(region_id))
+  end
+
+  scope :by_theme, -> (theme_id) do
+    joins(:subject).where(subject: { theme_id: theme_id })
   end
 
   scope :by_subject, -> (subject_id) do
@@ -320,7 +320,11 @@ class Need < ApplicationRecord
   end
 
   scope :by_antenne, -> (antenne_id) do
-    joins(:matches).merge(Match.by_antenne(antenne_id))
+    if antenne_id.include?('locales')
+      where(id: Antenne.find_by(id: antenne_id.to_i)&.perimeter_received_needs)
+    else
+      joins(:matches).merge(Match.by_antenne(antenne_id))
+    end
   end
 
   scope :by_institution, -> (institution_id) do
@@ -355,7 +359,8 @@ class Need < ApplicationRecord
   def self.apply_filters(params)
     klass = self
     klass = klass.by_region(params[:by_region]) if params[:by_region].present?
-    klass = klass.by_subject(params[:by_subject]) if params[:by_subject].present?
+    klass = klass.by_theme(params[:theme_id]) if params[:theme_id].present?
+    klass = klass.by_subject(params[:subject_id]) if params[:subject_id].present?
     # with_pg_search_rank : pour contrer erreur sur le distinct.
     # Cf https://github.com/Casecommons/pg_search/issues/238
     klass = klass.omnisearch(params[:omnisearch]).with_pg_search_rank if params[:omnisearch].present?
