@@ -1,43 +1,42 @@
 = form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true do |f|
-  .fr-grid-row.fr-grid-row--gutters.fr-mb-3w#stats-params{ data: { controller: 'filters', url: load_filter_options_conseiller_cooperations_path } }
+  .fr-grid-row.fr-grid-row--gutters.fr-mb-3w#stats-params{ data: { controller: 'filters', url: manager_load_filter_options_path } }
+
+    - if filters[:antennes].many?
+      .fr-col-12
+        .fr-select-group
+          = f.label :antenne_id, t('filters.select_antenne'), class: 'fr-label'
+          = f.select :antenne_id, options_for_select(filters[:antennes].pluck(:name, :id), selected: stats_params[:antenne_id]), {}, class: "fr-select"
 
     .fr-col-12.fr-col-md-4
       .fr-input-group
         = f.label :start_date, t('stats.stats_params.start_date'), class: 'fr-label'
         .fr-input-wrap
-          = f.date_field :start_date, { value: params[:start_date], class: 'fr-input' }
+          = f.date_field :start_date, { value: stats_params[:start_date], class: 'fr-input' }
       .fr-input-group
         = f.label :end_date, t('stats.stats_params.end_date'), class: 'fr-label'
         .fr-input-wrap
-          = f.date_field :end_date, { value: params[:end_date], class: 'fr-input' }
+          = f.date_field :end_date, { value: stats_params[:end_date], class: 'fr-input' }
 
     .fr-col-12.fr-col-md-4
       .fr-select-group
         = f.label :theme_id, class: 'fr-label' do
           = t('stats.stats_params.theme')
-        = f.collection_select :theme_id, filters[:themes], :id, :label, { selected: params[:theme_id],
+        = f.collection_select :theme_id, filters[:themes], :id, :label, { selected: stats_params[:theme_id],
           include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->filters#fetchFilters', 'filters-target': 'themes' }
+
       .fr-select-group
         = f.label :subject_id, class: 'fr-label' do
           = t('activerecord.models.subject.one')
           .loader.loader--sm.hidden{ data: { 'filters-target': 'loader' } }
-        = f.collection_select :subject_id, filters[:subjects], :id, :label, { selected: params[:subject_id],
+        = f.collection_select :subject_id, filters[:subjects], :id, :label, { selected: stats_params[:subject_id],
         include_blank: t('all.masculin') }, class: "fr-select", data: { 'filters-target': 'subjects' }
 
-    .fr-col-12.fr-col-md-4
-      - if filters[:regions].many?
+    - if filters[:regions].many?
+      .fr-col-12.fr-col-md-4
         .fr-select-group
           = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
-          = f.collection_select :territory, filters[:regions], :id, :name, { selected: params[:territory],
+          = f.collection_select :territory, filters[:regions], :id, :name, { selected: stats_params[:territory],
             include_blank: t('all.feminine') }, class: "fr-select"
-      - if cooperation.with_provenance_details?
-        .fr-input-group.fr-pr-2v
-          .autocomplete-field{ 'data-autocomplete-url-value': "#{provenance_detail_autocomplete_conseiller_cooperations_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length-value': 2 }
-            = f.label :provenance_detail, t('stats.stats_params.provenance_detail'), class: 'fr-label'
-            = f.hidden_field :provenance_detail, 'data-autocomplete-target': 'hidden'
-            %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text', value: params[:provenance_detail].presence }
-            %ul.list-group{ 'data-autocomplete-target': 'results' }
-
 
     .fr-col-12
       .fr-input-group

@@ -24,6 +24,12 @@ module PersistedSearch
     end
   end
 
+  def reset_session
+    session[search_session_key] = {}
+  end
+
+  # Territoires
+  #
   def possible_territories_options
     @options ||= define_territory_options
   end
@@ -32,9 +38,5 @@ module PersistedSearch
     options = Territory.regions.pluck(:name, :id)
     options.push(territory_options_complement) if defined?(territory_options_complement)
     options
-  end
-
-  def reset_session
-    session[search_session_key] = {}
   end
 end

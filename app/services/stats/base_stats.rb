@@ -7,25 +7,25 @@ module Stats
 
   module BaseStats
     FILTER_PARAMS = [
-      :territory, :institution, :antenne, :landing_id, :integration, :cooperation_id, :mtm_campaign, :mtm_kwd,
-      :start_date, :end_date, :theme, :subject, :colors, :with_agglomerate_data, :provenance_detail
+      :territory, :institution_id, :antenne_id, :landing_id, :integration, :cooperation_id, :mtm_campaign, :mtm_kwd,
+      :start_date, :end_date, :theme_id, :subject_id, :colors, :with_agglomerate_data
     ]
     attr_reader(*FILTER_PARAMS)
 
     def initialize(params)
       params = OpenStruct.new(params)
       @territory = Territory.find_by(id: params.territory) if params.territory.present?
-      @institution = Institution.find_by(id: params.institution) if params.institution.present?
-      @antenne = Antenne.find_by(id: params.antenne) if params.antenne.present?
-      @with_agglomerate_data = params.antenne.include?('locales') if params.antenne.present?
-      @subject = Subject.find_by(id: params.subject) if params.subject.present?
+      @institution_id = params.institution_id
+      @antenne_id = params.antenne_id
+      @with_agglomerate_data = params.antenne_id.include?('locales') if params.antenne_id.present?
+      @subject_id = Subject.find_by(id: params.subject_id) if params.subject_id.present?
       @integration = params.integration
       @landing_id = params.landing_id
       @mtm_campaign = params.mtm_campaign
       @mtm_kwd = params.mtm_kwd
       @provenance_detail = params.provenance_detail
       @cooperation_id = params.cooperation_id
-      @theme = Theme.find_by(id: params.theme) if params.theme.present?
+      @theme_id = Theme.find_by(id: params.theme_id) if params.theme_id.present?
       start_date = params.start_date&.to_date || (Date.today - 6.months)
       @start_date = start_date.beginning_of_day.in_time_zone
       end_date = params.end_date&.to_date || Date.today
@@ -117,7 +117,15 @@ module Stats
     end
 
     def antenne_or_institution
-      @antenne_or_institution = @antenne.presence || @institution.presence
+      @antenne_or_institution = antenne.presence || institution.presence
+    end
+
+    def antenne
+      @antenne ||= Antenne.find_by(id: @antenne_id) if @antenne_id.present?
+    end
+
+    def institution
+      @institution ||= Institution.find_by(id: @institution_id) if @institution_id.present?
     end
 
     ## Overrides

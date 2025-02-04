@@ -17,8 +17,8 @@ export default class extends Controller {
 
   async fetchFilters() {
     for(let loader of this.loaderTargets) { loader.style.display = 'inline-block'}
-    let institutionParams = this.hasInstitutionTarget ? `institution=${this.institutionTarget.value}` : null;
-    let themesParams = this.hasThemesTarget ? `theme=${this.themesTarget.value}` : null;
+    let institutionParams = this.hasInstitutionTarget ? `institution_id=${this.institutionTarget.value}` : null;
+    let themesParams = this.hasThemesTarget ? `theme_id=${this.themesTarget.value}` : null;
     let params = [institutionParams, themesParams].filter(n => n).join('&')
 
     await fetch(`${this.url}?${params}`)
