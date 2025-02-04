@@ -6,8 +6,10 @@ RSpec.describe TerritorialZone do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:code) }
-    it { is_expected.to validate_presence_of(:zone_type) }
+    let(:subject) { create(:territorial_zone, :commune, code: '67549', zone_type: 'commune') }
+
+    it { expect(subject).to validate_presence_of(:code) }
+    it { expect(subject).to validate_presence_of(:zone_type) }
   end
 
   describe 'custom validations' do
@@ -67,6 +69,14 @@ RSpec.describe TerritorialZone do
         describe 'when code is valid' do
           let(:code) { '64474' }
           let(:response) { instance_double(DecoupageAdministratif::Commune, nom: 'Saint-Dos', code: code) }
+          let(:valid_commune) { build(:territorial_zone, :commune, code: code) }
+
+          it('is valid') { expect(valid_commune).to be_valid }
+        end
+
+        describe 'when Corsica code is valid' do
+          let(:code) { '2A269' }
+          let(:response) { instance_double(DecoupageAdministratif::Commune, nom: 'Sari-Solenzara', code: code) }
           let(:valid_commune) { build(:territorial_zone, :commune, code: code) }
 
           it('is valid') { expect(valid_commune).to be_valid }
@@ -146,7 +156,6 @@ RSpec.describe TerritorialZone do
           end
         end
       end
-
     end
   end
 end
