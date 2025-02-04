@@ -158,9 +158,10 @@ class Expert < ApplicationRecord
   #
   scope :with_custom_communes, -> do
     # The naive “joins(:communes).distinct” is way more complex.
-    where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
+    not_deleted.where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
   end
-  scope :without_custom_communes, -> { where.missing(:communes) }
+  scope :without_custom_communes, -> { not_deleted.where.missing(:communes) }
+  scope :with_territorial_zones, -> { not_deleted.joins(:territorial_zones) }
 
   scope :with_global_zone, -> do
     where(is_global_zone: true)
@@ -189,7 +190,7 @@ class Expert < ApplicationRecord
   scope :by_possible_region, -> (param) {
     begin
       by_region(param)
-    rescue ActiveRecord::RecordNotFound => e
+    rescue ActiveRecord::RecordNotFound => _e
       self.send(param) if [I18n.t('helpers.expert.national_perimeter.value')].include?(param)
     end
   }
