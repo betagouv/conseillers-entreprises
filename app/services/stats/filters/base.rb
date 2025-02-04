@@ -9,11 +9,11 @@ module Stats::Filters
     def call
       territories_filter(@graph_struct.territory)
       antenne_or_institution_filter(@graph_struct.antenne_or_institution, @graph_struct.with_agglomerate_data)
-      subject_filter(@graph_struct.subject)
+      subject_filter(@graph_struct.subject_id)
       integration_filter(@graph_struct.integration)
       landing_filter(@graph_struct.landing_id)
       cooperation_filter(@graph_struct.cooperation_id)
-      theme_filter(@graph_struct.theme)
+      theme_filter(@graph_struct.theme_id)
       mtm_campaign_filter(@graph_struct.mtm_campaign)
       mtm_kwd_filter(@graph_struct.mtm_kwd)
       provenance_detail_filter(@graph_struct.provenance_detail)

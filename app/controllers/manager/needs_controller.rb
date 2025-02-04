@@ -1,8 +1,10 @@
 class Manager::NeedsController < ApplicationController
   include Inbox
+  include ManagerFilters
   before_action :authorize_index_needs
   before_action :retrieve_recipient
   before_action :persist_search_params, only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired]
+  before_action :initialize_filters, only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired, :load_filter_options]
 
   layout 'side_menu'
 
@@ -33,11 +35,19 @@ class Manager::NeedsController < ApplicationController
   private
 
   def retrieve_recipient
+    # TODO : passer au service BuildAntenneXXX
     @recipient = if params[:antenne_id].present?
-      current_user.managed_antennes.find(params[:antenne_id])
+      current_user.supervised_antennes.find(params[:antenne_id])
     else
       current_user.managed_antennes.first
     end
+  end
+
+  # TODO : probablement améliorable
+  def base_needs_for_filters
+    @base_needs_for_filters ||= @recipient.perimeter_received_needs
+      .where(matches: { archived_at: nil })
+      .distinct
   end
 
   def recipient_for_search

@@ -36,7 +36,7 @@ module Inbox
 
     # on reject antenne_id, sinon le filtre by_antenne peut venir enlever des besoins
     # (cas des antennes régionales)
-    @needs = @needs.includes(:company, :advisor, :subject)
+    @needs = @needs.includes(:company, :advisor, :subject, :solicitation, :facility, subject: :theme)
       .apply_filters(needs_search_params.except(:antenne_id))
       .order(created_at: order)
       .page params[:page]
@@ -65,7 +65,7 @@ module Inbox
 
   def persist_search_params
     session[:needs_search_params] ||= {}
-    search_params = params.slice(:omnisearch, :by_subject, :created_since, :created_until, :antenne_id).permit!
+    search_params = params.slice(:omnisearch, :theme_id, :subject_id, :created_since, :created_until, :antenne_id).permit!
     if params[:reset_query].present?
       session.delete(:needs_search_params)
     else

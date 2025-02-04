@@ -1,5 +1,7 @@
 class Conseiller::SharedSatisfactionsController < ApplicationController
-  before_action :retrieve_antennes, only: [:unseen, :seen]
+  include PersistedSearch
+  include ManagerFilters
+  before_action :initialize_filters, except: [:mark_as_seen, :mark_all_as_seen]
   before_action :collections_counts, except: [:mark_as_seen, :mark_all_as_seen]
 
   layout 'side_menu'
@@ -63,8 +65,12 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
 
   def base_needs
     base_needs = current_user.needs_with_shared_satisfaction
-    base_needs = base_needs.apply_filters(filter_params) if current_user.is_manager?
+    base_needs = base_needs.apply_filters(index_search_params)
     base_needs.includes(:company, :subject, :facility, company_satisfaction: :shared_satisfactions)
+  end
+
+  def base_needs_for_filters
+    current_user.needs_with_shared_satisfaction
   end
 
   def retrieve_antennes
@@ -81,6 +87,16 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
   end
 
   def filter_params
-    params.permit(:antenne_id)
+    params.permit(:antenne_id, :subject_id, :theme_id, :created_since, :created_until)
+  end
+
+  # Filtering
+  #
+  def search_session_key
+    :shared_satisfactions_filter_params
+  end
+
+  def search_fields
+    [:antenne_id, :subject_id, :theme_id, :created_since, :created_until]
   end
 end
