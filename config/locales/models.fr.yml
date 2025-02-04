@@ -119,7 +119,8 @@ fr:
         from_solicitation: Analyses à partir d’une sollicitation directe
         from_visit: Analyses faites par des conseillers suite à une visite
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
-      with_custom_communes: Zone spécifique
+      with_custom_communes: Zone spécifique (old)
+      with_territorialal_zones: Avec des territoires
       with_deleted_expert: Expert supprimé
       with_territories: Avec territoires spécifiques
       without_communes: Sans zone d’intervention (old)
@@ -1039,7 +1040,8 @@ fr:
     institution_antenne: Institution / Antenne
     institutions_subjects: Domaines de l’institution
     intern_landings: Page interne
-    intervention_zone: Zone d’intervention
+    intervention_zone: Zone d’intervention (old)
+    territorial_zone: Zone d’intervention
     interview_sort_order: Ordre
     intitule_effectif: Effectif
     is_abandoned: Abandonné
