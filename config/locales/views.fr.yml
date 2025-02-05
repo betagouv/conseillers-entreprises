@@ -1131,7 +1131,7 @@ fr:
       filter: Rechercher
       keywords: Détail de la source
       region: Région
-      select_institution: Selectionnez une institution
+      select_institution: Sélectionnez une institution
       start_date: Date de début
       theme: Thématique
       title: 'Sélectionnez vos filtres :'

@@ -20,15 +20,15 @@ module LoadFilterOptions
     @themes = Theme.for_interview
     @subjects = Subject.not_archived.for_interview
 
-    if params[:institution].present?
-      institution = Institution.find(params[:institution])
+    if params[:institution_id].present?
+      institution = Institution.find(params[:institution_id])
       @institution_antennes = BuildAntennesCollection.new(institution).for_institution
       @themes = @themes.merge(institution.themes).select(:id, :label).order(:label).uniq
       @subjects = @subjects.merge(institution.subjects.not_archived.order(:label))
     end
     # on verifie que le theme précédemment sélectionné fait bien partie des thèmes de l'institution
-    if params[:theme].present? && @themes.map(&:id).include?(params[:theme].to_i)
-      @subjects = @subjects.where(theme_id: params[:theme])
+    if params[:theme_id].present? && @themes.map(&:id).include?(params[:theme_id].to_i)
+      @subjects = @subjects.where(theme_id: params[:theme_id])
     end
   end
 end

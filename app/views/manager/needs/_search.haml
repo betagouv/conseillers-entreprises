@@ -1,0 +1,50 @@
+= form_with url: request.path, method: :get, skip_enforcing_utf8: true, local: true, class: 'fr-mb-2w', data: { controller: 'filters', url: load_filter_options_manager_needs_path } do |f|
+  -# on n'affiche le select que si BAL manager + plusieurs antennes gérées
+  - if defined?(filters[:antennes]) && filters[:antennes].size > 1
+    .fr-grid-row.fr-grid-row--gutters
+      .fr-col
+        = f.label :antenne_id, t('filters.select_antenne'), class: 'fr-label'
+        = f.select :antenne_id, options_for_select(filters[:antennes].pluck(:name, :id), selected: params[:antenne_id]), {}, class: "fr-select fr-mb-2v"
+
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col-md-6.fr-col-12
+      .fr-select-group
+        = f.label :theme_id, t('attributes.theme'), class: 'fr-label'
+        = f.collection_select :theme_id, filters[:themes], :id, :label, { selected: params[:theme_id],
+          include_blank: t('all.feminine') }, class: "fr-select", data: { action: 'change->filters#fetchFilters', 'filters-target': 'themes' }
+    .fr-col-md-6.fr-col-12
+      .fr-select-group
+        = f.label :subject_id, class: 'fr-label' do
+          = t('activerecord.models.subject.one')
+          .loader.loader--sm.hidden{ data: { 'filters-target': 'loader' } }
+        = f.collection_select :subject_id, filters[:subjects], :id, :label, { selected: params[:subject_id],
+        include_blank: t('all.masculin') }, class: "fr-select", data: { 'filters-target': 'subjects' }
+
+  .fr-accordion.box-shadow-none.fr-my-2v
+    %h2.fr-accordion__title
+      - accordion_opened = needs_search_params.slice(:created_since, :created_until, :omnisearch).values.any?(&:present?)
+      %button.fr-accordion__btn.fr-btn.fr-btn--secondary.fr-btn--sm.fr-p-2v{ type: 'button', aria: { controls: "accordion-inbox", expanded: "#{accordion_opened}" }, data: { turbo: 'false' } }= t('needs.search.more_filters')
+    .fr-collapse.fr-px-0.fr-mx-0#accordion-inbox
+      .fr-grid-row.fr-grid-row--gutters
+        .fr-col-md-6.fr-col-12
+          = f.label :created_since, t('needs.search.created_since'), class: 'fr-label'
+          = f.date_field :created_since, value: needs_search_params[:created_since], class: 'fr-input'
+        .fr-col-md-6.fr-col-12
+          = f.label :created_until, t('needs.search.created_until'), class: 'fr-label'
+          = f.date_field :created_until, value: needs_search_params[:created_until], class: 'fr-input'
+      .fr-grid-row.fr-grid-row--gutters
+        .fr-col-md-6.fr-col-12
+          .fr-input-group
+            = f.label :omnisearch, t('needs.search.omnisearch'), class: 'fr-label'
+            = f.search_field :omnisearch, value: needs_search_params[:omnisearch], class: 'fr-input', placeholder: t('needs.search.search_placeholder')
+
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col-md-6.fr-col-12
+      - if needs_search_params.present?
+        %p= search_collection_count needs
+      - else
+        %p= collection_count needs
+    .fr-col-md-6.fr-col-12.text-right
+      - if needs_search_params.present?
+        = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
+      = f.submit t('search'), class: 'fr-btn', title: t('search')
