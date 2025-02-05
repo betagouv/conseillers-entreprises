@@ -4,7 +4,8 @@ class MatchPolicy < ApplicationPolicy
   end
 
   def update_status?
-    admin? || (@user.is_manager? && (@user.managed_antennes.include?(@record.expert.antenne)))
+    admin? || (@user.is_manager? && @user.managed_antennes.include?(@record.expert.antenne)) ||
+    (@user.is_manager? && @user.supervised_antennes.include?(@record.expert.antenne))
   end
 
   def show_info?
