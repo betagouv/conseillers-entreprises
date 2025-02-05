@@ -64,6 +64,10 @@ class Cooperation < ApplicationRecord
     super
   end
 
+  def with_provenance_details?
+    self.solicitations.pluck(:provenance_detail).compact_blank.uniq.any?
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ["institution_id", "created_at", "name", "id", "updated_at"]
   end

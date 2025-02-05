@@ -162,6 +162,7 @@ ActiveAdmin.register Solicitation do
     column :phone_number
     column :email
     column(:provenance_category) { |s| I18n.t(s.provenance_category, scope: %i(solicitation provenance_categories)) }
+    column :provenance_detail
     column(:landing) { |s| s.landing&.slug }
     column(:subject) { |s| s.landing_subject&.slug }
     column :diagnosis
@@ -212,6 +213,7 @@ ActiveAdmin.register Solicitation do
         render 'badges', badges: s.badges
       end
       row :institution
+      row :provenance_detail
       Solicitation::FORM_INFO_KEYS.each do |k|
         row k, humanize_name: false
       end

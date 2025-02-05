@@ -166,8 +166,8 @@ end
   end
 
   describe 'callbacks' do
-    describe 'set_cooperation_from_landing' do
-      subject { solicitation.cooperation }
+    describe 'set_cooperation' do
+      subject { solicitation.set_cooperation }
 
       context 'with cooperation from a landing page' do
         let(:cooperation) { create :cooperation }
@@ -184,11 +184,34 @@ end
         it { is_expected.to eq cooperation }
       end
 
+      context 'with entreprendre mtm_kwd in the query_params' do
+        let!(:cooperation) { create :cooperation, mtm_campaign: 'entreprendre' }
+        let(:solicitation) { create :solicitation, form_info: { mtm_kwd: 'F12345' } }
+
+        it { is_expected.to eq cooperation }
+      end
+
       context 'with no cooperation' do
         let(:landing) { build :landing, cooperation: nil }
         let(:solicitation) { create :solicitation, landing: landing, form_info: {} }
 
         it { is_expected.to be_nil }
+      end
+
+      context 'with random mtm_kwd' do
+        let!(:cooperation) { create :cooperation, mtm_campaign: 'entreprendre' }
+        let(:solicitation) { create :solicitation, form_info: { mtm_kwd: 'FrouFrou' } }
+
+        it { is_expected.to be_nil }
+      end
+
+      context 'with missing campaign' do
+        let!(:entreprendre_cooperation) { create :cooperation, mtm_campaign: 'entreprendre' }
+        let!(:other_cooperation) { create :cooperation }
+        let(:solicitation) { build :solicitation, form_info: { mtm_kwd: 'F12345' } }
+
+        it { is_expected.to eq entreprendre_cooperation }
+
       end
     end
 
@@ -247,6 +270,37 @@ end
             expect(solicitation.badges).to be_empty
           end
         end
+      end
+    end
+
+    describe 'set_provenance_detail' do
+      subject { solicitation.provenance_detail }
+
+      context 'with nothing' do
+        let(:solicitation) { create :solicitation }
+
+        it { is_expected.to be_nil }
+      end
+
+      context 'with entreprendre cooperation' do
+        let(:cooperation) { create :cooperation, id: 1, mtm_campaign: 'entreprendre' }
+        let(:solicitation) { create :solicitation, cooperation: cooperation, form_info: { mtm_kwd: 'F12345', origin_title: 'Titre aide', origin_url: 'https://www.partner.com/formulaire' } }
+
+        it { is_expected.to eq 'F12345' }
+      end
+
+      context 'with les_aides cooperation' do
+        let(:cooperation) { create :cooperation, id: 3 }
+        let(:solicitation) { create :solicitation, cooperation: cooperation, form_info: { mtm_kwd: 'lala', origin_title: 'Titre aide', origin_url: 'https://www.partner.com/formulaire' } }
+
+        it { is_expected.to eq 'Titre aide' }
+      end
+
+      context 'with MTEE cooperation' do
+        let(:cooperation) { create :cooperation, id: 4 }
+        let(:solicitation) { create :solicitation, cooperation: cooperation, form_info: { mtm_kwd: 'lala', origin_title: 'Titre aide', origin_url: "https://mission-transition-ecologique.beta.gouv.fr/aide-entreprise/diagnostic-transition-energetique" } }
+
+        it { is_expected.to eq 'aide-entreprise/diagnostic-transition-energetique' }
       end
     end
   end

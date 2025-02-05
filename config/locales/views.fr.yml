@@ -1130,8 +1130,9 @@ fr:
       end_date: Date de fin
       filter: Rechercher
       keywords: Détail de la source
+      provenance_detail: Page d’origine
       region: Région
-      select_institution: Selectionnez une institution
+      select_institution: Sélectionnez une institution
       start_date: Date de début
       theme: Thématique
       title: 'Sélectionnez vos filtres :'

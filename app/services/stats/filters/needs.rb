@@ -57,5 +57,10 @@ module Stats::Filters
         .where(pk_kwd_query, "%#{mtm_kwd}%")
         .or(Need.joins(:solicitation).where(mtm_kwd_query, "%#{mtm_kwd}%"))
     end
+
+    def provenance_detail_filter(provenance_detail)
+      return if provenance_detail.blank?
+      @query.merge! Need.joins(:solicitation).where(solicitation: { provenance_detail: provenance_detail })
+    end
   end
 end

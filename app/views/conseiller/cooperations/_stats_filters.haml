@@ -24,12 +24,20 @@
         = f.collection_select :subject, filters[:subjects], :id, :label, { selected: params[:subject],
         include_blank: t('all.masculin') }, class: "fr-select", data: { 'stats-target': 'subjects' }
 
-    - if filters[:regions].many?
-      .fr-col-12.fr-col-md-4
+    .fr-col-12.fr-col-md-4
+      - if filters[:regions].many?
         .fr-select-group
           = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
           = f.collection_select :territory, filters[:regions], :id, :name, { selected: params[:territory],
             include_blank: t('all.feminine') }, class: "fr-select"
+      - if cooperation.with_provenance_details?
+        .fr-input-group.fr-pr-2v
+          .autocomplete-field{ 'data-autocomplete-url-value': "#{provenance_detail_autocomplete_conseiller_cooperations_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length-value': 2 }
+            = f.label :provenance_detail, t('stats.stats_params.provenance_detail'), class: 'fr-label'
+            = f.hidden_field :provenance_detail, 'data-autocomplete-target': 'hidden'
+            %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text', value: params[:provenance_detail].presence }
+            %ul.list-group{ 'data-autocomplete-target': 'results' }
+
 
     .fr-col-12
       .fr-input-group

@@ -1,7 +1,7 @@
 class Conseiller::CooperationsController < ApplicationController
   include StatsUtilities
 
-  before_action :retrieve_cooperation, only: %i[needs load_filter_options]
+  before_action :retrieve_cooperation, only: %i[needs load_filter_options provenance_detail_autocomplete]
   before_action :init_filters, only: %i[needs load_filter_options]
   before_action :set_stats_params, only: %i[needs]
 
@@ -21,6 +21,11 @@ class Conseiller::CooperationsController < ApplicationController
     render partial: 'stats/load_stats', locals: { data: data, name: name }
   end
 
+  def provenance_detail_autocomplete
+    @results = GetProvenanceDetails.new(@cooperation, params[:q]).call
+    render layout: false
+  end
+
   def load_filter_options
     render json: @filters.as_json
   end
@@ -31,7 +36,7 @@ class Conseiller::CooperationsController < ApplicationController
     @cooperation = if params[:cooperation_id].present?
       Cooperation.find_by(id: params[:cooperation_id])
     else
-      current_user.managed_cooperations.first
+      current_user.managed_cooperations&.first
     end
     authorize @cooperation, :manage?
   end
