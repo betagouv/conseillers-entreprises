@@ -39,6 +39,12 @@ FactoryBot.define do
       end
     end
 
+    trait :cooperation_manager do
+      after(:create) do |user, _|
+        user.managed_cooperations << create(:cooperation, institution: user.institution)
+      end
+    end
+
     trait :national_manager do
       antenne factory: [:antenne, :with_experts_subjects, :national], strategy: :create
       after(:create) do |user, _|

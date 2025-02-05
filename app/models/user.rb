@@ -135,6 +135,7 @@ class User < ApplicationRecord
   #
   scope :admin, -> { not_deleted.joins(:user_rights).merge(UserRight.category_admin) }
   scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_manager).distinct }
+  scope :cooperation_managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_cooperation_manager).distinct }
   scope :national_referent, -> { not_deleted.joins(:user_rights).merge(UserRight.category_national_referent).distinct }
 
   scope :not_invited, -> { not_deleted.where(invitation_sent_at: nil) }
