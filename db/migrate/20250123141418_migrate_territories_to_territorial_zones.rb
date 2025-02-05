@@ -52,8 +52,10 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
         avec_code << "#{item} (#{item.id}) sans zone : #{communes_codes.join(', ')}" if communes_codes.size >= 1
         local_bar.increment!
       end
+      puts "---"
       puts "#{model} restants avec codes non créés"
       avec_code.each { |a| puts a }
+      puts "---"
     end
   end
 
@@ -61,7 +63,8 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
     code_departements = communes_codes.map do |code|
       code[0..1].to_i < 96 ? code[0..1] : code[0..2]
     end.uniq
-    # TODO next si l'antenne a été annoncée pas dépaertemental par les bizdevs
+    # Passe les antennes qui on beaucoup de codes communes d'un département mais qui ne sont pas départementales
+    return communes_codes if item.is_a?(Antenne) && [303, 2621, 2630, 2631, 2823, 1012, 305, 2616, 159, 848, 152, 768, 2272, 1529, 764, 1747].include?(item.id)
     code_departements.each do |code_departement|
       communes_departement_size = communes_codes.count { |code| code.start_with?(code_departement) }
       reel_departement_size = DecoupageAdministratif::Departement.find_by_code(code_departement).communes.size
