@@ -63,7 +63,7 @@
               = t(name, scope: 'needs.collections').downcase
       - expert_last_chance_needs = expert.received_needs.reminders_to(:last_chance)
 
-      - if expert_last_chance_needs.present? && complete_card
+      - if expert_last_chance_needs.present?
         .card-expert__subtitle.fr-mt-2w= t('.needs_in_last_chance')
         .fr-tags-group
           = link_to expert_reminders_needs_path(expert_id: expert.id), class: 'fr-tag warning' do
@@ -75,16 +75,5 @@
         = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
         .fr-mt-3w
           = render 'experts/expert_feedbacks', expert: expert
-  - if complete_card
-    .card__footer
-      - if action == :one_pending_need
-        = form_with model: expert, url: send_re_engagement_email_reminders_expert_path(expert), method: :post, data: { turbo: true } do |f|
-          = f.submit t('.send_one_pending_need_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'
-      - else
-        = form_with model: expert, url: send_reminder_email_reminders_expert_path(expert), method: :post, data: { turbo: true } do |f|
-          = f.submit t('.send_reminders_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'
-      - if with_reminder_action?(action)
-        - reminders_register = get_reminder_register(expert, action)
-        - if reminders_register.present?
-          = form_with model: expert, url: reminders_reminders_register_path(reminders_register), method: :patch, local: true, data: { turbo: false } do |f|
-            = f.submit t('.process'), class: 'fr-btn fr-mr-2v'
+  .card__footer
+    = raw build_admin_expert_card_footer(action, expert)

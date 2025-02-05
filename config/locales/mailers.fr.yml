@@ -82,6 +82,10 @@ fr:
     cordially: Cordialement,
     email_sent: L’email a bien été envoyé
     expert_mailer:
+      closing_good_practice:
+        at_your_service: Je reste à votre disposition dès que vous le souhaitez pour prendre votre retour sur le flux et la qualité des besoins transmis.
+        please_close_html: 'J’espère que vous allez bien. Pour que nous puissions valoriser au mieux toutes vos interventions, je vous invite à clôturer les derniers besoins « en cours » dans votre boîte de réception : %{link_to_needs}.'
+        subject: Invitation à clôturer vos anciennes interventions
       first_notification_help:
         answer: Financé par le Ministère de l’Économie et le Ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE & PME. L’objectif est de faciliter la vie des petites entreprises en apportant une réponse collectivement plus efficace.
         answer_3: Vous pouvez ainsi échanger sur un besoin d’entreprise avec des conseillers du service public travaillant dans d’autres structures. Le service compte plus de 40 partenaires !
