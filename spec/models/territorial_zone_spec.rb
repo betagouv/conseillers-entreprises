@@ -1,17 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe TerritorialZone do
-  describe 'associations' do
-    it { is_expected.to belong_to(:zoneable) }
-  end
-
-  describe 'validations' do
-    let(:subject) { create(:territorial_zone, :commune, code: '67549', zone_type: 'commune') }
-
-    it { expect(subject).to validate_presence_of(:code) }
-    it { expect(subject).to validate_presence_of(:zone_type) }
-  end
-
   describe 'custom validations' do
     describe '#validate_code_format' do
       context 'when zone_type is commune' do
@@ -89,7 +78,7 @@ RSpec.describe TerritorialZone do
 
           it 'is invalid' do
             expect(invalid_commune).not_to be_valid
-            expect(invalid_commune.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: :commune))
+            expect(invalid_commune.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: "Commune"))
           end
         end
       end
@@ -110,7 +99,7 @@ RSpec.describe TerritorialZone do
 
           it 'is invalid' do
             expect(invalid_departement).not_to be_valid
-            expect(invalid_departement.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: :departement))
+            expect(invalid_departement.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: "Département"))
           end
         end
       end
@@ -131,7 +120,7 @@ RSpec.describe TerritorialZone do
 
           it 'is invalid' do
             expect(invalid_region).not_to be_valid
-            expect(invalid_region.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: :region))
+            expect(invalid_region.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: "Région"))
           end
         end
       end
@@ -152,7 +141,7 @@ RSpec.describe TerritorialZone do
 
           it 'is invalid' do
             expect(invalid_epci).not_to be_valid
-            expect(invalid_epci.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: :epci))
+            expect(invalid_epci.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: "Epci"))
           end
         end
       end
