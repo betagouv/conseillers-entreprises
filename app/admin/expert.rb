@@ -92,12 +92,14 @@ ActiveAdmin.register Expert do
         admin_link_to(e, :antenne)
       end
     end
-    column(:territoral_zones) do |a|
+    column(:territoral_zone) do |a|
       zone_types = TerritorialZone.zone_types.keys
-      div do
-        zone_types.each do |zone_type|
-          count = a.territorial_zones.count { |tz| tz.zone_type == zone_type }
-          div(I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone') + ' : ' + count.to_s) if count.positive?
+      if a.territorial_zones.any?
+        div do
+          zone_types.each do |zone_type|
+            count = a.territorial_zones.count { |tz| tz.zone_type == zone_type }
+            div(I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone') + ' : ' + count.to_s) if count.positive?
+          end
         end
       end
     end
@@ -226,26 +228,30 @@ ActiveAdmin.register Expert do
     end
 
     panel I18n.t('activerecord.models.territorial_zone.other') do
-      TerritorialZone.zone_types.each_key do |zone_type|
-        expert_territorial_zones = expert.territorial_zones.select { |tz| tz.zone_type == zone_type }
-        next if expert_territorial_zones.empty?
-        attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
-          model = "DecoupageAdministratif::#{zone_type.camelize}".constantize
-          expert_territorial_zones.map do |tz|
-            row(tz.code) do
-              model_instance = model.send(:find_by_code, tz.code)
-              name = model_instance.nom
-              if zone_type == "epci"
-                communes_names = []
-                model_instance.communes.sort_by(&:nom).map do |commune|
-                  communes_names << "#{commune.nom} (#{commune.code})"
+      if expert.territorial_zones.any?
+        TerritorialZone.zone_types.each_key do |zone_type|
+          expert_territorial_zones = expert.territorial_zones.select { |tz| tz.zone_type == zone_type }
+          next if expert_territorial_zones.empty?
+          attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
+            model = "DecoupageAdministratif::#{zone_type.camelize}".constantize
+            expert_territorial_zones.map do |tz|
+              row(tz.code) do
+                model_instance = model.send(:find_by_code, tz.code)
+                name = model_instance.nom
+                if zone_type == "epci"
+                  communes_names = []
+                  model_instance.communes.sort_by(&:nom).map do |commune|
+                    communes_names << "#{commune.nom} (#{commune.code})"
+                  end
+                  name = name + "<br/>" + communes_names.join(', ')
                 end
-                name = name + "<br/>" + communes_names.join(', ')
+                name.html_safe
               end
-              name.html_safe
             end
           end
         end
+      else
+        I18n.t('active_admin.expert.no_specifique_zone')
       end
     end
 
