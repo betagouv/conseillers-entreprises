@@ -64,13 +64,9 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
   end
 
   def base_needs
-    base_needs = current_user.needs_with_shared_satisfaction
-    base_needs = base_needs.apply_filters(index_search_params)
-    base_needs.includes(:company, :subject, :facility, company_satisfaction: :shared_satisfactions)
-  end
-
-  def base_needs_for_filters
-    current_user.needs_with_shared_satisfaction
+    base_needs_for_filters
+      .apply_filters(index_search_params)
+      .includes(:company, :subject, :facility, company_satisfaction: :shared_satisfactions)
   end
 
   def retrieve_antennes
@@ -92,11 +88,24 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
 
   # Filtering
   #
+  # utilisé pour initialisé les filtres ManagerFilters
+  def base_needs_for_filters
+    current_user.needs_with_shared_satisfaction
+  end
+
   def search_session_key
     :shared_satisfactions_filter_params
   end
 
   def search_fields
     [:antenne_id, :subject_id, :theme_id, :created_since, :created_until]
+  end
+
+  def filter_keys
+    if current_user.is_manager?
+      [:antennes, :regions, :themes, :subjects]
+    else
+      [:themes, :subjects]
+    end
   end
 end

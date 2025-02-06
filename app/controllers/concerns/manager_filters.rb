@@ -2,13 +2,9 @@ module ManagerFilters
   extend ActiveSupport::Concern
 
   def initialize_filters
-    # TODO : choisir quels filtres initialiser (région ou pas, par ex)
-    @filters = {
-      antennes: base_antennes,
-      regions: base_regions,
-      themes: base_themes.uniq,
-      subjects: base_subjects.uniq
-    }
+    @filters = filter_keys.index_with do |key|
+      send(:"base_#{key}").uniq
+    end
   end
 
   def load_filter_options
@@ -28,13 +24,13 @@ module ManagerFilters
     @base_subjects
   end
 
+  def base_antennes
+    @base_antennes ||= BuildAntennesCollection.new(current_user).for_manager
+  end
+
   def base_regions
     return [] unless current_user.is_manager?
     managed_antennes = current_user.managed_antennes
     managed_antennes&.first&.national? ? Territory.regions : Territory.where(id: managed_antennes.map(&:regions).flatten).uniq
-  end
-
-  def base_antennes
-    @base_antennes ||= BuildAntennesCollection.new(current_user).for_manager
   end
 end
