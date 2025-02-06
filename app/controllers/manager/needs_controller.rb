@@ -43,6 +43,17 @@ class Manager::NeedsController < ApplicationController
     end
   end
 
+  def recipient_for_search
+    @recipient.is_a?(ActiveRecord::Associations::CollectionProxy) ? @recipient.first : @recipient
+  end
+
+  def authorize_index_needs
+    authorize :needs, :index?, policy_class: Manager::NeedsPolicy
+  end
+
+  # Filtering
+  #
+  # utilisé pour initialisé les filtres ManagerFilters
   # TODO : probablement améliorable
   def base_needs_for_filters
     @base_needs_for_filters ||= @recipient.perimeter_received_needs
@@ -50,11 +61,7 @@ class Manager::NeedsController < ApplicationController
       .distinct
   end
 
-  def recipient_for_search
-    @recipient.is_a?(ActiveRecord::Associations::CollectionProxy) ? @recipient.first : @recipient
-  end
-
-  def authorize_index_needs
-    authorize :needs, :index?, policy_class: Manager::NeedsPolicy
+  def filter_keys
+    [:antennes, :regions, :themes, :subjects]
   end
 end
