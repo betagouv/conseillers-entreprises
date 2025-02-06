@@ -290,7 +290,7 @@ class User < ApplicationRecord
   ## Rights
 
   def is_manager?
-    user_rights_manager.any?
+    @is_manager ||= user_rights_manager.any?
   end
 
   def is_cooperation_manager?

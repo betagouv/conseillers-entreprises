@@ -20,7 +20,7 @@ module Inbox
 
     @needs = recipient
       .send(:"needs_#{collection_name}") # See InvolvementConcern
-      .includes(:company, :advisor, :subject, :solicitation, :facility)
+      .includes(:company, :facility, :subject, :diagnosis)
       .order(created_at: order)
       .apply_filters(needs_search_params)
       .page params[:page]
