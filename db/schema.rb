@@ -325,7 +325,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "naf_code"
     t.string "readable_locality"
-    t.bigint "commune_id", null: false
     t.string "code_effectif"
     t.string "naf_libelle"
     t.string "naf_code_a10"
@@ -333,7 +332,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
     t.float "effectif"
     t.string "nature_activites", default: [], array: true
     t.string "nafa_codes", default: [], array: true
-    t.index ["commune_id"], name: "index_facilities_on_commune_id"
+    t.string "insee_code", null: false
     t.index ["company_id"], name: "index_facilities_on_company_id"
     t.index ["opco_id"], name: "index_facilities_on_opco_id"
     t.index ["siret"], name: "index_facilities_on_siret", unique: true, where: "((siret)::text <> NULL::text)"
@@ -783,7 +782,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
   add_foreign_key "experts_subjects", "institutions_subjects"
   add_foreign_key "experts_users", "experts"
   add_foreign_key "experts_users", "users"
-  add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
   add_foreign_key "facilities", "institutions", column: "opco_id"
   add_foreign_key "feedbacks", "users"

@@ -5,6 +5,7 @@
 #  id                :bigint(8)        not null, primary key
 #  code_effectif     :string
 #  effectif          :float
+#  insee_code        :string           not null
 #  naf_code          :string
 #  naf_code_a10      :string
 #  naf_libelle       :string
@@ -14,20 +15,17 @@
 #  siret             :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  commune_id        :bigint(8)        not null
 #  company_id        :bigint(8)        not null
 #  opco_id           :bigint(8)
 #
 # Indexes
 #
-#  index_facilities_on_commune_id  (commune_id)
 #  index_facilities_on_company_id  (company_id)
 #  index_facilities_on_opco_id     (opco_id)
 #  index_facilities_on_siret       (siret) UNIQUE WHERE ((siret)::text <> NULL::text)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (commune_id => communes.id)
 #  fk_rails_...  (company_id => companies.id)
 #  fk_rails_...  (opco_id => institutions.id)
 #
