@@ -34,7 +34,7 @@ namespace :redis do
       @stats[:expired_ttl] += 1 if ttl < 0
       @stats[:idle_keys] += 1 if idle_time && idle_time > @options[:idle_threshold]
 
-      if @options[:extract_patterns]
+      if @options[:extract_patterns] && ttl < 0
         pattern = extract_pattern(key)
         @stats[:size_by_pattern][pattern] += 1
       end
