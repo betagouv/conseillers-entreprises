@@ -800,4 +800,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_03_155501) do
   add_foreign_key "user_rights", "users"
   add_foreign_key "users", "antennes"
   add_foreign_key "users", "users", column: "inviter_id"
+
+  create_view "need_omnisearches", materialized: true, sql_definition: <<-SQL
+      SELECT needs.id AS need_id,
+      (to_tsvector('simple'::regconfig, unaccent(COALESCE(needs.content, ''::text))) || to_tsvector('simple'::regconfig, unaccent(COALESCE((subjects.label)::text, ''::text)))) AS tsv_document
+     FROM (needs
+       JOIN subjects ON ((subjects.id = needs.subject_id)));
+  SQL
+  add_index "need_omnisearches", ["tsv_document"], name: "index_need_omnisearches_on_tsv_document", using: :gin
+
 end
