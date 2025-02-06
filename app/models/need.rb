@@ -31,7 +31,7 @@
 class Need < ApplicationRecord
   ##
   #
-  include PgSearch::Model
+
   include Archivable
   include RangeScopes
   include MandatoryAnswers
@@ -111,17 +111,6 @@ class Need < ApplicationRecord
     last_chance: 21,
     abandon: 45
   }
-
-  pg_search_scope :omnisearch,
-                  against: [:content],
-                  associated_against: {
-                    visitee: [:full_name, :email],
-                    company: [:name, :siren],
-                    facility: :readable_locality,
-                    subject: :label
-                  },
-                  using: { tsearch: { prefix: true } },
-                  ignoring: :accents
 
   scope :ordered_for_interview, -> do
     left_outer_joins(:subject)
@@ -313,6 +302,10 @@ class Need < ApplicationRecord
 
   scope :by_region, -> (region_id) do
     joins(facility: :commune).merge(Commune.by_region(region_id))
+  end
+
+  scope :omnisearch, -> (query) do
+    where(id: NeedOmnisearch.search(query).select(:need_id))
   end
 
   scope :by_subject, -> (subject_id) do
