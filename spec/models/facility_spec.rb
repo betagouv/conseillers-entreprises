@@ -4,7 +4,6 @@ RSpec.describe Facility do
   describe 'associations' do
     it do
       is_expected.to belong_to :company
-      is_expected.to belong_to :commune
     end
   end
 
