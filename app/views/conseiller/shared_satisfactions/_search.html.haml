@@ -1,7 +1,7 @@
 = form_with url: request.path, method: :get, skip_enforcing_utf8: true, local: true, class: 'fr-mb-2w', data: { controller: 'filters', url: load_filter_options_conseiller_shared_satisfactions_path } do |f|
   = hidden_field_tag :anchor, 'side-menu-main'
   -# on n'affiche le select que si BAL manager + plusieurs antennes gérées
-  - if defined?(filters[:antennes]) && filters[:antennes].size > 1
+  - if filters[:antennes].present? && filters[:antennes].size > 1
     .fr-grid-row.fr-grid-row--gutters
       .fr-col
         = f.label :antenne_id, t('filters.select_antenne'), class: 'fr-label'
