@@ -71,6 +71,7 @@ fr:
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
       completed: Analyses terminées
+      cooperation_managers: Resp. de coopération
       deleted: Supprimés
       diagnosis_completed: Analyses terminées
       done: Clôturé
@@ -839,7 +840,7 @@ fr:
     occasional_subjects: Sujets ponctuels
     occasional_themes: Thématiques ponctuelles
     percentage: Pourcentage
-    positionning_accepted_caption_definition: Part des besoins pour lesquels les experts ont indiqué prendre en charge en appelant l’entreprise, toutes clôtures confondues (aide proposée, injoignage, pas d’aide).
+    positionning_accepted_caption_definition: Part des besoins pour lesquels les experts ont indiqué prendre en charge en appelant l’entreprise, toutes clôtures confondues (aide proposée, injoignable, pas d’aide).
     positionning_accepted_caption_label: Taux de prise en charge
     positionning_accepted_rate: Taux de prise en charge
     positionning_caption_definition: Part des besoins pour lesquels les experts ont indiqué prendre en charge ou refuser.

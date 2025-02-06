@@ -6,14 +6,26 @@ RSpec.describe SharedSatisfactionPolicy, type: :policy do
   permissions :show_navbar? do
     let(:user) { create :user, antenne: create(:antenne, institution: create(:institution)) }
 
-    context "grants access if user is from an expert provider institution" do
-      before { user.institution.categories << create(:category, label: 'expert_provider') }
+    context "grants access if user is manager" do
+      before { user.user_rights.create(category: :manager, rightable_element: user.antenne) }
 
       it { is_expected.to permit(user) }
     end
 
-    context "denies access if user is NOT from an expert provider institution" do
+    context "grants access if user is simple conseiller" do
+      before { user.experts << create(:expert, antenne: user.antenne) }
+
+      it { is_expected.to permit(user) }
+    end
+
+    context "denies access if user is admin" do
       let(:user) { create :user, :admin }
+
+      it { is_expected.not_to permit(user) }
+    end
+
+    context "denies access if user only cooperation manager" do
+      let(:user) { create :user, :cooperation_manager }
 
       it { is_expected.not_to permit(user) }
     end

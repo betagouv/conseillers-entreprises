@@ -1,5 +1,5 @@
 class SharedSatisfactionPolicy < ApplicationPolicy
   def show_navbar?
-    Institution.expert_provider.include?(@user.institution)
+    @user.is_manager? || @user.experts.present?
   end
 end

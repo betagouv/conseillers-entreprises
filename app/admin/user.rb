@@ -17,6 +17,7 @@ ActiveAdmin.register User do
 
   scope :admin, group: :role
   scope :managers, group: :role
+  scope :cooperation_managers, group: :role
 
   scope :managers_not_invited, group: :invitations
   scope :not_invited, group: :invitations
