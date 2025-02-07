@@ -32,7 +32,7 @@ class ReportsController < ApplicationController
   end
 
   def retrieve_antennes
-    @antennes = current_user.managed_antennes&.order(:name)
+    @antennes = current_user.managed_antennes&.by_higher_territorial_level
   end
 
   def retrieve_quarters
