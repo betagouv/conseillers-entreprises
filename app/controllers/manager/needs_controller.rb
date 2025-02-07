@@ -37,7 +37,6 @@ class Manager::NeedsController < ApplicationController
   private
 
   def retrieve_recipient
-    # TODO : passer au service BuildAntenneXXX
     @recipient = if params[:antenne_id].present?
       current_user.supervised_antennes.find(params[:antenne_id])
     else
