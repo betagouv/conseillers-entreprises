@@ -1,7 +1,9 @@
 class Conseiller::SharedSatisfactionsController < ApplicationController
   include PersistedSearch
   include ManagerFilters
-  before_action :initialize_filters, except: [:mark_as_seen, :mark_all_as_seen]
+  before_action only: [:index, :unseen, :seen] do
+    initialize_filters(all_filter_keys)
+  end
   before_action :collections_counts, except: [:mark_as_seen, :mark_all_as_seen]
 
   layout 'side_menu'
@@ -101,11 +103,15 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
     [:antenne_id, :subject_id, :theme_id, :created_since, :created_until]
   end
 
-  def filter_keys
+  def all_filter_keys
     if current_user.is_manager?
-      [:antennes, :regions, :themes, :subjects]
+      [:antennes, :themes, :subjects]
     else
       [:themes, :subjects]
     end
+  end
+
+  def dynamic_filter_keys
+    [:subjects]
   end
 end
