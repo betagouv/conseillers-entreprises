@@ -1,13 +1,14 @@
 module ManagerFilters
   extend ActiveSupport::Concern
 
-  def initialize_filters
+  def initialize_filters(filter_keys)
     @filters = filter_keys.index_with do |key|
       send(:"base_#{key}").uniq
     end
   end
 
   def load_filter_options
+    initialize_filters(dynamic_filter_keys)
     render json: @filters.as_json
   end
 
