@@ -71,10 +71,6 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
       .includes(:company, :subject, :facility, company_satisfaction: :shared_satisfactions)
   end
 
-  def retrieve_antennes
-    @antennes = current_user.supervised_antennes.not_deleted.order(:name) if current_user.is_manager?
-  end
-
   def collections_counts
     @satisfaction_collections_count = Rails.cache.fetch(['satisfaction', retrieve_unseen_satisfactions.size, retrieve_seen_satisfactions.size]) do
       {

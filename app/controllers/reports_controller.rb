@@ -1,10 +1,11 @@
 class ReportsController < ApplicationController
-  before_action :retrieve_antennes, only: :index
+  include ManagerFilters
   before_action :retrieve_antenne, only: :index
   before_action :retrieve_quarters, only: :index
 
   def index
     authorize @antenne, policy_class: ReportPolicy
+    initialize_filters([:antennes])
     @antennes_for_select = BuildAntennesCollection.new(current_user).for_manager
   end
 
@@ -24,15 +25,9 @@ class ReportsController < ApplicationController
   def retrieve_antenne
     @antenne = if params[:antenne_id].present?
       Antenne.find(params[:antenne_id])
-    elsif @antennes.any?
-      @antennes.first
     else
-      current_user.antenne
+      current_user.managed_antennes.by_higher_territorial_level.first
     end
-  end
-
-  def retrieve_antennes
-    @antennes = current_user.managed_antennes&.by_higher_territorial_level
   end
 
   def retrieve_quarters
