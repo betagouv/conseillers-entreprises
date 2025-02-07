@@ -44,6 +44,12 @@ module Stats::Filters
       @query.merge! Match.joins(subject: :theme).where(subjects: { theme: theme })
     end
 
+    def provenance_detail_filter(provenance_detail)
+      return if provenance_detail.blank?
+      @query.merge! Match.joins(need: :solicitation)
+        .where(solicitations: { provenance_detail: provenance_detail })
+    end
+
     def mtm_campaign_filter(campaign)
       return if campaign.blank?
       @query.merge! Match.joins(need: :solicitation)
