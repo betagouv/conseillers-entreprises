@@ -767,7 +767,6 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
       let(:company) { create :company, forme_exercice: 'COMMERCIALE' }
       let(:facility) { create :facility, company: company, nature_activites: ["ARTISANALE"] }
       let(:the_subject) { need.subject }
-      let(:communes) { [facility.commune] }
 
       it{ is_expected.to contain_exactly(es_always, es_cci, es_cma) }
     end

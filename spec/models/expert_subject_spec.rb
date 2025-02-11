@@ -41,6 +41,34 @@ RSpec.describe ExpertSubject do
       end
     end
 
+    describe "in_commune" do
+      # expert.tz.commune == commune.code
+      # exoert.departement == commune.departement
+      # expert,region == commune.region
+      # expert.epci == commune.epci
+
+      # Expert qui a la commune directement
+      # Expert qui a le département de la commune
+      # Expert qui a la région de la commune
+      # Expert qui a l'EPCI de la commune
+      # Expert qui est national
+      #
+
+      let(:insee_code) { "47203" }
+
+      subject { described_class.in_commune(insee_code) }
+
+      context "Commune direct" do
+        let(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: insee_code)] }
+        let(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: "72026")] }
+
+        it "returns expert with the commune" do
+          is_expected.to contain_exactly(expert_with_code.experts_subjects.first)
+          is_expected.not_to include(expert_without_code.experts_subjects.first)
+        end
+      end
+    end
+
     describe 'of_institution' do
       subject{ described_class.of_institution(institution) }
 

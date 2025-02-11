@@ -218,6 +218,58 @@ RSpec.describe Expert do
     end
   end
 
+  describe "in_commune" do
+    # Commune 47204 : Penne-d'Agenais
+    # EPCI 200068930 : Communauté de communes Fumel Vallée du Lot
+    # Département 47 : Lot-et-Garonne
+    # Région 75 : Nouvelle-Aquitaine
+
+    let(:insee_code) { "47203" }
+
+    subject { described_class.in_commune(insee_code) }
+
+    def expect_expert_with_commune
+      expect(subject).to contain_exactly(expert_with_code)
+      expect(subject).not_to include(expert_without_code)
+      expect(subject.count).to eq 1
+    end
+
+    context "Commune directe" do
+      let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: insee_code)] }
+      let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: "72026")] }
+
+      it { expect_expert_with_commune }
+    end
+
+    context "EPCI qui a la commune" do
+      let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :epci, code: "200068930")] }
+      let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :epci, code: "200054781")] }
+
+      it { expect_expert_with_commune }
+    end
+
+    context "Département qui a la commune" do
+      let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :departement, code: "47")] }
+      let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :departement, code: "72")] }
+
+      it { expect_expert_with_commune }
+    end
+
+    context "Région qui a la commune" do
+      let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :region, code: "75")] }
+      let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :region, code: "76")] }
+
+      it { expect_expert_with_commune }
+    end
+
+    context "Expert national" do
+      let!(:expert_with_code) { create :expert, :with_expert_subjects, is_global_zone: true }
+      let!(:expert_without_code) { create :expert, :with_expert_subjects }
+
+      it { expect_expert_with_commune }
+    end
+  end
+
   describe '#with_identical_user?' do
     let(:user) { build :user, email: 'numerobis@architecte.com', full_name: 'Numérobis' }
     let(:expert) { build :expert, email: 'numerobis@architecte.com', full_name: 'Numérobis', users: [user] }

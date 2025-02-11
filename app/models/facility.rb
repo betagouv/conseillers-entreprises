@@ -37,7 +37,6 @@ class Facility < ApplicationRecord
   ## Associations
   #
   belongs_to :company, inverse_of: :facilities
-  belongs_to :commune, inverse_of: :facilities
   belongs_to :opco, -> { opco }, class_name: 'Institution', inverse_of: :facilities, optional: true
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
 
@@ -55,8 +54,8 @@ class Facility < ApplicationRecord
   has_many :company_satisfactions, through: :needs, inverse_of: :facility
 
   # :commune
-  has_many :territories, through: :commune, inverse_of: :facilities
-  has_many :regions, -> { regions }, through: :commune, source: :territories, inverse_of: :facilities
+  # has_many :territories, through: :commune, inverse_of: :facilities
+  # has_many :regions, -> { regions }, through: :commune, source: :territories, inverse_of: :facilities
 
   accepts_nested_attributes_for :company
 
@@ -68,17 +67,6 @@ class Facility < ApplicationRecord
 
   scope :for_contacts, -> (emails = []) do
     joins(company: :contacts).where(contacts: { email: emails })
-  end
-
-  ## insee_code / commune helpers
-  # TODO: insee_code should be just a column in facility, and we should drop the Commune model entirely.
-  #   In the meantime, fake it by delegating to commune.
-  delegate :insee_code, to: :commune, allow_nil: true # commune can be nil in new facility models.
-  def insee_code=(insee_code)
-    return if insee_code.blank?
-    self.commune = Commune.find_or_initialize_by(insee_code: insee_code)
-    city_params = ApiGeo::Query.city_with_code(insee_code)
-    self.readable_locality = "#{city_params['codesPostaux']&.first} #{city_params['nom']}"
   end
 
   def commune_name
@@ -118,13 +106,13 @@ class Facility < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     [
-      "code_effectif", "commune_id", "company_id", "created_at", "effectif", "id", "id_value", "naf_code",
+      "code_effectif", "created_at", "effectif", "id", "id_value", "naf_code",
       "naf_code_a10", "naf_libelle", "opco_id", "readable_locality", "siret", "updated_at"
     ]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["advisors", "commune", "company", "diagnoses", "matches", "needs", "opco", "territories", "regions"]
+    ["advisors", "company", "diagnoses", "matches", "needs", "opco", "territories", "regions"]
   end
 
   private
