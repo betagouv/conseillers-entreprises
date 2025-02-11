@@ -239,6 +239,15 @@ class Expert < ApplicationRecord
 
   scope :without_shared_satisfaction, -> { where.missing(:shared_satisfactions) }
 
+  scope :in_commune, -> (insee_code) do
+    commune = DecoupageAdministratif::Commune.find_by_code(insee_code)
+    left_joins(:territorial_zones).where(territorial_zones: { zone_type: :commune, code: insee_code })
+      .or(Expert.left_joins(:territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci.code }))
+      .or(Expert.left_joins(:territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
+      .or(Expert.left_joins(:territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code }))
+      .or(Expert.left_joins(:territorial_zones).where(is_global_zone: true))
+  end
+
   def self.apply_filters(params)
     klass = self
     klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
@@ -333,7 +342,7 @@ class Expert < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     [
-      "antenne", "antenne_communes", "antenne_regions", "antenne_territories", "communes", "direct_regions",
+      "antenne", "antenne_regions", "antenne_territories", "direct_regions",
       "experts_subjects", "institution", "institutions_subjects", "match_filters", "not_received_matches",
       "received_diagnoses", "received_matches", "received_needs", "received_quo_matches", "reminder_feedbacks",
       "reminders_registers", "subjects", "territories", "themes", "users"
