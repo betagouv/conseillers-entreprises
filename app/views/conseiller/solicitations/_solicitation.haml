@@ -37,6 +37,11 @@
                 = t('.not_sas_html')
               %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-not-sas-#{solicitation.id}" }
                 = t('.not_sas_explanation')
+            - if solicitation.experimentation_urssaf?
+              %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-experimentation-urssaf-#{solicitation.id}", href: '#' }
+                = t('.experimentation_urssaf')
+              %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-experimentation-urssaf-#{solicitation.id}" }
+                = t('.experimentation_urssaf_explanation')
 
         .card__description
           .card__description__content.break-word

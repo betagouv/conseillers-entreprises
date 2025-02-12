@@ -515,6 +515,12 @@ class Solicitation < ApplicationRecord
     similar_abandonned_solicitations.size >= 4
   end
 
+  # Experimentation pour l'URSSAF 59 et 62
+  def experimentation_urssaf?
+    # pour departements 59 et 62 sur le sujet "Solliciter des avantages fiscaux"
+    (subject.id == 170) && facility.readable_locality.start_with?("59", "62")
+  end
+
   def update_diagnosis
     return if diagnosis.nil?
     return if status_processed?
