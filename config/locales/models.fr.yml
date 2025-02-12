@@ -559,7 +559,7 @@ fr:
             short: Recrutement apprenti ou stagiaire ?
         recrutement_handicape:
           label:
-            long: Êtes-vous ouvert aux candidatures de personnes en situation de handicap avec l’aide d’un conseiller dédié ?
+            long: Souhaitez-vous bénéficier d’un conseil dédié au recrutement de personnes en situation de handicap ?
             short: Recrutement d'une personne en situation de handicap possible ?
         recrutement_identifie:
           label:
