@@ -20,10 +20,6 @@ module ApiConsumption::Models
       @libelle_region ||= I18n.t(code_region, scope: 'regions_codes_to_libelles', default: I18n.t('no_data'))
     end
 
-    def commune
-      @commune ||= Commune.find_or_create_by insee_code: insee_code
-    end
-
     def code_departement
       return if insee_code.blank?
 

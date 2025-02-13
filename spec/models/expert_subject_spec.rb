@@ -42,18 +42,6 @@ RSpec.describe ExpertSubject do
     end
 
     describe "in_commune" do
-      # expert.tz.commune == commune.code
-      # exoert.departement == commune.departement
-      # expert,region == commune.region
-      # expert.epci == commune.epci
-
-      # Expert qui a la commune directement
-      # Expert qui a le département de la commune
-      # Expert qui a la région de la commune
-      # Expert qui a l'EPCI de la commune
-      # Expert qui est national
-      #
-
       let(:insee_code) { "47203" }
 
       subject { described_class.in_commune(insee_code) }

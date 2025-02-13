@@ -48,7 +48,7 @@ describe DiagnosisCreation::CreateOrUpdateFacilityAndCompany do
         expect(company.forme_exercice).to eq 'COMMERCIALE'
 
         expect(facility.reload.siret).to eq siret
-        expect(facility.commune.insee_code).to eq '75102'
+        expect(facility.insee_code).to eq '75102'
         expect(facility.naf_code).to eq '6202A'
         expect(facility.code_effectif).to eq '41'
         expect(facility.opco).to eq opco
