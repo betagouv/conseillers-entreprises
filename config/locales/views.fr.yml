@@ -321,6 +321,8 @@ fr:
         start_auto_diagnosis: Analyse automatique
         start_manual_diagnosis: Analyse manuelle
       solicitation:
+        experimentation_urssaf: XP Urssaf
+        experimentation_urssaf_explanation: ZRR, calcul TA, DSN
         from_intermediary: Sollicitation provenant d’un intermédiaire
         needs_historic: 'Historique de l’entreprise :'
         not_sas_explanation: Si formation métier -> mail TNS (La forme juridique de l’entreprise n’est pas une SAS ou SASU)
