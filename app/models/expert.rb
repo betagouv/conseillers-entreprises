@@ -45,6 +45,8 @@ class Expert < ApplicationRecord
   has_many :reminder_feedbacks, -> { where(category: :expert_reminder) }, class_name: :Feedback, dependent: :destroy, as: :feedbackable, inverse_of: :feedbackable
   has_many :reminders_registers, inverse_of: :expert
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
+  has_many :territorial_zones, as: :zoneable, dependent: :destroy, inverse_of: :zoneable
+  accepts_nested_attributes_for :territorial_zones, allow_destroy: true
 
   ## Validations & callbacks
   #
@@ -156,9 +158,10 @@ class Expert < ApplicationRecord
   #
   scope :with_custom_communes, -> do
     # The naive “joins(:communes).distinct” is way more complex.
-    where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
+    not_deleted.where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
   end
-  scope :without_custom_communes, -> { where.missing(:communes) }
+  scope :without_custom_communes, -> { not_deleted.where.missing(:communes) }
+  scope :with_territorial_zones, -> { not_deleted.joins(:territorial_zones) }
 
   scope :with_global_zone, -> do
     where(is_global_zone: true)
@@ -187,7 +190,7 @@ class Expert < ApplicationRecord
   scope :by_possible_region, -> (param) {
     begin
       by_region(param)
-    rescue ActiveRecord::RecordNotFound => e
+    rescue ActiveRecord::RecordNotFound => _e
       self.send(param) if [I18n.t('helpers.expert.national_perimeter.value')].include?(param)
     end
   }
@@ -235,6 +238,15 @@ class Expert < ApplicationRecord
   scope :expired_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_expired_need_category) }
 
   scope :without_shared_satisfaction, -> { where.missing(:shared_satisfactions) }
+
+  scope :in_commune, -> (insee_code) do
+    commune = DecoupageAdministratif::Commune.find_by_code(insee_code)
+    left_joins(:territorial_zones).where(territorial_zones: { zone_type: :commune, code: insee_code })
+      .or(Expert.left_joins(:territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci.code }))
+      .or(Expert.left_joins(:territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
+      .or(Expert.left_joins(:territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code }))
+      .or(Expert.left_joins(:territorial_zones).where(is_global_zone: true))
+  end
 
   def self.apply_filters(params)
     klass = self
@@ -330,7 +342,7 @@ class Expert < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     [
-      "antenne", "antenne_communes", "antenne_regions", "antenne_territories", "communes", "direct_regions",
+      "antenne", "antenne_regions", "antenne_territories", "direct_regions",
       "experts_subjects", "institution", "institutions_subjects", "match_filters", "not_received_matches",
       "received_diagnoses", "received_matches", "received_needs", "received_quo_matches", "reminder_feedbacks",
       "reminders_registers", "subjects", "territories", "themes", "users"

@@ -34,6 +34,7 @@ ActiveAdmin.register Expert do
   scope :active, default: true
   scope :deleted
   scope :with_custom_communes
+  scope :with_territorial_zones
 
   scope :without_users, group: :debug
   scope :active_without_users, group: :debug
@@ -54,6 +55,17 @@ ActiveAdmin.register Expert do
       div admin_link_to(e, :institution)
       div class: 'bold' do
         admin_link_to(e, :antenne)
+      end
+    end
+    column(:territoral_zone) do |a|
+      zone_types = TerritorialZone.zone_types.keys
+      if a.territorial_zones.any?
+        div do
+          zone_types.each do |zone_type|
+            count = a.territorial_zones.count { |tz| tz.zone_type == zone_type }
+            div(I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone') + ' : ' + count.to_s) if count.positive?
+          end
+        end
       end
     end
     column(:intervention_zone) do |e|
@@ -180,6 +192,34 @@ ActiveAdmin.register Expert do
       end
     end
 
+    panel I18n.t('activerecord.models.territorial_zone.other') do
+      if expert.territorial_zones.any?
+        TerritorialZone.zone_types.each_key do |zone_type|
+          expert_territorial_zones = expert.territorial_zones.select { |tz| tz.zone_type == zone_type }
+          next if expert_territorial_zones.empty?
+          attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
+            model = "DecoupageAdministratif::#{zone_type.camelize}".constantize
+            expert_territorial_zones.map do |tz|
+              row(tz.code) do
+                model_instance = model.send(:find_by_code, tz.code)
+                name = model_instance.nom
+                if zone_type == "epci"
+                  communes_names = []
+                  model_instance.communes.sort_by(&:nom).map do |commune|
+                    communes_names << "#{commune.nom} (#{commune.code})"
+                  end
+                  name = name + "<br/>" + communes_names.join(', ')
+                end
+                name.html_safe
+              end
+            end
+          end
+        end
+      else
+        I18n.t('active_admin.expert.no_specifique_zone')
+      end
+    end
+
     attributes_table title: I18n.t('active_admin.antenne.institution_match_filters') do
       expert.institution.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
@@ -242,7 +282,8 @@ ActiveAdmin.register Expert do
     user_ids: [],
     experts_subjects_ids: [],
     experts_subjects_attributes: %i[id intervention_criteria institution_subject_id _create _update _destroy],
-    match_filters_attributes: match_filters_attributes
+    match_filters_attributes: match_filters_attributes,
+    territorial_zones_attributes: [:id, :zone_type, :code, :_destroy]
   ]
 
   form do |f|
@@ -276,6 +317,14 @@ ActiveAdmin.register Expert do
 
     f.inputs t('attributes.is_global_zone') do
       f.input :is_global_zone
+    end
+
+    f.inputs do
+      f.has_many :territorial_zones, allow_destroy: true, new_record: true do |tz|
+
+        tz.input :zone_type, as: :select, collection: TerritorialZone.zone_types.keys.map{ |zone| [I18n.t(zone, scope: "activerecord.attributes.territorial_zone"), zone] }, include_blank: false
+        tz.input :code
+      end
     end
 
     if resource.institution.present?
