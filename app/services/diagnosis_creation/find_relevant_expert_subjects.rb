@@ -17,7 +17,7 @@ module DiagnosisCreation
     def apply_base_query
       ExpertSubject
         .joins(:not_deleted_expert)
-        .in_commune(facility.commune)
+        .in_commune(facility.insee_code)
         .of_subject(need.subject)
         .of_institution(institutions)
         .without_irrelevant_chambres(facility)
