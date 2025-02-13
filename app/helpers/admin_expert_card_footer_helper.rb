@@ -51,10 +51,9 @@ module AdminExpertCardFooterHelper
   #
   def expert_action_button(action, expert)
     reminders_register = expert.send(EXPERT_ACTIONS[action])
-    if reminders_register.present?
-      form_with(model: expert, url: reminders_reminders_register_path(reminders_register), method: :patch, local: true, data: { turbo: false }) do |f|
-        f.submit t('reminders.process'), class: 'fr-btn fr-mr-2v'
-      end.html_safe
-    end
+    return "" if reminders_register.blank?
+    form_with(model: expert, url: reminders_reminders_register_path(reminders_register), method: :patch, local: true, data: { turbo: false }) do |f|
+      f.submit t('reminders.process'), class: 'fr-btn fr-mr-2v'
+    end.html_safe
   end
 end
