@@ -241,6 +241,7 @@ class Expert < ApplicationRecord
 
   scope :in_commune, -> (insee_code) do
     commune = DecoupageAdministratif::Commune.find_by_code(insee_code)
+    return none if commune.nil?
     left_joins(:territorial_zones).where(territorial_zones: { zone_type: :commune, code: insee_code })
       .or(Expert.left_joins(:territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci.code }))
       .or(Expert.left_joins(:territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
