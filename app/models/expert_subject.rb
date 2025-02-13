@@ -56,10 +56,7 @@ class ExpertSubject < ApplicationRecord
   end
 
   scope :in_commune, -> (insee_code) do
-    # expert.tz.commune == commune.code
-    # exoert.departement == commune.departement
-    # expert,region == commune.region
-    # expert.epci == commune.epci
+    where(expert: Expert.in_commune(insee_code))
   end
 
   scope :of_institution, -> (institution) do
