@@ -47,7 +47,7 @@ class ExpertSubject < ApplicationRecord
   scope :relevant_for, -> (need) do
     of_subject(need.subject)
       .joins(:not_deleted_expert)
-      .in_commune(need.facility.commune)
+      .in_commune(need.facility.insee_code)
   end
 
   scope :of_subject, -> (subject) do
