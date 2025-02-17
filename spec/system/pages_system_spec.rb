@@ -31,11 +31,11 @@ describe 'Pages' do
     click_on 'Mentions légales'
     click_on 'Accessibilité : partiellement conforme'
     click_on 'Statistiques'
-    expect(page).to have_select 'territory'
+    expect(page).to have_select 'territory_id'
     expect(page).to have_no_select 'institution'
     find_by_id('start_date').set "2021-03-01"
     click_on 'Rechercher'
-    expect(page).to have_select 'territory'
+    expect(page).to have_select 'territory_id'
     click_on 'Plan du site'
     expect(page).to have_content(Landing.first.landing_themes.first.title)
   end

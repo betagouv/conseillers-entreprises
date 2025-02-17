@@ -7,25 +7,25 @@ module Stats
 
   module BaseStats
     FILTER_PARAMS = [
-      :territory, :institution_id, :antenne_id, :landing_id, :integration, :cooperation_id, :mtm_campaign, :mtm_kwd,
-      :start_date, :end_date, :theme_id, :subject_id, :colors, :with_agglomerate_data
+      :territory_id, :institution_id, :antenne_id, :landing_id, :theme_id, :subject_id, :cooperation_id, :integration,
+      :mtm_campaign, :mtm_kwd, :start_date, :end_date, :provenance_detail, :colors, :with_agglomerate_data
     ]
     attr_reader(*FILTER_PARAMS)
 
     def initialize(params)
       params = OpenStruct.new(params)
-      @territory = Territory.find_by(id: params.territory) if params.territory.present?
+      @territory_id = params.territory_id
       @institution_id = params.institution_id
       @antenne_id = params.antenne_id
       @with_agglomerate_data = params.antenne_id.include?('locales') if params.antenne_id.present?
-      @subject_id = Subject.find_by(id: params.subject_id) if params.subject_id.present?
+      @subject_id = params.subject_id
       @integration = params.integration
       @landing_id = params.landing_id
       @mtm_campaign = params.mtm_campaign
       @mtm_kwd = params.mtm_kwd
       @provenance_detail = params.provenance_detail
       @cooperation_id = params.cooperation_id
-      @theme_id = Theme.find_by(id: params.theme_id) if params.theme_id.present?
+      @theme_id = params.theme_id
       start_date = params.start_date&.to_date || (Date.today - 6.months)
       @start_date = start_date.beginning_of_day.in_time_zone
       end_date = params.end_date&.to_date || Date.today

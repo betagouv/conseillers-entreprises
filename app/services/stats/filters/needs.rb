@@ -2,7 +2,8 @@ module Stats::Filters
   class Needs < Base
     private
 
-    def territories_filter(territory)
+    def territories_filter(territory_id)
+      territory = Territory.find_by(id: territory_id)
       return if territory.blank?
       @query.merge! territory.needs
     end

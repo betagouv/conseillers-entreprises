@@ -27,8 +27,8 @@
     .fr-col-12.fr-col-md-4
       - if filters[:regions].many?
         .fr-select-group
-          = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
-          = f.collection_select :territory, filters[:regions], :id, :name, { selected: params[:territory],
+          = f.label :territory_id, t('stats.stats_params.region'), class: 'fr-label'
+          = f.collection_select :territory_id, filters[:regions], :id, :name, { selected: params[:territory_id],
             include_blank: t('all.feminine') }, class: "fr-select"
       - if cooperation.with_provenance_details?
         .fr-input-group.fr-pr-2v
