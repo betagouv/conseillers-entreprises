@@ -228,6 +228,9 @@ GEM
       sprockets-rails
       tilt
     date (3.4.1)
+    debug (1.10.0)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (4.9.4)
@@ -784,6 +787,7 @@ DEPENDENCIES
   css_parser
   daemons
   dartsass-sprockets
+  debug
   decoupage_administratif!
   devise
   devise-async
