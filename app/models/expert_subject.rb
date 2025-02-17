@@ -95,9 +95,7 @@ class ExpertSubject < ApplicationRecord
   end
 
   scope :support_for, -> (diagnosis) do
-    experts_in_commune = diagnosis.facility.commune.all_experts
-
-    support.where(expert: experts_in_commune)
+    support.where(expert: Expert.in_commune(diagnosis.facility.insee_code))
   end
 
   scope :support, -> { where(institution_subject: InstitutionSubject.support_subjects) }
