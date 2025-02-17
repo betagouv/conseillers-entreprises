@@ -12,7 +12,7 @@
       .fr-col-12.fr-col-md-6
         .fr-select-group
           = f.label :antenne_id, t('filters.select_antenne'), class: 'fr-label'
-          = f.select :antenne_id, options_for_select(@antennes_for_select.pluck(:name, :id), selected: @antenne.id), {}, class: "fr-select"
+          = f.select :antenne_id, options_for_select(@filters[:antennes].pluck(:name, :id), selected: @antenne.id), {}, class: "fr-select fr-mb-2v"
 
       .fr-col-12.fr-col-md-6
         .fr-input-group

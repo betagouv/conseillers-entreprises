@@ -3,14 +3,15 @@
 module Manager
   class StatsController < ApplicationController
     include StatsUtilities
+    include ManagerFilters
 
     before_action :authorize_index_manager_stats, only: %i[index load_data]
-    before_action :set_filters_collections, only: :index
     before_action :set_stats_params, only: :index
     before_action :set_charts_names, only: %i[index load_data]
 
     def index
-      @antenne = Antenne.find(@stats_params[:antenne]) if @stats_params[:antenne].present?
+      initialize_filters(all_filter_keys)
+      @antenne = Antenne.find(@stats_params[:antenne_id]) if @stats_params[:antenne_id].present?
     end
 
     def load_data
@@ -21,30 +22,10 @@ module Manager
       render partial: 'stats/load_stats', locals: { data: data, name: name }
     end
 
-    def load_filter_options
-      subjects = base_subjects
-
-      response = {
-        subjects: subjects.select(:id, :label).uniq
-      }
-
-      render json: response.as_json
-    end
-
     private
 
     def authorize_index_manager_stats
       authorize [:manager, :stats], :index?
-    end
-
-    def set_filters_collections
-      managed_antennes = current_user.managed_antennes
-      @filters = {
-        antennes: base_antennes,
-        regions: managed_antennes.first.national? ? Territory.regions : Territory.where(id: managed_antennes.map(&:regions).flatten).uniq,
-        themes: current_user.institution.themes.for_interview.sort_by(&:label).uniq,
-        subjects: base_subjects.uniq
-      }
     end
 
     def set_stats_params
@@ -52,7 +33,7 @@ module Manager
       @stats_params[:start_date] ||= 6.months.ago.beginning_of_month.to_date
       @stats_params[:end_date] ||= Date.today
       # '.to_s' to keep 'plus antennes locales' in params // base_antennes peut être vide
-      @stats_params[:antenne] ||= base_antennes&.first&.dig(:id)&.to_s
+      @stats_params[:antenne_id] ||= base_antennes&.first&.dig(:id)&.to_s
       @stats_params[:institution_id] = current_user.institution.id
       @stats_params[:colors] = %w[#cacafb #000091]
       session[:manager_stats_params] = @stats_params
@@ -66,14 +47,21 @@ module Manager
       ]
     end
 
-    def base_subjects
-      @base_subjects = current_user.institution.subjects.not_archived.for_interview.order(:label)
-      @base_subjects = @base_subjects.where(theme_id: params[:theme]) if params[:theme].present?
-      @base_subjects
+    # Filtering
+    #
+    # utilisé pour initialisé les filtres ManagerFilters
+    def base_needs_for_filters
+      @base_needs_for_filters ||= current_user.supervised_antennes.by_higher_territorial_level.first.perimeter_received_needs.distinct
     end
 
-    def base_antennes
-      @base_antennes ||= BuildAntennesCollection.new(current_user).for_manager
+    # Utilisé à l'initialisation de la page
+    def all_filter_keys
+      [:antennes, :regions, :themes, :subjects]
+    end
+
+    # Utilisé lors des chargements dynamiques js des options
+    def dynamic_filter_keys
+      [:subjects]
     end
   end
 end

@@ -46,8 +46,8 @@ class Conseiller::CooperationsController < ApplicationController
     subjects = @cooperation.subjects.not_archived.order(:label)
 
     # on verifie que le theme précédemment sélectionné fait bien partie des thèmes possibles
-    if params[:theme].present? && themes.map(&:id).include?(params[:theme].to_i)
-      subjects = subjects.where(theme_id: params[:theme])
+    if params[:theme_id].present? && themes.map(&:id).include?(params[:theme_id].to_i)
+      subjects = subjects.where(theme_id: params[:theme_id])
     end
     @filters = {
       themes: themes.uniq,

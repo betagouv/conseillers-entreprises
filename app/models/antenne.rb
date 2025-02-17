@@ -142,6 +142,10 @@ class Antenne < ApplicationRecord
     joins(institution: :themes).where(themes: { id: theme_id })
   end
 
+  scope :by_higher_territorial_level, -> {
+    self.sort { |a, b| TERRITORIAL_ORDER[a.territorial_level.to_sym] <=> TERRITORIAL_ORDER[b.territorial_level.to_sym] }
+  }
+
   ##
   #
   def self.apply_filters(params)
