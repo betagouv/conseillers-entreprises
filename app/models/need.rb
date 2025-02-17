@@ -311,8 +311,8 @@ class Need < ApplicationRecord
     where(id: antenne.perimeter_received_needs)
   end
 
-  scope :by_region, -> (region_id) do
-    joins(facility: :commune).merge(Commune.by_region(region_id))
+  scope :by_region, -> (region_code) do
+    joins(diagnosis: [company: :facilities]).where(diagnosis: { companies: { facilities: Facility.by_region(region_code) } })
   end
 
   scope :by_subject, -> (subject_id) do
