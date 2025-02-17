@@ -5,12 +5,12 @@
     = form_with url: path, method: :get, skip_enforcing_utf8: true, local: true do |f|
       = hidden_field_tag :anchor, 'stats-charts'
       .fr-select-group
-        = f.label :territory, t('stats.stats_params.region'), class: 'fr-label'
-        = f.collection_select :territory, Territory.regions.order(:name), :id, :name, { selected: params[:territory],
+        = f.label :territory_id, t('stats.stats_params.region'), class: 'fr-label'
+        = f.collection_select :territory_id, Territory.regions.order(:name), :id, :name, { selected: params[:territory_id],
           include_blank: t('all.feminine') }, class: "fr-select"
       .fr-select-group
-        = f.label :theme, t('stats.stats_params.theme'), class: 'fr-label'
-        = f.collection_select :theme, Theme.for_interview.order(:label), :id, :label, { selected: params[:theme],
+        = f.label :theme_id, t('stats.stats_params.theme'), class: 'fr-label'
+        = f.collection_select :theme_id, Theme.for_interview.order(:label), :id, :label, { selected: params[:theme_id],
           include_blank: t('all.feminine') }, class: "fr-select"
       .fr-input-group
         = f.label :start_date, class: 'fr-label' do
