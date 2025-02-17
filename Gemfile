@@ -123,6 +123,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem 'w3c_validators', require: false
   gem 'rswag-specs'
+  gem 'debug'
 end
 
 group :development do
