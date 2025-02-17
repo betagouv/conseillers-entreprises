@@ -12,30 +12,31 @@ RSpec.describe ExpertSubject do
     describe 'relevant_for' do
       subject{ described_class.relevant_for(need) }
 
-      let(:need) { create :need }
+      let(:need) { create :need, facility: create(:facility, insee_code: "47203") }
       let!(:expert_subject) do
         create :expert_subject,
                institution_subject: create(:institution_subject, subject: the_subject),
-               expert: create(:expert, communes: communes)
+               expert: create(:expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: insee_code)])
       end
 
       context 'when the expert isn’t on the commune' do
         let(:the_subject) { need.subject }
         let(:communes) { [create(:commune)] }
+        let(:insee_code) { "72026" }
 
         it{ is_expected.to be_blank }
       end
 
       context 'when the institution doesn’t handle that subject' do
         let(:the_subject) { create :subject }
-        let(:communes) { [need.facility.commune] }
+        let(:insee_code) { "47203" }
 
         it{ is_expected.to be_blank }
       end
 
       context 'when both subject and institution match' do
         let(:the_subject) { need.subject }
-        let(:communes) { [need.facility.commune] }
+        let(:insee_code) { "47203" }
 
         it{ is_expected.to contain_exactly(expert_subject) }
       end
