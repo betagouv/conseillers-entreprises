@@ -333,8 +333,8 @@ class Need < ApplicationRecord
       .or(Need.diagnosis_completed.where(diagnosis: { facilities: { siret: sirets.compact } }))
   end
 
-  scope :by_region, -> (region_id) do
-    joins(facility: :commune).merge(Commune.by_region(region_id))
+  scope :by_region, -> (region_code) do
+    joins(diagnosis: [company: :facilities]).where(diagnosis: { companies: { facilities: Facility.by_region(region_code) } })
   end
 
   scope :by_theme, -> (theme_id) do

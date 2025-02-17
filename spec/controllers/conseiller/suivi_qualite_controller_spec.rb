@@ -5,9 +5,10 @@ RSpec.describe Conseiller::SuiviQualiteController do
 
   describe 'index pages' do
     describe 'GET #quo_matches' do
-      let!(:region) { create :territory, :region, name: "Région-01", code_region: 12345 }
-      let!(:commune) { create :commune, regions: [region] }
-      let!(:done_need_with_quo_match) { create :need, status: :done, facility: create(:facility, commune: commune) }
+      let!(:region_code) { "24" }
+      let!(:insee_code) { "41269" }
+
+      let!(:done_need_with_quo_match) { create :need, status: :done, facility: create(:facility, insee_code: insee_code) }
       let!(:done_match_01) { create(:match, need: done_need_with_quo_match, status: :quo, sent_at: 30.days.ago) }
       let!(:done_match_02) { create(:match, need: done_need_with_quo_match, status: :done, sent_at: 30.days.ago) }
       let!(:taking_care_need_with_quo_match) { create :need, status: :taking_care }
@@ -24,7 +25,7 @@ RSpec.describe Conseiller::SuiviQualiteController do
       end
 
       context 'with filters' do
-        before { get :quo_matches, params: { by_region: region.id } }
+        before { get :quo_matches, params: { by_region: region_code } }
 
         it { expect(assigns(:needs)).to contain_exactly(done_need_with_quo_match) }
       end

@@ -38,4 +38,19 @@ RSpec.describe Facility do
       expect(facility.readable_locality).to eq '78500 Sartrouville'
     end
   end
+
+  describe "scopes" do
+    describe "by_region" do
+      let(:region_code) { "52" }
+      let!(:facility_in_region_1) { create :facility, insee_code: "44109" }
+      let!(:facility_in_region_2) { create :facility, insee_code: "49007" }
+      let!(:facility_not_in_region) { create :facility, insee_code: "70550" }
+
+      subject { described_class.by_region(region_code) }
+
+      it 'returns facilities in the region' do
+        is_expected.to contain_exactly(facility_in_region_1, facility_in_region_2)
+      end
+    end
+  end
 end
