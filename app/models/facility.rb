@@ -72,6 +72,13 @@ class Facility < ApplicationRecord
     joins(company: :contacts).where(contacts: { email: emails })
   end
 
+  # Cherche les établissements avec un code insee d'un département de la région
+  scope :by_region, -> (region_code) do
+    region = DecoupageAdministratif::Region.find_by_code(region_code)
+    departements = region&.departements || []
+    where("insee_code LIKE ANY (array[?])", departements.map { |departement| "#{departement.code}%" })
+  end
+
   def commune_name
     readable_locality || insee_code
   end
