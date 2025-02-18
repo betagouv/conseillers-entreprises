@@ -518,7 +518,7 @@ class Solicitation < ApplicationRecord
   # Experimentation pour l'URSSAF 59 et 62
   def experimentation_urssaf?
     # pour departements 59 et 62 sur le sujet "Solliciter des avantages fiscaux"
-    (subject.id == 170) && facility.readable_locality.start_with?("59", "62")
+    (subject.id == 170) && facility&.readable_locality&.start_with?("59", "62")
   end
 
   def update_diagnosis
