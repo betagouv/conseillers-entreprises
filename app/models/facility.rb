@@ -80,6 +80,7 @@ class Facility < ApplicationRecord
   end
 
   def commune_name
+    # TODO : garder readable locality ou passer sur la gem pour afficher le nom ?
     readable_locality || insee_code
   end
 
@@ -116,7 +117,7 @@ class Facility < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     [
-      "code_effectif", "created_at", "effectif", "id", "id_value", "naf_code",
+      "code_effectif", "created_at", "effectif", "id", "id_value", "naf_code", "insee_code",
       "naf_code_a10", "naf_libelle", "opco_id", "readable_locality", "siret", "updated_at"
     ]
   end
