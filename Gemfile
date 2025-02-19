@@ -76,6 +76,8 @@ gem 'caxlsx_rails'
 gem 'split', require: 'split/dashboard'
 gem 'matrix'
 gem 'mjml-rails'
+gem 'progress_bar'
+gem 'decoupage_administratif', git: 'https://github.com/betagouv/decoupage-administratif-gem'
 
 # Notifiers
 gem "sentry-ruby"
@@ -120,6 +122,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem 'w3c_validators', require: false
   gem 'rswag-specs'
+  gem 'debug'
 end
 
 group :development do
