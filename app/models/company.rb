@@ -37,8 +37,8 @@ class Company < ApplicationRecord
   has_many :diagnoses, through: :facilities, inverse_of: :company
   has_many :needs, through: :facilities, inverse_of: :company
   has_many :matches, through: :facilities, inverse_of: :company
-  has_many :territories, through: :facilities, inverse_of: :companies
-  has_many :facilities_regions, -> { regions }, through: :facilities, source: :territories, inverse_of: :companies
+  # has_many :territories, through: :facilities, inverse_of: :companies
+  # has_many :facilities_regions, -> { regions }, through: :facilities, source: :territories, inverse_of: :companies
 
   ## Scopes
   #
@@ -67,6 +67,6 @@ class Company < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["facilities", "facilities_regions"]
+    ["facilities"]
   end
 end

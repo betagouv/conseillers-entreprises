@@ -959,6 +959,7 @@ fr:
     categories: Catégories
     category: Catégorie
     code_effectif: Tranche d’effectif
+    insee_code: Code Insee
     color: Couleur
     comments: Commentaires des conseillers de l’antenne
     commune: Commune
