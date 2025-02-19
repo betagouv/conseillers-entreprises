@@ -14,7 +14,7 @@ module Stats::Needs
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        @needs.push(month_query.count)
+        @needs.push(month_query.distinct.count)
       end
 
       as_series(@needs)

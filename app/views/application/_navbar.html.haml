@@ -66,13 +66,16 @@
                 = t('.reports')
             - if policy(:cooperation).show_navbar?
               %li.fr-nav__item
-                %button.fr-nav__btn{ aria: { controls: "nav-cooperation-2", current: controller_name == 'cooperations', expanded: "false" } }
+                %button.fr-nav__btn{ aria: { controls: "nav-cooperation", current: controller_name == 'cooperations', expanded: "false" } }
                   %span.ri-shake-hands-line.fr-mr-1w{ 'aria-hidden': 'true' }
                   = t('.cooperation')
-                .fr-collapse.fr-menu#nav-cooperation-2
+                .fr-collapse.fr-menu#nav-cooperation
                   %ul.fr-menu__list
                     = active_link_to needs_conseiller_cooperations_path, class: 'fr-nav__link', wrap_tag: :li do
                       = t('.cooperation_needs')
+                    - if policy(:cooperation).show_navbar_cooperation_matches?
+                      = active_link_to matches_conseiller_cooperations_path, class: 'fr-nav__link', wrap_tag: :li do
+                        = t('.cooperation_matches')
             - if policy(User).admin?
               = active_link_to conseiller_solicitations_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
                 %span.ri-message-2-line.fr-mr-1w{ 'aria-hidden': 'true' }

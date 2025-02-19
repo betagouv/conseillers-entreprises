@@ -4,6 +4,7 @@
 #
 #  id                              :bigint(8)        not null, primary key
 #  archived_at                     :datetime
+#  display_matches_stats           :boolean          default(FALSE)
 #  display_pde_partnership_mention :boolean          default(FALSE)
 #  display_url                     :boolean          default(FALSE)
 #  mtm_campaign                    :string

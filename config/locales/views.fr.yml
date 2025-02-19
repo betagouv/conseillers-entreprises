@@ -114,6 +114,7 @@ fr:
       antennes_needs: Besoins des antennes
       badges: Tags
       cooperation: Coopération
+      cooperation_matches: Pilotage par partenaire
       cooperation_needs: Pilotage par besoin
       csv_exports: Exports csv
       invite: Inviter des utilisateurs
@@ -222,6 +223,8 @@ fr:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
   conseiller:
     cooperations:
+      matches:
+        title: "%{cooperation_name} - Pilotage %{institution_name}"
       needs:
         decalage_alert:
           description: Le total des besoins transmis peut à partir d’ici différer. Certains besoins ont été requalifiés par notre équipe pour être affectés au bon sujet.
