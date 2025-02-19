@@ -1,15 +1,24 @@
 class Conseiller::CooperationsController < ApplicationController
   include StatsUtilities
 
-  before_action :retrieve_cooperation, only: %i[needs load_filter_options provenance_detail_autocomplete]
-  before_action :init_filters, only: %i[needs load_filter_options]
-  before_action :set_stats_params, only: %i[needs]
+  before_action :retrieve_cooperation, only: %i[needs matches load_filter_options provenance_detail_autocomplete]
+  before_action :init_filters, only: %i[needs matches load_filter_options]
 
   def needs
+    set_stats_params(cooperation_id: @cooperation.id)
     @charts_names = %w[
       solicitations_completed solicitations_diagnoses
       needs_positioning needs_done needs_done_no_help needs_done_not_reachable needs_not_for_me needs_taking_care
       needs_themes needs_subjects companies_by_employees companies_by_naf_code
+    ]
+  end
+
+  def matches
+    # On filtre les MER de l'institution
+    set_stats_params(cooperation_id: @cooperation.id, institution: @cooperation.institution.id)
+    @charts_names = %w[
+      needs_transmitted matches_positioning matches_taking_care matches_done
+      matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
     ]
   end
 
@@ -56,8 +65,8 @@ class Conseiller::CooperationsController < ApplicationController
     }
   end
 
-  def set_stats_params
-    @stats_params = stats_params.merge(cooperation_id: @cooperation.id)
+  def set_stats_params(additional_params = {})
+    @stats_params = stats_params.merge(additional_params)
     session[:cooperation_stats_params] = @stats_params
   end
 end
