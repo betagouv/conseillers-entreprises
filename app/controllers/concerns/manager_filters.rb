@@ -20,7 +20,7 @@ module ManagerFilters
   end
 
   def base_subjects
-    @base_subjects = Subject.where(theme_id: base_themes.pluck(:id)).not_archived.order(:label)
+    @base_subjects = Subject.where(theme: base_themes).not_archived.order(:label)
     @base_subjects = @base_subjects.where(theme_id: params[:theme_id]) if params[:theme_id].present?
     @base_subjects
   end

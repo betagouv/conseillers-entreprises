@@ -35,8 +35,7 @@
             = f.label :created_until, t('needs.search.created_until'), class: 'fr-label'
             = f.date_field :created_until, value: params[:created_until], class: 'fr-input'
 
-  .fr-grid-row.fr-grid-row--gutters
-    .fr-col-md-6.fr-col-12
+  .fr-grid-row.fr-grid-row--gutters.fr-grid-row--right
     .fr-col-md-6.fr-col-12.text-right
       - if index_search_params.present?
         = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
