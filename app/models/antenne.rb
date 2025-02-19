@@ -151,8 +151,8 @@ class Antenne < ApplicationRecord
   def self.apply_filters(params)
     klass = self
     klass = klass.by_region(params[:region]) if params[:region].present?
-    klass = klass.by_subject(params[:subject]) if params[:subject].present?
-    klass = klass.by_theme(params[:theme]) if params[:theme].present?
+    klass = klass.by_subject(params[:subject_id]) if params[:subject_id].present?
+    klass = klass.by_theme(params[:theme_id]) if params[:theme_id].present?
     klass.all
   end
 

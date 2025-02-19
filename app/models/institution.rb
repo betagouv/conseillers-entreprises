@@ -199,8 +199,8 @@ class Institution < ApplicationRecord
   def self.apply_filters(params)
     klass = self
     klass = klass.by_region(params[:region]) if params[:region].present?
-    klass = klass.joins(:themes).where(themes: { id: params[:theme] }) if params[:theme].present?
-    klass = klass.joins(:subjects).where(subjects: { id: params[:subject] }) if params[:subject].present?
+    klass = klass.joins(:themes).where(themes: { id: params[:theme_id] }) if params[:theme_id].present?
+    klass = klass.joins(:subjects).where(subjects: { id: params[:subject_id] }) if params[:subject_id].present?
     klass.all
   end
 
