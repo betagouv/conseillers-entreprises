@@ -81,8 +81,8 @@ class Match < ApplicationRecord
   has_many :contacted_users, through: :expert, source: :users, inverse_of: :received_matches
 
   # :facility
-  has_many :facility_territories, through: :facility, source: :territories, inverse_of: :matches
-  has_many :facility_regions, -> { regions }, through: :facility, source: :territories, inverse_of: :matches
+  # has_many :facility_territories, through: :facility, source: :territories, inverse_of: :matches
+  # has_many :facility_regions, -> { regions }, through: :facility, source: :territories, inverse_of: :matches
 
   # :subject
   has_one :theme, through: :subject, inverse_of: :matches
@@ -97,7 +97,7 @@ class Match < ApplicationRecord
 
   scope :sent, -> { where.not(sent_at: nil) }
 
-  scope :in_region, -> (region) { joins(:facility_regions).where(facility: { territories: region }) }
+  # scope :in_region, -> (region) { joins(:facility_regions).where(facility: { territories: region }) }
 
   scope :in_progress, -> do
     where(status: [:quo, :taking_care])
@@ -269,7 +269,7 @@ class Match < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [
       "advisor", "advisor_antenne", "advisor_institution", "company", "company_satisfaction", "contacted_users",
-      "diagnosis", "expert", "expert_antenne", "expert_institution", "facility", "facility_regions", "facility_territories",
+      "diagnosis", "expert", "expert_antenne", "expert_institution", "facility",
       "need", "related_matches", "solicitation", "subject", "theme", "landing", "landing_theme", "landing_subject"
     ]
   end
