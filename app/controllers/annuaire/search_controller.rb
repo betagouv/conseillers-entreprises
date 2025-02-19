@@ -50,8 +50,8 @@ module Annuaire
 
     def reset_params_for_user
       params[:region] = nil
-      params[:theme] = nil
-      params[:subject] = nil
+      params[:theme_id] = nil
+      params[:subject_id] = nil
       reset_session
     end
 

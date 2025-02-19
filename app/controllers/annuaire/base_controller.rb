@@ -10,7 +10,7 @@ module Annuaire
     end
 
     def form_params
-      %i[institution antenne name region theme subject]
+      %i[institution antenne name region theme_id subject_id]
         .reduce({}) { |h,key| h[key] = params[key]; h }
     end
 
@@ -19,8 +19,8 @@ module Annuaire
     end
 
     def retrieve_subjects
-      @subjects = if index_search_params[:theme].present?
-        Theme.find_by(id: index_search_params[:theme]).subjects
+      @subjects = if index_search_params[:theme_id].present?
+        Theme.find_by(id: index_search_params[:theme_id]).subjects
       else
         Subject.not_archived.order(:label)
       end
@@ -33,7 +33,7 @@ module Annuaire
     end
 
     def search_fields
-      [:region, :theme, :subject, :query]
+      [:region, :theme_id, :subject_id, :query]
     end
   end
 end
