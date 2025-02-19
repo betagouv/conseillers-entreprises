@@ -84,7 +84,7 @@ module Stats
     end
 
     def count
-      @count ||= filtered(main_query).size
+      @count ||= filtered(main_query).distinct.size
     end
 
     def secondary_count
