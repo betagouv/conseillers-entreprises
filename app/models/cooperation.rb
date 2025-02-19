@@ -34,13 +34,15 @@ class Cooperation < ApplicationRecord
 
   has_many :cooperation_themes, dependent: :destroy, inverse_of: :cooperation
   has_many :specific_themes, through: :cooperation_themes, inverse_of: :cooperations, source: :theme
+  has_many :specific_subjects, through: :specific_themes, inverse_of: :cooperations, source: :subject
 
   has_many :landing_themes, through: :landings
   has_many :themes, through: :landing_themes
   has_many :subjects, through: :landing_themes
 
   has_many :user_rights, as: :rightable_element, dependent: :destroy, inverse_of: :rightable_element
-  has_many :user_rights_managers, ->{ category_cooperation_manager }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
+  has_many :user_rights_cooperation_manager, ->{ category_cooperation_manager }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
+  has_many :managers, through: :user_rights_cooperation_manager, source: :user, inverse_of: :managed_cooperations
 
   has_one :logo, dependent: :destroy, as: :logoable, inverse_of: :logoable
 
