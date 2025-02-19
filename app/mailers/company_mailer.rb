@@ -11,7 +11,7 @@ class CompanyMailer < ApplicationMailer
     @cooperation_logo_name = cooperation_logo_name
     mail(
       to: @solicitation.email,
-      subject: t('mailers.company_mailer.confirmation_solicitation.subject', subject: solicitation.landing_subject.title)
+      subject: t('mailers.company_mailer.confirmation_solicitation.subject', subject: solicitation.final_subject_title)
     )
   end
 
@@ -65,13 +65,13 @@ class CompanyMailer < ApplicationMailer
   def solicitation_relaunch_company(solicitation)
     @solicitation = solicitation
     @cooperation_logo_name = cooperation_logo_name
-    mail(to: @solicitation.email, subject: t('mailers.company_mailer.solicitation_relaunch_company.subject', subject: solicitation.subject))
+    mail(to: @solicitation.email, subject: t('mailers.company_mailer.solicitation_relaunch_company.subject', subject: solicitation.final_subject_title))
   end
 
   def solicitation_relaunch_description(solicitation)
     @solicitation = solicitation
     @cooperation_logo_name = cooperation_logo_name
-    mail(to: @solicitation.email, subject: t('mailers.company_mailer.solicitation_relaunch_description.subject', subject: solicitation.subject))
+    mail(to: @solicitation.email, subject: t('mailers.company_mailer.solicitation_relaunch_description.subject', subject: solicitation.final_subject_title))
   end
 
   def intelligent_retention(need, email_retention)
@@ -83,7 +83,7 @@ class CompanyMailer < ApplicationMailer
 
   def not_yet_taken_care(solicitation)
     @solicitation = solicitation
-    mail(to: @solicitation.email, subject: t('mailers.company_mailer.not_yet_taken_care.subject', subject: solicitation.landing_subject.subject))
+    mail(to: @solicitation.email, subject: t('mailers.company_mailer.not_yet_taken_care.subject', subject: solicitation.final_subject_title))
   end
 
   private

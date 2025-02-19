@@ -832,4 +832,23 @@ end
       end
     end
   end
+
+  describe 'final_subject_title' do
+    subject(:final_subject_title) { solicitation.final_subject_title }
+
+    let(:subject_1) { create :subject, label: 'Subject 1 label' }
+    let(:landing_subject) { create :landing_subject, title: 'Landing Subject Title', subject: subject_1 }
+    let(:solicitation) { create :solicitation, landing_subject: landing_subject }
+
+    context 'with only landing_subject' do
+      it { is_expected.to eq 'Landing Subject Title' }
+    end
+
+    context 'with needs' do
+      let(:subject_2) { create :subject, label: 'Subject 2 label' }
+      let!(:need) { create :need, subject: subject_2, diagnosis: create(:diagnosis, solicitation: solicitation) }
+
+      it { is_expected.to eq 'Subject 2 label' }
+    end
+  end
 end
