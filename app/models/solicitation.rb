@@ -245,12 +245,6 @@ class Solicitation < ApplicationRecord
     self.email&.squeeze('.')
   end
 
-  # Format fiche : F1234..
-  def from_entreprendre
-    self.cooperation&.mtm_campaign == 'entreprendre' ||
-    QueryFromEntreprendre.new(campaign: self.campaign, kwd: self.kwd).call
-  end
-
   ## Scopes
   #
   scope :omnisearch, -> (query) do
@@ -473,6 +467,19 @@ class Solicitation < ApplicationRecord
     end
   end
 
+  def update_diagnosis
+    return if diagnosis.nil?
+    return if status_processed?
+    diagnosis.update(content: self.description) if description_previously_changed?
+    visitee.update(
+      email: email,
+      full_name: full_name,
+      phone_number: phone_number
+    ) if (email_previously_changed? || full_name_previously_changed? || phone_number_previously_changed?) && visitee.present?
+  end
+
+  ## Infos cartes solicitations
+  #
   def doublon_solicitations
     Solicitation.where(status: [:in_progress])
       .where.not(id: self.id)
@@ -513,23 +520,6 @@ class Solicitation < ApplicationRecord
 
   def has_similar_abandonned_solicitations?
     similar_abandonned_solicitations.size >= 4
-  end
-
-  # Experimentation pour l'URSSAF 59 et 62
-  def experimentation_urssaf?
-    # pour departements 59 et 62 sur le sujet "Solliciter des avantages fiscaux"
-    (subject.id == 170) && facility&.readable_locality&.start_with?("59", "62")
-  end
-
-  def update_diagnosis
-    return if diagnosis.nil?
-    return if status_processed?
-    diagnosis.update(content: self.description) if description_previously_changed?
-    visitee.update(
-      email: email,
-      full_name: full_name,
-      phone_number: phone_number
-    ) if (email_previously_changed? || full_name_previously_changed? || phone_number_previously_changed?) && visitee.present?
   end
 
   # Trouver les sirets probables des solicitations pour identifier relances et doublons
@@ -604,9 +594,23 @@ class Solicitation < ApplicationRecord
     email: 'email'
   }
 
+  ## Expérimentations - customisations
+  #
   def certify_being_company_boss_required?
     # Pour les sujets de landings "Former un ou plusieurs salariés" et "Obtenir un renseignement en droit du travail"
     landing_subject.id == 2 || landing_subject.id == 12
+  end
+
+  # Format fiche : F1234..
+  def from_entreprendre
+    self.cooperation&.mtm_campaign == 'entreprendre' ||
+    QueryFromEntreprendre.new(campaign: self.campaign, kwd: self.kwd).call
+  end
+
+  # Experimentation pour l'URSSAF 59 et 62
+  def experimentation_urssaf?
+    # pour departements 59 et 62 sur le sujet "Solliciter des avantages fiscaux"
+    (subject.id == 170) && facility&.readable_locality&.start_with?("59", "62")
   end
 
   ## Preselection
@@ -623,6 +627,15 @@ class Solicitation < ApplicationRecord
       phone_number
     end
   end
+
+  # Il peut y avoir des sollicitations sans need, et des needs sans sollicitation
+  def final_subject_title
+    if needs.present?
+      needs.first.subject.label
+    else
+      landing_subject.title
+    end
+end
 
   # Provenance
   #

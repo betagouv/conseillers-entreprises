@@ -156,11 +156,12 @@ class Diagnosis < ApplicationRecord
     end
   end
 
+  # Il peut y avoir des sollicitations sans need, et des needs sans sollicitation
   def subject_title
-    if solicitation.present?
-      solicitation.landing_subject.title
-    else
+    if needs.present?
       needs.first.subject.label
+    else
+      solicitation.landing_subject.title
     end
   end
 
