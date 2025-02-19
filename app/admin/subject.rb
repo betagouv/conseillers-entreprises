@@ -35,7 +35,8 @@ ActiveAdmin.register Subject do
       div simple_count(s, :intern_landings)
       div simple_count(s, :iframe_landings)
     end
-    column :territory do |s|
+    column t('active_admin.particularities') do |s|
+      div s.cooperations.map { |c| admin_link_to c }.join(', ').html_safe
       div s.territories.map(&:name).join(', ')
     end
     actions dropdown: true do |d|

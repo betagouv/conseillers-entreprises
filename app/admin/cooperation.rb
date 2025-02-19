@@ -55,6 +55,9 @@ ActiveAdmin.register Cooperation do
       row(:landings) do |c|
         div admin_link_to(c, :landings, list: true)
       end
+      row(:managers) do |c|
+        div admin_link_to(c, :managers, list: true)
+      end
     end
   end
 

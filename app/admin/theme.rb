@@ -26,8 +26,8 @@ ActiveAdmin.register Theme do
       div admin_link_to(t, :matches)
     end
     column t('active_admin.particularities') do |t|
+      div t.cooperations.map { |r| admin_link_to r }.join(', ').html_safe
       div t.territories.map(&:name).join(', ')
-      div t('active_admin.specific_theme') if t.cooperation?
     end
     actions dropdown: true
   end
@@ -51,7 +51,9 @@ ActiveAdmin.register Theme do
       row :interview_sort_order
       row(:subjects) { |t| admin_link_to(t, :subjects) }
       row(:institutions) { |t| admin_link_to(t, :institutions) }
-      row(:cooperations) { |t| admin_link_to(t, :cooperations) }
+      row(:cooperations) do |t|
+        t.cooperations.map { |r| admin_link_to r }.join(', ').html_safe
+      end
     end
     attributes_table do
       row(:needs) { |t| admin_link_to(t, :needs) }
