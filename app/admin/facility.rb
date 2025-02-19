@@ -3,7 +3,7 @@ ActiveAdmin.register Facility do
 
   ## Index
   #
-  includes :company, :commune, :diagnoses, :needs, :matches
+  includes :company, :diagnoses, :needs, :matches
   config.sort_order = 'created_at_desc'
 
   scope :all, default: true
@@ -44,7 +44,7 @@ ActiveAdmin.register Facility do
   filter :naf_code
   filter :code_effectif
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
-  filter :commune_insee_code, as: :string
+  filter :insee_code
   filter :regions, collection: -> { Territory.regions.order(:name) }
   filter :created_at
 
@@ -52,7 +52,7 @@ ActiveAdmin.register Facility do
   #
   csv do
     column :company
-    column :commune
+    column :insee_code
     column :readable_locality
     column :siret
     column :naf_code
@@ -78,7 +78,7 @@ ActiveAdmin.register Facility do
         end
       end
       row :nature_activites
-      row :commune
+      row :insee_code
       row :readable_locality
       row :created_at
       row(:activity) do |f|
@@ -91,20 +91,17 @@ ActiveAdmin.register Facility do
 
   ## Form
   #
-  permit_params :siret, :naf_code, :code_effectif, :company_id, :commune_id, :readable_locality
+  permit_params :siret, :naf_code, :code_effectif, :company_id, :insee_code, :readable_locality
 
   form do |f|
     f.inputs do
       f.input :siret
       f.input :naf_code
       f.input :code_effectif
+      f.input :insee_code
       f.input :company, as: :ajax_select, data: {
         url: :admin_companies_path,
         search_fields: [:name]
-      }
-      f.input :commune, as: :ajax_select, data: {
-        url: :admin_communes_path,
-        search_fields: [:insee_code]
       }
       f.input :readable_locality
     end
