@@ -978,7 +978,7 @@ fr:
     facility_naf: Code NAF
     facility_nafa: Codes NAFA
     facility_nature_activites: Nature des activités
-    facility_regions: Région de l’établissement
+    facility_region: Région de l’établissement
     facility_territories: Territoires des établissements
     feedbacks:
       one: Commentaire
