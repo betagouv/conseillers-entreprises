@@ -23,8 +23,8 @@ fr:
     company_mailer:
       confirmation_solicitation:
         content: Nous avons bien reçu votre demande déposée sur le site conseillers-entreprises.service-public.fr.
-        content_for_cooperation_html: Nous avons bien reçu votre demande déposée sur le site <strong>%{website}</strong>, en partenariat avec le service public Conseillers-Entreprises.
-        informations: Vous serez informé(e) par mail de sa prise en charge par un conseiller ou une conseillère dans les 5 jours en moyenne.
+        content_for_cooperation_html: 'Nous avons bien reçu votre demande déposée sur le site :'
+        informations: Vous serez informé(e) par mail de la prise en charge de votre demande par un conseiller ou une conseillère dans les 5 jours en moyenne.
         its_about: 'Elle concerne :'
         partner_list: 'Les partenaires pouvant vous rappeler sont :'
         subject: Confirmation de votre demande « %{subject} »
@@ -32,8 +32,8 @@ fr:
       failed_need:
         no_experts: Nous avons transmis votre demande au sein de notre réseau de partenaires institutionnels publics et parapublics. Malheureusement et malgré nos efforts de relance, nous avons le regret de vous informer qu’aucun de nos partenaires n’est en mesure de vous accompagner pour votre demande.
         service_improvement: C’est en détectant de nouvelles situations que nous pouvons améliorer ce service. Nous faisons notre maximum pour compléter l’expertise du service en intégrant de nouveaux partenaires. Nous espérons ainsi proposer à terme un conseil personnalisé à toutes les TPE & PME dans votre situation.
-        subject: Échec de votre demande Place des Entreprises
-        your_need_html: Vous avez déposé une demande sur le site %{link_to_root} (ou un site intégrant le service) concernant le sujet <strong>%{subject}</strong>.
+        subject: Échec de votre demande Conseillers-Entreprises
+        your_need_html: Vous avez utilisé le service public %{link_to_root} - ou un site partenaire intégrant ce service - sur le sujet <strong>%{subject}</strong>.
       intelligent_retention:
         and_you: Et vous, souhaitez-vous être aidé par un conseiller sur ces sujets ?
       intro_from_solicitation_html: 'Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concerne :'
@@ -61,25 +61,25 @@ fr:
         outro: Votre avis est important pour nous aider à améliorer ce service d'accompagnement des entreprises.
         question_one_html: Avez-vous été rappelé(e) par un conseiller ou une conseillère ? <a href='%{link_yes}' target='_blank' class='response-button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='response-button no'>Non</a>
         subject: Fin du suivi de votre demande « %{subject} »
-        tank_you: Merci pour votre confiance,
       solicitation_relaunch_company:
         continue_button: Finaliser ma demande d’aide
-        incomplete_step_explanation: 'Nous avons besoin de votre SIRET ou SIREN pour vous fournir un conseil personnalisé et de proximité. Pour trouver votre SIRET, vous pouvez renseigner le nom de votre entreprise en cliquant ci-dessous :'
+        incomplete_step_explanation: 'Nous avons besoin de votre SIRET ou SIREN pour vous fournir un conseil humain et de proximité. Pour trouver votre SIRET, vous pouvez renseigner le nom de votre entreprise en cliquant ci-dessous :'
+        incomplete_step_explanation_cooperation: 'Nous avons besoin de votre SIRET ou SIREN pour vous mettre en relation avec un conseiller. Pour trouver votre SIRET, vous pouvez renseigner le nom de votre entreprise en cliquant ci-dessous :'
         service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
         subject: Finalisez votre demande pour « %{subject} »
-        your_solicitation_cooperation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site <strong>%{website}</strong>, en partenariat avec le service public Conseillers-Entreprises.
+        your_solicitation_cooperation_html: 'Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site :'
         your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site conseillers-entreprises.service-public.fr.
       solicitation_relaunch_description:
         continue_button: Finaliser ma demande d’aide
-        incomplete_step_explanation: Vous pouvez expliquer votre problématique avec quelques éléments de contexte pour bénéficier d’un conseil personnalisé.
+        incomplete_step_explanation: Vous pouvez expliquer votre problématique avec quelques éléments de contexte pour bénéficier d’un conseil humain et de proximité.
         service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
         subject: Finalisez votre demande à propos de « %{subject} »
-        your_solicitation_cooperation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site <strong>%{website}</strong>, en partenariat avec le service public Conseillers-Entreprises.
+        your_solicitation_cooperation_html: 'Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site :'
         your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site conseillers-entreprises.service-public.fr.
       why_this_message_html: "<strong>Pourquoi recevez-vous ce message ?</strong>"
     contact_me: Pour toute question, contactez-moi
     contact_your_referent: Pour toute question, contactez votre référent
-    cordially: Cordialement,
+    cooperation_uses_ce: Ce site utilise le service public Conseillers-Entreprises pour que vous puissiez bénéficier d’un conseil humain et de proximité.
     email_sent: L’email a bien été envoyé
     expert_mailer:
       closing_good_practice:
@@ -155,7 +155,7 @@ fr:
       bad_quality:
         complete_solicitation: Compléter ma demande
         for_better_taking_care_html: 'Pour pouvoir vous aider, les conseillers ont impérativement besoin d’éléments de contexte :'
-        intro_cooperation_html: Vous avez récemment déposé une demande sur le sujet « <strong>%{subject}</strong> » sur le site <strong>%{website}</strong>, en partenariat avec le service public Conseillers-Entreprises.
+        intro_cooperation_html: Vous avez récemment déposé une demande sur le sujet « <strong>%{subject}</strong> » sur le site <strong>%{website}</strong>.
         intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} pour <strong>"%{subject}"</strong>.
         investment_html: "<strong>pour votre projet d’investissement :</strong> type d’investissement, but et montant du besoin"
         recruitment_html: "<strong>pour votre projet de recrutement :</strong> contexte du recrutement et type de contrat"
@@ -274,8 +274,7 @@ fr:
         no_expert: Malheureusement nous n’avons pas encore d'expert en mesure de répondre à votre problématique.
         tradespeople_html: "<strong>pour les commerçants</strong> : <a href='https://communication-agefice.fr'>https://communication-agefice.fr</a>"
         useful_links: 'Selon votre statut social de Travailleur Non Salarié, 4 organismes sont compétents :'
-    team: L’équipe Conseillers-Entreprises, un service de Service-Public.fr
-    team_html: L’équipe <a href=%{url}>Conseillers-Entreprises</a>
+    team_html: L’équipe <a href=%{url}> Conseillers-Entreprises </a>
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service.
     thanks_for_your_comprehension: Nous vous remercions pour votre compréhension.
@@ -298,4 +297,3 @@ fr:
         dynamic_stats_html: Nous mettons à votre disposition des <strong>statistiques dynamiques</strong> pour le pilotage de l’activité générée par le service pour votre institution.
         quarterly_report_available_html: Le <strong>rapport statistique</strong> des besoins transmis à vos équipes, sur le dernier trimestre et depuis le début de l’année, est à télécharger dans votre compte. Le détail des besoins est disponible dans un second fichier.
         subject: Vos statistiques de pilotage sont disponibles
-    withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.

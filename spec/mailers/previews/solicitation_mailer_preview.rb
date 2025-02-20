@@ -1,6 +1,6 @@
 class SolicitationMailerPreview < ActionMailer::Preview
   def bad_quality
-    SolicitationMailer.bad_quality(Solicitation.joins(:landing_subject).status_canceled.have_badge('mauvaise_qualité').sample)
+    SolicitationMailer.bad_quality(Solicitation.where(cooperation_id: 3).joins(:landing_subject).status_canceled.have_badge('mauvaise_qualité').sample)
   end
 
   def employee_labor_law

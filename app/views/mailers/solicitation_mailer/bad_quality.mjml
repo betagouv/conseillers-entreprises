@@ -1,8 +1,9 @@
 <mj-section>
   <mj-column>
     <mj-text><%= t('mailers.hello') %></mj-text>
-    <% if partner_url(@solicitation).present? %>
-      <mj-text><%= t('.intro_cooperation_html', subject: @solicitation.subject, website: partner_url(@solicitation)) %></mj-text>
+    <% if @solicitation.cooperation.present? %>
+      <mj-text><%= t('.intro_cooperation_html', subject: @solicitation.subject, website: @solicitation.cooperation.name) %></mj-text>
+      <mj-text><%= t('mailers.cooperation_uses_ce') %></mj-text>
     <% else %>
       <mj-text><%= t('.intro_html', link_to_root: link_to(t('app_name'), root_url), subject: @solicitation.subject) %></mj-text>
     <% end %>
