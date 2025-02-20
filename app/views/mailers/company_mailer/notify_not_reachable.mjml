@@ -12,8 +12,6 @@
 
     <mj-text><%= t('mailers.thank_you_to_used_our_service') %></mj-text>
 
-    <mj-text><%= t('mailers.cordially') %></mj-text>
-
-    <mj-text><%= t('mailers.team_html', url: root_url(mtm_campaign: 'retention', mtm_kwd: 'sequence-mail-pde')) %></mj-text>
+    <%= render 'mailers/solicitation_mailer/footer' %>
   </mj-column>
 </mj-section>

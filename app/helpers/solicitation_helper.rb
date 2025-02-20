@@ -83,6 +83,12 @@ module SolicitationHelper
     return landing_partner_url(solicitation, full: full)
   end
 
+  def link_to_partner_url(solicitation)
+    link_url = partner_url(solicitation, full: true)
+    link_title = partner_url(solicitation, full: false).gsub(/https?:\/\//, '')
+    link_to link_title, link_url
+  end
+
   private
 
   def link_for_editable_subject(need)

@@ -2,36 +2,37 @@
   <mj-column>
     <mj-text><%= t('mailers.hello') %></mj-text>
 
-      <% if partner_url(@solicitation).present? %>
-          <mj-text><%= t('.content_for_cooperation_html', website: partner_url(@solicitation)) %></mj-text>
-      <% else %>
-          <mj-text><%= t('.content') %></mj-text>
-      <% end %>
+    <% if partner_url(@solicitation).present? %>
+      <mj-text><%= t('.content_for_cooperation_html') %></mj-text>
+      <mj-text><%= link_to_partner_url(@solicitation) %></mj-text>
+    <% else %>
+      <mj-text><%= t('.content') %></mj-text>
+    <% end %>
 
-      <mj-text><%= t('.its_about') %></mj-text>
+    <mj-text><%= t('.its_about') %></mj-text>
 
-      <mj-text>
-          <strong><%= @solicitation.landing_subject.title %></strong>
-      </mj-text>
+    <mj-text>
+      <strong><%= @solicitation.landing_subject.title %></strong>
+    </mj-text>
 
-      <mj-text><%= t('.informations') %></mj-text>
-      <% institution_names = @solicitation.landing_subject.solicitable_institutions_names %>
-      <% if institution_names.any? %>
-        <mj-text><%= t('.partner_list') %>
-        <ul>
-            <% institution_names.each do |institution_name| %>
-            <li><%= institution_name %></li>
-            <% end %>
-        </ul>
-      <% end %>
-      </mj-text>
+    <% if partner_url(@solicitation).present? %>
+      <mj-text><%= t('mailers.cooperation_uses_ce') %></mj-text>
+    <% end %>
 
-      <mj-text><%= t('mailers.thank_you_to_used_our_service') %></mj-text>
+    <mj-text><%= t('.informations') %></mj-text>
+    <% institution_names = @solicitation.landing_subject.solicitable_institutions_names %>
+    <% if institution_names.any? %>
+      <mj-text><%= t('.partner_list') %>
+      <ul>
+        <% institution_names.each do |institution_name| %>
+          <li><%= institution_name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    </mj-text>
 
-      <mj-text><%= t('mailers.cordially') %></mj-text>
+    <mj-text><%= t('mailers.thanks_for_your_trust') %></mj-text>
 
-      <mj-text>
-          <%= t('mailers.team_html', url: root_url(mtm_campaign: 'retention', mtm_kwd: 'sequence-mail-pde')) %>
-      </mj-text>
+    <%= render 'mailers/solicitation_mailer/footer' %>
   </mj-column>
 </mj-section>
