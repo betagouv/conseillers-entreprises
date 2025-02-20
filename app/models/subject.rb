@@ -59,6 +59,7 @@ class Subject < ApplicationRecord
 
   ## themes
   has_many :territories, through: :theme, inverse_of: :subjects
+  has_many :cooperations, through: :theme, inverse_of: :specific_subjects
   has_many :landing_themes, -> { distinct }, through: :landing_subjects, inverse_of: :subjects
   has_many :landings, through: :landing_subjects, inverse_of: :subjects
   has_many :intern_landings, -> { intern }, through: :landing_subjects, inverse_of: :subjects, source: :landings

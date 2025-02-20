@@ -51,14 +51,18 @@ ActiveAdmin.register Cooperation do
       row :root_url
       row :display_url
       row :mtm_campaign
+      row :display_matches_stats
       row(:landings) do |c|
         div admin_link_to(c, :landings, list: true)
+      end
+      row(:managers) do |c|
+        div admin_link_to(c, :managers, list: true)
       end
     end
   end
 
   permit_params :name,
-                :logo_id, :mtm_campaign, :root_url, :display_url,
+                :logo_id, :mtm_campaign, :root_url, :display_url, :display_matches_stats,
                 :institution_id, landing_ids: []
 
   form do |f|
@@ -80,6 +84,7 @@ ActiveAdmin.register Cooperation do
       f.input :root_url
       f.input :display_url
       f.input :mtm_campaign
+      f.input :display_matches_stats
     end
 
     f.actions
