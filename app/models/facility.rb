@@ -100,6 +100,10 @@ class Facility < ApplicationRecord
     all_nature_activites.any? { |a| ["LIBERALE_REGLEMENTEE", "LIBERALE_NON_REGLEMENTEE", "INDEPENDANTE", "GESTION_DE_BIENS"].include?(a) }
   end
 
+  def region
+    DecoupageAdministratif::Region.find_by_code(insee_code).region
+  end
+
   ##
   #
   def to_s
