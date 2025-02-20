@@ -1017,7 +1017,7 @@ fr:
     facility_naf_code_a10: Code NAF A10 entreprise
     facility_nafa: Codes NAFA
     facility_nature_activites: Nature des activités
-    facility_regions: Région de l’établissement
+    facility_region: Région de l’établissement
     facility_territories: Territoires des établissements
     feedbacks:
       one: Commentaire
