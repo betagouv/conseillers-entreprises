@@ -3,12 +3,14 @@
     <mj-text><%= t('mailers.hello') %></mj-text>
 
     <% if partner_url(@solicitation).present? %>
-      <mj-text><%= t('.your_solicitation_cooperation_html', subject: @solicitation.subject, website: partner_url(@solicitation)) %></mj-text>
+      <mj-text><%= t('.your_solicitation_cooperation_html', subject: @solicitation.subject) %></mj-text>
+      <mj-text><%= link_to_partner_url(@solicitation) %></mj-text>
+      <mj-text><%= t('mailers.cooperation_uses_ce') %></mj-text>
+      <mj-text><%= t('.incomplete_step_explanation_cooperation') %></mj-text>
     <% else %>
       <mj-text><%= t('.your_solicitation_html', subject: @solicitation.subject) %></mj-text>
+      <mj-text><%= t('.incomplete_step_explanation') %></mj-text>
     <% end %>
-
-    <mj-text><%= t('.incomplete_step_explanation') %></mj-text>
 
     <mj-button href="<%= redirect_to_solicitation_step_solicitation_url(@solicitation.uuid, relaunch: 'sollicitation-etape-entreprise') %>"
                background-color="#000091" color="white" border-radius="0" font-weight="700">
@@ -17,8 +19,6 @@
 
     <mj-text><%= t('.service_explanation_html') %></mj-text>
 
-    <mj-text><%= t('mailers.best_regards') %></mj-text>
-
-    <mj-text><%= t('mailers.team') %></mj-text>
+    <%= render 'mailers/solicitation_mailer/footer' %>
   </mj-column>
 </mj-section>
