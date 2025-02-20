@@ -14,8 +14,8 @@ module CsvExport
         landing_theme_title: -> { solicitation&.landing_theme&.title },
         landing_subject_title: -> { solicitation&.subject&.label },
         siret: -> { facility.siret },
-        commune: -> { facility.commune },
-        facility_regions: -> { facility_regions&.pluck(:name).uniq.join(", ") },
+        commune: -> { facility.insee_code },
+        facility_region: -> { facility.region&.nom },
         company_name: -> { company&.name },
         company_categorie_juridique: -> { company.categorie_juridique },
         facility_naf: -> { facility.naf_code },
@@ -57,8 +57,7 @@ module CsvExport
         :need, :diagnosis, :facility, :company, :related_matches,
         :advisor, :expert, :expert_antenne, :expert_institution,
         :theme, :solicitation, :company_satisfaction,
-        :facility_regions, solicitation: [:badges, :landing_theme, :landing, :subject],
-        facility: :commune, diagnosis: :visitee, need: [:reminders_actions]
+        solicitation: [:badges, :landing_theme, :landing, :subject], diagnosis: :visitee, need: [:reminders_actions]
       ]
     end
 
