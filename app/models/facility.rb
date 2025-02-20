@@ -109,6 +109,10 @@ class Facility < ApplicationRecord
     end
   end
 
+  def region
+    DecoupageAdministratif::Region.find_by_code(insee_code).region
+  end
+
   ##
   #
   def to_s
