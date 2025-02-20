@@ -56,9 +56,9 @@ describe DiagnosisCreation::Steps do
 
   describe 'prepare_matches_from_solicitation' do
     let(:insee_code) { "23176" }
-    let(:diagnosis) { build :diagnosis, solicitation: solicitation, step: 'needs', facility: create(:facility, insee_code: insee_code) }
+    let!(:diagnosis) { build :diagnosis, solicitation: solicitation, step: 'needs', facility: create(:facility, insee_code: insee_code) }
     let(:solicitation) { create :solicitation }
-    let(:need) { create :need, diagnosis: diagnosis }
+    let!(:need) { create :need, diagnosis: diagnosis }
     let!(:other_need_subject) { create :subject, id: 59 }
 
     let!(:expert_subject) do
