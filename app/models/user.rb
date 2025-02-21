@@ -291,6 +291,10 @@ class User < ApplicationRecord
     user_rights_cooperation_manager.any?
   end
 
+  def is_only_cooperation_manager?
+    is_cooperation_manager? && experts.empty?
+  end
+
   def is_admin?
     user_rights_admin.any?
   end

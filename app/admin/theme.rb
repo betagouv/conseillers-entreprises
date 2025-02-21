@@ -6,7 +6,7 @@ ActiveAdmin.register Theme do
   ## Index
   #
   config.sort_order = 'interview_sort_order_asc'
-  includes :subjects, :institutions, :needs, :matches, :territories
+  includes :territories, :cooperations
 
   scope :all, group: :territories
   scope :with_territories, group: :territories
