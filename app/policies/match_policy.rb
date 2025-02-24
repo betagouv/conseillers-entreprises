@@ -15,8 +15,9 @@ class MatchPolicy < ApplicationPolicy
     admin?
   end
 
+  private
+
   def in_supervised_antennes?
-    (@user.is_manager? && @user.managed_antennes.include?(@record.expert.antenne)) ||
     (@user.is_manager? && @user.supervised_antennes.include?(@record.expert.antenne))
   end
 end
