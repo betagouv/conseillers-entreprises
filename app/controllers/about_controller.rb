@@ -25,8 +25,6 @@ class AboutController < PagesController
 
   def equipe; end
 
-  def service_public_fr; end
-
   private
 
   def build_stats_and_count

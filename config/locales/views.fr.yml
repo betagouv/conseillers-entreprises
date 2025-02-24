@@ -23,8 +23,6 @@ fr:
       title: Mentions d'information
     mentions_legales:
       title: Mentions légales
-    service_public_fr:
-      title: Place des Entreprises devient Conseillers-Entreprises, un service de Service-Public.fr
     temoignage:
       temoignage_alt: Photo de %{author}
   active_admin:
