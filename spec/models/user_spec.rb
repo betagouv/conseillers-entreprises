@@ -207,6 +207,30 @@ RSpec.describe User do
     end
   end
 
+  describe 'supervised_antennes' do
+    let(:user) { create :user }
+    let!(:regional_antenne) { create :antenne, :regional }
+    let!(:local_antenne) { create :antenne, :local, parent_antenne: regional_antenne }
+
+    subject { user.supervised_antennes }
+
+    context "when no manager" do
+      it { is_expected.to contain_exactly(user.antenne) }
+    end
+
+    context "when local antenne" do
+      before { user.user_rights_manager.create(rightable_element: local_antenne) }
+
+      it { is_expected.to contain_exactly(local_antenne) }
+    end
+
+    context "when regional antenne" do
+      before { user.user_rights_manager.create(rightable_element: regional_antenne) }
+
+      it { is_expected.to contain_exactly(regional_antenne, local_antenne) }
+    end
+  end
+
   describe '#duplicate' do
     let(:institution) { create :institution }
     let(:antenne) { create :antenne, institution: institution }

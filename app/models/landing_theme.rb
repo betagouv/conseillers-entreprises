@@ -62,4 +62,8 @@ class LandingTheme < ApplicationRecord
       "page_title", "slug", "title", "updated_at"
     ]
   end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["landing_joint_themes", "landings", "institutions", "landing_subjects", "subjects", "themes", "solicitations", "cooperation"]
+  end
 end

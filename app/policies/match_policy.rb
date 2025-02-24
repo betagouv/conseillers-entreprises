@@ -1,11 +1,10 @@
 class MatchPolicy < ApplicationPolicy
   def update?
-    admin? || @record.contacted_users.include?(@user) || (@user.is_manager? && (@user.managed_antennes.include?(@record.expert.antenne)))
+    admin? || @record.contacted_users.include?(@user) || in_supervised_antennes?
   end
 
   def update_status?
-    admin? || (@user.is_manager? && @user.managed_antennes.include?(@record.expert.antenne)) ||
-    (@user.is_manager? && @user.supervised_antennes.include?(@record.expert.antenne))
+    admin? || in_supervised_antennes?
   end
 
   def show_info?
@@ -14,5 +13,11 @@ class MatchPolicy < ApplicationPolicy
 
   def show_inbox?
     admin?
+  end
+
+  private
+
+  def in_supervised_antennes?
+    (@user.is_manager? && @user.supervised_antennes.include?(@record.expert.antenne))
   end
 end
