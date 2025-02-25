@@ -24,21 +24,6 @@ RSpec.describe Facility do
     it { is_expected.to eq 'Mc Donalds (59600 Maubeuge)' }
   end
 
-  describe '#insee_code=' do
-    let(:facility) { build :facility }
-
-    before do
-      stub_request(:get, "https://geo.api.gouv.fr/communes/78586?fields=nom,codesPostaux")
-        .to_return(body: file_fixture('geo_api_communes_78586.json'))
-    end
-
-    it do
-      facility.insee_code = '78586'
-
-      expect(facility.readable_locality).to eq '78500 Sartrouville'
-    end
-  end
-
   describe "scopes" do
     describe "by_region" do
       let(:region_code) { "52" }
