@@ -77,4 +77,27 @@ describe SolicitationHelper do
       end
     end
   end
+
+  describe 'link_to_partner_url' do
+    subject { helper.link_to_partner_url(solicitation) }
+
+    context 'entreprendre solicitation' do
+      let(:solicitation) { create :solicitation, mtm_campaign: 'entreprendre', mtm_kwd: 'F1111' }
+
+      it { is_expected.to eq '<a href="https://entreprendre.service-public.fr/vosdroits/F1111">entreprendre.service-public.fr</a>' }
+    end
+
+    context 'with landing url' do
+      let(:cooperation) { create :cooperation, root_url: 'https://exemple.fr' }
+      let(:solicitation) { create :solicitation, landing: create(:landing, cooperation: cooperation, url_path: '/aide-1') }
+
+      it { is_expected.to eq '<a href="https://exemple.fr/aide-1">exemple.fr</a>' }
+    end
+
+    context 'with origin_url' do
+      let(:solicitation) { create :solicitation, form_info: { "origin_url" => "https://exemple.fr/super-aide", "origin_title" => "Super aide" }, landing: create(:landing, url_path: '/aide-1') }
+
+      it { is_expected.to eq '<a href="https://exemple.fr/super-aide">exemple.fr/super-aide</a>' }
+    end
+  end
 end
