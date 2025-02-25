@@ -12,7 +12,7 @@ describe 'diagnosis', :js do
       let!(:expert_subject) do
         create :expert_subject,
                institution_subject: create(:institution_subject, subject: need.subject),
-               expert: create(:expert, communes: [need.facility.commune])
+          expert: create(:expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: need.facility.insee_code)])
       end
 
       before { create_list(:subject, 4) }
