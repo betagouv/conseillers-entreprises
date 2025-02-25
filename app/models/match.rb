@@ -98,7 +98,7 @@ class Match < ApplicationRecord
 
   scope :sent, -> { where.not(sent_at: nil) }
 
-  # scope :in_region, -> (region) { joins(:facility_regions).where(facility: { territories: region }) }
+  scope :by_region, -> (region_code) { where(facility: Facility.by_region(region_code)) }
 
   scope :in_progress, -> do
     where(status: [:quo, :taking_care])
