@@ -48,6 +48,10 @@ class Company < ApplicationRecord
       .distinct
   end
 
+  scope :by_region, -> (region_code) do
+    joins(:facilities).where(facilities: Facility.by_region(region_code))
+  end
+
   ##
   #
   def to_s
