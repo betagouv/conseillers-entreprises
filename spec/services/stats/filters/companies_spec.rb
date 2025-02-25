@@ -6,11 +6,10 @@ describe Stats::Filters::Companies do
   let!(:company_outside) { create :company }
 
   describe 'territories_filter' do
-    let(:territory) { create :territory }
-    let(:commune) { create :commune, territories: [territory] }
-    let!(:company_inside) { create :company, facilities: [create(:facility, commune: commune)] }
+    let!(:region_code) { '32' }
+    let!(:company_inside) { create :company, facilities: [create(:facility, insee_code: '59183')] }
 
-    subject { described_class.new(query, open_struct_graph).send(:territories_filter, territory) }
+    subject { described_class.new(query, open_struct_graph).send(:territories_filter, region_code) }
 
     it { is_expected.to eq [company_inside] }
   end
