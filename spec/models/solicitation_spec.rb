@@ -399,25 +399,22 @@ end
   end
 
   describe "#by_possible_region" do
-    let(:territory1) { Territory.regions.first }
-    # - solicitation avec facility dans une region déployé
-    let!(:solicitation1) { create :solicitation, :with_diagnosis, code_region: territory1.code_region }
-    # - solicitation avec facility dans territoire non déployé
-    let!(:solicitation2) { create :solicitation, :with_diagnosis, code_region: 22 }
+    let(:region_code) { '84' }
+    # - solicitation avec facility dans une region
+    let!(:solicitation) { create :solicitation, :with_diagnosis, code_region: region_code }
     # - solicitation inclassables (sans analyse, sans région...)
     let!(:solicitation_without_diagnosis) { create :solicitation, siret: 'wrong siret', code_region: nil }
     let!(:solicitation_with_diagnosis_no_region) { create :solicitation, :with_diagnosis, siret: 'wrong siret', code_region: nil }
 
-    before do
-      territory1.communes = [solicitation1.diagnosis.facility.commune]
-    end
-
     subject { described_class.by_possible_region(possible_region) }
 
     context 'filter by existing territory' do
-      let(:possible_region) { territory1.id }
+      let(:possible_region) { region_code }
 
-      it { is_expected.to contain_exactly(solicitation1) }
+      it do
+        is_expected.to contain_exactly(solicitation)
+      end
+
     end
 
     context 'filter by diagnoses problem' do
