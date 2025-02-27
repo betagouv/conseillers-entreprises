@@ -174,6 +174,16 @@ RSpec.describe Antenne do
           expect(antenne).not_to have_received(:update_antenne_hierarchy)
         end
       end
+
+      context 'antenne creation' do
+        let(:new_antenne) { build :antenne, territorial_level: :local }
+
+        it 'calls update_antenne_hierarchy' do
+          allow(new_antenne).to receive(:update_antenne_hierarchy)
+          new_antenne.save
+          expect(new_antenne).to have_received(:update_antenne_hierarchy)
+        end
+      end
     end
   end
 
