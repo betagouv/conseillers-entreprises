@@ -41,8 +41,7 @@ module InvolvementConcern
 
   def needs_expired
     received_needs
-      .where(matches: received_matches.with_status_expired)
-      .where(matches: { archived_at: nil })
+      .where(matches: received_matches.with_status_expired.not_archived)
       .distinct
   end
 
