@@ -6,6 +6,7 @@ namespace :redis do
       total_keys: 0,
       expired_ttl: 0,
       idle_keys: 0,
+      permanent_keys: 0,
       size_by_pattern: Hash.new(0)
     }
     @options = {
@@ -31,10 +32,12 @@ namespace :redis do
       ttl = @redis.ttl(key)
       idle_time = @redis.object("idletime", key)
 
-      @stats[:expired_ttl] += 1 if ttl < 0
+      # https://redis.io/docs/latest/commands/ttl/
+      @stats[:permanent_keys] += 1 if ttl == -1
+      @stats[:expired_ttl] += 1 if ttl == -2
       @stats[:idle_keys] += 1 if idle_time && idle_time > @options[:idle_threshold]
 
-      if @options[:extract_patterns] && ttl < 0
+      if @options[:extract_patterns] && ttl == -2
         pattern = extract_pattern(key)
         @stats[:size_by_pattern][pattern] += 1
       end
@@ -50,6 +53,7 @@ namespace :redis do
       puts "\n=== Redis Analysis Report ==="
       puts "Total keys analyzed: #{@stats[:total_keys]}"
       puts "Keys with expired TTL: #{@stats[:expired_ttl]}"
+      puts "Permanent keys: #{@stats[:permanent_keys]}"
       puts "Keys idle > #{@options[:idle_threshold] / 86400} days: #{@stats[:idle_keys]}"
 
       if @options[:extract_patterns]
