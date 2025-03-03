@@ -3,10 +3,10 @@
 require 'rails_helper'
 require 'api_helper'
 
-describe QuarterlyReports::NotifyManagers do
+describe ActivityReports::NotifyManagers do
   describe 'call' do
     let(:antenne) { create :antenne }
-    let!(:quarterly_report) { create :quarterly_report, antenne: antenne, start_date: 3.months.ago.beginning_of_month }
+    let!(:activity_report) { create :activity_report, reportable: antenne, start_date: 3.months.ago.beginning_of_month }
     let!(:manager) { create :user, :manager, managed_antennes: [antenne] }
     let!(:normal_user) { create :user }
 

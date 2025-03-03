@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_19_122842) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_03_155501) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -79,6 +80,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_19_122842) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "activity_reports", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.enum "category", enum_type: "quarterly_reports_categories"
+    t.string "reportable_type"
+    t.bigint "reportable_id"
+    t.index ["category"], name: "index_activity_reports_on_category"
+    t.index ["reportable_type", "reportable_id"], name: "index_activity_reports_on_reportable"
   end
 
   create_table "antennes", force: :cascade do |t|
@@ -515,17 +528,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_19_122842) do
     t.index ["user_id"], name: "index_profil_pictures_on_user_id", unique: true
   end
 
-  create_table "quarterly_reports", force: :cascade do |t|
-    t.date "start_date"
-    t.date "end_date"
-    t.bigint "antenne_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.enum "category", enum_type: "quarterly_reports_categories"
-    t.index ["antenne_id"], name: "index_quarterly_reports_on_antenne_id"
-    t.index ["category"], name: "index_quarterly_reports_on_category"
-  end
-
   create_table "referencement_coverages", force: :cascade do |t|
     t.bigint "antenne_id", null: false
     t.bigint "institution_subject_id", null: false
@@ -780,7 +782,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_19_122842) do
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
   add_foreign_key "profil_pictures", "users"
-  add_foreign_key "quarterly_reports", "antennes"
   add_foreign_key "referencement_coverages", "antennes"
   add_foreign_key "referencement_coverages", "institutions_subjects"
   add_foreign_key "reminders_actions", "needs"

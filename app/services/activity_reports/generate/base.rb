@@ -1,4 +1,4 @@
-module QuarterlyReports::Generate
+module ActivityReports::Generate
   class Base
     def initialize(antenne)
       @antenne = antenne
@@ -20,7 +20,7 @@ module QuarterlyReports::Generate
     end
 
     def reports
-      @antenne.quarterly_reports
+      @antenne.activity_reports
     end
 
     def last_quarters

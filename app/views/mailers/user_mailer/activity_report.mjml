@@ -5,7 +5,7 @@
 
       <p><%= t('.antenne_manager', antennes: @user.managed_antennes.pluck(:name).to_sentence, count: @user.managed_antennes.size) %></p>
 
-      <p><%= t('.quarterly_report_available_html') %></p>
+      <p><%= t('.activity_report_available_html') %></p>
 
       <p><%= t('.dynamic_stats_html') %></p>
     </mj-text>

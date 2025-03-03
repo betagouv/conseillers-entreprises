@@ -10,12 +10,12 @@ class ReportsController < ApplicationController
   end
 
   def download
-    quarterly_report = QuarterlyReport.find(params[:id])
-    authorize quarterly_report, policy_class: ReportPolicy
+    report = ActivityReport.find(params[:id])
+    authorize report, policy_class: ReportPolicy
     respond_to do |format|
       format.html
       format.xlsx do
-        send_data quarterly_report.file.download, type: "application/xlsx", filename: quarterly_report.file.filename.to_s
+        send_data report.file.download, type: "application/xlsx", filename: report.file.filename.to_s
       end
     end
   end
@@ -31,6 +31,6 @@ class ReportsController < ApplicationController
   end
 
   def retrieve_quarters
-    @quarters = @antenne.quarterly_reports.order(start_date: :desc).pluck(:start_date, :end_date).uniq
+    @quarters = @antenne.activity_reports.order(start_date: :desc).pluck(:start_date, :end_date).uniq
   end
 end

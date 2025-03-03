@@ -21,8 +21,8 @@
   - if @quarters.present?
     .fr-table.fr-table--beige-gris-galet.fr-accordions-group
       - @quarters.each_with_index do |quarter, index|
-        - matches_report = @antenne.quarterly_reports.category_matches.find_by(start_date: quarter.first)
-        - stats_report = @antenne.quarterly_reports.category_stats.find_by(start_date: quarter.first)
+        - matches_report = @antenne.activity_reports.category_matches.find_by(start_date: quarter.first)
+        - stats_report = @antenne.activity_reports.category_stats.find_by(start_date: quarter.first)
         %section.fr-accordion
           %h3.fr-accordion__title
             %button.fr-accordion__btn{ 'aria-controls': "accordion-quarter-#{index}", 'aria-expanded': index == 0 ? 'true' : 'false' }

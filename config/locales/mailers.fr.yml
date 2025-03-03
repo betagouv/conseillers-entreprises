@@ -280,6 +280,15 @@ fr:
     thanks_for_your_comprehension: Nous vous remercions pour votre compréhension.
     thanks_for_your_trust: Merci pour votre confiance,
     user_mailer:
+      activity_report:
+        activity_report_available_html: Le <strong>rapport statistique</strong> des besoins transmis à vos équipes, sur le dernier trimestre et depuis le début de l’année, est à télécharger dans votre compte. Le détail des besoins est disponible dans un second fichier.
+        antenne_manager:
+          one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service Conseillers-Entreprises.
+          other: Vous êtes identifié(e) comme responsable des antennes %{antennes} au sein du service Conseillers-Entreprises.
+        at_your_disposal: Nous restons à votre entière disposition pour toute question sur l’interprétation de ces données.
+        discover_dynamic_stats: Découvrir mes statistiques
+        dynamic_stats_html: Nous mettons à votre disposition des <strong>statistiques dynamiques</strong> pour le pilotage de l’activité générée par le service pour votre institution.
+        subject: Vos statistiques de pilotage sont disponibles
       invite_to_demo:
         confirmation_html: Après avoir choisi votre mot de passe, vous recevrez sur le mail <a href="mailto:%{expert_email}">%{expert_email}</a> les besoins d'entreprises sur votre champ de compétences. Vous pourrez échanger avec d’autres institutions partenaires sur les situations d’entreprise.
         demo_time_intro: Je vous invite à participer au webinaire de présentation du service (30 minutes) qui se déroule chaque jeudi à 14h30 (heure de Paris).
@@ -288,12 +297,3 @@ fr:
         subject: Vous êtes invité(e) ! Webinaire de présentation de Conseillers-Entreprises.Service-Public.fr
         video_tutorial_html: 'Ou venez découvrir notre tutoriel vidéo : <a href=''https://conseillers-entreprises.service-public.fr/tutoriels''>conseillers-entreprises.service-public.fr/tutoriels</a>'
         webinaire_link_html: 'Lien participant : <a href=''https://webinaire.numerique.gouv.fr//meeting/signin/34546/creator/17678/hash/0033028ea90c21b6bb2cca160d0e663f85b82f7d''>cliquez ici pour accéder à la visio</a>'
-      quarterly_report:
-        antenne_manager:
-          one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service Conseillers-Entreprises.
-          other: Vous êtes identifié(e) comme responsable des antennes %{antennes} au sein du service Conseillers-Entreprises.
-        at_your_disposal: Nous restons à votre entière disposition pour toute question sur l’interprétation de ces données.
-        discover_dynamic_stats: Découvrir mes statistiques
-        dynamic_stats_html: Nous mettons à votre disposition des <strong>statistiques dynamiques</strong> pour le pilotage de l’activité générée par le service pour votre institution.
-        quarterly_report_available_html: Le <strong>rapport statistique</strong> des besoins transmis à vos équipes, sur le dernier trimestre et depuis le début de l’année, est à télécharger dans votre compte. Le détail des besoins est disponible dans un second fichier.
-        subject: Vos statistiques de pilotage sont disponibles
