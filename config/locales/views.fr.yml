@@ -45,6 +45,9 @@ fr:
     solicitations:
       diagnosis_in_progress: " (En cours)"
       id: Sollicitation %{id}
+  activity_report_service:
+    matches_file_name: export-mises-en-relation-%{antenne}-%{year}T%{number}.xlsx
+    stats_file_name: export-stats-%{antenne}-%{year}T%{number}.xlsx
   admin:
     reassign_matches:
       reassign_matches:
@@ -659,9 +662,6 @@ fr:
       extend: Agrandir
   person:
     deleted_person: Compte supprimé
-  quarterly_report_service:
-    matches_file_name: export-mises-en-relation-%{antenne}-%{year}T%{number}.xlsx
-    stats_file_name: export-stats-%{antenne}-%{year}T%{number}.xlsx
   reminders:
     experts:
       filters:

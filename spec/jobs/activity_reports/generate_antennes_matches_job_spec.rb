@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe QuarterlyReports::GenerateAntenneMatchesJob do
+RSpec.describe ActivityReports::GenerateAntennesMatchesJob do
   describe 'enqueue a job with an antenne' do
     let(:antenne) { create(:antenne) }
 
