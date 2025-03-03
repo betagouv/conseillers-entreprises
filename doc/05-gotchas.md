@@ -20,7 +20,8 @@ end
 
 a.quarterly_reports.destroy_all
 
-QuarterlyReports::GenerateReports.new(a).call
+QuarterlyReports::Generate::StatsReports.new(a).call
+QuarterlyReports::Generate::MatchesReports.new(a).call
 ```
 
 En cas de `PG::UniqueViolation: ERROR:  duplicate key value violates unique constraint "index_active_storage_blobs_on_key" (ActiveRecord::RecordNotUnique)`
