@@ -182,6 +182,10 @@ class Match < ApplicationRecord
       .where('feedbacks.user_id IN (SELECT user_id FROM experts_users WHERE expert_id = matches.expert_id)')
   }
 
+  scope :by_region, -> (region_code) {
+    joins(:need).merge(Need.by_region(region_code))
+  }
+
   def self.ransackable_scopes(auth_object = nil)
     [
       :sent, :solicitation_created_at_gteq, :solicitation_created_at_lteq,
