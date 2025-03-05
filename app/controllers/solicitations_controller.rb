@@ -224,6 +224,7 @@ class SolicitationsController < PagesController
 
   # http://localhost:3000/aide-entreprise/accueil/demande/transport-mobilite/?mtm_campaign=entreprendre&mtm_kwd=F123
   def redirect_entreprendre_solicitations
+    return unless ENV['FEATURE_REDIRECT_ENTREPRENDRE_TO_ROOT'] == 'true'
     if from_entreprendre_via_view_params || from_entreprendre_via_referer
       redirect_to root_path(query_params.merge(redirected: 'entreprendre'))
     end
