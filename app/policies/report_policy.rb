@@ -8,7 +8,7 @@ class ReportPolicy < ApplicationPolicy
   end
 
   def download?
-    @user&.is_admin? || in_supervised_antennes?(@record.reportable)
+    @user&.is_admin? || in_supervised_antennes?(@record.reportable) || @record.reportable.managers.include?(@user)
   end
 
   private

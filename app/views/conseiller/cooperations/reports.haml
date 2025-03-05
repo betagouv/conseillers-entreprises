@@ -1,0 +1,32 @@
+- title = t('.title', cooperation_name: @cooperation.name)
+- meta title: title
+
+.fr-container
+  .fr-grid-row
+    .fr-col
+      %h1.fr-h2= title
+
+.fr-container.reports
+  - if @quarters.present?
+    .fr-table.fr-table--beige-gris-galet.fr-accordions-group
+      - @quarters.each_with_index do |quarter, index|
+        - report = @cooperation.activity_reports.find_by(start_date: quarter.first)
+        %section.fr-accordion
+          %h3.fr-accordion__title
+            %button.fr-accordion__btn{ 'aria-controls': "accordion-quarter-#{index}", 'aria-expanded': index == 0 ? 'true' : 'false' }
+              #{t('.interval', start_month: I18n.l(quarter.first, format: :month_name), end_month: I18n.l(quarter.last, format: :month_name), year: quarter.last.year).capitalize}
+          .fr-collapse{ id: "accordion-quarter-#{index}" }
+            - if report.present?
+              .fr-card.fr-enlarge-link.fr-card--download
+                .fr-card__body
+                  .fr-card__content
+                    %h3.fr-card__title
+                      = link_to download_report_path(report, format: :xlsx), class: 'fr-download__link' do
+                        = t('.download_report')
+                    .fr-card__end
+                      %p.fr-card__detail
+                        = t('.file_infos', weight: report.file.byte_size / 1000) if report.file.present? # Pour les tests
+  - else
+    .fr-my-4v
+      .fr-alert.fr-alert--info{ role: "alert" }
+        %p.fr-alert__title= t('.no_export_available')

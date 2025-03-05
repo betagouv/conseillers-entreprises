@@ -1,7 +1,7 @@
 module ActivityReports::Generate
   class Base
-    def initialize(antenne)
-      @antenne = antenne
+    def initialize(item)
+      @item = item
     end
 
     def call
@@ -20,11 +20,11 @@ module ActivityReports::Generate
     end
 
     def reports
-      @antenne.activity_reports
+      @item.activity_reports
     end
 
     def last_quarters
-      needs = @antenne.perimeter_received_needs
+      needs = @item.perimeter_received_needs
       return if needs.blank?
       first_date = needs.minimum(:created_at).to_date
       quarters = TimeDurationService.past_year_quarters

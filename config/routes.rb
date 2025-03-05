@@ -134,7 +134,7 @@ Rails.application.routes.draw do
       collection do
         get :needs, path: 'pilotage-besoin'
         get :matches, path: 'pilotage-partenaire'
-        get :rapport_activite, path: 'rapports-activite'
+        get :reports, path: 'rapports-activite'
         get :load_data
         get :load_filter_options
         get :provenance_detail_autocomplete
