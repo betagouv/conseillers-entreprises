@@ -234,39 +234,88 @@ RSpec.describe Expert do
       expect(subject.count).to eq 1
     end
 
-    context "Commune directe" do
-      let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: insee_code)] }
-      let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: "72026")] }
+    context "Expert sans territoire spécifique" do
+      context "Commune directe" do
+        let(:antenne_with_code) { create :antenne, territorial_zones: [create(:territorial_zone, :commune, code: insee_code)] }
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, antenne: antenne_with_code }
+        let(:antenne_without_code) { create :antenne, territorial_zones: [create(:territorial_zone, :commune, code: "72026")] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects }
 
-      it { expect_expert_with_commune }
+        it { expect_expert_with_commune }
+      end
+
+      context "EPCI qui a la commune" do
+        let(:antenne_with_code) { create :antenne, territorial_zones: [create(:territorial_zone, :epci, code: "200068930")] }
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, antenne: antenne_with_code }
+        let(:antenne_without_code) { create :antenne, territorial_zones: [create(:territorial_zone, :epci, code: "200054781")] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects, antenne: antenne_without_code }
+
+        it { expect_expert_with_commune }
+      end
+
+      context "Département qui a la commune" do
+        let(:antenne_with_code) { create :antenne, territorial_zones: [create(:territorial_zone, :departement, code: "47")] }
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, antenne: antenne_with_code }
+        let(:antenne_without_code) { create :antenne, territorial_zones: [create(:territorial_zone, :departement, code: "72")] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects, antenne: antenne_without_code }
+
+        it { expect_expert_with_commune }
+      end
+
+      context "Région qui a la commune" do
+        let(:antenne_with_code) { create :antenne, territorial_zones: [create(:territorial_zone, :region, code: "75")] }
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, antenne: antenne_with_code }
+        let(:antenne_without_code) { create :antenne, territorial_zones: [create(:territorial_zone, :region, code: "76")] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects, antenne: antenne_without_code }
+
+        it { expect_expert_with_commune }
+      end
+
+      context "Expert national" do
+        let(:antenne) { create :antenne }
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, is_global_zone: true, antenne: antenne }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects }
+
+        it { expect_expert_with_commune }
+      end
+
     end
 
-    context "EPCI qui a la commune" do
-      let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :epci, code: "200068930")] }
-      let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :epci, code: "200054781")] }
+    context "Expert avec des territoires spécifiques" do
+      context "Commune directe" do
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: insee_code)] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: "72026")] }
 
-      it { expect_expert_with_commune }
-    end
+        it { expect_expert_with_commune }
+      end
 
-    context "Département qui a la commune" do
-      let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :departement, code: "47")] }
-      let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :departement, code: "72")] }
+      context "EPCI qui a la commune" do
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :epci, code: "200068930")] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :epci, code: "200054781")] }
 
-      it { expect_expert_with_commune }
-    end
+        it { expect_expert_with_commune }
+      end
 
-    context "Région qui a la commune" do
-      let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :region, code: "75")] }
-      let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :region, code: "76")] }
+      context "Département qui a la commune" do
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :departement, code: "47")] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :departement, code: "72")] }
 
-      it { expect_expert_with_commune }
-    end
+        it { expect_expert_with_commune }
+      end
 
-    context "Expert national" do
-      let!(:expert_with_code) { create :expert, :with_expert_subjects, is_global_zone: true }
-      let!(:expert_without_code) { create :expert, :with_expert_subjects }
+      context "Région qui a la commune" do
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :region, code: "75")] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :region, code: "76")] }
 
-      it { expect_expert_with_commune }
+        it { expect_expert_with_commune }
+      end
+
+      context "Expert national" do
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, is_global_zone: true }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects }
+
+        it { expect_expert_with_commune }
+      end
     end
   end
 
