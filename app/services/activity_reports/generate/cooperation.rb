@@ -1,28 +1,28 @@
 module ActivityReports
-  class Generate::AntenneStats < Generate::Base
+  class Generate::Cooperation < Generate::Base
     private
 
     def generate_files(quarter)
       return if reports.find_by(start_date: quarter.first).present?
 
       ActiveRecord::Base.transaction do
-        exporter = XlsxExport::AntenneStatsExporter.new({
+        exporter = XlsxExport::CooperationExporter.new({
           start_date: quarter.first,
           end_date: quarter.last,
-          antenne: antenne
+          cooperation: cooperation
         })
         result = exporter.export
 
-        filename = I18n.t('activity_report_service.stats_file_name', number: TimeDurationService.find_quarter_for_month(quarter.first.month), year: quarter.first.year, antenne: antenne.name.parameterize)
+        filename = I18n.t('activity_report_service.cooperation_file_name', number: TimeDurationService.find_quarter_for_month(quarter.first.month), year: quarter.first.year, cooperation: cooperation.name.parameterize)
         report = reports.create!(start_date: quarter.first, end_date: quarter.last)
         report.file.attach(io: result.xlsx.to_stream(true),
-                           key: "activity_report_stats/#{antenne.name.parameterize}/#{filename}",
+                           key: "activity_report_cooperation/#{cooperation.name.parameterize}/#{filename}",
                            filename: filename,
                            content_type: 'application/xlsx')
       end
     end
 
-    def antenne
+    def cooperation
       @item
     end
 
@@ -31,7 +31,7 @@ module ActivityReports
     end
 
     def reports
-      antenne.stats_reports
+      cooperation.activity_reports
     end
   end
 end
