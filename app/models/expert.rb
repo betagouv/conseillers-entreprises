@@ -240,13 +240,22 @@ class Expert < ApplicationRecord
   scope :without_shared_satisfaction, -> { where.missing(:shared_satisfactions) }
 
   scope :in_commune, -> (insee_code) do
-    commune = DecoupageAdministratif::Commune.find_by_code(insee_code)
+    commune = ::DecoupageAdministratif::Commune.find_by_code(insee_code)
     return none if commune.nil?
-    left_joins(:territorial_zones).where(territorial_zones: { zone_type: :commune, code: insee_code })
-      .or(Expert.left_joins(:territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci.code }))
-      .or(Expert.left_joins(:territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
-      .or(Expert.left_joins(:territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code }))
-      .or(Expert.left_joins(:territorial_zones).where(is_global_zone: true))
+    experts_with_zones = left_joins(:territorial_zones)
+      .where(territorial_zones: { zone_type: :commune, code: insee_code })
+      .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci.code }))
+      .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
+      .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code }))
+
+    experts_without_zones = left_joins(antenne: :territorial_zones)
+      .where(territorial_zones: { zone_type: :commune, code: insee_code })
+      .or(left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci.code }))
+      .or(left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
+      .or(left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code }))
+      .or(left_joins(antenne: :territorial_zones).where(is_global_zone: true))
+
+    where(id: experts_with_zones).or(where(id: experts_without_zones))
   end
 
   def self.apply_filters(params)
