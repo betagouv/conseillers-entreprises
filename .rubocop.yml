@@ -10,12 +10,12 @@ require:
 AllCops:
   TargetRubyVersion: 2.7
   Exclude:
-    - 'db/schema.rb'
-    - 'tmp/**/*'
-    - 'node_modules/**/*'
-    - 'bin/webpack'
-    - 'bin/webpack-dev-server'
-    - 'bin/yarn'
+    - "db/schema.rb"
+    - "tmp/**/*"
+    - "node_modules/**/*"
+    - "bin/webpack"
+    - "bin/webpack-dev-server"
+    - "bin/yarn"
   NewCops: enable
 
 Bundler/DuplicatedGem:
@@ -44,7 +44,7 @@ FactoryBot/CreateList:
 
 FactoryBot/FactoryAssociationWithStrategy:
   Exclude:
-    - 'spec/factories/solicitations.rb'
+    - "spec/factories/solicitations.rb"
 
 Layout/AccessModifierIndentation:
   Enabled: true
@@ -286,9 +286,9 @@ Layout/SpaceInsideArrayLiteralBrackets:
 Layout/SpaceInsideParens:
   Enabled: true
   Exclude:
-    - 'app/views/conseiller/diagnoses/new.haml'
-    - 'app/views/stats/_load_stats.html.haml'
-    - 'app/views/stats/_main_stats_chart.haml'
+    - "app/views/conseiller/diagnoses/new.haml"
+    - "app/views/stats/_load_stats.html.haml"
+    - "app/views/stats/_main_stats_chart.haml"
 
 Layout/SpaceInsidePercentLiteralDelimiters:
   Enabled: true
@@ -335,7 +335,7 @@ Lint/CircularArgumentReference:
 Lint/Debugger:
   Enabled: true
   Exclude:
-    - 'lib/tasks/*'
+    - "lib/tasks/*"
 
 Lint/DeprecatedClassMethods:
   Enabled: true
@@ -345,7 +345,7 @@ Lint/DeprecatedOpenSSLConstant:
 
 Lint/DuplicateBranch:
   Exclude:
-    - 'app/jobs/antenne_coverage/update_job.rb'
+    - "app/jobs/antenne_coverage/update_job.rb"
 
 Lint/DuplicateCaseCondition:
   Enabled: true
@@ -1418,20 +1418,19 @@ Style/YodaCondition:
 Style/ZeroLengthPredicate:
   Enabled: false
 
-I18n/RailsI18n:
-  Enabled: true
-  Exclude:
-    - 'lib/tasks/*.rake'
-    - 'spec/**/*'
-    - 'db/migrate/*'
+I18n/GetText/DecorateString:
+  Enabled: false
+
+I18n/GetText/DecorateFunctionMessage:
+  Enabled: false
 
 I18n/RailsI18n/DecorateString:
   Enabled: true
   Exclude:
-    - 'bin/squasher'
-    - 'spec/**/*'
-    - 'lib/**/*'
-    - 'db/migrate/*'
+    - "bin/squasher"
+    - "spec/**/*"
+    - "lib/**/*"
+    - "db/migrate/*"
 
 I18n/RailsI18n/DecorateStringFormattingUsingInterpolation:
   Enabled: false
