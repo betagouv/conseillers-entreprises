@@ -33,11 +33,6 @@ ActiveAdmin.register Territory do
       div admin_link_to(t, :advisors)
       div admin_link_to(t, :antenne_experts)
     end
-    column(:activity) do |c|
-      div admin_link_to(c, :diagnoses, blank_if_empty: true)
-      div admin_link_to(c, :needs, blank_if_empty: true)
-      div admin_link_to(c, :matches, blank_if_empty: true)
-    end
   end
 
   filter :name
@@ -53,9 +48,6 @@ ActiveAdmin.register Territory do
     column_count :antennes
     column_count :advisors
     column_count :antenne_experts
-    column_count :diagnoses
-    column_count :needs
-    column_count :matches
   end
 
   ## Show
@@ -80,11 +72,6 @@ ActiveAdmin.register Territory do
       row(:community) do |t|
         div admin_link_to(t, :advisors)
         div admin_link_to(t, :antenne_experts)
-      end
-      row(:activity) do |c|
-        div admin_link_to(c, :diagnoses)
-        div admin_link_to(c, :needs)
-        div admin_link_to(c, :matches)
       end
     end
   end
