@@ -26,9 +26,7 @@ ActiveAdmin.register Expert do
     init_subjects_filter
   end
 
-  includes :institution, :antenne, :users,
-           :communes, :territories, { antenne: [:territories, :communes] },
-           :subjects, :received_matches
+  includes :institution, :antenne, :users, :subjects, :received_matches
   config.sort_order = 'full_name_asc'
 
   scope :active, default: true
@@ -114,7 +112,6 @@ ActiveAdmin.register Expert do
   filter :created_at
   filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
   filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
-  filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
   filter :themes, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subjects, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 
