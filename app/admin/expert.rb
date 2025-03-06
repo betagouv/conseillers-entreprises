@@ -20,7 +20,7 @@ ActiveAdmin.register Expert do
         additional_includes += [:users, :received_matches, :match_filters]
       when 'with_custom_communes', 'active', nil
         # This scope uses EXISTS, add zone associations
-        additional_includes += [:users, :subjects, :received_matches, :match_filters, :communes, :territories]
+        additional_includes += [:users, :subjects, :received_matches, :match_filters]
       when 'deleted'
         # For deleted experts, only load minimum
         additional_includes += [:users, :subjects]
@@ -28,7 +28,7 @@ ActiveAdmin.register Expert do
 
       # Optimize based on active filters
       if params.dig(:q, :antenne_id_eq).present? || params.dig(:q, :antenne_regions_id_eq).present?
-        additional_includes += [:antenne, { antenne: :territories }]
+        additional_includes += [:antenne]
       end
 
       if params.dig(:q, :institution_id_eq).present?
@@ -37,10 +37,6 @@ ActiveAdmin.register Expert do
 
       if params.dig(:q, :themes_id_eq).present? || params.dig(:q, :subjects_id_eq).present?
         additional_includes += [:subjects, { subjects: :theme }]
-      end
-
-      if params.dig(:q, :antenne_communes_id_eq).present?
-        additional_includes += [:communes, :territories]
       end
 
       includes = base_includes + additional_includes
@@ -66,6 +62,7 @@ ActiveAdmin.register Expert do
     init_subjects_filter
   end
 
+  includes :institution, :antenne, :users, :subjects, :received_matches
   config.sort_order = 'full_name_asc'
 
   scope :active, default: true
@@ -151,7 +148,6 @@ ActiveAdmin.register Expert do
   filter :created_at
   filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
   filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
-  filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
   filter :themes, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subjects, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 
