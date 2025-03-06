@@ -19,7 +19,7 @@
         </li>
         <li>
             <b><%= t('.liberal_activities') %></b>
-            <%= link_to " L’UNAPL près de chez vous | UNAPL", 'https://www.unapl.fr/unapl-et-vous/unapl-pres-de-chez-vous' %>
+            <%= link_to "Réseau des ARAPL", 'https://www.arapl.org/mon-arapl' %>
         </li>
         <li>
             <b><%= t('.agricultural_activities') %></b>

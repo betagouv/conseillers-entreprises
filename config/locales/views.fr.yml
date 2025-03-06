@@ -578,7 +578,7 @@ fr:
       need_canceled: Vous avez décliné ce besoin. Merci d’indiquer pourquoi, afin de nous aider à améliorer le service. Votre retour est précieux !
       need_canceled_short: Vous avez décliné ce besoin.
       no_help:
-        content: Mon organisme n’est pas en mesure d’accompagner l’entreprise.
+        content: Après échange téléphonique, mon institution n’est pas en mesure d’accompagner l’entreprise.
         title: Pas d’aide disponible
       not_for_me: Ce n’est pas pour moi
       not_reachable:
