@@ -715,7 +715,7 @@ end
 
   def region
     return if code_region.nil?
-    Territory.find_by(code_region: self.code_region)
+    DecoupageAdministratif::Region.find_by_code(code_region)
   end
 
   def spam?
