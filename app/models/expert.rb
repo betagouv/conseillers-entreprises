@@ -156,12 +156,8 @@ class Expert < ApplicationRecord
 
   # Geographical methods
   #
-  scope :with_custom_communes, -> do
-    # The naive “joins(:communes).distinct” is way more complex.
-    not_deleted.where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
-  end
-  scope :without_custom_communes, -> { not_deleted.where.missing(:communes) }
   scope :with_territorial_zones, -> { not_deleted.joins(:territorial_zones) }
+  scope :without_territorial_zones, -> { not_deleted.where.not(id: with_territorial_zones.ids) }
 
   scope :with_global_zone, -> do
     where(is_global_zone: true)

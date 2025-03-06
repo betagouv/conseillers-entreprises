@@ -94,24 +94,23 @@ RSpec.describe Expert do
     it { expect(expert.to_s).to eq 'Ivan Collombet' }
   end
 
-  describe 'referencing' do
-    describe 'commune zone scopes' do
-      let(:expert_with_custom_communes) { create :expert, antenne: antenne, communes: [commune1] }
-      let(:expert_without_custom_communes) { create :expert, antenne: antenne }
-      let(:commune1) { create :commune }
-      let(:commune2) { create :commune }
-      let!(:antenne) { create :antenne, communes: [commune1, commune2] }
+  describe "scope" do
+    describe 'territorial zones scopes' do
+      let(:expert_with_custom_territories) { create :expert, antenne: antenne, territorial_zones: [territorial_zone] }
+      let(:expert_without_custom_territories) { create :expert, antenne: antenne }
+      let(:territorial_zone) { create :territorial_zone, :commune }
+      let!(:antenne) { create :antenne, territorial_zones: [territorial_zone] }
 
       describe 'with_custom_communes' do
-        subject { described_class.with_custom_communes }
+        subject { described_class.with_territorial_zones }
 
-        it { is_expected.to include(expert_with_custom_communes) }
+        it { is_expected.to include(expert_with_custom_territories) }
       end
 
       describe 'without_custom_communes' do
-        subject { described_class.without_custom_communes }
+        subject { described_class.without_territorial_zones }
 
-        it { is_expected.to include(expert_without_custom_communes) }
+        it { is_expected.to include(expert_without_custom_territories) }
       end
     end
 
@@ -136,6 +135,7 @@ RSpec.describe Expert do
         }
       end
     end
+
   end
 
   describe 'soft deletion' do
