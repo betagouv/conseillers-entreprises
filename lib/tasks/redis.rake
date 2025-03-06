@@ -37,6 +37,7 @@ namespace :redis do
       if ttl == -1
         @stats[:permanent_keys] += 1
         @stats[:size_by_pattern_permanent][pattern] += 1
+        puts "Permanent key pattern: #{pattern}, count: #{@stats[:size_by_pattern_permanent][pattern]}"
       elsif ttl == -2
         @stats[:expired_ttl] += 1
         @stats[:size_by_pattern_expired][pattern] += 1
