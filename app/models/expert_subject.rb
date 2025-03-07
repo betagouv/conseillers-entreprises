@@ -47,7 +47,7 @@ class ExpertSubject < ApplicationRecord
   scope :relevant_for, -> (need) do
     of_subject(need.subject)
       .joins(:not_deleted_expert)
-      .in_commune(need.facility.commune)
+      .in_commune(need.facility.insee_code)
   end
 
   scope :of_subject, -> (subject) do
@@ -55,8 +55,8 @@ class ExpertSubject < ApplicationRecord
       .where(institutions_subjects: { subject: subject })
   end
 
-  scope :in_commune, -> (commune) do
-    where(expert: commune.all_experts)
+  scope :in_commune, -> (insee_code) do
+    where(expert: Expert.in_commune(insee_code))
   end
 
   scope :of_institution, -> (institution) do
@@ -95,9 +95,7 @@ class ExpertSubject < ApplicationRecord
   end
 
   scope :support_for, -> (diagnosis) do
-    experts_in_commune = diagnosis.facility.commune.all_experts
-
-    support.where(expert: experts_in_commune)
+    support.where(expert: Expert.in_commune(diagnosis.facility.insee_code))
   end
 
   scope :support, -> { where(institution_subject: InstitutionSubject.support_subjects) }

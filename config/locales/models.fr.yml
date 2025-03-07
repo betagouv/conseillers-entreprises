@@ -5,6 +5,7 @@ fr:
     antenne:
       delete: Supprimer l’antenne
       delete_confirmation: Voulez-vous supprimer cette antenne ? Assurez-vous d’avoir déplacé ou supprimé ses experts et utilisateurs.
+      no_territorial_zones: Cette antenne ne possède pas de territoire
     antennes:
       deleted: Antennes supprimées avec succès
       stats_reports: Rapports statistiques
@@ -18,7 +19,7 @@ fr:
       delete: Supprimer l’expert (sans ses utilisateurs)
       delete_confirmation: Voulez-vous supprimer cet expert ?
       match_filters: Filtres de mise en relation de l’expert
-      no_specifique_zone: Cet expert n’a pas de zone spécifique
+      no_specifique_zone: Cet expert n’a pas de territoire spécifique
       reassign_matches_done:
         one: "%{count} mise en relation réattribuée à %{expert}"
         other: "%{count} mises en relation réattribuées à %{expert}"
@@ -110,10 +111,12 @@ fr:
         from_solicitation: Analyses à partir d’une sollicitation directe
         from_visit: Analyses faites par des conseillers suite à une visite
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
-      with_custom_communes: Zone spécifique
+      with_custom_communes: Zone spécifique (old)
+      with_territorialal_zones: Avec des territoires
       with_deleted_expert: Expert supprimé
       with_territories: Avec territoires spécifiques
-      without_communes: Sans zone d’intervention
+      without_communes: Sans zone d’intervention (old)
+      without_territorial_zones: Sans zone d'intervention
       without_subjects: Sans compétence
       without_users: Sans utilisateur
     solicitations:
@@ -574,6 +577,13 @@ fr:
           label:
             long: S'agit-il d’un premier recrutement pour votre entreprise ?
             short: Premier recrutement ?
+      territorial_zone:
+        code: Code
+        commune: Commune
+        departement: Département
+        epci: EPCI
+        region: Région
+        zone_type: Type
       territory:
         advisors: Conseillers
         antennes: Antennes
@@ -671,6 +681,10 @@ fr:
               must_be_a_valid_siret: doit être un numéro à 14 chiffres valide
             subject_answers:
               incorrect: doivent correspondre aux questions du sujet de la demande
+        territorial_zones:
+          code:
+            invalid_format: Format pour %{zone_type} est invalide.
+            not_found: '%{zone_type} non trouvé'
         territory:
           attributes:
             insee_codes:
@@ -773,6 +787,9 @@ fr:
       subject_question:
         one: Question additionnelle
         other: Questions additionnelles
+      territorial_zone:
+        one: Territoire
+        other: Territoires
       territory:
         one: Territoire
         other: Territoires
@@ -899,6 +916,7 @@ fr:
     categories: Catégories
     category: Catégorie
     code_effectif: Tranche d’effectif
+    insee_code: Code Insee
     color: Couleur
     comments: Commentaires des conseillers de l’antenne
     commune: Commune
@@ -952,7 +970,7 @@ fr:
     facility_naf: Code NAF
     facility_nafa: Codes NAFA
     facility_nature_activites: Nature des activités
-    facility_regions: Région de l’établissement
+    facility_region: Région de l’établissement
     facility_territories: Territoires des établissements
     feedbacks:
       one: Commentaire
@@ -977,7 +995,8 @@ fr:
     institution_antenne: Institution / Antenne
     institutions_subjects: Domaines de l’institution
     intern_landings: Page interne
-    intervention_zone: Zone d’intervention
+    intervention_zone: Zone d’intervention (old)
+    territorial_zone: Zone d’intervention
     interview_sort_order: Ordre
     intitule_effectif: Effectif
     is_abandoned: Abandonné
