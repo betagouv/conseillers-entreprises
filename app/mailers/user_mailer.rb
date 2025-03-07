@@ -7,11 +7,11 @@ class UserMailer < ApplicationMailer
 
   layout 'expert_mailers'
 
-  def quarterly_report
+  def activity_report
     with_user_init do
       mail(
         to: @user.email_with_display_name,
-        subject: t('mailers.user_mailer.quarterly_report.subject')
+        subject: t('mailers.user_mailer.activity_report.subject')
       )
     end
   end
