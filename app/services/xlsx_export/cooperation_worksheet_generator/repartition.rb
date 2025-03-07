@@ -6,8 +6,8 @@ module XlsxExport
         by_theme_stats
         by_subject_stats
         by_region_stats
-        by_effectifs_stats
-        # by_naf_code_stats
+        by_effectif_stats
+        by_naf_code_stats
 
         finalise_style
       end
@@ -57,6 +57,44 @@ module XlsxExport
         sheet.add_row
       end
 
+      def by_effectif_stats
+        add_header_row('repartition.by_effectif_header')
+
+        codes_effectifs = base_companies.pluck(:code_effectif).compact_blank.uniq
+        temporary_result = codes_effectifs.index_with do |code_effectif|
+          base_companies.where(code_effectif: code_effectif).size
+        end
+        # On intègre les code_effectif nil
+        temporary_result["NN"] ||= 0
+        temporary_result["NN"] += base_companies.where(code_effectif: nil).size
+
+        companies_by_effectif = {}
+        temporary_result.each do |key, value|
+          new_code = I18n.t(key, scope: 'code_to_range', default: I18n.t('00', scope: 'code_to_range')).to_s
+          companies_by_effectif[new_code] ||= 0
+          companies_by_effectif[new_code] += value
+        end
+
+        companies_by_effectif.sort_by { |_, count| -count }.each do |label, count|
+          text_label = Effectif::CodeEffectif.new(label).simple_effectif
+          add_count_percentage_row(text_label, count, base_companies)
+        end
+        sheet.add_row
+      end
+
+      def by_naf_code_stats
+        add_header_row('repartition.by_naf_code_header')
+
+        naf_codes = base_facilities.uniq.pluck(:naf_code_a10)
+        grouped = naf_codes.tally
+
+        grouped.sort_by { |_, needs_count| -needs_count }.each do |code, needs_count|
+          label = NafCode.naf_libelle(code, 'a10')
+          add_count_percentage_row(label, needs_count, base_needs)
+        end
+        sheet.add_row
+      end
+
       def finalise_style
         [
           'A1:C1',
@@ -68,13 +106,20 @@ module XlsxExport
       ## Base data
       #
       def base_subjects
-        @subjects ||= Subject.where(id: [base_needs.subject_ids])
+        @subjects ||= Subject.where(id: [base_needs.pluck(:subject_id)])
       end
 
       def base_companies
         @companies ||= Company
           .includes(diagnoses: :solicitation).references(diagnoses: :solicitation)
           .where(facilities: { diagnoses: { step: :completed, created_at: @start_date..@end_date } })
+          .where(solicitation: { cooperation_id: @cooperation.id })
+      end
+
+      def base_facilities
+        @facilities ||= Facility
+          .includes(diagnoses: :solicitation).references(diagnoses: :solicitation)
+          .where(diagnoses: { step: :completed, created_at: @start_date..@end_date })
           .where(solicitation: { cooperation_id: @cooperation.id })
       end
     end

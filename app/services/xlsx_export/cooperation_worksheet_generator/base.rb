@@ -81,9 +81,9 @@ module XlsxExport
 
       # Calculation
       #
-      def calculate_rate(status_size, base_relation)
-        return unless status_size.present? && base_relation.present?
-        status_size / base_relation.size.to_f
+      def calculate_rate(count, base_relation)
+        return unless count.present? && base_relation.present?
+        count / base_relation.size.to_f
       end
 
       def calculate_needs_by_theme_size(theme)

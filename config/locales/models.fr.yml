@@ -1124,6 +1124,8 @@ fr:
       transmitted: Besoins transmis
     percentage: Pourcentage
     repartition:
+      by_effectif_header: Besoins par effectifs
+      by_naf_code_header: Besoins par secteur d'activité
       by_region_header: Besoins par région
       by_subject_header: Besoins par sujet
       by_theme_header: Besoins par thème
