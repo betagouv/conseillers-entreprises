@@ -2,6 +2,7 @@ module XlsxExport
   module CooperationWorksheetGenerator
     class Volume < Base
       def generate
+        p "VOLUME ============================"
         sheet.add_row
 
         ## Transmission
@@ -34,6 +35,7 @@ module XlsxExport
         add_status_row(:status_quo, base_needs.where(status: :quo).size, base_needs)
 
         finalise_style
+        p 'END VOLUME ============================='
       end
 
       def finalise_style

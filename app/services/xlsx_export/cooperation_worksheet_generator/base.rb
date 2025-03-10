@@ -66,13 +66,13 @@ module XlsxExport
       end
 
       def base_solicitations
-        Solicitation.step_complete
+        @base_solicitations ||= Solicitation.step_complete
           .where(completed_at: @start_date..@end_date)
           .where(cooperation_id: @cooperation.id)
       end
 
       def base_needs
-        Need.diagnosis_completed
+        @base_needs ||= Need.diagnosis_completed
           .joins(:diagnosis).merge(Diagnosis.from_solicitation)
           .where(created_at: @start_date..@end_date)
           .joins(solicitation: :cooperation)
