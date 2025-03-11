@@ -37,6 +37,7 @@ namespace :redis do
       if ttl == -1
         @stats[:permanent_keys] += 1
         @stats[:size_by_pattern_permanent][pattern] += 1
+        puts "permatente key count : #{@stats[:permanent_keys]}"
         puts "Permanent key pattern: #{pattern}, count: #{@stats[:size_by_pattern_permanent][pattern]}"
       elsif ttl == -2
         @stats[:expired_ttl] += 1
@@ -51,7 +52,11 @@ namespace :redis do
     end
 
     def extract_pattern(key)
-      key.gsub(/:\d+/, ':*').gsub(/[a-f0-9]{32}/, '*')
+      key.gsub(/:\d+/, ':*')
+         .gsub(/_solicitation:[a-f0-9]{32}/, '_solicitation:*')
+         .gsub(/_need:[a-f0-9]{32}/, '_need:*')
+         .gsub(/[a-f0-9]{32}/, '*')
+         .gsub(/\/(\d+|[a-f0-9]{32})\//, '/*/')
     end
 
     def print_report
