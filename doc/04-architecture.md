@@ -29,7 +29,7 @@ Les entrepreneurs, quand ils déposent une sollicitation sur `https://conseiller
 * Sujet de la demande, sélectionné parmi plusieurs catégories et sous-catégories ;
 * Description en texte libre: selon le sujet, une aide en ligne conseille automatiquement d’y préciser certains éléments, comme l’activité de l’entreprise, le montant de l’aide demandée, etc.
 
-Une fois la sollicitation de l’entrepreneur reçue et validée, les informations de la société sont automatiquement récupérées depuis les bases administratives `entreprise.data.gouv.fr` et `API entreprise`.
+Une fois la sollicitation de l’entrepreneur reçue et validée, les informations de la société sont automatiquement récupérées depuis les bases administratives `API entreprise`, `API Insee`, `API France Compétence`, `API RNE`.
 * Données publiques de l’entreprise : raison sociale, forme juridique, tranche d’effectif, capital social, code NAF, adresse, IDCC ;
 * Données sur les gérants : nom et fonction ;
 
