@@ -6,8 +6,8 @@ FactoryBot.define do
     email { Faker::Internet.unique.email }
     phone_number { Faker::PhoneNumber.phone_number }
     job { Faker::Job.title }
-    password { 'yX*4Ubo_xPW!u' }
-    password_confirmation { 'yX*4Ubo_xPW!u' }
+    password { 'aaQQwwXXssZZ22##' }
+    password_confirmation { 'aaQQwwXXssZZ22##' }
     antenne
 
     trait :with_expert do

@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 describe 'the signin process' do
-  let!(:user) { create :user, :with_expert, email: 'user@example.com', password: 'yX*4Ubo_xPW!u', invitation_token: invitation_token }
+  let!(:user) { create :user, :with_expert, email: 'user@example.com', password: 'aaQQwwXXssZZ22##', invitation_token: invitation_token }
 
   before do
     create_home_landing
     visit new_user_session_path
     within('#new_user') do
       fill_in 'Email', with: 'user@example.com'
-      fill_in 'Mot de passe', with: 'yX*4Ubo_xPW!u'
+      fill_in 'Mot de passe', with: 'aaQQwwXXssZZ22##'
     end
   end
 

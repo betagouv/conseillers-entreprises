@@ -144,31 +144,31 @@ RSpec.describe User do
     subject { user.password_complexity }
 
     context '1 uppercase, 1 lower case, 1 number, 1 special car' do
-      let(:user) { build :user, password: 'abAB12;;' }
+      let(:user) { build :user, password: 'abAB12;;aaAB12;;' }
 
       it { is_expected.to be_truthy }
     end
 
     context '1 uppercase, 1 lower case, 1 number' do
-      let(:user) { build :user, password: 'abcABC12' }
+      let(:user) { build :user, password: 'abcABC12abcABC12' }
 
-      it { is_expected.to be_truthy }
+      it { is_expected.to be_falsey }
     end
 
     context '1 special car, 1 lower case, 1 number' do
-      let(:user) { build :user, password: 'abc***12' }
+      let(:user) { build :user, password: 'abc***12abc***12' }
 
-      it { is_expected.to be_truthy }
+      it { is_expected.to be_falsey }
     end
 
     context '1 special car, 1 lower case, 1 uppercase' do
-      let(:user) { build :user, password: 'abcABC°°' }
+      let(:user) { build :user, password: 'abcABC°°abcABC°°' }
 
-      it { is_expected.to be_truthy }
+      it { is_expected.to be_falsey }
     end
 
     context '1 uppercase, 1 lower case' do
-      let(:user) { build :user, password: 'abcdABCD' }
+      let(:user) { build :user, password: 'abcdABCDabcdABCD' }
 
       it { is_expected.to be_falsey }
     end

@@ -1,7 +1,7 @@
 class CheckPasswordComplexity
   attr_reader :password
 
-  MAX_MISSING_ELEMENTS = 1
+  MAX_MISSING_ELEMENTS = 0
 
   REGEXES = {
     uppercase: /[A-Z]/,
@@ -43,10 +43,10 @@ class CheckPasswordComplexity
   def human_missing_elements(missing_elements)
     missing_elements
       .map{ |e| I18n.t(e, scope: [:password, :missing_elements]) }
-      .to_sentence(two_words_connector: or_connector, last_word_connector: or_connector)
+      .to_sentence(two_words_connector: connector, last_word_connector: connector)
   end
 
-  def or_connector
-    I18n.t('or_connector')
+  def connector
+    I18n.t('and_connector')
   end
 end

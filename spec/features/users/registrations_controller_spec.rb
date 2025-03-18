@@ -32,15 +32,15 @@ describe 'registrations' do
       before do
         visit password_user_path
 
-        fill_in id: 'user_current_password', with: 'yX*4Ubo_xPW!u'
-        fill_in id: 'user_password', with: 'new_yX*4Ubo_xPW!u'
-        fill_in id: 'user_password_confirmation', with: 'new_yX*4Ubo_xPW!u'
+        fill_in id: 'user_current_password', with: 'aaQQwwXXssZZ22##'
+        fill_in id: 'user_password', with: 'new_aaQQwwXXssZZ22##'
+        fill_in id: 'user_password_confirmation', with: 'new_aaQQwwXXssZZ22##'
 
         click_on 'Enregistrer le mot de passe'
       end
 
       it 'updates the password' do
-        expect(current_user.reload).to be_valid_password('new_yX*4Ubo_xPW!u')
+        expect(current_user.reload).to be_valid_password('new_aaQQwwXXssZZ22##')
         expect(page).to have_current_path(password_user_path)
       end
     end
@@ -49,7 +49,7 @@ describe 'registrations' do
       before do
         visit password_user_path
 
-        fill_in id: 'user_current_password', with: 'yX*4Ubo_xPW!u'
+        fill_in id: 'user_current_password', with: 'aaQQwwXXssZZ22##'
         fill_in id: 'user_password', with: 'lalala'
         fill_in id: 'user_password_confirmation', with: 'lalala'
 
@@ -58,7 +58,7 @@ describe 'registrations' do
 
       it 'updates the password' do
         current_user.reload
-        expect(current_user.password).to eq('yX*4Ubo_xPW!u')
+        expect(current_user.password).to eq('aaQQwwXXssZZ22##')
         expect(current_user).not_to be_valid_password('lalala')
         # expect(page).to have_current_path(password_user_path)
       end
@@ -71,14 +71,14 @@ describe 'registrations' do
         visit password_user_path
 
         fill_in id: 'user_current_password', with: 'weakpassword'
-        fill_in id: 'user_password', with: 'yX*4Ubo_xPW!u'
-        fill_in id: 'user_password_confirmation', with: 'yX*4Ubo_xPW!u'
+        fill_in id: 'user_password', with: 'aaQQwwXXssZZ22##'
+        fill_in id: 'user_password_confirmation', with: 'aaQQwwXXssZZ22##'
 
         click_on 'Enregistrer le mot de passe'
       end
 
       it 'updates the password' do
-        expect(current_user.reload).to be_valid_password('yX*4Ubo_xPW!u')
+        expect(current_user.reload).to be_valid_password('aaQQwwXXssZZ22##')
       end
     end
   end

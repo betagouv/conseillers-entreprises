@@ -7,6 +7,7 @@ fr:
     feminine: Toutes
     masculin: Tous
   all_choices: Tout
+  and_connector: " et "
   api_pde:
     errors:
       not_found: n’existe pas ou est invalide
@@ -260,7 +261,6 @@ fr:
       format:
         delimiter: ''
   ok: OK
-  or_connector: " ou "
   other: Autre
   previous_step: Précédent
   search: Rechercher
