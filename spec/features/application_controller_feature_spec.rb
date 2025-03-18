@@ -73,7 +73,7 @@ describe 'ApplicationController specific features' do
   end
 
   describe 'after_sign_in_path_for' do
-    let(:password) { 'yX*4Ubo_xPW!u' }
+    let(:password) { 'aaQQwwXXssZZ22##' }
 
     before do
       visit new_user_session_path
