@@ -12,12 +12,12 @@ fr:
       '2':
         content: |
           Bonjour,
-          Est-ce que ce besoin entre bien dans le champ de compétence de votre institution ?
+          Ce besoin peut-il être accompagné dans le cadre de votre offre de services ?
           Pourriez-vous nous partager votre position en cliquant sur l’un des boutons ?
           Merci d’avance pour votre retour.
           Je reste à votre disposition,
           Bonne journée
         label: Incertain
       '3':
-        content: Bonjour, si vous avez pu apporter une aide ou des conseils au dirigeant, n’oubliez pas après le bouton « J’appelle » de cliquer sur « Aide proposée » pour éviter les relances. Je me suis permis de le faire pour vous sur ce besoin. Je reste à votre disposition si vous avez des questions. Bien à vous
-        label: Tuto
+        content: "Bonjour, \nLa personne dirigeant l'entreprise vient de nous relancer sur son besoin, qui est toujours d'actualité.\nSerait-il possible de la rappeler ?\nMerci beaucoup pour votre retour.\nJe reste à votre disposition,\nBonne journée\n"
+        label: Dirigeant(e)
