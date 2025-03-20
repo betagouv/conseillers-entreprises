@@ -1,4 +1,4 @@
-- cache [need, need.shared_satisfactions.find_by(user: current_user).updated_at] do
+- cache [need, need.shared_satisfactions.find_by(user: current_user)] do
   .fr-mb-2w{ id: dom_id(need) }
     - shared_satisfaction = need.shared_satisfactions.find_by(user: current_user)
     - if shared_satisfaction.unseen?
