@@ -554,6 +554,10 @@ fr:
           label:
             long: Votre projet concerne-t-il un pays hors de l’Union européenne (27 pays) ?
             short: Projet hors UE ?
+        protection_produit:
+          label:
+            long: Votre demande concerne-t-elle la protection d'un produit ? (marque, brevet, dessin et modèle, droits d'auteur)
+            short: Concerne la protection d'un produit ?
         recrutement_en_apprentissage:
           label:
             long: Recrutez-vous un apprenti ou un stagiaire ?
