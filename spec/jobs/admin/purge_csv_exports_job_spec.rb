@@ -21,7 +21,7 @@ RSpec.describe Admin::PurgeCsvExportsJob do
         travel_back
       end
 
-      it 'delete quarterly_report with date outside of quarters' do
+      it 'delete activity_report with date outside of quarters' do
         expect { described_class.perform_now }.not_to change(user.csv_exports, :count)
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe Admin::PurgeCsvExportsJob do
         travel_back
       end
 
-      it 'delete quarterly_report with date outside of quarters' do
+      it 'delete activity_report with date outside of quarters' do
         expect { described_class.perform_now }.to change(user.csv_exports, :count).by(-1)
       end
     end

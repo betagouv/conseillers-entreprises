@@ -40,6 +40,11 @@ module Effectif
       @range ||= RANGES.find{ |r| r[:code] == @code }
     end
 
+    def stats_value
+      return I18n.t('00', scope: 'code_to_range').to_s if @code.blank?
+      I18n.t(@code, scope: 'code_to_range', default: I18n.t('00', scope: 'code_to_range')).to_s
+    end
+
     def max_bound
       return nil if range.nil?
       range[:max]
