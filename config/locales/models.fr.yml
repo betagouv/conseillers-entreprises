@@ -1123,6 +1123,27 @@ fr:
       taken_care_of: Taux de prise en charge
       transmitted: Besoins transmis
     percentage: Pourcentage
+    provenance:
+      abandonned_count: Abandonnés
+      abandonned_rate: Taux abandonnés
+      done_count: Cloturés
+      done_matches_rate: Taux MER cloturés
+      done_no_help_count: Cloturé sans aide
+      done_no_help_rate: Taux cloturé sans aide
+      done_not_reachable_count: Cloturé sans avoir pu joindre l’entreprise
+      done_not_reachable_rate: Taux cloturé sans avoir pu joindre l’entreprise
+      done_solicitations_rate: Taux soll. cloturés
+      matched_count: Mis en relation
+      matched_rate: Taux mis en relation
+      not_for_me_count: Refusé
+      not_for_me_rate: Taux refusé
+      provenance_detail: Provenance
+      quo_count: En attente de réponse
+      quo_rate: Taux en attente de réponse
+      solicitations_count: Nb besoins
+      tab: Provenance
+      taking_care_count: En cours de prise en charge
+      taking_care_rate: Taux En cours de prise en charge
     repartition:
       by_effectif_header: Besoins par effectifs
       by_naf_code_header: Besoins par secteur d'activité
