@@ -44,8 +44,9 @@ module Clockwork
   end
   if Rails.env == 'production' && !ENV['FEATURE_HEAVY_CRON_DISABLED'].to_b
     every(1.day, 'generate_activity_reports', at: '01:00', if: -> (t) { t.day == 20 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }, tz: 'UTC') do
-      ActivityReports::GenerateAntennesStatsJob.perform_later
-      ActivityReports::GenerateAntennesMatchesJob.perform_later
+      ActivityReports::AntenneStats::EnqueueJob.perform_later
+      ActivityReports::AntenneMatches::EnqueueJob.perform_later
+      ActivityReports::Cooperation::EnqueueJob.perform_later
     end
     every(1.day, 'send_activity_reports_emails', at: '08:00', if: -> (t) { t.day == 23 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }, tz: 'UTC') do
       ActivityReports::NotifyManagersJob.perform_later
