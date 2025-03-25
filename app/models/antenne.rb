@@ -3,6 +3,7 @@
 # Table name: antennes
 #
 #  id                :bigint(8)        not null, primary key
+#  code_safir        :string
 #  deleted_at        :datetime
 #  name              :string
 #  territorial_level :enum             default("local"), not null
@@ -30,6 +31,13 @@ class Antenne < ApplicationRecord
   include ManyCommunes
   include InvolvementConcern
   include TerritoryNeedsStatus
+  include PgSearch::Model
+
+
+  pg_search_scope :search_by_name,
+    against: [:name],
+    using: { tsearch: { prefix: true } },
+    ignoring: :accents
 
   enum :territorial_level, {
     local: 'local',
