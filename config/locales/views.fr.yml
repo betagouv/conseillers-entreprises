@@ -593,7 +593,7 @@ fr:
       more_filters: Voir plus de filtres
       omnisearch: Rechercher une entreprise, un contact, un SIRET...
       search: Rechercher
-      search_placeholder: 'La mie tendre, Lucie Martin, 13000601800027...'
+      search_placeholder: La mie tendre, Lucie Martin, 13000601800027...
     show:
       activities: Activités
       all_experts: Experts notifiés
