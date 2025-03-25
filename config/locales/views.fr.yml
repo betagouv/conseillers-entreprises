@@ -591,9 +591,9 @@ fr:
       created_since: Date de début
       created_until: Date de fin
       more_filters: Voir plus de filtres
-      omnisearch: Rechercher par entreprise, contact, description...
+      omnisearch: Rechercher une entreprise, un contact, un SIRET...
       search: Rechercher
-      search_placeholder: 'Ex : La mie tendre, Lucie Martin, plomberie, financement...'
+      search_placeholder: 'La mie tendre, Lucie Martin, 13000601800027...'
     show:
       activities: Activités
       all_experts: Experts notifiés
