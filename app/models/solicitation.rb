@@ -595,7 +595,7 @@ class Solicitation < ApplicationRecord
   ## Expérimentations - customisations
   #
   def certify_being_company_boss_required?
-    # Pour les sujets de landings "Former un ou plusieurs salariés" et "Obtenir un renseignement en droit du travail" et "Financer ses projets d'investissement"
+    # Pour les sujets "Former un ou plusieurs salariés" et "Obtenir un renseignement en droit du travail" et "Financer ses projets d'investissement"
     landing_subject.subject.id == 45 || landing_subject.subject.id == 47 || landing_subject.subject.id == 55
   end
 
