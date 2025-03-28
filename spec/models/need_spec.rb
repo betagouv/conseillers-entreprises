@@ -38,10 +38,13 @@ RSpec.describe Need do
   end
 
   describe 'update_status' do
-    context 'after match changes' do
+    context 'invalid need - after match changes' do
       let(:need) { create :need_with_matches }
 
-      before { need.matches.first.update(status: :taking_care) }
+      before do
+        allow(need).to receive(:valid?).and_return(false)
+        need.matches.first.update(status: :taking_care)
+      end
 
       subject { need.reload.status }
 

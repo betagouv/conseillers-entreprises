@@ -413,7 +413,9 @@ class Need < ApplicationRecord
   def update_status
     self.matches.reload # Make sure the matches are fresh from DB; see #1421
     new_status = computed_status
-    self.update(status: new_status)
+    # skip validation car l'ajout d'une question rend invalide le besoin après coup
+    self.update_attribute(:status, new_status)
+    self.diagnosis.touch
   end
 
   def display_time
