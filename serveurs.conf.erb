@@ -1,0 +1,13 @@
+server {
+  server_name localhost;
+  listen <%= ENV['PORT'] %>;
+
+  location / {
+    <%= ENV['NGINX_API_ACCESS_RULES'] %>
+
+    proxy_set_header  X-Remote-Address $remote_addr;
+    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_pass http://localhost:<%= ENV['CMS_PORT'] %>;
+    proxy_redirect default;
+  }
+}
