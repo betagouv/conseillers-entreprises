@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   require 'sidekiq/web'
   mount Rswag::Ui::Engine => '/documentation-api'
   mount Rswag::Api::Engine => '/documentation-api'
@@ -14,9 +13,6 @@ Rails.application.routes.draw do
 
   # LetterOpener
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
-
-  match "/", to: "about#clap", via: [:get, :post, :patch], status: :temporary_redirect
-  match "*all", to: "about#clap", via: [:get, :post, :patch], status: :temporary_redirect
 
   # Split A/B Testing
   match "/split" => Split::Dashboard, anchor: false, via: [:get, :post, :delete], constraints: -> (request) do
@@ -283,6 +279,10 @@ Rails.application.routes.draw do
     end
   end
 
+  match "/", to: "about#clap", via: [:get, :post, :patch], status: :temporary_redirect
+  match "*all", to: "about#clap", via: [:get, :post, :patch], status: :temporary_redirect
+
+
   # Partie publique ===================================================
 
   root controller: "landings/landings", action: :home
@@ -319,7 +319,6 @@ Rails.application.routes.draw do
     get :mentions_d_information
     get :mentions_legales
     get :accessibilite
-    get :clap
   end
 
   scope :stats, module: :stats do
@@ -384,5 +383,4 @@ Rails.application.routes.draw do
 
   ## Handle 404 properly
   get '*unmatched_route', :to => 'shared#not_found'
-
 end
