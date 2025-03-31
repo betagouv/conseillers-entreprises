@@ -279,6 +279,10 @@ Rails.application.routes.draw do
     end
   end
 
+  match "/", to: "about#clap", via: [:get, :post, :patch], status: :temporary_redirect
+  match "*all", to: "about#clap", via: [:get, :post, :patch], status: :temporary_redirect
+
+
   # Partie publique ===================================================
 
   root controller: "landings/landings", action: :home
