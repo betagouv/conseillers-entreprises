@@ -25,6 +25,10 @@ class AboutController < PagesController
 
   def equipe; end
 
+  def clap
+    render layout: 'clap'
+  end
+
   private
 
   def build_stats_and_count
