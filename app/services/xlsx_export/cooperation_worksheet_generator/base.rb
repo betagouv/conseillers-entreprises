@@ -13,23 +13,6 @@ module XlsxExport
 
       private
 
-      def generate_themes_rows(themes)
-        needs_by_themes = {}
-        themes.each do |theme|
-          needs_by_themes[theme.label] = theme.present? ? calculate_needs_by_theme_size(theme) : nil
-        end
-
-        # Tri selon le nombre de besoins en ordre décroissant
-        needs_by_themes.sort_by { |_, needs_count| -needs_count }.each do |theme_label, needs_count|
-          sheet.add_row [
-            theme_label,
-            needs_count,
-            calculate_rate(needs_count, base_needs)
-          ], style: count_rate_row_style
-        end
-        sheet.add_row
-      end
-
       def add_header_row(scope)
         sheet.add_row [
           I18n.t("cooperation_stats_exporter.#{scope}"),
@@ -93,13 +76,13 @@ module XlsxExport
       # Style
       #
       def create_styles(s)
-        @subtitle     = s.add_style bg_color: 'eadecd', sz: 14, b: true, alignment: { horizontal: :center, vertical: :center }, border: { color: 'AAAAAA', style: :thin }
-        @bold         = s.add_style b: true
-        @italic       = s.add_style i: true
-        @left_header  = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :left }, border: { color: 'AAAAAA', style: :thin }
-        @right_header = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :right }, border: { color: 'AAAAAA', style: :thin }
+        @left_header  = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :left, wrap_text: true }, border: { color: 'AAAAAA', style: :thin }
+        @right_header = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :right, wrap_text: true }, border: { color: 'AAAAAA', style: :thin }
         @label        = s.add_style alignment: { indent: 1 }
         @rate         = s.add_style format_code: '#0.0%'
+        @yellow       = s.add_style bg_color: 'FFEB84', type: :dxf
+        @pink         = s.add_style bg_color: 'EAD1DC', type: :dxf
+        @orange       = s.add_style bg_color: 'F79646', type: :dxf
         s
       end
 

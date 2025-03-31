@@ -17,6 +17,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_03_155501) do
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
+  create_enum :activity_reports_categories, [
+    "matches",
+    "stats",
+    "cooperation",
+  ], force: :cascade
+
   create_enum :feedbacks_categories, [
     "need",
     "need_reminder",
@@ -41,11 +47,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_03_155501) do
     "not_for_me",
     "done_no_help",
     "done_not_reachable",
-  ], force: :cascade
-
-  create_enum :quarterly_reports_categories, [
-    "matches",
-    "stats",
   ], force: :cascade
 
   create_enum :territorial_level, [
@@ -87,7 +88,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_03_155501) do
     t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.enum "category", enum_type: "quarterly_reports_categories"
+    t.enum "category", enum_type: "activity_reports_categories"
     t.string "reportable_type"
     t.bigint "reportable_id"
     t.index ["category"], name: "index_activity_reports_on_category"
