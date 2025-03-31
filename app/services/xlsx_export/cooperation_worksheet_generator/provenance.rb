@@ -63,6 +63,27 @@ module XlsxExport
         # 19 colonne de 15 px
         widths = Array.new(19, 15)
         sheet.column_widths(*widths)
+
+        sheet.add_conditional_formatting('D1:D1000',
+          type: :cellIs,
+          operator: :greaterThanOrEqual,
+          formula: '50%',
+          dxfId: @pink,
+          priority: 1)
+
+        sheet.add_conditional_formatting('I1:I1000',
+          type: :cellIs,
+          operator: :lessThanOrEqual,
+          formula: '50%',
+          dxfId: @yellow,
+          priority: 1)
+
+        sheet.add_conditional_formatting('S1:S1000',
+          type: :cellIs,
+          operator: :greaterThanOrEqual,
+          formula: '50%',
+          dxfId: @orange,
+          priority: 1)
       end
 
       def provenance_row_style

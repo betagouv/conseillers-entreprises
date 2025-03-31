@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-describe ActivityReports::Generate::AntenneMatches do
+describe ActivityReports::Generate::AntenneStats do
   describe 'generate_files' do
     let(:antenne) { create :antenne }
     let!(:expert) { create :expert_with_users, antenne: antenne }
@@ -11,7 +11,7 @@ describe ActivityReports::Generate::AntenneMatches do
 
     it 'create activity_report' do
       expect { generate_files }.to change(ActivityReport, :count).by(1)
-      expect(ActivityReport.last.category).to eq('matches')
+      expect(ActivityReport.last.category).to eq('stats')
     end
   end
 
@@ -19,9 +19,9 @@ describe ActivityReports::Generate::AntenneMatches do
     let(:antenne) { create :antenne }
     let!(:expert) { create :expert_with_users, antenne: antenne }
     let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 2.years.ago) }
-    let!(:activity_report_ok) { create :activity_report, :category_matches, reportable: antenne, start_date: 18.months.ago }
-    let!(:activity_report_ko) { create :activity_report, :category_matches, reportable: antenne, start_date: 3.years.ago }
-    let!(:activity_report_ko_2) { create :activity_report, :category_stats, reportable: antenne, start_date: 18.months.ago }
+    let!(:activity_report_ok) { create :activity_report, :category_stats, reportable: antenne, start_date: 18.months.ago }
+    let!(:activity_report_ko) { create :activity_report, :category_stats, reportable: antenne, start_date: 3.years.ago }
+    let!(:activity_report_ko_2) { create :activity_report, :category_matches, reportable: antenne, start_date: 18.months.ago }
     let(:quarters) { described_class.new(antenne).send(:last_quarters) }
     let(:destroy_old_report) { described_class.new(antenne).send(:destroy_old_files, quarters) }
 

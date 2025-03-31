@@ -44,7 +44,7 @@ class Cooperation < ApplicationRecord
   has_many :user_rights_cooperation_manager, ->{ category_cooperation_manager }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
   has_many :managers, through: :user_rights_cooperation_manager, source: :user, inverse_of: :managed_cooperations
 
-  has_many :activity_reports, as: :reportable, dependent: :destroy, inverse_of: :reportable
+  has_many :activity_reports, -> { category_cooperation }, as: :reportable, dependent: :destroy, inverse_of: :reportable
 
   has_one :logo, dependent: :destroy, as: :logoable, inverse_of: :logoable
 

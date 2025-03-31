@@ -326,7 +326,7 @@ class Antenne < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [
       "advisors", "communes", "experts", "experts_including_deleted", "institution", "managers", "match_filters",
-      "matches_reports", "quarterly_reports", "received_diagnoses", "received_diagnoses_including_from_deleted_experts",
+      "matches_reports", "stats_reports", "received_diagnoses", "received_diagnoses_including_from_deleted_experts",
       "received_matches", "received_matches_including_from_deleted_experts", "received_needs",
       "received_needs_including_from_deleted_experts", "received_solicitations",
       "received_solicitations_including_from_deleted_experts", "referencement_coverages", "regions", "sent_diagnoses",
