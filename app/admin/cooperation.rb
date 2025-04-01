@@ -58,6 +58,9 @@ ActiveAdmin.register Cooperation do
       row(:managers) do |c|
         div admin_link_to(c, :managers, list: true)
       end
+      row(:stats) do |c|
+        div link_to I18n.t('active_admin.cooperations.activity_reports'),reports_conseiller_cooperations_path(cooperation_id: c.id)
+      end
     end
   end
 

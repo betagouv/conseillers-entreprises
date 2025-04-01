@@ -4,7 +4,6 @@ module XlsxExport
       STATUS = %w[done_no_help done_not_reachable quo taking_care not_for_me]
 
       def generate
-        p "PROVENANCE ==========================="
 
         # Header
         header_row = [
@@ -56,12 +55,13 @@ module XlsxExport
         end
 
         finalise_style
-        p 'END PROVENANCE ============================='
       end
 
       def finalise_style
-        # 19 colonne de 15 px
-        widths = Array.new(19, 15)
+        count_width = 15
+        rate_width = 12
+        widths = [35, count_width, count_width, rate_width, count_width, rate_width, count_width, rate_width, rate_width]
+        STATUS.each{ |status| widths << count_width; widths << rate_width }
         sheet.column_widths(*widths)
 
         sheet.add_conditional_formatting('D1:D1000',

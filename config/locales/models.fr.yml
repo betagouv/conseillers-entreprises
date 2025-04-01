@@ -9,6 +9,8 @@ fr:
       deleted: Antennes supprimées avec succès
       stats_reports: Rapports statistiques
       territorial_antennes: 'Antennes du territoire : '
+    cooperations:
+      activity_reports: Rapports d'activité
     company_satisfaction:
       share: Partager
       share_confirmation: Etes-vous sûr de vouloir partager ce commentaire aux conseillers qui ont aidé l'entreprise ?
@@ -1153,10 +1155,11 @@ fr:
       tab: Répartition
       title: Coopération %{cooperation} - Répartition des besoins - %{period}
     volume:
-      positionning_header: Positionnement
+      positionning_header: Positionnement sur les besoins transmis
+      gap_explanation: Le total peut légèrement différer ici en raison des écarts de dates entre le dépôt des besoins et leur transmission.
       tab: Volume
       title: Coopération %{cooperation} - Volume des besoins - %{period}
-      transmitted_header: Transmission des besoins
+      transmitted_header: Transmission des besoins déposés sur la période
   deleted_account:
     full_name: "(Compte supprimé)"
   flash:

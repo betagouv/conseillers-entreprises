@@ -5,7 +5,7 @@ describe ActivityReports::Generate::Cooperation do
 
   describe 'generate_files' do
     let(:cooperation) { create :cooperation }
-    let!(:a_need) { create :need, created_at: 4.months.ago, solicitation: create(:solicitation, cooperation: cooperation) }
+    let!(:a_need) { create :need, created_at: 3.months.ago, solicitation: create(:solicitation, cooperation: cooperation) }
     let(:quarters) { described_class.new(cooperation).send(:last_quarters) }
     let(:generate_files) { described_class.new(cooperation).send(:generate_files, quarters.first) }
 
