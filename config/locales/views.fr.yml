@@ -46,9 +46,9 @@ fr:
       diagnosis_in_progress: " (En cours)"
       id: Sollicitation %{id}
   activity_report_service:
-    cooperation_file_name: rapport-activite-%{cooperation}-%{year}T%{number}.xlsx
-    matches_file_name: export-mises-en-relation-%{antenne}-%{year}T%{number}.xlsx
-    stats_file_name: export-stats-%{antenne}-%{year}T%{number}.xlsx
+    cooperation_file_name: rapport-activite-%{item}-%{year}T%{number}.xlsx
+    matches_file_name: export-mises-en-relation-%{item}-%{year}T%{number}.xlsx
+    stats_file_name: export-stats-%{item}-%{year}T%{number}.xlsx
   admin:
     reassign_matches:
       reassign_matches:
