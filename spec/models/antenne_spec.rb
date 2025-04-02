@@ -185,6 +185,49 @@ RSpec.describe Antenne do
         end
       end
     end
+
+    describe '#update_regions_codes' do
+      let(:region_paca) { instance_double(DecoupageAdministratif::Region, code: '93') }
+      let(:region_paca_aura) { instance_double(DecoupageAdministratif::Region, code: '84') }
+      let(:commune) { instance_double(DecoupageAdministratif::Commune, region: region_paca_aura) }
+      let(:departement) { instance_double(DecoupageAdministratif::Departement, region: region_paca_aura) }
+      let(:epci) { instance_double(DecoupageAdministratif::Epci, regions: [region_paca, region_paca_aura]) }
+
+      before do
+        allow(DecoupageAdministratif::Region).to receive(:find_by_code).with('93').and_return(region_paca)
+        allow(DecoupageAdministratif::Region).to receive(:find_by_code).with('84').and_return(region_paca_aura)
+        allow(DecoupageAdministratif::Commune).to receive(:find_by_code).with('26135').and_return(commune)
+        allow(DecoupageAdministratif::Departement).to receive(:find_by_code).with('26').and_return(departement)
+        allow(DecoupageAdministratif::Epci).to receive(:find_by_code).with('200035723').and_return(epci)
+        territorial_zone.send(:update_regions_codes)
+      end
+
+      subject { territorial_zone.regions_codes }
+
+      context 'updates regions_codes for region' do
+        let(:territorial_zone) { build(:territorial_zone, :region, code: '84') }
+
+        it { is_expected.to eq(['84']) }
+      end
+
+      context 'updates regions_codes for commune' do
+        let(:territorial_zone) { build(:territorial_zone, :commune, code: '26135') }
+
+        it { is_expected.to eq(['84']) }
+      end
+
+      context 'updates regions_codes for departement' do
+        let(:territorial_zone) { build(:territorial_zone, :departement, code: '26') }
+
+        it { is_expected.to eq(['84']) }
+      end
+
+      context 'updates regions_codes for epci' do
+        let(:territorial_zone) { build(:territorial_zone, :epci, code: '200035723') }
+
+        it { is_expected.to match_array(['84', '93']) }
+      end
+    end
   end
 
   describe 'name code uniqueness' do

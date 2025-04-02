@@ -4,6 +4,7 @@
 #
 #  id            :bigint(8)        not null, primary key
 #  code          :string           not null
+#  regions_codes :string           default([]), is an Array
 #  zone_type     :string           not null
 #  zoneable_type :string           not null
 #  created_at    :datetime         not null
@@ -16,7 +17,7 @@
 #  index_territorial_zones_on_zoneable                         (zoneable_type,zoneable_id)
 #
 class TerritorialZone < ApplicationRecord
-  enum zone_type: { commune: 'commune', epci: 'epci', departement: 'departement', region: 'region' }
+  enum :zone_type, { commune: 'commune', epci: 'epci', departement: 'departement', region: 'region' }, prefix: true
 
   belongs_to :zoneable, polymorphic: true
 
@@ -24,8 +25,31 @@ class TerritorialZone < ApplicationRecord
   validate :validate_code_format
   validate :validate_existence
 
+  before_save :update_regions_codes
+
+
   def antenne
     zoneable.instance_of?(Antenne) ? zoneable : nil
+  end
+
+  def territory_model
+    "DecoupageAdministratif::#{zone_type.classify}".constantize.find_by_code(code)
+  end
+
+  # Une EPCI peut avoir plusieurs régions
+  def regions
+    case self.zone_type
+    when 'region'
+      [territory_model]
+    when 'commune'
+      [territory_model&.region]
+    when 'departement'
+      [territory_model&.region]
+    when 'epci'
+      territory_model&.regions
+    else
+      []
+    end
   end
 
   private
@@ -49,5 +73,13 @@ class TerritorialZone < ApplicationRecord
     error_message = I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: zone)
     model = "DecoupageAdministratif::#{self.zone_type&.classify}".constantize.send(:find_by_code, code)
     return errors.add(:code, error_message) if model.nil?
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["code", "created_at", "id", "updated_at", "zone_type", "zoneable_id", "zoneable_type"]
+  end
+
+  def update_regions_codes
+    self.regions_codes = self.regions.map { |region| region.code }.uniq
   end
 end
