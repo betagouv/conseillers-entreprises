@@ -10,18 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_13_130727) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_02_091841) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
   enable_extension "unaccent"
-
-  create_enum :activity_reports_categories, [
-    "matches",
-    "stats",
-    "cooperation",
-  ], force: :cascade
 
   create_enum :feedbacks_categories, [
     "need",
@@ -47,6 +40,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_13_130727) do
     "not_for_me",
     "done_no_help",
     "done_not_reachable",
+  ], force: :cascade
+
+  create_enum :quarterly_reports_categories, [
+    "matches",
+    "stats",
   ], force: :cascade
 
   create_enum :territorial_level, [
@@ -81,18 +79,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_13_130727) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "activity_reports", force: :cascade do |t|
-    t.date "start_date"
-    t.date "end_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.enum "category", enum_type: "activity_reports_categories"
-    t.string "reportable_type"
-    t.bigint "reportable_id"
-    t.index ["category"], name: "index_activity_reports_on_category"
-    t.index ["reportable_type", "reportable_id"], name: "index_activity_reports_on_reportable"
   end
 
   create_table "antennes", force: :cascade do |t|
@@ -528,6 +514,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_13_130727) do
     t.index ["user_id"], name: "index_profil_pictures_on_user_id", unique: true
   end
 
+  create_table "quarterly_reports", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "antenne_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.enum "category", enum_type: "quarterly_reports_categories"
+    t.index ["antenne_id"], name: "index_quarterly_reports_on_antenne_id"
+    t.index ["category"], name: "index_quarterly_reports_on_category"
+  end
+
   create_table "referencement_coverages", force: :cascade do |t|
     t.bigint "antenne_id", null: false
     t.bigint "institution_subject_id", null: false
@@ -624,7 +621,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_13_130727) do
     t.bigint "subject_question_id", null: false
     t.string "subject_questionable_type"
     t.bigint "subject_questionable_id"
-    t.string "filter_value"
+    t.boolean "filter_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "type"
@@ -667,6 +664,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_13_130727) do
     t.bigint "zoneable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "regions_codes", default: [], array: true
     t.index ["code", "zone_type", "zoneable_type", "zoneable_id"], name: "idx_on_code_zone_type_zoneable_type_zoneable_id_0c5f85b4e4", unique: true
     t.index ["zoneable_type", "zoneable_id"], name: "index_territorial_zones_on_zoneable"
   end
@@ -792,6 +790,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_13_130727) do
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
   add_foreign_key "profil_pictures", "users"
+  add_foreign_key "quarterly_reports", "antennes"
   add_foreign_key "referencement_coverages", "antennes"
   add_foreign_key "referencement_coverages", "institutions_subjects"
   add_foreign_key "reminders_actions", "needs"
