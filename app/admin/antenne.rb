@@ -43,7 +43,6 @@ ActiveAdmin.register Antenne do
     end
     column(:intervention_zone) do |a|
       div admin_link_to(a, :territories)
-      div admin_link_to(a, :communes)
     end
     column(:activity) do |a|
       div admin_link_to(a, :sent_matches, blank_if_empty: true)
@@ -64,10 +63,7 @@ ActiveAdmin.register Antenne do
   filter :territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
   filter :territories, as: :ajax_select, collection: -> { Territory.bassins_emploi.pluck(:name, :id) },
          data: { url: :admin_territories_path, search_fields: [:name] }
-  filter :regions, as: :ajax_select, collection: -> { Territory.regions.pluck(:name, :id) },
-         data: { url: :admin_territories_path, search_fields: [:name] }
-
-  filter :communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
+  filter :regions, as: :select, collection: -> { DecoupageAdministratif::Region.all.map { |r| [r.nom, r.code] } }
 
   ## CSV
   #
