@@ -2,7 +2,6 @@ module XlsxExport
   module CooperationWorksheetGenerator
     class Repartition < Base
       def generate
-        p "REPARTITION ==========================="
         sheet.add_row
         by_theme_stats
         by_subject_stats
@@ -11,13 +10,11 @@ module XlsxExport
         by_naf_code_stats
 
         finalise_style
-        p "END REPARTITION ==========================="
       end
 
       private
 
       def by_theme_stats
-        p "by_theme_stats ------------------------------"
         add_header_row('repartition.by_theme_header')
 
         grouped_hash = Theme.joins(:subjects).where(subjects: { id: [base_needs.pluck(:subject_id)] }).each_with_object({}) do |theme, hash|
@@ -32,7 +29,6 @@ module XlsxExport
       end
 
       def by_subject_stats
-        p "by_subject_stats ------------------------------"
         add_header_row('repartition.by_subject_header')
 
         grouped_hash = base_needs.pluck(:subject_id).tally
@@ -45,7 +41,6 @@ module XlsxExport
       end
 
       def by_region_stats
-        p "by_region_stats ------------------------------"
         add_header_row('repartition.by_region_header')
 
         grouped_hash = Territory.regions.each_with_object({}) do |region, hash|
@@ -59,7 +54,6 @@ module XlsxExport
       end
 
       def by_effectif_stats
-        p "by_effectif_stats ------------------------------"
         add_header_row('repartition.by_effectif_header')
         codes_effectifs = base_companies
           .pluck(:code_effectif)
