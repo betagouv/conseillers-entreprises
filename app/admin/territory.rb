@@ -36,7 +36,7 @@ ActiveAdmin.register Territory do
   end
 
   filter :name
-  filter :communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
+  # filter :communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
 
   ## CSV
   #
