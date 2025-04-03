@@ -121,6 +121,7 @@ ignore_unused:
   - 'solicitation.provenance_categories.*'
   - 'password.missing_elements.*'
   - 'antenne_stats_exporter.*'
+  - 'cooperation_stats_exporter.*'
   - 'reminders.needs.scopes.mark_done.*'
   - 'equipe.*'
   - 'sitemap.*'
