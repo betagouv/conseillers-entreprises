@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'api_helper'
 
-describe ActivityReports::NotifyManagers do
+describe ActivityReports::NotifyAntenneManagers do
   describe 'call' do
     let(:antenne) { create :antenne }
     let!(:activity_report) { create :activity_report, reportable: antenne, start_date: 3.months.ago.beginning_of_month }

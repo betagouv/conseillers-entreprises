@@ -21,6 +21,11 @@
         max-width: 90%;
         padding: 10px 25px;
       }
+      .cooperation-logo {
+        max-height: 60px;
+        max-width: 285px;
+        padding: 10px 25px;
+      }
       .card__detail {
         font-size: 12px;
         color: #666;
@@ -67,7 +72,11 @@
   </mj-head>
 
   <mj-body width='650px'>
-    <%= render 'mailers/expert_header', institution_logo_name: @institution_logo_name %>
+    <% if defined?(@cooperation_logo_name) && @cooperation_logo_name.present? %>
+      <%= render 'mailers/header', cooperation_logo_name: @cooperation_logo_name %>
+    <% else %>
+      <%= render 'mailers/expert_header', institution_logo_name: @institution_logo_name %>
+    <% end %>
     <%= yield %>
   </mj-body>
 </mjml>

@@ -32,10 +32,11 @@ class UserRight < ApplicationRecord
     admin: 1,
     national_referent: 2,
     main_referent: 3,
-    cooperation_manager: 4
+    cooperation_manager: 4,
+    cooperations_referent: 5
   }, prefix: true
 
-  FOR_ADMIN = %i[admin national_referent main_referent]
+  FOR_ADMIN = %i[admin national_referent main_referent cooperations_referent]
 
   scope :for_admin, -> { where(category: FOR_ADMIN) }
 
@@ -43,7 +44,7 @@ class UserRight < ApplicationRecord
 
   validates :category, presence: true
   validate :manager_has_managed_antennes, :cooperation_manager_has_managed_cooperation,
-    :only_one_user_by_referent, :be_admin_to_be_referent
+    :be_admin_to_be_referent, :only_one_user_by_referent
 
   private
 
@@ -56,15 +57,16 @@ class UserRight < ApplicationRecord
   end
 
   def be_admin_to_be_referent
-    if (category_national_referent? && !user.is_admin?) || (category_main_referent? && !user.is_admin?)
+    if (%w[national_referent main_referent cooperations_referent].include?(category) && !user.is_admin?)
       self.errors.add(:category, I18n.t('errors.admin_for_referents'))
     end
   end
 
   def only_one_user_by_referent
-    # Un seul user pour les referents nationaux et principaux car il sont utilisé dans les signatures de mails et comme contact par défaut
+    # Un seul user pour les referents admins car ils sont utilisé dans les signatures de mails et comme contact par défaut
     if (category_national_referent? && UserRight.category_national_referent.count >= 1) ||
-      (category_main_referent? && UserRight.category_main_referent.count >= 1)
+      (category_main_referent? && UserRight.category_main_referent.count >= 1) ||
+      (category_cooperations_referent? && UserRight.category_cooperations_referent.count >= 1)
       self.errors.add(:category, I18n.t('errors.one_user_for_referents'))
     end
   end

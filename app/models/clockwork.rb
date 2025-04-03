@@ -49,7 +49,8 @@ module Clockwork
       ActivityReports::Cooperation::EnqueueJob.perform_later
     end
     every(1.day, 'send_activity_reports_emails', at: '08:00', if: -> (t) { t.day == 23 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }, tz: 'UTC') do
-      ActivityReports::NotifyManagersJob.perform_later
+      ActivityReports::NotifyAntenneManagersJob.perform_later
+      ActivityReports::NotifyCooperationManagersJob.perform_later
     end
     every(1.day, 'reminders_registers', :at => ['01:00', '13:00'], tz: 'UTC') do
       Admin::CreateRemindersRegistersJob.perform_later

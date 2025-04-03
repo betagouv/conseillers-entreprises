@@ -1,0 +1,24 @@
+<mj-section>
+  <mj-column>
+    <mj-text>
+      <p><%= t('mailers.hello') %></p>
+
+      <p><%= t('.intro_html', cooperation: @cooperation.name) %></p>
+
+      <p><%= t('.activity_report_available_html') %></p>
+
+    </mj-text>
+
+    <mj-button background-color="#000091" color="white" border-radius="0" font-weight="700">
+      <%= link_to t('.download_report'), reports_conseiller_cooperations_url, style: 'color: white; text-decoration: none' %>
+    </mj-button>
+
+    <mj-text>
+      <p><%= t('.at_your_disposal') %></p>
+      <p><%= t('mailers.thanks_for_your_trust') %></p>
+      <p><%= t('mailers.see_you_on_service_html', link_to_root: link_to(t('app_name'), root_url))%></p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+
+<%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user %>
