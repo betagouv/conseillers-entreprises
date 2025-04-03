@@ -4,7 +4,6 @@ module XlsxExport
       STATUS = %w[done_no_help done_not_reachable quo taking_care not_for_me]
 
       def generate
-
         # Header
         header_row = [
           I18n.t('cooperation_stats_exporter.provenance.provenance_detail'),

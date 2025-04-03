@@ -1,6 +1,10 @@
 class UserMailerPreview < ActionMailer::Preview
-  def activity_report
-    UserMailer.with(user: User.active.managers.sample).activity_report
+  def antenne_activity_report
+    UserMailer.with(user: User.active.managers.sample).antenne_activity_report
+  end
+
+  def cooperation_activity_report
+    UserMailer.with(user: User.active.cooperation_managers.sample).cooperation_activity_report
   end
 
   def invite_to_demo

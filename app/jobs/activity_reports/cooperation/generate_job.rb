@@ -1,8 +1,8 @@
 class ActivityReports::Cooperation::GenerateJob < ApplicationJob
   queue_as :low_priority
 
-  def perform(antenne_id)
-    antenne = Antenne.find(antenne_id)
-    ActivityReports::Generate::Cooperation.new(antenne).call
+  def perform(cooperation_id)
+    cooperation = Cooperation.find(cooperation_id)
+    ActivityReports::Generate::Cooperation.new(cooperation).call
   end
 end

@@ -19,7 +19,7 @@ module XlsxExport
         add_status_row(:transmitted, count, base_solicitations)
 
         sheet.add_row
-        sheet.add_row [I18n.t('cooperation_stats_exporter..volume.gap_explanation')]
+        sheet.add_row [I18n.t('cooperation_stats_exporter.volume.gap_explanation')]
         sheet.add_row
 
         ## Positionnement

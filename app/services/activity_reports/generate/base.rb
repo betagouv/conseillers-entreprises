@@ -8,7 +8,7 @@ module ActivityReports::Generate
       periods = last_periods
       return if periods.nil?
       periods.each do |period|
-        generate_files(period) unless reports.find_by(start_date: period.first).present?
+        generate_files(period) if reports.find_by(start_date: period.first).blank?
       end
       destroy_old_files(periods)
     end

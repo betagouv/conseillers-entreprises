@@ -7,13 +7,26 @@ class UserMailer < ApplicationMailer
 
   layout 'expert_mailers'
 
-  def activity_report
+  def antenne_activity_report
     with_user_init do
       mail(
         to: @user.email_with_display_name,
-        subject: t('mailers.user_mailer.activity_report.subject')
+        subject: t('mailers.user_mailer.antenne_activity_report.subject')
       )
     end
+  end
+
+  def cooperation_activity_report
+    @user = params[:user]
+    return false if @user.nil? || @user.deleted?
+    @support_user = User.cooperations_referent.first
+    @cooperation = @user.managed_cooperations.first
+    @cooperation_logo_name = @cooperation.logo&.filename
+
+    mail(
+      to: @user.email_with_display_name,
+      subject: t('mailers.user_mailer.cooperation_activity_report.subject')
+    )
   end
 
   def invite_to_demo
