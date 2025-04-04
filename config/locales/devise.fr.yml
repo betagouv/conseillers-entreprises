@@ -30,9 +30,13 @@ fr:
       invitation_instructions:
         accept: Choisir mon mot de passe
         accept_user_invitation_instruction: 'Pour recevoir des besoins et rejoindre la communauté, choisissez votre mot de passe :'
+        accept_user_invitation_instruction_cooperation: 'Pour accéder aux statistiques de pilotage de la coopération, choisissez votre mot de passe :'
         answer_one: "%{institution_name} est partenaire de ce service public en vertu d’un accord national, décliné localement. D’après les données communiquées, vous avez été identifié(e) pour participer à cette dynamique. Ce service est le fruit d’une co-construction avec des conseillers et des chefs d’entreprises, n’hésitez à nous partager votre retour d’expérience."
+        answer_one_cooperation: Le site %{cooperation_name} a intégré pour ses utilisateurs le service public Conseillers-Entreprises afin qu’ils puissent bénéficier d’un conseil humain et de proximité. Vous avez été identifié(e) comme référent(e) au sein de votre institution %{institution_name} pour suivre cette coopération.
+        answer_two_cooperation: Découvrez l’activité générée par ce partenariat et continuons ensemble d’améliorer notre impact auprès des entreprises.
         answer_two_html: "<p>Financé par le Ministère de l’Économie et le Ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE et PME.</p><p>En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations et des organismes publics ou parapublics sur son territoire.</p><p>Vous pouvez ainsi échanger sur un besoin d’entreprise avec des conseillers du service public travaillant dans d’autres structures. Le service compte plus de 40 partenaires !</p>"
-        description_html: vous êtes invité(e) à rejoindre le service public Conseillers-Entreprises, au sein de l’antenne %{antenne}.
+        description_cooperation_html: Vous êtes invité(e) à rejoindre le service public Conseillers-Entreprises, en tant que responsable de la coopération %{cooperation}.
+        description_html: Vous êtes invité(e) à rejoindre le service public Conseillers-Entreprises, au sein de l’antenne %{antenne}.
         details_answer: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon expert au sein des administrations, organismes publics et parapublics, et collectivités territoriales partenaires.
         details_answer_service: C’est un nouveau service public porté par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
         details_question: Qu’est-ce que le service Conseillers-Entreprises ?
@@ -43,6 +47,7 @@ fr:
         question_one: Pourquoi recevez-vous ce mail ?
         question_two: Comment fonctionne le service public Conseillers-Entreprises ?
         subject: Invitation à rejoindre le service public Conseillers-Entreprises, partenaire de %{institution}
+        subject_cooperation: Invitation à votre accès de pilotage pour la coopération avec Conseillers-Entreprises
         support_contact_label: 'Si vous avez le moindre souci pour votre compte, contactez :'
         training_html: "<strong>Pour en savoir plus, inscrivez-vous à la prochaine démonstration du service</strong> : %{link}"
       reset_password_instructions:

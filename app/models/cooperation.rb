@@ -25,6 +25,7 @@
 #
 class Cooperation < ApplicationRecord
   include Archivable
+  include WithSupportUser
 
   ## Associations
   #
@@ -77,6 +78,10 @@ class Cooperation < ApplicationRecord
 
   def with_provenance_details?
     self.solicitations.pluck(:provenance_detail).compact_blank.uniq.any?
+  end
+
+  def support_user
+    User.cooperations_referent&.first
   end
 
   def self.ransackable_attributes(auth_object = nil)

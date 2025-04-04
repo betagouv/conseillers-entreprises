@@ -30,6 +30,7 @@ class Antenne < ApplicationRecord
   include ManyCommunes
   include InvolvementConcern
   include TerritoryNeedsStatus
+  include WithSupportUser
 
   enum :territorial_level, {
     local: 'local',
@@ -166,15 +167,6 @@ class Antenne < ApplicationRecord
     else
       UserRight.category_national_referent.first&.user
     end
-  end
-
-  def support_user_name
-    [support_user&.full_name, I18n.t('app_name')].compact.join(" - ")
-  end
-
-  def support_user_email_with_name
-    email = support_user.present? ? support_user.email : ENV['APPLICATION_EMAIL']
-    "#{support_user_name} <#{email}>"
   end
 
   def uniqueness_name
