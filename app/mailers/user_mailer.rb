@@ -19,8 +19,8 @@ class UserMailer < ApplicationMailer
   def cooperation_activity_report
     @user = params[:user]
     return false if @user.nil? || @user.deleted?
-    @support_user = User.cooperations_referent.first
     @cooperation = @user.managed_cooperations.first
+    @support_user = @cooperation.support_user.first
     @cooperation_logo_name = @cooperation.logo&.filename
 
     mail(
