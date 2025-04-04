@@ -25,6 +25,7 @@
 #
 class Cooperation < ApplicationRecord
   include Archivable
+  include WithSupportUser
 
   ## Associations
   #
@@ -44,6 +45,8 @@ class Cooperation < ApplicationRecord
   has_many :user_rights_cooperation_manager, ->{ category_cooperation_manager }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
   has_many :managers, through: :user_rights_cooperation_manager, source: :user, inverse_of: :managed_cooperations
 
+  has_many :activity_reports, -> { category_cooperation }, as: :reportable, dependent: :destroy, inverse_of: :reportable
+
   has_one :logo, dependent: :destroy, as: :logoable, inverse_of: :logoable
 
   ## Hooks and Validations
@@ -55,6 +58,12 @@ class Cooperation < ApplicationRecord
   #
   def to_s
     name
+  end
+
+  # Utile pour générer le rapport d'activité
+  def perimeter_received_needs
+    Need.joins(solicitation: :cooperation)
+      .where(solicitations: { cooperations: { id: self.id } })
   end
 
   def archive!
@@ -69,6 +78,10 @@ class Cooperation < ApplicationRecord
 
   def with_provenance_details?
     self.solicitations.pluck(:provenance_detail).compact_blank.uniq.any?
+  end
+
+  def support_user
+    User.cooperations_referent&.first
   end
 
   def self.ransackable_attributes(auth_object = nil)

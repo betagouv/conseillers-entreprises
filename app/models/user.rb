@@ -137,6 +137,7 @@ class User < ApplicationRecord
   scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_manager).distinct }
   scope :cooperation_managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_cooperation_manager).distinct }
   scope :national_referent, -> { not_deleted.joins(:user_rights).merge(UserRight.category_national_referent).distinct }
+  scope :cooperations_referent, -> { not_deleted.joins(:user_rights).merge(UserRight.category_cooperations_referent).distinct }
 
   scope :not_invited, -> { not_deleted.where(invitation_sent_at: nil) }
   scope :managers_not_invited, -> { not_deleted.managers.where(invitation_sent_at: nil) }
@@ -332,6 +333,8 @@ class User < ApplicationRecord
   def support_user
     if self.is_manager? && self.antenne.national?
       UserRight.category_main_referent.first&.user
+    elsif self.is_cooperation_manager?
+      self.managed_cooperations.first.support_user
     else
       self.antenne.support_user
     end

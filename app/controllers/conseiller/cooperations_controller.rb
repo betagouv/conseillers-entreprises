@@ -1,7 +1,7 @@
 class Conseiller::CooperationsController < ApplicationController
   include StatsUtilities
 
-  before_action :retrieve_cooperation, only: %i[needs matches load_filter_options provenance_detail_autocomplete]
+  before_action :retrieve_cooperation, only: %i[needs matches reports load_filter_options provenance_detail_autocomplete]
   before_action :init_filters, only: %i[needs matches load_filter_options]
 
   def needs
@@ -20,6 +20,10 @@ class Conseiller::CooperationsController < ApplicationController
       needs_transmitted matches_positioning matches_taking_care matches_done
       matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
     ]
+  end
+
+  def reports
+    @quarters = @cooperation.activity_reports.order(start_date: :desc).pluck(:start_date, :end_date).uniq
   end
 
   def load_data
