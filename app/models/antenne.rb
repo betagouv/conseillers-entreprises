@@ -150,7 +150,7 @@ class Antenne < ApplicationRecord
   }
 
   scope :regions_eq, -> (region_code) {
-    joins(:territorial_zones).where(territorial_zones: { regions_codes: [region_code] })
+    by_regions([region_code])
   }
 
   ##

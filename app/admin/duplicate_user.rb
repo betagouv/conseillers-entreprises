@@ -32,7 +32,7 @@ ActiveAdmin.register_page 'Duplicate user' do
           end
           f.input :email, input_html: { required: true }
           f.input :phone_number
-          if user.experts.map(&:custom_communes?).any?
+          if user.experts.map(&:custome_territories?).any?
             f.input :specifics_territories, as: :boolean, label: I18n.t('active_admin.user.duplicate_territories')
           end
           f.submit
