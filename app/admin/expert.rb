@@ -65,7 +65,7 @@ ActiveAdmin.register Expert do
 
   scope :active, default: true
   scope :deleted
-  scope :with_custom_communes
+  scope :with_custom_communes_old
   scope :with_territorial_zones
 
   scope :without_users, group: :debug
@@ -100,20 +100,7 @@ ActiveAdmin.register Expert do
         end
       end
     end
-    column(:intervention_zone) do |e|
-      if e.is_global_zone
-        status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
-      else
-        if e.custom_communes?
-          status_tag t('attributes.custom_communes'), class: 'yes'
-        end
-        zone = e.custom_communes? ? e : e.antenne
-        unless e.deleted? || zone.nil?
-          div admin_link_to(zone, :territories)
-          div admin_link_to(zone, :communes)
-        end
-      end
-    end
+
     column(:users) do |e|
       div admin_link_to(e, :users)
     end
@@ -145,7 +132,8 @@ ActiveAdmin.register Expert do
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :created_at
   filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
-  filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
+  # filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
+  filter :regions, as: :select, collection: -> { DecoupageAdministratif::Region.all.map { |r| [r.nom, r.code] } }
   filter :themes, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subjects, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 
@@ -162,7 +150,7 @@ ActiveAdmin.register Expert do
     column_count :antenne_territories
     column_count :antenne_communes
     column :is_global_zone
-    column :custom_communes?
+    column :custome_territories?
     column_count :territories
     column_count :communes
     column_count :users
@@ -185,7 +173,7 @@ ActiveAdmin.register Expert do
         if e.is_global_zone
           status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
         else
-          if e.custom_communes?
+          if e.custome_territories?
             status_tag t('attributes.custom_communes'), class: 'yes'
           end
           div admin_link_to(e, :territories)
