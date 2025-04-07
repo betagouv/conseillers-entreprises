@@ -15,13 +15,18 @@
 
         %p.fr-mb-4v= t('.password_description')
 
-        .required.fr-input-group
-          = f.label :password, class: 'fr-label'
+        .required.fr-input-group{ 'data-controller': "password-visibility" }
+          .justify-between.vertical-centered
+            = f.label :password, class: 'fr-label'
+            = render 'visibility_password_button'
           %span.fr-hint-text= t('devise.password_minimum_characters')
-          = f.password_field :password, class: 'fr-input'
-        .required.fr-input-group
-          = f.label :password_confirmation, class: 'fr-label'
-          = f.password_field :password_confirmation, class: 'fr-input'
+          = f.password_field :password, class: 'fr-input', data: { 'password-visibility-target': "input" }
+
+        .required.fr-input-group{ 'data-controller': "password-visibility" }
+          .justify-between.vertical-centered
+            = f.label :password_confirmation, class: 'fr-label'
+            = render 'visibility_password_button'
+          = f.password_field :password_confirmation, class: 'fr-input', data: { 'password-visibility-target': "input" }
 
         .required.fr-checkbox-group{ 'data-controller': "cgu-acceptance" }
           = f.check_box :cgu_accepted, { class: "required", required: true, data: { action: 'cgu-acceptance#toggleField', 'cgu-acceptance-target': "acceptedCheckbox" } }

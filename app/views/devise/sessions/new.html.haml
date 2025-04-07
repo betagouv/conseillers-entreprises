@@ -17,13 +17,17 @@
                 = t('.email')
                 %span.fr-hint-text= t('.email_help')
               = f.email_field :email, class: 'fr-input', required: true, autocomplete: 'email'
-            .fr-input-group
+
+            .fr-input-group{ 'data-controller': "password-visibility" }
               = f.label :password, class: 'fr-label' do
-                = t('activerecord.attributes.user.password')
+                .justify-between.vertical-centered
+                  = t('activerecord.attributes.user.password')
+                  = render 'visibility_password_button'
                 %span.fr-hint-text= t('.password_help')
-              = f.password_field :password, class: 'fr-input', autocomplete: 'current-password', required: true
+              = f.password_field :password, class: 'fr-input', autocomplete: 'current-password', required: true, data: { 'password-visibility-target': "input" }
               = link_to new_password_path(resource_name), class: 'fr-link fr-mt-2w' do
                 = t('devise.forgot_password')
+
             - if devise_mapping.rememberable?
               .fr-checkbox-group
                 = f.check_box :remember_me, checked: true

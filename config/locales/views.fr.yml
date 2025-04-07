@@ -770,6 +770,9 @@ fr:
       menu: Menu
     transcription:
       read_transcription: Lire la transcription
+    visibility_password_button:
+      display: Afficher
+      hide: Cacher
   sitemap:
     sitemap:
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
