@@ -59,12 +59,14 @@ class Expert < ApplicationRecord
   # :communes
   has_many :territories, -> { distinct.bassins_emploi }, through: :communes, inverse_of: :direct_experts
   has_many :direct_regions, -> { distinct.regions }, through: :communes, source: :territories, inverse_of: :direct_experts
+  has_many :antenne_regions, through: :antenne, inverse_of: :antenne_experts
 
   # :antenne
   has_one :institution, through: :antenne, source: :institution, inverse_of: :experts
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :antenne_experts
-  has_many :antenne_territories, -> { distinct }, through: :antenne, source: :territories, inverse_of: :antenne_experts
-  has_many :antenne_regions, -> { distinct.regions }, through: :antenne, source: :regions, inverse_of: :antenne_experts
+  # TODO a supprimer
+  # has_many :antenne_territories, -> { distinct }, through: :antenne, source: :territories, inverse_of: :antenne_experts
+  # has_many :antenne_regions, -> { distinct.regions }, through: :antenne, source: :regions, inverse_of: :antenne_experts
   has_many :antenne_match_filters, through: :antenne, source: :match_filters # , inverse_of: :experts
   has_many :institution_match_filters, through: :institution, source: :match_filters # , source_type: :Institution
 
@@ -159,6 +161,12 @@ class Expert < ApplicationRecord
   scope :with_territorial_zones, -> { not_deleted.joins(:territorial_zones) }
   scope :without_territorial_zones, -> { not_deleted.where.not(id: with_territorial_zones.ids) }
 
+  # TODO: remove this method when communes_experts is removed
+  scope :with_custom_communes_old, -> do
+    # The naive “joins(:communes).distinct” is way more complex.
+    where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
+  end
+
   scope :with_global_zone, -> do
     where(is_global_zone: true)
   end
@@ -167,9 +175,15 @@ class Expert < ApplicationRecord
     joins(:antenne).with_global_zone.or(joins(:antenne).merge(Antenne.territorial_level_national))
   end
 
+  # TODO a supprimer / remplacer
   scope :by_region, -> (region_id) do
     return all if region_id.blank?
     merge(Territory.find(region_id).territorial_experts)
+  end
+
+  scope :by_regions, -> (regions_codes) do
+    joins(:territorial_zones, antenne: :territorial_zones).where(territorial_zones: { regions_codes: regions_codes })
+                                                          .or(Expert.where(antennes: { territorial_zones: { regions_codes: regions_codes }}).distinct).distinct
   end
 
   scope :by_theme, -> (theme_id) do
@@ -224,6 +238,10 @@ class Expert < ApplicationRecord
       .where('experts.full_name ILIKE ?', "%#{query}%")
       .or(Expert.joins(:users, :received_quo_matches).merge(User.by_name(query)))
   end
+
+  scope :regions_eq, -> (region_code) {
+    by_regions([region_code])
+  }
 
   scope :many_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.many_pending_needs_basket) }
   scope :medium_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.medium_pending_needs_basket) }
@@ -308,8 +326,8 @@ class Expert < ApplicationRecord
   end
 
   ## Referencing
-  def custom_communes?
-    communes.any?
+  def custome_territories?
+    territorial_zones.any?
   end
 
   def without_subjects?
@@ -348,10 +366,14 @@ class Expert < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     [
-      "antenne", "antenne_regions", "antenne_territories", "direct_regions",
+      "antenne",
       "experts_subjects", "institution", "institutions_subjects", "match_filters", "not_received_matches",
       "received_diagnoses", "received_matches", "received_needs", "received_quo_matches", "reminder_feedbacks",
       "reminders_registers", "subjects", "territories", "themes", "users"
     ]
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    ["regions_eq"]
   end
 end
