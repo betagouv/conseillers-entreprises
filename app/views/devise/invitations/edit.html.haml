@@ -14,6 +14,7 @@
         = render 'devise/shared/user_fields', form: f
 
         %p.fr-mb-4v= t('.password_description')
+        = render 'password_tips'
 
         .required.fr-input-group{ 'data-controller': "password-visibility" }
           .justify-between.vertical-centered

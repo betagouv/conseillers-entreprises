@@ -8,6 +8,9 @@
         = f.hidden_field :reset_password_token
         %p= t('.password_reset_description')
 
+        .fr-mb-2w
+          = render 'password_tips'
+
         .fr-input-group{ 'data-controller': "password-visibility" }
           .justify-between.vertical-centered
             = f.label :password, t('.new_password'), class: 'fr-label'
