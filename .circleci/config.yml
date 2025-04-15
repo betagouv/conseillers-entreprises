@@ -9,7 +9,7 @@ defaults:
   docker:
     - image: cimg/ruby:3.3.4-browsers
     - image: cimg/redis:7.2.3
-    - image: cimg/postgres:16.6.0
+    - image: cimg/postgres:16.8
       environment:
         POSTGRES_USER: conseillers_entreprises_test
         POSTGRES_PASSWORD: conseillers_entreprises_test
