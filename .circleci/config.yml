@@ -72,10 +72,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Supprimer le cache Docker
-          command: |
-            docker system prune -af
-      - run:
           name: Clear CircleCI Cache
           command: rm -rf ~/.cache
       - browser-tools/install-browser-tools:
