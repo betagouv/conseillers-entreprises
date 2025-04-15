@@ -70,10 +70,14 @@ jobs:
     <<: *defaults
     parallelism: 1
     steps:
+      - checkout
+      - run:
+          name: Supprimer le cache Docker
+          command: |
+            docker system prune -af
       - run:
           name: Clear CircleCI Cache
           command: rm -rf ~/.cache
-      - checkout
       - browser-tools/install-browser-tools:
           chrome-version: stable
       - browser-tools/install-chrome
