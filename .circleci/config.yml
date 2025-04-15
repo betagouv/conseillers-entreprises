@@ -8,7 +8,7 @@ defaults:
   working_directory: ~/conseillers-entreprises
   docker:
     - image: cimg/ruby:3.3.4-browsers
-    - image: cimg/redis:7.2.3
+    - image: cimg/redis:7.2.7
     - image: cimg/postgres:16.8
       environment:
         POSTGRES_USER: conseillers_entreprises_test
@@ -72,8 +72,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Clear CircleCI Cache
-          command: rm -rf ~/.cache
+          name: Désinstaller Chrome existant
+          command: sudo apt-get remove -y google-chrome-stable
+      - browser-tools/install-browser-tools:
+          chrome-version: "135.0.7049.52"
       - browser-tools/install-browser-tools:
           chrome-version: stable
       - browser-tools/install-chrome
