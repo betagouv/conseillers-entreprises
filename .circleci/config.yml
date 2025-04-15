@@ -75,7 +75,7 @@ jobs:
           name: Désinstaller Chrome existant
           command: sudo apt-get remove -y google-chrome-stable
       - browser-tools/install-browser-tools:
-          chrome-version: stable
+          chrome-version: "135.0.7049.84"
       - browser-tools/install-browser-tools:
           chrome-version: stable
       - browser-tools/install-chrome
