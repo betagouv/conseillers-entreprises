@@ -18,7 +18,7 @@
 #  fk_rails_...  (expert_id => experts.id)
 #  fk_rails_...  (institution_subject_id => institutions_subjects.id)
 #
-class ExpertSubjectSerializer < ActiveModel::Serializer
+class Autocomplete::ExpertSubjectSerializer < ActiveModel::Serializer
   attributes :id, :intervention_criteria, :institution_subject_description, :full_description
 
   def institution_subject_description

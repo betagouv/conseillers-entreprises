@@ -11,7 +11,7 @@ class Conseiller::ExpertsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render json: @experts, each_serializer: ExpertSerializer
+        render json: @experts, each_serializer: Autocomplete::ExpertSerializer
       end
     end
   end
