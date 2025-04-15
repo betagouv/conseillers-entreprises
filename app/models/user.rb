@@ -182,11 +182,6 @@ class User < ApplicationRecord
 
   scope :by_antenne, -> (antenne_id) { where(antenne: antenne_id) }
 
-  scope :by_region, -> (region_id) do
-    return all if region_id.blank?
-    joins(antenne: :regions).where(antennes: { territories: { id: region_id } }).distinct
-  end
-
   scope :by_subject, -> (subject_id) do
     return all if subject_id.blank?
     joins(experts: :subjects).where(experts: { subjects: subject_id }).distinct
@@ -202,15 +197,13 @@ class User < ApplicationRecord
     experts.not_deleted.with_subjects.first
   end
 
-  scope :in_region, -> (region_id) do
-    return all if region_id.blank?
-    left_joins(antenne: :regions)
-      .left_joins(:experts)
-      .select('"antennes".*, "users".*')
-      .where(antennes: { territories: { id: [region_id] } })
-      .or(self.select('"antennes".*, "users".*').where(experts: { is_global_zone: true }))
-      .distinct
+  scope :by_regions, -> (regions_codes) do
+    joins(:antenne, :experts).merge(Antenne.by_regions(regions_codes)).merge(Expert.by_regions(regions_codes))
   end
+
+  scope :regions_eq, -> (region_code) {
+    by_regions([region_code])
+  }
 
   ## Password
   #
@@ -379,5 +372,9 @@ class User < ApplicationRecord
       "supported_territories", "themes", "user_rights",
       "user_rights_admin", "user_rights_manager"
     ]
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    ["regions_eq"]
   end
 end
