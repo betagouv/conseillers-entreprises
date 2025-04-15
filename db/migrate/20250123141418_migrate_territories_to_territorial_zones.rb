@@ -80,7 +80,7 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
     epcis = DecoupageAdministratif::Epci.find_by_communes_codes(communes_codes)
     epcis.each do |epci|
       item.territorial_zones.create!(zone_type: :epci, code: epci.code)
-      communes_codes.reject! { |code| epci.membres.pluck("code") }
+      communes_codes.reject! { |code| epci.communes.map(&:code) }
     end
     communes_codes
   end
