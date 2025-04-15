@@ -20,7 +20,8 @@ class UserMailer < ApplicationMailer
     @user = params[:user]
     return false if @user.nil? || @user.deleted?
     @support_user = User.cooperations_referent.first
-    @cooperation = @user.managed_cooperations.first
+    @cooperation = @user.managed_cooperation
+    return false if @support_user.nil? || @cooperation.nil?
     @cooperation_logo_name = @cooperation.logo&.filename
 
     mail(

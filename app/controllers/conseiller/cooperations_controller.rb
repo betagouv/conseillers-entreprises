@@ -49,7 +49,7 @@ class Conseiller::CooperationsController < ApplicationController
     @cooperation = if params[:cooperation_id].present?
       Cooperation.find_by(id: params[:cooperation_id])
     else
-      current_user.managed_cooperations&.first
+      current_user.managed_cooperation
     end
     authorize @cooperation, :manage?
   end

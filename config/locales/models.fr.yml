@@ -623,6 +623,7 @@ fr:
         team_job: Fonction de l’équipe
         team_phone_number: Téléphone de l’équipe
         user_rights: rôles
+        user_rights_cooperation_manager: Droits responsable de coopération
       user/roles:
         admin: Admin
         advisor: Conseiller

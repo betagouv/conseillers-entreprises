@@ -192,6 +192,7 @@ fr:
         other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
     missing_inherited_method: Méthode manquante dans la classe enfant
     one_user_for_referents: Un seul reférent est autorisé.
+    only_one_cooperation: Une seule coopération peut être attribuée au responsable de coopération. S'il faut modifier cette règle, demandez aux devs !
     page_title: Erreur - %{title}
     satisfaction_without_comment: Vous ne pouvez pas partager une satisfaction sans commentaire
     template:
