@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_02_091841) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_19_122842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -660,11 +660,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_02_091841) do
   create_table "territorial_zones", force: :cascade do |t|
     t.string "code", null: false
     t.string "zone_type", null: false
+    t.string "regions_codes", default: [], array: true
     t.string "zoneable_type", null: false
     t.bigint "zoneable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "regions_codes", default: [], array: true
     t.index ["code", "zone_type", "zoneable_type", "zoneable_id"], name: "idx_on_code_zone_type_zoneable_type_zoneable_id_0c5f85b4e4", unique: true
     t.index ["zoneable_type", "zoneable_id"], name: "index_territorial_zones_on_zoneable"
   end
