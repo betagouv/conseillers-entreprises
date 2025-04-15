@@ -23,7 +23,7 @@
                 .justify-between.vertical-centered
                   = t('activerecord.attributes.user.password')
                   = render 'visibility_password_button'
-                %span.fr-hint-text= t('.password_help')
+                %span.fr-hint-text= t('devise.password_minimum_characters')
               = f.password_field :password, class: 'fr-input', autocomplete: 'current-password', required: true, data: { 'password-visibility-target': "input" }
               = link_to new_password_path(resource_name), class: 'fr-link fr-mt-2w' do
                 = t('devise.forgot_password')

@@ -5,7 +5,6 @@ export default class extends Controller {
   static classes = ["hidden"]
 
   connect() {
-    console.log("Password visibility !")
     this.hidden = this.inputTarget.type === "password"
     this.class = this.hasHiddenClass ? this.hiddenClass : "hidden"
   }
