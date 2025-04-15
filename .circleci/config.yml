@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  browser-tools: circleci/browser-tools@1.5.1
+  browser-tools: circleci/browser-tools@1.5.3
 
 defaults:
   &defaults
@@ -9,7 +9,7 @@ defaults:
   docker:
     - image: cimg/ruby:3.3.4-browsers
     - image: cimg/redis:7.2.3
-    - image: cimg/postgres:14.10
+    - image: cimg/postgres:17.4.0
       environment:
         POSTGRES_USER: conseillers_entreprises_test
         POSTGRES_PASSWORD: conseillers_entreprises_test
@@ -70,6 +70,9 @@ jobs:
     <<: *defaults
     parallelism: 1
     steps:
+      - run:
+          name: Clear CircleCI Cache
+          command: rm -rf ~/.cache
       - checkout
       - browser-tools/install-browser-tools:
           chrome-version: stable
