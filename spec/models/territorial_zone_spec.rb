@@ -26,13 +26,26 @@ RSpec.describe TerritorialZone do
       end
 
       context 'when zone_type is region' do
-        let(:valid_region) { build(:territorial_zone, :region, code: '53') }
-        let(:invalid_region) { build(:territorial_zone, :region, code: '1') }
+        context 'region with 2 digits' do
+          let(:valid_region) { build(:territorial_zone, :region, code: '53') }
+          let(:invalid_region) { build(:territorial_zone, :region, code: '1') }
 
-        it 'is invalid if code does not match region format' do
-          expect(valid_region).to be_valid
-          expect(invalid_region).not_to be_valid
-          expect(invalid_region.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.invalid_format', zone_type: :region))
+          it 'is invalid if code does not match region format' do
+            expect(valid_region).to be_valid
+            expect(invalid_region).not_to be_valid
+            expect(invalid_region.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.invalid_format', zone_type: :region))
+          end
+        end
+
+        context 'region with 3 digits' do
+          let(:valid_region) { build(:territorial_zone, :region, code: '978') }
+          let(:invalid_region) { build(:territorial_zone, :region, code: '123') }
+
+          it 'is invalid if code does not match region format' do
+            expect(valid_region).to be_valid
+            expect(invalid_region).not_to be_valid
+            expect(invalid_region.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.invalid_format', zone_type: :region))
+          end
         end
       end
 
