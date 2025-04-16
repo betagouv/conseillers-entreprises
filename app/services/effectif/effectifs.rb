@@ -26,7 +26,7 @@ module Effectif
       return nil if @effectifs.blank?
       code = nil
       CodeEffectif::RANGES.each do |range|
-        if @effectifs.to_i >= range[:min] && @effectifs.to_i <= range[:max]
+        if @effectifs.to_i.between?(range[:min], range[:max])
           code = range[:code]
           break
         end
