@@ -168,6 +168,7 @@ ActiveAdmin.register User do
                 user_rights_manager_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes
 
   form do |f|
+    f.semantic_errors(*f.object.errors.attribute_names)
     f.inputs I18n.t('active_admin.user.user_info') do
       f.input :full_name
       f.input :antenne, as: :ajax_select,

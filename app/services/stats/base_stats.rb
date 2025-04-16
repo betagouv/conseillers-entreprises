@@ -59,7 +59,7 @@ module Stats
     end
 
     def max_value
-      if additive_values || series.blank?
+      if series.blank?
         count
       else
         @max_value ||= series.flat_map { |s| s[:data] }.max
@@ -136,10 +136,6 @@ module Stats
 
     def filtered(query)
       query
-    end
-
-    def additive_values
-      false
     end
 
     def category_name(category)
@@ -228,9 +224,6 @@ module Stats
       results.map do |category, month_values|
         category = category_name(category)
         values = month_values.values
-        if additive_values
-          values = values.reduce([]) { |a, v| a << (v + (a.last || 0)) }
-        end
 
         { name: category, data: values }
       end

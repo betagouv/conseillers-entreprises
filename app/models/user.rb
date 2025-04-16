@@ -110,6 +110,7 @@ class User < ApplicationRecord
   validates :full_name, presence: true, unless: :deleted?
   validates :job, presence: true
   validate :password_complexity
+  validates :user_rights_cooperation_manager, length: { maximum: 1, too_long: I18n.t('errors.only_one_cooperation') }
   validates_associated :experts, on: :import
 
   ## “Through” Associations
@@ -137,6 +138,7 @@ class User < ApplicationRecord
   scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_manager).distinct }
   scope :cooperation_managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_cooperation_manager).distinct }
   scope :national_referent, -> { not_deleted.joins(:user_rights).merge(UserRight.category_national_referent).distinct }
+  scope :cooperations_referent, -> { not_deleted.joins(:user_rights).merge(UserRight.category_cooperations_referent).distinct }
 
   scope :not_invited, -> { not_deleted.where(invitation_sent_at: nil) }
   scope :managers_not_invited, -> { not_deleted.managers.where(invitation_sent_at: nil) }
@@ -279,6 +281,10 @@ class User < ApplicationRecord
     return if single_user_experts.present?
 
     self.experts.create!(self.user_expert_shared_attributes)
+  end
+
+  def managed_cooperation
+    self.managed_cooperations&.first
   end
 
   ## Rights

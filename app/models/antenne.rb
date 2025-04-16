@@ -55,9 +55,9 @@ class Antenne < ApplicationRecord
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
   accepts_nested_attributes_for :match_filters, allow_destroy: true
 
-  has_many :quarterly_reports, dependent: :destroy, inverse_of: :antenne
-  has_many :matches_reports, -> { category_matches }, class_name: 'QuarterlyReport', dependent: :destroy, inverse_of: :antenne
-  has_many :stats_reports, -> { category_stats }, class_name: 'QuarterlyReport', dependent: :destroy, inverse_of: :antenne
+  has_many :activity_reports, as: :reportable, dependent: :destroy, inverse_of: :reportable
+  has_many :matches_reports, -> { category_matches }, class_name: 'ActivityReport', dependent: :destroy, inverse_of: :reportable
+  has_many :stats_reports, -> { category_stats }, class_name: 'ActivityReport', dependent: :destroy, inverse_of: :reportable
 
   # rights / roles
   has_many :user_rights, as: :rightable_element, dependent: :destroy, inverse_of: :rightable_element
@@ -326,7 +326,7 @@ class Antenne < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [
       "advisors", "communes", "experts", "experts_including_deleted", "institution", "managers", "match_filters",
-      "matches_reports", "quarterly_reports", "received_diagnoses", "received_diagnoses_including_from_deleted_experts",
+      "matches_reports", "stats_reports", "received_diagnoses", "received_diagnoses_including_from_deleted_experts",
       "received_matches", "received_matches_including_from_deleted_experts", "received_needs",
       "received_needs_including_from_deleted_experts", "received_solicitations",
       "received_solicitations_including_from_deleted_experts", "referencement_coverages", "regions", "sent_diagnoses",

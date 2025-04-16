@@ -14,6 +14,8 @@ fr:
       share_confirmation: Etes-vous sûr de vouloir partager ce commentaire aux conseillers qui ont aidé l'entreprise ?
       shared: Le commentaire a bien été partagé
       shared_with: 'Partagé avec :'
+    cooperations:
+      activity_reports: Rapports d'activité
     expert:
       delete: Supprimer l’expert (sans ses utilisateurs)
       delete_confirmation: Voulez-vous supprimer cet expert ?
@@ -621,6 +623,7 @@ fr:
         team_job: Fonction de l’équipe
         team_phone_number: Téléphone de l’équipe
         user_rights: rôles
+        user_rights_cooperation_manager: Droits responsable de coopération
       user/roles:
         admin: Admin
         advisor: Conseiller
@@ -636,6 +639,7 @@ fr:
         admin: Admin
         advisor: Conseiller
         cooperation_manager: Responsable de coopération
+        cooperations_referent: Admin - référent coopérations
         main_referent: Admin - référent principal
         manager: Responsable d’antenne
         national_referent: Admin - référent national
@@ -1108,6 +1112,56 @@ fr:
     user_institution: Institution
     visit: Visite
     visitee: Personne rencontrée
+  cooperation_stats_exporter:
+    cooperation: Coopération
+    count: Nombre
+    detected_solicitations: Besoins détectés
+    funnel:
+      not_status_quo: Taux de réponse
+      status_done: "  -  dont clôturés par « aide proposée »"
+      status_done_no_help: "  -  dont clôturés par « pas d’aide »"
+      status_done_not_reachable: "  -  dont clôturés par « injoignable »"
+      status_not_for_me: Taux de refus
+      status_quo: Taux de sans réponse
+      status_taking_care: "  -  dont en cours de traitement"
+      taken_care_of: Taux de prise en charge
+      transmitted: Besoins transmis
+    percentage: Pourcentage
+    provenance:
+      abandonned_count: Abandonnés
+      abandonned_rate: Taux abandonnés
+      done_count: Clôturés
+      done_matches_rate: Taux MER clôturés
+      done_no_help_count: Clôturé sans aide
+      done_no_help_rate: Taux Clôturé sans aide
+      done_not_reachable_count: Clôturé par injoignable
+      done_not_reachable_rate: Taux Clôturé par injoignable
+      done_solicitations_rate: Taux soll. clôturés
+      matched_count: Mis en relation
+      matched_rate: Taux Mis en relation
+      not_for_me_count: Refusé
+      not_for_me_rate: Taux Refusé
+      provenance_detail: Provenance
+      quo_count: En attente de réponse
+      quo_rate: Taux En attente de réponse
+      solicitations_count: Nb sollicitations
+      tab: Provenance
+      taking_care_count: En cours
+      taking_care_rate: Taux En cours
+    repartition:
+      by_effectif_header: Besoins par effectifs
+      by_naf_code_header: Besoins par secteur d'activité
+      by_region_header: Besoins par région
+      by_subject_header: Besoins par sujet
+      by_theme_header: Besoins par thème
+      tab: Répartition
+      title: Coopération %{cooperation} - Répartition des besoins - %{period}
+    volume:
+      gap_explanation: Le total peut légèrement différer ici en raison des écarts de dates entre le dépôt des besoins et leur transmission.
+      positionning_header: Positionnement sur les besoins transmis
+      tab: Volume
+      title: Coopération %{cooperation} - Volume des besoins - %{period}
+      transmitted_header: Transmission des besoins déposés sur la période
   deleted_account:
     full_name: "(Compte supprimé)"
   flash:

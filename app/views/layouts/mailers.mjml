@@ -16,7 +16,7 @@
         line-height: 1.5;
         margin: 0;
       }
-      .institution-logo {
+      .cooperation-logo {
         max-height: 60px;
         max-width: 285px;
         padding: 10px 25px;

@@ -14,13 +14,14 @@
 ```ruby 
 a = Antenne.find(:id)
 
-a.quarterly_reports.all.each do |qr|
+a.activity_reports.all.each do |qr|
   qr.file.purge
 end
 
-a.quarterly_reports.destroy_all
+a.activity_reports.destroy_all
 
-QuarterlyReports::GenerateReports.new(a).call
+ActivityReports::Generate::StatsReports.new(a).call
+ActivityReports::Generate::MatchesReports.new(a).call
 ```
 
 En cas de `PG::UniqueViolation: ERROR:  duplicate key value violates unique constraint "index_active_storage_blobs_on_key" (ActiveRecord::RecordNotUnique)`

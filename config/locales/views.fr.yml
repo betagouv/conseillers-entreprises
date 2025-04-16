@@ -45,6 +45,10 @@ fr:
     solicitations:
       diagnosis_in_progress: " (En cours)"
       id: Sollicitation %{id}
+  activity_report_service:
+    cooperation_file_name: rapport-activite-%{item}-%{year}T%{number}.xlsx
+    matches_file_name: export-mises-en-relation-%{item}-%{year}T%{number}.xlsx
+    stats_file_name: export-stats-%{item}-%{year}T%{number}.xlsx
   admin:
     reassign_matches:
       reassign_matches:
@@ -116,6 +120,7 @@ fr:
       cooperation: Coopération
       cooperation_matches: Pilotage par partenaire
       cooperation_needs: Pilotage par besoin
+      cooperation_reports: Rapport d’activité
       csv_exports: Exports csv
       invite: Inviter des utilisateurs
       profile: Profil
@@ -230,6 +235,12 @@ fr:
           description: Le total des besoins transmis peut à partir d’ici différer. Certains besoins ont été requalifiés par notre équipe pour être affectés au bon sujet.
           title: Possibilité de décalage du nombre de besoins
         title: "%{cooperation_name} - Pilotage par besoin"
+      reports:
+        download_report: Télécharger le Rapport d’activité
+        file_infos: XLSX - %{weight} ko
+        interval: "%{start_month} à %{end_month} %{year}"
+        no_export_available: Votre rapport d’activité n’est pas encore disponible.
+        title: "%{cooperation_name} - Rapport d’activité"
       title: Coopération %{name}
     csv_exports:
       index:
@@ -659,9 +670,6 @@ fr:
       extend: Agrandir
   person:
     deleted_person: Compte supprimé
-  quarterly_report_service:
-    matches_file_name: export-mises-en-relation-%{antenne}-%{year}T%{number}.xlsx
-    stats_file_name: export-stats-%{antenne}-%{year}T%{number}.xlsx
   reminders:
     experts:
       filters:
