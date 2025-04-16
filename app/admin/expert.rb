@@ -176,8 +176,6 @@ ActiveAdmin.register Expert do
           if e.custome_territories?
             status_tag t('attributes.custom_communes'), class: 'yes'
           end
-          div admin_link_to(e, :territories)
-          div admin_link_to(e, :communes)
           div intervention_zone_description(e)
         end
       end
@@ -213,7 +211,7 @@ ActiveAdmin.register Expert do
 
     panel I18n.t('activerecord.models.territorial_zone.other') do
       if expert.territorial_zones.any?
-        TerritorialZone.zone_types.each_key do |zone_type|
+        TerritorialZone.zone_types.keys.reverse.each do |zone_type|
           expert_territorial_zones = expert.territorial_zones.select { |tz| tz.zone_type == zone_type }
           next if expert_territorial_zones.empty?
           attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
@@ -227,7 +225,7 @@ ActiveAdmin.register Expert do
                   model_instance.communes.sort_by(&:nom).map do |commune|
                     communes_names << "#{commune.nom} (#{commune.code})"
                   end
-                  name = name + "<br/>" + communes_names.join(', ')
+                  name = "<b>" + name + "</b><br/>" + communes_names.join(', ')
                 end
                 name.html_safe
               end
