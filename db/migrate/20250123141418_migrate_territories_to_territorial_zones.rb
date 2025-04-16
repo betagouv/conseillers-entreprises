@@ -18,6 +18,7 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
     regional_antennes_bar = ProgressBar.new(regional_antennes.count)
     transaction do
       regional_antennes.each do |antenne|
+        # TODO ne pas prendre .regions
         antenne.regions.each do |region|
           code_region = if region.code_region < 10
             "0#{region.code_region}"

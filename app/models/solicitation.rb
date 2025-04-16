@@ -59,7 +59,8 @@ class Solicitation < ApplicationRecord
   has_one :theme, through: :subject, source: :theme, inverse_of: :subjects
 
   has_one :diagnosis, inverse_of: :solicitation
-  has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
+  # TODO a modifier
+  # has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
   has_one :facility, through: :diagnosis, source: :facility, inverse_of: :diagnoses
   has_one :visitee, through: :diagnosis, source: :visitee, inverse_of: :diagnoses
   has_one :company, through: :facility, source: :company, inverse_of: :facilities
