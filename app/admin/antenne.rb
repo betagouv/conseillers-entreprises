@@ -86,12 +86,12 @@ ActiveAdmin.register Antenne do
       row(:deleted_at) if resource.deleted?
       row :name
       row :institution
-      row(:intervention_zone) do |a|
-        div admin_link_to(a, :regions)
-        div admin_link_to(a, :territories)
-        div admin_link_to(a, :communes)
-        div intervention_zone_description(a)
-      end
+      # row(:intervention_zone) do |a|
+      #   div admin_link_to(a, :regions)
+      #   div admin_link_to(a, :territories)
+      #   div admin_link_to(a, :communes)
+      #   div intervention_zone_description(a)
+      # end
       row(:territorial_level) do |a|
         div a.territorial_level
       end
