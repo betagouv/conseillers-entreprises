@@ -80,34 +80,35 @@ class Rack::Attack
   #    ['']] # body
   # end
 
+  if ENV['FEATURE_BLOCKLIST_IP'].to_b
+    # Safelist pour localhost
+    Rack::Attack.safelist 'allow from localhost' do |req|
+      '127.0.0.1' == req.ip || '::1' == req.ip
+    end
 
-  # Safelist pour localhost
-  Rack::Attack.safelist 'allow from localhost' do |req|
-    '127.0.0.1' == req.ip || '::1' == req.ip
-  end
+    # Safelist pour les plages d'IPs autorisées
+    Rack::Attack.safelist 'allow from whitelisted IP ranges' do |req|
+      wf_ip_ranges = ENV['WAF_IPS'].to_s.split(',').map(&:strip)
+      team_ips = ENV['TEAM_IPS'].to_s.split(',').map(&:strip)
 
-  # Safelist pour les plages d'IPs autorisées
-  Rack::Attack.safelist 'allow from whitelisted IP ranges' do |req|
-    wf_ip_ranges = ENV['WAF_IPS'].to_s.split(',').map(&:strip)
-    team_ips = ENV['TEAM_IPS'].to_s.split(',').map(&:strip)
+      client_ip = req.ip
 
-    client_ip = req.ip
+      next true if team_ips.include?(client_ip)
 
-    next true if team_ips.include?(client_ip)
-
-    # Vérifier les plages d'IPs
-    wf_ip_ranges.any? do |ip_range|
-      begin
-        IPAddr.new(ip_range).include?(client_ip)
-      rescue IPAddr::InvalidAddressError
-        false
+      # Vérifier les plages d'IPs
+      wf_ip_ranges.any? do |ip_range|
+        begin
+          IPAddr.new(ip_range).include?(client_ip)
+        rescue IPAddr::InvalidAddressError
+          false
+        end
       end
     end
-  end
 
-  # Bloquer toutes les autres IPs (tout ce qui n'est pas explicitement autorisé)
-  Rack::Attack.blocklist('block all other IPs') do |req|
-    true # Bloquer par défaut, les safelists ont priorité
+    # Bloquer toutes les autres IPs (tout ce qui n'est pas explicitement autorisé)
+    Rack::Attack.blocklist('block all other IPs') do |req|
+      true # Bloquer par défaut, les safelists ont priorité
+    end
   end
 
   Rack::Attack.blocklisted_responder = lambda do |request|
