@@ -763,6 +763,8 @@ fr:
     breadcrumb:
       see_breadcrumb: Voir le fil d’Ariane
       you_are_here: 'Vous êtes ici :'
+    password_tips:
+      tips_html: 'Astuce : utiliser une phrase comme votre mot de passe (« phrase de passe ») ou un <a href="https://www.cybermalveillance.gouv.fr/medias/2024/05/220721_FichePratique_MotsDePasse_SCREEN.pdf" target="_blank" rel="noopener">gestionnaire de mot de passe</a>. Les consignes de mot de passe visent à assurer la sécurité du service.'
     skiplinks:
       content: Contenu
       fast_access: Accès rapide
@@ -770,6 +772,9 @@ fr:
       menu: Menu
     transcription:
       read_transcription: Lire la transcription
+    visibility_password_button:
+      display: Afficher
+      hide: Cacher
   sitemap:
     sitemap:
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'

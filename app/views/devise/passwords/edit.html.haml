@@ -7,13 +7,22 @@
         = render "devise/shared/error_messages", resource: resource
         = f.hidden_field :reset_password_token
         %p= t('.password_reset_description')
-        .fr-input-group
-          = f.label :password, t('.new_password'), class: 'fr-label'
+
+        .fr-mb-2w
+          = render 'password_tips'
+
+        .fr-input-group{ 'data-controller': "password-visibility" }
+          .justify-between.vertical-centered
+            = f.label :password, t('.new_password'), class: 'fr-label'
+            = render 'visibility_password_button'
           %span.fr-hint-text= t('devise.password_minimum_characters')
-          = f.password_field :password, autocomplete: 'new-password', class: 'fr-input'
-        .fr-input-group
-          = f.label :password_confirmation, class: 'fr-label'
-          = f.password_field :password_confirmation, autocomplete: 'new-password', class: 'fr-input'
+          = f.password_field :password, autocomplete: 'new-password', class: 'fr-input', data: { 'password-visibility-target': "input" }
+
+        .fr-input-group{ 'data-controller': "password-visibility" }
+          .justify-between.vertical-centered
+            = f.label :password_confirmation, class: 'fr-label'
+            = render 'visibility_password_button'
+          = f.password_field :password_confirmation, autocomplete: 'new-password', class: 'fr-input', data: { 'password-visibility-target': "input" }
         .fr-input-group
           = f.submit t('.change_own_password'), class: 'fr-btn'
 
