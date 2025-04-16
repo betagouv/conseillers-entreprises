@@ -185,7 +185,7 @@ class Expert < ApplicationRecord
     left_joins(:territorial_zones, antenne: :territorial_zones)
       .where(antennes: { territorial_zones: { regions_codes: regions_codes } })
       .or(left_joins(:territorial_zones, antenne: :territorial_zones)
-            .where(experts: { territorial_zones: { regions_codes: regions_codes }}))
+            .where(experts: { territorial_zones: { regions_codes: regions_codes } }))
   end
 
   scope :by_theme, -> (theme_id) do

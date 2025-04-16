@@ -27,7 +27,6 @@ class TerritorialZone < ApplicationRecord
 
   before_save :update_regions_codes
 
-
   def antenne
     zoneable.instance_of?(Antenne) ? zoneable : nil
   end
@@ -62,7 +61,7 @@ class TerritorialZone < ApplicationRecord
     when 'departement'
       errors.add(:code, error_message) unless code.match?(/^(?:[0-9]{2}|2[AB]|[0-9]{3})$/)
     when 'region'
-      errors.add(:code, error_message) unless code.match?(/^\d{2}$/)
+      errors.add(:code, error_message) unless code.match?(/^(?:\d{2}|9[78]\d)$/)
     when 'epci'
       errors.add(:code, error_message) unless code.match?(/^\d{9}$/)
     end
