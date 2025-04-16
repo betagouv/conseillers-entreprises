@@ -18,17 +18,19 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
     regional_antennes_bar = ProgressBar.new(regional_antennes.count)
     transaction do
       regional_antennes.each do |antenne|
-        # TODO ne pas prendre .regions
-        antenne.regions.each do |region|
-          code_region = if region.code_region < 10
-            "0#{region.code_region}"
+        departements_codes = antenne.communes.pluck(:insee_code).map do |code|
+          if code[0..1].to_i < 96
+            code[0..1]
           else
-            region.code_region
+            code[0..2]
           end
+        end.uniq
+        regions = departements_codes.map { |code| DecoupageAdministratif::Departement.find_by_code(code).region }.uniq
 
-          antenne.territorial_zones.create!(zone_type: :region, code: code_region)
-          regional_antennes_bar.increment!
+        regions.each do |region|
+          antenne.territorial_zones.create!(zone_type: :region, code: region.code)
         end
+        regional_antennes_bar.increment!
       end
     end
   end
@@ -53,10 +55,7 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
         avec_code << "#{item} (#{item.id}) sans zone : #{communes_codes.join(', ')}" if communes_codes.size >= 1
         local_bar.increment!
       end
-      puts "---"
-      puts "#{model} restants avec codes non créés"
       avec_code.each { |a| puts a }
-      puts "---"
     end
   end
 
@@ -78,10 +77,18 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
   end
 
   def check_and_create_if_epci(communes_codes, item)
+    puts '////////////////////////////////////'
+
     epcis = DecoupageAdministratif::Epci.find_by_communes_codes(communes_codes)
+    epcis.map do |epci|
+      puts "EPCI : #{epci.code} - #{epci.nom}"
+      puts "Communes : #{epci.membres.map(&:to_s).join(', ')}"
+    end
     epcis.each do |epci|
       item.territorial_zones.create!(zone_type: :epci, code: epci.code)
-      communes_codes.reject! { |code| epci.communes.map(&:code) }
+      communes_codes.reject! do |code|
+        epci.membres.map(&:code)
+      end
     end
     communes_codes
   end
