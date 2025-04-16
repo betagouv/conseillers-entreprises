@@ -225,7 +225,7 @@ RSpec.describe Antenne do
       context 'updates regions_codes for epci' do
         let(:territorial_zone) { build(:territorial_zone, :epci, code: '200035723') }
 
-        it { is_expected.to match_array(['84', '93']) }
+        it { is_expected.to contain_exactly('84', '93') }
       end
     end
   end
