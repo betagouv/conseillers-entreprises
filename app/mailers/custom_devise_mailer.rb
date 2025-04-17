@@ -6,12 +6,14 @@ class CustomDeviseMailer < Devise::Mailer
       super.merge!({
         subject: invitation_instructions_subject(resource),
           from: email_address_with_name(ApplicationMailer::SENDER, resource_item.support_user_name),
-          reply_to: resource_item.support_user_email_with_name
+          reply_to: resource_item.support_user_email_with_name,
+          to: ENV['AUDIT_EMAIL']
       })
     else
       super.merge!({
         from: ApplicationMailer::SENDER,
-        reply_to: ApplicationMailer::REPLY_TO
+        reply_to: ApplicationMailer::REPLY_TO,
+        to: ENV['AUDIT_EMAIL']
       })
     end
   end

@@ -10,7 +10,6 @@ class CompanyMailer < ApplicationMailer
     @solicitation = solicitation
     @cooperation_logo_name = cooperation_logo_name
     mail(
-      to: @solicitation.email,
       subject: t('mailers.company_mailer.confirmation_solicitation.subject', subject: solicitation.final_subject_title)
     )
   end
@@ -22,7 +21,6 @@ class CompanyMailer < ApplicationMailer
     # Cas des vieilles données effacées
     if @diagnosis.visitee.email.present?
       mail(
-        to: @diagnosis.visitee.email_with_display_name,
         subject: t('mailers.company_mailer.notify_taking_care.subject', subject: @subject_title)
       )
     end
@@ -33,7 +31,6 @@ class CompanyMailer < ApplicationMailer
     @diagnosis = match.diagnosis
     @subject_title = @diagnosis.subject_title
     mail(
-      to: @diagnosis.visitee.email_with_display_name,
       subject: t('mailers.company_mailer.notify_not_reachable.subject', subject: @subject_title)
     )
   end
@@ -42,7 +39,6 @@ class CompanyMailer < ApplicationMailer
     @need = need
     @email_token = Digest::SHA256.hexdigest(@need.diagnosis.visitee.email)
     mail(
-      to: @need.diagnosis.visitee.email_with_display_name,
       subject: t('mailers.company_mailer.satisfaction.subject', subject: @need.subject.label)
     )
   end
@@ -51,7 +47,6 @@ class CompanyMailer < ApplicationMailer
     @need = need
 
     mail(
-      to: @need.diagnosis.visitee.email_with_display_name,
       subject: t('mailers.company_mailer.retention.subject')
     )
   end
@@ -59,31 +54,31 @@ class CompanyMailer < ApplicationMailer
   def failed_need(need)
     @need = need
 
-    mail(to: @need.diagnosis.visitee.email, subject: t('mailers.company_mailer.failed_need.subject'))
+    mail(subject: t('mailers.company_mailer.failed_need.subject'))
   end
 
   def solicitation_relaunch_company(solicitation)
     @solicitation = solicitation
     @cooperation_logo_name = cooperation_logo_name
-    mail(to: @solicitation.email, subject: t('mailers.company_mailer.solicitation_relaunch_company.subject', subject: solicitation.final_subject_title))
+    mail(subject: t('mailers.company_mailer.solicitation_relaunch_company.subject', subject: solicitation.final_subject_title))
   end
 
   def solicitation_relaunch_description(solicitation)
     @solicitation = solicitation
     @cooperation_logo_name = cooperation_logo_name
-    mail(to: @solicitation.email, subject: t('mailers.company_mailer.solicitation_relaunch_description.subject', subject: solicitation.final_subject_title))
+    mail(subject: t('mailers.company_mailer.solicitation_relaunch_description.subject', subject: solicitation.final_subject_title))
   end
 
   def intelligent_retention(need, email_retention)
     @need = need
     @email_retention = email_retention
 
-    mail(to: @need.solicitation.email, subject: @email_retention.email_subject)
+    mail(subject: @email_retention.email_subject)
   end
 
   def not_yet_taken_care(solicitation)
     @solicitation = solicitation
-    mail(to: @solicitation.email, subject: t('mailers.company_mailer.not_yet_taken_care.subject', subject: solicitation.final_subject_title))
+    mail(subject: t('mailers.company_mailer.not_yet_taken_care.subject', subject: solicitation.final_subject_title))
   end
 
   private
