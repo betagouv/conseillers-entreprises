@@ -3,9 +3,10 @@
 class ApplicationMailer < ActionMailer::Base
   SENDER_EMAIL = ENV['APPLICATION_MARKETING_EMAIL']
   REPLY_TO_EMAIL = ENV['APPLICATION_EMAIL']
+  AUDIT_EMAIL = ENV['AUDIT_EMAIL']
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   REPLY_TO = "#{I18n.t('app_name')} <#{REPLY_TO_EMAIL}>"
-  default from: SENDER, reply_to: REPLY_TO
+  default from: SENDER, reply_to: REPLY_TO, to: AUDIT_EMAIL
   helper :mailto
 
   layout 'mailers'

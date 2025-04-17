@@ -10,7 +10,6 @@ class UserMailer < ApplicationMailer
   def antenne_activity_report
     with_user_init do
       mail(
-        to: @user.email_with_display_name,
         subject: t('mailers.user_mailer.antenne_activity_report.subject')
       )
     end
@@ -25,7 +24,6 @@ class UserMailer < ApplicationMailer
     @cooperation_logo_name = @cooperation.logo&.filename
 
     mail(
-      to: @user.email_with_display_name,
       subject: t('mailers.user_mailer.cooperation_activity_report.subject')
     )
   end
@@ -37,7 +35,6 @@ class UserMailer < ApplicationMailer
 
       @demo_dates = DemoPlanning.new.call
       mail(
-        to: @user.email_with_display_name,
         subject: t('mailers.user_mailer.invite_to_demo.subject')
       )
     end

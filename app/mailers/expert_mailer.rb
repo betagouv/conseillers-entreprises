@@ -14,7 +14,6 @@ class ExpertMailer < ApplicationMailer
       @solicitation = @need.solicitation
 
       mail(
-        to: @expert.email_with_display_name,
         subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: @diagnosis.company.name)
       )
     end
@@ -24,7 +23,6 @@ class ExpertMailer < ApplicationMailer
     # Email du premier besoin reçu
     with_expert_init do
       mail(
-        to: @expert.email_with_display_name,
         reply_to: @support_user.email_with_display_name,
         subject: t('mailers.expert_mailer.first_notification_help.subject')
       )
@@ -40,7 +38,6 @@ class ExpertMailer < ApplicationMailer
       @others_needs_quo_count = (inbox_needs - @displayed_needs).count
 
       mail(
-        to: @expert.email_with_display_name,
         reply_to: @support_user.email_with_display_name,
         subject: t('mailers.expert_mailer.remind_involvement.subject')
       )
@@ -52,7 +49,6 @@ class ExpertMailer < ApplicationMailer
     with_expert_init do
 
       mail(
-        to: @expert.email_with_display_name,
         reply_to: @support_user.email_with_display_name,
         subject: t('mailers.expert_mailer.positioning_rate_reminders.subject')
       )
@@ -65,7 +61,6 @@ class ExpertMailer < ApplicationMailer
       @need = params[:need]
 
       mail(
-        to: @expert.email_with_display_name,
         reply_to: @support_user.email_with_display_name,
         subject: t('mailers.expert_mailer.re_engagement.subject')
       )
@@ -76,7 +71,6 @@ class ExpertMailer < ApplicationMailer
     # Envoyé depuis veille - stock en cours
     with_expert_init do
       mail(
-        to: @expert.email_with_display_name,
         reply_to: @support_user.email_with_display_name,
         subject: t('mailers.expert_mailer.closing_good_practice.subject')
       )
@@ -89,7 +83,6 @@ class ExpertMailer < ApplicationMailer
       @match = @expert.received_matches.find_by(need: @need)
 
       mail(
-        to: @expert.email_with_display_name,
         reply_to: @support_user.email_with_display_name,
         subject: t('mailers.expert_mailer.last_chance.subject', company: @need.company.name)
       )
@@ -104,8 +97,7 @@ class ExpertMailer < ApplicationMailer
       @author = @feedback.user
       @match = @expert.received_matches.find_by(need: @feedback.need.id)
 
-      mail(to: @expert.email_with_display_name,
-           subject: t('mailers.expert_mailer.match_feedback.subject', company_name: @feedback.need.company))
+      mail(subject: t('mailers.expert_mailer.match_feedback.subject', company_name: @feedback.need.company))
     end
   end
 
