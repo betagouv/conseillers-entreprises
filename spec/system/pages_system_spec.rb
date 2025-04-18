@@ -13,7 +13,7 @@ describe 'Pages' do
   it 'navigates public pages' do
     visit '/'
 
-    find("a[href='#{comment_ca_marche_path}']", match: :first).click
+    first("a[href='#{comment_ca_marche_path}']").click
     expect(page).to have_content "Questions fréquentes"
     expect(page).to have_css '.faq', count: 4
     advisors_count = User.not_deleted.invitation_accepted.distinct.count

@@ -30,7 +30,7 @@ describe 'diagnosis', :js do
 
         # On ne peut sélectionner qu'un seul besoin
         expect(page).to have_css('input[type=checkbox]:checked', count: 1, visible: :hidden)
-        find('input[type=checkbox]', visible: :hidden, match: :first).set(true)
+        first('input[type=checkbox]', visible: :hidden).set(true)
         expect(page).to have_css('input[type=checkbox]:checked', count: 1, visible: :hidden)
         click_on(I18n.t('next_step'), match: :first)
 

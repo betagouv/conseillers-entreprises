@@ -1,0 +1,33 @@
+- title = t('.title', antenne: @antenne.name)
+- meta title: title
+- content_for :header, render('header', base: t('application.navbar.reports'), title: title)
+- content_for :menu, render('menu', antenne_id: @antenne.id)
+- content_for :search, render('search', filters: @filters, antenne: @antenne)
+
+- if @grouped_reports.present?
+  .fr-table.fr-table--beige-gris-galet.fr-accordions-group
+    - @grouped_reports.each_with_index do |(year, reports), index|
+      %section.fr-accordion
+        %h3.fr-accordion__title
+          %button.fr-accordion__btn{ 'aria-controls': "accordion-year-#{index}", 'aria-expanded': index == 0 ? 'true' : 'false' }
+            = year
+        .fr-collapse{ id: "accordion-year-#{index}" }
+          - reports.each do |matches_report|
+            .fr-card.fr-enlarge-link.fr-card--download.fr-mt-2w
+              .fr-card__body
+                .fr-card__content
+                  %h4.fr-card__title
+                    = link_to download_report_path(matches_report, format: :xlsx), class: 'fr-download__link' do
+                      - if matches_report.start_date.month == matches_report.end_date.month
+                        - report_date = t('.month', month: I18n.l(matches_report.start_date, format: :month_name), year: year).capitalize
+                      - else
+                        - report_date = t('.interval', start_month: I18n.l(matches_report.start_date, format: :month_name), end_month: I18n.l(matches_report.end_date, format: :month_name), year: year).capitalize
+                      = t('.download', date: report_date)
+                  .fr-card__end
+                    %p.fr-card__detail
+                      = t('.file_infos', weight: matches_report.file.byte_size / 1000) if matches_report.file.present?
+
+- else
+  .fr-my-4v
+    .fr-alert.fr-alert--info{ role: "alert" }
+      %p.fr-alert__title= t('.no_export_available')
