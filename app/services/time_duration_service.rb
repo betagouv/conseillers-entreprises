@@ -1,18 +1,31 @@
 class TimeDurationService
+  # Intervals trimestriels
   def self.past_year_quarters
-    today = Date.today
+    past_year_intervals(4)
+  end
 
+  # Intervals mensuels
+  def self.past_year_months
+    past_year_intervals(12)
+  end
+
+  # Découpe les dernières années en tranches de période
+  def self.past_year_intervals(number_of_parts)
+    today = Date.today
     years = past_two_years
-    quarters = []
+    intervals = []
+
     years.each do |year|
       date ||= Date.new(year, 1, 1)
-      4.times do
-        next if date.end_of_quarter >= today
-        quarters << [date.beginning_of_quarter, date.end_of_quarter]
-        date = date.end_of_quarter + 1.day
+      number_of_parts.times do
+        first_date = number_of_parts == 4 ? date.beginning_of_quarter : date.beginning_of_month
+        last_date = number_of_parts == 4 ? date.end_of_quarter : date.end_of_month
+        next if last_date >= today
+        intervals << [first_date, last_date]
+        date = last_date + 1.day
       end
     end
-    quarters.reverse
+    intervals.reverse
   end
 
   def self.find_quarter_for_month(month)

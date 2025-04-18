@@ -1,12 +1,18 @@
 class ReportsController < ApplicationController
   include ManagerFilters
-  before_action :retrieve_antenne, only: :index
-  before_action :retrieve_quarters, only: :index
+  before_action :retrieve_antenne, only: [:stats, :matches]
+  before_action :retrieve_quarters, only: [:stats]
+
+  layout 'side_menu', only: [:stats, :matches]
 
   def index
-    authorize @antenne, policy_class: ReportPolicy
-    initialize_filters([:antennes])
-    @antennes_for_select = BuildAntennesCollection.new(current_user).for_manager
+    redirect_to action: :stats
+  end
+
+  def stats; end
+
+  def matches
+    @grouped_reports = @antenne.matches_reports.order(start_date: :desc).group_by{ |r| r.start_date.year }
   end
 
   def download
@@ -28,9 +34,12 @@ class ReportsController < ApplicationController
     else
       current_user.managed_antennes.by_higher_territorial_level.first
     end
+    authorize @antenne, policy_class: ReportPolicy
+    initialize_filters([:antennes])
+    @antennes_for_select = BuildAntennesCollection.new(current_user).for_manager
   end
 
   def retrieve_quarters
-    @quarters = @antenne.activity_reports.order(start_date: :desc).pluck(:start_date, :end_date).uniq
+    @quarters = @antenne.stats_reports.order(start_date: :desc).pluck(:start_date, :end_date).uniq
   end
 end

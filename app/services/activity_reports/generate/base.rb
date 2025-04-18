@@ -15,20 +15,29 @@ module ActivityReports::Generate
 
     private
 
-    def generate_files(quarter)
+    def generate_files(period)
       ActiveRecord::Base.transaction do
-        result = export_xls(quarter)
-        create_file(result, quarter)
+        result = export_xls(period)
+        create_file(result, period)
       end
     end
 
-    def create_file(result, quarter)
-      filename = I18n.t("activity_report_service.#{report_type}_file_name", number: TimeDurationService.find_quarter_for_month(quarter.first.month), year: quarter.first.year, item: @item.name.parameterize)
-      report = reports.create!(start_date: quarter.first, end_date: quarter.last)
+    def create_file(result, period)
+      filename = build_filename(period)
+      report = reports.create!(start_date: period.first, end_date: period.last)
       report.file.attach(io: result.xlsx.to_stream(true),
                          key: "activity_report_#{report_type}/#{@item.name.parameterize}/#{filename}",
                          filename: filename,
                          content_type: 'application/xlsx')
+    end
+
+    def last_periods
+      needs = @item.perimeter_received_needs
+      return if needs.blank?
+      first_date = needs.minimum(:created_at).to_date
+      periods = find_last_year_periods
+      periods.reject! { |range| first_date > range.last }
+      periods
     end
 
     def destroy_old_files(periods)
@@ -39,13 +48,12 @@ module ActivityReports::Generate
       @item.activity_reports
     end
 
-    def last_quarters
-      needs = @item.perimeter_received_needs
-      return if needs.blank?
-      first_date = needs.minimum(:created_at).to_date
-      quarters = TimeDurationService.past_year_quarters
-      quarters.reject! { |range| first_date > range.last }
-      quarters
+    def find_last_year_periods
+      TimeDurationService.past_year_quarters
+    end
+
+    def build_filename(period)
+      I18n.t("activity_report_service.#{report_type}_file_name", number: TimeDurationService.find_quarter_for_month(period.first.month), year: period.first.year, item: @item.name.parameterize)
     end
   end
 end

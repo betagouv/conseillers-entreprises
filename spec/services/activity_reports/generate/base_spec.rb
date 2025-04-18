@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 describe ActivityReports::Generate::Base do
-  describe 'last_quarters' do
-    let(:quarters) { described_class.new(antenne).send(:last_quarters) }
+  describe 'last_periods' do
+    let(:quarters) { described_class.new(antenne).send(:last_periods) }
 
     context 'local antenne' do
       let(:antenne) { create :antenne, :local }
@@ -55,7 +55,7 @@ describe ActivityReports::Generate::Base do
         context 'calculating in T2 N-1' do
           let(:quarters) do
             travel_to(Time.zone.local('2023', '04', '20')) do
-              described_class.new(antenne).send(:last_quarters)
+              described_class.new(antenne).send(:last_periods)
             end
           end
 
@@ -65,7 +65,7 @@ describe ActivityReports::Generate::Base do
         context 'calculating in T3 N-1' do
           let(:quarters) do
             travel_to(Time.zone.local('2023', '07', '20')) do
-              described_class.new(antenne).send(:last_quarters)
+              described_class.new(antenne).send(:last_periods)
             end
           end
 
@@ -75,7 +75,7 @@ describe ActivityReports::Generate::Base do
         context 'calculating in T1 N' do
           let(:quarters) do
             travel_to(Time.zone.local('2024', '01', '20')) do
-              described_class.new(antenne).send(:last_quarters)
+              described_class.new(antenne).send(:last_periods)
             end
           end
 
@@ -85,7 +85,7 @@ describe ActivityReports::Generate::Base do
         context 'calculating in T2 N' do
           let(:quarters) do
             travel_to(Time.zone.local('2024', '04', '20')) do
-              described_class.new(antenne).send(:last_quarters)
+              described_class.new(antenne).send(:last_periods)
             end
           end
 

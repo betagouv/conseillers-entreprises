@@ -99,7 +99,7 @@ describe 'ApplicationController specific features' do
     context 'antenne manager connection' do
       let(:user) { create :user, :manager, password: password, password_confirmation: password, sign_in_count: 1 }
 
-      it('redirects to reports page') { expect(current_url).to eq reports_url }
+      it('redirects to reports page') { expect(current_url).to eq stats_reports_url }
     end
 
     context 'admin manager connection' do

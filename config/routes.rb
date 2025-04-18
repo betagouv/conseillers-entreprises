@@ -161,6 +161,10 @@ Rails.application.routes.draw do
   end
 
   resources :reports, path: 'export-des-donnees', only: :index do
+    collection do
+      get :stats, path: 'statistiques'
+      get :matches, path: 'mises-en-relation'
+    end
     member do
       get :download
     end
