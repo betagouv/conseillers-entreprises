@@ -15,10 +15,6 @@ module ActivityReports
       @item
     end
 
-    def last_periods
-      last_quarters
-    end
-
     def report_type
       :stats
     end
