@@ -43,9 +43,11 @@ module Clockwork
     CompanyEmails::SolicitationsRelaunchJob.perform_later
   end
   if Rails.env == 'production' && !ENV['FEATURE_HEAVY_CRON_DISABLED'].to_b
-    every(1.day, 'generate_activity_reports', at: '01:00', if: -> (t) { t.day == 20 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }, tz: 'UTC') do
-      ActivityReports::AntenneStats::EnqueueJob.perform_later
+    every(1.day, 'generate_monthly_reports', at: '00:55', if: -> (t) { t.day == 20 }, tz: 'UTC') do
       ActivityReports::AntenneMatches::EnqueueJob.perform_later
+    end
+    every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 20 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }, tz: 'UTC') do
+      ActivityReports::AntenneStats::EnqueueJob.perform_later
       ActivityReports::Cooperation::EnqueueJob.perform_later
     end
     every(1.day, 'send_activity_reports_emails', at: '08:00', if: -> (t) { t.day == 23 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }, tz: 'UTC') do
