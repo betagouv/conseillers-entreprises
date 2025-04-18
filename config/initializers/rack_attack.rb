@@ -80,28 +80,42 @@ class Rack::Attack
   #    ['']] # body
   # end
 
-  Rack::Attack.blocklist('block bad email') do |req|
-    ips = [
-      '137.117.65.40', '20.168.217.16', '172.174.64.146', '13.84.52.121', '20.245.167.249', '138.91.175.192',
-      '172.177.6.16', '40.86.18.81', '172.177.106.80', '172.177.114.128', '20.171.70.64', '172.177.150.114',
-      '4.154.90.103', '20.42.13.24', '13.73.50.80', '13.86.66.33', '40.86.18.89', '20.185.158.17', '70.37.166.251',
-      '138.91.175.198', '20.44.102.46', '20.42.15.91', '13.88.3.235', '13.91.166.0', '40.122.235.123'
-    ]
-    remote_ips = [
-      '172.174.64.0', '13.84.52.0', '20.225.181.0', '20.225.181.119', '20.245.167.0', '138.91.175.0',
-      '172.177.6.0', '40.86.18.0', '172.177.106.0', '172.177.114.0', '20.171.70.0', '172.177.150.0', '4.154.90.0',
-      '20.42.13.0', '13.73.50.0', '13.86.66.0', '40.86.18.0', '20.185.158.0', '70.37.166.0', '138.91.175.0',
-      '20.44.102.0', '20.42.15.0', '13.88.3.0', '13.91.166.0', '40.122.23'
-    ]
-    (req.post? && req.params['solicitation'].present? && req.params['solicitation']['email'] == 'foo-bar@example.com') ||
-    ips.include?(req.ip) || remote_ips.include?(req.remote_ip)
+  if ENV['FEATURE_BLOCKLIST_IP'].to_b
+    # Safelist pour localhost
+    Rack::Attack.safelist 'allow from localhost' do |req|
+      '127.0.0.1' == req.ip || '::1' == req.ip
+    end
+
+    # Safelist pour les plages d'IPs autorisées
+    Rack::Attack.safelist 'allow from whitelisted IP ranges' do |req|
+      wf_ip_ranges = ENV['WAF_IPS'].to_s.split(',').map(&:strip)
+      team_ips = ENV['TEAM_IPS'].to_s.split(',').map(&:strip)
+
+      client_ip = req.ip
+
+      next true if team_ips.include?(client_ip)
+
+      # Vérifier les plages d'IPs
+      wf_ip_ranges.any? do |ip_range|
+        begin
+          IPAddr.new(ip_range).include?(client_ip)
+        rescue IPAddr::InvalidAddressError
+          false
+        end
+      end
+    end
+
+    # Bloquer toutes les autres IPs (tout ce qui n'est pas explicitement autorisé)
+    Rack::Attack.blocklist('block all other IPs') do |req|
+      true # Bloquer par défaut, les safelists ont priorité
+    end
   end
 
   Rack::Attack.blocklisted_responder = lambda do |request|
     # Using 503 because it may make attacker think that they have successfully
     # DOSed the site. Rack::Attack returns 403 for blocklists by default
-    Sentry.capture_message("foo-bar@example.com : IP = #{request.ip} ; Remote IP = #{request.remote_ip}")
-    [ 503, {}, ['Blocked']]
+    Sentry.capture_message("IP bloquée : IP = #{request.ip} ; Remote IP = #{request.remote_ip}")
+    [ 403, {}, ['Forbidden']]
   end
 
   Rack::Attack.enabled = true
