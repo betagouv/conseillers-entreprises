@@ -1130,13 +1130,13 @@ fr:
     provenance:
       abandonned_count: Abandonnés
       abandonned_rate: Taux abandonnés
-      done_count: Clôturés
-      done_matches_rate: Taux MER clôturés
+      done_count: Clôturé par aide proposée
+      done_matches_rate: Taux MER clôturée par aide proposée
       done_no_help_count: Clôturé sans aide
       done_no_help_rate: Taux Clôturé sans aide
       done_not_reachable_count: Clôturé par injoignable
       done_not_reachable_rate: Taux Clôturé par injoignable
-      done_solicitations_rate: Taux soll. clôturés
+      done_solicitations_rate: Taux soll. clôturée par aide proposée
       matched_count: Mis en relation
       matched_rate: Taux Mis en relation
       not_for_me_count: Refusé
