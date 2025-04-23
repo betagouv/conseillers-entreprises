@@ -4,16 +4,12 @@ namespace :import_prod_to_staging do
 
   # Documentation : https://doc.scalingo.com/databases/postgresql/dump-restore
 
-  def dump_filename
-    @dump_filename ||= 'tmp/export_prod.dump'
-  end
-
   def pgsql_filename
     @pgsql_filename ||= 'tmp/export_prod.pgsql'
   end
 
   def setup_prod_tunnel
-    tunnel_command = 'scalingo -a ce-production db-tunnel SCALINGO_POSTGRESQL_URL'
+    tunnel_command = 'scalingo --region osc-secnum-fr1 -a ce-production db-tunnel SCALINGO_POSTGRESQL_URL'
     @prod_tunnel_pid = fork{ exec tunnel_command }
   end
 
@@ -35,7 +31,7 @@ namespace :import_prod_to_staging do
 
     sleep 2
 
-    env = `scalingo -a ce-production env`.lines
+    env = `scalingo --region osc-secnum-fr1 -a ce-production env`.lines
     pg_url = env.find{ |i| i[/SCALINGO_POSTGRESQL_URL=/] }
     pw = pg_url[/.*:(.*)@/,1]
     username = pg_url[/\/\/(.*):.*@/,1]
