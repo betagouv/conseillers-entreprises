@@ -4,9 +4,9 @@ class CustomDeviseMailer < Devise::Mailer
   def headers_for(action, opts)
     if action == :invitation_instructions
       super.merge!({
-        subject: I18n.t('devise.mailer.invitation_instructions.subject', institution: resource.institution.name),
-          from: email_address_with_name(ApplicationMailer::SENDER, resource.antenne.support_user_name),
-          reply_to: resource.antenne.support_user_email_with_name
+        subject: invitation_instructions_subject(resource),
+          from: email_address_with_name(ApplicationMailer::SENDER, resource_item.support_user_name),
+          reply_to: resource_item.support_user_email_with_name
       })
     else
       super.merge!({
@@ -17,7 +17,12 @@ class CustomDeviseMailer < Devise::Mailer
   end
 
   def invitation_instructions(record, token, opts = {})
-    @institution_logo_name = record.institution.logo&.filename
+    if cooperation_invitation?(record)
+      @cooperation = record.managed_cooperations.first
+      @cooperation_logo_name = @cooperation.logo&.filename
+    else
+      @institution_logo_name = record.institution.logo&.filename
+    end
     @support_user = record.support_user
     super
   end
@@ -26,5 +31,27 @@ class CustomDeviseMailer < Devise::Mailer
     @institution_logo_name = record.institution.logo&.filename
     @support_user = record.support_user
     super
+  end
+
+  private
+
+  def cooperation_invitation?(resource)
+    @cooperation_invitation ||= resource.managed_cooperations.any?
+  end
+
+  def invitation_instructions_subject(resource)
+    if cooperation_invitation?(resource)
+      I18n.t('devise.mailer.invitation_instructions.subject_cooperation', cooperation: resource_item.name)
+    else
+      I18n.t('devise.mailer.invitation_instructions.subject', institution: resource.institution.name)
+    end
+  end
+
+  def resource_item
+    if cooperation_invitation?(resource)
+      resource.managed_cooperations.first
+    else
+      resource.antenne
+    end
   end
 end

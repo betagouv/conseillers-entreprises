@@ -338,6 +338,8 @@ class User < ApplicationRecord
   def support_user
     if self.is_manager? && self.antenne.national?
       UserRight.category_main_referent.first&.user
+    elsif self.is_cooperation_manager?
+      self.managed_cooperations.first.support_user
     else
       self.antenne.support_user
     end
