@@ -20,7 +20,7 @@ module AnnuaireHelper
   end
 
   def referencement_coverage_cell_title(referencement_coverage)
-    anomalie_title = t(referencement_coverage.anomalie, scope: 'activerecord.attributes.referencement_coverage/anomalie')
+    anomalie_title = t(referencement_coverage[:anomalie], scope: 'activerecord.attributes.referencement_coverage/anomalie')
     details = t('application.modal.see_details')
     [anomalie_title, details].join(' - ')
   end
