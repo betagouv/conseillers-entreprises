@@ -27,7 +27,8 @@
 
 class Antenne < ApplicationRecord
   include SoftDeletable
-  include ManyCommunes
+  # include ManyCommunes
+  include WithTerritorialZones
   include InvolvementConcern
   include TerritoryNeedsStatus
   include WithSupportUser
@@ -133,10 +134,6 @@ class Antenne < ApplicationRecord
 
   scope :with_experts_subjects, -> { where.associated(:experts_subjects).distinct }
 
-  scope :by_regions, -> (regions_codes) do
-    joins(:territorial_zones).where(territorial_zones: { regions_codes: regions_codes })
-  end
-
   scope :by_subject, -> (subject_id) do
     joins(experts: :subjects).where(subjects: { id: subject_id })
   end
@@ -149,6 +146,7 @@ class Antenne < ApplicationRecord
     self.sort { |a, b| TERRITORIAL_ORDER[a.territorial_level.to_sym] <=> TERRITORIAL_ORDER[b.territorial_level.to_sym] }
   }
 
+  # Pour ransack
   scope :regions_eq, -> (region_code) {
     by_regions([region_code])
   }
@@ -157,7 +155,7 @@ class Antenne < ApplicationRecord
   #
   def self.apply_filters(params)
     klass = self
-    klass = klass.by_region(params[:region]) if params[:region].present?
+    klass = klass.by_region(params[:region_code]) if params[:region_code].present?
     klass = klass.by_subject(params[:subject_id]) if params[:subject_id].present?
     klass = klass.by_theme(params[:theme_id]) if params[:theme_id].present?
     klass.all
@@ -186,13 +184,9 @@ class Antenne < ApplicationRecord
   #
   # en after_create, sinon les "regions" (en `through`) ne sont pas accessibles
   def check_territorial_level
-    if (regions.size == 1) && Utilities::Arrays.same?(regions.first.commune_ids, commune_ids)
+    if territorial_zones.where(zone_type: :region).any?
       update(territorial_level: :regional)
     end
-  end
-
-  def regions
-    territorial_zones.flat_map(&:regions).compact.uniq
   end
 
   def local?
