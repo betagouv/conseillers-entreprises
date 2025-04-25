@@ -28,11 +28,12 @@ class Expert < ApplicationRecord
   include PersonConcern
   include InvolvementConcern
   include SoftDeletable
+  include WithTerritorialZones
 
   ## Associations
   #
   has_and_belongs_to_many :communes, inverse_of: :direct_experts, after_add: :update_antenne_referencement_coverage, after_remove: :update_antenne_referencement_coverage
-  include ManyCommunes
+  # include ManyCommunes
 
   belongs_to :antenne, inverse_of: :experts
 
@@ -175,17 +176,10 @@ class Expert < ApplicationRecord
     joins(:antenne).with_global_zone.or(joins(:antenne).merge(Antenne.territorial_level_national))
   end
 
-  # TODO a supprimer / remplacer
-  scope :by_region, -> (region_id) do
-    return all if region_id.blank?
-    merge(Territory.find(region_id).territorial_experts)
-  end
-
   scope :by_regions, -> (regions_codes) do
-    left_joins(:territorial_zones, antenne: :territorial_zones)
-      .where(antennes: { territorial_zones: { regions_codes: regions_codes } })
-      .or(left_joins(:territorial_zones, antenne: :territorial_zones)
-            .where(experts: { territorial_zones: { regions_codes: regions_codes } }))
+    without_territorial_zones = self.without_territorial_zones.left_joins(:territorial_zones, antenne: :territorial_zones).where(antennes: { territorial_zones: { regions_codes: regions_codes } }).ids
+    with_territorial_zones = self.with_territorial_zones.left_joins(:territorial_zones).where(territorial_zones: { regions_codes: regions_codes }).ids
+    Expert.where(id: without_territorial_zones + with_territorial_zones)
   end
 
   scope :by_theme, -> (theme_id) do
