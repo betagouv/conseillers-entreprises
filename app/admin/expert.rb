@@ -169,16 +169,16 @@ ActiveAdmin.register Expert do
       row :phone_number
       row :institution
       row :antenne
-      row(:intervention_zone) do |e|
-        if e.is_global_zone
-          status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
-        else
-          if e.custome_territories?
-            status_tag t('attributes.custom_communes'), class: 'yes'
-          end
-          div intervention_zone_description(e)
-        end
-      end
+      # row(:intervention_zone) do |e|
+      #   if e.is_global_zone
+      #     status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
+      #   else
+      #     if e.custome_territories?
+      #       status_tag t('attributes.custom_communes'), class: 'yes'
+      #     end
+      #     div intervention_zone_description(e)
+      #   end
+      # end
       row(:users) do |e|
         div admin_link_to(e, :users)
         div admin_link_to(e, :users, list: true)
@@ -211,7 +211,7 @@ ActiveAdmin.register Expert do
 
     panel I18n.t('activerecord.models.territorial_zone.other') do
       if expert.territorial_zones.any?
-        TerritorialZone.zone_types.keys.reverse.each do |zone_type|
+        TerritorialZone.zone_types.keys.reverse_each do |zone_type|
           expert_territorial_zones = expert.territorial_zones.select { |tz| tz.zone_type == zone_type }
           next if expert_territorial_zones.empty?
           attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do

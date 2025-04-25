@@ -1,0 +1,5 @@
+= turbo_frame_tag "institution-subject- #{institution_subject.id}" do
+  - alert_classe = coverage[:anomalie] == :no_anomalie ? 'success-table-cell' : 'error-table-cell'
+  %button{ class: "coverage-modal-button #{alert_classe}", 'aria-controls': "modal-coverage-#{institution_subject.id}", 'data-fr-opened': 'false', title: referencement_coverage_cell_title(coverage) }
+    = t(coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.short', default: "?")
+  = render 'referencement_coverage_modal', referencement_coverage: coverage, institution_subject: institution_subject
