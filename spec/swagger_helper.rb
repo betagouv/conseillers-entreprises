@@ -115,7 +115,6 @@ RSpec.configure do |config|
                   phone_number: { type: :string },
                   siret: { type: :string },
                   location: { type: :string },
-                  api_calling_url: { type: :string },
                   origin_url: { type: :string },
                   questions_additionnelles: {
                     type: :array,
@@ -124,7 +123,7 @@ RSpec.configure do |config|
                     }
                   },
                 },
-                required: [ 'landing_id', 'landing_subject_id', 'description', 'full_name', 'email', 'api_calling_url' ]
+                required: [ 'landing_id', 'landing_subject_id', 'description', 'full_name', 'email', 'origin_url' ]
               }
             },
             required: [ 'solicitation' ]
@@ -148,10 +147,9 @@ RSpec.configure do |config|
                   '$ref': "#/components/schemas/question_additionnelle_long"
                 }
               },
-              api_calling_url: { type: :string },
               origin_url: { type: :string }
             },
-            required: [ 'landing_id', 'landing_subject_id', 'description', 'full_name', 'email', 'api_calling_url' ]
+            required: [ 'landing_id', 'landing_subject_id', 'description', 'full_name', 'email', 'origin_url' ]
           },
           question_additionnelle_short: {
             type: :object,

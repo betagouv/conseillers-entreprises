@@ -680,7 +680,7 @@ end
 
     context 'api' do
       let(:cooperation) { create :cooperation, root_url: 'https://www.partner.com' }
-      let(:solicitation) { create :solicitation, landing: landing, origin_url: 'https://www.partner.com/formulaire', api_calling_url: 'https://www.partner.com' }
+      let(:solicitation) { create :solicitation, landing: landing, origin_url: 'https://www.partner.com' }
       let(:landing) { create :landing, title: 'Landing title', slug: 'landing-title', integration: :api, cooperation: cooperation }
 
       it { is_expected.to eq 'https://www.partner.com' }
