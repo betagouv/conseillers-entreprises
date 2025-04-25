@@ -201,6 +201,11 @@ class User < ApplicationRecord
     joins(:antenne, :experts).merge(Antenne.by_regions(regions_codes)).merge(Expert.by_regions(regions_codes))
   end
 
+  scope :by_region, -> (region_code) do
+    return if region_code.blank?
+    joins(:antenne, :experts).merge(Antenne.by_regions([region_code])).merge(Expert.by_regions([region_code]))
+  end
+
   scope :regions_eq, -> (region_code) {
     by_regions([region_code])
   }

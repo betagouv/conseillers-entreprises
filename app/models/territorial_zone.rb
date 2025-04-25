@@ -35,6 +35,10 @@ class TerritorialZone < ApplicationRecord
     "DecoupageAdministratif::#{zone_type.classify}".constantize.find_by_code(code)
   end
 
+  def name
+    territory_model&.nom
+  end
+
   # Une EPCI peut avoir plusieurs régions
   def regions
     case self.zone_type

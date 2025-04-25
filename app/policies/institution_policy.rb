@@ -38,4 +38,8 @@ class InstitutionPolicy < ApplicationPolicy
   def send_invitations?
     admin?
   end
+
+  def coverage?
+    admin?
+  end
 end

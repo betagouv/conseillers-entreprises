@@ -31,6 +31,7 @@ module PersistedSearch
   # Territoires
   #
   def possible_territories_options
+    # TODO ça sert à quoi ?
     @options ||= define_territory_options
   end
 

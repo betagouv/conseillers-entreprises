@@ -20,17 +20,13 @@
             %th{ colspan: institutions_subjects.size, title: subject.label }
               = subject.label.truncate(30)
       %tr.users-count
-        - if referencement_coverages
-          - grouped_subjects.each_value do |subjects|
-            - subjects.each_value do |institutions_subjects|
-              - institutions_subjects.each do |institution_subject|
-                - referencement_coverage = referencement_coverages.find_by(institution_subject: institution_subject)
-                - if referencement_coverage.present?
-                  - alert_classe = referencement_coverage.no_anomalie? ? 'success-table-cell' : 'error-table-cell'
-                  %th.coverage-table-cell
-                    %button{ class: "coverage-modal-button #{alert_classe}", 'aria-controls': "modal-coverage-#{referencement_coverage.id}", 'data-fr-opened': 'false', title: referencement_coverage_cell_title(referencement_coverage) }
-                      = t(referencement_coverage.coverage, scope: 'activerecord.attributes.referencement_coverage/coverage.short', default: "?")
-                  = render 'referencement_coverage_modal', referencement_coverage: referencement_coverage
+        - grouped_subjects.each_value do |subjects|
+          - subjects.each_value do |institutions_subjects|
+            - institutions_subjects.each do |institution_subject|
+              %th.coverage-table-cell
+                = turbo_frame_tag "institution-subject- #{institution_subject.id}", src: coverage_institution_users_path(institution_subject_id: institution_subject.id, antenne_id: params[:antenne_id]) do
+                  = render 'skeleton_coverage'
+
 
     %tbody
       - grouped_experts.each do |antenne, experts|

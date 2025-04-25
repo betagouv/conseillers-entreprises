@@ -41,7 +41,7 @@ module  Annuaire
         .joins(:antenne)
         .not_deleted
         .where(antennes: { deleted_at: nil })
-        .by_region(index_search_params[:region])
+        .by_region(index_search_params[:region_code])
         .by_subject(index_search_params[:subject_id])
         .by_theme(index_search_params[:theme_id])
         .group('antennes.institution_id')

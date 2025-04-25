@@ -262,6 +262,7 @@ Rails.application.routes.draw do
       resources :users, path: 'conseillers', only: :index, concerns: [:importable] do
         collection do
           post :send_invitations
+          get :coverage
         end
       end
       resources :antennes, only: :index, concerns: [:importable] do
