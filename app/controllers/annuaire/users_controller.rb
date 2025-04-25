@@ -1,8 +1,8 @@
 module  Annuaire
   class UsersController < BaseController
     before_action :retrieve_institution
-    before_action :retrieve_antenne, only: :index
-    before_action :retrieve_experts_and_users, only: :index
+    before_action :retrieve_antenne, only: [:index, :coverage]
+    before_action :retrieve_experts_and_users, only: [:index, :coverage]
 
     before_action :retrieve_subjects, only: :index
 
@@ -59,6 +59,12 @@ module  Annuaire
       end
     end
 
+    def coverage
+      institution_subject = InstitutionSubject.find_by(id: params[:institution_subject_id])
+      coverage = CoverageService.new(institution_subject, @grouped_experts).call
+      render partial: 'annuaire/users/coverage', locals: { institution_subject: institution_subject, coverage: coverage }
+    end
+
     private
 
     def retrieve_experts_and_users
@@ -93,8 +99,8 @@ module  Annuaire
     def retrieve_antennes_without_experts
       # Si il y a des filtres de recherche par theme ou sujet
       # on ne prend pas les antennes sans experts pour ne pas polluer l'affichage
-      if index_search_params[:region].present? && index_search_params[:theme_id].blank? && index_search_params[:subject_id].blank?
-        antennes = @institution.antennes_in_region(index_search_params[:region]).where.missing(:experts)
+      if index_search_params[:region_code].present? && index_search_params[:theme_id].blank? && index_search_params[:subject_id].blank?
+        antennes = @institution.antennes_in_region(index_search_params[:region_code]).where.missing(:experts)
       elsif index_search_params[:theme_id].blank? && index_search_params[:subject_id].blank?
         antennes = @institution.antennes.where.missing(:experts)
       else
@@ -124,7 +130,7 @@ module  Annuaire
         .not_deleted
         .order('antennes.name', 'full_name')
         .preload(:antenne, :experts_subjects, :communes, :antenne, users: :user_rights_manager)
-        .by_region(index_search_params[:region])
+        .by_region(index_search_params[:region_code])
         .by_theme(index_search_params[:theme_id])
         .by_subject(index_search_params[:subject_id])
     end
