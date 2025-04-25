@@ -59,6 +59,26 @@
 
     Website is now [running locally](http://localhost:3000)!
 
+## GitGuardian on pre-commit
+
+To prevent secrets from being pushed to the repository, we use [GitGuardian](https://www.gitguardian.com/). It is configured to run on pre-commit.
+To use it you need to install the GitGuardian CLI:
+
+1. Install the GitGuardian CLI: https://docs.gitguardian.com/ggshield-docs/getting-started
+    
+2. Authenticate the CLI and follow the instructions
+          
+       $ ggshield auth login
+
+3. Make sure you have the pre-commit framework installed:
+
+        $ pip install pre-commit
+
+4. Install the pre-commit hooks:
+
+        $ pre-commit install --hook-type pre-push
+
+
 ## SSL on localhost
 
 To run locally using https, you’ll need specify a certificate and a key. The easiest is to use [mkcert](https://github.com/FiloSottile/mkcert).
