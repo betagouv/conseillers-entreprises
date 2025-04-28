@@ -740,7 +740,7 @@ paths:
               "$ref": "#/components/schemas/new_solicitation"
         required: true
 servers:
-- url: https://conseillers-entreprises.service-public.fr
+- url: https://conseillers-entreprises.clairezuliani.fr
 - url: https://ce-staging.osc-fr1.scalingo.io
 components:
   schemas:
