@@ -470,7 +470,6 @@ fr:
         query: Requête
         user: Utilisateur
       solicitation:
-        api_calling_url: Url d’appel
         code_region: Région
         company_legal_form_code: Forme juridique entreprise
         completion: Complétion

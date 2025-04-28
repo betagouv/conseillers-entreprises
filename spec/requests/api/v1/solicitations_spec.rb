@@ -21,7 +21,7 @@ RSpec.describe "Solicitations API" do
       phone_number: '0606060606',
       email: 'hubertine@example.com',
       siret: siret,
-      api_calling_url: 'http://mon-partenaire.fr/page-recrutement',
+      origin_url: 'http://mon-partenaire.fr/page-recrutement',
       questions_additionnelles: [
         { question_id: cadre_question.id, answer: true },
         { question_id: apprentissage_question.id, answer: false },
@@ -93,7 +93,7 @@ RSpec.describe "Solicitations API" do
 
             expect(new_solicitation).to be_persisted
             expect(new_solicitation.code_region).to eq(11)
-            expect(new_solicitation.api_calling_url).to eq('http://mon-partenaire.fr/page-recrutement')
+            expect(new_solicitation.origin_url).to eq('http://mon-partenaire.fr/page-recrutement')
             expect(new_solicitation.status).to eq('in_progress')
             expect(new_solicitation.subject_answers.size).to eq(2)
             expect(new_solicitation.cooperation).to eq(landing_01.cooperation)
@@ -133,7 +133,7 @@ RSpec.describe "Solicitations API" do
                       '$ref': "#/components/schemas/error"
                     }
             }
-            let(:solicitation) { { solicitation: base_solicitation.except(:api_calling_url) } }
+            let(:solicitation) { { solicitation: base_solicitation.except(:origin_url) } }
 
             before do |example|
               ENV['API_ENTREPRISE_TOKEN'] = token
@@ -143,7 +143,7 @@ RSpec.describe "Solicitations API" do
               submit_request(example.metadata)
             end
 
-            it 'returns calling_url error' do
+            it 'returns origin_url error' do
               expect(response).to have_http_status(:unprocessable_entity)
               result = response.parsed_body
               expect(result["errors"].first["source"]).to eq('Url page d’origine')

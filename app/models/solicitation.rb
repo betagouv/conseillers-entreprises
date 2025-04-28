@@ -163,7 +163,7 @@ class Solicitation < ApplicationRecord
 
   # Todo : à supprimer une fois que la migration api_url est passée ?
   validate if: -> { landing&.api? } do
-    errors.add(:origin_url, :blank) if (self.origin_url.blank? || self.api_calling_url.blank?)
+    errors.add(:origin_url, :blank) if self.origin_url.blank?
   end
 
   validate if: -> { status_step_contact? || status_step_company? || status_step_description? || landing&.api? } do
@@ -536,8 +536,7 @@ class Solicitation < ApplicationRecord
   MATOMO_KEYS = %i[pk_campaign pk_kwd mtm_campaign mtm_kwd]
   # Paramètres qu'il est possible de passer dans l'url des iframes pour pré-remplir
   PREFILL_PARAMS = %i[full_name phone_number email siret]
-  # TODO remove api_calling_url
-  FORM_INFO_KEYS = MATOMO_KEYS + %i[gclid api_calling_url relaunch origin_title origin_id origin_url]
+  FORM_INFO_KEYS = MATOMO_KEYS + %i[gclid relaunch origin_title origin_id origin_url]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##
