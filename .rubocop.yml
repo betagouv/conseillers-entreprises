@@ -1,13 +1,11 @@
-require:
-  - rubocop-capybara
-  - rubocop-factory_bot
-  - rubocop-rspec_rails
-
 plugins:
+  - rubocop-capybara
+  - rubocop-rspec_rails
   - rubocop-rspec
   - rubocop-performance
   - rubocop-rails
   - rubocop-i18n
+  - rubocop-factory_bot
 
 AllCops:
   TargetRubyVersion: 2.7

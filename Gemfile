@@ -31,7 +31,7 @@ gem 'jsbundling-rails'
 # Parallel processes
 gem 'clockwork'
 gem 'daemons'
-gem "sidekiq"
+gem 'sidekiq', '< 8'
 gem 'sidekiq-failures'
 
 # Improving models
