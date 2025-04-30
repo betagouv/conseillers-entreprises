@@ -111,7 +111,7 @@ module ApiConsumption::Models
     end
 
     def france_competence_opco
-      Institution.opco.find_by(france_competence_code: france_competence_code)
+      Institution.opco.find_by(france_competence_code: france_competence_code) if france_competence_code.present?
     end
 
     def cfa_dock_opco
