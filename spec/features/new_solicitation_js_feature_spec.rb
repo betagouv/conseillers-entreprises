@@ -111,7 +111,9 @@ describe 'New Solicitation', :js, :flaky do
           click_on 'Précédent'
           expect(solicitation.status_step_description?).to be true
           fill_in 'Recherchez votre entreprise', with: query
+          # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
           option = find(".autocomplete__option", match: :first)
+          # rubocop:enable Capybara/FindAllFirst
           expect(option).to have_content('Octo Technology')
           page.execute_script("document.querySelector('.autocomplete__option').click()")
           click_on 'Suivant'
@@ -217,7 +219,9 @@ describe 'New Solicitation', :js, :flaky do
           expect(solicitation.status_step_company?).to be true
 
           fill_in 'Recherchez votre entreprise', with: query
+          # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
           option = find(".autocomplete__option", match: :first)
+          # rubocop:enable Capybara/FindAllFirst
           expect(option).to have_content('Octo Technology')
           page.execute_script("document.querySelector('.autocomplete__option').click()")
           click_on 'Suivant'
@@ -267,7 +271,9 @@ describe 'New Solicitation', :js, :flaky do
           expect(solicitation.status_step_company?).to be true
 
           fill_in 'Recherchez votre entreprise', with: query
+          # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
           option = find(".autocomplete__option", match: :first)
+          # rubocop:enable Capybara/FindAllFirst
           expect(option).to have_content('Octo Technology')
           page.execute_script("document.querySelector('.autocomplete__option').click()")
           click_on 'Suivant'
