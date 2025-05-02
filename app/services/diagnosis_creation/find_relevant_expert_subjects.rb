@@ -11,15 +11,7 @@ module DiagnosisCreation
       [
         apply_match_filters(expert_subjects),
         apply_subject_question_filters(expert_subjects),
-        apply_special_landings(expert_subjects)
       ].reduce(:&)
-    end
-
-    def apply_special_landings(expert_subjects)
-      expert_subjects.reject do |es|
-        # Experimentation TEE : on enlève l'ADEME si ca vient pas de la landing TEE
-        es.expert.id == 22483 && !from_landing('transition-ecologique-entreprises-api')
-      end
     end
 
     def apply_base_query
