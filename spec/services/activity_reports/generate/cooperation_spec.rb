@@ -6,7 +6,7 @@ describe ActivityReports::Generate::Cooperation do
   describe 'generate_files' do
     let(:cooperation) { create :cooperation }
     let!(:a_need) { create :need, created_at: 3.months.ago, solicitation: create(:solicitation, cooperation: cooperation) }
-    let(:quarters) { described_class.new(cooperation).send(:last_quarters) }
+    let(:quarters) { described_class.new(cooperation).send(:last_periods) }
     let(:generate_files) { described_class.new(cooperation).send(:generate_files, quarters.first) }
 
     it 'create activity_report' do
@@ -20,7 +20,7 @@ describe ActivityReports::Generate::Cooperation do
     let!(:a_need) { create :need, created_at: 6.months.ago, solicitation: create(:solicitation, cooperation: cooperation) }
     let!(:activity_report_ok) { create :activity_report, :category_cooperation, reportable: cooperation, start_date: 18.months.ago }
     let!(:activity_report_ko) { create :activity_report, :category_cooperation, reportable: cooperation, start_date: 3.years.ago }
-    let!(:quarters) { described_class.new(cooperation).send(:last_quarters) }
+    let!(:quarters) { described_class.new(cooperation).send(:last_periods) }
     let(:destroy_old_report) { described_class.new(cooperation).send(:destroy_old_files, quarters) }
 
     before do

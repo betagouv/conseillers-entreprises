@@ -10,7 +10,7 @@ module XlsxExport
       p = Axlsx::Package.new
       wb = p.workbook
       title = wb.styles.add_style bg_color: 'eadecd', sz: 16, b: true, alignment: { horizontal: :center, vertical: :center }, border: { color: 'AAAAAA', style: :thin }
-      period = "#{@end_date.year}T#{TimeDurationService.find_quarter_for_month(@start_date.month)}"
+      period = "#{@end_date.year}T#{TimeDurationService::Quarters.new.find_quarter_for_month(@start_date.month)}"
 
       # Volume stats
       wb.add_worksheet(name: I18n.t('cooperation_stats_exporter.volume.tab')) do |sheet|

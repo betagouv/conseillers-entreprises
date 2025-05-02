@@ -47,7 +47,7 @@ fr:
       id: Sollicitation %{id}
   activity_report_service:
     cooperation_file_name: rapport-activite-%{item}-%{year}T%{number}.xlsx
-    matches_file_name: export-mises-en-relation-%{item}-%{year}T%{number}.xlsx
+    matches_file_name: export-mises-en-relation-%{item}-%{year}-%{month}.xlsx
     stats_file_name: export-stats-%{item}-%{year}T%{number}.xlsx
   admin:
     reassign_matches:
@@ -759,13 +759,22 @@ fr:
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
   reports:
-    index:
-      download_matches: Télécharger le fichier des mises en relation
-      download_stats: Télécharger le fichier statistique
+    matches:
+      download: Télécharger le fichier mises en relation %{date}
       file_infos: XLSX - %{weight} ko
       interval: "%{start_month} à %{end_month} %{year}"
-      no_export_available: L’export de données et votre rapport trimestriels ne sont pas encore disponibles pour cette antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
-      title: Export des données %{antenne}
+      month: "%{month} %{year}"
+      no_export_available: Vos fichiers des mises en relation ne sont pas encore disponibles pour cette antenne.
+      title: Mises en relation %{antenne}
+    sidemenu:
+      matches: Fichiers Mises en relation
+      stats: Fichiers Statistiques
+    stats:
+      download: Télécharger le fichier statistique
+      file_infos: XLSX - %{weight} ko
+      interval: "%{start_month} à %{end_month} %{year}"
+      no_export_available: Vos fichiers statistiques trimestriels ne sont pas encore disponibles pour cette antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
+      title: Statistiques trimestrielles %{antenne}
   republique_francaise_html: République <br /> Française
   shared:
     breadcrumb:

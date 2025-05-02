@@ -12,28 +12,29 @@ module XlsxExport
       title = wb.styles.add_style bg_color: 'eadecd', sz: 16, b: true, alignment: { horizontal: :center, vertical: :center }, border: { color: 'AAAAAA', style: :thin }
       needs = @antenne.perimeter_received_needs.joins(:diagnosis).merge(Diagnosis.from_solicitation)
       year_start_date = @start_date.beginning_of_year
+      period = "#{@end_date.year}T#{TimeDurationService::Quarters.new.find_quarter_for_month(@start_date.month)}"
 
       # Quarter stats
       wb.add_worksheet(name: I18n.t('antenne_stats_exporter.quarter_stats')) do |sheet|
-        sheet.add_row ["#{@antenne.name} - #{@end_date.year}T#{TimeDurationService.find_quarter_for_month(@start_date.month)}"], style: title
+        sheet.add_row ["#{@antenne.name} - #{period}"], style: title
         XlsxExport::AntenneStatsWorksheetGenerator::Base.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
       end
 
       # Quarter stats by subject
       wb.add_worksheet(name: I18n.t('antenne_stats_exporter.quarter_stats_by_subject')) do |sheet|
-        sheet.add_row ["#{@antenne.name} - #{@end_date.year}T#{TimeDurationService.find_quarter_for_month(@start_date.month)}"], style: title
+        sheet.add_row ["#{@antenne.name} - #{period}"], style: title
         XlsxExport::AntenneStatsWorksheetGenerator::BySubject.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
       end
 
       # Agglomerate stats
       if @antenne.national?
         wb.add_worksheet(name: I18n.t('antenne_stats_exporter.quarter_stats_by_region')) do |sheet|
-          sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.by_region')} - #{@end_date.year}T#{TimeDurationService.find_quarter_for_month(@start_date.month)}"], style: title
+          sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.by_region')} - #{period}"], style: title
           XlsxExport::AntenneStatsWorksheetGenerator::ByRegion.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
         end
       elsif @antenne.regional? && @antenne.territorial_antennes.any?
         wb.add_worksheet(name: I18n.t('antenne_stats_exporter.quarter_stats_by_antenne')) do |sheet|
-          sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.by_antenne')} - #{@end_date.year}T#{TimeDurationService.find_quarter_for_month(@start_date.month)}"], style: title
+          sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.by_antenne')} - #{period}"], style: title
           XlsxExport::AntenneStatsWorksheetGenerator::ByAntenne.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
         end
       end

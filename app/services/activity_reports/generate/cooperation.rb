@@ -15,16 +15,12 @@ module ActivityReports
       @item
     end
 
-    def last_periods
-      last_quarters
+    def report_type
+      :cooperation
     end
 
     def reports
       cooperation.activity_reports
-    end
-
-    def report_type
-      :cooperation
     end
   end
 end
