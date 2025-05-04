@@ -54,6 +54,8 @@ class Antenne < ApplicationRecord
   has_many :experts_including_deleted, class_name: 'Expert', inverse_of: :antenne
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
+  has_many :territorial_zones, as: :zoneable, dependent: :destroy, inverse_of: :zoneable
+  accepts_nested_attributes_for :territorial_zones, allow_destroy: true
   accepts_nested_attributes_for :match_filters, allow_destroy: true
 
   has_many :activity_reports, as: :reportable, dependent: :destroy, inverse_of: :reportable
@@ -81,7 +83,6 @@ class Antenne < ApplicationRecord
   #
   # :communes
   has_many :territories, -> { distinct.bassins_emploi }, through: :communes, inverse_of: :antennes
-  has_many :regions, -> { distinct.regions }, through: :communes, inverse_of: :antennes
 
   # :advisors
   has_many :sent_diagnoses, through: :advisors, inverse_of: :advisor_antenne
@@ -111,7 +112,8 @@ class Antenne < ApplicationRecord
 
   ##
   #
-  scope :without_communes, -> { where.missing(:communes) }
+  scope :without_communes, -> { not_deleted.where.missing(:communes) }
+  scope :without_territorial_zones, -> { not_deleted.where.missing(:territorial_zones) }
 
   scope :without_managers, -> { where.missing(:managers) }
 
@@ -131,8 +133,8 @@ class Antenne < ApplicationRecord
 
   scope :with_experts_subjects, -> { where.associated(:experts_subjects).distinct }
 
-  scope :by_region, -> (region_id) do
-    joins(:regions).where(regions: { id: region_id })
+  scope :by_regions, -> (regions_codes) do
+    joins(:territorial_zones).where(territorial_zones: { regions_codes: regions_codes })
   end
 
   scope :by_subject, -> (subject_id) do
@@ -145,6 +147,10 @@ class Antenne < ApplicationRecord
 
   scope :by_higher_territorial_level, -> {
     self.sort { |a, b| TERRITORIAL_ORDER[a.territorial_level.to_sym] <=> TERRITORIAL_ORDER[b.territorial_level.to_sym] }
+  }
+
+  scope :regions_eq, -> (region_code) {
+    by_regions([region_code])
   }
 
   ##
@@ -183,6 +189,10 @@ class Antenne < ApplicationRecord
     if (regions.size == 1) && Utilities::Arrays.same?(regions.first.commune_ids, commune_ids)
       update(territorial_level: :regional)
     end
+  end
+
+  def regions
+    territorial_zones.flat_map(&:regions).compact.uniq
   end
 
   def local?
@@ -324,5 +334,9 @@ class Antenne < ApplicationRecord
       "received_solicitations_including_from_deleted_experts", "referencement_coverages", "regions", "sent_diagnoses",
       "sent_matches", "sent_needs", "stats_reports", "territories", "themes", "user_rights", "user_rights_manager"
     ]
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    %w[regions_eq]
   end
 end

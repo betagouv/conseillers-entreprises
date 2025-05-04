@@ -13,7 +13,7 @@ ActiveAdmin.register CompanySatisfaction do
     init_subjects_filter
   end
 
-  includes :need, :landing, :solicitation, :subject, :facility, :shared_satisfactions, :shared_satisfaction_experts, :shared_satisfaction_users, :diagnosis, :facility
+  includes :need, :landing, :solicitation, :subject, :shared_satisfactions, :shared_satisfaction_experts, :shared_satisfaction_users, :diagnosis, :facility
   config.sort_order = 'created_at_desc'
 
   scope :all, default: true
@@ -64,7 +64,7 @@ ActiveAdmin.register CompanySatisfaction do
   filter :experts, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
   filter :solicitation_email_cont
-  filter :facility_regions, collection: -> { Territory.regions.order(:name) }
+  # filter :facility_regions, collection: -> { Territory.regions.order(:name) }
   filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
   filter :shared, as: :select, collection: [["Oui", 'shared'], ["Non", 'not_shared']]
 
