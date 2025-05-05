@@ -88,7 +88,7 @@ class ExpertSubject < ApplicationRecord
   end
 
   scope :without_irrelevant_opcos, -> (facility) do
-    relevant_opco = facility.opco
+    relevant_opco = facility.get_relevant_opco
     # Si pas d'opco identifié, on n'envoie à personne
     irrelevant_opcos = Institution.opco.where.not(id: relevant_opco&.id)
     not_of_institution(irrelevant_opcos)
