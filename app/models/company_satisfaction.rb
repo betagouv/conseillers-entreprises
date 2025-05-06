@@ -29,6 +29,7 @@ class CompanySatisfaction < ApplicationRecord
   has_one :theme, through: :need, source: :theme
   has_many :matches, through: :need, inverse_of: :need
   has_many :experts, through: :matches, source: :expert
+  has_many :antennes, through: :experts, source: :antenne
   has_many :facility_regions, through: :need, inverse_of: :needs
   has_one :facility, through: :need, inverse_of: :needs
 
@@ -134,7 +135,7 @@ class CompanySatisfaction < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [
       "done_antennes", "done_experts", "done_institutions", "done_matches", "facility_regions", "landing",
-      "landing_subject", "matches", "need", "diagnosis", "solicitation", "subject", "theme", "facility", "experts"
+      "landing_subject", "matches", "need", "diagnosis", "solicitation", "subject", "theme", "facility", "experts", "antennes"
     ]
   end
 end

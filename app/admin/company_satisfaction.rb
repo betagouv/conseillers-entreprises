@@ -61,6 +61,7 @@ ActiveAdmin.register CompanySatisfaction do
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
   filter :done_institutions, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :antennes, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :experts, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
   filter :solicitation_email_cont
