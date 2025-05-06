@@ -53,8 +53,8 @@ class CoverageService
   end
 
   def check_coverage(experts_and_users_by_insee_code)
-    if @institution_subject.subject.territories.any? &&
-      (@institution_subject.subject.territories & @antenne.regions).empty?
+    if @institution_subject.subject.territories.any? && @antenne.present? &&
+      (@institution_subject.subject.territories && @antenne.regions).empty?
       good_coverage(experts_and_users_by_insee_code)
     elsif experts_and_users_by_insee_code.values.all?([])
       no_expert
@@ -83,14 +83,15 @@ class CoverageService
   # - /!\ et pas d'expert global sur le sujet
   # - /!\ et pas d'expert de l'antenne ou de la région sur le sujet sans code insee
   def missing_insee_codes(code_experts_users_hash)
-    missing_codes = code_experts_users_hash.select{ |k,v| v.empty? }.keys
+    missing_codes = code_experts_users_hash.select{ |_,v| v.empty? }.keys
+
     all_experts = all_experts_ids(code_experts_users_hash)
     {
       institution_subject_id: @institution_subject.id,
       coverage: get_coverage(all_experts),
       anomalie: :missing_insee_codes,
       anomalie_details: {
-        missing_insee_codes: missing_codes,
+        missing_insee_codes: format_territories(missing_codes),
       }
     }
   end
@@ -99,7 +100,7 @@ class CoverageService
   # - des experts avec tz + au moins un expert sans code insee
   # - que des experts avec tz, et sommes des codes insee > antenne.codes_insee
   def extra_insee_codes(code_experts_users_hash)
-    extra_objects = code_experts_users_hash.select{ |k,v| v.size > 1 }
+    extra_objects = code_experts_users_hash.select{ |_,v| v.size > 1 }
     extra_codes = extra_objects.keys
     extra_experts = all_experts_ids(extra_objects)
     all_experts = all_experts_ids(code_experts_users_hash)
@@ -108,7 +109,7 @@ class CoverageService
       coverage: get_coverage(all_experts),
       anomalie: :extra_insee_codes,
       anomalie_details: {
-        extra_insee_codes: extra_codes,
+        extra_insee_codes: format_territories(extra_codes),
         experts: extra_experts
       }
     }
@@ -157,5 +158,19 @@ class CoverageService
 
   def all_experts_ids(code_experts_users_hash)
     code_experts_users_hash.values.flatten.uniq.pluck(:expert_id)
+  end
+
+  def format_territories(missing_codes)
+    DecoupageAdministratif::Search.new(missing_codes).by_insee_codes.map do |zone_type, territory|
+      {
+        zone_type: zone_type,
+        territories: territory.map do |t|
+          {
+            code: t.code,
+            name: t.nom,
+          }
+        end
+      }
+    end
   end
 end
