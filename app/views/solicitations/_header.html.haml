@@ -18,7 +18,7 @@
           - count = stats_count(needs_count)
           %p.text-dark-grey.fr-text--lg= t('landings.landings.home.subtitle', count: count, subject: subject_subtitle)
         .fr-col-12.fr-col-md-4.landing-header__picture
-          = image_tag('home.png', alt: "")
+          = picture_tag { tag.source(srcset: image_path("home-430w.png"), media: "(max-width: 430px)") + tag.source(srcset: image_path("home.webp")) + image_tag("home.png", alt: "", fetchpriority: "high") }
 
 - if show_breadcrumbs?
   = render 'pages/breadcrumbs', landing: landing, landing_theme: landing_subject.landing_theme, landing_subject: landing_subject
