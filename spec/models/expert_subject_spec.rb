@@ -100,6 +100,19 @@ RSpec.describe ExpertSubject do
 
         it{ is_expected.to be_blank }
       end
+
+      context 'when facility from Mayotte' do
+        let(:region_mayotte) { create :territory, name: "Département Mayotte", code_region: 6 }
+        let!(:facility) { create :facility, opco: opco, commune: commune_mayotte }
+        let(:commune_mayotte) { create :commune, regions: [region_mayotte] }
+        let(:mayotte_opco) { create :institution, :opco, slug: 'opco-akto-mayotte' }
+        let!(:expert_subject_mayotte) do
+          create :expert_subject,
+                 institution_subject: create(:institution_subject, institution: mayotte_opco)
+        end
+
+        it { is_expected.to contain_exactly(expert_subject_mayotte) }
+      end
     end
 
     describe 'without_irrelevant_chambres' do

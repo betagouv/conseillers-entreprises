@@ -103,6 +103,15 @@ class Facility < ApplicationRecord
     all_nature_activites.any? { |a| ["LIBERALE_REGLEMENTEE", "LIBERALE_NON_REGLEMENTEE", "INDEPENDANTE", "GESTION_DE_BIENS"].include?(a) }
   end
 
+  # Si demande de Mayotte, tout est envoyé vers l'OPCO Akto
+  def get_relevant_opco
+    if self.regions.include?(Territory.find_by(code_region: 6)) # Mayotte
+      Institution.opco.find_by(slug: 'opco-akto-mayotte') # OPCO Akto Mayotte
+    else
+      self.opco
+    end
+  end
+
   ##
   #
   def to_s
