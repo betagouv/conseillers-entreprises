@@ -2,15 +2,42 @@ namespace :staging do
   desc 'Simplify API keys'
   task simplify_api_keys: :environment do
     # on ne manipule pas les données si on est en prod
-    if (Rails.env.production? && ((ENV.fetch('STAGING_ENV', 'false')) == 'true'))
+    if staging_app?
       ApiKey.find(4).update(token: '123456789')
+    end
+  end
+
+  desc 'refresh data for demo'
+  task refresh_demo_data: :environment do
+    if staging_app?
+      now = Time.zone.now
+      @need = Need.find(12683)
+      @need.update(created_at: now - 1.day)
+
+      transform_solicitation
+
+      diagnosis = @need.diagnosis
+      diagnosis.update({ created_at: now - 1.day, happened_on: now - 1.day, completed_at: now - 1.day })
+
+      Match.find(12025).update({ created_at: now - 1.day, sent_at: now - 1.day })
+      Match.find(12026).update({ created_at: now - 1.day, sent_at: now - 1.day })
+      Match.find(12027).update({ created_at: now - 1.day, sent_at: now - 1.day })
+      Match.find(12028).update({ created_at: now - 1.day, sent_at: now - 1.day })
+      Match.find(12029).update({ created_at: now - 1.day, sent_at: now - 1.day })
+      Match.find_by({ need_id: @need.id, expert_id: 1632 })&.update({ created_at: now - 1.day, sent_at: now - 1.day })
+
+      Feedback.find(8685).update({ created_at: now - 5.hours })
+      Feedback.find(8713).update({ created_at: now - 4.hours })
+      Feedback.find(8883).update({ created_at: now - 2.hours })
+      Feedback.find(8891).update({ created_at: now - 40.minutes })
+      Feedback.find(9212).update({ created_at: now - 15.minutes })
     end
   end
 
   desc 'Transform data for demo'
   task transform_data_for_demo: :environment do
     # on ne manipule pas les données si on est en prod
-    if (Rails.env.production? && ((ENV.fetch('STAGING_ENV', 'false')) == 'true'))
+    if staging_app?
       @need = Need.find(12683)
 
       unless @need.visitee.full_name == 'François Cagette'
@@ -219,6 +246,10 @@ namespace :staging do
     })
     expert.institution = Institution.find(80)
     expert.antenne.update(name: 'Urssaf Démo')
+  end
+
+  def staging_app?
+    Rails.env.production? && ((ENV.fetch('STAGING_ENV', 'false')) == 'true')
   end
 
   desc 'transform data for staging'
