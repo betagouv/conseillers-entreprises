@@ -11,30 +11,13 @@
               = institution_subject.subject.label
             %hr
             %div.fr-mb-2w
-              %span.bold= [t('activerecord.attributes.referencement_coverage.coverage'), ':'].join(' ')
-              = t(referencement_coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.long')
+              - if referencement_coverage[:coverage].present?
+                %span.bold= [t('activerecord.attributes.referencement_coverage.coverage'), ':'].join(' ')
+                = t(referencement_coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.long')
             %div.fr-mb-2w
               %span.bold= [t('activerecord.attributes.referencement_coverage.anomalie'), ':'].join(' ')
               = t(referencement_coverage[:anomalie], scope: 'activerecord.attributes.referencement_coverage/anomalie')
             - if referencement_coverage[:anomalie_details].present?
               %div
                 %span.bold= [t('activerecord.attributes.referencement_coverage.anomalie_details'), ':'].join(' ')
-                %ul
-                  - referencement_coverage[:anomalie_details].each do |anomalie_type, value|
-                    %li
-                      %span.bold= [t(anomalie_type, scope: 'activerecord.attributes.referencement_coverage/anomalie_details'), ':'].join(' ')
-                      - territories = referencement_coverage_anomalie(anomalie_type, value)
-                      - if territories.present? && (anomalie_type == :extra_insee_codes || anomalie_type == :missing_insee_codes)
-                        %ul
-                          - territories.each do |territory|
-                            - next if territory[:territories].blank?
-                            %li
-                              = "#{territory[:zone_type].capitalize} :"
-                              %ul
-                                - territory[:territories].each do |territory|
-                                  %li= "#{territory[:name]} (#{territory[:code]})"
-                      - if anomalie_type == :experts
-                        %ul
-                          - value.each do |expert_id|
-                            - expert = Expert.find(expert_id)
-                            %li= link_to expert.full_name, admin_expert_path(expert), 'data-turbo': false
+                = build_coverage_details(referencement_coverage[:anomalie_details])
