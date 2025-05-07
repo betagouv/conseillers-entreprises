@@ -294,7 +294,6 @@ ActiveAdmin.register Expert do
     :antenne_id,
     :email,
     :phone_number,
-    :insee_codes,
     :is_global_zone,
     user_ids: [],
     experts_subjects_ids: [],
