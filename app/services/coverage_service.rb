@@ -33,6 +33,7 @@ class CoverageService
       .without_territorial_zones
       .where(antenne_id: all_potential_antennes_ids)
       .select { |expert| (expert.antenne.insee_codes & insee_codes).any? }
+      .uniq
   end
 
   def get_experts_with_specific_territories(insee_codes, institution_subject)
@@ -40,6 +41,7 @@ class CoverageService
       .with_territorial_zones
       .where(antenne_id: all_potential_antennes_ids)
       .select { |expert| (expert.insee_codes & insee_codes).any? }
+      .uniq
   end
 
   def all_potential_antennes_ids
@@ -161,8 +163,8 @@ class CoverageService
     code_experts_users_hash.values.flatten.uniq.pluck(:expert_id)
   end
 
-  def format_territories(missing_codes)
-    DecoupageAdministratif::Search.new(missing_codes).by_insee_codes.map do |zone_type, territory|
+  def format_territories(codes)
+    DecoupageAdministratif::Search.new(codes).by_insee_codes.map do |zone_type, territory|
       {
         zone_type: zone_type,
         territories: territory.map do |t|
