@@ -83,6 +83,10 @@ You can import production data in staging application, if you want to test featu
 
 You may encounter dependencies problems. If so, you may have to change `/lib/tasks/import_prod_to_staging.rake` in order to drop a few problematic tables in staging before restoring database.
 
+### Staging data transformation
+
+If you want to refresh demo data, you can run `scalingo --app ce-staging run rake staging:refresh_demo_data`.
+
 ## API Conseillers-Entreprises
 
 ### Documentation
