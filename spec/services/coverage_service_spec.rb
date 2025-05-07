@@ -106,13 +106,13 @@ describe CoverageService do
 
         before { subject }
 
-        # TODO ajouter un test qui affiche d'autres territoires manquants que des codes insee
-        #
         it do
           expect(subject[:institution_subject_id]).to eq(institution_subject.id)
           expect(subject[:coverage]).to eq(:local)
           expect(subject[:anomalie]).to eq(:missing_insee_codes)
-          expect(subject[:anomalie_details][:missing_insee_codes]).to contain_exactly(briosne_insee_code, jauzé_insee_code, beaufay_insee_code)
+          expect(subject[:anomalie_details][:missing_insee_codes].last[:zone_type]).to eq :communes
+          expect(subject[:anomalie_details][:missing_insee_codes].last[:territories]).to eq [{:code=>"72026", :name=>"Beaufay"}, {:code=>"72048", :name=>"Briosne-lès-Sables"}, {:code=>"72148", :name=>"Jauzé"}]
+
         end
       end
 
@@ -127,7 +127,8 @@ describe CoverageService do
           expect(subject[:institution_subject_id]).to eq(institution_subject.id)
           expect(subject[:coverage]).to eq(:local)
           expect(subject[:anomalie]).to eq(:missing_insee_codes)
-          expect(subject[:anomalie_details][:missing_insee_codes]).to contain_exactly(briosne_insee_code, jauzé_insee_code)
+          expect(subject[:anomalie_details][:missing_insee_codes].last[:zone_type]).to eq :communes
+          expect(subject[:anomalie_details][:missing_insee_codes].last[:territories]).to eq [{:code=>"72048", :name=>"Briosne-lès-Sables"}, {:code=>"72148", :name=>"Jauzé"}]
         end
       end
 
@@ -143,7 +144,8 @@ describe CoverageService do
           expect(subject[:coverage]).to eq(:local)
           expect(subject[:anomalie]).to eq(:extra_insee_codes)
           expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert1.id, local_expert2.id)
-          expect(subject[:anomalie_details][:extra_insee_codes]).to contain_exactly(bonnétable_insee_code, beaufay_insee_code, jauzé_insee_code, briosne_insee_code)
+          expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
+          expect(subject[:anomalie_details][:extra_insee_codes].last[:territories]).to eq [{:code=>"72026", :name=>"Beaufay"}, {:code=>"72039", :name=>"Bonnétable"}, {:code=>"72048", :name=>"Briosne-lès-Sables"}, {:code=>"72148", :name=>"Jauzé"}]
         end
       end
 
@@ -159,7 +161,10 @@ describe CoverageService do
           expect(subject[:coverage]).to eq(:local)
           expect(subject[:anomalie]).to eq(:extra_insee_codes)
           expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert1.id, local_expert2.id)
-          expect(subject[:anomalie_details][:extra_insee_codes]).to contain_exactly(bonnétable_insee_code, beaufay_insee_code, jauzé_insee_code, briosne_insee_code)
+          expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
+          expect(subject[:anomalie_details][:extra_insee_codes].last[:territories]).to eq [{:code=>"72026", :name=>"Beaufay"}, {:code=>"72039", :name=>"Bonnétable"}, {:code=>"72048", :name=>"Briosne-lès-Sables"}, {:code=>"72148", :name=>"Jauzé"}]
+
+          # expect(subject[:anomalie_details][:extra_insee_codes]).to contain_exactly(bonnétable_insee_code, beaufay_insee_code, jauzé_insee_code, briosne_insee_code)
         end
       end
     end
@@ -232,7 +237,8 @@ describe CoverageService do
           expect(subject[:institution_subject_id]).to eq(institution_subject.id)
           expect(subject[:coverage]).to eq(:regional)
           expect(subject[:anomalie]).to eq(:missing_insee_codes)
-          expect(subject[:anomalie_details][:missing_insee_codes]).to contain_exactly(briosne_insee_code, beaufay_insee_code)
+          expect(subject[:anomalie_details][:missing_insee_codes].last[:zone_type]).to eq :communes
+          expect(subject[:anomalie_details][:missing_insee_codes].last[:territories]).to eq [{:code=>"72026", :name=>"Beaufay"}, {:code=>"72048", :name=>"Briosne-lès-Sables"}]
         end
       end
 
@@ -247,7 +253,8 @@ describe CoverageService do
           expect(subject[:institution_subject_id]).to eq(institution_subject.id)
           expect(subject[:coverage]).to eq(:regional)
           expect(subject[:anomalie]).to eq(:missing_insee_codes)
-          expect(subject[:anomalie_details][:missing_insee_codes]).to contain_exactly(bonnétable_insee_code, beaufay_insee_code)
+          expect(subject[:anomalie_details][:missing_insee_codes].last[:zone_type]).to eq :communes
+          expect(subject[:anomalie_details][:missing_insee_codes].last[:territories]).to eq [{:code=>"72026", :name=>"Beaufay"}, {:code=>"72039", :name=>"Bonnétable"}]
         end
       end
 
@@ -263,7 +270,8 @@ describe CoverageService do
           # TODO : coverage mixte ?
           expect(subject[:coverage]).to eq(:regional)
           expect(subject[:anomalie]).to eq(:missing_insee_codes)
-          expect(subject[:anomalie_details][:missing_insee_codes]).to contain_exactly(bonnétable_insee_code, beaufay_insee_code)
+          expect(subject[:anomalie_details][:missing_insee_codes].last[:zone_type]).to eq :communes
+          expect(subject[:anomalie_details][:missing_insee_codes].last[:territories]).to eq [{:code=>"72026", :name=>"Beaufay"}, {:code=>"72039", :name=>"Bonnétable"}]
         end
       end
 
@@ -279,7 +287,8 @@ describe CoverageService do
           expect(subject[:coverage]).to eq(:regional)
           expect(subject[:anomalie]).to eq(:extra_insee_codes)
           expect(subject[:anomalie_details][:experts]).to contain_exactly(regional_expert1.id, regional_expert2.id)
-          expect(subject[:anomalie_details][:extra_insee_codes]).to contain_exactly(bonnétable_insee_code, beaufay_insee_code, jauzé_insee_code, briosne_insee_code)
+          expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
+          expect(subject[:anomalie_details][:extra_insee_codes].last[:territories]).to eq [{:code=>"72026", :name=>"Beaufay"}, {:code=>"72039", :name=>"Bonnétable"}, {:code=>"72048", :name=>"Briosne-lès-Sables"}, {:code=>"72148", :name=>"Jauzé"}]
         end
       end
 
@@ -295,7 +304,8 @@ describe CoverageService do
           expect(subject[:coverage]).to eq(:regional)
           expect(subject[:anomalie]).to eq(:extra_insee_codes)
           expect(subject[:anomalie_details][:experts]).to contain_exactly(regional_expert1.id, regional_expert2.id)
-          expect(subject[:anomalie_details][:extra_insee_codes]).to contain_exactly(bonnétable_insee_code, beaufay_insee_code, jauzé_insee_code, briosne_insee_code)
+          expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
+          expect(subject[:anomalie_details][:extra_insee_codes].last[:territories]).to eq [{:code=>"72026", :name=>"Beaufay"}, {:code=>"72039", :name=>"Bonnétable"}, {:code=>"72048", :name=>"Briosne-lès-Sables"}, {:code=>"72148", :name=>"Jauzé"}]
         end
       end
 
@@ -312,7 +322,8 @@ describe CoverageService do
           expect(subject[:coverage]).to eq(:regional)
           expect(subject[:anomalie]).to eq(:extra_insee_codes)
           expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert.id, regional_expert.id)
-          expect(subject[:anomalie_details][:extra_insee_codes]).to contain_exactly(bonnétable_insee_code, beaufay_insee_code, jauzé_insee_code, briosne_insee_code)
+          expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
+          expect(subject[:anomalie_details][:extra_insee_codes].last[:territories]).to eq [{:code=>"72026", :name=>"Beaufay"}, {:code=>"72039", :name=>"Bonnétable"}, {:code=>"72048", :name=>"Briosne-lès-Sables"}, {:code=>"72148", :name=>"Jauzé"}]
         end
       end
 
@@ -329,7 +340,8 @@ describe CoverageService do
           expect(subject[:coverage]).to eq(:regional)
           expect(subject[:anomalie]).to eq(:extra_insee_codes)
           expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert.id, regional_expert.id)
-          expect(subject[:anomalie_details][:extra_insee_codes]).to contain_exactly(bonnétable_insee_code, beaufay_insee_code, jauzé_insee_code, briosne_insee_code)
+          expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
+          expect(subject[:anomalie_details][:extra_insee_codes].last[:territories]).to eq [{:code=>"72026", :name=>"Beaufay"}, {:code=>"72039", :name=>"Bonnétable"}, {:code=>"72048", :name=>"Briosne-lès-Sables"}, {:code=>"72148", :name=>"Jauzé"}]
         end
       end
 
