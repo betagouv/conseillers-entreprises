@@ -86,6 +86,7 @@ RSpec.describe "Solicitations API" do
             data = response.parsed_body['data']
 
             expect(data['institutions_partenaires']).to eq(["Chambre de Commerce et d'Industrie (CCI)", 'OPérateur de COmpétences (OPCO)'])
+            expect(data['solicitation_id']).to eq(Solicitation.last.id)
           end
 
           it 'creates a solicitation' do
