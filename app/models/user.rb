@@ -203,7 +203,7 @@ class User < ApplicationRecord
 
   scope :by_region, -> (region_code) do
     return if region_code.blank?
-    joins(:antenne, :experts).merge(Antenne.by_regions([region_code])).merge(Expert.by_regions([region_code]))
+    joins(:antenne, :experts).where(antenne: Antenne.by_regions([region_code]))
   end
 
   scope :regions_eq, -> (region_code) {
