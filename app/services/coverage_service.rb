@@ -10,6 +10,7 @@ class CoverageService
 
     experts_and_users_by_insee_code = antennes_insee_codes.index_with { [] }
     experts_without_specific_territories = get_experts_without_specific_territories(antennes_insee_codes, @institution_subject)
+
     experts_with_specific_territories = get_experts_with_specific_territories(antennes_insee_codes, @institution_subject)
 
     experts_without_specific_territories.each do |expert|
