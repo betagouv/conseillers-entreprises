@@ -61,7 +61,9 @@ module  Annuaire
 
     def coverage
       institution_subject = InstitutionSubject.find_by(id: params[:institution_subject_id])
-      coverage = CoverageService.new(institution_subject, @grouped_experts).call
+      coverage = Rails.cache.fetch(["coverage-service", institution_subject, @grouped_experts], expires_in: 2.minutes) do
+        CoverageService.new(institution_subject, @grouped_experts).call
+      end
       render partial: 'annuaire/users/coverage', locals: { institution_subject: institution_subject, coverage: coverage }
     end
 
