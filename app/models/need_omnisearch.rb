@@ -7,6 +7,7 @@
 #
 # Indexes
 #
+#  index_need_omnisearches_on_need_id       (need_id) UNIQUE
 #  index_need_omnisearches_on_tsv_document  (tsv_document) USING gin
 #
 class NeedOmnisearch < ApplicationRecord
@@ -16,22 +17,18 @@ class NeedOmnisearch < ApplicationRecord
 
   pg_search_scope :search,
                   against: :tsv_document,
-                  using: { 
-                    tsearch: { 
+                  using: {
+                    tsearch: {
                       prefix: true,
-                      tsvector_column: 'tsv_document', 
-                    } 
+                      tsvector_column: 'tsv_document',
+                    }
                   },
                   ignoring: :accents
 
-  # pg_search_scope :omnisearch,
-  #                 against: [:content],
-  #                 associated_against: {
-  #                   visitee: [:full_name, :email],
-  #                   company: [:name, :siren],
-  #                   facility: :readable_locality,
-  #                   subject: :label
-  #                 },
-  #                 using: { tsearch: { prefix: true } },
-  #                 ignoring: :accents
+  def self.refresh_materialized_view
+    Scenic.database.refresh_materialized_view(
+      :need_omnisearches,
+      concurrently: true,
+    )
+  end
 end
