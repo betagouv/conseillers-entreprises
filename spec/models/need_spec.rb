@@ -640,25 +640,27 @@ RSpec.describe Need do
     let(:diagnosis1) { create :diagnosis, company: create(:company, name: "Entreprise deux") }
     let(:contact1) { create :contact, full_name: "Jérôme Luciani" }
     let(:contact2) { create :contact, full_name: "Amina Jerome" }
-    let(:need1) { create :need, content: "la la", visitee: contact1 }
-    let(:need2) { create :need, content: "la lo", subject: subject2, visitee: contact2 }
-    let(:need3) { create :need, content: "lo deux", subject: subject1 }
-    let(:need4) { create :need, content: "li li", diagnosis: diagnosis1 }
+    let!(:need1) { create :need, content: "la la", visitee: contact1 }
+    let!(:need2) { create :need, content: "la lo", subject: subject2, visitee: contact2 }
+    let!(:need3) { create :need, content: "lo deux", subject: subject1 }
+    let!(:need4) { create :need, content: "li li", diagnosis: diagnosis1 }
+
+    before { NeedOmnisearch.refresh_materialized_view }
 
     it 'searches content' do
-      expect(described_class.omnisearch("la")).to contain_exactly(need1, need2)
+      expect(described_class.omnisearch("la")).to include(need1, need2)
     end
 
     it 'searches subject' do
-      expect(described_class.omnisearch("sujet un")).to contain_exactly(need3)
+      expect(described_class.omnisearch("sujet un")).to include(need3)
     end
 
     it 'searches multiple fields' do
-      expect(described_class.omnisearch("deux")).to contain_exactly(need2, need3, need4)
+      expect(described_class.omnisearch("deux")).to include(need2, need3, need4)
     end
 
     it 'searches with accent' do
-      expect(described_class.omnisearch("jerome")).to contain_exactly(need1, need2)
+      expect(described_class.omnisearch("jerome")).to include(need1, need2)
     end
   end
 

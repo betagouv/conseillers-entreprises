@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_03_155501) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_06_135642) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -800,4 +800,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_03_155501) do
   add_foreign_key "user_rights", "users"
   add_foreign_key "users", "antennes"
   add_foreign_key "users", "users", column: "inviter_id"
+
+  create_view "need_omnisearches", materialized: true, sql_definition: <<-SQL
+      SELECT needs.id AS need_id,
+      ((((((to_tsvector('simple'::regconfig, unaccent(COALESCE(needs.content, ''::text))) || to_tsvector('simple'::regconfig, unaccent(COALESCE((subjects.label)::text, ''::text)))) || to_tsvector('simple'::regconfig, unaccent(COALESCE((facilities.readable_locality)::text, ''::text)))) || to_tsvector('simple'::regconfig, unaccent(COALESCE((companies.name)::text, ''::text)))) || to_tsvector('simple'::regconfig, unaccent(COALESCE((companies.siren)::text, ''::text)))) || to_tsvector('simple'::regconfig, unaccent(COALESCE((contacts.full_name)::text, ''::text)))) || to_tsvector('simple'::regconfig, unaccent(COALESCE((contacts.email)::text, ''::text)))) AS tsv_document
+     FROM (((((needs
+       JOIN subjects ON ((subjects.id = needs.subject_id)))
+       JOIN diagnoses ON ((diagnoses.id = needs.diagnosis_id)))
+       JOIN facilities ON ((facilities.id = diagnoses.facility_id)))
+       JOIN companies ON ((companies.id = facilities.company_id)))
+       JOIN contacts ON ((contacts.id = diagnoses.visitee_id)));
+  SQL
+  add_index "need_omnisearches", ["need_id"], name: "index_need_omnisearches_on_need_id", unique: true
+  add_index "need_omnisearches", ["tsv_document"], name: "index_need_omnisearches_on_tsv_document", using: :gin
+
 end

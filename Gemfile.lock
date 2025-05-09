@@ -622,6 +622,9 @@ GEM
       google-protobuf (~> 4.30)
     sassc-embedded (1.80.4)
       sass-embedded (~> 1.80)
+    scenic (1.8.0)
+      activerecord (>= 4.0.0)
+      railties (>= 4.0.0)
     securerandom (0.4.1)
     selectize-rails (0.12.6)
     selenium-webdriver (4.29.1)
@@ -828,6 +831,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   rubocop-rspec_rails
+  scenic
   selenium-webdriver
   sentry-rails
   sentry-ruby

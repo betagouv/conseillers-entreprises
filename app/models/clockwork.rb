@@ -9,6 +9,9 @@ module Clockwork
   every(1.week, 'anonymize_old_diagnoses', at: 'sunday 5:00', tz: 'UTC') do
     `rake anonymize_old_diagnoses`
   end
+  every(1.day, 'refresh_needs_omnisearch', at: ['09:00', '11:00','14:00', '16:00'], tz: 'UTC') do
+    NeedOmnisearch.refresh_materialized_view
+  end
   every(1.day, 'revoke_api_keys', at: ('2:00'), if: -> (t) { t.day == 1 }, tz: 'UTC') do
     Api::ApiKeysRevokeJob.perform_later
   end
