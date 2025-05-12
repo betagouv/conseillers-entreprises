@@ -1,5 +1,5 @@
 class Api::V1::SolicitationSerializer < ActiveModel::Serializer
-  attributes :uuid, :code_region, :description, :email, :full_name, :status,
+  attributes :id, :uuid, :code_region, :description, :email, :full_name, :status,
              :location, :phone_number, :siret, :landing_subject, :origin_url
 
   has_many :subject_answers, key: :questions_additionnelles, serializer: Api::V1::SimpleSubjectAnswerSerializer
