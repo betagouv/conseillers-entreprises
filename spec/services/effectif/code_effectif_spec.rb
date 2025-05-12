@@ -16,6 +16,12 @@ RSpec.describe Effectif::CodeEffectif, type: :model do
       it{ is_expected.to eq 'Autre' }
     end
 
+    context 'empty string code' do
+      let(:code) { "" }
+
+      it{ is_expected.to eq 'Autre' }
+    end
+
     context 'invalid code' do
       let(:code) { 'Invalid' }
 
