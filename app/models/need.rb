@@ -31,7 +31,7 @@
 class Need < ApplicationRecord
   ##
   #
-  include PgSearch::Model
+
   include Archivable
   include RangeScopes
   include MandatoryAnswers
@@ -111,17 +111,6 @@ class Need < ApplicationRecord
     last_chance: 21,
     abandon: 45
   }
-
-  pg_search_scope :omnisearch,
-                  against: [:content],
-                  associated_against: {
-                    visitee: [:full_name, :email],
-                    company: [:name, :siren],
-                    facility: :readable_locality,
-                    subject: :label
-                  },
-                  using: { tsearch: { prefix: true } },
-                  ignoring: :accents
 
   scope :ordered_for_interview, -> do
     left_outer_joins(:subject)
@@ -307,6 +296,10 @@ class Need < ApplicationRecord
       .or(Need.diagnosis_completed.where(diagnosis: { facilities: { siret: sirets.compact } }))
   end
 
+  scope :omnisearch, -> (query) do
+    where(id: NeedOmnisearch.search(query).select(:need_id))
+  end
+
   scope :by_region, -> (region_id) do
     joins(facility: :commune).merge(Commune.by_region(region_id))
   end
@@ -361,9 +354,7 @@ class Need < ApplicationRecord
     klass = klass.by_region(params[:by_region]) if params[:by_region].present?
     klass = klass.by_theme(params[:theme_id]) if params[:theme_id].present?
     klass = klass.by_subject(params[:subject_id]) if params[:subject_id].present?
-    # with_pg_search_rank : pour contrer erreur sur le distinct.
-    # Cf https://github.com/Casecommons/pg_search/issues/238
-    klass = klass.omnisearch(params[:omnisearch]).with_pg_search_rank if params[:omnisearch].present?
+    klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
     klass = klass.created_since(params[:created_since]) if params[:created_since].present?
     klass = klass.created_until(params[:created_until]) if params[:created_until].present?
     klass = klass.by_antenne(params[:antenne_id]) if params[:antenne_id].present?

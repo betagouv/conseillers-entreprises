@@ -49,6 +49,7 @@ gem 'rswag-api'
 gem 'rswag-ui'
 gem 'faker'
 gem 'pg_search'
+gem "scenic"
 
 # Charts
 gem 'highcharts-rails'
