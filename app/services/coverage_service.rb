@@ -15,11 +15,14 @@ class CoverageService
 
     experts_without_specific_territories.each do |expert|
       expert.antenne.insee_codes.each do |insee_code|
+        # Parfois il y a des communes déléguées qui n'apparaissent pas dans les codes INSEE de l'antenne
+        next if experts_and_users_by_insee_code[insee_code].nil?
         experts_and_users_by_insee_code[insee_code] << { expert_id: expert.id, users_ids: expert.users.ids }
       end
     end
     experts_with_specific_territories.each do |expert|
       expert.insee_codes.each do |insee_code|
+        next if experts_and_users_by_insee_code[insee_code].nil?
         experts_and_users_by_insee_code[insee_code] << { expert_id: expert.id, users_ids: expert.users.ids }
       end
     end
@@ -141,21 +144,13 @@ class CoverageService
 
   def get_coverage(experts_ids)
     # TODO revoir cette methode
-    expert_antenne_ids = Expert.where(id: experts_ids).pluck(:antenne_id).uniq
-    if expert_antenne_ids == @antennes.map(&:id)
-      if @antennes.map(&:territorial_level).uniq.size == 1
-        @antennes.first.territorial_level.to_sym
-      else
-        :mixte
-      end
-    elsif expert_antenne_ids.include?(@antennes.map(&:id))
-      :mixte
+    # Ne porendre que les antennes avec des experts et des sujets
+    experts_antennes = Expert.where(id: experts_ids).map(&:antenne).uniq
+    territorial_level = experts_antennes.pluck(:territorial_level).uniq
+    if territorial_level.size == 1
+      territorial_level.first.to_sym
     else
-      if @antennes.map(&:territorial_level).uniq.size == 1
-        @antennes.first.territorial_level.to_sym
-      else
-        :mixte
-      end
+      :mixte
     end
   end
 

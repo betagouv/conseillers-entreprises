@@ -16,6 +16,14 @@ describe CoverageService do
     [beaufay, bonnétable, briosne, jauzé]
   end
 
+  def create_departements
+    cantal = create(:territorial_zone, zone_type: :departement, code: '15')
+    loire = create(:territorial_zone, zone_type: :departement, code: '42')
+    rhone = create(:territorial_zone, zone_type: :departement, code: '69')
+    haute_loire = create(:territorial_zone, zone_type: :departement, code: '43')
+    [cantal, loire, rhone, haute_loire]
+  end
+
   describe '#call' do
     let(:institution) { create(:institution) }
     let!(:national_antenne) { create(:antenne, :national, institution: institution) }
@@ -32,7 +40,6 @@ describe CoverageService do
     context "Territories with INSEE codes" do
       let!(:regional_antenne) { create(:antenne, :regional, institution: institution, parent_antenne: national_antenne, territorial_zones: create_communes) }
       let!(:local_antenne) { create(:antenne, :local, institution: institution, parent_antenne: regional_antenne, territorial_zones: create_communes) }
-      let!(:region) { create(:territorial_zone, zone_type: :region, code: '52') }
       let(:beaufay_insee_code) { '72026' }
       let(:bonnétable_insee_code) { '72039' }
       let(:briosne_insee_code) { '72048' }
@@ -212,7 +219,7 @@ describe CoverageService do
         context 'des experts au niveau régional et local avec des territoires spécifique couvrent tout le territoire' do
           let(:tz1) { [create(:territorial_zone, zone_type: :commune, code: beaufay_insee_code), create(:territorial_zone, zone_type: :commune, code: bonnétable_insee_code)] }
           let(:tz2) { [create(:territorial_zone, zone_type: :commune, code: briosne_insee_code), create(:territorial_zone, zone_type: :commune, code: jauzé_insee_code)] }
-          let!(:local_expert) { create(:expert_with_users, antenne: regional_antenne, territorial_zones: tz1, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+          let!(:local_expert) { create(:expert_with_users, antenne: local_antenne, territorial_zones: tz1, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
           let!(:regional_expert) { create(:expert_with_users, antenne: regional_antenne, territorial_zones: tz2, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
           let(:grouped_experts) { { regional_antenne => { regional_expert => regional_expert.users }, local_antenne => { local_expert => local_expert.users } } }
 
@@ -318,8 +325,7 @@ describe CoverageService do
 
           it do
             expect(subject[:institution_subject_id]).to eq(institution_subject.id)
-            # TODO : coverage mixte ?
-            expect(subject[:coverage]).to eq(:regional)
+            expect(subject[:coverage]).to eq(:mixte)
             expect(subject[:anomalie]).to eq(:extra_insee_codes)
             expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert.id, regional_expert.id)
             expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
@@ -336,8 +342,7 @@ describe CoverageService do
 
           it do
             expect(subject[:institution_subject_id]).to eq(institution_subject.id)
-            # TODO : coverage mixte ?
-            expect(subject[:coverage]).to eq(:regional)
+            expect(subject[:coverage]).to eq(:mixte)
             expect(subject[:anomalie]).to eq(:extra_insee_codes)
             expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert.id, regional_expert.id)
             expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
@@ -395,18 +400,9 @@ describe CoverageService do
       end
     end
 
-    def create_departements
-      cantal = create(:territorial_zone, zone_type: :departement, code: '15')
-      loire = create(:territorial_zone, zone_type: :departement, code: '42')
-      rhone = create(:territorial_zone, zone_type: :departement, code: '69')
-      haute_loire = create(:territorial_zone, zone_type: :departement, code: '43')
-      [cantal, loire, rhone, haute_loire]
-    end
-
     context "Territories with departments" do
       let!(:regional_antenne) { create(:antenne, :regional, institution: institution, parent_antenne: national_antenne, territorial_zones: create_departements) }
       let!(:local_antenne) { create(:antenne, :local, institution: institution, parent_antenne: regional_antenne, territorial_zones: create_departements) }
-      # let!(:region) { create(:territorial_zone, zone_type: :region, code: '52') }
       let(:cantal_code) { '15' }
       let(:loire_code) { '42' }
       let(:rhone_code) { '69' }
@@ -415,6 +411,29 @@ describe CoverageService do
       context 'un ou plusieurs experts au niveau local avec des territoires spécifiques couvrent tous les départements' do
         let!(:local_expert) { create(:expert_with_users, antenne: local_antenne, territorial_zones: create_departements, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
         let(:grouped_experts) { { local_antenne => { local_expert => local_expert.users } } }
+
+        before { subject }
+
+        it do
+          expect(subject[:institution_subject_id]).to eq(institution_subject.id)
+          expect(subject[:coverage]).to eq(:local)
+          expect(subject[:anomalie]).to eq(:no_anomalie)
+          expect(subject[:anomalie_details]).to be_nil
+        end
+      end
+
+      context 'un ou plusieurs experts de plusieurs antennes au niveau local avec des territoires spécifiques couvrent tous les départements' do
+        # Antenne 1 avec deux départements(15 et 42) que deux experts se repartissent
+        # Antenne 2 avec deux départements(69 et 43) et un seul expert
+        let(:departments1) { [create(:territorial_zone, zone_type: :departement, code: cantal_code), create(:territorial_zone, zone_type: :departement, code: loire_code)] }
+        let(:departments2) { [create(:territorial_zone, zone_type: :departement, code: rhone_code), create(:territorial_zone, zone_type: :departement, code: haute_loire_code)] }
+        let!(:local_antenne1) { create(:antenne, :local, institution: institution, parent_antenne: regional_antenne, territorial_zones: departments1) }
+        let!(:local_antenne2) { create(:antenne, :local, institution: institution, parent_antenne: regional_antenne, territorial_zones: departments2) }
+
+        let!(:local_expert1_1) { create(:expert_with_users, antenne: local_antenne1, territorial_zones: [create(:territorial_zone, zone_type: :departement, code: cantal_code)], experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+        let!(:local_expert1_2) { create(:expert_with_users, antenne: local_antenne1, territorial_zones: [create(:territorial_zone, zone_type: :departement, code: loire_code)], experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+        let!(:local_expert2) { create(:expert_with_users, antenne: local_antenne2, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+        let(:grouped_experts) { { local_antenne1 => { local_expert1_1 => local_expert1_1.users, local_expert1_2 => local_expert1_2.users }, local_antenne2 => { local_expert2 => local_expert2.users } } }
 
         before { subject }
 
@@ -458,6 +477,88 @@ describe CoverageService do
           expect(subject[:anomalie_details][:extra_insee_codes].first[:zone_type]).to eq :departements
           expect(subject[:anomalie_details][:extra_insee_codes].first[:territories]).to eq [{ :code => "42", :name => "Loire" }]
         end
+      end
+    end
+  end
+
+  describe "#get_coverage" do
+    let(:institution) { create(:institution) }
+    let!(:institution_subject) { create(:institution_subject, institution: institution) }
+    let!(:national_antenne) { create(:antenne, :national, institution: institution) }
+    let!(:regional_antenne) { create(:antenne, :regional, institution: institution, parent_antenne: national_antenne, territorial_zones: create_communes) }
+    let!(:local_antenne) { create(:antenne, :local, institution: institution, parent_antenne: regional_antenne, territorial_zones: create_communes) }
+
+    before do
+      national_antenne.reload
+      regional_antenne.reload
+      local_antenne.reload
+    end
+
+    subject { described_class.new(institution_subject, grouped_experts).send(:get_coverage, [experts_ids]) }
+
+    context "local coverage" do
+      let!(:local_expert) { create(:expert_with_users, antenne: local_antenne, territorial_zones: create_communes, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+
+      context "with one antenne" do
+        let(:grouped_experts) { { local_antenne => { local_expert => local_expert.users } } }
+        let(:experts_ids) { local_expert.id }
+
+        before { subject }
+
+        it do
+          is_expected.to eq(:local)
+        end
+      end
+
+      describe "with two antennes and a regional antennes with only manager" do
+        let(:grouped_experts) { { local_antenne => { local_expert => local_expert.users }, regional_antenne => { Expert.new => [create(:user, :manager, antenne: regional_antenne)] } } }
+        let(:experts_ids) { local_expert.id }
+
+        before { subject }
+
+        it do
+          is_expected.to eq(:local)
+        end
+      end
+    end
+
+    context "regional coverage" do
+      let!(:regional_expert) { create(:expert_with_users, antenne: regional_antenne, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+
+      context "with one antenne" do
+        let(:grouped_experts) { { regional_antenne => { regional_expert => regional_expert.users } } }
+        let(:experts_ids) { regional_expert.id }
+
+        before { subject }
+
+        it do
+          is_expected.to eq(:regional)
+        end
+
+      end
+
+      context "with two antennes and a national antenne with only manager" do
+        let(:grouped_experts) { { regional_antenne => { regional_expert => regional_expert.users }, national_antenne => { Expert.new => [create(:user, :manager, antenne: national_antenne)] } } }
+        let(:experts_ids) { regional_expert.id }
+
+        before { subject }
+
+        it do
+          is_expected.to eq(:regional)
+        end
+      end
+    end
+
+    context "mixte coverage" do
+      let!(:local_expert) { create(:expert_with_users, antenne: local_antenne, territorial_zones: create_communes, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+      let!(:regional_expert) { create(:expert_with_users, antenne: regional_antenne, territorial_zones: create_communes, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+      let(:grouped_experts) { { local_antenne => { local_expert => local_expert.users }, regional_antenne => { regional_expert => regional_expert.users } } }
+      let(:experts_ids) { [local_expert.id, regional_expert.id] }
+
+      before { subject }
+
+      it do
+        is_expected.to eq(:mixte)
       end
     end
   end
