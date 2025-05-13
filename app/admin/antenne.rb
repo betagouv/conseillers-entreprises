@@ -184,7 +184,7 @@ ActiveAdmin.register Antenne do
     :id, :min_years_of_existence, :max_years_of_existence, :effectif_max, :effectif_min,
     :raw_accepted_naf_codes, :raw_excluded_naf_codes, :raw_accepted_legal_forms, :raw_excluded_legal_forms, :_destroy, subject_ids: []
   ]
-  permit_params :name, :institution_id, :insee_codes, :territorial_level,
+  permit_params :name, :institution_id, :territorial_level,
                 advisor_ids: [], expert_ids: [], manager_ids: [], match_filters_attributes: match_filters_attributes, territorial_zones_attributes: [:id, :zone_type, :code, :_destroy]
 
   form do |f|
@@ -201,7 +201,6 @@ ActiveAdmin.register Antenne do
                 url: :admin_users_path,
                 search_fields: [:full_name]
               }
-      f.input :insee_codes, as: :text
       f.input :territorial_level, as: :select, collection: Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a
     end
 
