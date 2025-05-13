@@ -8,7 +8,7 @@ fr:
     antennes:
       deleted: Antennes supprimées avec succès
       stats_reports: Rapports statistiques
-      territorial_antennes: 'Antennes du territoire : '
+      territorial_antennes: 'Antennes du territoire (%{count}) : '
     company_satisfaction:
       share: Partager
       share_confirmation: Etes-vous sûr de vouloir partager ce commentaire aux conseillers qui ont aidé l'entreprise ?

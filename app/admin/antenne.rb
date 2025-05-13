@@ -89,7 +89,7 @@ ActiveAdmin.register Antenne do
       row(:territorial_level) do |a|
         div a.territorial_level
         if a.regional?
-          span I18n.t('active_admin.antennes.territorial_antennes')
+          span I18n.t('active_admin.antennes.territorial_antennes', count: a.territorial_antennes.count)
           a.territorial_antennes
         end
       end
