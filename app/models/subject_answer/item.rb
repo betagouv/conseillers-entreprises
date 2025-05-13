@@ -3,7 +3,7 @@
 # Table name: subject_answers
 #
 #  id                         :bigint(8)        not null, primary key
-#  filter_value               :boolean
+#  filter_value               :string
 #  subject_questionable_type  :string
 #  type                       :string
 #  created_at                 :datetime         not null

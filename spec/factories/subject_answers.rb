@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :subject_answer do
     subject_question
-    filter_value { Faker::Boolean.boolean }
+    filter_value { ["true", "false", "other"].sample }
 
     factory :subject_answer_filter, class: "SubjectAnswer::Filter" do
       subject_answer_grouping

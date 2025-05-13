@@ -1,0 +1,8 @@
+mode_contact_privilegie:
+  - :tel 
+  - :mail 
+  - :visio
+  - :physique 
+moins_de_10k_restant_a_financer:
+  - 'true'
+  - 'false'

@@ -29,14 +29,21 @@
           %legend.fr-fieldset__legend{ id: "#{key}-legend" }= question_label(key, :long)
           = ff.hidden_field :id
           = ff.hidden_field :subject_question_id
-          .fr-fieldset__element.fr-fieldset__element--inline
-            .fr-radio-group
-              = ff.radio_button :filter_value, true, required: true
-              = ff.label :filter_value, I18n.t('true', scope: [:activerecord, :attributes, :subject_questions, key], default: t('yes').titleize), value: true, class: 'fr-label'
-          .fr-fieldset__element.fr-fieldset__element--inline
-            .fr-radio-group
-              = ff.radio_button :filter_value, false, required: true
-              = ff.label :filter_value, I18n.t('false', scope: [:activerecord, :attributes, :subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
+          - if specific_answers_file[key].present?
+            - specific_answers_file[key].each do |answer_key|
+              .fr-fieldset__element.fr-fieldset__element--inline
+                .fr-radio-group
+                  = ff.radio_button :filter_value, answer_key, required: true
+                  = ff.label :filter_value, t(answer_key, scope: [:activerecord, :attributes, :subject_questions, key, :answers]), value: answer_key, class: 'fr-label'
+          - else
+            .fr-fieldset__element.fr-fieldset__element--inline
+              .fr-radio-group
+                = ff.radio_button :filter_value, true, required: true
+                = ff.label :filter_value, I18n.t('true', scope: [:activerecord, :attributes, :subject_questions, key], default: t('yes').titleize), value: true, class: 'fr-label'
+            .fr-fieldset__element.fr-fieldset__element--inline
+              .fr-radio-group
+                = ff.radio_button :filter_value, false, required: true
+                = ff.label :filter_value, I18n.t('false', scope: [:activerecord, :attributes, :subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
 
       - if @solicitation.certify_being_company_boss_required?
         %hr.fr-mt-5w

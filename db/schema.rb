@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_03_155501) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_13_130727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -625,7 +625,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_03_155501) do
     t.bigint "subject_question_id", null: false
     t.string "subject_questionable_type"
     t.bigint "subject_questionable_id"
-    t.boolean "filter_value"
+    t.string "filter_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "type"

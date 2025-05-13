@@ -138,7 +138,7 @@ RSpec.describe Conseiller::Diagnoses::StepsController do
       end
 
       context 'with answers provided' do
-        let(:subject_answers_attributes) { [ subject_question_id: additional_question.id, filter_value: true] }
+        let(:subject_answers_attributes) { [ subject_question_id: additional_question.id, filter_value: 'true'] }
 
         it 'updates need' do
           post :update_needs, params: params
@@ -146,7 +146,7 @@ RSpec.describe Conseiller::Diagnoses::StepsController do
           expect(diagnosis.step).to eq 'matches'
           expect(diagnosis.needs.first.subject).to eq new_subject
           expect(diagnosis.needs.first.subject_answers.size).to eq 1
-          expect(diagnosis.needs.first.subject_answers.first.filter_value).to be true
+          expect(diagnosis.needs.first.subject_answers.first.filter_value).to eq "true"
           expect(response).to redirect_to matches_conseiller_diagnosis_path(diagnosis)
         end
       end
@@ -154,7 +154,7 @@ RSpec.describe Conseiller::Diagnoses::StepsController do
 
     context 'Change from subject with questions to subject without questions' do
       let(:additional_question) { create :subject_question, subject: need.subject }
-      let!(:subject_answers) { [create(:need_subject_answer, subject_question: additional_question, filter_value: true, subject_questionable: need)] }
+      let!(:subject_answers) { [create(:need_subject_answer, subject_question: additional_question, filter_value: 'true', subject_questionable: need)] }
 
       let(:params) do
         {
