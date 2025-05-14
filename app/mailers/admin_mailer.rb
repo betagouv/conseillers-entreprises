@@ -9,12 +9,12 @@ class AdminMailer < ApplicationMailer
   def failed_jobs(jobs_count)
     @jobs_count = jobs_count
 
-    mail(to: ENV['TECH_EMAIL'], subject: t('mailers.admin_mailer.failed_jobs.subject', count: @jobs_count))
+    mail(subject: t('mailers.admin_mailer.failed_jobs.subject', count: @jobs_count))
   end
 
   def solicitation(solicitation)
     @solicitation = solicitation
-    mail(to: default_recipients, subject: t('mailers.admin_mailer.solicitation.subject'))
+    mail(subject: t('mailers.admin_mailer.solicitation.subject'))
   end
 
   def send_csv(model, ransack_params, file, user)
@@ -22,7 +22,7 @@ class AdminMailer < ApplicationMailer
     @ransack_params = ransack_params
     file_name = file.path.split('/').last
     attachments[file_name] = File.read(file.path)
-    mail(to: user.email, subject: t('mailers.admin_mailer.csv_export', model: @model_name))
+    mail(subject: t('mailers.admin_mailer.csv_export', model: @model_name))
   end
 
   private
