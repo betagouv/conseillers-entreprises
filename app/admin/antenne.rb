@@ -88,10 +88,15 @@ ActiveAdmin.register Antenne do
       end
       row(:territorial_level) do |a|
         div a.territorial_level
+      end
+      row(:territorial_antennes) do |a|
         if a.regional?
           span I18n.t('active_admin.antennes.territorial_antennes', count: a.territorial_antennes.count)
           a.territorial_antennes
         end
+      end
+      row(:parent_antenne) do |a|
+        a.parent_antenne
       end
       row(:community) do |a|
         div admin_link_to(a, :advisors)
