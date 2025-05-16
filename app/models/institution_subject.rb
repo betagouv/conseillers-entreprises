@@ -48,6 +48,10 @@ class InstitutionSubject < ApplicationRecord
            through: :institution, source: :institutions_subjects
   has_many :antennes, through: :institution, source: :institutions_subjects
 
+  #TODO Mtach filters
+  has_many :match_filters, -> { distinct }, through: :antennes
+  has_many :match_filters, -> { distinct }, through: :experts
+
   # Validations
   #
   # In an Institution, the same subject can only be selected several times`
