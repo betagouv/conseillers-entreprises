@@ -545,12 +545,22 @@ fr:
           label:
             long: La personne que vous souhaitez former est-elle salariée de votre entreprise ?
             short: Personne à former salariée de l'entreprise ?
+        mode_contact_privilegie:
+          answers:
+            mail: Par mail
+            physique: En rendez-vous physique
+            tel: Par téléphone
+            visio: Par visio
+          label:
+            long: Comment souhaitez-vous échanger avec le ou les conseillers ?
+            short: Moyen de contact privilégié ?
         moins_de_10k_restant_a_financer:
-          'false': 10 000 euros et plus
+          answers:
+            'false': 10 000 euros et plus
+            'true': moins de 10 000 euros
           label:
             long: Quel est le montant qu’il reste à financer pour votre projet (hors apport et prêt bancaire) ?
             short: Montant restant à financer ?
-          'true': moins de 10 000 euros
         outside_europe:
           label:
             long: Votre projet concerne-t-il un pays hors de l’Union européenne (27 pays) ?
