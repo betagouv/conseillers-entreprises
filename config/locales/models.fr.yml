@@ -8,7 +8,7 @@ fr:
     antennes:
       deleted: Antennes supprimées avec succès
       stats_reports: Rapports statistiques
-      territorial_antennes: 'Antennes du territoire (%{count}) : '
+      territorial_antennes: "%{count} antennes liées : "
     company_satisfaction:
       share: Partager
       share_confirmation: Etes-vous sûr de vouloir partager ce commentaire aux conseillers qui ont aidé l'entreprise ?
@@ -1045,6 +1045,7 @@ fr:
     opco: OPérateur de COmpétences (OPCO)
     optional: Optionnel
     page_title: Titre affiché sur la page
+    parent_antenne: Antenne mère
     phone_number: Téléphone
     pk_campaign: Campagne
     placeholder:
@@ -1108,6 +1109,7 @@ fr:
     teams:
       one: Équipe
       other: Équipes
+    territorial_antennes: Antennes du territoires
     territorial_level: Niveau territorial
     territories:
       one: Territoire
