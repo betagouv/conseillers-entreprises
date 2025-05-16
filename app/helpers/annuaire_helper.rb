@@ -36,23 +36,33 @@ module AnnuaireHelper
     end
   end
 
+  def build_coverage_button(institution_subject, coverage)
+    alert_classe = defines_alert_classe(coverage)
+    content_tag(:button, class: "coverage-modal-button #{alert_classe}", 'aria-controls': "modal-coverage-#{institution_subject.id}", 'data-fr-opened': 'false', title: referencement_coverage_cell_title(coverage)) do
+      t(coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.short', default: "?")
+    end
+  end
+
   def total_users(experts)
     # Permet de compter le nombre de users même non persistés pour afficher les experts sans user
     experts.each_value.sum{ |users| [users.size, 1].max }
   end
 
-  def build_coverage_details(anomalie_details)
+  def build_coverage_details(anomalie_details, institution_subject)
     content_tag(:ul) do
       anomalie_details.map do |anomalie_type, value|
-        content_tag(:li) do
-          content = []
-          content << content_tag(:span, "#{t(anomalie_type, scope: 'activerecord.attributes.referencement_coverage/anomalie_details')} :", class: 'bold')
+        content = []
+        content << content_tag(:li) do
+          inner_content = []
+          inner_content << content_tag(:span, "#{t(anomalie_type, scope: 'activerecord.attributes.referencement_coverage/anomalie_details')} :", class: '')
           territories = referencement_coverage_anomalie(anomalie_type, value)
-          content << display_territories(territories, anomalie_type)
-          content << display_experts(value) if anomalie_type == :experts
-          content.join.html_safe
+          inner_content << display_territories(territories, anomalie_type)
+          inner_content << display_experts(value) if anomalie_type == :experts
+          inner_content << display_match_filters(anomalie_details[:match_filters]) if anomalie_type == :match_filters && anomalie_details[:match_filters].values.flatten.any?
+          inner_content.join.html_safe
         end
-      end.join.html_safe
+        content
+      end.flatten.join.html_safe
     end
   end
 
@@ -64,6 +74,8 @@ module AnnuaireHelper
       end.join.html_safe
     end
   end
+
+  private
 
   def display_territories(territories, anomalie_type)
     content = []
@@ -87,6 +99,37 @@ module AnnuaireHelper
           content_tag(:li, "#{sub_territory[:name]} (#{sub_territory[:code]})")
         end.join.html_safe
       end
+      content.join.html_safe
+    end
+  end
+
+  def defines_alert_classe(coverage)
+    if coverage[:anomalie] == :no_anomalie
+      'success-table-cell'
+    elsif coverage[:anomalie] == :extra_insee_codes && coverage[:anomalie_details][:match_filters].values.flatten.any?
+      'warning-table-cell'
+    else
+      'error-table-cell'
+    end
+  end
+
+  def display_match_filters(match_filters)
+    content_tag(:ul) do
+
+      content = []
+      content << match_filters.map do |filtrable_element_type, filters|
+        next if filters.blank?
+        content_tag(:li) do
+          inner_content = []
+          inner_content << "#{filtrable_element_type} :"
+          inner_content << content_tag(:ul) do
+            filters.map do |filter|
+              content_tag(:li, filter)
+            end.join.html_safe
+          end
+          inner_content.join.html_safe
+        end
+        end.join.html_safe
       content.join.html_safe
     end
   end

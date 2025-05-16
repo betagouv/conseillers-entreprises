@@ -562,4 +562,29 @@ describe CoverageService do
       end
     end
   end
+
+  describe "#get_match_filters" do
+    let(:institution) { create(:institution) }
+    let!(:institution_subject) { create(:institution_subject, institution: institution) }
+    let!(:antenne) { create(:antenne, :local, institution: institution, territorial_zones: create_communes) }
+
+    before do
+      antenne.reload
+    end
+
+    subject { described_class.new(institution_subject, grouped_experts).send(:get_match_filters, experts_ids) }
+
+    context "Only antennes match filters" do
+      let(:antenne_match_filter) { create :antenne_match_filter, antenne: antenne }
+      let(:expert) { create(:expert_with_users, antenne: antenne, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+      let(:grouped_experts) { { antenne => { expert.id => expert.users } } }
+      let(:experts_ids) { [expert.id] }
+
+      before { subject }
+
+      it do
+        is_expected.to eq({ antenne_id: antenne.id })
+      end
+    end
+  end
 end

@@ -468,6 +468,7 @@ fr:
         experts: Experts concernés
         extra_insee_codes: Codes insee couverts par plusieurs experts
         missing_insee_codes: Codes insee non couverts
+        match_filters: "Des filtres de mise en relation sont présents pour ce sujet"
       referencement_coverage/coverage:
         long:
           local: Antenne locale

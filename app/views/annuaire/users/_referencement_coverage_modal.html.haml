@@ -8,16 +8,16 @@
               = t('navbar.close')
           .fr-modal__content
             %h1.fr-modal__title{ id: "modal-coverage-#{institution_subject.id}-title" }
-              = institution_subject.subject.label
+              = t(referencement_coverage[:anomalie], scope: 'activerecord.attributes.referencement_coverage/anomalie')
             %hr
             %div.fr-mb-2w
-              - if referencement_coverage[:coverage].present?
-                %span.bold= [t('activerecord.attributes.referencement_coverage.coverage'), ':'].join(' ')
-                = t(referencement_coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.long')
+              %span= "#{t('activerecord.models.subject.one')} :"
+              = institution_subject.subject.label
             %div.fr-mb-2w
-              %span.bold= [t('activerecord.attributes.referencement_coverage.anomalie'), ':'].join(' ')
-              = t(referencement_coverage[:anomalie], scope: 'activerecord.attributes.referencement_coverage/anomalie')
+              - if referencement_coverage[:coverage].present?
+                %span= "#{t('activerecord.attributes.referencement_coverage.coverage')} :"
+                = t(referencement_coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.long')
             - if referencement_coverage[:anomalie_details].present?
               %div
-                %span.bold= [t('activerecord.attributes.referencement_coverage.anomalie_details'), ':'].join(' ')
-                = build_coverage_details(referencement_coverage[:anomalie_details])
+                %span= "#{t('activerecord.attributes.referencement_coverage.anomalie_details')} :"
+                = build_coverage_details(referencement_coverage[:anomalie_details], institution_subject)

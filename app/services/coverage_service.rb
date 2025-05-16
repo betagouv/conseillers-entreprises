@@ -109,14 +109,15 @@ class CoverageService
     extra_objects = code_experts_users_hash.select{ |_,v| v.size > 1 }
     extra_codes = extra_objects.keys
     extra_experts = all_experts_ids(extra_objects)
-    all_experts = all_experts_ids(code_experts_users_hash)
+    all_experts_ids = all_experts_ids(code_experts_users_hash)
     {
       institution_subject_id: @institution_subject.id,
-      coverage: get_coverage(all_experts),
+      coverage: get_coverage(all_experts_ids),
       anomalie: :extra_insee_codes,
       anomalie_details: {
+        match_filters: get_match_filters(all_experts_ids),
         extra_insee_codes: format_territories(extra_codes),
-        experts: extra_experts
+        experts: extra_experts,
       }
     }
   end
@@ -170,5 +171,14 @@ class CoverageService
         end
       }
     end
+  end
+
+  def get_match_filters(experts_ids)
+    experts_match_filters = MatchFilter.joins(:subjects).where(filtrable_element_type: 'Expert', filtrable_element_id: experts_ids).where(subjects: [@institution_subject.subject, nil])
+    antennes_match_filters = MatchFilter.joins(:subjects).where(filtrable_element_type: 'Antenne', filtrable_element_id: @antennes.pluck(:id)).where(subjects: [@institution_subject.subject, nil])
+    {
+      "Antenne": antennes_match_filters.map { |filter| I18n.t(filter.filter_type, scope: 'activerecord.attributes.match_filter') }.uniq,
+      "Expert": experts_match_filters.map { |filter| I18n.t(filter.filter_type, scope: 'activerecord.attributes.match_filter') }.uniq
+    }
   end
 end
