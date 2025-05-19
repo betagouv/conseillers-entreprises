@@ -23,6 +23,7 @@ ActiveAdmin.register Landing do
     column :slug do |l|
       div admin_link_to l
       status_tag t('attributes.is_archived'), class: :ok if l.is_archived
+      status_tag t('attributes.is_paused'), class: :ok if l.is_paused?
     end
     column :title do |l|
       div link_to l.title, l if l.slug.present?
@@ -72,6 +73,7 @@ ActiveAdmin.register Landing do
         row :created_at
         row :updated_at
         row :archived_at
+        row :paused_at
         row(:layout) { |landing| human_attribute_status_tag landing, :layout }
         row(:integration) { |landing| human_attribute_status_tag landing, :integration }
       end
@@ -161,6 +163,8 @@ ActiveAdmin.register Landing do
 
   ## Actions
   #
+
+  # Update iframe 360
   action_item :update_iframe_360, only: :show, if: ->{ resource.iframe? && resource.integral_iframe? } do
     link_to t('active_admin.landings.update_iframe_360_button'), update_iframe_360_admin_landing_path(resource), method: :put
   end
@@ -175,5 +179,38 @@ ActiveAdmin.register Landing do
       landing.update_iframe_360
     end
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.landings.update_iframe_360_done')
+  end
+
+  # Pause iframe
+  action_item :pause, only: :show, if: ->{ resource.iframe? && !resource.is_paused? } do
+    link_to t('active_admin.landings.pause_button'), pause_admin_landing_path(resource), method: :put
+  end
+
+  action_item :resume, only: :show, if: ->{ resource.iframe? && resource.is_paused? } do
+    link_to t('active_admin.landings.resume_button'), resume_admin_landing_path(resource), method: :put
+  end
+
+  member_action :pause, method: :put do
+    resource.pause!
+    redirect_to resource_path(resource), alert: I18n.t('active_admin.landings.pause_done')
+  end
+
+  member_action :resume, method: :put do
+    resource.resume!
+    redirect_to resource_path(resource), alert: I18n.t('active_admin.landings.resume_done')
+  end
+
+  batch_action I18n.t('active_admin.landings.pause_button') do |ids|
+    batch_action_collection.find(ids).each do |landing|
+      landing.pause!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.landings.pause_done')
+  end
+
+  batch_action I18n.t('active_admin.landings.resume_button') do |ids|
+    batch_action_collection.find(ids).each do |landing|
+      landing.resume!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.landings.resume_done')
   end
 end

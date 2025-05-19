@@ -18,7 +18,9 @@ class Landings::LandingsController < Landings::BaseController
   private
 
   def redirect_to_iframe_view
-    if @landing.subjects_iframe?
+    if @landing.is_paused?
+      render :paused
+    elsif @landing.subjects_iframe?
       landing_theme = @landing.landing_themes.not_archived.first
       redirect_to({ controller: "landings/landing_themes", action: "show", landing_slug: @landing.slug, slug: landing_theme.slug }.merge(query_params))
     elsif @landing.form_iframe?
