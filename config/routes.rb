@@ -289,6 +289,7 @@ Rails.application.routes.draw do
   resources :landings, param: :landing_slug, controller: "landings/landings", only: [:show], path: 'aide-entreprise' do
     # Utilisation de member pour que ce soit :landing_slug qui soit utilisé sur toutes les routes
     member do
+      get :paused, path: 'mise-en-pause'
       resources :landing_themes, param: :slug, controller: "landings/landing_themes", path: 'theme', only: %i[show]
     end
   end

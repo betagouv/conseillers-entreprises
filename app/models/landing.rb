@@ -12,6 +12,7 @@
 #  layout           :integer          default("multiple_steps")
 #  meta_description :string
 #  meta_title       :string
+#  paused_at        :datetime
 #  slug             :string           not null
 #  title            :string
 #  url_path         :string
@@ -119,6 +120,20 @@ class Landing < ApplicationRecord
       self.landing_themes << Landing.accueil.landing_themes
       self.landing_themes << LandingTheme.find_by(slug: 'contactez-nous')
     end
+  end
+
+  def pause!
+    self.paused_at = Time.zone.now
+    self.save!
+  end
+
+  def resume!
+    self.paused_at = nil
+    self.save!
+  end
+
+  def is_paused?
+    paused_at.present?
   end
 
   def partner_url

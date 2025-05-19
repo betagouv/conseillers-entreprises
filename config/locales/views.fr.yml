@@ -505,6 +505,10 @@ fr:
       multiple_steps:
         contact_us: Découvrez les autres sujets.
         other_questions: Vous ne trouvez pas ce que vous voulez ?
+      paused:
+        sentence_1: Le service de mise en relation est temporairement désactivé.
+        sentence_2: Il reprendra dès que possible lorsque les conditions de bon fonctionnement seront à nouveau réunies.
+        title: Service désactivé
   layouts:
     side_menu:
       mobile_menu: Menu

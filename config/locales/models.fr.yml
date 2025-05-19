@@ -46,6 +46,10 @@ fr:
     landing_subjects:
       destroy_done: Les sujets de landing ont bien été supprimés
     landings:
+      pause_button: Mettre en pause
+      pause_done: Mise en pause faite
+      resume_button: Remettre en route
+      resume_done: Remise en route faite
       update_iframe_360_button: Mettre à jour iframe 360°
       update_iframe_360_done: Mise à jour iframe 360° faite.
     liens_fin: Liens fins
@@ -1004,6 +1008,7 @@ fr:
     intitule_effectif: Effectif
     is_abandoned: Abandonné
     is_archived: Archivé
+    is_paused: Mis en pause
     key: Identifiant
     label: Intitulé
     landing: page d’atterrissage
@@ -1050,7 +1055,7 @@ fr:
     opco: OPérateur de COmpétences (OPCO)
     optional: Optionnel
     page_title: Titre affiché sur la page
-    parent_antenne: Antenne mère
+    paused_at: Date de mise en pause
     phone_number: Téléphone
     pk_campaign: Campagne
     placeholder:
