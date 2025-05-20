@@ -146,7 +146,7 @@ RSpec.describe Conseiller::Diagnoses::StepsController do
           expect(diagnosis.step).to eq 'matches'
           expect(diagnosis.needs.first.subject).to eq new_subject
           expect(diagnosis.needs.first.subject_answers.size).to eq 1
-          expect(diagnosis.needs.first.subject_answers.first.filter_value).to eq "true"
+          expect(diagnosis.needs.first.subject_answers.first.filter_value).to eq 'true'
           expect(response).to redirect_to matches_conseiller_diagnosis_path(diagnosis)
         end
       end
