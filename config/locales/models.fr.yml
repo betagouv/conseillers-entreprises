@@ -39,6 +39,8 @@ fr:
     institution:
       delete: Supprimer l’institution
       delete_confirmation: Voulez-vous supprimer cette institution ? Cela va aussi supprimer les antennes, experts et utilisateurs qu’elle contient.
+      filter_value: Réponse de l'entreprise
+      subject_questions: Conditions pour la transmission
     institutions:
       deleted: Institutions supprimées avec succès
     landing_subjects:

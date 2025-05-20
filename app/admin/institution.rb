@@ -111,14 +111,16 @@ ActiveAdmin.register Institution do
       end
     end
 
-    attributes_table title: I18n.t('activerecord.models.subject_question.other') do
+    attributes_table title: I18n.t('active_admin.institution.subject_questions') do
       institution.subject_answer_groupings.map.with_index do |sag, index|
         panel I18n.t('active_admin.subject_answer_grouping.title_with_index', index: index + 1) do
           table_for sag.subject_answers do
             column(:subject) { |answer| admin_link_to(answer.subject_question, :subject) }
             column(:label) { |answer| question_label(answer.key, :long) }
             column(:key)
-            column(:filter_value)
+            column(t('active_admin.institution.filter_value')) do |a|
+              a.filter_value
+            end
           end
         end
       end
