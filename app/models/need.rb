@@ -356,6 +356,16 @@ class Need < ApplicationRecord
     joins(diagnosis: :solicitation).where(solicitations: { landings: { integration: integration } })
   end
 
+  scope :requalified, -> do
+    joins(diagnosis: { solicitation: :landing_subject })
+      .where('needs.subject_id != landing_subjects.subject_id')
+  end
+
+  scope :not_requalified, -> do
+    joins(diagnosis: { solicitation: :landing_subject })
+      .where('needs.subject_id = landing_subjects.subject_id')
+  end
+
   def self.apply_filters(params)
     klass = self
     klass = klass.by_region(params[:by_region]) if params[:by_region].present?
