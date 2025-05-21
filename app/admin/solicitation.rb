@@ -50,11 +50,7 @@ ActiveAdmin.register Solicitation do
 
       ul class: 'mb-1' do
         s.subject_answers.each do |answer|
-          answer_label = I18n.t(
-            answer.filter_value, scope: [:activerecord, :attributes, :subject_questions, answer.key],
-            default: I18n.t(answer.filter_value, scope: [:boolean, :text])
-          )
-          li "- #{question_label(answer.key, :short)} #{tag.strong(answer_label)} <br>".html_safe
+          li "- #{question_label(answer.key, :short)} #{tag.strong(answer_label(answer))} <br>".html_safe
         end
       end
       div raw diagnosis_link(s.diagnosis)
@@ -185,11 +181,7 @@ ActiveAdmin.register Solicitation do
       blockquote simple_format(solicitation.description)
       ul class: 'mb-1' do
         solicitation.subject_answers.each do |filter|
-          answer_label = I18n.t(
-            filter.filter_value, scope: [:activerecord, :attributes, :subject_questions, filter.key],
-            default: I18n.t(filter.filter_value, scope: [:boolean, :text])
-          )
-          li "#{question_label(filter.key, :short)} #{tag.strong(answer_label)} <br>".html_safe
+          li "#{question_label(filter.key, :short)} #{tag.strong(answer_label(filter))} <br>".html_safe
         end
       end
     end
