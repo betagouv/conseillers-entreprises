@@ -19,7 +19,7 @@ RSpec.describe 'stats/team/index' do
 
     it "displays correctly public stats" do
       assign(:charts_names, [
-        :solicitations, :solicitations_diagnoses,
+        :solicitations, :solicitations_diagnoses, :needs_requalification,
         :exchange_with_expert, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code
       ])
       allow(view).to receive(:action_name).and_return("public")
@@ -27,7 +27,7 @@ RSpec.describe 'stats/team/index' do
       render
 
       expect(rendered).to have_css('h1', text: t('stats.team.public'))
-      expect(rendered).to have_css('.fr-col-12.card.stats', count: 7)
+      expect(rendered).to have_css('.fr-col-12.card.stats', count: 8)
     end
 
     it "displays correctly needs stats" do
