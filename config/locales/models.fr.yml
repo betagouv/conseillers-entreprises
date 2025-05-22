@@ -849,6 +849,7 @@ fr:
       status_quo: Taux de sans réponse
       status_taking_care: "  -  dont en cours de traitement"
       taken_care_of: Taux de prise en charge
+    institution_subjects: Sujets de l’institution
     institution_themes: Thématiques de l’institution
     matches: Mises en relation
     needs: Besoins
@@ -881,7 +882,7 @@ fr:
     taking_care: "- dont en cours de traitement"
     taking_care_caption_definition: Besoins pris en charge par un expert, qui n’a pas encore été clôturé après l’appel de l’entreprise.
     taking_care_caption_label: En cours de traitement
-    total: Tous sujets
+    total: Tous sujets confondus
     transmitted_needs: Besoins transmis *
     without_response_caption_definition: Part des besoins pour lesquels les experts n’ont rien indiqué
     without_response_caption_label: Taux de sans réponse
