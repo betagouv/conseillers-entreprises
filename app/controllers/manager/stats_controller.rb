@@ -43,7 +43,7 @@ module Manager
       @charts_names = %w[
         needs_transmitted matches_positioning matches_taking_care matches_done
         matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
-        needs_themes needs_subjects companies_by_employees companies_by_naf_code
+        matches_taken_care_in_three_days matches_taken_care_in_five_days needs_themes companies_by_employees companies_by_naf_code
       ]
     end
 

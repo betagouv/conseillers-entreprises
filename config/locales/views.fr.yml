@@ -1037,10 +1037,16 @@ fr:
       matches_positioning:
         subtitle: L’expert s’est positionné pour indiquer prendre en charge ou refuser le besoin.
         title:
-          one: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoin
-          other: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoins
-          zero: des besoins transmis ont reçu un positionnement de l'institution, soit %{secondary_count} besoin
+          one: des besoins transmis ont reçu un positionnement de l’institution, soit %{secondary_count} besoin
+          other: des besoins transmis ont reçu un positionnement de l’institution, soit %{secondary_count} besoins
+          zero: des besoins transmis ont reçu un positionnement de l’institution, soit %{secondary_count} besoin
         title_table: Taux de réponse
+      matches_taken_care_in_five_days:
+        title: des échanges avec l’institution ont lieu dans les 5 jours après transmission du besoin
+        title_table: Délai de réponses aux besoins des entreprises par l’institution
+      matches_taken_care_in_three_days:
+        title: des échanges avec l’institution ont lieu dans les 3 jours après transmission du besoin
+        title_table: Délai de réponses aux besoins des entreprises par l’institution
       matches_taking_care:
         subtitle: Le besoin a été pris en charge par un expert, mais n’a pas encore été cloturé après l’appel de l’entreprise.
         title:
@@ -1111,6 +1117,12 @@ fr:
       needs_subjects:
         title: Sujets choisis par les entreprises
         title_table: Sujets choisis par les entreprises
+      needs_taken_care_in_five_days:
+        title: des échanges ont lieu dans les 5 jours après transmission du besoin
+        title_table: Délai de réponses aux besoins des entreprises
+      needs_taken_care_in_three_days:
+        title: des échanges ont lieu dans les 3 jours après transmission du besoin
+        title_table: Délai de réponses aux besoins des entreprises
       needs_taking_care:
         title: des besoins transmis sont en cours de prise en charge par les conseillers
         title_table: Nombre de besoins en cours de prise en charge par les conseillers
@@ -1139,9 +1151,6 @@ fr:
           other: des besoins sont transmis aux conseillers, soit %{secondary_count} besoins
           zero: aucun besoin n'a été transmis aux conseillers
         title_table: Nombre de besoins transmis aux conseillers
-      solicitations_taking_care_time:
-        title: des échanges ont lieu dans les 5 jours après transmission du besoin
-        title_table: Délai de réponses aux besoins des entreprises
       solicitations_transmitted_less_than_72h:
         title: de sollicitations transmises en moins de 72H parmi l’ensemble des sollicitations transmises
         title_table: Délai de transmission des sollicitations
@@ -1208,8 +1217,12 @@ fr:
     status_not_for_me: Besoins refusés
     status_quo: en attente de prise en charge
     status_taking_care: en cours de prise en charge
-    taken_care_after: Plus de 5 jours
-    taken_care_before: Moins de 5 jours
+    taken_care_in_five_days:
+      taken_care_after: Plus de 5 jours
+      taken_care_before: Moins de 5 jours
+    taken_care_in_three_days:
+      taken_care_after: Plus de 3 jours
+      taken_care_before: Moins de 3 jours
     taking_care_status: Statut « pris en charge »
     team:
       acquisition: Acquisition

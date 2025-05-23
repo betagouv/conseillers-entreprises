@@ -1,5 +1,5 @@
 class Manager::StatsPolicy < ApplicationPolicy
   def index?
-    manager?
+    manager? || admin?
   end
 end
