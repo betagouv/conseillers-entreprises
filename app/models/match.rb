@@ -182,6 +182,24 @@ class Match < ApplicationRecord
       .where('feedbacks.user_id IN (SELECT user_id FROM experts_users WHERE expert_id = matches.expert_id)')
   }
 
+  scope :taken_care_before, -> (number_of_days) {
+    with_exchange
+      .where('ABS(DATE_PART(\'day\', matches.taken_care_of_at - matches.sent_at)) < ?', number_of_days)
+  }
+
+  scope :taken_care_after, -> (number_of_days) {
+    with_exchange
+      .where.not('ABS(DATE_PART(\'day\', matches.taken_care_of_at - matches.sent_at)) < ?', number_of_days)
+  }
+
+  scope :taken_care_in_three_days, -> do
+    taken_care_before(3)
+  end
+
+  scope :taken_care_in_five_days, -> do
+    taken_care_before(5)
+  end
+
   def self.ransackable_scopes(auth_object = nil)
     [
       :sent, :solicitation_created_at_gteq, :solicitation_created_at_lteq,

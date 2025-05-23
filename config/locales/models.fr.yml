@@ -848,6 +848,8 @@ fr:
       status_not_for_me: Taux de refus
       status_quo: Taux de sans réponse
       status_taking_care: "  -  dont en cours de traitement"
+      taken_care_in_five_days: Taux de prise en charge dans les 5 jours
+      taken_care_in_three_days: Taux de prise en charge dans les 3 jours
       taken_care_of: Taux de prise en charge
     institution_subjects: Sujets de l’institution
     institution_themes: Thématiques de l’institution

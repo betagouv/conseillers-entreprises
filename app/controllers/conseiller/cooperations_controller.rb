@@ -9,7 +9,7 @@ class Conseiller::CooperationsController < ApplicationController
     @charts_names = %w[
       solicitations_completed solicitations_diagnoses
       needs_positioning needs_done needs_done_no_help needs_done_not_reachable needs_not_for_me needs_taking_care
-      needs_themes needs_subjects companies_by_employees companies_by_naf_code
+      needs_taken_care_in_five_days needs_themes needs_subjects companies_by_employees companies_by_naf_code
     ]
   end
 
@@ -19,6 +19,7 @@ class Conseiller::CooperationsController < ApplicationController
     @charts_names = %w[
       needs_transmitted matches_positioning matches_taking_care matches_done
       matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
+      matches_taken_care_in_three_days matches_taken_care_in_five_days
     ]
   end
 
