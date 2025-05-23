@@ -12,7 +12,7 @@ module Stats
     def public
       @charts_names = %w[
         solicitations_completed solicitations_diagnoses needs_exchange_with_expert
-        needs_done solicitations_three_days_delay solicitations_five_days_delay needs_themes companies_by_employees companies_by_naf_code
+        needs_done needs_taken_care_in_three_days needs_taken_care_in_five_days needs_themes companies_by_employees companies_by_naf_code
       ]
       render :index
     end
