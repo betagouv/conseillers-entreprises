@@ -1,0 +1,19 @@
+:ruby
+  meta title: @landing.meta_title.presence || @landing.title,
+    description: @landing.meta_description.presence
+
+- cache_unless(flash.present?, [@landing, @landing_themes, query_params]) do
+
+  - unless in_iframe?
+    #scroll-section
+  .fr-container-fluid.light-blue-bg.fr-py-8w.text-center
+    .fr-container.fr-py-4w
+      %h1.fr-h3= t('.title')
+    .fr-container
+      %p= t('.sentence_1')
+      %p= t('.sentence_2')
+    .fr-container--fluid.light-blue-bg.fr-py-4w.section-pde-partnership-mention
+      .ce-text-logo
+        %p.fr-header__service-title
+          %span.red>= t('app_name_subdomain').sp_titleize_url
+          = "." + t('app_name_domain').sp_titleize_url
