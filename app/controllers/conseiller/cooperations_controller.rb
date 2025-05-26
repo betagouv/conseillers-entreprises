@@ -9,7 +9,7 @@ class Conseiller::CooperationsController < ApplicationController
     @charts_names = %w[
       solicitations_completed solicitations_diagnoses
       needs_positioning needs_done needs_done_no_help needs_done_not_reachable needs_not_for_me needs_taking_care
-      solicitations_five_days_delay needs_themes needs_subjects companies_by_employees companies_by_naf_code
+      needs_themes needs_subjects companies_by_employees companies_by_naf_code
     ]
   end
 
@@ -17,7 +17,7 @@ class Conseiller::CooperationsController < ApplicationController
     # On filtre les MER de l'institution
     set_stats_params(cooperation_id: @cooperation.id, institution_id: @cooperation.institution.id)
     @charts_names = %w[
-      needs_transmitted solicitations_three_days_delay solicitations_five_days_delay matches_positioning matches_taking_care matches_done
+      needs_transmitted matches_positioning matches_taking_care matches_done
       matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
     ]
   end

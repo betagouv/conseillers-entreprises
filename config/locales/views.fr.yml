@@ -917,9 +917,6 @@ fr:
   stats:
     done_no_help_status: Statut « cloturé sans aide »
     done_status: Statut « cloturé avec aide »
-    five_days_delay:
-      taken_care_after: Plus de 5 jours
-      taken_care_before: Moins de 5 jours
     less_than_72h: Moins de 72h
     main_stats_chart:
       title: Notre mesure d’impact phare
@@ -1134,11 +1131,8 @@ fr:
           other: des besoins sont transmis aux conseillers, soit %{secondary_count} besoins
           zero: aucun besoin n'a été transmis aux conseillers
         title_table: Nombre de besoins transmis aux conseillers
-      solicitations_five_days_delay:
+      solicitations_taking_care_time:
         title: des échanges ont lieu dans les 5 jours après transmission du besoin
-        title_table: Délai de réponses aux besoins des entreprises
-      solicitations_three_days_delay:
-        title: des échanges ont lieu dans les 3 jours après transmission du besoin
         title_table: Délai de réponses aux besoins des entreprises
       solicitations_transmitted_less_than_72h:
         title: de sollicitations transmises en moins de 72H parmi l’ensemble des sollicitations transmises
@@ -1206,6 +1200,8 @@ fr:
     status_not_for_me: Besoins refusés
     status_quo: en attente de prise en charge
     status_taking_care: en cours de prise en charge
+    taken_care_after: Plus de 5 jours
+    taken_care_before: Moins de 5 jours
     taking_care_status: Statut « pris en charge »
     team:
       acquisition: Acquisition
@@ -1216,9 +1212,6 @@ fr:
       matches: Pilotage par partenaire
       needs: Pilotage par besoins
       public: Statistiques publiques
-    three_days_delay:
-      taken_care_after: Plus de 3 jours
-      taken_care_before: Moins de 3 jours
     with_diagnosis: Besoins transmis
     without_diagnosis: Besoins non transmis
   step_number: Étape %{actual} sur %{total}
