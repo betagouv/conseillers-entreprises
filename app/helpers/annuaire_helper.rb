@@ -48,9 +48,10 @@ module AnnuaireHelper
     experts.each_value.sum{ |users| [users.size, 1].max }
   end
 
-  def build_coverage_details(anomalie_details, institution_subject)
+  def build_coverage_details(anomalie_details)
     content_tag(:ul) do
       anomalie_details.map do |anomalie_type, value|
+        next if anomalie_type == :match_filters && anomalie_details[:match_filters].values.flatten.blank?
         content = []
         content << content_tag(:li) do
           inner_content = []
@@ -115,20 +116,19 @@ module AnnuaireHelper
 
   def display_match_filters(match_filters)
     content_tag(:ul) do
-
       content = []
       content << match_filters.map do |filtrable_element_type, filters|
-        next if filters.blank?
-        content_tag(:li) do
-          inner_content = []
-          inner_content << "#{filtrable_element_type} :"
-          inner_content << content_tag(:ul) do
-            filters.map do |filter|
-              content_tag(:li, filter)
-            end.join.html_safe
+          next if filters.blank?
+          content_tag(:li) do
+            inner_content = []
+            inner_content << "#{filtrable_element_type} :"
+            inner_content << content_tag(:ul) do
+              filters.map do |filter|
+                content_tag(:li, filter)
+              end.join.html_safe
+            end
+            inner_content.join.html_safe
           end
-          inner_content.join.html_safe
-        end
         end.join.html_safe
       content.join.html_safe
     end
