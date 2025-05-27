@@ -474,9 +474,11 @@ fr:
           local: Antenne locale
           mixte: Mixte (locale + régionale)
           regional: Antenne régionale
+          national: Antenne nationale
         short:
           local: L
           mixte: L + R
+          national: N
           regional: R
       search:
         label: Entreprise
