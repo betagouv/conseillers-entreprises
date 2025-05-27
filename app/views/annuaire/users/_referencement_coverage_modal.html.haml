@@ -20,4 +20,4 @@
             - if referencement_coverage[:anomalie_details].present?
               %div
                 %span= "#{t('activerecord.attributes.referencement_coverage.anomalie_details')} :"
-                = build_coverage_details(referencement_coverage[:anomalie_details], institution_subject)
+                = build_coverage_details(referencement_coverage[:anomalie_details])
