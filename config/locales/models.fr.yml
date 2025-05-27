@@ -876,6 +876,8 @@ fr:
     positionning_caption_definition: Part des besoins pour lesquels les experts ont indiqué prendre en charge ou refuser.
     positionning_caption_label: Taux de réponse
     positionning_rate: Taux de réponse
+    previous_quarter_percentage: Repères T-1
+    previous_year_percentage: Repères année N-1
     quarter_stats: Stats trim.
     quarter_stats_by_antenne: Stats trim. par antenne
     quarter_stats_by_region: Stats trim. par region

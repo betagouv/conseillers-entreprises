@@ -1,10 +1,13 @@
 module XlsxExport
   module AntenneStatsWorksheetGenerator
     class Base
-      def initialize(sheet, antenne, needs, styles)
+      def initialize(sheet, antenne, needs, start_date, end_date, type, styles)
         @antenne = antenne
-        @needs = needs
         @sheet = sheet
+        @start_date = start_date
+        @end_date = end_date
+        @base_needs = needs
+        @type = type
         create_styles styles
       end
 
@@ -24,7 +27,7 @@ module XlsxExport
         sheet.add_row [I18n.t('antenne_stats_exporter.subtitle')], style: @subtitle
         sheet.add_row
 
-        sheet.add_row [I18n.t('antenne_stats_exporter.needs'), @needs.size], style: [@bold, nil]
+        sheet.add_row [I18n.t('antenne_stats_exporter.needs'), current_needs.size], style: [@bold, nil]
         sheet.add_row [I18n.t('antenne_stats_exporter.facilities'), facilities.size], style: [@bold, nil]
         sheet.add_row
       end
@@ -68,7 +71,7 @@ module XlsxExport
           sheet.add_row [
             theme_label,
             needs_count,
-            calculate_rate(needs_count, @needs)
+            calculate_rate(needs_count, current_needs)
           ], style: count_rate_row_style
         end
         sheet.add_row
@@ -78,7 +81,8 @@ module XlsxExport
         sheet.add_row [
           I18n.t('antenne_stats_exporter.experts_positionning', institution: institution_name),
           I18n.t('antenne_stats_exporter.count'),
-          I18n.t('antenne_stats_exporter.percentage')
+          I18n.t('antenne_stats_exporter.percentage'),
+          previous_header
         ], style: count_rate_header_style
 
         # Besoins transmis
@@ -87,8 +91,8 @@ module XlsxExport
           matches.size
         ], style: count_rate_row_style
 
-        add_status_rows(ordered_scopes, matches)
-        add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], matches.with_exchange)
+        add_status_rows(ordered_scopes, matches, previous_matches)
+        add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], matches.with_exchange, previous_matches)
 
         sheet.add_row
       end
@@ -103,26 +107,29 @@ module XlsxExport
         # Besoins transmis
         sheet.add_row [
           I18n.t('antenne_stats_exporter.transmitted_needs'),
-          @needs.size
+          current_needs.size
         ], style: count_rate_row_style
 
-        add_status_rows(ordered_scopes, @needs)
+        add_status_rows(ordered_scopes, current_needs)
 
         # Subquery pour se débarasser du `join` sur les matches de l'antenne qui fausse les résultats
-        unjoined_needs = Need.where(id: @needs.with_exchange.ids)
+        unjoined_needs = Need.where(id: current_needs.with_exchange.ids)
         add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], unjoined_needs)
 
         sheet.add_row
       end
 
-      def add_status_rows(scopes, recipient)
+      def add_status_rows(scopes, recipient, previous_recipient = nil)
         scopes.each do |scope|
           by_status_size = recipient.send(scope)&.size
-          sheet.add_row [
+          row = [
             I18n.t("antenne_stats_exporter.funnel.#{scope}"),
             by_status_size,
-            calculate_rate(by_status_size, recipient)
-          ], style: count_rate_row_style
+            calculate_rate(by_status_size, recipient),
+          ]
+          row += [calculate_rate(previous_recipient.send(scope)&.size, previous_recipient)] if previous_recipient.present?
+
+          sheet.add_row row, style: count_rate_row_style
         end
       end
 
@@ -150,12 +157,37 @@ module XlsxExport
         @institution_name ||= @antenne.institution.name
       end
 
+      def current_needs
+        @current_needs ||= @base_needs.created_between(@start_date, @end_date)
+      end
+
       def matches
-        @matches ||= @antenne.perimeter_received_matches_from_needs(@needs)
+        @matches ||= @antenne.perimeter_received_matches_from_needs(current_needs)
+      end
+
+      def previous_needs
+        if @type == :annual
+          previous_range = 1.year
+        else
+          previous_range = 3.months
+        end
+        @previous_needs ||= @base_needs.created_between(@start_date - previous_range, @end_date - previous_range)
+      end
+
+      def previous_matches
+        @previous_matches ||= @antenne.perimeter_received_matches_from_needs(previous_needs)
+      end
+
+      def previous_header
+        if @type == :annual
+          I18n.t('antenne_stats_exporter.previous_year_percentage')
+        else
+          I18n.t('antenne_stats_exporter.previous_quarter_percentage')
+        end
       end
 
       def facilities
-        @facilities ||= Facility.joins(diagnoses: :needs).where(diagnoses: { needs: @needs }).distinct
+        @facilities ||= Facility.joins(diagnoses: :needs).where(diagnoses: { needs: current_needs }).distinct
       end
 
       def ordered_scopes
@@ -192,15 +224,15 @@ module XlsxExport
       end
 
       def calculate_needs_by_theme_size(theme)
-        @needs.joins(subject: :theme).where(subject: { theme: theme }).size
+        current_needs.joins(subject: :theme).where(subject: { theme: theme }).size
       end
 
       def calculate_needs_by_themes_size(themes)
-        @needs.joins(subject: :theme).where(subject: { theme: themes }).size
+        current_needs.joins(subject: :theme).where(subject: { theme: themes }).size
       end
 
       def calculate_needs_by_subject_size(subject)
-        @needs.where(subject: subject).size
+        current_needs.where(subject: subject).size
       end
 
       # Style
@@ -221,7 +253,7 @@ module XlsxExport
       end
 
       def count_rate_row_style
-        [@label, nil, @rate]
+        [@label, nil, @rate, @rate]
       end
 
       # Pages résumé
@@ -262,7 +294,7 @@ module XlsxExport
 
       def generate_subjects_row(needs_by_subjects, recipient = @antenne)
         needs_by_subjects.sort_by { |_, needs| -needs.count }.each do |subject_label, needs|
-          ratio = calculate_rate(needs.count, @needs)
+          ratio = calculate_rate(needs.count, current_needs)
           add_agglomerate_rows(needs, subject_label, recipient, ratio)
         end
       end
