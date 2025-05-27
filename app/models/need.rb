@@ -277,6 +277,27 @@ class Need < ApplicationRecord
     where(status: [:done, :done_no_help, :done_not_reachable, :taking_care])
   end
 
+  scope :taken_care_before, -> (number_of_days) {
+    with_exchange
+      .joins(:matches)
+      .merge(Match.taken_care_before(number_of_days))
+      .distinct
+  }
+
+  scope :taken_care_after, -> (number_of_days) {
+    with_exchange
+      .where.not(id: Need.taken_care_before(number_of_days))
+      .distinct
+  }
+
+  scope :taken_care_in_three_days, -> do
+    taken_care_before(3)
+  end
+
+  scope :taken_care_in_five_days, -> do
+    taken_care_before(5)
+  end
+
   scope :quo_active, -> do
     range = Range.new(Need::REMINDERS_DAYS[:abandon]&.days&.ago, nil)
     status_quo.matches_sent_at(range)

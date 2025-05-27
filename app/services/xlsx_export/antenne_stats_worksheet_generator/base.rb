@@ -88,6 +88,7 @@ module XlsxExport
         ], style: count_rate_row_style
 
         add_status_rows(ordered_scopes, matches)
+        add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], matches.with_exchange)
 
         sheet.add_row
       end
@@ -106,6 +107,10 @@ module XlsxExport
         ], style: count_rate_row_style
 
         add_status_rows(ordered_scopes, @needs)
+
+        # Subquery pour se débarasser du `join` sur les matches de l'antenne qui fausse les résultats
+        unjoined_needs = Need.where(id: @needs.with_exchange.ids)
+        add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], unjoined_needs)
 
         sheet.add_row
       end
@@ -253,6 +258,13 @@ module XlsxExport
         ].each { |range| sheet.merge_cells(range) }
 
         sheet.column_widths 50, 15, 25, 25, 25, 25
+      end
+
+      def generate_subjects_row(needs_by_subjects, recipient = @antenne)
+        needs_by_subjects.sort_by { |_, needs| -needs.count }.each do |subject_label, needs|
+          ratio = calculate_rate(needs.count, @needs)
+          add_agglomerate_rows(needs, subject_label, recipient, ratio)
+        end
       end
     end
   end
