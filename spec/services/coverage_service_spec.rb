@@ -29,12 +29,6 @@ describe CoverageService do
     let!(:national_antenne) { create(:antenne, :national, institution: institution) }
     let!(:institution_subject) { create(:institution_subject, institution: institution) }
 
-    before do
-      national_antenne.reload
-      regional_antenne.reload
-      local_antenne.reload
-    end
-
     subject { described_class.new(institution_subject, grouped_experts).call }
 
     context "Territories with INSEE codes" do
@@ -105,7 +99,7 @@ describe CoverageService do
             expect(subject[:institution_subject_id]).to eq(institution_subject.id)
             expect(subject[:coverage]).to eq(:local)
             expect(subject[:anomalie]).to eq(:no_user)
-            expect(subject[:anomalie_details][:experts]).to contain_exactly(expert_without_users.id)
+            expect(subject[:anomalie_details][:experts]).to contain_exactly(expert_without_users)
           end
         end
 
@@ -360,7 +354,7 @@ describe CoverageService do
             expect(subject[:institution_subject_id]).to eq(institution_subject.id)
             expect(subject[:coverage]).to eq(:regional)
             expect(subject[:anomalie]).to eq(:no_user)
-            expect(subject[:anomalie_details][:experts]).to contain_exactly(expert_without_users.id)
+            expect(subject[:anomalie_details][:experts]).to contain_exactly(expert_without_users)
           end
         end
       end
@@ -479,6 +473,21 @@ describe CoverageService do
         end
       end
     end
+
+    context "Expert with global coverage" do
+      let!(:global_expert) { create(:expert_with_users, antenne: national_antenne, is_global_zone: true, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+      let(:grouped_experts) { { national_antenne => { global_expert => global_expert.users } } }
+      let(:experts_ids) { global_expert.id }
+
+      before { subject }
+
+      it do
+        expect(subject[:institution_subject_id]).to eq(institution_subject.id)
+        # expect(subject[:coverage]).to eq(:national)
+        expect(subject[:anomalie]).to eq(:no_anomalie)
+        expect(subject[:anomalie_details]).to be_nil
+      end
+    end
   end
 
   describe "#get_coverage" do
@@ -494,14 +503,14 @@ describe CoverageService do
       local_antenne.reload
     end
 
-    subject { described_class.new(institution_subject, grouped_experts).send(:get_coverage, [experts_ids]) }
+    subject { described_class.new(institution_subject, grouped_experts).send(:get_coverage, experts) }
 
     context "local coverage" do
       let!(:local_expert) { create(:expert_with_users, antenne: local_antenne, territorial_zones: create_communes, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
 
       context "with one antenne" do
         let(:grouped_experts) { { local_antenne => { local_expert => local_expert.users } } }
-        let(:experts_ids) { local_expert.id }
+        let(:experts) { [local_expert] }
 
         before { subject }
 
@@ -512,7 +521,7 @@ describe CoverageService do
 
       describe "with two antennes and a regional antennes with only manager" do
         let(:grouped_experts) { { local_antenne => { local_expert => local_expert.users }, regional_antenne => { Expert.new => [create(:user, :manager, antenne: regional_antenne)] } } }
-        let(:experts_ids) { local_expert.id }
+        let(:experts) { [local_expert] }
 
         before { subject }
 
@@ -527,7 +536,7 @@ describe CoverageService do
 
       context "with one antenne" do
         let(:grouped_experts) { { regional_antenne => { regional_expert => regional_expert.users } } }
-        let(:experts_ids) { regional_expert.id }
+        let(:experts) { [regional_expert] }
 
         before { subject }
 
@@ -539,7 +548,7 @@ describe CoverageService do
 
       context "with two antennes and a national antenne with only manager" do
         let(:grouped_experts) { { regional_antenne => { regional_expert => regional_expert.users }, national_antenne => { Expert.new => [create(:user, :manager, antenne: national_antenne)] } } }
-        let(:experts_ids) { regional_expert.id }
+        let(:experts) { [regional_expert] }
 
         before { subject }
 
@@ -553,7 +562,7 @@ describe CoverageService do
       let!(:local_expert) { create(:expert_with_users, antenne: local_antenne, territorial_zones: create_communes, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
       let!(:regional_expert) { create(:expert_with_users, antenne: regional_antenne, territorial_zones: create_communes, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
       let(:grouped_experts) { { local_antenne => { local_expert => local_expert.users }, regional_antenne => { regional_expert => regional_expert.users } } }
-      let(:experts_ids) { [local_expert.id, regional_expert.id] }
+      let(:experts) { [local_expert, regional_expert] }
 
       before { subject }
 
@@ -572,18 +581,19 @@ describe CoverageService do
       antenne.reload
     end
 
-    subject { described_class.new(institution_subject, grouped_experts).send(:get_match_filters, experts_ids) }
+    subject { described_class.new(institution_subject, grouped_experts).send(:get_match_filters, [expert]) }
 
     context "Only antennes match filters" do
-      let(:antenne_match_filter) { create :antenne_match_filter, antenne: antenne }
+      let!(:antenne_match_filter) { create :match_filter, antenne: antenne, min_years_of_existence: 1 }
       let(:expert) { create(:expert_with_users, antenne: antenne, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
       let(:grouped_experts) { { antenne => { expert.id => expert.users } } }
-      let(:experts_ids) { [expert.id] }
 
       before { subject }
 
       it do
-        is_expected.to eq({ antenne_id: antenne.id })
+        is_expected.to eq({ :Antenne => ["ancienneté minimum (en année) - #{antenne.name}"],
+                            :Expert => [],
+                            :Institution => [] })
       end
     end
   end

@@ -169,16 +169,16 @@ ActiveAdmin.register Expert do
       row :phone_number
       row :institution
       row :antenne
-      # row(:intervention_zone) do |e|
-      #   if e.is_global_zone
-      #     status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
-      #   else
-      #     if e.custome_territories?
-      #       status_tag t('attributes.custom_communes'), class: 'yes'
-      #     end
-      #     div intervention_zone_description(e)
-      #   end
-      # end
+      row(:intervention_zone) do |e|
+        if e.is_global_zone
+          status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
+        else
+          # if e.custome_territories?
+          #   status_tag t('attributes.custom_communes'), class: 'yes'
+          # end
+          # div intervention_zone_description(e)
+        end
+      end
       row(:users) do |e|
         div admin_link_to(e, :users)
         div admin_link_to(e, :users, list: true)
