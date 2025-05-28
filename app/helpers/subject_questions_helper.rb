@@ -3,6 +3,11 @@ module SubjectQuestionsHelper
     I18n.t(format, scope: [:activerecord, :attributes, :subject_questions, key, :label])
   end
 
+  def answer_label(answer)
+    I18n.t(answer.filter_value, scope: [:activerecord, :attributes, :subject_questions, answer.key, :answers],
+                    default: I18n.t(answer.filter_value, scope: [:boolean, :text]))
+  end
+
   def specific_answers_file
     @specific_answers_file ||= YAML.load_file("#{Rails.root.join("config", "data", "subject_answers.yml")}")
   end

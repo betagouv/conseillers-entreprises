@@ -9,8 +9,4 @@ module NeedsHelper
     end
     raw context
   end
-
-  def question_label(key, format = :long)
-    I18n.t(format, scope: [:activerecord, :attributes, :subject_questions, key, :label])
-  end
 end

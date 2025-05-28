@@ -1,5 +1,5 @@
 class Api::V1::SubjectQuestionSerializer < ActiveModel::Serializer
-  include NeedsHelper
+  include SubjectQuestionsHelper
 
   attributes :id, :key, :position, :question, :question_type
 
