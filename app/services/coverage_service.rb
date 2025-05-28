@@ -125,9 +125,9 @@ class CoverageService
       coverage: get_coverage(all_experts),
       anomalie: :extra_insee_codes,
       anomalie_details: {
+        experts: extra_experts,
         match_filters: get_match_filters(all_experts),
         extra_insee_codes: format_territories(extra_codes),
-        experts: extra_experts,
       }
     }
   end
@@ -185,9 +185,9 @@ class CoverageService
     antennes_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Antenne', filtrable_element_id: @antennes.pluck(:id)).where(subjects: [@institution_subject.subject, nil])
     institution_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Institution', filtrable_element_id: @institution_subject.institution.id).where(subjects: [@institution_subject.subject, nil])
     {
-      Antenne: antennes_match_filters.map { |filter| "#{I18n.t(filter.filter_type, scope: 'activerecord.attributes.match_filter')} - #{filter.filtrable_element}" },
-      Expert: experts_match_filters.map { |filter| "#{I18n.t(filter.filter_type, scope: 'activerecord.attributes.match_filter')} - #{filter.filtrable_element}" },
-      Institution: institution_match_filters.map { |filter| "#{I18n.t(filter.filter_type, scope: 'activerecord.attributes.match_filter')} - #{filter.filtrable_element}" }
+      antenne: antennes_match_filters.map { |filter| "#{I18n.t(filter.filter_type, scope: 'activerecord.attributes.match_filter')} - #{filter.filtrable_element}" },
+      expert: experts_match_filters.map { |filter| "#{I18n.t(filter.filter_type, scope: 'activerecord.attributes.match_filter')} - #{filter.filtrable_element}" },
+      institution: institution_match_filters.map { |filter| "#{I18n.t(filter.filter_type, scope: 'activerecord.attributes.match_filter')} - #{filter.filtrable_element}" }
     }
   end
 
