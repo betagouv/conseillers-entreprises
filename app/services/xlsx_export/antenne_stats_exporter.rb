@@ -17,7 +17,7 @@ module XlsxExport
       # Quarter stats
       wb.add_worksheet(name: I18n.t('antenne_stats_exporter.quarter_stats')) do |sheet|
         sheet.add_row ["#{@antenne.name} - #{period}"], style: title
-        XlsxExport::AntenneStatsWorksheetGenerator::Base.new(sheet, @antenne, needs, @start_date, @end_date, :quarter, wb.styles).generate
+        XlsxExport::AntenneStatsWorksheetGenerator::ByPosition.new(sheet, @antenne, needs, @start_date, @end_date, :quarter, wb.styles).generate
       end
 
       # Quarter stats by subject
@@ -42,7 +42,7 @@ module XlsxExport
       # Annual stats
       wb.add_worksheet(name: I18n.t('antenne_stats_exporter.year_stats')) do |sheet|
         sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.from_beginning_of_year', year: @start_date.year)}"], style: title
-        XlsxExport::AntenneStatsWorksheetGenerator::Base.new(sheet, @antenne, needs, year_start_date, @end_date, :annual, wb.styles).generate
+        XlsxExport::AntenneStatsWorksheetGenerator::ByPosition.new(sheet, @antenne, needs, year_start_date, @end_date, :annual, wb.styles).generate
       end
 
       # Annual stats by subject
@@ -70,6 +70,12 @@ module XlsxExport
           sheet.add_row ["#{@antenne.institution.name} - #{I18n.t('antenne_stats_exporter.from_beginning_of_year', year: @start_date.year)}"], style: title
           XlsxExport::AntenneStatsWorksheetGenerator::National.new(sheet, @antenne, @antenne.institution.perimeter_received_needs.created_between(year_start_date, @end_date), wb.styles).generate
         end
+      end
+
+      # Refusals
+      wb.add_worksheet(name: I18n.t('antenne_stats_exporter.refusals')) do |sheet|
+        sheet.add_row ["#{@antenne.name} - #{period}"], style: title
+        XlsxExport::AntenneStatsWorksheetGenerator::ByRefusedSubject.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
       end
 
       # Légende
