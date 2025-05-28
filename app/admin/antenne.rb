@@ -9,7 +9,7 @@ ActiveAdmin.register Antenne do
     def scoped_collection
       # NOTE: Don’t `includes` lots of related tables, as this causes massive leaks in ActiveAdmin.
       # Preferring N+1 queries fasten x2 index display
-      super.includes :institution, :advisors, :experts
+      super.includes :institution, :advisors, :experts, :territorial_zones
     end
   end
 
@@ -19,6 +19,7 @@ ActiveAdmin.register Antenne do
 
   scope :active, default: true
   scope :deleted
+  scope :without_territorial_zones
   scope :without_communes
 
   index do
@@ -31,9 +32,19 @@ ActiveAdmin.register Antenne do
       div admin_link_to(a, :advisors)
       div admin_link_to(a, :experts)
     end
+    column(:territoral_zone) do |a|
+      zone_types = TerritorialZone.zone_types.keys
+      if a.territorial_zones.any?
+        div do
+          zone_types.each do |zone_type|
+            count = a.territorial_zones.count { |tz| tz.zone_type == zone_type }
+            div(I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone') + ' : ' + count.to_s) if count.positive?
+          end
+        end
+      end
+    end
     column(:intervention_zone) do |a|
       div admin_link_to(a, :territories)
-      div admin_link_to(a, :communes)
     end
     column(:activity) do |a|
       div admin_link_to(a, :sent_matches, blank_if_empty: true)
@@ -54,10 +65,7 @@ ActiveAdmin.register Antenne do
   filter :territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
   filter :territories, as: :ajax_select, collection: -> { Territory.bassins_emploi.pluck(:name, :id) },
          data: { url: :admin_territories_path, search_fields: [:name] }
-  filter :regions, as: :ajax_select, collection: -> { Territory.regions.pluck(:name, :id) },
-         data: { url: :admin_territories_path, search_fields: [:name] }
-
-  filter :communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
+  filter :regions, as: :select, collection: -> { DecoupageAdministratif::Region.all.map { |r| [r.nom, r.code] } }
 
   ## CSV
   #
@@ -80,12 +88,12 @@ ActiveAdmin.register Antenne do
       row(:deleted_at) if resource.deleted?
       row :name
       row :institution
-      row(:intervention_zone) do |a|
-        div admin_link_to(a, :regions)
-        div admin_link_to(a, :territories)
-        div admin_link_to(a, :communes)
-        div intervention_zone_description(a)
-      end
+      # row(:intervention_zone) do |a|
+      #   div admin_link_to(a, :regions)
+      #   div admin_link_to(a, :territories)
+      #   div admin_link_to(a, :communes)
+      #   div intervention_zone_description(a)
+      # end
       row(:territorial_level) do |a|
         div a.territorial_level
       end
@@ -116,6 +124,34 @@ ActiveAdmin.register Antenne do
       end
       row(I18n.t('active_admin.territory.communes_list')) do |a|
         div displays_insee_codes(a.communes)
+      end
+    end
+
+    panel I18n.t('activerecord.models.territorial_zone.other') do
+      if antenne.territorial_zones.any?
+        TerritorialZone.zone_types.each_key do |zone_type|
+            antenne_territorial_zones = antenne.territorial_zones.select { |tz| tz.zone_type == zone_type }
+            next if antenne_territorial_zones.empty?
+            attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
+              model = "DecoupageAdministratif::#{zone_type.camelize}".constantize
+              antenne_territorial_zones.map do |tz|
+                row(tz.code) do
+                  model_instance = model.send(:find_by_code, tz.code)
+                  name = model_instance.nom
+                  if zone_type == "epci"
+                    communes_names = []
+                    model_instance.communes.sort_by(&:nom).map do |commune|
+                      communes_names << "#{commune.nom} (#{commune.code})"
+                    end
+                    name = name + "<br/>" + communes_names.join(', ')
+                  end
+                  name.html_safe
+                end
+              end
+            end
+          end
+      else
+        div I18n.t('active_admin.antenne.no_territorial_zones')
       end
     end
 
@@ -150,8 +186,8 @@ ActiveAdmin.register Antenne do
     :id, :min_years_of_existence, :max_years_of_existence, :effectif_max, :effectif_min,
     :raw_accepted_naf_codes, :raw_excluded_naf_codes, :raw_accepted_legal_forms, :raw_excluded_legal_forms, :_destroy, subject_ids: []
   ]
-  permit_params :name, :institution_id, :insee_codes, :territorial_level,
-                advisor_ids: [], expert_ids: [], manager_ids: [], match_filters_attributes: match_filters_attributes
+  permit_params :name, :institution_id, :territorial_level,
+                advisor_ids: [], expert_ids: [], manager_ids: [], match_filters_attributes: match_filters_attributes, territorial_zones_attributes: [:id, :zone_type, :code, :_destroy]
 
   form do |f|
     f.inputs do
@@ -167,7 +203,6 @@ ActiveAdmin.register Antenne do
                 url: :admin_users_path,
                 search_fields: [:full_name]
               }
-      f.input :insee_codes, as: :text
       f.input :territorial_level, as: :select, collection: Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a
     end
 
@@ -189,6 +224,17 @@ ActiveAdmin.register Antenne do
                 url: :admin_experts_path,
                 search_fields: [:full_name]
               }
+    end
+
+    f.inputs do
+      f.has_many :territorial_zones, allow_destroy: true, new_record: true do |tz|
+
+        tz.input :zone_type,
+          as: :select,
+          collection: TerritorialZone.zone_types.map { |k, v| [I18n.t(k, scope: "activerecord.attributes.territorial_zone"), v] },
+          include_blank: false
+        tz.input :code
+      end
     end
 
     f.inputs do
