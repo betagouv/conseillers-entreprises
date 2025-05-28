@@ -459,20 +459,24 @@ fr:
         anomalie_details: Détail
         coverage: Couverture
       referencement_coverage/anomalie:
-        extra_insee_codes: Plusieurs experts pour le même sujet
-        missing_insee_codes: Experts manquants dans certaines communes
-        no_anomalie: Pas d’anomalie
-        no_expert: Aucun expert
-        no_user: Aucun utilisateur
+        extra_insee_codes_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span> Plusieurs experts pour le même sujet'
+        missing_insee_codes_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span> Experts manquants sur certains territoires'
+        no_anomalie_html: "<span class='fr-icon-checkbox-circle-line green' aria-hidden='true'></span> Tout va bien"
+        no_expert: '<span class="fr-icon-information-line orange" aria-hidden="true"></span> Aucun expert'
+        no_user: '<span class="fr-icon-information-line orange" aria-hidden="true"></span> Aucun utilisateur'
       referencement_coverage/anomalie_details:
         experts: Experts concernés
-        extra_insee_codes: Codes insee couverts par plusieurs experts
-        missing_insee_codes: Codes insee non couverts
-        match_filters: "Des filtres de mise en relation sont présents pour ce sujet"
+        extra_insee_codes: Territoires couverts par plusieurs experts
+        missing_insee_codes: Territoires non couverts
+        match_filters: Filtres de mise en relation pour ce sujet
+      referencement_coverage/match_filters_types:
+        expert: Filtres aux experts
+        antenne: Filtres aux antennes
+        institution: Filtres à l'institution
       referencement_coverage/coverage:
         long:
           local: Antenne locale
-          mixte: Mixte (locale + régionale)
+          mixte: Couverture Mixte (locale + régionale)
           regional: Antenne régionale
           national: Antenne nationale
         short:
