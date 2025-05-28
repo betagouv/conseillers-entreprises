@@ -2,22 +2,17 @@
   .fr-container.fr-container--fluid.fr-container-md
     .fr-grid-row.fr-grid-row--center
       .fr-col-12.fr-col-md-8.fr-col-lg-6
-        .fr-modal__body.text-left
-          .fr-modal__header
+        .fr-modal__body.coverage-modal.text-left
+          .fr-modal__header.fr-mb-2w
             %button.fr-btn--close.fr-btn{ 'aria-controls': "modal-coverage-#{institution_subject.id}", title: t('navbar.close') }
               = t('navbar.close')
+            %div
+              %h2.fr-h4.fr-m-0{ id: "modal-coverage-#{institution_subject.id}-title" }
+                = t("#{referencement_coverage[:anomalie]}_html", scope: 'activerecord.attributes.referencement_coverage/anomalie')
           .fr-modal__content
-            %h1.fr-modal__title{ id: "modal-coverage-#{institution_subject.id}-title" }
-              = t(referencement_coverage[:anomalie], scope: 'activerecord.attributes.referencement_coverage/anomalie')
-            %hr
             %div.fr-mb-2w
-              %span= "#{t('activerecord.models.subject.one')} :"
-              = institution_subject.subject.label
-            %div.fr-mb-2w
-              - if referencement_coverage[:coverage].present?
-                %span= "#{t('activerecord.attributes.referencement_coverage.coverage')} :"
-                = t(referencement_coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.long')
+              %p.fr-badge.fr-badge--blue-ecume= institution_subject.subject.label
+              %p.fr-badge.fr-badge--green-menthe.fr-mt-2w= t(referencement_coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.long')
             - if referencement_coverage[:anomalie_details].present?
               %div
-                %span= "#{t('activerecord.attributes.referencement_coverage.anomalie_details')} :"
                 = build_coverage_details(referencement_coverage[:anomalie_details])
