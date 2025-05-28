@@ -880,12 +880,15 @@ fr:
     previous_year_percentage: Repères année N-1
     quarter_stats: Stats trim.
     quarter_stats_by_antenne: Stats trim. par antenne
+    quarter_stats_by_refused_subject: Répartition des refus du trimestre par sujet
     quarter_stats_by_region: Stats trim. par region
     quarter_stats_by_subject: Stats trim. par sujet
     quo: Taux de sans réponse
     quo_caption_definition: L’expert ne s’est pas positionné sur le besoin malgré les relances de l’équipe de Conseillers-Entreprises.
     quo_caption_label: En attente de réponse
     quo_rate: Taux de sans réponse
+    refusals: Refus
+    refusals_count: Nb de refus
     region: Région
     subject: Sujet
     subtitle: Analyse statistique des besoins transmis aux experts
