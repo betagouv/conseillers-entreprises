@@ -30,25 +30,22 @@ RSpec.describe Landing do
   end
 
   describe 'pause' do
-  let!(:landing) { create :landing, :with_subjects }
+    let!(:landing) { create :landing, :with_subjects }
 
-  it do
-    expect(landing.paused_at).to be_nil
-
-    landing.pause!
-    expect(landing.paused_at).not_to be_nil
+    it do
+      expect(landing.paused_at).to be_nil
+      landing.pause!
+      expect(landing.paused_at).not_to be_nil
+    end
   end
-end
 
   describe 'resume' do
-  let!(:landing) { create :landing, :with_subjects, paused_at: 1.day.ago }
+    let!(:landing) { create :landing, :with_subjects, paused_at: 1.day.ago }
 
-  it do
-    expect(landing.paused_at).not_to be_nil
-
-    landing.resume!
-    expect(landing.paused_at).to be_nil
+    it do
+      expect(landing.paused_at).not_to be_nil
+      landing.resume!
+      expect(landing.paused_at).to be_nil
+    end
   end
-end
-
 end

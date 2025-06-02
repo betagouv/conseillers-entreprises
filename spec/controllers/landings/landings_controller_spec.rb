@@ -32,45 +32,57 @@ RSpec.describe Landings::LandingsController do
   end
 
   describe "iframes" do
-    let!(:landing) { create :landing, slug: 'iframe-baby', integration: :iframe, iframe_category: iframe_category }
     let!(:landing_theme) { create :landing_theme, slug: 'theme-cool' }
     let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, slug: 'yeah-subject' }
 
     before { landing_theme.landings.push(landing) }
 
-    context 'iframe_category integral' do
-      let(:iframe_category) { :integral }
+    context 'iframe category' do
+      let!(:landing) { create :landing, slug: 'iframe-baby', integration: :iframe, iframe_category: iframe_category }
 
-      it do
-        get :show, params: { landing_slug: landing.slug }
-        expect(response).to be_successful
+      context 'iframe_category integral' do
+        let(:iframe_category) { :integral }
+
+        it do
+          get :show, params: { landing_slug: landing.slug }
+          expect(response).to be_successful
+        end
+      end
+
+      context 'iframe_category themes' do
+        let(:iframe_category) { :themes }
+
+        it do
+          get :show, params: { landing_slug: landing.slug }
+          expect(response).to be_successful
+        end
+      end
+
+      context 'iframe_category subjects' do
+        let(:iframe_category) { :subjects }
+
+        it do
+          get :show, params: { landing_slug: landing.slug }
+          expect(response).to redirect_to landing_theme_path(landing, landing_theme)
+        end
+      end
+
+      context 'iframe_category form' do
+        let(:iframe_category) { :form }
+
+        it do
+          get :show, params: { landing_slug: landing.slug }
+          expect(response).to redirect_to new_solicitation_path(landing.slug, landing_subject.slug)
+        end
       end
     end
 
-    context 'iframe_category themes' do
-      let(:iframe_category) { :themes }
+    context 'iframe paused' do
+      let!(:landing) { create :landing, slug: 'iframe-baby', integration: :iframe, paused_at: 1.day.ago }
 
       it do
         get :show, params: { landing_slug: landing.slug }
-        expect(response).to be_successful
-      end
-    end
-
-    context 'iframe_category subjects' do
-      let(:iframe_category) { :subjects }
-
-      it do
-        get :show, params: { landing_slug: landing.slug }
-        expect(response).to redirect_to landing_theme_path(landing, landing_theme)
-      end
-    end
-
-    context 'iframe_category form' do
-      let(:iframe_category) { :form }
-
-      it do
-        get :show, params: { landing_slug: landing.slug }
-        expect(response).to redirect_to new_solicitation_path(landing.slug, landing_subject.slug)
+        expect(response).to redirect_to paused_landing_path(landing)
       end
     end
   end
