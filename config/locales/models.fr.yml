@@ -823,11 +823,11 @@ fr:
   antenne_stats_exporter:
     annual_national_stats: Repères nationaux
     annual_stats_by_antenne: Stats ann. par antenne
-    annual_stats_by_region: Stats ann. par région
+    annual_stats_by_region: Stats ann. par territoire
     antenne: Antenne
     antenne_subjects: Sujets de l’antenne
     by_antenne: Par antenne
-    by_region: Par région
+    by_region: Par territoire
     caption_title: Aide à la lecture
     closed_not_reachable: "- dont clôturés par « injoignable »"
     closed_with_help: "- dont clôturés par « aide proposée »"
@@ -861,9 +861,11 @@ fr:
     institution_subjects: Sujets de l’institution
     institution_themes: Thématiques de l’institution
     matches: Mises en relation
+    national: National
     needs: Besoins
     needs_count: Nb de besoins
     needs_percentage: Part des besoins
+    no_antennes_without_needs: "* Les antennes qui n’ont pas reçu de besoin n’apparaissent pas dans ce tableau."
     not_for_me_caption_definition: Part des besoins pour lesquels les experts ont indiqué refuser car ils savaient d’emblée qu’ils ne pourraient pas aider l’entreprise.
     not_for_me_caption_label: Taux de refus
     not_for_me_rate: Taux de refus
@@ -881,7 +883,7 @@ fr:
     quarter_stats: Stats trim.
     quarter_stats_by_antenne: Stats trim. par antenne
     quarter_stats_by_refused_subject: Répartition des refus du trimestre par sujet
-    quarter_stats_by_region: Stats trim. par region
+    quarter_stats_by_region: Stats trim. par territoire
     quarter_stats_by_subject: Stats trim. par sujet
     quo: Taux de sans réponse
     quo_caption_definition: L’expert ne s’est pas positionné sur le besoin malgré les relances de l’équipe de Conseillers-Entreprises.
