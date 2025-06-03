@@ -9,6 +9,13 @@ class CoverageService
   def call
     antennes_insee_codes = @antennes.flat_map(&:insee_codes).uniq
 
+    if @institution_subject.theme.territories.any?
+      theme_insee_codes = @institution_subject.theme.insee_codes
+      if (theme_insee_codes & antennes_insee_codes).empty?
+        return theme_outside_territories
+      end
+    end
+
     experts_and_users_by_insee_code = antennes_insee_codes.index_with { [] }
     global_experts_and_users = []
     experts_without_specific_territories = get_experts_without_specific_territories(antennes_insee_codes, @institution_subject)
@@ -148,6 +155,23 @@ class CoverageService
       anomalie: :no_user,
       anomalie_details: {
         experts: all_experts
+      }
+    }
+  end
+
+  def theme_outside_territories
+    {
+      institution_subject_id: @institution_subject.id,
+      anomalie: :theme_outside_territories,
+      anomalie_details: {
+        territories:
+          @institution_subject.theme.territorial_zones.map do |zone|
+          {
+            zone_type: zone.zone_type,
+            code: zone.code,
+            name: zone.name,
+          }
+        end
       }
     }
   end
