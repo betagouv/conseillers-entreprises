@@ -56,6 +56,7 @@ module XlsxExport
         @label        = s.add_style alignment: { indent: 1 }
         @rate         = s.add_style format_code: '#0.0%'
         @blue_bg      = s.add_style bg_color: 'CFE2F3', type: :dxf
+        @pink_bg      = s.add_style bg_color: 'f4e6ec', type: :dxf
 
         s
       end
