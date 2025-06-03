@@ -127,27 +127,7 @@ ActiveAdmin.register Antenne do
 
     panel I18n.t('activerecord.models.territorial_zone.other') do
       if antenne.territorial_zones.any?
-        TerritorialZone.zone_types.each_key do |zone_type|
-            antenne_territorial_zones = antenne.territorial_zones.select { |tz| tz.zone_type == zone_type }
-            next if antenne_territorial_zones.empty?
-            attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
-              model = "DecoupageAdministratif::#{zone_type.camelize}".constantize
-              antenne_territorial_zones.map do |tz|
-                row(tz.code) do
-                  model_instance = model.send(:find_by_code, tz.code)
-                  name = model_instance.nom
-                  if zone_type == "epci"
-                    communes_names = []
-                    model_instance.communes.sort_by(&:nom).map do |commune|
-                      communes_names << "#{commune.nom} (#{commune.code})"
-                    end
-                    name = name + "<br/>" + communes_names.join(', ')
-                  end
-                  name.html_safe
-                end
-              end
-            end
-          end
+        displays_territories(antenne.territorial_zones)
       else
         div I18n.t('active_admin.antenne.no_territorial_zones')
       end

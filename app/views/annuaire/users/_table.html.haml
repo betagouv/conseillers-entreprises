@@ -12,7 +12,7 @@
           %th{ colspan: subjects.values.sum(&:size) }
             = theme.label
             - if theme.territories.any?
-              %span.ri-map-2-line.blue.fr-ml-1v
+              %span.ri-map-2-line.blue.fr-ml-1v{ aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.theme_with_specific_territories')}
       %tr.subjects
         -# Subjects columns, first row: the subjects, column-spanned for the remaining header row
         - grouped_subjects.each_value do |subjects|
@@ -26,7 +26,6 @@
               %th.coverage-table-cell
                 = turbo_frame_tag "institution-subject-#{institution_subject.id}", src: coverage_institution_users_path(institution_subject_id: institution_subject.id, antenne_id: params[:antenne_id]) do
                   = render 'skeleton_coverage'
-
 
     %tbody
       - grouped_experts.each do |antenne, experts|
