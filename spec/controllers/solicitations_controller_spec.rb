@@ -110,6 +110,15 @@ RSpec.describe SolicitationsController do
         end
       end
     end
+
+    context 'iframe paused' do
+      before { landing.update(paused_at: 1.day.ago) }
+
+      it do
+        get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug }
+        expect(response).to redirect_to paused_landing_path(landing)
+      end
+    end
   end
 
   describe 'POST #create' do

@@ -10,9 +10,13 @@ class SolicitationsController < PagesController
   # Step contact
   #
   def new
-    with_step_data(step: :step_contact) do
-      @solicitation = @landing.solicitations.new(landing_subject: @landing_subject)
-      render :step_contact
+    if @landing.is_paused?
+      redirect_to({ controller: "landings/landings", action: "paused", landing_slug: @landing.slug })
+    else
+      with_step_data(step: :step_contact) do
+        @solicitation = @landing.solicitations.new(landing_subject: @landing_subject)
+        render :step_contact
+      end
     end
   end
 
