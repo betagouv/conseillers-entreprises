@@ -55,6 +55,8 @@ module XlsxExport
         @right_header = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :right }, border: { color: 'AAAAAA', style: :thin }
         @label        = s.add_style alignment: { indent: 1 }
         @rate         = s.add_style format_code: '#0.0%'
+        @blue_bg      = s.add_style bg_color: 'CFE2F3', type: :dxf
+
         s
       end
 
