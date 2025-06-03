@@ -2,9 +2,9 @@ module Stats::Filters
   class Matches < Base
     private
 
-    def territories_filter(region_id)
-      return if region_id.blank?
-      @query.merge! @query.by_region(region_id)
+    def territories_filter(region_code)
+      return if region_code.blank?
+      @query.merge! @query.by_region(region_code)
     end
 
     def antenne_or_institution_filter(antenne_or_institution, with_agglomerate_data)
