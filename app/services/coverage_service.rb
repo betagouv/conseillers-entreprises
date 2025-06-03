@@ -87,10 +87,10 @@ class CoverageService
       no_expert
     elsif experts_and_users_by_insee_code.values.any?([])
       missing_insee_codes(experts_and_users_by_insee_code, all_experts)
-    elsif experts_and_users_by_insee_code.values.any?{ |a| a.uniq.size > 1 }
-      extra_insee_codes(experts_and_users_by_insee_code, all_experts)
     elsif experts_and_users_by_insee_code.values.flatten.pluck(:users_ids).all?([]) && experts_global_with_users.map { |e| e[:users_ids] }.empty?
       no_user(all_experts)
+    elsif experts_and_users_by_insee_code.values.any?{ |a| a.uniq.size > 1 }
+      extra_insee_codes(experts_and_users_by_insee_code, all_experts)
     else
       good_coverage(all_experts)
     end
