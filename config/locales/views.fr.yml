@@ -98,6 +98,7 @@ fr:
       expert: "%{expert_name} - %{antenne}"
       not_invited: Invitation pas encore envoyée.
       specific_territories: Équipe avec des territoires spécifiques.
+      theme_with_specific_territories: Thème avec des territoires spécifiques.
       user: "%{user_name} - %{antenne}"
   application:
     bandeau_info:

@@ -101,6 +101,8 @@ module AnnuaireHelper
       'success-table-cell'
     elsif coverage[:anomalie] == :extra_insee_codes && coverage[:anomalie_details][:match_filters].values.flatten.any?
       'warning-table-cell'
+    elsif coverage[:anomalie] == :theme_outside_territories
+      'info-table-cell'
     else
       'error-table-cell'
     end
