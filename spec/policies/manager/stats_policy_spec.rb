@@ -20,7 +20,7 @@ RSpec.describe Manager::StatsPolicy, type: :policy do
     context 'with user admin' do
       let(:user) { create :user, :admin }
 
-      it { is_expected.not_to permit(user, :index?) }
+      it { is_expected.to permit(user, :index?) }
     end
   end
 end

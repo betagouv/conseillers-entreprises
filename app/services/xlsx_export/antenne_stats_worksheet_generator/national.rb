@@ -4,20 +4,30 @@ module XlsxExport
       def generate
         sheet.add_row
 
-        add_agglomerate_headers(:subject)
+        add_agglomerate_headers(:institution_subjects)
 
         needs_by_subjects = {}
+        subjects_labels = @antenne.institution.subjects.map(&:label)
+
         @needs.map(&:subject).each do |subject|
           needs_by_subjects[subject.label] = @needs.where(subject: subject)
         end
 
+        needs_by_institution_subjects = needs_by_subjects.slice(*subjects_labels)
+        needs_by_occasional_subjects = needs_by_subjects.except(*subjects_labels)
+
         # Total
         add_agglomerate_rows(@needs, I18n.t('antenne_stats_exporter.total'), @antenne.institution)
 
-        # By subject
-        needs_by_subjects.sort_by { |_, needs| -needs.count }.each do |subject_label, needs|
-          ratio = calculate_rate(needs.count, @needs)
-          add_agglomerate_rows(needs, subject_label, @antenne.institution, ratio)
+        generate_subjects_row(needs_by_institution_subjects, @antenne.institution)
+
+        if needs_by_occasional_subjects.any?
+          sheet.add_row []
+          sheet.add_row [
+            I18n.t('antenne_stats_exporter.occasional_subjects'), '', '', '', '', ''
+          ], style: [@left_header, @right_header, @right_header, @right_header, @right_header, @right_header]
+
+          generate_subjects_row(needs_by_occasional_subjects, @antenne.institution)
         end
 
         finalise_agglomerate_style

@@ -29,15 +29,6 @@ module XlsxExport
 
         finalise_agglomerate_style
       end
-
-      private
-
-      def generate_subjects_row(needs_by_subjects)
-        needs_by_subjects.sort_by { |_, needs| -needs.count }.each do |subject_label, needs|
-          ratio = calculate_rate(needs.count, @needs)
-          add_agglomerate_rows(needs, subject_label, @antenne, ratio)
-        end
-      end
     end
   end
 end
