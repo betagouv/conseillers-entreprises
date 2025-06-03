@@ -16,12 +16,16 @@
 #
 
 class Theme < ApplicationRecord
+  include WithTerritorialZones
+
   ## Associations
   #
   has_many :subjects, inverse_of: :theme
   has_many :cooperation_themes, dependent: :destroy, inverse_of: :theme
   has_many :cooperations, through: :cooperation_themes, inverse_of: :themes
   has_and_belongs_to_many :territories
+  has_many :territorial_zones, as: :zoneable, dependent: :destroy, inverse_of: :zoneable
+  accepts_nested_attributes_for :territorial_zones, allow_destroy: true
 
   ## Validations
   #

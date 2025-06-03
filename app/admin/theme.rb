@@ -25,8 +25,17 @@ ActiveAdmin.register Theme do
     end
     column t('active_admin.particularities') do |t|
       div t.cooperations.map { |r| admin_link_to r }.join(', ').html_safe
-      div t.territories.map(&:name).join(', ')
+      if t.territorial_zones.any?
+        zone_types = TerritorialZone.zone_types.keys
+        div do
+          zone_types.each do |zone_type|
+            count = t.territorial_zones.count { |tz| tz.zone_type == zone_type }
+            div(I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone') + ' : ' + count.to_s) if count.positive?
+          end
+        end
+      end
     end
+
     actions dropdown: true
   end
 
@@ -60,17 +69,33 @@ ActiveAdmin.register Theme do
         t.territories.map { |r| admin_link_to r }.join(', ').html_safe
       end
     end
+    panel I18n.t('activerecord.models.territorial_zone.other') do
+      if theme.territorial_zones.any?
+        displays_territories(theme.territorial_zones)
+      end
+    end
   end
 
   ## Form
   #
-  permit_params :label, :interview_sort_order, territory_ids: []
+  permit_params :label, :interview_sort_order, territory_ids: [], territorial_zones_attributes: [:id, :zone_type, :code, :_destroy]
 
   form do |f|
     f.inputs do
       f.input :label
       f.input :territories, as: :ajax_select, collection: Territory.order(:name), multiple: true, data: { url: :admin_territories_path, search_fields: [:name] }
       f.input :interview_sort_order
+    end
+
+    f.inputs do
+      f.has_many :territorial_zones, allow_destroy: true, new_record: true do |tz|
+
+        tz.input :zone_type,
+                 as: :select,
+                 collection: TerritorialZone.zone_types.map { |k, v| [I18n.t(k, scope: "activerecord.attributes.territorial_zone"), v] },
+                 include_blank: false
+        tz.input :code
+      end
     end
 
     actions

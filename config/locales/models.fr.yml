@@ -459,11 +459,19 @@ fr:
         anomalie_details: Détail
         coverage: Couverture
       referencement_coverage/anomalie:
-        extra_insee_codes_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span> Plusieurs experts pour le même sujet'
-        missing_insee_codes_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span> Experts manquants sur certains territoires'
-        no_anomalie_html: "<span class='fr-icon-checkbox-circle-line green' aria-hidden='true'></span> Tout va bien"
-        no_expert: '<span class="fr-icon-information-line orange" aria-hidden="true"></span> Aucun expert'
-        no_user: '<span class="fr-icon-information-line orange" aria-hidden="true"></span> Aucun utilisateur'
+        extra_insee_codes: Plusieurs experts pour le même sujet
+        missing_insee_codes: Experts manquants sur certains territoires
+        no_anomalie: Tout va bien
+        no_expert: Aucun expert
+        no_user: Aucun utilisateur
+        theme_outside_territories: Thématiques sur un territoire restreint
+      referencement_coverage/anomalie_icons:
+        extra_insee_codes_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
+        missing_insee_codes_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
+        no_anomalie_html: "<span class='fr-icon-checkbox-circle-line green' aria-hidden='true'></span>"
+        no_expert: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
+        no_user: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
+        theme_outside_territories_html: '<span class="fr-icon-information-line blue" aria-hidden="true"></span>'
       referencement_coverage/anomalie_details:
         experts: Experts concernés
         extra_insee_codes: Territoires couverts par plusieurs experts
