@@ -360,7 +360,7 @@ describe CoverageService do
       end
 
       context 'themes with territories' do
-        let(:a_theme) { create(:theme, territories: [region]) }
+        let(:a_theme) { create(:theme, territorial_zones: [create(:territorial_zone, zone_type: :departement, code: '15')]) }
         let(:a_subject) { create(:subject, theme: a_theme) }
         let(:institution_subject) { create(:institution_subject, subject: a_subject, institution: institution) }
 
@@ -377,18 +377,17 @@ describe CoverageService do
           end
         end
 
-        describe 'Une antenne hors région n’apparait pas dans comme anomalie' do
-          let!(:out_of_region_antenne) { create(:antenne, :local, institution: institution, communes: [create(:commune)]) }
+        describe 'Une antenne hors territoire n’apparait pas dans comme anomalie' do
+          let!(:out_of_region_antenne) { create(:antenne, :local, institution: institution, territorial_zones: [create(:territorial_zone, zone_type: :departement, code: '42')]) }
           let!(:expert_without_users) { create(:expert, antenne: out_of_region_antenne, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+          let(:grouped_experts) { { out_of_region_antenne => { expert_without_users => expert_without_users.users } } }
 
-          before { described_class.perform_sync(out_of_region_antenne.id) }
+          before { subject }
 
           it do
-            expect(out_of_region_antenne.referencement_coverages.count).to eq(1)
-            expect(out_of_region_antenne.referencement_coverages.first.antenne).to eq(out_of_region_antenne)
-            expect(out_of_region_antenne.referencement_coverages.first.anomalie).to eq('no_anomalie')
-            expect(out_of_region_antenne.referencement_coverages.first.coverage).to eq('local')
-            expect(out_of_region_antenne.referencement_coverages.first.anomalie_details).to be_nil
+            expect(subject[:institution_subject_id]).to eq(institution_subject.id)
+            expect(subject[:coverage]).to eq(:local)
+            expect(subject[:anomalie]).to eq(:no_anomalie)
           end
         end
       end
@@ -591,9 +590,9 @@ describe CoverageService do
       before { subject }
 
       it do
-        is_expected.to eq({ :Antenne => ["ancienneté minimum (en année) - #{antenne.name}"],
-                            :Expert => [],
-                            :Institution => [] })
+        is_expected.to eq({ :antenne => ["ancienneté minimum (en année) - #{antenne.name}"],
+                            :expert => [],
+                            :institution => [] })
       end
     end
   end
