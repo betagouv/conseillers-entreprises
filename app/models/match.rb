@@ -200,6 +200,10 @@ class Match < ApplicationRecord
     taken_care_before(5)
   end
 
+  scope :by_region, -> (region_code) {
+    joins(:need).merge(Need.by_region(region_code))
+  }
+
   def self.ransackable_scopes(auth_object = nil)
     [
       :sent, :solicitation_created_at_gteq, :solicitation_created_at_lteq,
