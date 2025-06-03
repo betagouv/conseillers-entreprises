@@ -201,6 +201,10 @@ class Match < ApplicationRecord
     taken_care_before(5)
   end
 
+  scope :by_region, -> (region_code) {
+    joins(:need).merge(Need.by_region(region_code))
+  }
+
   scope :company_simple_effectif_eq, -> (query) do
     joins(:company).merge(Company.simple_effectif_eq(query))
   end
