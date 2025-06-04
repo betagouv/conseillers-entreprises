@@ -65,6 +65,20 @@ module AnnuaireHelper
     end.flatten.join.html_safe
   end
 
+  def build_cooperations_details(cooperations_details)
+    return unless cooperations_details.present?
+    content_tag(:div) do
+      inner_content = []
+      inner_content << content_tag(:h3, t('activerecord.attributes.referencement_coverage/cooperations_details.cooperations'), class: 'fr-text--lead fr-m-0 fr-pt-1w')
+      inner_content << display_cooperations(cooperations_details[:cooperations])
+      inner_content << content_tag(:h3, t('activerecord.attributes.referencement_coverage/cooperations_details.theme_territories'), class: 'fr-text--lead fr-m-0 fr-pt-1w')
+      inner_content << display_territories(cooperations_details[:theme_territories], :cooperations)
+      inner_content.join.html_safe
+    end
+  end
+
+  private
+
   def display_experts(value)
     content_tag(:ul) do
       value.map do |expert_id|
@@ -74,10 +88,16 @@ module AnnuaireHelper
     end
   end
 
-  private
+  def display_cooperations(value)
+    content_tag(:ul) do
+      value.map do |cooperation|
+        content_tag(:li, link_to(cooperation[:name], admin_cooperation_path(cooperation[:id]), 'data-turbo': false))
+      end.join.html_safe
+    end
+  end
 
   def display_territories(territories, anomalie_type)
-    if territories.present? && (anomalie_type == :extra_insee_codes || anomalie_type == :missing_insee_codes)
+    if territories.present? && (anomalie_type == :extra_insee_codes || anomalie_type == :missing_insee_codes || anomalie_type == :cooperations)
       territories.map do |territory|
         next if territory[:territories].blank?
         display_territory(territory)
