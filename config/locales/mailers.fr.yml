@@ -294,7 +294,7 @@ fr:
         at_your_disposal: Nous restons à votre entière disposition pour toute question sur l’interprétation de ces données.
         download_report: Télécharger mon rapport d’activité
         intro_html: Vous êtes identifié(e) comme responsable de la coopération <b>%{cooperation}</b>.
-        subject: Le rapport d'activité de la coopération ${cooperation} est disponible
+        subject: Le rapport d'activité de la coopération %{cooperation} est disponible
       invite_to_demo:
         confirmation_html: Après avoir choisi votre mot de passe, vous recevrez sur le mail <a href="mailto:%{expert_email}">%{expert_email}</a> les besoins d'entreprises sur votre champ de compétences. Vous pourrez échanger avec d’autres institutions partenaires sur les situations d’entreprise.
         demo_time_intro: Je vous invite à participer au webinaire de présentation du service (30 minutes) qui se déroule chaque jeudi à 14h30 (heure de Paris).

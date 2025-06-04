@@ -26,7 +26,7 @@ class UserMailer < ApplicationMailer
 
     mail(
       to: @user.email_with_display_name,
-      subject: t('mailers.user_mailer.cooperation_activity_report.subject')
+      subject: t('mailers.user_mailer.cooperation_activity_report.subject', cooperation: @cooperation.name)
     )
   end
 
