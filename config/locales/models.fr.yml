@@ -464,19 +464,22 @@ fr:
         no_anomalie: Tout va bien
         no_expert: Aucun expert
         no_user: Aucun utilisateur
-        theme_outside_territories: Thématiques sur un territoire restreint
+        theme_outside_territories: Thématique sur un territoire restreint
       referencement_coverage/anomalie_icons:
         extra_insee_codes_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
         missing_insee_codes_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
         no_anomalie_html: "<span class='fr-icon-checkbox-circle-line green' aria-hidden='true'></span>"
-        no_expert: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
-        no_user: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
+        no_expert_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
+        no_user_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
         theme_outside_territories_html: '<span class="fr-icon-information-line blue" aria-hidden="true"></span>'
       referencement_coverage/anomalie_details:
         experts: Experts concernés
         extra_insee_codes: Territoires couverts par plusieurs experts
         missing_insee_codes: Territoires non couverts
         match_filters: Filtres de mise en relation pour ce sujet
+      referencement_coverage/cooperations_details:
+        theme_territories: Territoires du thème
+        cooperations: Coopérations
       referencement_coverage/match_filters_types:
         expert: Filtres aux experts
         antenne: Filtres aux antennes

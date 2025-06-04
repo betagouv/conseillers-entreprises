@@ -16,5 +16,6 @@
               - if referencement_coverage[:coverage].present?
                 %p.fr-badge.fr-badge--green-menthe.fr-mt-2w= t(referencement_coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.long')
             - if referencement_coverage[:anomalie_details].present?
-              %div
-                = build_coverage_details(referencement_coverage[:anomalie_details])
+              = build_coverage_details(referencement_coverage[:anomalie_details])
+            - if referencement_coverage[:cooperations_details].present?
+              = build_cooperations_details(referencement_coverage[:cooperations_details])
