@@ -59,6 +59,7 @@ describe CoverageService do
             expect(subject[:coverage]).to eq(:local)
             expect(subject[:anomalie]).to eq(:no_anomalie)
             expect(subject[:anomalie_details]).to be_nil
+            expect(subject[:cooperations_details]).to be_nil
           end
         end
 
@@ -358,39 +359,6 @@ describe CoverageService do
           end
         end
       end
-
-      context 'themes with territories' do
-        let(:a_theme) { create(:theme, territorial_zones: [create(:territorial_zone, zone_type: :departement, code: '15')]) }
-        let(:a_subject) { create(:subject, theme: a_theme) }
-        let(:institution_subject) { create(:institution_subject, subject: a_subject, institution: institution) }
-
-        describe 'Une antenne dans la région avec des trou de référencement sur ce sujet apparait comme non couverte' do
-          let!(:expert_without_users) { create(:expert, antenne: local_antenne, territorial_zones: create_communes, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
-          let(:grouped_experts) { { regional_antenne => { expert_without_users => expert_without_users.users } } }
-
-          before { subject }
-
-          it do
-            expect(subject[:institution_subject_id]).to eq(institution_subject.id)
-            expect(subject[:coverage]).to eq(:local)
-            expect(subject[:anomalie]).to eq(:no_user)
-          end
-        end
-
-        describe 'Une antenne hors territoire n’apparait pas dans comme anomalie' do
-          let!(:out_of_region_antenne) { create(:antenne, :local, institution: institution, territorial_zones: [create(:territorial_zone, zone_type: :departement, code: '42')]) }
-          let!(:expert_without_users) { create(:expert, antenne: out_of_region_antenne, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
-          let(:grouped_experts) { { out_of_region_antenne => { expert_without_users => expert_without_users.users } } }
-
-          before { subject }
-
-          it do
-            expect(subject[:institution_subject_id]).to eq(institution_subject.id)
-            expect(subject[:coverage]).to eq(:local)
-            expect(subject[:anomalie]).to eq(:no_anomalie)
-          end
-        end
-      end
     end
 
     context "Territories with departments" do
@@ -449,8 +417,7 @@ describe CoverageService do
           expect(subject[:institution_subject_id]).to eq(institution_subject.id)
           expect(subject[:coverage]).to eq(:local)
           expect(subject[:anomalie]).to eq(:missing_insee_codes)
-          expect(subject[:anomalie_details][:missing_insee_codes].first[:zone_type]).to eq :departements
-          expect(subject[:anomalie_details][:missing_insee_codes].first[:territories]).to eq [{ :code => "69", :name => "Rhône" }, { :code => "43", :name => "Haute-Loire" }]
+          expect(subject[:anomalie_details][:missing_insee_codes]).to eq [{ :zone_type => :regions, :territories => [] }, { :zone_type => :departements, :territories => [{ :code => "69", :name => "Rhône" }, { :code => "43", :name => "Haute-Loire" }] }, { :zone_type => :epcis, :territories => [] }, { :zone_type => :communes, :territories => [] }]
         end
       end
 
@@ -467,8 +434,49 @@ describe CoverageService do
           expect(subject[:coverage]).to eq(:local)
           expect(subject[:anomalie]).to eq(:extra_insee_codes)
           expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert1.id, local_expert2.id)
-          expect(subject[:anomalie_details][:extra_insee_codes].first[:zone_type]).to eq :departements
-          expect(subject[:anomalie_details][:extra_insee_codes].first[:territories]).to eq [{ :code => "42", :name => "Loire" }]
+          expect(subject[:anomalie_details][:extra_insee_codes]).to eq [{ :zone_type => :regions, :territories => [] }, { :zone_type => :departements, :territories => [{ :code => "42", :name => "Loire" }] }, { :zone_type => :epcis, :territories => [] }, { :zone_type => :communes, :territories => [] }]
+        end
+      end
+    end
+
+    describe 'themes with territories and cooperation' do
+      let!(:regional_antenne) { create(:antenne, :regional, institution: institution, parent_antenne: national_antenne, territorial_zones: [create(:territorial_zone, zone_type: :region, code: "53")]) }
+      let(:cooperation) { create(:cooperation, institution: institution) }
+      let(:landing) { create(:landing, cooperation: cooperation) }
+      let!(:landing_theme) { create(:landing_theme, landings: [landing], subjects: [a_subject]) }
+      let!(:cooperation_theme) { create(:cooperation_theme, cooperation: cooperation, theme: a_theme) }
+      let(:a_theme) { create(:theme, territorial_zones: [create(:territorial_zone, zone_type: :departement, code: '22')]) }
+      let(:a_subject) { create(:subject, theme: a_theme) }
+      let(:institution_subject) { create(:institution_subject, subject: a_subject, institution: institution) }
+
+      describe 'Une antenne dans la région avec des trou de référencement sur ce sujet apparait comme non couverte' do
+        let!(:expert_without_users) { create(:expert, antenne: regional_antenne, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+        let(:grouped_experts) { { regional_antenne => { expert_without_users => expert_without_users.users } } }
+
+        before { subject }
+
+        it do
+          expect(subject[:institution_subject_id]).to eq(institution_subject.id)
+          expect(subject[:coverage]).to eq(:regional)
+          expect(subject[:anomalie]).to eq(:no_user)
+          expect(subject[:cooperations_details][:cooperations]).to eq [{ :id => cooperation.id, :name => cooperation.name }]
+          expect(subject[:cooperations_details][:theme_territories]).to eq [{ :territories => [], :zone_type => :regions }, { :territories => [{ :code => "22", :name => "Côtes-d'Armor" }], :zone_type => :departements }, { :territories => [], :zone_type => :epcis }, { :territories => [], :zone_type => :communes }]
+        end
+      end
+
+      describe 'Une antenne hors territoire n’apparait pas dans comme anomalie' do
+        let!(:out_of_region_antenne) { create(:antenne, :local, institution: institution, territorial_zones: [create(:territorial_zone, zone_type: :departement, code: '42')]) }
+        let!(:expert_without_users) { create(:expert, antenne: out_of_region_antenne, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+        let(:grouped_experts) { { out_of_region_antenne => { expert_without_users => expert_without_users.users } } }
+
+        before { subject }
+
+        it do
+          expect(subject[:institution_subject_id]).to eq(institution_subject.id)
+          expect(subject[:coverage]).to eq(:local)
+          expect(subject[:anomalie]).to eq(:no_anomalie)
+          expect(subject[:cooperations_details][:cooperations]).to eq [{ :id => cooperation.id, :name => cooperation.name }]
+          expect(subject[:cooperations_details][:theme_territories]).to eq [{ :territories => [], :zone_type => :regions }, { :territories => [{ :code => "22", :name => "Côtes-d'Armor" }], :zone_type => :departements }, { :territories => [], :zone_type => :epcis }, { :territories => [], :zone_type => :communes }]
         end
       end
     end
@@ -482,7 +490,7 @@ describe CoverageService do
 
       it do
         expect(subject[:institution_subject_id]).to eq(institution_subject.id)
-        # expect(subject[:coverage]).to eq(:national)
+        expect(subject[:coverage]).to eq(:national)
         expect(subject[:anomalie]).to eq(:no_anomalie)
         expect(subject[:anomalie_details]).to be_nil
       end
