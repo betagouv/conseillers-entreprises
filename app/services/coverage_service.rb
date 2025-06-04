@@ -80,14 +80,17 @@ class CoverageService
   end
 
   def check_coverage(experts_and_users_by_insee_code, experts_global_with_users, all_experts)
-    if @institution_subject.subject.territories.any? && @antenne.present? &&
-      (@institution_subject.subject.territories && @antenne.regions).empty?
+    if (@institution_subject.subject.territories.any? && @antenne.present? &&
+      (@institution_subject.subject.territories && @antenne.regions).empty?) ||
+      (@institution_subject.theme.insee_codes.present? && (@institution_subject.theme.insee_codes & experts_and_users_by_insee_code.keys).empty?) # Si le theme a des codes INSEE qui ne sont pas dans en dehors des territoires observés
       good_coverage(all_experts)
-    elsif experts_and_users_by_insee_code.values.all?([]) && experts_global_with_users.map { |e| e[:expert_id] }.empty?
+    elsif experts_and_users_by_insee_code.values.all?([]) &&
+      experts_global_with_users.map { |e| e[:expert_id] }.empty?
       no_expert
     elsif experts_and_users_by_insee_code.values.any?([])
       missing_insee_codes(experts_and_users_by_insee_code, all_experts)
-    elsif experts_and_users_by_insee_code.values.flatten.pluck(:users_ids).all?([]) && experts_global_with_users.map { |e| e[:users_ids] }.empty?
+    elsif experts_and_users_by_insee_code.values.flatten.pluck(:users_ids).all?([]) &&
+      experts_global_with_users.map { |e| e[:users_ids] }.empty?
       no_user(all_experts)
     elsif experts_and_users_by_insee_code.values.any?{ |a| a.uniq.size > 1 }
       extra_insee_codes(experts_and_users_by_insee_code, all_experts)
@@ -101,7 +104,8 @@ class CoverageService
       institution_subject_id: @institution_subject.id,
       coverage: get_coverage(all_experts),
       anomalie: :no_anomalie,
-      anomalie_details: nil
+      anomalie_details: nil,
+      cooperations_details: format_cooperations_details
     }
   end
 
@@ -116,7 +120,8 @@ class CoverageService
       anomalie: :missing_insee_codes,
       anomalie_details: {
         missing_insee_codes: format_territories(missing_codes),
-      }
+      },
+      cooperations_details: format_cooperations_details
     }
   end
 
@@ -135,7 +140,8 @@ class CoverageService
         experts: extra_experts,
         match_filters: get_match_filters(all_experts),
         extra_insee_codes: format_territories(extra_codes),
-      }
+      },
+      cooperations_details: format_cooperations_details
     }
   end
 
@@ -144,7 +150,8 @@ class CoverageService
       institution_subject_id: @institution_subject.id,
       coverage: nil,
       anomalie: :no_expert,
-      anomalie_details: nil
+      anomalie_details: nil,
+      cooperations_details: format_cooperations_details
     }
   end
 
@@ -154,8 +161,9 @@ class CoverageService
       coverage: get_coverage(all_experts),
       anomalie: :no_user,
       anomalie_details: {
-        experts: all_experts
-      }
+        experts: all_experts,
+      },
+      cooperations_details: format_cooperations_details
     }
   end
 
@@ -163,16 +171,8 @@ class CoverageService
     {
       institution_subject_id: @institution_subject.id,
       anomalie: :theme_outside_territories,
-      anomalie_details: {
-        territories:
-          @institution_subject.theme.territorial_zones.map do |zone|
-          {
-            zone_type: zone.zone_type,
-            code: zone.code,
-            name: zone.name,
-          }
-        end
-      }
+      anomalie_details: nil,
+      cooperations_details: format_cooperations_details
     }
   end
 
@@ -237,5 +237,26 @@ class CoverageService
     end
 
     experts_and_users_by_insee_code
+  end
+
+  def format_cooperations_details
+    cooperations = get_cooperations
+    if cooperations.empty?
+      nil
+    else
+      {
+        cooperations: cooperations,
+        theme_territories: format_territories(@institution_subject.theme.insee_codes),
+      }
+    end
+  end
+
+  def get_cooperations
+    @institution_subject.theme.cooperations.map do |cooperation|
+      {
+        id: cooperation.id,
+        name: cooperation.name,
+      }
+    end
   end
 end
