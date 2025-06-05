@@ -142,11 +142,11 @@ module XlsxExport
 
       def finalise_style
         [
-          'A1:E1',
-          'A2:E2',
+          'A1:D1',
+          'A2:D2',
         ].each { |range| sheet.merge_cells(range) }
 
-        sheet.column_widths 50, 15, 15, 15, 15
+        sheet.column_widths 70, 15, 15, 20
       end
 
       # Base variables

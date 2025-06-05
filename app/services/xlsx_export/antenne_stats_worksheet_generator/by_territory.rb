@@ -48,14 +48,14 @@ module XlsxExport
         #
         sheet.add_row
 
-        territorial_antennes = @antenne.territorial_antennes.joins(:received_needs).where(received_needs: { id: @needs.pluck(:id) })
+        territorial_antennes = @antenne.territorial_antennes.joins(:received_needs).where(received_needs: { id: @needs.pluck(:id) }).distinct
         generate_by_antenne_table(territorial_antennes)
 
         sheet.add_row
         sheet.add_row [I18n.t('antenne_stats_exporter.no_antennes_without_needs')], style: [@italic]
 
         antennes_start_row = 5 + Territory.regions.count + 3
-        finalise_by_antenne_calculation_style(antennes_start_row)
+        finalise_by_antenne_calculation_style(antennes_start_row, territorial_antennes.count)
 
         finalise_agglomerate_style
       end
