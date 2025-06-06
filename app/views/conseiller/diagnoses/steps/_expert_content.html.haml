@@ -7,6 +7,8 @@
         - if expert.users.any?{ |user| user.invitation_not_accepted? }
           %span.picto.ri-mail-forbid-line{ 'aria-hidden': 'true', title: t('.invitation_not_accepted') }
       %p.fr-text--sm.fr-m-0= expert.job
+      - if main_user_absent?(expert)
+        %p.fr-badge.fr-badge--warning= t('attributes.absent_until', date: I18n.l(expert.users.first.absence_end_at, format: :sentence))
     .fr-col
       %ul.fr-m-0
         - experts_subjects.each do |expert_subject|

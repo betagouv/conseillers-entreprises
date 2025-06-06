@@ -3,6 +3,8 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
+#  absence_end_at         :datetime
+#  absence_start_at       :datetime
 #  app_info               :jsonb
 #  cgu_accepted_at        :datetime
 #  current_sign_in_at     :datetime
@@ -64,6 +66,7 @@ class User < ApplicationRecord
   store_accessor :app_info, ['bascule_seen']
 
   after_create_commit :create_single_user_experts, if: -> { create_expert.to_b }
+  before_validation :fill_absence_start_at, if: -> { absence_end_at.present? && absence_start_at.nil? }
 
   pg_search_scope :omnisearch,
     against: [:full_name, :email, :job],
@@ -345,9 +348,13 @@ class User < ApplicationRecord
     end
   end
 
+  def fill_absence_start_at
+    self.absence_start_at = Time.zone.now if self.absence_start_at.nil?
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     [
-      "antenne_id", "cgu_accepted_at", "created_at", "current_sign_in_at", "current_sign_in_ip", "deleted_at", "email",
+      "absence_start_at", "absence_end_at", "antenne_id", "cgu_accepted_at", "created_at", "current_sign_in_at", "current_sign_in_ip", "deleted_at", "email",
       "encrypted_password", "full_name", "id", "id_value", "invitation_accepted_at", "invitation_created_at",
       "invitation_limit", "invitation_sent_at", "invitation_token", "invitations_count", "inviter_id", "job",
       "last_sign_in_at", "last_sign_in_ip", "phone_number", "remember_created_at", "reset_password_sent_at",
