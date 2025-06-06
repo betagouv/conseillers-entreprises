@@ -825,6 +825,7 @@ fr:
     annual_stats_by_antenne: Stats ann. par antenne
     annual_stats_by_region: Stats ann. par territoire
     antenne: Antenne
+    antenne_refused_subjects: Sujets de l’antenne avec refus
     antenne_subjects: Sujets de l’antenne
     by_antenne: Par antenne
     by_region: Par territoire
@@ -865,6 +866,7 @@ fr:
     needs: Besoins
     needs_count: Nb de besoins
     needs_percentage: Part des besoins
+    needs_refused_percentage: Part des besoins refusés
     no_antennes_without_needs: "* Les antennes qui n’ont pas reçu de besoin n’apparaissent pas dans ce tableau."
     not_for_me_caption_definition: Part des besoins pour lesquels les experts ont indiqué refuser car ils savaient d’emblée qu’ils ne pourraient pas aider l’entreprise.
     not_for_me_caption_label: Taux de refus
@@ -889,7 +891,7 @@ fr:
     quo_caption_definition: L’expert ne s’est pas positionné sur le besoin malgré les relances de l’équipe de Conseillers-Entreprises.
     quo_caption_label: En attente de réponse
     quo_rate: Taux de sans réponse
-    refusals: Refus
+    refusals: Refus trim.
     refusals_count: Nb de refus
     region: Région
     subject: Sujet
