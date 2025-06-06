@@ -94,7 +94,7 @@ module XlsxExport
           'A1:F1',
         ].each { |range| sheet.merge_cells(range) }
 
-        sheet.column_widths 50, 15, 20, 20, 20, 20
+        sheet.column_widths 50, 15, 20, 25, 25, 25
       end
     end
   end

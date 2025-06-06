@@ -7,7 +7,12 @@ module XlsxExport
         sheet.add_row [I18n.t('antenne_stats_exporter.quarter_stats_by_refused_subject')], style: @subtitle
         sheet.add_row
 
-        add_subject_table_header(:antenne_subjects)
+        sheet.add_row [
+          I18n.t('antenne_stats_exporter.antenne_refused_subjects'),
+          I18n.t('antenne_stats_exporter.refusals_count'),
+          I18n.t('antenne_stats_exporter.needs_refused_percentage'),
+        ], style: [@left_header, @right_header, @right_header]
+
         generate_by_subject_table(refused_needs)
       end
 
@@ -30,7 +35,7 @@ module XlsxExport
         sheet.add_row [
           I18n.t(tab_scope, scope: ['antenne_stats_exporter']),
           I18n.t('antenne_stats_exporter.refusals_count'),
-          I18n.t('antenne_stats_exporter.needs_percentage'),
+          I18n.t('antenne_stats_exporter.needs_refused_percentage'),
         ], style: [@left_header, @right_header, @right_header]
       end
 
@@ -40,7 +45,7 @@ module XlsxExport
           'A2:C2',
         ].each { |range| sheet.merge_cells(range) }
 
-        sheet.column_widths 70, 20, 20
+        sheet.column_widths 70, 20, 25
       end
     end
   end
