@@ -1,6 +1,8 @@
 module XlsxExport
   module AntenneStatsWorksheetGenerator
     class National < Base
+      include XlsxExport::AntenneStatsWorksheetGenerator::BySubjectMethods
+
       def generate
         sheet.add_row
 

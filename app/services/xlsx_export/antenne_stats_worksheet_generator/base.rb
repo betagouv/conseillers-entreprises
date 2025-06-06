@@ -3,142 +3,16 @@ module XlsxExport
     class Base
       def initialize(sheet, antenne, needs, styles)
         @antenne = antenne
-        @needs = needs
         @sheet = sheet
+        @needs = needs
         create_styles styles
       end
 
       def generate
-        generate_base_stats
-        generate_matches_stats
-        generate_needs_stats
-        generate_institution_themes_stats
-        generate_occasional_themes_stats
-        add_help_row
         finalise_style
       end
 
       private
-
-      def generate_base_stats
-        sheet.add_row [I18n.t('antenne_stats_exporter.subtitle')], style: @subtitle
-        sheet.add_row
-
-        sheet.add_row [I18n.t('antenne_stats_exporter.needs'), @needs.size], style: [@bold, nil]
-        sheet.add_row [I18n.t('antenne_stats_exporter.facilities'), facilities.size], style: [@bold, nil]
-        sheet.add_row
-      end
-
-      def generate_institution_themes_stats
-        # On ne prend que les thèmes principaux
-        themes = @antenne.institution.themes.for_interview
-
-        sheet.add_row [
-          I18n.t('antenne_stats_exporter.institution_themes'),
-          I18n.t('antenne_stats_exporter.count'),
-          I18n.t('antenne_stats_exporter.percentage')
-        ], style: count_rate_header_style
-
-        generate_themes_rows(themes)
-      end
-
-      def generate_occasional_themes_stats
-        themes = Theme.for_interview
-        # On ne prend que les thèmes que l'antenne n'a pas et sur lesquels elle a été notifiée quand même
-        themes = themes.reject do |theme|
-          @antenne.institution.themes.include?(theme) ||
-          calculate_needs_by_theme_size(theme).zero?
-        end
-
-        return if calculate_needs_by_themes_size(themes).zero?
-
-        sheet.add_row [I18n.t('antenne_stats_exporter.occasional_themes'), '', ''], style: count_rate_header_style
-
-        generate_themes_rows(themes)
-      end
-
-      def generate_themes_rows(themes)
-        needs_by_themes = {}
-        themes.each do |theme|
-          needs_by_themes[theme.label] = theme.present? ? calculate_needs_by_theme_size(theme) : nil
-        end
-
-        # Tri selon le nombre de besoins en ordre décroissant
-        needs_by_themes.sort_by { |_, needs_count| -needs_count }.each do |theme_label, needs_count|
-          sheet.add_row [
-            theme_label,
-            needs_count,
-            calculate_rate(needs_count, @needs)
-          ], style: count_rate_row_style
-        end
-        sheet.add_row
-      end
-
-      def generate_matches_stats
-        sheet.add_row [
-          I18n.t('antenne_stats_exporter.experts_positionning', institution: institution_name),
-          I18n.t('antenne_stats_exporter.count'),
-          I18n.t('antenne_stats_exporter.percentage')
-        ], style: count_rate_header_style
-
-        # Besoins transmis
-        sheet.add_row [
-          I18n.t('antenne_stats_exporter.transmitted_needs'),
-          matches.size
-        ], style: count_rate_row_style
-
-        add_status_rows(ordered_scopes, matches)
-        add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], matches.with_exchange)
-
-        sheet.add_row
-      end
-
-      def generate_needs_stats
-        sheet.add_row [
-          I18n.t('antenne_stats_exporter.ecosystem_positionning', institution: institution_name),
-          I18n.t('antenne_stats_exporter.count'),
-          I18n.t('antenne_stats_exporter.percentage')
-        ], style: count_rate_header_style
-
-        # Besoins transmis
-        sheet.add_row [
-          I18n.t('antenne_stats_exporter.transmitted_needs'),
-          @needs.size
-        ], style: count_rate_row_style
-
-        add_status_rows(ordered_scopes, @needs)
-
-        # Subquery pour se débarasser du `join` sur les matches de l'antenne qui fausse les résultats
-        unjoined_needs = Need.where(id: @needs.with_exchange.ids)
-        add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], unjoined_needs)
-
-        sheet.add_row
-      end
-
-      def add_status_rows(scopes, recipient)
-        scopes.each do |scope|
-          by_status_size = recipient.send(scope)&.size
-          sheet.add_row [
-            I18n.t("antenne_stats_exporter.funnel.#{scope}"),
-            by_status_size,
-            calculate_rate(by_status_size, recipient)
-          ], style: count_rate_row_style
-        end
-      end
-
-      def add_help_row
-        sheet.add_row [I18n.t('antenne_stats_exporter.count_difference')], style: [@italic]
-        sheet.add_row [I18n.t('antenne_stats_exporter.work_in_progress'),], style: [@italic]
-      end
-
-      def finalise_style
-        [
-          'A1:E1',
-          'A2:E2',
-        ].each { |range| sheet.merge_cells(range) }
-
-        sheet.column_widths 50, 15, 15, 15, 15
-      end
 
       # Base variables
       #
@@ -146,28 +20,8 @@ module XlsxExport
         @sheet
       end
 
-      def institution_name
-        @institution_name ||= @antenne.institution.name
-      end
-
-      def matches
-        @matches ||= @antenne.perimeter_received_matches_from_needs(@needs)
-      end
-
-      def facilities
-        @facilities ||= Facility.joins(diagnoses: :needs).where(diagnoses: { needs: @needs }).distinct
-      end
-
-      def ordered_scopes
-        @ordered_scopes ||= [:not_status_quo, :status_not_for_me, :taken_care_of, :status_done, :status_done_no_help, :status_done_not_reachable, :status_taking_care, :status_quo]
-      end
-
-      def ordered_statuses
-        @ordered_statuses ||= [:done, :done_not_reachable, :done_no_help, :taking_care, :not_for_me, :quo]
-      end
-
-      def ordered_positionning_statuses
-        @ordered_positionning_statuses ||= [:positionning, :positionning_accepted, :done, :not_for_me, :quo, nil]
+      def current_needs
+        @current_needs ||= @needs
       end
 
       # Calculation
@@ -191,18 +45,6 @@ module XlsxExport
         end
       end
 
-      def calculate_needs_by_theme_size(theme)
-        @needs.joins(subject: :theme).where(subject: { theme: theme }).size
-      end
-
-      def calculate_needs_by_themes_size(themes)
-        @needs.joins(subject: :theme).where(subject: { theme: themes }).size
-      end
-
-      def calculate_needs_by_subject_size(subject)
-        @needs.where(subject: subject).size
-      end
-
       # Style
       #
       def create_styles(s)
@@ -213,15 +55,10 @@ module XlsxExport
         @right_header = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :right }, border: { color: 'AAAAAA', style: :thin }
         @label        = s.add_style alignment: { indent: 1 }
         @rate         = s.add_style format_code: '#0.0%'
+        @blue_bg      = s.add_style bg_color: 'CFE2F3', type: :dxf
+        @pink_bg      = s.add_style bg_color: 'f4e6ec', type: :dxf
+
         s
-      end
-
-      def count_rate_header_style
-        [@left_header, @right_header, @right_header, @right_header, @right_header]
-      end
-
-      def count_rate_row_style
-        [@label, nil, @rate]
       end
 
       # Pages résumé
@@ -257,14 +94,7 @@ module XlsxExport
           'A1:F1',
         ].each { |range| sheet.merge_cells(range) }
 
-        sheet.column_widths 50, 15, 25, 25, 25, 25
-      end
-
-      def generate_subjects_row(needs_by_subjects, recipient = @antenne)
-        needs_by_subjects.sort_by { |_, needs| -needs.count }.each do |subject_label, needs|
-          ratio = calculate_rate(needs.count, @needs)
-          add_agglomerate_rows(needs, subject_label, recipient, ratio)
-        end
+        sheet.column_widths 50, 15, 20, 25, 25, 25
       end
     end
   end
