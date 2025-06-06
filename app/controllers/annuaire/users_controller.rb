@@ -10,7 +10,7 @@ module  Annuaire
       institutions_subjects_by_theme = @institution.institutions_subjects
         .includes(:subject, :theme, :experts_subjects, :not_deleted_experts)
         .group_by(&:theme)
-        .sort_by { |theme, _| theme.territorial_zones.present? ? 1 : 0 }
+        .sort_by { |theme, _| [theme.territorial_zones.present? ? 1 : 0, theme.label] }
         .to_h
       institutions_subjects_exportable = institutions_subjects_by_theme.values.flatten
 
