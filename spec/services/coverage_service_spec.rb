@@ -510,14 +510,13 @@ describe CoverageService do
       local_antenne.reload
     end
 
-    subject { described_class.new(institution_subject, grouped_experts).send(:get_coverage, experts) }
+    subject { described_class.new(institution_subject, grouped_experts).send(:get_coverage) }
 
     context "local coverage" do
       let!(:local_expert) { create(:expert_with_users, antenne: local_antenne, territorial_zones: create_communes, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
 
       context "with one antenne" do
         let(:grouped_experts) { { local_antenne => { local_expert => local_expert.users } } }
-        let(:experts) { [local_expert] }
 
         before { subject }
 
@@ -528,7 +527,6 @@ describe CoverageService do
 
       describe "with two antennes and a regional antennes with only manager" do
         let(:grouped_experts) { { local_antenne => { local_expert => local_expert.users }, regional_antenne => { Expert.new => [create(:user, :manager, antenne: regional_antenne)] } } }
-        let(:experts) { [local_expert] }
 
         before { subject }
 
@@ -588,7 +586,7 @@ describe CoverageService do
       antenne.reload
     end
 
-    subject { described_class.new(institution_subject, grouped_experts).send(:get_match_filters, [expert]) }
+    subject { described_class.new(institution_subject, grouped_experts).send(:get_match_filters) }
 
     context "Only antennes match filters" do
       let!(:antenne_match_filter) { create :match_filter, antenne: antenne, min_years_of_existence: 1 }
