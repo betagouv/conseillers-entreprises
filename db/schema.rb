@@ -665,6 +665,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
   create_table "territorial_zones", force: :cascade do |t|
     t.string "code", null: false
     t.string "zone_type", null: false
+    t.string "regions_codes", default: [], array: true
     t.string "zoneable_type", null: false
     t.bigint "zoneable_id", null: false
     t.datetime "created_at", null: false
