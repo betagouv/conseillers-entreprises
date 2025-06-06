@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_19_095209) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_06_113927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -732,6 +732,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_19_095209) do
     t.datetime "cgu_accepted_at", precision: nil
     t.jsonb "app_info", default: {}
     t.datetime "demo_invited_at"
+    t.datetime "absence_start_at"
+    t.datetime "absence_end_at"
     t.index ["antenne_id"], name: "index_users_on_antenne_id"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true, where: "((email)::text <> NULL::text)"

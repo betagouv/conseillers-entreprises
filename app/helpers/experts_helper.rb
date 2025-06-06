@@ -6,4 +6,10 @@ module ExpertsHelper
       'veille'
     end
   end
+
+  def main_user_absent?(expert)
+    user = expert.users.first
+    expert.with_one_user? && user.absence_end_at.present? && 
+    user.absence_end_at > Time.zone.now && user.absence_start_at < Time.zone.now
+  end
 end

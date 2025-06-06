@@ -24,6 +24,11 @@
             %li
               %span.picto.ri-mail-line{ 'aria-hidden': 'true' }
               = mail_to expert.email, expert.email, class: 'break-word'
+          - if main_user_absent?(expert)
+            %li
+              %p.fr-badge.fr-badge--warning= t('attributes.absent_until', date: I18n.l(expert.users.first.absence_end_at, format: :sentence))
+
+
       .fr-col-5
         - expert.antenne.managers.each do |manager|
           %ul.list-unstyled.card-expert__list
