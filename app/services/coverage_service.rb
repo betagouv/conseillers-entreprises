@@ -4,42 +4,59 @@ class CoverageService
     @grouped_experts = grouped_experts
     @antennes = @grouped_experts.keys
     @all_potential_antennes_ids = compute_all_potential_antennes_ids # Pré-calcule pour éviter recomputation
+    gather_all_experts
   end
 
   def call
     antennes_insee_codes = @antennes.flat_map(&:insee_codes).uniq
 
-    if @institution_subject.theme.territories.any?
-      theme_insee_codes = @institution_subject.theme.insee_codes
-      if (theme_insee_codes & antennes_insee_codes).empty?
-        return theme_outside_territories
-      end
-    end
+    return theme_outside_territories if theme_outside_territories?(antennes_insee_codes)
 
+    experts_and_users_by_insee_code = initialize_experts_and_users_by_insee_code(antennes_insee_codes)
+    global_experts_and_users = build_global_experts_and_users
+
+    check_coverage(experts_and_users_by_insee_code, global_experts_and_users)
+  end
+
+  private
+
+  def theme_outside_territories?(antennes_insee_codes)
+    @institution_subject.theme.territories.any? &&
+      (@institution_subject.theme.insee_codes & antennes_insee_codes).empty?
+  end
+
+  def gather_all_experts
+    @all_experts ||= begin
+      antennes_insee_codes = @antennes.flat_map(&:insee_codes)
+      experts_without_specific_territories = get_experts_without_specific_territories(antennes_insee_codes, @institution_subject)
+      experts_with_specific_territories = get_experts_with_specific_territories(antennes_insee_codes, @institution_subject)
+      experts_with_global_zone = get_experts_with_global_zone(@institution_subject)
+
+      experts_without_specific_territories + experts_with_specific_territories + experts_with_global_zone
+    end
+  end
+
+  def initialize_experts_and_users_by_insee_code(antennes_insee_codes)
     experts_and_users_by_insee_code = antennes_insee_codes.index_with { [] }
-    global_experts_and_users = []
+
     experts_without_specific_territories = get_experts_without_specific_territories(antennes_insee_codes, @institution_subject)
     experts_with_specific_territories = get_experts_with_specific_territories(antennes_insee_codes, @institution_subject)
-    experts_global_zones = get_experts_with_global_zone(@institution_subject)
 
     experts_and_users_by_insee_code = process_experts(experts_and_users_by_insee_code, experts_without_specific_territories) do |expert|
       expert.antenne.insee_codes
     end
-    experts_and_users_by_insee_code = process_experts(experts_and_users_by_insee_code, experts_with_specific_territories) do |expert|
+
+    process_experts(experts_and_users_by_insee_code, experts_with_specific_territories) do |expert|
       expert.insee_codes
     end
-
-    experts_global_zones = experts_global_zones.includes(:users)
-    experts_global_zones.each do |expert|
-      global_experts_and_users << { expert_id: expert.id, users_ids: expert.users.pluck(:id) }
-    end
-
-    all_experts = experts_without_specific_territories + experts_with_specific_territories + experts_global_zones
-
-    check_coverage(experts_and_users_by_insee_code, global_experts_and_users, all_experts)
   end
 
-  private
+  def build_global_experts_and_users
+    experts_global_zones = get_experts_with_global_zone(@institution_subject).includes(:users)
+    experts_global_zones.map do |expert|
+      { expert_id: expert.id, users_ids: expert.users.pluck(:id) }
+    end
+  end
 
   def get_experts_without_specific_territories(insee_codes, institution_subject)
     institution_subject.not_deleted_experts
@@ -79,105 +96,94 @@ class CoverageService
     @all_potential_antennes_ids
   end
 
-  def check_coverage(experts_and_users_by_insee_code, experts_global_with_users, all_experts)
-    if (@institution_subject.subject.territories.any? && @antenne.present? &&
+  def check_coverage(experts_and_users_by_insee_code, experts_global_with_users)
+    coverage_hash = if (@institution_subject.subject.territories.any? && @antenne.present? &&
       (@institution_subject.subject.territories && @antenne.regions).empty?) ||
       (@institution_subject.theme.insee_codes.present? && (@institution_subject.theme.insee_codes & experts_and_users_by_insee_code.keys).empty?) # Si le theme a des codes INSEE qui ne sont pas dans en dehors des territoires observés
-      good_coverage(all_experts)
+      good_coverage
     elsif experts_and_users_by_insee_code.values.all?([]) &&
       experts_global_with_users.map { |e| e[:expert_id] }.empty?
       no_expert
     elsif experts_and_users_by_insee_code.values.any?([])
-      missing_insee_codes(experts_and_users_by_insee_code, all_experts)
+      missing_insee_codes(experts_and_users_by_insee_code)
     elsif experts_and_users_by_insee_code.values.flatten.pluck(:users_ids).all?([]) &&
       experts_global_with_users.map { |e| e[:users_ids] }.empty?
-      no_user(all_experts)
+      no_user
     elsif experts_and_users_by_insee_code.values.any?{ |a| a.uniq.size > 1 }
-      extra_insee_codes(experts_and_users_by_insee_code, all_experts)
+      extra_insee_codes(experts_and_users_by_insee_code)
     else
-      good_coverage(all_experts)
+      good_coverage
     end
+    coverage_hash.merge({
+      coverage: get_coverage,
+                          institution_subject_id: @institution_subject.id,
+                          cooperations_details: format_cooperations_details,
+    })
   end
 
-  def good_coverage(all_experts)
+  def good_coverage
     {
-      institution_subject_id: @institution_subject.id,
-      coverage: get_coverage(all_experts),
       anomalie: :no_anomalie,
       anomalie_details: nil,
-      cooperations_details: format_cooperations_details
     }
   end
 
   # - que des experts avec codes insee, et somme des codes insee < antenne.codes_insee
   # - /!\ et pas d'expert global sur le sujet
   # - /!\ et pas d'expert de l'antenne ou de la région sur le sujet sans code insee
-  def missing_insee_codes(code_experts_users_hash, all_experts)
+  def missing_insee_codes(code_experts_users_hash)
     missing_codes = code_experts_users_hash.select{ |_,v| v.empty? }.keys
     {
-      institution_subject_id: @institution_subject.id,
-      coverage: get_coverage(all_experts),
       anomalie: :missing_insee_codes,
       anomalie_details: {
         missing_insee_codes: format_territories(missing_codes),
-      },
-      cooperations_details: format_cooperations_details
+      }
     }
   end
 
   # - + d'un expert sans code insee
   # - des experts avec tz + au moins un expert sans code insee
   # - que des experts avec tz, et sommes des codes insee > antenne.codes_insee
-  def extra_insee_codes(code_experts_users_hash, all_experts)
+  def extra_insee_codes(code_experts_users_hash)
     extra_objects = code_experts_users_hash.select{ |_,v| v.size > 1 }
     extra_codes = extra_objects.keys
-    extra_experts = all_experts_ids(extra_objects)
+    extra_experts = extra_experts_ids(extra_objects)
     {
-      institution_subject_id: @institution_subject.id,
-      coverage: get_coverage(all_experts),
       anomalie: :extra_insee_codes,
       anomalie_details: {
         experts: extra_experts,
-        match_filters: get_match_filters(all_experts),
+        match_filters: get_match_filters,
         extra_insee_codes: format_territories(extra_codes),
-      },
-      cooperations_details: format_cooperations_details
+      }
     }
   end
 
   def no_expert
     {
-      institution_subject_id: @institution_subject.id,
-      coverage: nil,
       anomalie: :no_expert,
-      anomalie_details: nil,
-      cooperations_details: format_cooperations_details
+      anomalie_details: nil
     }
   end
 
-  def no_user(all_experts)
+  def no_user
     {
-      institution_subject_id: @institution_subject.id,
-      coverage: get_coverage(all_experts),
       anomalie: :no_user,
       anomalie_details: {
-        experts: all_experts,
-      },
-      cooperations_details: format_cooperations_details
+        experts: @all_experts,
+      }
     }
   end
 
   def theme_outside_territories
     {
-      institution_subject_id: @institution_subject.id,
       anomalie: :theme_outside_territories,
-      anomalie_details: nil,
-      cooperations_details: format_cooperations_details
+      anomalie_details: nil
     }
   end
 
-  def get_coverage(experts)
-    experts_antennes = experts.map(&:antenne).uniq
+  def get_coverage
+    return nil if @all_experts.empty?
+    experts_antennes = @all_experts.map(&:antenne).uniq
     territorial_level = experts_antennes.pluck(:territorial_level).uniq
     if territorial_level.size == 1
       territorial_level.first.to_sym
@@ -186,7 +192,7 @@ class CoverageService
     end
   end
 
-  def all_experts_ids(code_experts_users_hash)
+  def extra_experts_ids(code_experts_users_hash)
     code_experts_users_hash.values.flatten.uniq.pluck(:expert_id)
   end
 
@@ -204,8 +210,8 @@ class CoverageService
     end
   end
 
-  def get_match_filters(all_experts)
-    experts_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Expert', filtrable_element_id: all_experts.pluck(:id)).where(subjects: [@institution_subject.subject, nil])
+  def get_match_filters
+    experts_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Expert', filtrable_element_id: @all_experts.pluck(:id)).where(subjects: [@institution_subject.subject, nil])
     antennes_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Antenne', filtrable_element_id: @antennes.pluck(:id)).where(subjects: [@institution_subject.subject, nil])
     institution_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Institution', filtrable_element_id: @institution_subject.institution.id).where(subjects: [@institution_subject.subject, nil])
     {
