@@ -608,8 +608,8 @@ fr:
         stats_label:
           cooperation: Thèmes spécifiques coopération
       user:
-        absence_start_at: Date de début d’absence
         absence_end_at: Date de fin d’absence
+        absence_start_at: Date de début d’absence
         created_at: Création
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
@@ -904,8 +904,8 @@ fr:
     unarchive: Désarchiver
     unarchive_done: Désarchivé
   attributes:
-    absent_until: Absence jusqu’au %{date}
     abandoned: Abandonné
+    absent_until: Absence jusqu’au %{date}
     activity: Activité
     advisor: Conseiller
     advisor_antenne: Antenne du conseiller
