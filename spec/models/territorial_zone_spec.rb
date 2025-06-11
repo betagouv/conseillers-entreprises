@@ -64,7 +64,7 @@ RSpec.describe TerritorialZone do
     describe '#validate_existence' do
 
       before do
-        allow(DecoupageAdministratif::Commune).to receive(:find_by_code).with(code).and_return(response)
+        allow(DecoupageAdministratif::Commune).to receive(:find_by).with(code: code).and_return(response)
       end
 
       context 'Commune' do

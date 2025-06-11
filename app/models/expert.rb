@@ -250,7 +250,7 @@ class Expert < ApplicationRecord
   scope :without_shared_satisfaction, -> { where.missing(:shared_satisfactions) }
 
   scope :in_commune, -> (insee_code) do
-    commune = ::DecoupageAdministratif::Commune.find_by_code(insee_code)
+    commune = ::DecoupageAdministratif::Commune.find_by(code: insee_code)
     return none if commune.nil?
     experts_with_zones = left_joins(:territorial_zones)
       .where(territorial_zones: { zone_type: :commune, code: insee_code })

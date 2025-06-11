@@ -9,7 +9,7 @@ module Admin
             model = "DecoupageAdministratif::#{zone_type.camelize}".constantize
             antenne_territorial_zones.map do |tz|
               row(tz.code) do
-                model_instance = model.send(:find_by_code, tz.code)
+                model_instance = model.find_by(code: tz.code)
                 name = model_instance.nom
                 if zone_type == "epci"
                   communes_names = []

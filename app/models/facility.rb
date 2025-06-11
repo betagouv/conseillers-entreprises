@@ -74,7 +74,7 @@ class Facility < ApplicationRecord
 
   # Cherche les établissements avec un code insee d'un département de la région
   scope :by_region, -> (region_code) do
-    region = DecoupageAdministratif::Region.find_by_code(region_code)
+    region = DecoupageAdministratif::Region.find_by(code: region_code)
     departements = region&.departements || []
     where("insee_code LIKE ANY (array[?])", departements.map { |departement| "#{departement.code}%" })
   end
@@ -110,7 +110,7 @@ class Facility < ApplicationRecord
   end
 
   def region
-    DecoupageAdministratif::Region.find_by_code(insee_code).region
+    DecoupageAdministratif::Region.find_by(code: insee_code).region
   end
 
   ##
