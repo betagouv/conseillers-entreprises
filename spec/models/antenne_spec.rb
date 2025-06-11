@@ -194,11 +194,11 @@ RSpec.describe Antenne do
       let(:epci) { instance_double(DecoupageAdministratif::Epci, regions: [region_paca, region_paca_aura]) }
 
       before do
-        allow(DecoupageAdministratif::Region).to receive(:find_by_code).with('93').and_return(region_paca)
-        allow(DecoupageAdministratif::Region).to receive(:find_by_code).with('84').and_return(region_paca_aura)
-        allow(DecoupageAdministratif::Commune).to receive(:find_by_code).with('26135').and_return(commune)
-        allow(DecoupageAdministratif::Departement).to receive(:find_by_code).with('26').and_return(departement)
-        allow(DecoupageAdministratif::Epci).to receive(:find_by_code).with('200035723').and_return(epci)
+        allow(DecoupageAdministratif::Region).to receive(:find_by).with(code: '93').and_return(region_paca)
+        allow(DecoupageAdministratif::Region).to receive(:find_by).with(code: '84').and_return(region_paca_aura)
+        allow(DecoupageAdministratif::Commune).to receive(:find_by).with(code: '26135').and_return(commune)
+        allow(DecoupageAdministratif::Departement).to receive(:find_by).with(code: '26').and_return(departement)
+        allow(DecoupageAdministratif::Epci).to receive(:find_by).with(code: '200035723').and_return(epci)
         territorial_zone.send(:update_regions_codes)
       end
 
