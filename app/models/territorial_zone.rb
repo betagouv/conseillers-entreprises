@@ -32,7 +32,7 @@ class TerritorialZone < ApplicationRecord
   end
 
   def territory_model
-    "DecoupageAdministratif::#{zone_type.classify}".constantize.find_by_code(code)
+    "DecoupageAdministratif::#{zone_type.classify}".constantize.find_by(code: code)
   end
 
   def name
@@ -74,7 +74,7 @@ class TerritorialZone < ApplicationRecord
   def validate_existence
     zone = I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone').capitalize
     error_message = I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: zone)
-    model = "DecoupageAdministratif::#{self.zone_type&.classify}".constantize.send(:find_by_code, code)
+    model = "DecoupageAdministratif::#{self.zone_type&.classify}".constantize.find_by(code: code)
     return errors.add(:code, error_message) if model.nil?
   end
 
