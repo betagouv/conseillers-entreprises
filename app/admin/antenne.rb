@@ -9,6 +9,29 @@ ActiveAdmin.register Antenne do
       # Preferring N+1 queries fasten x2 index display
       super.includes :institution, :advisors, :experts, :territorial_zones
     end
+    def search_territorial_zones
+      query = params[:q][:nom_cont]
+
+      communes = DecoupageAdministratif::Commune.where('nom ILIKE ?', "%#{query}%").map do |zone|
+        { id: zone.code, text: "#{zone.nom} (#{zone.code})", type: 'commune' }
+      end
+
+      epcis = DecoupageAdministratif::EPCI.where('nom ILIKE ?', "%#{query}%").map do |zone|
+        { id: zone.code, text: "#{zone.nom} (#{zone.code})", type: 'epci' }
+      end
+
+      departements = DecoupageAdministratif::Departement.where('nom ILIKE ?', "%#{query}%").map do |zone|
+        { id: zone.code, text: "#{zone.nom} (#{zone.code})", type: 'departement' }
+      end
+
+      regions = DecoupageAdministratif::Region.where('nom ILIKE ?', "%#{query}%").map do |zone|
+        { id: zone.code, text: "#{zone.nom} (#{zone.code})", type: 'region' }
+      end
+
+      results = communes + epcis + departements + regions
+
+      render json: results
+    end
   end
 
   ## Index
@@ -206,12 +229,14 @@ ActiveAdmin.register Antenne do
 
     f.inputs do
       f.has_many :territorial_zones, allow_destroy: true, new_record: true do |tz|
-
-        tz.input :zone_type,
-          as: :select,
-          collection: TerritorialZone.zone_types.map { |k, v| [I18n.t(k, scope: "activerecord.attributes.territorial_zone"), v] },
-          include_blank: false
-        tz.input :code
+        tz.input :zone_type, as: :hidden # Le type sera déduit automatiquement
+        tz.input :code,
+                 as: :ajax_select,
+                 data: {
+                   url: :admin_territorial_zones_search_path,
+                   search_fields: [:nom],
+                   display_name: :nom
+                 }
       end
     end
 
