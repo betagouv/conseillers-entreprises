@@ -93,7 +93,16 @@ ActiveAdmin.register User do
   show do
     attributes_table do
       row(:deleted_at) if resource.deleted?
-      row(:absence_end_at) if resource.absence_end_at
+      if resource.absence_start_at
+        row :absence_start_at do
+          I18n.l(resource.absence_start_at, format: :sentence)
+        end
+      end
+      if resource.absence_end_at
+        row :absence_end_at do
+          I18n.l(resource.absence_end_at, format: :sentence)
+        end
+      end
       row :full_name
       row :email
       row :phone_number
