@@ -25,7 +25,7 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
             code[0..2]
           end
         end.uniq
-        regions = departements_codes.map { |code| DecoupageAdministratif::Departement.find_by_code(code).region }.uniq
+        regions = departements_codes.map { |code| DecoupageAdministratif::Departement.find_by(code: code).region }.uniq
 
         regions.each do |region|
           antenne.territorial_zones.create!(zone_type: :region, code: region.code)
@@ -67,7 +67,7 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
     return communes_codes if item.is_a?(Antenne) && [303, 2621, 2630, 2631, 2823, 1012, 305, 2616, 159, 848, 152, 768, 2272, 1529, 764, 1747].include?(item.id)
     code_departements.each do |code_departement|
       communes_departement_size = communes_codes.count { |code| code.start_with?(code_departement) }
-      reel_departement_size = DecoupageAdministratif::Departement.find_by_code(code_departement).communes.size
+      reel_departement_size = DecoupageAdministratif::Departement.find_by(code: code_departement).communes.size
       if communes_departement_size >= reel_departement_size || communes_departement_size >= (reel_departement_size * 0.95)
         item.territorial_zones.create!(zone_type: :departement, code: code_departement)
         communes_codes.reject! { |code| code.start_with?(code_departement) }
@@ -81,7 +81,7 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
     epcis.each do |epci|
       item.territorial_zones.create!(zone_type: :epci, code: epci.code)
       communes_codes.reject! do |code|
-        epci.membres.map(&:code)
+        epci.membres.map { |membre| membre[:code] }
       end
     end
     communes_codes
