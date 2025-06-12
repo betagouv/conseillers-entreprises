@@ -3,34 +3,12 @@ ActiveAdmin.register Antenne do
 
   controller do
     include SoftDeletable::ActiveAdminResourceController
+    include TerritorialZonesSearchable
 
     def scoped_collection
       # NOTE: Don’t `includes` lots of related tables, as this causes massive leaks in ActiveAdmin.
       # Preferring N+1 queries fasten x2 index display
       super.includes :institution, :advisors, :experts, :territorial_zones
-    end
-    def search_territorial_zones
-      query = params[:q][:nom_cont]
-
-      communes = DecoupageAdministratif::Commune.where('nom ILIKE ?', "%#{query}%").map do |zone|
-        { id: zone.code, text: "#{zone.nom} (#{zone.code})", type: 'commune' }
-      end
-
-      epcis = DecoupageAdministratif::EPCI.where('nom ILIKE ?', "%#{query}%").map do |zone|
-        { id: zone.code, text: "#{zone.nom} (#{zone.code})", type: 'epci' }
-      end
-
-      departements = DecoupageAdministratif::Departement.where('nom ILIKE ?', "%#{query}%").map do |zone|
-        { id: zone.code, text: "#{zone.nom} (#{zone.code})", type: 'departement' }
-      end
-
-      regions = DecoupageAdministratif::Region.where('nom ILIKE ?', "%#{query}%").map do |zone|
-        { id: zone.code, text: "#{zone.nom} (#{zone.code})", type: 'region' }
-      end
-
-      results = communes + epcis + departements + regions
-
-      render json: results
     end
   end
 
@@ -229,13 +207,15 @@ ActiveAdmin.register Antenne do
 
     f.inputs do
       f.has_many :territorial_zones, allow_destroy: true, new_record: true do |tz|
-        tz.input :zone_type, as: :hidden # Le type sera déduit automatiquement
+        tz.input :zone_type,
+                 collection: TerritorialZone.zone_types.keys.map { |k| [I18n.t(k, scope: 'activerecord.attributes.territorial_zone'), k] },
+                 as: :select
         tz.input :code,
                  as: :ajax_select,
-                 data: {
+                 collection: tz.object.persisted? ? [[tz.object.name + " (" + tz.object.code + ")", tz.object.code]] : [],                 data: {
                    url: :admin_territorial_zones_search_path,
                    search_fields: [:nom],
-                   display_name: :nom
+                   limit: 10,
                  }
       end
     end

@@ -4,6 +4,7 @@ ActiveAdmin.register Expert do
   controller do
     include SoftDeletable::ActiveAdminResourceController
     include DynamicallyFiltrable
+    include TerritorialZonesSearchable
 
     def scoped_collection
       base_includes = [:antenne, :institution]
@@ -337,9 +338,16 @@ ActiveAdmin.register Expert do
 
     f.inputs do
       f.has_many :territorial_zones, allow_destroy: true, new_record: true do |tz|
-
-        tz.input :zone_type, as: :select, collection: TerritorialZone.zone_types.keys.map{ |zone| [I18n.t(zone, scope: "activerecord.attributes.territorial_zone"), zone] }, include_blank: false
-        tz.input :code
+        tz.input :zone_type,
+                 collection: TerritorialZone.zone_types.keys.map { |k| [I18n.t(k, scope: 'activerecord.attributes.territorial_zone'), k] },
+                 as: :select
+        tz.input :code,
+                 as: :ajax_select,
+                 collection: tz.object.persisted? ? [[tz.object.name + " (" + tz.object.code + ")", tz.object.code]] : [],                 data: {
+            url: :admin_territorial_zones_search_path,
+            search_fields: [:nom],
+            limit: 10,
+          }
       end
     end
 
