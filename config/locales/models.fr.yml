@@ -158,6 +158,7 @@ fr:
       department_number: 'Département %{number}, %{name} :'
       entire_territory_assigned: Territoire ajouté
     user:
+      absence: Absence
       connection: Connexion
       create_expert: Créer un expert identique
       create_expert_done: L’expert a bien été créé
@@ -607,6 +608,8 @@ fr:
         stats_label:
           cooperation: Thèmes spécifiques coopération
       user:
+        absence_end_at: Date de fin d’absence
+        absence_start_at: Date de début d’absence
         created_at: Création
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
@@ -902,6 +905,7 @@ fr:
     unarchive_done: Désarchivé
   attributes:
     abandoned: Abandonné
+    absent_until: Absence jusqu’au %{date}
     activity: Activité
     advisor: Conseiller
     advisor_antenne: Antenne du conseiller

@@ -32,6 +32,9 @@ ActiveAdmin.register User do
         div '✉ ' + u.email
         div '✆ ' + u.phone_number if u.phone_number
       end
+      if u.absence_end_at
+        status_tag t('attributes.absent_until', date: I18n.l(u.absence_end_at, format: :sentence)), class: 'warning'
+      end
     end
     column :created_at
     column :job do |u|
@@ -90,6 +93,16 @@ ActiveAdmin.register User do
   show do
     attributes_table do
       row(:deleted_at) if resource.deleted?
+      if resource.absence_start_at
+        row :absence_start_at do
+          I18n.l(resource.absence_start_at, format: :sentence)
+        end
+      end
+      if resource.absence_end_at
+        row :absence_end_at do
+          I18n.l(resource.absence_end_at, format: :sentence)
+        end
+      end
       row :full_name
       row :email
       row :phone_number
@@ -163,7 +176,7 @@ ActiveAdmin.register User do
   # Form
   #
   user_rights_attributes = [:id, :rightable_element_id, :rightable_element_type, :category, :_destroy]
-  permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id, :create_expert,
+  permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id, :create_expert, :absence_start_at, :absence_end_at,
                 expert_ids: [], user_rights_attributes: user_rights_attributes, user_rights_for_admin_attributes: user_rights_attributes,
                 user_rights_manager_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes
 
@@ -187,6 +200,11 @@ ActiveAdmin.register User do
       f.input :job
       f.input :email
       f.input :phone_number
+    end
+
+    f.inputs I18n.t('active_admin.user.absence') do
+      f.input :absence_start_at, as: :datepicker, datepicker_options: { min_date: Date.today }
+      f.input :absence_end_at, as: :datepicker, datepicker_options: { min_date: Date.today }
     end
 
     f.inputs I18n.t('active_admin.user.roles') do
