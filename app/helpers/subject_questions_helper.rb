@@ -3,9 +3,10 @@ module SubjectQuestionsHelper
     I18n.t(format, scope: [:activerecord, :attributes, :subject_questions, key, :label])
   end
 
-  def answer_label(answer)
-    I18n.t(answer.filter_value, scope: [:activerecord, :attributes, :subject_questions, answer.key, :answers],
-                    default: I18n.t(answer.filter_value, scope: [:boolean, :text]))
+  def answer_label(answer, filter_value: true)
+    answer_filter_value = answer.filter_value || filter_value
+    I18n.t(answer_filter_value, scope: [:activerecord, :attributes, :subject_questions, answer.key, :answers],
+                    default: I18n.t(answer_filter_value, scope: [:boolean, :text]))
   end
 
   def specific_answers_file
