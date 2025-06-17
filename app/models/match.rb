@@ -200,12 +200,8 @@ class Match < ApplicationRecord
     taken_care_before(5)
   end
 
-  def self.ransackable_scopes(auth_object = nil)
-    [
-      :sent, :solicitation_created_at_gteq, :solicitation_created_at_lteq,
-      :solicitation_mtm_campaign_cont, :solicitation_mtm_campaign_eq, :solicitation_mtm_campaign_start, :solicitation_mtm_campaign_end,
-      :solicitation_mtm_kwd_cont, :solicitation_mtm_kwd_eq, :solicitation_mtm_kwd_start, :solicitation_mtm_kwd_end
-    ]
+  scope :company_simple_effectif_eq, -> (query) do
+    joins(:company).merge(Company.simple_effectif_eq(query))
   end
 
   ##
@@ -271,6 +267,15 @@ class Match < ApplicationRecord
       "advisor", "advisor_antenne", "advisor_institution", "company", "company_satisfaction", "contacted_users",
       "diagnosis", "expert", "expert_antenne", "expert_institution", "facility", "facility_regions", "facility_territories",
       "need", "related_matches", "solicitation", "subject", "theme", "landing", "landing_theme", "landing_subject"
+    ]
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    [
+      :sent, :solicitation_created_at_gteq, :solicitation_created_at_lteq,
+      :solicitation_mtm_campaign_cont, :solicitation_mtm_campaign_eq, :solicitation_mtm_campaign_start, :solicitation_mtm_campaign_end,
+      :solicitation_mtm_kwd_cont, :solicitation_mtm_kwd_eq, :solicitation_mtm_kwd_start, :solicitation_mtm_kwd_end,
+      :company_simple_effectif_eq
     ]
   end
 

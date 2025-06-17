@@ -6,6 +6,7 @@ ActiveAdmin.register Solicitation do
   include CsvExportable
   controller do
     include DynamicallyFiltrable
+    helper :active_admin_utilities
   end
 
   actions :all, :except => [:destroy]
@@ -111,8 +112,10 @@ ActiveAdmin.register Solicitation do
   filter :email
   filter :phone_number
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
-  filter :facility_naf_code, as: :string
   filter :company_legal_form_code, as: :string
+  filter :facility_naf_code_a10, as: :select, collection: -> { naf_a10_collection }
+  filter :facility_naf_code, as: :string
+  filter :company_simple_effectif, as: :select, collection: -> { simple_effectif_collection }
 
   # Filtres sollicitation
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }

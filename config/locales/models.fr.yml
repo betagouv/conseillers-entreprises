@@ -948,6 +948,7 @@ fr:
     company_forme_exercice: Nature de l’entreprise
     company_name: Nom de l’entreprise
     company_satisfaction: Satisfaction
+    company_simple_effectif: Effectifs entreprise
     completed_at: Date de complétion
     contacted_expert: Expert contacté
     contacts:
@@ -989,6 +990,7 @@ fr:
       other: Établissements
     facility: Établissement
     facility_naf: Code NAF
+    facility_naf_code_a10: Code NAF A10 entreprise
     facility_nafa: Codes NAFA
     facility_nature_activites: Nature des activités
     facility_regions: Région de l’établissement

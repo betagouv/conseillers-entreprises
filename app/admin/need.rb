@@ -5,6 +5,7 @@ ActiveAdmin.register Need do
 
   controller do
     include DynamicallyFiltrable
+    helper :active_admin_utilities
   end
 
   ## index
@@ -40,6 +41,8 @@ ActiveAdmin.register Need do
   filter :status, as: :select, collection: -> { Need.human_attribute_values(:status, raw_values: true).invert.to_a }
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
+  filter :facility_naf_code_a10, as: :select, collection: -> { naf_a10_collection }
+  filter :company_simple_effectif, as: :select, collection: -> { simple_effectif_collection }
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
   filter :content
