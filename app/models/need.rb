@@ -387,6 +387,10 @@ class Need < ApplicationRecord
       .where('needs.subject_id = landing_subjects.subject_id')
   end
 
+  scope :company_simple_effectif_eq, -> (query) do
+    joins(:company).merge(Company.simple_effectif_eq(query))
+  end
+
   def self.apply_filters(params)
     klass = self
     klass = klass.by_region(params[:by_region]) if params[:by_region].present?
@@ -501,6 +505,12 @@ class Need < ApplicationRecord
       "contacted_users", "diagnosis", "expert_antennes", "expert_institutions", "experts", "facility", "facility_regions",
       "facility_territories", "feedbacks", "subject_answers", "matches", "reminder_feedbacks", "reminders_actions",
       "solicitation", "subject", "theme", "visitee"
+    ]
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    [
+      :company_simple_effectif_eq
     ]
   end
 end

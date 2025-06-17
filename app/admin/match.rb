@@ -78,8 +78,10 @@ ActiveAdmin.register Match do
   filter :solicitation_email_cont
   filter :solicitation_phone_number_cont
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
-  filter :facility_naf_code, as: :string
   filter :company_legal_form_code, as: :string
+  filter :facility_naf_code_a10, as: :select, collection: -> { naf_a10_collection }
+  filter :facility_naf_code, as: :string
+  filter :company_simple_effectif, as: :select, collection: -> { simple_effectif_collection }
 
   ## Filtres Mise en relation
   collection = -> { Match.human_attribute_values(:status, raw_values: true, context: :short).invert.to_a }
