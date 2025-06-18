@@ -31,12 +31,13 @@ module PersistedSearch
   # Territoires
   #
   def possible_territories_options
-    # TODO ça sert à quoi ?
     @options ||= define_territory_options
   end
 
   def define_territory_options
-    options = Territory.regions.pluck(:name, :id)
+    metro = DecoupageAdministratif::Region.where(zone: "metro")
+    drom = DecoupageAdministratif::Region.where(zone: "drom")
+    options = (metro + drom).flatten.sort_by{ |region| region.nom.downcase.gsub('î', 'i') }.map { |region| [region.nom, region.code] }
     options.push(territory_options_complement) if defined?(territory_options_complement)
     options
   end
