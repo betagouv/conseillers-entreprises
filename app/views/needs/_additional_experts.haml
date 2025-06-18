@@ -11,4 +11,9 @@
         .hidden.loader.fr-ml-1w{ data: { 'expert-autocomplete-target': 'loader' } }
       .input
         %span.ri-user-add-fill.blue.info-icon{ title: t('.ambulance_explanation'), 'aria-hidden': 'true' }
-        .autocomplete-container{ data: { 'expert-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'omnisearch', 'search-url': conseiller_experts_path } }
+        .autocomplete-container{ data: { 'expert-autocomplete-target': "field",
+        'assistive-hint': t("autocomplete_assistive_hint"),
+        name: 'omnisearch',
+        'search-url': conseiller_experts_path,
+        'search-insee-code': need.facility.insee_code
+        } }

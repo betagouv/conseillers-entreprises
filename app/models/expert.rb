@@ -223,10 +223,11 @@ class Expert < ApplicationRecord
   end
 
   scope :omnisearch, -> (query) do
-    joins(antenne: :institution)
+    joins(:users, antenne: :institution,)
       .where('experts.full_name ILIKE ?', "%#{query}%")
-      .or(Expert.joins(antenne: :institution).where('antennes.name ILIKE ?', "%#{query}%"))
-      .or(Expert.joins(antenne: :institution).where('institutions.name ILIKE ?', "%#{query}%"))
+      .or(Expert.joins(:users, antenne: :institution).where('antennes.name ILIKE ?', "%#{query}%"))
+      .or(Expert.joins(:users, antenne: :institution).where('institutions.name ILIKE ?', "%#{query}%"))
+      .or(Expert.joins(:users, antenne: :institution).where(users: { id: User.omnisearch(query).ids }))
   end
 
   scope :by_full_name, -> (query) do
@@ -267,6 +268,18 @@ class Expert < ApplicationRecord
 
     where(id: experts_with_zones).or(where(id: experts_without_zones))
   end
+
+  scope :by_insee_code, -> (insee_code) {
+    territories = DecoupageAdministratif::Search.new.find_territories_by_insee_code(insee_code)
+    zone_types = [:epci, :departement, :region]
+    experts_ids = []
+    zone_types.each do |zone_type|
+      next if territories[zone_type].nil?
+      experts_ids << Expert.joins(:territorial_zones).where(territorial_zones: { code: territories[zone_type].code, zone_type: zone_type }, is_global_zone: false).distinct.ids
+      experts_ids << Expert.joins(antenne: :territorial_zones).where(territorial_zones: { code: territories[zone_type].code, zone_type: zone_type }).distinct.ids
+    end
+    where(id: experts_ids.uniq.flatten)
+  }
 
   def self.apply_filters(params)
     klass = self
