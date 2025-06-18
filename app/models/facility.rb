@@ -74,9 +74,9 @@ class Facility < ApplicationRecord
 
   # Cherche les établissements avec un code insee d'un département de la région
   scope :by_region, -> (region_code) do
-    region = DecoupageAdministratif::Region.find_by(code: region_code)
-    departements = region&.departements || []
-    where("insee_code LIKE ANY (array[?])", departements.map { |departement| "#{departement.code}%" })
+    departements = DecoupageAdministratif::Departement.where(code_region: region_code)
+    code_size = departements.map { |d| d.code.size }.max
+    where("LEFT(insee_code, #{code_size}) IN (?)", departements.map(&:code))
   end
 
   def commune_name
