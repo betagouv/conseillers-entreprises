@@ -177,8 +177,8 @@ class Expert < ApplicationRecord
   end
 
   scope :by_regions, -> (regions_codes) do
-    without_territorial_zones = self.without_territorial_zones.left_joins(:territorial_zones, antenne: :territorial_zones).where(antennes: { territorial_zones: { regions_codes: regions_codes } }).ids
-    with_territorial_zones = self.with_territorial_zones.left_joins(:territorial_zones).where(territorial_zones: { regions_codes: regions_codes }).ids
+    without_territorial_zones = self.without_territorial_zones.joins(antenne: :territorial_zones).where(antennes: { territorial_zones: { regions_codes: regions_codes } }).ids
+    with_territorial_zones = self.with_territorial_zones.joins(:territorial_zones).where(territorial_zones: { regions_codes: regions_codes }).ids
     Expert.where(id: without_territorial_zones + with_territorial_zones)
   end
 
@@ -195,7 +195,7 @@ class Expert < ApplicationRecord
   # param peut être un id de Territory ou une clé correspondant à un scope ("with_national_perimeter" par ex)
   scope :by_possible_region, -> (param) {
     begin
-      by_region(param)
+      by_regions([param])
     rescue ActiveRecord::RecordNotFound => _e
       self.send(param) if [I18n.t('helpers.expert.national_perimeter.value')].include?(param)
     end
