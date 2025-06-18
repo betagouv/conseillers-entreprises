@@ -3,15 +3,16 @@ require 'rails_helper'
 
 describe "conseiller/diagnoses/steps/matches" do
   let(:need) { create :need }
-  let(:diagnosis) { create :diagnosis, needs: [need] }
+  let(:diagnosis) { create :diagnosis, needs: [need], facility: facility }
   let(:institution_subject) { create :institution_subject, subject: need.subject }
   let(:support_subject) { create :subject, is_support: true }
   let(:institution_subject_support) { create :institution_subject, subject: support_subject }
-  let(:expert_support) { create :expert, communes: [diagnosis.facility.commune] }
+  let(:expert_support) { create :expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: "36202")] }
   let!(:expert_subject_support) { create :expert_subject, expert: expert_support, institution_subject: institution_subject_support }
+  let(:facility) { create :facility, insee_code: "36202" }
 
   describe "diagnosis with experts" do
-    let(:expert) { create :expert, communes: [diagnosis.facility.commune] }
+    let(:expert) { create :expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: "36202")] }
     let!(:expert_subject) { create :expert_subject, expert: expert, institution_subject: institution_subject }
 
     it "displays experts" do
