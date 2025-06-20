@@ -320,7 +320,7 @@ fr:
         header: Sollicitations %{status}
         no_result: Il n'y a pas de résultat pour cette recherche.
         no_results: Aucune sollicitation trouvée
-        omnisearch: Recherche libre (Email, tag, aide demandée...)
+        omnisearch: Recherche libre (Email, tag, aide...)
         search: Rechercher
         search_placeholder: Tag, aide demandée…
         title: Sollicitations
