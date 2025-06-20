@@ -5,13 +5,19 @@
 
 = form_with url: request.path, method: :get, skip_enforcing_utf8: true, local: true, class: 'fr-mb-2w' do |f|
   .fr-grid-row.fr-grid-row--gutters
-    .fr-col-md-6.fr-col-12
+    .fr-col-md-4.fr-col-12
       - options = { include_blank: t('all_choices'), class: 'fr-select' }
       = f.label :by_region, t('attributes.region'), class: 'fr-label'
       = f.select(:by_region,
         options_for_select(possible_territories_options, index_search_params[:by_region]),
         options.dup, { class: 'fr-select' })
-    .fr-col-md-6.fr-col-12
+    .fr-col-md-4.fr-col-12
+      - options = { include_blank: t('all_choices'), class: 'fr-select' }
+      = f.label :by_cooperation, t('attributes.cooperation'), class: 'fr-label'
+      = f.select(:by_cooperation,
+        options_for_select(Cooperation.pluck(:name, :id), index_search_params[:by_cooperation]),
+        options.dup, { class: 'fr-select' })
+    .fr-col-md-4.fr-col-12
       .fr-input-group
         = f.label :omnisearch, t('.omnisearch'), class: 'fr-label'
         = f.search_field :omnisearch, value: index_search_params[:omnisearch], class: 'fr-input', placeholder: t('.search_placeholder')
