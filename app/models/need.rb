@@ -102,6 +102,9 @@ class Need < ApplicationRecord
   # :company_satisfaction
   has_many :shared_satisfactions, through: :company_satisfaction, source: :shared_satisfactions
 
+  # :cooperation
+  has_one :cooperation, through: :solicitation, source: :cooperation, inverse_of: :solicitations
+
   ## Scopes
   #
   NO_ACTIVITY_DELAY = 14.days
@@ -375,6 +378,11 @@ class Need < ApplicationRecord
 
   scope :from_integration, -> (integration) do
     joins(diagnosis: :solicitation).where(solicitations: { landings: { integration: integration } })
+  end
+
+  scope :from_cooperation, -> (cooperation) do
+    joins(solicitation: :cooperation)
+      .where(solicitation: { cooperation_id: cooperation.id })
   end
 
   scope :requalified, -> do
