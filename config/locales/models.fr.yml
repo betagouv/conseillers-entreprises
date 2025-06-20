@@ -218,6 +218,7 @@ fr:
         display_matches_stats: Afficher le pilotage par partenaire
         display_pde_partnership_mention: Afficher le partenariat Conseillers-Entreprises (logo + phrase en bas d’iframe)
         display_url: Afficher l’url du partenaire
+        external: Coopération avec sujets externes
         landings_or_mtm: Landing / Campagne
       diagnosis:
         content: Commentaire
@@ -833,6 +834,7 @@ fr:
     closed_not_reachable: "- dont clôturés par « injoignable »"
     closed_with_help: "- dont clôturés par « aide proposée »"
     closed_without_help: "- dont clôturés par « pas d’aide »"
+    cooperation_subjects: Sujets de la coopération %{cooperation}
     count: Nombre
     count_difference: "* La différence avec la ligne 4 peut être liée à des doubles notifications ponctuelles sur un même besoin."
     done_caption_definition: Besoin pris en charge par un expert et clôturé par une proposition d’aide au sens large (conseils, accompagnement technique, aide financière).
