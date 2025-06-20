@@ -88,6 +88,15 @@ class Subject < ApplicationRecord
       .where(is_support: false)
   end
 
+  scope :from_external_cooperation, -> do
+    joins(:cooperations).where(cooperations: { external: true })
+  end
+
+  scope :not_from_external_cooperation, -> do
+    external_ids = all.from_external_cooperation.ids
+    where.not(id: external_ids)
+  end
+
   def copy_experts_from_other(other)
     self.transaction do
       self.institutions_subjects.destroy_all
