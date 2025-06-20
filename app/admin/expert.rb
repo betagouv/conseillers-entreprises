@@ -134,7 +134,7 @@ ActiveAdmin.register Expert do
   filter :created_at
   filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
   # filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
-  filter :regions, as: :select, collection: -> { DecoupageAdministratif::Region.all.map { |r| [r.nom, r.code] } }
+  filter :regions, as: :select, collection: -> { TerritorialZone.regions.map { |r| [r.nom, r.code] } }
   filter :themes, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subjects, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 

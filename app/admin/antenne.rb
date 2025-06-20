@@ -64,7 +64,7 @@ ActiveAdmin.register Antenne do
   filter :territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
   filter :territories, as: :ajax_select, collection: -> { Territory.bassins_emploi.pluck(:name, :id) },
          data: { url: :admin_territories_path, search_fields: [:name] }
-  filter :regions, as: :select, collection: -> { DecoupageAdministratif::Region.all.map { |r| [r.nom, r.code] } }
+  filter :regions, as: :select, collection: -> { TerritorialZone.regions.map { |r| [r.nom, r.code] } }
 
   ## CSV
   #
