@@ -481,6 +481,7 @@ fr:
         code_region: Région
         company_legal_form_code: Forme juridique entreprise
         completion: Complétion
+        cooperation: Coopération
         email: Email
         facility_naf_code: Code NAF établissement
         full_name: Prénom et nom
@@ -957,6 +958,7 @@ fr:
       one: Personne rencontrée
       other: Personnes rencontrées
     content: Description
+    cooperation: Coopération
     coordinates: Coordonnées
     created_at: Date de création
     custom_communes: Spécifique
