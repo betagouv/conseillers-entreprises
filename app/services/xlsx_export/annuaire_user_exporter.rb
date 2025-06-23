@@ -24,7 +24,7 @@ module XlsxExport
         team_full_name: -> { full_name unless with_identical_user? },
         team_email: -> { email unless with_identical_user? },
         team_phone_number: -> { phone_number unless with_identical_user? },
-        team_custom_communes: -> { communes.pluck(:insee_code).join(', ') if custome_territories? },
+        team_custom_territories: -> { communes.pluck(:insee_code).join(', ') if custom_territories? },
       }
     end
 
