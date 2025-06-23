@@ -35,7 +35,7 @@ module CsvExport
         team_full_name: -> { first_expert_with_subject&.full_name },
         team_email: -> { first_expert_with_subject&.email },
         team_phone_number: -> { first_expert_with_subject&.phone_number },
-        team_custom_communes: -> { first_expert_with_subject&.communes.pluck(:insee_code).join(', ') if first_expert_with_subject&.custom_communes? }
+        team_custom_territories: -> { first_expert_with_subject&.territorial_zones.pluck(:code).join(', ') if first_expert_with_subject&.custom_territories? }
       }
     end
 
