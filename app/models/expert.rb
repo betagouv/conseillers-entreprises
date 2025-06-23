@@ -165,7 +165,7 @@ class Expert < ApplicationRecord
   # TODO: remove this method when communes_experts is removed
   scope :with_custom_communes_old, -> do
     # The naive “joins(:communes).distinct” is way more complex.
-    where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
+    not_deleted.where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
   end
 
   scope :with_global_zone, -> do
@@ -271,6 +271,7 @@ class Expert < ApplicationRecord
 
   scope :by_insee_code, -> (insee_code) {
     territories = DecoupageAdministratif::Search.new.find_territories_by_insee_code(insee_code)
+    territories = DecoupageAdministratif::Search.new.find_territories_by_insee_code(insee_code)
     zone_types = [:epci, :departement, :region]
     experts_ids = []
     zone_types.each do |zone_type|
@@ -335,7 +336,7 @@ class Expert < ApplicationRecord
   end
 
   ## Referencing
-  def custome_territories?
+  def custom_territories?
     territorial_zones.any?
   end
 
