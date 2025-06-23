@@ -153,7 +153,7 @@ ActiveAdmin.register Expert do
     column_count :antenne_territories
     column_count :antenne_communes
     column :is_global_zone
-    column :custome_territories?
+    column :custom_territories?
     column_count :territories
     column_count :communes
     column_count :users
@@ -176,7 +176,7 @@ ActiveAdmin.register Expert do
         if e.is_global_zone
           status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
         else
-          # if e.custome_territories?
+          # if e.custom_territories?
           #   status_tag t('attributes.custom_communes'), class: 'yes'
           # end
           # div intervention_zone_description(e)
