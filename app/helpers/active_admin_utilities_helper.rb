@@ -7,6 +7,9 @@ module ActiveAdminUtilitiesHelper
   end
 
   def simple_effectif_collection
-    Effectif::Helpers.simple_effectif_collection
+    # de façon incompréhensible, "1" n'est pas reconnu par ActiveAdmin pour ce select, d'où "01"
+    %w[00 01 06 10 20 50 250].map do |code|
+      [Effectif::CodeEffectif.new(code.to_i).simple_effectif, code]
+    end
   end
 end

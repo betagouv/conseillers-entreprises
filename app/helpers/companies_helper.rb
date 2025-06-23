@@ -19,8 +19,4 @@ module CompaniesHelper
     return nil if nature.nil?
     I18n.t(nature, scope: 'natures_entreprise', default: nature.humanize)
   end
-
-  def naf_a10_collection
-    I18n.t('naf_libelle_a10').map{ |n| [n.last, n.first] }
-  end
 end
