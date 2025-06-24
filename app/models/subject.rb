@@ -115,11 +115,19 @@ class Subject < ApplicationRecord
   ##
   #
   def to_s
-    label
+    label_with_cooperation
   end
 
-  def full_label
-    "#{theme.label} : #{label}"
+  def label_with_cooperation
+    if from_external_cooperation?
+      [label, cooperations.first&.name].join(' - ')
+    else
+      label
+    end
+  end
+
+  def from_external_cooperation?
+    self.cooperations.any? && self.cooperations.all?(&:external)
   end
 
   ##

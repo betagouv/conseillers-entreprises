@@ -25,6 +25,11 @@ module ManagerFilters
     @base_subjects
   end
 
+  def base_cooperations
+    @base_cooperations = Cooperation.external.joins(:needs).where(needs: base_needs_for_filters).distinct.order(:name)
+    @base_cooperations
+  end
+
   def base_antennes
     @base_antennes ||= BuildAntennesCollection.new(current_user).for_manager
   end

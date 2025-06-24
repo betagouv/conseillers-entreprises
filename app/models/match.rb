@@ -68,6 +68,7 @@ class Match < ApplicationRecord
   has_one :company_satisfaction, through: :need, inverse_of: :matches
   has_many :related_matches, through: :need, source: :matches
   has_one :landing, through: :solicitation, inverse_of: :matches
+  has_one :cooperation, through: :solicitation, inverse_of: :matches
   has_one :landing_theme, through: :solicitation, inverse_of: :matches
   has_one :landing_subject, through: :solicitation, inverse_of: :matches
 
@@ -266,7 +267,7 @@ class Match < ApplicationRecord
     [
       "advisor", "advisor_antenne", "advisor_institution", "company", "company_satisfaction", "contacted_users",
       "diagnosis", "expert", "expert_antenne", "expert_institution", "facility", "facility_regions", "facility_territories",
-      "need", "related_matches", "solicitation", "subject", "theme", "landing", "landing_theme", "landing_subject"
+      "need", "related_matches", "solicitation", "subject", "theme", "landing", "landing_theme", "landing_subject", "cooperation"
     ]
   end
 

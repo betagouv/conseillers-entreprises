@@ -121,7 +121,7 @@ ActiveAdmin.register Solicitation do
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
   filter :completion, as: :select, collection: -> { ['step_complete', 'step_incomplete'].map{ |completion| [I18n.t("active_admin.scopes.#{completion}"), completion] } }
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
-  filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :subject, as: :ajax_select, collection: -> { @subjects.map{ |s| [s.label_with_cooperation, s.id] } }, data: { url: :admin_subjects_path, search_fields: [:label_with_cooperation] }
   filter :code_region, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :code_region) }
   filter :created_at
   filter :completed_at
