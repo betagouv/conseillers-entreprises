@@ -16,20 +16,20 @@ class Conseiller::ExpertsController < ApplicationController
 
   def retrieve_experts
     base_query = Expert
-                   .apply_filters(experts_params)
-                   .active
-                   .with_subjects
+      .apply_filters(experts_params)
+      .active
+      .with_subjects
     @experts = base_query
-                 .by_insee_code(params[:insee_code])
-                 .limit(10)
-                 .select("experts.*, 'primary' AS source")
+      .by_insee_code(params[:insee_code])
+      .limit(10)
+      .select("experts.*, 'primary' AS source")
 
     expert_with_code_size = @experts.size
 
     if expert_with_code_size < 10
       additional_experts = base_query
-                             .limit(10 - expert_with_code_size)
-                             .select("experts.*, 'secondary' AS source")
+        .limit(10 - expert_with_code_size)
+        .select("experts.*, 'secondary' AS source")
       @experts = @experts.to_a.concat(additional_experts.to_a)
     end
   end

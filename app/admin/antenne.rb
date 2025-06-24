@@ -212,7 +212,7 @@ ActiveAdmin.register Antenne do
                  as: :select
         tz.input :code,
                  as: :ajax_select,
-                 collection: tz.object.persisted? ? [[tz.object.name + " (" + tz.object.code + ")", tz.object.code]] : [],                 data: {
+                 collection: tz.object.persisted? ? [[tz.object.name + " (" + tz.object.code + ")", tz.object.code]] : [], data: {
                    url: :admin_territorial_zones_search_path,
                    search_fields: [:nom],
                    limit: 10,
