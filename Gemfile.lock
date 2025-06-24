@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/betagouv/decoupage-administratif-gem
+  revision: 9a553cb5d1fa76511c915fa6db87c24ab4d9ea11
+  specs:
+    decoupage_administratif (0.1.0)
+      rake
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -413,6 +420,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-gnu)
       racc (~> 1.4)
+    options (2.3.2)
     orm_adapter (0.5.0)
     ostruct (0.6.1)
     parallel (1.27.0)
@@ -437,6 +445,9 @@ GEM
       premailer (~> 1.7, >= 1.7.9)
     prettyprint (0.2.0)
     prism (1.4.0)
+    progress_bar (1.3.4)
+      highline (>= 1.6)
+      options (~> 2.3.0)
     psych (5.2.6)
       date
       stringio
@@ -773,6 +784,7 @@ DEPENDENCIES
   css_parser
   daemons
   dartsass-sprockets
+  decoupage_administratif!
   devise
   devise-async
   devise_invitable
@@ -803,6 +815,7 @@ DEPENDENCIES
   pg
   pg_search
   premailer-rails
+  progress_bar
   puma
   pundit
   rack-attack
