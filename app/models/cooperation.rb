@@ -42,7 +42,7 @@ class Cooperation < ApplicationRecord
   has_many :themes, through: :landing_themes
   has_many :subjects, through: :landing_themes
 
-  has_many :needs, through: :solicitations, source: :need, inverse_of: :cooperation
+  has_many :needs, through: :solicitations, source: :needs, inverse_of: :cooperation
 
   has_many :user_rights, as: :rightable_element, dependent: :destroy, inverse_of: :rightable_element
   has_many :user_rights_cooperation_manager, ->{ category_cooperation_manager }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
@@ -56,6 +56,10 @@ class Cooperation < ApplicationRecord
   #
   auto_strip_attributes :name
   validates :name, presence: true, uniqueness: true
+
+  ## Scopes
+  #
+  scope :external, -> { where(external: true) }
 
   ##
   #

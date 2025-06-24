@@ -17,7 +17,7 @@
         = f.label :subject_id, class: 'fr-label' do
           = t('activerecord.models.subject.one')
           .loader.loader--sm.hidden{ data: { 'filters-target': 'loader' } }
-        = f.collection_select :subject_id, filters[:subjects], :id, :label, { selected: params[:subject_id],
+        = f.collection_select :subject_id, filters[:subjects], :id, :label_with_cooperation, { selected: params[:subject_id],
         include_blank: t('all.masculin') }, class: "fr-select", data: { 'filters-target': 'subjects' }
 
   .fr-accordion.box-shadow-none.fr-my-2v
@@ -33,6 +33,11 @@
           = f.label :created_until, t('needs.search.created_until'), class: 'fr-label'
           = f.date_field :created_until, value: needs_search_params[:created_until], class: 'fr-input'
       .fr-grid-row.fr-grid-row--gutters
+        - if filters[:cooperations].present?
+          .fr-col-md-6.fr-col-12
+            = f.label :cooperation_id, t('attributes.cooperation'), class: 'fr-label'
+            = f.collection_select :cooperation_id, filters[:cooperations], :id, :name, { selected: params[:cooperation_id],
+            include_blank: t('all.feminine') }, class: "fr-select", data: { 'filters-target': 'cooperations' }
         .fr-col-md-6.fr-col-12
           .fr-input-group
             = f.label :omnisearch, t('needs.search.omnisearch'), class: 'fr-label'
