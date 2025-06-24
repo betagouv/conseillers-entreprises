@@ -446,19 +446,73 @@ describe CsvImport::UserImporter, CsvImport do
     end
   end
 
-  context 'Add expert with specific communes' do
-    let(:csv) do
-      <<~CSV
-        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe, Territoire spécifique (CODE INSEE)
-        The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,"77067, 77122, 77251, 77296, 77326, 77384"
-      CSV
+  describe "Add expert with specific territories" do
+    context 'With communes' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe, Communes spécifiques, EPCI spécifiques, Départements spécifiques, Régions spécifiques#{' '}
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,"01001, 01002, 01004",,,
+        CSV
+      end
+
+      it do
+        result
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.territorial_zones.pluck(:zone_type).uniq).to eq ['commune']
+        expect(imported_expert.territorial_zones.pluck(:code)).to contain_exactly('01001', '01002', '01004')
+      end
     end
 
-    it do
-      expect(result).to be_success
-      expect(institution.experts.count).to eq 1
-      imported_expert = institution.experts.first
-      expect(imported_expert.communes.pluck(:insee_code)).to contain_exactly('77067', '77122', '77251', '77296', '77326', '77384')
+    context 'With epcis' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe, Communes spécifiques, EPCI spécifiques, Départements spécifiques, Régions spécifiques#{' '}
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,,"200041499, 200041762",,
+        CSV
+      end
+
+      it do
+        result
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.territorial_zones.pluck(:zone_type).uniq).to eq ['epci']
+        expect(imported_expert.territorial_zones.pluck(:code)).to contain_exactly('200041499', '200041762')
+      end
+    end
+
+    context 'With departments' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe, Communes spécifiques, EPCI spécifiques, Départements spécifiques, Régions spécifiques#{' '}
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,,,"22, 72",
+        CSV
+      end
+
+      it do
+        result
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.territorial_zones.pluck(:zone_type).uniq).to eq ['departement']
+        expect(imported_expert.territorial_zones.pluck(:code)).to contain_exactly('22', '72')
+      end
+    end
+
+    context 'With regions' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe, Communes spécifiques, EPCI spécifiques, Départements spécifiques, Régions spécifiques#{' '}
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,,,,"53, 11"
+        CSV
+      end
+
+      it do
+        result
+        expect(institution.experts.count).to eq 1
+        imported_expert = institution.experts.first
+        expect(imported_expert.territorial_zones.pluck(:zone_type).uniq).to eq ['region']
+        expect(imported_expert.territorial_zones.pluck(:code)).to contain_exactly('53', '11')
+      end
     end
   end
 end
