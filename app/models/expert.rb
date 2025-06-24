@@ -271,7 +271,6 @@ class Expert < ApplicationRecord
 
   scope :by_insee_code, -> (insee_code) {
     territories = DecoupageAdministratif::Search.new.find_territories_by_insee_code(insee_code)
-    territories = DecoupageAdministratif::Search.new.find_territories_by_insee_code(insee_code)
     zone_types = [:epci, :departement, :region]
     experts_ids = []
     zone_types.each do |zone_type|
