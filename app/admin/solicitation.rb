@@ -51,7 +51,7 @@ ActiveAdmin.register Solicitation do
 
       ul class: 'mb-1' do
         s.subject_answers.each do |answer|
-          li "- #{question_label(answer.key, :short)} #{tag.strong(answer_label(answer))} <br>".html_safe
+          li "- #{question_label(answer.key, :short)} #{tag.strong(answer_label(answer.key, answer.filter_value))} <br>".html_safe
         end
       end
       div raw diagnosis_link(s.diagnosis)
@@ -184,7 +184,7 @@ ActiveAdmin.register Solicitation do
       blockquote simple_format(solicitation.description)
       ul class: 'mb-1' do
         solicitation.subject_answers.each do |filter|
-          li "#{question_label(filter.key, :short)} #{tag.strong(answer_label(filter))} <br>".html_safe
+          li "#{question_label(filter.key, :short)} #{tag.strong(answer_label(filter.key, filter.filter_value))} <br>".html_safe
         end
       end
     end

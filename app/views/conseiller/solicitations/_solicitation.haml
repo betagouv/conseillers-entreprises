@@ -51,7 +51,7 @@
                 - solicitation.subject_answers.each do |answer|
                   %li
                     = question_label(answer.key, :short)
-                    %strong= answer_label(answer)
+                    %strong= answer_label(answer.key, answer.filter_value)
 
         .card__info
           %ul.card__fields.list-unstyled.fr-p-0
