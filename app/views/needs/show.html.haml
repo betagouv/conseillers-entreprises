@@ -21,7 +21,7 @@
                 - @need.subject_answers.each do |answer|
                   %li
                     = question_label(answer.key, :long)
-                    %strong= answer_label(answer)
+                    %strong= answer_label(answer.key, answer.filter_value)
             - if display_partner_url
               %p.fr-text--sm
                 = t('.origin_source')
