@@ -1058,7 +1058,10 @@ fr:
       no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire. (14 chiffres)
       phone_number_html: 'Exemple : 0612345678 ou +33 6 12 34 56 78'
     iframe_landings: Iframes
-    insee_codes: Codes communes
+    communes_codes: Codes INSEE
+    epcis_codes: Codes EPCI
+    departements_codes: Codes départements
+    region_codes: Codes régions
     institution: Institution
     institution_antenne: Institution / Antenne
     institutions_subjects: Domaines de l’institution

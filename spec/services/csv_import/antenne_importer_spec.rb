@@ -34,7 +34,7 @@ describe CsvImport::AntenneImporter, CsvImport do
   context 'invalid rows' do
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes communes
+        Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions
         Test Institution,Antenne1,invalid_code
       CSV
     end
@@ -49,18 +49,17 @@ describe CsvImport::AntenneImporter, CsvImport do
   context 'two antennes' do
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
-        Test Institution,Antenne1,00001 00002,Mariane Martin, mariane.m@gouv.fr,0123456789
-        Test Institution,Antenne2,00003 00004
+        Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions,Nom du responsable,Email du responsable,Téléphone du responsable
+        Test Institution,Antenne1,01037 01038,,,,Mariane Martin, mariane.m@gouv.fr,0123456789
+        Test Institution,Antenne2,,,22 35,,
       CSV
     end
 
     it do
       expect(result).to be_success
       expect(result.objects.count).to eq 2
-      expect(Commune.pluck(:insee_code)).to match_array %w[00001 00002 00003 00004]
-      expect(Antenne.find_by(name: 'Antenne1').communes.pluck(:insee_code)).to eq %w[00001 00002]
-      expect(Antenne.find_by(name: 'Antenne2').communes.pluck(:insee_code)).to eq %w[00003 00004]
+      expect(Antenne.find_by(name: 'Antenne1').with_communes.pluck(:code)).to eq %w[01037 01038]
+      expect(Antenne.find_by(name: 'Antenne2').with_departements.pluck(:code)).to eq %w[22 35]
       expect(Antenne.find_by(name: 'Antenne1').managers.first.full_name).to eq 'Mariane Martin'
       expect(Antenne.find_by(name: 'Antenne1').managers.first.email).to eq 'mariane.m@gouv.fr'
       expect(Antenne.find_by(name: 'Antenne1').managers.first.phone_number).to eq '01 23 45 67 89'
@@ -70,7 +69,7 @@ describe CsvImport::AntenneImporter, CsvImport do
   context 'tolerant headers' do
     let(:csv) do
       <<~CSV
-        Institution,Nom ,Codes communes, Nom du responsable,Email du responsable,Téléphone du responsable
+        Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions, Nom du responsable,Email du responsable,Téléphone du responsable
         Test Institution,Antenne1,00001 00002,Mariane Martin, mariane.m@gouv.fr,0123456789
       CSV
     end
@@ -106,7 +105,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes communes
+        Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions
         Test Institution,Antenne1,00002
       CSV
     end
@@ -125,7 +124,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
       let(:csv) do
         <<~CSV
-          Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
+          Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions,Nom du responsable,Email du responsable,Téléphone du responsable
           Test Institution,Antenne1,,Mariane Martin, mariane.m@gouv.fr,0123456789
         CSV
       end
@@ -142,7 +141,7 @@ describe CsvImport::AntenneImporter, CsvImport do
     context 'Import new manager to new antenne' do
       let(:csv) do
         <<~CSV
-          Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
+         Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions,Nom du responsable,Email du responsable,Téléphone du responsable
           Test Institution,Antenne1,,Mariane Martin, mariane.m@gouv.fr,0123456789
         CSV
       end
@@ -162,7 +161,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
       let(:csv) do
         <<~CSV
-          Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
+          Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions,Nom du responsable,Email du responsable,Téléphone du responsable
           Test Institution,Parabolique,,Iznogoud, test@test.com,0123456789
         CSV
       end
@@ -178,7 +177,7 @@ describe CsvImport::AntenneImporter, CsvImport do
     context 'Import manager with error' do
       let(:csv) do
         <<~CSV
-          Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
+          Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions,Nom du responsable,Email du responsable,Téléphone du responsable
           Test Institution,Antenne1,,, mariane.m@gouv.fr,0123456789
         CSV
       end
@@ -196,7 +195,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes communes
+        Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions
         Test Institution, antenne1 ,00002
       CSV
     end
