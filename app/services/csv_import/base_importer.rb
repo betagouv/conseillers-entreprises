@@ -23,7 +23,7 @@ module CsvImport
         # Convert CSV rows to attributes
         objects = rows.each_with_index.map do |row|
           row.delete_if { |k, v| k.nil? && v.nil? }
-          # Convert row to user attributes
+          # Convert row to attributes
           attributes = row_to_attributes(row)
 
           preprocess << preprocess(attributes)
@@ -103,5 +103,15 @@ module CsvImport
     def find_instance(attributes); end
 
     def postprocess(object, attributes); end
+
+    def import_territories(instance, attributes)
+      instance.territorial_zones = []
+      attributes.each do |key, value|
+        key = key.to_s.gsub(/_codes/, '').singularize
+        instance.territorial_zones += value.split(" ").map do |code|
+          instance.territorial_zones.find_or_create_by(zone_type: key, code: code.strip)
+        end
+      end
+    end
   end
 end
