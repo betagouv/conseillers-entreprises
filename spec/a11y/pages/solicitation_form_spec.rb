@@ -49,8 +49,8 @@ describe 'solicitation_form', :js, type: :feature do
       # Third step
       is_expected.to be_accessible
       fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
-      choose 'Oui', name: 'solicitation[subject_answers_attributes][0][filter_value]', allow_label_click: true
-      choose 'Oui', name: 'solicitation[subject_answers_attributes][1][filter_value]', allow_label_click: true
+      choose 'oui', name: 'solicitation[subject_answers_attributes][0][filter_value]', allow_label_click: true
+      choose 'oui', name: 'solicitation[subject_answers_attributes][1][filter_value]', allow_label_click: true
       click_on 'Envoyer ma demande'
       # Thank's step
       is_expected.to be_accessible

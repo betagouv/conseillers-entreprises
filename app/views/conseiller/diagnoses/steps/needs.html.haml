@@ -36,19 +36,25 @@
                     - subject_questions.each do |question|
                       - answer = need.subject_answers.where(subject_question: question).first_or_initialize
                       = need_form.fields_for :subject_answers, answer do |answer_form|
-                        - key = answer_form.object.key
+                        - question_key = answer_form.object.key
                         .fr-form-group.additional_questions.fr-mt-2v
                           %fieldset.fr-fieldset.fr-fieldset--inline
-                            %legend.fr-fieldset__legend.fr-text--regular= question_label(key, :long)
+                            %legend.fr-fieldset__legend.fr-text--regular= question_label(question_key, :long)
                             .fr-fieldset__content
                               = answer_form.hidden_field :id
                               = answer_form.hidden_field :subject_question_id
-                              .fr-radio-group
-                                = answer_form.radio_button :filter_value, true
-                                = answer_form.label :filter_value, answer_label(answer, filter_value: true), value: true, class: 'fr-label'
-                              .fr-radio-group
-                                = answer_form.radio_button :filter_value, false
-                                = answer_form.label :filter_value, answer_label(answer, filter_value: false), value: false, class: 'fr-label'
+                              - if specific_answers_file[question_key].present?
+                                - specific_answers_file[question_key].each do |answer_key|
+                                  .fr-radio-group
+                                    = answer_form.radio_button :filter_value, answer_key
+                                    = answer_form.label :filter_value, answer_label(question_key, answer_key), value: answer_key, class: 'fr-label'
+                              - else
+                                .fr-radio-group
+                                  = answer_form.radio_button :filter_value, true
+                                  = answer_form.label :filter_value, answer_label(question_key, true), value: true, class: 'fr-label'
+                                .fr-radio-group
+                                  = answer_form.radio_button :filter_value, false
+                                  = answer_form.label :filter_value, answer_label(question_key, false), value: false, class: 'fr-label'
                     = need_form.text_area :content, placeholder: t('.need_content_placeholder'), rows: 2, class: 'fr-input'
 
               .fr-mt-2w.bottom-actions
