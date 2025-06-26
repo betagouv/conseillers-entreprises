@@ -48,6 +48,11 @@ class Company < ApplicationRecord
       .distinct
   end
 
+  scope :simple_effectif_eq, -> (query) do
+    query = I18n.t(query.to_i, scope: 'range_to_code')
+    where(code_effectif: query).distinct if query.present?
+  end
+
   ##
   #
   def to_s

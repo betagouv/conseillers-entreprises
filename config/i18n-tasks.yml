@@ -106,6 +106,7 @@ ignore_unused:
   - 'api_name.*'
   - 'categories_juridiques.*'
   - 'code_to_range.*'
+  - 'range_to_code.*'
   - 'simple_effectif.*'
   - 'codes_effectif.*'
   - 'naf_libelle_a10.*'

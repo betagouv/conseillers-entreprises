@@ -358,12 +358,8 @@ class Solicitation < ApplicationRecord
     self.send(query)
   end
 
-  def self.ransackable_scopes(auth_object = nil)
-    [
-      :mtm_campaign_cont, :mtm_campaign_eq, :mtm_campaign_start, :mtm_campaign_end,
-      :mtm_kwd_cont, :mtm_kwd_eq, :mtm_kwd_start, :mtm_kwd_end,
-      :relaunch_cont, :relaunch_eq, :relaunch_end, :relaunch_start, :completion_eq
-    ]
+  scope :company_simple_effectif_eq, -> (query) do
+    joins(:company).merge(Company.simple_effectif_eq(query))
   end
 
   scope :without_diagnosis, -> {
@@ -741,6 +737,15 @@ end
     [
       "badge_badgeables", "badges", "diagnosis", "diagnosis_regions", "facility", "company", "feedbacks", "institution", "cooperation",
       "subject_answers", "landing", "landing_subject", "landing_theme", "matches", "needs", "subject", "theme", "visitee"
+    ]
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    [
+      :mtm_campaign_cont, :mtm_campaign_eq, :mtm_campaign_start, :mtm_campaign_end,
+      :mtm_kwd_cont, :mtm_kwd_eq, :mtm_kwd_start, :mtm_kwd_end,
+      :relaunch_cont, :relaunch_eq, :relaunch_end, :relaunch_start,
+      :completion_eq, :company_simple_effectif_eq
     ]
   end
 end

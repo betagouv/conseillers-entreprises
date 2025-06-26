@@ -38,6 +38,31 @@ fr:
     NR: Non répertorié sur api entreprise
     missing: Données manquantes
     other: nil
+  range_to_code:
+    '0':
+    - '00'
+    - NN
+    - nil
+    '1':
+    - '01'
+    - '02'
+    '10':
+    - '11'
+    '20':
+    - '12'
+    '250':
+    - '32'
+    - '41'
+    - '42'
+    - '51'
+    - '52'
+    - '53'
+    '50':
+    - '21'
+    - '22'
+    - '31'
+    '6':
+    - '03'
   simple_effectif:
     '0': 0 salarié, entreprise non employeuse et auto-entrepreneur
     '1': 1 à 5 salariés
