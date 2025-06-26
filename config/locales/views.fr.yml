@@ -1118,9 +1118,15 @@ fr:
           other: des besoins transmis proviennent d’une requalification par l’équipe, soit %{secondary_count} besoins
           zero: des besoins transmis provient d’une requalification par l’équipe, soit %{secondary_count} besoin
         title_table: Nombre de besoins d’entreprises transmis provenant d’une requalification par l’équipe
-      needs_subjects:
+      needs_subjects_all:
         title: Sujets choisis par les entreprises
         title_table: Sujets choisis par les entreprises
+      needs_subjects_from_external_cooperation:
+        title: Coopérations spécifiques - Sujets choisis par les entreprises
+        title_table: Coopérations spécifiques - Sujets choisis par les entreprises
+      needs_subjects_not_from_external_cooperation:
+        title: Sujets choisis par les entreprises (hors coopérations spécifiques)
+        title_table: Sujets choisis par les entreprises (hors coopérations spécifiques)
       needs_taken_care_in_five_days:
         title: des échanges ont lieu dans les 5 jours après transmission du besoin
         title_table: Délai de réponses aux besoins des entreprises
@@ -1130,10 +1136,16 @@ fr:
       needs_taking_care:
         title: des besoins transmis sont en cours de prise en charge par les conseillers
         title_table: Nombre de besoins en cours de prise en charge par les conseillers
-      needs_themes:
+      needs_themes_all:
         subtitle: Une thématique est un regroupement de sujets d’entreprises proches.
         title: Thématiques choisies par les entreprises
         title_table: Thématiques choisies par les entreprises
+      needs_themes_from_external_cooperation:
+        title: Coopérations spécifiques - Thématiques choisis par les entreprises
+        title_table: Coopérations spécifiques - Thématiques choisis par les entreprises
+      needs_themes_not_from_external_cooperation:
+        title: Thématiques choisis par les entreprises (hors coopérations spécifiques)
+        title_table: Thématiques choisis par les entreprises (hors coopérations spécifiques)
       needs_transmitted:
         title:
           one: Besoin transmis

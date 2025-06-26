@@ -37,7 +37,7 @@
           .fr-col-md-6.fr-col-12
             = f.label :cooperation_id, t('attributes.cooperation'), class: 'fr-label'
             = f.collection_select :cooperation_id, filters[:cooperations], :id, :name, { selected: params[:cooperation_id],
-            include_blank: t('all.feminine') }, class: "fr-select", data: { 'filters-target': 'cooperations' }
+            include_blank: t('all.feminine') }, class: "fr-select"
         .fr-col-md-6.fr-col-12
           .fr-input-group
             = f.label :omnisearch, t('needs.search.omnisearch'), class: 'fr-label'
