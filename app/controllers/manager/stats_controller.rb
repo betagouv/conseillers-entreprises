@@ -43,7 +43,8 @@ module Manager
       @charts_names = %w[
         needs_transmitted matches_positioning matches_taking_care matches_done
         matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
-        matches_taken_care_in_three_days matches_taken_care_in_five_days needs_themes companies_by_employees companies_by_naf_code
+        matches_taken_care_in_three_days matches_taken_care_in_five_days
+        needs_themes_not_from_external_cooperation needs_themes_from_external_cooperation needs_subjects_not_from_external_cooperation needs_subjects_from_external_cooperation companies_by_employees companies_by_naf_code
       ]
     end
 
@@ -56,7 +57,7 @@ module Manager
 
     # Utilisé à l'initialisation de la page
     def all_filter_keys
-      [:antennes, :regions, :themes, :subjects]
+      [:antennes, :regions, :themes, :subjects, :cooperations]
     end
 
     # Utilisé lors des chargements dynamiques js des options

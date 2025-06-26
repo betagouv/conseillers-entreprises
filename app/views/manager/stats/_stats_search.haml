@@ -38,6 +38,12 @@
           = f.collection_select :territory_id, filters[:regions], :id, :name, { selected: stats_params[:territory_id],
             include_blank: t('all.feminine') }, class: "fr-select"
 
+        - if filters[:cooperations].present?
+          .fr-select-group
+            = f.label :cooperation_id, t('attributes.cooperation'), class: 'fr-label'
+            = f.collection_select :cooperation_id, filters[:cooperations], :id, :name, { selected: stats_params[:cooperation_id],
+            include_blank: t('all.feminine') }, class: "fr-select"
+
     .fr-col-12
       .fr-input-group
         = f.submit t('stats.stats_params.filter'), class: 'fr-btn'

@@ -379,10 +379,19 @@ class Need < ApplicationRecord
   scope :from_integration, -> (integration) do
     joins(diagnosis: :solicitation).where(solicitations: { landings: { integration: integration } })
   end
-
-  scope :from_cooperation, -> (cooperation) do
-    joins(solicitation: :cooperation)
+  
+  scope :by_cooperation, -> (cooperation) do
+    joins(:solicitation)
       .where(solicitation: { cooperation_id: cooperation.id })
+  end
+
+  scope :from_external_cooperation, -> do
+    joins(:cooperation).where(cooperations: { external: true })
+  end
+
+  scope :not_from_external_cooperation, -> do
+    external_ids = from_external_cooperation.ids
+    where.not(id: external_ids)
   end
 
   scope :requalified, -> do

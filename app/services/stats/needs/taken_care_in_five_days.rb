@@ -1,6 +1,6 @@
 module Stats::Needs
   class TakenCareInFiveDays
-    include ::Stats::Needs::TakingCareTime
+    include ::Stats::Needs::Concerns::TakingCareTime
 
     def number_of_days
       @number_of_days ||= 5
