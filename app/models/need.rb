@@ -102,6 +102,9 @@ class Need < ApplicationRecord
   # :company_satisfaction
   has_many :shared_satisfactions, through: :company_satisfaction, source: :shared_satisfactions
 
+  # :cooperation
+  has_one :cooperation, through: :solicitation, source: :cooperation, inverse_of: :solicitations
+
   ## Scopes
   #
   NO_ACTIVITY_DELAY = 14.days
@@ -377,6 +380,20 @@ class Need < ApplicationRecord
     joins(diagnosis: :solicitation).where(solicitations: { landings: { integration: integration } })
   end
 
+  scope :by_cooperation, -> (cooperation) do
+    joins(:solicitation)
+      .where(solicitation: { cooperation_id: cooperation.id })
+  end
+
+  scope :from_external_cooperation, -> do
+    joins(:cooperation).where(cooperations: { external: true })
+  end
+
+  scope :not_from_external_cooperation, -> do
+    external_ids = from_external_cooperation.ids
+    where.not(id: external_ids)
+  end
+
   scope :requalified, -> do
     joins(diagnosis: { solicitation: :landing_subject })
       .where('needs.subject_id != landing_subjects.subject_id')
@@ -434,6 +451,10 @@ class Need < ApplicationRecord
 
   def starred?
     !starred_at.nil?
+  end
+
+  def from_external_cooperation?
+    cooperation&.external?
   end
 
   def quo_experts

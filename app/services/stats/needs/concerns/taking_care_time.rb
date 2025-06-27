@@ -1,4 +1,4 @@
-module Stats::Needs::TakingCareTime
+module Stats::Needs::Concerns::TakingCareTime
   include ::Stats::BaseStats
 
   def main_query
