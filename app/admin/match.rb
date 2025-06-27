@@ -59,6 +59,9 @@ ActiveAdmin.register Match do
       div link_to(I18n.t('active_admin.matches.need_page'), need_path(m.need))
     end
     column(:subject) do |m|
+      if m.need.from_external_cooperation?
+        div status_tag m.need.cooperation, class: :ok
+      end
       div admin_link_to(m, :theme)
       div admin_link_to(m, :subject)
     end

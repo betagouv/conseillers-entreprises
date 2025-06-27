@@ -959,6 +959,7 @@ fr:
       other: Personnes rencontrées
     content: Description
     cooperation: Coopération
+    cooperation_external: Coopération externe
     coordinates: Coordonnées
     created_at: Date de création
     custom_communes: Spécifique
