@@ -44,8 +44,18 @@ module Manager
         needs_transmitted matches_positioning matches_taking_care matches_done
         matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
         matches_taken_care_in_three_days matches_taken_care_in_five_days
-        needs_themes_not_from_external_cooperation needs_themes_from_external_cooperation needs_subjects_not_from_external_cooperation needs_subjects_from_external_cooperation companies_by_employees companies_by_naf_code
+      ] + themes_subjects_charts +
+      %w[
+        companies_by_employees companies_by_naf_code
       ]
+    end
+
+    def themes_subjects_charts
+      if base_needs_for_filters.from_external_cooperation.any?
+        %w[needs_themes_not_from_external_cooperation needs_themes_from_external_cooperation needs_subjects_not_from_external_cooperation needs_subjects_from_external_cooperation]
+      else
+        %w[needs_themes_all needs_subjects_all]
+      end
     end
 
     # Filtering

@@ -40,7 +40,7 @@
 
         - if filters[:cooperations].present?
           .fr-select-group
-            = f.label :cooperation_id, t('attributes.cooperation'), class: 'fr-label'
+            = f.label :cooperation_id, t('attributes.cooperation_external'), class: 'fr-label'
             = f.collection_select :cooperation_id, filters[:cooperations], :id, :name, { selected: stats_params[:cooperation_id],
             include_blank: t('all.feminine') }, class: "fr-select"
 

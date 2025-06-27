@@ -379,7 +379,7 @@ class Need < ApplicationRecord
   scope :from_integration, -> (integration) do
     joins(diagnosis: :solicitation).where(solicitations: { landings: { integration: integration } })
   end
-  
+
   scope :by_cooperation, -> (cooperation) do
     joins(:solicitation)
       .where(solicitation: { cooperation_id: cooperation.id })
@@ -451,6 +451,10 @@ class Need < ApplicationRecord
 
   def starred?
     !starred_at.nil?
+  end
+
+  def from_external_cooperation?
+    cooperation&.external?
   end
 
   def quo_experts

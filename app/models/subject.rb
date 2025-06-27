@@ -115,7 +115,7 @@ class Subject < ApplicationRecord
   ##
   #
   def to_s
-    label_with_cooperation
+    label
   end
 
   def label_with_cooperation

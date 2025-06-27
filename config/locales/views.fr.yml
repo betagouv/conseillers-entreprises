@@ -1122,11 +1122,11 @@ fr:
         title: Sujets choisis par les entreprises
         title_table: Sujets choisis par les entreprises
       needs_subjects_from_external_cooperation:
-        title: Coopérations spécifiques - Sujets choisis par les entreprises
-        title_table: Coopérations spécifiques - Sujets choisis par les entreprises
+        title: Coopérations externes - Sujets choisis par les entreprises
+        title_table: Coopérations externes - Sujets choisis par les entreprises
       needs_subjects_not_from_external_cooperation:
-        title: Sujets choisis par les entreprises (hors coopérations spécifiques)
-        title_table: Sujets choisis par les entreprises (hors coopérations spécifiques)
+        title: Sujets choisis par les entreprises (hors coopérations externes)
+        title_table: Sujets choisis par les entreprises (hors coopérations externes)
       needs_taken_care_in_five_days:
         title: des échanges ont lieu dans les 5 jours après transmission du besoin
         title_table: Délai de réponses aux besoins des entreprises
@@ -1141,11 +1141,11 @@ fr:
         title: Thématiques choisies par les entreprises
         title_table: Thématiques choisies par les entreprises
       needs_themes_from_external_cooperation:
-        title: Coopérations spécifiques - Thématiques choisis par les entreprises
-        title_table: Coopérations spécifiques - Thématiques choisis par les entreprises
+        title: Coopérations externes - Thématiques choisies par les entreprises
+        title_table: Coopérations externes - Thématiques choisies par les entreprises
       needs_themes_not_from_external_cooperation:
-        title: Thématiques choisis par les entreprises (hors coopérations spécifiques)
-        title_table: Thématiques choisis par les entreprises (hors coopérations spécifiques)
+        title: Thématiques choisies par les entreprises (hors coopérations externes)
+        title_table: Thématiques choisies par les entreprises (hors coopérations externes)
       needs_transmitted:
         title:
           one: Besoin transmis
