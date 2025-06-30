@@ -63,6 +63,7 @@ fr:
       import_errors:
         antenne_not_found: 'Antenne non reconnue : %{name}'
         import_failed: Échec de l’import
+        import_failed_with_error: 'Échec de l’import : %{error}'
         unknown_headers:
           one: En-tête non reconnu
           other: En-têtes non reconnus
