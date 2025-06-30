@@ -218,7 +218,7 @@ fr:
         display_matches_stats: Afficher le pilotage par partenaire
         display_pde_partnership_mention: Afficher le partenariat Conseillers-Entreprises (logo + phrase en bas d’iframe)
         display_url: Afficher l’url du partenaire
-        external: Coopération avec sujets externes
+        external: Coopération externe
         landings_or_mtm: Landing / Campagne
       diagnosis:
         content: Commentaire

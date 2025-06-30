@@ -93,7 +93,7 @@ class Subject < ApplicationRecord
   end
 
   scope :not_from_external_cooperation, -> do
-    external_ids = all.from_external_cooperation.ids
+    external_ids = from_external_cooperation.ids
     where.not(id: external_ids)
   end
 

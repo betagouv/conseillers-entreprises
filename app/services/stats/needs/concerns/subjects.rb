@@ -3,8 +3,7 @@ module Stats::Needs::Concerns::Subjects
 
   def main_query
     needs_subjects_base_scope
-      .joins(:advisor)
-      .joins(:subject)
+      .joins(:advisor, :subject)
   end
 
   def needs_subjects_base_scope
@@ -24,8 +23,7 @@ module Stats::Needs::Concerns::Subjects
   end
 
   def build_series
-    result = super
-    result.reject { |item| item[:data].all?(0) }
+    super.reject { |item| item[:data].all?(0) }
   end
 
   def filtered(query)

@@ -3,8 +3,7 @@ module Stats::Needs::Concerns::Themes
 
   def main_query
     needs_themes_base_scope
-      .joins(:advisor)
-      .joins(subject: :theme)
+      .joins(:advisor, subject: :theme)
   end
 
   def needs_themes_base_scope

@@ -8,7 +8,7 @@ module XlsxExport
         not_cooperation_needs = needs.where.not(id: cooperation_needs.ids)
 
         needs_by_subjects = {}
-        antenne_subjects_labels = @antenne.institution.subjects.not_from_external_cooperation.map(&:label)
+        antenne_subjects_labels = @antenne.institution.subjects.not_from_external_cooperation.pluck(&:label)
 
         # /!\ Ici, pour des raisons de simplicité, on se base sur le sujet et non sur la solicitation pour trouver la coopération
         # Risque d'écarts avec les statistiques dynamiques
