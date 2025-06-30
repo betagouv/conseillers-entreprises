@@ -77,7 +77,7 @@ gem 'split', require: 'split/dashboard'
 gem 'matrix'
 gem 'mjml-rails'
 gem 'progress_bar'
-gem 'decoupage_administratif', git: 'https://github.com/betagouv/decoupage-administratif-gem'
+gem 'decoupage_administratif', git: 'https://github.com/betagouv/decoupage-administratif-gem', branch: 'first_version'
 
 # Notifiers
 gem "sentry-ruby"
