@@ -11,7 +11,7 @@ module CsvImport
     def import
       csv = open_with_best_separator(@input)
       if csv.is_a? CSV::MalformedCSVError
-        return Result.new(rows: [], header_errors: [csv], preprocess_errors: [], objects: [])
+        return Result.new(rows: [], header_errors: [csv], preprocess_errors: [], postprocess_errors: [], objects: [])
       end
       header_errors = check_headers(csv.headers.compact)
 
@@ -19,6 +19,7 @@ module CsvImport
       objects = []
       preprocess = []
       preprocess_errors = []
+      postprocess_errors = []
       ActiveRecord::Base.transaction do
         # Convert CSV rows to attributes
         objects = rows.each_with_index.map do |row|
@@ -37,18 +38,21 @@ module CsvImport
           object.update(attributes)
 
           object = postprocess(object, row)
+          postprocess_errors << object if object.is_a? CsvImport::PostprocessError
+          next if postprocess_errors.present?
           object
         end
 
         preprocess_errors = preprocess_errors.group_by(&:message).keys
+        postprocess_errors = postprocess_errors.group_by(&:message).keys
         # Validate all objects to collect errors, but rollback everything if there is one error
         all_valid = objects.map{ |object| object&.validate(:import) }
-        if all_valid.include? false || preprocess_errors.present?
+        if postprocess_errors.present? || (all_valid.include? false || preprocess_errors.present?)
           raise ActiveRecord::Rollback
         end
       end
 
-      Result.new(rows: rows, header_errors: header_errors, preprocess_errors: preprocess_errors, objects: objects)
+      Result.new(rows: rows, header_errors: header_errors, preprocess_errors: preprocess_errors, postprocess_errors: postprocess_errors, objects: objects)
     end
 
     private
@@ -109,7 +113,7 @@ module CsvImport
       attributes.each do |key, value|
         key = key.to_s.gsub(/_codes/, '').singularize
         instance.territorial_zones += value.split(" ").map do |code|
-          instance.territorial_zones.find_or_create_by(zone_type: key, code: code.strip)
+          instance.territorial_zones.find_or_create_by!(zone_type: key, code: code.strip)
         end
       end
     end

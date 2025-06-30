@@ -15,7 +15,7 @@ module CsvImport
 
     def preprocess(attributes)
       attributes.transform_values!(&:squish)
-      attributes[:insee_codes] = FormatInseeCodes.normalize(attributes[:insee_codes]) if attributes[:insee_codes].present?
+      attributes[:communes_codes] = FormatInseeCodes.normalize(attributes[:communes_codes]) if attributes[:communes_codes].present?
       attributes[:institution] = Institution.find_by(name: attributes[:institution]) || @options[:institution]
     end
 
@@ -25,8 +25,13 @@ module CsvImport
     end
 
     def postprocess(antenne, row)
-      create_manager(antenne, manager_attributes(row))
-      import_territories(antenne, territories_attributes(row))
+      begin
+        create_manager(antenne, manager_attributes(row))
+        import_territories(antenne, territories_attributes(row))
+        antenne
+      rescue => e
+        CsvImport::PostprocessError.new("Erreur lors du post-traitement de l'antenne : #{e.message}")
+      end
     end
 
     def create_manager(antenne, attributes)
@@ -60,7 +65,7 @@ module CsvImport
 
     def territories_attributes(row)
       attributes = row_to_attributes(row)
-      attributes.slice(:insee_codes, :epci_codes, :departements_codes, :region_codes)
+      attributes.slice(:communes_codes, :epci_codes, :departements_codes, :region_codes)
     end
   end
 end
