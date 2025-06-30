@@ -167,6 +167,10 @@ class User < ApplicationRecord
       .merge(Expert.support_experts)
   end
 
+  scope :currently_absent, -> {
+    where('absence_start_at < ? AND absence_end_at > ?', Time.current, Time.current)
+  }
+
   # Search
   scope :by_institution, -> (institution_slug) do
     joins(antenne: :institution)
