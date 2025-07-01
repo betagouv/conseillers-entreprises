@@ -2,7 +2,7 @@
   <mj-column>
     <mj-text>      
       <p><%= t('devise.mailer.hello', user_full_name: @user.full_name) %></p>
-      <p><%= t('.intro_html', link_to_root: link_to(t('app_name'), root_url)) %></p>
+      <p><%= t('.intro_html', link_to_root: link_to(t('app_name'), root_url, target: :blank)) %></p>
       <p><%= t('.confirmation_html', user_email: @user.email, expert_email: @expert_email) %></p>
       <p><%= t('.demo_time_intro') %></p>
     </mj-text>

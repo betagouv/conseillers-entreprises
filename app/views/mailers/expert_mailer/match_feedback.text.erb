@@ -19,7 +19,7 @@
 <%= t('mailers.see_diagnosis') %> : <%= need_url(@feedback.need) %>
 
 
-<%= t('mailers.see_you_on_service_html', link_to_root: root_url) %>
+<%= t('mailers.see_you_on_service_html', link_to_root: root_url, target: :blank) %>
 
 ---
 <%= render 'mailers/expert_mailer/support_user_signature', support_user: @support_user %>

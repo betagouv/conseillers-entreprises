@@ -3,7 +3,7 @@
     <mj-text>
       <p><%= t('mailers.hello') %></p>
 
-      <p><%= t('.please_close_html', link_to_needs: link_to(t('app_name'), taking_care_needs_url)) %></p>
+      <p><%= t('.please_close_html', link_to_needs: link_to(t('app_name'), taking_care_needs_url, target: :blank)) %></p>
 
       <p><%= t('.at_your_service') %></p>
 

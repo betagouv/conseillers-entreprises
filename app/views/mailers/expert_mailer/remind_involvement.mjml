@@ -17,7 +17,7 @@
   <mj-section>
     <mj-column>
       <mj-text>
-        <% account_link = link_to t('.user_account'), quo_active_needs_url %>
+        <% account_link = link_to t('.user_account'), quo_active_needs_url, target: :blank %>
         <p><%= t('.other_needs_quo_html', account_link: account_link) %></p>
       </mj-text>
     </mj-column>
@@ -26,7 +26,7 @@
 
 <mj-section>
   <mj-column>
-    <% link_to_root = link_to t('app_name'), root_url %>
+    <% link_to_root = link_to t('app_name'), root_url, target: :blank %>
     <mj-text>
       <p><%= t('mailers.see_you_on_service_html', link_to_root: link_to_root) %></p>
     </mj-text>
