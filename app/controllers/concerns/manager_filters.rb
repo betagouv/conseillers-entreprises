@@ -15,14 +15,17 @@ module ManagerFilters
   private
 
   def base_themes
-    @base_themes = Theme.joins(subjects: :needs).where(subjects: { needs: base_needs_for_filters }).distinct.sort_by(&:label)
-    @base_themes
+    @base_themes ||= Theme.joins(subjects: :needs).where(subjects: { needs: base_needs_for_filters }).distinct.sort_by(&:label)
   end
 
   def base_subjects
     @base_subjects = Subject.where(theme: base_themes).not_archived.order(:label)
     @base_subjects = @base_subjects.where(theme_id: params[:theme_id]) if params[:theme_id].present?
     @base_subjects
+  end
+
+  def base_cooperations
+    @base_cooperations ||= Cooperation.external.joins(:needs).where(needs: base_needs_for_filters).distinct.order(:name)
   end
 
   def base_antennes

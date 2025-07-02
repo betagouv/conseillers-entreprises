@@ -59,6 +59,9 @@ ActiveAdmin.register Match do
       div link_to(I18n.t('active_admin.matches.need_page'), need_path(m.need))
     end
     column(:subject) do |m|
+      if m.need.from_external_cooperation?
+        div status_tag m.need.cooperation, class: :ok
+      end
       div admin_link_to(m, :theme)
       div admin_link_to(m, :subject)
     end
@@ -93,11 +96,12 @@ ActiveAdmin.register Match do
          data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :expert_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
-  filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :subject, as: :ajax_select, collection: -> { @subjects.map{ |s| [s.label_with_cooperation, s.id] } }, data: { url: :admin_subjects_path, search_fields: [:label_with_cooperation] }
   filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.regions.pluck(:name, :id) }
 
   ## Filtres acquisition
   filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
+  filter :cooperation, as: :ajax_select, collection: -> { Cooperation.pluck(:name, :id) }, data: { url: :admin_cooperations_path, search_fields: [:name] }
   filter :solicitation_mtm_campaign, as: :string
   filter :solicitation_mtm_kwd, as: :string
   filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }, name: nil

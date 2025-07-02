@@ -402,6 +402,10 @@ class Solicitation < ApplicationRecord
     end
   }
 
+  scope :by_cooperation, -> (cooperation_id) {
+    where(cooperation_id: cooperation_id)
+  }
+
   # Solicitations similaires
   #
   scope :from_same_company, -> (solicitation) {
@@ -421,6 +425,7 @@ class Solicitation < ApplicationRecord
   def self.apply_filters(params)
     klass = self
     klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
+    klass = klass.by_cooperation(params[:by_cooperation]) if params[:by_cooperation].present?
     klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
     klass.all
   end

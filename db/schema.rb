@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_06_113927) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_18_095527) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -231,6 +231,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_06_113927) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "display_matches_stats", default: false
+    t.boolean "external", default: false
     t.index ["institution_id"], name: "index_cooperations_on_institution_id"
     t.index ["name"], name: "index_cooperations_on_name", unique: true
   end

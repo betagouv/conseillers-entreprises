@@ -137,7 +137,7 @@ class Conseiller::SolicitationsController < ApplicationController
   end
 
   def search_fields
-    [:omnisearch, :by_region]
+    [:omnisearch, :by_cooperation, :by_region]
   end
 
   def territory_options_complement

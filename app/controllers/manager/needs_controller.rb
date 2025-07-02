@@ -60,7 +60,7 @@ class Manager::NeedsController < ApplicationController
   end
 
   def all_filter_keys
-    [:antennes, :themes, :subjects]
+    [:antennes, :themes, :subjects, :cooperations]
   end
 
   def dynamic_filter_keys

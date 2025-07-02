@@ -10,6 +10,10 @@
               %span.fr-text--lg= need.company.name
               = need.facility.commune_name
             .fr-card__start
+              - if need.from_external_cooperation?
+                %ul.fr-badges-group
+                  %li
+                    %p.fr-badge.fr-badge--yellow-moutarde= need.cooperation.name
               %p.fr-card__detail
                 = I18n.l(need.created_at, format: :long)
                 - if params[:query].present?
