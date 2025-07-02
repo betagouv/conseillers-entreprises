@@ -12,7 +12,7 @@ module Clockwork
   every(1.day, 'revoke_api_keys', at: ('2:00'), if: -> (t) { t.day == 1 }, tz: 'UTC') do
     Api::ApiKeysRevokeJob.perform_later
   end
-  every(1.day, 'revoke_api_keys', at: ('6:20'), if: -> (t) { t.day == 28 }, tz: 'UTC') do
+  every(1.day, 'refresh_demo_data', at: ('6:20'), if: -> (t) { t.day == 28 }, tz: 'UTC') do
     `rake staging:refresh_demo_data`
   end
   every(1.day, 'erase_past_absences', at: '02:31', tz: 'UTC') do
