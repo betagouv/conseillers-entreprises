@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-module Api::RechercheEntreprises::Search
-  class Fulltext < Api::RechercheEntreprises::Search::Base
+module Api::RechercheEntreprises::Search::Fulltext
+  class Base < Api::RechercheEntreprises::Search::Base
   end
 
-  class Request < Api::RechercheEntreprises::Request
+  class Request < Api::RechercheEntreprises::Search::Request
   end
 
-  class Responder < Api::RechercheEntreprises::Responder
+  class Responder < Api::RechercheEntreprises::Search::Responder
     # Il peut y avoir plusieurs résultats
     def format_data
       res = @http_request.data["results"].map do |entreprise|

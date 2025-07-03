@@ -28,6 +28,7 @@ RSpec.describe ApiConsumption::Facility do
     let(:cfadock_base_url) { 'https://www.cfadock.fr/api/opcos?siret=' }
     let(:france_competence_url) { "https://api.francecompetences.fr/siropartfc/v1/api/partenaire/#{siret}" }
     let(:effectifs_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/#{siret}/effectifs_mensuels/#{searched_month}/annee/#{searched_year}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
+    let(:recherche_entreprise_url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{siret}" }
 
     before { Rails.cache.clear }
 
@@ -49,6 +50,7 @@ RSpec.describe ApiConsumption::Facility do
           body: file_fixture('api_entreprise_effectifs_etablissement.json')
         )
         stub_request(:get, rne_companies_url).to_return(body: file_fixture('api_rne_companies.json'))
+        stub_request(:get, recherche_entreprise_url).to_return(body: file_fixture('api_recherche_entreprises_search_siret.json'))
       end
 
       it 'has the right fields' do
