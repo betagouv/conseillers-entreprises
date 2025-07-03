@@ -3,13 +3,13 @@
     <mj-text>
       <p class="card__detail"><%= need.facility.commune_name %></p>
       <h3 class="card__title">
-        <%= link_to need.company.name, need_url(need) %>
+        <%= link_to need.company.name, need_url(need), target: :blank %>
       </h3 >
       <p class="card__desc"><%= need.subject%></p>
       <%= yield :card_content %>
     </mj-text>
     <mj-button background-color="#000091" color="white" border-radius="0" font-weight="700">
-      <%= link_to t('mailers.see_diagnosis'), need_url(need), style: 'color: white; text-decoration: none' %>
+      <%= link_to t('mailers.see_diagnosis'), need_url(need), style: 'color: white; text-decoration: none', target: :blank %>
     </mj-button>
   </mj-column>
 </mj-section>

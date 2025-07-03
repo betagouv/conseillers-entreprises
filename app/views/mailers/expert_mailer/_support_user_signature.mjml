@@ -29,7 +29,7 @@
           <%= support_user.job %>
         </li>
         <li style="; line-height: 0.5rem">
-          <a href="<%= support_user.email %>"><%= support_user.email %></a>
+          <a href="mailto:<%= support_user.email%>" target="_blank"><%= support_user.email%></a>
         </li>
         <li>
           <%= support_user.phone_number %>

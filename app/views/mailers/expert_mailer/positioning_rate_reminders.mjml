@@ -3,7 +3,7 @@
     <mj-text>
       <p><%= t('mailers.hello_name', name: @expert.full_name) %></p>
 
-      <p><%= t('.needs_quo_html', count: @expert.needs_quo_active.size, account_link: link_to(t('.user_account'), new_user_session_url, class: 'underline')) %></p>
+      <p><%= t('.needs_quo_html', count: @expert.needs_quo_active.size, account_link: link_to(t('.user_account'), new_user_session_url, target: :blank, class: 'underline')) %></p>
 
       <p><%= t('.call_me') %></p>
 

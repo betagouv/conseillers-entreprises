@@ -10,7 +10,7 @@
       <p><strong><%= t('.will_you_act') %></strong></p>
     </mj-text>
       <mj-button background-color="#000091" color="white" border-radius="0" font-weight="700">
-        <%= link_to t('mailers.see_diagnosis'), need_url(@need), style: 'color: white; text-decoration: none' %>
+        <%= link_to t('mailers.see_diagnosis'), need_url(@need), target: :blank, style: 'color: white; text-decoration: none' %>
       </mj-button>
     <mj-text>
       <p><%= t('.at_your_disposal') %></p>

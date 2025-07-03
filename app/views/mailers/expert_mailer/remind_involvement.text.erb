@@ -1,6 +1,6 @@
 <%= t('mailers.hello') %>
 
-<% link_to_root = link_to t('app_name'), root_url %>
+<% link_to_root = link_to t('app_name'), root_url, target: :blank %>
 <%= t('.needs_for_you', link_to_root: link_to_root) %>
 
 <%= render 'mailers/expert_mailer/remind_received_needs',
@@ -9,7 +9,7 @@
   visited_at: false %>
 
 <% if @others_needs_quo_count.positive? %>
-<% account_link = link_to t('.user_account'), quo_active_needs_url %>
+<% account_link = link_to t('.user_account'), quo_active_needs_url, target: :blank %>
 <%= ActionView::Base.full_sanitizer.sanitize(t('.other_needs_quo_html', count: @others_needs_quo_count, account_link: account_link)) %>
 <% end %>
 
