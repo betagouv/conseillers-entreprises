@@ -247,7 +247,7 @@ describe 'New Solicitation', :js, :flaky do
 
         before do
           stub_request(:get, recherche_url)
-            .to_return(body: file_fixture('api_recherche_entreprises_search.json'))
+            .to_return(body: file_fixture('api_recherche_entreprises_search_fulltext.json'))
           stub_request(:get, "https://api.insee.fr/api-sirene/3.11/siret/?q=siren:#{siren}")
             .with(headers: { 'X-INSEE-Api-Key-Integration' => 'api_key' })
             .to_return(body: file_fixture('api_insee_sirets_by_siren_many.json'))

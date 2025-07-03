@@ -8,9 +8,12 @@ module Api::RechercheEntreprises::Search
   end
 
   class Responder < Api::RechercheEntreprises::Responder
-    # Un seul résultat ici
+    # Un seul résultat ici, et on ne recherche que l'IDCC
     def format_data
-      @http_request.data["results"].first
+      data = @http_request.data.dig("results", 0, "matching_etablissements", 0)
+      {
+        liste_idcc: data&.dig("liste_idcc"),
+      }
     end
   end
 end

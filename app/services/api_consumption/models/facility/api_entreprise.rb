@@ -18,7 +18,7 @@ module ApiConsumption::Models
         :opco_cfadock,
         :opco_fc,
         :activites_secondaires,
-        :complements,
+        :liste_idcc,
         :errors
       ]
     end
@@ -76,7 +76,7 @@ module ApiConsumption::Models
     end
 
     def idcc
-      @idcc ||= (liste_idcc&.first || opco_cfadock&.fetch('idcc'))
+      @idcc ||= (liste_idcc&.first || opco_cfadock&.dig('idcc'))
     end
 
     def nature_activites
@@ -126,10 +126,6 @@ module ApiConsumption::Models
       @idcc_to_opco ||= YAML.load_file("#{Rails.root.join("config", "data", "idcc_to_opco.yml")}")
       opco_siren = @idcc_to_opco[idcc]
       Institution.opco.find_by(siren: opco_siren) if opco_siren.present?
-    end
-
-    def liste_idcc
-      complements["liste_idcc"]
     end
   end
 end

@@ -12,7 +12,7 @@ RSpec.describe Api::RechercheEntreprises::Search::Fulltext do
 
     before do
       stub_request(:get, url).to_return(
-        body: file_fixture('api_recherche_entreprises_search.json')
+        body: file_fixture('api_recherche_entreprises_search_fulltext.json')
       )
     end
 
