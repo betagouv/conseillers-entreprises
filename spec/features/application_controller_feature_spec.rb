@@ -36,7 +36,7 @@ describe 'ApplicationController specific features' do
         click_on 'Mot de passe'
         click_on 'Antenne'
         click_on 'Domaines d’intervention'
-        click_on 'Tutoriel'
+        click_on 'Vidéo tuto'
         visit 'entreprises/search'
         expect(page.html).to include 'Mes besoins'
         expect(page.html).not_to include 'Administration'

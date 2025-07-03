@@ -164,7 +164,7 @@ fr:
       carsat:
         duerp_html: 'Document unique d’évaluation des risques professionnels (DUERP) : <br />Toutes activités : <a href=''https://www.inrs.fr/demarche/evaluation-risques-professionnels''>https://www.inrs.fr/demarche/evaluation-risques-professionnels</a> <br />Spécifique au bâtiment : <a href=''https://www.preventionbtp.fr''>https://www.preventionbtp.fr</a>'
         intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant votre retraite ou les risques professionnels.
-        no_carsat_in_region_html: Malheureusement, <strong>l'organisme compétent, la CARSAT, n’est pas encore partenaire du service dans votre région</strong>. Nous vous invitons à <strong>la contacter au 3960</strong>.
+        no_carsat_in_region_html: Malheureusement, l'organisme compétent, <strong>la CARSAT, n’est pas encore partenaire</strong> du service dans votre région. Nous vous invitons à <strong>la contacter au 3960 pour la retraite</strong> et au <strong>3979 pour les risques professionnels</strong>.
         purchases_html: 'Subventions liées aux formations ou aux achats de matériels : sur <a href=''https://www.ameli.fr/''>le site Ameli</a>, choisir le département, puis « Entreprise » dans le bandeau du haut puis le sigle Euros « aides financières TPE PME » dans le bandeau de droite.'
         retirement_html: 'Retraite : <a href=''https://www.lassuranceretraite.fr''>www.lassuranceretraite.fr</a>'
         useful_links: 'Liens utiles :'

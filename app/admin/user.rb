@@ -14,6 +14,7 @@ ActiveAdmin.register User do
 
   scope :active, default: true
   scope :deleted
+  scope :currently_absent
 
   scope :admin, group: :role
   scope :managers, group: :role

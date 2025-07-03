@@ -19,7 +19,7 @@ describe 'passwords', :js do
     end
 
     it 'resets password' do
-      expect(page).to have_css 'h1', text: "Tutoriel"
+      expect(page).to have_css 'h1', text: "Vidéo tuto"
       expect(page.html).to include 'Votre nouveau mot de passe a bien été enregistré'
       # Impossible de faire fonctionner des tests genre `expect(user.password).to eq('aaQQwwXXssZZ22##')``
     end
