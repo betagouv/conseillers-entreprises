@@ -30,7 +30,7 @@ module ApiConsumption::Agregators
     end
 
     def request_keys
-      @options&.dig(:request_keys) || REQUESTS.keys
+      @options&.dig(:request_keys) || REQUESTS.keys.excluding(base_key)
     end
 
     def requests

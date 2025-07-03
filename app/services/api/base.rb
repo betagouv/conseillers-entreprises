@@ -121,6 +121,7 @@ module Api
 
   class Responder
     def initialize(http_request)
+      p "initialize Responder #{self.class.name}"
       @http_request = http_request
     end
 

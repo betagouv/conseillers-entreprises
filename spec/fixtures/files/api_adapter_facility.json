@@ -89,26 +89,26 @@
         "l7": "FRANCE"
       }
     },
-    "date_derniere_mise_a_jour": 1717106400,
+    "date_derniere_mise_a_jour": 1737154800,
     "redirect_from_siret": null,
     "effectifs_etablissement_mensuel": {
       "siret": "41816609600069",
       "effectifs_mensuels": [
         {
-          "regime": "regime_general",
-          "annee": "2024",
-          "mois": "08",
-          "nature": "effectif_moyen_mensuel",
-          "value": 731.64,
-          "date_derniere_mise_a_jour": "2024-09-10"
-        },
-        {
           "regime": "regime_agricole",
-          "annee": "2024",
-          "mois": "08",
+          "annee": "2025",
+          "mois": "05",
           "nature": "effectif_moyen_mensuel",
           "value": null,
           "date_derniere_mise_a_jour": null
+        },
+        {
+          "regime": "regime_general",
+          "annee": "2025",
+          "mois": "05",
+          "nature": "effectif_moyen_mensuel",
+          "value": 681.47,
+          "date_derniere_mise_a_jour": "2025-06-10"
         }
       ]
     },
@@ -187,13 +187,14 @@
           ]
         }
       ]
-    }
+    },
+    "liste_idcc": ["1486"]
   },
   "links": {
     "unite_legale": "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/418166096"
   },
   "meta": {
-    "date_derniere_mise_a_jour": 1717106400,
+    "date_derniere_mise_a_jour": 1737154800,
     "redirect_from_siret": null
   }
 }
