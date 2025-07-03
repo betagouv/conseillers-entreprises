@@ -18,6 +18,7 @@ module ApiConsumption::Models
         :opco_cfadock,
         :opco_fc,
         :activites_secondaires,
+        :complements,
         :errors
       ]
     end
@@ -71,12 +72,11 @@ module ApiConsumption::Models
     end
 
     def opco
-      @opco ||= (france_competence_opco || cfa_dock_opco)
+      @opco ||= (opco_from_idcc || france_competence_opco || cfa_dock_opco)
     end
 
     def idcc
-      return nil if opco_cfadock.blank?
-      @idcc ||= opco_cfadock['idcc']
+      @idcc ||= (liste_idcc&.first || opco_cfadock&.fetch('idcc'))
     end
 
     def nature_activites
@@ -120,6 +120,16 @@ module ApiConsumption::Models
 
     def france_competence_code
       @france_competence_code ||= opco_fc&.dig('opcoRattachement', 'code')
+    end
+
+    def opco_from_idcc
+      @idcc_to_opco ||= YAML.load_file("#{Rails.root.join("config", "data", "idcc_to_opco.yml")}")
+      opco_siren = @idcc_to_opco[idcc]
+      Institution.opco.find_by(siren: opco_siren) if opco_siren.present?
+    end
+
+    def liste_idcc
+      complements["liste_idcc"]
     end
   end
 end

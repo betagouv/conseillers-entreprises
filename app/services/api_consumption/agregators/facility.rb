@@ -5,7 +5,8 @@ module ApiConsumption::Agregators
       api_entreprise_effectifs: Api::ApiEntreprise::EtablissementEffectifMensuel::Base,
       opco_cfadock: Api::Cfadock::Opco,
       opco_fc: Api::FranceCompetence::Siret::Base,
-      api_rne_companies: Api::Rne::Companies::Base
+      api_rne_companies: Api::Rne::Companies::Base,
+      api_recherche_entreprise: Api::RechercheEntreprises::Search::Siret,
     }
 
     def initialize(siret, options = {})
@@ -31,7 +32,7 @@ module ApiConsumption::Agregators
     end
 
     def request_keys
-      @options&.dig(:request_keys) || [:api_entreprise_effectifs, :opco_cfadock, :opco_fc, :api_rne_companies]
+      @options&.dig(:request_keys) || REQUESTS.keys
     end
 
     def requests

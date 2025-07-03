@@ -30,7 +30,7 @@ module ApiConsumption::Agregators
     end
 
     def request_keys
-      @options&.dig(:request_keys) || [:api_entreprise_effectifs_annuel, :api_entreprise_mandataires_sociaux, :api_rne_companies]
+      @options&.dig(:request_keys) || REQUESTS.keys
     end
 
     def requests
