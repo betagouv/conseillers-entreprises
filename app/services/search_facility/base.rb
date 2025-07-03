@@ -31,7 +31,7 @@ module SearchFacility
 
     def from_full_text
       begin
-        response = Api::RechercheEntreprises::Search::Base.new(@query).call
+        response = Api::RechercheEntreprises::Search::Fulltext.new(@query).call
         items = response.map do |entreprise_params|
           next if entreprise_params.blank?
           ApiConsumption::Models::FacilityAutocomplete::ApiRechercheEntreprises.new(entreprise_params)
