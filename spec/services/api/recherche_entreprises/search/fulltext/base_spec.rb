@@ -3,16 +3,18 @@
 require 'rails_helper'
 require 'api_helper'
 
-RSpec.describe Api::RechercheEntreprises::Search::Fulltext do
+RSpec.describe Api::RechercheEntreprises::Search::Fulltext::Base do
   let(:api) { described_class.new(query).call }
   let(:url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
+
+  # after { WebMock.reset! }
 
   context 'Query reconnue' do
     let(:query) { 'octo technology' }
 
     before do
       stub_request(:get, url).to_return(
-        body: file_fixture('api_recherche_entreprises_search.json')
+        body: file_fixture('api_recherche_entreprises_search_fulltext.json')
       )
     end
 
