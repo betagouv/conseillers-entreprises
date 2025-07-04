@@ -1,2 +1,2 @@
-Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions, Nom du responsable,Email du responsable,Téléphone du responsable
-The Institution,The Antenne,,,,,Marie Dupont,"marie,dupont@antenne.com",0123456789,Cheffe,Equipe,"equipe@antenne,com",0987654321
+Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe
+The Institution,The Antenne,Marie Dupont,"marie,dupont@antenne.com",0123456789,Cheffe,Equipe,"equipe@antenne,com",0987654321

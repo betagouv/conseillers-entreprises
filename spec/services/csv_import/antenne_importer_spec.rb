@@ -141,8 +141,8 @@ describe CsvImport::AntenneImporter, CsvImport do
     context 'Import new manager to new antenne' do
       let(:csv) do
         <<~CSV
-         Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions,Nom du responsable,Email du responsable,Téléphone du responsable
-          Test Institution,Antenne1,,,,,Mariane Martin, mariane.m@gouv.fr,0123456789
+          Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions,Nom du responsable,Email du responsable,Téléphone du responsable
+           Test Institution,Antenne1,,,,,Mariane Martin, mariane.m@gouv.fr,0123456789
         CSV
       end
 

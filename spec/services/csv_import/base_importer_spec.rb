@@ -9,14 +9,16 @@ describe CsvImport::BaseImporter, CsvImport do
     context 'blank row' do
       let(:csv) do
         <<~CSV
-          Institution,Nom,Codes communes
-          Test Institution,Antenne1,12345
+          Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions
+          Test Institution,Antenne1,,,,
           ,,
-          Test Institution,Antenne2,23456
+          Test Institution,Antenne2,72110,,,
         CSV
       end
 
-      it { is_expected.to be_success }
+      it do
+        is_expected.to be_success
+      end
     end
   end
 
@@ -29,8 +31,8 @@ describe CsvImport::BaseImporter, CsvImport do
       context 'commas' do
         let(:csv) do
           <<~CSV
-            Institution,Nom,Codes communes
-            Test Institution,Antenne1,12345
+          Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions
+          Test Institution,Antenne1,72110,,,
           CSV
         end
 
@@ -40,8 +42,8 @@ describe CsvImport::BaseImporter, CsvImport do
       context 'semicolons' do
         let(:csv) do
           <<~CSV
-            Institution;Nom;Codes communes
-            Test Institution;Antenne1;12345
+          Institution;Nom;Codes INSEE;Codes EPCI;Codes départements;Codes régions
+          Test Institution;Antenne1;72110;;;
           CSV
         end
 
@@ -53,8 +55,8 @@ describe CsvImport::BaseImporter, CsvImport do
       context 'commas' do
         let(:csv) do
           <<~CSV
-            Institution,Nom,Codes communes,Foo
-            Test Institution,Antenne1,12345
+            Institution,Nom,Codes INSEE,Foo
+            Test Institution,Antenne1,72110
           CSV
         end
 
@@ -67,8 +69,8 @@ describe CsvImport::BaseImporter, CsvImport do
       context 'semicolons' do
         let(:csv) do
           <<~CSV
-            Institution;Nom;Codes communes;Foo
-            Test Institution;Antenne1;12345
+            Institution;Nom;Codes INSEE;Foo
+            Test Institution;Antenne1;72110
           CSV
         end
 

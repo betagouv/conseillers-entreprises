@@ -75,8 +75,10 @@ class Facility < ApplicationRecord
   # Cherche les établissements avec un code insee d'un département de la région
   scope :by_region, -> (region_code) do
     departements = DecoupageAdministratif::Departement.where(code_region: region_code)
-    code_size = departements.map { |d| d.code.size }.max
-    where("LEFT(insee_code, #{code_size}) IN (?)", departements.map(&:code))
+    return none if departements.empty?
+
+    code_size = departements.first.code.size
+    where("LEFT(insee_code, ?) IN (?)", code_size, departements.map(&:code))
   end
 
   def commune_name
@@ -102,7 +104,8 @@ class Facility < ApplicationRecord
 
   # Si demande de Mayotte, tout est envoyé vers l'OPCO Akto
   def get_relevant_opco
-    if self.regions.include?(Territory.find_by(code_region: 6)) # Mayotte
+    region = DecoupageAdministratif::Commune.find_by(code: insee_code).region
+    if region.code == "06" # Mayotte
       Institution.opco.find_by(slug: 'opco-akto-mayotte') # OPCO Akto Mayotte
     else
       self.opco
@@ -127,7 +130,7 @@ class Facility < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["advisors", "company", "diagnoses", "matches", "needs", "opco", "territories", "regions"]
+    ["advisors", "company", "diagnoses", "matches", "needs", "opco", "territories"]
   end
 
   private
