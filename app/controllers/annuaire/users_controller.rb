@@ -126,7 +126,6 @@ module  Annuaire
 
     def retrieve_antenne
       @antenne = @institution.antennes.find_by(id: params[:antenne_id]) # may be nil
-      @referencement_coverages = @antenne.referencement_coverages if @antenne.present?
     end
 
     def filtered_experts
