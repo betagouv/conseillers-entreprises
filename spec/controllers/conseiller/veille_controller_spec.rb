@@ -16,9 +16,8 @@ RSpec.describe Conseiller::VeilleController do
   end
 
   describe 'GET #taking_care_matches' do
-    let!(:region) { create :territory, :region, name: "Région-01", code_region: 12345 }
-    let!(:commune) { create :commune, regions: [region] }
-    let!(:expert_1) { create :expert, communes: [commune] }
+    let(:region_code) { "52" } # Pays de la Loire
+    let!(:expert_1) { create :expert, territorial_zones: [create(:territorial_zone, :commune, code: "72007")] }
     let!(:expert_2) { create :expert }
 
     before do
@@ -38,7 +37,7 @@ RSpec.describe Conseiller::VeilleController do
     end
 
     context 'with filters' do
-      before { get :taking_care_matches, params: { by_region: region.id } }
+      before { get :taking_care_matches, params: { by_region: region_code } }
 
       it { expect(assigns(:experts)).to contain_exactly(expert_1) }
     end
