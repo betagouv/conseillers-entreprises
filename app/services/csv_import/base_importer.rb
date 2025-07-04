@@ -113,8 +113,20 @@ module CsvImport
       attributes.each do |key, value|
         key = key.to_s.gsub('_codes', '').singularize
         instance.territorial_zones += value.split(" ").map do |code|
+          code = reformat_commune_code(code)
           instance.territorial_zones.find_or_create_by!(zone_type: key, code: code.strip)
         end
+      end
+    end
+
+    private
+
+    def reformat_commune_code(code)
+      # Reformat 4-digit commune codes to 5-digit codes
+      if code.size == 4 && code.first != '0'
+        "0#{code}"
+      else
+        code
       end
     end
   end

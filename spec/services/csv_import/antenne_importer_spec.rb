@@ -100,26 +100,26 @@ describe CsvImport::AntenneImporter, CsvImport do
 
   context 'existing antenne overwrite' do
     before do
-      create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
+      create :antenne, institution: institution, name: 'Antenne1', territorial_zones: [create(:territorial_zone, :commune, code: '06001')]
     end
 
     let(:csv) do
       <<~CSV
         Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions
-        Test Institution,Antenne1,01037,,,
+        Test Institution,Antenne1,06002,,,
       CSV
     end
 
     it do
       expect(result).to be_success
-      expect(Antenne.find_by(name: 'Antenne1').territorial_zones.pluck(:code)).to eq ['00002']
+      expect(Antenne.find_by(name: 'Antenne1').territorial_zones.pluck(:code)).to eq ['06002']
     end
   end
 
   context 'Antenne manager' do
     context 'Add manager to existing antenne without INSEE codes' do
       before do
-        create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
+        create :antenne, institution: institution, name: 'Antenne1', territorial_zones: [create(:territorial_zone, :commune, code: '06001')]
       end
 
       let(:csv) do
@@ -131,7 +131,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq '00001'
+        expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq ["06001"]
         expect(Antenne.find_by(name: 'Antenne1').managers.first.full_name).to eq 'Mariane Martin'
         expect(Antenne.find_by(name: 'Antenne1').managers.first.email).to eq 'mariane.m@gouv.fr'
         expect(Antenne.find_by(name: 'Antenne1').managers.first.phone_number).to eq '01 23 45 67 89'
@@ -168,7 +168,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        expect(Antenne.find_by(name: 'Parabolique').territorial_zones.pluck(:code)).to eq '01037'
+        expect(Antenne.find_by(name: 'Parabolique').insee_codes).to eq ["01037"]
         expect(Antenne.find_by(name: 'Parabolique').managers.size).to eq 1
         expect(Antenne.find_by(name: 'Parabolique').managers).to contain_exactly(existing_user)
       end
