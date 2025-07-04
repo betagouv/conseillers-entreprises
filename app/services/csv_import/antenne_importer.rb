@@ -26,8 +26,8 @@ module CsvImport
 
     def postprocess(antenne, row)
       begin
-        create_manager(antenne, manager_attributes(row))
-        import_territories(antenne, territories_attributes(row))
+        create_manager(antenne, manager_attributes(row)) if manager_attributes(row).present?
+        import_territories(antenne, territories_attributes(row)) if territories_attributes(row).present?
         antenne
       rescue => e
         CsvImport::PostprocessError.new("Erreur lors du post-traitement de l'antenne : #{e.message}")
