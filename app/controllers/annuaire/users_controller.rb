@@ -92,7 +92,7 @@ module  Annuaire
 
     def retrieve_managers_without_experts
       @grouped_experts.each_key do |antenne|
-        managers_from_other_antennes = antenne.managers.not_deleted.where.not(antenne_id: antenne.id)
+        managers_from_other_antennes = antenne.managers.not_deleted
         managers_from_other_antennes.each do |manager|
           next if manager.experts.any?
           @grouped_experts[antenne][Expert.new] = [manager]
