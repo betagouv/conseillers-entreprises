@@ -47,11 +47,11 @@ class Antenne < ApplicationRecord
 
   ## Associations
   #
-  has_and_belongs_to_many :communes, inverse_of: :antennes, after_add: [:update_referencement_coverages, :update_antenne_hierarchy], after_remove: [:update_referencement_coverages, :update_antenne_hierarchy]
+  has_and_belongs_to_many :communes, inverse_of: :antennes, after_add: [:update_antenne_hierarchy], after_remove: [:update_antenne_hierarchy]
 
   belongs_to :institution, inverse_of: :antennes
 
-  has_many :experts, -> { not_deleted }, inverse_of: :antenne, after_add: :update_referencement_coverages, after_remove: :update_referencement_coverages
+  has_many :experts, -> { not_deleted }, inverse_of: :antenne
   has_many :experts_including_deleted, class_name: 'Expert', inverse_of: :antenne
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
@@ -67,8 +67,6 @@ class Antenne < ApplicationRecord
   has_many :user_rights, as: :rightable_element, dependent: :destroy, inverse_of: :rightable_element
   has_many :user_rights_managers, ->{ category_manager }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
   has_many :managers, -> { distinct }, through: :user_rights_managers, source: :user, inverse_of: :managed_antennes
-
-  has_many :referencement_coverages, dependent: :destroy, inverse_of: :antenne
 
   belongs_to :parent_antenne, class_name: 'Antenne', inverse_of: :child_antennes, optional: true
   has_many :child_antennes, class_name: 'Antenne', inverse_of: :parent_antenne, foreign_key: 'parent_antenne_id'
@@ -314,21 +312,6 @@ class Antenne < ApplicationRecord
     UpdateAntenneHierarchyJob.perform_in(20.seconds, self.id)
   end
 
-  ## referencement coverage
-  #
-
-  # Updated when changed : add/remove communes - add/remove experts - add/remove expert communes - add/remove expert subject
-  def update_referencement_coverages(*args)
-    scheduled = Sidekiq::ScheduledSet.new
-
-    scheduled.each do |job|
-      if job['class'] == AntenneCoverage::DeduplicatedJob.to_s && job['args'].first == self.id
-        job.delete
-      end
-    end
-    AntenneCoverage::DeduplicatedJob.perform_in(30.seconds, self.id)
-  end
-
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "deleted_at", "id", "id_value", "institution_id", "name", "territorial_level", "updated_at"]
   end
@@ -339,7 +322,7 @@ class Antenne < ApplicationRecord
       "matches_reports", "stats_reports", "received_diagnoses", "received_diagnoses_including_from_deleted_experts",
       "received_matches", "received_matches_including_from_deleted_experts", "received_needs",
       "received_needs_including_from_deleted_experts", "received_solicitations",
-      "received_solicitations_including_from_deleted_experts", "referencement_coverages", "regions", "sent_diagnoses",
+      "received_solicitations_including_from_deleted_experts", "regions", "sent_diagnoses",
       "sent_matches", "sent_needs", "stats_reports", "territories", "themes", "user_rights", "user_rights_manager"
     ]
   end

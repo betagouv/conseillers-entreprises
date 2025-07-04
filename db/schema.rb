@@ -530,18 +530,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
     t.index ["user_id"], name: "index_profil_pictures_on_user_id", unique: true
   end
 
-  create_table "referencement_coverages", force: :cascade do |t|
-    t.bigint "antenne_id", null: false
-    t.bigint "institution_subject_id", null: false
-    t.string "coverage"
-    t.integer "anomalie"
-    t.json "anomalie_details"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["antenne_id"], name: "index_referencement_coverages_on_antenne_id"
-    t.index ["institution_subject_id"], name: "index_referencement_coverages_on_institution_subject_id"
-  end
-
   create_table "reminders_actions", force: :cascade do |t|
     t.bigint "need_id", null: false
     t.datetime "created_at", null: false
@@ -797,8 +785,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
   add_foreign_key "profil_pictures", "users"
-  add_foreign_key "referencement_coverages", "antennes"
-  add_foreign_key "referencement_coverages", "institutions_subjects"
   add_foreign_key "reminders_actions", "needs"
   add_foreign_key "reminders_registers", "experts"
   add_foreign_key "shared_satisfactions", "company_satisfactions"

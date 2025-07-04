@@ -32,14 +32,14 @@ class Expert < ApplicationRecord
 
   ## Associations
   #
-  has_and_belongs_to_many :communes, inverse_of: :direct_experts, after_add: :update_antenne_referencement_coverage, after_remove: :update_antenne_referencement_coverage
+  has_and_belongs_to_many :communes, inverse_of: :direct_experts
   # include ManyCommunes
 
   belongs_to :antenne, inverse_of: :experts
 
   has_and_belongs_to_many :users, -> { not_deleted }, inverse_of: :experts
 
-  has_many :experts_subjects, dependent: :destroy, inverse_of: :expert, after_add: :update_antenne_referencement_coverage, after_remove: :update_antenne_referencement_coverage
+  has_many :experts_subjects, dependent: :destroy, inverse_of: :expert
   has_many :received_matches, -> { sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
   has_many :not_received_matches, -> { not_sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
   has_many :received_quo_matches, -> { sent.status_quo.distinct }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
@@ -358,12 +358,6 @@ class Expert < ApplicationRecord
     self.transaction do
       update_columns(SoftDeletable.persons_attributes)
     end
-  end
-
-  ## Updates
-  #
-  def update_antenne_referencement_coverage(*args)
-    antenne.update_referencement_coverages
   end
 
   def self.ransackable_attributes(auth_object = nil)
