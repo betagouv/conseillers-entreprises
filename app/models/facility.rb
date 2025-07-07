@@ -113,7 +113,7 @@ class Facility < ApplicationRecord
   end
 
   def region
-    DecoupageAdministratif::Region.find_by(code: insee_code).region
+    DecoupageAdministratif::Commune.find_by(code: insee_code).region
   end
 
   ##
