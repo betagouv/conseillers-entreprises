@@ -11,7 +11,7 @@ module XlsxExport
         subject: :subject,
         siret: -> { facility.siret },
         commune: -> { facility.commune },
-        facility_regions: -> { facility_regions&.pluck(:name).uniq.join(", ") },
+        facility_region: -> { facility.region&.nom },
         company_name: -> { company&.name },
         company_forme_exercice: -> {  I18n.t(company&.forme_exercice, scope: 'natures_entreprise', default: '') },
         facility_nature_activites: -> { facility.nature_activites.map{ |nature| I18n.t(nature, scope: 'natures_entreprise') }.join(', ') },

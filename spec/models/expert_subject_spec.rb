@@ -119,9 +119,7 @@ RSpec.describe ExpertSubject do
       end
 
       context 'when facility from Mayotte' do
-        let(:region_mayotte) { create :territory, name: "Département Mayotte", code_region: 6 }
-        let!(:facility) { create :facility, opco: opco, commune: commune_mayotte }
-        let(:commune_mayotte) { create :commune, regions: [region_mayotte] }
+        let!(:facility) { create :facility, opco: opco, insee_code: "97603" } # Mayotte insee code
         let(:mayotte_opco) { create :institution, :opco, slug: 'opco-akto-mayotte' }
         let!(:expert_subject_mayotte) do
           create :expert_subject,

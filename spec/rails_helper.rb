@@ -87,7 +87,7 @@ Capybara.register_driver :chrome do |app|
 end
 
 Capybara.javascript_driver = :chrome
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 2  # Reduced from 5 to 2 seconds
 WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec::Sidekiq.configure do |config|
