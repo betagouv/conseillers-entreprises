@@ -30,7 +30,6 @@ class CompanySatisfaction < ApplicationRecord
   has_many :matches, through: :need, inverse_of: :need
   has_many :experts, through: :matches, source: :expert
   has_many :antennes, through: :experts, source: :antenne
-  has_many :facility_regions, through: :need, inverse_of: :needs
   has_one :facility, through: :need, inverse_of: :needs
 
   has_many :shared_satisfactions, inverse_of: :company_satisfaction, dependent: :destroy
