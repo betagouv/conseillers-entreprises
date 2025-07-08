@@ -6,6 +6,48 @@ ActiveAdmin.register Match do
   include CsvExportable
   controller do
     include DynamicallyFiltrable
+
+    def scoped_collection
+      base_includes = [
+        :need, :facility, :company, :advisor, :expert, :subject, :theme,
+        { facility: :commune }
+      ]
+      additional_includes = []
+
+      if params[:scope] == 'sent' || params[:scope].nil?
+        # Default scope: load all associations for complete display
+        additional_includes += [
+          :related_matches, :advisor_antenne, :advisor_institution,
+          :expert_antenne, :expert_institution, :solicitation, :diagnosis,
+          :landing, :landing_theme, :landing_subject, { need: :subject }
+        ]
+      else
+        additional_includes += [
+          :advisor_antenne, :advisor_institution, :expert_antenne, :solicitation, :diagnosis,
+          { need: :subject }
+        ]
+      end
+
+      # Optimize based on active filters
+      if params.dig(:q, :expert_id_eq).present? || params.dig(:q, :expert_antenne_id_eq).present?
+        additional_includes += [:expert, :expert_antenne, :expert_institution]
+      end
+
+      if params.dig(:q, :facility_id_eq).present? || params.dig(:q, :facility_regions_id_eq).present?
+        additional_includes += [{ facility: [:commune, :territories] }]
+      end
+
+      if params.dig(:q, :landing_id_eq).present? || params.dig(:q, :landing_theme_id_eq).present?
+        additional_includes += [:landing, :landing_theme, :landing_subject]
+      end
+
+      if params.dig(:q, :theme_id_eq).present? || params.dig(:q, :subject_id_eq).present?
+        additional_includes += [:subject, :theme]
+      end
+
+      includes = base_includes + additional_includes
+      super.includes(includes.uniq)
+    end
   end
 
   ## Index
@@ -15,15 +57,6 @@ ActiveAdmin.register Match do
     init_subjects_filter
     init_antennes_filter
   end
-
-  includes :need, :facility, :company, :related_matches,
-           :advisor, :advisor_antenne, :advisor_institution,
-           :expert, :expert_antenne, :expert_institution,
-           :solicitation, :diagnosis,
-           :landing, :landing_theme, :landing_subject,
-           :subject, :theme,
-           facility: :commune,
-           need: :subject
 
   scope :sent, default: true, group: :all
   scope :all, group: :all

@@ -7,6 +7,46 @@ ActiveAdmin.register Expert do
     include SoftDeletable::ActiveAdminResourceController
     include DynamicallyFiltrable
 
+    def scoped_collection
+      base_includes = [:antenne, :institution]
+      additional_includes = []
+
+      case params[:scope]
+      when 'without_users', 'active_without_users'
+        # These scopes already use LEFT JOIN, no need for includes on users
+        additional_includes += [:subjects, :received_matches, :match_filters]
+      when 'active_without_subjects', 'active_with_matches_and_without_subjects'
+        # These scopes use where.missing or left_joins
+        additional_includes += [:users, :received_matches, :match_filters]
+      when 'with_custom_communes', 'active', nil
+        # This scope uses EXISTS, add zone associations
+        additional_includes += [:users, :subjects, :received_matches, :match_filters, :communes, :territories]
+      when 'deleted'
+        # For deleted experts, only load minimum
+        additional_includes += [:users, :subjects]
+      end
+
+      # Optimize based on active filters
+      if params.dig(:q, :antenne_id_eq).present? || params.dig(:q, :antenne_regions_id_eq).present?
+        additional_includes += [:antenne, { antenne: :territories }]
+      end
+
+      if params.dig(:q, :institution_id_eq).present?
+        additional_includes += [:institution]
+      end
+
+      if params.dig(:q, :themes_id_eq).present? || params.dig(:q, :subjects_id_eq).present?
+        additional_includes += [:subjects, { subjects: :theme }]
+      end
+
+      if params.dig(:q, :antenne_communes_id_eq).present?
+        additional_includes += [:communes, :territories]
+      end
+
+      includes = base_includes + additional_includes
+      super.includes(includes.uniq)
+    end
+
     def create
       create! do |success, failure|
         success.html do
@@ -26,9 +66,6 @@ ActiveAdmin.register Expert do
     init_subjects_filter
   end
 
-  includes :institution, :antenne, :users,
-           :communes, :territories, { antenne: [:territories, :communes] },
-           :subjects, :received_matches
   config.sort_order = 'full_name_asc'
 
   scope :active, default: true
