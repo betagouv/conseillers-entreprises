@@ -13,7 +13,6 @@ ActiveAdmin.register CompanySatisfaction do
     init_subjects_filter
   end
 
-  includes :need, :landing, :solicitation, :subject, :facility, :shared_satisfactions, :shared_satisfaction_experts, :shared_satisfaction_users, :diagnosis, :facility
   config.sort_order = 'created_at_desc'
 
   scope :all, default: true
