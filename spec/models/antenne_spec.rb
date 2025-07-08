@@ -557,16 +557,14 @@ RSpec.describe Antenne do
   describe "#support_user" do
     # si pas national && une seule region => referent regional
     # autre cas => referent national
-    let!(:commune1) { create :commune }
-    let!(:commune2) { create :commune }
-    let!(:region1) { create :territory, :region, code_region: 999, communes: [commune1], support_contact: regional_referent }
-    let!(:region2) { create :territory, :region, code_region: 000, communes: [commune2] }
+    let(:commune1) { create :territorial_zone, :commune, code: "44109" }
+    let(:region) { create :territorial_zone, :region, code: "52" }
     let(:institution) { create :institution, name: 'Institution 1' }
     let(:national_antenne) { create :antenne, :national, institution: institution }
-    let(:regional_antenne) { create :antenne, :regional, institution: institution, parent_antenne: national_antenne, communes: [commune1] }
-    let(:local_antenne) { create :antenne, :local, institution: institution, parent_antenne: regional_antenne, communes: [commune1] }
+    let(:regional_antenne) { create :antenne, :regional, institution: institution, parent_antenne: national_antenne, territorial_zones: [region] }
+    let(:local_antenne) { create :antenne, :local, institution: institution, parent_antenne: regional_antenne, territorial_zones: [commune1] }
     let!(:national_referent) { create :user, :national_referent }
-    let!(:regional_referent) { create :user }
+    let!(:territorial_referent) { create :user, :territorial_referent } # region 52
 
     context 'national antenne' do
       let(:antenne) { national_antenne }
