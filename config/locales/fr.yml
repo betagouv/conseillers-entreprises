@@ -146,6 +146,8 @@ fr:
     cancel_solicitation_with_email: La sollicitation ne peut pas être mise à jour (solicitation ou type d'email invalide)
     contact: Contactez-nous
     cooperation_manager_without_managed_cooperation: Une coopération doit être attribuée à ce responsable de coopération
+    territorial_referent_without_managed_region: Une région doit être attribuée à ce référent régional
+    one_territorial_referent_per_region: Un seul référent régional est autorisé par région
     format: "%{attribute} %{message}"
     homepage: Page d’accueil
     manager_without_managed_antennes: Une antenne doit être attribuée à ce responsable d'antenne

@@ -171,8 +171,10 @@ ActiveAdmin.register User do
         resource.user_rights.each do |ur|
           li do
             right = I18n.t(ur.category, scope: "activerecord.attributes.user_right/categories")
-            if ur.rightable_element.present?
+            if ur.rightable_element.present? && !ur.rightable_element.is_a?(TerritorialZone)
               right = "#{right} : #{admin_link_to(ur.rightable_element)}".html_safe
+            elsif ur.rightable_element.is_a?(TerritorialZone)
+              right = "#{right} : #{ur.rightable_element.name}"
             else
               right
             end
@@ -209,7 +211,8 @@ ActiveAdmin.register User do
   user_rights_attributes = [:id, :rightable_element_id, :rightable_element_type, :category, :_destroy]
   permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id, :create_expert, :absence_start_at, :absence_end_at,
                 expert_ids: [], user_rights_attributes: user_rights_attributes, user_rights_for_admin_attributes: user_rights_attributes,
-                user_rights_manager_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes
+                user_rights_manager_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes,
+                user_rights_territorial_referent_attributes: user_rights_attributes
 
   form do |f|
     f.semantic_errors(*f.object.errors.attribute_names)
@@ -265,6 +268,16 @@ ActiveAdmin.register User do
                    search_fields: [:name]
                  }
         ur.input :rightable_element_type, as: :hidden, input_html: { value: 'Cooperation' }
+      end
+
+      # Droits référent de region
+      label_base = t('activerecord.models.user_right.territorial_referent')
+      f.has_many :user_rights_territorial_referent, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
+        ur.input :category, as: :hidden, input_html: { value: 'territorial_referent' }
+        ur.input :territorial_zone,
+                 collection:  options_from_collection_for_select(TerritorialZone.regions, 'code', 'nom', ur.object&.territorial_zone&.code),
+                 as: :select
+        ur.input :rightable_element_type, as: :hidden, input_html: { value: 'TerritorialZone' }
       end
 
       # Droits admin

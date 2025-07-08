@@ -165,7 +165,7 @@ class Antenne < ApplicationRecord
 
   def support_user
     if !national? && regions.one?
-      User.find(Antenne.find(id).regions.first.support_contact_id)
+      UserRight.category_territorial_referent.joins(:territorial_zone).find_by(territorial_zones: { code: regions.first.code })&.user
     else
       UserRight.category_national_referent.first&.user
     end
