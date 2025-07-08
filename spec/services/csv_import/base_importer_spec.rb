@@ -31,8 +31,8 @@ describe CsvImport::BaseImporter, CsvImport do
       context 'commas' do
         let(:csv) do
           <<~CSV
-          Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions
-          Test Institution,Antenne1,72110,,,
+            Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions
+            Test Institution,Antenne1,72110,,,
           CSV
         end
 
@@ -42,8 +42,8 @@ describe CsvImport::BaseImporter, CsvImport do
       context 'semicolons' do
         let(:csv) do
           <<~CSV
-          Institution;Nom;Codes INSEE;Codes EPCI;Codes départements;Codes régions
-          Test Institution;Antenne1;72110;;;
+            Institution;Nom;Codes INSEE;Codes EPCI;Codes départements;Codes régions
+            Test Institution;Antenne1;72110;;;
           CSV
         end
 

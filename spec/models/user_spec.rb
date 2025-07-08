@@ -268,15 +268,14 @@ RSpec.describe User do
       end
     end
 
-    context 'regional manager' do
-      let!(:region1) { create :territorial_zone, :region, code: "52", support_contact: regional_referent }
-      let!(:regional_referent) { create :user }
+    context 'Territorial referent' do
+      let!(:territorial_referent) { create :user, :territorial_referent }
 
-      let(:antenne) { create :antenne, :regional, territorial_zones: [region1] }
+      let(:antenne) { create :antenne, :regional, territorial_zones: [create(:territorial_zone, :region, code: "52")] }
       let(:manager) { create :user, :manager, antenne: antenne }
 
       it do
-        expect(manager.support_user).to eq regional_referent
+        expect(manager.support_user).to eq territorial_referent
       end
     end
   end
