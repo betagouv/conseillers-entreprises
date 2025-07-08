@@ -5,11 +5,42 @@ ActiveAdmin.register User do
 
   controller do
     include SoftDeletable::ActiveAdminResourceController
+
+    def scoped_collection
+      base_includes = [:antenne, :institution]
+      additional_includes = []
+
+      # If using role scopes, include user_rights
+      if params[:scope].in?(['admin', 'managers', 'cooperation_managers', 'managers_not_invited'])
+        additional_includes << :user_rights
+      end
+
+      # If displaying activity information (default on index)
+      if params[:scope].blank? || params[:scope] == 'active'
+        additional_includes += [:feedbacks, :sent_diagnoses, :sent_needs, :sent_matches, :invitees]
+      end
+
+      # Optimize based on active filters
+      if params.dig(:q, :antenne_id_eq).present? || params.dig(:q, :antenne_regions_id_eq).present?
+        additional_includes += [:antenne, { antenne: :territories }]
+      end
+
+      if params.dig(:q, :institution_id_eq).present?
+        additional_includes += [:institution]
+      end
+
+      # If filtering by experts, include expert associations
+      if params.dig(:q, :experts_id_eq).present?
+        additional_includes += [:experts]
+      end
+
+      includes = base_includes + additional_includes
+      super.includes(includes.uniq)
+    end
   end
 
   # Index
   #
-  includes :antenne, :institution, :feedbacks, :sent_diagnoses, :sent_needs, :sent_matches, :invitees
   config.sort_order = 'created_at_desc'
 
   scope :active, default: true
