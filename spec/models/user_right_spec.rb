@@ -5,6 +5,10 @@ RSpec.describe UserRight do
     it do
       is_expected.to belong_to :user
     end
+
+    it do
+      is_expected.to belong_to(:territorial_zone).optional
+    end
   end
 
   context 'validations' do
@@ -93,6 +97,78 @@ RSpec.describe UserRight do
         expect(another_main_referent).not_to be_valid
         expect(another_national_referent.errors[:category]).to include(I18n.t('.errors.one_user_for_referents'))
         expect(another_main_referent.errors[:category]).to include(I18n.t('.errors.one_user_for_referents'))
+      end
+    end
+
+    describe 'territorial_referent_has_managed_region' do
+      let(:user) { create :user }
+
+      context 'without region' do
+        let(:user_right) { build :user_right, user: user, category: :territorial_referent }
+
+        it do
+          expect(user_right).not_to be_valid
+          expect(user_right.errors[:rightable_element_id]).to include(I18n.t('errors.territorial_referent_without_managed_region'))
+        end
+      end
+
+      context 'with wrong zone type' do
+        let(:territorial_zone) { create :territorial_zone, :commune }
+        let(:user_right) { build :user_right, user: user, category: :territorial_referent, rightable_element: territorial_zone }
+
+        it do
+          expect(user_right).not_to be_valid
+          expect(user_right.errors[:rightable_element_id]).to include(I18n.t('errors.territorial_referent_without_managed_region'))
+        end
+      end
+
+      context 'with region' do
+        let(:territorial_zone) { create :territorial_zone, :region }
+        let(:user_right) { build :user_right, user: user, category: :territorial_referent, rightable_element: territorial_zone }
+
+        it do
+          expect(user_right).to be_valid
+        end
+      end
+
+      context 'only one territorial_referent per region' do
+        let(:territorial_zone) { create :territorial_zone, :region }
+        let!(:existing_user_right) { create :user_right, user: create(:user), category: :territorial_referent, rightable_element: territorial_zone }
+        let(:duplicate_user_right) { build :user_right, user: user, category: :territorial_referent, rightable_element: territorial_zone }
+
+        it 'does not allow duplicate territorial_referent for same region' do
+          expect(duplicate_user_right).not_to be_valid
+          expect(duplicate_user_right.errors[:rightable_element_id]).to include(I18n.t('errors.one_territorial_referent_per_region'))
+        end
+      end
+
+      context 'allows territorial_referent for different regions' do
+        let(:territorial_zone_1) { create :territorial_zone, :region, code: '11' }
+        let(:territorial_zone_2) { create :territorial_zone, :region, code: '84' }
+        let!(:user_right_1) { create :user_right, user: create(:user), category: :territorial_referent, rightable_element: territorial_zone_1 }
+        let(:user_right_2) { build :user_right, user: user, category: :territorial_referent, rightable_element: territorial_zone_2 }
+
+        it 'allows territorial_referent for different regions' do
+          expect(user_right_2).to be_valid
+        end
+      end
+    end
+  end
+
+  describe 'FOR_ADMIN constant' do
+    it 'includes territorial_referent' do
+      expect(described_class::FOR_ADMIN).to include(:territorial_referent)
+    end
+  end
+
+  describe 'scopes' do
+    describe 'for_admin' do
+      let(:user) { create :user }
+      let!(:territorial_referent) { create :user_right, user: user, category: :territorial_referent, rightable_element: create(:territorial_zone, :region) }
+      let!(:manager) { create :user_right, user: user, category: :manager, rightable_element: create(:antenne) }
+
+      it 'includes territorial_referent' do
+        expect(described_class.for_admin).to include(territorial_referent)
       end
     end
   end
