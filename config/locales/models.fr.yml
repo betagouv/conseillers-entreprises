@@ -694,6 +694,7 @@ fr:
         main_referent: Admin - référent principal
         manager: Responsable d’antenne
         national_referent: Admin - référent national
+        territorial_referent: Référent régional
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
@@ -849,6 +850,9 @@ fr:
         one: Utilisateur
         other: Utilisateurs
       user_right:
+        territorial_referent:
+          one: Droit référent régional
+          other: Droits référent régional
         cooperation_manager:
           one: Droit responsable de coopération
           other: Droits responsable de coopération
