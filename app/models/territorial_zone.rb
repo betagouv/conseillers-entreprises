@@ -20,6 +20,7 @@ class TerritorialZone < ApplicationRecord
   enum :zone_type, { commune: 'commune', epci: 'epci', departement: 'departement', region: 'region' }, prefix: true
 
   belongs_to :zoneable, polymorphic: true
+  has_many :user_rights, as: :rightable_element, dependent: :destroy
 
   validates :code, :zone_type, presence: true
   validate :validate_code_format
