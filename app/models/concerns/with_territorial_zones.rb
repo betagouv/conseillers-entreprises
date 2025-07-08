@@ -33,6 +33,6 @@ module WithTerritorialZones
   end
 
   def regions
-    territorial_zones.flat_map(&:region).compact.uniq
+    territorial_zones.flat_map(&:regions).compact.uniq
   end
 end

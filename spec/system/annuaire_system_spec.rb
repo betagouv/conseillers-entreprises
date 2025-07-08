@@ -3,7 +3,7 @@ require 'system_helper'
 
 describe 'annuaire', :js do
   let(:user) { create :user, :admin }
-  let(:region_code) { "52 "}
+  let(:region_code) { "52 " }
   let(:commune_code_1) { "44003" }
   let(:other_commune_code) { "44002" }
   let!(:antenne) { create :antenne, territorial_level: :local, institution: institution, territorial_zones: [create(:territorial_zone, :commune, code: commune_code_1)] }
