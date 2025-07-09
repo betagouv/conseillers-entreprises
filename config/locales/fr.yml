@@ -146,8 +146,6 @@ fr:
     cancel_solicitation_with_email: La sollicitation ne peut pas être mise à jour (solicitation ou type d'email invalide)
     contact: Contactez-nous
     cooperation_manager_without_managed_cooperation: Une coopération doit être attribuée à ce responsable de coopération
-    territorial_referent_without_managed_region: Une région doit être attribuée à ce référent régional
-    one_territorial_referent_per_region: Un seul référent régional est autorisé par région
     format: "%{attribute} %{message}"
     homepage: Page d’accueil
     manager_without_managed_antennes: Une antenne doit être attribuée à ce responsable d'antenne
@@ -191,6 +189,7 @@ fr:
         one: ne fait pas la bonne longueur (doit comporter un seul caractère)
         other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
     missing_inherited_method: Méthode manquante dans la classe enfant
+    one_territorial_referent_per_region: Un seul référent régional est autorisé par région
     one_user_for_referents: Un seul reférent est autorisé.
     only_one_cooperation: Une seule coopération peut être attribuée au responsable de coopération. S'il faut modifier cette règle, demandez aux devs !
     page_title: Erreur - %{title}
@@ -200,6 +199,7 @@ fr:
       header:
         one: 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
         other: 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
+    territorial_referent_without_managed_region: Une région doit être attribuée à ce référent régional
   experts_login: Accès conseillers
   helpers:
     select:

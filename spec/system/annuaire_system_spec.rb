@@ -104,7 +104,6 @@ describe 'annuaire', :js do
           expect(page).to have_css('.td-header--user', count: 1)
           frame_selector = "turbo-frame[id='institution-subject-#{institution_subject.id}']"
           if page.has_css?(frame_selector, wait: 0.5)
-            save_and_open_page
             within(frame_selector) do
               expect(page).to have_css('button')
               expect(page).to have_button('L')

@@ -134,7 +134,7 @@ module CsvImport
       expert.territorial_zones = []
       zone_types = %w[commune epci departement region]
       zone_types.each do |zone_type|
-        next unless attributes[:"custom_#{zone_type}s"].present?
+        next if attributes[:"custom_#{zone_type}s"].blank?
 
         expert.territorial_zones += attributes[:"custom_#{zone_type}s"].split(",").map do |code|
           expert.territorial_zones.find_or_create_by(zone_type: zone_type, code: code.strip)

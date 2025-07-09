@@ -1,4 +1,5 @@
 class CreateUserRightsForTerritories < ActiveRecord::Migration[7.2]
+  # rubocop:disable Rails/WhereNotWithMultipleConditions
   def up
     Territory.where.not(code_region: nil, support_contact_id: nil).find_each do |territory|
       ActiveRecord::Base.transaction do
@@ -40,4 +41,5 @@ class CreateUserRightsForTerritories < ActiveRecord::Migration[7.2]
       user_right.destroy
     end
   end
+  # rubocop:enable Rails/WhereNotWithMultipleConditions
 end

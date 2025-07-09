@@ -112,7 +112,7 @@ module CsvImport
       instance.territorial_zones = []
       attributes.each do |key, value|
         key = key.to_s.gsub('_codes', '').singularize
-        instance.territorial_zones += value.split(" ").map do |code|
+        instance.territorial_zones += value.split.map do |code|
           code = reformat_commune_code(code)
           instance.territorial_zones.find_or_create_by!(zone_type: key, code: code.strip)
         end
