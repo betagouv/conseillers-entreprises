@@ -61,7 +61,7 @@ class UserRight < ApplicationRecord
 
   def be_admin_to_be_referent
     return if category_admin? # Skip validation if creating admin right
-    
+
     if FOR_ADMIN.include?(category.to_sym) && !user.is_admin?
       self.errors.add(:category, I18n.t('errors.admin_for_referents'))
     end
