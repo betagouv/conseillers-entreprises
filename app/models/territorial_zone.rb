@@ -50,9 +50,7 @@ class TerritorialZone < ApplicationRecord
     case self.zone_type
     when 'region'
       [territory_model]
-    when 'commune'
-      [territory_model&.region]
-    when 'departement'
+    when 'commune', 'departement'
       [territory_model&.region]
     when 'epci'
       territory_model&.regions

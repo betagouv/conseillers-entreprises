@@ -66,7 +66,7 @@ module AnnuaireHelper
   end
 
   def build_cooperations_details(cooperations_details)
-    return unless cooperations_details.present?
+    return if cooperations_details.blank?
     content_tag(:div) do
       inner_content = []
       inner_content << content_tag(:h3, t('activerecord.attributes.referencement_coverage/cooperations_details.cooperations'), class: 'fr-text--lead fr-m-0 fr-pt-1w')
@@ -98,10 +98,10 @@ module AnnuaireHelper
 
   def display_territories(territories, anomalie_type)
     if territories.present? && (anomalie_type == :extra_insee_codes || anomalie_type == :missing_insee_codes || anomalie_type == :cooperations)
-      territories.map do |territory|
+      territories.filter_map do |territory|
         next if territory[:territories].blank?
         display_territory(territory)
-      end.compact.join
+      end.join
     end
   end
 

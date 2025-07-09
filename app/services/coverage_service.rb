@@ -97,17 +97,18 @@ class CoverageService
   end
 
   def check_coverage(experts_and_users_by_insee_code, experts_global_with_users)
+    # rubocop:disable Lint/DuplicateBranch
     coverage_hash = if (@institution_subject.subject.territories.any? && @antenne.present? &&
       (@institution_subject.subject.territories && @antenne.regions).empty?) ||
       (@institution_subject.theme.insee_codes.present? && (@institution_subject.theme.insee_codes & experts_and_users_by_insee_code.keys).empty?) # Si le theme a des codes INSEE qui ne sont pas dans en dehors des territoires observés
       good_coverage
     elsif experts_and_users_by_insee_code.values.all?([]) &&
-      experts_global_with_users.map { |e| e[:expert_id] }.empty?
+      experts_global_with_users.pluck(:expert_id).empty?
       no_expert
     elsif experts_and_users_by_insee_code.values.any?([])
       missing_insee_codes(experts_and_users_by_insee_code)
     elsif experts_and_users_by_insee_code.values.flatten.pluck(:users_ids).all?([]) &&
-      experts_global_with_users.map { |e| e[:users_ids] }.empty?
+      experts_global_with_users.pluck(:users_ids).empty?
       no_user
     elsif experts_and_users_by_insee_code.values.any?{ |a| a.uniq.size > 1 }
       extra_insee_codes(experts_and_users_by_insee_code)
@@ -119,6 +120,7 @@ class CoverageService
                           institution_subject_id: @institution_subject.id,
                           cooperations_details: format_cooperations_details,
     })
+    # rubocop:enable Lint/DuplicateBranch
   end
 
   def good_coverage
