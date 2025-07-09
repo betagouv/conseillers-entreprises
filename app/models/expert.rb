@@ -227,7 +227,7 @@ class Expert < ApplicationRecord
       .where('experts.full_name ILIKE ?', "%#{query}%")
       .or(Expert.joins(:users, antenne: :institution).where('antennes.name ILIKE ?', "%#{query}%"))
       .or(Expert.joins(:users, antenne: :institution).where('institutions.name ILIKE ?', "%#{query}%"))
-      .or(Expert.joins(:users, antenne: :institution).where(users: { id: User.omnisearch(query).ids }))
+      .or(Expert.joins(:users, antenne: :institution).where(users: { id: User.omnisearch(query).select(:id) }))
   end
 
   scope :by_full_name, -> (query) do
