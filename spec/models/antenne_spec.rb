@@ -539,11 +539,10 @@ RSpec.describe Antenne do
   end
 
   describe 'check_territorial_level callback' do
-    let!(:commune1) { create :commune }
-    let!(:commune2) { create :commune }
-    let!(:region) { create :territory, :region, code_region: 999, communes: [commune1, commune2] }
-    let!(:regional_antenne1) { create :antenne, communes: [commune1, commune2] }
-    let!(:local_antenne1) { create :antenne, communes: [commune1] }
+    let(:commune1) { create :territorial_zone, :commune, code: "44109" }
+    let!(:region) { create :territorial_zone, :region, code: "52" }
+    let!(:regional_antenne1) { create :antenne, territorial_zones: [region] }
+    let!(:local_antenne1) { create :antenne, territorial_zones: [commune1] }
 
     it 'sets regional_antenne as regional' do
       expect(regional_antenne1.regional?).to be true
@@ -575,13 +574,13 @@ RSpec.describe Antenne do
     context 'regional antenne' do
       let(:antenne) { regional_antenne }
 
-      it { expect(antenne.support_user).to eq regional_referent }
+      it { expect(antenne.support_user).to eq territorial_referent }
     end
 
     context 'local antenne' do
       let(:antenne) { local_antenne }
 
-      it { expect(antenne.support_user).to eq regional_referent }
+      it { expect(antenne.support_user).to eq territorial_referent }
     end
 
     context 'without region' do
@@ -591,7 +590,7 @@ RSpec.describe Antenne do
     end
 
     context 'with many regions' do
-      let(:antenne) { create :antenne, communes: [commune1, commune2] }
+      let(:antenne) { create :antenne, territorial_zones: [create(:territorial_zone, :commune, code: "44109"), create(:territorial_zone, :commune, code: "01001")] }
 
       it { expect(antenne.support_user).to eq national_referent }
     end

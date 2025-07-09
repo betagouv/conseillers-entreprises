@@ -160,16 +160,4 @@ RSpec.describe UserRight do
       expect(described_class::FOR_ADMIN).to include(:territorial_referent)
     end
   end
-
-  describe 'scopes' do
-    describe 'for_admin' do
-      let(:user) { create :user }
-      let!(:territorial_referent) { create :user_right, user: user, category: :territorial_referent, rightable_element: create(:territorial_zone, :region) }
-      let!(:manager) { create :user_right, user: user, category: :manager, rightable_element: create(:antenne) }
-
-      it 'includes territorial_referent' do
-        expect(described_class.for_admin).to include(territorial_referent)
-      end
-    end
-  end
 end

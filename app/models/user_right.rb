@@ -60,16 +60,18 @@ class UserRight < ApplicationRecord
   end
 
   def be_admin_to_be_referent
-    if (FOR_ADMIN.include?(category) && !user.is_admin?)
+    return if category_admin? # Skip validation if creating admin right
+    
+    if FOR_ADMIN.include?(category.to_sym) && !user.is_admin?
       self.errors.add(:category, I18n.t('errors.admin_for_referents'))
     end
   end
 
   def only_one_user_by_referent
     # Un seul user pour les referents admins car ils sont utilisé dans les signatures de mails et comme contact par défaut
-    if (category_national_referent? && UserRight.category_national_referent.count >= 1) ||
-      (category_main_referent? && UserRight.category_main_referent.count >= 1) ||
-      (category_cooperations_referent? && UserRight.category_cooperations_referent.count >= 1)
+    if (category_national_referent? && UserRight.category_national_referent.where.not(id: id).count >= 1) ||
+      (category_main_referent? && UserRight.category_main_referent.where.not(id: id).count >= 1) ||
+      (category_cooperations_referent? && UserRight.category_cooperations_referent.where.not(id: id).count >= 1)
       self.errors.add(:category, I18n.t('errors.one_user_for_referents'))
     end
   end
