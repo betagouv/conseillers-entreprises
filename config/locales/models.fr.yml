@@ -846,14 +846,14 @@ fr:
     done_not_reachable_caption_definition: Besoin pris en charge par un expert qui n’a pas réussi à joindre l’entreprise malgré 2 tentatives ; il a laissé ses coordonnées.
     done_not_reachable_caption_label: Non joignable
     done_rate: Taux de clôture avec aide
-    ecosystem_answering_rate: Taux de réponse de l’écosystème (%{institution} et autres partenaires)
+    ecosystem_answering_rate: Taux de positionnement de l’écosystème (%{institution} et autres partenaires)
     ecosystem_positionning: Positionnement de l’écosystème (%{institution} et autres partenaires)
-    experts_answering_rate: Taux de réponse des experts %{institution}
+    experts_answering_rate: Taux de positionnement des experts %{institution}
     experts_positionning: Positionnement des experts %{institution}
     facilities: Etablissements
     from_beginning_of_year: Depuis le début de l’année %{year}
     funnel:
-      not_status_quo: Taux de réponse
+      not_status_quo: Taux de positionnement
       status_done: "  -  dont clôturés par « aide proposée »"
       status_done_no_help: "  -  dont clôturés par « pas d’aide »"
       status_done_not_reachable: "  -  dont clôturés par « injoignable »"
@@ -882,8 +882,8 @@ fr:
     positionning_accepted_caption_label: Taux de prise en charge
     positionning_accepted_rate: Taux de prise en charge
     positionning_caption_definition: Part des besoins pour lesquels les experts ont indiqué prendre en charge ou refuser.
-    positionning_caption_label: Taux de réponse
-    positionning_rate: Taux de réponse
+    positionning_caption_label: Taux de positionnement
+    positionning_rate: Taux de positionnement
     previous_quarter_percentage: Repères T-1
     previous_year_percentage: Repères année N-1
     quarter_stats: Stats trim.
@@ -891,10 +891,10 @@ fr:
     quarter_stats_by_refused_subject: Répartition des refus du trimestre par sujet
     quarter_stats_by_region: Stats trim. par territoire
     quarter_stats_by_subject: Stats trim. par sujet
-    quo: Taux de sans réponse
+    quo: Taux de sans positionnement
     quo_caption_definition: L’expert ne s’est pas positionné sur le besoin malgré les relances de l’équipe de Conseillers-Entreprises.
-    quo_caption_label: En attente de réponse
-    quo_rate: Taux de sans réponse
+    quo_caption_label: En attente de positionnement
+    quo_rate: Taux de sans positionnement
     refusals: Refus trim.
     refusals_count: Nb de refus
     region: Région
@@ -907,7 +907,7 @@ fr:
     total: Tous sujets confondus
     transmitted_needs: Besoins transmis *
     without_response_caption_definition: Part des besoins pour lesquels les experts n’ont rien indiqué
-    without_response_caption_label: Taux de sans réponse
+    without_response_caption_label: Taux de sans positionnement
     work_in_progress: Des travaux d’amélioration sont en cours.
     year_stats: Stats ann.
     year_stats_by_subject: Stats ann. par sujet

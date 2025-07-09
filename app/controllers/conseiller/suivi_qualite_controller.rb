@@ -49,7 +49,7 @@ class Conseiller::SuiviQualiteController < ApplicationController
   end
 
   def collections_counts
-    @collections_by_suivi_qualite_count = Rails.cache.fetch(['suivi_qualite', retrieve_quo_matches_needs.size, retrieve_refused_feedbacks.size]) do
+    @collections_by_suivi_qualite_count = Rails.cache.fetch(['suivi_qualite', retrieve_quo_matches_needs.size, retrieve_refused_feedbacks.distinct.size]) do
       {
         quo_matches: retrieve_quo_matches_needs.size,
         refused_feedbacks: retrieve_refused_feedbacks.distinct.size
