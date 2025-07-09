@@ -3,18 +3,21 @@ class AddInseeCodeToFacilities < ActiveRecord::Migration[7.2]
     add_column :facilities, :insee_code, :string
     reversible do |dir|
       dir.up do
-        bar = ProgressBar.new(Facility.count)
-        Facility.find_each do |facility|
-          facility.update_columns(insee_code: facility.commune.insee_code)
-          bar.increment!
-        end
+        execute <<-SQL
+          UPDATE facilities 
+          SET insee_code = communes.insee_code 
+          FROM communes 
+          WHERE facilities.commune_id = communes.id
+        SQL
       end
 
       dir.down do
-        Facility.find_each do |facility|
-          commune = Commune.find_by(insee_code: facility.insee_code)
-          facility.update_columns(commune: commune)
-        end
+        execute <<-SQL
+          UPDATE facilities 
+          SET commune_id = communes.id 
+          FROM communes 
+          WHERE facilities.insee_code = communes.insee_code
+        SQL
       end
     end
 
