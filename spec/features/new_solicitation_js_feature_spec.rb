@@ -66,7 +66,7 @@ describe 'New Solicitation', :js, :flaky do
           visit '/?recrutement_poste_cadre=true&recrutement_en_apprentissage=false'
           click_on 'Test Landing Theme', match: :first
           click_on 'Super sujet'
-
+          save_and_open_page
           # Etape contact
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
