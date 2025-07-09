@@ -133,7 +133,7 @@ class Institution < ApplicationRecord
   def antennes_in_region(region_code)
     not_deleted_antennes
       .left_joins(:experts)
-      .where(antennes: { id: Antenne.by_region(region_code).ids })
+      .where(antennes: { id: Antenne.by_region(region_code).select(:id) })
       .or(self.antennes.where(experts: { is_global_zone: true }))
       .order(:name)
       .distinct
