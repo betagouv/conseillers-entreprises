@@ -68,6 +68,8 @@ RSpec.describe UserRight do
 
       context 'normal user can’t be referent' do
         it do
+          puts "===="
+          puts user.is_admin?
           expect(national_referent).not_to be_valid
           expect(main_referent).not_to be_valid
           expect(national_referent.errors[:category]).to include(I18n.t('.errors.admin_for_referents'))
@@ -101,7 +103,7 @@ RSpec.describe UserRight do
     end
 
     describe 'territorial_referent_has_managed_region' do
-      let(:user) { create :user }
+      let(:user) { create :user, :admin }
 
       context 'without region' do
         let(:user_right) { build :user_right, user: user, category: :territorial_referent }
@@ -133,7 +135,7 @@ RSpec.describe UserRight do
 
       context 'only one territorial_referent per region' do
         let(:territorial_zone) { create :territorial_zone, :region }
-        let!(:existing_user_right) { create :user_right, user: create(:user), category: :territorial_referent, rightable_element: territorial_zone }
+        let!(:existing_user_right) { create :user_right, user: create(:user, :admin), category: :territorial_referent, rightable_element: territorial_zone }
         let(:duplicate_user_right) { build :user_right, user: user, category: :territorial_referent, rightable_element: territorial_zone }
 
         it 'does not allow duplicate territorial_referent for same region' do
@@ -145,7 +147,7 @@ RSpec.describe UserRight do
       context 'allows territorial_referent for different regions' do
         let(:territorial_zone_1) { create :territorial_zone, :region, code: '11' }
         let(:territorial_zone_2) { create :territorial_zone, :region, code: '84' }
-        let!(:user_right_1) { create :user_right, user: create(:user), category: :territorial_referent, rightable_element: territorial_zone_1 }
+        let!(:user_right_1) { create :user_right, user: create(:user, :admin), category: :territorial_referent, rightable_element: territorial_zone_1 }
         let(:user_right_2) { build :user_right, user: user, category: :territorial_referent, rightable_element: territorial_zone_2 }
 
         it 'allows territorial_referent for different regions' do
