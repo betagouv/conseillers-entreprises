@@ -112,11 +112,6 @@
         }
       ]
     },
-    "opco_cfadock": {
-      "idcc": 1486,
-      "opcoName": "ATLAS",
-      "opcoSiren": "851296632"
-    },
     "opco_fc": {
       "code": "01",
       "opcoRattachement": { "code": "03", "nom": "ATLAS" },

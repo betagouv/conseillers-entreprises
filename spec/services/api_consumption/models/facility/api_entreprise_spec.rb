@@ -18,14 +18,10 @@ RSpec.describe ApiConsumption::Models::Facility::ApiEntreprise do
   describe 'opcos' do
     let!(:opco) { create :institution, :opco, siren: "851296632", france_competence_code: "01" }
 
-    context 'with both opcos' do
+    context 'with both sources' do
       let!(:params) do
         {
-          opco_cfadock: {
-            idcc: 1486,
-            opcoName: "ATLAS",
-            opcoSiren: "851296632"
-          },
+          liste_idcc: ["438"],
           opco_fc: {
             code: "01",
             opcoRattachement: { code: "03", nom: "ATLAS" },
@@ -39,14 +35,10 @@ RSpec.describe ApiConsumption::Models::Facility::ApiEntreprise do
       end
     end
 
-    context 'with only cfadock opcos' do
+    context 'with only idcc' do
       let!(:params) do
         {
-          opco_cfadock: {
-            idcc: 1486,
-            opcoName: "ATLAS",
-            opcoSiren: "851296632"
-          }
+          liste_idcc: ["438"]
         }
       end
 
