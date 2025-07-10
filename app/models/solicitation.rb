@@ -515,7 +515,6 @@ class Solicitation < ApplicationRecord
     company.present? &&
       landing_subject.present? && landing_subject.subject.id == 45 &&
       company.legal_form_code[0...2] == "57"
-
   end
 
   def not_sas?
