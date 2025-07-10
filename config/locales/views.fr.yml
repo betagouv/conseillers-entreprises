@@ -358,7 +358,7 @@ fr:
         no_results: Aucun résultat
         title: Suivi qualité
       instructions:
-        quo_matches: MER en attente de réponse depuis + de 9 jours et - de 45 jours hors PQ
+        quo_matches: MER en attente de réponse depuis + de 21 jours et - de 45 jours hors PQ
         refused_feedbacks: Besoins refusés avec un commentaire
       refused_feedback_need:
         comment_date: "%{author}, le %{date}"
