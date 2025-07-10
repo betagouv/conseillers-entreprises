@@ -15,7 +15,6 @@ module ApiConsumption::Models
         :unite_legale,
         :adresse,
         :effectifs_etablissement_mensuel, # a partir d'ici, données agglomérées d'autres appels API
-        :opco_cfadock,
         :opco_fc,
         :activites_secondaires,
         :liste_idcc,
@@ -72,11 +71,11 @@ module ApiConsumption::Models
     end
 
     def opco
-      @opco ||= (opco_from_idcc || france_competence_opco || cfa_dock_opco)
+      @opco ||= (opco_from_idcc || france_competence_opco)
     end
 
     def idcc
-      @idcc ||= (liste_idcc&.first || opco_cfadock&.dig('idcc'))
+      @idcc ||= liste_idcc&.first
     end
 
     def nature_activites
@@ -112,10 +111,6 @@ module ApiConsumption::Models
 
     def france_competence_opco
       Institution.opco.find_by(france_competence_code: france_competence_code) if france_competence_code.present?
-    end
-
-    def cfa_dock_opco
-      Institution.opco.find_by(siren: opco_cfadock['opcoSiren']) if opco_cfadock.present?
     end
 
     def france_competence_code
