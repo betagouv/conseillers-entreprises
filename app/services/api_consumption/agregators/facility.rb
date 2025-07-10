@@ -3,7 +3,6 @@ module ApiConsumption::Agregators
     REQUESTS = {
       api_entreprise_etablissement: Api::ApiEntreprise::Etablissement::Base,
       api_entreprise_effectifs: Api::ApiEntreprise::EtablissementEffectifMensuel::Base,
-      opco_cfadock: Api::Cfadock::Opco,
       opco_fc: Api::FranceCompetence::Siret::Base,
       api_rne_companies: Api::Rne::Companies::Base,
       api_recherche_entreprise: Api::RechercheEntreprises::Search::Siret::Base,
