@@ -37,6 +37,11 @@
                 = t('.not_sas_html')
               %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-not-sas-#{solicitation.id}" }
                 = t('.not_sas_explanation')
+            - if solicitation.former_salaries_sas?
+              %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-former-salaries-sas-#{solicitation.id}", href: '#' }
+                = t('.former_salaries_sas_html')
+              %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-former-salaries-sas-#{solicitation.id}" }
+                = t('.former_salaries_sas_explanation')
             - if solicitation.experimentation_urssaf?
               %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-experimentation-urssaf-#{solicitation.id}", href: '#' }
                 = t('.experimentation_urssaf')

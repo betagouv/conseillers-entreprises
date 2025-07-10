@@ -509,6 +509,15 @@ class Solicitation < ApplicationRecord
       .uniq
   end
 
+  def former_salaries_sas?
+    # Sur le sujet "Former un ou plusieurs salariés"
+    # Quand l’entreprises est une SAS
+    company.present? &&
+      landing_subject.present? && landing_subject.subject.id == 45 &&
+      company.legal_form_code[0...2] == "57"
+
+  end
+
   def not_sas?
     # Sur le sujet "Vous former en tant que dirigeant(e) d'entreprise"
     # Quand l’entreprises n’est pas une SAS ou SASU
