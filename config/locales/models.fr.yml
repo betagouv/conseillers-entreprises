@@ -557,8 +557,7 @@ fr:
             short: Personne à former salariée de l'entreprise ?
         mode_contact_privilegie:
           answers:
-            mail: Par mail
-            physique: En rendez-vous physique
+            ecrit: Par écrit
             tel: Par téléphone
             visio: Par visio
           label:

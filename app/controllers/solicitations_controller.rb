@@ -148,6 +148,7 @@ class SolicitationsController < PagesController
     # TODO : mieux gérer les institutions en expérimentations (cf reject by slug)
     @displayable_institutions = @landing_subject.solicitable_institutions.with_solicitable_logo.where.not(slug: ['ademe']).order(:name)
     @opco = @landing_subject.solicitable_institutions.opco.any? ? @landing_subject.solicitable_institutions.opco.first : nil
+    @mode_contact_privilegie = @solicitation.subject_answers.joins(:subject_question).find_by(subject_question: { key: 'mode_contact_privilegie' })&.filter_value || 'tel'
   end
 
   # Redirection vers la bonne étape de sollicitation
