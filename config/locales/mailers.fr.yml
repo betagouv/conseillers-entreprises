@@ -119,7 +119,7 @@ fr:
       re_engagement:
         ask_questions: N’hésitez pas à venir poser vos questions.
         at_your_service: Je me tiens également à votre disposition par téléphone.
-        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service public Conseillers-Entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque jeudi à 14h30</strong> (heure de Paris) sur ce lien de visio : <a href="https://webinaire.numerique.gouv.fr/meeting/signin/11932/creator/6579/hash/75c0b4e988e0f7de9a3e69f4f3aa60af92b9cb17"> https://webinaire.numerique.gouv.fr</a>.'
+        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service public Conseillers-Entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque jeudi à 14h30</strong> (heure de Paris) sur ce lien de visio : <a href="https://visio.numerique.gouv.fr/ize-ybtb-ibd"> https://visio.numerique.gouv.fr</a>.'
         position_yourself: Comme cela n’étais pas arrivé depuis longtemps, nous vous invitons à vous positionner sur ce besoin à l'aide du bouton « J’appelle » ou « Ce n’est pas pour moi ».
         subject: Service public Conseillers-Entreprises - Nous vous accompagnons !
         you_received_need_html: Vous venez de recevoir un besoin de l’entreprise <strong>%{company}</strong> sur le sujet %{subject}. Vous pouvez le retrouver sur votre <a href="%{url}">compte utilisateur</a>.
@@ -302,4 +302,4 @@ fr:
         next_dates: 'Les prochaines dates :'
         subject: Vous êtes invité(e) ! Webinaire de présentation de Conseillers-Entreprises.Service-Public.fr
         video_tutorial_html: 'Ou venez découvrir notre tutoriel vidéo : <a href=''https://conseillers-entreprises.service-public.fr/tutoriels''>conseillers-entreprises.service-public.fr/tutoriels</a>'
-        webinaire_link_html: 'Lien participant : <a href=''https://webinaire.numerique.gouv.fr//meeting/signin/34546/creator/17678/hash/0033028ea90c21b6bb2cca160d0e663f85b82f7d''>cliquez ici pour accéder à la visio</a>'
+        webinaire_link_html: 'Lien participant : <a href=''https://visio.numerique.gouv.fr/ize-ybtb-ibd''>cliquez ici pour accéder à la visio</a>'

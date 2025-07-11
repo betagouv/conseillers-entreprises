@@ -335,6 +335,8 @@ fr:
       solicitation:
         experimentation_urssaf: XP Urssaf
         experimentation_urssaf_explanation: ZRR, calcul TA, DSN
+        former_salaries_sas_explanation: si formation métiers -> vers les OPCO
+        former_salaries_sas_html: SAS
         from_intermediary: Sollicitation provenant d’un intermédiaire
         needs_historic: 'Historique de l’entreprise :'
         not_sas_explanation: Si formation métier -> mail TNS (La forme juridique de l’entreprise n’est pas une SAS ou SASU)
@@ -358,7 +360,7 @@ fr:
         no_results: Aucun résultat
         title: Suivi qualité
       instructions:
-        quo_matches: MER en attente de réponse depuis + de 9 jours et - de 45 jours hors PQ
+        quo_matches: MER en attente de réponse depuis + de 21 jours et - de 45 jours hors PQ
         refused_feedbacks: Besoins refusés avec un commentaire
       refused_feedback_need:
         comment_date: "%{author}, le %{date}"
