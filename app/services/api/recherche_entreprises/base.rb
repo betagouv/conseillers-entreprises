@@ -3,7 +3,6 @@ module Api::RechercheEntreprises
     attr_reader :query
 
     def initialize(query, options = {})
-      p "initialize Base #{self.class.name}"
       @query = encode_query(query)
       @options = options
     end
@@ -22,7 +21,6 @@ module Api::RechercheEntreprises
 
   class Request < Api::Request
     def initialize(query, options = {})
-      p "initialize Request #{self.class.name}"
       @query = query
       @options = options
       begin
