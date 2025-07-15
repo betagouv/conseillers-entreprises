@@ -67,6 +67,7 @@ class User < ApplicationRecord
 
   after_create_commit :create_single_user_experts, if: -> { create_expert.to_b }
   before_validation :fill_absence_start_at, if: -> { absence_end_at.present? && absence_start_at.nil? }
+  after_update :add_shared_satisfactions
 
   pg_search_scope :omnisearch,
     against: [:full_name, :email, :job],
@@ -354,6 +355,19 @@ class User < ApplicationRecord
 
   def fill_absence_start_at
     self.absence_start_at = Time.zone.now if self.absence_start_at.nil?
+  end
+
+  def add_shared_satisfactions
+    return unless self.is_manager?
+    not_yed_shared_satisfactions_ids = managed_antennes.each_with_object([]) do |antenne, array|
+      array << antenne.perimeter_received_shared_company_satisfactions
+        .joins(:shared_satisfactions)
+        .where.not(id: self.shared_company_satisfactions.pluck(:id))
+        .distinct.pluck(:id)
+    end.flatten.uniq
+    CompanySatisfaction.where(id: not_yed_shared_satisfactions_ids).find_each do |satisfaction|
+      satisfaction.share
+    end
   end
 
   def self.ransackable_attributes(auth_object = nil)

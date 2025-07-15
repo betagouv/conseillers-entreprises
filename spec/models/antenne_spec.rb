@@ -418,6 +418,99 @@ RSpec.describe Antenne do
     end
   end
 
+  describe 'perimeter_received_shared_company_satisfactions' do
+    let(:institution1) { create :institution, name: 'Institution 1' }
+    let(:national_antenne_i1) { create :antenne, :national, institution: institution1 }
+    let(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, parent_antenne_id: national_antenne_i1.id }
+    let(:local_antenne_i1) { create :antenne, :local, institution: institution1, parent_antenne_id: regional_antenne_i1.id }
+    let(:other_local_antenne_i1) { create :antenne, :local, institution: institution1, parent_antenne_id: regional_antenne_i1.id }
+    let(:random_local_antenne_i1) { create :antenne, :local, institution: institution1 }
+    let(:local_antenne_i2) { create :antenne, :local, institution: create(:institution) }
+
+    let(:expert_local_antenne_i1) { create :expert_with_users, antenne: local_antenne_i1 }
+    let(:expert_other_local_antenne_i1) { create :expert_with_users, antenne: other_local_antenne_i1 }
+    let(:expert_regional_antenne_i1) { create :expert_with_users, antenne: regional_antenne_i1 }
+    let(:expert_random_local_antenne_i1) { create :expert_with_users, antenne: random_local_antenne_i1 }
+    let(:expert_local_antenne_i2) { create :expert_with_users, antenne: local_antenne_i2 }
+
+    let!(:need_regional_antenne_i1) do
+      create :need,
+             matches: [create(:match, expert: expert_regional_antenne_i1)],
+             diagnosis: create(:diagnosis, facility: create(:facility))
+    end
+    let(:company_satisfaction_regional_antenne_i1) { create :company_satisfaction, need: need_regional_antenne_i1 }
+    let!(:shared_expert_satisfaction_regional_antenne_i1) do
+      create :shared_satisfaction,
+      company_satisfaction: company_satisfaction_regional_antenne_i1,
+      user: expert_regional_antenne_i1.users.first,
+      expert: expert_regional_antenne_i1
+    end
+
+    let(:need_local_antenne_i1) do
+      create :need,
+             matches: [create(:match, expert: expert_local_antenne_i1)],
+             diagnosis: create(:diagnosis, facility: create(:facility))
+    end
+    let(:company_satisfaction_local_antenne_i1) { create :company_satisfaction, need: need_local_antenne_i1 }
+    let!(:shared_expert_satisfaction_local_antenne_i1) do
+      create :shared_satisfaction,
+      company_satisfaction: company_satisfaction_local_antenne_i1,
+      user: expert_local_antenne_i1.users.first,
+      expert: expert_local_antenne_i1
+    end
+
+    let(:need_other_local_antenne_i1) do
+      create :need,
+             matches: [create(:match, expert: expert_other_local_antenne_i1)],
+             diagnosis: create(:diagnosis, facility: create(:facility))
+    end
+    let(:company_satisfaction_other_local_antenne_i1) { create :company_satisfaction, need: need_other_local_antenne_i1 }
+    let!(:shared_expert_satisfaction_other_local_antenne_i1) do
+      create :shared_satisfaction,
+      company_satisfaction: company_satisfaction_other_local_antenne_i1,
+      user: expert_other_local_antenne_i1.users.first,
+      expert: expert_other_local_antenne_i1
+    end
+
+    let(:need_random_local_antenne_i1) do
+      create :need,
+             matches: [create(:match, expert: expert_random_local_antenne_i1)]
+    end
+    let(:company_satisfaction_random_local_antenne_i1) { create :company_satisfaction, need: need_random_local_antenne_i1 }
+    let!(:shared_expert_satisfaction_random_local_antenne_i1) do
+      create :shared_satisfaction,
+      company_satisfaction: company_satisfaction_random_local_antenne_i1,
+      user: expert_random_local_antenne_i1.users.first,
+      expert: expert_random_local_antenne_i1
+    end
+
+    let(:need_local_antenne_i2) do
+      create :need,
+             matches: [create(:match, expert: expert_local_antenne_i2)],
+             diagnosis: create(:diagnosis, facility: create(:facility))
+    end
+    let(:company_satisfaction_local_antenne_i2) { create :company_satisfaction, need: need_local_antenne_i2 }
+    let!(:shared_expert_satisfaction_local_antenne_i2) do
+      create :shared_satisfaction,
+      company_satisfaction: company_satisfaction_local_antenne_i2,
+      user: expert_local_antenne_i2.users.first,
+      expert: expert_local_antenne_i2
+    end
+
+    it 'displays only antenne satisfactions for local antennes' do
+      expect(local_antenne_i1.perimeter_received_shared_company_satisfactions).to contain_exactly(company_satisfaction_local_antenne_i1)
+      expect(other_local_antenne_i1.perimeter_received_shared_company_satisfactions).to contain_exactly(company_satisfaction_other_local_antenne_i1)
+    end
+
+    it 'displays regional and antenne satisfactions for regional antenne' do
+      expect(regional_antenne_i1.perimeter_received_shared_company_satisfactions).to contain_exactly(company_satisfaction_regional_antenne_i1, company_satisfaction_local_antenne_i1, company_satisfaction_other_local_antenne_i1)
+    end
+
+    it 'displays institution satisfactions for national antenne' do
+      expect(national_antenne_i1.perimeter_received_shared_company_satisfactions).to contain_exactly(company_satisfaction_regional_antenne_i1, company_satisfaction_local_antenne_i1, company_satisfaction_other_local_antenne_i1, company_satisfaction_random_local_antenne_i1)
+    end
+  end
+
   describe 'by_antenne_and_institution_names' do
     subject(:result) { described_class.by_antenne_and_institution_names(query) }
 
