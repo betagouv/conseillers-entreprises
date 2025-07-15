@@ -270,11 +270,7 @@ class Antenne < ApplicationRecord
       if self.national?
         self.institution.received_shared_company_satisfactions
       else
-        antenne_ids = if self.regional?
-          self.territorial_antennes.pluck(:id) << self.id
-        else
-          self.id
-        end
+        antenne_ids = self.regional? ? territorial_antennes.ids + [id] : [id]
         CompanySatisfaction
           .joins(shared_satisfactions: { expert: :antenne })
           .where(experts: { antenne_id: antenne_ids })
