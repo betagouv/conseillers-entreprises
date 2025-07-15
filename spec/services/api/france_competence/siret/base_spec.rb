@@ -42,7 +42,7 @@ RSpec.describe Api::FranceCompetence::Siret::Base do
     end
 
     it 'returns a technical error' do
-      expect(api).to eq({ errors: { unreachable_apis: { "api-francecompetence-siret-base" => "Internal Server Error" } } })
+      expect(api).to eq({ errors: { standard_api_errors: { "api-francecompetence-siret-base" => "Internal Server Error" } } })
     end
   end
 end
