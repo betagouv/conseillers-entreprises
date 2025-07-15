@@ -82,6 +82,9 @@ class Institution < ApplicationRecord
   has_many :received_diagnoses_including_from_deleted_experts, through: :experts_including_deleted, source: :received_diagnoses, inverse_of: :expert_institutions
   has_many :received_solicitations_including_from_deleted_experts, through: :received_diagnoses_including_from_deleted_experts, source: :solicitation, inverse_of: :diagnosis
 
+  has_many :received_shared_satisfactions, through: :experts_including_deleted, source: :shared_satisfactions
+  has_many :received_shared_company_satisfactions, -> { distinct }, through: :received_shared_satisfactions, class_name: 'CompanySatisfaction', source: :company_satisfaction
+
   # Same as :advisors and :antennes, but excluding deleted items; this makes it possible to preload not_deleted items in views.
   has_many :not_deleted_antennes, -> { not_deleted }, class_name: "Antenne", inverse_of: :institution
 
@@ -194,6 +197,10 @@ class Institution < ApplicationRecord
 
   def perimeter_received_needs
     self.received_needs_including_from_deleted_experts
+  end
+
+  def perimeter_received_satisfactions
+    self.received_satisfactions_including_from_deleted_experts
   end
 
   def self.apply_filters(params)
