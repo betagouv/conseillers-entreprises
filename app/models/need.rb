@@ -333,7 +333,7 @@ class Need < ApplicationRecord
   end
 
   scope :by_region, -> (region_code) do
-    joins(diagnosis: [company: :facilities]).where(diagnosis: { companies: { facilities: Facility.by_region(region_code) } })
+    joins(diagnosis: { company: :facilities }).where(facilities: { id: Facility.by_region(region_code) })
   end
 
   scope :by_theme, -> (theme_id) do
