@@ -20,7 +20,7 @@
           %td
             %ul
               - antenne.territorial_zones.each do |territory|
-                %li= "#{territory.zone_type.capitalize} #{territory.name}"
+                %li #{territory.zone_type.capitalize} #{territory.name}
           %td
             - antenne.managers.each do |manager|
               %ul

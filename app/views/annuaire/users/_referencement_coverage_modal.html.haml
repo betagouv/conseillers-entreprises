@@ -11,7 +11,7 @@
                 = t("#{referencement_coverage[:anomalie]}_html", scope: 'activerecord.attributes.referencement_coverage/anomalie_icons')
                 = t(referencement_coverage[:anomalie], scope: 'activerecord.attributes.referencement_coverage/anomalie')
           .fr-modal__content
-            %div.fr-mb-2w
+            .fr-mb-2w
               %p.fr-badge.fr-badge--blue-ecume= institution_subject.subject.label
               - if referencement_coverage[:coverage].present?
                 %p.fr-badge.fr-badge--green-menthe.fr-mt-2w= t(referencement_coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.long')
