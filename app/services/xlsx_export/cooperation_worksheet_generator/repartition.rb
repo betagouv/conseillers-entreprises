@@ -43,8 +43,8 @@ module XlsxExport
       def by_region_stats
         add_header_row('repartition.by_region_header')
 
-        grouped_hash = Territory.regions.each_with_object({}) do |region, hash|
-          hash[region.name] = base_needs.by_region(region.id).size
+        grouped_hash = TerritorialZone.regions.each_with_object({}) do |region, hash|
+          hash[region.nom] = base_needs.by_region(region.code).size
         end
 
         grouped_hash.sort_by { |_, count| -count }.each do |label, count|
