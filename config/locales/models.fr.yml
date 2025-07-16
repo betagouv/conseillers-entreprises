@@ -121,12 +121,12 @@ fr:
         from_visit: Analyses faites par des conseillers suite à une visite
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
       with_custom_communes: Zone spécifique (old)
-      with_territorialal_zones: Avec des territoires
       with_deleted_expert: Expert supprimé
+      with_territorialal_zones: Avec des territoires
       with_territories: Avec territoires spécifiques
       without_communes: Sans zone d’intervention (old)
-      without_territorial_zones: Sans zone d'intervention
       without_subjects: Sans compétence
+      without_territorial_zones: Sans zone d'intervention
       without_users: Sans utilisateur
     solicitations:
       batch_delete: Supprimer
@@ -160,7 +160,6 @@ fr:
         other: "%{count} communes"
       confirm_assign_entire_territory: Assigner toutes les communes de %{territory} à la zone d’intervention de %{many_communes} ?
       department_number: 'Département %{number}, %{name} :'
-      entire_territory_assigned: Territoire ajouté
     user:
       absence: Absence
       connection: Connexion
@@ -465,36 +464,36 @@ fr:
         no_expert: Aucun expert
         no_user: Aucun utilisateur
         theme_outside_territories: Thématique sur un territoire restreint
-      referencement_coverage/anomalie_icons:
-        extra_insee_codes_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
-        missing_insee_codes_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
-        no_anomalie_html: "<span class='fr-icon-checkbox-circle-line green' aria-hidden='true'></span>"
-        no_expert_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
-        no_user_html: '<span class="fr-icon-information-line orange" aria-hidden="true"></span>'
-        theme_outside_territories_html: '<span class="fr-icon-information-line blue" aria-hidden="true"></span>'
       referencement_coverage/anomalie_details:
         experts: Experts concernés
         extra_insee_codes: Territoires couverts par plusieurs experts
-        missing_insee_codes: Territoires non couverts
         match_filters: Filtres de mise en relation pour ce sujet
+        missing_insee_codes: Territoires non couverts
+      referencement_coverage/anomalie_icons:
+        extra_insee_codes_html: <span class="fr-icon-information-line orange" aria-hidden="true"></span>
+        missing_insee_codes_html: <span class="fr-icon-information-line orange" aria-hidden="true"></span>
+        no_anomalie_html: "<span class='fr-icon-checkbox-circle-line green' aria-hidden='true'></span>"
+        no_expert_html: <span class="fr-icon-information-line orange" aria-hidden="true"></span>
+        no_user_html: <span class="fr-icon-information-line orange" aria-hidden="true"></span>
+        theme_outside_territories_html: <span class="fr-icon-information-line blue" aria-hidden="true"></span>
       referencement_coverage/cooperations_details:
-        theme_territories: Territoires du thème
         cooperations: Coopérations
-      referencement_coverage/match_filters_types:
-        expert: Filtres aux experts
-        antenne: Filtres aux antennes
-        institution: Filtres à l'institution
+        theme_territories: Territoires du thème
       referencement_coverage/coverage:
         long:
           local: Antenne locale
           mixte: Couverture Mixte (locale + régionale)
-          regional: Antenne régionale
           national: Antenne nationale
+          regional: Antenne régionale
         short:
           local: L
           mixte: L + R
-          national: N
+          national: "N"
           regional: R
+      referencement_coverage/match_filters_types:
+        antenne: Filtres aux antennes
+        expert: Filtres aux experts
+        institution: Filtres à l'institution
       search:
         label: Entreprise
         query: Requête
@@ -665,8 +664,8 @@ fr:
         roles: Rôles
         sign_in_count: Connexions
         team_custom_communes: Communes spécifiques
-        team_custom_epcis: EPCI spécifiques
         team_custom_departements: Départements spécifiques
+        team_custom_epcis: EPCI spécifiques
         team_custom_regions: Régions spécifiques
         team_email: Email de l’équipe
         team_full_name: Nom de l’équipe
@@ -734,7 +733,7 @@ fr:
         territorial_zones:
           code:
             invalid_format: Format pour %{zone_type} est invalide.
-            not_found: '%{zone_type} non trouvé'
+            not_found: "%{zone_type} non trouvé"
         territory:
           attributes:
             insee_codes:
@@ -850,9 +849,6 @@ fr:
         one: Utilisateur
         other: Utilisateurs
       user_right:
-        territorial_referent:
-          one: Droit référent régional
-          other: Droits référent régional
         cooperation_manager:
           one: Droit responsable de coopération
           other: Droits responsable de coopération
@@ -864,6 +860,9 @@ fr:
           other: Droits responsable d'antenne
         one: Droit utilisateur
         other: Droits utilisateur
+        territorial_referent:
+          one: Droit référent régional
+          other: Droits référent régional
   antenne_stats_exporter:
     annual_national_stats: Repères nationaux
     annual_stats_by_antenne: Stats ann. par antenne
@@ -984,11 +983,11 @@ fr:
     categories: Catégories
     category: Catégorie
     code_effectif: Tranche d’effectif
-    insee_code: Code Insee
     color: Couleur
     comments: Commentaires des conseillers de l’antenne
     commune: Commune
     communes: Communes
+    communes_codes: Codes INSEE
     community: Communauté
     company_categorie_juridique: Catégorie juridique
     company_effectif: Effectifs
@@ -1009,6 +1008,7 @@ fr:
     custom_communes: Spécifique
     date_de_creation: Date de création
     deleted_at: Suppression
+    departements_codes: Codes départements
     description: Description
     diagnoses:
       one: Analyse
@@ -1023,6 +1023,7 @@ fr:
     done_institutions: Institution ayant clôturé avec aide
     effectif: Effectif
     email: Email
+    epcis_codes: Codes EPCI
     expert: Expert
     expert_antenne: Antenne de l’expert
     expert_institution: Institution de l’expert
@@ -1062,16 +1063,12 @@ fr:
       no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire. (14 chiffres)
       phone_number_html: 'Exemple : 0612345678 ou +33 6 12 34 56 78'
     iframe_landings: Iframes
-    communes_codes: Codes INSEE
-    epcis_codes: Codes EPCI
-    departements_codes: Codes départements
-    region_codes: Codes régions
+    insee_code: Code Insee
     institution: Institution
     institution_antenne: Institution / Antenne
     institutions_subjects: Domaines de l’institution
     intern_landings: Page interne
     intervention_zone: Zone d’intervention (old)
-    territorial_zone: Zone d’intervention
     interview_sort_order: Ordre
     intitule_effectif: Effectif
     is_abandoned: Abandonné
@@ -1123,6 +1120,7 @@ fr:
     opco: OPérateur de COmpétences (OPCO)
     optional: Optionnel
     page_title: Titre affiché sur la page
+    parent_antenne: Antenne parente
     paused_at: Date de mise en pause
     phone_number: Téléphone
     pk_campaign: Campagne
@@ -1140,6 +1138,7 @@ fr:
       one: Mise en relation reçue
       other: Mises en relation reçues
     region: Région
+    region_codes: Codes régions
     region_name: Institution de la région
     satisfaction_comment: Commentaire de satisfaction
     satisfaction_contacted_by_expert: Satisfaction - rappel
@@ -1189,7 +1188,7 @@ fr:
       other: Équipes
     territorial_antennes: Antennes du territoires
     territorial_level: Niveau territorial
-    parent_antenne: Antenne parente
+    territorial_zone: Zone d’intervention
     territories:
       one: Territoire
       other: Territoires
