@@ -279,7 +279,6 @@ describe 'New Solicitation', :js, :flaky do
           expect(solicitation.status_step_description?).to be false
 
           expect(page).to have_content("Sélectionnez l'établissement concerné :")
-          save_and_open_page
           click_on("#{siret} - Octo Technology", match: :first)
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
