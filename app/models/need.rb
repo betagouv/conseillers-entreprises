@@ -85,7 +85,6 @@ class Need < ApplicationRecord
 
   # :facility
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :needs
-  has_many :facility_regions, -> { regions }, through: :facility, source: :territories, inverse_of: :matches
 
   # :advisor
   has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_needs
@@ -331,8 +330,8 @@ class Need < ApplicationRecord
       .or(Need.diagnosis_completed.where(diagnosis: { facilities: { siret: sirets.compact } }))
   end
 
-  scope :by_region, -> (region_id) do
-    joins(facility: :commune).merge(Commune.by_region(region_id))
+  scope :by_region, -> (region_code) do
+    joins(diagnosis: { company: :facilities }).where(facilities: { id: Facility.by_region(region_code) })
   end
 
   scope :by_theme, -> (theme_id) do

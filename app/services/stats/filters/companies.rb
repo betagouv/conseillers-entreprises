@@ -2,10 +2,9 @@ module Stats::Filters
   class Companies < Base
     private
 
-    def territories_filter(territory_id)
-      territory = Territory.find_by(id: territory_id)
-      return if territory.blank?
-      @query.merge! territory.companies
+    def territories_filter(region_code)
+      return if region_code.nil?
+      @query.merge! Company.by_region(region_code)
     end
 
     def antenne_or_institution_filter(antenne_or_institution, with_agglomerate_data)
