@@ -4,7 +4,6 @@ require 'rails_helper'
 require 'api_helper'
 
 # Tests AVEC js =========================================
-# TODO
 describe 'New Solicitation', :js, :flaky do
   let(:pde_subject) { create :subject }
   let!(:landing) { create :landing, slug: 'accueil', title: 'Accueil' }
@@ -68,7 +67,6 @@ describe 'New Solicitation', :js, :flaky do
           visit '/?recrutement_poste_cadre=true&recrutement_en_apprentissage=false'
           click_on 'Test Landing Theme', match: :first
           click_on 'Super sujet'
-          save_and_open_page
           # Etape contact
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
           fill_in 'Email', with: 'user@example.com'
@@ -281,6 +279,7 @@ describe 'New Solicitation', :js, :flaky do
           expect(solicitation.status_step_description?).to be false
 
           expect(page).to have_content("Sélectionnez l'établissement concerné :")
+          save_and_open_page
           click_on("#{siret} - Octo Technology", match: :first)
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
