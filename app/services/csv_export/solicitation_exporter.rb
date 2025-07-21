@@ -25,7 +25,7 @@ module CsvExport
 
         solicitation_row = solicitation_attributes.values
         sorted_solicitation_relation = sort_relation(@solicitations)
-        while sorted_solicitation_relation.count > 0
+        while sorted_solicitation_relation.any?
           object = sorted_solicitation_relation.shift
           csv << solicitation_row.map do |val|
             if val.respond_to? :call
@@ -39,7 +39,7 @@ module CsvExport
 
         match_row = match_attributes.values
         sorted_match_relation = matches_exporter.sort_relation(@matches)
-        while sorted_match_relation.count > 0
+        while sorted_match_relation.any?
           object = sorted_match_relation.shift
           csv << match_row.map do |val|
             if val.respond_to? :call
