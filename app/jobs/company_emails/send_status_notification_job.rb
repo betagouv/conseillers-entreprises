@@ -1,5 +1,6 @@
 class CompanyEmails::SendStatusNotificationJob
   include Sidekiq::Job
+
   sidekiq_options queue: 'match_notification'
 
   def perform(match_id, previous_status)

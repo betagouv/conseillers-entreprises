@@ -1,6 +1,7 @@
 module Reminders
   class BaseController < ApplicationController
     include PersistedSearch
+
     before_action :authenticate_admin!
 
     layout 'side_menu'

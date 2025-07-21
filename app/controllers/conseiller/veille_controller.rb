@@ -1,6 +1,7 @@
 class Conseiller::VeilleController < ApplicationController
   include PersistedSearch
   include Inbox
+
   helper_method :inbox_collections_counts
 
   before_action :authenticate_admin!

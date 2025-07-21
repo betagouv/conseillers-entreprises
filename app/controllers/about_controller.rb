@@ -1,5 +1,6 @@
 class AboutController < PagesController
   include IframePrefix
+
   before_action :build_stats_and_count, only: :comment_ca_marche
 
   def cgu; end

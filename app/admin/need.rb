@@ -5,6 +5,7 @@ ActiveAdmin.register Need do
 
   controller do
     include DynamicallyFiltrable
+
     helper :active_admin_utilities
   end
 
