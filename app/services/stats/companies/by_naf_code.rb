@@ -32,7 +32,7 @@ module Stats::Companies
       %w[#DDDDDD #9F3BCA #F15C80 #E78016 #F2DD68 #2D908F #62E0D3 #88c479 #A7FF96 #946D47 #64609B #DDDDDD #F45A5A]
     end
 
-    def count
+    def count # rubocop:disable Naming/PredicateMethod
       false
     end
 

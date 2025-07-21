@@ -30,7 +30,7 @@ module Stats::Needs::Concerns::Subjects
     Stats::Filters::Needs.new(query, self).call
   end
 
-  def count
+  def count # rubocop:disable Naming/PredicateMethod
     false
   end
 

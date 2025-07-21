@@ -28,7 +28,7 @@ module Archivable
     self.save!
   end
 
-  def is_archived
+  def is_archived # rubocop:disable Naming/PredicateMethod
     archived_at.present?
   end
 

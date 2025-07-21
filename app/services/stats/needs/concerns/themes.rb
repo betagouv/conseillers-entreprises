@@ -47,7 +47,7 @@ module Stats::Needs::Concerns::Themes
     I18n.t('stats.series.needs_themes_all.subtitle')
   end
 
-  def count
+  def count # rubocop:disable Naming/PredicateMethod
     false
   end
 
