@@ -1,6 +1,8 @@
 # Conseillers-entreprises.service-public.fr
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/betagouv/conseillers-entreprises/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/betagouv/conseillers-entreprises/tree/main) [![Qlty](https://app.qlty.sh/api/v1/badges/repo/betagouv/conseillers-entreprises)](https://app.qlty.sh/repos/betagouv/conseillers-entreprises)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/betagouv/conseillers-entreprises/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/betagouv/conseillers-entreprises/tree/main)
+[![Maintainability](https://qlty.sh/gh/betagouv/projects/conseillers-entreprises/maintainability.svg)](https://qlty.sh/gh/betagouv/projects/conseillers-entreprises)
+[![Code Coverage](https://qlty.sh/gh/betagouv/projects/conseillers-entreprises/coverage.svg)](https://qlty.sh/gh/betagouv/projects/conseillers-entreprises)
 
 # Conseillers-Entreprises
 
