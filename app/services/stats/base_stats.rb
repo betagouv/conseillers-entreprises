@@ -130,7 +130,7 @@ module Stats
 
     ## Overrides
     #
-    def subtitle
+    def subtitle # rubocop:disable Naming/PredicateMethod
       false
     end
 

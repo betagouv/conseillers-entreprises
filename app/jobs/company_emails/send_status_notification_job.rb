@@ -5,7 +5,7 @@ class CompanyEmails::SendStatusNotificationJob
 
   def perform(match_id, previous_status)
     match = Match.find(match_id)
-    if should_notify_everyone(previous_status, match.status)
+    if should_notify_everyone?(previous_status, match.status)
       # Notify the company
       CompanyMailer.notify_taking_care(match).deliver_later
     end
@@ -16,7 +16,7 @@ class CompanyEmails::SendStatusNotificationJob
 
   private
 
-  def should_notify_everyone(old_status, new_status)
+  def should_notify_everyone?(old_status, new_status)
     not_taken_care_of = %w[quo not_for_me]
     taken_care_of = %w[taking_care done]
 

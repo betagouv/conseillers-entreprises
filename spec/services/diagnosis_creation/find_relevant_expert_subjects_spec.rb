@@ -10,7 +10,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
 
     subject{ described_class.new(need).apply_match_filters(ExpertSubject.all) }
 
-    context 'accepting_years_of_existence' do
+    context 'accepting_years_of_existence?' do
       let(:diagnosis) { create :diagnosis, company: company }
       let(:need) { create :need, diagnosis: diagnosis }
       let!(:es_01) { create :expert_subject, expert: expert }

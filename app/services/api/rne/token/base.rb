@@ -12,7 +12,7 @@ module Api::Rne::Token
         http_request = Request.new(@call_count)
         if http_request.success?
           Responder.new(http_request).call
-        elsif first_try
+        elsif first_try?
           Api::Rne::Token::Base.new(@call_count + 1).call
         else
           handle_error(http_request)
@@ -25,7 +25,7 @@ module Api::Rne::Token
       Rails.cache.delete('rne_token') if token.is_a?(Hash) && token&.dig("rne")&.key?("error")
     end
 
-    def first_try
+    def first_try?
       @call_count == 0
     end
   end
