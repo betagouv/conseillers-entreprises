@@ -38,7 +38,7 @@
               = company_form.text_field :name, required: true, class: 'fr-input'
           .fr-fieldset__element
             = label_tag 'city-autocomplete', t('.city')
-            %div{ data: { action: 'city-autocomplete', 'default-value': @diagnosis.solicitation&.location } }
+            %div{ data: { action: 'city-autocomplete', 'default-value': h(@diagnosis.solicitation&.location) } }
             = facility_form.hidden_field :insee_code, data: { target: 'insee-code' }
         .text-right
           = form.button :submit, class: 'fr-btn btn-green btn-icon' do
