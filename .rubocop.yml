@@ -605,6 +605,9 @@ Naming/MethodName:
 Naming/PredicatePrefix:
   Enabled: false
 
+Naming/PredicateMethod:
+  Enabled: false
+
 Naming/BlockParameterName:
   Enabled: true
 
