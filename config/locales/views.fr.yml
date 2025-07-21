@@ -820,7 +820,7 @@ fr:
         previous: Précédent
         send: Envoyer ma demande
       certify_being_company_boss: Je certifie être dirigeant(e) de l’entreprise ou mandaté(e) officiellement par ma direction. Toute demande d'intermédiaire ou de salarié(e) ne sera pas prise en charge.
-      description: Quelle est votre demande ?
+      description: 'Complétez votre demande :'
       empty_result_help_html: La recherche de votre entreprise n’a pas été concluante ? Renseignez manuellement votre numéro de SIRET ici ou effectuez une <a href=%{path}> nouvelle recherche</a>.
       find_my_facility: Recherchez votre entreprise (SIRET, SIREN, nom...)
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours</b>"
@@ -879,7 +879,7 @@ fr:
       iframe_message_html: Votre demande a bien été transmise à Conseillers-Entreprises, le service public de mise en relation pour les TPE & PME.
       process_description_step_1_html: Nous allons <b> identifier le bon conseiller </b> près de chez vous.
       process_description_step_1_iframe_html: Conseillers-Entreprises va <b> identifier le bon conseiller </b> près de chez vous.
-      process_description_step_2_html: Le conseiller vous <b>contactera par téléphone</b> dans les 5 jours (délai moyen de prise en charge).
+      process_description_step_2_html: Le conseiller vous <b>contactera %{mode_contact}</b> dans les 5 jours (délai moyen de prise en charge).
       process_description_title: Et maintenant ?
       title: Merci pour votre demande
     header:
