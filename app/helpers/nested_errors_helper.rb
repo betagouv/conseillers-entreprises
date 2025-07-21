@@ -35,6 +35,6 @@ module NestedErrorsHelper
     end
       .compact
 
-    [main_message, sub_messages].flatten.join
+    [main_message, sub_messages].join
   end
 end

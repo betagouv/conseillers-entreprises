@@ -21,7 +21,7 @@ module CsvExport
         row = attributes.values
         # Il peut y avoir bcp de donnees, `sorted_relation.each` est long et couteux
         sorted_relation = sort_relation(@relation)
-        while sorted_relation.count > 0
+        while sorted_relation.any?
           object = sorted_relation.shift
           csv << row.map do |val|
             if val.respond_to? :call
