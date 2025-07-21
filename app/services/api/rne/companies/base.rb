@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api::Rne::Companies
   class Base < Api::Rne::Base
   end

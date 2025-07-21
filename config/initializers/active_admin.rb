@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ActiveAdmin.setup do |config|
   # == Site Title
   #

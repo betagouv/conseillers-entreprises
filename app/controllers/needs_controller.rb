@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class NeedsController < ApplicationController
   include Inbox
   before_action :retrieve_user, except: %i[index]

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RemindersService
   MATCHES_AGE = {
     old: 15.days.ago,

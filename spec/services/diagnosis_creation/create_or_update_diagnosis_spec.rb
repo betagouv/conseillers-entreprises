@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 require 'api_helper'
 # Nécessaire pour que la constante Api::BasicError soit initialisée
