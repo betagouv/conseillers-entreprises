@@ -214,7 +214,7 @@ ActiveAdmin.register Expert do
             model = "DecoupageAdministratif::#{zone_type.camelize}".constantize
             expert_territorial_zones.map do |tz|
               row(tz.code) do
-                model_instance = model.find_by(code: tz.code)
+                model_instance = model.find(tz.code)
                 name = model_instance.nom
                 if zone_type == "epci"
                   communes_names = []
