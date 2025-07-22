@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api::Cfadock
   class Opco < Api::ApiEntreprise::Base
   end

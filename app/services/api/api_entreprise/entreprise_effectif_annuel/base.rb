@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api::ApiEntreprise::EntrepriseEffectifAnnuel
   class Base < Api::ApiEntreprise::Base; end
 
