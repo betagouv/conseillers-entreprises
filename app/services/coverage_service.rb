@@ -3,16 +3,15 @@ class CoverageService
     @institution_subject = institution_subject
     @grouped_experts = grouped_experts
     @antennes = @grouped_experts.keys
-    @all_potential_antennes_ids = compute_all_potential_antennes_ids # Pré-calcule pour éviter recomputation
+    @antennes_insee_codes = @antennes.flat_map(&:insee_codes).uniq
+    @all_potential_antennes_ids = compute_all_potential_antennes_ids
     gather_all_experts
   end
 
   def call
-    antennes_insee_codes = @antennes.flat_map(&:insee_codes).uniq
+    return theme_outside_territories if theme_outside_territories?(@antennes_insee_codes)
 
-    return theme_outside_territories if theme_outside_territories?(antennes_insee_codes)
-
-    experts_and_users_by_insee_code = initialize_experts_and_users_by_insee_code(antennes_insee_codes)
+    experts_and_users_by_insee_code = initialize_experts_and_users_by_insee_code
     global_experts_and_users = build_global_experts_and_users
 
     check_coverage(experts_and_users_by_insee_code, global_experts_and_users)
@@ -27,20 +26,12 @@ class CoverageService
 
   def gather_all_experts
     @all_experts ||= begin
-      antennes_insee_codes = @antennes.flat_map(&:insee_codes)
-      experts_without_specific_territories = get_experts_without_specific_territories(antennes_insee_codes, @institution_subject)
-      experts_with_specific_territories = get_experts_with_specific_territories(antennes_insee_codes, @institution_subject)
-      experts_with_global_zone = get_experts_with_global_zone(@institution_subject)
-
       experts_without_specific_territories + experts_with_specific_territories + experts_with_global_zone
     end
   end
 
-  def initialize_experts_and_users_by_insee_code(antennes_insee_codes)
-    experts_and_users_by_insee_code = antennes_insee_codes.index_with { [] }
-
-    experts_without_specific_territories = get_experts_without_specific_territories(antennes_insee_codes, @institution_subject)
-    experts_with_specific_territories = get_experts_with_specific_territories(antennes_insee_codes, @institution_subject)
+  def initialize_experts_and_users_by_insee_code
+    experts_and_users_by_insee_code = @antennes_insee_codes.index_with { [] }
 
     experts_and_users_by_insee_code = process_experts(experts_and_users_by_insee_code, experts_without_specific_territories) do |expert|
       expert.antenne.insee_codes
@@ -52,32 +43,34 @@ class CoverageService
   end
 
   def build_global_experts_and_users
-    experts_global_zones = get_experts_with_global_zone(@institution_subject).includes(:users)
-    experts_global_zones.map do |expert|
-      { expert_id: expert.id, users_ids: expert.users.pluck(:id) }
+    experts_with_global_zone.map do |expert|
+      { expert_id: expert.id, users_ids: expert.users.map(&:id) }
     end
   end
 
-  def get_experts_without_specific_territories(insee_codes, institution_subject)
-    institution_subject.not_deleted_experts
+  def experts_without_specific_territories
+    @experts_without_specific_territories ||= @institution_subject.not_deleted_experts
       .without_territorial_zones
+      .includes(:users, :antenne)
       .where(antenne_id: @all_potential_antennes_ids)
-      .select { |expert| (expert.antenne.insee_codes & insee_codes).any? }
+      .select { |expert| (expert.antenne.insee_codes & @antennes_insee_codes).any? }
       .uniq
   end
 
-  def get_experts_with_global_zone(institution_subject)
-    institution_subject.not_deleted_experts
+  def experts_with_global_zone
+    @experts_with_global_zone ||= @institution_subject.not_deleted_experts
       .with_global_zone
+      .includes(:users)
       .where(antenne_id: @all_potential_antennes_ids)
       .distinct
   end
 
-  def get_experts_with_specific_territories(insee_codes, institution_subject)
-    institution_subject.not_deleted_experts
+  def experts_with_specific_territories
+    @experts_with_specific_territories ||= @institution_subject.not_deleted_experts
       .with_territorial_zones
+      .includes(:users)
       .where(antenne_id: @all_potential_antennes_ids)
-      .select { |expert| (expert.insee_codes & insee_codes).any? }
+      .select { |expert| (expert.insee_codes & @antennes_insee_codes).any? }
       .uniq
   end
 
@@ -235,7 +228,7 @@ class CoverageService
       insee_codes.each do |insee_code|
         next unless valid_insee_codes.include?(insee_code)
 
-        temp_experts_by_insee[insee_code] << { expert_id: expert.id, users_ids: expert.users.ids }
+        temp_experts_by_insee[insee_code] << { expert_id: expert.id, users_ids: expert.users.pluck(:id) }
       end
     end
 
