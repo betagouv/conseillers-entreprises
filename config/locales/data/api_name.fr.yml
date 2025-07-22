@@ -8,7 +8,6 @@ fr:
     api-apientreprise-etablissement-base: Api Entreprise (établissement)
     api-apientreprise-etablissementeffectifannuel-base: Api Entreprise (effectif annuel établissement)
     api-apientreprise-etablissementeffectifmensuel-base: Api Entreprise (effectif mensuel établissement)
-    api-cfadock-opco: Api CFA Dock
     api-francecompetence-siret-base: Api France Compétence (siret)
     api-francecompetence-token-base: Api France Compétence (token)
     api-insee-siren-base: Api Insee (siren)

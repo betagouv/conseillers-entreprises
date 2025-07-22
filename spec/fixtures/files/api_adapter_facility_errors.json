@@ -94,7 +94,6 @@
     "effectifs_etablissement_mensuel": {
       "error": "Entité non trouvée : L'identifiant indiqué n'existe pas, n'est pas connu ou ne comporte aucune information pour cet appel. Veuillez vérifier que l'identifiant correspond au périmètre couvert par l'API."
     },
-    "opco_cfadock": { "error": "NOT_FOUND" },
     "opco_fc": { "error": "Siret Not Found" },
     "forme_exercice": "COMMERCIALE",
     "description": "La conception le développement et la mise en oeuvre d'information et d'applications par le conseil et la mise en oeuvre innovante d'expertises technologiques et méthodologiques , la conception le développement et la distribution de solutions logicielles , l'accompagnement technologique méthodologique et culturel pour la réalisation de produits logiciels innovants et pour la transformation digitale des pratiques, processus et organisations des entreprises la formation dans le domaine des expertises technologiques et méthodologiques.",
