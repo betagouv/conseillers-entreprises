@@ -77,43 +77,6 @@ RSpec.describe User do
     end
   end
 
-  describe 'fill_absence_start_at' do
-    let(:user) { create :user }
-
-    before { user.update(absence_start_at: absence_start_at, absence_end_at: absence_end_at) }
-
-    context 'no absence' do
-      let(:absence_start_at) { nil }
-      let(:absence_end_at) { nil }
-
-      it 'doesnt change data' do
-        expect(user.absence_start_at&.to_date).to be_nil
-        expect(user.absence_end_at&.to_date).to be_nil
-      end
-    end
-
-    context 'borned absence' do
-      let(:absence_start_at) { 10.days.ago }
-      let(:absence_end_at) { 5.days.since }
-
-      it 'doesnt change data' do
-        expect(user.absence_start_at.to_date).to eq(10.days.ago.to_date)
-        expect(user.absence_end_at.to_date).to eq(5.days.since.to_date)
-      end
-    end
-
-    context 'only end_at set' do
-      let(:absence_start_at) { nil }
-      let(:absence_end_at) { 15.days.since }
-
-      it 'sets absence start at' do
-        expect(user.absence_start_at&.to_date).to eq(Date.today)
-        expect(user.absence_end_at.to_date).to eq(15.days.since.to_date)
-      end
-    end
-
-  end
-
   describe 'scopes' do
     describe 'not_invited' do
       subject { described_class.not_invited }
@@ -244,7 +207,7 @@ RSpec.describe User do
     end
   end
 
-  describe 'supervised_antennes' do
+  describe '#supervised_antennes' do
     let(:user) { create :user }
     let!(:regional_antenne) { create :antenne, :regional }
     let!(:local_antenne) { create :antenne, :local, parent_antenne: regional_antenne }
@@ -317,6 +280,72 @@ RSpec.describe User do
 
       it do
         expect(manager.support_user).to eq regional_referent
+      end
+    end
+  end
+
+  describe '#fill_absence_start_at' do
+    let(:user) { create :user }
+
+    before { user.update(absence_start_at: absence_start_at, absence_end_at: absence_end_at) }
+
+    context 'no absence' do
+      let(:absence_start_at) { nil }
+      let(:absence_end_at) { nil }
+
+      it 'doesnt change data' do
+        expect(user.absence_start_at&.to_date).to be_nil
+        expect(user.absence_end_at&.to_date).to be_nil
+      end
+    end
+
+    context 'borned absence' do
+      let(:absence_start_at) { 10.days.ago }
+      let(:absence_end_at) { 5.days.since }
+
+      it 'doesnt change data' do
+        expect(user.absence_start_at.to_date).to eq(10.days.ago.to_date)
+        expect(user.absence_end_at.to_date).to eq(5.days.since.to_date)
+      end
+    end
+
+    context 'only end_at set' do
+      let(:absence_start_at) { nil }
+      let(:absence_end_at) { 15.days.since }
+
+      it 'sets absence start at' do
+        expect(user.absence_start_at&.to_date).to eq(Date.today)
+        expect(user.absence_end_at.to_date).to eq(15.days.since.to_date)
+      end
+    end
+  end
+
+  describe '#add_shared_satisfactions' do
+    let(:regional_antenne) { create :antenne, :regional }
+    let(:local_antenne) { create :antenne, parent_antenne: regional_antenne }
+    let(:user) { create :user, antenne: local_antenne }
+    let(:expert) { create :expert, antenne: local_antenne, users: [user] }
+    let(:manager) { create :user, antenne: regional_antenne }
+
+    let(:need_1) { create :need, matches: [ create(:match, status: :done, expert: expert) ] }
+    let(:company_satisfaction_1) { create :company_satisfaction, need: need_1 }
+    let!(:shared_expert_satisfaction_1) { create :shared_satisfaction, company_satisfaction: company_satisfaction_1, user: user, expert: expert }
+
+    before do
+      manager.managed_antennes.push(regional_antenne)
+    end
+
+    context 'not yet shared satisfaction' do
+      it 'creates retroactively shared satisfactions' do
+        expect { manager.add_shared_satisfactions }.to change(manager.shared_satisfactions, :count).by(1)
+      end
+    end
+
+    context 'already shared satisfaction' do
+      let!(:shared_expert_satisfaction_2) { create :shared_satisfaction, company_satisfaction: company_satisfaction_1, user: manager }
+
+      it 'creates retroactively shared satisfactions' do
+        expect { manager.add_shared_satisfactions }.not_to change(manager.shared_satisfactions, :count)
       end
     end
   end
