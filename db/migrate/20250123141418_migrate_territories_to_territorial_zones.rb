@@ -78,7 +78,7 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
 
   def check_and_create_if_epci(communes_codes, item)
     # rubocop:disable Rails/DynamicFindBy
-    epcis = DecoupageAdministratif::Epci.find_by_communes_codes(communes_codes)
+    epcis = DecoupageAdministratif::Epci.search_by_communes_codes(communes_codes)
     # rubocop:enable Rails/DynamicFindBy
     epcis.each do |epci|
       item.territorial_zones.create!(zone_type: :epci, code: epci.code)
