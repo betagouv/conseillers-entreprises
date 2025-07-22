@@ -42,17 +42,22 @@
         $ gem install bundler
         $ bundle
 
-6. Execute database configurations for development and test environments.
+6. … and yarn
 
-        $ rake db:create db:schema:load
-        $ rake db:create db:schema:load RAILS_ENV=test
-        $ rake parallel:create # for parallel
+        $ npm install --global yarn
+        $ yarn install
 
 7. Create `.env` file from `.env.example`, and ask the team to fill it in.
 
         $ cp .env.example .env
 
-8. You can now start the web server and the jobs task.
+8. Execute database configurations for development and test environments.
+
+        $ rake db:create db:schema:load
+        $ rake db:create db:schema:load RAILS_ENV=test
+        $ rake parallel:create # for parallel
+
+9. You can now start the web server and the jobs task.
 
         $ gem install foreman
         $ foreman start --procfile=Procfile.dev
