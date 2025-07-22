@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/betagouv/decoupage-administratif-gem
-  revision: b2f5040b28954820b3425d052060b70eb13ed509
+  revision: fa24ad5042192c6a1cc579138b2c7ee7b6576c60
   branch: files
   specs:
     decoupage_administratif (0.1.0)
