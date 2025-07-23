@@ -7,11 +7,6 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
     end
   end
 
-  def down
-    # TODO pas sure de garder ce bout de code
-    TerritorialZone.delete_all
-  end
-
   def create_regional_zones
     regional_antennes = Antenne.not_deleted.territorial_level_regional
     puts "Antennes régionales"
