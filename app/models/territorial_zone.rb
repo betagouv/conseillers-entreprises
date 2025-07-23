@@ -84,8 +84,12 @@ class TerritorialZone < ApplicationRecord
   def validate_existence
     zone = I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone').capitalize
     error_message = I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: zone)
-    model = "DecoupageAdministratif::#{self.zone_type&.classify}".constantize.find(code)
-    return errors.add(:code, error_message) if model.nil?
+    begin
+      model = "DecoupageAdministratif::#{self.zone_type&.classify}".constantize.find(code)
+      return errors.add(:code, error_message) if model.nil?
+    rescue DecoupageAdministratif::NotFoundError
+      errors.add(:code, error_message)
+    end
   end
 
   def self.ransackable_attributes(auth_object = nil)
