@@ -23,16 +23,36 @@ module WithTerritorialZones
   end
 
   def insee_codes
-    territorial_zones.map do |tz|
-      if tz.zone_type == "commune"
-        tz.code
-      else
-        tz.territory_model.communes.map(&:code)
-      end
-    end.flatten.uniq
+    calculate_insee_codes
   end
 
   def regions
     territorial_zones.flat_map(&:regions).compact.uniq
+  end
+
+  def intersects_with_insee_codes?(insee_codes_array)
+    return false if insee_codes_array.empty?
+
+    # Version optimisée : pas besoin de calculer tous les insee_codes
+    territorial_zones.any? do |tz|
+      tz.territory_model.territory_intersects_with_insee_codes?(insee_codes_array)
+    end
+  end
+
+  private
+
+  def calculate_insee_codes
+    zones = territorial_zones.to_a
+
+    # Traite les communes directement
+    commune_codes = zones.select { |tz| tz.zone_type == "commune" }.map(&:code)
+
+    # Groupe les autres zones par type pour optimiser les requêtes
+    other_zones = zones.reject { |tz| tz.zone_type == "commune" }
+    territory_codes = other_zones.flat_map do |tz|
+      tz.territory_model.communes.map(&:code)
+    end
+
+    (commune_codes + territory_codes).uniq
   end
 end

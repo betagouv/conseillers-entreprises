@@ -33,13 +33,9 @@ class CoverageService
   def initialize_experts_and_users_by_insee_code
     experts_and_users_by_insee_code = @antennes_insee_codes.index_with { [] }
 
-    experts_and_users_by_insee_code = process_experts(experts_and_users_by_insee_code, experts_without_specific_territories) do |expert|
-      expert.antenne.insee_codes
-    end
+    experts_and_users_by_insee_code = process_experts_optimized(experts_and_users_by_insee_code, experts_without_specific_territories, :antenne)
 
-    process_experts(experts_and_users_by_insee_code, experts_with_specific_territories) do |expert|
-      expert.insee_codes
-    end
+    process_experts_optimized(experts_and_users_by_insee_code, experts_with_specific_territories, :expert)
   end
 
   def build_global_experts_and_users
@@ -53,7 +49,7 @@ class CoverageService
       .without_territorial_zones
       .includes(:users, :antenne)
       .where(antenne_id: @all_potential_antennes_ids)
-      .select { |expert| (expert.antenne.insee_codes & @antennes_insee_codes).any? }
+      .select { |expert| expert.antenne.intersects_with_insee_codes?(@antennes_insee_codes) }
       .uniq
   end
 
@@ -66,12 +62,53 @@ class CoverageService
   end
 
   def experts_with_specific_territories
-    @experts_with_specific_territories ||= @institution_subject.not_deleted_experts
-      .with_territorial_zones
-      .includes(:users)
-      .where(antenne_id: @all_potential_antennes_ids)
-      .select { |expert| (expert.insee_codes & @antennes_insee_codes).any? }
-      .uniq
+    @experts_with_specific_territories ||= begin
+      experts = @institution_subject.not_deleted_experts
+        .with_territorial_zones
+        .includes(:users, :territorial_zones)
+        .where(antenne_id: @all_potential_antennes_ids)
+
+      experts.select { |expert| expert.intersects_with_insee_codes?(@antennes_insee_codes) }.uniq
+    end
+  end
+
+  private
+
+  # Version optimisée de process_experts utilisant les relations hiérarchiques
+  def process_experts_optimized(experts_and_users_by_insee_code, experts, source_type)
+    # Préfère une structure temporaire et un Set pour améliorer la performance
+    valid_insee_codes = experts_and_users_by_insee_code.keys
+    
+    experts.each do |expert|
+      matching_insee_codes = case source_type
+      when :antenne
+        # Pour les experts sans zones spécifiques, calcule l'intersection avec l'antenne
+        calculate_intersection_with_antenne(expert.antenne, valid_insee_codes)
+      when :expert
+        # Pour les experts avec zones spécifiques, calcule l'intersection avec l'expert
+        calculate_intersection_with_expert(expert, valid_insee_codes)
+      end
+      
+      # Ajoute l'expert à tous les codes INSEE qu'il couvre
+      matching_insee_codes.each do |insee_code|
+        experts_and_users_by_insee_code[insee_code] << { 
+          expert_id: expert.id, 
+          users_ids: expert.users.pluck(:id) 
+        }
+      end
+    end
+
+    experts_and_users_by_insee_code
+  end
+
+  def calculate_intersection_with_antenne(antenne, valid_insee_codes)
+    antenne_insee_codes = antenne.insee_codes
+    valid_insee_codes.select { |code| antenne_insee_codes.include?(code) }
+  end
+
+  def calculate_intersection_with_expert(expert, valid_insee_codes)
+    expert_insee_codes = expert.insee_codes
+    valid_insee_codes.select { |code| expert_insee_codes.include?(code) }
   end
 
   def compute_all_potential_antennes_ids
@@ -91,8 +128,8 @@ class CoverageService
 
   def check_coverage(experts_and_users_by_insee_code, experts_global_with_users)
     # rubocop:disable Lint/DuplicateBranch
-    coverage_hash = if (@institution_subject.subject.territories.any? && @antenne.present? &&
-      (@institution_subject.subject.territories && @antenne.regions).empty?) ||
+    coverage_hash = if (@institution_subject.subject.territories.any? && @antennes.any? &&
+      (@institution_subject.subject.territories.flat_map(&:regions) & @antennes.flat_map(&:regions)).empty?) ||
       (@institution_subject.theme.insee_codes.present? && (@institution_subject.theme.insee_codes & experts_and_users_by_insee_code.keys).empty?) # Si le theme a des codes INSEE qui ne sont pas dans en dehors des territoires observés
       good_coverage
     elsif experts_and_users_by_insee_code.values.all?([]) &&
