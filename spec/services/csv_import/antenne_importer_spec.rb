@@ -34,7 +34,7 @@ describe CsvImport::AntenneImporter, CsvImport do
   context 'invalid rows' do
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes communes
+        Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions
         Test Institution,Antenne1,invalid_code
       CSV
     end
@@ -42,25 +42,24 @@ describe CsvImport::AntenneImporter, CsvImport do
     it do
       expect(result).not_to be_success
       expect(result.header_errors).to be_empty
-      expect(result.objects.first.errors.details).to eq({ insee_codes: [{ error: :invalid_insee_codes }] })
+      expect(result.postprocess_errors.first).to eq("Échec de l’import : Erreur lors du post-traitement de l'antenne : La validation a échoué : Code Format pour commune est invalide., Code Commune non trouvé")
     end
   end
 
   context 'two antennes' do
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
-        Test Institution,Antenne1,00001 00002,Mariane Martin, mariane.m@gouv.fr,0123456789
-        Test Institution,Antenne2,00003 00004
+        Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions,Nom du responsable,Email du responsable,Téléphone du responsable
+        Test Institution,Antenne1,01037 01038,,,,Mariane Martin, mariane.m@gouv.fr,0123456789
+        Test Institution,Antenne2,,,22 35,,
       CSV
     end
 
     it do
       expect(result).to be_success
       expect(result.objects.count).to eq 2
-      expect(Commune.pluck(:insee_code)).to match_array %w[00001 00002 00003 00004]
-      expect(Antenne.find_by(name: 'Antenne1').communes.pluck(:insee_code)).to eq %w[00001 00002]
-      expect(Antenne.find_by(name: 'Antenne2').communes.pluck(:insee_code)).to eq %w[00003 00004]
+      expect(Antenne.find_by(name: 'Antenne1').territorial_zones.with_communes.pluck(:code)).to eq %w[01037 01038]
+      expect(Antenne.find_by(name: 'Antenne2').territorial_zones.with_departements.pluck(:code)).to eq %w[22 35]
       expect(Antenne.find_by(name: 'Antenne1').managers.first.full_name).to eq 'Mariane Martin'
       expect(Antenne.find_by(name: 'Antenne1').managers.first.email).to eq 'mariane.m@gouv.fr'
       expect(Antenne.find_by(name: 'Antenne1').managers.first.phone_number).to eq '01 23 45 67 89'
@@ -70,8 +69,8 @@ describe CsvImport::AntenneImporter, CsvImport do
   context 'tolerant headers' do
     let(:csv) do
       <<~CSV
-        Institution,Nom ,Codes communes, Nom du responsable,Email du responsable,Téléphone du responsable
-        Test Institution,Antenne1,00001 00002,Mariane Martin, mariane.m@gouv.fr,0123456789
+        Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions, Nom du responsable,Email du responsable,Téléphone du responsable
+        Test Institution,Antenne1,01037 01038,,,,Mariane Martin, mariane.m@gouv.fr,0123456789
       CSV
     end
 
@@ -95,44 +94,44 @@ describe CsvImport::AntenneImporter, CsvImport do
 
     it do
       expect(result).to be_success
-      expect(Antenne.find_by(name: 'Antenne1').communes.pluck(:insee_code)).to match_array %w[06001 06002]
+      expect(Antenne.find_by(name: 'Antenne1').territorial_zones.with_communes.pluck(:code)).to match_array %w[06001 06002]
     end
   end
 
   context 'existing antenne overwrite' do
     before do
-      create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
+      create :antenne, institution: institution, name: 'Antenne1', territorial_zones: [create(:territorial_zone, :commune, code: '06001')]
     end
 
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes communes
-        Test Institution,Antenne1,00002
+        Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions
+        Test Institution,Antenne1,06002,,,
       CSV
     end
 
     it do
       expect(result).to be_success
-      expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq '00002'
+      expect(Antenne.find_by(name: 'Antenne1').territorial_zones.pluck(:code)).to eq ['06002']
     end
   end
 
   context 'Antenne manager' do
     context 'Add manager to existing antenne without INSEE codes' do
       before do
-        create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
+        create :antenne, institution: institution, name: 'Antenne1', territorial_zones: [create(:territorial_zone, :commune, code: '06001')]
       end
 
       let(:csv) do
         <<~CSV
-          Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
-          Test Institution,Antenne1,,Mariane Martin, mariane.m@gouv.fr,0123456789
+          Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions,Nom du responsable,Email du responsable,Téléphone du responsable
+          Test Institution,Antenne1,,,,,Mariane Martin, mariane.m@gouv.fr,0123456789
         CSV
       end
 
       it do
         expect(result).to be_success
-        expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq '00001'
+        expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq ["06001"]
         expect(Antenne.find_by(name: 'Antenne1').managers.first.full_name).to eq 'Mariane Martin'
         expect(Antenne.find_by(name: 'Antenne1').managers.first.email).to eq 'mariane.m@gouv.fr'
         expect(Antenne.find_by(name: 'Antenne1').managers.first.phone_number).to eq '01 23 45 67 89'
@@ -142,8 +141,8 @@ describe CsvImport::AntenneImporter, CsvImport do
     context 'Import new manager to new antenne' do
       let(:csv) do
         <<~CSV
-          Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
-          Test Institution,Antenne1,,Mariane Martin, mariane.m@gouv.fr,0123456789
+          Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions,Nom du responsable,Email du responsable,Téléphone du responsable
+           Test Institution,Antenne1,,,,,Mariane Martin, mariane.m@gouv.fr,0123456789
         CSV
       end
 
@@ -157,19 +156,19 @@ describe CsvImport::AntenneImporter, CsvImport do
     end
 
     context 'Import existing manager to existing antenne without INSEE codes' do
-      let(:antenne) { create :antenne, institution: institution, name: 'Parabolique', insee_codes: '00001' }
+      let(:antenne) { create :antenne, institution: institution, name: 'Parabolique', territorial_zones: [create(:territorial_zone, :commune, code: '01037')] }
       let!(:existing_user) { create :user, full_name: 'Iznogoud', email: 'test@test.com', phone_number: '4321', antenne: antenne }
 
       let(:csv) do
         <<~CSV
-          Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
-          Test Institution,Parabolique,,Iznogoud, test@test.com,0123456789
+          Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions,Nom du responsable,Email du responsable,Téléphone du responsable
+          Test Institution,Parabolique,,,,,Iznogoud, test@test.com,0123456789
         CSV
       end
 
       it do
         expect(result).to be_success
-        expect(Antenne.find_by(name: 'Parabolique').insee_codes).to eq '00001'
+        expect(Antenne.find_by(name: 'Parabolique').insee_codes).to eq ["01037"]
         expect(Antenne.find_by(name: 'Parabolique').managers.size).to eq 1
         expect(Antenne.find_by(name: 'Parabolique').managers).to contain_exactly(existing_user)
       end
@@ -178,7 +177,7 @@ describe CsvImport::AntenneImporter, CsvImport do
     context 'Import manager with error' do
       let(:csv) do
         <<~CSV
-          Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
+          Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions,Nom du responsable,Email du responsable,Téléphone du responsable
           Test Institution,Antenne1,,, mariane.m@gouv.fr,0123456789
         CSV
       end
@@ -190,20 +189,18 @@ describe CsvImport::AntenneImporter, CsvImport do
   end
 
   context 'existing antenne tolerant name' do
-    before do
-      create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
-    end
+    let!(:antenne) { create :antenne, institution: institution, name: 'Antenne1', territorial_zones: [create(:territorial_zone, :commune, code: '01037')] }
 
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes communes
-        Test Institution, antenne1 ,00002
+        Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions
+        Test Institution, antenne1 ,01037,,,
       CSV
     end
 
     it do
       expect(result).to be_success
-      expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq '00002'
+      expect(Antenne.find_by(name: 'Antenne1').territorial_zones.pluck(:code)).to eq ['01037']
     end
   end
 end

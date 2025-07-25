@@ -10,7 +10,7 @@ module Annuaire
     end
 
     def form_params
-      %i[institution antenne name region theme_id subject_id]
+      %i[institution antenne name region_code theme_id subject_id]
         .reduce({}) { |h,key| h[key] = params[key]; h }
     end
 
@@ -33,7 +33,7 @@ module Annuaire
     end
 
     def search_fields
-      [:region, :theme_id, :subject_id, :query]
+      [:region_code, :theme_id, :subject_id, :query]
     end
   end
 end

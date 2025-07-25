@@ -76,6 +76,8 @@ gem 'caxlsx_rails'
 gem 'split', require: 'split/dashboard'
 gem 'matrix'
 gem 'mjml-rails'
+gem 'progress_bar'
+gem 'decoupage_administratif', git: 'https://github.com/betagouv/decoupage-administratif-gem', branch: 'territory_intersects_with_insee_codes'
 
 # Notifiers
 gem "sentry-ruby"
