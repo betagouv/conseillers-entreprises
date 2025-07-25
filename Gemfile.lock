@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/betagouv/decoupage-administratif-gem
-  revision: 62d0b6d1431ce1dce3f9d79a1be59058779e688c
-  branch: files
+  revision: d613a76d064497932106d5fb76a7747d6da60c0c
+  branch: territory_intersects_with_insee_codes
   specs:
     decoupage_administratif (0.1.0)
       rake

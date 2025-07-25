@@ -78,7 +78,7 @@ class CoverageService
   def process_experts_optimized(experts_and_users_by_insee_code, experts, source_type)
     # Préfère une structure temporaire et un Set pour améliorer la performance
     valid_insee_codes = experts_and_users_by_insee_code.keys
-    
+
     experts.each do |expert|
       matching_insee_codes = case source_type
       when :antenne
@@ -88,12 +88,12 @@ class CoverageService
         # Pour les experts avec zones spécifiques, calcule l'intersection avec l'expert
         calculate_intersection_with_expert(expert, valid_insee_codes)
       end
-      
+
       # Ajoute l'expert à tous les codes INSEE qu'il couvre
       matching_insee_codes.each do |insee_code|
-        experts_and_users_by_insee_code[insee_code] << { 
-          expert_id: expert.id, 
-          users_ids: expert.users.pluck(:id) 
+        experts_and_users_by_insee_code[insee_code] << {
+          expert_id: expert.id,
+          users_ids: expert.users.pluck(:id)
         }
       end
     end
