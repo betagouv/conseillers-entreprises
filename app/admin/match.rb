@@ -9,7 +9,6 @@ ActiveAdmin.register Match do
     def scoped_collection
       base_includes = [
         :need, :facility, :company, :advisor, :expert, :subject, :theme,
-        { facility: :commune }
       ]
       additional_includes = []
 
