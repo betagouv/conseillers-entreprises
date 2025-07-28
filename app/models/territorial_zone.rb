@@ -48,7 +48,7 @@ class TerritorialZone < ApplicationRecord
   def territory_model
     model_class = ZONE_TYPE_MODELS[zone_type]
     return nil unless model_class
-    
+
     model_class.find(code)
   end
 
@@ -95,10 +95,10 @@ class TerritorialZone < ApplicationRecord
   def validate_existence
     zone = I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone').capitalize
     error_message = I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: zone)
-    
+
     model_class = ZONE_TYPE_MODELS[zone_type]
     return errors.add(:code, error_message) unless model_class
-    
+
     begin
       model = model_class.find(code)
       return errors.add(:code, error_message) if model.nil?
