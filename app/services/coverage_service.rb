@@ -257,7 +257,7 @@ class CoverageService
     return missing_insee_codes(experts_by_insee) if has_missing_coverage?(experts_by_insee)
     return no_user if has_experts_but_no_users?(experts_by_insee, global_experts)
     return extra_insee_codes(experts_by_insee) if has_duplicate_coverage?(experts_by_insee)
-    
+
     good_coverage
   end
 
@@ -271,14 +271,14 @@ class CoverageService
 
   def theme_outside_covered_territories?(experts_by_insee)
     # Subject territories don't match antenne regions
-    territories_mismatch = @institution_subject.subject.territories.any? && 
+    territories_mismatch = @institution_subject.subject.territories.any? &&
                           @antennes.any? &&
                           (subject_regions & antenne_regions).empty?
-    
+
     # Theme has INSEE codes outside observed territories
     theme_codes_mismatch = @institution_subject.theme.insee_codes.present? &&
                           (@institution_subject.theme.insee_codes & experts_by_insee.keys).empty?
-    
+
     territories_mismatch || theme_codes_mismatch
   end
 
@@ -293,7 +293,7 @@ class CoverageService
   def has_experts_but_no_users?(experts_by_insee, global_experts)
     local_experts_no_users = experts_by_insee.values.flatten.pluck(:users_ids).all?([])
     global_experts_no_users = global_experts.pluck(:users_ids).empty?
-    
+
     local_experts_no_users && global_experts_no_users
   end
 
