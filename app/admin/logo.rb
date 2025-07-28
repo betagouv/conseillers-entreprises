@@ -11,7 +11,8 @@ ActiveAdmin.register Logo do
     end
     column :filename
     column :image, class: 'logo' do |l|
-      display_logo(name: l.filename, path: "institutions/")
+      path = l.logoable_type == 'Cooperation' ? "cooperations/" : "institutions/"
+      display_logo(name: l.filename, path: path)
     end
     column :logoable
     actions dropdown: true
@@ -25,7 +26,8 @@ ActiveAdmin.register Logo do
       row :filename
       row :logoable
       row :image, class: 'logo' do |l|
-        display_logo(name: l.filename, path: "institutions/")
+        path = l.logoable_type == 'Cooperation' ? "cooperations/" : "institutions/"
+        display_logo(name: l.filename, path: path)
       end
     end
   end
