@@ -19,6 +19,7 @@ module Api::FranceCompetence::Siret
     end
 
     # Mise en sommeil temporaire pour arrêter le pop des erreurs aux bizdev, a supprimer qd ça remarche
+    # Cf https://github.com/betagouv/conseillers-entreprises/issues/3929
     def has_unreachable_api_error?
       false
     end

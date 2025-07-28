@@ -7,8 +7,6 @@ RSpec.describe Api::RechercheEntreprises::Search::Fulltext::Base do
   let(:api) { described_class.new(query).call }
   let(:url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
 
-  # after { WebMock.reset! }
-
   context 'Query reconnue' do
     let(:query) { 'octo technology' }
 

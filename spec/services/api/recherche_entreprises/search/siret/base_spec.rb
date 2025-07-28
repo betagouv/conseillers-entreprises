@@ -7,8 +7,6 @@ RSpec.describe Api::RechercheEntreprises::Search::Siret::Base do
   let(:api) { described_class.new(query).call }
   let(:url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
 
-  # after { WebMock.reset! }
-
   context 'Query reconnue' do
     let(:query) { '41816609600069' }
 
