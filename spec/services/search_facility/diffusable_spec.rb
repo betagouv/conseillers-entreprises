@@ -61,7 +61,7 @@ RSpec.describe SearchFacility::Diffusable do
 
       before do
         stub_request(:get, api_url).to_return(
-          body: file_fixture('api_recherche_entreprises_search.json')
+          body: file_fixture('api_recherche_entreprises_search_fulltext.json')
         )
       end
 
@@ -71,7 +71,7 @@ RSpec.describe SearchFacility::Diffusable do
         expect(data[0]["siren"]).to eq("418166096")
         expect(data[0]["nom"]).to eq("Octo Technology")
         expect(data[0]["activite"]).to eq("Programmation, conseil et autres activités informatiques")
-        expect(data[0]["lieu"]).to eq("75002 PARIS 2")
+        expect(data[0]["lieu"]).to eq("75002 PARIS")
         expect(data[0]["code_region"]).to eq("11")
         expect(data[0]["nombre_etablissements_ouverts"]).to eq(2)
       end

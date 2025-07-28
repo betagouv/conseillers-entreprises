@@ -17,10 +17,10 @@ RSpec.describe CompaniesController do
   let(:entreprise_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/#{siren}?#{suffix_url}" }
   let(:effectif_etablissement_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/#{siret}/effectifs_mensuels/#{month}/annee/#{year}?#{suffix_url}" }
   let(:effectif_entreprise_url) { "https://entreprise.api.gouv.fr/v3/gip_mds/unites_legales/#{siren}/effectifs_annuels/#{1.year.ago.year}?#{suffix_url}" }
-  let(:opco_url) { "https://www.cfadock.fr/api/opcos?siret=#{siret}" }
   let(:mandataires_url) { "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/#{siren}/mandataires_sociaux?#{suffix_url}" }
   let(:rne_companies_url) { "https://registre-national-entreprises.inpi.fr/api/companies/#{siren}" }
   let(:france_competence_url) { "https://api.francecompetences.fr/siropartfc/v1/api/partenaire/#{siret}" }
+  let(:recherche_entreprise_url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{siret}" }
 
   before do
     ENV['API_ENTREPRISE_TOKEN'] = token
@@ -30,9 +30,9 @@ RSpec.describe CompaniesController do
     stub_request(:get, entreprise_url).to_return(body: file_fixture('api_entreprise_etablissement.json'))
     stub_request(:get, effectif_etablissement_url).to_return(body: file_fixture('api_entreprise_effectifs_etablissement.json'))
     stub_request(:get, effectif_entreprise_url).to_return(body: file_fixture('api_entreprise_effectifs_entreprise.json'))
-    stub_request(:get, opco_url).to_return(body: file_fixture('api_cfadock_opco.json'))
     stub_request(:get, mandataires_url).to_return(body: file_fixture('api_entreprise_mandataires_sociaux.json'))
     stub_request(:get, rne_companies_url).to_return(body: file_fixture('api_rne_companies.json'))
+    stub_request(:get, recherche_entreprise_url).to_return(body: file_fixture('api_recherche_entreprises_search_siret.json'))
     stub_france_competence_siret(france_competence_url, file_fixture('api_france_competence_siret.json'))
   end
 

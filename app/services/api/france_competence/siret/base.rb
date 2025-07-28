@@ -18,6 +18,12 @@ module Api::FranceCompetence::Siret
       @error&.message || ERROR_CODES[data['code']] || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
     end
 
+    # Mise en sommeil temporaire pour arrêter le pop des erreurs aux bizdev, a supprimer qd ça remarche
+    # Cf https://github.com/betagouv/conseillers-entreprises/issues/3929
+    def has_unreachable_api_error?
+      false
+    end
+
     private
 
     def url_key
