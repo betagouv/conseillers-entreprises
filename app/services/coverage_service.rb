@@ -33,9 +33,9 @@ class CoverageService
   def initialize_experts_and_users_by_insee_code
     experts_and_users_by_insee_code = @antennes_insee_codes.index_with { [] }
 
-    experts_and_users_by_insee_code = process_experts_optimized(experts_and_users_by_insee_code, experts_without_specific_territories, :antenne)
+    experts_and_users_by_insee_code = process_experts(experts_and_users_by_insee_code, experts_without_specific_territories, :antenne)
 
-    process_experts_optimized(experts_and_users_by_insee_code, experts_with_specific_territories, :expert)
+    process_experts(experts_and_users_by_insee_code, experts_with_specific_territories, :expert)
   end
 
   def build_global_experts_and_users
@@ -47,7 +47,7 @@ class CoverageService
   def experts_without_specific_territories
     @experts_without_specific_territories ||= @institution_subject.not_deleted_experts
       .without_territorial_zones
-      .includes(:users, :antenne)
+      .includes(:users, antenne: :territorial_zones)
       .where(antenne_id: @all_potential_antennes_ids)
       .select { |expert| expert.antenne.intersects_with_insee_codes?(@antennes_insee_codes) }
       .uniq
@@ -74,8 +74,7 @@ class CoverageService
 
   private
 
-  # Version optimisée de process_experts utilisant les relations hiérarchiques
-  def process_experts_optimized(experts_and_users_by_insee_code, experts, source_type)
+  def process_experts(experts_and_users_by_insee_code, experts, source_type)
     # Préfère une structure temporaire et un Set pour améliorer la performance
     valid_insee_codes = experts_and_users_by_insee_code.keys
 
@@ -251,30 +250,6 @@ class CoverageService
       expert: experts_match_filters.map { |filter| "#{I18n.t(filter.filter_type, scope: 'activerecord.attributes.match_filter')} - #{filter.filtrable_element}" },
       institution: institution_match_filters.map { |filter| "#{I18n.t(filter.filter_type, scope: 'activerecord.attributes.match_filter')} - #{filter.filtrable_element}" }
     }
-  end
-
-  def process_experts(experts_and_users_by_insee_code, experts)
-    # Préfère une méthode avec une structure temporaire et un Set pour améliorer la performance de 9-10%
-    valid_insee_codes = experts_and_users_by_insee_code.keys.to_set
-
-    # Prépare une structure temporaire pour regrouper les experts par code INSEE
-    temp_experts_by_insee = Hash.new { |h, k| h[k] = [] }
-
-    experts.each do |expert|
-      insee_codes = yield(expert)
-      insee_codes.each do |insee_code|
-        next unless valid_insee_codes.include?(insee_code)
-
-        temp_experts_by_insee[insee_code] << { expert_id: expert.id, users_ids: expert.users.pluck(:id) }
-      end
-    end
-
-    # Fusionner les données temporaires dans la structure principale
-    temp_experts_by_insee.each do |insee_code, expert_data|
-      experts_and_users_by_insee_code[insee_code].concat(expert_data)
-    end
-
-    experts_and_users_by_insee_code
   end
 
   def format_cooperations_details
