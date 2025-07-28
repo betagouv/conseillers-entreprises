@@ -126,30 +126,8 @@ class CoverageService
   end
 
   def check_coverage(experts_and_users_by_insee_code, experts_global_with_users)
-    # rubocop:disable Lint/DuplicateBranch
-    coverage_hash = if (@institution_subject.subject.territories.any? && @antennes.any? &&
-      (@institution_subject.subject.territories.flat_map(&:regions) & @antennes.flat_map(&:regions)).empty?) ||
-      (@institution_subject.theme.insee_codes.present? && (@institution_subject.theme.insee_codes & experts_and_users_by_insee_code.keys).empty?) # Si le theme a des codes INSEE qui ne sont pas dans en dehors des territoires observés
-      good_coverage
-    elsif experts_and_users_by_insee_code.values.all?([]) &&
-      experts_global_with_users.pluck(:expert_id).empty?
-      no_expert
-    elsif experts_and_users_by_insee_code.values.any?([])
-      missing_insee_codes(experts_and_users_by_insee_code)
-    elsif experts_and_users_by_insee_code.values.flatten.pluck(:users_ids).all?([]) &&
-      experts_global_with_users.pluck(:users_ids).empty?
-      no_user
-    elsif experts_and_users_by_insee_code.values.any?{ |a| a.uniq.size > 1 }
-      extra_insee_codes(experts_and_users_by_insee_code)
-    else
-      good_coverage
-    end
-    coverage_hash.merge({
-      coverage: get_coverage,
-                          institution_subject_id: @institution_subject.id,
-                          cooperations_details: format_cooperations_details,
-    })
-    # rubocop:enable Lint/DuplicateBranch
+    coverage_result = determine_coverage_status(experts_and_users_by_insee_code, experts_global_with_users)
+    add_metadata_to_result(coverage_result)
   end
 
   def good_coverage
@@ -271,5 +249,63 @@ class CoverageService
         name: cooperation.name,
       }
     end
+  end
+
+  def determine_coverage_status(experts_by_insee, global_experts)
+    return good_coverage if theme_outside_covered_territories?(experts_by_insee)
+    return no_expert if no_experts_available?(experts_by_insee, global_experts)
+    return missing_insee_codes(experts_by_insee) if has_missing_coverage?(experts_by_insee)
+    return no_user if has_experts_but_no_users?(experts_by_insee, global_experts)
+    return extra_insee_codes(experts_by_insee) if has_duplicate_coverage?(experts_by_insee)
+    
+    good_coverage
+  end
+
+  def add_metadata_to_result(coverage_result)
+    coverage_result.merge({
+      coverage: get_coverage,
+      institution_subject_id: @institution_subject.id,
+      cooperations_details: format_cooperations_details,
+    })
+  end
+
+  def theme_outside_covered_territories?(experts_by_insee)
+    # Subject territories don't match antenne regions
+    territories_mismatch = @institution_subject.subject.territories.any? && 
+                          @antennes.any? &&
+                          (subject_regions & antenne_regions).empty?
+    
+    # Theme has INSEE codes outside observed territories
+    theme_codes_mismatch = @institution_subject.theme.insee_codes.present? &&
+                          (@institution_subject.theme.insee_codes & experts_by_insee.keys).empty?
+    
+    territories_mismatch || theme_codes_mismatch
+  end
+
+  def no_experts_available?(experts_by_insee, global_experts)
+    experts_by_insee.values.all?([]) && global_experts.pluck(:expert_id).empty?
+  end
+
+  def has_missing_coverage?(experts_by_insee)
+    experts_by_insee.values.any?([])
+  end
+
+  def has_experts_but_no_users?(experts_by_insee, global_experts)
+    local_experts_no_users = experts_by_insee.values.flatten.pluck(:users_ids).all?([])
+    global_experts_no_users = global_experts.pluck(:users_ids).empty?
+    
+    local_experts_no_users && global_experts_no_users
+  end
+
+  def has_duplicate_coverage?(experts_by_insee)
+    experts_by_insee.values.any? { |experts| experts.uniq.size > 1 }
+  end
+
+  def subject_regions
+    @subject_regions ||= @institution_subject.subject.territories.flat_map(&:regions)
+  end
+
+  def antenne_regions
+    @antenne_regions ||= @antennes.flat_map(&:regions)
   end
 end
