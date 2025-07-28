@@ -17,7 +17,7 @@ module WithTerritorialZones
       #    Si self.insee_codes contient tous les insee_codes
       #   insee_codes n'est pas un champs en base mais une methode de l'instance
       select do |record|
-        (record.insee_codes - insee_codes).empty? || (insee_codes - record.insee_codes).empty?
+        (record.insee_codes - insee_codes).empty?
       end
     }
   end
