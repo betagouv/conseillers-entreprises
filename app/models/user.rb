@@ -67,7 +67,7 @@ class User < ApplicationRecord
 
   after_create_commit :create_single_user_experts, if: -> { create_expert.to_b }
   before_validation :fill_absence_start_at, if: -> { absence_end_at.present? && absence_start_at.nil? }
-  after_update :add_shared_satisfactions
+  after_update :add_shared_satisfactions, if: -> { is_manager? }
 
   pg_search_scope :omnisearch,
     against: [:full_name, :email, :job],
@@ -358,16 +358,7 @@ class User < ApplicationRecord
   end
 
   def add_shared_satisfactions
-    return unless self.is_manager?
-    managed_antennes.find_each do |antenne|
-      not_yet_shared_ids = antenne
-        .perimeter_received_shared_company_satisfactions
-        .pluck(:id) - self.shared_company_satisfactions.pluck(:id)
-      CompanySatisfaction.where(id: not_yet_shared_ids).find_each do |company_satisfaction|
-        expert = company_satisfaction.done_experts.where(antenne_id: supervised_antennes.ids).first
-        company_satisfaction.shared_satisfactions.where(user: self).first_or_create(expert: expert)
-      end
-    end
+    AddSharedSatisfactionsJob.perform_later(self.id)
   end
 
   def self.ransackable_attributes(auth_object = nil)
