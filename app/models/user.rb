@@ -359,14 +359,14 @@ class User < ApplicationRecord
 
   def add_shared_satisfactions
     return unless self.is_manager?
-    not_yed_shared_satisfactions_ids = managed_antennes.each_with_object([]) do |antenne, array|
-      array << antenne.perimeter_received_shared_company_satisfactions
-        .joins(:shared_satisfactions)
-        .where.not(id: self.shared_company_satisfactions.pluck(:id))
-        .distinct.pluck(:id)
-    end.flatten.uniq
-    CompanySatisfaction.where(id: not_yed_shared_satisfactions_ids).find_each do |satisfaction|
-      satisfaction.share
+    managed_antennes.find_each do |antenne|
+      not_yet_shared_ids = antenne
+        .perimeter_received_shared_company_satisfactions
+        .pluck(:id) - self.shared_company_satisfactions.pluck(:id)
+      CompanySatisfaction.where(id: not_yet_shared_ids).find_each do |company_satisfaction|
+        expert = company_satisfaction.done_experts.where(antenne_id: supervised_antennes.ids).first
+        company_satisfaction.shared_satisfactions.where(user: self).first_or_create(expert: expert)
+      end
     end
   end
 

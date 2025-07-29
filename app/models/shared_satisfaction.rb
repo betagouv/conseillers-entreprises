@@ -26,6 +26,8 @@
 class SharedSatisfaction < ApplicationRecord
   belongs_to :company_satisfaction, inverse_of: :shared_satisfactions, touch: true
   belongs_to :user, inverse_of: :shared_satisfactions
+  # lien à expert : permet de voir facilement le nb de retours pour chaque expert
+  # pas sûre de l'utilité par rapport à complexité induite. A requestionner ?
   belongs_to :expert, inverse_of: :shared_satisfactions
 
   has_one :need, through: :company_satisfaction

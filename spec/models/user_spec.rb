@@ -331,21 +331,43 @@ RSpec.describe User do
     let(:company_satisfaction_1) { create :company_satisfaction, need: need_1 }
     let!(:shared_expert_satisfaction_1) { create :shared_satisfaction, company_satisfaction: company_satisfaction_1, user: user, expert: expert }
 
-    before do
-      manager.managed_antennes.push(regional_antenne)
-    end
+    context 'managing regional antenne' do
+      before do
+        manager.managed_antennes.push(regional_antenne)
+      end
 
-    context 'not yet shared satisfaction' do
-      it 'creates retroactively shared satisfactions' do
-        expect { manager.add_shared_satisfactions }.to change(manager.shared_satisfactions, :count).by(1)
+      context 'not yet shared satisfaction' do
+        it 'creates retroactively shared satisfactions' do
+          expect { manager.add_shared_satisfactions }.to change(manager.shared_satisfactions, :count).by(1)
+        end
+      end
+
+      context 'already shared satisfaction' do
+        let!(:shared_expert_satisfaction_2) { create :shared_satisfaction, company_satisfaction: company_satisfaction_1, user: manager }
+
+        it 'doesnt create retroactively shared satisfactions' do
+          expect { manager.add_shared_satisfactions }.not_to change(manager.shared_satisfactions, :count)
+        end
       end
     end
 
-    context 'already shared satisfaction' do
-      let!(:shared_expert_satisfaction_2) { create :shared_satisfaction, company_satisfaction: company_satisfaction_1, user: manager }
+    context 'managing local antenne' do
+      before do
+        manager.managed_antennes.push(local_antenne)
+      end
 
-      it 'creates retroactively shared satisfactions' do
-        expect { manager.add_shared_satisfactions }.not_to change(manager.shared_satisfactions, :count)
+      context 'not yet shared satisfaction' do
+        it 'creates retroactively shared satisfactions' do
+          expect { manager.add_shared_satisfactions }.to change(manager.shared_satisfactions, :count).by(1)
+        end
+      end
+
+      context 'already shared satisfaction' do
+        let!(:shared_expert_satisfaction_2) { create :shared_satisfaction, company_satisfaction: company_satisfaction_1, user: manager }
+
+        it 'doesnt create retroactively shared satisfactions' do
+          expect { manager.add_shared_satisfactions }.not_to change(manager.shared_satisfactions, :count)
+        end
       end
     end
   end
