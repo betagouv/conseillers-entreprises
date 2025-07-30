@@ -28,7 +28,7 @@ module XlsxExport
         needs_by_antennes = {}
 
         territorial_antennes.each do |local_antenne|
-          needs_by_antennes[local_antenne.name] = @needs.joins(:expert_antennes).where(antennes: { id: local_antenne.id })
+          needs_by_antennes[local_antenne.name] = @needs.joins(:expert_antennes).where(antennes: { id: local_antenne.id }).distinct
         end
 
         needs_by_antennes.sort_by { |_, needs| -needs.count }.each do |antenne_name, needs|
@@ -42,21 +42,21 @@ module XlsxExport
         last_row = territorial_antennes_count + (start_row - 1)
         sheet.add_conditional_formatting("D#{start_row}:D#{last_row}",
           type: :cellIs,
-          operator: :lessThanOrEqual,
+          operator: :lessThan,
           formula: format_rate_for_print(@rate_positionning),
           dxfId: @blue_bg,
           priority: 1)
         # highlight positionning_accepted
         sheet.add_conditional_formatting("E#{start_row}:E#{last_row}",
           type: :cellIs,
-          operator: :lessThanOrEqual,
+          operator: :lessThan,
           formula: format_rate_for_print(@rate_positionning_accepted),
           dxfId: @blue_bg,
           priority: 1)
         # highlight done
         sheet.add_conditional_formatting("F#{start_row}:F#{last_row}",
           type: :cellIs,
-          operator: :lessThanOrEqual,
+          operator: :lessThan,
           formula: format_rate_for_print(@rate_done),
           dxfId: @blue_bg,
           priority: 1)
