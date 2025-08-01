@@ -34,7 +34,7 @@ module XlsxExport
         needs_by_territories = {}
 
         Territory.regions.each do |region|
-          needs_by_territories[region.name] = @needs.by_region(region.id)
+          needs_by_territories[region.name] = @needs.by_region(region.id).distinct
         end
 
         needs_by_territories.sort_by { |_, needs| -needs.count }.each do |region_name, needs|
@@ -67,21 +67,21 @@ module XlsxExport
         last_row = Territory.regions.count + (start_row - 1)
         sheet.add_conditional_formatting("D#{start_row}:D#{last_row}",
           type: :cellIs,
-          operator: :lessThanOrEqual,
+          operator: :lessThan,
           formula: format_rate_for_print(@rate_positionning),
           dxfId: @pink_bg,
           priority: 1)
         # highlight positionning_accepted
         sheet.add_conditional_formatting("E#{start_row}:E#{last_row}",
           type: :cellIs,
-          operator: :lessThanOrEqual,
+          operator: :lessThan,
           formula: format_rate_for_print(@rate_positionning_accepted),
           dxfId: @pink_bg,
           priority: 1)
         # highlight done
         sheet.add_conditional_formatting("F#{start_row}:F#{last_row}",
           type: :cellIs,
-          operator: :lessThanOrEqual,
+          operator: :lessThan,
           formula: format_rate_for_print(@rate_done),
           dxfId: @pink_bg,
           priority: 1)
