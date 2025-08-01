@@ -265,6 +265,20 @@ class Antenne < ApplicationRecord
     end
   end
 
+  def perimeter_received_shared_company_satisfactions
+    Rails.cache.fetch(['perimeter_received_satisfactions', id, territorial_level], expires_in: 1.hour) do
+      if self.national?
+        self.institution.received_shared_company_satisfactions
+      else
+        antenne_ids = self.regional? ? territorial_antennes.ids + [id] : [id]
+        CompanySatisfaction
+          .joins(shared_satisfactions: { expert: :antenne })
+          .where(experts: { antenne_id: antenne_ids })
+          .distinct
+      end
+    end
+  end
+
   # Flexible find
   #
   def self.flexible_find_or_initialize(institution, name)

@@ -67,6 +67,7 @@ class User < ApplicationRecord
 
   after_create_commit :create_single_user_experts, if: -> { create_expert.to_b }
   before_validation :fill_absence_start_at, if: -> { absence_end_at.present? && absence_start_at.nil? }
+  after_update :add_shared_satisfactions, if: -> { is_manager? }
 
   pg_search_scope :omnisearch,
     against: [:full_name, :email, :job],
@@ -354,6 +355,10 @@ class User < ApplicationRecord
 
   def fill_absence_start_at
     self.absence_start_at = Time.zone.now if self.absence_start_at.nil?
+  end
+
+  def add_shared_satisfactions
+    AddSharedSatisfactionsJob.perform_later(self.id)
   end
 
   def self.ransackable_attributes(auth_object = nil)

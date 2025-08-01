@@ -14,7 +14,7 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
 
   def unseen
     @needs = retrieve_unseen_satisfactions
-      .order(:created_at)
+      .order(created_at: :desc)
       .page(params[:page])
 
     render :index
@@ -22,7 +22,7 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
 
   def seen
     @needs = retrieve_seen_satisfactions
-      .order(:created_at)
+      .order(created_at: :desc)
       .page(params[:page])
 
     render :index
