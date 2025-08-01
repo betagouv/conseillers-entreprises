@@ -5,6 +5,7 @@ fr:
     antenne:
       delete: Supprimer l’antenne
       delete_confirmation: Voulez-vous supprimer cette antenne ? Assurez-vous d’avoir déplacé ou supprimé ses experts et utilisateurs.
+      no_territorial_zones: Cette antenne ne possède pas de territoire
     antennes:
       deleted: Antennes supprimées avec succès
       stats_reports: Rapports statistiques
@@ -20,7 +21,7 @@ fr:
       delete: Supprimer l’expert (sans ses utilisateurs)
       delete_confirmation: Voulez-vous supprimer cet expert ?
       match_filters: Filtres de mise en relation de l’expert
-      no_specifique_zone: Cet expert n’a pas de zone spécifique
+      no_specifique_zone: Cet expert n’a pas de territoire spécifique
       reassign_matches_done:
         one: "%{count} mise en relation réattribuée à %{expert}"
         other: "%{count} mises en relation réattribuées à %{expert}"
@@ -119,11 +120,13 @@ fr:
         from_solicitation: Analyses à partir d’une sollicitation directe
         from_visit: Analyses faites par des conseillers suite à une visite
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
-      with_custom_communes: Zone spécifique
+      with_custom_communes: Zone spécifique (old)
       with_deleted_expert: Expert supprimé
+      with_territorialal_zones: Avec des territoires
       with_territories: Avec territoires spécifiques
-      without_communes: Sans zone d’intervention
+      without_communes: Sans zone d’intervention (old)
       without_subjects: Sans compétence
+      without_territorial_zones: Sans zone d'intervention
       without_users: Sans utilisateur
     solicitations:
       batch_delete: Supprimer
@@ -157,7 +160,6 @@ fr:
         other: "%{count} communes"
       confirm_assign_entire_territory: Assigner toutes les communes de %{territory} à la zone d’intervention de %{many_communes} ?
       department_number: 'Département %{number}, %{name} :'
-      entire_territory_assigned: Territoire ajouté
     user:
       absence: Absence
       connection: Connexion
@@ -457,23 +459,41 @@ fr:
         coverage: Couverture
       referencement_coverage/anomalie:
         extra_insee_codes: Plusieurs experts pour le même sujet
-        missing_insee_codes: Experts manquants dans certaines communes
-        no_anomalie: Pas d’anomalie
+        missing_insee_codes: Experts manquants sur certains territoires
+        no_anomalie: Tout va bien
         no_expert: Aucun expert
         no_user: Aucun utilisateur
+        theme_outside_territories: Thématique sur un territoire restreint
       referencement_coverage/anomalie_details:
         experts: Experts concernés
-        extra_insee_codes: Codes insee couverts par plusieurs experts
-        missing_insee_codes: Codes insee non couverts
+        extra_insee_codes: Territoires couverts par plusieurs experts
+        match_filters: Filtres de mise en relation pour ce sujet
+        missing_insee_codes: Territoires non couverts
+      referencement_coverage/anomalie_icons:
+        extra_insee_codes_html: <span class="fr-icon-information-line orange" aria-hidden="true"></span>
+        missing_insee_codes_html: <span class="fr-icon-information-line orange" aria-hidden="true"></span>
+        no_anomalie_html: "<span class='fr-icon-checkbox-circle-line green' aria-hidden='true'></span>"
+        no_expert_html: <span class="fr-icon-information-line orange" aria-hidden="true"></span>
+        no_user_html: <span class="fr-icon-information-line orange" aria-hidden="true"></span>
+        theme_outside_territories_html: <span class="fr-icon-information-line blue" aria-hidden="true"></span>
+      referencement_coverage/cooperations_details:
+        cooperations: Coopérations
+        theme_territories: Territoires du thème
       referencement_coverage/coverage:
         long:
           local: Antenne locale
-          mixte: Mixte (locale + régionale)
+          mixte: Couverture Mixte (locale + régionale)
+          national: Antenne nationale
           regional: Antenne régionale
         short:
           local: L
           mixte: L + R
+          national: "N"
           regional: R
+      referencement_coverage/match_filters_types:
+        antenne: Filtres aux antennes
+        expert: Filtres aux experts
+        institution: Filtres à l'institution
       search:
         label: Entreprise
         query: Requête
@@ -598,6 +618,13 @@ fr:
           label:
             long: S'agit-il d’un premier recrutement pour votre entreprise ?
             short: Premier recrutement ?
+      territorial_zone:
+        code: Code
+        commune: Commune
+        departement: Département
+        epci: EPCI
+        region: Région
+        zone_type: Type
       territory:
         advisors: Conseillers
         antennes: Antennes
@@ -636,7 +663,10 @@ fr:
         reset_password_token: Le lien de renouvellement du mot de passe
         roles: Rôles
         sign_in_count: Connexions
-        team_custom_communes: Territoire spécifique (CODE INSEE)
+        team_custom_communes: Communes spécifiques
+        team_custom_departements: Départements spécifiques
+        team_custom_epcis: EPCI spécifiques
+        team_custom_regions: Régions spécifiques
         team_email: Email de l’équipe
         team_full_name: Nom de l’équipe
         team_id: Id de l’équipe
@@ -663,6 +693,7 @@ fr:
         main_referent: Admin - référent principal
         manager: Responsable d’antenne
         national_referent: Admin - référent national
+        territorial_referent: Référent régional
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
@@ -699,6 +730,10 @@ fr:
               must_be_a_valid_siret: doit être un numéro à 14 chiffres valide
             subject_answers:
               incorrect: doivent correspondre aux questions du sujet de la demande
+        territorial_zones:
+          code:
+            invalid_format: Format pour %{zone_type} est invalide.
+            not_found: "%{zone_type} non trouvé"
         territory:
           attributes:
             insee_codes:
@@ -801,6 +836,9 @@ fr:
       subject_question:
         one: Question additionnelle
         other: Questions additionnelles
+      territorial_zone:
+        one: Territoire
+        other: Territoires
       territory:
         one: Territoire
         other: Territoires
@@ -822,6 +860,9 @@ fr:
           other: Droits responsable d'antenne
         one: Droit utilisateur
         other: Droits utilisateur
+        territorial_referent:
+          one: Droit référent régional
+          other: Droits référent régional
   antenne_stats_exporter:
     annual_national_stats: Repères nationaux
     annual_stats_by_antenne: Stats ann. par antenne
@@ -945,6 +986,7 @@ fr:
     comments: Commentaires des conseillers de l’antenne
     commune: Commune
     communes: Communes
+    communes_codes: Codes INSEE
     community: Communauté
     company_categorie_juridique: Catégorie juridique
     company_effectif: Effectifs
@@ -965,6 +1007,7 @@ fr:
     custom_communes: Spécifique
     date_de_creation: Date de création
     deleted_at: Suppression
+    departements_codes: Codes départements
     description: Description
     diagnoses:
       one: Analyse
@@ -979,6 +1022,7 @@ fr:
     done_institutions: Institution ayant clôturé avec aide
     effectif: Effectif
     email: Email
+    epcis_codes: Codes EPCI
     expert: Expert
     expert_antenne: Antenne de l’expert
     expert_institution: Institution de l’expert
@@ -998,7 +1042,7 @@ fr:
     facility_naf_code_a10: Code NAF A10 entreprise
     facility_nafa: Codes NAFA
     facility_nature_activites: Nature des activités
-    facility_regions: Région de l’établissement
+    facility_region: Région de l’établissement
     facility_territories: Territoires des établissements
     feedbacks:
       one: Commentaire
@@ -1018,12 +1062,12 @@ fr:
       no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).<br/>Vous pourrez peut-être le trouver sur <a href='https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises' target='_blank' class='blue' title='annuaire-entreprises.data.gouv.fr - ouvre une nouvelle fenêtre'>https://annuaire-entreprises.data.gouv.fr</a>.
       phone_number_html: 'Exemple : 0612345678 ou +33 6 12 34 56 78'
     iframe_landings: Iframes
-    insee_codes: Codes communes
+    insee_code: Code Insee
     institution: Institution
     institution_antenne: Institution / Antenne
     institutions_subjects: Domaines de l’institution
     intern_landings: Page interne
-    intervention_zone: Zone d’intervention
+    intervention_zone: Zone d’intervention (old)
     interview_sort_order: Ordre
     intitule_effectif: Effectif
     is_abandoned: Abandonné
@@ -1075,6 +1119,7 @@ fr:
     opco: OPérateur de COmpétences (OPCO)
     optional: Optionnel
     page_title: Titre affiché sur la page
+    parent_antenne: Antenne parente
     paused_at: Date de mise en pause
     phone_number: Téléphone
     pk_campaign: Campagne
@@ -1092,6 +1137,7 @@ fr:
       one: Mise en relation reçue
       other: Mises en relation reçues
     region: Région
+    region_codes: Codes régions
     region_name: Institution de la région
     satisfaction_comment: Commentaire de satisfaction
     satisfaction_contacted_by_expert: Satisfaction - rappel
@@ -1141,6 +1187,7 @@ fr:
       other: Équipes
     territorial_antennes: Antennes du territoires
     territorial_level: Niveau territorial
+    territorial_zone: Zone d’intervention
     territories:
       one: Territoire
       other: Territoires

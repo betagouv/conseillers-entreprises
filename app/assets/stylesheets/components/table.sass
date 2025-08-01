@@ -46,7 +46,7 @@
       background: #fff9d2
       color: #B58105
   th.coverage-table-cell
-    color: var(--text-inverted-error)
+    //color: var(--text-inverted-error)
     text-align: center
     cursor: pointer
     padding: 0
@@ -54,6 +54,8 @@
       padding: 0.75rem
       text-decoration: underline dotted
       width: 100%
+      color: $white
+      font-weight: bold
       &.error-table-cell
         background-color: var(--error-425-625) !important
         &:hover
@@ -62,6 +64,14 @@
         background: var(--success-425-625) !important
         &:hover
           background-color: var(--success-425-625-hover) !important
+      &.warning-table-cell
+        background: var(--warning-425-625) !important
+        &:hover
+          background-color: var(--warning-425-625-hover) !important
+      &.info-table-cell
+        background: var(--info-425-625) !important
+        &:hover
+          background-color: var(--info-425-625-hover) !important
   th.red, td.red
       background: $red-lighter
       color: $red
