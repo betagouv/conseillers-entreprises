@@ -10,7 +10,7 @@ module XlsxExport
       p = Axlsx::Package.new
       wb = p.workbook
       title = wb.styles.add_style bg_color: 'eadecd', sz: 16, b: true, alignment: { horizontal: :center, vertical: :center }, border: { color: 'AAAAAA', style: :thin }
-      needs = @antenne.perimeter_received_needs.joins(:diagnosis).merge(Diagnosis.from_solicitation)
+      needs = @antenne.perimeter_received_needs.joins(:diagnosis).merge(Diagnosis.from_solicitation).distinct
       year_start_date = @start_date.beginning_of_year
       period = "#{@end_date.year}T#{TimeDurationService::Quarters.new.find_quarter_for_month(@start_date.month)}"
 
