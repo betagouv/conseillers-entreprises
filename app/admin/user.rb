@@ -64,7 +64,7 @@ ActiveAdmin.register User do
         div '✉ ' + u.email
         div '✆ ' + u.phone_number if u.phone_number
       end
-      if u.absence_end_at
+      if u.absence_end_at && u.absence_end_at <= Time.current
         status_tag t('attributes.absent_until', date: I18n.l(u.absence_end_at, format: :sentence)), class: 'warning'
       end
     end
