@@ -62,8 +62,6 @@ ActiveAdmin.register Antenne do
   filter :name
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
-  # filter :territories, as: :ajax_select, collection: -> { Territory.bassins_emploi.pluck(:name, :id) },
-  #        data: { url: :admin_territories_path, search_fields: [:name] }
   filter :regions, as: :select, collection: -> { TerritorialZone.regions.map { |r| [r.nom, r.code] } }
 
   ## CSV
@@ -73,7 +71,6 @@ ActiveAdmin.register Antenne do
     column :institution
     column_count :advisors
     column_count :experts
-    # column_count :territories
     column_count :communes
     column_count :sent_matches
     column_count :received_matches
@@ -87,12 +84,6 @@ ActiveAdmin.register Antenne do
       row(:deleted_at) if resource.deleted?
       row :name
       row :institution
-      # row(:intervention_zone) do |a|
-      #   div admin_link_to(a, :regions)
-      #   div admin_link_to(a, :territories)
-      #   div admin_link_to(a, :communes)
-      #   div intervention_zone_description(a)
-      # end
       row(:territorial_level) do |a|
         div a.territorial_level
       end
