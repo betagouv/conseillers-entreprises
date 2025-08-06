@@ -47,9 +47,9 @@ class ChangeSubjectQuestions < ActiveRecord::Migration[7.0]
 
         less_than_10k_question = SubjectQuestion.find_by(key: 'moins_de_10k_restant_a_financer')
         bank_question = SubjectQuestion.find_by(key: 'financement_bancaire_envisage')
-        
+
         return unless less_than_10k_question && bank_question
-        
+
         less_than_10k_question_id = less_than_10k_question.id
         bank_question_id = bank_question.id
 

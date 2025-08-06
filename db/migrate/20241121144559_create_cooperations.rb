@@ -39,24 +39,24 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
   def create_cooperation_safely(institution_slug, cooperation_params, landing_slugs = [], theme_labels = [], logo_params = nil)
     institution = Institution.find_by(slug: institution_slug)
     return unless institution
-    
+
     cooperation = institution.cooperations.create!(cooperation_params)
-    
+
     # Ajouter les landings
     Array(landing_slugs).each do |slug|
       landing = Landing.find_by(slug: slug)
       cooperation.landings.push(landing) if landing
     end
-    
+
     # Ajouter les thèmes
     Array(theme_labels).each do |label|
       theme = Theme.find_by(label: label)
       cooperation.cooperation_themes.create!(theme: theme) if theme
     end
-    
+
     # Créer le logo
     cooperation.create_logo(logo_params) if logo_params
-    
+
     cooperation
   end
 
@@ -128,7 +128,7 @@ class CreateCooperations < ActiveRecord::Migration[7.0]
 
     cooperation = Cooperation.find_by(name: "Entreprendre")
     if cooperation
-      Solicitation.where("mtm_campaign = ?", 'entreprendre').update_all(cooperation_id: cooperation.id)
+      Solicitation.where(mtm_campaign: 'entreprendre').update_all(cooperation_id: cooperation.id)
     end
 
     Cooperation.find_each do |cooperation|
