@@ -68,8 +68,6 @@ RSpec.describe UserRight do
 
       context 'normal user can’t be referent' do
         it do
-          puts "===="
-          puts user.is_admin?
           expect(national_referent).not_to be_valid
           expect(main_referent).not_to be_valid
           expect(national_referent.errors[:category]).to include(I18n.t('.errors.admin_for_referents'))

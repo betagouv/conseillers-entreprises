@@ -30,8 +30,7 @@ class AntenneHierarchy
 
   def get_associated_antennes(targeted_territorial_level, antenne)
     antennes_with_territories = Antenne.not_deleted.where(institution_id: antenne.institution_id, territorial_level: targeted_territorial_level)
-      .with_insee_codes((antenne.insee_codes))
-
+      .with_insee_codes(antenne.insee_codes)
     antenne_global_zone = Antenne.not_deleted.joins(:experts).where(institution_id: antenne.institution_id, territorial_level: targeted_territorial_level)
       .where(experts: { is_global_zone: true })
     Antenne.where(id: antennes_with_territories.pluck(:id) + antenne_global_zone.pluck(:id))
