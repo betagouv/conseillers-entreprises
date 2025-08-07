@@ -19,7 +19,11 @@ module XlsxExport
       private
 
       def refused_needs
-        @refused_needs ||= @needs.joins(:matches).where(matches: { id: @antenne.perimeter_received_matches.ids, status: :not_for_me })
+        @refused_needs ||= @needs.joins(:matches).where(matches: { id: @antenne.perimeter_received_matches.ids, status: :not_for_me }).distinct
+      end
+
+      def current_needs
+        @current_needs ||= @refused_needs
       end
 
       # Ici, on ne veut que 3 colonnes, d'où surcharge de la méthode
