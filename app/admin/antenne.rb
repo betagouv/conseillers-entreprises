@@ -32,11 +32,12 @@ ActiveAdmin.register Antenne do
       div admin_link_to(a, :experts)
     end
     column(:territoral_zone) do |a|
-      zone_types = TerritorialZone.zone_types.keys
       if a.territorial_zones.any?
+        zone_types = TerritorialZone.zone_types.keys
         div do
           zone_types.each do |zone_type|
-            count = a.territorial_zones.count { |tz| tz.zone_type == zone_type }
+            count = a.territorial_zones.where(zone_type: zone_type).count
+
             div(I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone') + ' : ' + count.to_s) if count.positive?
           end
         end
