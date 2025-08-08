@@ -122,6 +122,7 @@ fr:
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
       with_custom_communes: Zone spécifique (old)
       with_deleted_expert: Expert supprimé
+      with_territorial_zones: Avec des territoires spécifiques
       with_territorialal_zones: Avec des territoires
       with_territories: Avec territoires spécifiques
       without_communes: Sans zone d’intervention (old)
