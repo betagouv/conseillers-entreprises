@@ -91,8 +91,8 @@ ActiveAdmin.register Expert do
       end
     end
     column(:territoral_zone) do |a|
-      zone_types = TerritorialZone.zone_types.keys
       if a.territorial_zones.any?
+        zone_types = TerritorialZone.zone_types.keys
         div do
           zone_types.each do |zone_type|
             count = a.territorial_zones.count { |tz| tz.zone_type == zone_type }
