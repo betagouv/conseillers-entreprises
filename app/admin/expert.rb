@@ -63,7 +63,6 @@ ActiveAdmin.register Expert do
     init_subjects_filter
   end
 
-  includes :institution, :antenne, :users, :subjects, :received_matches
   config.sort_order = 'full_name_asc'
 
   scope :active, default: true
