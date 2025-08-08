@@ -89,16 +89,8 @@ ActiveAdmin.register Expert do
         admin_link_to(e, :antenne)
       end
     end
-    column(:territoral_zone) do |a|
-      if a.territorial_zones.any?
-        zone_types = TerritorialZone.zone_types.keys
-        div do
-          zone_types.each do |zone_type|
-            count = a.territorial_zones.count { |tz| tz.zone_type == zone_type }
-            div(I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone') + ' : ' + count.to_s) if count.positive?
-          end
-        end
-      end
+    column(:territoral_zone) do |expert|
+      territorial_zone_column_content(expert)
     end
 
     column(:users) do |e|
