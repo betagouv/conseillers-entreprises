@@ -25,15 +25,7 @@ ActiveAdmin.register Theme do
     end
     column t('active_admin.particularities') do |t|
       div t.cooperations.map { |r| admin_link_to r }.join(', ').html_safe
-      if t.territorial_zones.any?
-        zone_types = TerritorialZone.zone_types.keys
-        div do
-          zone_types.each do |zone_type|
-            count = t.territorial_zones.count { |tz| tz.zone_type == zone_type }
-            div(I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone') + ' : ' + count.to_s) if count.positive?
-          end
-        end
-      end
+      territorial_zone_column_content(antenne)
     end
 
     actions dropdown: true
@@ -65,9 +57,6 @@ ActiveAdmin.register Theme do
     attributes_table do
       row(:needs) { |t| admin_link_to(t, :needs) }
       row(:matches) { |t| admin_link_to(t, :matches) }
-      row t('attributes.territories.other') do |t|
-        t.territories.map { |r| admin_link_to r }.join(', ').html_safe
-      end
     end
     panel I18n.t('activerecord.models.territorial_zone.other') do
       if theme.territorial_zones.any?
