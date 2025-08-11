@@ -4,19 +4,19 @@ module TerritorialZonesSearchable
   def search_territorial_zones
     query = params[:q][:nom_cont]
 
-    communes = DecoupageAdministratif::Commune.where_ilike(nom: query).map do |zone|
+    communes = DecoupageAdministratif::Commune.where(nom: query, case_insensitive: true, partial: true).map do |zone|
       zone_hash(zone, 'commune')
     end
 
-    epcis = DecoupageAdministratif::Epci.where_ilike(nom: query).map do |zone|
+    epcis = DecoupageAdministratif::Epci.where(nom: query, case_insensitive: true, partial: true).map do |zone|
       zone_hash(zone, 'epci')
     end
 
-    departements = DecoupageAdministratif::Departement.where_ilike(nom: query).map do |zone|
+    departements = DecoupageAdministratif::Departement.where(nom: query, case_insensitive: true, partial: true).map do |zone|
       zone_hash(zone, 'departement')
     end
 
-    regions = DecoupageAdministratif::Region.where_ilike(nom: query).map do |zone|
+    regions = DecoupageAdministratif::Region.where(nom: query, case_insensitive: true, partial: true).map do |zone|
       zone_hash(zone, 'region')
     end
 
