@@ -7,7 +7,7 @@ class DeleteDiagnosesWithManySolicitations < ActiveRecord::Migration[7.0]
       if diagnoses.many? && # plusieurs analyses
         not_completed.present? && # dont au moins une complète
           diagnoses.where.not(step: :completed).present? && # et une incomplète
-        diagnoses.map { |d| d.subjects.ids }.flatten.uniq.count == 1 # sur le même sujet
+        diagnoses.map { |d| d.subjects.ids }.flatten.uniq.one? # sur le même sujet
         not_completed.destroy_all # on supprime les incomplètes
       end
     end

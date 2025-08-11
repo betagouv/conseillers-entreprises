@@ -51,7 +51,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/experts/_expert.html.haml",
-      "line": 79,
+      "line": 84,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "build_admin_expert_card_footer(:taking_care_matches, (Unresolved Model).new)",
       "render_path": [
@@ -133,13 +133,90 @@
       "note": ""
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "8dc87301b09e2a71fb8ed148245c7ba5f09272f065a403c8626e4b5158733ce9",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/conseiller/shared_satisfactions/_need.haml",
+      "line": 2,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "::Haml::AttributeBuilder.build_id(true, dom_id((Unresolved Model).new))",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "conseiller/shared_satisfactions/index",
+          "line": 25,
+          "file": "app/views/conseiller/shared_satisfactions/index.html.haml",
+          "rendered": {
+            "name": "conseiller/shared_satisfactions/_need",
+            "file": "app/views/conseiller/shared_satisfactions/_need.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "conseiller/shared_satisfactions/_need"
+      },
+      "user_input": "(Unresolved Model).new",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "9010ae8f20e14042c80834dc74aa0fa7eaabd42a3635b874f3a00a967132a638",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/experts/_expert.html.haml",
+      "line": 2,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "::Haml::AttributeBuilder.build_class(true, \"card__header\", \"#{expert_card_class(controller, (Unresolved Model).new)}\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Conseiller::VeilleController",
+          "method": "taking_care_matches",
+          "line": 26,
+          "file": "app/controllers/conseiller/veille_controller.rb",
+          "rendered": {
+            "name": "conseiller/veille/taking_care_matches",
+            "file": "app/views/conseiller/veille/taking_care_matches.haml"
+          }
+        },
+        {
+          "type": "template",
+          "name": "conseiller/veille/taking_care_matches",
+          "line": 13,
+          "file": "app/views/conseiller/veille/taking_care_matches.haml",
+          "rendered": {
+            "name": "experts/_expert",
+            "file": "app/views/experts/_expert.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "experts/_expert"
+      },
+      "user_input": "(Unresolved Model).new",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "a848f2ec57900fe0a8e2cc8aeab00277657870582bef079fa2f2d539a0b7d060",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/antenne.rb",
-      "line": 122,
+      "line": 123,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "joins(:institution).where(\"(antennes.name, institutions.name) IN (#{([\"(?)\"] * antennes_and_institutions_names.size).join(\", \")})\", *antennes_and_institutions_names)",
       "render_path": null,
@@ -162,7 +239,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/services/stats/base_stats.rb",
-      "line": 144,
+      "line": 149,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "query.group(\"DATE_TRUNC('month', #{query.model.name.pluralize}.created_at)\")",
       "render_path": null,
@@ -179,6 +256,5 @@
       "note": ""
     }
   ],
-  "updated": "2025-01-31 15:56:57 +0100",
-  "brakeman_version": "6.2.2"
+  "brakeman_version": "7.1.0"
 }

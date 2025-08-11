@@ -96,7 +96,7 @@ class InstitutionSubject < ApplicationRecord
     end
 
     # return nil if there’s an ambiguity
-    matches.first if matches.count == 1
+    matches.first if matches.one?
   end
 
   def possible_names
