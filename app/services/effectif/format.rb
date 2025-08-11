@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Permet de gérer l'affichage des effectifs en prenant le meilleur de 2 champs possibles
 module Effectif
   class Format

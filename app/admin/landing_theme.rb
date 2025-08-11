@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ActiveAdmin.register LandingTheme do
   menu parent: :themes, priority: 5
 

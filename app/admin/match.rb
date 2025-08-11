@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ActiveAdmin.register Match do
   menu parent: :needs, priority: 2
 

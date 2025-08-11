@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ActiveAdmin.register CompanySatisfaction do
   menu parent: :companies, priority: 3
 
