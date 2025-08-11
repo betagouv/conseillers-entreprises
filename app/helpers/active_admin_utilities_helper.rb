@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module ActiveAdminUtilitiesHelper
   # Helpers pour ActiveAdmin
   def naf_a10_collection
