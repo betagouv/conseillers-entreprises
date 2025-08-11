@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ExpertsController < ApplicationController
   before_action :find_expert, except: :index
 

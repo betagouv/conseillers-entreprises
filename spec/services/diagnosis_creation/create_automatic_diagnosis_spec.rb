@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 describe DiagnosisCreation::CreateAutomaticDiagnosis do
   describe 'call' do
