@@ -7,7 +7,7 @@ module Reminders
     before_action :persist_search_params, only: [:quo_active, :taking_care, :done, :not_for_me, :expired]
 
     def index
-      redirect_to action: :many_pending_needs
+      redirect_to action: :inputs
     end
 
     def many_pending_needs
