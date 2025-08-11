@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ContactsController < ApplicationController
   def needs_historic
     @contact = Contact.find(params[:id])

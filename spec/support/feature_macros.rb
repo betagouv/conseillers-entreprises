@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module FeatureMacros
   def login_user
     let(:current_user) { create :user }

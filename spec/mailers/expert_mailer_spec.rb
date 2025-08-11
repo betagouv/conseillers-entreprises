@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 require 'mailers/shared_examples_for_an_email'
 require 'api_helper'
