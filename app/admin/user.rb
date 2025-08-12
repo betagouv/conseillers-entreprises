@@ -274,9 +274,11 @@ ActiveAdmin.register User do
       label_base = t('activerecord.models.user_right.territorial_referent')
       f.has_many :user_rights_territorial_referent, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
         ur.input :category, as: :hidden, input_html: { value: 'territorial_referent' }
-        ur.input :territorial_zone,
-                 collection:  options_from_collection_for_select(TerritorialZone.regions, 'code', 'nom', ur.object&.territorial_zone&.code),
-                 as: :select
+        ur.input :rightable_element_id,
+                 collection: TerritorialZone.zone_type_region.map { |tz| [tz.name, tz.id] },
+                 selected: ur.object&.rightable_element_id,
+                 as: :select,
+                 label: 'Région'
         ur.input :rightable_element_type, as: :hidden, input_html: { value: 'TerritorialZone' }
       end
 
