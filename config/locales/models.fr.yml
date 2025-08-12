@@ -917,6 +917,7 @@ fr:
     unarchive_done: Désarchivé
   attributes:
     abandoned: Abandonné
+    absent_between: Absent entre le %{start_date} et le %{end_date}
     absent_until: Absence jusqu’au %{date}
     activity: Activité
     advisor: Conseiller
