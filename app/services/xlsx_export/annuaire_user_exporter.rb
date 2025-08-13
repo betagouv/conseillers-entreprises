@@ -24,10 +24,10 @@ module XlsxExport
         team_full_name: -> { full_name unless with_identical_user? },
         team_email: -> { email unless with_identical_user? },
         team_phone_number: -> { phone_number unless with_identical_user? },
-        team_custom_communes: -> { territorial_zones.with_communes.pluck(:code).join(', ') },
-        team_custom_epcis: -> { territorial_zones.with_epcis.pluck(:code).join(', ') },
-        team_custom_departements: -> { territorial_zones.with_departements.pluck(:code).join(', ') },
-        team_custom_regions: -> { territorial_zones.with_regions.pluck(:code).join(', ') },
+        team_custom_communes: -> { territorial_zones.zone_type_commune.pluck(:code).join(', ') },
+        team_custom_epcis: -> { territorial_zones.zone_type_epci.pluck(:code).join(', ') },
+        team_custom_departements: -> { territorial_zones.zone_type_departement.pluck(:code).join(', ') },
+        team_custom_regions: -> { territorial_zones.zone_type_region.pluck(:code).join(', ') },
 
       }
     end
