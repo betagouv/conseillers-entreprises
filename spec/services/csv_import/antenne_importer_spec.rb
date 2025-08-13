@@ -58,8 +58,8 @@ describe CsvImport::AntenneImporter, CsvImport do
     it do
       expect(result).to be_success
       expect(result.objects.count).to eq 2
-      expect(Antenne.find_by(name: 'Antenne1').territorial_zones.with_communes.pluck(:code)).to eq %w[01037 01038]
-      expect(Antenne.find_by(name: 'Antenne2').territorial_zones.with_departements.pluck(:code)).to eq %w[22 35]
+      expect(Antenne.find_by(name: 'Antenne1').territorial_zones.zone_type_commune.pluck(:code)).to eq %w[01037 01038]
+      expect(Antenne.find_by(name: 'Antenne2').territorial_zones.zone_type_departement.pluck(:code)).to eq %w[22 35]
       expect(Antenne.find_by(name: 'Antenne1').managers.first.full_name).to eq 'Mariane Martin'
       expect(Antenne.find_by(name: 'Antenne1').managers.first.email).to eq 'mariane.m@gouv.fr'
       expect(Antenne.find_by(name: 'Antenne1').managers.first.phone_number).to eq '01 23 45 67 89'
@@ -94,7 +94,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
     it do
       expect(result).to be_success
-      expect(Antenne.find_by(name: 'Antenne1').territorial_zones.with_communes.pluck(:code)).to match_array %w[06001 06002]
+      expect(Antenne.find_by(name: 'Antenne1').territorial_zones.zone_type_commune.pluck(:code)).to match_array %w[06001 06002]
     end
   end
 
