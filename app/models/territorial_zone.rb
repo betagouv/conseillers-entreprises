@@ -41,12 +41,9 @@ class TerritorialZone < ApplicationRecord
   end
 
   def territory_model
-    @territory_model ||= begin
-      model_class = ZONE_TYPE_MODELS[zone_type]
-      return nil unless model_class
-
-      model_class.find(code)
-    end
+    model_class = ZONE_TYPE_MODELS[zone_type]
+    return nil unless model_class
+    @territory_model ||= model_class.find(code)
   end
 
   def name
