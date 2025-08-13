@@ -32,10 +32,10 @@ module Admin
         div do
           zone_types.each do |zone_type|
             count = if resource.territorial_zones.loaded?
-                      resource.territorial_zones.count { |tz| tz.zone_type == zone_type }
-                    else
-                      resource.territorial_zones.where(zone_type: zone_type).count
-                    end
+              resource.territorial_zones.count { |tz| tz.zone_type == zone_type }
+            else
+              resource.territorial_zones.where(zone_type: zone_type).count
+            end
             next unless count.positive?
 
             zone_label = I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone')
