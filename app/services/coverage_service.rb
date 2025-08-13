@@ -5,7 +5,7 @@ class CoverageService
     @antennes = @grouped_experts.keys
     @antennes_insee_codes = @antennes.flat_map(&:insee_codes).uniq
     @all_potential_antennes_ids = compute_all_potential_antennes_ids
-    gather_all_experts
+    @all_experts = gather_all_experts
   end
 
   def call
@@ -25,9 +25,7 @@ class CoverageService
   end
 
   def gather_all_experts
-    @all_experts ||= begin
-      experts_without_specific_territories + experts_with_specific_territories + experts_with_global_zone
-    end
+    experts_without_specific_territories + experts_with_specific_territories + experts_with_global_zone
   end
 
   def initialize_experts_and_users_by_insee_code
