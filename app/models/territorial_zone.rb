@@ -36,11 +36,6 @@ class TerritorialZone < ApplicationRecord
 
   before_save :update_regions_codes
 
-  scope :with_communes, -> { where(zone_type: :commune) }
-  scope :with_departements, -> { where(zone_type: :departement) }
-  scope :with_regions, -> { where(zone_type: :region) }
-  scope :with_epcis, -> { where(zone_type: :epci) }
-
   def antenne
     zoneable.instance_of?(Antenne) ? zoneable : nil
   end
