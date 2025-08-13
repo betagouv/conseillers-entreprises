@@ -64,11 +64,6 @@ class TerritorialZone < ApplicationRecord
     end
   end
 
-  def self.regions
-    metro = DecoupageAdministratif::Region.where(zone: "metro")
-    drom = DecoupageAdministratif::Region.where(zone: "drom")
-    (metro + drom).sort_by { |region| region.nom.downcase.tr('î', 'i') }
-  end
 
   private
 
