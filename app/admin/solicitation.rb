@@ -122,7 +122,7 @@ ActiveAdmin.register Solicitation do
   filter :completion, as: :select, collection: -> { ['step_complete', 'step_incomplete'].map{ |completion| [I18n.t("active_admin.scopes.#{completion}"), completion] } }
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subject, as: :ajax_select, collection: -> { @subjects.map{ |s| [s.label_with_cooperation, s.id] } }, data: { url: :admin_subjects_path, search_fields: [:label_with_cooperation] }
-  filter :code_region, as: :select, collection: -> { TerritorialZone.regions.map { |r| [r.nom, r.code] } }
+  filter :code_region, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }
   filter :created_at
   filter :completed_at
   filter :description, as: :string

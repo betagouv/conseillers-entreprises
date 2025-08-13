@@ -3,7 +3,7 @@
     .fr-col
       .fr-select-group
         = f.label :region_code, t('attributes.region'), class: 'fr-label'
-        = f.collection_select :region_code, TerritorialZone.regions, :code, :nom, { selected: index_search_params[:region_code],
+        = f.collection_select :region_code, RegionOrderingService.call, :code, :nom, { selected: index_search_params[:region_code],
           include_blank: t('all.feminine') }, class: "fr-select", id: 'institutions-region'
     .fr-col
       .fr-select-group
