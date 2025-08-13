@@ -1,8 +1,8 @@
 module  Annuaire
   class UsersController < BaseController
     before_action :retrieve_institution
-    before_action :retrieve_antenne, only: [:index, :coverage]
-    before_action :retrieve_experts_and_users, only: [:index, :coverage]
+    before_action :retrieve_antenne, only: [:index, :subject_territorial_coverage]
+    before_action :retrieve_experts_and_users, only: [:index, :subject_territorial_coverage]
 
     before_action :retrieve_subjects, only: :index
 
@@ -61,7 +61,7 @@ module  Annuaire
       end
     end
 
-    def coverage
+    def subject_territorial_coverage
       institution_subject = InstitutionSubject.find_by(id: params[:institution_subject_id])
       coverage = Rails.cache.fetch(["coverage-service", institution_subject, @grouped_experts], expires_in: 2.minutes) do
         CoverageService.new(institution_subject, @grouped_experts).call
