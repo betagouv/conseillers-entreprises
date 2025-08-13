@@ -54,7 +54,7 @@ ActiveAdmin.register Antenne do
   filter :name
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
-  filter :regions, as: :select, collection: -> { TerritorialZone.regions.map { |r| [r.nom, r.code] } }
+  filter :regions, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }
 
   ## CSV
   #
