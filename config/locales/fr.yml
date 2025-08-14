@@ -295,6 +295,7 @@ fr:
       long_sentence: "%A %d %B %Y à %Hh%M"
       sentence: "%d %B %Y"
       short: "%d %b %Hh%M"
+      short_sentence: "%d %B"
       ym: "%Y-%m"
     pm: pm
   update: Mettre à jour
