@@ -85,7 +85,6 @@ class Need < ApplicationRecord
 
   # :facility
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :needs
-  has_many :facility_regions, -> { regions }, through: :facility, source: :territories, inverse_of: :matches
 
   # :advisor
   has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_needs
@@ -331,8 +330,12 @@ class Need < ApplicationRecord
       .or(Need.diagnosis_completed.where(diagnosis: { facilities: { siret: sirets.compact } }))
   end
 
-  scope :by_region, -> (region_id) do
-    joins(facility: :commune).merge(Commune.by_region(region_id))
+  scope :by_region, -> (region_code) do
+    joins(diagnosis: { company: :facilities }).where(facilities: { id: Facility.by_region(region_code) })
+  end
+
+  scope :facility_regions_eq, -> (region_code) do
+    by_region(region_code)
   end
 
   scope :by_theme, -> (theme_id) do
@@ -523,7 +526,7 @@ class Need < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [
       "advisor", "advisor_antenne", "advisor_institution", "badge_badgeables", "badges", "company", "company_satisfaction",
-      "contacted_users", "diagnosis", "expert_antennes", "expert_institutions", "experts", "facility", "facility_regions",
+      "contacted_users", "diagnosis", "expert_antennes", "expert_institutions", "experts", "facility",
       "facility_territories", "feedbacks", "subject_answers", "matches", "reminder_feedbacks", "reminders_actions",
       "solicitation", "subject", "theme", "visitee"
     ]
@@ -531,7 +534,7 @@ class Need < ApplicationRecord
 
   def self.ransackable_scopes(auth_object = nil)
     [
-      :company_simple_effectif_eq
+      :company_simple_effectif_eq, :facility_regions_eq
     ]
   end
 end

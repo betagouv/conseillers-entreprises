@@ -99,10 +99,9 @@ ActiveAdmin.register User do
   filter :job
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
+  filter :regions, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }
   filter :created_at
   filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
-  filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
 
   ## CSV
   #
@@ -174,8 +173,10 @@ ActiveAdmin.register User do
         resource.user_rights.each do |ur|
           li do
             right = I18n.t(ur.category, scope: "activerecord.attributes.user_right/categories")
-            if ur.rightable_element.present?
+            if ur.rightable_element.present? && !ur.rightable_element.is_a?(TerritorialZone)
               right = "#{right} : #{admin_link_to(ur.rightable_element)}".html_safe
+            elsif ur.rightable_element.is_a?(TerritorialZone)
+              right = "#{right} : #{ur.rightable_element.name}"
             else
               right
             end
@@ -212,7 +213,8 @@ ActiveAdmin.register User do
   user_rights_attributes = [:id, :rightable_element_id, :rightable_element_type, :category, :_destroy]
   permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id, :create_expert, :absence_start_at, :absence_end_at,
                 expert_ids: [], user_rights_attributes: user_rights_attributes, user_rights_for_admin_attributes: user_rights_attributes,
-                user_rights_manager_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes
+                user_rights_manager_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes,
+                user_rights_territorial_referent_attributes: user_rights_attributes
 
   form do |f|
     f.semantic_errors(*f.object.errors.attribute_names)
@@ -268,6 +270,18 @@ ActiveAdmin.register User do
                    search_fields: [:name]
                  }
         ur.input :rightable_element_type, as: :hidden, input_html: { value: 'Cooperation' }
+      end
+
+      # Droits référent de region
+      label_base = t('activerecord.models.user_right.territorial_referent')
+      f.has_many :user_rights_territorial_referent, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
+        ur.input :category, as: :hidden, input_html: { value: 'territorial_referent' }
+        ur.input :rightable_element_id,
+                 collection: TerritorialZone.zone_type_region.map { |tz| [tz.name, tz.id] },
+                 selected: ur.object&.rightable_element_id,
+                 as: :select,
+                 label: 'Région'
+        ur.input :rightable_element_type, as: :hidden, input_html: { value: 'TerritorialZone' }
       end
 
       # Droits admin
