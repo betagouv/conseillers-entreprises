@@ -821,7 +821,9 @@ fr:
         send: Envoyer ma demande
       certify_being_company_boss: Je certifie être dirigeant(e) de l’entreprise ou mandaté(e) officiellement par ma direction. Toute demande d'intermédiaire ou de salarié(e) ne sera pas prise en charge.
       description: 'Complétez votre demande :'
-      empty_result_help_html: La recherche de votre entreprise n’a pas été concluante ? Renseignez manuellement votre numéro de SIRET ici ou effectuez une <a href=%{path}> nouvelle recherche</a>.
+      empty_result_help_html: |
+        La recherche de votre entreprise n’a pas été concluante ? Renseignez manuellement votre numéro de SIRET.<br>
+        Vous pourrez le trouver sur <a href='https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises' target='_blank' class='blue' title='annuaire-entreprises.data.gouv.fr - ouvre une nouvelle fenêtre'>annuaire-entreprises.data.gouv.fr</a>.
       find_my_facility: Recherchez votre entreprise (SIRET, SIREN, nom...)
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours</b>"
       form_complete: Demande envoyée
