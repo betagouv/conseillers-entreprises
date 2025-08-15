@@ -39,13 +39,13 @@
               %li
                 %span.picto.ri-contacts-book-fill{ 'aria-hidden': 'true' }
                 = manager.job
-            %li
-              %span.picto.ri-mail-fill{ 'aria-hidden': 'true' }
-              = mail_to manager.email, manager.email, class: 'break-word'
             - if manager.phone_number.present?
               %li
                 %span.picto.ri-phone-fill{ 'aria-hidden': 'true' }
                 = link_to(manager.phone_number, "tel:#{manager.phone_number}")
+            %li
+              %span.picto.ri-mail-fill{ 'aria-hidden': 'true' }
+              = mail_to manager.email, manager.email, class: 'break-word'
       .fr-grid-row
         .fr-col-7
           .fr-accordion__title
