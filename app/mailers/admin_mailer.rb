@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AdminMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} Admin <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/admin_mailer'

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 describe NeedsService do
   describe 'archive_expired_matches' do
