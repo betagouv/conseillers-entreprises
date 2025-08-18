@@ -255,13 +255,13 @@ class Expert < ApplicationRecord
     return none if commune.nil?
     experts_with_zones = left_joins(:territorial_zones)
       .where(territorial_zones: { zone_type: :commune, code: insee_code })
-      .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci.code }))
+      .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci&.code }))
       .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
       .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code }))
 
     experts_without_zones = left_joins(antenne: :territorial_zones)
       .where(territorial_zones: { zone_type: :commune, code: insee_code })
-      .or(left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci.code }))
+      .or(left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci&.code }))
       .or(left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
       .or(left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code }))
       .or(left_joins(antenne: :territorial_zones).where(is_global_zone: true))
