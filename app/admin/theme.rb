@@ -25,7 +25,7 @@ ActiveAdmin.register Theme do
     end
     column t('active_admin.particularities') do |t|
       div t.cooperations.map { |r| admin_link_to r }.join(', ').html_safe
-      territorial_zone_column_content(antenne)
+      territorial_zone_column_content(t)
     end
 
     actions dropdown: true
