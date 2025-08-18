@@ -85,9 +85,6 @@ class Need < ApplicationRecord
   # :matches
   has_many :experts, -> { distinct }, through: :matches, inverse_of: :received_needs
 
-  # :facility
-  has_many :facility_territories, through: :facility, source: :territories, inverse_of: :needs
-
   # :advisor
   has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_needs
   has_one :advisor_institution, through: :advisor, source: :institution, inverse_of: :sent_needs
@@ -333,7 +330,7 @@ class Need < ApplicationRecord
   end
 
   scope :by_region, -> (region_code) do
-    joins(diagnosis: { company: :facilities }).where(facilities: { id: Facility.by_region(region_code) })
+    joins(:facility).merge(Facility.by_region(region_code))
   end
 
   scope :facility_regions_eq, -> (region_code) do
@@ -525,7 +522,7 @@ class Need < ApplicationRecord
     [
       "advisor", "advisor_antenne", "advisor_institution", "badge_badgeables", "badges", "company", "company_satisfaction",
       "contacted_users", "diagnosis", "expert_antennes", "expert_institutions", "experts", "facility",
-      "facility_territories", "feedbacks", "subject_answers", "matches", "reminder_feedbacks", "reminders_actions",
+      "feedbacks", "subject_answers", "matches", "reminder_feedbacks", "reminders_actions",
       "solicitation", "subject", "theme", "visitee"
     ]
   end
