@@ -1,5 +1,6 @@
 module IframePrefix
   extend ActiveSupport::Concern
+
   included do
     prepend_before_action :retrieve_main_objects
     skip_forgery_protection if: -> { in_iframe? }
@@ -65,6 +66,7 @@ module IframePrefix
   # The InIframe module is included in SharedController…
   module InIframe
     extend ActiveSupport::Concern
+
     included { helper_method :in_iframe?, :show_breadcrumbs? } # … and this makes the in_iframe? method available in all views.
 
     def in_iframe?

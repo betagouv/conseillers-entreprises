@@ -16,7 +16,7 @@ module SitemapHelper
         'p'
       end
 
-      html << "<ul class='fr-mb-3w'>" if is_first_list_element(e, pos)
+      html << "<ul class='fr-mb-3w'>" if is_first_list_element?(e, pos)
 
       html << "<#{html_elt}>"
       html << if e[:href] == true
@@ -32,17 +32,17 @@ module SitemapHelper
           html << site_map_html(elem, pos)
         end
       end
-      html << "</ul>" if is_last_list_element(e, pos)
+      html << "</ul>" if is_last_list_element?(e, pos)
     end
 
     html << ""
   end
 
-  def is_first_list_element(e, pos = nil)
+  def is_first_list_element?(e, pos = nil)
     e[:level] == 3 && pos == :first
   end
 
-  def is_last_list_element(e, pos = nil)
+  def is_last_list_element?(e, pos = nil)
     e[:level] == 3 && pos == :last
   end
 

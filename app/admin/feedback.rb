@@ -2,6 +2,7 @@ ActiveAdmin.register Feedback do
   menu parent: :needs, priority: 3
 
   include CsvExportable
+
   controller do
     include DynamicallyFiltrable
   end

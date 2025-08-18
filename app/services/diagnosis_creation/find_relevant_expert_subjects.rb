@@ -58,12 +58,12 @@ module DiagnosisCreation
 
     def accepting_match_filter(match_filter)
       base_filters = [
-        accepting_years_of_existence(match_filter),
-        accepting_effectif(match_filter),
-        accepting_naf_codes(match_filter),
-        excluding_naf_codes(match_filter),
-        accepting_legal_forms_codes(match_filter),
-        excluding_legal_forms_codes(match_filter),
+        accepting_years_of_existence?(match_filter),
+        accepting_effectif?(match_filter),
+        accepting_naf_codes?(match_filter),
+        excluding_naf_codes?(match_filter),
+        accepting_legal_forms_codes?(match_filter),
+        excluding_legal_forms_codes?(match_filter),
       ]
       base_filters.reduce(:&)
     end
@@ -88,20 +88,20 @@ module DiagnosisCreation
 
     # Ancienneté
 
-    def accepting_years_of_existence(match_filter)
+    def accepting_years_of_existence?(match_filter)
       [
-        accepting_min_years_of_existence(match_filter),
-        accepting_max_years_of_existence(match_filter)
+        accepting_min_years_of_existence?(match_filter),
+        accepting_max_years_of_existence?(match_filter)
       ].reduce(:&)
     end
 
-    def accepting_min_years_of_existence(match_filter)
+    def accepting_min_years_of_existence?(match_filter)
       return true if match_filter.min_years_of_existence.blank?
       return false if company.date_de_creation.blank?
       company.date_de_creation.before?(match_filter.min_years_of_existence.years.ago)
     end
 
-    def accepting_max_years_of_existence(match_filter)
+    def accepting_max_years_of_existence?(match_filter)
       return true if match_filter.max_years_of_existence.blank?
       return false if company.date_de_creation.blank?
       company.date_de_creation.after?(match_filter.max_years_of_existence.years.ago)
@@ -109,20 +109,20 @@ module DiagnosisCreation
 
     # Effectif
 
-    def accepting_effectif(match_filter)
+    def accepting_effectif?(match_filter)
       [
-        accepting_effectif_min(match_filter),
-        accepting_effectif_max(match_filter)
+        accepting_effectif_min?(match_filter),
+        accepting_effectif_max?(match_filter)
       ].reduce(:&)
     end
 
-    def accepting_effectif_min(match_filter)
+    def accepting_effectif_min?(match_filter)
       return true if match_filter.effectif_min.blank?
       return false if facility.code_effectif.blank?
       facility_code_effectif.min_bound >= match_filter.effectif_min
     end
 
-    def accepting_effectif_max(match_filter)
+    def accepting_effectif_max?(match_filter)
       return true if match_filter.effectif_max.blank?
       return false if facility.code_effectif.blank?
       facility_code_effectif.max_bound < match_filter.effectif_max
@@ -134,24 +134,24 @@ module DiagnosisCreation
 
     # Code naf
 
-    def accepting_naf_codes(match_filter)
+    def accepting_naf_codes?(match_filter)
       return true if match_filter.accepted_naf_codes.blank?
       match_filter.accepted_naf_codes.include?(facility.naf_code)
     end
 
-    def excluding_naf_codes(match_filter)
+    def excluding_naf_codes?(match_filter)
       return true if match_filter.excluded_naf_codes.blank?
       match_filter.excluded_naf_codes.exclude?(facility.naf_code)
     end
 
     # Forme juridique
 
-    def accepting_legal_forms_codes(match_filter)
+    def accepting_legal_forms_codes?(match_filter)
       return true if match_filter.accepted_legal_forms.blank?
       match_filter.accepted_legal_forms.include?(company.legal_form_code)
     end
 
-    def excluding_legal_forms_codes(match_filter)
+    def excluding_legal_forms_codes?(match_filter)
       return true if match_filter.excluded_legal_forms.blank?
       match_filter.excluded_legal_forms.exclude?(company.legal_form_code)
     end
@@ -174,7 +174,7 @@ module DiagnosisCreation
       @solicitation ||= need.solicitation
     end
 
-    def from_landing(slug)
+    def from_landing?(slug)
       need.solicitation&.landing&.slug == slug
     end
   end

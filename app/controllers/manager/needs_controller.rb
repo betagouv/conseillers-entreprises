@@ -1,6 +1,7 @@
 class Manager::NeedsController < ApplicationController
   include Inbox
   include ManagerFilters
+
   before_action :authorize_index_needs
   before_action :retrieve_recipient
   before_action :persist_search_params, only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired]

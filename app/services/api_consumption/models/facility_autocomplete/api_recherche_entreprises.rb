@@ -19,7 +19,7 @@ module ApiConsumption::Models
       @nombre_etablissements_ouverts ||= company.nombre_etablissements_ouverts
     end
 
-    def un_seul_etablissement
+    def un_seul_etablissement # rubocop:disable Naming/PredicateMethod
       nombre_etablissements_ouverts == 1
     end
   end

@@ -1,5 +1,6 @@
 class NeedsController < ApplicationController
   include Inbox
+
   before_action :retrieve_user, except: %i[index]
   before_action :retrieve_need, only: %i[show]
   before_action :persist_search_params, only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired]
