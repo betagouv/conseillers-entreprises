@@ -56,10 +56,6 @@ class Facility < ApplicationRecord
   has_many :matches, through: :diagnoses, inverse_of: :facility
   has_many :company_satisfactions, through: :needs, inverse_of: :facility
 
-  # :commune
-  # has_many :territories, through: :commune, inverse_of: :facilities
-  # has_many :regions, -> { regions }, through: :commune, source: :territories, inverse_of: :facilities
-
   accepts_nested_attributes_for :company
 
   before_create :sanitize_data
