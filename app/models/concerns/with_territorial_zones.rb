@@ -4,13 +4,9 @@ module WithTerritorialZones
   included do
     scope :by_region, -> (region_code) {
       return all if region_code.blank?
-      by_regions([region_code])
+      joins(:territorial_zones)
+        .where("territorial_zones.regions_codes && ARRAY[?]::varchar[]", [region_code])
     }
-
-    scope :by_regions, -> (regions_codes) do
-      # territorial_zones.regions_codes inclue tout ou une partie des regions_codes
-      joins(:territorial_zones).where("territorial_zones.regions_codes && ARRAY[?]::varchar[]", regions_codes)
-    end
 
     scope :with_insee_codes, -> (insee_codes) {
       return nil if insee_codes.blank?
