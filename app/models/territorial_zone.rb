@@ -64,7 +64,6 @@ class TerritorialZone < ApplicationRecord
     end
   end
 
-
   private
 
   def validate_code_format
