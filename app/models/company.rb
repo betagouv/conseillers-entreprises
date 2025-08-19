@@ -49,7 +49,7 @@ class Company < ApplicationRecord
   end
 
   scope :by_region, -> (region_code) do
-    joins(:facilities).where(facilities: Facility.by_region(region_code))
+    joins(:facilities).merge(Facility.by_region(region_code))
   end
 
   scope :simple_effectif_eq, -> (query) do
