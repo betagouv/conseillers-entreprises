@@ -199,17 +199,13 @@ class User < ApplicationRecord
     experts.not_deleted.with_subjects.first
   end
 
-  scope :by_regions, -> (regions_codes) do
-    joins(:antenne, :experts).merge(Antenne.by_regions(regions_codes)).merge(Expert.by_regions(regions_codes))
-  end
-
   scope :by_region, -> (region_code) do
     return if region_code.blank?
-    joins(:antenne, :experts).where(antenne: Antenne.by_regions([region_code]))
+    joins(:antenne, :experts).where(antenne: Antenne.by_region(region_code)).merge(Expert.by_region(region_code))
   end
 
-  scope :regions_eq, -> (region_code) {
-    by_regions([region_code])
+  scope :region_eq, -> (region_code) {
+    by_region(region_code)
   }
 
   ## Password
@@ -382,6 +378,6 @@ class User < ApplicationRecord
   end
 
   def self.ransackable_scopes(auth_object = nil)
-    ["regions_eq"]
+    ["region_eq"]
   end
 end

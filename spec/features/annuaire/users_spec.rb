@@ -9,16 +9,12 @@ describe 'Annuaire::Users' do
     let(:institution_1) { create :institution }
     let(:subject_1) { create :subject }
     let!(:institution_subject) { create :institution_subject, institution: institution_1, subject: subject_1 }
-    let!(:antenne_1) { create :antenne, communes: [commune_ouest], institution: institution_1 }
+    let!(:antenne_1) { create :antenne, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: "72039")], institution: institution_1 }
     let!(:user_1) { create :user, :invitation_accepted, antenne: antenne_1, experts: [expert_1] }
     let!(:expert_1) { create :expert, :with_expert_subjects, antenne: antenne_1 }
     let!(:expert_1_same_antenne) { create :expert, :with_expert_subjects, antenne: antenne_1 }
-    let!(:antenne_2) { create :antenne, communes: [commune_est], institution: institution_1 }
+    let!(:antenne_2) { create :antenne, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: "22050")], institution: institution_1 }
     let!(:expert_2) { create :expert, :with_expert_subjects, antenne: antenne_2 }
-    let!(:region_ouest) { create :territory, code_region: 1 }
-    let!(:region_est) { create :territory, code_region: 2 }
-    let!(:commune_ouest) { create :commune, regions: [region_ouest] }
-    let!(:commune_est) { create :commune, regions: [region_est] }
 
     context 'with an institution params' do
       before { visit institution_users_path(institution_slug: institution_1.slug) }
