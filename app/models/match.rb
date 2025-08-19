@@ -98,8 +98,6 @@ class Match < ApplicationRecord
 
   scope :sent, -> { where.not(sent_at: nil) }
 
-  scope :by_region, -> (region_code) { where(facility: Facility.by_region(region_code)) }
-
   scope :in_progress, -> do
     where(status: [:quo, :taking_care])
   end
@@ -202,7 +200,7 @@ class Match < ApplicationRecord
   end
 
   scope :by_region, -> (region_code) {
-    joins(:need).merge(Need.by_region(region_code))
+    joins(:need).merge(Need.by_region(region_code)).distinct
   }
 
   scope :company_simple_effectif_eq, -> (query) do
