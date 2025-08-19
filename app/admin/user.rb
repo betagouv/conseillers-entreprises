@@ -97,7 +97,7 @@ ActiveAdmin.register User do
   filter :job
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :regions, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }
+  filter :region, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }
   filter :created_at
   filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
 
