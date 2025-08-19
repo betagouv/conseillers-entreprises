@@ -63,23 +63,21 @@ RSpec.describe Antenne do
     context 'update_antenne_hierarchy' do
       let(:antenne) { create :antenne, territorial_level: :local }
 
-      context 'communes updates' do
-        let(:commune) { create :commune }
-
+      context 'territorial_zones updates' do
         context 'when adding commune' do
           it 'calls update_antenne_hierarchy' do
             allow(antenne).to receive(:update_antenne_hierarchy)
-            antenne.communes << commune
+            antenne.territorial_zones.create(code: '26135', zone_type: :commune)
             expect(antenne).to have_received(:update_antenne_hierarchy)
           end
         end
 
         context 'when removing commune' do
-          before { antenne.communes << commune }
+          before { antenne.territorial_zones.create(code: '26135', zone_type: :commune) }
 
           it 'calls update_antenne_hierarchy' do
             allow(antenne).to receive(:update_antenne_hierarchy)
-            antenne.communes.delete(commune)
+            antenne.territorial_zones.destroy_all
             expect(antenne).to have_received(:update_antenne_hierarchy)
           end
         end
