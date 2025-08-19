@@ -34,9 +34,6 @@ ActiveAdmin.register Antenne do
     column(:territoral_zone) do |antenne|
       territorial_zone_column_content(antenne)
     end
-    column(:intervention_zone) do |a|
-      div admin_link_to(a, :territories)
-    end
     column(:activity) do |a|
       div admin_link_to(a, :sent_matches, blank_if_empty: true)
       div admin_link_to(a, :received_matches, blank_if_empty: true)

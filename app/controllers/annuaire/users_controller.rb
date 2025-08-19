@@ -132,7 +132,7 @@ module  Annuaire
       base_experts
         .not_deleted
         .order('antennes.name', 'full_name')
-        .preload(:antenne, :experts_subjects, :communes, :antenne, users: :user_rights_manager)
+        .preload(:antenne, :experts_subjects, :antenne, users: :user_rights_manager)
         .by_region(index_search_params[:region_code])
         .by_theme(index_search_params[:theme_id])
         .by_subject(index_search_params[:subject_id])
