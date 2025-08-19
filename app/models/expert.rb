@@ -176,7 +176,7 @@ class Expert < ApplicationRecord
   scope :by_region, -> (region_code) do
     return all if region_code.blank?
     without_territorial_zones = self.without_territorial_zones.merge(Antenne.by_region(region_code)).ids
-    with_territorial_zones = self.with_territorial_zones.joins(:territorial_zones).where(territorial_zones: { regions_codes: [region_code] }).ids
+    with_territorial_zones = self.with_territorial_zones.where(territorial_zones: { regions_codes: [region_code] }).ids
     Expert.where(id: without_territorial_zones + with_territorial_zones)
   end
 
