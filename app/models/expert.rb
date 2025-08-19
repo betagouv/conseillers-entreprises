@@ -57,10 +57,6 @@ class Expert < ApplicationRecord
 
   ## “Through” Associations
   #
-  # :communes
-  has_many :territories, -> { distinct.bassins_emploi }, through: :communes, inverse_of: :direct_experts
-  has_many :direct_regions, -> { distinct.regions }, through: :communes, source: :territories, inverse_of: :direct_experts
-  has_many :antenne_regions, through: :antenne, inverse_of: :antenne_experts
 
   # :antenne
   has_one :institution, through: :antenne, source: :institution, inverse_of: :experts
@@ -195,7 +191,7 @@ class Expert < ApplicationRecord
   # param peut être un id de Territory ou une clé correspondant à un scope ("with_national_perimeter" par ex)
   scope :by_possible_region, -> (param) {
     begin
-      by_regions([param])
+      by_region(param)
     rescue ActiveRecord::RecordNotFound => _e
       self.send(param) if [I18n.t('helpers.expert.national_perimeter.value')].include?(param)
     end
@@ -237,7 +233,7 @@ class Expert < ApplicationRecord
   end
 
   scope :regions_eq, -> (region_code) {
-    by_regions([region_code])
+    by_region(region_code)
   }
 
   scope :many_pending_needs, -> { joins(:reminders_registers).where(reminders_registers: RemindersRegister.current_remainder_category.many_pending_needs_basket) }
@@ -253,20 +249,20 @@ class Expert < ApplicationRecord
   scope :in_commune, -> (insee_code) do
     commune = ::DecoupageAdministratif::Commune.find(insee_code)
     return none if commune.nil?
-    experts_with_zones = left_joins(:territorial_zones)
+    experts_with_zones_ids = left_joins(:territorial_zones)
       .where(territorial_zones: { zone_type: :commune, code: insee_code })
       .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci&.code }))
       .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
-      .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code }))
+      .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code })).ids
 
-    experts_without_zones = left_joins(antenne: :territorial_zones)
+    experts_without_zones_ids = left_joins(antenne: :territorial_zones)
       .where(territorial_zones: { zone_type: :commune, code: insee_code })
       .or(left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci&.code }))
       .or(left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
       .or(left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code }))
-      .or(left_joins(antenne: :territorial_zones).where(is_global_zone: true))
+      .or(left_joins(antenne: :territorial_zones).where(is_global_zone: true)).ids
 
-    where(id: experts_with_zones).or(where(id: experts_without_zones))
+    where(id: experts_with_zones_ids).or(where(id: experts_without_zones_ids))
   end
 
   scope :by_insee_code, -> (insee_code) {
