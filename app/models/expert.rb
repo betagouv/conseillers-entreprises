@@ -172,9 +172,11 @@ class Expert < ApplicationRecord
     joins(:antenne).with_global_zone.or(joins(:antenne).merge(Antenne.territorial_level_national))
   end
 
-  scope :by_regions, -> (regions_codes) do
-    without_territorial_zones = self.without_territorial_zones.joins(antenne: :territorial_zones).where(antennes: { territorial_zones: { regions_codes: regions_codes } }).ids
-    with_territorial_zones = self.with_territorial_zones.joins(:territorial_zones).where(territorial_zones: { regions_codes: regions_codes }).ids
+  # Override du scope by_region du concern pour gérer les experts avec et sans territoires specifiques
+  scope :by_region, -> (region_code) do
+    return all if region_code.blank?
+    without_territorial_zones = self.without_territorial_zones.joins(antenne: :territorial_zones).where(antennes: { territorial_zones: { regions_codes: [region_code] } }).ids
+    with_territorial_zones = self.with_territorial_zones.joins(:territorial_zones).where(territorial_zones: { regions_codes: [region_code] }).ids
     Expert.where(id: without_territorial_zones + with_territorial_zones)
   end
 
