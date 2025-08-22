@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe CoverageService do
+describe CreateTerritorialCoverage do
   # ok : un ou plusieurs experts au niveau local couvrent tous les codes insee
   # ok : un ou plusieurs experts au niveau local avec des territoires spécifiques couvrent tous les codes insee
   # ko : pas d'experts sur ce sujet

@@ -64,7 +64,7 @@ module  Annuaire
     def subject_territorial_coverage
       institution_subject = InstitutionSubject.find_by(id: params[:institution_subject_id])
       coverage = Rails.cache.fetch(["coverage-service", institution_subject, @grouped_experts], expires_in: 2.minutes) do
-        CoverageService.new(institution_subject, @grouped_experts).call
+        CreateTerritorialCoverage.new(institution_subject, @grouped_experts).call
       end
       render partial: 'annuaire/users/coverage', locals: { institution_subject: institution_subject, coverage: coverage }
     end
