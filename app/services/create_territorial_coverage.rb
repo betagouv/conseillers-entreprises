@@ -1,4 +1,4 @@
-class CoverageService
+class CreateTerritorialCoverage
   def initialize(institution_subject, grouped_experts)
     @institution_subject = institution_subject
     @grouped_experts = grouped_experts
