@@ -274,18 +274,45 @@ ActiveAdmin.register User do
       label_base = t('activerecord.models.user_right.territorial_referent')
       f.has_many :user_rights_territorial_referent, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
         ur.input :category, as: :hidden, input_html: { value: 'territorial_referent' }
+        # Build collection: use TerritorialZone IDs for existing zones
+        collection_options = []
+        
+        # Get ALL existing TerritorialZones for regions, prioritizing UserRight type
+        all_territorial_zones = TerritorialZone.where(zone_type: 'region')
+        existing_territorial_zones_by_code = {}
+        
+        all_territorial_zones.each do |tz|
+          # Prioritize TerritorialZone with zoneable_type 'UserRight' over others
+          if !existing_territorial_zones_by_code[tz.code] || tz.zoneable_type == 'UserRight'
+            existing_territorial_zones_by_code[tz.code] = tz
+          end
+        end
+        
+        # Add all available regions from RegionOrderingService  
+        RegionOrderingService.call.each do |region|
+          if existing_territorial_zones_by_code[region.code]
+            # Region has existing TerritorialZone - use TerritorialZone ID
+            tz = existing_territorial_zones_by_code[region.code]
+            collection_options << ["#{region.nom} (#{region.code})", tz.id]
+          else
+            # New region - use region code (will be converted to TerritorialZone later)
+            collection_options << ["#{region.nom} (#{region.code})", region.code]
+          end
+        end
+        
         ur.input :rightable_element_id,
-                 collection: TerritorialZone.zone_type_region.map { |tz| [tz.name, tz.id] },
+                 collection: collection_options,
                  selected: ur.object&.rightable_element_id,
                  as: :select,
-                 label: 'Région'
+                 label: 'Région',
+                 include_blank: 'Sélectionner une région'
         ur.input :rightable_element_type, as: :hidden, input_html: { value: 'TerritorialZone' }
       end
 
       # Droits admin
       label_base = t('activerecord.models.user_right.for_admin')
       f.has_many :user_rights_for_admin, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
-        ur.input :category, as: :select, collection: UserRight::FOR_ADMIN.map{ |cat| [I18n.t(cat, scope: "activerecord.attributes.user_right/categories"), cat] }, include_blank: false
+        ur.input :category, as: :select, collection: UserRight::ADMIN_ONLY_CATEGORIES.map{ |cat| [I18n.t(cat, scope: "activerecord.attributes.user_right/categories"), cat] }, include_blank: false
       end
     end
 
