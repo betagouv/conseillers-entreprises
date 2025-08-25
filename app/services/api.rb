@@ -12,6 +12,7 @@ module Api
 
     def call
       Rails.cache.fetch([id_key, @query].join('-'), expires_in: 12.hours) do
+        simulate_error
         http_request = request
         if http_request.success?
           responder(http_request).call
@@ -19,6 +20,15 @@ module Api
           handle_error(http_request)
         end
       end
+    end
+
+    def simulate_error
+      return unless Rails.env.development?
+
+      message = ENV['DEVELOPMENT_API_ERROR_OVERRIDE_MESSAGE']
+      return if message.blank?
+
+      raise TechnicalError.new(api: id_key), message
     end
 
     def request
