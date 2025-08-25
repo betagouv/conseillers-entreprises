@@ -11,6 +11,7 @@ module Api
     end
 
     def call
+      raise TechnicalError.new(api: id_key), "Ah zut c’est cassé là, désolé, on va contacter qui de droit."
       Rails.cache.fetch([id_key, @query].join('-'), expires_in: 12.hours) do
         http_request = request
         if http_request.success?
