@@ -38,10 +38,8 @@ class MatchFilter < ApplicationRecord
     subjects
   ]
 
-  def filter_type
-    FILTERS.each do |filter|
-      return filter if self.send(filter).present?
-    end
+  def filter_types
+    FILTERS.select { |filter| self.send(filter).present? }
   end
 
   def experts_subjects
