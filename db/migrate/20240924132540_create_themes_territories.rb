@@ -14,7 +14,12 @@ class CreateThemesTerritories < ActiveRecord::Migration[7.0]
         { theme: 55, region: 133 },
         { theme: 53, region: 137 },
       ].each do |hash|
-        Theme.find(hash[:theme]).territories << Territory.find(hash[:region])
+        theme = Theme.find_by(id: hash[:theme])
+        territory = Territory.find_by(id: hash[:region])
+
+        if theme && territory
+          theme.territories << territory
+        end
       end
     end
   end

@@ -45,65 +45,78 @@ class ChangeSubjectQuestions < ActiveRecord::Migration[7.0]
         #   - less_than_10k: false && bank: true
         #   - less_than_10k: false && bank: false
 
-        less_than_10k_question_id = SubjectQuestion.find_by(key: 'moins_de_10k_restant_a_financer').id
-        bank_question_id = SubjectQuestion.find_by(key: 'financement_bancaire_envisage').id
+        less_than_10k_question = SubjectQuestion.find_by(key: 'moins_de_10k_restant_a_financer')
+        bank_question = SubjectQuestion.find_by(key: 'financement_bancaire_envisage')
+
+        return unless less_than_10k_question && bank_question
+
+        less_than_10k_question_id = less_than_10k_question.id
+        bank_question_id = bank_question.id
 
         adie = Institution.find_by(slug: 'adie')
-        adie.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
-        adie.subject_answer_groupings.where.missing(:subject_answers).destroy_all
+        if adie
+          adie.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
+          adie.subject_answer_groupings.where.missing(:subject_answers).destroy_all
 
-        first = adie.subject_answer_groupings.create
-        first.subject_answers = [
-          SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: true),
-          SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: true)
-        ]
-        second = adie.subject_answer_groupings.create
-        second.subject_answers = [
-          SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: true),
-          SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: false)
-        ]
-        third = adie.subject_answer_groupings.create
-        third.subject_answers = [
-          SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: false),
-          SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: false)
-        ]
+          first = adie.subject_answer_groupings.create
+          first.subject_answers = [
+            SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: true),
+            SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: true)
+          ]
+          second = adie.subject_answer_groupings.create
+          second.subject_answers = [
+            SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: true),
+            SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: false)
+          ]
+          third = adie.subject_answer_groupings.create
+          third.subject_answers = [
+            SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: false),
+            SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: false)
+          ]
+        end
 
         initiative = Institution.find_by(slug: 'initiative-france')
-        initiative.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
-        initiative.subject_answer_groupings.where.missing(:subject_answers).destroy_all
-        first = initiative.subject_answer_groupings.create
-        first.subject_answers = [
-          SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: true),
-          SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: true)
-        ]
-        second = initiative.subject_answer_groupings.create
-        second.subject_answers = [
-          SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: false),
-          SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: true)
-        ]
+        if initiative
+          initiative.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
+          initiative.subject_answer_groupings.where.missing(:subject_answers).destroy_all
+          first = initiative.subject_answer_groupings.create
+          first.subject_answers = [
+            SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: true),
+            SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: true)
+          ]
+          second = initiative.subject_answer_groupings.create
+          second.subject_answers = [
+            SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: false),
+            SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: true)
+          ]
+        end
 
         bpi = Institution.find_by(slug: 'bpifrance')
-        bpi.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
-        bpi.subject_answer_groupings.where.missing(:subject_answers).destroy_all
-        first = bpi.subject_answer_groupings.create
-        first.subject_answers = [
-          SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: false),
-          SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: true)
-        ]
+        if bpi
+          bpi.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
+          bpi.subject_answer_groupings.where.missing(:subject_answers).destroy_all
+          first = bpi.subject_answer_groupings.create
+          first.subject_answers = [
+            SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: false),
+            SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: true)
+          ]
+        end
 
         bdf = Institution.find_by(slug: 'banque-de-france')
-        bdf.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
-        bdf.subject_answer_groupings.where.missing(:subject_answers).destroy_all
-        first = bdf.subject_answer_groupings.create
-        first.subject_answers = [
-          SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: false),
-          SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: true)
-        ]
-        second = bdf.subject_answer_groupings.create
-        second.subject_answers = [
-          SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: false),
-          SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: false)
-        ]
+        if bdf
+          bdf.subject_answer_groupings.each{ |sag| sag.subject_answers.where(subject_question_id: [less_than_10k_question_id, bank_question_id]).destroy_all }
+          bdf.subject_answer_groupings.where.missing(:subject_answers).destroy_all
+          first = bdf.subject_answer_groupings.create
+          first.subject_answers = [
+            SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: false),
+            SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: true)
+          ]
+          second = bdf.subject_answer_groupings.create
+          second.subject_answers = [
+            SubjectAnswer::Filter.create(subject_question_id: less_than_10k_question_id, filter_value: false),
+            SubjectAnswer::Filter.create(subject_question_id: bank_question_id, filter_value: false)
+          ]
+        end
 
         ## Création des questions groupées RH =====================
         #
@@ -112,23 +125,29 @@ class ChangeSubjectQuestions < ActiveRecord::Migration[7.0]
         # APEC
         # - poste_cadre_question: true && recrutement_identifie: false
 
-        SubjectQuestion.find_by(key: 'recrutement_handicape').update(position: 5)
-        SubjectQuestion.find_by(key: 'recrutement_poste_cadre').update(position: 3)
+        SubjectQuestion.find_by(key: 'recrutement_handicape')&.update(position: 5)
+        SubjectQuestion.find_by(key: 'recrutement_poste_cadre')&.update(position: 3)
         SubjectQuestion.create(subject_id: 44, key: 'recrutement_premier', position: 1)
         SubjectQuestion.create(subject_id: 44, key: 'recrutement_identifie', position: 4)
         identifie_question = SubjectQuestion.find_by(key: 'recrutement_identifie')
         premier_question = SubjectQuestion.find_by(key: 'recrutement_premier')
 
         cci = Institution.find_by(slug: 'cci')
-        first = cci.subject_answer_groupings.create
-        first.subject_answers = [
-          SubjectAnswer::Filter.create(subject_question_id: premier_question.id, filter_value: true)
-        ]
+        if cci && premier_question
+          first = cci.subject_answer_groupings.create
+          first.subject_answers = [
+            SubjectAnswer::Filter.create(subject_question_id: premier_question.id, filter_value: true)
+          ]
+        end
 
         apec = Institution.find_by(slug: 'apec')
-        first = apec.subject_answer_groupings.first
-        # apec a déjà recrutement_poste_cadre: true
-        first.subject_answers.push(SubjectAnswer::Filter.create(subject_question_id: identifie_question.id, filter_value: false))
+        if apec && identifie_question
+          first = apec.subject_answer_groupings.first
+          # apec a déjà recrutement_poste_cadre: true
+          if first
+            first.subject_answers.push(SubjectAnswer::Filter.create(subject_question_id: identifie_question.id, filter_value: false))
+          end
+        end
 
         SubjectAnswer.where(type: nil).update_all(type: 'SubjectAnswer::Item')
       end

@@ -30,7 +30,6 @@ class InstitutionSubject < ApplicationRecord
   belongs_to :institution, inverse_of: :institutions_subjects
   belongs_to :subject, inverse_of: :institutions_subjects
   has_many :experts_subjects, dependent: :destroy
-  has_many :referencement_coverages, dependent: :destroy, inverse_of: :institution_subject
 
   accepts_nested_attributes_for :experts_subjects
 
@@ -114,6 +113,6 @@ class InstitutionSubject < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["experts", "experts_subjects", "institution", "not_deleted_experts", "referencement_coverages", "similar_institutions_subjects", "subject", "theme"]
-    end
+    ["experts", "experts_subjects", "institution", "not_deleted_experts", "similar_institutions_subjects", "subject", "theme"]
+  end
 end

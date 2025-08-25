@@ -3,7 +3,7 @@ module CsvImport
   class AntenneImporter < BaseImporter
     def mapping
       @mapping ||=
-        %i[institution name insee_codes manager_full_name manager_email manager_phone]
+        %i[institution name communes_codes epcis_codes departements_codes region_codes manager_full_name manager_email manager_phone]
           .index_by{ |k| Antenne.human_attribute_name(k) }
     end
 
@@ -15,19 +15,23 @@ module CsvImport
 
     def preprocess(attributes)
       attributes.transform_values!(&:squish)
-      attributes[:insee_codes] = FormatInseeCodes.normalize(attributes[:insee_codes]) if attributes[:insee_codes].present?
+      attributes[:communes_codes] = FormatInseeCodes.normalize(attributes[:communes_codes]) if attributes[:communes_codes].present?
       attributes[:institution] = Institution.find_by(name: attributes[:institution]) || @options[:institution]
     end
 
     def find_instance(attributes)
       antenne = Antenne.flexible_find_or_initialize(attributes[:institution], attributes[:name])
-      attributes.except!(:name, :manager_full_name, :manager_email, :manager_phone)
-      return antenne, attributes
+      return antenne, {}
     end
 
     def postprocess(antenne, row)
-      attributes = row_to_attributes(row)
-      create_manager(antenne, attributes)
+      begin
+        create_manager(antenne, manager_attributes(row)) if manager_attributes(row).present?
+        import_territories(antenne, territories_attributes(row)) if territories_attributes(row).present?
+        antenne
+      rescue => e
+        CsvImport::PostprocessError.new("Erreur lors du post-traitement de l'antenne : #{e.message}")
+      end
     end
 
     def create_manager(antenne, attributes)
@@ -50,6 +54,18 @@ module CsvImport
         antenne.advisors << manager
       end
       antenne
+    end
+
+    private
+
+    def manager_attributes(row)
+      attributes = row_to_attributes(row)
+      attributes.slice(:manager_full_name, :manager_email, :manager_phone)
+    end
+
+    def territories_attributes(row)
+      attributes = row_to_attributes(row)
+      attributes.slice(:communes_codes, :epci_codes, :departements_codes, :region_codes)
     end
   end
 end
