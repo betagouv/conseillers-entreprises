@@ -22,13 +22,11 @@ module Api
     end
 
     def request
-      request_class_name = [self.class.name.deconstantize, 'Request'].join('::')
-      request_class_name.constantize.new(@query, @options)
+      self.class.module_parent::Request.new(@query, @options)
     end
 
     def responder(http_request)
-      responder_class_name = [self.class.name.deconstantize, 'Responder'].join('::')
-      responder_class_name.constantize.new(http_request)
+      self.class.module_parent::Responder.new(http_request)
     end
 
     def handle_error(http_request)
