@@ -596,9 +596,35 @@ describe CreateTerritorialCoverage do
       before { subject }
 
       it do
-        is_expected.to eq({ :antenne => ["ancienneté minimum (en année) - #{antenne.name}"],
+        is_expected.to eq({ :antenne => ["#{I18n.t(:min_years_of_existence, scope: 'activerecord.attributes.match_filter')} - #{antenne.name}"],
                             :expert => [],
                             :institution => [] })
+      end
+    end
+
+    context "Match filter with multiple filter types" do
+      let!(:antenne_match_filter) { 
+        create :match_filter, 
+               antenne: antenne, 
+               min_years_of_existence: 1,
+               effectif_min: 10,
+               accepted_naf_codes: ['1101Z', '1102A'] 
+      }
+      let(:expert) { create(:expert_with_users, antenne: antenne, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+      let(:grouped_experts) { { antenne => { expert.id => expert.users } } }
+
+      before { subject }
+
+      it "returns all filter types grouped for the match filter" do
+        expected_labels = [
+          I18n.t(:min_years_of_existence, scope: 'activerecord.attributes.match_filter'),
+          I18n.t(:effectif_min, scope: 'activerecord.attributes.match_filter'),
+          I18n.t(:raw_accepted_naf_codes, scope: 'activerecord.attributes.match_filter')
+        ].join(', ')
+        
+        expect(subject[:antenne]).to eq(["#{expected_labels} - #{antenne.name}"])
+        expect(subject[:expert]).to eq([])
+        expect(subject[:institution]).to eq([])
       end
     end
   end
