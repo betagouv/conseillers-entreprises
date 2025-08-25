@@ -6,6 +6,7 @@ module WithTerritorialZones
       return all if region_code.blank?
       joins(:territorial_zones)
         .where("territorial_zones.regions_codes && ARRAY[?]::varchar[]", [region_code])
+        .distinct
     }
 
     scope :with_insee_codes, -> (insee_codes) {
