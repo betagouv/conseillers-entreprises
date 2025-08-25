@@ -131,11 +131,12 @@ module  Annuaire
     def filtered_experts
       base_experts
         .not_deleted
-        .order('antennes.name', 'full_name')
-        .preload(:antenne, :experts_subjects, :antenne, users: :user_rights_manager)
+        .select('experts.*, antennes.name as antenne_name')
+        .preload(:antenne, :experts_subjects, users: :user_rights_manager)
         .by_region(index_search_params[:region_code])
         .by_theme(index_search_params[:theme_id])
         .by_subject(index_search_params[:subject_id])
+        .order('antennes.name', 'experts.full_name')
     end
 
     def group_experts
