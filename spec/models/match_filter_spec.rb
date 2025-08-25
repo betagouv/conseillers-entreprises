@@ -158,4 +158,54 @@ RSpec.describe MatchFilter do
       end
     end
   end
+
+  describe '#filter_types' do
+    let(:antenne) { create(:antenne) }
+
+    context 'with no filters set' do
+      let(:match_filter) { create(:match_filter, antenne: antenne) }
+
+      it 'returns an empty array' do
+        expect(match_filter.filter_types).to eq []
+      end
+    end
+
+    context 'with a single filter set' do
+      let(:match_filter) { create(:match_filter, antenne: antenne, min_years_of_existence: 2) }
+
+      it 'returns an array with one filter type' do
+        expect(match_filter.filter_types).to eq [:min_years_of_existence]
+      end
+    end
+
+    context 'with multiple filters set' do
+      let(:match_filter) do
+        create(:match_filter, 
+               antenne: antenne, 
+               min_years_of_existence: 2,
+               effectif_min: 10,
+               accepted_naf_codes: ['1101Z', '1102A'])
+      end
+
+      it 'returns an array with all filter types that have values' do
+        expect(match_filter.filter_types).to include(:min_years_of_existence, :effectif_min, :raw_accepted_naf_codes)
+        expect(match_filter.filter_types.length).to eq 3
+      end
+    end
+
+    context 'with subjects associated' do
+      let(:subject1) { create(:subject) }
+      let(:subject2) { create(:subject) }
+      let(:match_filter) do
+        filter = create(:match_filter, antenne: antenne, effectif_max: 50)
+        filter.subjects << [subject1, subject2]
+        filter
+      end
+
+      it 'returns filter types including subjects' do
+        expect(match_filter.filter_types).to include(:effectif_max, :subjects)
+        expect(match_filter.filter_types.length).to eq 2
+      end
+    end
+  end
 end
