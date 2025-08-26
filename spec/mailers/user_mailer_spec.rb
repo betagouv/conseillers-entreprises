@@ -24,6 +24,5 @@ describe UserMailer do
 
       it { expect(mail).to be_nil }
     end
-
   end
 end
