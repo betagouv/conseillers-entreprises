@@ -175,7 +175,7 @@ class Expert < ApplicationRecord
   # Override du scope by_region du concern pour gérer les experts avec et sans territoires specifiques
   scope :by_region, -> (region_code) do
     return all if region_code.blank?
-    without_territorial_zones = self.without_territorial_zones.merge(Antenne.by_region(region_code)).ids
+    without_territorial_zones = self.without_territorial_zones.joins(:antenne).merge(Antenne.by_region(region_code)).ids
     with_territorial_zones = self.with_territorial_zones.where(territorial_zones: { regions_codes: [region_code] }).ids
     Expert.where(id: without_territorial_zones + with_territorial_zones)
   end
@@ -268,7 +268,7 @@ class Expert < ApplicationRecord
   end
 
   scope :by_insee_code, -> (insee_code) {
-    territories = DecoupageAdministratif::Search.new.find_territories_by_insee_code(insee_code)
+    territories = DecoupageAdministratif::Search.new.find_territories_by_commune_insee_code(insee_code)
     zone_types = [:epci, :departement, :region]
     experts_ids = []
     zone_types.each do |zone_type|
