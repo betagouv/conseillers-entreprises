@@ -222,18 +222,18 @@ class CreateTerritorialCoverage
     antennes_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Antenne', filtrable_element_id: @antennes.pluck(:id)).where(subjects: [@institution_subject.subject, nil])
     institution_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Institution', filtrable_element_id: @institution_subject.institution.id).where(subjects: [@institution_subject.subject, nil])
     {
-      antenne: antennes_match_filters.map { |filter| 
+      antenne: antennes_match_filters.map do |filter|
         types_labels = filter.filter_types.map { |type| I18n.t(type, scope: 'activerecord.attributes.match_filter') }
         "#{types_labels.join(', ')} - #{filter.filtrable_element}"
-      },
-      expert: experts_match_filters.map { |filter| 
+      end,
+      expert: experts_match_filters.map do |filter|
         types_labels = filter.filter_types.map { |type| I18n.t(type, scope: 'activerecord.attributes.match_filter') }
         "#{types_labels.join(', ')} - #{filter.filtrable_element}"
-      },
-      institution: institution_match_filters.map { |filter| 
+      end,
+      institution: institution_match_filters.map do |filter|
         types_labels = filter.filter_types.map { |type| I18n.t(type, scope: 'activerecord.attributes.match_filter') }
         "#{types_labels.join(', ')} - #{filter.filtrable_element}"
-      }
+      end
     }
   end
 
