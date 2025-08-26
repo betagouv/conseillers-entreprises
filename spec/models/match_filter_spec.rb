@@ -180,8 +180,8 @@ RSpec.describe MatchFilter do
 
     context 'with multiple filters set' do
       let(:match_filter) do
-        create(:match_filter, 
-               antenne: antenne, 
+        create(:match_filter,
+               antenne: antenne,
                min_years_of_existence: 2,
                effectif_min: 10,
                accepted_naf_codes: ['1101Z', '1102A'])
