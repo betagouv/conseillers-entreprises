@@ -276,19 +276,19 @@ ActiveAdmin.register User do
         ur.input :category, as: :hidden, input_html: { value: 'territorial_referent' }
         # Build collection: use TerritorialZone IDs for existing zones
         collection_options = []
-        
+
         # Get ALL existing TerritorialZones for regions, prioritizing UserRight type
         all_territorial_zones = TerritorialZone.where(zone_type: 'region')
         existing_territorial_zones_by_code = {}
-        
+
         all_territorial_zones.each do |tz|
           # Prioritize TerritorialZone with zoneable_type 'UserRight' over others
           if !existing_territorial_zones_by_code[tz.code] || tz.zoneable_type == 'UserRight'
             existing_territorial_zones_by_code[tz.code] = tz
           end
         end
-        
-        # Add all available regions from RegionOrderingService  
+
+        # Add all available regions from RegionOrderingService
         RegionOrderingService.call.each do |region|
           if existing_territorial_zones_by_code[region.code]
             # Region has existing TerritorialZone - use TerritorialZone ID
@@ -299,7 +299,7 @@ ActiveAdmin.register User do
             collection_options << ["#{region.nom} (#{region.code})", region.code]
           end
         end
-        
+
         ur.input :rightable_element_id,
                  collection: collection_options,
                  selected: ur.object&.rightable_element_id,
