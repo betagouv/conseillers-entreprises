@@ -52,7 +52,7 @@ class UserRight < ApplicationRecord
            :only_one_user_by_referent,
            :territorial_referent_has_managed_region,
            :only_one_territorial_referent_per_region
-           
+
   before_validation :create_territorial_zone_if_needed
   after_save :finalize_territorial_zone_link
 
@@ -113,25 +113,25 @@ class UserRight < ApplicationRecord
 
   def existing_territorial_referent_for_region?
     query = UserRight.joins(:territorial_zone)
-                     .where(category: :territorial_referent)
-                     .where(territorial_zones: { zone_type: 'region', code: rightable_element.code })
-    
+      .where(category: :territorial_referent)
+      .where(territorial_zones: { zone_type: 'region', code: rightable_element.code })
+
     # Exclude current record only if it's persisted (has an ID)
     query = query.where.not(id: id) if persisted?
-    
+
     query.exists?
   end
 
   def create_territorial_zone_if_needed
     return unless category_territorial_referent? && rightable_element_type == 'TerritorialZone'
-    
+
     # If rightable_element_id is a region code (not a numeric ID), create the TerritorialZone
     if rightable_element_id.present? && rightable_element_id.to_s !~ /^\d+$/
       region_code = rightable_element_id.to_s
-      
+
       # Check if TerritorialZone already exists for this region
       existing_tz = TerritorialZone.find_by(code: region_code, zone_type: 'region')
-      
+
       if existing_tz
         # Use existing TerritorialZone
         self.rightable_element_id = existing_tz.id
@@ -142,9 +142,9 @@ class UserRight < ApplicationRecord
           zone_type: 'region',
           zoneable_type: 'UserRight'
         )
-        
+
         self.rightable_element_id = territorial_zone.id
-        
+
         # Update zoneable_id after save
         @pending_territorial_zone = territorial_zone
       end
@@ -153,7 +153,7 @@ class UserRight < ApplicationRecord
 
   def finalize_territorial_zone_link
     return unless @pending_territorial_zone
-    
+
     @pending_territorial_zone.update!(zoneable_id: id)
     @pending_territorial_zone = nil
   end
