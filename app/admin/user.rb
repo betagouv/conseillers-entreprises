@@ -274,15 +274,12 @@ ActiveAdmin.register User do
       label_base = t('activerecord.models.user_right.territorial_referent')
       f.has_many :user_rights_territorial_referent, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
         ur.input :category, as: :hidden, input_html: { value: 'territorial_referent' }
-        # Build collection: use TerritorialZone IDs for existing zones
         collection_options = []
 
-        # Get ALL existing TerritorialZones for regions, prioritizing UserRight type
         all_territorial_zones = TerritorialZone.where(zone_type: 'region')
         existing_territorial_zones_by_code = {}
 
         all_territorial_zones.each do |tz|
-          # Prioritize TerritorialZone with zoneable_type 'UserRight' over others
           if !existing_territorial_zones_by_code[tz.code] || tz.zoneable_type == 'UserRight'
             existing_territorial_zones_by_code[tz.code] = tz
           end
@@ -295,7 +292,6 @@ ActiveAdmin.register User do
             tz = existing_territorial_zones_by_code[region.code]
             collection_options << ["#{region.nom} (#{region.code})", tz.id]
           else
-            # New region - use region code (will be converted to TerritorialZone later)
             collection_options << ["#{region.nom} (#{region.code})", region.code]
           end
         end
