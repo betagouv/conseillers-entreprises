@@ -98,7 +98,6 @@ class User < ApplicationRecord
   has_many :user_rights, inverse_of: :user, dependent: :destroy
   has_many :user_rights_manager, ->{ category_manager }, class_name: 'UserRight', inverse_of: :user
   has_many :user_rights_admin, ->{ category_admin }, class_name: 'UserRight', inverse_of: :user
-  # for_admin = droits admin + national_referent + main_referent
   has_many :user_rights_for_admin, ->{ for_admin }, class_name: 'UserRight', inverse_of: :user
   has_many :user_rights_cooperation_manager, ->{ category_cooperation_manager }, class_name: 'UserRight', inverse_of: :user
   has_many :user_rights_territorial_referent, ->{ category_territorial_referent }, class_name: 'UserRight', inverse_of: :user
