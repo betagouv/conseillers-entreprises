@@ -36,7 +36,7 @@ module WithTerritorialZones
 
     # Version optimisée : pas besoin de calculer tous les insee_codes
     territorial_zones.any? do |tz|
-      tz.territory_model.territory_intersects_with_insee_codes?(insee_codes_array)
+      tz.territory_model.includes_any_commune_code?(insee_codes_array)
     end
   end
 
