@@ -55,9 +55,11 @@ class Antenne < ApplicationRecord
   has_many :experts_including_deleted, class_name: 'Expert', inverse_of: :antenne
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
-  has_many :territorial_zones, as: :zoneable, dependent: :destroy, inverse_of: :zoneable, after_add: :update_antenne_hierarchy, after_remove: :update_antenne_hierarchy
-  accepts_nested_attributes_for :territorial_zones, allow_destroy: true
   accepts_nested_attributes_for :match_filters, allow_destroy: true
+  
+  # Override l'association du module pour ajouter les callbacks
+  has_many :territorial_zones, as: :zoneable, dependent: :destroy, inverse_of: :zoneable, 
+           after_add: :update_antenne_hierarchy, after_remove: :update_antenne_hierarchy
 
   has_many :activity_reports, as: :reportable, dependent: :destroy, inverse_of: :reportable
   has_many :matches_reports, -> { category_matches }, class_name: 'ActivityReport', dependent: :destroy, inverse_of: :reportable
