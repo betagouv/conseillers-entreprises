@@ -75,7 +75,7 @@ gem 'split', require: 'split/dashboard'
 gem 'matrix'
 gem 'mjml-rails'
 gem 'progress_bar'
-gem 'decoupage_administratif', git: 'https://github.com/betagouv/decoupage-administratif-gem'
+gem 'decoupage_administratif', '~> 0.2.0'
 gem 'parallel'
 
 # Notifiers
