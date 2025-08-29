@@ -67,5 +67,16 @@ module CsvImport
       attributes = row_to_attributes(row)
       attributes.slice(:communes_codes, :epci_codes, :departements_codes, :region_codes)
     end
+
+    def import_territories(instance, attributes)
+      instance.territorial_zones = []
+      attributes.each do |key, value|
+        key = key.to_s.gsub('_codes', '').singularize
+        instance.territorial_zones += value.split.map do |code|
+          code = reformat_commune_code(code)
+          instance.territorial_zones.find_or_create_by!(zone_type: key, code: code.strip)
+        end
+      end
+    end
   end
 end
