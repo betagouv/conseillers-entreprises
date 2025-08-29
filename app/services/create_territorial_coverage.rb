@@ -19,9 +19,9 @@ class CreateTerritorialCoverage
 
   private
 
-  def theme_outside_territories?(antennes_insee_codes)
+  def theme_outside_territories?
     @institution_subject.theme.territories.any? &&
-      (@institution_subject.theme.insee_codes & antennes_insee_codes).empty?
+      (@institution_subject.theme.insee_codes & @antennes_insee_codes).empty?
   end
 
   def gather_all_experts
