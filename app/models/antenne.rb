@@ -162,7 +162,7 @@ class Antenne < ApplicationRecord
   end
 
   def support_user
-    if !national? && regions.count == 1
+    if !national? && regions.one?
       User.find(Antenne.find(id).regions.first.support_contact_id)
     else
       UserRight.category_national_referent.first&.user

@@ -4,8 +4,10 @@ ActiveAdmin.register Solicitation do
   menu priority: 7
 
   include CsvExportable
+
   controller do
     include DynamicallyFiltrable
+
     helper :active_admin_utilities
   end
 

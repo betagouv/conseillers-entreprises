@@ -93,7 +93,7 @@ class CompanySatisfaction < ApplicationRecord
 
   # Partage aux conseillers
   #
-  def share
+  def share # rubocop:disable Naming/PredicateMethod
     done_experts.active.find_each do |done_expert|
       done_expert.users.active.find_each{ |user| self.shared_satisfactions.where(user: user).first_or_create(expert: done_expert) }
       expert_antenne = done_expert.antenne
@@ -116,7 +116,7 @@ class CompanySatisfaction < ApplicationRecord
     end
   end
 
-  def shared
+  def shared # rubocop:disable Naming/PredicateMethod
     shared_satisfactions.any?
   end
 

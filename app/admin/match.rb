@@ -4,6 +4,7 @@ ActiveAdmin.register Match do
   menu parent: :needs, priority: 2
 
   include CsvExportable
+
   controller do
     include DynamicallyFiltrable
 

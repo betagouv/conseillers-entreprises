@@ -299,7 +299,7 @@ class Expert < ApplicationRecord
   end
 
   def first_notification_help_email
-    return unless received_matches.count == 1
+    return unless received_matches.one?
     ExpertMailer.with(expert: self).first_notification_help.deliver_later
   end
 

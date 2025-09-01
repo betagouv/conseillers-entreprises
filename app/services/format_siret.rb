@@ -18,20 +18,20 @@ class FormatSiret
 
   def self.siren_is_valid(siren)
     siren.present? && siren.match?(/^\d{9}$/) &&
-    (luhn_valid(siren) || siret_is_hardcoded_valid(siren))
+    (luhn_valid?(siren) || siret_is_hardcoded_valid?(siren))
   end
 
   def self.siret_is_valid(siret)
     siret.present? && siret.match?(/^\d{14}$/) &&
-      (luhn_valid(siret) || siret_is_hardcoded_valid(siret))
+      (luhn_valid?(siret) || siret_is_hardcoded_valid?(siret))
   end
 
   private
 
-  def self.luhn_valid(str)
+  def self.luhn_valid?(str)
     s = str.reverse
     sum = 0
-    (0..s.size - 1).step(2) do |k| # k is odd, k+1 is even
+    (0..(s.size - 1)).step(2) do |k| # k is odd, k+1 is even
       sum += s[k].to_i # s1
       tmp = s[k + 1].to_i * 2
       if tmp > 9
@@ -42,7 +42,7 @@ class FormatSiret
     (sum % 10).zero?
   end
 
-  def self.siret_is_hardcoded_valid(siret)
+  def self.siret_is_hardcoded_valid?(siret)
     # https://fr.wikipedia.org/wiki/Système_d%27identification_du_répertoire_des_établissements
     # Pour des raisons historiques, les SIRET attribués aux établissements du groupe La Poste utilisent une autre formule de validation, et ne sont donc pas tous valides au sens de la formule de Luhn. Le groupe La Poste ayant le SIREN : 356000000, les SIRET suivant cette autre formule de validation sont de la forme 356000000XXXXX
     siret.match?(/356000000...../)

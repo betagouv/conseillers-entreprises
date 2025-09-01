@@ -3,6 +3,7 @@ module RecordExtensions
     # Like :human_attribute_name, but for enum values.
     #
     extend ActiveSupport::Concern
+
     class_methods do
       # Fetches  the i18n key at
       # `activerecord.attributes.<klass>/<enum_names>.<value>`

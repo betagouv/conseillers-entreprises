@@ -1,5 +1,6 @@
 class AntenneCoverage::UpdateJob
   include Sidekiq::Job
+
   sidekiq_options queue: 'antenne_coverage'
 
   def perform(antenne_id)

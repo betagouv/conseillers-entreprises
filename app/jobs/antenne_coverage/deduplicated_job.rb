@@ -1,5 +1,6 @@
 class AntenneCoverage::DeduplicatedJob
   include Sidekiq::Job
+
   QUEUE_NAME = 'antenne_coverage'
 
   # Updated when changed : add/remove communes - add/remove experts - add/remove expert communes - add/remove expert subject
