@@ -35,23 +35,27 @@ module CsvImport
     end
 
     def create_manager(antenne, attributes)
-      if attributes[:manager_email].present?
-        attributes[:manager_email] = attributes[:manager_email].strip.downcase
-      else
-        return antenne
-      end
-      manager = User.find_or_initialize_by(email: attributes[:manager_email])
-      manager.update(
-        antenne: antenne,
-        job: I18n.t('attributes.manager'),
-        full_name: attributes[:manager_full_name],
-        phone_number: attributes[:manager_phone]
-      ) if manager.new_record?
-      if manager.persisted? && antenne.managers.exclude?(manager)
-        antenne.managers << manager
-      else
-        # Adds manager so that validations raise error if needed
-        antenne.advisors << manager
+      return antenne if attributes[:manager_email].blank?
+
+      emails = attributes[:manager_email].split(',').map { |email| email.strip.downcase }.compact_blank
+      full_names = attributes[:manager_full_name]&.split(',')&.map(&:strip) || []
+      phone_numbers = attributes[:manager_phone]&.split(',')&.map(&:strip) || []
+
+      emails.each_with_index do |email, index|
+        manager = User.find_or_initialize_by(email: email)
+        if manager.new_record?
+          manager.assign_attributes(
+            antenne: antenne,
+            job: I18n.t('attributes.manager'),
+            full_name: full_names[index] || attributes[:manager_full_name],
+            phone_number: phone_numbers[index] || attributes[:manager_phone]
+          )
+          # Save the manager to validate and persist it
+          next unless manager.save
+        end
+        if manager.persisted? && antenne.managers.exclude?(manager)
+          antenne.managers << manager
+        end
       end
       antenne
     end
