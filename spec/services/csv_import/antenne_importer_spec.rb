@@ -186,6 +186,50 @@ describe CsvImport::AntenneImporter, CsvImport do
         expect(result).not_to be_success
       end
     end
+
+    context 'Export/Import with multiple managers (non-regression test)' do
+      let!(:antenne) { create :antenne, institution: institution, name: 'Multi Manager Antenne' }
+      let!(:manager1) { create :user, full_name: 'Alice Dupont', email: 'alice.dupont@example.com', phone_number: '0123456789', antenne: antenne }
+      let!(:manager2) { create :user, full_name: 'Bob Martin', email: 'bob.martin@example.com', phone_number: '0987654321', antenne: antenne }
+      let!(:manager3) { create :user, full_name: 'Claire Leroy', email: 'claire.leroy@example.com', phone_number: '0147258369', antenne: antenne }
+
+      before do
+        antenne.managers << [manager1, manager2, manager3]
+      end
+
+      it 'successfully exports and re-imports antenne with multiple managers' do
+        # Export the antenne to CSV
+        export_result = Antenne.where(id: antenne.id).export_csv
+        
+        # Verify the export contains multiple managers in comma-separated format
+        csv_lines = export_result.csv.lines
+        expect(csv_lines.size).to eq 2 # header + data
+        
+        data_line = csv_lines[1]
+        expect(data_line).to include('Alice Dupont, Bob Martin, Claire Leroy')
+        expect(data_line).to include('alice.dupont@example.com, bob.martin@example.com, claire.leroy@example.com')
+        expect(data_line).to include('01 23 45 67 89, 09 87 65 43 21, 01 47 25 83 69')
+
+        # Import the same CSV back
+        import_result = institution.antennes.import_csv(export_result.csv, institution: institution)
+        
+        # Verify import success
+        expect(import_result).to be_success
+        expect(import_result.header_errors).to be_empty
+        expect(import_result.preprocess_errors).to be_empty
+        expect(import_result.postprocess_errors).to be_empty
+        expect(import_result.objects.first.errors).to be_empty
+
+        # Verify the antenne still has all managers
+        reloaded_antenne = Antenne.find_by(name: 'Multi Manager Antenne')
+        expect(reloaded_antenne.managers.count).to eq 3
+        expect(reloaded_antenne.managers.pluck(:email)).to contain_exactly(
+          'alice.dupont@example.com',
+          'bob.martin@example.com', 
+          'claire.leroy@example.com'
+        )
+      end
+    end
   end
 
   context 'existing antenne tolerant name' do
