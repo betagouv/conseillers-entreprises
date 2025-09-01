@@ -1,6 +1,7 @@
 module Reminders
   class ExpertsController < BaseController
     include Inbox
+
     helper_method :inbox_collections_counts
     before_action :collections_counts, only: %i[index show many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]
     before_action :retrieve_expert, except: %i[index many_pending_needs medium_pending_needs one_pending_need inputs outputs expired_needs]

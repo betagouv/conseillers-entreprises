@@ -1,5 +1,6 @@
 class UpdateAntenneHierarchyJob
   include Sidekiq::Job
+
   # Updated when changed : add/remove communes
   def perform(antenne_id)
     current_antenne = Antenne.find_by(id: antenne_id)
