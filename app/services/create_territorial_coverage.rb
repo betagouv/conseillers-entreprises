@@ -9,7 +9,7 @@ class CreateTerritorialCoverage
   end
 
   def call
-    return theme_outside_territories if theme_outside_territories?(@antennes_insee_codes)
+    return theme_outside_territories if theme_outside_territories?
 
     experts_and_users_by_insee_code = initialize_experts_and_users_by_insee_code
     global_experts_and_users = build_global_experts_and_users
