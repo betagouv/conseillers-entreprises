@@ -11,8 +11,8 @@ module Api
     end
 
     def call
-      raise TechnicalError.new(api: id_key), "Ah zut c’est cassé là, désolé, on va contacter qui de droit."
       Rails.cache.fetch([id_key, @query].join('-'), expires_in: 12.hours) do
+        simulate_error
         http_request = request
         if http_request.success?
           responder(http_request).call
@@ -22,12 +22,23 @@ module Api
       end
     end
 
+    def simulate_error
+      return unless Rails.env.development?
+
+      message = ENV['DEVELOPMENT_API_ERROR_OVERRIDE_MESSAGE']
+      return if message.blank?
+
+      raise TechnicalError.new(api: id_key), message
+    end
+
     def request
+      # self.class.module_parent::Request
       request_class_name = [self.class.name.deconstantize, 'Request'].join('::')
       request_class_name.constantize.new(@query, @options)
     end
 
     def responder(http_request)
+      # self.class.module_parent::Responder
       responder_class_name = [self.class.name.deconstantize, 'Responder'].join('::')
       responder_class_name.constantize.new(http_request)
     end
