@@ -39,7 +39,7 @@ class InstitutionPolicy < ApplicationPolicy
     admin?
   end
 
-  def subject_territorial_coverage?
+  def create_territorial_coverage?
     admin?
   end
 end

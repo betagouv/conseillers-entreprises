@@ -266,7 +266,7 @@ Rails.application.routes.draw do
       resources :users, path: 'conseillers', only: :index, concerns: [:importable] do
         collection do
           post :send_invitations
-          get :subject_territorial_coverage
+          get :create_territorial_coverage
         end
       end
       resources :antennes, only: :index, concerns: [:importable] do
