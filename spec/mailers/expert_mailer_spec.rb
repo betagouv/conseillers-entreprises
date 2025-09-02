@@ -58,7 +58,7 @@ describe ExpertMailer do
 
       let(:mail) { subject }
 
-      it { expect(mail).to be_nil }
+      it { expect(mail).to be false }
     end
   end
 
@@ -80,7 +80,7 @@ describe ExpertMailer do
 
       let(:mail) { subject }
 
-      it { expect(mail).to be_nil }
+      it { expect(mail).to be false }
     end
   end
 end
