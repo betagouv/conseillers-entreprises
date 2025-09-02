@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class BadgesController < ApplicationController
   before_action :find_badge, only: [:destroy, :edit, :update]
   layout 'side_menu'

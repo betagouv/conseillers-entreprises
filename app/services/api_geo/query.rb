@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module ApiGeo
   module Query
     def self.city_with_code(citycode)

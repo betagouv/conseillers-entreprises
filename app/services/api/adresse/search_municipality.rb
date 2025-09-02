@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api::Adresse
   class SearchMunicipality < Api::Base
     def initialize(location)

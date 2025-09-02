@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module UserTabsHelper
   # Helper for the user_tabs layout.
   # If there are several tabs in the same section, add a sublist;

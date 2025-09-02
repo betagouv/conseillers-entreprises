@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 if ENV['RAILS_ENV'] == 'development'
   TEST_PASSWORD = '1234567azeaze122/'
   TEST_EMAIL = 'a@a.a'
