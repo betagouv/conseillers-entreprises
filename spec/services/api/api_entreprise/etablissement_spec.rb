@@ -2,31 +2,30 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::ApiEntreprise::Entreprise::Base do
-  let(:api_company) { described_class.new(siren).call[:entreprise] }
-  let(:suffix_url) { "context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
-  let(:url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/#{siren}?#{suffix_url}" }
+RSpec.describe Api::ApiEntreprise::Etablissement do
+  let(:facility) { described_class::Base.new(siret).call[:etablissement] }
+  let(:base_url) { 'https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements' }
+  let(:url) { "#{base_url}/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
   context 'SIREN number exists' do
     let(:token) { '1234' }
-    let(:siren) { '418166096' }
+    let(:siret) { '41816609600069' }
 
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
       stub_request(:get, url).to_return(
-        body: file_fixture('api_entreprise_entreprise.json')
+        body: file_fixture('api_entreprise_etablissement.json')
       )
     end
 
-    it 'returns an entreprise with good fields' do
-      expect(api_company['siren']).to be_present
-      expect(api_company["personne_morale_attributs"]['raison_sociale']).to be_present
+    it 'has the right fields' do
+      expect(facility["siret"]).to be_present
     end
   end
 
-  context 'SIREN is missing' do
+  context 'SIRET is missing' do
     let(:token) { '1234' }
-    let(:siren) { '' }
+    let(:siret) { '' }
 
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
@@ -36,13 +35,13 @@ RSpec.describe Api::ApiEntreprise::Entreprise::Base do
     end
 
     it 'raises an error' do
-      expect { api_company }.to raise_error Api::BasicError
+      expect { facility }.to raise_error(Api::BasicError, I18n.t('api_requests.invalid_siret_or_siren'))
     end
   end
 
-  context 'SIREN does not exist' do
+  context 'SIRET does not exist' do
     let(:token) { '1234' }
-    let(:siren) { '123456789' }
+    let(:siret) { '12345678901234' }
 
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
@@ -53,13 +52,13 @@ RSpec.describe Api::ApiEntreprise::Entreprise::Base do
     end
 
     it 'raises an error' do
-      expect { api_company }.to raise_error Api::BasicError
+      expect { facility }.to raise_error Api::BasicError, I18n.t('api_requests.invalid_siret_or_siren')
     end
   end
 
   context 'Token is unauthorized' do
     let(:token) { '' }
-    let(:siren) { '418166096' }
+    let(:siret) { '41816609600069' }
 
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
@@ -70,7 +69,7 @@ RSpec.describe Api::ApiEntreprise::Entreprise::Base do
     end
 
     it 'raises an error' do
-      expect { api_company }.to raise_error Api::TechnicalError
+      expect { facility }.to raise_error Api::TechnicalError, "Interdit : Votre token n'est pas valide ou n'est pas renseigné"
     end
   end
 end

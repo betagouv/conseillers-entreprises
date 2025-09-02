@@ -3,14 +3,14 @@
 require 'rails_helper'
 require 'api_helper'
 
-RSpec.describe Api::Rne::Token::Base do
+RSpec.describe Api::Rne::Token do
 
   ENV['RNE_USERNAME'] = 'François Premier'
   ENV['RNE_PASSWORD'] = 'p4ssw0rd'
   ENV['RNE_USERNAME_2'] = 'Françoise Deux'
   ENV['RNE_PASSWORD_2'] = 'p4ssw0rd'
 
-  let(:token) { described_class.new.call }
+  let(:token) { described_class::Base.new.call }
   let(:url) { "https://registre-national-entreprises.inpi.fr/api/companies/#{siren}" }
 
   context 'Identifiants 1 ok' do

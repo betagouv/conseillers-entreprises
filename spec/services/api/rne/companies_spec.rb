@@ -3,8 +3,8 @@
 require 'rails_helper'
 require 'api_helper'
 
-RSpec.describe Api::Rne::Companies::Base do
-  let(:api) { described_class.new(siren).call }
+RSpec.describe Api::Rne::Companies do
+  let(:api) { described_class::Base.new(siren).call }
   let(:url) { "https://registre-national-entreprises.inpi.fr/api/companies/#{siren}" }
 
   context 'SIREN reconnu' do
