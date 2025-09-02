@@ -3,8 +3,8 @@
 require 'rails_helper'
 require 'api_helper'
 
-RSpec.describe Api::RechercheEntreprises::Search::Fulltext::Base do
-  let(:api) { described_class.new(query).call }
+RSpec.describe Api::RechercheEntreprises::Search::Fulltext do
+  let(:api) { described_class::Base.new(query).call }
   let(:url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
 
   context 'Query reconnue' do

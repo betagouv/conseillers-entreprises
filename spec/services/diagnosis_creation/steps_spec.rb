@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'api/base'
+require 'api'
 
 describe DiagnosisCreation::Steps do
   describe 'prepare_needs_from_solicitation' do

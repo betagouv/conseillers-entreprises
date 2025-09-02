@@ -3,8 +3,8 @@
 require 'rails_helper'
 require 'api_helper'
 
-RSpec.describe Api::FranceCompetence::Siret::Base do
-  let(:api) { described_class.new(siret).call }
+RSpec.describe Api::FranceCompetence::Siret do
+  let(:api) { described_class::Base.new(siret).call }
   let(:url) { "https://api.francecompetences.fr/siropartfc/v1/api/partenaire/#{siret}" }
 
   context 'SIRET reconnu' do

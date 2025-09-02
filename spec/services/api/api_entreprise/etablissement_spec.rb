@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::ApiEntreprise::Etablissement::Base do
-  let(:facility) { described_class.new(siret).call[:etablissement] }
+RSpec.describe Api::ApiEntreprise::Etablissement do
+  let(:facility) { described_class::Base.new(siret).call[:etablissement] }
   let(:base_url) { 'https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements' }
   let(:url) { "#{base_url}/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
