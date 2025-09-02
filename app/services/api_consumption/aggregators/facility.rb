@@ -1,4 +1,4 @@
-module ApiConsumption::Agregators
+module ApiConsumption::Aggregators
   class Facility
     REQUESTS = {
       api_entreprise_etablissement: Api::ApiEntreprise::Etablissement::Base,
