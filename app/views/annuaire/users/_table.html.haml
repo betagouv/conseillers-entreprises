@@ -24,7 +24,7 @@
           - subjects.each_value do |institutions_subjects|
             - institutions_subjects.each do |institution_subject|
               %th.coverage-table-cell
-                = turbo_frame_tag "institution-subject-#{institution_subject.id}", src: subject_territorial_coverage_institution_users_path(institution_subject_id: institution_subject.id, antenne_id: params[:antenne_id]) do
+                = turbo_frame_tag "institution-subject-#{institution_subject.id}", src: create_territorial_coverage_institution_users_path(institution_subject_id: institution_subject.id, antenne_id: params[:antenne_id]) do
                   = render 'skeleton_coverage'
 
     %tbody
