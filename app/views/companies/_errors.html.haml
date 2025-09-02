@@ -1,0 +1,18 @@
+-# locals: (errors:)
+
+- if errors.present?
+  - if errors[:unreachable_apis].present?
+    .fr-alert.fr-alert--error.fr-alert--sm
+      %details
+        %summary= t(".unreachable_apis")
+        %ul
+          - errors[:unreachable_apis].each do |key, message|
+            %li #{key} : #{message}
+
+  - if errors[:standard_api_errors].present?
+    .fr-alert.fr-alert--warning.fr-alert--sm
+      %details
+        %summary= t(".standard_api_errors")
+        %ul
+          - errors[:standard_api_errors].each do |key, message|
+            %li #{key} : #{message}
