@@ -1,0 +1,10 @@
+.lazy-coverage-container{ data: { controller: 'coverage', institution_subject_id: institution_subject.id } }
+  %button.fr-btn.fr-btn--sm.fr-btn--tertiary-no-outline.load-single-coverage{ data: {
+      institution_subject_id: institution_subject.id,
+      antenne_id: params[:antenne_id],
+      action: 'click->coverage#loadSingle'
+    }
+  }
+    %span.ri-loader-4-line
+    = t('.load_coverage')
+  .coverage-result.d-none
