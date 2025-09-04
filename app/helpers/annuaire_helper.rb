@@ -62,7 +62,7 @@ module AnnuaireHelper
         inner_content.join.html_safe
       end
       content
-    end.flatten.join.html_safe
+    end.join.html_safe
   end
 
   def build_cooperations_details(cooperations_details)
@@ -143,5 +143,11 @@ module AnnuaireHelper
         inner_content
       end
     content
+  end
+
+  def large_search?(grouped_experts, grouped_subjects)
+    total_experts = grouped_experts.values.sum { |experts| experts.keys.count(&:persisted?) }
+    total_subjects = grouped_subjects.values.sum { |subjects| subjects.values.sum(&:size) }
+    (total_experts * total_subjects) > 100
   end
 end
