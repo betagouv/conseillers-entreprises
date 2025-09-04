@@ -200,11 +200,11 @@ describe CsvImport::AntenneImporter, CsvImport do
       it 'successfully exports and re-imports antenne with multiple managers' do
         # Export the antenne to CSV
         export_result = Antenne.where(id: antenne.id).export_csv
-        
+
         # Verify the export contains multiple managers in comma-separated format
         csv_lines = export_result.csv.lines
         expect(csv_lines.size).to eq 2 # header + data
-        
+
         data_line = csv_lines[1]
         expect(data_line).to include('Alice Dupont, Bob Martin, Claire Leroy')
         expect(data_line).to include('alice.dupont@example.com, bob.martin@example.com, claire.leroy@example.com')
@@ -212,7 +212,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
         # Import the same CSV back
         import_result = institution.antennes.import_csv(export_result.csv, institution: institution)
-        
+
         # Verify import success
         expect(import_result).to be_success
         expect(import_result.header_errors).to be_empty
@@ -225,7 +225,7 @@ describe CsvImport::AntenneImporter, CsvImport do
         expect(reloaded_antenne.managers.count).to eq 3
         expect(reloaded_antenne.managers.pluck(:email)).to contain_exactly(
           'alice.dupont@example.com',
-          'bob.martin@example.com', 
+          'bob.martin@example.com',
           'claire.leroy@example.com'
         )
       end
