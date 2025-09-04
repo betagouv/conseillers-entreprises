@@ -24,8 +24,12 @@
           - subjects.each_value do |institutions_subjects|
             - institutions_subjects.each do |institution_subject|
               %th.coverage-table-cell
-                = turbo_frame_tag "institution-subject-#{institution_subject.id}", src: create_territorial_coverage_institution_users_path(institution_subject_id: institution_subject.id, antenne_id: params[:antenne_id]) do
-                  = render 'skeleton_coverage'
+                - if large_search?(grouped_experts, grouped_subjects)
+                  = turbo_frame_tag "institution-subject-#{institution_subject.id}" do
+                    = render 'lazy_coverage', institution_subject: institution_subject
+                - else
+                  = turbo_frame_tag "institution-subject-#{institution_subject.id}", src: create_territorial_coverage_institution_users_path(institution_subject_id: institution_subject.id, antenne_id: params[:antenne_id]) do
+                    = render 'skeleton_coverage'
 
     %tbody
       - grouped_experts.each do |antenne, experts|
