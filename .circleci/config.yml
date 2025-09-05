@@ -81,8 +81,6 @@ jobs:
       - *bundle_install
       - *yarn_install
       - *yarn_build
-      - qlty/coverage_publish:
-          files: coverage/coverage.json
 
       - run:
           environment:
@@ -106,6 +104,8 @@ jobs:
               --out /tmp/test-results/rspec.xml \
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - qlty/coverage_publish:
+          files: coverage/coverage.json
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
