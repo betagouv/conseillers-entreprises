@@ -71,7 +71,7 @@ gem 'sib-api-v3-sdk', '~> 7.2'
 gem 'recipient_interceptor'
 gem 'ip_anonymizer'
 gem 'highline'
-gem 'caxlsx', '~> 3.4.1'
+gem 'caxlsx', '~> 3.4.1' # https://github.com/betagouv/conseillers-entreprises/issues/4003
 gem 'caxlsx_rails'
 gem 'split', require: 'split/dashboard'
 gem 'matrix'
