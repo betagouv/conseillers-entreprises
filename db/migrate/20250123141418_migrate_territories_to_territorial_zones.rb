@@ -1,97 +1,208 @@
 class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
   def up
     models_with_territories = ["Antenne", "Expert"]
+
+    # Cache les données DecoupageAdministratif pour éviter les parcours répétitifs
+    cache_departements_regions
+
     create_regional_zones
     models_with_territories.each do |model|
       create_local_zones(model)
     end
   end
 
-  def create_regional_zones
-    regional_antennes = Antenne.not_deleted.territorial_level_regional
-    puts "Antennes régionales"
-    regional_antennes_bar = ProgressBar.new(regional_antennes.count)
-    transaction do
-      regional_antennes.each do |antenne|
-        departements_codes = antenne.communes.pluck(:insee_code).map do |code|
-          if code[0..1].to_i < 96
-            code[0..1]
-          else
-            code[0..2]
-          end
-        end.uniq
-        regions = departements_codes.map { |code| DecoupageAdministratif::Departement.find(code).region }.uniq
+  private
 
-        regions.each do |region|
-          antenne.territorial_zones.create!(zone_type: :region, code: region.code)
+  def cache_departements_regions
+    puts "Mise en cache des données DecoupageAdministratif..."
+
+    @departements_cache = {}
+    @regions_cache = {}
+
+    DecoupageAdministratif::Departement.all.each do |dept|
+      region = dept.region
+      @departements_cache[dept.code] = {
+        region_code: region.code,
+        communes_count: dept.communes.size,
+        communes_codes: dept.communes.map(&:code)
+      }
+      @regions_cache[region.code] ||= region
+    end
+
+    @epcis_by_commune = {}
+    DecoupageAdministratif::Epci.all.each do |epci|
+      epci.membres.each do |membre|
+        @epcis_by_commune[membre['code']] ||= []
+        @epcis_by_commune[membre['code']] << epci
+      end
+    end
+
+    puts "Cache terminé : #{@departements_cache.size} départements, #{@epcis_by_commune.keys.size} EPCI avec communes"
+  end
+
+  def create_regional_zones
+    puts "Antennes régionales"
+
+    regional_antennes = Antenne.not_deleted
+                               .territorial_level_regional
+                               .includes(:communes)
+
+    regional_antennes_bar = ProgressBar.new(regional_antennes.count)
+
+    regional_antennes.find_in_batches(batch_size: 100) do |batch|
+      zones_to_insert = []
+
+      batch.each do |antenne|
+        departements_codes = antenne.communes.map do |commune|
+          code = commune.insee_code
+          code[0..1].to_i < 96 ? code[0..1] : code[0..2]
+        end.uniq
+
+        regions_codes = departements_codes.map { |code| @departements_cache[code]&.dig(:region_code) }.compact.uniq
+
+        regions_codes.each do |region_code|
+          zones_to_insert << {
+            zone_type: 'region',
+            code: region_code,
+            zoneable_type: 'Antenne',
+            zoneable_id: antenne.id,
+            created_at: Time.current,
+            updated_at: Time.current
+          }
         end
+
         regional_antennes_bar.increment!
       end
+
+      TerritorialZone.insert_all(zones_to_insert) if zones_to_insert.any?
     end
   end
 
   def create_local_zones(model)
     puts "#{model} locales"
-    model_collection = local_model_collection(model)
+    model_collection = local_model_collection(model).includes(:communes)
     puts "Nombre de #{model} : #{model_collection.count}"
     local_bar = ProgressBar.new(model_collection.count)
-    avec_code = []
-    transaction do
-      model_collection.each do |item|
-        communes_codes = item.communes.pluck(:insee_code).uniq.flatten
-        communes_codes = check_and_create_if_departement(communes_codes, item)
 
-        if communes_codes.size > 0
-          communes_codes = check_and_create_if_epci(communes_codes, item)
+    items_sans_zones = []
+
+    model_collection.find_in_batches(batch_size: 100) do |batch|
+      zones_to_insert = []
+
+      batch.each do |item|
+        communes_codes = item.communes.map(&:insee_code).uniq
+
+        # Process départements
+        communes_codes_remaining = process_departements_batch(item, communes_codes, zones_to_insert)
+
+        # Process EPCIs
+        if communes_codes_remaining.any?
+          communes_codes_remaining = process_epcis_batch(item, communes_codes_remaining, zones_to_insert)
         end
-        if communes_codes.size > 0
-          communes_codes = create_communes(communes_codes, item)
+
+        # Process remaining communes
+        if communes_codes_remaining.any?
+          communes_codes_remaining = process_communes_batch(item, communes_codes_remaining, zones_to_insert)
         end
-        avec_code << "#{item} (#{item.id}) sans zone : #{communes_codes.join(', ')}" if communes_codes.size >= 1
+
+        items_sans_zones << "#{item} (#{item.id}) sans zone : #{communes_codes_remaining.join(', ')}" if communes_codes_remaining.size >= 1
         local_bar.increment!
       end
-      avec_code.each { |a| puts a }
+      # Batch insert
+      TerritorialZone.insert_all(zones_to_insert) if zones_to_insert.any?
     end
+
+    items_sans_zones.each { |a| puts a }
   end
 
-  def check_and_create_if_departement(communes_codes, item)
-    code_departements = communes_codes.map do |code|
+  def process_departements_batch(item, communes_codes, zones_to_insert)
+    remaining_codes = Set.new(communes_codes)
+
+    # Groupe par département
+    codes_by_dept = communes_codes.group_by do |code|
       code[0..1].to_i < 96 ? code[0..1] : code[0..2]
-    end.uniq
-    # Passe les antennes qui on beaucoup de codes communes d'un département mais qui ne sont pas départementales
-    return communes_codes if item.is_a?(Antenne) && [303, 2621, 2630, 2631, 2823, 1012, 305, 2616, 159, 848, 152, 768, 2272, 1529, 764, 1747].include?(item.id)
-    code_departements.each do |code_departement|
-      communes_departement_size = communes_codes.count { |code| code.start_with?(code_departement) }
-      reel_departement_size = DecoupageAdministratif::Departement.find(code_departement).communes.size
-      if communes_departement_size >= reel_departement_size || communes_departement_size >= (reel_departement_size * 0.95)
-        item.territorial_zones.create!(zone_type: :departement, code: code_departement)
-        communes_codes.reject! { |code| code.start_with?(code_departement) }
+    end
+
+    codes_by_dept.each do |dept_code, dept_commune_codes|
+      dept_info = @departements_cache[dept_code]
+      next unless dept_info
+
+      # Check si couvre 100% ou au moins 95% du département
+      if dept_commune_codes.size >= dept_info[:communes_count] || dept_commune_codes.size >= (dept_info[:communes_count] * 0.95)
+        zones_to_insert << {
+          zone_type: 'departement',
+          code: dept_code,
+          zoneable_type: item.class.name,
+          zoneable_id: item.id,
+          created_at: Time.current,
+          updated_at: Time.current
+        }
+
+        # Enlève ces codes de la liste restante
+        dept_commune_codes.each { |code| remaining_codes.delete(code) }
       end
     end
-    communes_codes
+
+    remaining_codes.to_a
   end
 
-  def check_and_create_if_epci(communes_codes, item)
-    # rubocop:disable Rails/DynamicFindBy
+  def process_epcis_batch(item, communes_codes, zones_to_insert)
+    remaining_codes = Set.new(communes_codes)
+    processed_epcis = Set.new
+
     epcis = DecoupageAdministratif::Epci.search_by_communes_codes(communes_codes)
-    # rubocop:enable Rails/DynamicFindBy
+
     epcis.each do |epci|
-      item.territorial_zones.create!(zone_type: :epci, code: epci.code)
-      communes_codes.reject! do |code|
-        epci.membres.map { |membre| membre[:code] }
-      end
+      next if processed_epcis.include?(epci.code)
+
+      zones_to_insert << {
+        zone_type: 'epci',
+        code: epci.code,
+        zoneable_type: item.class.name,
+        zoneable_id: item.id,
+        created_at: Time.current,
+        updated_at: Time.current
+      }
+
+      processed_epcis.add(epci.code)
+      # Supprime les communes de l'EPCI de la liste restante
+      epci.membres.each { |membre| remaining_codes.delete(membre['code']) }
     end
-    communes_codes
+
+    remaining_codes.to_a
   end
 
-  def create_communes(communes_codes, item)
-    communes_codes.flatten.each do |code|
-       tz = TerritorialZone.new(code: code, zone_type: :commune, zoneable: item)
-       if tz.save
-         communes_codes.reject! { |c| c == code }
-       end
-     end
-    communes_codes
+  def process_communes_batch(item, communes_codes, zones_to_insert)
+    invalid_codes = []
+
+    communes_codes.each do |code|
+      # Vérifie la validité du code commune
+      if valid_commune_code?(code)
+        zones_to_insert << {
+          zone_type: 'commune',
+          code: code,
+          zoneable_type: item.class.name,
+          zoneable_id: item.id,
+          created_at: Time.current,
+          updated_at: Time.current
+        }
+      else
+        invalid_codes << code
+      end
+    end
+
+    # Retourne les codes invalides non traités
+    invalid_codes
+  end
+
+  def valid_commune_code?(code)
+    return false if code.blank?
+
+    begin
+      DecoupageAdministratif::Commune.find(code).present?
+    rescue
+      false
+    end
   end
 
   def local_model_collection(model)
