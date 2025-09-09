@@ -44,8 +44,8 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
     puts "Antennes régionales"
 
     regional_antennes = Antenne.not_deleted
-                               .territorial_level_regional
-                               .includes(:communes)
+      .territorial_level_regional
+      .includes(:communes)
 
     regional_antennes_bar = ProgressBar.new(regional_antennes.count)
 
@@ -58,7 +58,7 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
           code[0..1].to_i < 96 ? code[0..1] : code[0..2]
         end.uniq
 
-        regions_codes = departements_codes.map { |code| @departements_cache[code]&.dig(:region_code) }.compact.uniq
+        regions_codes = departements_codes.filter_map { |code| @departements_cache[code]&.dig(:region_code) }.uniq
 
         regions_codes.each do |region_code|
           zones_to_insert << {
