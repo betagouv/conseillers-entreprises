@@ -61,7 +61,7 @@ ActiveAdmin.register CompanySatisfaction do
   filter :antennes, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :experts, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
-  filter :facility_region, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] }.sort_by(&:first) }, label: 'Région'
+  filter :facility_region, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }, label: 'Région'
   filter :solicitation_email_cont
   filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
   filter :shared, as: :select, collection: [["Oui", 'shared'], ["Non", 'not_shared']]
