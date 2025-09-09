@@ -31,7 +31,7 @@ ActiveAdmin.register Diagnosis do
   filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :content
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
-  # filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
+  filter :facility_region, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }, label: 'Région'
 
   ## CSV
   #

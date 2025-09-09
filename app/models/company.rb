@@ -37,8 +37,6 @@ class Company < ApplicationRecord
   has_many :diagnoses, through: :facilities, inverse_of: :company
   has_many :needs, through: :facilities, inverse_of: :company
   has_many :matches, through: :facilities, inverse_of: :company
-  # has_many :territories, through: :facilities, inverse_of: :companies
-  # has_many :facilities_regions, -> { regions }, through: :facilities, source: :territories, inverse_of: :companies
 
   ## Scopes
   #
@@ -57,6 +55,10 @@ class Company < ApplicationRecord
     where(code_effectif: query).distinct if query.present?
   end
 
+  scope :facility_region_eq, -> (region_code) do
+    by_region(region_code)
+  end
+
   ##
   #
   def to_s
@@ -72,5 +74,9 @@ class Company < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     ["facilities"]
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    ["facility_region_eq"]
   end
 end

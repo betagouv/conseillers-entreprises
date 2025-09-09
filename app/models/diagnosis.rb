@@ -111,6 +111,14 @@ class Diagnosis < ApplicationRecord
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
 
+  scope :by_region, -> (region_code) do
+    joins(:facility).merge(Facility.by_region(region_code))
+  end
+
+  scope :facility_region_eq, -> (region_code) do
+    by_region(region_code)
+  end
+
   ## Scopes for flags
   #
   FLAGS = %i[retention_email_sent satisfaction_email_sent]
@@ -178,6 +186,10 @@ class Diagnosis < ApplicationRecord
       "expert_institutions", "experts", "facility", "facility_territories", "matches", "needs", "solicitation", "subjects",
       "themes", "visitee"
     ]
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    ["facility_region_eq"]
   end
 
   private

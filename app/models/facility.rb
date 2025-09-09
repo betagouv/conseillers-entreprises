@@ -74,7 +74,7 @@ class Facility < ApplicationRecord
     return none if departements.empty?
 
     code_size = departements.first.code.size
-    where("LEFT(insee_code, ?) IN (?)", code_size, departements.map(&:code))
+    where("LEFT(facilities.insee_code, ?) IN (?)", code_size, departements.map(&:code))
   end
 
   def commune_name

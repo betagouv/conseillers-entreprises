@@ -81,10 +81,6 @@ class Match < ApplicationRecord
   has_one :expert_institution, through: :expert, source: :institution, inverse_of: :received_matches
   has_many :contacted_users, through: :expert, source: :users, inverse_of: :received_matches
 
-  # :facility
-  # has_many :facility_territories, through: :facility, source: :territories, inverse_of: :matches
-  # has_many :facility_regions, -> { regions }, through: :facility, source: :territories, inverse_of: :matches
-
   # :subject
   has_one :theme, through: :subject, inverse_of: :matches
 
@@ -207,6 +203,10 @@ class Match < ApplicationRecord
     joins(:company).merge(Company.simple_effectif_eq(query))
   end
 
+  scope :facility_region_eq, -> (region_code) do
+    by_region(region_code)
+  end
+
   ##
   #
   def to_s
@@ -278,7 +278,7 @@ class Match < ApplicationRecord
       :sent, :solicitation_created_at_gteq, :solicitation_created_at_lteq,
       :solicitation_mtm_campaign_cont, :solicitation_mtm_campaign_eq, :solicitation_mtm_campaign_start, :solicitation_mtm_campaign_end,
       :solicitation_mtm_kwd_cont, :solicitation_mtm_kwd_eq, :solicitation_mtm_kwd_start, :solicitation_mtm_kwd_end,
-      :company_simple_effectif_eq
+      :company_simple_effectif_eq, :facility_region_eq
     ]
   end
 
