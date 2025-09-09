@@ -6,7 +6,7 @@ module Admin
           antenne_territorial_zones = territorial_zones.select { |tz| tz.zone_type == zone_type }
           next if antenne_territorial_zones.empty?
           attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
-            model = "DecoupageAdministratif::#{zone_type.camelize}".constantize
+            model = DecoupageAdministratif.const_get(zone_type.camelize)
             antenne_territorial_zones.map do |tz|
               row(tz.code) do
                 model_instance = model.find(tz.code)
