@@ -35,10 +35,10 @@ module CsvExport
         team_full_name: -> { first_expert_with_subject&.full_name },
         team_email: -> { first_expert_with_subject&.email },
         team_phone_number: -> { first_expert_with_subject&.phone_number },
-        team_custom_communes: -> { first_expert_with_subject&.territorial_zones.where(zone_type: "commune").pluck(:code).join(', ') if first_expert_with_subject&.territorial_zones.where(zone_type: "commune").any? },
-        team_custom_epcis: -> { first_expert_with_subject&.territorial_zones.where(zone_type: "epci").pluck(:code).join(', ') if first_expert_with_subject&.territorial_zones.where(zone_type: "epci").any? },
-        team_custom_departements: -> { first_expert_with_subject&.territorial_zones.where(zone_type: "departement").pluck(:code).join(', ') if first_expert_with_subject&.territorial_zones.where(zone_type: "departement").any? },
-        team_custom_regions: -> { first_expert_with_subject&.territorial_zones.where(zone_type: "region").pluck(:code).join(', ') if first_expert_with_subject&.territorial_zones.where(zone_type: "region").any? },
+        team_custom_communes: -> { first_expert_with_subject&.territorial_zones.zone_type_commune.pluck(:code).join(', ') if first_expert_with_subject&.territorial_zones&.zone_type_commune&.any? },
+        team_custom_epcis: -> { first_expert_with_subject&.territorial_zones.zone_type_epci.pluck(:code).join(', ') if first_expert_with_subject&.territorial_zones&.zone_type_epci&.any? },
+        team_custom_departements: -> { first_expert_with_subject&.territorial_zones.zone_type_departement.pluck(:code).join(', ') if first_expert_with_subject&.territorial_zones&.zone_type_departement&.any? },
+        team_custom_regions: -> { first_expert_with_subject&.territorial_zones.zone_type_region.pluck(:code).join(', ') if first_expert_with_subject&.territorial_zones&.zone_type_region&.any? },
       }
     end
 
