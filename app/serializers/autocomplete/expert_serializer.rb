@@ -24,7 +24,7 @@
 #  fk_rails_...  (antenne_id => antennes.id)
 #
 class Autocomplete::ExpertSerializer < ActiveModel::Serializer
-  attributes :id, :full_name, :job, :antenne_name, :source
+  attributes :id, :full_name, :job, :antenne_name
   has_many :experts_subjects, serializer: Autocomplete::ExpertSubjectSerializer
 
   def antenne_name
