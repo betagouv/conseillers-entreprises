@@ -1,5 +1,5 @@
 class MigrateTerritoriesForThemes < ActiveRecord::Migration[7.2]
-  def change
+  def up
     Theme.find_each do |theme|
       next if theme.territories.blank?
       code = if theme.territories.first.code_region.to_s.length == 1
