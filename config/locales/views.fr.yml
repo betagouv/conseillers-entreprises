@@ -216,6 +216,9 @@ fr:
       create_diagnosis: Démarrer une analyse
       facility: Établissement concerné
       siege_social: Siège social
+    errors:
+      unreachable_apis: "Certaines données sont temporairement indisponibles."
+      standard_api_errors: "Un problème a été rencontré en récupérant les données de l’entreprise. Certaines informations pourraient être manquantes."
   company_satisfactions:
     new:
       comment: 'Un commentaire ? Une suggestion ? Nous sommes à votre écoute :'
