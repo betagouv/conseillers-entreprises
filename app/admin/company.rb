@@ -46,7 +46,7 @@ ActiveAdmin.register Company do
   filter :legal_form_code
   filter :facilities_naf_code, as: :string
   filter :code_effectif
-  filter :facilities_regions, collection: -> { Territory.regions.order(:name) }
+  filter :facility_region, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }, label: 'Région'
   filter :created_at
 
   ## CSV

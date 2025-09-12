@@ -11,7 +11,6 @@ ActiveAdmin.register Match do
     def scoped_collection
       base_includes = [
         :need, :facility, :company, :advisor, :expert, :subject, :theme,
-        { facility: :commune }
       ]
       additional_includes = []
 
@@ -79,7 +78,7 @@ ActiveAdmin.register Match do
     end
     column :need, sortable: :created_at do |m|
       div admin_link_to(m, :need)
-      div admin_attr(m.facility, :commune)
+      div admin_attr(m.facility, :insee_code)
       div I18n.l(m.created_at, format: :admin)
       human_attribute_status_tag m.need, :status
     end
@@ -131,7 +130,7 @@ ActiveAdmin.register Match do
   filter :expert_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subject, as: :ajax_select, collection: -> { @subjects.map{ |s| [s.label_with_cooperation, s.id] } }, data: { url: :admin_subjects_path, search_fields: [:label_with_cooperation] }
-  filter :facility_regions, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }, collection: -> { Territory.regions.pluck(:name, :id) }
+  filter :facility_region, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }, label: 'Région'
 
   ## Filtres acquisition
   filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
