@@ -1,4 +1,4 @@
-module ApiConsumption::Agregators
+module ApiConsumption::Aggregators
   class Company
     REQUESTS = {
       api_entreprise_entreprise: Api::ApiEntreprise::Entreprise::Base,

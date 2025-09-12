@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'api_helper'
 # Nécessaire pour que la constante Api::BasicError soit initialisée
-require 'api/base'
+require 'api'
 
 describe DiagnosisCreation::CreateOrUpdateDiagnosis do
   describe 'call' do

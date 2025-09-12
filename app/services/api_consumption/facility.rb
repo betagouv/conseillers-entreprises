@@ -17,7 +17,7 @@ module ApiConsumption
     end
 
     def params
-      ApiConsumption::Agregators::Facility.new(@siret, @options).item_params
+      ApiConsumption::Aggregators::Facility.new(@siret, @options).item_params
     end
   end
 end

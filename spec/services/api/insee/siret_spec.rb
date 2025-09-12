@@ -3,8 +3,8 @@
 require 'rails_helper'
 require 'api_helper'
 
-RSpec.describe Api::Insee::Siret::Base do
-  let(:api) { described_class.new(siret).call }
+RSpec.describe Api::Insee::Siret do
+  let(:api) { described_class::Base.new(siret).call }
   let(:url) { "https://api.insee.fr/api-sirene/3.11/siret/#{siret}" }
 
   ENV['SIRENE_API_KEY'] = 'api_key'
