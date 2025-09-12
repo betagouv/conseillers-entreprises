@@ -64,6 +64,7 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
           zones_to_insert << {
             zone_type: 'region',
             code: region_code,
+            regions_codes: [region_code],
             zoneable_type: 'Antenne',
             zoneable_id: antenne.id,
             created_at: Time.current,
@@ -132,6 +133,7 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
         zones_to_insert << {
           zone_type: 'departement',
           code: dept_code,
+          regions_codes: [dept_info[:region_code]],
           zoneable_type: item.class.name,
           zoneable_id: item.id,
           created_at: Time.current,
@@ -155,9 +157,12 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
     epcis.each do |epci|
       next if processed_epcis.include?(epci.code)
 
+      epci_regions_codes = epci.regions.map(&:code).uniq
+
       zones_to_insert << {
         zone_type: 'epci',
         code: epci.code,
+        regions_codes: epci_regions_codes,
         zoneable_type: item.class.name,
         zoneable_id: item.id,
         created_at: Time.current,
@@ -178,9 +183,13 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
     communes_codes.each do |code|
       # Vérifie la validité du code commune
       if valid_commune_code?(code)
+        dept_code = code[0..1].to_i < 96 ? code[0..1] : code[0..2]
+        region_code = @departements_cache[dept_code]&.dig(:region_code)
+        
         zones_to_insert << {
           zone_type: 'commune',
           code: code,
+          regions_codes: [region_code],
           zoneable_type: item.class.name,
           zoneable_id: item.id,
           created_at: Time.current,
