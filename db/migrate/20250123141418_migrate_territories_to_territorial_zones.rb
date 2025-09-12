@@ -1,3 +1,4 @@
+# rubocop:disable Rails/FindEach
 class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
   def up
     models_with_territories = ["Antenne", "Expert"]
@@ -185,7 +186,7 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
       if valid_commune_code?(code)
         dept_code = code[0..1].to_i < 96 ? code[0..1] : code[0..2]
         region_code = @departements_cache[dept_code]&.dig(:region_code)
-        
+
         zones_to_insert << {
           zone_type: 'commune',
           code: code,
@@ -223,3 +224,4 @@ class MigrateTerritoriesToTerritorialZones < ActiveRecord::Migration[7.2]
     end
   end
 end
+# rubocop:enable Rails/FindEach
