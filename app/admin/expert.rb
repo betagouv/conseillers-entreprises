@@ -4,7 +4,6 @@ ActiveAdmin.register Expert do
   controller do
     include SoftDeletable::ActiveAdminResourceController
     include DynamicallyFiltrable
-    include TerritorialZonesSearchable
 
     def scoped_collection
       base_includes = [:antenne, :institution]
