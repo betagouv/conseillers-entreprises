@@ -76,6 +76,7 @@ gem 'caxlsx_rails'
 gem 'split', require: 'split/dashboard'
 gem 'matrix'
 gem 'mjml-rails'
+gem 'parallel'
 
 # Notifiers
 gem "sentry-ruby"

@@ -803,6 +803,7 @@ DEPENDENCIES
   matrix
   metamagic
   mjml-rails
+  parallel
   parallel_tests
   pg
   pg_search
