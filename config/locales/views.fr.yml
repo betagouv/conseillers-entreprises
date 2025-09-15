@@ -1252,12 +1252,13 @@ fr:
         unselect_partner: Attention, les statistiques publiques mesurent l’activité cumulée des partenaires.
       matches: Pilotage par partenaire
       needs: Pilotage par besoins
-      public: Statistiques publiques
+      public: Statistiques générales
     with_diagnosis: Besoins transmis
     without_diagnosis: Besoins non transmis
   step_number: Étape %{actual} sur %{total}
   to_new_window: ouvre une nouvelle fenêtre
   undefined: Non défini
+  usage_stats: Statistiques publiques
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:
