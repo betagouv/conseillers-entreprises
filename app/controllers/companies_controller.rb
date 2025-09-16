@@ -62,9 +62,9 @@ class CompaniesController < ApplicationController
       @message = e.message || I18n.t("api_requests.generic_error")
     rescue Api::TechnicalError => e
       @message = I18n.t("api_requests.technical_error", api: e.api)
-    rescue StandardError => e
-      Sentry.capture_message(e)
-      @message = I18n.t("api_requests.generic_error")
+    # rescue StandardError => e # don’t rescue this, just display a 500. It *is a bug*.
+    #   Sentry.capture_message(e)
+    #   @message = I18n.t("api_requests.generic_error")
     end
   end
 
