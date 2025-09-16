@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ApplicationMailer < ActionMailer::Base
   SENDER_EMAIL = ENV['APPLICATION_MARKETING_EMAIL']
   REPLY_TO_EMAIL = ENV['APPLICATION_EMAIL']

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module ActivityReports
   class NotifyCooperationManagers
     def initialize(managers = User.cooperation_managers)
