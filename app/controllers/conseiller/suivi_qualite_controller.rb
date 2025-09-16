@@ -23,9 +23,10 @@ class Conseiller::SuiviQualiteController < ApplicationController
   def refused_feedbacks
     # Code compliqué pour ordonner par un champs des matches
     # tout en supprimant les needs en doublon
-    @needs = retrieve_refused_feedbacks_grouped_by_needs
+    @needs = retrieve_refused_feedbacks
       .with_card_includes
       .select('needs.*, MAX(matches.taken_care_of_at) AS latest_taken_care_of_at')
+      .group('needs.id')
       .order('latest_taken_care_of_at ASC, needs.updated_at ASC')
       .page(params[:page])
     @action = :refused_feedback
@@ -39,19 +40,23 @@ class Conseiller::SuiviQualiteController < ApplicationController
     @quo_matches_needs ||= Need.apply_filters(index_search_params).with_filtered_matches_quo
   end
 
-  def retrieve_refused_feedbacks_grouped_by_needs
+  def retrieve_refused_feedbacks
     @refused_feedbacks ||= Need
       .joins(:matches)
       .merge(Match.with_recent_refused_feedbacks)
       .without_action(:refused_feedback)
       .apply_filters(index_search_params)
-      .group('needs.id')
+      .distinct
+  end
+
+  def count_refused_feedbacks_needs
+    retrieve_refused_feedbacks.count(:id)
   end
 
   def collections_counts
     @collections_by_suivi_qualite_count = {
       quo_matches: retrieve_quo_matches_needs.size,
-        refused_feedbacks: retrieve_refused_feedbacks_grouped_by_needs.size.count
+      refused_feedbacks: count_refused_feedbacks_needs
     }
   end
 
