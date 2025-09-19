@@ -27,7 +27,6 @@
 
 class Antenne < ApplicationRecord
   include SoftDeletable
-  # include ManyCommunes
   include WithTerritorialZones
   include InvolvementConcern
   include TerritoryNeedsStatus

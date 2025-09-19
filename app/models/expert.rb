@@ -33,7 +33,6 @@ class Expert < ApplicationRecord
   ## Associations
   #
   has_and_belongs_to_many :communes, inverse_of: :direct_experts
-  # include ManyCommunes
 
   belongs_to :antenne, inverse_of: :experts
 
