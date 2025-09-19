@@ -1,3 +1,3 @@
-Institution;Nom;Codes communes;Nom du responsable;Email du responsable;Téléphone du responsable
-Test Institution;Antenne1;02001 02002 02003 02004;;;
+Institution;Nom;Codes INSEE;Codes EPCI;Codes départements;Codes régions; Nom du responsable;Email du responsable;Téléphone du responsable
+Test Institution;Antenne1;01037 01038;;;;;;
   ;  ;;;;

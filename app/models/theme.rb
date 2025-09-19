@@ -16,6 +16,8 @@
 #
 
 class Theme < ApplicationRecord
+  include WithTerritorialZones
+
   ## Associations
   #
   has_many :subjects, inverse_of: :theme
