@@ -17,12 +17,10 @@
     - if large_search?(@grouped_experts, @grouped_subjects)
       .coverage-controls.fr-mb-2w
         %button.fr-btn.fr-btn--secondary.load-all-coverage{ data: {
-            antenne_id: params[:antenne_id],
-            action: 'click->coverage#loadAll',
-            loading_text: t('.loading_coverages'),
-            progress_text: t('.loading_progress')
-          }
-        }
+          antenne_id: params[:antenne_id],
+          action: 'click->coverage#loadAll',
+          loading_text: t('.loading_coverages'),
+          progress_text: t('.loading_progress') } }
           %span.ri-loader-4-line.fr-mr-1v
           = t('.load_all_coverage')
         %p.fr-text--sm.fr-m-0.fr-mt-1v
