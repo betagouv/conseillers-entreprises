@@ -1,5 +1,10 @@
 {
+  "env": {
+    "IS_REVIEW_APP": {
+      "value": "true"
+    }
+  },
   "scripts": {
-    "first-deploy": "bundle exec rails db:schema:load"
+    "first-deploy": "bundle exec rails db:schema:load db:seed"
   }
 }
