@@ -18,7 +18,7 @@ namespace :import_prod_to_staging do
   end
 
   def setup_staging_tunnel
-    tunnel_command = 'scalingo -a ce-staging db-tunnel SCALINGO_POSTGRESQL_URL'
+    tunnel_command = 'scalingo -a ce-staging-pr3767 db-tunnel SCALINGO_POSTGRESQL_URL'
     @staging_tunnel_pid = fork{ exec tunnel_command }
   end
 
@@ -48,7 +48,7 @@ namespace :import_prod_to_staging do
 
     sleep 2
 
-    env = `scalingo -a ce-staging env`.lines
+    env = `scalingo -a ce-staging-pr3767 env`.lines
     pg_url = env.find{ |i| i[/SCALINGO_POSTGRESQL_URL=/] }
     pw = pg_url[/.*:(.*)@/,1]
     username = pg_url[/\/\/(.*):.*@/,1]
