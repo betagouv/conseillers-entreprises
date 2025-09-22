@@ -154,7 +154,13 @@ fr:
     subject_answer_grouping:
       title_with_index: Question filtrante %{index}
     territory:
+      assign_entire_territory: "[compléter]"
       communes_list: Liste des communes
+      communes_size:
+        one: "%{count} commune"
+        other: "%{count} communes"
+      confirm_assign_entire_territory: Assigner toutes les communes de %{territory} à la zone d’intervention de %{many_communes} ?
+      department_number: 'Département %{number}, %{name} :'
     user:
       absence: Absence
       connection: Connexion
