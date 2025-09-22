@@ -2,6 +2,9 @@
   "env": {
     "IS_REVIEW_APP": {
       "value": "true"
+    },
+    "FEATURE_BLOCKLIST_IP": {
+      "value": "false"
     }
   },
   "scripts": {
