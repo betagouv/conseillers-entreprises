@@ -9,8 +9,8 @@ if ENV['RAILS_ENV'] == 'development' || ENV['IS_REVIEW_APP'] == 'true'
   subject = Subject.find_or_create_by!(theme: theme, label: 'Test Subject')
 
   ## Landings home, themes and subjects
-  home_landing = Landing.where(slug: 'home').first_or_create(
-    title: 'home'
+  home_landing = Landing.where(slug: 'accueil').first_or_create(
+    title: 'Accueil'
   )
   landing_theme = home_landing.landing_themes.first_or_create(
     title: "Titre landing theme test",
