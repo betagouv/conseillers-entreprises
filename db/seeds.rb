@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if ENV['RAILS_ENV'] == 'development'
+if ENV['RAILS_ENV'] == 'development' || ENV['IS_REVIEW_APP'] == 'true'
   TEST_PASSWORD = '1234567azeaze122/'
   TEST_EMAIL = 'a@a.a'
 
@@ -50,14 +50,15 @@ if ENV['RAILS_ENV'] == 'development'
   end
 end
 
-## Region
-
-[
-  { name: 'Région Hauts-de-France', bassin_emploi: false, code_region: 32 },
-  { name: 'Région Île-de-France', bassin_emploi: false, code_region: 11 },
-].each do |option|
-  Territory.where(code_region: option[:code_region]).first_or_create(
-    name: option[:name],
-    bassin_emploi: option[:bassin_emploi]
-  )
+if Rails.env.local? || ENV['IS_REVIEW_APP'] == 'true'
+  ## Region
+  [
+    { name: 'Région Hauts-de-France', bassin_emploi: false, code_region: 32 },
+    { name: 'Région Île-de-France', bassin_emploi: false, code_region: 11 },
+  ].each do |option|
+    Territory.where(code_region: option[:code_region]).first_or_create(
+      name: option[:name],
+      bassin_emploi: option[:bassin_emploi]
+    )
+  end
 end
