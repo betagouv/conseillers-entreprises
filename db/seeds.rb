@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-if ENV['RAILS_ENV'] == 'development' || ENV['IS_REVIEW_APP'] == 'true'
-  TEST_PASSWORD = '1234567azeaze122/'
+if Rails.env.development? || ENV['IS_REVIEW_APP'] == 'true'
+  TEST_PASSWORD = '1234567Azeaze122/'
   TEST_EMAIL = 'a@a.a'
 
   ## Theme and Subject
@@ -44,8 +44,8 @@ if ENV['RAILS_ENV'] == 'development' || ENV['IS_REVIEW_APP'] == 'true'
   ## User and Expert
   user = User.find_or_create_by!(person_params) do |user|
     user.update!(password: TEST_PASSWORD)
-    user.user_right.create!(right: 'admin')
-    # users.experts.first is created implicitely
+    user.user_rights.create!(category: 'admin')
+    user.create_single_user_experts
     user.experts.first.experts_subjects.find_or_create_by!(institution_subject: institution_subject)
   end
 end
