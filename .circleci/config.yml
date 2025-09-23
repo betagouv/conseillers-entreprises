@@ -128,5 +128,15 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - test
-      - lint
+      - test:
+        filters:
+          branches:
+            ignore:
+              - main
+              - production
+      - lint:
+        filters:
+          branches:
+            ignore:
+              - main
+              - production
