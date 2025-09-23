@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 describe SendSolicitationGenericEmail do
   before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
