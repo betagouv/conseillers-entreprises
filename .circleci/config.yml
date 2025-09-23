@@ -129,14 +129,14 @@ workflows:
   build_and_test:
     jobs:
       - test:
-        filters:
-          branches:
-            ignore:
-              - main
-              - production
+          filters:
+            branches:
+              ignore:
+                - main
+                - production
       - lint:
-        filters:
-          branches:
-            ignore:
-              - main
-              - production
+          filters:
+            branches:
+              ignore:
+                - main
+                - production
