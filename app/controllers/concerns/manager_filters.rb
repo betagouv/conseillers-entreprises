@@ -31,4 +31,10 @@ module ManagerFilters
   def base_antennes
     @base_antennes ||= BuildAntennesCollection.new(current_user).for_manager
   end
+
+  def base_regions
+    return [] unless current_user.is_manager?
+    managed_antennes = current_user.managed_antennes
+    managed_antennes&.first&.national? ? RegionOrderingService.call : managed_antennes.map(&:regions).flatten.uniq
+  end
 end
