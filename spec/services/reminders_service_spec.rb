@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 describe RemindersService do
   describe 'create_reminders_registers' do

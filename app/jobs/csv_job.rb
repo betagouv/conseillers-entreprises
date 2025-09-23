@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CsvJob < ApplicationJob
   def perform(model, ransack_params, user)
     ActiveRecord::Base.transaction do

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ActiveAdmin.register Territory do
   menu priority: 5
 

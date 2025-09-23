@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RemindersActionsController < ApplicationController
   def create
     reminders_action = RemindersAction.new(reminders_action_params)

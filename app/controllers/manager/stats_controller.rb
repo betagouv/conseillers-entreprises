@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Manager
   class StatsController < ApplicationController
     include StatsUtilities

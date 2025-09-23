@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 describe DiagnosisCreation::FindRelevantExpertSubjects do
   describe 'apply_match_filters' do

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CompaniesController < ApplicationController
   def search
     @current_solicitation = get_current_solicitation

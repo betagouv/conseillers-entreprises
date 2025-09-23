@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api::RechercheEntreprises::Search
   class Base < Api::RechercheEntreprises::Base
   end
