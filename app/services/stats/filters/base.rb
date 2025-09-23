@@ -7,7 +7,7 @@ module Stats::Filters
     end
 
     def call
-      territories_filter(@graph_struct.territory_id)
+      territories_filter(@graph_struct.region_code)
       antenne_or_institution_filter(@graph_struct.antenne_or_institution, @graph_struct.with_agglomerate_data)
       subject_filter(@graph_struct.subject_id)
       integration_filter(@graph_struct.integration)
