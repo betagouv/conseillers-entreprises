@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 describe DiagnosisCreation::CreateMatches do
   describe 'prepare_matches_from_solicitation' do

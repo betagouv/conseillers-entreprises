@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 if Rails.env.development? || ENV['IS_REVIEW_APP'] == 'true'
   TEST_PASSWORD = '1234567Azeaze122/'
   TEST_EMAIL = 'a@a.a'

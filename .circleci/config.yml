@@ -8,7 +8,7 @@ defaults:
   &defaults
   working_directory: ~/conseillers-entreprises
   docker:
-    - image: cimg/ruby:3.3.4-browsers
+    - image: cimg/ruby:3.4.6-browsers
     - image: cimg/redis:7.2.3
     - image: cimg/postgres:14.10
       environment:
