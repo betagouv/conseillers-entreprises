@@ -7,14 +7,14 @@ module Stats
 
   module BaseStats
     FILTER_PARAMS = [
-      :territory_id, :institution_id, :antenne_id, :landing_id, :theme_id, :subject_id, :cooperation_id, :integration,
+      :region_code, :institution_id, :antenne_id, :landing_id, :theme_id, :subject_id, :cooperation_id, :integration,
       :mtm_campaign, :mtm_kwd, :start_date, :end_date, :provenance_detail, :colors, :with_agglomerate_data
     ]
     attr_reader(*FILTER_PARAMS)
 
     def initialize(params)
       params = OpenStruct.new(params)
-      @territory_id = params.territory_id
+      @region_code = params.region_code
       @institution_id = params.institution_id
       @antenne_id = params.antenne_id
       @with_agglomerate_data = params.antenne_id.include?('locales') if params.antenne_id.present?
