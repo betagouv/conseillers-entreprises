@@ -46,15 +46,14 @@ class Conseiller::SuiviQualiteController < ApplicationController
       .merge(Match.with_recent_refused_feedbacks)
       .without_action(:refused_feedback)
       .apply_filters(index_search_params)
+      .distinct
   end
 
   def collections_counts
-    @collections_by_suivi_qualite_count = Rails.cache.fetch(['suivi_qualite', retrieve_quo_matches_needs.size, retrieve_refused_feedbacks.distinct.size]) do
-      {
-        quo_matches: retrieve_quo_matches_needs.size,
-        refused_feedbacks: retrieve_refused_feedbacks.distinct.size
-      }
-    end
+    @collections_by_suivi_qualite_count = {
+      quo_matches: retrieve_quo_matches_needs.size,
+      refused_feedbacks: retrieve_refused_feedbacks.size
+    }
   end
 
   def search_session_key
