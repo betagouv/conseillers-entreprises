@@ -49,14 +49,10 @@ class Conseiller::SuiviQualiteController < ApplicationController
       .distinct
   end
 
-  def count_refused_feedbacks_needs
-    retrieve_refused_feedbacks.count(:id)
-  end
-
   def collections_counts
     @collections_by_suivi_qualite_count = {
       quo_matches: retrieve_quo_matches_needs.size,
-      refused_feedbacks: count_refused_feedbacks_needs
+      refused_feedbacks: retrieve_refused_feedbacks.size
     }
   end
 
