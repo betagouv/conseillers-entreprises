@@ -73,7 +73,7 @@ describe 'New Solicitation', :js, :flaky do
           fill_in 'Téléphone', with: '0123456789'
           click_on 'Suivant'
           # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
-          expect(page).to have_css('h2', text: 'Votre entreprise')
+          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
 
           expect(solicitation.persisted?).to be true
           expect(solicitation.pk_campaign).to be_nil
@@ -84,11 +84,12 @@ describe 'New Solicitation', :js, :flaky do
 
           # Retour étape contact
           click_on 'Précédent'
+          expect(page).to have_current_path(/\/votre-demande\/.*\/contact/)
           expect(solicitation.reload.status_step_company?).to be true
           fill_in 'Prénom et nom', with: 'Hubertine Auclerc Superstar'
           click_on 'Suivant'
 
-          expect(page).to have_css('h2', text: 'Votre entreprise')
+          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
           expect(solicitation.reload.status_step_company?).to be true
           expect(solicitation.full_name).to eq 'Hubertine Auclerc Superstar'
 
@@ -100,13 +101,14 @@ describe 'New Solicitation', :js, :flaky do
           fill_in 'Votre numéro SIRET', with: other_siret
           click_on 'Suivant'
 
-          expect(page).to have_css('h2', text: 'Votre demande')
+          expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
           expect(solicitation.reload.siret).to eq other_siret
           # expect(solicitation.reload.code_region).to eq 53
           expect(solicitation.status_step_description?).to be true
 
           # Retour étape entreprise
           click_on 'Précédent'
+          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
           expect(solicitation.status_step_description?).to be true
           fill_in 'Recherchez votre entreprise', with: query
           # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
@@ -116,7 +118,7 @@ describe 'New Solicitation', :js, :flaky do
           page.execute_script("document.querySelector('.autocomplete__option').click()")
           click_on 'Suivant'
 
-          expect(page).to have_css('h2', text: 'Votre demande')
+          expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
@@ -131,6 +133,7 @@ describe 'New Solicitation', :js, :flaky do
           expect(page).to have_field("solicitation_subject_answers_attributes_1_filter_value_false", checked: true, visible: :hidden)
           click_on 'Envoyer ma demande'
 
+          expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
           expect(page).to have_content('Merci')
           expect(solicitation.reload.status_in_progress?).to be true
           expect(solicitation.completed_at).not_to be_nil
@@ -163,7 +166,7 @@ describe 'New Solicitation', :js, :flaky do
           click_on 'Suivant'
 
           # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
-          expect(page).to have_css('h2', text: 'Votre entreprise')
+          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
           expect(solicitation.siret).to eq query
           expect(page).to have_field('query', with: query)
 
@@ -209,7 +212,7 @@ describe 'New Solicitation', :js, :flaky do
           click_on 'Suivant'
 
           # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
-          expect(page).to have_css('h2', text: 'Votre entreprise')
+          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
           expect(solicitation.persisted?).to be true
           expect(solicitation.pk_campaign).to be_nil
           expect(solicitation.landing).to eq landing
@@ -223,7 +226,7 @@ describe 'New Solicitation', :js, :flaky do
           expect(option).to have_content('Octo Technology')
           page.execute_script("document.querySelector('.autocomplete__option').click()")
           click_on 'Suivant'
-          expect(page).to have_css('h2', text: 'Votre demande')
+          expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
 
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
@@ -231,6 +234,7 @@ describe 'New Solicitation', :js, :flaky do
           fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
           click_on 'Envoyer ma demande'
 
+          expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
           expect(page).to have_content('Merci')
           expect(solicitation.reload.status_in_progress?).to be true
           expect(solicitation.reload.completed_at).not_to be_nil
@@ -261,7 +265,7 @@ describe 'New Solicitation', :js, :flaky do
           click_on 'Suivant'
 
           # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
-          expect(page).to have_css('h2', text: 'Votre entreprise')
+          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
           expect(solicitation.persisted?).to be true
           expect(solicitation.pk_campaign).to be_nil
           expect(solicitation.landing).to eq landing
@@ -275,11 +279,13 @@ describe 'New Solicitation', :js, :flaky do
           expect(option).to have_content('Octo Technology')
           page.execute_script("document.querySelector('.autocomplete__option').click()")
           click_on 'Suivant'
+          expect(page).to have_current_path(/\/votre-demande\/.*\/recherche-etablissement/)
           expect(solicitation.reload.siret).to be_nil
           expect(solicitation.status_step_description?).to be false
 
           expect(page).to have_content("Sélectionnez l'établissement concerné :")
           click_on("#{siret} - Octo Technology", match: :first)
+          expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
@@ -316,7 +322,7 @@ describe 'New Solicitation', :js, :flaky do
           click_on 'Suivant'
 
           # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
-          expect(page).to have_css('h2', text: 'Votre entreprise')
+          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
           expect(solicitation.persisted?).to be true
           fill_in 'Recherchez votre entreprise', with: 'toto'
           click_on 'Suivant'
@@ -330,7 +336,7 @@ describe 'New Solicitation', :js, :flaky do
 
           fill_in 'Votre numéro SIRET', with: "418 166 096 00069"
           click_on 'Suivant'
-          expect(page).to have_css('h2', text: 'Votre demande')
+          expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
 
           expect(solicitation.reload.siret).to eq "41816609600069"
           expect(solicitation.code_region).to eq 11
@@ -357,7 +363,7 @@ describe 'New Solicitation', :js, :flaky do
           fill_in 'Téléphone', with: '0123456789'
           click_on 'Suivant'
           # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
-          expect(page).to have_css('h2', text: 'Votre entreprise')
+          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
           expect(solicitation.persisted?).to be true
 
           fill_in 'Recherchez votre entreprise', with: '40440440440400'
