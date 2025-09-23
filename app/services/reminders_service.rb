@@ -82,9 +82,12 @@ class RemindersService
     expert_for_outputs.each do |expert|
       last_run_register = expert.reminders_registers.find_by(run_number: last_run_number)
       current_expired_count = expired_matches(expert).size
-      # On considère que la sortie est due a l'expiration des besoins si au moins un besoin a expiré
-      if last_run_register.present? && (
-        (current_expired_count > last_run_register.expired_count) || (current_expired_count == last_run_register.expired_count && in_expired_needs_not_processed.include?(expert))
+      # L'expert va dans la catégorie "expired_needs" si :
+      # - Il a actuellement des besoins expirés (non pris en charge depuis plus de 45 jours)
+      # - ET soit de nouveaux besoins ont expiré, soit il était déjà en "expired_needs" non traité
+      # Sinon, il va dans "output" (sortie normale car il a traité ses besoins ou n'a plus de besoins actifs)
+      if last_run_register.present? && current_expired_count > 0 && (
+        (current_expired_count > last_run_register.expired_count) || in_expired_needs_not_processed.include?(expert)
       )
         RemindersRegister.create!(expert: expert, category: :expired_needs, run_number: current_run)
       else
