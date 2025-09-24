@@ -1,0 +1,13 @@
+{
+  "env": {
+    "IS_REVIEW_APP": {
+      "value": "true"
+    },
+    "FEATURE_BLOCKLIST_IP": {
+      "value": "false"
+    }
+  },
+  "scripts": {
+    "first-deploy": "bundle exec rails db:schema:load db:seed"
+  }
+}

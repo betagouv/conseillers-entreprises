@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-if ENV['RAILS_ENV'] == 'development'
-  TEST_PASSWORD = '1234567azeaze122/'
+if Rails.env.development? || ENV['IS_REVIEW_APP'] == 'true'
+  TEST_PASSWORD = '1234567Azeaze122/'
   TEST_EMAIL = 'a@a.a'
 
   ## Theme and Subject
@@ -9,8 +9,8 @@ if ENV['RAILS_ENV'] == 'development'
   subject = Subject.find_or_create_by!(theme: theme, label: 'Test Subject')
 
   ## Landings home, themes and subjects
-  home_landing = Landing.where(slug: 'home').first_or_create(
-    title: 'home'
+  home_landing = Landing.where(slug: 'accueil').first_or_create(
+    title: 'Accueil'
   )
   landing_theme = home_landing.landing_themes.first_or_create(
     title: "Titre landing theme test",
@@ -44,20 +44,21 @@ if ENV['RAILS_ENV'] == 'development'
   ## User and Expert
   user = User.find_or_create_by!(person_params) do |user|
     user.update!(password: TEST_PASSWORD)
-    user.user_right.create!(right: 'admin')
-    # users.experts.first is created implicitely
+    user.user_rights.create!(category: 'admin')
+    user.create_single_user_experts
     user.experts.first.experts_subjects.find_or_create_by!(institution_subject: institution_subject)
   end
 end
 
-## Region
-
-[
-  { name: 'Région Hauts-de-France', bassin_emploi: false, code_region: 32 },
-  { name: 'Région Île-de-France', bassin_emploi: false, code_region: 11 },
-].each do |option|
-  Territory.where(code_region: option[:code_region]).first_or_create(
-    name: option[:name],
-    bassin_emploi: option[:bassin_emploi]
-  )
+if Rails.env.local? || ENV['IS_REVIEW_APP'] == 'true'
+  ## Region
+  [
+    { name: 'Région Hauts-de-France', bassin_emploi: false, code_region: 32 },
+    { name: 'Région Île-de-France', bassin_emploi: false, code_region: 11 },
+  ].each do |option|
+    Territory.where(code_region: option[:code_region]).first_or_create(
+      name: option[:name],
+      bassin_emploi: option[:bassin_emploi]
+    )
+  end
 end
