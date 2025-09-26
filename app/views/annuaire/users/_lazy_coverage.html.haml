@@ -3,7 +3,7 @@
   institution_subject_id: institution_subject.id } }
   %button.fr-btn.fr-btn--sm.fr-btn--tertiary-no-outline.load-single-coverage{ data: {
     institution_subject_id: institution_subject.id,
-    antenne_id: params[:antenne_id],
+    antenne_id: params[:antenne_id].to_i,
     action: 'click->coverage#loadSingle' } }
     %span.ri-loader-4-line
     = t('.load_coverage')
