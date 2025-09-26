@@ -59,101 +59,25 @@ RSpec.describe Antenne do
   end
 
   describe 'callbacks' do
-    context 'update_referencement_coverages' do
-      let(:antenne) { create :antenne }
-
-      context 'communes updates' do
-        let(:commune) { create :commune }
-
-        context 'when adding commune' do
-          it 'calls update_referencement_coverages' do
-            allow(antenne).to receive(:update_referencement_coverages)
-            antenne.communes << commune
-            expect(antenne).to have_received(:update_referencement_coverages)
-          end
-        end
-
-        context 'when removing commune' do
-          before { antenne.communes << commune }
-
-          it 'calls update_referencement_coverages' do
-            allow(antenne).to receive(:update_referencement_coverages)
-            antenne.communes.delete(commune)
-            expect(antenne).to have_received(:update_referencement_coverages)
-          end
-        end
-      end
-
-      context 'experts updates' do
-        let(:expert) { create :expert }
-
-        context 'when adding expert' do
-          it 'calls update_referencement_coverages' do
-            allow(antenne).to receive(:update_referencement_coverages)
-            antenne.experts << expert
-            expect(antenne).to have_received(:update_referencement_coverages)
-          end
-        end
-
-        context 'when removing expert' do
-          before { antenne.experts << expert }
-
-          it 'calls update_referencement_coverages' do
-            allow(antenne).to receive(:update_referencement_coverages)
-            antenne.experts.destroy(expert)
-            expect(antenne).to have_received(:update_referencement_coverages)
-          end
-        end
-      end
-
-      context 'experts subjects updates' do
-        let(:pde_subject) { create :subject }
-        let!(:expert) { create :expert, antenne: antenne }
-
-        context 'when adding an expert subject' do
-          it 'calls update_referencement_coverages' do
-            allow(expert).to receive(:update_antenne_referencement_coverage)
-            expert.experts_subjects.create(subject: pde_subject)
-            expect(expert).to have_received(:update_antenne_referencement_coverage)
-          end
-        end
-      end
-
-      context 'experts communes updates' do
-        let(:pde_subject) { create :subject }
-        let!(:expert) { create :expert, antenne: antenne }
-        let(:commune) { create :commune }
-
-        context 'when adding an expert commune' do
-          it 'calls update_referencement_coverages' do
-            allow(expert).to receive(:update_antenne_referencement_coverage)
-            expert.communes << commune
-            expect(expert).to have_received(:update_antenne_referencement_coverage)
-          end
-        end
-      end
-    end
 
     context 'update_antenne_hierarchy' do
       let(:antenne) { create :antenne, territorial_level: :local }
 
-      context 'communes updates' do
-        let(:commune) { create :commune }
-
+      context 'territorial_zones updates' do
         context 'when adding commune' do
           it 'calls update_antenne_hierarchy' do
             allow(antenne).to receive(:update_antenne_hierarchy)
-            antenne.communes << commune
+            antenne.territorial_zones.create(code: '26135', zone_type: :commune)
             expect(antenne).to have_received(:update_antenne_hierarchy)
           end
         end
 
         context 'when removing commune' do
-          before { antenne.communes << commune }
+          before { antenne.territorial_zones.create(code: '26135', zone_type: :commune) }
 
           it 'calls update_antenne_hierarchy' do
             allow(antenne).to receive(:update_antenne_hierarchy)
-            antenne.communes.delete(commune)
+            antenne.territorial_zones.destroy_all
             expect(antenne).to have_received(:update_antenne_hierarchy)
           end
         end
@@ -183,6 +107,49 @@ RSpec.describe Antenne do
           new_antenne.save
           expect(new_antenne).to have_received(:update_antenne_hierarchy)
         end
+      end
+    end
+
+    describe '#update_regions_codes' do
+      let(:region_paca) { instance_double(DecoupageAdministratif::Region, code: '93') }
+      let(:region_paca_aura) { instance_double(DecoupageAdministratif::Region, code: '84') }
+      let(:commune) { instance_double(DecoupageAdministratif::Commune, region: region_paca_aura) }
+      let(:departement) { instance_double(DecoupageAdministratif::Departement, region: region_paca_aura) }
+      let(:epci) { instance_double(DecoupageAdministratif::Epci, regions: [region_paca, region_paca_aura]) }
+
+      before do
+        allow(DecoupageAdministratif::Region).to receive(:find_by).with(code: '93').and_return(region_paca)
+        allow(DecoupageAdministratif::Region).to receive(:find_by).with(code: '84').and_return(region_paca_aura)
+        allow(DecoupageAdministratif::Commune).to receive(:find_by).with(code: '26135').and_return(commune)
+        allow(DecoupageAdministratif::Departement).to receive(:find_by).with(code: '26').and_return(departement)
+        allow(DecoupageAdministratif::Epci).to receive(:find_by).with(code: '200035723').and_return(epci)
+        territorial_zone.send(:update_regions_codes)
+      end
+
+      subject { territorial_zone.regions_codes }
+
+      context 'updates regions_codes for region' do
+        let(:territorial_zone) { build(:territorial_zone, :region, code: '84') }
+
+        it { is_expected.to eq(['84']) }
+      end
+
+      context 'updates regions_codes for commune' do
+        let(:territorial_zone) { build(:territorial_zone, :commune, code: '26135') }
+
+        it { is_expected.to eq(['84']) }
+      end
+
+      context 'updates regions_codes for departement' do
+        let(:territorial_zone) { build(:territorial_zone, :departement, code: '26') }
+
+        it { is_expected.to eq(['84']) }
+      end
+
+      context 'updates regions_codes for epci' do
+        let(:territorial_zone) { build(:territorial_zone, :epci, code: '200035723') }
+
+        it { is_expected.to contain_exactly('84', '93') }
       end
     end
   end
@@ -570,11 +537,10 @@ RSpec.describe Antenne do
   end
 
   describe 'check_territorial_level callback' do
-    let!(:commune1) { create :commune }
-    let!(:commune2) { create :commune }
-    let!(:region) { create :territory, :region, code_region: 999, communes: [commune1, commune2] }
-    let!(:regional_antenne1) { create :antenne, communes: [commune1, commune2] }
-    let!(:local_antenne1) { create :antenne, communes: [commune1] }
+    let(:commune1) { create :territorial_zone, :commune, code: "44109" }
+    let!(:region) { create :territorial_zone, :region, code: "52" }
+    let!(:regional_antenne1) { create :antenne, territorial_zones: [region] }
+    let!(:local_antenne1) { create :antenne, territorial_zones: [commune1] }
 
     it 'sets regional_antenne as regional' do
       expect(regional_antenne1.regional?).to be true
@@ -588,16 +554,14 @@ RSpec.describe Antenne do
   describe "#support_user" do
     # si pas national && une seule region => referent regional
     # autre cas => referent national
-    let!(:commune1) { create :commune }
-    let!(:commune2) { create :commune }
-    let!(:region1) { create :territory, :region, code_region: 999, communes: [commune1], support_contact: regional_referent }
-    let!(:region2) { create :territory, :region, code_region: 000, communes: [commune2] }
+    let(:commune1) { create :territorial_zone, :commune, code: "44109" }
+    let(:region) { create :territorial_zone, :region, code: "52" }
     let(:institution) { create :institution, name: 'Institution 1' }
     let(:national_antenne) { create :antenne, :national, institution: institution }
-    let(:regional_antenne) { create :antenne, :regional, institution: institution, parent_antenne: national_antenne, communes: [commune1] }
-    let(:local_antenne) { create :antenne, :local, institution: institution, parent_antenne: regional_antenne, communes: [commune1] }
+    let(:regional_antenne) { create :antenne, :regional, institution: institution, parent_antenne: national_antenne, territorial_zones: [region] }
+    let(:local_antenne) { create :antenne, :local, institution: institution, parent_antenne: regional_antenne, territorial_zones: [commune1] }
     let!(:national_referent) { create :user, :national_referent }
-    let!(:regional_referent) { create :user }
+    let!(:territorial_referent) { create :user, :territorial_referent } # region 52
 
     context 'national antenne' do
       let(:antenne) { national_antenne }
@@ -608,13 +572,13 @@ RSpec.describe Antenne do
     context 'regional antenne' do
       let(:antenne) { regional_antenne }
 
-      it { expect(antenne.support_user).to eq regional_referent }
+      it { expect(antenne.support_user).to eq territorial_referent }
     end
 
     context 'local antenne' do
       let(:antenne) { local_antenne }
 
-      it { expect(antenne.support_user).to eq regional_referent }
+      it { expect(antenne.support_user).to eq territorial_referent }
     end
 
     context 'without region' do
@@ -624,7 +588,7 @@ RSpec.describe Antenne do
     end
 
     context 'with many regions' do
-      let(:antenne) { create :antenne, communes: [commune1, commune2] }
+      let(:antenne) { create :antenne, territorial_zones: [create(:territorial_zone, :commune, code: "44109"), create(:territorial_zone, :commune, code: "01001")] }
 
       it { expect(antenne.support_user).to eq national_referent }
     end

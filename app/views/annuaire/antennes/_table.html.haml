@@ -19,11 +19,8 @@
                 %li= antenne.advisors.not_deleted.human_count
           %td
             %ul
-              - summary = antenne.intervention_zone_summary
-              - summary[:territories].each do |hash|
-                %li #{hash[:territory].name} (#{hash[:included]})
-              - if summary[:other] > 0
-                %li #{I18n.t('other')} (#{summary[:other]})
+              - antenne.territorial_zones.each do |territory|
+                %li #{territory.zone_type.capitalize} #{territory.name}
           %td
             - antenne.managers.each do |manager|
               %ul
