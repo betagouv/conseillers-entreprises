@@ -48,8 +48,8 @@ RSpec.describe ExpertSubject do
       subject { described_class.in_commune(insee_code) }
 
       context "Commune direct" do
-        let(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: insee_code)] }
-        let(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: "72026")] }
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: insee_code)] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: "72026")] }
 
         it "returns expert with the commune" do
           is_expected.to contain_exactly(expert_with_code.experts_subjects.first)
