@@ -17,7 +17,7 @@
     - if large_search?(@grouped_experts, @grouped_subjects)
       .coverage-controls.fr-mb-2w
         %button.fr-btn.fr-btn--secondary.load-all-coverage{ data: {
-          antenne_id: params[:antenne_id],
+          antenne_id: params[:antenne_id].to_i,
           action: 'click->coverage#loadAll',
           loading_text: t('.loading_coverages'),
           progress_text: t('.loading_progress') } }
