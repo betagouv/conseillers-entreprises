@@ -546,6 +546,7 @@ fr:
     main_menu: Menu principal
     menu: Menu
     root_path_title: Accueil Conseillers-entreprises.service-public.fr
+    service_alt: Service-public Conseillers-Entreprises, Vos droits et démarches plus simplement
   needs:
     additional_experts:
       add_other_experts: Rechercher d’autres experts à mettre en relation

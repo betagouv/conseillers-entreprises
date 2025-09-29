@@ -12,10 +12,7 @@
                 = t('navbar.menu')
           .fr-header__service
             = link_to root_path do
-              %p.fr-header__service-title
-                %span.red>= t('app_name_subdomain').sp_titleize_url
-                = "." + t('app_name_domain').sp_titleize_url
-            %p.fr-header__service-tagline= t('app_tagline')
+              = image_tag 'logo-ce.png', alt: t('navbar.service_alt'), width: '320px';
         .fr-header__tools
           %nav.fr-header__tools-links{ role: 'navigation' }
             %ul.fr-links-group
