@@ -15,10 +15,10 @@ The `service-public.fr` is registered on NAMESHIELD by the DILA, the `conseiller
 
 ## Branches and setup
 
-Conseillers-entreprises.service-public.fr is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, `ce-staging` and `ce-production.` 
+Conseillers-entreprises.service-public.gouv.fr is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, `ce-staging` and `ce-production.` 
 
 * `ce-staging` is served at https://ce-staging.scalingo.io.
-* `ce-production` is the actual https://conseillers-entreprises.service-public.fr
+* `ce-production` is the actual https://conseillers-entreprises.service-public.gouv.fr
 
 There are GitHub to Scalingo hooks setup for auto-deployment:
 * The `main` branch is automatically deployed to the `ce-staging` env.
@@ -37,11 +37,11 @@ Conseillers-Entreprises is protected behind a French WAF solution : [Baleen](htt
 
 ## HSTS
 
-HTTP Strict Transport Security is enabled in the app config (`config.force_ssl = true`) ; it’s disabled in the Scalingo settings, otherwise it duplicates the value in the header, which is invalid. Although browsers seem to tolerate it, security checks like [Mozilla Observatory](https://observatory.mozilla.org/analyze/conseillers-entreprises.service-public.fr) complain about it.
+HTTP Strict Transport Security is enabled in the app config (`config.force_ssl = true`) ; it’s disabled in the Scalingo settings, otherwise it duplicates the value in the header, which is invalid. Although browsers seem to tolerate it, security checks like [Mozilla Observatory](https://observatory.mozilla.org/analyze/conseillers-entreprises.service-public.gouv.fr) complain about it.
 
 ## Server unavailable
 
-In case of a server problem, website traffic can be redirected to [redirect.conseillers-entreprises.service-public.fr](https://redirect.conseillers-entreprises.service-public.fr) (source code : [github.com/betagouv/conseillers-entreprises-redirect](https://github.com/betagouv/conseillers-entreprises-redirect)).
+In case of a server problem, website traffic can be redirected to [redirect.conseillers-entreprises.service-public.gouv.fr](https://redirect.conseillers-entreprises.service-public.gouv.fr) (source code : [github.com/betagouv/conseillers-entreprises-redirect](https://github.com/betagouv/conseillers-entreprises-redirect)).
 
 ## Release
 

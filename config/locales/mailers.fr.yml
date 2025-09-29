@@ -22,7 +22,7 @@ fr:
     best_regards: Cordialement,
     company_mailer:
       confirmation_solicitation:
-        content: Nous avons bien reçu votre demande déposée sur le site conseillers-entreprises.service-public.fr.
+        content: Nous avons bien reçu votre demande déposée sur le site conseillers-entreprises.service-public.gouv.fr.
         content_for_cooperation_html: 'Nous avons bien reçu votre demande déposée sur le site :'
         informations: Vous serez informé(e) par mail de la prise en charge de votre demande par un conseiller ou une conseillère dans les 5 jours en moyenne.
         its_about: 'Elle concerne :'
@@ -68,14 +68,14 @@ fr:
         service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
         subject: Finalisez votre demande pour « %{subject} »
         your_solicitation_cooperation_html: 'Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site :'
-        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site conseillers-entreprises.service-public.fr.
+        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site conseillers-entreprises.service-public.gouv.fr.
       solicitation_relaunch_description:
         continue_button: Finaliser ma demande d’aide
         incomplete_step_explanation: Vous pouvez expliquer votre problématique avec quelques éléments de contexte pour bénéficier d’un conseil humain et de proximité.
         service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
         subject: Finalisez votre demande à propos de « %{subject} »
         your_solicitation_cooperation_html: 'Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site :'
-        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site conseillers-entreprises.service-public.fr.
+        your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site conseillers-entreprises.service-public.gouv.fr.
       why_this_message_html: "<strong>Pourquoi recevez-vous ce message ?</strong>"
     contact_me: Pour toute question, contactez-moi
     contact_your_referent: Pour toute question, contactez votre référent
@@ -92,7 +92,7 @@ fr:
         answer_continuation: En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations et des organismes publics ou parapublics compétents sur son territoire.
         received_need: Vous venez de recevoir votre premier besoin d’entreprise sur le service public Conseillers-Entreprises.
         response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
-        subject: Conseillers-entreprises.service-public.fr - Besoin d’aide ?
+        subject: Conseillers-entreprises.service-public.gouv.fr - Besoin d’aide ?
         watch_videos_html: N’hésitez pas à jeter un œil à <a href='https://youtu.be/p0NbUR-zeMM?si=jmXl8F-B9XKWEOwu' target='_blank'>la vidéo de démonstration ici</a> !
         what_is_pde: Comment fonctionne le service public Conseillers-Entreprises ?
       last_chance:
@@ -301,5 +301,5 @@ fr:
         intro_html: Dans le cadre de votre référencement au sein du service %{link_to_root}, je viens de vous envoyer une invitation afin de valider votre compte utilisateur. Attention, elle peut arriver dans vos indésirables.
         next_dates: 'Les prochaines dates :'
         subject: Vous êtes invité(e) ! Webinaire de présentation de Conseillers-Entreprises.Service-Public.fr
-        video_tutorial_html: 'Ou venez découvrir notre tutoriel vidéo : <a href=''https://conseillers-entreprises.service-public.fr/tutoriels''>conseillers-entreprises.service-public.fr/tutoriels</a>'
+        video_tutorial_html: 'Ou venez découvrir notre tutoriel vidéo : <a href=''https://conseillers-entreprises.service-public.gouv.fr/tutoriels''>conseillers-entreprises.service-public.gouv.fr/tutoriels</a>'
         webinaire_link_html: 'Lien participant : <a href=''https://visio.numerique.gouv.fr/ize-ybtb-ibd''>cliquez ici pour accéder à la visio</a>'

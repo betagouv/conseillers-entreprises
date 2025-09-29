@@ -1,4 +1,4 @@
 Contact: mailto:tech@entreprises.service-public.fr
 Expires: 2025-12-31T11:00:00.000Z
 Preferred-Languages: fr, en
-Canonical: https://conseillers-entreprises.service-public.fr/.well-known/security.txt
+Canonical: https://conseillers-entreprises.service-public.gouv.fr/.well-known/security.txt

@@ -19,11 +19,11 @@ RSpec.configure do |config|
       openapi: '3.1.1',
       info: {
         title: 'API Conseillers-Entreprises V1',
-        description: "## Bienvenue sur la documentation de l’API de conseillers-entreprises.service-public.fr
-        \nCette API permet à une organisation de proposer un formulaire de dépôt de besoin d'entreprise connecté à Conseillers-entreprises.service-public.fr sur son propre site internet.
+        description: "## Bienvenue sur la documentation de l’API de conseillers-entreprises.service-public.gouv.fr
+        \nCette API permet à une organisation de proposer un formulaire de dépôt de besoin d'entreprise connecté à Conseillers-entreprises.service-public.gouv.fr sur son propre site internet.
         \nConcrètement, cette API permet de :
         \n- récupérer la liste des pages d'atterrisage, thèmes et sujets autorisés pour l'organisation concernée,
-        \n- d'envoyer à Conseillers-entreprises.service-public.fr un besoin
+        \n- d'envoyer à Conseillers-entreprises.service-public.gouv.fr un besoin
         \n### Limite des requêtes
         \nLe serveur accepte un maximum de 300 appels par 5 minutes.
         ",
@@ -41,7 +41,7 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'https://conseillers-entreprises.service-public.fr',
+          url: 'https://conseillers-entreprises.service-public.gouv.fr',
         },
         {
           url: 'https://ce-staging.osc-fr1.scalingo.io',
@@ -178,7 +178,7 @@ RSpec.configure do |config|
           bearer_auth: {
             type: :http,
             scheme: :bearer,
-            description: "Le jeton vous est fourni après étude de votre demande par Conseillers-entreprises.service-public.fr.
+            description: "Le jeton vous est fourni après étude de votre demande par Conseillers-entreprises.service-public.gouv.fr.
             \nIl doit être placé dans le header '`Authorization: Bearer VOTRE_JETON`'.
             \nSa validité est de 18 mois, renouvelable sur demande."
           }
