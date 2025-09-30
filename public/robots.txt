@@ -4,4 +4,4 @@
 User-agent: Googlebot
 Disallow: /e/
 
-Sitemap: https://conseillers-entreprises.service-public.fr/sitemap.xml
+Sitemap: https://conseillers-entreprises.service-public.gouv.fr/sitemap.xml

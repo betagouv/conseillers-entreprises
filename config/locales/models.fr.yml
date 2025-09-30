@@ -706,7 +706,7 @@ fr:
         user:
           attributes:
             email:
-              taken: est déjà inscrit sur conseillers-entreprises.service-public.fr.
+              taken: est déjà inscrit sur conseillers-entreprises.service-public.gouv.fr.
     models:
       antenne:
         one: Antenne

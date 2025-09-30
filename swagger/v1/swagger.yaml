@@ -2,12 +2,12 @@
 openapi: 3.1.1
 info:
   title: API Conseillers-Entreprises V1
-  description: "## Bienvenue sur la documentation de l’API de conseillers-entreprises.service-public.fr\n
+  description: "## Bienvenue sur la documentation de l’API de conseillers-entreprises.service-public.gouv.fr\n
     \       \nCette API permet à une organisation de proposer un formulaire de dépôt
-    de besoin d'entreprise connecté à Conseillers-entreprises.service-public.fr sur
+    de besoin d'entreprise connecté à Conseillers-entreprises.service-public.gouv.fr sur
     son propre site internet.\n        \nConcrètement, cette API permet de :\n        \n-
     récupérer la liste des pages d'atterrisage, thèmes et sujets autorisés pour l'organisation
-    concernée,\n        \n- d'envoyer à Conseillers-entreprises.service-public.fr
+    concernée,\n        \n- d'envoyer à Conseillers-entreprises.service-public.gouv.fr
     un besoin\n        \n### Limite des requêtes\n        \nLe serveur accepte un
     maximum de 300 appels par 5 minutes.\n        "
   version: 1.0.0
@@ -741,7 +741,7 @@ paths:
               "$ref": "#/components/schemas/new_solicitation"
         required: true
 servers:
-- url: https://conseillers-entreprises.service-public.fr
+- url: https://conseillers-entreprises.service-public.gouv.fr
 - url: https://ce-staging.osc-fr1.scalingo.io
 components:
   schemas:
@@ -909,7 +909,7 @@ components:
     bearer_auth:
       type: http
       scheme: bearer
-      description: "Le jeton vous est fourni après étude de votre demande par Conseillers-entreprises.service-public.fr.\n
+      description: "Le jeton vous est fourni après étude de votre demande par Conseillers-entreprises.service-public.gouv.fr.\n
         \           \nIl doit être placé dans le header '`Authorization: Bearer VOTRE_JETON`'.\n
         \           \nSa validité est de 18 mois, renouvelable sur demande."
 security:

@@ -23,7 +23,7 @@ Conseillers-Entreprises s’adresse a plusieurs classes d’utilisateurs :
 ## Données
 
 ### Entrepreneurs
-Les entrepreneurs, quand ils déposent une sollicitation sur `https://conseillers-entreprises.service-public.fr` fournissent ces informations :
+Les entrepreneurs, quand ils déposent une sollicitation sur `https://conseillers-entreprises.service-public.gouv.fr` fournissent ces informations :
 * Informations de contact: prénom et nom, adresse email, téléphone ;
 * Identitié de l’entreprise: numéro SIRET ;
 * Sujet de la demande, sélectionné parmi plusieurs catégories et sous-catégories ;
@@ -48,7 +48,7 @@ De l’autre côté, on trouve donc les informations des agents recensées aupr�
 * Nous recensons environ 10 000 agents de 40 institutions partenaires (Septembre 2023)
 * Nous recevons et transmettons plus de 2000 besoins d’entreprise par mois ; chaque besoin est transmis en général à deux ou trois agents.
 
-Les statistiques publiques sont disponibles en temps réel [sur notre page /stats](https://conseillers-entreprises.service-public.fr/stats).
+Les statistiques publiques sont disponibles en temps réel [sur notre page /stats](https://conseillers-entreprises.service-public.gouv.fr/stats).
 
 ## Modèle de données
 
@@ -58,7 +58,7 @@ Le diagramme du [modèle de données](domain_model.pdf) est tenu à jour automat
 * `Expert` : un agent, ou une équipe de plusieurs agents, compétents sur des sujets ;
 * `Subject` : un domaine de compétence d’aides aux entreprises ;
 * `Company` : une entreprise aidée, identifiée par un SIREN ;
-* `Solicitation` : une demande déposée par un entrepreneur sur `conseillers-entreprises.service-public.fr` ;
+* `Solicitation` : une demande déposée par un entrepreneur sur `conseillers-entreprises.service-public.gouv.fr` ;
 * `Need` : un besoin identifié d’une entreprise, correspondant à un Sujet ;
 * et enfin, `Match` : une mise en relation, sur un sujet donné, entre une entreprise et un agent.
 
@@ -66,7 +66,7 @@ Le diagramme du [modèle de données](domain_model.pdf) est tenu à jour automat
 
 ### Pile logicielle
 
-Conseillers-entreprises.service-public.fr est une application web écrite en [Ruby on Rails](https://rubyonrails.org), avec une base de données [PostgreSQL](https://www.postgresql.org). Elle est déployée en PAAS chez [Scalingo](https://scalingo.com/fr), et hébergé dans un datacenter [Outscale](https://fr.outscale.com).
+Conseillers-entreprises.service-public.gouv.fr est une application web écrite en [Ruby on Rails](https://rubyonrails.org), avec une base de données [PostgreSQL](https://www.postgresql.org). Elle est déployée en PAAS chez [Scalingo](https://scalingo.com/fr), et hébergé dans un datacenter [Outscale](https://fr.outscale.com).
 * Ruby on Rails est un framework de développement parmi les plus utilisés au monde, entre autres au sein de la communauté betagouv. Cela garantit des mises à jours régulières, ainsi que des corrections de failles de sécurité; par ailleurs, cela nous permet de trouver assez facilement de nouveaux développeurs.
 * PostgreSQL est un système de gestion de base de données performant et moderne, souvent associé à Ruby on Rails pour les applications de ce type.
 
@@ -90,7 +90,7 @@ Par ailleurs, le code revu et accepté est déployé de façon automatique et co
 
 ### Hébergement
 
-Conseillers-entreprises.service-public.fr est déployé sur la plateforme PAAS de [Scalingo](https://scalingo.com/fr), comme quelques autres startups d’États. Conseillers-entreprises.service-public.fr est sur la zone `osc-fr1` de Scalingo, hébergé dans un datacenter de Outscale, [situé en France](https://scalingo.com/fr/data-processing-agreement#pour-la-région-osc-fr1).
+Conseillers-entreprises.service-public.gouv.fr est déployé sur la plateforme PAAS de [Scalingo](https://scalingo.com/fr), comme quelques autres startups d’États. Conseillers-entreprises.service-public.gouv.fr est sur la zone `osc-fr1` de Scalingo, hébergé dans un datacenter de Outscale, [situé en France](https://scalingo.com/fr/data-processing-agreement#pour-la-région-osc-fr1).
 
 ### Nom de domaine
 
@@ -103,7 +103,7 @@ Le domaine `service-public.fr` est géré par la DILA. La gestion du sous-domain
 Conseillers-Entreprises récupère les données publiques des entreprises sur [annuaire-entreprises.data.gouv.fr](https://annuaire-entreprises.data.gouv.fr/), [entreprise.api.gouv.fr](https://entreprise.api.gouv.fr), l' [API de l'INSEE](https://api.insee.fr/catalogue) ou [registre-national-entreprises.inpi.fr](https://registre-national-entreprises.inpi.fr/api/), des plateformes maintenues par l'administration.
 
 Nous utilisons aussi des outils propres à la communauté betagouv :
-* [sentry.data.gouv.fr/betagouvfr/](https://sentry.data.gouv.fr/betagouvfr/) est un outil standard de monitoring de pannes logicielles; les erreurs et crashes de conseillers-entreprises.service-public.fr, côté client comme serveur, y sont consignés.
+* [sentry.data.gouv.fr/betagouvfr/](https://sentry.data.gouv.fr/betagouvfr/) est un outil standard de monitoring de pannes logicielles; les erreurs et crashes de conseillers-entreprises.service-public.gouv.fr, côté client comme serveur, y sont consignés.
 * [stats.beta.gouv.fr](https://stats.beta.gouv.fr) est une instance [Matomo](https://matomo.org), un outil libre de mesure d’audience web,  [recommandé par la cnil](https://www.cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience).
 
 ### Services tiers
