@@ -35,7 +35,7 @@ export default class extends Controller {
     .then(html => {
       frame.innerHTML = html
     })
-    .catch(error => {
+    .catch(() => {
       this.setLoadingState(button, iconElement, false)
     })
   }
@@ -99,7 +99,7 @@ export default class extends Controller {
         
         setTimeout(() => loadNext(index + 1), 50)
       })
-      .catch(error => {
+      .catch(() => {
         loadedCount++
         loadNext(index + 1)
       })
