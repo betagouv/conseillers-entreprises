@@ -179,6 +179,11 @@ fr:
       information: Informations sur l’entreprise
       siren: SIREN
       tranche_effectif_salarie_entreprise: Tranche d’effectif de salariés de l’entreprise
+    errors:
+      title: Certaines informations ne peuvent pas être affichées en raison d’un problème d’accès aux données.
+      unavailable:
+        one: "%{names} : temporairement indisponible."
+        other: "%{names} : temporairement indisponibles."
     facility:
       adresse: Adresse
       commune_implantation: Commune d’implantation
