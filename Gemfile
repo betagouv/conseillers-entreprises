@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -10,7 +8,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '3.3.4'
+ruby '3.4.6'
 
 gem 'rails', '~> 7.2.2'
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ExpertMailer < ApplicationMailer
   default template_path: 'mailers/expert_mailer'
   helper :institutions

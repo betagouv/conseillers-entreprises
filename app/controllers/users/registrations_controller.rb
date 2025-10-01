@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Users
   # Custom RegistrationsController
   ## This overrides some Devise features and adds new actions.

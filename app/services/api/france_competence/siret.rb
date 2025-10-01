@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api::FranceCompetence::Siret
   class Base < Api::FranceCompetence::Base
   end

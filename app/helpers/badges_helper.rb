@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module BadgesHelper
   def badge_label(badge)
     tag.div(badge.title, class: 'label',

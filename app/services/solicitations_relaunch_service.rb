@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SolicitationsRelaunchService
   def initialize
     @solicitations_to_relaunch = []

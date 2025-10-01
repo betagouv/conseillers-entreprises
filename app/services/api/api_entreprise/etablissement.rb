@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api::ApiEntreprise::Etablissement
   class Base < Api::ApiEntreprise::Base
     def severity

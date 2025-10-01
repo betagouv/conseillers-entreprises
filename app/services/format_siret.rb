@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class FormatSiret
   def self.siret_from_query(query)
     maybe_siret = clean_siret(query)

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 require 'system_helper'
 require 'api_helper'
@@ -24,6 +22,7 @@ describe 'invitations', :js do
     end
 
     it 'creates a new invited user' do
+      expect(page).to have_current_path(new_user_invitation_path)
       last_user = User.last
       expect(last_user).to be_created_by_invite
       expect(last_user.email).to eq 'marie.dupont@exemple.fr'
@@ -50,6 +49,7 @@ describe 'invitations', :js do
     end
 
     it 'marks the invitation as accepted, and takes modifications into account' do
+      expect(page).to have_current_path(tutoriels_path)
       user.reload
       expect(user).to be_invitation_accepted
       expect(user.cgu_accepted_at).not_to be_nil

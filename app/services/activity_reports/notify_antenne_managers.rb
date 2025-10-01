@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module ActivityReports
   class NotifyAntenneManagers
     def initialize(managers = User.managers)

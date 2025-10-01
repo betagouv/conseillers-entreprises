@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SolicitationMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/solicitation_mailer'

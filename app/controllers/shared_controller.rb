@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SharedController < ActionController::Base
   include Pundit::Authorization
 

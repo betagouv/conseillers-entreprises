@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 describe SolicitationsRelaunchService do
   # Solicitation non complétée suivi d'une solicitation complété  ko

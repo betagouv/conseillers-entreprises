@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ActiveAdmin.register Antenne do
   menu parent: :experts, priority: 1
 

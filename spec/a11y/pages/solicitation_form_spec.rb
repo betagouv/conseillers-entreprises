@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 require 'api_helper'
 
@@ -40,19 +38,23 @@ describe 'solicitation_form', :js, type: :feature do
       click_on 'Suivant'
       # Second step
       ## Search company
+      expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
       is_expected.to be_accessible
       fill_in 'Recherchez votre entreprise (SIRET, SIREN, nom...)', with: query
       click_on 'Suivant'
       # ## Search Facility
+      expect(page).to have_current_path(/\/votre-demande\/.*\/recherche-entreprise/)
       is_expected.to be_accessible
       click_on "#{query} - Octo Technology"
       # Third step
+      expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
       is_expected.to be_accessible
       fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
       choose 'oui', name: 'solicitation[subject_answers_attributes][0][filter_value]', allow_label_click: true
       choose 'oui', name: 'solicitation[subject_answers_attributes][1][filter_value]', allow_label_click: true
       click_on 'Envoyer ma demande'
       # Thank's step
+      expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
       is_expected.to be_accessible
     end
   end
