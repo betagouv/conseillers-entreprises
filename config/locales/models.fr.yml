@@ -471,12 +471,12 @@ fr:
         match_filters: Filtres de mise en relation pour ce sujet
         missing_insee_codes: Territoires non couverts
       referencement_coverage/anomalie_icons:
-        extra_insee_codes_html: <span class="fr-icon-information-line orange" aria-hidden="true"></span>
-        missing_insee_codes_html: <span class="fr-icon-information-line orange" aria-hidden="true"></span>
-        no_anomalie_html: "<span class='fr-icon-checkbox-circle-line green' aria-hidden='true'></span>"
-        no_expert_html: <span class="fr-icon-information-line orange" aria-hidden="true"></span>
-        no_user_html: <span class="fr-icon-information-line orange" aria-hidden="true"></span>
-        theme_outside_territories_html: <span class="fr-icon-information-line blue" aria-hidden="true"></span>
+        extra_insee_codes: fr-icon-information-line orange
+        missing_insee_codes: fr-icon-information-line orange
+        no_anomalie: fr-icon-checkbox-circle-line green
+        no_expert: fr-icon-information-line orange
+        no_user: fr-icon-information-line orange
+        theme_outside_territories: fr-icon-information-line blue
       referencement_coverage/cooperations_details:
         cooperations: Coopérations
         theme_territories: Territoires du thème
