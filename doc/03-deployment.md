@@ -11,7 +11,7 @@
 
 ## Domain name
 
-The `service-public.fr` is registered on NAMESHIELD by the DILA, the `conseillers-entreprises` subdomain is delegated to the team on OVH. This allows us to manage TXT records ourselves and to add additional sub-subdomains. Contact the developer team to access the OVH account.
+The `service-public.gouv.fr` is registered on NAMESHIELD by the DILA, the `conseillers-entreprises` subdomain is delegated to the team on OVH. This allows us to manage TXT records ourselves and to add additional sub-subdomains. Contact the developer team to access the OVH account.
 
 ## Branches and setup
 

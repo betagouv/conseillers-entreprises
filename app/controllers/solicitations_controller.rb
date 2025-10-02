@@ -240,7 +240,7 @@ class SolicitationsController < PagesController
   end
 
   def from_entreprendre_via_referer?
-    request.headers['referer'] == 'https://entreprendre.service-public.fr/'
+    request.headers['referer'] == 'https://entreprendre.service-public.gouv.fr/'
   end
 
   def calculate_needs_count

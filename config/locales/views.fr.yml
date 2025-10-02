@@ -521,8 +521,8 @@ fr:
       mobile_menu: Menu
   logos:
     france_relance: France Relance
-    pde: Conseillers-entreprises.service-public.fr
-    pde_home: Conseillers-entreprises.service-public.fr - Page d’accueil
+    pde: Conseillers-entreprises.service-public.gouv.fr
+    pde_home: Conseillers-entreprises.service-public.gouv.fr  - Page d’accueil
     prefets_regions: Préfet région %{name}
     regions: Conseil régional %{name}
     republique_francaise: République française
@@ -550,7 +550,7 @@ fr:
     close: Fermer
     main_menu: Menu principal
     menu: Menu
-    root_path_title: Accueil Conseillers-entreprises.service-public.fr
+    root_path_title: Accueil Conseillers-entreprises.service-public.gouv.fr
     service_alt: Service-public Conseillers-Entreprises, Vos droits et démarches plus simplement
   needs:
     additional_experts:
@@ -650,15 +650,15 @@ fr:
     footer:
       cookies: Gestion des cookies
       datagouv_title: Lien vers le site data.gouv.fr
-      entreprendre_service_public_title: Lien vers le site entreprendre.service-public.fr
-      github_title: Page Github de Conseillers-entreprises.service-public.fr
-      gouvernement_title: Lien vers le site gouvernement.fr
+      entreprendre_service_public_title: Lien vers le site entreprendre.service-public.gouv.fr
+      github_title: Page Github de Conseillers-entreprises.service-public.gouv.fr
+      info_gouv_title: Lien vers le site info.gouv.fr
       know_us: Nous connaître
       legifrance_title: Lien vers le site legifrance.gouv.fr
       open_cookies: Ouvre la fenêtre de gestion des cookies
       service_presentation: Dossier de presse (PDF 500 ko)
       service_presentation_title: Dossier de presse de Conseillers-Entreprises - lien de téléchargement (PDF 500 ko)
-      service_public_title: Lien vers le site service-public.fr
+      service_public_title: Lien vers le site service-public.gouv.fr
       service_short_description: Échangez avec les conseillers qui peuvent vous aider dans vos projets, vos difficultés ou les transformations nécessaires à la réussite de votre entreprise.
       source_code: Github, lien vers le code source du site
       themes: Thèmes

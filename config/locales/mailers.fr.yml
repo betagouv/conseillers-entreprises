@@ -147,7 +147,7 @@ fr:
       administrations_collectivites:
         apprentissage_html: 'pour les questions liées à l’apprentissage : <a href=''https://www.fonction-publique.gouv.fr/devenir-agent-public/lapprentissage-dans-la-fonction-publique''>https://www.fonction-publique.gouv.fr/devenir-agent-public/lapprentissage-dans-la-fonction-publique</a>'
         erp_html: 'pour votre établissement recevant du public (ERP) et son accessibilité : <a href=''https://www.ecologie.gouv.fr/politiques-publiques/laccessibilite-etablissements-recevant-du-public-erp''>https://www.ecologie.gouv.fr/politiques-publiques/laccessibilite-etablissements-recevant-du-public-erp</a>'
-        formation_agents_html: 'pour les questions liées à la formation professionnelle des agents : <a href=''https://www.service-public.fr/particuliers/vosdroits/N186''>https://www.service-public.fr/particuliers/vosdroits/N186</a>'
+        formation_agents_html: 'pour les questions liées à la formation professionnelle des agents : <a href=''https://www.service-public.gouv.fr/particuliers/vosdroits/N186''>https://www.service-public.gouv.fr/particuliers/vosdroits/N186</a>'
         intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root}, ou un site intégrant ce service.
         local_project_html: 'pour tous vos projets locaux : <a href=''https://aides-territoires.beta.gouv.fr''>https://aides-territoires.beta.gouv.fr</a>'
         no_administration_experts: Ce service public est destiné aux TPE et PME. Nous n’avons pas d’expert en mesure de répondre aux problématiques des administrations et des collectivités.
@@ -192,7 +192,7 @@ fr:
         other_informations: 'Vous trouverez également des informations en droit du travail sur :'
       formalites_asso_agri_sci:
         agri_html: 'Pour les activités agricoles : <a href=''https://chambres-agriculture.fr/chambres-dagriculture/nous-connaitre/lannuaire-des-chambres-dagriculture/''>L’annuaire des Chambres d’agriculture</a>'
-        asso_html: 'Pour les associations : <ul><li><a href=''https://www.service-public.fr/particuliers/vosdroits/R1757''>Création d’une association en ligne</a></li><li><a href=''https://www.service-public.fr/particuliers/vosdroits/R37933''>Modification d’une association en ligne</a></li><li><a href=''https://lannuaire.service-public.fr/navigation/prefecture''>Annuaire des préfectures</a></li></ul>'
+        asso_html: 'Pour les associations : <ul><li><a href=''https://www.service-public.gouv.fr/particuliers/vosdroits/R1757''>Création d’une association en ligne</a></li><li><a href=''https://www.service-public.gouv.fr/particuliers/vosdroits/R37933''>Modification d’une association en ligne</a></li><li><a href=''https://lannuaire.service-public.gouv.fr/navigation/prefecture''>Annuaire des préfectures</a></li></ul>'
         direct_contact: 'Nous vous conseillons de contacter :'
         no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
         sci_html: 'Pour les agents commerciaux et les SCI : <a href=''https://www.infogreffe.fr/rechercher-un-greffe''>Moteur de recherche de greffes</a>'
@@ -214,7 +214,7 @@ fr:
         use_for_commercant_html: Ces deux documents sont à télécharger gratuitement sur <a href=''https://annuaire-entreprises.data.gouv.fr''>annuaire-entreprises.data.gouv.fr</a>.
       mediateurs:
         conseil: 'Nous vous conseillons de :'
-        juriste_conseil_html: 'se faire conseiller par un juriste via les informations suivantes : <a href=''https://www.service-public.fr/particuliers/vosdroits/F20706''>Comment consulter gratuitement un avocat ?</a>'
+        juriste_conseil_html: 'se faire conseiller par un juriste via les informations suivantes : <a href=''https://www.service-public.gouv.fr/particuliers/vosdroits/F20706''>Comment consulter gratuitement un avocat ?</a>'
         litige_agricole_html: 'Litige lié au domaine agricole : <ul><li>Médiateur des relations commerciales agricoles : <a href=''https://agriculture.gouv.fr/le-mediateur-des-relations-commerciales-agricoles''>https://agriculture.gouv.fr</a></li></ul>'
         litige_assurance_html: 'Litige lié aux assurances : <ul><li>Médiateur des assurances : <a href=''https://www.mediation-assurance.org''>https://www.mediation-assurance.org</a></li></ul>'
         litige_cotisation_html: 'Litige avec un gestionnaire des cotisations sociales : <ul><li>Médiateur de la MSA : <a href=''https://www.msa.fr/lfp/le-mediateur-de-la-msa''>https://www.msa.fr</a></li><li>Médiateur de l’URSSAF : <a href=''https://www.urssaf.fr/portail/home/utile-et-pratique/mediation.html''>https://www.urssaf.fr</a></li></ul>'
@@ -232,9 +232,9 @@ fr:
         quality_monitoring_html: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller. Nous vous invitons à bien <b>vérifier votre messagerie</b> électronique, vos courriers indésirables (spams) et votre messagerie vocale.
         taking_care_by_experts: Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.
       no_expert:
-        erp_html: 'pour votre établissement recevant du public (ERP) et son accessibilité : <a href=''https://entreprendre.service-public.fr/vosdroits/F32351''>https://entreprendre.service-public.fr/vosdroits/F32351</a>'
+        erp_html: 'pour votre établissement recevant du public (ERP) et son accessibilité : <a href=''https://entreprendre.service-public.gouv.fr/vosdroits/F32351''>https://entreprendre.service-public.gouv.fr/vosdroits/F32351</a>'
         inpi_html: 'pour réaliser vos formalités d’entreprises : <a href=''https://procedures.inpi.fr''>https://procedures.inpi.fr</a>, ou pour les SCI <a href=''https://tribunal-commerce.fr''>https://tribunal-commerce.fr</a>'
-        juridique_html: pour votre problématique juridique, vous rapprocher d’un <a href="https://www.justice.fr/themes/acces-droit-point-justice">point d’accès au droit</a> ou d’une <a href="https://www.service-public.fr/particuliers/vosdroits/F20706">permanence gratuite d’avocat</a>
+        juridique_html: pour votre problématique juridique, vous rapprocher d’un <a href="https://www.justice.fr/themes/acces-droit-point-justice">point d’accès au droit</a> ou d’une <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F20706">permanence gratuite d’avocat</a>
         no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
         personal_services_html: 'pour devenir un service à la personne : <a href=''https://www.servicesalapersonne.gouv.fr''>https://www.servicesalapersonne.gouv.fr</a>'
         service_improvement_html: C’est en détectant de nouvelles problématiques que nous pouvons améliorer ce service public.<strong> Nous faisons notre maximum pour compléter l’expertise</strong>.
@@ -252,13 +252,13 @@ fr:
       sie_sip_declare_and_pay:
         income_and_taxation: Les questions relatives à la déclaration de vos revenus et à leur imposition relèvent de votre service des impôts des particuliers (SIP), tandis que les questions relatives à la CFE et à la TVA relèvent de votre service des impôts des entreprises (SIE).
         not_partner_html: "<strong>Malheureusement ces deux services ne sont pas partenaires de Conseillers-Entreprises à ce jour</strong>.<br>Nous vous invitons à les solliciter directement :"
-        sie_html: 'Service des impôts des entreprises (SIE) : <a href=''https://lannuaire.service-public.fr/navigation/sie''>https://lannuaire.service-public.fr/navigation/sie</a>'
+        sie_html: 'Service des impôts des entreprises (SIE) : <a href=''https://lannuaire.service-public.gouv.fr/navigation/sie''>https://lannuaire.service-public.gouv.fr/navigation/sie</a>'
         sie_on_impots_html: Vous pouvez également joindre ces services sur votre compte professionnel ou votre compte particulier <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr'>impots.gouv.fr</a>, via votre messagerie personnalisée.
-        sip_html: 'Service des impôts des particuliers (SIP)  : <a href=''https://lannuaire.service-public.fr/navigation/sip''>https://lannuaire.service-public.fr/navigation/sip</a>'
+        sip_html: 'Service des impôts des particuliers (SIP)  : <a href=''https://lannuaire.service-public.gouv.fr/navigation/sip''>https://lannuaire.service-public.gouv.fr/navigation/sip</a>'
         solicitation_subject_html: concernant votre déclaration de revenus ou le paiement de vos impôts
       sie_tva_and_others:
         no_tva_number: Les démarches et les questions relatives à la TVA (déclaration et paiement de la TVA, obtention d’un n° de TVA intracommunautaire, seuil et changement de régime de TVA …) relèvent de votre service des impôts des entreprises (SIE).
-        sie_annuaire_html: "<b>Malheureusement ce service n’est pas partenaire de Conseillers-Entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href='https://lannuaire.service-public.fr/navigation/sie'>https://lannuaire.service-public.fr/navigation/sie</a>."
+        sie_annuaire_html: "<b>Malheureusement ce service n’est pas partenaire de Conseillers-Entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href='https://lannuaire.service-public.gouv.fr/navigation/sie'>https://lannuaire.service-public.gouv.fr/navigation/sie</a>."
         sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/'>impots.gouv.fr</a>, dans votre espace de messagerie personnalisée.
         solicitation_subject_html: concernant la TVA
       siret:

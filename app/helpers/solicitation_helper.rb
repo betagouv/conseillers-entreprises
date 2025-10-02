@@ -102,7 +102,7 @@ module SolicitationHelper
   end
 
   def entreprendre_url(solicitation, full: false)
-    full ? "https://entreprendre.service-public.fr/vosdroits/#{solicitation.kwd}" : "https://entreprendre.service-public.fr"
+    full ? "https://entreprendre.service-public.gouv.fr/vosdroits/#{solicitation.kwd}" : "https://entreprendre.service-public.gouv.fr"
   end
 
   def landing_partner_url(solicitation, full: false)

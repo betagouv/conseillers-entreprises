@@ -94,7 +94,7 @@ Conseillers-entreprises.service-public.gouv.fr est déployé sur la plateforme P
 
 ### Nom de domaine
 
-Le domaine `service-public.fr` est géré par la DILA. La gestion du sous-domaine `conseillers-entreprises.` est déléguée à l’équipe en charge de Conseillers-Entreprises.
+Le domaine `service-public.gouv.fr` est géré par la DILA. La gestion du sous-domaine `conseillers-entreprises.` est déléguée à l’équipe en charge de Conseillers-Entreprises.
 
 ## Services externes
 
