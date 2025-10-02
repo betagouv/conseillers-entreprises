@@ -48,7 +48,7 @@ RSpec.describe SolicitationsController do
         context 'via request referer' do
           context 'first access from entreprendre' do
             it do
-              request.headers['referer'] = 'https://entreprendre.service-public.fr/'
+              request.headers['referer'] = 'https://entreprendre.service-public.gouv.fr/'
               get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre', mtm_kwd: 'F12345' }
               expect(response).to redirect_to root_path({ mtm_campaign: 'entreprendre', mtm_kwd: 'F12345', redirected: 'entreprendre' })
             end
@@ -93,7 +93,7 @@ RSpec.describe SolicitationsController do
         context 'via request referer' do
           context 'first access from entreprendre' do
             it do
-              request.headers['referer'] = 'https://entreprendre.service-public.fr/'
+              request.headers['referer'] = 'https://entreprendre.service-public.gouv.fr/'
               get :new, params: { landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, mtm_campaign: 'entreprendre', mtm_kwd: 'F12345' }
               expect(response).not_to have_http_status(:redirect)
             end
