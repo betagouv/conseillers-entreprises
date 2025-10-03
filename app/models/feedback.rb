@@ -94,6 +94,7 @@ class Feedback < ApplicationRecord
   scope :need_created_at_gteq, -> (val) { joins(:feedback_need).where(needs: { created_at: val.. }) }
   scope :need_created_at_lteq, -> (val) { joins(:feedback_need).where(needs: { created_at: ..val }) }
   scope :user_antenne_eq, -> (antenne) { joins(:user).where(users: { antenne: antenne }) }
+  scope :user_antenne_region_eq, -> (region) { joins(user: { antenne: { communes: :territories } }).where(users: { antennes: { communes: { territories: region } } }).where.not(territories: { code_region: nil }) }
   scope :user_institution_eq, -> (institution) { joins(user: { antenne: :institution }).where(users: { antennes: { institution: institution } }) }
 
   ##
@@ -144,7 +145,7 @@ class Feedback < ApplicationRecord
     [
       :subject_eq, :theme_eq, :landing_eq, :mtm_campaign_cont, :mtm_campaign_eq, :mtm_campaign_start, :mtm_campaign_end,
       :mtm_kwd_cont, :mtm_kwd_eq, :mtm_kwd_start, :mtm_kwd_end, :need_created_at_gteq, :need_created_at_lteq,
-      :user_antenne_eq, :user_institution_eq, :need_status_eq
+      :user_antenne_eq, :user_antenne_region_eq, :user_institution_eq, :need_status_eq
     ]
   end
 end

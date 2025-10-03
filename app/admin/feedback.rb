@@ -46,6 +46,7 @@ ActiveAdmin.register Feedback do
   filter :created_at, as: :date_range, label: I18n.t('activeadmin.feedback.created_at')
   filter :user, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :user_antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
+  filter :user_antenne_region, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
   filter :user_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
 
   ## CSV
