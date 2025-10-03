@@ -6,10 +6,10 @@ describe Stats::Filters::Solicitations do
   let!(:solicitation_outside) { create :need }
 
   describe 'territories_filter' do
-    let(:territory) { create :territory, code_region: '01' }
-    let(:solicitation_inside) { create :solicitation, code_region: territory.code_region }
+    let(:code_region) { '01' }
+    let(:solicitation_inside) { create :solicitation, code_region: code_region }
 
-    subject { described_class.new(query, open_struct_graph).send(:territories_filter, territory) }
+    subject { described_class.new(query, open_struct_graph).send(:territories_filter, code_region) }
 
     it { is_expected.to eq [solicitation_inside] }
   end

@@ -54,7 +54,7 @@ class Theme < ApplicationRecord
   scope :for_interview, -> { ordered_for_interview.where.not(label: "Support") }
 
   scope :with_territories, -> do
-    joins(:territories)
+    joins(:territorial_zones)
   end
 
   ##

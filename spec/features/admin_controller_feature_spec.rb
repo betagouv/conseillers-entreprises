@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 describe 'admin panel' do
-  login_user
+  login_admin
 
   describe 'user access to panel' do
     context 'user is admin' do
       before do
-        current_user.user_rights.create(category: 'admin')
         visit '/admin'
       end
 
@@ -16,7 +15,6 @@ describe 'admin panel' do
 
   describe 'user access to admin pages' do
     before do
-      current_user.user_rights.create(category: 'admin')
       # Dummy data, so as to thoroughly check views
       create_base_dummy_data
       visit '/admin'
@@ -100,7 +98,6 @@ describe 'admin panel' do
     let(:match) { create :match }
 
     before do
-      current_user.user_rights.create(category: 'admin')
       visit '/admin'
 
       click_on 'Mises en relation'
