@@ -1151,6 +1151,7 @@ fr:
     updated_at: Date de mise à jour
     user: Conseiller
     user_antenne: Antenne
+    user_antenne_region: Région
     user_institution: Institution
     visit: Visite
     visitee: Personne rencontrée
