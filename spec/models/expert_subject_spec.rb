@@ -12,32 +12,49 @@ RSpec.describe ExpertSubject do
     describe 'relevant_for' do
       subject{ described_class.relevant_for(need) }
 
-      let(:need) { create :need }
+      let(:need) { create :need, facility: create(:facility, insee_code: "47203") }
       let!(:expert_subject) do
         create :expert_subject,
                institution_subject: create(:institution_subject, subject: the_subject),
-               expert: create(:expert, communes: communes)
+               expert: create(:expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: insee_code)])
       end
 
       context 'when the expert isn’t on the commune' do
         let(:the_subject) { need.subject }
         let(:communes) { [create(:commune)] }
+        let(:insee_code) { "72026" }
 
         it{ is_expected.to be_blank }
       end
 
       context 'when the institution doesn’t handle that subject' do
         let(:the_subject) { create :subject }
-        let(:communes) { [need.facility.commune] }
+        let(:insee_code) { "47203" }
 
         it{ is_expected.to be_blank }
       end
 
       context 'when both subject and institution match' do
         let(:the_subject) { need.subject }
-        let(:communes) { [need.facility.commune] }
+        let(:insee_code) { "47203" }
 
         it{ is_expected.to contain_exactly(expert_subject) }
+      end
+    end
+
+    describe "in_commune" do
+      let(:insee_code) { "47203" }
+
+      subject { described_class.in_commune(insee_code) }
+
+      context "Commune direct" do
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: insee_code)] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: "72026")] }
+
+        it "returns expert with the commune" do
+          is_expected.to contain_exactly(expert_with_code.experts_subjects.first)
+          is_expected.not_to include(expert_without_code.experts_subjects.first)
+        end
       end
     end
 
@@ -102,9 +119,7 @@ RSpec.describe ExpertSubject do
       end
 
       context 'when facility from Mayotte' do
-        let(:region_mayotte) { create :territory, name: "Département Mayotte", code_region: 6 }
-        let!(:facility) { create :facility, opco: opco, commune: commune_mayotte }
-        let(:commune_mayotte) { create :commune, regions: [region_mayotte] }
+        let!(:facility) { create :facility, opco: opco, insee_code: "97603" } # Mayotte insee code
         let(:mayotte_opco) { create :institution, :opco, slug: 'opco-akto-mayotte' }
         let!(:expert_subject_mayotte) do
           create :expert_subject,
