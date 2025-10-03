@@ -67,12 +67,11 @@ ActiveAdmin.register Theme do
 
   ## Form
   #
-  permit_params :label, :interview_sort_order, territory_ids: [], territorial_zones_attributes: [:id, :zone_type, :code, :_destroy]
+  permit_params :label, :interview_sort_order, territorial_zones_attributes: [:id, :zone_type, :code, :_destroy]
 
   form do |f|
     f.inputs do
       f.input :label
-      f.input :territories, as: :ajax_select, collection: Territory.order(:name), multiple: true, data: { url: :admin_territories_path, search_fields: [:name] }
       f.input :interview_sort_order
     end
 
