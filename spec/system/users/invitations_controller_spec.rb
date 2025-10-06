@@ -21,17 +21,15 @@ describe 'invitations', :js do
       click_on 'Envoyer l’invitation'
     end
 
-    100.times do
-      it 'creates a new invited user' do
-        expect(page).to have_text("Un email d’invitation a été envoyé à marie.dupont@exemple.fr.")
-        last_user = User.last
-        expect(last_user).to be_created_by_invite
-        expect(last_user.email).to eq 'marie.dupont@exemple.fr'
-        expect(last_user.full_name).to eq 'Marie Dupont'
-        expect(last_user.phone_number).to eq '01 23 45 67 89'
-        expect(last_user.job).to eq 'Conseillère'
-        expect(last_user.antenne).to eq antenne
-      end
+    it 'creates a new invited user' do
+      expect(page).to have_text("Un email d’invitation a été envoyé à marie.dupont@exemple.fr.")
+      last_user = User.last
+      expect(last_user).to be_created_by_invite
+      expect(last_user.email).to eq 'marie.dupont@exemple.fr'
+      expect(last_user.full_name).to eq 'Marie Dupont'
+      expect(last_user.phone_number).to eq '01 23 45 67 89'
+      expect(last_user.job).to eq 'Conseillère'
+      expect(last_user.antenne).to eq antenne
     end
   end
 
