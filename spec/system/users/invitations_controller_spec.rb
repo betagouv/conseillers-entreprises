@@ -23,7 +23,7 @@ describe 'invitations', :js do
 
     100.times do
       it 'creates a new invited user' do
-        expect(page).to have_current_path(new_user_invitation_path)
+        expect(page).to have_text("Un email d’invitation a été envoyé à marie.dupont@exemple.fr.")
         last_user = User.last
         expect(last_user).to be_created_by_invite
         expect(last_user.email).to eq 'marie.dupont@exemple.fr'
