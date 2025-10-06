@@ -56,7 +56,7 @@ RSpec.configure do |config|
           desired_capabilities: :chrome
         }
     else
-      driven_by :selenium_chrome_headless
+      driven_by :selenium_chrome
     end
   end
 
