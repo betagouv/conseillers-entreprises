@@ -8,7 +8,7 @@ module InstitutionsHelper
       .with_home_page_logo
       .map{ |i| i.logo&.filename }
       .uniq
-      .map { institution_image(_1) }
+      .map { institution_image(it) }
       .join.html_safe
   end
 
