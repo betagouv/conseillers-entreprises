@@ -7,8 +7,6 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
   end
 
   def update_contact
-    authorize @diagnosis, :update?
-
     diagnosis_params = params_for_visit
     diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
     diagnosis_params[:step] = :needs if @diagnosis.step != 'matches'
@@ -27,8 +25,6 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
   end
 
   def update_needs
-    authorize @diagnosis, :update?
-
     diagnosis_params = params_for_needs
     diagnosis_params[:step] = :matches
     if @diagnosis.update(diagnosis_params)
@@ -51,8 +47,6 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
   end
 
   def update_matches
-    authorize @diagnosis, :update?
-
     diagnosis_params = params_for_matches
     diagnosis_params[:step] = :completed
     diagnosis_params[:completed_at] = Time.zone.now
@@ -83,7 +77,7 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
   private
 
   def retrieve_diagnosis
-    @diagnosis = Diagnosis.find(params.require(:id))
+    @diagnosis = authorize Diagnosis.find(params.require(:id))
   end
 
   def params_for_needs
