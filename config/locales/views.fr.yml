@@ -571,6 +571,7 @@ fr:
       quo_active: Boite de réception
       taking_care: Prise en charge
     dates:
+      match_sent_at: Envoyé le %{date}
       solicited_at: Déposé le %{date}
       solicited_at_day: Besoin du %{date}
     empty_placeholder:
