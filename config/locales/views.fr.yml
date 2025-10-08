@@ -544,6 +544,7 @@ fr:
       closed_at: Clôture
       see_expert_inbox: Voir la boîte de réception de l’expert
       see_match_info: Voir plus d'infos sur la MER
+      sent_at: Envoi
       taken_care_of_at: Prise en charge
   navbar:
     close: Fermer
