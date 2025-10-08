@@ -474,12 +474,8 @@ class Need < ApplicationRecord
     self.diagnosis.touch
   end
 
-  def display_time
+  def solicited_at
     solicitation&.completed_at || diagnosis.created_at
-  end
-
-  def display_date
-    display_time.to_date
   end
 
   def computed_status

@@ -10,7 +10,7 @@
       .fr-mt-xs-4w.break-word
         %h1.fr-h3.fr-mb-2v= @need.subject
         %p
-          %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
+          %time.date{ datetime: @need.solicited_at }= t('needs.dates.solicited_at', date: l(@need.solicited_at, format: :long_sentence))
         = need_general_context(@need)
         - display_partner_url = (@need.solicitation&.cooperation&.display_url && partner_url(@need.solicitation).present?)
         - if @need.subject_answers.any? || display_partner_url
