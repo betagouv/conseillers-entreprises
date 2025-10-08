@@ -738,11 +738,14 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
 
     let(:diagnosis) { create :diagnosis, company: company }
     let(:need) { create :need, diagnosis: diagnosis, facility: facility }
+    let(:company) { create :company, forme_exercice: 'COMMERCIALE' }
+    let(:facility) { create :facility, company: company, nature_activites: ["ARTISANALE"], insee_code: "94068" }
+    let(:the_subject) { need.subject }
 
     let!(:es_always) do
       create :expert_subject,
              institution_subject: create(:institution_subject, subject: the_subject, institution: create(:institution)),
-             expert: create(:expert, communes: communes)
+             expert: create(:expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: "94068")])
     end
 
     let!(:es_never) do
@@ -754,22 +757,15 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
     let!(:es_cci) do
       create :expert_subject,
              institution_subject: create(:institution_subject, subject: the_subject, institution: create(:institution, name: 'cci')),
-             expert: create(:expert, communes: communes)
+             expert: create(:expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: "94068")])
     end
 
     let!(:es_cma) do
       create :expert_subject,
              institution_subject: create(:institution_subject, subject: the_subject, institution: create(:institution, name: 'cma')),
-             expert: create(:expert, communes: communes)
+             expert: create(:expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: "94068")])
     end
 
-    context 'no registre' do
-      let(:company) { create :company, forme_exercice: 'COMMERCIALE' }
-      let(:facility) { create :facility, company: company, nature_activites: ["ARTISANALE"] }
-      let(:the_subject) { need.subject }
-      let(:communes) { [facility.commune] }
-
-      it{ is_expected.to contain_exactly(es_always, es_cci, es_cma) }
-    end
+    it{ is_expected.to contain_exactly(es_always, es_cci, es_cma) }
   end
 end

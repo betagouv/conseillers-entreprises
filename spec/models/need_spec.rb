@@ -367,6 +367,20 @@ RSpec.describe Need do
 
       it { is_expected.to contain_exactly(need_2, need_3) }
     end
+
+    describe 'by_region' do
+      let!(:region_code) { "24" }
+      let(:facility_in_region) { create :facility, insee_code: "41269" }
+      let(:facility_not_in_region) { create :facility, insee_code: "72110" }
+      let!(:need_in_region) { create :need_with_matches, diagnosis: create(:diagnosis, facility: facility_in_region) }
+      let!(:need_not_in_region) { create :need_with_matches, diagnosis: create(:diagnosis, facility: facility_not_in_region) }
+
+      subject { described_class.by_region(region_code) }
+
+      it 'return needs in the region' do
+        is_expected.to contain_exactly(need_in_region)
+      end
+    end
   end
 
   describe 'no_activity' do

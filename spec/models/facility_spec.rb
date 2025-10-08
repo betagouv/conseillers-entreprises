@@ -4,7 +4,6 @@ RSpec.describe Facility do
   describe 'associations' do
     it do
       is_expected.to belong_to :company
-      is_expected.to belong_to :commune
     end
   end
 
@@ -25,18 +24,18 @@ RSpec.describe Facility do
     it { is_expected.to eq 'Mc Donalds (59600 Maubeuge)' }
   end
 
-  describe '#insee_code=' do
-    let(:facility) { build :facility }
+  describe "scopes" do
+    describe "by_region" do
+      let(:region_code) { "52" }
+      let!(:facility_in_region_1) { create :facility, insee_code: "44109" }
+      let!(:facility_in_region_2) { create :facility, insee_code: "49007" }
+      let!(:facility_not_in_region) { create :facility, insee_code: "70550" }
 
-    before do
-      stub_request(:get, "https://geo.api.gouv.fr/communes/78586?fields=nom,codesPostaux")
-        .to_return(body: file_fixture('geo_api_communes_78586.json'))
-    end
+      subject { described_class.by_region(region_code) }
 
-    it do
-      facility.insee_code = '78586'
-
-      expect(facility.readable_locality).to eq '78500 Sartrouville'
+      it 'returns facilities in the region' do
+        is_expected.to contain_exactly(facility_in_region_1, facility_in_region_2)
+      end
     end
   end
 end

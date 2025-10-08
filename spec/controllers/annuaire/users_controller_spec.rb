@@ -8,16 +8,16 @@ RSpec.describe Annuaire::UsersController do
     let(:institution_1) { create :institution }
     let(:subject_1) { create :subject }
     let!(:institution_subject) { create :institution_subject, institution: institution_1, subject: subject_1 }
-    let!(:antenne_1) { create :antenne, communes: [commune_ouest], institution: institution_1 }
+    let!(:antenne_1) { create :antenne, territorial_zones: [commune_ouest], institution: institution_1 }
     let!(:user_1) { create :user, :invitation_accepted, antenne: antenne_1, experts: [expert_1] }
     let!(:expert_1) { create :expert, :with_expert_subjects, antenne: antenne_1 }
     let!(:expert_1_same_antenne) { create :expert, :with_expert_subjects, antenne: antenne_1 }
-    let!(:antenne_2) { create :antenne, communes: [commune_est], institution: institution_1 }
+    let!(:antenne_2) { create :antenne, territorial_zones: [commune_est], institution: institution_1 }
     let!(:expert_2) { create :expert, :with_expert_subjects, antenne: antenne_2 }
-    let!(:region_ouest) { create :territory, code_region: 1 }
-    let!(:region_est) { create :territory, code_region: 2 }
-    let!(:commune_ouest) { create :commune, regions: [region_ouest] }
-    let!(:commune_est) { create :commune, regions: [region_est] }
+    let!(:region_ouest) { create :territorial_zone, :region, code: "53" }
+    let!(:region_est) { create :territorial_zone, :region, code: "44" }
+    let!(:commune_ouest) { create :territorial_zone, :commune, code: "22004" }
+    let!(:commune_est) { create :territorial_zone, :commune, code: "08005" }
 
     context 'with a user params' do
       subject(:request) { get :index, params: { institution_slug: institution_1.slug, advisor: user_1, antenne_id: antenne_1.id } }
