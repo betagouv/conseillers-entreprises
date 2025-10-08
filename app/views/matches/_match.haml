@@ -51,5 +51,6 @@
                           = match.expert.antenne.name
                         %ul
                           %li{ class: status_color(match.status) }= match.human_attribute_value(:status)
+                          %li= [t('.sent_at'), l(match.sent_at, format: :fr, default: '')].join(' : ')
                           %li= [t('.taken_care_of_at'), l(match.taken_care_of_at, format: :fr, default: '')].join(' : ')
                           %li= [t('.closed_at'), l(match.closed_at, format: :fr, default: '')].join(' : ')

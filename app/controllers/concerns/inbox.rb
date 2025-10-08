@@ -20,6 +20,7 @@ module Inbox
 
     @needs = recipient
       .send(:"needs_#{collection_name}") # See InvolvementConcern
+      .select("needs.*, matches.sent_at as match_sent_at")
       .includes(:company, :advisor, :subject, :solicitation, :facility)
       .order(created_at: order)
       .apply_filters(needs_search_params)
@@ -37,6 +38,7 @@ module Inbox
     # on reject antenne_id, sinon le filtre by_antenne peut venir enlever des besoins
     # (cas des antennes régionales)
     @needs = @needs.includes(:company, :subject, :solicitation, :facility, subject: :theme)
+      .select("needs.*, matches.sent_at as match_sent_at")
       .apply_filters(needs_search_params.except(:antenne_id))
       .order(created_at: order)
       .page params[:page]

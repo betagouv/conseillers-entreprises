@@ -46,6 +46,8 @@ class Need < ApplicationRecord
       not_for_me: 'not_for_me'
   }, prefix: true
 
+  attribute :match_sent_at, :datetime # Used in inbox.rb, see also involvement_concern.rb
+
   paginates_per 25
 
   ## Associations
@@ -474,12 +476,8 @@ class Need < ApplicationRecord
     self.diagnosis.touch
   end
 
-  def display_time
+  def solicited_at
     solicitation&.completed_at || diagnosis.created_at
-  end
-
-  def display_date
-    display_time.to_date
   end
 
   def computed_status

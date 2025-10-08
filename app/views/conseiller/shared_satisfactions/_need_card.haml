@@ -14,8 +14,7 @@
             = t('.comment_date', date: date, author: need.visitee.full_name)
         .fr-card__start
           %p.fr-card__detail
-            - date = I18n.l(need.created_at, format: :sentence)
-            = t('.need_date', date: date)
+            = t('needs.dates.solicited_at_day', date: l(need.solicited_at.to_date, format: :long))
             - if params[:query].present?
               %span.label.grey-blue= t(need.status, scope: 'needs.collections_single')
       .fr-card__footer
