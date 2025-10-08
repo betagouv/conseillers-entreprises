@@ -309,7 +309,6 @@ fr:
         title: Retours des entreprises aidées
       need_card:
         comment_date: Retour de %{author}, le %{date}
-        need_date: Besoin du %{date}
         process: Marquer comme "vu"
         see_need: Voir le besoin
       satifaction_seen: Les retours ont été marqués comme vu
@@ -572,7 +571,8 @@ fr:
       quo_active: Boite de réception
       taking_care: Prise en charge
     dates:
-      creation: Besoin du %{date}
+      solicited_at: Déposé le %{date}
+      solicited_at_day: Besoin du %{date}
     empty_placeholder:
       title: Aucun besoin
       welcome_help_html: Un problème ? Une question ? %{mailto_link}.

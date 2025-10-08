@@ -3,7 +3,7 @@
     .card__header
       .card__title
         %h2.fr-h4= link_to need.company.name, need_path(need, origin: 'reminders')
-        %p.fr-card__detail.fr-card__detail__lg.fr-mt-2v= I18n.l(need.display_date, format: :long)
+        %p.fr-card__detail.fr-card__detail__lg.fr-mt-2v= t('needs.dates.solicited_at', date: l(need.solicited_at, format: :long_sentence))
       = render 'reminders/needs_badges', need: need
     .fr-card__body.fr-text--sm
       .fr-card__content
