@@ -30,8 +30,6 @@ fr:
     technical_error: Un problème technique est survenu chez l'un des partenaires fournissant les données entreprises, veuillez réessayer ultérieurement
     unreachable_apis_errors_present: 'Attention, quelques API partenaires sont actuellement injoignables :'
   app_name: Conseillers-Entreprises
-  app_name_domain: service-public.gouv.fr
-  app_name_subdomain: conseillers-entreprises
   app_tagline: Le service public d’accompagnement des entreprises
   boolean:
     text:
