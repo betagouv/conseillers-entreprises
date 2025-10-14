@@ -33,8 +33,8 @@ class Territory < ApplicationRecord
   # :communes
   has_many :antennes, -> { distinct }, through: :communes, inverse_of: :territories
   has_many :advisors, -> { distinct }, through: :communes, inverse_of: :antenne_territories
-  has_many :antenne_experts, -> { distinct }, through: :communes, inverse_of: :antenne_territories
-  has_many :direct_experts, -> { distinct }, through: :communes, inverse_of: :territories
+  has_many :antenne_experts, -> { unscope(where: :deleted_at).distinct }, through: :communes, inverse_of: :antenne_territories
+  has_many :direct_experts, -> { unscope(where: :deleted_at).distinct }, through: :communes, inverse_of: :territories
 
   has_many :facilities, through: :communes, inverse_of: :territories
 
