@@ -309,7 +309,6 @@ fr:
         title: Retours des entreprises aidées
       need_card:
         comment_date: Retour de %{author}, le %{date}
-        need_date: Besoin du %{date}
         process: Marquer comme "vu"
         see_need: Voir le besoin
       satifaction_seen: Les retours ont été marqués comme vu
@@ -545,6 +544,7 @@ fr:
       closed_at: Clôture
       see_expert_inbox: Voir la boîte de réception de l’expert
       see_match_info: Voir plus d'infos sur la MER
+      sent_at: Envoi
       taken_care_of_at: Prise en charge
   navbar:
     close: Fermer
@@ -572,7 +572,9 @@ fr:
       quo_active: Boite de réception
       taking_care: Prise en charge
     dates:
-      creation: Besoin du %{date}
+      match_sent_at: Envoyé le %{date}
+      solicited_at: Déposé le %{date}
+      solicited_at_day: Besoin du %{date}
     empty_placeholder:
       title: Aucun besoin
       welcome_help_html: Un problème ? Une question ? %{mailto_link}.

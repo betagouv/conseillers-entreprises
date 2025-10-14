@@ -15,6 +15,6 @@
                   %li
                     %p.fr-badge.fr-badge--yellow-moutarde= need.cooperation.name
               %p.fr-card__detail
-                = I18n.l(need.created_at, format: :long)
+                %time{ datetime: need.match_sent_at }= t('needs.dates.match_sent_at', date: l(need.match_sent_at, format: :long_sentence))
                 - if params[:query].present?
                   %span.label.grey-blue= t(need.status, scope: 'needs.collections_single')

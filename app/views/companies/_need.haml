@@ -3,8 +3,7 @@
     .left
       .fr-tile__title.fr-mb-1v
         = link_to need.subject.label, need_path(need), class: 'fr-tile__link'
-      - created_at = need.solicitation&.created_at || need.created_at
-      %time{ datetime: created_at } Le #{I18n.l(created_at, format: :sentence)}
+      %time{ datetime: need.solicited_at }= t("needs.dates.solicited_at", date: l(need.solicited_at, format: :long_sentence))
       %p.fr-m-0.fr-mt-2w= need.matches.human_count
     .right
       - match = current_user.received_matches.find_by(need: need)
