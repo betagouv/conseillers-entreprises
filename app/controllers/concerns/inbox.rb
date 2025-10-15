@@ -34,7 +34,7 @@ module Inbox
     antenne_inbox_collections_counts(@recipient)
     @collection_name = collection_name
 
-    @needs = @recipient.perimeter_received_needs.merge!(@recipient.send(:"territory_needs_#{@collection_name}"))
+    @needs = @recipient.send(:"territory_needs_#{@collection_name}")
 
     # on reject antenne_id, sinon le filtre by_antenne peut venir enlever des besoins
     # (cas des antennes régionales)
@@ -54,7 +54,7 @@ module Inbox
   def antenne_inbox_collections_counts(recipient)
     @inbox_collections_counts = if recipient.is_a?(Antenne)
       inbox_collection_names.index_with do |name|
-        recipient.perimeter_received_needs.merge!(recipient.send(:"territory_needs_#{name}")).distinct.size
+        recipient.send(:"territory_needs_#{name}").size
       end
     else
       inbox_collection_names.index_with do |name|
