@@ -188,7 +188,7 @@ class Expert < ApplicationRecord
     joins(:subjects).where(subjects: subject_id)
   end
 
-  # param peut être un id de Territory ou une clé correspondant à un scope ("with_national_perimeter" par ex)
+  # param peut être un code de région ou une clé correspondant à un scope ("with_national_perimeter" par ex)
   scope :by_possible_region, -> (param) {
     begin
       by_region(param)
