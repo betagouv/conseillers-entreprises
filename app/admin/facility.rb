@@ -45,7 +45,6 @@ ActiveAdmin.register Facility do
   filter :code_effectif
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :insee_code
-  filter :regions, collection: -> { Territory.regions.order(:name) }
   filter :created_at
 
   ## Index

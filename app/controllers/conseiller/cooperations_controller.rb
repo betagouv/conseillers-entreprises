@@ -66,7 +66,7 @@ class Conseiller::CooperationsController < ApplicationController
     @filters = {
       themes: themes.uniq,
       subjects: subjects.uniq,
-      regions: Territory.regions
+      regions: RegionOrderingService.call
     }
   end
 
