@@ -24,7 +24,8 @@ module Inbox
       .includes(:company, :advisor, :subject, :solicitation, :facility)
       .order(created_at: order)
       .apply_filters(needs_search_params)
-      .page params[:page]
+      .page(params[:page])
+      .load # preload the result array, to prevent separate queries for `.count` and `.present?`
     render view
   end
 
@@ -41,7 +42,8 @@ module Inbox
       .select("needs.*, matches.sent_at as match_sent_at")
       .apply_filters(needs_search_params.except(:antenne_id))
       .order(created_at: order)
-      .page params[:page]
+      .page(params[:page])
+      .load # preload the result array, to prevent separate queries for `.count` and `.present?`
     render view
   end
 
