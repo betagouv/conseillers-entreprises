@@ -5,7 +5,7 @@ namespace :import_prod_to_staging do
   # Documentation : https://doc.scalingo.com/databases/postgresql/dump-restore
 
   def pgsql_filename
-    @pgsql_filename ||= 'tmp/export_prod.pgsql'
+    @pgsql_filename ||= 'tmp/export_prod.sql'
   end
 
   def setup_prod_tunnel
@@ -18,7 +18,7 @@ namespace :import_prod_to_staging do
   end
 
   def setup_staging_tunnel
-    tunnel_command = 'scalingo -a ce-staging-pr3767 db-tunnel SCALINGO_POSTGRESQL_URL'
+    tunnel_command = 'scalingo -a ce-staging db-tunnel SCALINGO_POSTGRESQL_URL'
     @staging_tunnel_pid = fork{ exec tunnel_command }
   end
 
@@ -38,7 +38,16 @@ namespace :import_prod_to_staging do
     dbname = username
     database_url = "postgresql://#{username}:#{pw}@127.0.0.1:10000/#{dbname}"
 
-    sh "pg_dump --clean --if-exists --format c --dbname #{database_url} --no-owner --no-privileges --no-comments --exclude-schema 'information_schema' --exclude-schema '^pg_*' --file #{pgsql_filename}"
+    temp_sql_filename = 'tmp/export_prod_temp.sql'
+
+    # Create a plain SQL dump
+    sh "pg_dump --clean --if-exists --dbname #{database_url} --no-owner --no-privileges --no-comments --exclude-schema 'information_schema' --exclude-schema '^pg_*' --file #{temp_sql_filename}"
+
+    # Filter out transaction_timeout for compatibility with PostgreSQL < 17
+    sh "grep -v 'SET transaction_timeout' #{temp_sql_filename} > #{pgsql_filename}"
+
+    # Clean up temp file
+    File.delete(temp_sql_filename) if File.exist?(temp_sql_filename)
 
     kill_prod_tunnel
   end
@@ -48,14 +57,15 @@ namespace :import_prod_to_staging do
 
     sleep 2
 
-    env = `scalingo -a ce-staging-pr3767 env`.lines
+    env = `scalingo -a ce-staging env`.lines
     pg_url = env.find{ |i| i[/SCALINGO_POSTGRESQL_URL=/] }
     pw = pg_url[/.*:(.*)@/,1]
     username = pg_url[/\/\/(.*):.*@/,1]
     dbname = username
     database_url = "postgresql://#{username}:#{pw}@127.0.0.1:10000/#{dbname}"
 
-    sh "pg_restore --clean --if-exists --no-owner --no-privileges --no-comments --dbname #{database_url} #{pgsql_filename}"
+    # Import the filtered SQL dump
+    sh "psql --dbname #{database_url} --file #{pgsql_filename}"
 
     kill_staging_tunnel
   end
