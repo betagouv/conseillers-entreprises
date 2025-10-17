@@ -20,7 +20,7 @@ ActiveAdmin.register User do
 
       # Optimize based on active filters
       if params.dig(:q, :antenne_id_eq).present? || params.dig(:q, :antenne_regions_id_eq).present?
-        additional_includes += [:antenne, { antenne: :territories }]
+        additional_includes += [:antenne, { antenne: :territorial_zones }]
       end
 
       if params.dig(:q, :institution_id_eq).present?
