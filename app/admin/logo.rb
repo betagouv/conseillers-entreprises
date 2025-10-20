@@ -34,12 +34,18 @@ ActiveAdmin.register Logo do
 
   ## Form
   #
-  permit_params :filename, :name, :logoable_id, :logoable_type
+  permit_params :filename, :name, :logoable_globalid
 
   form do |f|
     f.inputs do
       f.input :name
       f.input :filename
+      all_logoables = [Cooperation.not_archived.order(:name), Institution.not_deleted.order(:name), Landing.not_archived.order(:title)].map do |group|
+        items = group.map { [it, it.to_global_id] }
+        group_name = group.human_count
+        [group_name, items]
+      end
+      f.input :logoable_globalid, collection: all_logoables
     end
     f.actions
   end
