@@ -2,8 +2,7 @@ require 'rails_helper'
 require 'api_helper'
 
 # Tests AVEC js =========================================
-# TODO
-describe 'New Solicitation', :js, :flaky do
+describe 'New Solicitation', :js do
   let(:pde_subject) { create :subject }
   let!(:landing) { create :landing, slug: 'accueil', title: 'Accueil' }
   let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
