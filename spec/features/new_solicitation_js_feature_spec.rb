@@ -175,6 +175,7 @@ describe 'New Solicitation', :js, :flaky do
 
       fill_in 'Recherchez votre entreprise', with: siret
       click_on 'Suivant'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/recherche-entreprise/)
       expect(page).to have_content("Sélectionnez votre entreprise :")
 
       click_on "#{siret} - Octo Technology"
@@ -288,6 +289,7 @@ describe 'New Solicitation', :js, :flaky do
       fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
       click_on 'Envoyer ma demande'
 
+      expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
       expect(page).to have_content('Merci')
       expect(solicitation.reload.status_in_progress?).to be true
     end
@@ -322,11 +324,13 @@ describe 'New Solicitation', :js, :flaky do
       expect(solicitation.persisted?).to be true
       fill_in 'Recherchez votre entreprise', with: 'toto'
       click_on 'Suivant'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/recherche-entreprise/)
       expect(page).to have_content('Sélectionnez votre entreprise :')
 
       click_on "Je ne trouve pas mon entreprise"
       fill_in 'Votre numéro SIRET', with: "n'importe quoi"
       click_on 'Suivant'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/update_step_company/)
       expect(page).to have_content('SIRET doit être un numéro à 14 chiffres')
       expect(solicitation.reload.siret).to be_nil
 
@@ -339,6 +343,7 @@ describe 'New Solicitation', :js, :flaky do
       expect(solicitation.status_step_description?).to be true
       fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
       click_on 'Envoyer ma demande'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
 
       expect(page).to have_content('Merci')
       expect(solicitation.reload.status_in_progress?).to be true
