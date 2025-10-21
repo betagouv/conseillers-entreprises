@@ -23,6 +23,15 @@ class Logo < ApplicationRecord
     name
   end
 
+  # GlobalID serialization, to make polymorphic selection easier in ActiveAdmin
+  def logoable_globalid
+    self.logoable&.to_global_id
+  end
+
+  def logoable_globalid=(new_value)
+    self.logoable = GlobalID.find(new_value)
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "filename", "id", "id_value", "logoable_id", "logoable_type", "name", "updated_at"]
   end
