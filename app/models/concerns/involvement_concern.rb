@@ -5,51 +5,46 @@ module InvolvementConcern
   # i.e. User, Experts, Antennes and Institutions.
 
   def needs_quo
-    received_needs
-      .where(matches: received_matches.status_quo)
-      .where(matches: { archived_at: nil })
-      .distinct
+    received_needs_match_not_archived
+      .merge(Match.status_quo)
   end
 
   def needs_quo_active
-    received_needs
-      .where(matches: received_matches.with_status_quo_active)
-      .where(matches: { archived_at: nil })
-      .distinct
+    received_needs_match_not_archived
+      .merge(Match.with_status_quo_active)
   end
 
   def needs_taking_care
-    received_needs
-      .where(matches: received_matches.status_taking_care)
-      .where(matches: { archived_at: nil })
-      .distinct
+    received_needs_match_not_archived
+      .merge(Match.status_taking_care)
   end
 
   def needs_done
-    received_needs
-      .where(matches: received_matches.with_status_done)
-      .where(matches: { archived_at: nil })
-      .distinct
+    received_needs_match_not_archived
+      .merge(Match.with_status_done)
   end
 
   def needs_not_for_me
-    received_needs
-      .where(matches: received_matches.status_not_for_me)
-      .where(matches: { archived_at: nil })
-      .distinct
+    received_needs_match_not_archived
+      .merge(Match.status_not_for_me)
   end
 
   def needs_expired
-    received_needs
-      .where(matches: received_matches.with_status_expired.not_archived)
-      .distinct
+    received_needs_match_not_archived
+      .merge(Match.with_status_expired)
   end
 
   def needs_others_taking_care
-    received_needs
+    received_needs_match_not_archived
       .status_taking_care
-      .where(matches: received_matches.status_quo)
-      .where(matches: { archived_at: nil })
+      .merge(Match.status_quo)
+  end
+
+  ## Helpers
+  #
+  def received_needs_match_not_archived
+    received_needs
       .distinct
+      .merge(Match.not_archived)
   end
 end
