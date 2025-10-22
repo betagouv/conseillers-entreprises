@@ -2,8 +2,7 @@ require 'rails_helper'
 require 'api_helper'
 
 # Tests AVEC js =========================================
-# TODO
-describe 'New Solicitation', :js, :flaky do
+describe 'New Solicitation', :js do
   let(:pde_subject) { create :subject }
   let!(:landing) { create :landing, slug: 'accueil', title: 'Accueil' }
   let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
@@ -14,365 +13,364 @@ describe 'New Solicitation', :js, :flaky do
 
   ENV['SIRENE_API_KEY'] = 'api_key'
 
-  describe 'create' do
+  before do
+    landing.landing_themes << landing_theme
+
+    stub_request(:get, api_url)
+      .with(headers: { 'X-INSEE-Api-Key-Integration' => 'api_key' })
+      .to_return(body: file_fixture(fixture_file))
+  end
+
+  # Features tests sont coûteux, je tests deux éléments indépendants dans un test
+  context "from siret, with subject_questions in url" do
+    let!(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{query}" }
+    let!(:fixture_file) { 'api_insee_siret.json' }
+    let!(:query) { siret }
+    let!(:other_siret) { '89448692700011' }
+    let!(:additional_question_1) { create :subject_question, subject: pde_subject, key: 'recrutement_poste_cadre' }
+    let!(:additional_question_2) { create :subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
+
     before do
-      landing.landing_themes << landing_theme
+      stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=zzzzzz")
+        .to_return(status: 200, body: '{"results": []}', headers: {})
+      stub_request(:get, "https://api.insee.fr/api-sirene/3.11/siret/#{other_siret}")
+        .with(headers: { 'X-INSEE-Api-Key-Integration' => 'api_key' })
+        .to_return(status: 400, body: file_fixture('api_insee_siret_400.json'))
+      stub_request(:get, "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{other_siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013")
+        .to_return(status: 200, body:
+          { "data" =>
+            { "siret" => "89448692700011",
+              "adresse" =>
+              { "status_diffusion" => "diffusible",
+                "code_postal" => "35000",
+                "libelle_commune" => "RENNES",
+                "libelle_commune_etranger" => nil,
+                "distribution_speciale" => nil,
+                "code_commune" => "35238",
+                "code_cedex" => nil,
+                "libelle_cedex" => nil,
+                "code_pays_etranger" => nil,
+                "libelle_pays_etranger" => nil
+                }
+            },
+            "links" => {}, "meta" => {}
+          }.to_json)
     end
 
-    context "with API calls" do
-      before do
-        stub_request(:get, api_url)
-          .with(headers: { 'X-INSEE-Api-Key-Integration' => 'api_key' })
-          .to_return(body: file_fixture(fixture_file))
-      end
+    it do
+      visit '/?recrutement_poste_cadre=true&recrutement_en_apprentissage=false'
+      click_on 'Test Landing Theme', match: :first
+      click_on 'Super sujet'
 
-      # Features tests sont coûteux, je tests deux éléments indépendants dans un test
-      context "from siret, with subject_questions in url" do
-        let!(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{query}" }
-        let!(:fixture_file) { 'api_insee_siret.json' }
-        let!(:query) { siret }
-        let!(:other_siret) { '89448692700011' }
-        let!(:additional_question_1) { create :subject_question, subject: pde_subject, key: 'recrutement_poste_cadre' }
-        let!(:additional_question_2) { create :subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
+      # Etape contact
+      fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
+      fill_in 'Email', with: 'user@example.com'
+      fill_in 'Téléphone', with: '0123456789'
+      click_on 'Suivant'
+      # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
+      expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
 
-        before do
-          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=zzzzzz")
-            .to_return(status: 200, body: '{"results": []}', headers: {})
-          stub_request(:get, "https://api.insee.fr/api-sirene/3.11/siret/#{other_siret}")
-            .with(headers: { 'X-INSEE-Api-Key-Integration' => 'api_key' })
-            .to_return(status: 400, body: file_fixture('api_insee_siret_400.json'))
-          stub_request(:get, "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{other_siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013")
-            .to_return(status: 200, body:
-              { "data" =>
-                { "siret" => "89448692700011",
-                  "adresse" =>
-                  { "status_diffusion" => "diffusible",
-                    "code_postal" => "35000",
-                    "libelle_commune" => "RENNES",
-                    "libelle_commune_etranger" => nil,
-                    "distribution_speciale" => nil,
-                    "code_commune" => "35238",
-                    "code_cedex" => nil,
-                    "libelle_cedex" => nil,
-                    "code_pays_etranger" => nil,
-                    "libelle_pays_etranger" => nil
-                    }
-                },
-                "links" => {}, "meta" => {}
-              }.to_json)
-        end
+      expect(solicitation.persisted?).to be true
+      expect(solicitation.pk_campaign).to be_nil
+      expect(solicitation.landing).to eq landing
+      expect(solicitation.landing_subject).to eq landing_subject
+      expect(solicitation.full_name).to eq 'Hubertine Auclerc'
+      expect(solicitation.status_step_company?).to be true
 
-        it do
-          visit '/?recrutement_poste_cadre=true&recrutement_en_apprentissage=false'
-          click_on 'Test Landing Theme', match: :first
-          click_on 'Super sujet'
+      # Retour étape contact
+      click_on 'Précédent'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/contact/)
+      expect(solicitation.reload.status_step_company?).to be true
+      fill_in 'Prénom et nom', with: 'Hubertine Auclerc Superstar'
+      click_on 'Suivant'
 
-          # Etape contact
-          fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'Email', with: 'user@example.com'
-          fill_in 'Téléphone', with: '0123456789'
-          click_on 'Suivant'
-          # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
-          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
+      expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
+      expect(solicitation.reload.status_step_company?).to be true
+      expect(solicitation.full_name).to eq 'Hubertine Auclerc Superstar'
 
-          expect(solicitation.persisted?).to be true
-          expect(solicitation.pk_campaign).to be_nil
-          expect(solicitation.landing).to eq landing
-          expect(solicitation.landing_subject).to eq landing_subject
-          expect(solicitation.full_name).to eq 'Hubertine Auclerc'
-          expect(solicitation.status_step_company?).to be true
+      # Etape entreprise
+      fill_in 'Recherchez votre entreprise', with: "zzzzzz"
+      click_on 'Suivant'
+      expect(page).to have_link('Je ne trouve pas mon entreprise')
+      click_on 'Je ne trouve pas mon entreprise'
+      fill_in 'Votre numéro SIRET', with: other_siret
+      click_on 'Suivant'
 
-          # Retour étape contact
-          click_on 'Précédent'
-          expect(page).to have_current_path(/\/votre-demande\/.*\/contact/)
-          expect(solicitation.reload.status_step_company?).to be true
-          fill_in 'Prénom et nom', with: 'Hubertine Auclerc Superstar'
-          click_on 'Suivant'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
+      expect(solicitation.reload.siret).to eq other_siret
+      # expect(solicitation.reload.code_region).to eq 53
+      expect(solicitation.status_step_description?).to be true
 
-          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
-          expect(solicitation.reload.status_step_company?).to be true
-          expect(solicitation.full_name).to eq 'Hubertine Auclerc Superstar'
+      # Retour étape entreprise
+      click_on 'Précédent'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
+      expect(solicitation.status_step_description?).to be true
+      fill_in 'Recherchez votre entreprise', with: query
+      # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
+      option = find(".autocomplete__option", match: :first)
+      # rubocop:enable Capybara/FindAllFirst
+      expect(option).to have_content('Octo Technology')
+      page.execute_script("document.querySelector('.autocomplete__option').click()")
+      click_on 'Suivant'
 
-          # Etape entreprise
-          fill_in 'Recherchez votre entreprise', with: "zzzzzz"
-          click_on 'Suivant'
-          expect(page).to have_link('Je ne trouve pas mon entreprise')
-          click_on 'Je ne trouve pas mon entreprise'
-          fill_in 'Votre numéro SIRET', with: other_siret
-          click_on 'Suivant'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
+      expect(solicitation.reload.siret).to eq siret
+      expect(solicitation.code_region).to eq 11
+      expect(solicitation.status_step_description?).to be true
 
-          expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
-          expect(solicitation.reload.siret).to eq other_siret
-          # expect(solicitation.reload.code_region).to eq 53
-          expect(solicitation.status_step_description?).to be true
+      # Etape description
+      fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
+      # radio button sur 'Oui' pour recrutement_poste_cadre
+      expect(page).to have_field('solicitation_subject_answers_attributes_0_filter_value_true', checked: true, visible: :hidden)
+      expect(page).to have_field('solicitation_subject_answers_attributes_0_filter_value_false', checked: false, visible: :hidden)
+      # radio button sur 'Non' pour recrutement_en_apprentissage
+      expect(page).to have_field("solicitation_subject_answers_attributes_1_filter_value_true", checked: false, visible: :hidden)
+      expect(page).to have_field("solicitation_subject_answers_attributes_1_filter_value_false", checked: true, visible: :hidden)
+      click_on 'Envoyer ma demande'
 
-          # Retour étape entreprise
-          click_on 'Précédent'
-          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
-          expect(solicitation.status_step_description?).to be true
-          fill_in 'Recherchez votre entreprise', with: query
-          # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
-          option = find(".autocomplete__option", match: :first)
-          # rubocop:enable Capybara/FindAllFirst
-          expect(option).to have_content('Octo Technology')
-          page.execute_script("document.querySelector('.autocomplete__option').click()")
-          click_on 'Suivant'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
+      expect(page).to have_content('Merci')
+      expect(solicitation.reload.status_in_progress?).to be true
+      expect(solicitation.completed_at).not_to be_nil
+    end
+  end
 
-          expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
-          expect(solicitation.reload.siret).to eq siret
-          expect(solicitation.code_region).to eq 11
-          expect(solicitation.status_step_description?).to be true
+  context "with siret in url and modification" do
+    let(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{query}" }
+    let(:fixture_file) { 'api_insee_siret.json' }
+    let(:query) { '41816609600069' }
+    let(:token) { '1234' }
 
-          # Etape description
-          fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
-          # radio button sur 'Oui' pour recrutement_poste_cadre
-          expect(page).to have_field('solicitation_subject_answers_attributes_0_filter_value_true', checked: true, visible: :hidden)
-          expect(page).to have_field('solicitation_subject_answers_attributes_0_filter_value_false', checked: false, visible: :hidden)
-          # radio button sur 'Non' pour recrutement_en_apprentissage
-          expect(page).to have_field("solicitation_subject_answers_attributes_1_filter_value_true", checked: false, visible: :hidden)
-          expect(page).to have_field("solicitation_subject_answers_attributes_1_filter_value_false", checked: true, visible: :hidden)
-          click_on 'Envoyer ma demande'
+    before do
+      ENV['API_ENTREPRISE_TOKEN'] = token
+      stub_request(:get, api_url)
+        .with(headers: { 'X-INSEE-Api-Key-Integration' => 'api_key' })
+        .to_return(body: file_fixture(fixture_file))
+      stub_request(:get, "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{query}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013").to_return(
+        body: file_fixture('api_entreprise_etablissement.json')
+      )
+    end
 
-          expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
-          expect(page).to have_content('Merci')
-          expect(solicitation.reload.status_in_progress?).to be true
-          expect(solicitation.completed_at).not_to be_nil
-        end
-      end
+    it do
+      visit "/?siret=#{query}"
+      click_on 'Test Landing Theme', match: :first
+      click_on 'Super sujet'
+      fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
+      fill_in 'Email', with: 'user@example.com'
+      fill_in 'Téléphone', with: '0123456789'
+      click_on 'Suivant'
 
-      context "with siret in url and modification" do
-        let(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{query}" }
-        let(:fixture_file) { 'api_insee_siret.json' }
-        let(:query) { '41816609600069' }
-        let(:token) { '1234' }
+      # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
+      expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
+      expect(solicitation.siret).to eq query
+      expect(page).to have_field('query', with: query)
 
-        before do
-          ENV['API_ENTREPRISE_TOKEN'] = token
-          stub_request(:get, api_url)
-            .with(headers: { 'X-INSEE-Api-Key-Integration' => 'api_key' })
-            .to_return(body: file_fixture(fixture_file))
-          stub_request(:get, "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{query}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013").to_return(
-            body: file_fixture('api_entreprise_etablissement.json')
-          )
-        end
+      click_on 'Suivant'
+      expect(solicitation.reload.siret).to eq query
+      expect(page).to have_field(I18n.t('solicitations.creation_form.description'))
 
-        it do
-          visit "/?siret=#{query}"
-          click_on 'Test Landing Theme', match: :first
-          click_on 'Super sujet'
-          fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'Email', with: 'user@example.com'
-          fill_in 'Téléphone', with: '0123456789'
-          click_on 'Suivant'
+      click_on 'Précédent'
+      expect(solicitation.reload.siret).to eq query
 
-          # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
-          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
-          expect(solicitation.siret).to eq query
-          expect(page).to have_field('query', with: query)
+      fill_in 'Recherchez votre entreprise', with: siret
+      click_on 'Suivant'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/recherche-entreprise/)
+      expect(page).to have_content("Sélectionnez votre entreprise :")
 
-          click_on 'Suivant'
-          expect(solicitation.reload.siret).to eq query
-          expect(page).to have_field(I18n.t('solicitations.creation_form.description'))
+      click_on "#{siret} - Octo Technology"
+      expect(solicitation.reload.siret).to eq siret
+      expect(solicitation.code_region).to eq 11
+    end
+  end
 
-          click_on 'Précédent'
-          expect(solicitation.reload.siret).to eq query
+  context "from siren" do
+    let(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/?q=siren:#{query}" }
+    let(:fixture_file) { 'api_insee_sirets_by_siren_many.json' }
+    let(:siret_api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{siret}" }
+    let(:siret_fixture_file) { 'api_insee_siret.json' }
 
-          fill_in 'Recherchez votre entreprise', with: siret
-          click_on 'Suivant'
-          expect(page).to have_content("Sélectionnez votre entreprise :")
+    let(:query) { siren }
 
-          click_on "#{siret} - Octo Technology"
-          expect(solicitation.reload.siret).to eq siret
-          expect(solicitation.code_region).to eq 11
-        end
-      end
+    before do
+      # a la selection d'une option, la valeur de l'input est remplacée par le siret, une rech automatique est lancee
+      stub_request(:get, siret_api_url)
+        .with(headers: { 'X-INSEE-Api-Key-Integration' => 'api_key' })
+        .to_return(body: file_fixture(siret_fixture_file))
+    end
 
-      context "from siren" do
-        let(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/?q=siren:#{query}" }
-        let(:fixture_file) { 'api_insee_sirets_by_siren_many.json' }
-        let(:siret_api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{siret}" }
-        let(:siret_fixture_file) { 'api_insee_siret.json' }
+    it do
+      visit '/'
+      click_on 'Test Landing Theme', match: :first
+      click_on 'Super sujet'
+      fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
+      fill_in 'Email', with: 'user@example.com'
+      fill_in 'Téléphone', with: '0123456789'
+      click_on 'Suivant'
 
-        let(:query) { siren }
+      # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
+      expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
+      expect(solicitation.persisted?).to be true
+      expect(solicitation.pk_campaign).to be_nil
+      expect(solicitation.landing).to eq landing
+      expect(solicitation.landing_subject).to eq landing_subject
+      expect(solicitation.status_step_company?).to be true
 
-        before do
-          # a la selection d'une option, la valeur de l'input est remplacée par le siret, une rech automatique est lancee
-          stub_request(:get, siret_api_url)
-            .with(headers: { 'X-INSEE-Api-Key-Integration' => 'api_key' })
-            .to_return(body: file_fixture(siret_fixture_file))
-        end
+      fill_in 'Recherchez votre entreprise', with: query
+      # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
+      option = find(".autocomplete__option", match: :first)
+      # rubocop:enable Capybara/FindAllFirst
+      expect(option).to have_content('Octo Technology')
+      page.execute_script("document.querySelector('.autocomplete__option').click()")
+      click_on 'Suivant'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
 
-        it do
-          visit '/'
-          click_on 'Test Landing Theme', match: :first
-          click_on 'Super sujet'
-          fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'Email', with: 'user@example.com'
-          fill_in 'Téléphone', with: '0123456789'
-          click_on 'Suivant'
+      expect(solicitation.reload.siret).to eq siret
+      expect(solicitation.code_region).to eq 11
+      expect(solicitation.status_step_description?).to be true
+      fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
+      click_on 'Envoyer ma demande'
 
-          # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
-          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
-          expect(solicitation.persisted?).to be true
-          expect(solicitation.pk_campaign).to be_nil
-          expect(solicitation.landing).to eq landing
-          expect(solicitation.landing_subject).to eq landing_subject
-          expect(solicitation.status_step_company?).to be true
+      expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
+      expect(page).to have_content('Merci')
+      expect(solicitation.reload.status_in_progress?).to be true
+      expect(solicitation.reload.completed_at).not_to be_nil
+    end
+  end
 
-          fill_in 'Recherchez votre entreprise', with: query
-          # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
-          option = find(".autocomplete__option", match: :first)
-          # rubocop:enable Capybara/FindAllFirst
-          expect(option).to have_content('Octo Technology')
-          page.execute_script("document.querySelector('.autocomplete__option').click()")
-          click_on 'Suivant'
-          expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
+  context "from fulltext" do
+    let(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{siret}" }
+    let(:fixture_file) { 'api_insee_siret.json' }
+    let(:recherche_url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
+    let(:query) { 'octo technology' }
 
-          expect(solicitation.reload.siret).to eq siret
-          expect(solicitation.code_region).to eq 11
-          expect(solicitation.status_step_description?).to be true
-          fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
-          click_on 'Envoyer ma demande'
+    before do
+      stub_request(:get, recherche_url)
+        .to_return(body: file_fixture('api_recherche_entreprises_search_fulltext.json'))
+      stub_request(:get, "https://api.insee.fr/api-sirene/3.11/siret/?q=siren:#{siren}")
+        .with(headers: { 'X-INSEE-Api-Key-Integration' => 'api_key' })
+        .to_return(body: file_fixture('api_insee_sirets_by_siren_many.json'))
+    end
 
-          expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
-          expect(page).to have_content('Merci')
-          expect(solicitation.reload.status_in_progress?).to be true
-          expect(solicitation.reload.completed_at).not_to be_nil
-        end
-      end
+    it do
+      visit '/'
+      click_on 'Test Landing Theme', match: :first
+      click_on 'Super sujet'
+      fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
+      fill_in 'Email', with: 'user@example.com'
+      fill_in 'Téléphone', with: '0123456789'
+      click_on 'Suivant'
 
-      context "from fulltext" do
-        let(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{siret}" }
-        let(:fixture_file) { 'api_insee_siret.json' }
-        let(:recherche_url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
-        let(:query) { 'octo technology' }
+      # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
+      expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
+      expect(solicitation.persisted?).to be true
+      expect(solicitation.pk_campaign).to be_nil
+      expect(solicitation.landing).to eq landing
+      expect(solicitation.landing_subject).to eq landing_subject
+      expect(solicitation.status_step_company?).to be true
 
-        before do
-          stub_request(:get, recherche_url)
-            .to_return(body: file_fixture('api_recherche_entreprises_search_fulltext.json'))
-          stub_request(:get, "https://api.insee.fr/api-sirene/3.11/siret/?q=siren:#{siren}")
-            .with(headers: { 'X-INSEE-Api-Key-Integration' => 'api_key' })
-            .to_return(body: file_fixture('api_insee_sirets_by_siren_many.json'))
-        end
+      fill_in 'Recherchez votre entreprise', with: query
+      # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
+      option = find(".autocomplete__option", match: :first)
+      # rubocop:enable Capybara/FindAllFirst
+      expect(option).to have_content('Octo Technology')
+      page.execute_script("document.querySelector('.autocomplete__option').click()")
+      click_on 'Suivant'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/recherche-etablissement/)
+      expect(solicitation.reload.siret).to be_nil
+      expect(solicitation.status_step_description?).to be false
 
-        it do
-          visit '/'
-          click_on 'Test Landing Theme', match: :first
-          click_on 'Super sujet'
-          fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'Email', with: 'user@example.com'
-          fill_in 'Téléphone', with: '0123456789'
-          click_on 'Suivant'
+      expect(page).to have_content("Sélectionnez l'établissement concerné :")
+      click_on("#{siret} - Octo Technology", match: :first)
+      expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
+      expect(solicitation.reload.siret).to eq siret
+      expect(solicitation.code_region).to eq 11
+      expect(solicitation.status_step_description?).to be true
+      fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
+      click_on 'Envoyer ma demande'
 
-          # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
-          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
-          expect(solicitation.persisted?).to be true
-          expect(solicitation.pk_campaign).to be_nil
-          expect(solicitation.landing).to eq landing
-          expect(solicitation.landing_subject).to eq landing_subject
-          expect(solicitation.status_step_company?).to be true
+      expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
+      expect(page).to have_content('Merci')
+      expect(solicitation.reload.status_in_progress?).to be true
+    end
+  end
 
-          fill_in 'Recherchez votre entreprise', with: query
-          # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
-          option = find(".autocomplete__option", match: :first)
-          # rubocop:enable Capybara/FindAllFirst
-          expect(option).to have_content('Octo Technology')
-          page.execute_script("document.querySelector('.autocomplete__option').click()")
-          click_on 'Suivant'
-          expect(page).to have_current_path(/\/votre-demande\/.*\/recherche-etablissement/)
-          expect(solicitation.reload.siret).to be_nil
-          expect(solicitation.status_step_description?).to be false
+  context "manual siret" do
+    let(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{query}" }
+    let(:fixture_file) { 'api_insee_siret.json' }
+    let(:query) { '41816609600069' }
+    let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{query}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
 
-          expect(page).to have_content("Sélectionnez l'établissement concerné :")
-          click_on("#{siret} - Octo Technology", match: :first)
-          expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
-          expect(solicitation.reload.siret).to eq siret
-          expect(solicitation.code_region).to eq 11
-          expect(solicitation.status_step_description?).to be true
-          fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
-          click_on 'Envoyer ma demande'
+    before do
+      stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=toto")
+        .to_return(status: 200, body: '{"results": []}', headers: {})
+      ENV['API_ENTREPRISE_TOKEN'] = '1234'
+      stub_request(:get, entreprise_api_url).to_return(
+        body: file_fixture('api_entreprise_etablissement.json')
+      )
+    end
 
-          expect(page).to have_content('Merci')
-          expect(solicitation.reload.status_in_progress?).to be true
-        end
-      end
+    it do
+      visit '/'
+      click_on 'Test Landing Theme', match: :first
+      click_on 'Super sujet'
+      fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
+      fill_in 'Email', with: 'user@example.com'
+      fill_in 'Téléphone', with: '0123456789'
+      click_on 'Suivant'
 
-      context "manual siret" do
-        let(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{query}" }
-        let(:fixture_file) { 'api_insee_siret.json' }
-        let(:query) { '41816609600069' }
-        let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/#{query}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=13002526500013" }
+      # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
+      expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
+      expect(solicitation.persisted?).to be true
+      fill_in 'Recherchez votre entreprise', with: 'toto'
+      click_on 'Suivant'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/recherche-entreprise/)
+      expect(page).to have_content('Sélectionnez votre entreprise :')
 
-        before do
-          stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=toto")
-            .to_return(status: 200, body: '{"results": []}', headers: {})
-          ENV['API_ENTREPRISE_TOKEN'] = '1234'
-          stub_request(:get, entreprise_api_url).to_return(
-            body: file_fixture('api_entreprise_etablissement.json')
-          )
-        end
+      click_on "Je ne trouve pas mon entreprise"
+      fill_in 'Votre numéro SIRET', with: "n'importe quoi"
+      click_on 'Suivant'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/update_step_company/)
+      expect(page).to have_content('SIRET doit être un numéro à 14 chiffres')
+      expect(solicitation.reload.siret).to be_nil
 
-        it do
-          visit '/'
-          click_on 'Test Landing Theme', match: :first
-          click_on 'Super sujet'
-          fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'Email', with: 'user@example.com'
-          fill_in 'Téléphone', with: '0123456789'
-          click_on 'Suivant'
+      fill_in 'Votre numéro SIRET', with: "418 166 096 00069"
+      click_on 'Suivant'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
 
-          # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
-          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
-          expect(solicitation.persisted?).to be true
-          fill_in 'Recherchez votre entreprise', with: 'toto'
-          click_on 'Suivant'
-          expect(page).to have_content('Sélectionnez votre entreprise :')
+      expect(solicitation.reload.siret).to eq "41816609600069"
+      expect(solicitation.code_region).to eq 11
+      expect(solicitation.status_step_description?).to be true
+      fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
+      click_on 'Envoyer ma demande'
+      expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
 
-          click_on "Je ne trouve pas mon entreprise"
-          fill_in 'Votre numéro SIRET', with: "n'importe quoi"
-          click_on 'Suivant'
-          expect(page).to have_content('SIRET doit être un numéro à 14 chiffres')
-          expect(solicitation.reload.siret).to be_nil
+      expect(page).to have_content('Merci')
+      expect(solicitation.reload.status_in_progress?).to be true
+    end
+  end
 
-          fill_in 'Votre numéro SIRET', with: "418 166 096 00069"
-          click_on 'Suivant'
-          expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
+  context "with api error" do
+    let(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{query}" }
+    let(:fixture_file) { 'api_insee_siret_400.json' }
+    let(:query) { 'tata yoyo' }
 
-          expect(solicitation.reload.siret).to eq "41816609600069"
-          expect(solicitation.code_region).to eq 11
-          expect(solicitation.status_step_description?).to be true
-          fill_in I18n.t('solicitations.creation_form.description'), with: 'Ceci n\'est pas un test'
-          click_on 'Envoyer ma demande'
+    it do
+      visit '/'
+      click_on 'Test Landing Theme', match: :first
+      click_on 'Super sujet'
+      fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
+      fill_in 'Email', with: 'user@example.com'
+      fill_in 'Téléphone', with: '0123456789'
+      click_on 'Suivant'
+      # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
+      expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
+      expect(solicitation.persisted?).to be true
 
-          expect(page).to have_content('Merci')
-          expect(solicitation.reload.status_in_progress?).to be true
-        end
-      end
+      fill_in 'Recherchez votre entreprise', with: '40440440440400'
+      click_on 'Suivant'
+      expect(page).to have_no_content('Sélectionnez votre entreprise :')
 
-      context "with api error" do
-        let(:api_url) { "https://api.insee.fr/api-sirene/3.11/siret/#{query}" }
-        let(:fixture_file) { 'api_insee_siret_400.json' }
-        let(:query) { 'tata yoyo' }
-
-        it do
-          visit '/'
-          click_on 'Test Landing Theme', match: :first
-          click_on 'Super sujet'
-          fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'Email', with: 'user@example.com'
-          fill_in 'Téléphone', with: '0123456789'
-          click_on 'Suivant'
-          # Pour forcer l'attente et s'assurer que l'update est bien effectué avant le test
-          expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
-          expect(solicitation.persisted?).to be true
-
-          fill_in 'Recherchez votre entreprise', with: '40440440440400'
-          click_on 'Suivant'
-          expect(page).to have_no_content('Sélectionnez votre entreprise :')
-
-          expect(page).to have_content("L’identifiant (siret ou siren) est invalide")
-        end
-      end
+      expect(page).to have_content("L’identifiant (siret ou siren) est invalide")
     end
   end
 end
