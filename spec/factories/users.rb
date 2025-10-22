@@ -9,14 +9,14 @@ FactoryBot.define do
     antenne
 
     trait :with_expert do
-      after(:create) do |user, _|
-        user.experts << create(:expert, antenne: user.antenne)
+      after(:build) do |user, _|
+        user.experts << build(:expert, antenne: user.antenne)
       end
     end
 
     trait :with_expert_subjects do
-      after(:create) do |user, _|
-        user.experts << create(:expert, :with_expert_subjects, antenne: user.antenne)
+      after(:build) do |user, _|
+        user.experts << build(:expert, :with_expert_subjects, antenne: user.antenne)
       end
     end
 
@@ -25,54 +25,55 @@ FactoryBot.define do
     end
 
     trait :admin do
-      after(:create) do |user, _|
-        user.user_rights.create(category: 'admin')
+      after(:build) do |user, _|
+        user.user_rights.build(category: 'admin')
       end
     end
 
     trait :manager do
-      antenne factory: [:antenne, :with_experts_subjects], strategy: :create
-      after(:create) do |user, _|
+      antenne factory: [:antenne, :with_experts_subjects]
+      after(:build) do |user, _|
         user.managed_antennes.push(user.antenne)
+      end
+
+      after :create do |user, _|
+        user.user_rights.reload
       end
     end
 
     trait :cooperation_manager do
-      after(:create) do |user, _|
-        user.managed_cooperations << create(:cooperation, institution: user.institution)
-      end
+      managed_cooperations { [build(:cooperation, institution: institution)] }
     end
 
     trait :national_manager do
-      antenne factory: [:antenne, :with_experts_subjects, :national], strategy: :create
-      after(:create) do |user, _|
+      antenne factory: [:antenne, :with_experts_subjects, :national]
+      after(:build) do |user, _|
         user.managed_antennes.push(user.antenne)
       end
     end
 
     trait :national_referent do
-      antenne factory: [:antenne, :with_experts_subjects], strategy: :create
-      after(:create) do |user, _|
-        user.user_rights.create(category: 'admin')
-        user.user_rights.create(category: 'national_referent')
+      antenne factory: [:antenne, :with_experts_subjects]
+      after(:build) do |user, _|
+        user.user_rights.build(category: 'admin')
+        user.user_rights.build(category: 'national_referent')
       end
     end
 
     trait :territorial_referent do
-      antenne factory: [:antenne, :with_experts_subjects], strategy: :create
-      after(:create) do |user, _|
-        user.user_rights.create(category: 'admin')
+      antenne factory: [:antenne, :with_experts_subjects]
+      after(:build) do |user, _|
+        user.user_rights.build(category: 'admin')
         territorial_zone = build(:territorial_zone, :region, code: '52')
-        user.user_rights.create(category: 'territorial_referent', territorial_zone: territorial_zone)
-        territorial_zone.save!
+        user.user_rights.build(category: 'territorial_referent', territorial_zone: territorial_zone)
       end
     end
 
     trait :main_referent do
-      antenne factory: [:antenne, :with_experts_subjects], strategy: :create
-      after(:create) do |user, _|
-        user.user_rights.create(category: 'admin')
-        user.user_rights.create(category: 'main_referent')
+      antenne factory: [:antenne, :with_experts_subjects]
+      after(:build) do |user, _|
+        user.user_rights.build(category: 'admin')
+        user.user_rights.build(category: 'main_referent')
       end
     end
   end

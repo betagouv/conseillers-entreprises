@@ -5,10 +5,9 @@ FactoryBot.define do
     subject
     sent_at { Time.now }
 
-    after(:create) do |match, _|
-      match.diagnosis.update(step: :completed, completed_at: Time.zone.now)
-      match.need.reload
-      Need.find_each { |n| n.update_status }
+    after(:build) do |match, _|
+      match.need&.diagnosis&.step = :completed
+      match.need&.diagnosis&.completed_at = Time.zone.now
     end
   end
 end

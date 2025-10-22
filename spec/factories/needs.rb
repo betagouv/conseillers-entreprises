@@ -8,22 +8,21 @@ FactoryBot.define do
     end
 
     factory :need_with_matches do
-      before(:create) do |need, _|
-        need.matches = create_list(:match, 1, need: need)
+      after(:build) do |need, _|
+        need.matches = build_list(:match, 1, need: need)
       end
     end
 
     factory :need_with_unsent_matches do
-      before(:create) do |need, _|
-        need.matches = create_list(:match, 1, need: need, sent_at: nil)
+      after(:build) do |need, _|
+        need.matches = build_list(:match, 1, need: need, sent_at: nil)
       end
     end
 
-    after(:create) do |need, _|
+    after(:build) do |need, _|
       if need.matches.present?
-        need.diagnosis.update_columns(step: :completed)
+        need.diagnosis.step = :completed
       end
     end
-
   end
 end

@@ -18,15 +18,14 @@ FactoryBot.define do
   end
 
   trait :with_experts_subjects do
-    after(:create) do |antenne|
-      create_list(:expert_subject, 1, expert: create(:expert_with_users, antenne: antenne))
+    after(:build) do |antenne|
+      antenne.experts << build(:expert_with_users, experts_subjects: build_list(:expert_subject, 1))
     end
   end
 
   trait :with_manager do
-    after(:create) do |antenne|
-      user = create(:user)
-      user.managed_antennes.push(antenne)
+    after(:build) do |antenne|
+      antenne.managers << build(:user)
     end
   end
 end
