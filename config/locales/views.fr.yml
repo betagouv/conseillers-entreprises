@@ -669,7 +669,7 @@ fr:
       choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
       expert_contacts_you_html: "<span class='blue'>Le conseiller vous contacte</span> directement pour vous aider sous 5 jours*."
-      learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Conseillers-entreprises.service-public.fr</a>
+      learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Conseillers-entreprises.service-public.gouv.fr</a>
       pde_presentation: Présentation de Conseillers-Entreprises, un service de Service-Public.fr
       select_expert_description: Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
     how_it_works_short:

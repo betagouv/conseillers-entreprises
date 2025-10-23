@@ -8,7 +8,4 @@
     %p= t('.sentence_1')
     %p= t('.sentence_2')
   .fr-container--fluid.light-blue-bg.fr-py-4w.section-pde-partnership-mention
-    .ce-text-logo
-      %p.fr-header__service-title
-        %span.red>= t('app_name_subdomain').sp_titleize_url
-        = "." + t('app_name_domain').sp_titleize_url
+    = image_tag 'logo-ce.png', alt: t('navbar.service_alt'), class: 'ce-logo', width: '320px'

@@ -1,24 +1,24 @@
 class DeviseMailerPreview < ActionMailer::Preview
   def invitation_instructions
-    user = User.not_deleted.sample
-    user.inviter = User.all.sample
+    user = User.not_deleted.find_random
+    user.inviter = User.all.find_random
     CustomDeviseMailer.invitation_instructions(user, 'faketoken')
   end
 
   def cooperation_invitation_instructions
-    user = User.not_deleted.cooperation_managers.sample
-    user.inviter = User.all.sample
+    user = User.not_deleted.cooperation_managers.find_random
+    user.inviter = User.all.find_random
     CustomDeviseMailer.invitation_instructions(user, 'faketoken')
   end
 
   def reset_password_instructions
-    user = User.not_deleted.sample
+    user = User.not_deleted.find_random
     user.reset_password_sent_at = Time.now.utc
     CustomDeviseMailer.reset_password_instructions(user, 'faketoken')
   end
 
   def reset_password_instructions_never_used
-    user = User.not_deleted.sample
+    user = User.not_deleted.find_random
     user.invitation_accepted_at = nil
     CustomDeviseMailer.reset_password_instructions(user, 'faketoken')
   end

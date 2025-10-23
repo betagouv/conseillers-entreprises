@@ -4,6 +4,8 @@ class AdminMailer < ApplicationMailer
 
   helper :solicitation
 
+  layout false
+
   def failed_jobs(jobs_count)
     @jobs_count = jobs_count
 

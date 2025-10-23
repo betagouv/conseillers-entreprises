@@ -4,4 +4,5 @@ Rails.application.reloader.to_prepare do
   # Adding the extension inside a to_prepare block is required for Zeitwerk autoloading to work properly.
   # See https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#autoloading-when-the-application-boots
   ActiveRecord::Relation.include RecordExtensions::HumanCount
+  ActiveRecord::Relation.include RecordExtensions::Random
 end

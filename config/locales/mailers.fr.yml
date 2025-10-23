@@ -300,6 +300,6 @@ fr:
         demo_time_intro: Je vous invite à participer au webinaire de présentation du service (30 minutes) qui se déroule chaque jeudi à 14h30 (heure de Paris).
         intro_html: Dans le cadre de votre référencement au sein du service %{link_to_root}, je viens de vous envoyer une invitation afin de valider votre compte utilisateur. Attention, elle peut arriver dans vos indésirables.
         next_dates: 'Les prochaines dates :'
-        subject: Vous êtes invité(e) ! Webinaire de présentation de Conseillers-Entreprises.Service-Public.fr
+        subject: Vous êtes invité(e) ! Webinaire de présentation de Conseillers-entreprises.service-public.gouv.fr
         video_tutorial_html: 'Ou venez découvrir notre tutoriel vidéo : <a href=''https://conseillers-entreprises.service-public.gouv.fr/tutoriels''>conseillers-entreprises.service-public.gouv.fr/tutoriels</a>'
         webinaire_link_html: 'Lien participant : <a href=''https://visio.numerique.gouv.fr/ize-ybtb-ibd''>cliquez ici pour accéder à la visio</a>'
