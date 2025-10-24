@@ -5,6 +5,6 @@
     institution_subject_id: institution_subject.id,
     antenne_id: params[:antenne_id].to_i,
     action: 'click->coverage#loadSingle' } }
-    %span.ri-loader-4-line
+    %span.ri-loader-4-line.fr-hidden
     = t('.load_coverage')
   .coverage-result.d-none
