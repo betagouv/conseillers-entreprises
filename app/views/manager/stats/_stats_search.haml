@@ -34,8 +34,8 @@
     - if filters[:regions].many?
       .fr-col-12.fr-col-md-4
         .fr-select-group
-          = f.label :territory_id, t('stats.stats_params.region'), class: 'fr-label'
-          = f.collection_select :territory_id, filters[:regions], :id, :name, { selected: stats_params[:territory_id],
+          = f.label :region_code, t('stats.stats_params.region'), class: 'fr-label'
+          = f.collection_select :region_code, filters[:regions], :code, :nom, { selected: stats_params[:region_code],
             include_blank: t('all.feminine') }, class: "fr-select"
 
         - if filters[:cooperations].present?

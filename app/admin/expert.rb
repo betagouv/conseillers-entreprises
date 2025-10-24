@@ -18,7 +18,7 @@ ActiveAdmin.register Expert do
         additional_includes += [:users, :received_matches, :match_filters]
       when 'with_custom_communes', 'active', nil
         # This scope uses EXISTS, add zone associations
-        additional_includes += [:users, :subjects, :received_matches, :match_filters, :communes, :territories]
+        additional_includes += [:users, :subjects, :received_matches, :match_filters]
       when 'deleted'
         # For deleted experts, only load minimum
         additional_includes += [:users, :subjects]
@@ -26,7 +26,7 @@ ActiveAdmin.register Expert do
 
       # Optimize based on active filters
       if params.dig(:q, :antenne_id_eq).present? || params.dig(:q, :antenne_regions_id_eq).present?
-        additional_includes += [:antenne, { antenne: :territories }]
+        additional_includes += [:antenne]
       end
 
       if params.dig(:q, :institution_id_eq).present?
@@ -35,10 +35,6 @@ ActiveAdmin.register Expert do
 
       if params.dig(:q, :themes_id_eq).present? || params.dig(:q, :subjects_id_eq).present?
         additional_includes += [:subjects, { subjects: :theme }]
-      end
-
-      if params.dig(:q, :antenne_communes_id_eq).present?
-        additional_includes += [:communes, :territories]
       end
 
       includes = base_includes + additional_includes
@@ -68,7 +64,8 @@ ActiveAdmin.register Expert do
 
   scope :active, default: true
   scope :deleted
-  scope :with_custom_communes
+  scope :with_custom_communes_old
+  scope :with_territorial_zones
 
   scope :without_users, group: :debug
   scope :active_without_users, group: :debug
@@ -91,20 +88,10 @@ ActiveAdmin.register Expert do
         admin_link_to(e, :antenne)
       end
     end
-    column(:intervention_zone) do |e|
-      if e.is_global_zone
-        status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
-      else
-        if e.custom_communes?
-          status_tag t('attributes.custom_communes'), class: 'yes'
-        end
-        zone = e.custom_communes? ? e : e.antenne
-        unless e.deleted? || zone.nil?
-          div admin_link_to(zone, :territories)
-          div admin_link_to(zone, :communes)
-        end
-      end
+    column(:territoral_zone) do |expert|
+      territorial_zone_column_content(expert)
     end
+
     column(:users) do |e|
       div admin_link_to(e, :users)
     end
@@ -136,8 +123,7 @@ ActiveAdmin.register Expert do
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :created_at
   filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
-  filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
-  filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
+  filter :regions, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }
   filter :themes, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subjects, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
 
@@ -154,7 +140,7 @@ ActiveAdmin.register Expert do
     column_count :antenne_territories
     column_count :antenne_communes
     column :is_global_zone
-    column :custom_communes?
+    column :custom_territories?
     column_count :territories
     column_count :communes
     column_count :users
@@ -176,13 +162,6 @@ ActiveAdmin.register Expert do
       row(:intervention_zone) do |e|
         if e.is_global_zone
           status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
-        else
-          if e.custom_communes?
-            status_tag t('attributes.custom_communes'), class: 'yes'
-          end
-          div admin_link_to(e, :territories)
-          div admin_link_to(e, :communes)
-          div intervention_zone_description(e)
         end
       end
       row(:users) do |e|
@@ -212,6 +191,34 @@ ActiveAdmin.register Expert do
             I18n.t('active_admin.expert.no_specifique_zone')
           end
         end
+      end
+    end
+
+    panel I18n.t('activerecord.models.territorial_zone.other') do
+      if expert.territorial_zones.any?
+        TerritorialZone.zone_types.keys.reverse_each do |zone_type|
+          expert_territorial_zones = expert.territorial_zones.select { |tz| tz.zone_type == zone_type }
+          next if expert_territorial_zones.empty?
+          attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
+            model = DecoupageAdministratif.const_get(zone_type.camelize)
+            expert_territorial_zones.map do |tz|
+              row(tz.code) do
+                model_instance = model.find(tz.code)
+                name = model_instance.nom
+                if zone_type == "epci"
+                  communes_names = []
+                  model_instance.communes.sort_by(&:nom).map do |commune|
+                    communes_names << "#{commune.nom} (#{commune.code})"
+                  end
+                  name = "<b>" + name + "</b><br/>" + communes_names.join(', ')
+                end
+                name.html_safe
+              end
+            end
+          end
+        end
+      else
+        I18n.t('active_admin.expert.no_specifique_zone')
       end
     end
 
@@ -272,12 +279,12 @@ ActiveAdmin.register Expert do
     :antenne_id,
     :email,
     :phone_number,
-    :insee_codes,
     :is_global_zone,
     user_ids: [],
     experts_subjects_ids: [],
     experts_subjects_attributes: %i[id intervention_criteria institution_subject_id _create _update _destroy],
-    match_filters_attributes: match_filters_attributes
+    match_filters_attributes: match_filters_attributes,
+    territorial_zones_attributes: [:id, :zone_type, :code, :_destroy]
   ]
 
   form do |f|
@@ -311,6 +318,21 @@ ActiveAdmin.register Expert do
 
     f.inputs t('attributes.is_global_zone') do
       f.input :is_global_zone
+    end
+
+    f.inputs do
+      f.has_many :territorial_zones, allow_destroy: true, new_record: true do |tz|
+        tz.input :zone_type,
+                 collection: TerritorialZone.zone_types.keys.map { |k| [I18n.t(k, scope: 'activerecord.attributes.territorial_zone'), k] },
+                 as: :select
+        tz.input :code,
+                 as: :ajax_select,
+                 collection: tz.object.persisted? ? [[tz.object.name + " (" + tz.object.code + ")", tz.object.code]] : [], data: {
+                   url: :admin_territorial_zones_search_path,
+            search_fields: [:nom],
+            limit: 10,
+                 }
+      end
     end
 
     if resource.institution.present?

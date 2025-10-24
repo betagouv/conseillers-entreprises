@@ -13,7 +13,18 @@
     = f.submit t('.send_invitations', count: @not_invited_users.length), class: 'fr-btn fr-mb-2w fr-ml-2w'
 
 - if @grouped_experts.present?
-  = render 'table', grouped_subjects: @grouped_subjects, grouped_experts: @grouped_experts, referencement_coverages: @referencement_coverages
+  %div{ data: { controller: 'coverage' } }
+    - if large_search?(@grouped_experts, @grouped_subjects)
+      .coverage-controls.fr-mb-2w
+        %button.fr-btn.fr-btn--secondary.load-all-coverage{ data: {
+          antenne_id: params[:antenne_id].to_i,
+          action: 'click->coverage#loadAll',
+          loading_text: t('.loading_coverages'),
+          progress_text: t('.loading_progress') } }
+          = t('.load_all_coverage')
+        %p.fr-text--sm.fr-m-0.fr-mt-1v
+          %p= t('.antenne_experts_performance')
+    = render 'table', grouped_subjects: @grouped_subjects, grouped_experts: @grouped_experts, referencement_coverages: @referencement_coverages
 - else
   .fr-alert.fr-alert--info.fr-alert--sm
     %p= t('.no_users')

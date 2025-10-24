@@ -59,7 +59,8 @@ class Solicitation < ApplicationRecord
   has_one :theme, through: :subject, source: :theme, inverse_of: :subjects
 
   has_one :diagnosis, inverse_of: :solicitation
-  has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
+  # TODO a modifier
+  # has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
   has_one :facility, through: :diagnosis, source: :facility, inverse_of: :diagnoses
   has_one :visitee, through: :diagnosis, source: :visitee, inverse_of: :diagnoses
   has_one :company, through: :facility, source: :company, inverse_of: :facilities
@@ -393,11 +394,11 @@ class Solicitation < ApplicationRecord
   # La méthode d'identification pourra evoluer au fil du temps
   scope :uncategorisable, -> { where(code_region: nil) }
 
-  # param peut être un id de Territory ou une clé correspondant à un scope ("uncategorisable" par ex)
+  # param peut être un code région ou une clé correspondant à un scope ("uncategorisable" par ex)
   scope :by_possible_region, -> (param) {
-    begin
-      in_regions(Territory.find(param).code_region)
-    rescue ActiveRecord::RecordNotFound => e
+    if param.match?(/^\d{2}$/)
+      in_regions(param)
+    else
       self.send(param)
     end
   }
@@ -715,7 +716,7 @@ end
 
   def region
     return if code_region.nil?
-    Territory.find_by(code_region: self.code_region)
+    DecoupageAdministratif::Region.find(code_region.to_s)
   end
 
   def spam?

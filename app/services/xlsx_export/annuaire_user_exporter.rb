@@ -24,12 +24,16 @@ module XlsxExport
         team_full_name: -> { full_name unless with_identical_user? },
         team_email: -> { email unless with_identical_user? },
         team_phone_number: -> { phone_number unless with_identical_user? },
-        team_custom_communes: -> { communes.pluck(:insee_code).join(', ') if custom_communes? },
+        team_custom_communes: -> { territorial_zones.zone_type_commune.pluck(:code).join(', ') },
+        team_custom_epcis: -> { territorial_zones.zone_type_epci.pluck(:code).join(', ') },
+        team_custom_departements: -> { territorial_zones.zone_type_departement.pluck(:code).join(', ') },
+        team_custom_regions: -> { territorial_zones.zone_type_region.pluck(:code).join(', ') },
+
       }
     end
 
     def headers
-      ['', '', '', I18n.t('export_xls.phone_instructions'), '', I18n.t('export_xls.team_email'), '', '', '', I18n.t('export_xls.subjects_instructions')]
+      ['', '', '', I18n.t('export_xls.phone_instructions'), '', I18n.t('export_xls.team_email'), '', '', '', '', '', '', I18n.t('export_xls.subjects_instructions')]
     end
 
     def fields_for_subjects
@@ -77,8 +81,8 @@ module XlsxExport
       third_row[1] = I18n.t('export_xls.email_instructions')
       third_row[2..4] = third_row[2..4].map { |v| v = '' }
       third_row[5] = I18n.t('export_xls.teams_instructions')
-      third_row[6..8] = third_row[6..8].map { |v| v = '' }
-      index = 9
+      third_row[6..11] = third_row[6..11].map { |v| v = '' }
+      index = 12
       @options[:institutions_subjects].each do |is|
         third_row[index] = is.description
         index += 1
@@ -123,33 +127,30 @@ module XlsxExport
           sheet.row_style(i, @third_row_style)
         else
           sheet.row_style i, @default_style
-          sheet.rows[i].cells[5].style = @green_bg
-          sheet.rows[i].cells[6].style = @green_bg
-          sheet.rows[i].cells[7].style = @green_bg
-          sheet.rows[i].cells[8].style = @green_bg
+          sheet.rows[i].cells[5..11].map { |cell| cell.style = @green_bg }
         end
       end
 
       sheet.merge_cells('A1:C1')
-      sheet.merge_cells('F1:I1')
+      sheet.merge_cells('F1:L1')
       sheet.merge_cells('B3:E3')
-      sheet.merge_cells('F3:I3')
-      sheet.merge_cells('J1:L1')
+      sheet.merge_cells('F3:L3')
+      sheet.merge_cells('M1:O1')
       sheet.rows[0].cells[4].style = @text_red
       sheet.rows[0].cells[8].style = @text_red
-      sheet.rows[0].cells[5].style = @green_bg_bold
-      sheet.rows[1].cells[5].style = @green_bg_bold
-      sheet.rows[1].cells[6].style = @green_bg_bold
-      sheet.rows[1].cells[7].style = @green_bg_bold
-      sheet.rows[1].cells[8].style = @green_bg_bold
+      sheet.rows[0].cells[5..11].map { |cell| cell.style = @green_bg }
+      sheet.rows[1].cells[5..11].map { |cell| cell.style = @green_bg_bold }
       sheet.col_style 5, @green_bg, row_offset: 2
       sheet.col_style 6, @green_bg, row_offset: 2
       sheet.col_style 7, @green_bg, row_offset: 2
       sheet.col_style 8, @green_bg, row_offset: 2
+      sheet.col_style 9, @green_bg, row_offset: 2
+      sheet.col_style 10, @green_bg, row_offset: 2
+      sheet.col_style 11, @green_bg, row_offset: 2
       sheet.rows[2].cells[5].style = @green_bg_italic
 
       attributes.keys.each_index do |i|
-        width = if i < 9
+        width = if i < 12
           40
         else
           25

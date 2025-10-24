@@ -20,7 +20,7 @@ ActiveAdmin.register User do
 
       # Optimize based on active filters
       if params.dig(:q, :antenne_id_eq).present? || params.dig(:q, :antenne_regions_id_eq).present?
-        additional_includes += [:antenne, { antenne: :territories }]
+        additional_includes += [:antenne, { antenne: :territorial_zones }]
       end
 
       if params.dig(:q, :institution_id_eq).present?
@@ -97,10 +97,9 @@ ActiveAdmin.register User do
   filter :job
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :antenne_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
+  filter :region, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }
   filter :created_at
   filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
-  filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
 
   ## CSV
   #
@@ -172,8 +171,10 @@ ActiveAdmin.register User do
         resource.user_rights.each do |ur|
           li do
             right = I18n.t(ur.category, scope: "activerecord.attributes.user_right/categories")
-            if ur.rightable_element.present?
+            if ur.rightable_element.present? && !ur.rightable_element.is_a?(TerritorialZone)
               right = "#{right} : #{admin_link_to(ur.rightable_element)}".html_safe
+            elsif ur.rightable_element.is_a?(TerritorialZone)
+              right = "#{right} : #{ur.rightable_element.name}"
             else
               right
             end
@@ -210,7 +211,8 @@ ActiveAdmin.register User do
   user_rights_attributes = [:id, :rightable_element_id, :rightable_element_type, :category, :_destroy]
   permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id, :create_expert, :absence_start_at, :absence_end_at,
                 expert_ids: [], user_rights_attributes: user_rights_attributes, user_rights_for_admin_attributes: user_rights_attributes,
-                user_rights_manager_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes
+                user_rights_manager_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes,
+                user_rights_territorial_referent_attributes: user_rights_attributes
 
   form do |f|
     f.semantic_errors(*f.object.errors.attribute_names)
@@ -268,10 +270,45 @@ ActiveAdmin.register User do
         ur.input :rightable_element_type, as: :hidden, input_html: { value: 'Cooperation' }
       end
 
+      # Droits référent de region
+      label_base = t('activerecord.models.user_right.territorial_referent')
+      f.has_many :user_rights_territorial_referent, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
+        ur.input :category, as: :hidden, input_html: { value: 'territorial_referent' }
+        collection_options = []
+
+        all_territorial_zones = TerritorialZone.where(zone_type: 'region')
+        existing_territorial_zones_by_code = {}
+
+        all_territorial_zones.each do |tz|
+          if !existing_territorial_zones_by_code[tz.code] || tz.zoneable_type == 'UserRight'
+            existing_territorial_zones_by_code[tz.code] = tz
+          end
+        end
+
+        # Add all available regions from RegionOrderingService
+        RegionOrderingService.call.each do |region|
+          if existing_territorial_zones_by_code[region.code]
+            # Region has existing TerritorialZone - use TerritorialZone ID
+            tz = existing_territorial_zones_by_code[region.code]
+            collection_options << ["#{region.nom} (#{region.code})", tz.id]
+          else
+            collection_options << ["#{region.nom} (#{region.code})", region.code]
+          end
+        end
+
+        ur.input :rightable_element_id,
+                 collection: collection_options,
+                 selected: ur.object&.rightable_element_id,
+                 as: :select,
+                 label: 'Région',
+                 include_blank: 'Sélectionner une région'
+        ur.input :rightable_element_type, as: :hidden, input_html: { value: 'TerritorialZone' }
+      end
+
       # Droits admin
       label_base = t('activerecord.models.user_right.for_admin')
       f.has_many :user_rights_for_admin, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
-        ur.input :category, as: :select, collection: UserRight::FOR_ADMIN.map{ |cat| [I18n.t(cat, scope: "activerecord.attributes.user_right/categories"), cat] }, include_blank: false
+        ur.input :category, as: :select, collection: UserRight::ADMIN_ONLY_CATEGORIES.map{ |cat| [I18n.t(cat, scope: "activerecord.attributes.user_right/categories"), cat] }, include_blank: false
       end
     end
 

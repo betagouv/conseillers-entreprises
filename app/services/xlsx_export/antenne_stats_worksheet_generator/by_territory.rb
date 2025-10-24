@@ -33,8 +33,8 @@ module XlsxExport
         # Chiffres des antennes locales
         needs_by_territories = {}
 
-        Territory.regions.each do |region|
-          needs_by_territories[region.name] = @needs.by_region(region.id).distinct
+        RegionOrderingService.call.each do |region|
+          needs_by_territories[region.nom] = @needs.by_region(region.code).distinct
         end
 
         needs_by_territories.sort_by { |_, needs| -needs.count }.each do |region_name, needs|

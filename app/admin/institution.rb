@@ -154,7 +154,7 @@ ActiveAdmin.register Institution do
       f.input :display_logo_on_home_page
       f.input :display_logo_in_partner_list
       f.input :show_on_list
-      f.input :code_region, as: :select, collection: Territory.regions.map{ |r| [r.name, r.code_region] }
+      f.input :code_region, as: :select, collection: RegionOrderingService.call.map { |r| [r.nom, r.code] }
       f.input :categories, as: :check_boxes, collection: Category.all.map{ |c| [I18n.t('active_admin.scopes.' + c.label), c.id] }
       f.input :siren, input_html: { rows: 1 }
     end
