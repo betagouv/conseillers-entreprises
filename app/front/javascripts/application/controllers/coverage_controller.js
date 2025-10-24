@@ -116,7 +116,11 @@ export default class extends Controller {
 
   setLoadingState(button, iconElement, isLoading) {
     button.disabled = isLoading
-    iconElement.className = isLoading ? 'ri-loader-4-line ri-spin' : 'ri-loader-4-line'
+    if (isLoading) {
+      iconElement.className = 'ri-loader-4-line ri-spin'
+    } else {
+      iconElement.className = 'ri-loader-4-line fr-hidden'
+    }
   }
 
   getCSRFToken() {
