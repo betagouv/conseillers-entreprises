@@ -21,7 +21,7 @@ class CreateTerritorialCoverage
 
   def theme_outside_territories?
     @institution_subject.theme.territories.any? &&
-      (@institution_subject.theme.insee_codes & @antennes_insee_codes).empty?
+      !@institution_subject.theme.insee_codes.intersect?(@antennes_insee_codes)
   end
 
   def gather_all_experts
@@ -285,11 +285,11 @@ class CreateTerritorialCoverage
     # Subject territories don't match antenne regions
     territories_mismatch = @institution_subject.subject.territories.any? &&
                           @antennes.any? &&
-                          (subject_regions & antenne_regions).empty?
+                          !subject_regions.intersect?(antenne_regions)
 
     # Theme has INSEE codes outside observed territories
     theme_codes_mismatch = @institution_subject.theme.insee_codes.present? &&
-                          (@institution_subject.theme.insee_codes & experts_by_insee.keys).empty?
+                          !@institution_subject.theme.insee_codes.intersect?(experts_by_insee.keys)
 
     territories_mismatch || theme_codes_mismatch
   end
