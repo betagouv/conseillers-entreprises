@@ -47,7 +47,7 @@ namespace :import_prod_to_staging do
     sh "grep -v 'SET transaction_timeout' #{temp_sql_filename} > #{pgsql_filename}"
 
     # Clean up temp file
-    File.delete(temp_sql_filename) if File.exist?(temp_sql_filename)
+    FileUtils.rm_f(temp_sql_filename)
 
     kill_prod_tunnel
   end
