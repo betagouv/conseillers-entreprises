@@ -159,7 +159,7 @@ class CreateTerritorialCoverage
       anomalie: :extra_insee_codes,
       anomalie_details: {
         experts: extra_experts,
-        match_filters: get_match_filters,
+        match_filters: get_match_filters(extra_experts),
         extra_insee_codes: format_territories(extra_codes),
       }
     }
@@ -217,9 +217,14 @@ class CreateTerritorialCoverage
     end
   end
 
-  def get_match_filters
-    experts_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Expert', filtrable_element_id: @all_experts.pluck(:id)).where(subjects: [@institution_subject.subject, nil])
-    antennes_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Antenne', filtrable_element_id: @antennes.pluck(:id)).where(subjects: [@institution_subject.subject, nil])
+  def get_match_filters(expert_ids = nil)
+    # Filter experts by provided IDs if specified, otherwise use all experts
+    experts_to_check = expert_ids ? Expert.where(id: expert_ids) : @all_experts
+    expert_ids_to_check = experts_to_check.pluck(:id)
+    antenne_ids_to_check = experts_to_check.pluck(:antenne_id).uniq
+
+    experts_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Expert', filtrable_element_id: expert_ids_to_check).where(subjects: [@institution_subject.subject, nil])
+    antennes_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Antenne', filtrable_element_id: antenne_ids_to_check).where(subjects: [@institution_subject.subject, nil])
     institution_match_filters = MatchFilter.left_joins(:subjects).where(filtrable_element_type: 'Institution', filtrable_element_id: @institution_subject.institution.id).where(subjects: [@institution_subject.subject, nil])
     {
       antenne: antennes_match_filters.map do |filter|
