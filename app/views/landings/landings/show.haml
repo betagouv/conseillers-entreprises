@@ -11,8 +11,6 @@
           .fr-col-12.fr-col-md-7#col-text
             .home-title
               .heading
-                - if @landing.logo
-                  = display_logo(name: @landing.logo, extra_params: { class: 'fr-mr-2w' })
                 %h1.fr-m-0= @landing.title
               %p.fr-mt-3w= t('landings.landings.home.answer')
               .fr-grid-row#links
