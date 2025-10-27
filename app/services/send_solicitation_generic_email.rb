@@ -5,7 +5,7 @@ class SendSolicitationGenericEmail
   end
 
   def valid?
-    @email_type.present? && @solicitation.present? && Solicitation::GENERIC_EMAILS_TYPES.include?(@email_type.to_sym)
+    @email_type.present? && @solicitation.present? && Solicitation::GENERIC_EMAILS_TYPES.flatten.include?(@email_type.to_sym)
   end
 
   def send_email
