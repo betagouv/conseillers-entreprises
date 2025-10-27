@@ -37,3 +37,15 @@
           background-color: $grey-lighter
   .dropdown:hover .dropdown-content
     display: block
+  .dropdown#generic-emails:hover .dropdown-content
+    display: flex
+    flex-flow: row-reverse
+    width: fit-content
+    > .fr-menu__item
+      &:first-child > .fr-menu__list
+        background-color: $emphasis-background
+      > .fr-menu__list
+        width: fit-content
+        margin-bottom: 0
+        a.fr-nav__link
+          min-width: 12rem

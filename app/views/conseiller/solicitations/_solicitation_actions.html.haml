@@ -41,12 +41,14 @@
       = t('.send_email')
       %span.ri-mail-add-fill.fr-ml-1w{ 'aria-hidden': 'true' }
     %ul.dropdown-content.fr-menu__list
-      - emails_types = Solicitation::GENERIC_EMAILS_TYPES
-      - emails_types.each do |email_type|
+      - Solicitation::GENERIC_EMAILS_TYPES.each do |column|
         %li.fr-menu__item
-          = link_to t(email_type, scope: 'solicitations.solicitation_actions.emails'),
-            emails_solicitation_generic_path(email_type: email_type, id: solicitation.id, query: params[:query]),
-            method: :post, class: 'fr-nav__link', 'data-turbo': false
+          %ul.fr-menu__list
+            - column.each do |email_type|
+              %li.fr-menu__item
+                = link_to t(email_type, scope: 'solicitations.solicitation_actions.emails'),
+                  emails_solicitation_generic_path(email_type: email_type, id: solicitation.id, query: params[:query]),
+                  method: :post, class: 'fr-nav__link', 'data-turbo': false
 
   .dropdown.actions.grey-medium-bg
     %button.button
