@@ -68,8 +68,6 @@ class Landing < ApplicationRecord
   has_many :needs, through: :diagnoses, inverse_of: :landing
   has_many :matches, through: :diagnoses, inverse_of: :landing
 
-  has_one :logo, as: :logoable, dependent: :destroy, inverse_of: :logoable
-
   accepts_nested_attributes_for :landing_joint_themes, allow_destroy: true
 
   before_save :set_emphasis
