@@ -1,6 +1,6 @@
 class SolicitationMailerPreview < ActionMailer::Preview
   def bad_quality
-    SolicitationMailer.bad_quality(Solicitation.joins(:landing_subject).status_canceled.have_badge('mauvaise_qualité').sample)
+    SolicitationMailer.bad_quality(Solicitation.joins(:landing_subject).status_canceled.have_badge('mauvaise_qualité').find_random)
   end
 
   def employee_labor_law
@@ -70,6 +70,6 @@ class SolicitationMailerPreview < ActionMailer::Preview
   private
 
   def random_solicitation
-    Solicitation.step_complete.joins(:landing_subject).sample
+    Solicitation.step_complete.joins(:landing_subject).find_random
   end
 end
