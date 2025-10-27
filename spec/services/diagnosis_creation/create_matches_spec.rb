@@ -9,19 +9,19 @@ describe DiagnosisCreation::CreateMatches do
     let!(:expert_subject) do
       create :expert_subject,
              institution_subject: create(:institution_subject, institution: institution, subject: the_subject),
-             expert: create(:expert, communes: communes)
+             expert: create(:expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: insee_code)])
     end
 
     let!(:expert_subject_cci) do
       create :expert_subject,
              institution_subject: create(:institution_subject, institution: cci, subject: the_subject),
-             expert: create(:expert, communes: communes)
+             expert: create(:expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: insee_code)])
     end
 
     let!(:expert_subject_cma) do
       create :expert_subject,
              institution_subject: create(:institution_subject, institution: cma, subject: the_subject),
-             expert: create(:expert, communes: communes)
+             expert: create(:expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: insee_code)])
     end
 
     let!(:institution) { create :institution }
@@ -34,7 +34,7 @@ describe DiagnosisCreation::CreateMatches do
 
     context 'there are relevant experts' do
       let(:the_subject) { need.subject }
-      let(:communes) { [need.facility.commune] }
+      let(:insee_code) { need.facility.insee_code }
 
       it 'creates the matches' do
         expect(diagnosis.matches).not_to be_empty
@@ -43,7 +43,7 @@ describe DiagnosisCreation::CreateMatches do
 
     context 'there are no relevant experts' do
       let(:the_subject) { create :subject }
-      let(:communes) { [need.facility.commune] }
+      let(:insee_code) { need.facility.insee_code }
 
       it 'sets an error' do
         expect(diagnosis.errors.details).to eq({ matches: [{ error: :preselected_institution_has_no_relevant_experts }] })

@@ -78,7 +78,7 @@ module CsvExport
         landing_subject_title: -> { subject&.label },
         siret: -> { siret },
         commune: -> { diagnosis&.facility&.commune },
-        facility_regions: -> { region&.name },
+        facility_regions: -> { facility&.region&.nom },
         company_name: -> { diagnosis&.company&.name },
         company_categorie_juridique: -> { diagnosis&.company&.categorie_juridique },
         facility_naf: -> { diagnosis&.facility&.naf_code },

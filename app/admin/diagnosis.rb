@@ -4,7 +4,6 @@ ActiveAdmin.register Diagnosis do
   ## Index
   #
   includes :facility, :company, :advisor, :needs, :matches, :solicitation
-  includes facility: :commune
 
   scope :completed, group: :status, default: true
   scope :all, group: :status
@@ -18,7 +17,7 @@ ActiveAdmin.register Diagnosis do
       div admin_link_to(d, :solicitation)
     end
     column :company
-    column(:commune) { |d| d.facility.readable_locality || d.facility.commune }
+    column(:commune) { |d| d.facility.readable_locality }
     column :created_at
     column :step
     column :needs do |d|
@@ -32,13 +31,13 @@ ActiveAdmin.register Diagnosis do
   filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :content
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
-  filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
+  filter :facility_region, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }, label: 'Région'
 
   ## CSV
   #
   csv do
     column :company
-    column(:commune) { |d| d.facility.readable_locality || d.facility.commune }
+    column(:commune) { |d| d.facility.readable_locality }
     column :content
     column :advisor
     column :created_at

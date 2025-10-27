@@ -31,7 +31,7 @@ class Institution < ApplicationRecord
   ## Associations
   #
   has_many :antennes, -> { not_deleted }, inverse_of: :institution
-  has_many :institutions_subjects, dependent: :destroy, inverse_of: :institution, after_add: :update_antennes_referencement_coverage, after_remove: :update_antennes_referencement_coverage
+  has_many :institutions_subjects, dependent: :destroy, inverse_of: :institution
   has_and_belongs_to_many :categories # Une institution peut avoir plusieurs categories a la fois, donc une enum serait trop limitante
   has_one :logo, as: :logoable, dependent: :destroy, inverse_of: :logoable
 
@@ -100,18 +100,16 @@ class Institution < ApplicationRecord
 
   scope :national, -> { where(code_region: nil) }
 
-  scope :in_region, -> (region_id) do
-    left_joins(antennes: :regions)
-      .left_joins(antennes: :experts)
-      .where(antennes: { territories: { id: [region_id] } })
+  scope :in_region, -> (region_code) do
+    left_joins(antennes: :experts)
+      .where(antennes: Antenne.by_region(region_code))
       .or(Institution.where(experts: { is_global_zone: true }))
       .distinct
   end
 
-  scope :by_region, -> (region_id) do
-    left_joins(antennes: :regions)
-      .left_joins(antennes: :experts)
-      .where(antennes: { territories: { id: [region_id] } })
+  scope :by_region, -> (region_code) do
+    left_joins(antennes: :experts)
+      .where(antennes: Antenne.by_region(region_code))
       .distinct
   end
 
@@ -132,19 +130,19 @@ class Institution < ApplicationRecord
 
   ##
   #
-  def antennes_in_region(region_id)
+  def antennes_in_region(region_code)
     not_deleted_antennes
-      .left_joins(:regions, :experts)
-      .where(antennes: { territories: { id: [region_id] } })
+      .left_joins(:experts)
+      .where(antennes: { id: Antenne.by_region(region_code).select(:id) })
       .or(self.antennes.where(experts: { is_global_zone: true }))
       .order(:name)
       .distinct
   end
 
-  def advisors_in_region(region_id)
+  def advisors_in_region(region_code)
     advisors
-      .left_joins(:antenne_regions, :experts)
-      .where(antennes: { territories: { id: [region_id] } })
+      .left_joins(antennes: :experts)
+      .where(antennes: Antenne.by_region(region_code))
       .or(self.antennes.where(experts: { is_global_zone: true }))
       .distinct
   end
@@ -205,14 +203,10 @@ class Institution < ApplicationRecord
 
   def self.apply_filters(params)
     klass = self
-    klass = klass.by_region(params[:region]) if params[:region].present?
+    klass = klass.by_region(params[:region_code]) if params[:region_code].present?
     klass = klass.joins(:themes).where(themes: { id: params[:theme_id] }) if params[:theme_id].present?
     klass = klass.joins(:subjects).where(subjects: { id: params[:subject_id] }) if params[:subject_id].present?
     klass.all
-  end
-
-  def update_antennes_referencement_coverage(*args)
-    antennes.map(&:update_referencement_coverages)
   end
 
   ## Soft deletion

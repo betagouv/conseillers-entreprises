@@ -98,14 +98,15 @@ class User < ApplicationRecord
   has_many :user_rights, inverse_of: :user, dependent: :destroy
   has_many :user_rights_manager, ->{ category_manager }, class_name: 'UserRight', inverse_of: :user
   has_many :user_rights_admin, ->{ category_admin }, class_name: 'UserRight', inverse_of: :user
-  # for_admin = droits admin + national_referent + main_referent
   has_many :user_rights_for_admin, ->{ for_admin }, class_name: 'UserRight', inverse_of: :user
   has_many :user_rights_cooperation_manager, ->{ category_cooperation_manager }, class_name: 'UserRight', inverse_of: :user
+  has_many :user_rights_territorial_referent, ->{ category_territorial_referent }, class_name: 'UserRight', inverse_of: :user
   has_many :managed_antennes, ->{ distinct }, through: :user_rights_manager, source: :antenne, inverse_of: :managers
   has_many :managed_cooperations, ->{ distinct }, through: :user_rights_cooperation_manager, source: :cooperation, inverse_of: :managers
   # Utiles pour active_admin
   accepts_nested_attributes_for :user_rights, allow_destroy: true
   accepts_nested_attributes_for :user_rights_for_admin, allow_destroy: true
+  accepts_nested_attributes_for :user_rights_territorial_referent, allow_destroy: true
   accepts_nested_attributes_for :user_rights_manager, allow_destroy: true
   accepts_nested_attributes_for :user_rights_cooperation_manager, allow_destroy: true
 
@@ -182,11 +183,6 @@ class User < ApplicationRecord
 
   scope :by_antenne, -> (antenne_id) { where(antenne: antenne_id) }
 
-  scope :by_region, -> (region_id) do
-    return all if region_id.blank?
-    joins(antenne: :regions).where(antennes: { territories: { id: region_id } }).distinct
-  end
-
   scope :by_subject, -> (subject_id) do
     return all if subject_id.blank?
     joins(experts: :subjects).where(experts: { subjects: subject_id }).distinct
@@ -202,15 +198,14 @@ class User < ApplicationRecord
     experts.not_deleted.with_subjects.first
   end
 
-  scope :in_region, -> (region_id) do
-    return all if region_id.blank?
-    left_joins(antenne: :regions)
-      .left_joins(:experts)
-      .select('"antennes".*, "users".*')
-      .where(antennes: { territories: { id: [region_id] } })
-      .or(self.select('"antennes".*, "users".*').where(experts: { is_global_zone: true }))
-      .distinct
+  scope :by_region, -> (region_code) do
+    return if region_code.blank?
+    joins(:antenne, :experts).where(antenne: Antenne.by_region(region_code)).merge(Expert.by_region(region_code))
   end
+
+  scope :region_eq, -> (region_code) {
+    by_region(region_code)
+  }
 
   ## Password
   #
@@ -379,5 +374,9 @@ class User < ApplicationRecord
       "supported_territories", "themes", "user_rights",
       "user_rights_admin", "user_rights_manager"
     ]
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    ["region_eq"]
   end
 end

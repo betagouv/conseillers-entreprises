@@ -63,7 +63,8 @@ export default class extends Controller {
   async searchResults(query) {
     this.loaderTarget.style.display = 'block'
     let searchUrl = this.fieldTarget.dataset.searchUrl
-    let params = `omnisearch=${query}`;
+    let inseeCode = this.fieldTarget.dataset.searchInseeCode;
+    let params = `omnisearch=${query}&insee_code=${inseeCode}`;
     let response = await fetch(`${searchUrl}.json?${params}`, {
       credentials: "same-origin",
     });
@@ -88,10 +89,16 @@ export default class extends Controller {
   suggestionTemplate (result) {
     if (result) {
       let expertSubjects = result.experts_subjects.map(es => `<li>${es.institution_subject_description}</li>`).join('')
+      console.log(result);
+      let sourceBadge = '';
+      if (result.source == 'secondary') {
+        sourceBadge = `<span class="fr-badge fr-badge--sm fr-badge--warning">Hors territoire</span>`;
+      }
       return (
-        `<div class="fr-grid-row">
+        `<div class="fr-grid-row result-${result.source}">
         <div class="fr-col">
           <h3 class="fr-text--lead fr-m-0">${result.antenne_name}</h3>
+          ${sourceBadge}
           <p class="fr-text--sm bold fr-m-0">${result.full_name}</p>
           <p class="fr-text--sm fr-m-0">${result.job || ''}</p>
         </div>

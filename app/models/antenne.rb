@@ -27,7 +27,7 @@
 
 class Antenne < ApplicationRecord
   include SoftDeletable
-  include ManyCommunes
+  include WithTerritorialZones
   include InvolvementConcern
   include TerritoryNeedsStatus
   include WithSupportUser
@@ -46,15 +46,19 @@ class Antenne < ApplicationRecord
 
   ## Associations
   #
-  has_and_belongs_to_many :communes, inverse_of: :antennes, after_add: [:update_referencement_coverages, :update_antenne_hierarchy], after_remove: [:update_referencement_coverages, :update_antenne_hierarchy]
+  has_and_belongs_to_many :communes, inverse_of: :antennes
 
   belongs_to :institution, inverse_of: :antennes
 
-  has_many :experts, -> { not_deleted }, inverse_of: :antenne, after_add: :update_referencement_coverages, after_remove: :update_referencement_coverages
+  has_many :experts, -> { not_deleted }, inverse_of: :antenne
   has_many :experts_including_deleted, class_name: 'Expert', inverse_of: :antenne
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
   accepts_nested_attributes_for :match_filters, allow_destroy: true
+
+  # Override l'association du module pour ajouter les callbacks
+  has_many :territorial_zones, as: :zoneable, dependent: :destroy, inverse_of: :zoneable,
+           after_add: :update_antenne_hierarchy, after_remove: :update_antenne_hierarchy
 
   has_many :activity_reports, as: :reportable, dependent: :destroy, inverse_of: :reportable
   has_many :matches_reports, -> { category_matches }, class_name: 'ActivityReport', dependent: :destroy, inverse_of: :reportable
@@ -65,8 +69,6 @@ class Antenne < ApplicationRecord
   has_many :user_rights_managers, ->{ category_manager }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
   has_many :managers, -> { distinct }, through: :user_rights_managers, source: :user, inverse_of: :managed_antennes
 
-  has_many :referencement_coverages, dependent: :destroy, inverse_of: :antenne
-
   belongs_to :parent_antenne, class_name: 'Antenne', inverse_of: :child_antennes, optional: true
   has_many :child_antennes, class_name: 'Antenne', inverse_of: :parent_antenne, foreign_key: 'parent_antenne_id'
 
@@ -75,13 +77,9 @@ class Antenne < ApplicationRecord
   auto_strip_attributes :name
   validates :name, presence: true
   validate :uniqueness_name
-  validates_associated :managers, on: :import, if: -> { managers.any? }
 
   ## “Through” Associations
   #
-  # :communes
-  has_many :territories, -> { distinct.bassins_emploi }, through: :communes, inverse_of: :antennes
-  has_many :regions, -> { distinct.regions }, through: :communes, inverse_of: :antennes
 
   # :advisors
   has_many :sent_diagnoses, through: :advisors, inverse_of: :advisor_antenne
@@ -111,7 +109,8 @@ class Antenne < ApplicationRecord
 
   ##
   #
-  scope :without_communes, -> { where.missing(:communes) }
+  scope :without_communes, -> { not_deleted.where.missing(:communes) }
+  scope :without_territorial_zones, -> { not_deleted.where.missing(:territorial_zones) }
 
   scope :without_managers, -> { where.missing(:managers) }
 
@@ -131,10 +130,6 @@ class Antenne < ApplicationRecord
 
   scope :with_experts_subjects, -> { where.associated(:experts_subjects).distinct }
 
-  scope :by_region, -> (region_id) do
-    joins(:regions).where(regions: { id: region_id })
-  end
-
   scope :by_subject, -> (subject_id) do
     joins(experts: :subjects).where(subjects: { id: subject_id })
   end
@@ -147,11 +142,16 @@ class Antenne < ApplicationRecord
     self.sort { |a, b| TERRITORIAL_ORDER[a.territorial_level.to_sym] <=> TERRITORIAL_ORDER[b.territorial_level.to_sym] }
   }
 
+  # Pour ransack
+  scope :regions_eq, -> (region_code) {
+    by_region(region_code)
+  }
+
   ##
   #
   def self.apply_filters(params)
     klass = self
-    klass = klass.by_region(params[:region]) if params[:region].present?
+    klass = klass.by_region(params[:region_code]) if params[:region_code].present?
     klass = klass.by_subject(params[:subject_id]) if params[:subject_id].present?
     klass = klass.by_theme(params[:theme_id]) if params[:theme_id].present?
     klass.all
@@ -163,7 +163,7 @@ class Antenne < ApplicationRecord
 
   def support_user
     if !national? && regions.one?
-      User.find(Antenne.find(id).regions.first.support_contact_id)
+      UserRight.category_territorial_referent.joins(:territorial_zone).find_by(territorial_zones: { code: regions.first.code })&.user
     else
       UserRight.category_national_referent.first&.user
     end
@@ -180,7 +180,7 @@ class Antenne < ApplicationRecord
   #
   # en after_create, sinon les "regions" (en `through`) ne sont pas accessibles
   def check_territorial_level
-    if (regions.size == 1) && Utilities::Arrays.same?(regions.first.commune_ids, commune_ids)
+    if territorial_zones.where(zone_type: :region).any?
       update(territorial_level: :regional)
     end
   end
@@ -310,21 +310,6 @@ class Antenne < ApplicationRecord
     UpdateAntenneHierarchyJob.perform_in(20.seconds, self.id)
   end
 
-  ## referencement coverage
-  #
-
-  # Updated when changed : add/remove communes - add/remove experts - add/remove expert communes - add/remove expert subject
-  def update_referencement_coverages(*args)
-    scheduled = Sidekiq::ScheduledSet.new
-
-    scheduled.each do |job|
-      if job['class'] == AntenneCoverage::DeduplicatedJob.to_s && job['args'].first == self.id
-        job.delete
-      end
-    end
-    AntenneCoverage::DeduplicatedJob.perform_in(30.seconds, self.id)
-  end
-
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "deleted_at", "id", "id_value", "institution_id", "name", "territorial_level", "updated_at"]
   end
@@ -335,8 +320,12 @@ class Antenne < ApplicationRecord
       "matches_reports", "stats_reports", "received_diagnoses", "received_diagnoses_including_from_deleted_experts",
       "received_matches", "received_matches_including_from_deleted_experts", "received_needs",
       "received_needs_including_from_deleted_experts", "received_solicitations",
-      "received_solicitations_including_from_deleted_experts", "referencement_coverages", "regions", "sent_diagnoses",
+      "received_solicitations_including_from_deleted_experts", "regions", "sent_diagnoses",
       "sent_matches", "sent_needs", "stats_reports", "territories", "themes", "user_rights", "user_rights_manager"
     ]
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    %w[regions_eq]
   end
 end

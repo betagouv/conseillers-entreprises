@@ -31,12 +31,16 @@ class MatchFilter < ApplicationRecord
     max_years_of_existence
     effectif_min
     effectif_max
-    subjects
     raw_accepted_legal_forms
     raw_excluded_legal_forms
     raw_accepted_naf_codes
     raw_excluded_naf_codes
+    subjects
   ]
+
+  def filter_types
+    FILTERS.select { |filter| self.send(filter).present? }
+  end
 
   def experts_subjects
     ExpertSubject.where(expert_id: experts.ids)

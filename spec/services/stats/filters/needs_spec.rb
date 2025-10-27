@@ -6,11 +6,10 @@ describe Stats::Filters::Needs do
   let!(:need_outside) { create :need }
 
   describe 'territories_filter' do
-    let(:territory) { create :territory }
-    let(:commune) { create :commune, territories: [territory] }
-    let!(:need_inside) { create :need, diagnosis: create(:diagnosis, facility: create(:facility, commune: commune)) }
+    let(:region_code) { "53" }
+    let!(:need_inside) { create :need, diagnosis: create(:diagnosis, facility: create(:facility, insee_code: "29019")) }
 
-    subject { described_class.new(query, open_struct_graph).send(:territories_filter, territory) }
+    subject { described_class.new(query, open_struct_graph).send(:territories_filter, region_code) }
 
     it { is_expected.to eq [need_inside] }
   end

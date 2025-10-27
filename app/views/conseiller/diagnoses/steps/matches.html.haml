@@ -54,7 +54,7 @@
       .fr-p-2w
         = label_tag "expert", t('.add_expert_label'), class: 'fr-label'
         .loader.hidden{ data: { 'expert-autocomplete-target': 'loader' } }
-        %div{ data: { 'expert-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'omnisearch', 'search-url': conseiller_experts_path } }
+        %div{ data: { 'expert-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'omnisearch', 'search-url': conseiller_experts_path, 'search-insee-code': h(@diagnosis.facility.insee_code) } }
 
     .fr-callout
       %p.fr-callout__text= t('.before_sending_emails')

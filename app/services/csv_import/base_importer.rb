@@ -11,7 +11,7 @@ module CsvImport
     def import
       csv = open_with_best_separator(@input)
       if csv.is_a? CSV::MalformedCSVError
-        return Result.new(rows: [], header_errors: [csv], preprocess_errors: [], objects: [])
+        return Result.new(rows: [], header_errors: [csv], preprocess_errors: [], postprocess_errors: [], objects: [])
       end
       header_errors = check_headers(csv.headers.compact)
 
@@ -19,11 +19,12 @@ module CsvImport
       objects = []
       preprocess = []
       preprocess_errors = []
+      postprocess_errors = []
       ActiveRecord::Base.transaction do
         # Convert CSV rows to attributes
         objects = rows.each_with_index.map do |row|
           row.delete_if { |k, v| k.nil? && v.nil? }
-          # Convert row to user attributes
+          # Convert row to attributes
           attributes = row_to_attributes(row)
 
           preprocess << preprocess(attributes)
@@ -37,18 +38,21 @@ module CsvImport
           object.update(attributes)
 
           object = postprocess(object, row)
+          postprocess_errors << object if object.is_a? CsvImport::PostprocessError
+          next if postprocess_errors.present?
           object
         end
 
         preprocess_errors = preprocess_errors.group_by(&:message).keys
+        postprocess_errors = postprocess_errors.group_by(&:message).keys
         # Validate all objects to collect errors, but rollback everything if there is one error
         all_valid = objects.map{ |object| object&.validate(:import) }
-        if all_valid.include? false || preprocess_errors.present?
+        if postprocess_errors.present? || (all_valid.include? false || preprocess_errors.present?)
           raise ActiveRecord::Rollback
         end
       end
 
-      Result.new(rows: rows, header_errors: header_errors, preprocess_errors: preprocess_errors, objects: objects)
+      Result.new(rows: rows, header_errors: header_errors, preprocess_errors: preprocess_errors, postprocess_errors: postprocess_errors, objects: objects)
     end
 
     private
@@ -103,5 +107,16 @@ module CsvImport
     def find_instance(attributes); end
 
     def postprocess(object, attributes); end
+
+    private
+
+    def reformat_commune_code(code)
+      # Reformat 4-digit commune codes to 5-digit codes
+      if code.size == 4 && code.first != '0'
+        "0#{code}"
+      else
+        code
+      end
+    end
   end
 end

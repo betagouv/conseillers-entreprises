@@ -2,12 +2,8 @@ class Conseiller::ExpertsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @experts = Expert
-      .apply_filters(experts_params)
-      .active
-      .with_subjects
-      .limit(20)
-      .includes(:antenne, experts_subjects: :institution_subject)
+    retrieve_experts
+
     respond_to do |format|
       format.html
       format.json do
@@ -18,7 +14,27 @@ class Conseiller::ExpertsController < ApplicationController
 
   private
 
+  def retrieve_experts
+    base_query = Expert
+      .apply_filters(experts_params)
+      .active
+      .with_subjects
+    @experts = base_query
+      .by_insee_code(params[:insee_code])
+      .limit(10)
+      .select("experts.*, 'primary' AS source")
+
+    expert_with_code_size = @experts.size
+
+    if expert_with_code_size < 10
+      additional_experts = base_query
+        .limit(10 - expert_with_code_size)
+        .select("experts.*, 'secondary' AS source")
+      @experts = @experts.to_a.concat(additional_experts.to_a)
+    end
+  end
+
   def experts_params
-    params.slice(:omnisearch).permit!
+    params.slice(:omnisearch, :insee_code).permit!
   end
 end

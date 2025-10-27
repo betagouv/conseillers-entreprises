@@ -23,6 +23,10 @@ Rails.application.routes.draw do
 
   # API ==================================================
 
+  namespace :admin do
+    get 'territorial_zones/search', to: 'antennes#search_territorial_zones', as: :territorial_zones_search
+  end
+
   namespace :api do
     namespace :v1 do
       resources :landings, controller: "landings/landings", only: [:index, :show] do
@@ -262,6 +266,7 @@ Rails.application.routes.draw do
       resources :users, path: 'conseillers', only: :index, concerns: [:importable] do
         collection do
           post :send_invitations
+          get :create_territorial_coverage
         end
       end
       resources :antennes, only: :index, concerns: [:importable] do

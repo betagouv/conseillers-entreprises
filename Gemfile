@@ -74,6 +74,8 @@ gem 'caxlsx_rails'
 gem 'split', require: 'split/dashboard'
 gem 'matrix'
 gem 'mjml-rails'
+gem 'progress_bar'
+gem 'decoupage_administratif', '~> 0.2.0'
 gem 'parallel'
 
 # Notifiers

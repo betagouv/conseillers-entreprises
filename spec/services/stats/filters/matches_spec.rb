@@ -6,12 +6,11 @@ describe Stats::Filters::Matches do
   let!(:match_outside) { create :match }
 
   describe 'territories_filter' do
-    let(:territory) { create :territory, :region }
-    let(:commune) { create :commune, territories: [territory] }
-    let(:need_inside) { create :need, diagnosis: create(:diagnosis, facility: create(:facility, commune: commune)) }
+    let(:region_code) { "53" }
+    let(:need_inside) { create :need, diagnosis: create(:diagnosis, facility: create(:facility, insee_code: "29019")) }
     let!(:match_inside) { create :match, need: need_inside }
 
-    subject { described_class.new(query, open_struct_graph).send(:territories_filter, territory) }
+    subject { described_class.new(query, open_struct_graph).send(:territories_filter, region_code) }
 
     it { is_expected.to eq [match_inside] }
   end

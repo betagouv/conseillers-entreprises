@@ -47,16 +47,3 @@ if Rails.env.development? || ENV['IS_REVIEW_APP'] == 'true'
     user.experts.first.experts_subjects.find_or_create_by!(institution_subject: institution_subject)
   end
 end
-
-if Rails.env.local? || ENV['IS_REVIEW_APP'] == 'true'
-  ## Region
-  [
-    { name: 'Région Hauts-de-France', bassin_emploi: false, code_region: 32 },
-    { name: 'Région Île-de-France', bassin_emploi: false, code_region: 11 },
-  ].each do |option|
-    Territory.where(code_region: option[:code_region]).first_or_create(
-      name: option[:name],
-      bassin_emploi: option[:bassin_emploi]
-    )
-  end
-end

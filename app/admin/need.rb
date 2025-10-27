@@ -48,7 +48,7 @@ ActiveAdmin.register Need do
   filter :experts, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
   filter :expert_antennes, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :expert_institutions, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :facility_regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
+  filter :facility_regions, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }
 
   ## CSV
   #

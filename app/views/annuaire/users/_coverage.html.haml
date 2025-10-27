@@ -1,0 +1,4 @@
+= turbo_frame_tag "institution-subject-#{institution_subject.id}" do
+  = build_coverage_button(institution_subject, coverage)
+
+  = render 'referencement_coverage_modal', referencement_coverage: coverage, institution_subject: institution_subject

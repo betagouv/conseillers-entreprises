@@ -3,6 +3,6 @@ FactoryBot.define do
     company
     siret { rand(10_000_000_000_000..99_999_999_999_999).to_s }
     readable_locality { '59600 MAUBEUGE' }
-    commune
+    insee_code { '59392' }
   end
 end

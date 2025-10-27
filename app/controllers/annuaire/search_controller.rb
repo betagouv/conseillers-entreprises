@@ -50,14 +50,14 @@ module Annuaire
     end
 
     def reset_params_for_user
-      params[:region] = nil
+      params[:region_code] = nil
       params[:theme_id] = nil
       params[:subject_id] = nil
       reset_session
     end
 
     def reset_params_for_antenne
-      params[:region] = nil
+      params[:region_code] = nil
       session[:annuaire_search].delete('region')
       index_search_params[:region] = nil
     end

@@ -4,6 +4,7 @@ module Stats
 
     before_action :authorize_team
     before_action :init_filters, except: %i[search_antennes]
+    before_action :clean_public_filters, only: :public
     before_action :set_stats_params, only: %i[public needs matches acquisition]
 
     def index
@@ -31,6 +32,8 @@ module Stats
       @charts_names = %w[
         needs_transmitted matches_positioning matches_taking_care matches_done
         matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
+        matches_taken_care_in_three_days matches_taken_care_in_five_days needs_themes_all needs_subjects_all
+        companies_by_employees companies_by_naf_code
       ]
       render :index
     end
@@ -60,6 +63,12 @@ module Stats
 
     def render_partial(data, name)
       render partial: 'stats/load_stats', locals: { data: data, name: name }
+    end
+
+    def clean_public_filters
+      # Remove institution and antenne filters for public stats
+      params.delete(:institution_id)
+      params.delete(:antenne_id)
     end
 
     def set_stats_params

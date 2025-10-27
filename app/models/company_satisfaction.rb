@@ -30,7 +30,6 @@ class CompanySatisfaction < ApplicationRecord
   has_many :matches, through: :need, inverse_of: :need
   has_many :experts, through: :matches, source: :expert
   has_many :antennes, through: :experts, source: :antenne
-  has_many :facility_regions, through: :need, inverse_of: :needs
   has_one :facility, through: :need, inverse_of: :needs
 
   has_many :shared_satisfactions, inverse_of: :company_satisfaction, dependent: :destroy
@@ -91,6 +90,10 @@ class CompanySatisfaction < ApplicationRecord
     query == 'with_comment' ? where.not(comment: "") : where(comment: "")
   }
 
+  scope :facility_region_eq, -> (region_code) {
+    joins(:facility).merge(Facility.by_region(region_code))
+  }
+
   # Partage aux conseillers
   #
   def share # rubocop:disable Naming/PredicateMethod
@@ -124,7 +127,7 @@ class CompanySatisfaction < ApplicationRecord
     %w[
       solicitation_mtm_campaign_cont solicitation_mtm_campaign_eq solicitation_mtm_campaign_start solicitation_mtm_campaign_end
       solicitation_mtm_kwd_cont solicitation_mtm_kwd_eq solicitation_mtm_kwd_start solicitation_mtm_kwd_end
-      shared_eq experts_id_eq with_comment_eq
+      shared_eq experts_id_eq with_comment_eq facility_region_eq
     ]
   end
 
@@ -134,7 +137,7 @@ class CompanySatisfaction < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     [
-      "done_antennes", "done_experts", "done_institutions", "done_matches", "facility_regions", "landing",
+      "done_antennes", "done_experts", "done_institutions", "done_matches", "landing",
       "landing_subject", "matches", "need", "diagnosis", "solicitation", "subject", "theme", "facility", "experts", "antennes"
     ]
   end

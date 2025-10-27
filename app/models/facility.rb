@@ -5,6 +5,7 @@
 #  id                :bigint(8)        not null, primary key
 #  code_effectif     :string
 #  effectif          :float
+#  insee_code        :string           not null
 #  naf_code          :string
 #  naf_code_a10      :string
 #  naf_libelle       :string
@@ -14,20 +15,17 @@
 #  siret             :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  commune_id        :bigint(8)        not null
 #  company_id        :bigint(8)        not null
 #  opco_id           :bigint(8)
 #
 # Indexes
 #
-#  index_facilities_on_commune_id  (commune_id)
 #  index_facilities_on_company_id  (company_id)
 #  index_facilities_on_opco_id     (opco_id)
 #  index_facilities_on_siret       (siret) UNIQUE WHERE ((siret)::text <> NULL::text)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (commune_id => communes.id)
 #  fk_rails_...  (company_id => companies.id)
 #  fk_rails_...  (opco_id => institutions.id)
 #
@@ -39,11 +37,13 @@ class Facility < ApplicationRecord
   ## Associations
   #
   belongs_to :company, inverse_of: :facilities
-  belongs_to :commune, inverse_of: :facilities
   belongs_to :opco, -> { opco }, class_name: 'Institution', inverse_of: :facilities, optional: true
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
 
   has_many :diagnoses, inverse_of: :facility
+
+  # a supprimer une fois les migrations des territoires passées
+  belongs_to :commune, inverse_of: :facilities, optional: true
 
   ## Validations
   #
@@ -55,10 +55,6 @@ class Facility < ApplicationRecord
   has_many :needs, through: :diagnoses, inverse_of: :facility
   has_many :matches, through: :diagnoses, inverse_of: :facility
   has_many :company_satisfactions, through: :needs, inverse_of: :facility
-
-  # :commune
-  has_many :territories, through: :commune, inverse_of: :facilities
-  has_many :regions, -> { regions }, through: :commune, source: :territories, inverse_of: :facilities
 
   accepts_nested_attributes_for :company
 
@@ -72,18 +68,17 @@ class Facility < ApplicationRecord
     joins(company: :contacts).where(contacts: { email: emails })
   end
 
-  ## insee_code / commune helpers
-  # TODO: insee_code should be just a column in facility, and we should drop the Commune model entirely.
-  #   In the meantime, fake it by delegating to commune.
-  delegate :insee_code, to: :commune, allow_nil: true # commune can be nil in new facility models.
-  def insee_code=(insee_code)
-    return if insee_code.blank?
-    self.commune = Commune.find_or_initialize_by(insee_code: insee_code)
-    city_params = ApiGeo::Query.city_with_code(insee_code)
-    self.readable_locality = "#{city_params['codesPostaux']&.first} #{city_params['nom']}"
+  # Cherche les établissements avec un code insee d'un département de la région
+  scope :by_region, -> (region_code) do
+    departements = DecoupageAdministratif::Departement.where(code_region: region_code)
+    return none if departements.empty?
+
+    code_size = departements.first.code.size
+    where("LEFT(facilities.insee_code, ?) IN (?)", code_size, departements.map(&:code))
   end
 
   def commune_name
+    # TODO : garder readable locality ou passer sur la gem pour afficher le nom ?
     readable_locality || insee_code
   end
 
@@ -105,11 +100,16 @@ class Facility < ApplicationRecord
 
   # Si demande de Mayotte, tout est envoyé vers l'OPCO Akto
   def get_relevant_opco
-    if self.regions.include?(Territory.find_by(code_region: 6)) # Mayotte
+    region = DecoupageAdministratif::Commune.find(insee_code).region
+    if region.code == "06" # Mayotte
       Institution.opco.find_by(slug: 'opco-akto-mayotte') # OPCO Akto Mayotte
     else
       self.opco
     end
+  end
+
+  def region
+    DecoupageAdministratif::Commune.find(insee_code).region
   end
 
   ##
@@ -120,13 +120,13 @@ class Facility < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     [
-      "code_effectif", "commune_id", "company_id", "created_at", "effectif", "id", "id_value", "naf_code",
+      "code_effectif", "created_at", "effectif", "id", "id_value", "naf_code", "insee_code",
       "naf_code_a10", "naf_libelle", "opco_id", "readable_locality", "siret", "updated_at"
     ]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["advisors", "commune", "company", "diagnoses", "matches", "needs", "opco", "territories", "regions"]
+    ["advisors", "company", "diagnoses", "matches", "needs", "opco", "territories"]
   end
 
   private

@@ -55,15 +55,16 @@ describe DiagnosisCreation::Steps do
   end
 
   describe 'prepare_matches_from_solicitation' do
-    let(:diagnosis) { create :diagnosis, solicitation: solicitation, step: 'needs' }
+    let(:insee_code) { "23176" }
+    let!(:diagnosis) { build :diagnosis, solicitation: solicitation, step: 'needs', facility: create(:facility, insee_code: insee_code) }
     let(:solicitation) { create :solicitation }
-    let(:need) { create :need, diagnosis: diagnosis }
+    let!(:need) { create :need, diagnosis: diagnosis }
     let!(:other_need_subject) { create :subject, id: 59 }
 
     let!(:expert_subject) do
       create :expert_subject,
              institution_subject: create(:institution_subject, institution: institution, subject: the_subject),
-             expert: create(:expert, communes: communes)
+             expert: create(:expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: insee_code)])
     end
     let(:institution) { create :institution }
 
@@ -73,7 +74,6 @@ describe DiagnosisCreation::Steps do
 
     context 'there are relevant experts' do
       let(:the_subject) { need.subject }
-      let(:communes) { [need.facility.commune] }
 
       it 'creates the matches' do
         expect(diagnosis.matches).not_to be_empty
@@ -83,7 +83,6 @@ describe DiagnosisCreation::Steps do
 
     context 'there are no relevant experts' do
       let(:the_subject) { create :subject }
-      let(:communes) { [need.facility.commune] }
 
       it 'sets an error' do
         expect(diagnosis.errors.details).to eq({ matches: [{ error: :preselected_institution_has_no_relevant_experts }] })
@@ -94,7 +93,6 @@ describe DiagnosisCreation::Steps do
     context 'solicitation has other_need_subject' do
       let(:solicitation) { create :solicitation, landing_subject: create(:landing_subject, subject: other_need_subject) }
       let(:the_subject) { other_need_subject }
-      let(:communes) { [need.facility.commune] }
 
       it 'returns silently' do
         expect(diagnosis.matches).to be_empty

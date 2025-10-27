@@ -77,7 +77,7 @@ RSpec.describe NeedPolicy, type: :policy do
 
     context "grants access if user is support" do
       let(:user) { create :user, experts: [expert] }
-      let(:expert) { create :expert, communes: [need.diagnosis.facility.commune] }
+      let(:expert) { create :expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: need.diagnosis.facility.insee_code)] }
       let(:support_subject) { create :subject, is_support: true }
       let!(:expert_subject) { create :expert_subject, expert: expert, institution_subject: institution_subject }
       let(:institution_subject) { create :institution_subject, subject: support_subject }

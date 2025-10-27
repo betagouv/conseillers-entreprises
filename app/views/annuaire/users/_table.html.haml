@@ -12,7 +12,7 @@
           %th{ colspan: subjects.values.sum(&:size) }
             = theme.label
             - if theme.territories.any?
-              %span.ri-map-2-line.blue.fr-ml-1v
+              %span.ri-map-2-line.blue.fr-ml-1v{ aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.theme_with_specific_territories') }
       %tr.subjects
         -# Subjects columns, first row: the subjects, column-spanned for the remaining header row
         - grouped_subjects.each_value do |subjects|
@@ -20,17 +20,16 @@
             %th{ colspan: institutions_subjects.size, title: subject.label }
               = subject.label.truncate(30)
       %tr.users-count
-        - if referencement_coverages
-          - grouped_subjects.each_value do |subjects|
-            - subjects.each_value do |institutions_subjects|
-              - institutions_subjects.each do |institution_subject|
-                - referencement_coverage = referencement_coverages.find_by(institution_subject: institution_subject)
-                - if referencement_coverage.present?
-                  - alert_classe = referencement_coverage.no_anomalie? ? 'success-table-cell' : 'error-table-cell'
-                  %th.coverage-table-cell
-                    %button{ class: "coverage-modal-button #{alert_classe}", 'aria-controls': "modal-coverage-#{referencement_coverage.id}", 'data-fr-opened': 'false', title: referencement_coverage_cell_title(referencement_coverage) }
-                      = t(referencement_coverage.coverage, scope: 'activerecord.attributes.referencement_coverage/coverage.short', default: "?")
-                  = render 'referencement_coverage_modal', referencement_coverage: referencement_coverage
+        - grouped_subjects.each_value do |subjects|
+          - subjects.each_value do |institutions_subjects|
+            - institutions_subjects.each do |institution_subject|
+              %th.coverage-table-cell
+                - if large_search?(grouped_experts, grouped_subjects)
+                  = turbo_frame_tag "institution-subject-#{institution_subject.id}" do
+                    = render 'lazy_coverage', institution_subject: institution_subject
+                - else
+                  = turbo_frame_tag "institution-subject-#{institution_subject.id}", src: create_territorial_coverage_institution_users_path(institution_subject_id: institution_subject.id, antenne_id: params[:antenne_id]) do
+                    = render 'skeleton_coverage'
 
     %tbody
       - grouped_experts.each do |antenne, experts|
@@ -51,6 +50,8 @@
                 %td.td-header.td-header--expert{ rowspan: users.size }
                   - if expert.persisted?
                     = link_to expert.full_name, admin_expert_path(expert), title: t('.expert', expert_name: expert.full_name, antenne: antenne)
+                    - if expert.territorial_zones.any?
+                      %span.ri-map-2-line.blue.fr-ml-1v{ aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.specific_territories') }
 
               -# user cell
               %td.td-header.td-header--user

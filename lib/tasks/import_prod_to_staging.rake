@@ -5,7 +5,7 @@ namespace :import_prod_to_staging do
   # Documentation : https://doc.scalingo.com/databases/postgresql/dump-restore
 
   def pgsql_filename
-    @pgsql_filename ||= 'tmp/export_prod.pgsql'
+    @pgsql_filename ||= 'tmp/export_prod.sql'
   end
 
   def setup_prod_tunnel
@@ -38,7 +38,16 @@ namespace :import_prod_to_staging do
     dbname = username
     database_url = "postgresql://#{username}:#{pw}@127.0.0.1:10000/#{dbname}"
 
-    sh "pg_dump --clean --if-exists --format c --dbname #{database_url} --no-owner --no-privileges --no-comments --exclude-schema 'information_schema' --exclude-schema '^pg_*' --file #{pgsql_filename}"
+    temp_sql_filename = 'tmp/export_prod_temp.sql'
+
+    # Create a plain SQL dump
+    sh "pg_dump --clean --if-exists --dbname #{database_url} --no-owner --no-privileges --no-comments --exclude-schema 'information_schema' --exclude-schema '^pg_*' --file #{temp_sql_filename}"
+
+    # Filter out transaction_timeout for compatibility with PostgreSQL < 17
+    sh "grep -v 'SET transaction_timeout' #{temp_sql_filename} > #{pgsql_filename}"
+
+    # Clean up temp file
+    FileUtils.rm_f(temp_sql_filename)
 
     kill_prod_tunnel
   end
@@ -55,7 +64,8 @@ namespace :import_prod_to_staging do
     dbname = username
     database_url = "postgresql://#{username}:#{pw}@127.0.0.1:10000/#{dbname}"
 
-    sh "pg_restore --clean --if-exists --no-owner --no-privileges --no-comments --dbname #{database_url} #{pgsql_filename}"
+    # Import the filtered SQL dump
+    sh "psql --dbname #{database_url} --file #{pgsql_filename}"
 
     kill_staging_tunnel
   end

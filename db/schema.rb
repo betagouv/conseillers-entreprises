@@ -325,7 +325,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "naf_code"
     t.string "readable_locality"
-    t.bigint "commune_id", null: false
     t.string "code_effectif"
     t.string "naf_libelle"
     t.string "naf_code_a10"
@@ -333,7 +332,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
     t.float "effectif"
     t.string "nature_activites", default: [], array: true
     t.string "nafa_codes", default: [], array: true
-    t.index ["commune_id"], name: "index_facilities_on_commune_id"
+    t.string "insee_code", null: false
     t.index ["company_id"], name: "index_facilities_on_company_id"
     t.index ["opco_id"], name: "index_facilities_on_opco_id"
     t.index ["siret"], name: "index_facilities_on_siret", unique: true, where: "((siret)::text <> NULL::text)"
@@ -531,18 +530,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
     t.index ["user_id"], name: "index_profil_pictures_on_user_id", unique: true
   end
 
-  create_table "referencement_coverages", force: :cascade do |t|
-    t.bigint "antenne_id", null: false
-    t.bigint "institution_subject_id", null: false
-    t.string "coverage"
-    t.integer "anomalie"
-    t.json "anomalie_details"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["antenne_id"], name: "index_referencement_coverages_on_antenne_id"
-    t.index ["institution_subject_id"], name: "index_referencement_coverages_on_institution_subject_id"
-  end
-
   create_table "reminders_actions", force: :cascade do |t|
     t.bigint "need_id", null: false
     t.datetime "created_at", null: false
@@ -663,6 +650,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
     t.index ["theme_id"], name: "index_subjects_on_theme_id"
   end
 
+  create_table "territorial_zones", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "zone_type", null: false
+    t.string "regions_codes", default: [], array: true
+    t.string "zoneable_type", null: false
+    t.bigint "zoneable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code", "zone_type", "zoneable_type", "zoneable_id"], name: "idx_on_code_zone_type_zoneable_type_zoneable_id_0c5f85b4e4", unique: true
+    t.index ["zoneable_type", "zoneable_id"], name: "index_territorial_zones_on_zoneable"
+  end
+
   create_table "territories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
@@ -772,7 +771,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
   add_foreign_key "experts_subjects", "institutions_subjects"
   add_foreign_key "experts_users", "experts"
   add_foreign_key "experts_users", "users"
-  add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
   add_foreign_key "facilities", "institutions", column: "opco_id"
   add_foreign_key "feedbacks", "users"
@@ -787,8 +785,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
   add_foreign_key "profil_pictures", "users"
-  add_foreign_key "referencement_coverages", "antennes"
-  add_foreign_key "referencement_coverages", "institutions_subjects"
   add_foreign_key "reminders_actions", "needs"
   add_foreign_key "reminders_registers", "experts"
   add_foreign_key "shared_satisfactions", "company_satisfactions"

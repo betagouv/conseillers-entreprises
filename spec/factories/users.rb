@@ -58,6 +58,16 @@ FactoryBot.define do
       end
     end
 
+    trait :territorial_referent do
+      antenne factory: [:antenne, :with_experts_subjects], strategy: :create
+      after(:create) do |user, _|
+        user.user_rights.create(category: 'admin')
+        territorial_zone = build(:territorial_zone, :region, code: '52')
+        user.user_rights.create(category: 'territorial_referent', territorial_zone: territorial_zone)
+        territorial_zone.save!
+      end
+    end
+
     trait :main_referent do
       antenne factory: [:antenne, :with_experts_subjects], strategy: :create
       after(:create) do |user, _|

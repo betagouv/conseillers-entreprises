@@ -35,7 +35,7 @@ module PersistedSearch
   end
 
   def define_territory_options
-    options = Territory.regions.pluck(:name, :id)
+    options = RegionOrderingService.call.map { |region| [region.nom, region.code] }
     options.push(territory_options_complement) if defined?(territory_options_complement)
     options
   end
