@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_28_143011) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -454,12 +455,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_28_143011) do
   end
 
   create_table "logos", force: :cascade do |t|
-    t.string "filename"
-    t.string "name"
+    t.string "filename", null: false
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "logoable_type"
-    t.bigint "logoable_id"
+    t.string "logoable_type", null: false
+    t.bigint "logoable_id", null: false
     t.index ["logoable_type", "logoable_id"], name: "index_logos_on_logoable"
   end
 

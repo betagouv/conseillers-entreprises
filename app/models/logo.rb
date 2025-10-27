@@ -3,12 +3,12 @@
 # Table name: logos
 #
 #  id            :bigint(8)        not null, primary key
-#  filename      :string
-#  logoable_type :string
-#  name          :string
+#  filename      :string           not null
+#  logoable_type :string           not null
+#  name          :string           not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  logoable_id   :bigint(8)
+#  logoable_id   :bigint(8)        not null
 #
 # Indexes
 #
@@ -17,7 +17,8 @@
 class Logo < ApplicationRecord
   belongs_to :logoable, polymorphic: true
 
-  validates :filename, presence: true, allow_blank: false
+  validates :filename, :name, :logoable_type, :logoable_id, presence: true, allow_blank: false
+  validates :logoable_type, inclusion: { in: [Institution, Cooperation].map(&:name) }
 
   def to_s
     name
