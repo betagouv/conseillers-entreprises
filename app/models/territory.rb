@@ -41,9 +41,6 @@ class Territory < ApplicationRecord
   has_many :bassins_emploi, -> { distinct.bassins_emploi }, through: :communes, source: :territories
 
   # :facilities
-  has_many :diagnoses, through: :facilities, inverse_of: :facility_territories
-  has_many :needs, through: :facilities, inverse_of: :facility_territories
-  has_many :matches, through: :facilities, inverse_of: :facility_territories
   has_many :companies, through: :facilities, inverse_of: :territories
 
   ## Scopes
