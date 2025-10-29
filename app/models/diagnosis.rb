@@ -65,7 +65,6 @@ class Diagnosis < ApplicationRecord
   #
   # :facility
   has_one :company, through: :facility, inverse_of: :diagnoses
-  has_many :facility_territories, through: :facility, source: :territories, inverse_of: :diagnoses
 
   # :needs
   has_many :subjects, through: :needs, inverse_of: :diagnoses
@@ -183,7 +182,7 @@ class Diagnosis < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [
       "advisor", "advisor_antenne", "advisor_institution", "company", "contacted_users", "expert_antennes",
-      "expert_institutions", "experts", "facility", "facility_territories", "matches", "needs", "solicitation", "subjects",
+      "expert_institutions", "experts", "facility", "matches", "needs", "solicitation", "subjects",
       "themes", "visitee"
     ]
   end

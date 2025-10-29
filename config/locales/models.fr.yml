@@ -1017,7 +1017,6 @@ fr:
     diagnosis: Analyse
     diagnosis_created_at: Date de l’analyse
     diagnosis_id: Id de l’analyse
-    diagnosis_regions: Région
     display_logo_in_partner_list: Afficher le logo dans la liste des institutions conseillères (page remerciement, etc)
     display_logo_on_home_page: Afficher le logo sur la page d’accueil
     display_url: Url affichée
@@ -1046,7 +1045,6 @@ fr:
     facility_nature_activites: Nature des activités
     facility_region: Région de l’établissement
     facility_regions: Région de l’établissement
-    facility_territories: Territoires des établissements
     feedbacks:
       one: Commentaire
       other: Commentaires

@@ -59,8 +59,6 @@ class Solicitation < ApplicationRecord
   has_one :theme, through: :subject, source: :theme, inverse_of: :subjects
 
   has_one :diagnosis, inverse_of: :solicitation
-  # TODO a modifier
-  # has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
   has_one :facility, through: :diagnosis, source: :facility, inverse_of: :diagnoses
   has_one :visitee, through: :diagnosis, source: :visitee, inverse_of: :diagnoses
   has_one :company, through: :facility, source: :company, inverse_of: :facilities
@@ -749,7 +747,7 @@ end
 
   def self.ransackable_associations(auth_object = nil)
     [
-      "badge_badgeables", "badges", "diagnosis", "diagnosis_regions", "facility", "company", "feedbacks", "institution", "cooperation",
+      "badge_badgeables", "badges", "diagnosis", "facility", "company", "feedbacks", "institution", "cooperation",
       "subject_answers", "landing", "landing_subject", "landing_theme", "matches", "needs", "subject", "theme", "visitee"
     ]
   end

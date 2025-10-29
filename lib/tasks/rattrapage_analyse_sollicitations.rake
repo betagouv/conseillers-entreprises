@@ -22,7 +22,7 @@ namespace :rattrapage_analyse do
     puts "Sollicitations sans code region des #{@days_count} derniers jours : #{solicitations_to_update.count}"
     total = 0
     solicitations_to_update.find_each do |solicitation|
-      code_region = solicitation.diagnosis_regions&.first&.code_region
+      code_region = solicitation.diagnosis.facility.region
       if code_region.present?
         solicitation.update(code_region: code_region)
         total += 1
