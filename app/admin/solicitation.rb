@@ -16,11 +16,6 @@ ActiveAdmin.register Solicitation do
   before_action only: :index do
     init_landing_subjects_filter
     init_subjects_filter
-    # Mettre filtre solicitation complète par défaut, pour faciliter export
-    if params[:commit].blank? && params[:q].blank?
-      extra_params = { q: { completion_eq: "step_complete" } }
-      params.merge! extra_params
-    end
   end
 
   scope :step_complete, default: true
