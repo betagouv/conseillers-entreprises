@@ -281,6 +281,10 @@ class Expert < ApplicationRecord
       experts_ids << Expert.joins(:territorial_zones).where(territorial_zones: { code: territories[zone_type].code, zone_type: zone_type }, is_global_zone: false).distinct.ids
       experts_ids << Expert.joins(antenne: :territorial_zones).where(territorial_zones: { code: territories[zone_type].code, zone_type: zone_type }).distinct.ids
     end
+
+    # Include global experts
+    experts_ids << Expert.where(is_global_zone: true).ids
+
     where(id: experts_ids.uniq.flatten)
   }
 
