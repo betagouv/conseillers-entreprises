@@ -16,11 +16,6 @@ ActiveAdmin.register Solicitation do
   before_action only: :index do
     init_landing_subjects_filter
     init_subjects_filter
-    # Mettre filtre solicitation complète par défaut, pour faciliter export
-    if params[:commit].blank? && params[:q].blank?
-      extra_params = { q: { completion_eq: "step_complete" } }
-      params.merge! extra_params
-    end
   end
 
   scope :step_complete, default: true
@@ -201,6 +196,7 @@ ActiveAdmin.register Solicitation do
       row(:code_region) do |i|
         I18n.t(i.code_region, scope: 'regions_codes_to_libelles', default: "")
       end
+      row :location
     end
 
     attributes_table title: t('activerecord.attributes.solicitation.tracking') do

@@ -317,6 +317,39 @@ RSpec.describe Expert do
         it { expect_expert_with_commune }
       end
     end
+
+    context "Expert avec territoires spécifiques mais dont l'antenne couvre la commune" do
+      # Bug fix: Un expert avec des zones spécifiques qui ne couvrent PAS la commune
+      # ne doit PAS ressortir même si son antenne couvre cette commune.
+      # Avant le fix, l'expert ressortait à tort car le scope n'excluait pas
+      # les experts avec zones spécifiques de la recherche basée sur l'antenne.
+
+      let(:insee_code) { "35294" } # Sainte-Marie, Ille-et-Vilaine
+      # Cette commune est dans le département 35, EPCI 243500741
+
+      # Antenne qui couvre tout le département 35
+      let(:antenne_dept_35) { create :antenne, territorial_zones: [create(:territorial_zone, :departement, code: "35")] }
+
+      # Expert sans zones spécifiques : devrait ressortir (hérite de l'antenne)
+      let!(:expert_without_zones) { create :expert, :with_expert_subjects, antenne: antenne_dept_35 }
+
+      # Expert avec zones spécifiques (autres communes du 35) : ne devrait PAS ressortir
+      # car ses zones ne couvrent pas la commune 35294
+      let!(:expert_with_other_zones) do
+        create :expert, :with_expert_subjects, antenne: antenne_dept_35, territorial_zones: [
+          create(:territorial_zone, :commune, code: "35001"), # Acigné
+          create(:territorial_zone, :commune, code: "35051")  # Cesson-Sévigné
+        ]
+      end
+
+      subject { described_class.in_commune(insee_code) }
+
+      it "n'inclut pas l'expert avec zones spécifiques qui ne couvrent pas la commune" do
+        expect(subject).to include(expert_without_zones)
+        expect(subject).not_to include(expert_with_other_zones)
+        expect(subject.count).to eq 1
+      end
+    end
   end
 
   describe '#with_identical_user?' do

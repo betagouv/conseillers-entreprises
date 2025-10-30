@@ -69,7 +69,8 @@ yarn-debug.log*
 
 /config/master.key
 /.mise.toml
-/certbot!/
+/certbot/
 
-# Claude AI agents
+# AI agents
 .claude/
+/GEMINI.md
