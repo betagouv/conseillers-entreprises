@@ -352,6 +352,85 @@ RSpec.describe Expert do
     end
   end
 
+  describe "by_insee_code" do
+    # Commune 47203 : Penne-d'Agenais
+    # EPCI 200068930 : Communauté de communes Fumel Vallée du Lot
+    # Département 47 : Lot-et-Garonne
+    # Région 75 : Nouvelle-Aquitaine
+
+    let(:insee_code) { "47203" }
+
+    subject { described_class.by_insee_code(insee_code) }
+
+    context "Expert with specific territorial zones" do
+      context "EPCI covering the commune" do
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :epci, code: "200068930")] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :epci, code: "200054781")] }
+
+        it "includes expert with matching zone" do
+          expect(subject).to include(expert_with_code)
+          expect(subject).not_to include(expert_without_code)
+        end
+      end
+
+      context "Department covering the commune" do
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :departement, code: "47")] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :departement, code: "72")] }
+
+        it "includes expert with matching zone" do
+          expect(subject).to include(expert_with_code)
+          expect(subject).not_to include(expert_without_code)
+        end
+      end
+
+      context "Region covering the commune" do
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :region, code: "75")] }
+        let!(:expert_without_code) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :region, code: "76")] }
+
+        it "includes expert with matching zone" do
+          expect(subject).to include(expert_with_code)
+          expect(subject).not_to include(expert_without_code)
+        end
+      end
+    end
+
+    context "Expert via antenne territorial zones" do
+      let(:antenne_with_code) { create :antenne, territorial_zones: [create(:territorial_zone, :departement, code: "47")] }
+      let!(:expert_with_code) { create :expert, :with_expert_subjects, antenne: antenne_with_code }
+      let(:antenne_without_code) { create :antenne, territorial_zones: [create(:territorial_zone, :departement, code: "72")] }
+      let!(:expert_without_code) { create :expert, :with_expert_subjects, antenne: antenne_without_code }
+
+      it "includes expert whose antenne covers the commune" do
+        expect(subject).to include(expert_with_code)
+        expect(subject).not_to include(expert_without_code)
+      end
+    end
+
+    context "Global expert (is_global_zone: true)" do
+      let!(:global_expert) { create :expert, :with_expert_subjects, is_global_zone: true }
+      let!(:local_expert) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :departement, code: "72")] }
+
+      it "includes global expert regardless of insee code" do
+        expect(subject).to include(global_expert)
+        expect(subject).not_to include(local_expert)
+      end
+    end
+
+    context "Multiple experts with different zone types" do
+      let(:antenne_dept) { create :antenne, territorial_zones: [create(:territorial_zone, :departement, code: "47")] }
+      let!(:expert_via_antenne) { create :expert, :with_expert_subjects, antenne: antenne_dept }
+      let!(:expert_with_region) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :region, code: "75")] }
+      let!(:global_expert) { create :expert, :with_expert_subjects, is_global_zone: true }
+      let!(:expert_without_match) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :departement, code: "35")] }
+
+      it "includes all matching experts including global" do
+        expect(subject).to include(expert_via_antenne, expert_with_region, global_expert)
+        expect(subject).not_to include(expert_without_match)
+        expect(subject.count).to eq 3
+      end
+    end
+  end
+
   describe '#with_identical_user?' do
     let(:user) { build :user, email: 'numerobis@architecte.com', full_name: 'Numérobis' }
     let(:expert) { build :expert, email: 'numerobis@architecte.com', full_name: 'Numérobis', users: [user] }
