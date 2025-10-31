@@ -89,7 +89,6 @@ export default class extends Controller {
   suggestionTemplate (result) {
     if (result) {
       let expertSubjects = result.experts_subjects.map(es => `<li>${es.institution_subject_description}</li>`).join('')
-      console.log(result);
       let sourceBadge = '';
       if (result.source == 'secondary') {
         sourceBadge = `<span class="fr-badge fr-badge--sm fr-badge--warning">Hors territoire</span>`;
