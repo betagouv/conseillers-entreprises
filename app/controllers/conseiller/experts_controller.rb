@@ -27,7 +27,9 @@ class Conseiller::ExpertsController < ApplicationController
     expert_with_code_size = @experts.size
 
     if expert_with_code_size < 10
+      primary_ids = @experts.pluck(:id)
       additional_experts = base_query
+        .where.not(id: primary_ids)
         .limit(10 - expert_with_code_size)
         .select("experts.*, 'secondary' AS source")
       @experts = @experts.to_a.concat(additional_experts.to_a)
