@@ -170,7 +170,7 @@ class User < ApplicationRecord
   end
 
   scope :currently_absent, -> {
-    where('absence_start_at < ? AND absence_end_at > ?', Time.current, Time.current)
+    where('users.absence_start_at < ? AND users.absence_end_at > ?', Time.current, Time.current)
   }
 
   # Search
