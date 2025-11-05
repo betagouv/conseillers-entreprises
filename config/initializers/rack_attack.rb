@@ -118,5 +118,7 @@ class Rack::Attack
     [ 403, {}, ['Forbidden']]
   end
 
-  Rack::Attack.enabled = true
+  # Disabled because rate limiting is handled by Ubika WAF
+  # Keeping this enabled would create duplicate rate limiting and cause false positives
+  Rack::Attack.enabled = false
 end
