@@ -72,6 +72,16 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
+  # Trust WAF Ubika/OVH proxies to read real client IP from X-Forwarded-For header
+  # This is required for accurate logging and analytics (shows real client IPs instead of proxy IPs)
+  # See: https://api.rubyonrails.org/classes/ActionDispatch/RemoteIp.html
+  if ENV['WAF_PROXY_IPS'].present?
+    config.action_dispatch.trusted_proxies = ENV['WAF_PROXY_IPS']
+      .split(',')
+      .map(&:strip)
+      .map { |ip| IPAddr.new(ip) }
+  end
+
   # Skip http-to-https redirect for the default health check endpoint.
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 

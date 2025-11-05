@@ -3,7 +3,7 @@ module Stats::Filters
     private
 
     def territories_filter(region_code)
-      return if region_code.nil?
+      return if region_code.blank?
       @query.merge! Company.by_region(region_code)
     end
 
