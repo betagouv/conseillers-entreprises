@@ -154,7 +154,7 @@ class CreateTerritorialCoverage
   def extra_insee_codes(code_experts_users_hash)
     extra_objects = code_experts_users_hash.select{ |_,v| v.size > 1 }
     extra_codes = extra_objects.keys
-    extra_experts = extra_experts_ids(extra_objects)
+    extra_experts = Expert.where(id: extra_experts_ids(extra_objects))
     {
       anomalie: :extra_insee_codes,
       anomalie_details: {
@@ -217,9 +217,9 @@ class CreateTerritorialCoverage
     end
   end
 
-  def get_match_filters(expert_ids = nil)
+  def get_match_filters(experts = nil)
     # Filter experts by provided IDs if specified, otherwise use all experts
-    experts_to_check = expert_ids ? Expert.where(id: expert_ids) : @all_experts
+    experts_to_check = experts || @all_experts
     expert_ids_to_check = experts_to_check.pluck(:id)
     antenne_ids_to_check = experts_to_check.pluck(:antenne_id).uniq
 

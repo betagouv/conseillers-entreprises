@@ -147,7 +147,7 @@ describe CreateTerritorialCoverage do
             expect(subject[:institution_subject_id]).to eq(institution_subject.id)
             expect(subject[:coverage]).to eq(:local)
             expect(subject[:anomalie]).to eq(:extra_insee_codes)
-            expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert1.id, local_expert2.id)
+            expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert1, local_expert2)
             expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
             expect(subject[:anomalie_details][:extra_insee_codes].last[:territories]).to eq [{ :code => "72026", :name => "Beaufay" }, { :code => "72039", :name => "Bonnétable" }, { :code => "72048", :name => "Briosne-lès-Sables" }, { :code => "72148", :name => "Jauzé" }]
           end
@@ -164,7 +164,7 @@ describe CreateTerritorialCoverage do
             expect(subject[:institution_subject_id]).to eq(institution_subject.id)
             expect(subject[:coverage]).to eq(:local)
             expect(subject[:anomalie]).to eq(:extra_insee_codes)
-            expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert1.id, local_expert2.id)
+            expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert1, local_expert2)
             expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
             expect(subject[:anomalie_details][:extra_insee_codes].last[:territories]).to eq [{ :code => "72026", :name => "Beaufay" }, { :code => "72039", :name => "Bonnétable" }, { :code => "72048", :name => "Briosne-lès-Sables" }, { :code => "72148", :name => "Jauzé" }]
           end
@@ -288,7 +288,7 @@ describe CreateTerritorialCoverage do
             expect(subject[:institution_subject_id]).to eq(institution_subject.id)
             expect(subject[:coverage]).to eq(:regional)
             expect(subject[:anomalie]).to eq(:extra_insee_codes)
-            expect(subject[:anomalie_details][:experts]).to contain_exactly(regional_expert1.id, regional_expert2.id)
+            expect(subject[:anomalie_details][:experts]).to contain_exactly(regional_expert1, regional_expert2)
             expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
             expect(subject[:anomalie_details][:extra_insee_codes].last[:territories]).to eq [{ :code => "72026", :name => "Beaufay" }, { :code => "72039", :name => "Bonnétable" }, { :code => "72048", :name => "Briosne-lès-Sables" }, { :code => "72148", :name => "Jauzé" }]
           end
@@ -305,7 +305,7 @@ describe CreateTerritorialCoverage do
             expect(subject[:institution_subject_id]).to eq(institution_subject.id)
             expect(subject[:coverage]).to eq(:regional)
             expect(subject[:anomalie]).to eq(:extra_insee_codes)
-            expect(subject[:anomalie_details][:experts]).to contain_exactly(regional_expert1.id, regional_expert2.id)
+            expect(subject[:anomalie_details][:experts]).to contain_exactly(regional_expert1, regional_expert2)
             expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
             expect(subject[:anomalie_details][:extra_insee_codes].last[:territories]).to eq [{ :code => "72026", :name => "Beaufay" }, { :code => "72039", :name => "Bonnétable" }, { :code => "72048", :name => "Briosne-lès-Sables" }, { :code => "72148", :name => "Jauzé" }]
           end
@@ -322,7 +322,7 @@ describe CreateTerritorialCoverage do
             expect(subject[:institution_subject_id]).to eq(institution_subject.id)
             expect(subject[:coverage]).to eq(:mixte)
             expect(subject[:anomalie]).to eq(:extra_insee_codes)
-            expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert.id, regional_expert.id)
+            expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert, regional_expert)
             expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
             expect(subject[:anomalie_details][:extra_insee_codes].last[:territories]).to eq [{ :code => "72026", :name => "Beaufay" }, { :code => "72039", :name => "Bonnétable" }, { :code => "72048", :name => "Briosne-lès-Sables" }, { :code => "72148", :name => "Jauzé" }]
           end
@@ -339,7 +339,7 @@ describe CreateTerritorialCoverage do
             expect(subject[:institution_subject_id]).to eq(institution_subject.id)
             expect(subject[:coverage]).to eq(:mixte)
             expect(subject[:anomalie]).to eq(:extra_insee_codes)
-            expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert.id, regional_expert.id)
+            expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert, regional_expert)
             expect(subject[:anomalie_details][:extra_insee_codes].last[:zone_type]).to eq :communes
             expect(subject[:anomalie_details][:extra_insee_codes].last[:territories]).to eq [{ :code => "72026", :name => "Beaufay" }, { :code => "72039", :name => "Bonnétable" }, { :code => "72048", :name => "Briosne-lès-Sables" }, { :code => "72148", :name => "Jauzé" }]
           end
@@ -433,7 +433,7 @@ describe CreateTerritorialCoverage do
           expect(subject[:institution_subject_id]).to eq(institution_subject.id)
           expect(subject[:coverage]).to eq(:local)
           expect(subject[:anomalie]).to eq(:extra_insee_codes)
-          expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert1.id, local_expert2.id)
+          expect(subject[:anomalie_details][:experts]).to contain_exactly(local_expert1, local_expert2)
           expect(subject[:anomalie_details][:extra_insee_codes]).to eq [{ :zone_type => :regions, :territories => [] }, { :zone_type => :departements, :territories => [{ :code => "42", :name => "Loire" }] }, { :zone_type => :epcis, :territories => [] }, { :zone_type => :communes, :territories => [] }]
         end
       end

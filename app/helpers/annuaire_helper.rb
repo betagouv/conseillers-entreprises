@@ -81,8 +81,7 @@ module AnnuaireHelper
 
   def display_experts(value)
     content_tag(:ul) do
-      value.map do |expert_id|
-        expert = Expert.find(expert_id)
+      value.map do |expert|
         content_tag(:li, link_to(expert.full_name, admin_expert_path(expert), 'data-turbo': false))
       end.join.html_safe
     end
