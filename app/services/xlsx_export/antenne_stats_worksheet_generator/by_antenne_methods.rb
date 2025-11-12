@@ -44,32 +44,14 @@ module XlsxExport
       end
 
       def finalise_by_antenne_calculation_style(start_row = 5, territorial_antennes_count = @antenne.territorial_antennes.count)
-        # highlight positionning
+        # highlight positionning (D), positionning_accepted (E), done (F).
         last_row = territorial_antennes_count + (start_row)
-        sheet.add_conditional_formatting("D#{start_row}:D#{last_row}",
+        sheet.add_conditional_formatting("D#{start_row}:F#{last_row}",
           type: :cellIs,
           operator: :lessThan,
-          formula: format_rate_for_print(@rate_positionning),
+          formula: "D$#{start_row - 1}", # The cell of @rate_positioning; the column is relative, the row is absolute.
           dxfId: @blue_bg,
           priority: 1)
-        # highlight positionning_accepted
-        sheet.add_conditional_formatting("E#{start_row}:E#{last_row}",
-          type: :cellIs,
-          operator: :lessThan,
-          formula: format_rate_for_print(@rate_positionning_accepted),
-          dxfId: @blue_bg,
-          priority: 1)
-        # highlight done
-        sheet.add_conditional_formatting("F#{start_row}:F#{last_row}",
-          type: :cellIs,
-          operator: :lessThan,
-          formula: format_rate_for_print(@rate_done),
-          dxfId: @blue_bg,
-          priority: 1)
-      end
-
-      def format_rate_for_print(rate)
-        "%.1f%%" % (100 * rate)
       end
     end
   end
