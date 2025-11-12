@@ -1197,6 +1197,8 @@ fr:
         visits: Visites par un conseiller
       transmitted_needs:
         title: Besoins transmis
+      users:
+        ministats: Conseillers experts
     skeleton_card:
       loading: Graphique en cours de chargement...
     stats_chart:
