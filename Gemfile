@@ -16,6 +16,7 @@ gem 'rails', '~> 7.2.2'
 gem 'foreman'
 gem 'pg'
 gem 'puma'
+gem 'openssl', '>= 3.3.1' # See issue #4090
 
 # Assets
 gem 'haml-rails'
