@@ -45,7 +45,7 @@ module XlsxExport
 
       def finalise_by_antenne_calculation_style(start_row = 5, territorial_antennes_count = @antenne.territorial_antennes.count)
         # highlight positionning
-        last_row = territorial_antennes_count + (start_row - 1)
+        last_row = territorial_antennes_count + (start_row)
         sheet.add_conditional_formatting("D#{start_row}:D#{last_row}",
           type: :cellIs,
           operator: :lessThan,
