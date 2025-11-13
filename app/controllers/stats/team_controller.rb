@@ -34,7 +34,9 @@ module Stats
       @charts_names = %w[
         needs_transmitted matches_positioning matches_taking_care matches_done
         matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
-        matches_taken_care_in_three_days matches_taken_care_in_five_days needs_themes_all needs_subjects_all
+        matches_taken_care_in_three_days matches_taken_care_in_five_days
+      ] + themes_subjects_charts +
+      %w[
         companies_by_employees companies_by_naf_code
       ]
       render :index
@@ -80,7 +82,33 @@ module Stats
 
     def set_stats_params
       @stats_params = stats_params
+      @stats_params[:has_external_cooperation] = base_needs_for_filters.from_external_cooperation.exists?
       session[:team_stats_params] = @stats_params
+    end
+
+    def themes_subjects_charts
+      if @stats_params[:has_external_cooperation]
+        %w[needs_themes_not_from_external_cooperation needs_themes_from_external_cooperation needs_subjects_not_from_external_cooperation needs_subjects_from_external_cooperation]
+      else
+        %w[needs_themes_all needs_subjects_all]
+      end
+    end
+
+    def base_needs_for_filters
+      @base_needs_for_filters ||= begin
+        # Build base scope similar to Stats::Needs::Base
+        base_scope = Need.diagnosis_completed
+          .joins(:diagnosis).merge(Diagnosis.from_solicitation)
+          .where(created_at: @stats_params[:start_date]..@stats_params[:end_date])
+
+        # Apply filters using Stats::Filters::Needs
+        graph_struct = OpenStruct.new(@stats_params)
+        graph_struct.antenne_or_institution = Antenne.find_by(id: @stats_params[:antenne_id]).presence ||
+                                               Institution.find_by(id: @stats_params[:institution_id]).presence
+        # Calculate with_agglomerate_data similar to Stats::BaseStats
+        graph_struct.with_agglomerate_data = @stats_params[:antenne_id].to_s.include?('locales') if @stats_params[:antenne_id].present?
+        Stats::Filters::Needs.new(base_scope, graph_struct).call.distinct
+      end
     end
   end
 end
