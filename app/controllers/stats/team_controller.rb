@@ -3,7 +3,6 @@ module Stats
     include LoadFilterOptions
 
     before_action :authorize_team
-    before_action :clear_institution_params, only: :public
     before_action :init_filters, except: %i[search_antennes]
     before_action :clean_public_filters, only: :public
     before_action :set_stats_params, only: %i[public needs matches acquisition]
@@ -13,7 +12,6 @@ module Stats
     end
 
     def public
-      @disable_institution_filters = true
       @charts_names = %w[
         solicitations_completed solicitations_diagnoses needs_exchange_with_expert needs_done
         needs_taken_care_in_three_days needs_taken_care_in_five_days
@@ -61,11 +59,6 @@ module Stats
 
     private
 
-    def clear_institution_params
-      params.delete(:institution_id)
-      params.delete(:antenne_id)
-    end
-
     def authorize_team
       authorize Stats::All, :team?
     end
@@ -82,7 +75,7 @@ module Stats
 
     def set_stats_params
       @stats_params = stats_params
-      @stats_params[:has_external_cooperation] = base_needs_for_filters.from_external_cooperation.exists?
+      @stats_params[:has_external_cooperation] = base_needs_for_filters.from_external_cooperation.limit(1).any?
       session[:team_stats_params] = @stats_params
     end
 
