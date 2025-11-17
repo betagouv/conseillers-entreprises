@@ -51,7 +51,13 @@ module Stats
 
     def load_data
       name = params.permit(:chart_name)[:chart_name]
-      data = Rails.cache.fetch(['team-public-stats', name, session[:team_stats_params]], expires_in: 6.hours) do
+      cache_key = [
+        'team-public-stats',
+        name,
+        session[:team_stats_params],
+        session.dig(:team_stats_params, :has_external_cooperation)
+      ]
+      data = Rails.cache.fetch(cache_key, expires_in: 6.hours) do
         invoke_stats(name, session[:team_stats_params])
       end
       render_partial(data, name)
@@ -81,7 +87,12 @@ module Stats
 
     def themes_subjects_charts
       if @stats_params[:has_external_cooperation]
-        %w[needs_themes_not_from_external_cooperation needs_themes_from_external_cooperation needs_subjects_not_from_external_cooperation needs_subjects_from_external_cooperation]
+        %w[
+          needs_themes_not_from_external_cooperation
+          needs_themes_from_external_cooperation
+          needs_subjects_not_from_external_cooperation
+          needs_subjects_from_external_cooperation
+        ]
       else
         %w[needs_themes_all needs_subjects_all]
       end
