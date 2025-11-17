@@ -63,26 +63,12 @@ module XlsxExport
       private
 
       def finalise_by_territory_calculation_style(start_row = 5)
-        # highlight positionning
+        # highlight positionning (D), positionning_accepted (E), done (F).
         last_row = Territory.regions.count + (start_row - 1)
-        sheet.add_conditional_formatting("D#{start_row}:D#{last_row}",
+        sheet.add_conditional_formatting("D#{start_row}:F#{last_row}",
           type: :cellIs,
           operator: :lessThan,
-          formula: format_rate_for_print(@rate_positionning),
-          dxfId: @pink_bg,
-          priority: 1)
-        # highlight positionning_accepted
-        sheet.add_conditional_formatting("E#{start_row}:E#{last_row}",
-          type: :cellIs,
-          operator: :lessThan,
-          formula: format_rate_for_print(@rate_positionning_accepted),
-          dxfId: @pink_bg,
-          priority: 1)
-        # highlight done
-        sheet.add_conditional_formatting("F#{start_row}:F#{last_row}",
-          type: :cellIs,
-          operator: :lessThan,
-          formula: format_rate_for_print(@rate_done),
+          formula: "D$#{start_row - 1}", # The cell of @rate_positioning; the column is relative, the row is absolute.
           dxfId: @pink_bg,
           priority: 1)
       end
