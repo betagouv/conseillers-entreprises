@@ -5,7 +5,7 @@
       = f.label :by_region, t('attributes.region'), class: 'fr-label'
       = f.select(:by_region,
         options_for_select(possible_territories_options, index_search_params[:by_region]),
-        options.dup, { class: 'fr-select fr-m-0' })
+        options.dup, { class: 'fr-select' })
     .fr-col-md-6.fr-col-12
   .fr-grid-row.fr-grid-row--gutters
     .fr-col-md-6.fr-col-12
