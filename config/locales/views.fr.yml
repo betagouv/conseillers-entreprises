@@ -336,10 +336,6 @@ fr:
         search: Rechercher
         search_placeholder: Tag, aide demandée…
         title: Sollicitations
-      menu:
-        canceled: Abandonnées
-        index_html: Reçues
-        processed: Mises en relation
       retry_diagnosis:
         prepare_diagnosis_retry: Réessayer
         start_auto_diagnosis: Analyse automatique
@@ -367,6 +363,10 @@ fr:
         start_diagnosis: Démarrer une analyse
       solicitation_badges:
         add_remove_badges: Ajouter / Enlever des tags
+      titles:
+        canceled: Abandonnées
+        index: Reçues
+        processed: Mises en relation
     suivi_qualite:
       index:
         no_results: Aucun résultat

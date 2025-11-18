@@ -1,1 +1,5 @@
-%h1.fr-h2= title
+%h1.fr-h2
+  = title
+
+- current_page = t(controller.action_name, scope: [:conseiller, :solicitations, :titles], default: title)
+= render 'shared/breadcrumb', pages: [{ title: t("solicitations.index.title"), path: conseiller_solicitations_path }], current_page: current_page
