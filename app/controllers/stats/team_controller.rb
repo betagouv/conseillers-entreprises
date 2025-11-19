@@ -54,8 +54,7 @@ module Stats
       cache_key = [
         'team-public-stats',
         name,
-        session[:team_stats_params],
-        session.dig(:team_stats_params, :has_external_cooperation)
+        session[:team_stats_params]
       ]
       data = Rails.cache.fetch(cache_key, expires_in: 6.hours) do
         invoke_stats(name, session[:team_stats_params])
