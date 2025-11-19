@@ -81,7 +81,7 @@ module Stats
 
     def set_stats_params
       @stats_params = stats_params
-      @stats_params[:has_external_cooperation] = base_needs_for_filters.from_external_cooperation.limit(1).any?
+      @stats_params[:has_external_cooperation] = base_needs_for_filters.from_external_cooperation.exists?
       session[:team_stats_params] = @stats_params
     end
 
