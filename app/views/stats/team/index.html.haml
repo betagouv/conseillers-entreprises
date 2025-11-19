@@ -11,10 +11,10 @@
   .fr-container
     = render 'tabs', filter_params: stats_filter_params
     = render 'stats_params', stats: @stats_params, institution_antennes: @institution_antennes, iframes: @iframes, apis: @apis, themes: @themes, subjects: @subjects
-    - if action_name == 'matches' && @stats_params[:institution].blank?
+    - if action_name == 'matches' && @stats_params[:institution_id].blank?
       .fr-alert.fr-alert--warning.white-bg.fr-my-3w
         %p= t('.select_partner')
-    - elsif action_name == 'public' && @stats_params[:institution].present?
+    - elsif action_name == 'public' && @stats_params[:institution_id].present?
       .fr-alert.fr-alert--warning.white-bg.fr-my-3w
         %p= t('.unselect_partner')
 
