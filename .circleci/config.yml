@@ -68,7 +68,7 @@ check_chrome_installation:
 jobs:
   test:
     <<: *defaults
-    parallelism: 1
+    parallelism: 4
     steps:
       - checkout
       - browser-tools/install-browser-tools:
