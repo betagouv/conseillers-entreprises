@@ -10,14 +10,14 @@ FactoryBot.define do
     end
 
     trait :with_reminders_register do
-      after(:create) do |expert, _|
-        create :reminders_register, expert: expert, run_number: RemindersRegister.last_run_number.presence || 0, category: :remainder, processed: true
+      after(:build) do |expert, _|
+        expert.reminders_registers << build(:reminders_register, run_number: RemindersRegister.last_run_number.presence || 0, category: :remainder, processed: true)
       end
     end
 
     trait :with_expert_subjects do
-      after(:create) do |expert, _|
-        create :expert_subject, expert: expert, institution_subject: create(:institution_subject, institution: expert.antenne.institution)
+      after(:build) do |expert, _|
+        expert.experts_subjects << build(:expert_subject, institution_subject: build(:institution_subject, institution: expert.antenne.institution))
       end
     end
   end

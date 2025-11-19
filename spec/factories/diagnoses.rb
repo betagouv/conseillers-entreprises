@@ -9,18 +9,17 @@ FactoryBot.define do
     happened_on { 3.days.from_now }
 
     factory :diagnosis_completed do
-      after(:create) do |diagnosis, _|
+      after(:build) do |diagnosis, _|
         diagnosis.step = 5
-        diagnosis.needs = create_list(:need_with_matches, 1, diagnosis: diagnosis)
+        diagnosis.needs = build_list(:need_with_matches, 1, diagnosis: diagnosis)
         diagnosis.completed_at = diagnosis.needs.first.matches.first.created_at
-        diagnosis.save!
       end
     end
 
-    after(:create) do |diagnosis, _|
+    after(:build) do |diagnosis, _|
       if diagnosis.matches.present?
-        diagnosis.update_columns(step: :completed)
-        diagnosis.matches.each{ |m| m.update_columns(sent_at: Time.zone.now) }
+        diagnosis.step = :completed
+        diagnosis.matches.each{ |m| m.sent_at = Time.zone.now }
       end
     end
   end

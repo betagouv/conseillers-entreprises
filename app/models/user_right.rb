@@ -73,7 +73,7 @@ class UserRight < ApplicationRecord
   end
 
   def be_admin_to_have_rights_for_admins
-    return if category_admin? # Skip validation if creating admin right because user is not admin yet
+    return if category_admin? || user&.user_rights&.any?{ it.new_record? && it.category_admin? } # Skip validation if creating admin right because user is not admin yet
     return unless ADMIN_ONLY_CATEGORIES.include?(category&.to_sym)
     return if user.is_admin?
 
