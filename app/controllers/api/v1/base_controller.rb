@@ -17,7 +17,7 @@ class Api::V1::BaseController < ActionController::API
 
   private
 
-  def render_error_payload(errors: nil, status: :unprocessable_entity)
+  def render_error_payload(errors: nil, status: :unprocessable_content)
     render json: { errors: errors }, status: status
   end
 
