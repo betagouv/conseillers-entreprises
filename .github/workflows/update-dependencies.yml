@@ -3,10 +3,11 @@ name: "Update dependencies"
 on:
   schedule:
     - cron: '0 0 1 * *'
+  workflow_dispatch:
 jobs:
   updates:
     permissions:
-      contents: read
+      contents: write
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
@@ -15,17 +16,17 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          node-version: 20
           bundler-cache: true
       - name: install bundler
         run: gem install bundler
       - name: config unset deployment
         run: bundle config unset deployment
       - name: bundle update
-        run: bin/bundle update
+        run: bundle update
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
+          node-version: 20
           cache: 'yarn'
       - name: Upgrade Node modules
         run: yarn upgrade
