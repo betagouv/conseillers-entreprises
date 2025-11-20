@@ -62,7 +62,7 @@ class NeedsController < ApplicationController
   def add_match
     @need = retrieve_need
     authorize @need, :add_match?
-    return render status: :unprocessable_entity if params[:expert_id].blank?
+    return render status: :unprocessable_content if params[:expert_id].blank?
     expert = Expert.find(params.require(:expert_id))
     @match = Match.create(need: @need, expert: expert, subject: @need.subject, sent_at: Time.zone.now)
     if @match.valid?
@@ -70,7 +70,7 @@ class NeedsController < ApplicationController
       expert.first_notification_help_email
     else
       flash.alert = @match.errors.full_messages.to_sentence
-      redirect_back(fallback_location: root_path)
+      redirect_back_or_to(root_path)
     end
   end
 

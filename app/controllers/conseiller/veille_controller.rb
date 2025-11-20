@@ -37,7 +37,7 @@ class Conseiller::VeilleController < ApplicationController
         render turbo_stream: turbo_stream.update("display-feedbacks-#{expert.id}",
                                                  partial: "experts/expert_feedbacks",
                                                  locals: { expert: expert })
-        format.html { redirect_back fallback_location: taking_care_matches_conseiller_veille_index_path }
+        format.html { redirect_back_or_to taking_care_matches_conseiller_veille_index_path }
       end
     end
   end

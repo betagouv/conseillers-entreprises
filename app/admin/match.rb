@@ -193,25 +193,25 @@ ActiveAdmin.register Match do
   #
   member_action :archive do
     resource.archive!
-    redirect_back fallback_location: collection_path, notice: t('archivable.archive_done')
+    redirect_back_or_to collection_path, notice: t('archivable.archive_done')
   end
 
   member_action :unarchive do
     resource.unarchive!
-    redirect_back fallback_location: collection_path, notice: t('archivable.unarchive_done')
+    redirect_back_or_to collection_path, notice: t('archivable.unarchive_done')
   end
 
   batch_action(I18n.t('archivable.archive')) do |ids|
     batch_action_collection.find(ids).each do |resource|
       resource.archive!
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('archivable.archive_done')
+    redirect_back_or_to collection_path, notice: I18n.t('archivable.archive_done')
   end
 
   batch_action(I18n.t('archivable.unarchive')) do |ids|
     batch_action_collection.find(ids).each do |resource|
       resource.unarchive!
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('archivable.unarchive_done')
+    redirect_back_or_to collection_path, notice: I18n.t('archivable.unarchive_done')
   end
 end

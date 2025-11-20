@@ -11,7 +11,7 @@ class Emails::SolicitationsController < ApplicationController
       render_turbo_stream_or_html
     else
       flash.alert = t('emails.not_sent')
-      render_turbo_stream_or_html(status: :unprocessable_entity)
+      render_turbo_stream_or_html(status: :unprocessable_content)
     end
   end
 

@@ -23,7 +23,7 @@ module ApiConsumption::Models
 
     def name
       company_name = nom_complet.presence || nom_raison_sociale.presence
-      company_name.present? ? company_name.titleize : nil
+      (company_name.presence&.titleize)
     end
 
     def naf_libelle

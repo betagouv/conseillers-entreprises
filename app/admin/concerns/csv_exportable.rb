@@ -15,7 +15,7 @@ module CsvExportable
       ransack_params.merge({ scope => true }) if scope.present?
       CsvJob.perform_later(resource_class.name, ransack_params, current_user)
       flash.notice = t('active_admin.csv_export_launched')
-      redirect_back fallback_location: admin_root_path
+      redirect_back_or_to admin_root_path
     end
   end
 end

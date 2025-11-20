@@ -6,12 +6,12 @@ module AdminArchivable
     # See https://github.com/activeadmin/activeadmin/issues/3673#issuecomment-291267819
     dsl.send(:member_action, :archive) do
       resource.archive!
-      redirect_back fallback_location: collection_path, notice: t('archivable.archive_done')
+      redirect_back_or_to collection_path, notice: t('archivable.archive_done')
     end
 
     dsl.send(:member_action, :unarchive) do
       resource.unarchive!
-      redirect_back fallback_location: collection_path, notice: t('archivable.unarchive_done')
+      redirect_back_or_to collection_path, notice: t('archivable.unarchive_done')
     end
 
     dsl.action_item(:archive, only: :show, if: -> { !resource.is_archived }) do
@@ -26,14 +26,14 @@ module AdminArchivable
       batch_action_collection.find(ids).each do |resource|
         resource.archive!
       end
-      redirect_back fallback_location: collection_path, notice: I18n.t('archivable.archive_done')
+      redirect_back_or_to collection_path, notice: I18n.t('archivable.archive_done')
     end
 
     dsl.batch_action(I18n.t('archivable.unarchive')) do |ids|
       batch_action_collection.find(ids).each do |resource|
         resource.unarchive!
       end
-      redirect_back fallback_location: collection_path, notice: I18n.t('archivable.unarchive_done')
+      redirect_back_or_to collection_path, notice: I18n.t('archivable.unarchive_done')
     end
   end
 

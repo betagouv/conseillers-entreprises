@@ -26,8 +26,8 @@ task update_users_emails: :environment do
 
     response = $stdin.gets.chomp
     if response.empty? || response.casecmp('y').zero?
-      user.update_columns(email: new_email) if user.present?
-      expert.update_columns(email: new_email) if expert.present?
+      user.presence&.update_columns(email: new_email)
+      (expert.presence&.update_columns(email: new_email))
       puts "Ok"
     else
       puts "Mise à jour annulée"

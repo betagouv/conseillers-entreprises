@@ -393,14 +393,14 @@ ActiveAdmin.register Expert do
 
   member_action :normalize_values do
     resource.normalize_values!
-    redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')
+    redirect_back_or_to collection_path, notice: t('active_admin.person.normalize_values_done')
   end
 
   batch_action I18n.t('active_admin.person.normalize_values') do |ids|
     batch_action_collection.find(ids).each do |expert|
       expert.normalize_values!
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
+    redirect_back_or_to collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
   end
 
   batch_action :destroy, confirm: I18n.t('active_admin.expert.delete_confirmation') do |ids|
