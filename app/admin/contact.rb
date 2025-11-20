@@ -73,13 +73,13 @@ ActiveAdmin.register Contact do
   #
   member_action :normalize_values do
     resource.normalize_values!
-    redirect_back fallback_location: collection_path, alert: t('active_admin.person.normalize_values_done')
+    redirect_back_or_to collection_path, alert: t('active_admin.person.normalize_values_done')
   end
 
   batch_action I18n.t('active_admin.person.normalize_values') do |ids|
     batch_action_collection.find(ids).each do |contact|
       contact.normalize_values!
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
+    redirect_back_or_to collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
   end
 end

@@ -51,7 +51,7 @@ module ApiConsumption::Models
 
     def name
       company_name = denominationUniteLegale.presence || [nomUniteLegale, prenomUsuelUniteLegale].compact.join(' ').presence
-      company_name.present? ? company_name.titleize : nil
+      (company_name.presence&.titleize)
     end
 
     def naf_libelle

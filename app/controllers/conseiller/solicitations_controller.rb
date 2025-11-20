@@ -53,7 +53,7 @@ class Conseiller::SolicitationsController < ApplicationController
       flash.notice = "#{@solicitation} #{done}"
       respond_to do |format|
         format.turbo_stream { render turbo_stream: turbo_stream.remove(@solicitation) }
-        format.html         { redirect_back fallback_location: conseiller_solicitations_path }
+        format.html         { redirect_back_or_to conseiller_solicitations_path }
       end
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence

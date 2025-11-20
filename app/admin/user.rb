@@ -332,41 +332,41 @@ ActiveAdmin.register User do
 
   member_action :normalize_values do
     resource.normalize_values!
-    redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')
+    redirect_back_or_to collection_path, notice: t('active_admin.person.normalize_values_done')
   end
 
   member_action :invite_user do
     resource.invite!(current_user) unless resource.deleted?
-    redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_invite_done')
+    redirect_back_or_to collection_path, notice: t('active_admin.user.do_invite_done')
   end
 
   member_action :invite_to_demo do
     resource.invite_to_demo unless resource.deleted?
-    redirect_back fallback_location: collection_path, notice: t('active_admin.user.invited_to_demo')
+    redirect_back_or_to collection_path, notice: t('active_admin.user.invited_to_demo')
   end
 
   member_action :reset_password do
     resource.send_reset_password_instructions
-    redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_reset_password_done')
+    redirect_back_or_to collection_path, notice: t('active_admin.user.do_reset_password_done')
   end
 
   member_action :create_expert do
     resource.create_single_user_experts
-    redirect_back fallback_location: collection_path, notice: t('active_admin.user.create_expert_done')
+    redirect_back_or_to collection_path, notice: t('active_admin.user.create_expert_done')
   end
 
   batch_action I18n.t('active_admin.user.do_invite') do |ids|
     batch_action_collection.find(ids).each do |user|
       user.invite!(current_user) unless user.deleted?
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.do_invite_done')
+    redirect_back_or_to collection_path, notice: I18n.t('active_admin.user.do_invite_done')
   end
 
   batch_action I18n.t('active_admin.user.invite_to_demo') do |ids|
     batch_action_collection.find(ids).each do |user|
       user.invite_to_demo unless user.deleted?
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.invited_to_demo')
+    redirect_back_or_to collection_path, notice: I18n.t('active_admin.user.invited_to_demo')
   end
 
   batch_action :destroy, confirm: I18n.t('active_admin.users.delete_confirmation') do |ids|

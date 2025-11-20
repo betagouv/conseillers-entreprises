@@ -178,7 +178,7 @@ ActiveAdmin.register Landing do
     batch_action_collection.find(ids).each do |landing|
       landing.update_iframe_360
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.landings.update_iframe_360_done')
+    redirect_back_or_to collection_path, notice: I18n.t('active_admin.landings.update_iframe_360_done')
   end
 
   # Pause iframe
@@ -204,13 +204,13 @@ ActiveAdmin.register Landing do
     batch_action_collection.find(ids).each do |landing|
       landing.pause!
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.landings.pause_done')
+    redirect_back_or_to collection_path, notice: I18n.t('active_admin.landings.pause_done')
   end
 
   batch_action I18n.t('active_admin.landings.resume_button') do |ids|
     batch_action_collection.find(ids).each do |landing|
       landing.resume!
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.landings.resume_done')
+    redirect_back_or_to collection_path, notice: I18n.t('active_admin.landings.resume_done')
   end
 end
