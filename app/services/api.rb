@@ -30,7 +30,6 @@ module Api
     end
 
     def handle_error(http_request)
-      notify_tech_error(http_request) if http_request.has_unreachable_api_error?
       # On raise les erreurs api qu'on souhaite "bloquantes" (=pas de process si l'API est en carafe)
       if (severity == :major)
         raise TechnicalError.new(api: id_key), http_request.error_message
@@ -45,17 +44,6 @@ module Api
 
     def severity
       :minor
-    end
-
-    def notify_tech_error(http_request)
-      tags = {
-        error_message: http_request.error_message.gsub(/[\n\r]/, " ").strip
-      }
-      tags.merge({ error_code: http_request.error_code }) if http_request.error_code.present?
-      Sentry.with_scope do |scope|
-        scope.set_tags(tags)
-        Sentry.capture_message("Erreur #{self.class.name}")
-      end
     end
 
     def id_key
