@@ -70,7 +70,7 @@ class NeedsController < ApplicationController
       expert.first_notification_help_email
     else
       flash.alert = @match.errors.full_messages.to_sentence
-      redirect_back(fallback_location: root_path)
+      redirect_back_or_to(root_path)
     end
   end
 

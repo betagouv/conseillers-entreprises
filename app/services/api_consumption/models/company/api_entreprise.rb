@@ -57,7 +57,7 @@ module ApiConsumption::Models
 
     # Ex : 6202A
     def naf_code
-      activite_principale["code"].delete('.') if activite_principale["code"].present?
+      (activite_principale["code"].presence&.delete('.'))
     end
 
     def naf_code_a10
