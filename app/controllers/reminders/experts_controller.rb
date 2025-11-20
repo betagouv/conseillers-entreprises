@@ -97,7 +97,7 @@ module Reminders
               turbo_stream.update("flash", partial: "shared/flashes")
             ]
           end
-          format.html { render :index, status: :unprocessable_entity }
+          format.html { render :index, status: :unprocessable_content }
         end
       end
     end

@@ -11,7 +11,7 @@ class Api::V1::SolicitationsController < Api::V1::BaseController
         end
       else
         errors = @solicitation.errors.map{ |e| { source: I18n.t(e.attribute, scope: [:activerecord, :attributes, :solicitation]), message: e.message } }
-        render_error_payload(errors: errors, status: :unprocessable_entity)
+        render_error_payload(errors: errors, status: :unprocessable_content)
       end
     rescue ActionController::ParameterMissing => e
       errors = [{ source: e.param, message: I18n.t('api_pde.errors.parameter_missing') }]
@@ -20,7 +20,7 @@ class Api::V1::SolicitationsController < Api::V1::BaseController
       parsing_error(e)
     rescue Exception => e
       errors = [{ source: e.class.name, message: e.message }]
-      render_error_payload(errors: errors, status: :unprocessable_entity)
+      render_error_payload(errors: errors, status: :unprocessable_content)
 
       Sentry.capture_exception(e)
     end

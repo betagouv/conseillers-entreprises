@@ -64,7 +64,7 @@ RSpec.describe NeedsController do
 
       it 'does not add an expert if expert_id is nil' do
         request
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(need.experts).to be_empty
       end
     end
