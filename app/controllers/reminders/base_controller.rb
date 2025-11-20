@@ -23,7 +23,7 @@ module Reminders
     end
 
     def search_fields
-      [:by_region, :by_full_name]
+      [:by_region, :institution_id, :by_full_name]
     end
   end
 end
