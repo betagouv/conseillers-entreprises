@@ -35,20 +35,20 @@ module DiagnosisCreation
     def apply_match_filters(expert_subjects)
       expert_subjects.select do |es|
         # On retire les filtres sur les sujets autres que celui du besoin
-        examined_match_filters = es.match_filters.reject{ |mf| other_subject_filter?(mf) }
-        # On retire les filtres aux institutions si on a le même filtre à une antenne ou expert
-        examined_match_filters = examined_match_filters.reject do |mf|
-          mf.same_antenne_or_expert_match_filter?(examined_match_filters)
+        match_filters = es.match_filters.reject { |mf| other_subject_filter?(mf) }
+
+        # On garde les experts_subjects qui n'ont pas de filtres
+        if match_filters.empty?
+          true
+        else
+          # On groupe les filtres par filtrable_element pour créer des groupes de filtres
+          grouped_filters = match_filters.group_by(&:filtrable_element)
+
+          # Pour chaque groupe, on vérifie qu'au moins un filtre passe
+          grouped_filters.all? do |_element, filters|
+            filters.any? { |mf| accepting_match_filter(mf) }
+          end
         end
-        # On retire les filtres aux antennes si on a le même filtre à un expert
-        # En deux étapes pour éviter de supprimer tous les filtres dans une même boucle
-        examined_match_filters = examined_match_filters.reject do |mf|
-          mf.same_expert_match_filter?(examined_match_filters)
-        end
-        # On garde les experts_subjects
-        # - qui n'ont pas de filtres
-        # - ou bien où au moins un filtre passe
-        examined_match_filters.empty? || examined_match_filters.any?{ |mf| accepting_match_filter(mf) }
       end
     end
 

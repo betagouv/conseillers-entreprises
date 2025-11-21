@@ -2,7 +2,7 @@ require 'rails_helper'
 describe DiagnosisCreation::FindRelevantExpertSubjects do
   describe 'apply_match_filters' do
     let(:institution) { create :institution }
-    let!(:es_temoin) { create :expert_subject }
+    let!(:expert_subject_without_filter) { create :expert_subject }
     let(:antenne) { create :antenne, institution: institution }
     let(:expert) { create :expert, antenne: antenne }
 
@@ -11,140 +11,143 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
     context 'accepting_years_of_existence?' do
       let(:diagnosis) { create :diagnosis, company: company }
       let(:need) { create :need, diagnosis: diagnosis }
-      let!(:es_01) { create :expert_subject, expert: expert }
+      let!(:expert_subject_with_filter) { create :expert_subject, expert: expert }
 
       describe 'min_years_of_existence' do
-        let(:match_filter_01) { create :match_filter, expert: expert, min_years_of_existence: 6 }
-        let(:match_filter_02) { create :match_filter, antenne: antenne, min_years_of_existence: 4 }
-        let(:match_filter_03) { create :match_filter, institution: institution, min_years_of_existence: 2 }
+        let(:expert_filter_min_years_six) { create :match_filter, expert: expert, min_years_of_existence: 6 }
+        let(:antenne_filter_min_years_four) { create :match_filter, antenne: antenne, min_years_of_existence: 4 }
+        let(:institution_filter_min_years_two) { create :match_filter, institution: institution, min_years_of_existence: 2 }
 
         context 'with expert filter only' do
-          before { match_filter_01 }
+          # min 2 years old company
+          before { expert_filter_min_years_six }
 
-          context '5 years old company' do
-            let(:company) { create :company, date_de_creation: 5.years.ago }
+          context '1 years old company' do
+            let(:company) { create :company, date_de_creation: 1.year.ago }
 
-            it { is_expected.to contain_exactly(es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_without_filter) }
           end
 
           context '7 years old company' do
             let(:company) { create :company, date_de_creation: 7.years.ago }
 
-            it { is_expected.to contain_exactly(es_01, es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_with_filter, expert_subject_without_filter) }
           end
         end
 
         context 'with antenne filter only' do
-          before { match_filter_02 }
+          # min 4 years old company
+          before { antenne_filter_min_years_four }
 
           context '3 years old company' do
             let(:company) { create :company, date_de_creation: 3.years.ago }
 
-            it { is_expected.to contain_exactly(es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_without_filter) }
           end
 
-          context '7 years ld company' do
+          context '7 years old company' do
             let(:company) { create :company, date_de_creation: 7.years.ago }
 
-            it { is_expected.to contain_exactly(es_01, es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_with_filter, expert_subject_without_filter) }
           end
         end
 
         context 'with institution filter only' do
-          before { match_filter_03 }
+          # min 6 years old company
+          before { institution_filter_min_years_two }
 
           context '1 year old company' do
             let(:company) { create :company, date_de_creation: 1.year.ago }
 
-            it { is_expected.to contain_exactly(es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_without_filter) }
           end
 
-          context '5 years old company' do
-            let(:company) { create :company, date_de_creation: 5.years.ago }
+          context '7 years old company' do
+            let(:company) { create :company, date_de_creation: 7.years.ago }
 
-            it { is_expected.to contain_exactly(es_01, es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_with_filter, expert_subject_without_filter) }
           end
         end
 
         context 'with antenne and expert filter' do
           before do
-            match_filter_01
-            match_filter_02
+            expert_filter_min_years_six
+            antenne_filter_min_years_four
           end
 
           context '3 years old company' do
             let(:company) { create :company, date_de_creation: 3.years.ago }
 
-            it { is_expected.to contain_exactly(es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_without_filter) }
           end
 
           context '5 years old company' do
             let(:company) { create :company, date_de_creation: 5.years.ago }
 
-            it { is_expected.to contain_exactly(es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_without_filter) }
           end
 
           context '7 years old company' do
             let(:company) { create :company, date_de_creation: 7.years.ago }
 
-            it { is_expected.to contain_exactly(es_01, es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_with_filter, expert_subject_without_filter) }
           end
         end
 
         context 'with institution and expert filter' do
           before do
-            match_filter_01
-            match_filter_03
+            expert_filter_min_years_six
+            institution_filter_min_years_two
           end
 
           context '3 years old company' do
             let(:company) { create :company, date_de_creation: 3.years.ago }
 
-            it { is_expected.to contain_exactly(es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_without_filter) }
           end
 
           context '7 years old company' do
             let(:company) { create :company, date_de_creation: 7.years.ago }
 
-            it { is_expected.to contain_exactly(es_01, es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_with_filter, expert_subject_without_filter) }
           end
         end
 
         context 'with institution and antenne filter' do
           before do
-            match_filter_02
-            match_filter_03
+            antenne_filter_min_years_four
+            institution_filter_min_years_two
           end
 
           context '3 years old company' do
             let(:company) { create :company, date_de_creation: 3.years.ago }
 
-            it { is_expected.to contain_exactly(es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_without_filter) }
           end
 
           context '5 years old company' do
             let(:company) { create :company, date_de_creation: 5.years.ago }
 
-            it { is_expected.to contain_exactly(es_01, es_temoin) }
+            it { is_expected.to contain_exactly(expert_subject_with_filter, expert_subject_without_filter) }
           end
         end
       end
 
       context 'max_years_of_existence' do
-        let(:match_filter_01) { create :match_filter, :for_antenne, max_years_of_existence: 5 }
+        let(:expert_filter_max_years_five) { create :match_filter, :for_antenne, max_years_of_existence: 5 }
 
-        before { es_01.expert.antenne.match_filters << match_filter_01 }
+        before { expert_subject_with_filter.expert.antenne.match_filters << expert_filter_max_years_five }
 
         context 'young company' do
           let(:company) { create :company, date_de_creation: 2.years.ago }
 
-          it { is_expected.to contain_exactly(es_01, es_temoin) }
+          it { is_expected.to contain_exactly(expert_subject_with_filter, expert_subject_without_filter) }
         end
 
         context 'old company' do
           let(:company) { create :company, date_de_creation: 7.years.ago }
 
-          it { is_expected.to contain_exactly(es_temoin) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter) }
         end
       end
     end
@@ -154,42 +157,42 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
       let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
 
       let!(:tresorerie_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, antenne: antenne, effectif_max: 10, subjects: [tresorerie_subject] }
-      let(:match_filter_02) { create :match_filter, institution: institution, effectif_max: 50, subjects: [tresorerie_subject] }
-      let!(:es_01) { create :expert_subject }
+      let(:expert_filter_max_effectif_10) { create :match_filter, antenne: antenne, effectif_max: 10, subjects: [tresorerie_subject] }
+      let(:antenne_filter_max_effectif_50) { create :match_filter, institution: institution, effectif_max: 50, subjects: [tresorerie_subject] }
+      let!(:expert_subject_with_filter) { create :expert_subject }
 
       context 'with antenne filter only' do
         let(:code_effectif_ok) { '03' } # 6 à 9 salariés
         let(:code_effectif_ko) { '12' } # 20 à 49 salariés
 
-        before { es_01.expert.antenne.match_filters << match_filter_01 }
+        before { expert_subject_with_filter.expert.antenne.match_filters << expert_filter_max_effectif_10 }
 
         context 'matching nothing' do
           let(:need_subject) { create :subject }
           let(:facility) { create :facility, code_effectif: code_effectif_ko }
 
-          it { is_expected.to contain_exactly(es_temoin, es_01) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
         end
 
         context 'matching subject only' do
           let(:need_subject) { tresorerie_subject }
           let(:facility) { create :facility, code_effectif: code_effectif_ko }
 
-          it { is_expected.to contain_exactly(es_temoin) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter) }
         end
 
         context 'matching effectif only' do
           let(:need_subject) { create :subject }
           let(:facility) { create :facility, code_effectif: code_effectif_ok }
 
-          it { is_expected.to contain_exactly(es_temoin, es_01) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
         end
 
         context 'matching subject and effectif' do
           let(:need_subject) { tresorerie_subject }
           let(:facility) { create :facility, code_effectif: code_effectif_ok }
 
-          it { is_expected.to contain_exactly(es_temoin, es_01) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
         end
       end
 
@@ -198,36 +201,36 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
         let(:code_effectif_ko) { '12' } # 20 à 49 salariés
 
         before do
-          es_01.expert.antenne.match_filters << match_filter_01
-          es_01.expert.institution.match_filters << match_filter_02
+          expert_subject_with_filter.expert.antenne.match_filters << expert_filter_max_effectif_10
+          expert_subject_with_filter.expert.institution.match_filters << antenne_filter_max_effectif_50
         end
 
         context 'matching nothing' do
           let(:need_subject) { create :subject }
           let(:facility) { create :facility, code_effectif: code_effectif_ko }
 
-          it { is_expected.to contain_exactly(es_temoin, es_01) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
         end
 
         context 'matching subject only' do
           let(:need_subject) { tresorerie_subject }
           let(:facility) { create :facility, code_effectif: code_effectif_ko }
 
-          it { is_expected.to contain_exactly(es_temoin) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter) }
         end
 
         context 'matching effectif only' do
           let(:need_subject) { create :subject }
           let(:facility) { create :facility, code_effectif: code_effectif_ok }
 
-          it { is_expected.to contain_exactly(es_temoin, es_01) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
         end
 
         context 'matching subject and effectif' do
           let(:need_subject) { tresorerie_subject }
           let(:facility) { create :facility, code_effectif: code_effectif_ok }
 
-          it { is_expected.to contain_exactly(es_temoin, es_01) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
         end
       end
 
@@ -235,34 +238,34 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
         let(:code_effectif_ok) { '03' } # 6 à 9 salariés
         let(:code_effectif_ko) { '32' } # 250 à 499 salariés
 
-        before { es_01.expert.institution.match_filters << match_filter_02 }
+        before { expert_subject_with_filter.expert.institution.match_filters << antenne_filter_max_effectif_50 }
 
         context 'matching nothing' do
           let(:need_subject) { create :subject }
           let(:facility) { create :facility, code_effectif: code_effectif_ko }
 
-          it { is_expected.to contain_exactly(es_temoin, es_01) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
         end
 
         context 'matching subject only' do
           let(:need_subject) { tresorerie_subject }
           let(:facility) { create :facility, code_effectif: code_effectif_ko }
 
-          it { is_expected.to contain_exactly(es_temoin) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter) }
         end
 
         context 'matching effectif only' do
           let(:need_subject) { create :subject }
           let(:facility) { create :facility, code_effectif: code_effectif_ok }
 
-          it { is_expected.to contain_exactly(es_temoin, es_01) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
         end
 
         context 'matching subject and effectif' do
           let(:need_subject) { tresorerie_subject }
           let(:facility) { create :facility, code_effectif: code_effectif_ok }
 
-          it { is_expected.to contain_exactly(es_temoin, es_01) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
         end
       end
     end
@@ -272,14 +275,14 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
       let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
 
       let!(:difficulte_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, :for_antenne, accepted_naf_codes: ['1101Z', '1102A', '1102B'], subjects: [difficulte_subject] }
+      let(:expert_filter_accepted_lega_forms) { create :match_filter, :for_antenne, accepted_naf_codes: ['1101Z', '1102A', '1102B'], subjects: [difficulte_subject] }
       let(:match_filter_excluding_naf) { create :match_filter, :for_antenne, excluded_naf_codes: ['9001Z'], subjects: [difficulte_subject] }
 
       let!(:es_including_naf) { create :expert_subject }
       let!(:es_excluding_naf) { create :expert_subject }
 
       before do
-        es_including_naf.expert.antenne.match_filters << match_filter_01
+        es_including_naf.expert.antenne.match_filters << expert_filter_accepted_lega_forms
         es_excluding_naf.expert.antenne.match_filters << match_filter_excluding_naf
       end
 
@@ -287,42 +290,42 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
         let(:need_subject) { difficulte_subject }
         let(:facility) { create :facility, naf_code: '2202A' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_excluding_naf) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_excluding_naf) }
       end
 
       context 'matching accepted naf only' do
         let(:need_subject) { create :subject }
         let(:facility) { create :facility, naf_code: '1102A' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_including_naf, es_excluding_naf) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_including_naf, es_excluding_naf) }
       end
 
       context 'matching excluded naf only' do
         let(:need_subject) { create :subject }
         let(:facility) { create :facility, naf_code: '9001Z' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_including_naf, es_excluding_naf) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_including_naf, es_excluding_naf) }
       end
 
       context 'matching accepted naf and subject' do
         let(:need_subject) { difficulte_subject }
         let(:facility) { create :facility, naf_code: '1102A' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_including_naf, es_excluding_naf) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_including_naf, es_excluding_naf) }
       end
 
       context 'matching excluded naf and subject' do
         let(:need_subject) { difficulte_subject }
         let(:facility) { create :facility, naf_code: '9001Z' }
 
-        it { is_expected.to contain_exactly(es_temoin) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter) }
       end
 
       context 'matching nothing' do
         let(:need_subject) { create :subject }
         let(:facility) { create :facility, naf_code: '2202A' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_including_naf, es_excluding_naf) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_including_naf, es_excluding_naf) }
       end
     end
 
@@ -334,14 +337,14 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
       let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
 
       let!(:difficulte_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, :for_antenne, accepted_legal_forms: %w[4160 6533 6534], subjects: [difficulte_subject] }
+      let(:expert_filter_accepted_lega_forms) { create :match_filter, :for_antenne, accepted_legal_forms: %w[4160 6533 6534], subjects: [difficulte_subject] }
       let(:match_filter_excluding_legal_forms) { create :match_filter, :for_antenne, excluded_legal_forms: %w[5499], subjects: [difficulte_subject] }
 
       let!(:es_including) { create :expert_subject }
       let!(:es_excluding) { create :expert_subject }
 
       before do
-        es_including.expert.antenne.match_filters << match_filter_01
+        es_including.expert.antenne.match_filters << expert_filter_accepted_lega_forms
         es_excluding.expert.antenne.match_filters << match_filter_excluding_legal_forms
       end
 
@@ -349,42 +352,42 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
         let(:need_subject) { difficulte_subject }
         let(:company) { create :company, legal_form_code: '1000' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_excluding) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_excluding) }
       end
 
       context 'matching accepted legal form only' do
         let(:need_subject) { create :subject }
         let(:company) { create :company, legal_form_code: '6533' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_including, es_excluding) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_including, es_excluding) }
       end
 
       context 'matching excluded legal form only' do
         let(:need_subject) { create :subject }
         let(:company) { create :company, legal_form_code: '5499' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_including, es_excluding) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_including, es_excluding) }
       end
 
       context 'matching accepted legal form and subject' do
         let(:need_subject) { difficulte_subject }
         let(:company) { create :company, legal_form_code: '6533' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_including, es_excluding) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_including, es_excluding) }
       end
 
       context 'matching excluded legal form and subject' do
         let(:need_subject) { difficulte_subject }
         let(:company) { create :company, legal_form_code: '5499' }
 
-        it { is_expected.to contain_exactly(es_temoin) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter) }
       end
 
       context 'matching nothing' do
         let(:need_subject) { create :subject }
         let(:company) { create :company, legal_form_code: '1000' }
 
-        it { is_expected.to contain_exactly(es_temoin, es_including, es_excluding) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_including, es_excluding) }
       end
     end
 
@@ -392,46 +395,46 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
       let(:diagnosis) { create :diagnosis, facility: facility }
       let(:need) { create :need, diagnosis: diagnosis }
 
-      let(:match_filter_01) { create :match_filter, :for_antenne, effectif_min: 10 }
-      let(:match_filter_02) { create :match_filter, :for_antenne, min_years_of_existence: 3 }
-      let!(:es_01) { create :expert_subject }
+      let(:expert_filter_effectif_ten) { create :match_filter, :for_antenne, effectif_min: 10 }
+      let(:antenne_filter_min_years_three) { create :match_filter, :for_antenne, min_years_of_existence: 3 }
+      let!(:expert_subject_with_filter) { create :expert_subject }
 
       before do
-        es_01.expert.antenne.match_filters << match_filter_01
-        es_01.expert.antenne.match_filters << match_filter_02
+        expert_subject_with_filter.expert.antenne.match_filters << expert_filter_effectif_ten
+        expert_subject_with_filter.expert.antenne.match_filters << antenne_filter_min_years_three
       end
 
       # On n'envoie pas si on n'a pas l'info
       context 'no facility filter data' do
         let(:facility) { create :facility, code_effectif: nil, company: create(:company, date_de_creation: nil) }
 
-        it { is_expected.to contain_exactly(es_temoin) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter) }
       end
 
       context 'matching none' do
         # 6 à 9 salariés
         let(:facility) { create :facility, code_effectif: '03', company: create(:company, date_de_creation: 2.years.ago) }
 
-        it { is_expected.to contain_exactly(es_temoin) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter) }
       end
 
       context 'matching min_years_of_existence' do
         let(:facility) { create :facility, company: create(:company, date_de_creation: 4.years.ago) }
 
-        it { is_expected.to contain_exactly(es_temoin, es_01) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
       end
 
       context 'matching effectif_min' do
         let(:facility) { create :facility, code_effectif: '11' } # 10 à 19 salariés
 
-        it { is_expected.to contain_exactly(es_temoin, es_01) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
       end
 
       context 'matching both' do
         # 10 à 19 salariés
         let(:facility) { create :facility, code_effectif: '11', company: create(:company, date_de_creation: 4.years.ago) }
 
-        it { is_expected.to contain_exactly(es_temoin, es_01) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
       end
     end
 
@@ -443,40 +446,40 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
 
       let!(:difficulte_subject) { create :subject }
       let!(:rh_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, :for_antenne, min_years_of_existence: 3, subjects: [difficulte_subject, rh_subject] }
+      let(:expert_filter_min_years_three) { create :match_filter, :for_antenne, min_years_of_existence: 3, subjects: [difficulte_subject, rh_subject] }
 
-      let!(:es_01) { create :expert_subject }
+      let!(:expert_subject_with_filter) { create :expert_subject }
 
       before do
-        es_01.expert.antenne.match_filters << match_filter_01
+        expert_subject_with_filter.expert.antenne.match_filters << expert_filter_min_years_three
       end
 
       context 'subject with criteria ok' do
         let(:need_subject) { difficulte_subject }
         let(:date_de_creation_company) { 4.years.ago }
 
-        it { is_expected.to contain_exactly(es_temoin, es_01) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
       end
 
       context 'subject with criteria ko' do
         let(:need_subject) { difficulte_subject }
         let(:date_de_creation_company) { 1.year.ago }
 
-        it { is_expected.to contain_exactly(es_temoin) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter) }
       end
 
       context 'only min_years_of_existence criteria matching' do
         let(:need_subject) { create(:subject) }
         let(:date_de_creation_company) { 4.years.ago }
 
-        it { is_expected.to contain_exactly(es_temoin, es_01) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
       end
 
       context 'no criteria matching' do
         let(:need_subject) { create(:subject) }
         let(:date_de_creation_company) { 1.year.ago }
 
-        it { is_expected.to contain_exactly(es_temoin, es_01) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
       end
     end
 
@@ -489,14 +492,14 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
       let!(:rh_subject) { create :subject }
       let!(:eau_subject) { create :subject }
       let!(:energie_subject) { create :subject }
-      let(:match_filter_01) { create :match_filter, :for_antenne, min_years_of_existence: 3, subjects: [rh_subject] }
-      let(:match_filter_02) { create :match_filter, :for_antenne, min_years_of_existence: 3, effectif_max: 50, subjects: [eau_subject, energie_subject] }
+      let(:expert_filter_01) { create :match_filter, :for_antenne, min_years_of_existence: 3, subjects: [rh_subject] }
+      let(:antenne_filter_02) { create :match_filter, :for_antenne, min_years_of_existence: 3, effectif_max: 50, subjects: [eau_subject, energie_subject] }
 
-      let!(:es_01) { create :expert_subject }
+      let!(:expert_subject_with_filter) { create :expert_subject }
 
       before do
-        es_01.expert.antenne.match_filters << match_filter_01
-        es_01.expert.antenne.match_filters << match_filter_02
+        expert_subject_with_filter.expert.antenne.match_filters << expert_filter_01
+        expert_subject_with_filter.expert.antenne.match_filters << antenne_filter_02
       end
 
       context 'with non filtered subject' do
@@ -505,7 +508,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
           let(:date_de_creation_company) { 1.year.ago }
           let(:code_effectif) { '21' }
 
-          it { is_expected.to contain_exactly(es_temoin, es_01) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
         end
       end
 
@@ -515,7 +518,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
           let(:date_de_creation_company) { 1.year.ago }
           let(:code_effectif) { '12' }
 
-          it { is_expected.to contain_exactly(es_temoin) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter) }
         end
 
         context 'rh_subject + 1 year existence + effectif 50' do
@@ -523,7 +526,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
           let(:date_de_creation_company) { 1.year.ago }
           let(:code_effectif) { '21' }
 
-          it { is_expected.to contain_exactly(es_temoin) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter) }
         end
 
         context 'rh_subject + 5 year existence + effectif 50' do
@@ -531,7 +534,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
           let(:date_de_creation_company) { 5.years.ago }
           let(:code_effectif) { '21' }
 
-          it { is_expected.to contain_exactly(es_temoin, es_01) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
         end
       end
 
@@ -541,7 +544,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
           let(:date_de_creation_company) { 1.year.ago }
           let(:code_effectif) { '12' }
 
-          it { is_expected.to contain_exactly(es_temoin) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter) }
         end
 
         context 'eau subject + 5 year existence + effectif 40' do
@@ -549,7 +552,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
           let(:date_de_creation_company) { 5.years.ago }
           let(:code_effectif) { '12' }
 
-          it { is_expected.to contain_exactly(es_temoin, es_01) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
         end
 
         context 'eau subject + 5 year existence + effectif 50' do
@@ -557,7 +560,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
           let(:date_de_creation_company) { 5.years.ago }
           let(:code_effectif) { '21' }
 
-          it { is_expected.to contain_exactly(es_temoin) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter) }
         end
       end
     end
@@ -576,7 +579,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
       let(:institution_ko) { create :institution }
       let!(:institution_ko_grouping) { create :subject_answer_grouping, institution: institution_ko }
       let!(:es_answer_ko) { create :expert_subject, subject: common_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_ko)) }
-      let!(:es_temoin) { create :expert_subject, subject: common_subject }
+      let!(:expert_subject_without_filter) { create :expert_subject, subject: common_subject }
 
       let(:need) { create :need, subject: common_subject }
 
@@ -591,7 +594,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
         let(:institution_ok_subject_answers) { [create(:subject_answer_filter, subject_question: additional_question, filter_value: true)] }
         let(:institution_ko_subject_answers) { [create(:subject_answer_filter, subject_question: additional_question, filter_value: false)] }
 
-        it { is_expected.to contain_exactly(es_temoin, es_answer_ok) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_answer_ok) }
       end
 
       context 'need with complex question filter' do
@@ -617,7 +620,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
         end
 
         context 'only one grouping' do
-          it { is_expected.to contain_exactly(es_temoin, es_answer_ok) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, es_answer_ok) }
         end
 
         context 'many groupings' do
@@ -632,7 +635,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
           before { institution_ok_falsy_grouping.subject_answers = institution_ok_falsy_subject_answers }
 
           # Du moment qu'il y a un bon grouping, meme si les autres le sont pas, ça marche
-          it { is_expected.to contain_exactly(es_temoin, es_answer_ok) }
+          it { is_expected.to contain_exactly(expert_subject_without_filter, es_answer_ok) }
         end
       end
 
@@ -641,7 +644,7 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
         let!(:institution_ok_subject_answers) { [create(:subject_answer_filter, subject_question: additional_question, filter_value: true)] }
         let!(:institution_ko_subject_answers) { [create(:subject_answer_filter, subject_question: additional_question, filter_value: false)] }
 
-        it { is_expected.to contain_exactly(es_temoin, es_answer_ok, es_answer_ko) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_answer_ok, es_answer_ko) }
       end
     end
 
