@@ -1,9 +1,9 @@
 class FixSchema < ActiveRecord::Migration[7.2]
   def change
-    add_index :reminders_actions, %w[category need_id need_id], name: :index_reminders_actions_category_need_id_need_id, unique: true
-    add_index :diagnoses, :solicitation_id, name: :index_diagnoses_solicitation_id, unique: true
+    add_index :reminders_actions, %w[category need_id], name: :index_reminders_actions_category_need_id, unique: true
+    # add_index :diagnoses, :solicitation_id, name: :index_diagnoses_solicitation_id, unique: true
     add_index :badge_badgeables, %w[badgeable_id badgeable_type], name: :index_badge_badgeables_badgeable_id_badgeable_type
-    add_index :company_satisfactions, :need_id, name: :index_company_satisfactions_need_id, unique: true
+    # add_index :company_satisfactions, :need_id, name: :index_company_satisfactions_need_id, unique: true
     add_index :api_keys, :institution_id, name: :index_api_keys_institution_id, unique: true
     add_index :activity_reports, :reportable_id, name: :index_activity_reports_reportable_id
 
@@ -33,7 +33,7 @@ class FixSchema < ActiveRecord::Migration[7.2]
     change_column_null :feedbacks, :user_id, false
     change_column_null :feedbacks, :description, false
     change_column_null :experts, :full_name, false
-    change_column_null :users, :full_name, false
+    # change_column_null :users, :full_name, false
     change_column_null :users, :job, false
     change_column_null :contacts, :full_name, false
     change_column_null :companies, :name, false
@@ -57,18 +57,18 @@ class FixSchema < ActiveRecord::Migration[7.2]
     change_column :users, :id, :bigint
     change_column :companies, :id, :bigint
 
-    add_foreign_key :user_rights, :antennes, column: :rightable_element_id, primary_key: :id
-    add_foreign_key :user_rights, :cooperations, column: :rightable_element_id, primary_key: :id
-    add_foreign_key :user_rights, :territorial_zones, column: :rightable_element_id, primary_key: :id
+    # add_foreign_key :user_rights, :antennes, column: :rightable_element_id, primary_key: :id
+    # add_foreign_key :user_rights, :cooperations, column: :rightable_element_id, primary_key: :id
+    # add_foreign_key :user_rights, :territorial_zones, column: :rightable_element_id, primary_key: :id
     add_foreign_key :territories, :users, column: :support_contact_id, primary_key: :id
     add_foreign_key :subject_questions, :subjects, column: :subject_id, primary_key: :id
     add_foreign_key :subject_answers, :subject_questions, column: :subject_question_id, primary_key: :id
     add_foreign_key :landing_joint_themes, :landing_themes, column: :landing_theme_id, primary_key: :id
     add_foreign_key :landing_joint_themes, :landings, column: :landing_id, primary_key: :id
-    add_foreign_key :feedbacks, :needs, column: :feedbackable_id, primary_key: :id
-    add_foreign_key :feedbacks, :solicitations, column: :feedbackable_id, primary_key: :id
-    add_foreign_key :feedbacks, :experts, column: :feedbackable_id, primary_key: :id
+    # add_foreign_key :feedbacks, :needs, column: :feedbackable_id, primary_key: :id
+    # add_foreign_key :feedbacks, :solicitations, column: :feedbackable_id, primary_key: :id
+    # add_foreign_key :feedbacks, :experts, column: :feedbackable_id, primary_key: :id
     add_foreign_key :antennes, :antennes, column: :parent_antenne_id, primary_key: :id
-    add_foreign_key :subject_answers, :subject_answer_groupings, column: :subject_answer_grouping_id, primary_key: :id
+    # add_foreign_key :subject_answers, :subject_answer_groupings, column: :subject_answer_grouping_id, primary_key: :id
   end
 end
