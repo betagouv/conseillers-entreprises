@@ -1,7 +1,6 @@
 class FixSchema < ActiveRecord::Migration[7.2]
   def change
     add_index :reminders_actions, %w[category need_id need_id], name: :index_reminders_actions_category_need_id_need_id, unique: true
-    add_index :facilities, :commune_id, name: :index_facilities_commune_id
     add_index :diagnoses, :solicitation_id, name: :index_diagnoses_solicitation_id, unique: true
     add_index :badge_badgeables, %w[badgeable_id badgeable_type], name: :index_badge_badgeables_badgeable_id_badgeable_type
     add_index :company_satisfactions, :need_id, name: :index_company_satisfactions_need_id, unique: true
@@ -69,9 +68,7 @@ class FixSchema < ActiveRecord::Migration[7.2]
     add_foreign_key :feedbacks, :needs, column: :feedbackable_id, primary_key: :id
     add_foreign_key :feedbacks, :solicitations, column: :feedbackable_id, primary_key: :id
     add_foreign_key :feedbacks, :experts, column: :feedbackable_id, primary_key: :id
-    add_foreign_key :facilities, :communes, column: :commune_id, primary_key: :id
     add_foreign_key :antennes, :antennes, column: :parent_antenne_id, primary_key: :id
     add_foreign_key :subject_answers, :subject_answer_groupings, column: :subject_answer_grouping_id, primary_key: :id
-
   end
 end

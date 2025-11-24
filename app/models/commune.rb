@@ -21,8 +21,6 @@ class Commune < ApplicationRecord
   has_and_belongs_to_many :bassins_emploi, -> { bassins_emploi }, class_name: 'Territory'
   has_and_belongs_to_many :regions, -> { regions }, class_name: 'Territory', inverse_of: :communes
 
-  has_many :facilities, inverse_of: :commune
-
   has_and_belongs_to_many :antennes, inverse_of: :communes
   has_and_belongs_to_many :direct_experts, class_name: 'Expert', inverse_of: :communes
 
