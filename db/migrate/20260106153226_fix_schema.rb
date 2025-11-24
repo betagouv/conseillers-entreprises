@@ -7,13 +7,13 @@ class FixSchema < ActiveRecord::Migration[7.2]
     add_index :api_keys, :institution_id, name: :index_api_keys_institution_id, unique: true
     add_index :activity_reports, :reportable_id, name: :index_activity_reports_reportable_id
 
-    remove_index 'user_rights', name: 'index_user_rights_on_user_id'
-    remove_index 'subject_questions', name: 'index_subject_questions_on_subject_id'
-    remove_index 'shared_satisfactions', name: 'index_shared_satisfactions_on_user_id'
-    remove_index 'reminders_actions', name: 'index_reminders_actions_on_need_id'
-    remove_index 'institutions_subjects', name: 'index_institutions_subjects_on_subject_id'
-    remove_index 'experts_subjects', name: 'index_experts_subjects_on_expert_id'
-    remove_index 'needs', name: 'index_needs_on_subject_id'
+    remove_index 'user_rights', column: "user_id", name: 'index_user_rights_on_user_id'
+    remove_index 'subject_questions', column: "subject_id", name: 'index_subject_questions_on_subject_id'
+    remove_index 'shared_satisfactions', column: "user_id", name: 'index_shared_satisfactions_on_user_id'
+    remove_index 'reminders_actions', column: "need_id", name: 'index_reminders_actions_on_need_id'
+    remove_index 'institutions_subjects', column: "subject_id", name: 'index_institutions_subjects_on_subject_id'
+    remove_index 'experts_subjects', column: "expert_id", name: 'index_experts_subjects_on_expert_id'
+    remove_index 'needs', column: "subject_id", name: 'index_needs_on_subject_id'
 
     change_column_null :subject_questions, :key, false
     change_column_null :match_filters, :filtrable_element_type, false
@@ -53,9 +53,18 @@ class FixSchema < ActiveRecord::Migration[7.2]
     change_column_null :company_satisfactions, :contacted_by_expert, false
     change_column_null :company_satisfactions, :useful_exchange, false
 
-    change_column :subjects, :id, :bigint
-    change_column :users, :id, :bigint
-    change_column :companies, :id, :bigint
+    reversible do |direction|
+      direction.up do
+        change_column :subjects, :id, :bigint
+        change_column :users, :id, :bigint
+        change_column :companies, :id, :bigint
+      end
+      direction.down do
+        change_column :subjects, :id, :integer
+        change_column :users, :id, :integer
+        change_column :companies, :id, :integer
+      end
+    end
 
     # add_foreign_key :user_rights, :antennes, column: :rightable_element_id, primary_key: :id
     # add_foreign_key :user_rights, :cooperations, column: :rightable_element_id, primary_key: :id
