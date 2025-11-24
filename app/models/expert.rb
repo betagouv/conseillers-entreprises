@@ -293,6 +293,7 @@ class Expert < ApplicationRecord
     klass = klass.omnisearch(params[:omnisearch]) if params[:omnisearch].present?
     klass = klass.by_possible_region(params[:by_region]) if params[:by_region].present?
     klass = klass.by_full_name(params[:by_full_name]) if params[:by_full_name].present?
+    klass = klass.joins(:antenne).where(antennes: { institution_id: params[:institution_id] }) if params[:institution_id].present?
     klass.all
   end
 
