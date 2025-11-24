@@ -217,6 +217,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    database_consistency (2.0.5)
+      activerecord (>= 3.2)
     date (3.4.1)
     decoupage_administratif (0.2.0)
       rake
@@ -780,6 +782,7 @@ DEPENDENCIES
   css_parser
   daemons
   dartsass-sprockets
+  database_consistency
   decoupage_administratif (~> 0.2.0)
   devise
   devise-async
