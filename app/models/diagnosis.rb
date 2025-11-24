@@ -6,7 +6,7 @@
 #  completed_at         :datetime
 #  content              :text
 #  happened_on          :date
-#  retention_email_sent :boolean          default(FALSE)
+#  retention_email_sent :boolean          default(FALSE), not null
 #  step                 :integer          default("not_started")
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null

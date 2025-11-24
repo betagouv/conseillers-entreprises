@@ -6,13 +6,18 @@
 #  position         :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  landing_id       :bigint(8)
-#  landing_theme_id :bigint(8)
+#  landing_id       :bigint(8)        not null
+#  landing_theme_id :bigint(8)        not null
 #
 # Indexes
 #
 #  index_landing_joint_themes_on_landing_id        (landing_id)
 #  index_landing_joint_themes_on_landing_theme_id  (landing_theme_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (landing_id => landings.id)
+#  fk_rails_...  (landing_theme_id => landing_themes.id)
 #
 class LandingJointTheme < ApplicationRecord
   ## Associations

@@ -11,6 +11,7 @@
 #
 # Indexes
 #
+#  index_api_keys_institution_id     (institution_id) UNIQUE
 #  index_api_keys_on_institution_id  (institution_id)
 #  index_api_keys_on_token_digest    (token_digest) UNIQUE
 #
