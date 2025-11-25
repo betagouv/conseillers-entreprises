@@ -3,7 +3,7 @@ module ActivityReports
     private
 
     def export_xls(quarter)
-      exporter = XlsxExport::CooperationExporter.new({
+      exporter = XlsxExport::CooperationSolicitationsExporter.new({
         start_date: quarter.first,
           end_date: quarter.last,
           cooperation: cooperation
