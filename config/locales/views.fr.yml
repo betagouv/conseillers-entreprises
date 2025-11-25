@@ -48,6 +48,7 @@ fr:
   activity_report_service:
     cooperation_file_name: rapport-activite-%{item}-%{year}T%{number}.xlsx
     matches_file_name: export-mises-en-relation-%{item}-%{year}-%{month}.xlsx
+    solicitations_file_name: sollicitations-%{item}-%{year}T%{number}.xlsx
     stats_file_name: export-stats-%{item}-%{year}T%{number}.xlsx
   admin:
     reassign_matches:
