@@ -224,6 +224,7 @@ fr:
         display_url: Afficher l’url du partenaire
         external: Coopération externe
         landings_or_mtm: Landing / Campagne
+        wants_solicitations_export: Générer l’export de solicitations
       diagnosis:
         content: Commentaire
         step: Étape
