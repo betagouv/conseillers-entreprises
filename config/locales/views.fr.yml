@@ -249,7 +249,9 @@ fr:
           title: Possibilité de décalage du nombre de besoins
         title: "%{cooperation_name} - Pilotage par besoin"
       reports:
-        download_report: Télécharger le Rapport d’activité
+        download:
+          cooperation: Télécharger le Rapport d’activité
+          solicitations: Télécharger l’export des sollicitations
         file_infos: XLSX - %{weight} ko
         interval: "%{start_month} à %{end_month} %{year}"
         no_export_available: Votre rapport d’activité n’est pas encore disponible.
