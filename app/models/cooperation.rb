@@ -11,6 +11,7 @@
 #  mtm_campaign                    :string
 #  name                            :string           not null
 #  root_url                        :string
+#  wants_solicitations_export      :boolean          default(FALSE), not null
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  institution_id                  :bigint(8)        not null
