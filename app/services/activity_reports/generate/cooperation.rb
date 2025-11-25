@@ -20,7 +20,7 @@ module ActivityReports
     end
 
     def reports
-      cooperation.activity_reports
+      cooperation.cooperation_reports
     end
   end
 end
