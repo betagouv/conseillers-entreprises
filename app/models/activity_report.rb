@@ -17,7 +17,7 @@
 #  index_activity_reports_on_reportable  (reportable_type,reportable_id)
 #
 class ActivityReport < ApplicationRecord
-  enum :category, { matches: 'matches', stats: 'stats', cooperation: 'cooperation' }, prefix: true
+  enum :category, { matches: 'matches', stats: 'stats', cooperation: 'cooperation', solicitations: 'solicitations' }, prefix: true
 
   belongs_to :reportable, polymorphic: true
   belongs_to :cooperation, -> { where(activity_reports: { reportable_type: 'Cooperation' }) },
