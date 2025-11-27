@@ -70,7 +70,7 @@ module Reminders
           render turbo_stream: turbo_stream.update("display-feedbacks-#{expert.id}",
                                                    partial: "experts/expert_feedbacks",
                                                    locals: { expert: expert })
-          format.html { redirect_back fallback_location: many_pending_need_reminders_experts_path }
+          format.html { redirect_back_or_to many_pending_need_reminders_experts_path }
         end
       end
     end
@@ -97,7 +97,7 @@ module Reminders
               turbo_stream.update("flash", partial: "shared/flashes")
             ]
           end
-          format.html { render :index, status: :unprocessable_entity }
+          format.html { render :index, status: :unprocessable_content }
         end
       end
     end

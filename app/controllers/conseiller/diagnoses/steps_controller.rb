@@ -60,7 +60,7 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
       redirect_to conseiller_solicitations_path
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
-      render :matches, status: :unprocessable_entity
+      render :matches, status: :unprocessable_content
     end
   end
 

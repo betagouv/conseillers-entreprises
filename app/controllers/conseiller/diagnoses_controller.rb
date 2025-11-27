@@ -22,7 +22,7 @@ class Conseiller::DiagnosesController < ApplicationController
       redirect_to controller: 'conseiller/diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     else
       flash[:alert] = @diagnosis.errors.full_messages.to_sentence
-      redirect_back(fallback_location: new_conseiller_diagnosis_path(solicitation: diagnosis_params[:solicitation_id]))
+      redirect_back_or_to(new_conseiller_diagnosis_path(solicitation: diagnosis_params[:solicitation_id]))
     end
   end
 

@@ -7,7 +7,7 @@ class FeedbacksController < ApplicationController
       @feedback.notify_for_need!
     else
       flash.alert = @feedback.errors.full_messages.to_sentence
-      redirect_back(fallback_location: root_path)
+      redirect_back_or_to(root_path)
     end
 
     respond_to do |format|
@@ -22,7 +22,7 @@ class FeedbacksController < ApplicationController
     authorize feedback
     feedback.destroy!
     respond_to do |format|
-      format.html { redirect_back fallback_location: reminders_expert_path }
+      format.html { redirect_back_or_to reminders_expert_path }
       format.turbo_stream { render turbo_stream: turbo_stream.remove("feedback-#{feedback.id}") }
     end
   end

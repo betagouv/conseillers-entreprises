@@ -21,7 +21,7 @@ module  Annuaire
         flash[:table_highlighted_ids] = @result.objects.compact.map(&:id)
         redirect_to action: :index
       else
-        render :import, status: :unprocessable_entity
+        render :import, status: :unprocessable_content
       end
     end
 

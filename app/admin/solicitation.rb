@@ -140,7 +140,7 @@ ActiveAdmin.register Solicitation do
       solicitations.update(status: status)
       model = Solicitation.model_name.human(count: solicitations.size)
       done = Solicitation.human_attribute_value(:status, status, context: :done, count: solicitations.size)
-      redirect_back fallback_location: collection_path, notice: "#{model} #{done}"
+      redirect_back_or_to collection_path, notice: "#{model} #{done}"
     end
   end
 
@@ -268,6 +268,6 @@ ActiveAdmin.register Solicitation do
     else
       { notice: t('active_admin.solicitations.deleted', count: ids.count) }
     end
-    redirect_back fallback_location: collection_path, **message
+    redirect_back_or_to collection_path
   end
 end
