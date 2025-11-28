@@ -4,6 +4,7 @@ ActiveAdmin.register Institution do
   controller do
     include SoftDeletable::ActiveAdminResourceController
     include DynamicallyFiltrable
+    helper ActiveAdminUtilitiesHelper
   end
 
   scope :active, default: true
@@ -128,8 +129,8 @@ ActiveAdmin.register Institution do
       institution.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
           attributes_table_for mf do
-            MatchFilter::FILTERS.each do |filter|
-              row filter if mf.send(filter).present?
+            format_match_filter_attributes(mf).each do |filter, content|
+              row(filter) { content }
             end
           end
         end

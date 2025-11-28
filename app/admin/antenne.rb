@@ -4,6 +4,7 @@ ActiveAdmin.register Antenne do
   controller do
     include SoftDeletable::ActiveAdminResourceController
     include TerritorialZonesSearchable
+    helper ActiveAdminUtilitiesHelper
 
     def scoped_collection
       # NOTE: Don’t `includes` lots of related tables, as this causes massive leaks in ActiveAdmin.
@@ -118,22 +119,8 @@ ActiveAdmin.register Antenne do
       antenne.institution.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
           attributes_table_for mf do
-            MatchFilter::FILTERS.each do |filter|
-              if filter == :raw_accepted_naf_codes && mf.accepted_naf_codes.present?
-                if mf.accepted_naf_codes.size > 10
-                  row :raw_accepted_naf_codes do
-                    mf.raw_accepted_naf_codes
-                  end
-                else
-                  row :raw_accepted_naf_codes do
-                    mf.accepted_naf_codes.map do |naf_code|
-                      "#{naf_code} - #{NafCode.naf_libelle(NafCode.level2_code(naf_code), 'level2')}"
-                    end.join('<br>').html_safe
-                  end
-                end
-              elsif mf.send(filter).present?
-                row filter
-              end
+            format_match_filter_attributes(mf).each do |filter, content|
+              row(filter) { content }
             end
           end
         end
@@ -144,22 +131,8 @@ ActiveAdmin.register Antenne do
       antenne.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
           attributes_table_for mf do
-            MatchFilter::FILTERS.each do |filter|
-              if filter == :raw_accepted_naf_codes && mf.accepted_naf_codes.present?
-                if mf.accepted_naf_codes.size > 10
-                  row :raw_accepted_naf_codes do
-                    mf.raw_accepted_naf_codes
-                  end
-                else
-                  row :raw_accepted_naf_codes do
-                    mf.accepted_naf_codes.map do |naf_code|
-                      "#{naf_code} - #{NafCode.naf_libelle(NafCode.level2_code(naf_code), 'level2')}"
-                    end.join('<br>').html_safe
-                  end
-                end
-              elsif mf.send(filter).present?
-                row filter
-              end
+            format_match_filter_attributes(mf).each do |filter, content|
+              row(filter) { content }
             end
           end
         end
