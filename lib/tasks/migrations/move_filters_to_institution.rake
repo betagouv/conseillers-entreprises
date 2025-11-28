@@ -20,7 +20,7 @@ namespace :migrations do
       institution_name = institution_data[:name]
       codes_to_remove = institution_data[:codes_to_remove]
 
-      puts "Moving filters for codes #{codes_to_remove.join(', ')} from #{institution_name} experts and antennes to #{institution_name} institution..."
+      puts "Moving filters for codes #{(codes_to_remove || []).join(', ')} from #{institution_name} experts and antennes to #{institution_name} institution..."
 
       institution = Institution.find_by!(name: institution_name)
 
