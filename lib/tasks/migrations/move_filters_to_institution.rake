@@ -1,6 +1,31 @@
 namespace :migrations do
   desc 'Move specific match filters from Antenne/Expert to their Institution'
   task move_filters_to_institution: :environment do
+    # Helper method to remove filters from both antennes and experts
+    def remove_filters_from_filtrables(antennes, experts, filter_type, values, remove_filter_proc)
+      [antennes, experts].each do |filtrables|
+        filtrables.each do |filtrable|
+          filtrable.match_filters.each do |filter|
+            remove_filter_proc.call(filter, filter_type, values)
+          end
+        end
+      end
+    end
+
+    # Helper method to create or update array-based filter attribute
+    def update_array_filter_attribute(filter, attribute_name, current_value, values_to_remove)
+      return unless current_value.present? && current_value.intersect?(values_to_remove)
+
+      filter.public_send("#{attribute_name}=", current_value - values_to_remove)
+      filter.save!
+      puts "Removed #{attribute_name} #{values_to_remove.join(', ')} from #{filter.filtrable_element_type} #{filter.filtrable_element_id}'s match_filters."
+    end
+
+    # Helper method to get or initialize institution filter
+    def get_institution_filter(institution)
+      institution.match_filters.find_or_initialize_by(filtrable_element: institution)
+    end
+
     institutions_to_process = [
       { name: "Chambre de Commerce et d'Industrie (CCI)", codes_to_remove: ["6540"] },
       { name: "Chambre des Métiers et de l'Artisanat (CMA)", codes_to_remove: ["6540"] },
@@ -33,94 +58,98 @@ namespace :migrations do
       all_filters = expert_filters.or(antenne_filters)
 
       ApplicationRecord.transaction do
-        # Consolidate codes for the institution's filter
+        # Lambda to remove filters from a match_filter
+        remove_filter = ->(match_filter, filter_type, values) {
+          case filter_type
+          when :excluded_legal_forms, :accepted_naf_codes
+            attribute_name = filter_type
+            current_value = match_filter.public_send(attribute_name)
+            update_array_filter_attribute(match_filter, attribute_name, current_value, values)
+          when :effectif_min
+            if match_filter.effectif_min.present?
+              match_filter.effectif_min = nil
+              match_filter.save!
+              puts "Removed effectif_min from #{match_filter.filtrable_element_type} #{match_filter.filtrable_element_id}'s match_filters."
+            end
+          when :subjects
+            if match_filter.subjects.include?(values) # values is a single subject object here
+              match_filter.subjects.delete(values)
+              match_filter.save!
+              puts "Removed subject #{values.id} from #{match_filter.filtrable_element_type} #{match_filter.filtrable_element_id}'s match_filters."
+            end
+          end
+        }
+
+        # Handle excluded_legal_forms for institution
         if codes_to_remove.present?
           existing_institution_filter = institution.match_filters.find_by("excluded_legal_forms && ARRAY[?]::varchar[]", codes_to_remove)
 
           if existing_institution_filter
-            # Add only missing codes to the existing filter
-            new_codes = codes_to_remove - (existing_institution_filter.excluded_legal_forms || []) # Ensure it's an array
+            new_codes = codes_to_remove - (existing_institution_filter.excluded_legal_forms || [])
             if new_codes.any?
               existing_institution_filter.excluded_legal_forms = (existing_institution_filter.excluded_legal_forms || []) + new_codes
               existing_institution_filter.save!
             end
           else
-            # Create a new filter with all codes
             institution.match_filters.create!(excluded_legal_forms: codes_to_remove)
           end
 
-          # Remove codes_to_remove from antenne filters
-          antennes.each do |antenne|
-            antenne.match_filters.each do |filter|
-              if filter.excluded_legal_forms.present? && filter.excluded_legal_forms.intersect?(codes_to_remove)
-                filter.excluded_legal_forms = filter.excluded_legal_forms - codes_to_remove
-                filter.save!
-                puts "Removed codes_to_remove #{codes_to_remove.join(', ')} from Antenne #{antenne.id}'s match_filters."
-              end
-            end
-          end
+          remove_filters_from_filtrables(antennes, experts, :excluded_legal_forms, codes_to_remove, remove_filter)
         end
 
         # Handle effectif_min for institution
         if institution_data[:effectif_min].present?
-          institution_filter = institution.match_filters.find_or_initialize_by(
-            filtrable_element: institution
-          )
+          institution_filter = get_institution_filter(institution)
           institution_filter.effectif_min = institution_data[:effectif_min]
           institution_filter.save!
           puts "Added effectif_min #{institution_data[:effectif_min]} to Institution #{institution_name}'s match_filters."
+
+          remove_filters_from_filtrables(antennes, experts, :effectif_min, nil, remove_filter)
         end
 
         # Handle accepted_naf_codes for institution
         if institution_data[:accepted_naf_codes].present?
           accepted_naf_codes = institution_data[:accepted_naf_codes]
-          institution_filter = institution.match_filters.find_or_initialize_by(
-            filtrable_element: institution
-          )
-          
-          # Add only missing codes to the existing filter
+          institution_filter = get_institution_filter(institution)
+
           new_naf_codes = accepted_naf_codes - (institution_filter.accepted_naf_codes || [])
           if new_naf_codes.any?
             institution_filter.accepted_naf_codes = (institution_filter.accepted_naf_codes || []) + new_naf_codes
             institution_filter.save!
             puts "Added accepted_naf_codes #{new_naf_codes.join(', ')} to Institution #{institution_name}'s match_filters."
           end
+
+          remove_filters_from_filtrables(antennes, experts, :accepted_naf_codes, accepted_naf_codes, remove_filter)
         end
 
-        # Remove empty filters
-        all_filters.each do |filter|
-          if filter.filter_types.empty?
-            filter.destroy!
-          end
-        end
-
-        # Handle accepted_legal_forms for institution and subjects for antennes
+        # Handle subjects for institution
         if institution_data[:subject_id_for_transfer].present?
           subject_id = institution_data[:subject_id_for_transfer]
           subject = Subject.find(subject_id)
 
-          institution_filter = institution.match_filters.find_or_initialize_by(
-            filtrable_element: institution
-          )
+          institution_filter = get_institution_filter(institution)
           institution_filter.subjects << subject unless institution_filter.subjects.include?(subject)
           institution_filter.save!
 
           puts "Added subject #{subject_id} to Institution #{institution_name}'s match_filters."
+
+          remove_filters_from_filtrables(antennes, experts, :subjects, subject, remove_filter)
         end
 
-        if institution_data[:subject_id_for_transfer].present?
-          subject_id = institution_data[:subject_id_for_transfer]
-          subject = Subject.find(subject_id)
+        # Remove empty filters - search for all filters that are now empty
+        empty_filters = MatchFilter.where(filtrable_element: experts).or(MatchFilter.where(filtrable_element: antennes))
+          .where("(accepted_naf_codes IS NULL OR accepted_naf_codes = '{}')")
+          .where("(excluded_naf_codes IS NULL OR excluded_naf_codes = '{}')")
+          .where("(accepted_legal_forms IS NULL OR accepted_legal_forms = '{}')")
+          .where("(excluded_legal_forms IS NULL OR excluded_legal_forms = '{}')")
+          .where(effectif_min: nil, effectif_max: nil, min_years_of_existence: nil, max_years_of_existence: nil)
+          .left_joins(:subjects)
+          .group('match_filters.id')
+          .having('COUNT(subjects.id) = 0')
 
-          antennes.each do |antenne|
-            antenne.match_filters.each do |filter|
-              if filter.subjects.include?(subject)
-                filter.subjects.delete(subject)
-                filter.save!
-                puts "Removed subject #{subject_id} from Antenne #{antenne.id}'s match_filters."
-              end
-            end
-          end
+        empty_filters.each do |filter|
+          puts "Destroying empty filter for #{filter.filtrable_element_type} #{filter.filtrable_element_id}."
+          filter.destroy!
         end
       end
 
