@@ -119,7 +119,21 @@ ActiveAdmin.register Antenne do
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
           attributes_table_for mf do
             MatchFilter::FILTERS.each do |filter|
-              row filter if mf.send(filter).present?
+              if filter == :raw_accepted_naf_codes && mf.accepted_naf_codes.present?
+                if mf.accepted_naf_codes.size > 10
+                  row :raw_accepted_naf_codes do
+                    mf.raw_accepted_naf_codes
+                  end
+                else
+                  row :raw_accepted_naf_codes do
+                    mf.accepted_naf_codes.map do |naf_code|
+                      "#{naf_code} - #{NafCode.naf_libelle(NafCode.level2_code(naf_code), 'level2')}"
+                    end.join('<br>').html_safe
+                  end
+                end
+              elsif mf.send(filter).present?
+                row filter
+              end
             end
           end
         end
@@ -131,7 +145,21 @@ ActiveAdmin.register Antenne do
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
           attributes_table_for mf do
             MatchFilter::FILTERS.each do |filter|
-              row filter if mf.send(filter).present?
+              if filter == :raw_accepted_naf_codes && mf.accepted_naf_codes.present?
+                if mf.accepted_naf_codes.size > 10
+                  row :raw_accepted_naf_codes do
+                    mf.raw_accepted_naf_codes
+                  end
+                else
+                  row :raw_accepted_naf_codes do
+                    mf.accepted_naf_codes.map do |naf_code|
+                      "#{naf_code} - #{NafCode.naf_libelle(NafCode.level2_code(naf_code), 'level2')}"
+                    end.join('<br>').html_safe
+                  end
+                end
+              elsif mf.send(filter).present?
+                row filter
+              end
             end
           end
         end
