@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe ActivityReports::Cooperation::GenerateJob do
+RSpec.describe ActivityReports::CooperationSolicitations::GenerateJob do
   describe 'enqueue a job with a cooperation' do
     let(:cooperation) { create(:cooperation) }
 

@@ -1,7 +1,9 @@
 class Conseiller::CooperationsController < ApplicationController
   include StatsUtilities
 
-  before_action :retrieve_cooperation, only: %i[needs matches reports load_filter_options provenance_detail_autocomplete]
+  layout 'side_menu', only: %i[reports solicitations]
+
+  before_action :retrieve_cooperation, only: %i[needs matches reports solicitations load_filter_options provenance_detail_autocomplete]
   before_action :init_filters, only: %i[needs matches load_filter_options]
 
   def needs
@@ -24,7 +26,12 @@ class Conseiller::CooperationsController < ApplicationController
   end
 
   def reports
-    @quarters = @cooperation.activity_reports.order(start_date: :desc).pluck(:start_date, :end_date).uniq
+    @reports_by_quarter = reports_by_quarter(category: :cooperation)
+  end
+
+  def solicitations
+    @reports_by_quarter = reports_by_quarter(category: :solicitations)
+    render :reports
   end
 
   def load_data
@@ -73,5 +80,12 @@ class Conseiller::CooperationsController < ApplicationController
   def set_stats_params(additional_params = {})
     @stats_params = stats_params.merge(additional_params)
     session[:cooperation_stats_params] = @stats_params
+  end
+
+  def reports_by_quarter(category:)
+    @cooperation.activity_reports.where(category: category)
+      .order(start_date: :desc)
+      .with_attached_file
+      .group_by{ [it.start_date, it.end_date] }
   end
 end

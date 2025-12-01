@@ -1,9 +1,9 @@
 module ActivityReports
-  class Generate::Cooperation < Generate::Base
+  class Generate::CooperationSolicitations < Generate::Base
     private
 
     def export_xls(quarter)
-      exporter = XlsxExport::CooperationExporter.new({
+      exporter = XlsxExport::CooperationSolicitationsExporter.new({
         start_date: quarter.first,
           end_date: quarter.last,
           cooperation: cooperation
@@ -16,11 +16,11 @@ module ActivityReports
     end
 
     def report_type
-      :cooperation
+      :solicitations
     end
 
     def reports
-      cooperation.cooperation_reports
+      cooperation.solicitations_reports
     end
   end
 end

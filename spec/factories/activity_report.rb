@@ -15,5 +15,9 @@ FactoryBot.define do
       category { :cooperation }
       reportable factory: %i[cooperation]
     end
+    trait :category_solicitations do
+      category { :solicitations }
+      reportable factory: %i[cooperation]
+    end
   end
 end
