@@ -26,7 +26,7 @@ module ActivityReports::Generate
       filename = build_filename(period)
       report = reports.create!(start_date: period.first, end_date: period.last)
       report.file.attach(io: result.xlsx.to_stream(confirm_valid: true),
-                         key: "activity_report_#{report_type}/#{@item.name.parameterize}/#{filename}",
+                         key: "activity_report_#{report_type}/#{@item.id}-#{@item.name.parameterize}/#{filename}",
                          filename: filename,
                          content_type: 'application/xlsx')
     end
