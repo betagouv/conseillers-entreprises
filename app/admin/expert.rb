@@ -4,6 +4,7 @@ ActiveAdmin.register Expert do
   controller do
     include SoftDeletable::ActiveAdminResourceController
     include DynamicallyFiltrable
+
     helper ActiveAdminUtilitiesHelper
 
     def scoped_collection

@@ -4,6 +4,7 @@ ActiveAdmin.register Institution do
   controller do
     include SoftDeletable::ActiveAdminResourceController
     include DynamicallyFiltrable
+
     helper ActiveAdminUtilitiesHelper
   end
 

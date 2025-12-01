@@ -38,25 +38,25 @@ module ActiveAdminUtilitiesHelper
 
   # Format NAF codes with labels if <= 10 codes, otherwise return raw string
   def format_naf_codes(codes, raw_codes)
-    return nil unless codes.present?
+    return nil if codes.blank?
 
     if codes.size > 10
       raw_codes
     else
       codes.map { |code| "#{code} - #{NafCode.naf_libelle(NafCode.level2_code(code), 'level2')}" }
-           .join('<br>').html_safe
+        .join('<br>').html_safe
     end
   end
 
   # Format legal forms with descriptions if <= 10 codes, otherwise return raw string
   def format_legal_forms(codes, raw_codes)
-    return nil unless codes.present?
+    return nil if codes.blank?
 
     if codes.size > 10
       raw_codes
     else
       codes.map { |code| "#{code} - #{CategorieJuridique.description(code)}" }
-           .join('<br>').html_safe
+        .join('<br>').html_safe
     end
   end
 end
