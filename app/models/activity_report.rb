@@ -20,6 +20,10 @@ class ActivityReport < ApplicationRecord
   enum :category, { matches: 'matches', stats: 'stats', cooperation: 'cooperation' }, prefix: true
 
   belongs_to :reportable, polymorphic: true
+  belongs_to :cooperation, -> { where(activity_reports: { reportable_type: 'Cooperation' }) },
+             foreign_key: 'reportable_id', inverse_of: :activity_reports, optional: true
+  belongs_to :antenne, -> { where(activity_reports: { reportable_type: 'Antenne' }) },
+             foreign_key: 'reportable_id', inverse_of: :activity_reports, optional: true
 
   has_one_attached :file
 end
