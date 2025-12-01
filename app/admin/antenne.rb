@@ -4,6 +4,7 @@ ActiveAdmin.register Antenne do
   controller do
     include SoftDeletable::ActiveAdminResourceController
     include TerritorialZonesSearchable
+
     helper ActiveAdminUtilitiesHelper
 
     def scoped_collection
