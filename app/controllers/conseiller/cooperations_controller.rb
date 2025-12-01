@@ -26,16 +26,11 @@ class Conseiller::CooperationsController < ApplicationController
   end
 
   def reports
-    @reports_by_quarter = @cooperation.cooperation_reports.order(start_date: :desc)
-      .with_attached_file
-      .group_by{ [it.start_date, it.end_date] }
+    @reports_by_quarter = reports_by_quarter(category: :cooperation)
   end
 
   def solicitations
-    @reports_by_quarter = @cooperation.solicitations_reports.order(start_date: :desc)
-      .with_attached_file
-      .group_by{ [it.start_date, it.end_date] }
-
+    @reports_by_quarter = reports_by_quarter(category: :solicitations)
     render :reports
   end
 
@@ -85,5 +80,12 @@ class Conseiller::CooperationsController < ApplicationController
   def set_stats_params(additional_params = {})
     @stats_params = stats_params.merge(additional_params)
     session[:cooperation_stats_params] = @stats_params
+  end
+
+  def reports_by_quarter(category:)
+    @cooperation.activity_reports.where(category: category)
+      .order(start_date: :desc)
+      .with_attached_file
+      .group_by{ [it.start_date, it.end_date] }
   end
 end
