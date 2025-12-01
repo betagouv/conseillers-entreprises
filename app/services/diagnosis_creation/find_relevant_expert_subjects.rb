@@ -37,18 +37,7 @@ module DiagnosisCreation
         # On retire les filtres sur les sujets autres que celui du besoin
         match_filters = es.match_filters.reject { |mf| other_subject_filter?(mf) }
 
-        # On garde les experts_subjects qui n'ont pas de filtres
-        if match_filters.empty?
-          true
-        else
-          # On groupe les filtres par filtrable_element pour créer des groupes de filtres
-          grouped_filters = match_filters.group_by(&:filtrable_element)
-
-          # Pour chaque groupe, on vérifie qu'au moins un filtre passe
-          grouped_filters.all? do |_element, filters|
-            filters.any? { |mf| accepting_match_filter(mf) }
-          end
-        end
+        match_filters.empty? || match_filters.all? { |mf| accepting_match_filter(mf) }
       end
     end
 

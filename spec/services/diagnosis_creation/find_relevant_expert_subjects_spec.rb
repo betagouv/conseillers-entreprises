@@ -418,16 +418,16 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
         it { is_expected.to contain_exactly(expert_subject_without_filter) }
       end
 
-      context 'matching min_years_of_existence' do
+      context 'matching only min_years_of_existence' do
         let(:facility) { create :facility, company: create(:company, date_de_creation: 4.years.ago) }
 
-        it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter) }
       end
 
-      context 'matching effectif_min' do
+      context 'matching only effectif_min' do
         let(:facility) { create :facility, code_effectif: '11' } # 10 à 19 salariés
 
-        it { is_expected.to contain_exactly(expert_subject_without_filter, expert_subject_with_filter) }
+        it { is_expected.to contain_exactly(expert_subject_without_filter) }
       end
 
       context 'matching both' do
