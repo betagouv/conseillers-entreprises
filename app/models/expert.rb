@@ -96,6 +96,9 @@ class Expert < ApplicationRecord
       .where({ subjects: { is_support: true } })
   end
 
+  scope :with_activity, -> (date_range) { not_deleted.where(id: Match.with_activity(date_range).select(:expert_id)) }
+  scope :without_activity, -> (date_range) { not_deleted.where.not(id: Match.with_activity(date_range).select(:expert_id)) }
+
   # Team stuff
   scope :with_one_user, -> do
     joins(:users)
