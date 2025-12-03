@@ -159,8 +159,31 @@ class User < ApplicationRecord
      .where(invitation_sent_at: 6.months.ago..)
   end
 
-  scope :with_activity, -> { where(id: Expert.with_activity.users) } # TODO handle deleted_at, handle comments
-  scope :without_activity, -> { active.joins(:experts).merge(Expert.without_activity) }
+  scope :with_activity, -> { where(id: User.joins(:experts).merge(Expert.with_activity)) } # TODO handle User.deleted_at, handle comments
+  scope :without_activity, -> { where.not(id: User.joins(:experts).merge(Expert.with_activity)) }
+
+  lol <<~SQL
+SELECT
+	"users".*
+FROM
+	"users"
+WHERE
+	"users"."id" NOT IN (
+		SELECT
+			"experts_users"."user_id"
+		FROM
+			"experts_users"
+		WHERE
+			"experts_users"."expert_id" IN (
+				SELECT
+					"matches"."expert_id"
+				FROM
+					"matches"
+				WHERE
+					"matches"."status" != 'quo'
+					AND "matches"."updated_at" >= '2023-12-03 16:37:56.552990'));
+
+  SQL
 
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
