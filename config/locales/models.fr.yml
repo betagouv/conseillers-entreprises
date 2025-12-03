@@ -120,11 +120,13 @@ fr:
         from_solicitation: Analyses à partir d’une sollicitation directe
         from_visit: Analyses faites par des conseillers suite à une visite
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
+        without_activity: Absence d’activité depuis deux ans (ni commentaire, ni refus, ni prise en charge)
       with_custom_communes: Zone spécifique (old)
       with_deleted_expert: Expert supprimé
       with_territorial_zones: Avec des territoires spécifiques
       with_territorialal_zones: Avec des territoires
       with_territories: Avec territoires spécifiques
+      without_activity: Sans activité
       without_communes: Sans zone d’intervention (old)
       without_subjects: Sans compétence
       without_territorial_zones: Sans zone d'intervention
@@ -163,6 +165,7 @@ fr:
       department_number: 'Département %{number}, %{name} :'
     user:
       absence: Absence
+      active: Référencés
       connection: Connexion
       create_expert: Créer un expert identique
       create_expert_done: L’expert a bien été créé
