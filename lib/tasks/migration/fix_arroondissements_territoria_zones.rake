@@ -1,10 +1,10 @@
 task fix_arrondissement_territorial_zones: :environment do
-  PARENT_CITY_INSEE_CODES = %w[75056 13055 69123].freeze # Paris, Marseille, Lyon
-  ARRONDISSEMTS_INSEE_CODES = %w[
-      75101 75102 75103 75104 75105 75106 75107 75108 75109 75110 75111 75112 75113 75114 75115 75116 75117 75118 75119
-      75120 13201 13202 13203 13204 13205 13206 13207 13208 13209 13210 13211 13212 13213 13214 13215 13216 69381 69382
-      69383 69384 69385 69386 69387 69388 69389
-    ].freeze
+  @parent_city_insee_codes = %w[75056 13055 69123].freeze # Paris, Marseille, Lyon
+  @arrondissements_insee_codes = %w[
+    75101 75102 75103 75104 75105 75106 75107 75108 75109 75110 75111 75112 75113 75114 75115 75116 75117 75118 75119
+    75120 13201 13202 13203 13204 13205 13206 13207 13208 13209 13210 13211 13212 13213 13214 13215 13216 69381 69382
+    69383 69384 69385 69386 69387 69388 69389
+  ].freeze
 
   def process_record(record)
     arrondissement_communes = record.communes.select { |c| arrondissement?(c.insee_code) }
@@ -14,7 +14,7 @@ task fix_arrondissement_territorial_zones: :environment do
     zones_to_remove = []
     record.territorial_zones.each do |tz|
       # Check if it's a parent city commune zone (ex: Paris 75056)
-      if tz.zone_type == 'commune' && PARENT_CITY_INSEE_CODES.include?(tz.code)
+      if tz.zone_type == 'commune' && @parent_city_insee_codes.include?(tz.code)
         zones_to_remove << tz
       end
 
@@ -37,7 +37,7 @@ task fix_arrondissement_territorial_zones: :environment do
   end
 
   def arrondissement?(insee_code)
-    ARRONDISSEMTS_INSEE_CODES.include?(insee_code)
+    @arrondissements_insee_codes.include?(insee_code)
   end
 
   def log_changes(record, arrondissements, zones_to_remove)
@@ -54,7 +54,7 @@ task fix_arrondissement_territorial_zones: :environment do
   end
 
   # Find all commune IDs for Paris, Lyon, and Marseille arrondissements.
-  arrondissement_communes = Commune.where(insee_code: ARRONDISSEMTS_INSEE_CODES)
+  arrondissement_communes = Commune.where(insee_code: arrondissements_insee_codes)
 
   return if arrondissement_communes.empty?
 
