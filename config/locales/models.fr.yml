@@ -644,6 +644,9 @@ fr:
       user:
         absence_end_at: Date de fin d’absence
         absence_start_at: Date de début d’absence
+        activity_matches:
+          one: Action de MER
+          other: Actions de MER
         created_at: Création
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
