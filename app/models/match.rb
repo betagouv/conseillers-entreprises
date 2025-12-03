@@ -195,6 +195,10 @@ class Match < ApplicationRecord
     taken_care_before(5)
   end
 
+  scope :with_activity, -> (date_range) do
+    where.not(status: :quo).where(updated_at: date_range)
+  end
+
   scope :by_region, -> (region_code) {
     joins(:need).merge(Need.by_region(region_code)).distinct
   }
