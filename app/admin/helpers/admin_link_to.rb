@@ -25,7 +25,9 @@ module Admin
             count = object.send(association).size
             return empty_result(options) if count == 0
 
-            text = "#{count} #{klass.human_attribute_name(association, count: count).downcase}"
+            name = klass.human_attribute_name(association, count: count).dup
+            name[0] = name[0].downcase
+            text = "#{count} #{name}"
             foreign_klass = reflection.klass
             if reflection.options[:through].present?
               # I’m not using `reflection.through_reflection` on purpose:

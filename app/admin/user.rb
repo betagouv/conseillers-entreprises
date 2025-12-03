@@ -79,10 +79,8 @@ ActiveAdmin.register User do
       div admin_link_to(u, :experts, list: true)
     end
     column(:activity) do |u|
-      div admin_link_to(u, :sent_diagnoses, blank_if_empty: true)
-      div admin_link_to(u, :sent_needs, blank_if_empty: true)
-      div admin_link_to(u, :sent_matches, blank_if_empty: true)
-      div admin_link_to(u, :feedbacks, blank_if_empty: true)
+      div admin_link_to(u, :activity_matches)
+      div admin_link_to(u, :feedbacks)
     end
 
     actions dropdown: true do |u|
