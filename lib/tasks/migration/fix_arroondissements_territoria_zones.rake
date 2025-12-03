@@ -1,41 +1,10 @@
-# frozen_string_literal: true
-
-class FixArrondissementTerritorialZones < ActiveRecord::Migration[7.1]
+task fix_arrondissement_territorial_zones: :environment do
   PARENT_CITY_INSEE_CODES = %w[75056 13055 69123].freeze # Paris, Marseille, Lyon
-
-  def change
-    # Find all commune IDs for Paris, Lyon, and Marseille arrondissements.
-    arrondissement_insee_pattern = /^(751[01]\d|75120|132[01]\d|13216|6938\d)$/
-    arrondissement_communes = Commune.where("insee_code ~ ?", arrondissement_insee_pattern.source)
-
-    return if arrondissement_communes.empty?
-
-    expert_ids = Expert.joins(:communes)
-      .where(communes: arrondissement_communes )
-      .distinct
-
-    antenne_ids = Antenne.joins(:communes)
-      .where(communes: { id: arrondissement_communes.select(:id) })
-      .distinct.pluck(:id)
-
-    ApplicationRecord.transaction do
-      if expert_ids.any?
-        puts "Processing #{expert_ids.count} relevant Experts..."
-        Expert.includes(:communes, :territorial_zones).where(id: expert_ids).find_each do |expert|
-          process_record(expert)
-        end
-      end
-
-      if antenne_ids.any?
-        puts "Processing #{antenne_ids.count} relevant Antennes..."
-        Antenne.includes(:communes, :territorial_zones).where(id: antenne_ids).find_each do |antenne|
-          process_record(antenne)
-        end
-      end
-    end
-  end
-
-  private
+  ARRONDISSEMTS_INSEE_CODES = %w[
+      75101 75102 75103 75104 75105 75106 75107 75108 75109 75110 75111 75112 75113 75114 75115 75116 75117 75118 75119
+      75120 13201 13202 13203 13204 13205 13206 13207 13208 13209 13210 13211 13212 13213 13214 13215 13216 69381 69382
+      69383 69384 69385 69386 69387 69388 69389
+    ].freeze
 
   def process_record(record)
     arrondissement_communes = record.communes.select { |c| arrondissement?(c.insee_code) }
@@ -68,7 +37,7 @@ class FixArrondissementTerritorialZones < ActiveRecord::Migration[7.1]
   end
 
   def arrondissement?(insee_code)
-    insee_code.match?(/^(751[01]\d|75120|132[01]\d|13216|6938\d)$/)
+    ARRONDISSEMTS_INSEE_CODES.include?(insee_code)
   end
 
   def log_changes(record, arrondissements, zones_to_remove)
@@ -81,6 +50,35 @@ class FixArrondissementTerritorialZones < ActiveRecord::Migration[7.1]
 
     arrondissements.each do |commune|
       puts "  + Adding new zone for commune #{commune.insee_code}"
+    end
+  end
+
+  # Find all commune IDs for Paris, Lyon, and Marseille arrondissements.
+  arrondissement_communes = Commune.where(insee_code: ARRONDISSEMTS_INSEE_CODES)
+
+  return if arrondissement_communes.empty?
+
+  expert_ids = Expert.joins(:communes)
+    .where(communes: { id: arrondissement_communes.select(:id) })
+    .distinct.pluck(:id)
+
+  antenne_ids = Antenne.joins(:communes)
+    .where(communes: { id: arrondissement_communes.select(:id) })
+    .distinct.pluck(:id)
+
+  ApplicationRecord.transaction do
+    if expert_ids.any?
+      puts "Processing #{expert_ids.count} relevant Experts..."
+      Expert.includes(:communes, :territorial_zones).where(id: expert_ids).find_each do |expert|
+        process_record(expert)
+      end
+    end
+
+    if antenne_ids.any?
+      puts "Processing #{antenne_ids.count} relevant Antennes..."
+      Antenne.includes(:communes, :territorial_zones).where(id: antenne_ids).find_each do |antenne|
+        process_record(antenne)
+      end
     end
   end
 end
