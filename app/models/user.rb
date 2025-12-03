@@ -83,6 +83,7 @@ class User < ApplicationRecord
   has_one :profil_picture
 
   has_and_belongs_to_many :experts, -> { not_deleted }, inverse_of: :users
+  has_and_belongs_to_many :experts_with_subjects, -> { not_deleted.with_subjects }, class_name: "Expert", inverse_of: :users
   has_many :shared_satisfactions, inverse_of: :user
   has_many :shared_company_satisfactions, through: :shared_satisfactions, source: :company_satisfaction
   has_many :needs_with_shared_satisfaction, through: :shared_company_satisfactions, source: :need

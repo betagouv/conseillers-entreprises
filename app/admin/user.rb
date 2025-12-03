@@ -5,17 +5,12 @@ ActiveAdmin.register User do
     include SoftDeletable::ActiveAdminResourceController
 
     def scoped_collection
-      base_includes = [:antenne, :institution]
+      base_includes = [:antenne, :institution, :experts, :activity_matches, :experts_with_subjects, :feedbacks]
       additional_includes = []
 
       # If using role scopes, include user_rights
       if params[:scope].in?(['admin', 'managers', 'cooperation_managers', 'managers_not_invited'])
         additional_includes << :user_rights
-      end
-
-      # If displaying activity information (default on index)
-      if params[:scope].blank? || params[:scope] == 'active'
-        additional_includes += [:feedbacks, :sent_diagnoses, :sent_needs, :sent_matches, :invitees]
       end
 
       # Optimize based on active filters
@@ -87,7 +82,7 @@ ActiveAdmin.register User do
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
       item t('active_admin.user.do_invite'), invite_user_admin_user_path(u)
-      item(t('active_admin.user.invite_to_demo'), invite_to_demo_admin_user_path(u)) if u.first_expert_with_subject.present?
+      item(t('active_admin.user.invite_to_demo'), invite_to_demo_admin_user_path(u)) if u.experts_with_subjects.present?
     end
   end
 
