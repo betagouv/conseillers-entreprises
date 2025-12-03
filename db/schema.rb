@@ -10,49 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_27_084019) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_01_133912) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
-  create_enum :activity_reports_categories, [
-    "matches",
-    "stats",
-    "cooperation",
-  ], force: :cascade
-
-  create_enum :feedbacks_categories, [
-    "need",
-    "need_reminder",
-    "solicitation",
-    "expert_reminder",
-  ], force: :cascade
-
-  create_enum :match_status, [
-    "quo",
-    "taking_care",
-    "done",
-    "done_no_help",
-    "done_not_reachable",
-    "not_for_me",
-  ], force: :cascade
-
-  create_enum :need_status, [
-    "diagnosis_not_complete",
-    "quo",
-    "taking_care",
-    "done",
-    "not_for_me",
-    "done_no_help",
-    "done_not_reachable",
-  ], force: :cascade
-
-  create_enum :territorial_level, [
-    "local",
-    "regional",
-    "national",
-  ], force: :cascade
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "activity_reports_categories", ["matches", "stats", "cooperation"]
+  create_enum "feedbacks_categories", ["need", "need_reminder", "solicitation", "expert_reminder"]
+  create_enum "match_status", ["quo", "taking_care", "done", "done_no_help", "done_not_reachable", "not_for_me"]
+  create_enum "need_status", ["diagnosis_not_complete", "quo", "taking_care", "done", "not_for_me", "done_no_help", "done_not_reachable"]
+  create_enum "territorial_level", ["local", "regional", "national"]
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
