@@ -123,8 +123,6 @@ class User < ApplicationRecord
   # :antenne
   has_one :institution, through: :antenne, source: :institution, inverse_of: :advisors
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :advisors
-  has_many :antenne_territories, through: :antenne, source: :territories, inverse_of: :advisors
-  has_many :antenne_regions, through: :antenne, source: :regions, inverse_of: :advisors
 
   # :sent_diagnoses
   has_many :sent_needs, through: :sent_diagnoses, source: :needs, inverse_of: :advisor
