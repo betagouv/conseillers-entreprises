@@ -132,6 +132,7 @@ class User < ApplicationRecord
 
   # :experts
   has_many :received_matches, through: :experts, source: :received_matches, inverse_of: :contacted_users
+  has_many :activity_matches, through: :experts, source: :activity_matches, inverse_of: :contacted_users
   has_many :received_needs, through: :experts, source: :received_needs, inverse_of: :contacted_users
   has_many :received_diagnoses, through: :experts, source: :received_diagnoses, inverse_of: :contacted_users
   has_many :themes, through: :experts, inverse_of: :advisors
@@ -156,7 +157,10 @@ class User < ApplicationRecord
   scope :recent_active_invitation_not_accepted, -> do
    active_invitation_not_accepted
      .where(invitation_sent_at: 6.months.ago..)
- end
+  end
+
+  scope :with_activity, -> { where(id: Expert.with_activity.users) } # TODO handle deleted_at, handle comments
+  scope :without_activity, -> { active.joins(:experts).merge(Expert.without_activity) }
 
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)

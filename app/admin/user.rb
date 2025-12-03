@@ -5,7 +5,7 @@ ActiveAdmin.register User do
     include SoftDeletable::ActiveAdminResourceController
 
     def scoped_collection
-      base_includes = [:antenne, :institution]
+      base_includes = [:antenne, :institution, :experts]
       additional_includes = []
 
       # If using role scopes, include user_rights
@@ -15,7 +15,7 @@ ActiveAdmin.register User do
 
       # If displaying activity information (default on index)
       if params[:scope].blank? || params[:scope] == 'active'
-        additional_includes += [:feedbacks, :sent_diagnoses, :sent_needs, :sent_matches, :invitees]
+        additional_includes += [:feedbacks, :received_matches]
       end
 
       # Optimize based on active filters
@@ -42,17 +42,21 @@ ActiveAdmin.register User do
   config.sort_order = 'created_at_desc'
 
   scope :active, default: true
-  scope :deleted
-  scope :currently_absent
+  # scope :deleted
+  # scope :currently_absent
+  #
+  scope :with_activity, group: :activity
+  scope :without_activity, group: :activity
+  #
+  # scope :admin, group: :role
+  # scope :managers, group: :role
+  # scope :cooperation_managers, group: :role
+  #
+  # scope :managers_not_invited, group: :invitations
+  # scope :not_invited, group: :invitations
+  # scope :recent_active_invitation_not_accepted, group: :invitations
+  # scope :old_active_invitation_not_accepted, group: :invitations
 
-  scope :admin, group: :role
-  scope :managers, group: :role
-  scope :cooperation_managers, group: :role
-
-  scope :managers_not_invited, group: :invitations
-  scope :not_invited, group: :invitations
-  scope :recent_active_invitation_not_accepted, group: :invitations
-  scope :old_active_invitation_not_accepted, group: :invitations
 
   index do
     selectable_column
@@ -78,17 +82,15 @@ ActiveAdmin.register User do
       div admin_link_to(u, :experts, list: true)
     end
     column(:activity) do |u|
-      div admin_link_to(u, :sent_diagnoses, blank_if_empty: true)
-      div admin_link_to(u, :sent_needs, blank_if_empty: true)
-      div admin_link_to(u, :sent_matches, blank_if_empty: true)
-      div admin_link_to(u, :feedbacks, blank_if_empty: true)
+      div admin_link_to(u, :activity_matches)
+      div admin_link_to(u, :feedbacks)
     end
 
     actions dropdown: true do |u|
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
       item t('active_admin.user.do_invite'), invite_user_admin_user_path(u)
-      item(t('active_admin.user.invite_to_demo'), invite_to_demo_admin_user_path(u)) if u.first_expert_with_subject.present?
+      # item(t('active_admin.user.invite_to_demo'), invite_to_demo_admin_user_path(u)) if u.first_expert_with_subject.present?
     end
   end
 

@@ -161,7 +161,7 @@ class Solicitation < ApplicationRecord
   validates :origin_url, presence: true, if: -> { landing&.api? }
   validates :completed_at, presence: true, if: -> { step_complete? }
 
-  # Todo : à supprimer une fois que la migration api_url est passée ?
+  # Todo : à supprimer une fois que la migration api_url est passée ? ??
   validate if: -> { landing&.api? } do
     errors.add(:origin_url, :blank) if self.origin_url.blank?
   end

@@ -195,6 +195,10 @@ class Match < ApplicationRecord
     taken_care_before(5)
   end
 
+  scope :recent_activity, -> do # TODO better name, recent may mean “a few days ago”
+    where.not(status: :quo).where(updated_at: 2.years.ago..) # TODO parameterize the duration?
+  end
+
   scope :by_region, -> (region_code) {
     joins(:need).merge(Need.by_region(region_code)).distinct
   }
