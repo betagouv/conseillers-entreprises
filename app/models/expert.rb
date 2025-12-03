@@ -46,6 +46,7 @@ class Expert < ApplicationRecord
   has_many :reminders_registers, inverse_of: :expert
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
   has_many :territorial_zones, as: :zoneable, dependent: :destroy, inverse_of: :zoneable
+  has_many :activity_matches, -> { where.not(status: :quo).where(updated_at: 2.years.ago..) }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
 
   ## Validations & callbacks
   #
