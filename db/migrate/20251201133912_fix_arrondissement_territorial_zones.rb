@@ -11,8 +11,8 @@ class FixArrondissementTerritorialZones < ActiveRecord::Migration[7.1]
     return if arrondissement_communes.empty?
 
     expert_ids = Expert.joins(:communes)
-      .where(communes: { id: arrondissement_communes.select(:id) })
-      .distinct.pluck(:id)
+      .where(communes: arrondissement_communes )
+      .distinct
 
     antenne_ids = Antenne.joins(:communes)
       .where(communes: { id: arrondissement_communes.select(:id) })
