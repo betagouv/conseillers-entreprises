@@ -154,9 +154,9 @@ class User < ApplicationRecord
       .where(invitation_sent_at: ..6.months.ago)
   end
   scope :recent_active_invitation_not_accepted, -> do
-   active_invitation_not_accepted
-     .where(invitation_sent_at: 6.months.ago..)
- end
+    active_invitation_not_accepted
+      .where(invitation_sent_at: 6.months.ago..)
+  end
 
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
