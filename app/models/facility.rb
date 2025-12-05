@@ -48,6 +48,7 @@ class Facility < ApplicationRecord
   ## Validations
   #
   validates :siret, uniqueness: { allow_nil: true }
+  validates :insee_code, presence: true
 
   ## “Through” Associations
   #
@@ -100,7 +101,7 @@ class Facility < ApplicationRecord
 
   # Si demande de Mayotte, tout est envoyé vers l'OPCO Akto
   def get_relevant_opco
-    if region.code == "06" # Mayotte
+    if region.present? && region.code == "06" # Mayotte
       Institution.opco.find_by(slug: 'opco-akto-mayotte') # OPCO Akto Mayotte
     else
       self.opco
@@ -108,6 +109,7 @@ class Facility < ApplicationRecord
   end
 
   def region
+    return nil if insee_code.blank?
     DecoupageAdministratif::Commune.find(insee_code).region
   end
 

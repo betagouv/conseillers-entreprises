@@ -38,4 +38,72 @@ RSpec.describe Facility do
       end
     end
   end
+
+  describe "#region" do
+    subject { facility.region }
+
+    context "with valid insee_code" do
+      let(:facility) { build :facility, insee_code: "44109" }
+
+      it "returns the region" do
+        expect(subject).to be_a(DecoupageAdministratif::Region)
+        expect(subject).not_to be_nil
+      end
+    end
+
+    context "with blank insee_code" do
+      let(:facility) { build :facility, insee_code: nil }
+
+      it "returns nil" do
+        expect(subject).to be_nil
+      end
+    end
+
+    context "with empty string insee_code" do
+      let(:facility) { build :facility, insee_code: "" }
+
+      it "returns nil" do
+        expect(subject).to be_nil
+      end
+    end
+  end
+
+  describe "#get_relevant_opco" do
+    let!(:opco_akto) { create :institution, :opco, slug: 'opco-akto-mayotte' }
+    let!(:opco_default) { create :institution, :opco }
+
+    subject { facility.get_relevant_opco }
+
+    context "when facility is in Mayotte (region code 06)" do
+      let(:facility) { build :facility, insee_code: "97601", opco: opco_default }
+
+      it "returns OPCO Akto Mayotte" do
+        expect(subject).to eq(opco_akto)
+      end
+    end
+
+    context "when facility is not in Mayotte" do
+      let(:facility) { build :facility, insee_code: "44109", opco: opco_default }
+
+      it "returns the facility's opco" do
+        expect(subject).to eq(opco_default)
+      end
+    end
+
+    context "when facility has no region (blank insee_code)" do
+      let(:facility) { build :facility, insee_code: nil, opco: opco_default }
+
+      it "returns the facility's opco without error" do
+        expect(subject).to eq(opco_default)
+      end
+    end
+
+    context "when facility region is nil" do
+      let(:facility) { build :facility, insee_code: "", opco: opco_default }
+
+      it "returns the facility's opco without error" do
+        expect(subject).to eq(opco_default)
+      end
+    end
+  end
 end
