@@ -228,6 +228,24 @@ RSpec.describe Expert do
 
     subject { described_class.in_commune(insee_code) }
 
+    context "with blank insee_code" do
+      let(:insee_code) { nil }
+
+      it "returns none" do
+        expect(subject).to eq(described_class.none)
+        expect(subject.to_a).to be_empty
+      end
+    end
+
+    context "with empty string insee_code" do
+      let(:insee_code) { "" }
+
+      it "returns none" do
+        expect(subject).to eq(described_class.none)
+        expect(subject.to_a).to be_empty
+      end
+    end
+
     def expect_expert_with_commune
       expect(subject).to contain_exactly(expert_with_code)
       expect(subject).not_to include(expert_without_code)
