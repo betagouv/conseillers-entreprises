@@ -247,6 +247,8 @@ class Expert < ApplicationRecord
   scope :without_shared_satisfaction, -> { where.missing(:shared_satisfactions) }
 
   scope :in_commune, -> (insee_code) do
+    return none if insee_code.blank?
+
     commune = ::DecoupageAdministratif::Commune.find(insee_code)
     return none if commune.nil?
 

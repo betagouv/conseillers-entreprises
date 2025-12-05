@@ -38,4 +38,33 @@ RSpec.describe Facility do
       end
     end
   end
+
+  describe "#region" do
+    subject { facility.region }
+
+    context "with valid insee_code" do
+      let(:facility) { build :facility, insee_code: "44109" }
+
+      it "returns the region" do
+        expect(subject).to be_a(DecoupageAdministratif::Region)
+        expect(subject).not_to be_nil
+      end
+    end
+
+    context "with blank insee_code" do
+      let(:facility) { build :facility, insee_code: nil }
+
+      it "returns nil" do
+        expect(subject).to be_nil
+      end
+    end
+
+    context "with empty string insee_code" do
+      let(:facility) { build :facility, insee_code: "" }
+
+      it "returns nil" do
+        expect(subject).to be_nil
+      end
+    end
+  end
 end
