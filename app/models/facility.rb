@@ -109,7 +109,6 @@ class Facility < ApplicationRecord
   end
 
   def region
-    return nil if insee_code.blank?
     DecoupageAdministratif::Commune.find(insee_code).region
   end
 
