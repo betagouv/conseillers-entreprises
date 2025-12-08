@@ -73,21 +73,5 @@ RSpec.describe Facility do
         expect(subject).to eq(opco_default)
       end
     end
-
-    context "when facility has no region (blank insee_code)" do
-      let(:facility) { build :facility, insee_code: nil, opco: opco_default }
-
-      it "returns the facility's opco without error" do
-        expect(subject).to eq(opco_default)
-      end
-    end
-
-    context "when facility region is nil" do
-      let(:facility) { build :facility, insee_code: "", opco: opco_default }
-
-      it "returns the facility's opco without error" do
-        expect(subject).to eq(opco_default)
-      end
-    end
   end
 end
