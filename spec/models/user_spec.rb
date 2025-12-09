@@ -120,6 +120,25 @@ RSpec.describe User do
         expect(described_class.omnisearch("a.lovelace")).to contain_exactly(user)
       end
     end
+
+    describe 'with/without activity' do
+      let(:inactive_expert) do
+        build :expert, received_matches: [
+          build(:match, status: :quo),
+          build(:match, status: :not_for_me, updated_at: 100.days.ago)
+        ]
+      end
+      let(:active_expert) { build :expert, received_matches: [build(:match, status: :not_for_me, updated_at: 10.days.ago)] }
+      let!(:active_user_1) { create :user, experts: [active_expert] }
+      let!(:active_user_2) { create :user, experts: [active_expert, inactive_expert] }
+      let!(:inactive_user) { create :user, experts: [inactive_expert] }
+
+      it 'returns the relevant users' do
+        expect(described_class.with_activity(50.days.ago..)).to contain_exactly(active_user_1, active_user_2)
+        expect(described_class.without_activity(50.days.ago..)).to include(inactive_user)
+        expect(described_class.without_activity(50.days.ago..)).not_to include(active_user_1, active_user_2)
+      end
+    end
   end
 
   describe '#password_required?' do
