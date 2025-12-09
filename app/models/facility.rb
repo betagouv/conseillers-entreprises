@@ -101,7 +101,7 @@ class Facility < ApplicationRecord
 
   # Si demande de Mayotte, tout est envoyé vers l'OPCO Akto
   def get_relevant_opco
-    if region.code == "06" # Mayotte
+    if region&.code == "06" # Mayotte
       Institution.opco.find_by(slug: 'opco-akto-mayotte') # OPCO Akto Mayotte
     else
       self.opco
