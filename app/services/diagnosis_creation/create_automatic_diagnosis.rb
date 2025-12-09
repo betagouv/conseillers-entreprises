@@ -52,8 +52,11 @@ module DiagnosisCreation
 
     def retrieve_insee_code
       # TODO : à revoir quand on aura une meilleure gestion des zones
+      # See https://github.com/betagouv/conseillers-entreprises/issues/4134
       query = solicitation.location.parameterize
-      Api::Adresse::SearchMunicipality.new(query).call[:insee_code]
+      result = Api::Adresse::SearchMunicipality.new(query).call
+      # Ensure that result is a hash and contains a non-blank insee_code
+      result[:insee_code].presence if result.is_a?(Hash)
     end
   end
 end

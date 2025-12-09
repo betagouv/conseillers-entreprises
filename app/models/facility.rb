@@ -48,6 +48,7 @@ class Facility < ApplicationRecord
   ## Validations
   #
   validates :siret, uniqueness: { allow_nil: true }
+  validates :insee_code, presence: true
 
   ## “Through” Associations
   #
