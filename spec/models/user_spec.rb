@@ -132,11 +132,12 @@ RSpec.describe User do
       let!(:active_user_1) { create :user, experts: [active_expert] }
       let!(:active_user_2) { create :user, experts: [active_expert, inactive_expert] }
       let!(:inactive_user) { create :user, experts: [inactive_expert] }
+      let!(:inactive_manager) { create :user, :manager, experts: [inactive_expert] }
 
       it 'returns the relevant users' do
-        expect(described_class.with_activity(50.days.ago..)).to contain_exactly(active_user_1, active_user_2)
+        expect(described_class.with_activity(50.days.ago..)).to contain_exactly(active_user_1, active_user_2, inactive_manager)
         expect(described_class.without_activity(50.days.ago..)).to include(inactive_user)
-        expect(described_class.without_activity(50.days.ago..)).not_to include(active_user_1, active_user_2)
+        expect(described_class.without_activity(50.days.ago..)).not_to include(active_user_1, active_user_2, inactive_manager)
       end
     end
   end

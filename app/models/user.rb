@@ -161,10 +161,12 @@ class User < ApplicationRecord
   scope :with_activity, -> (date_range = 2.years.ago..) do
     where(id: User.joins(:experts).merge(Expert.with_activity(date_range)))
       .or(where(id: Feedback.where(updated_at: date_range).select(:user_id)))
+      .or(where(id: managers))
   end
   scope :without_activity, -> (date_range = 2.years.ago..) do
     where.not(id: User.joins(:experts).merge(Expert.with_activity(date_range)))
       .where.not(id: Feedback.where(updated_at: date_range).select(:user_id))
+      .where.not(id: managers)
   end
 
   scope :ordered_by_institution, -> do
