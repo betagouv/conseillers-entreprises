@@ -257,6 +257,9 @@ fr:
         interval: "%{start_month} à %{end_month} %{year}"
         no_export_available: Votre rapport d’activité n’est pas encore disponible.
         title: "%{cooperation_name} - Rapport d’activité"
+      sidemenu:
+        reports: Rapports d’activité
+        solicitations: Export des sollicitations
       title: Coopération %{name}
     csv_exports:
       index:

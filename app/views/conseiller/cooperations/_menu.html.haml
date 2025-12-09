@@ -1,8 +1,9 @@
 -# Dynamically build the path for each of the collections. Paths look like this:
   /cooperations(/cooperation)/:collection_name
 %ul.fr-sidemenu__list
-  - [:reports, :solicitations].each do |key|
+  - sections = Cooperation.find(cooperation_id).wants_solicitations_export? ? [:reports, :solicitations] : [:reports]
+  - sections.each do |key|
     %li.fr-sidemenu__item.item-with-tag
       - url = polymorphic_path([key, :conseiller, :cooperations].compact, cooperation_id: cooperation_id)
       = active_link_to(url, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active') do
-        = t(key, scope: 'reports.sidemenu')
+        = t(key, scope: 'conseiller.cooperations.sidemenu')
