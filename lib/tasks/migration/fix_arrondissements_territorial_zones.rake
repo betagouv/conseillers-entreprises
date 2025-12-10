@@ -54,7 +54,7 @@ task fix_arrondissement_territorial_zones: :environment do
   end
 
   # Find all commune IDs for Paris, Lyon, and Marseille arrondissements.
-  arrondissement_communes = Commune.where(insee_code: arrondissements_insee_codes)
+  arrondissement_communes = Commune.where(insee_code: @arrondissements_insee_codes)
 
   return if arrondissement_communes.empty?
 
