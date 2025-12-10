@@ -224,6 +224,7 @@ fr:
         display_url: Afficher l’url du partenaire
         external: Coopération externe
         landings_or_mtm: Landing / Campagne
+        wants_solicitations_export: Générer l’export de solicitations
       diagnosis:
         content: Commentaire
         step: Étape
@@ -1246,6 +1247,10 @@ fr:
       by_theme_header: Besoins par thème
       tab: Répartition
       title: Coopération %{cooperation} - Répartition des besoins - %{period}
+    solicitations:
+      header: Solicitations reçues sur la période
+      tab: Solicitations
+      title: Coopération %{cooperation} - Solicitations - %{period}
     volume:
       gap_explanation: Le total peut légèrement différer ici en raison des écarts de dates entre le dépôt des besoins et leur transmission.
       positionning_header: Positionnement sur les besoins transmis

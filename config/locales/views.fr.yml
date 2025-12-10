@@ -48,6 +48,7 @@ fr:
   activity_report_service:
     cooperation_file_name: rapport-activite-%{item}-%{year}T%{number}.xlsx
     matches_file_name: export-mises-en-relation-%{item}-%{year}-%{month}.xlsx
+    solicitations_file_name: sollicitations-%{item}-%{year}T%{number}.xlsx
     stats_file_name: export-stats-%{item}-%{year}T%{number}.xlsx
   admin:
     reassign_matches:
@@ -249,11 +250,16 @@ fr:
           title: Possibilité de décalage du nombre de besoins
         title: "%{cooperation_name} - Pilotage par besoin"
       reports:
-        download_report: Télécharger le Rapport d’activité
+        download:
+          cooperation: Télécharger le Rapport d’activité
+          solicitations: Télécharger l’export des sollicitations
         file_infos: XLSX - %{weight} ko
         interval: "%{start_month} à %{end_month} %{year}"
         no_export_available: Votre rapport d’activité n’est pas encore disponible.
         title: "%{cooperation_name} - Rapport d’activité"
+      sidemenu:
+        reports: Rapports d’activité
+        solicitations: Export des sollicitations
       title: Coopération %{name}
     csv_exports:
       index:
