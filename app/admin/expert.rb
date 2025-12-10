@@ -5,6 +5,8 @@ ActiveAdmin.register Expert do
     include SoftDeletable::ActiveAdminResourceController
     include DynamicallyFiltrable
 
+    helper ActiveAdminUtilitiesHelper
+
     def scoped_collection
       base_includes = [:antenne, :institution]
       additional_includes = []
@@ -226,8 +228,8 @@ ActiveAdmin.register Expert do
       expert.institution.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
           attributes_table_for mf do
-            MatchFilter::FILTERS.each do |filter|
-              row filter if mf.send(filter).present?
+            format_match_filter_attributes(mf).each do |filter, content|
+              row(filter) { content }
             end
           end
         end
@@ -238,8 +240,8 @@ ActiveAdmin.register Expert do
       expert.antenne.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
           attributes_table_for mf do
-            MatchFilter::FILTERS.each do |filter|
-              row filter if mf.send(filter).present?
+            format_match_filter_attributes(mf).each do |filter, content|
+              row(filter) { content }
             end
           end
         end
@@ -250,8 +252,8 @@ ActiveAdmin.register Expert do
       expert.match_filters.map.with_index do |mf, index|
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
           attributes_table_for mf do
-            MatchFilter::FILTERS.each do |filter|
-              row filter if mf.send(filter).present?
+            format_match_filter_attributes(mf).each do |filter, content|
+              row(filter) { content }
             end
           end
         end
