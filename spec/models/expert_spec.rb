@@ -350,6 +350,33 @@ RSpec.describe Expert do
         expect(subject.count).to eq 1
       end
     end
+
+    context "when insee_code is nil" do
+      let(:insee_code) { nil }
+
+      it "returns an empty relation" do
+        expect(subject).to be_empty
+        expect(subject.count).to eq 0
+      end
+    end
+
+    context "when insee_code is empty string" do
+      let(:insee_code) { "" }
+
+      it "returns an empty relation" do
+        expect(subject).to be_empty
+        expect(subject.count).to eq 0
+      end
+    end
+
+    context "when insee_code is invalid" do
+      let(:insee_code) { "99999" }
+
+      it "returns an empty relation" do
+        expect(subject).to be_empty
+        expect(subject.count).to eq 0
+      end
+    end
   end
 
   describe "by_insee_code" do

@@ -19,8 +19,9 @@ class Conseiller::ExpertsController < ApplicationController
       .apply_filters(experts_params)
       .active
       .with_subjects
+
     @experts = base_query
-      .by_insee_code(params[:insee_code])
+      .in_commune(params[:insee_code])
       .limit(10)
       .select("experts.*, 'primary' AS source")
       .load
