@@ -46,6 +46,7 @@ class Expert < ApplicationRecord
   has_many :reminders_registers, inverse_of: :expert
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
   has_many :territorial_zones, as: :zoneable, dependent: :destroy, inverse_of: :zoneable
+  has_many :activity_matches, -> { with_activity(2.years.ago..) }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
 
   ## Validations & callbacks
   #
@@ -59,9 +60,6 @@ class Expert < ApplicationRecord
   # :antenne
   has_one :institution, through: :antenne, source: :institution, inverse_of: :experts
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :antenne_experts
-  # TODO a supprimer
-  # has_many :antenne_territories, -> { distinct }, through: :antenne, source: :territories, inverse_of: :antenne_experts
-  # has_many :antenne_regions, -> { distinct.regions }, through: :antenne, source: :regions, inverse_of: :antenne_experts
   has_many :antenne_match_filters, through: :antenne, source: :match_filters # , inverse_of: :experts
   has_many :institution_match_filters, through: :institution, source: :match_filters # , source_type: :Institution
 
@@ -95,6 +93,9 @@ class Expert < ApplicationRecord
     joins(:subjects)
       .where({ subjects: { is_support: true } })
   end
+
+  scope :with_activity, -> (date_range) { not_deleted.where(id: Match.with_activity(date_range).select(:expert_id)) }
+  scope :without_activity, -> (date_range) { not_deleted.where.not(id: Match.with_activity(date_range).select(:expert_id)) }
 
   # Team stuff
   scope :with_one_user, -> do
