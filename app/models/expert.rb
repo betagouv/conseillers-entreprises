@@ -248,7 +248,7 @@ class Expert < ApplicationRecord
 
   scope :in_commune, -> (insee_code) do
     return none if insee_code.blank?
-    
+
     begin
       commune = ::DecoupageAdministratif::Commune.find(insee_code)
     rescue DecoupageAdministratif::NotFoundError
@@ -277,22 +277,6 @@ class Expert < ApplicationRecord
 
     where(id: experts_with_zones_ids).or(where(id: experts_without_zones_ids))
   end
-
-  scope :by_insee_code, -> (insee_code) {
-    territories = DecoupageAdministratif::Search.new.find_territories_by_commune_insee_code(insee_code)
-    zone_types = [:epci, :departement, :region]
-    experts_ids = []
-    zone_types.each do |zone_type|
-      next if territories[zone_type].nil?
-      experts_ids << Expert.joins(:territorial_zones).where(territorial_zones: { code: territories[zone_type].code, zone_type: zone_type }, is_global_zone: false).distinct.ids
-      experts_ids << Expert.joins(antenne: :territorial_zones).where(territorial_zones: { code: territories[zone_type].code, zone_type: zone_type }).distinct.ids
-    end
-
-    # Include global experts
-    experts_ids << Expert.where(is_global_zone: true).ids
-
-    where(id: experts_ids.uniq.flatten)
-  }
 
   def self.apply_filters(params)
     klass = self
