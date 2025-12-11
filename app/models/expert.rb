@@ -247,7 +247,13 @@ class Expert < ApplicationRecord
   scope :without_shared_satisfaction, -> { where.missing(:shared_satisfactions) }
 
   scope :in_commune, -> (insee_code) do
-    commune = ::DecoupageAdministratif::Commune.find(insee_code)
+    return none if insee_code.blank?
+    
+    begin
+      commune = ::DecoupageAdministratif::Commune.find(insee_code)
+    rescue DecoupageAdministratif::NotFoundError
+      return none
+    end
     return none if commune.nil?
 
     # Experts with specific territorial zones that cover this commune
