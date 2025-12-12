@@ -14,7 +14,10 @@
                 %ul.fr-badges-group
                   %li
                     %p.fr-badge.fr-badge--yellow-moutarde= need.cooperation.name
-              %p.fr-card__detail
-                %time{ datetime: need.match_sent_at }= t('needs.dates.match_sent_at', date: l(need.match_sent_at, format: :long_sentence))
+              %ul.fr-card__detail
+                %li.fr-p-0
+                  %time{ datetime: need.solicited_at }= t('needs.dates.solicited_at', date: l(need.solicited_at, format: :long_sentence))
+                %li
+                  %time{ datetime: need.match_sent_at }= t('needs.dates.match_sent_at', date: l(need.match_sent_at, format: :long_sentence))
                 - if params[:query].present?
                   %span.label.grey-blue= t(need.status, scope: 'needs.collections_single')
