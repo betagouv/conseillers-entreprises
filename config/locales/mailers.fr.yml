@@ -234,7 +234,7 @@ fr:
       no_expert:
         erp_html: 'pour votre établissement recevant du public (ERP) et son accessibilité : <a href=''https://entreprendre.service-public.gouv.fr/vosdroits/F32351''>https://entreprendre.service-public.gouv.fr/vosdroits/F32351</a>'
         inpi_html: 'pour réaliser vos formalités d’entreprises : <a href=''https://procedures.inpi.fr''>https://procedures.inpi.fr</a>, ou pour les SCI <a href=''https://tribunal-commerce.fr''>https://tribunal-commerce.fr</a>'
-        juridique_html: pour votre problématique juridique, vous rapprocher d’un <a href="https://www.justice.fr/themes/acces-droit-point-justice">point d’accès au droit</a> ou d’une <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F20706">permanence gratuite d’avocat</a>
+        juridique_html: pour votre problématique juridique, vous rapprocher d’un <a href="https://www.justice.gouv.fr/annuaire/lieux-daccueil-dinformation/point-justice">point d’accès justice</a> ou d’une <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F20706">permanence gratuite d’avocat</a>
         no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
         personal_services_html: 'pour devenir un service à la personne : <a href=''https://www.servicesalapersonne.gouv.fr''>https://www.servicesalapersonne.gouv.fr</a>'
         service_improvement_html: C’est en détectant de nouvelles problématiques que nous pouvons améliorer ce service public.<strong> Nous faisons notre maximum pour compléter l’expertise</strong>.
