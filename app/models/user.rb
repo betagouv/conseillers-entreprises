@@ -158,12 +158,12 @@ class User < ApplicationRecord
       .where(invitation_sent_at: 6.months.ago..)
   end
 
-  scope :with_activity, -> (date_range = 2.years.ago..) do
+  scope :with_activity, -> (date_range = Match::DEFAULT_ACTIVITY_PERIOD) do
     where(id: User.joins(:experts).merge(Expert.with_activity(date_range)))
       .or(where(id: Feedback.where(updated_at: date_range).select(:user_id)))
       .or(where(id: managers))
   end
-  scope :without_activity, -> (date_range = 2.years.ago..) do
+  scope :without_activity, -> (date_range = Match::DEFAULT_ACTIVITY_PERIOD) do
     where.not(id: User.joins(:experts).merge(Expert.with_activity(date_range)))
       .where.not(id: Feedback.where(updated_at: date_range).select(:user_id))
       .where.not(id: managers)
