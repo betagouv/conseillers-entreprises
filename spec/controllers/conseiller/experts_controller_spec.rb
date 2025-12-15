@@ -43,6 +43,37 @@ RSpec.describe Conseiller::ExpertsController do
       end
     end
 
+    context 'when searching by insee_code' do
+      let(:antenne_primary_expert) { create(:antenne) }
+      let!(:expert_primary_zone) do
+        create(:territorial_zone, zoneable: antenne_primary_expert, zone_type: :commune, code: '44001')
+        create(:expert_with_users, :with_expert_subjects, antenne: antenne_primary_expert)
+      end
+
+      let(:antenne_secondary_expert) { create(:antenne) }
+      let!(:expert_secondary_zone) do
+        create(:territorial_zone, zoneable: antenne_secondary_expert, zone_type: :commune, code: '44002')
+        create(:expert_with_users, :with_expert_subjects, antenne: antenne_secondary_expert)
+      end
+
+      subject(:request) { get :index, params: { insee_code: '44001' }, format: :json }
+
+      before { request }
+
+      it 'returns both primary and secondary experts' do
+        expert_ids = assigns(:experts).map(&:id)
+        expect(expert_ids).to include(expert_primary_zone.id, expert_secondary_zone.id)
+      end
+
+      it 'attributes primary and secondary sources correctly' do
+        primary = assigns(:experts).find { |e| e.id == expert_primary_zone.id }
+        secondary = assigns(:experts).find { |e| e.id == expert_secondary_zone.id }
+
+        expect(primary.source).to eq('primary')
+        expect(secondary.source).to eq('secondary')
+      end
+    end
+
     context 'with omnisearch only' do
       subject(:request) { get :index, params: { omnisearch: 'ddfip' }, format: :json }
 
