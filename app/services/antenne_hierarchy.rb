@@ -22,6 +22,7 @@ class AntenneHierarchy
 
       national_antenne = Antenne.not_deleted.where(institution_id: @antenne.institution_id, territorial_level: :national).first
       @antenne.update(parent_antenne: national_antenne)
+
     else # antenne locale
       # Va chercher l'antenne régionale associée
       regional_antenne = get_associated_antennes(Antenne.territorial_levels[:regional], @antenne)&.first
