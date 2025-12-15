@@ -119,9 +119,8 @@ class Expert < ApplicationRecord
     active.without_users
   end
 
-  # Activity stuff
-  # Utilisé pour les mails de relance
-  scope :with_active_matches, -> do
+  # Used in SendExpertsRemindersJob and RemindersService
+  scope :with_quo_matches, -> do
     joins(:received_matches)
       .merge(Match.archived(false).status_quo)
       .distinct
