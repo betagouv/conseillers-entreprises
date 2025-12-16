@@ -314,15 +314,11 @@ class Need < ApplicationRecord
   end
 
   scope :for_emails, -> (emails) do
-    diagnosis_completed
-      .joins(:solicitation)
-      .where(solicitations: { email: Array(emails).compact })
+    joins(:solicitation).where(solicitations: { email: Array(emails).compact })
   end
 
   scope :for_sirets, -> (sirets) do
-    diagnosis_completed
-      .joins(:facility)
-      .where(facilities: { siret: Array(sirets).compact })
+    joins(:facility).where(facilities: { siret: Array(sirets).compact })
   end
 
   scope :by_region, -> (region_code) do

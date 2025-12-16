@@ -6,8 +6,8 @@ class Conseiller::DiagnosesController < ApplicationController
     @current_solicitation = Solicitation.find_by(id: params[:solicitation])
     @diagnosis = DiagnosisCreation::NewDiagnosis.new(@current_solicitation).call
     if @current_solicitation.present?
-      @needs = Need.where(id: Need.for_emails(@current_solicitation.email))
-        .or(where(id: Need.for_sirets(@current_solicitation.siret)))
+      @needs = Need.where(id: Need.diagnosis_completed.for_emails(@current_solicitation.email))
+        .or(where(id: Need.diagnosis_completed.for_sirets(@current_solicitation.siret)))
       @tab = 'search_manually' if @current_solicitation.siret.nil?
     else
       @needs = []
