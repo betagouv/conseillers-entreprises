@@ -55,16 +55,13 @@ class NeedsController < ApplicationController
       @matches = @need.matches.sent.order(:created_at)
       @facility = @need.facility
 
-      @facility_needs = policy_scope(@facility.needs.diagnosis_completed)
-        .merge(Match.in_progress.or(Match.done))
+      @facility_needs = policy_scope(@facility.needs)
+        .diagnosis_completed
         .where.not(id: @need)
-        .order(created_at: :desc)
       email_needs = Need.for_emails(@need.diagnosis.visitee.email)
-      @contact_needs = policy_scope(email_needs.diagnosis_completed)
-        .merge(Match.in_progress.or(Match.done))
-        .where.not(id: @facility_needs)
+      @contact_needs = policy_scope(email_needs)
+        .diagnosis_completed
         .where.not(id: @need)
-        .order(created_at: :desc)
     end
   end
 

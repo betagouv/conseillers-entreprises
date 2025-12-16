@@ -107,8 +107,8 @@ RSpec.describe CompaniesController do
       before { request }
 
       it 'content user matches only' do
-        expect(assigns(:needs_in_progress)).to contain_exactly(quo_need, done_need2)
-        expect(assigns(:needs_done)).to contain_exactly(done_need)
+        expect(assigns(:needs_in_progress)).to contain_exactly(quo_need)
+        expect(assigns(:needs_done)).to contain_exactly(done_need, done_need2)
       end
     end
 
