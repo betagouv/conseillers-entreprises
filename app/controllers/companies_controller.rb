@@ -55,13 +55,24 @@ class CompaniesController < ApplicationController
 
   def needs
     @facility = Facility.find(params.permit(:id)[:id])
-    @needs_in_progress = NeedInProgressPolicy::Scope.new(current_user, @facility.needs).resolve.order(created_at: :desc)
-    @needs_done = NeedDonePolicy::Scope.new(current_user, @facility.needs).resolve.order(created_at: :desc)
 
-    emails = @facility.company.contacts.pluck(:email).uniq
-    needs = Need.for_emails_and_sirets(emails)
-    @contact_needs_in_progress = NeedInProgressPolicy::Scope.new(current_user, needs.in_progress).resolve.order(created_at: :desc) - @needs_in_progress
-    @contact_needs_done = NeedDonePolicy::Scope.new(current_user, needs.done).resolve.order(created_at: :desc) - @needs_done
+    @needs_in_progress = policy_scope(@facility.needs)
+      .merge(Match.in_progress)
+      .order(created_at: :desc)
+    @needs_done = policy_scope(@facility.needs)
+      .merge(Match.done)
+      .order(created_at: :desc)
+
+    email_needs = Need.for_emails_and_sirets(@facility.company.contacts.pluck(:email).uniq)
+
+    @contact_needs_in_progress = policy_scope(email_needs.in_progress)
+      .merge(Match.in_progress)
+      .where.not(id: @needs_in_progress)
+      .order(created_at: :desc)
+    @contact_needs_done = policy_scope(email_needs.done)
+      .merge(Match.done)
+      .where.not(id: @needs_done)
+      .order(created_at: :desc)
   end
 
   private

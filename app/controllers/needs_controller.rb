@@ -54,8 +54,17 @@ class NeedsController < ApplicationController
       @origin = params[:origin]
       @matches = @need.matches.sent.order(:created_at)
       @facility = @need.facility
-      @facility_needs = NeedPolicy::Scope.new(current_user, @facility.needs).resolve.where.not(id: @need)
-      @contact_needs = NeedPolicy::Scope.new(current_user, Need.for_emails_and_sirets([@need.diagnosis.visitee.email])).resolve - [@facility_needs, @need]
+
+      @facility_needs = policy_scope(@facility.needs)
+        .merge(Match.in_progress.or(Match.done))
+        .where.not(id: @need)
+        .order(created_at: :desc)
+      email_needs = Need.for_emails_and_sirets([@need.diagnosis.visitee.email])
+      @contact_needs = policy_scope(email_needs)
+        .merge(Match.in_progress.or(Match.done))
+        .where.not(id: @facility_needs)
+        .where.not(id: @need)
+        .order(created_at: :desc)
     end
   end
 
