@@ -8,17 +8,21 @@ class AntenneHierarchy
       # On prend les antennes régionales
       # Et les antennes locales qui n'ont pas d'antennes régionales
       regional_antennes = Antenne.not_deleted.where(institution: @antenne.institution, territorial_level: :regional)
-      regional_antennes.update_all(parent_antenne_id: @antenne.id)
+      @antenne.child_antennes = regional_antennes
+
       local_antennes_with_regional_ids = regional_antennes.flat_map { |ra| get_associated_antennes(:local, ra).ids }
       local_antennes_without_regional = Antenne.where(territorial_level: :local, institution: @antenne.institution)
         .where.not(id: local_antennes_with_regional_ids.flatten)
-      local_antennes_without_regional.update_all(parent_antenne_id: @antenne.id)
+      @antenne.child_antennes << local_antennes_without_regional
+
     elsif @antenne.regional?
       # Va chercher les antennes locales et l'antenne nationale associées
       territorial_antennes = get_associated_antennes(Antenne.territorial_levels[:local], @antenne)
-      territorial_antennes.update_all(parent_antenne_id: @antenne.id)
+      @antenne.child_antennes = territorial_antennes
+
       national_antenne = Antenne.not_deleted.where(institution_id: @antenne.institution_id, territorial_level: :national).first
       @antenne.update(parent_antenne: national_antenne)
+
     else # antenne locale
       # Va chercher l'antenne régionale associée
       regional_antenne = get_associated_antennes(Antenne.territorial_levels[:regional], @antenne)&.first
