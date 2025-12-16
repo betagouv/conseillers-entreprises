@@ -63,7 +63,7 @@ class CompaniesController < ApplicationController
       .merge(Match.done)
       .order(created_at: :desc)
 
-    email_needs = Need.for_emails_and_sirets(@facility.company.contacts.pluck(:email).uniq)
+    email_needs = Need.for_emails(@facility.company.contacts.pluck(:email))
 
     @contact_needs_in_progress = policy_scope(email_needs.in_progress)
       .merge(Match.in_progress)

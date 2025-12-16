@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
   def needs_historic
     @contact = authorize Contact.find(params[:id])
-    email_needs = Need.for_emails_and_sirets([@contact.email])
+    email_needs = Need.for_emails(@contact.email)
 
     @needs_in_progress = policy_scope(email_needs.in_progress)
       .merge(Match.in_progress)

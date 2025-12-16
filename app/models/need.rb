@@ -313,16 +313,16 @@ class Need < ApplicationRecord
     joins(diagnosis: :facility).merge(Facility.with_siret)
   end
 
-  scope :for_emails_and_sirets, -> (emails, sirets = []) do
-    Need
-      .diagnosis_completed
-      .joins('
-        INNER JOIN "diagnoses" ON "diagnoses"."id" = "needs"."diagnosis_id"
-        INNER JOIN "facilities" ON "facilities"."id" = "diagnoses"."facility_id"
-        INNER JOIN "solicitations" ON "solicitations"."id" = "diagnoses"."solicitation_id"
-      ')
-      .where(solicitations: { email: emails.compact })
-      .or(Need.diagnosis_completed.where(diagnosis: { facilities: { siret: sirets.compact } }))
+  scope :for_emails, -> (emails) do
+    diagnosis_completed
+      .joins(:solicitation)
+      .where(solicitations: { email: Array(emails).compact })
+  end
+
+  scope :for_sirets, -> (sirets) do
+    diagnosis_completed
+      .joins(:facility)
+      .where(facilities: { siret: Array(sirets).compact })
   end
 
   scope :by_region, -> (region_code) do

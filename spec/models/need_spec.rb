@@ -251,60 +251,34 @@ RSpec.describe Need do
       end
     end
 
-    describe 'for_emails_and_sirets' do
+    describe 'for_emails' do
+      subject { described_class.for_emails(email) }
+
+      def create_need(email) = create(:need, diagnosis: build(:diagnosis, solicitation: build(:solicitation, email: email)))
+
       let(:email) { 'dupond@dupont.fr' }
       let(:other_email) { 'tintin@moulinsart.fr' }
-      let(:facility) { create :facility, siret: siret }
-      let(:solicitation) { create :solicitation, email: email }
-      let(:solicitation2) { create :solicitation, email: email }
-      let(:solicitation3) { create :solicitation, email: email }
-      let(:solicitation4) { create :solicitation, email: email }
-      let(:solicitation5) { create :solicitation, email: email }
-      let(:other_email_solicitation) { create :solicitation, email: other_email }
-      let(:other_email_solicitation2) { create :solicitation, email: other_email }
 
-      context 'with email and siret not nil' do
-        let(:siret) { '42322944200011' }
-        let(:other_facility) { create :facility, siret: '32242373200021' }
-        #  Besoin avec le meme email OK
-        let(:diagnosis_1) { create :diagnosis, solicitation: solicitation, visitee: create(:contact, email: email) }
-        let!(:need_1) { create :need_with_matches, diagnosis: diagnosis_1 }
-        # Besoin avec le même email et le même siret OK
-        let(:diagnosis_2) { create :diagnosis, solicitation: solicitation2, facility: facility, visitee: create(:contact, email: email) }
-        let!(:need_2) { create :need_with_matches, diagnosis: diagnosis_2 }
-        # Besoin avec un autre email KO
-        let(:diagnosis_3) { create :diagnosis, solicitation: other_email_solicitation, visitee: create(:contact, email: other_email) }
-        let!(:need_3) { create :need_with_matches, diagnosis: diagnosis_3 }
-        # Besoin avec un autre email et siret KO
-        let(:diagnosis_4) { create :diagnosis, solicitation: other_email_solicitation2, facility: other_facility, visitee: create(:contact, email: other_email) }
-        let!(:need_4) { create :need_with_matches, diagnosis: diagnosis_4 }
-        # Besoin avec le même email mais sans MER KO
-        let(:diagnosis_5) { create :diagnosis, solicitation: solicitation3, visitee: create(:contact, email: email) }
-        let!(:need_5) { create :need, diagnosis: diagnosis_5 }
-        # Besoin avec le même siret mais sans MER KO
-        let(:diagnosis_6) { create :diagnosis, solicitation: solicitation5, facility: facility, visitee: create(:contact, email: email) }
-        let!(:need_6) { create :need, diagnosis: diagnosis_6 }
+      let!(:need_1) { create_need(email) }
+      let!(:need_2) { create_need(other_email) }
+      let!(:need_3) { create_need(nil) }
 
-        subject { described_class.for_emails_and_sirets([email], [siret]) }
+      it { is_expected.to contain_exactly(need_1) }
+    end
 
-        it 'return needs historic for email and siret' do
-          is_expected.to contain_exactly(need_1, need_2)
-        end
-      end
+    describe 'for_sirets' do
+      subject { described_class.for_sirets(siret) }
 
-      context 'with nil siret' do
-        let(:siret) { nil }
-        let(:diagnosis) { create :diagnosis, solicitation: solicitation }
-        let!(:need) { create :need_with_matches, diagnosis: diagnosis }
-        let(:diagnosis_siret_nil) { create :diagnosis, solicitation: other_email_solicitation, facility: facility }
-        let!(:need_siret_nil) { create :need_with_matches, diagnosis: diagnosis_siret_nil }
+      def create_need(siret) = create(:need, diagnosis: build(:diagnosis, facility: build(:facility, siret: siret)))
 
-        subject { described_class.for_emails_and_sirets([email], [siret]) }
+      let(:siret) { '00000000000001' }
+      let(:other_siret) { '00000000000002' }
 
-        it 'not return need with' do
-          is_expected.to contain_exactly(need)
-        end
-      end
+      let!(:need_1) { create_need(siret) }
+      let!(:need_2) { create_need(other_siret) }
+      let!(:need_3) { create_need(nil) }
+
+      it { is_expected.to contain_exactly(need_1) }
     end
 
     describe 'min_closed_with_help_at' do

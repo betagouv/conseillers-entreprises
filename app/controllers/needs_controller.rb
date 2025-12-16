@@ -59,7 +59,7 @@ class NeedsController < ApplicationController
         .merge(Match.in_progress.or(Match.done))
         .where.not(id: @need)
         .order(created_at: :desc)
-      email_needs = Need.for_emails_and_sirets([@need.diagnosis.visitee.email])
+      email_needs = Need.for_emails(@need.diagnosis.visitee.email)
       @contact_needs = policy_scope(email_needs)
         .merge(Match.in_progress.or(Match.done))
         .where.not(id: @facility_needs)
