@@ -12,6 +12,8 @@ RSpec.describe 'needs/show' do
     assign(:need, need)
     assign(:facility, need.facility)
     assign(:matches, matches)
+    assign(:facility_needs, Need.none)
+    assign(:contact_needs, Need.none)
     render
   end
 
