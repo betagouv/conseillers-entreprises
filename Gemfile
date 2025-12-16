@@ -133,6 +133,7 @@ group :development do
   gem 'letter_opener_web'
   gem 'bullet'
   gem 'squasher'
+  gem 'pp_sql'
 
   gem 'spring', ">=3.0.0"
   gem 'spring-commands-rspec'
