@@ -239,6 +239,16 @@ fr:
         personal_services_html: 'pour devenir un service à la personne : <a href=''https://www.servicesalapersonne.gouv.fr''>https://www.servicesalapersonne.gouv.fr</a>'
         service_improvement_html: C’est en détectant de nouvelles problématiques que nous pouvons améliorer ce service public.<strong> Nous faisons notre maximum pour compléter l’expertise</strong>.
         useful_links: 'Liens utiles selon votre démarche :'
+      no_expert_agri:
+        adie_html: 'Adie : <a href="https://www.adie.org">Avec l’Adie : entreprendre c’est possible !</a>'
+        agri_html: '<b>pour les activités agricoles</b> : <a href="https://chambres-agriculture.fr/le-reseau-chambres/qui-sommes-nous/le-reseau-des-chambres-dagriculture">L’annuaire des Chambres d’agriculture - Chambres d’agriculture France (chambres-agriculture.fr)</a>'
+        bdf_html: 'Banque de France : <a href="https://www.mesquestionsdentrepreneur.fr/creer-entreprise/financer-creation-entreprise">Mes questions d’entrepreneur | Financer ma création (mesquestionsdentrepreneur.fr)</a>'
+        bpi_html: 'Bpifrance : <a href="https://bpifrance-creation.fr/boiteaoutils/comment-financer-mon-projet-creation-ou-reprise-dentreprise">Comment financer mon projet de création ou reprise d’entreprise ? | Bpifrance Création (bpifrance-creation.fr)</a>'
+        initiative_html: 'Réseau Initiative : <a href="https://initiative-france.fr">Accueil - Initiative - France</a>'
+        no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
+        service_improvement_html: C’est en détectant de nouvelles problématiques que nous pouvons améliorer ce service public.<strong> Nous faisons notre maximum pour compléter l’expertise</strong>.
+        useful_links: 'Liens utiles selon votre démarche :'
+        useful_links2: 'Vous retrouverez toutes les sources de financement possibles pour votre projet sur les sites suivants :'
       recruitment_foreign_worker:
         interior_ministry_html: 'La demande d’autorisation de travail relève d’un service en ligne du Ministère de l’Intérieur : <a href=''https://administration-etrangers-en-france.interieur.gouv.fr/immiprousager/#/authentification''>https://administration-etrangers-en-france.interieur.gouv.fr</a>.'
         phone_number_html: 'Pour plus d’informations : <b>0806 001 620</b> (appel gratuit).'

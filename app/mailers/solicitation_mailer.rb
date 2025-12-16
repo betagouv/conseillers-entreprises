@@ -53,6 +53,10 @@ class SolicitationMailer < ApplicationMailer
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 
+  def no_expert_agri(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
+
   def recruitment_foreign_worker(solicitation)
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end

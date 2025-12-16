@@ -47,6 +47,10 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.no_expert(random_solicitation)
   end
 
+  def no_expert_agri
+    SolicitationMailer.no_expert_agri(random_solicitation)
+  end
+
   def carsat
     SolicitationMailer.carsat(random_solicitation)
   end
