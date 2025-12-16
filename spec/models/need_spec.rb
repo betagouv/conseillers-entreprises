@@ -468,12 +468,17 @@ RSpec.describe Need do
         let!(:need3) { travel_to(reference_date - 20.days) { create :need_with_matches } }
         let!(:need4) { travel_to(reference_date - 21.days) { create :need_with_matches } }
         let!(:need5) { travel_to(reference_date - 8.days)  { create :need_with_unsent_matches } }
-        let!(:need6) { travel_to(reference_date - 15.days) { create :need_with_unsent_matches } }
-        let!(:need7) { travel_to(reference_date - 21.days) { create :need_with_unsent_matches } }
-
-        before do
-          need6.matches.update_all(sent_at: reference_date - 8.days)
-          need7.matches.update_all(sent_at: reference_date - 10.days)
+        let!(:need6) do
+          travel_to(reference_date - 15.days) { create :need_with_unsent_matches }.tap do |need|
+            need.matches.update_all(sent_at: reference_date - 8.days)
+            need.diagnosis.update(step: :completed)
+          end
+        end
+        let!(:need7) do
+          travel_to(reference_date - 21.days) { create :need_with_unsent_matches }.tap do |need|
+            need.matches.update_all(sent_at: reference_date - 10.days)
+            need.diagnosis.update(step: :completed)
+          end
         end
 
         it 'retourne les besoins dans la bonne période' do
