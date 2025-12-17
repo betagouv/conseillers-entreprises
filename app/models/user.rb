@@ -83,6 +83,7 @@ class User < ApplicationRecord
   has_one :profil_picture
 
   has_and_belongs_to_many :experts, -> { not_deleted }, inverse_of: :users
+  has_and_belongs_to_many :experts_with_subjects, -> { not_deleted.with_subjects }, class_name: "Expert", inverse_of: :users
   has_many :shared_satisfactions, inverse_of: :user
   has_many :shared_company_satisfactions, through: :shared_satisfactions, source: :company_satisfaction
   has_many :needs_with_shared_satisfaction, through: :shared_company_satisfactions, source: :need
@@ -123,8 +124,6 @@ class User < ApplicationRecord
   # :antenne
   has_one :institution, through: :antenne, source: :institution, inverse_of: :advisors
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :advisors
-  has_many :antenne_territories, through: :antenne, source: :territories, inverse_of: :advisors
-  has_many :antenne_regions, through: :antenne, source: :regions, inverse_of: :advisors
 
   # :sent_diagnoses
   has_many :sent_needs, through: :sent_diagnoses, source: :needs, inverse_of: :advisor
@@ -132,6 +131,7 @@ class User < ApplicationRecord
 
   # :experts
   has_many :received_matches, through: :experts, source: :received_matches, inverse_of: :contacted_users
+  has_many :activity_matches, through: :experts, source: :activity_matches, inverse_of: :contacted_users
   has_many :received_needs, through: :experts, source: :received_needs, inverse_of: :contacted_users
   has_many :received_diagnoses, through: :experts, source: :received_diagnoses, inverse_of: :contacted_users
   has_many :themes, through: :experts, inverse_of: :advisors
@@ -154,9 +154,20 @@ class User < ApplicationRecord
       .where(invitation_sent_at: ..6.months.ago)
   end
   scope :recent_active_invitation_not_accepted, -> do
-   active_invitation_not_accepted
-     .where(invitation_sent_at: 6.months.ago..)
- end
+    active_invitation_not_accepted
+      .where(invitation_sent_at: 6.months.ago..)
+  end
+
+  scope :with_activity, -> (date_range = Match::DEFAULT_ACTIVITY_PERIOD) do
+    where(id: User.joins(:experts).merge(Expert.with_activity(date_range)))
+      .or(where(id: Feedback.where(updated_at: date_range).select(:user_id)))
+      .or(where(id: managers))
+  end
+  scope :without_activity, -> (date_range = Match::DEFAULT_ACTIVITY_PERIOD) do
+    where.not(id: User.joins(:experts).merge(Expert.with_activity(date_range)))
+      .where.not(id: Feedback.where(updated_at: date_range).select(:user_id))
+      .where.not(id: managers)
+  end
 
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)

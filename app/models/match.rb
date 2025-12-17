@@ -44,6 +44,8 @@ class Match < ApplicationRecord
     not_for_me: 'not_for_me'
   }, prefix: true
 
+  DEFAULT_ACTIVITY_PERIOD = (2.years.ago..)
+
   ## Associations
   #
   belongs_to :need, counter_cache: true, inverse_of: :matches, touch: true
@@ -193,6 +195,10 @@ class Match < ApplicationRecord
 
   scope :taken_care_in_five_days, -> do
     taken_care_before(5)
+  end
+
+  scope :with_activity, -> (date_range = Match::DEFAULT_ACTIVITY_PERIOD) do
+    where.not(status: :quo).where(updated_at: date_range)
   end
 
   scope :by_region, -> (region_code) {

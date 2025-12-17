@@ -1,13 +1,13 @@
 class ExpertMailerPreview < ActionMailer::Preview
   def notify_company_needs_from_pde
-    expert = active_expert
+    expert = expert_with_quo_matches
     need = expert.received_needs.find_random
     need.solicitation = Solicitation.where(cooperation_id: nil).find_random
     ExpertMailer.with(expert: expert, need: need).notify_company_needs
   end
 
   def notify_company_needs_from_partner
-    expert = active_expert
+    expert = expert_with_quo_matches
     need = expert.received_needs.find_random
     solicitation = Solicitation.all.find_random
     need.solicitation = solicitation
@@ -18,7 +18,7 @@ class ExpertMailerPreview < ActionMailer::Preview
   end
 
   def first_notification_help
-    expert = active_expert
+    expert = expert_with_quo_matches
     ExpertMailer.with(expert: expert).first_notification_help
   end
 
@@ -33,13 +33,13 @@ class ExpertMailerPreview < ActionMailer::Preview
   end
 
   def last_chance
-    expert = active_expert
+    expert = expert_with_quo_matches
     need = expert.received_needs.find_random
     ExpertMailer.with(expert: expert, need: need).last_chance
   end
 
   def re_engagement
-    expert = active_expert
+    expert = expert_with_quo_matches
     need = expert.received_needs.find_random
     ExpertMailer.with(expert: expert, need: need).re_engagement
   end
@@ -50,13 +50,13 @@ class ExpertMailerPreview < ActionMailer::Preview
   end
 
   def closing_good_practice
-    expert = active_expert
+    expert = expert_with_quo_matches
     ExpertMailer.with(expert: expert).closing_good_practice
   end
 
   private
 
-  def active_expert
-    Expert.not_deleted.with_active_matches.find_random
+  def expert_with_quo_matches
+    Expert.not_deleted.with_quo_matches.find_random
   end
 end
