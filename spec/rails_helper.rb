@@ -34,7 +34,6 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include PunditSpecHelper, type: :view
   config.include ApiSpecHelper, type: :request
-  config.include SplitHelper
   config.extend RemindersSpecHelper
   config.include ActiveJob::TestHelper
 
