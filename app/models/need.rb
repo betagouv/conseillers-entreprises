@@ -157,10 +157,6 @@ class Need < ApplicationRecord
       .where(reminders_actions: { category: category })
   end
 
-  scope :received_by, -> (user_id) do
-    joins(:contacted_users).where(users: { id: user_id })
-  end
-
   def self.reminders_range(action)
     index = REMINDERS_DAYS.keys.index(action)
     Range.new(REMINDERS_DAYS.values[index + 1]&.days&.ago, REMINDERS_DAYS.values[index].days.ago)
