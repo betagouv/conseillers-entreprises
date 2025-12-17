@@ -1,5 +1,5 @@
 class ContactPolicy < ApplicationPolicy
-  def show_needs_history?
+  def needs_historic?
     if admin?
       @record.needs.diagnosis_completed.any?
     else

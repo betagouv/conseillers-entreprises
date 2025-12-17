@@ -1,5 +1,5 @@
 class FacilityPolicy < ApplicationPolicy
-  def show_needs_history?
+  def needs?
     if admin?
       @record.needs.diagnosis_completed.any?
     else

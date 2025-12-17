@@ -54,7 +54,7 @@ class CompaniesController < ApplicationController
   end
 
   def needs
-    @facility = Facility.find(params.permit(:id)[:id])
+    @facility = authorize Facility.find(params.permit(:id)[:id])
 
     @needs_in_progress = policy_scope(@facility.needs)
       .merge(Match.in_progress)
