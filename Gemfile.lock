@@ -108,6 +108,7 @@ GEM
       activesupport (>= 6.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    anbt-sql-formatter (0.1.2)
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
@@ -436,6 +437,9 @@ GEM
       activesupport (>= 6.1)
     pp (0.6.3)
       prettyprint
+    pp_sql (2.1.0)
+      activerecord
+      anbt-sql-formatter (~> 0.1.0)
     premailer (1.27.0)
       addressable
       css_parser (>= 1.19.0)
@@ -821,6 +825,7 @@ DEPENDENCIES
   parallel_tests
   pg
   pg_search
+  pp_sql
   premailer-rails
   progress_bar
   puma

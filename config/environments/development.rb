@@ -95,3 +95,5 @@ Rails.application.configure do
     Bullet.console = false
   end
 end
+
+PpSql.add_rails_logger_formatting = false
