@@ -14,6 +14,7 @@
 #  email                  :string           default("")
 #  encrypted_password     :string           default(""), not null
 #  full_name              :string
+#  imported_at            :datetime         default(Mon, 01 Jan 2001 01:00:00.000000000 CET +01:00), not null
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
 #  invitation_limit       :integer
