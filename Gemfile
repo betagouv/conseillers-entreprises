@@ -148,6 +148,7 @@ group :development do
   gem 'rubocop-rspec_rails', require: false
   gem 'brakeman', require: false
   gem "rails-erd"
+  gem 'database_consistency', require: false
 end
 
 # Use Redis for Action Cable
