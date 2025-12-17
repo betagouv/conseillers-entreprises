@@ -3,7 +3,7 @@
 # Table name: communes
 #
 #  id         :bigint(8)        not null, primary key
-#  insee_code :string
+#  insee_code :string           not null
 #
 # Indexes
 #

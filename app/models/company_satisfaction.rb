@@ -4,8 +4,8 @@
 #
 #  id                  :bigint(8)        not null, primary key
 #  comment             :text
-#  contacted_by_expert :boolean
-#  useful_exchange     :boolean
+#  contacted_by_expert :boolean          not null
+#  useful_exchange     :boolean          not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  need_id             :bigint(8)        not null

@@ -8,7 +8,7 @@
 #  meta_description :string
 #  meta_title       :string
 #  page_title       :string
-#  slug             :string
+#  slug             :string           not null
 #  title            :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
