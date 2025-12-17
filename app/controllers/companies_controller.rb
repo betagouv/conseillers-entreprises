@@ -29,9 +29,9 @@ class CompaniesController < ApplicationController
     facility = Facility.find(params.permit(:id)[:id])
 
     search_facility_informations(facility.siret)
-    if defined? @message
-      redirect_back_or_to({ action: :search }, alert: @message)
-    end
+    # if defined? @message
+    #   redirect_back_or_to({ action: :search }, alert: @message)
+    # end
   end
 
   def show_with_siret
@@ -44,10 +44,8 @@ class CompaniesController < ApplicationController
       search_facility_informations(siret)
       if @message.present?
         flash.now[:alert] = @message
-        redirect_back_or_to({ action: :search }, alert: @message)
-      else
-        render :show
       end
+      render :show
     else
       redirect_to show_with_siret_companies_path(clean_siret, solicitation: current_solicitation&.id)
     end
