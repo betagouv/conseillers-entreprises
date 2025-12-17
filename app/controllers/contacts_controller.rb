@@ -1,8 +1,12 @@
 class ContactsController < ApplicationController
   def needs_historic
-    @contact = Contact.find(params[:id])
-    needs = Need.for_emails_and_sirets([@contact.email])
-    @needs_in_progress = NeedInProgressPolicy::Scope.new(current_user, needs.in_progress).resolve
-    @needs_done = NeedDonePolicy::Scope.new(current_user, needs.done).resolve
+    @contact = authorize Contact.find(params[:id])
+    email_needs = Need.for_emails(@contact.email)
+    @needs_in_progress = policy_scope(email_needs)
+      .in_progress
+      .order(created_at: :desc)
+    @needs_done = policy_scope(email_needs)
+      .done
+      .order(created_at: :desc)
   end
 end

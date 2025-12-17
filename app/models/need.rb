@@ -157,10 +157,6 @@ class Need < ApplicationRecord
       .where(reminders_actions: { category: category })
   end
 
-  scope :received_by, -> (user_id) do
-    joins(:contacted_users).where(users: { id: user_id })
-  end
-
   def self.reminders_range(action)
     index = REMINDERS_DAYS.keys.index(action)
     Range.new(REMINDERS_DAYS.values[index + 1]&.days&.ago, REMINDERS_DAYS.values[index].days.ago)
@@ -317,16 +313,12 @@ class Need < ApplicationRecord
     joins(diagnosis: :facility).merge(Facility.with_siret)
   end
 
-  scope :for_emails_and_sirets, -> (emails, sirets = []) do
-    Need
-      .diagnosis_completed
-      .joins('
-        INNER JOIN "diagnoses" ON "diagnoses"."id" = "needs"."diagnosis_id"
-        INNER JOIN "facilities" ON "facilities"."id" = "diagnoses"."facility_id"
-        INNER JOIN "solicitations" ON "solicitations"."id" = "diagnoses"."solicitation_id"
-      ')
-      .where(solicitations: { email: emails.compact })
-      .or(Need.diagnosis_completed.where(diagnosis: { facilities: { siret: sirets.compact } }))
+  scope :for_emails, -> (emails) do
+    joins(:solicitation).where(solicitations: { email: Array(emails).compact })
+  end
+
+  scope :for_sirets, -> (sirets) do
+    joins(:facility).where(facilities: { siret: Array(sirets).compact })
   end
 
   scope :by_region, -> (region_code) do

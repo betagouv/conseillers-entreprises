@@ -98,13 +98,17 @@ RSpec.describe CompaniesController do
     let(:another_done_diagnosis) { create :diagnosis, facility: facility }
     let(:another_done_need) { create :need_with_matches, diagnosis: another_done_diagnosis, status: :done }
     let!(:another_done_match) { create :match, expert: another_expert, need: another_done_need, status: :done }
+    # Besoin avec une MER pas encore envoyée
+    let(:unsent_diagnosis) { create :diagnosis, facility: facility }
+    let(:unsent_need) { create :need_with_unsent_matches, diagnosis: unsent_diagnosis, status: :diagnosis_not_complete }
+    let!(:unsent_match) { create :match, need: unsent_need, expert: expert, status: :quo, sent_at: nil }
 
     describe 'for user' do
       before { request }
 
       it 'content user matches only' do
-        expect(assigns(:needs_in_progress)).to contain_exactly(quo_need, done_need2)
-        expect(assigns(:needs_done)).to contain_exactly(done_need)
+        expect(assigns(:needs_in_progress)).to contain_exactly(quo_need)
+        expect(assigns(:needs_done)).to contain_exactly(done_need, done_need2)
       end
     end
 

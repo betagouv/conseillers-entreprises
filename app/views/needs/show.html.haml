@@ -68,9 +68,9 @@
                       = NafCode.nafa_libelle(code)
                       = " (#{code})"
               %li.fr-mt-3v= link_to t('.more_informations'), company_path(@facility.id), class: 'fr-link', data: { turbo: false }
-              - if defined?(@facility_needs) && @facility_needs.present? && policy(@facility).show_needs_history? && @facility_needs.any?
+              - if @facility_needs.exists?
                 %li= link_to t('.needs_historic'), needs_company_path(@facility), class: 'fr-link'
-              - if defined?(@contact_needs) && @contact_needs.present? && policy(@need.diagnosis.visitee).show_needs_history? && @contact_needs.any? && @facility_needs.blank?
+              - elsif @contact_needs.exists?
                 %li= link_to t('.needs_historic'), needs_historic_contact_path(@need.diagnosis.visitee), class: 'fr-link'
 
       .fr-grid-row.need-metadata

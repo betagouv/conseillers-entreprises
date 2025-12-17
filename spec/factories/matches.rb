@@ -6,8 +6,10 @@ FactoryBot.define do
     sent_at { Time.now }
 
     after(:build) do |match, _|
-      match.need&.diagnosis&.step = :completed
-      match.need&.diagnosis&.completed_at = Time.zone.now
+      if match.sent_at.present?
+        match.need&.diagnosis&.step = :completed
+        match.need&.diagnosis&.completed_at = Time.zone.now
+      end
     end
   end
 end

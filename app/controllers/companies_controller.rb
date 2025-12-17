@@ -54,14 +54,25 @@ class CompaniesController < ApplicationController
   end
 
   def needs
-    @facility = Facility.find(params.permit(:id)[:id])
-    @needs_in_progress = NeedInProgressPolicy::Scope.new(current_user, @facility.needs).resolve
-    @needs_done = NeedDonePolicy::Scope.new(current_user, @facility.needs).resolve
+    @facility = authorize Facility.find(params.permit(:id)[:id])
 
-    emails = @facility.company.contacts.pluck(:email).uniq
-    needs = Need.for_emails_and_sirets(emails)
-    @contact_needs_in_progress = NeedInProgressPolicy::Scope.new(current_user, needs.in_progress).resolve - @needs_in_progress
-    @contact_needs_done = NeedDonePolicy::Scope.new(current_user, needs.done).resolve - @needs_done
+    @needs_in_progress = policy_scope(@facility.needs)
+      .in_progress
+      .order(created_at: :desc)
+    @needs_done = policy_scope(@facility.needs)
+      .done
+      .order(created_at: :desc)
+
+    email_needs = Need.for_emails(@facility.company.contacts.pluck(:email))
+
+    @contact_needs_in_progress = policy_scope(email_needs)
+      .in_progress
+      .where.not(id: @needs_in_progress)
+      .order(created_at: :desc)
+    @contact_needs_done = policy_scope(email_needs)
+      .done
+      .where.not(id: @needs_done)
+      .order(created_at: :desc)
   end
 
   private

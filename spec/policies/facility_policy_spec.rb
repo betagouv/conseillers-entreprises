@@ -5,7 +5,7 @@ RSpec.describe FacilityPolicy, type: :policy do
 
   subject { described_class }
 
-  permissions :show_needs_history? do
+  permissions :needs? do
     context 'user is admin' do
       let(:user) { create :user, :admin }
 
