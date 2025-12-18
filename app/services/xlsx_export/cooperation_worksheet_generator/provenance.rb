@@ -28,6 +28,7 @@ module XlsxExport
           .group_by(&:provenance_detail)
           .sort_by { |_, sols| -sols.size }
 
+        row_count = 1 # Start at 1 for header
         grouped_solicitations.each do |provenance_detail, solicitations_array|
           solicitations = Solicitation.where(id: solicitations_array.map(&:id))
           needs = base_needs.joins(:solicitation).where(solicitation: { id: solicitations_array.map(&:id) })
@@ -51,33 +52,36 @@ module XlsxExport
           end
 
           sheet.add_row body_row, style: provenance_row_style
+          row_count += 1
         end
 
-        finalise_style
+        finalise_style(row_count)
       end
 
-      def finalise_style
+      def finalise_style(row_count)
         count_width = 15
         rate_width = 12
         widths = [35, count_width, count_width, rate_width, count_width, rate_width, count_width, rate_width, rate_width]
         STATUS.each{ |status| widths << count_width; widths << rate_width }
         sheet.column_widths(*widths)
 
-        sheet.add_conditional_formatting('D1:D1000',
+        return if row_count <= 1 # No data rows, skip conditional formatting
+
+        sheet.add_conditional_formatting("D2:D#{row_count}",
           type: :cellIs,
           operator: :greaterThanOrEqual,
           formula: '50%',
           dxfId: @pink,
           priority: 1)
 
-        sheet.add_conditional_formatting('I1:I1000',
+        sheet.add_conditional_formatting("I2:I#{row_count}",
           type: :cellIs,
           operator: :lessThanOrEqual,
           formula: '50%',
           dxfId: @yellow,
           priority: 1)
 
-        sheet.add_conditional_formatting('S1:S1000',
+        sheet.add_conditional_formatting("S2:S#{row_count}",
           type: :cellIs,
           operator: :greaterThanOrEqual,
           formula: '50%',
