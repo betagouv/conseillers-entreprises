@@ -1227,6 +1227,7 @@ fr:
     provenance:
       abandonned_count: Abandonnés
       abandonned_rate: Taux abandonnés
+      annual_tab: Provenance annuelle
       done_count: Clôturé par aide proposée
       done_matches_rate: Taux MER clôturée par aide proposée
       done_no_help_count: Clôturé sans aide
@@ -1242,25 +1243,29 @@ fr:
       quo_count: En attente de réponse
       quo_rate: Taux En attente de réponse
       solicitations_count: Nb sollicitations
-      tab: Provenance
+      tab: Provenance trimestrielle
       taking_care_count: En cours
       taking_care_rate: Taux En cours
     repartition:
+      annual_tab: Répartition annuelle
+      annual_title: Coopération %{cooperation} - Répartition des besoins annuelle - %{period}
       by_effectif_header: Besoins par effectifs
       by_naf_code_header: Besoins par secteur d'activité
       by_region_header: Besoins par région
       by_subject_header: Besoins par sujet
       by_theme_header: Besoins par thème
-      tab: Répartition
+      tab: Répartition trimestrielle
       title: Coopération %{cooperation} - Répartition des besoins - %{period}
     solicitations:
       header: Solicitations reçues sur la période
       tab: Solicitations
       title: Coopération %{cooperation} - Solicitations - %{period}
     volume:
+      annual_tab: Volume annuel
+      annual_title: Coopération %{cooperation} - Volume des besoins annuel - %{period}
       gap_explanation: Le total peut légèrement différer ici en raison des écarts de dates entre le dépôt des besoins et leur transmission.
       positionning_header: Positionnement sur les besoins transmis
-      tab: Volume
+      tab: Volume trimestrielle
       title: Coopération %{cooperation} - Volume des besoins - %{period}
       transmitted_header: Transmission des besoins déposés sur la période
   deleted_account:
