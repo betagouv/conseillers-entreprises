@@ -9,7 +9,7 @@ class CreateTerritorialCoverage
   end
 
   def call
-    return theme_outside_territories if theme_outside_territories?
+    return add_metadata_to_result(good_coverage) if theme_outside_territories?
 
     experts_and_users_by_insee_code = initialize_experts_and_users_by_insee_code
     global_experts_and_users = build_global_experts_and_users
@@ -20,7 +20,7 @@ class CreateTerritorialCoverage
   private
 
   def theme_outside_territories?
-    @institution_subject.theme.territories.any? &&
+    @institution_subject.theme.territorial_zones.any? &&
       !@institution_subject.theme.insee_codes.intersect?(@antennes_insee_codes)
   end
 
@@ -283,7 +283,7 @@ class CreateTerritorialCoverage
 
   def theme_outside_covered_territories?(experts_by_insee)
     # Subject territories don't match antenne regions
-    territories_mismatch = @institution_subject.subject.territories.any? &&
+    territories_mismatch = @institution_subject.subject.territorial_zones.any? &&
                           @antennes.any? &&
                           !subject_regions.intersect?(antenne_regions)
 
@@ -314,7 +314,7 @@ class CreateTerritorialCoverage
   end
 
   def subject_regions
-    @subject_regions ||= @institution_subject.subject.territories.flat_map(&:regions)
+    @subject_regions ||= @institution_subject.subject.territorial_zones.flat_map(&:regions)
   end
 
   def antenne_regions
