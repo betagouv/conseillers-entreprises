@@ -66,7 +66,6 @@ ActiveAdmin.register Expert do
 
   scope :active, default: true
   scope :deleted
-  scope :with_custom_communes_old
   scope :with_territorial_zones
 
   scope :without_users, group: :debug
