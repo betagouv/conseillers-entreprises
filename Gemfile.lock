@@ -404,8 +404,6 @@ GEM
     minitest (5.26.2)
     mjml-rails (4.16.0)
     msgpack (1.8.0)
-    mustermann (3.0.4)
-      ruby2_keywords (~> 0.0.1)
     net-imap (0.5.12)
       date
       net-protocol
@@ -465,10 +463,6 @@ GEM
     rack (3.2.4)
     rack-attack (6.8.0)
       rack (>= 1.0, < 4)
-    rack-protection (4.2.1)
-      base64 (>= 0.1.0)
-      logger (>= 1.6.0)
-      rack (>= 3.0.0, < 4)
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -634,8 +628,6 @@ GEM
       rexml
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
-    rubystats (0.4.1)
-      matrix
     rubyzip (3.2.2)
     sass-embedded (1.94.2-arm64-darwin)
       google-protobuf (~> 4.31)
@@ -679,20 +671,6 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.13.2)
     simplecov_json_formatter (0.1.4)
-    sinatra (4.2.1)
-      logger (>= 1.6.0)
-      mustermann (~> 3.0)
-      rack (>= 3.0.0, < 4)
-      rack-protection (= 4.2.1)
-      rack-session (>= 2.0.0, < 3)
-      tilt (~> 2.0)
-    split (4.0.5)
-      bigdecimal
-      cgi
-      matrix
-      redis (>= 4.2)
-      rubystats (>= 0.3.0)
-      sinatra (>= 1.2.6)
     spring (4.4.0)
     spring-commands-parallel-tests (1.0.1)
       spring (>= 0.9.1)
@@ -864,7 +842,6 @@ DEPENDENCIES
   sidekiq (< 8)
   sidekiq-failures
   simplecov
-  split
   spring (>= 3.0.0)
   spring-commands-parallel-tests
   spring-commands-rspec
