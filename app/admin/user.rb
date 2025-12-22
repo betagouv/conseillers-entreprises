@@ -37,7 +37,7 @@ ActiveAdmin.register User do
   config.sort_order = 'created_at_desc'
 
   scope I18n.t("active_admin.user.active"), :active, default: true
-  scope :without_activity
+  scope :without_activity, show_count: false
   scope :currently_absent
   scope :deleted
 
