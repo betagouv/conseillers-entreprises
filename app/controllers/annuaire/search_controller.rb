@@ -58,8 +58,8 @@ module Annuaire
 
     def reset_params_for_antenne
       params[:region_code] = nil
-      session[:annuaire_search].delete('region')
-      index_search_params[:region] = nil
+      session[:annuaire_search].delete('region_code')
+      index_search_params[:region_code] = nil
     end
   end
 end
