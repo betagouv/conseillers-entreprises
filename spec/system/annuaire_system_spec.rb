@@ -120,12 +120,12 @@ describe 'annuaire', :js do
         let!(:user_2) { create(:user, antenne: antenne).tap { |u| u.experts << expert_2 } }
         let!(:expert_subject) { create :expert_subject, institution_subject: institution_subject, expert: expert }
         let!(:expert_subject_2) { create :expert_subject, institution_subject: institution_subject, expert: expert_2 }
-        let!(:communes_1) { create :commune }
-        let!(:communes_2) { create :commune }
-        let!(:communes_3) { create :commune }
+        let!(:tz_1) { create(:territorial_zone, zone_type: :commune, code: '44001') }
+        let!(:tz_2) { create(:territorial_zone, zone_type: :commune, code: '44002') }
+        let!(:tz_3) { create(:territorial_zone, zone_type: :commune, code: '44003') }
 
         before do
-          antenne.communes = [communes_1, communes_2, communes_3]
+          antenne.territorial_zones = [tz_1, tz_2, tz_3]
         end
 
         # Sans zone spécifique
@@ -158,10 +158,10 @@ describe 'annuaire', :js do
         end
 
         # Avec zone spécifique et toutes les communes
-        context 'experts with specific zone and experts.communes == antennes.communes' do
+        context 'experts with specific zone and experts.territorial_zones == antennes.territorial_zones' do
           before do
-            expert.communes = [communes_1]
-            expert_2.communes = [communes_2, communes_3]
+            expert.territorial_zones = [tz_1]
+            expert_2.territorial_zones = [tz_2, tz_3]
             AntenneCoverage::UpdateJob.perform_sync(antenne.id)
             visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
           end
@@ -173,10 +173,10 @@ describe 'annuaire', :js do
         end
 
         # Avec zone spécifique et des communes en doublons
-        context 'experts with specific zone and experts.communes > antennes.communes' do
+        context 'experts with specific zone and experts.territorial_zones > antennes.territorial_zones' do
           before do
-            expert.communes = [communes_1, communes_3]
-            expert_2.communes = [communes_2, communes_3]
+            expert.territorial_zones = [tz_1, tz_3]
+            expert_2.territorial_zones = [tz_2, tz_3]
             AntenneCoverage::UpdateJob.perform_sync(antenne.id)
             visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
           end
@@ -187,10 +187,10 @@ describe 'annuaire', :js do
           end
         end
 
-        # Avec un expert zone spécifique et une équipe sur l’antenne
+        # Avec un expert zone spécifique et une équipe sur l'antenne
         context 'experts with specific zone and expert without' do
           before do
-            expert.communes = [communes_1]
+            expert.territorial_zones = [tz_1]
             AntenneCoverage::UpdateJob.perform_sync(antenne.id)
             visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
           end
