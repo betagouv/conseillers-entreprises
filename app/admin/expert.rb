@@ -179,16 +179,6 @@ ActiveAdmin.register Expert do
           column(:archived_at) { |es| es.subject.archived_at }
         end
       end
-
-      attributes_table title: I18n.t('active_admin.expert.specifique_zone') do
-        row(:intervention_zone) do |e|
-          if e.territorial_zones.present?
-            div displays_insee_codes(e.territorial_zones)
-          else
-            I18n.t('active_admin.expert.no_specifique_zone')
-          end
-        end
-      end
     end
 
     panel I18n.t('activerecord.models.territorial_zone.other') do
@@ -307,10 +297,6 @@ ActiveAdmin.register Expert do
                 url: :admin_users_path,
                 search_fields: [:full_name],
               }
-    end
-
-    f.inputs t('attributes.custom_communes') do
-      f.input :insee_codes
     end
 
     f.inputs t('attributes.is_global_zone') do
