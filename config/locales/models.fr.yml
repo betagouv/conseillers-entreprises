@@ -127,7 +127,6 @@ fr:
       with_territorialal_zones: Avec des territoires
       with_territories: Avec territoires spécifiques
       without_activity: Sans activité
-      without_communes: Sans zone d’intervention (old)
       without_subjects: Sans compétence
       without_territorial_zones: Sans zone d'intervention
       without_users: Sans utilisateur
@@ -155,14 +154,6 @@ fr:
       done: Ce sujet est maintenant le seul sujet support
     subject_answer_grouping:
       title_with_index: Question filtrante %{index}
-    territory:
-      assign_entire_territory: "[compléter]"
-      communes_list: Liste des communes
-      communes_size:
-        one: "%{count} commune"
-        other: "%{count} communes"
-      confirm_assign_entire_territory: Assigner toutes les communes de %{territory} à la zone d’intervention de %{many_communes} ?
-      department_number: 'Département %{number}, %{name} :'
     user:
       absence: Absence
       active: Référencés
@@ -202,8 +193,6 @@ fr:
       badge/categories:
         needs: Besoins
         solicitations: Sollicitations
-      commune:
-        insee_code: Code commune
       company:
         facilities_naf_code: Code NAF établissements
         facilities_regions: Régions

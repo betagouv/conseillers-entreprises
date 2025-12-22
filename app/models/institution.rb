@@ -164,27 +164,6 @@ class Institution < ApplicationRecord
     self.categories.include?(opco_category)
   end
 
-  def retrieve_antennes(region_id)
-    retrieved_antennes = if region_id.present?
-      antennes_in_region(region_id)
-    else
-      antennes
-    end
-    retrieved_antennes
-      .not_deleted
-      .order(:name)
-      .preload(:communes)
-  end
-
-  def self.retrieve_institutions(region_id)
-    institutions = not_deleted
-      .order(:slug)
-      .preload([institutions_subjects: :theme], :not_deleted_antennes, :advisors)
-
-    institutions = institutions.in_region(region_id) if region_id.present?
-    institutions
-  end
-
   def perimeter_received_matches_from_needs(needs)
     self.received_matches_including_from_deleted_experts.joins(:need).where(need: needs).distinct
   end

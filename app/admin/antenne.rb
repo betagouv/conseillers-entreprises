@@ -21,7 +21,6 @@ ActiveAdmin.register Antenne do
   scope :active, default: true
   scope :deleted
   scope :without_territorial_zones
-  scope :without_communes
 
   index do
     selectable_column
@@ -62,7 +61,6 @@ ActiveAdmin.register Antenne do
     column :institution
     column_count :advisors
     column_count :experts
-    column_count :communes
     column_count :sent_matches
     column_count :received_matches
     column(:managers) { |a| a.managers.pluck(:full_name).join(", ") }
@@ -102,9 +100,6 @@ ActiveAdmin.register Antenne do
       end
       row(:stats) do |a|
         div link_to I18n.t('active_admin.antennes.stats_reports'),reports_path(antenne_id: a.id)
-      end
-      row(I18n.t('active_admin.territory.communes_list')) do |a|
-        div displays_insee_codes(a.communes)
       end
     end
 
