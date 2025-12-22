@@ -9,7 +9,7 @@ class CreateTerritorialCoverage
   end
 
   def call
-    return add_metadata_to_result(good_coverage) if theme_outside_territories?
+    return theme_outside_territories if theme_outside_territories? && !has_cooperation?
 
     experts_and_users_by_insee_code = initialize_experts_and_users_by_insee_code
     global_experts_and_users = build_global_experts_and_users
@@ -22,6 +22,10 @@ class CreateTerritorialCoverage
   def theme_outside_territories?
     @institution_subject.theme.territorial_zones.any? &&
       !@institution_subject.theme.insee_codes.intersect?(@antennes_insee_codes)
+  end
+
+  def has_cooperation?
+    @institution_subject.theme.cooperations.any?
   end
 
   def gather_all_experts
