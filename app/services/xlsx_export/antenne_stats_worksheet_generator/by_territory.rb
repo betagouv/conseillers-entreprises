@@ -54,7 +54,8 @@ module XlsxExport
         sheet.add_row
         sheet.add_row [I18n.t('antenne_stats_exporter.no_antennes_without_needs')], style: [@italic]
 
-        antennes_start_row = 5 + Territory.regions.count + 3
+        regions_count = RegionOrderingService.call.count
+        antennes_start_row = 5 + regions_count + 3
         finalise_by_antenne_calculation_style(antennes_start_row, territorial_antennes.count)
 
         finalise_agglomerate_style
@@ -64,7 +65,8 @@ module XlsxExport
 
       def finalise_by_territory_calculation_style(start_row = 5)
         # highlight positionning (D), positionning_accepted (E), done (F).
-        last_row = Territory.regions.count + (start_row - 1)
+        regions_count = RegionOrderingService.call.count
+        last_row = regions_count + (start_row - 1)
         sheet.add_conditional_formatting("D#{start_row}:F#{last_row}",
           type: :cellIs,
           operator: :lessThan,
