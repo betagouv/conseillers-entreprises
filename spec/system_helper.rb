@@ -10,7 +10,6 @@ end
 def create_base_dummy_data
   create(:antenne)
   create(:badge)
-  create(:commune)
   create(:company)
   create(:contact)
   create(:diagnosis)

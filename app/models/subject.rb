@@ -58,7 +58,7 @@ class Subject < ApplicationRecord
   has_many :advisors, class_name: 'User', through: :institutions_subjects, source: :users
 
   ## themes
-  has_many :territories, through: :theme, inverse_of: :subjects
+  has_many :territorial_zones, through: :theme
   has_many :cooperations, through: :theme, inverse_of: :specific_subjects
   has_many :landing_themes, -> { distinct }, through: :landing_subjects, inverse_of: :subjects
   has_many :landings, through: :landing_subjects, inverse_of: :subjects

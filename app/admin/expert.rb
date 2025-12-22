@@ -18,7 +18,7 @@ ActiveAdmin.register Expert do
       when 'active_without_subjects', 'active_with_matches_and_without_subjects'
         # These scopes use where.missing or left_joins
         additional_includes += [:users, :received_matches, :match_filters]
-      when 'with_custom_communes', 'active', nil
+      when 'with_territorial_zones', 'active', nil
         # This scope uses EXISTS, add zone associations
         additional_includes += [:users, :subjects, :received_matches, :match_filters]
       when 'deleted'
@@ -66,7 +66,6 @@ ActiveAdmin.register Expert do
 
   scope :active, default: true
   scope :deleted
-  scope :with_custom_communes_old
   scope :with_territorial_zones
 
   scope :without_users, group: :debug
@@ -139,12 +138,8 @@ ActiveAdmin.register Expert do
     column :phone_number
     column :institution
     column :antenne
-    column_count :antenne_territories
-    column_count :antenne_communes
     column :is_global_zone
-    column :custom_territories?
-    column_count :territories
-    column_count :communes
+    column_count :territorial_zones
     column_count :users
     column_count :subjects
     column_count :received_matches
@@ -182,16 +177,6 @@ ActiveAdmin.register Expert do
           column(:institution_subject)
           column(:intervention_criteria)
           column(:archived_at) { |es| es.subject.archived_at }
-        end
-      end
-
-      attributes_table title: I18n.t('active_admin.expert.specifique_zone') do
-        row(:intervention_zone) do |e|
-          if e.communes.present?
-            div displays_insee_codes(e.communes)
-          else
-            I18n.t('active_admin.expert.no_specifique_zone')
-          end
         end
       end
     end
@@ -312,10 +297,6 @@ ActiveAdmin.register Expert do
                 url: :admin_users_path,
                 search_fields: [:full_name],
               }
-    end
-
-    f.inputs t('attributes.custom_communes') do
-      f.input :insee_codes
     end
 
     f.inputs t('attributes.is_global_zone') do

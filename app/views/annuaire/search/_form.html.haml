@@ -26,6 +26,6 @@
         = f.label :subject_id, t('attributes.subject'), class: 'fr-label'
         = f.collection_select :subject_id, subjects, :id, :label, { selected: index_search_params[:subject_id],
           include_blank: t('all.masculin') }, class: "fr-select", data: { 'filters-target': 'subjects' }
-  - if index_search_params[:theme_id].present? || index_search_params[:subject_id].present? || index_search_params[:query].present? || index_search_params[:region].present?
+  - if index_search_params[:theme_id].present? || index_search_params[:subject_id].present? || index_search_params[:query].present? || index_search_params[:region_code].present?
     = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
   = f.submit t('.submit'), class: 'fr-btn fr-mt-2w'

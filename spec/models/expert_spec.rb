@@ -7,7 +7,7 @@ RSpec.describe Expert do
       is_expected.to have_many(:experts_subjects)
       is_expected.to have_many :received_matches
       is_expected.to have_and_belong_to_many :users
-      is_expected.to have_and_belong_to_many :communes
+      is_expected.to have_many :territorial_zones
     end
   end
 
