@@ -42,9 +42,6 @@ class Facility < ApplicationRecord
 
   has_many :diagnoses, inverse_of: :facility
 
-  # a supprimer une fois les migrations des territoires passées
-  belongs_to :commune, inverse_of: :facilities, optional: true
-
   ## Validations
   #
   validates :siret, uniqueness: { allow_nil: true }
@@ -126,7 +123,7 @@ class Facility < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["advisors", "company", "diagnoses", "matches", "needs", "opco", "territories"]
+    ["advisors", "company", "diagnoses", "matches", "needs", "opco"]
   end
 
   private

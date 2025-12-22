@@ -10,7 +10,7 @@ module XlsxExport
         theme: :theme,
         subject: :subject,
         siret: -> { facility.siret },
-        commune: -> { facility.commune },
+        commune: -> { facility.commune_name },
         facility_region: -> { facility.region&.nom },
         company_name: -> { company&.name },
         company_forme_exercice: -> {  I18n.t(company&.forme_exercice, scope: 'natures_entreprise', default: '') },

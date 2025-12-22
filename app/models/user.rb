@@ -92,7 +92,6 @@ class User < ApplicationRecord
   has_many :feedbacks, inverse_of: :user
   belongs_to :inviter, class_name: 'User', inverse_of: :invitees, optional: true
   has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter, counter_cache: :invitations_count
-  has_many :supported_territories, class_name: 'Territory', foreign_key: 'support_contact_id', inverse_of: :support_contact
   has_many_attached :csv_exports
 
   # :rights / roles
@@ -119,11 +118,10 @@ class User < ApplicationRecord
   validates :user_rights_cooperation_manager, length: { maximum: 1, too_long: I18n.t('errors.only_one_cooperation') }
   validates_associated :experts, on: :import
 
-  ## “Through” Associations
+  ## "Through" Associations
   #
   # :antenne
   has_one :institution, through: :antenne, source: :institution, inverse_of: :advisors
-  has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :advisors
 
   # :sent_diagnoses
   has_many :sent_needs, through: :sent_diagnoses, source: :needs, inverse_of: :advisor
@@ -380,10 +378,10 @@ class User < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     [
-      "antenne", "antenne_communes", "antenne_regions", "antenne_territories", "csv_exports_attachments",
+      "antenne", "csv_exports_attachments",
       "csv_exports_blobs", "experts", "feedbacks", "institution", "invited_by", "invitees", "inviter", "managed_antennes",
       "received_diagnoses", "received_matches", "received_needs", "sent_diagnoses", "sent_matches", "sent_needs",
-      "supported_territories", "themes", "user_rights",
+      "themes", "user_rights",
       "user_rights_admin", "user_rights_manager"
     ]
   end

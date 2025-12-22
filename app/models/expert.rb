@@ -32,8 +32,6 @@ class Expert < ApplicationRecord
 
   ## Associations
   #
-  has_and_belongs_to_many :communes, inverse_of: :direct_experts
-
   belongs_to :antenne, inverse_of: :experts
 
   has_and_belongs_to_many :users, -> { not_deleted }, inverse_of: :experts
@@ -59,7 +57,6 @@ class Expert < ApplicationRecord
 
   # :antenne
   has_one :institution, through: :antenne, source: :institution, inverse_of: :experts
-  has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :antenne_experts
   has_many :antenne_match_filters, through: :antenne, source: :match_filters # , inverse_of: :experts
   has_many :institution_match_filters, through: :institution, source: :match_filters # , source_type: :Institution
 
@@ -155,12 +152,6 @@ class Expert < ApplicationRecord
   #
   scope :with_territorial_zones, -> { not_deleted.joins(:territorial_zones) }
   scope :without_territorial_zones, -> { not_deleted.where.not(id: with_territorial_zones.ids) }
-
-  # TODO: remove this method when communes_experts is removed
-  scope :with_custom_communes_old, -> do
-    # The naive “joins(:communes).distinct” is way more complex.
-    not_deleted.where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
-  end
 
   scope :with_global_zone, -> do
     where(is_global_zone: true)
@@ -370,7 +361,7 @@ class Expert < ApplicationRecord
       "antenne",
       "experts_subjects", "institution", "institutions_subjects", "match_filters", "not_received_matches",
       "received_diagnoses", "received_matches", "received_needs", "received_quo_matches", "reminder_feedbacks",
-      "reminders_registers", "subjects", "territories", "themes", "users"
+      "reminders_registers", "subjects", "themes", "users"
     ]
   end
 
