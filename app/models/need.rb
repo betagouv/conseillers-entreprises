@@ -36,6 +36,7 @@ class Need < ApplicationRecord
   include RangeScopes
   include MandatoryAnswers
 
+  attribute :status, :string
   enum :status, {
     diagnosis_not_complete: 'diagnosis_not_complete',
       quo: 'quo',
