@@ -20,7 +20,7 @@ module StatsUtilities
     name_splitted = name.split('_')
     category = name_splitted.first.capitalize
     graph = name_splitted[1..].map(&:capitalize).join
-    "Stats::#{category}::#{graph}".constantize
+    Stats.const_get(category).const_get(graph)
   end
 
   def stats_params
