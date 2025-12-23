@@ -40,7 +40,7 @@ class UserMailer < ApplicationMailer
   end
 
   def invite_to_demo
-    @expert_email = @user.first_expert_with_subject&.email
+    @expert_email = @user.experts.with_subjects.first&.email
     return if @expert_email.nil?
 
     @demo_dates = DemoPlanning.new.call

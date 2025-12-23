@@ -205,8 +205,8 @@ class User < ApplicationRecord
   end
 
   # utilisé dans l'export en attendant de faire une version qui accepte plusieurs experts avec des sujets
-  def first_expert_with_subject
     experts.not_deleted.with_subjects.first
+  def expert_team_for_export
   end
 
   scope :by_region, -> (region_code) do
