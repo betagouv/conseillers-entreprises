@@ -515,4 +515,43 @@ describe CsvImport::UserImporter, CsvImport do
       end
     end
   end
+
+  describe "Importing a user with no team info (a “manager”)" do
+    let(:initial_state) do
+      <<~CSV
+        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,First IS,Second IS
+        The Institution,The Antenne,Marie,marie@a.a,0123456789,Manager,,,,,
+      CSV
+    end
+
+    before { User.import_csv(initial_state, institution: institution) }
+
+    context 'who has no subject' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,First IS,Second IS
+          The Institution,The Antenne,Marie,marie@a.a,0123456789,Manager,,,,,
+        CSV
+      end
+
+      it 'no expert is implicitly created' do
+        expect(result).to be_success
+        expect(result.objects.first.experts.count).to eq 0
+      end
+    end
+
+    context 'when the manager has a subject' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,First IS,Second IS
+          The Institution,The Antenne,Marie,marie@a.a,0123456789,Manager,,,,Oui,
+        CSV
+      end
+
+      it 'a new expert is implicitly created' do
+        expect(result).to be_success
+        expect(result.objects.first.experts.count).to eq 1
+      end
+    end
+  end
 end
