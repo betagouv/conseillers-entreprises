@@ -515,4 +515,28 @@ describe CsvImport::UserImporter, CsvImport do
       end
     end
   end
+
+  describe "Importing a manager (with no team)" do
+    let(:first_csv) do
+      <<~CSV
+        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,First IS,Second IS
+        The Institution,The Antenne,Marie,marie@a.a,0123456789,Manager,,,,,
+      CSV
+    end
+    let(:csv) do
+      <<~CSV
+        Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction,Nom de l’équipe,Email de l’équipe,Téléphone de l’équipe,First IS,Second IS
+        The Institution,The Antenne,Marie,marie@a.a,0123456789,Manager,,,,,
+      CSV
+    end
+
+    before do
+      User.import_csv(first_csv, institution: institution)
+    end
+
+    it do
+      expect(result).to be_success
+      expect(result.objects.first.experts.count).to eq 1
+    end
+  end
 end
