@@ -67,11 +67,11 @@ class CompaniesController < ApplicationController
 
     @contact_needs_in_progress = policy_scope(email_needs)
       .in_progress
-      .where.not(id: @needs_in_progress)
+      .excluding(@needs_in_progress)
       .order(created_at: :desc)
     @contact_needs_done = policy_scope(email_needs)
       .done
-      .where.not(id: @needs_done)
+      .excluding(@needs_done)
       .order(created_at: :desc)
   end
 
