@@ -15,6 +15,10 @@
 #  index_territories_on_code_region         (code_region) UNIQUE
 #  index_territories_on_support_contact_id  (support_contact_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (support_contact_id => users.id)
+#
 
 class Territory < ApplicationRecord
   ## Associations

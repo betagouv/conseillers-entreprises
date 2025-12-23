@@ -3,7 +3,7 @@
 # Table name: needs
 #
 #  id                      :bigint(8)        not null, primary key
-#  abandoned_email_sent    :boolean          default(FALSE)
+#  abandoned_email_sent    :boolean          default(FALSE), not null
 #  content                 :text
 #  matches_count           :integer
 #  retention_sent_at       :datetime
@@ -19,7 +19,6 @@
 #
 #  index_needs_on_diagnosis_id                 (diagnosis_id)
 #  index_needs_on_status                       (status)
-#  index_needs_on_subject_id                   (subject_id)
 #  index_needs_on_subject_id_and_diagnosis_id  (subject_id,diagnosis_id) UNIQUE
 #
 # Foreign Keys

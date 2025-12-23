@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_17_163226) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -58,14 +58,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "category", enum_type: "activity_reports_categories"
-    t.string "reportable_type"
-    t.bigint "reportable_id"
+    t.string "reportable_type", null: false
+    t.bigint "reportable_id", null: false
     t.index ["category"], name: "index_activity_reports_on_category"
+    t.index ["reportable_id"], name: "index_activity_reports_reportable_id"
     t.index ["reportable_type", "reportable_id"], name: "index_activity_reports_on_reportable"
   end
 
   create_table "antennes", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.bigint "institution_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -93,6 +94,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.datetime "valid_until"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["institution_id"], name: "index_api_keys_institution_id", unique: true
     t.index ["institution_id"], name: "index_api_keys_on_institution_id"
     t.index ["token_digest"], name: "index_api_keys_on_token_digest", unique: true
   end
@@ -100,10 +102,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
   create_table "badge_badgeables", force: :cascade do |t|
     t.bigint "badgeable_id", null: false
     t.string "badgeable_type", null: false
-    t.bigint "badge_id"
+    t.bigint "badge_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["badge_id"], name: "index_badge_badgeables_on_badge_id"
+    t.index ["badgeable_id", "badgeable_type"], name: "index_badge_badgeables_badgeable_id_badgeable_type"
   end
 
   create_table "badges", force: :cascade do |t|
@@ -129,7 +132,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
   end
 
   create_table "communes", force: :cascade do |t|
-    t.string "insee_code"
+    t.string "insee_code", null: false
     t.index ["insee_code"], name: "index_communes_on_insee_code", unique: true
   end
 
@@ -147,8 +150,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.index ["territory_id"], name: "index_communes_territories_on_territory_id"
   end
 
-  create_table "companies", id: :serial, force: :cascade do |t|
-    t.string "name"
+  create_table "companies", force: :cascade do |t|
+    t.string "name", null: false
     t.string "siren"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -161,8 +164,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
   end
 
   create_table "company_satisfactions", force: :cascade do |t|
-    t.boolean "contacted_by_expert"
-    t.boolean "useful_exchange"
+    t.boolean "contacted_by_expert", null: false
+    t.boolean "useful_exchange", null: false
     t.text "comment"
     t.bigint "need_id", null: false
     t.datetime "created_at", null: false
@@ -176,7 +179,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.bigint "company_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "full_name"
+    t.string "full_name", null: false
     t.index ["company_id"], name: "index_contacts_on_company_id"
   end
 
@@ -194,13 +197,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.string "root_url"
     t.string "mtm_campaign"
     t.datetime "archived_at", precision: nil
-    t.boolean "display_url", default: false
-    t.boolean "display_pde_partnership_mention", default: false
+    t.boolean "display_url", default: false, null: false
+    t.boolean "display_pde_partnership_mention", default: false, null: false
     t.bigint "institution_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "display_matches_stats", default: false
-    t.boolean "external", default: false
+    t.boolean "display_matches_stats", default: false, null: false
+    t.boolean "external", default: false, null: false
     t.boolean "wants_solicitations_export", default: false, null: false
     t.index ["institution_id"], name: "index_cooperations_on_institution_id"
     t.index ["name"], name: "index_cooperations_on_name", unique: true
@@ -232,7 +235,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.date "happened_on"
     t.bigint "solicitation_id"
     t.datetime "completed_at", precision: nil
-    t.boolean "retention_email_sent", default: false
+    t.boolean "retention_email_sent", default: false, null: false
     t.index ["advisor_id"], name: "index_diagnoses_on_advisor_id"
     t.index ["facility_id"], name: "index_diagnoses_on_facility_id"
     t.index ["solicitation_id"], name: "index_diagnoses_on_solicitation_id"
@@ -262,9 +265,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.string "job"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "full_name"
+    t.string "full_name", null: false
     t.bigint "antenne_id", null: false
-    t.boolean "is_global_zone", default: false
+    t.boolean "is_global_zone", default: false, null: false
     t.datetime "deleted_at", precision: nil
     t.index ["antenne_id"], name: "index_experts_on_antenne_id"
     t.index ["deleted_at"], name: "index_experts_on_deleted_at"
@@ -273,10 +276,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
 
   create_table "experts_subjects", force: :cascade do |t|
     t.string "intervention_criteria"
-    t.bigint "expert_id"
-    t.bigint "institution_subject_id"
+    t.bigint "expert_id", null: false
+    t.bigint "institution_subject_id", null: false
     t.index ["expert_id", "institution_subject_id"], name: "index_experts_subjects_on_expert_id_and_institution_subject_id", unique: true
-    t.index ["expert_id"], name: "index_experts_subjects_on_expert_id"
     t.index ["institution_subject_id"], name: "index_experts_subjects_on_institution_subject_id"
   end
 
@@ -309,12 +311,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
   end
 
   create_table "feedbacks", force: :cascade do |t|
-    t.text "description"
+    t.text "description", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "user_id"
-    t.string "feedbackable_type"
-    t.bigint "feedbackable_id"
+    t.bigint "user_id", null: false
+    t.string "feedbackable_type", null: false
+    t.bigint "feedbackable_id", null: false
     t.enum "category", null: false, enum_type: "feedbacks_categories"
     t.index ["category"], name: "index_feedbacks_on_category"
     t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable_type_and_feedbackable_id"
@@ -326,13 +328,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "slug", null: false
-    t.boolean "show_on_list", default: false
+    t.boolean "show_on_list", default: false, null: false
     t.datetime "deleted_at", precision: nil
     t.integer "code_region"
-    t.boolean "display_logo_on_home_page", default: true
+    t.boolean "display_logo_on_home_page", default: true, null: false
     t.text "siren"
     t.string "france_competence_code"
-    t.boolean "display_logo_in_partner_list", default: true
+    t.boolean "display_logo_in_partner_list", default: true, null: false
     t.index ["code_region"], name: "index_institutions_on_code_region"
     t.index ["deleted_at"], name: "index_institutions_on_deleted_at"
     t.index ["name"], name: "index_institutions_on_name", unique: true
@@ -342,19 +344,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
 
   create_table "institutions_subjects", force: :cascade do |t|
     t.string "description"
-    t.bigint "institution_id"
-    t.bigint "subject_id"
+    t.bigint "institution_id", null: false
+    t.bigint "subject_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["institution_id"], name: "index_institutions_subjects_on_institution_id"
     t.index ["subject_id", "institution_id", "description"], name: "unique_institution_subject_in_institution", unique: true
-    t.index ["subject_id"], name: "index_institutions_subjects_on_subject_id"
     t.index ["updated_at"], name: "index_institutions_subjects_on_updated_at"
   end
 
   create_table "landing_joint_themes", force: :cascade do |t|
-    t.bigint "landing_id"
-    t.bigint "landing_theme_id"
+    t.bigint "landing_id", null: false
+    t.bigint "landing_theme_id", null: false
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -390,7 +391,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
   create_table "landing_themes", force: :cascade do |t|
     t.string "title"
     t.string "page_title"
-    t.string "slug"
+    t.string "slug", null: false
     t.text "description"
     t.string "meta_title"
     t.string "meta_description"
@@ -411,7 +412,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.string "title"
     t.string "custom_css"
     t.string "url_path"
-    t.boolean "emphasis", default: false
+    t.boolean "emphasis", default: false, null: false
     t.integer "layout", default: 1
     t.integer "iframe_category", default: 1
     t.datetime "archived_at", precision: nil
@@ -444,7 +445,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.string "accepted_legal_forms", array: true
     t.string "excluded_legal_forms", array: true
     t.string "excluded_naf_codes", array: true
-    t.string "filtrable_element_type"
+    t.string "filtrable_element_type", null: false
     t.bigint "filtrable_element_id", null: false
     t.index ["filtrable_element_type", "filtrable_element_id"], name: "index_match_filters_on_filtrable_element"
   end
@@ -483,13 +484,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.integer "matches_count"
     t.boolean "satisfaction_email_sent", default: false, null: false
     t.enum "status", default: "diagnosis_not_complete", null: false, enum_type: "need_status"
-    t.boolean "abandoned_email_sent", default: false
+    t.boolean "abandoned_email_sent", default: false, null: false
     t.datetime "retention_sent_at", precision: nil
     t.datetime "starred_at", precision: nil
     t.index ["diagnosis_id"], name: "index_needs_on_diagnosis_id"
     t.index ["status"], name: "index_needs_on_status"
     t.index ["subject_id", "diagnosis_id"], name: "index_needs_on_subject_id_and_diagnosis_id", unique: true
-    t.index ["subject_id"], name: "index_needs_on_subject_id"
   end
 
   create_table "profil_pictures", force: :cascade do |t|
@@ -505,8 +505,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "category", null: false
+    t.index ["category", "need_id"], name: "index_reminders_actions_category_need_id", unique: true
     t.index ["need_id", "category"], name: "index_reminders_actions_on_need_id_and_category", unique: true
-    t.index ["need_id"], name: "index_reminders_actions_on_need_id"
   end
 
   create_table "reminders_registers", force: :cascade do |t|
@@ -532,7 +532,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.index ["company_satisfaction_id"], name: "index_shared_satisfactions_on_company_satisfaction_id"
     t.index ["expert_id"], name: "index_shared_satisfactions_on_expert_id"
     t.index ["user_id", "company_satisfaction_id", "expert_id"], name: "shared_satisfactions_references_index", unique: true
-    t.index ["user_id"], name: "index_shared_satisfactions_on_user_id"
   end
 
   create_table "solicitations", force: :cascade do |t|
@@ -598,20 +597,19 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
 
   create_table "subject_questions", force: :cascade do |t|
     t.bigint "subject_id", null: false
-    t.string "key"
+    t.string "key", null: false
     t.integer "position"
     t.index ["subject_id", "key"], name: "additional_subject_question_subject_key_index", unique: true
-    t.index ["subject_id"], name: "index_subject_questions_on_subject_id"
   end
 
-  create_table "subjects", id: :serial, force: :cascade do |t|
+  create_table "subjects", force: :cascade do |t|
     t.string "label", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "theme_id", null: false
     t.integer "interview_sort_order"
     t.datetime "archived_at", precision: nil
-    t.boolean "is_support", default: false
+    t.boolean "is_support", default: false, null: false
     t.string "slug", null: false
     t.index ["archived_at"], name: "index_subjects_on_archived_at"
     t.index ["interview_sort_order"], name: "index_subjects_on_interview_sort_order"
@@ -671,10 +669,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.bigint "rightable_element_id"
     t.index ["rightable_element_type", "rightable_element_id"], name: "index_user_rights_on_rightable_element"
     t.index ["user_id", "category", "rightable_element_id", "rightable_element_type"], name: "unique_category_rightable_element_index", unique: true
-    t.index ["user_id"], name: "index_user_rights_on_user_id"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: ""
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -688,7 +685,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "phone_number"
-    t.string "job"
+    t.string "job", null: false
     t.string "full_name"
     t.bigint "antenne_id", null: false
     t.string "invitation_token"
@@ -715,6 +712,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "antennes", "antennes", column: "parent_antenne_id"
   add_foreign_key "antennes", "institutions"
   add_foreign_key "antennes_communes", "antennes"
   add_foreign_key "antennes_communes", "communes"
@@ -746,6 +744,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
   add_foreign_key "feedbacks", "users"
   add_foreign_key "institutions_subjects", "institutions"
   add_foreign_key "institutions_subjects", "subjects"
+  add_foreign_key "landing_joint_themes", "landing_themes"
+  add_foreign_key "landing_joint_themes", "landings"
   add_foreign_key "landing_subjects", "landing_themes"
   add_foreign_key "landing_subjects", "subjects"
   add_foreign_key "landings", "cooperations"
@@ -764,7 +764,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
   add_foreign_key "solicitations", "landing_subjects"
   add_foreign_key "solicitations", "landings"
   add_foreign_key "subject_answer_groupings", "institutions"
+  add_foreign_key "subject_answers", "subject_questions"
+  add_foreign_key "subject_questions", "subjects"
   add_foreign_key "subjects", "themes"
+  add_foreign_key "territories", "users", column: "support_contact_id"
   add_foreign_key "territories_themes", "territories"
   add_foreign_key "territories_themes", "themes"
   add_foreign_key "user_rights", "users"
