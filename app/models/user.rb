@@ -292,7 +292,8 @@ class User < ApplicationRecord
   end
 
   def create_single_user_experts
-    return if single_user_experts.present?
+    existing = single_user_experts.first
+    return existing if existing.present?
 
     self.experts.create!(self.user_expert_shared_attributes)
   end
