@@ -7,7 +7,7 @@ module CsvImport
   # See nested_errors_helper.rb for a UI-side helper.
   def self.import(klass, input, options = {})
     # Look for an Importer class with a matching name
-    importer_klass = "CsvImport::#{klass}Importer".constantize
+    importer_klass = CsvImport.const_get("#{klass}Importer")
     importer_klass.new(input, options).import
   end
 

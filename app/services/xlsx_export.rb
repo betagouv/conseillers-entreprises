@@ -4,7 +4,7 @@ module XlsxExport
   # See also csv_export/base_exporter.rb
   def self.export(relation, options = {})
     klass = relation.klass
-    exporter_klass = "XlsxExport::#{klass}Exporter".constantize
+    exporter_klass = XlsxExport.const_get("#{klass}Exporter")
     exporter_klass.new(relation, options).export
   end
 
