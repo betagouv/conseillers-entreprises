@@ -75,6 +75,7 @@ RSpec.describe CompaniesController do
     subject(:request) { get :needs, params: { id: facility.id } }
 
     let(:facility) { create :facility }
+    let!(:contact) { create :contact, company: facility.company, email: "louise.michel@commune.paris" }
     let(:expert) { create :expert, users: [current_user] }
     let(:another_expert) { create :expert }
     # Besoin avec MER status: :quo de l'expert
@@ -102,17 +103,23 @@ RSpec.describe CompaniesController do
     let(:unsent_diagnosis) { create :diagnosis, facility: facility }
     let(:unsent_need) { create :need_with_unsent_matches, diagnosis: unsent_diagnosis, status: :diagnosis_not_complete }
     let!(:unsent_match) { create :match, need: unsent_need, expert: expert, status: :quo, sent_at: nil }
+    # Besoin sur le même email mais une autre facility
+    let(:same_email_diagnosis) { create :diagnosis, solicitation: build(:solicitation, email: "louise.michel@commune.paris") }
+    let(:same_email_need) { create :need_with_matches, diagnosis: same_email_diagnosis, status: :quo }
+    let!(:same_email_match) { create :match, expert: expert, need: same_email_need, status: :quo }
 
-    describe 'for user' do
+    context 'for user' do
       before { request }
 
       it 'content user matches only' do
         expect(assigns(:needs_in_progress)).to contain_exactly(quo_need)
         expect(assigns(:needs_done)).to contain_exactly(done_need, done_need2)
+        expect(assigns(:contact_needs_in_progress)).to contain_exactly(same_email_need)
+        expect(assigns(:contact_needs_done)).to be_empty
       end
     end
 
-    describe 'for admin' do
+    context 'for admin' do
       before do
         current_user.user_rights.create(category: 'admin')
         request
@@ -121,6 +128,8 @@ RSpec.describe CompaniesController do
       it 'content all needs' do
         expect(assigns(:needs_in_progress)).to contain_exactly(quo_need, another_quo_need)
         expect(assigns(:needs_done)).to contain_exactly(done_need, another_done_need, done_need2)
+        expect(assigns(:contact_needs_in_progress)).to contain_exactly(same_email_need)
+        expect(assigns(:contact_needs_done)).to be_empty
       end
     end
   end

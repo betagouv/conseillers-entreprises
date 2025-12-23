@@ -57,11 +57,11 @@ class NeedsController < ApplicationController
 
       @facility_needs = policy_scope(@facility.needs)
         .diagnosis_completed
-        .where.not(id: @need)
+        .excluding(@need)
       email_needs = Need.for_emails(@need.diagnosis.visitee.email)
       @contact_needs = policy_scope(email_needs)
         .diagnosis_completed
-        .where.not(id: @need)
+        .excluding(@need)
     end
   end
 

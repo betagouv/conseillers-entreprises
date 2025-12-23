@@ -2,7 +2,7 @@ class NeedPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.is_admin?
-        super.distinct.joins(:experts) # merge so that we return a similar join structure for admin and non admin
+        super
       else
         super.merge(user.received_needs)
       end
