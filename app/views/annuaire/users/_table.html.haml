@@ -35,16 +35,19 @@
       - grouped_experts.each do |antenne, experts|
         - experts.each do |expert, users|
           - users.each_with_index do |user, index_in_expert|
+            - antenne_max_imported_at = antenne.advisors.pluck(:imported_at).max
             - highlighted_ids = flash[:table_highlighted_ids]
             - expert_first_row = index_in_expert == 0
             - antenne_first_row = expert == experts.keys.first && expert_first_row
             - antenne_separation_class = antenne_first_row ? 'tr--distinct' : ''
             - highlighted_class = highlighted_ids&.include?(user.id) ? 'blue' : ''
+            - old_user_class = antenne_max_imported_at != user.imported_at ? 'orange' : ''
             %tr{ class: [antenne_separation_class, highlighted_class].compact.join(" ") }
               -# antenne cell
               - if antenne_first_row
                 %td.td-header.td-header--antenne{ rowspan: total_users(experts), title: antenne.name }
                   = link_to antenne, admin_antenne_path(antenne)
+                  .div{title: antenne.advisors.pluck(:imported_at).max} "lol"
               -# expert cell
               - if expert_first_row
                 %td.td-header.td-header--expert{ rowspan: users.size }
@@ -54,7 +57,7 @@
                       %span.ri-map-2-line.blue.fr-ml-1v{ aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.specific_territories') }
 
               -# user cell
-              %td.td-header.td-header--user
+              %td.td-header.td-header--user{class: old_user_class}
                 - if user.persisted?
                   = build_user_name_cell(user, antenne)
 
