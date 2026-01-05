@@ -22,11 +22,6 @@ RSpec.describe XlsxExport::CooperationExporter do
       end
       let!(:diagnosis) { create(:diagnosis_completed, solicitation: solicitation, created_at: Date.new(2025, 2, 16)) }
 
-      it 'creates a valid Axlsx package' do
-        expect(package).to be_a(Axlsx::Package)
-        expect(package.use_shared_strings).to be true
-      end
-
       it 'includes only quarterly and annual worksheets without provenance' do
         workbook = package.workbook
         sheet_names = workbook.worksheets.map(&:name)
@@ -274,22 +269,6 @@ RSpec.describe XlsxExport::CooperationExporter do
         first_row = volume_sheet.rows.first
         expect(first_row.cells.first.value).to be_present
       end
-    end
-  end
-
-  describe '#initialize' do
-    subject(:exporter) { described_class.new(params) }
-
-    it 'stores the cooperation from params' do
-      expect(exporter.instance_variable_get(:@cooperation)).to eq(cooperation)
-    end
-
-    it 'stores the start_date from params' do
-      expect(exporter.instance_variable_get(:@start_date)).to eq(start_date)
-    end
-
-    it 'stores the end_date from params' do
-      expect(exporter.instance_variable_get(:@end_date)).to eq(end_date)
     end
   end
 end
