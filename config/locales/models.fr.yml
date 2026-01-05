@@ -1265,7 +1265,7 @@ fr:
       annual_title: Coopération %{cooperation} - Volume des besoins annuel - %{period}
       gap_explanation: Le total peut légèrement différer ici en raison des écarts de dates entre le dépôt des besoins et leur transmission.
       positionning_header: Positionnement sur les besoins transmis
-      tab: Volume trimestrielle
+      tab: Volume trimestriel
       title: Coopération %{cooperation} - Volume des besoins - %{period}
       transmitted_header: Transmission des besoins déposés sur la période
   deleted_account:
