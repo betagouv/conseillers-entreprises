@@ -38,19 +38,21 @@ module CsvImport
 
     def postprocess(user, attributes)
       expert = import_team(user, attributes)
-      if expert.blank?
-        expert = user.create_single_user_experts
+      if has_subjects_to_import?(attributes)
+        expert = user.create_single_user_experts if expert.blank?
+        import_several_subjects(expert, attributes)
+        import_one_subject(expert, attributes)
       end
-      import_several_subjects(expert, attributes)
-      import_one_subject(expert, attributes)
 
       # Force-trigger validations in User: expert can be already in the user experts, not in the experts but saved, or not saved at all.
       # Setting .experts = to a failing object raises an error, and we don‘t want that
-      if expert.persisted?
-        other_experts = user.experts - [expert]
-        user.experts = other_experts + [expert]
-      else
-        user.experts.build(expert.attributes)
+      if expert.present?
+        if expert.persisted?
+          other_experts = user.experts - [expert]
+          user.experts = other_experts + [expert]
+        else
+          user.experts.build(expert.attributes)
+        end
       end
       user
     end
@@ -76,6 +78,10 @@ module CsvImport
 
         expert
       end
+    end
+
+    def has_subjects_to_import?(all_attributes)
+      all_attributes.slice(*one_subject_mapping.keys + several_subjects_mapping.keys).values.compact.present?
     end
 
     def build_several_subjects_mapping(headers, other_known_headers)
