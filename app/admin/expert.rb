@@ -254,6 +254,12 @@ ActiveAdmin.register Expert do
     end
   end
 
+  sidebar I18n.t('attributes.created_at'), only: :show do
+    attributes_table_for expert do
+      row :created_at
+    end
+  end
+
   ## Form
   #
   match_filters_attributes = [
