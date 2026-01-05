@@ -28,7 +28,6 @@ module XlsxExport
           .group_by(&:provenance_detail)
           .sort_by { |_, sols| -sols.size }
 
-        row_count = 1 # Start at 1 for header
         grouped_solicitations.each do |provenance_detail, solicitations_array|
           solicitations = Solicitation.where(id: solicitations_array.map(&:id))
           needs = base_needs.joins(:solicitation).where(solicitation: { id: solicitations_array.map(&:id) })
@@ -52,10 +51,9 @@ module XlsxExport
           end
 
           sheet.add_row body_row, style: provenance_row_style
-          row_count += 1
         end
 
-        finalise_style(row_count)
+        finalise_style(grouped_solicitations.size)
       end
 
       def finalise_style(row_count)
