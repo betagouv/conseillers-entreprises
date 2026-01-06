@@ -18,17 +18,8 @@ ActiveAdmin.register User do
         additional_includes += [:antenne, { antenne: :territorial_zones }]
       end
 
-      if params.dig(:q, :institution_id_eq).present?
-        additional_includes += [:institution]
-      end
-
-      # If filtering by experts, include expert associations
-      if params.dig(:q, :experts_id_eq).present?
-        additional_includes += [:experts]
-      end
-
       includes = base_includes + additional_includes
-      super.includes(includes.uniq)
+      super.preload(includes.uniq)
     end
   end
 
