@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TerritoryNeedsStatus do
+RSpec.describe PerimeterNeedsStatus do
   let(:institution) { create :institution }
   # Antenne dans le territoire
   let!(:antenne_inside_local) { create :antenne, institution: institution, parent_antenne: antenne_inside_regional }
@@ -12,7 +12,7 @@ RSpec.describe TerritoryNeedsStatus do
 
   let(:diagnosis) { create :diagnosis_completed }
 
-  describe 'TerritoryNeedsStatus' do
+  describe 'PerimeterNeedsStatus' do
     let!(:need_taking_care_inside) do
       create(:need, diagnosis: diagnosis, matches: [create(:match, expert: expert_inside, status: :taking_care)])
     end

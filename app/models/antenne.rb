@@ -29,7 +29,7 @@ class Antenne < ApplicationRecord
   include SoftDeletable
   include WithTerritorialZones
   include InvolvementConcern
-  include TerritoryNeedsStatus
+  include PerimeterNeedsStatus
   include WithSupportUser
 
   enum :territorial_level, {

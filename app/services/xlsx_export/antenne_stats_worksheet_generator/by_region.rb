@@ -1,12 +1,12 @@
 module XlsxExport
   module AntenneStatsWorksheetGenerator
-    class ByTerritory < Base
+    class ByRegion < Base
       include XlsxExport::AntenneStatsWorksheetGenerator::ByAntenneMethods
 
       def generate
         sheet.add_row
 
-        ## Par territoire
+        ## Par région
         #
         add_agglomerate_headers(:region)
 
@@ -31,7 +31,7 @@ module XlsxExport
         ], style: [nil, nil, @rate, @rate, @rate, @rate]
 
         # Chiffres des antennes locales
-        needs_by_territories = {}
+        needs_by_regions = {}
 
         RegionOrderingService.call.each do |region|
           needs_by_territories[region.nom] = @needs.by_region(region.code).distinct
@@ -42,7 +42,7 @@ module XlsxExport
           add_agglomerate_rows(needs, region_name, @antenne, ratio)
         end
 
-        finalise_by_territory_calculation_style(5)
+        finalise_by_region_calculation_style(5)
 
         ## Par antennes
         #
@@ -63,7 +63,7 @@ module XlsxExport
 
       private
 
-      def finalise_by_territory_calculation_style(start_row = 5)
+      def finalise_by_region_calculation_style(start_row = 5)
         # highlight positionning (D), positionning_accepted (E), done (F).
         regions_count = RegionOrderingService.call.count
         last_row = regions_count + (start_row - 1)
