@@ -78,8 +78,8 @@ module SolicitationHelper
 
   def partner_url(solicitation, full: false)
     return if solicitation.nil?
-    return solicitation.origin_url if solicitation.origin_url.present?
-    return entreprendre_url(solicitation, full: full) if (solicitation.from_entreprendre && solicitation.kwd.present?)
+    return solicitation.origin_url if solicitation.origin_url.present? # des fois (avec le MTE notamment) c’est pas des urls.
+    return entreprendre_url(solicitation, full: full) if (solicitation.from_entreprendre && solicitation.kwd.present?) # des fois kwd ne correspond pas à un véritable article sur entreprendre. "accueil" vs "F36173"
     return landing_partner_url(solicitation, full: full)
   end
 
