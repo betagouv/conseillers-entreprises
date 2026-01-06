@@ -31,14 +31,14 @@ module CsvExport
 
     def fields_for_team
       {
-        team_id: -> { first_expert_with_subject&.id },
-        team_full_name: -> { first_expert_with_subject&.full_name },
-        team_email: -> { first_expert_with_subject&.email },
-        team_phone_number: -> { first_expert_with_subject&.phone_number },
-        team_custom_communes: -> { first_expert_with_subject&.territorial_zones.zone_type_commune.pluck(:code).join(', ') if first_expert_with_subject&.territorial_zones&.zone_type_commune&.any? },
-        team_custom_epcis: -> { first_expert_with_subject&.territorial_zones.zone_type_epci.pluck(:code).join(', ') if first_expert_with_subject&.territorial_zones&.zone_type_epci&.any? },
-        team_custom_departements: -> { first_expert_with_subject&.territorial_zones.zone_type_departement.pluck(:code).join(', ') if first_expert_with_subject&.territorial_zones&.zone_type_departement&.any? },
-        team_custom_regions: -> { first_expert_with_subject&.territorial_zones.zone_type_region.pluck(:code).join(', ') if first_expert_with_subject&.territorial_zones&.zone_type_region&.any? },
+        team_id: -> { expert_team_for_export&.id },
+        team_full_name: -> { expert_team_for_export&.full_name },
+        team_email: -> { expert_team_for_export&.email },
+        team_phone_number: -> { expert_team_for_export&.phone_number },
+        team_custom_communes: -> { expert_team_for_export&.territorial_zones.zone_type_commune.pluck(:code).join(', ') if expert_team_for_export&.territorial_zones&.zone_type_commune&.any? },
+        team_custom_epcis: -> { expert_team_for_export&.territorial_zones.zone_type_epci.pluck(:code).join(', ') if expert_team_for_export&.territorial_zones&.zone_type_epci&.any? },
+        team_custom_departements: -> { expert_team_for_export&.territorial_zones.zone_type_departement.pluck(:code).join(', ') if expert_team_for_export&.territorial_zones&.zone_type_departement&.any? },
+        team_custom_regions: -> { expert_team_for_export&.territorial_zones.zone_type_region.pluck(:code).join(', ') if expert_team_for_export&.territorial_zones&.zone_type_region&.any? },
       }
     end
 
@@ -52,8 +52,8 @@ module CsvExport
           # (`self` is a User; See `object.instance_exec(&lambda)` in CsvExport::Base.)
 
           # We’re using `&` instead of .merge to use the preloaded relations instead of doing a new DB query.
-          return if first_expert_with_subject.blank?
-          experts_subjects = first_expert_with_subject&.experts_subjects & institution_subject.experts_subjects
+          return if expert_team_for_export.blank?
+          experts_subjects = expert_team_for_export&.experts_subjects & institution_subject.experts_subjects
           raise 'There should only be one ExpertSubject' if experts_subjects.present? && experts_subjects.size > 1
           expert_subject = experts_subjects.first
           expert_subject&.csv_description

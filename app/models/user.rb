@@ -205,8 +205,8 @@ class User < ApplicationRecord
   end
 
   # utilisé dans l'export en attendant de faire une version qui accepte plusieurs experts avec des sujets
-  def first_expert_with_subject
-    experts.not_deleted.with_subjects.first
+  def expert_team_for_export
+    experts.with_subjects.first || experts.first
   end
 
   scope :by_region, -> (region_code) do
@@ -292,7 +292,8 @@ class User < ApplicationRecord
   end
 
   def create_single_user_experts
-    return if single_user_experts.present?
+    existing = single_user_experts.first
+    return existing if existing.present?
 
     self.experts.create!(self.user_expert_shared_attributes)
   end
