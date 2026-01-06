@@ -20,6 +20,10 @@
 #  index_subject_answers_on_type                            (type)
 #  institution_filtrable_additional_subject_question_index  (subject_questionable_id,subject_questionable_type,subject_question_id) UNIQUE
 #
+# Foreign Keys
+#
+#  fk_rails_...  (subject_question_id => subject_questions.id)
+#
 class SubjectAnswer < ApplicationRecord
   ## Associations
   #

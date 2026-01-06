@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint(8)        not null, primary key
 #  absence_end_at         :datetime
 #  absence_start_at       :datetime
 #  app_info               :jsonb
@@ -21,7 +21,7 @@
 #  invitation_sent_at     :datetime
 #  invitation_token       :string
 #  invitations_count      :integer          default(0)
-#  job                    :string
+#  job                    :string           not null
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
 #  phone_number           :string

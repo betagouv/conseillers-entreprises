@@ -5,16 +5,17 @@
 #  id              :bigint(8)        not null, primary key
 #  category        :enum
 #  end_date        :date
-#  reportable_type :string
+#  reportable_type :string           not null
 #  start_date      :date
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  reportable_id   :bigint(8)
+#  reportable_id   :bigint(8)        not null
 #
 # Indexes
 #
 #  index_activity_reports_on_category    (category)
 #  index_activity_reports_on_reportable  (reportable_type,reportable_id)
+#  index_activity_reports_reportable_id  (reportable_id)
 #
 class ActivityReport < ApplicationRecord
   enum :category, { matches: 'matches', stats: 'stats', cooperation: 'cooperation', solicitations: 'solicitations' }, prefix: true

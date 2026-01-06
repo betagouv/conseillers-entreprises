@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_reminders_actions_on_need_id               (need_id)
+#  index_reminders_actions_category_need_id         (category,need_id) UNIQUE
 #  index_reminders_actions_on_need_id_and_category  (need_id,category) UNIQUE
 #
 # Foreign Keys

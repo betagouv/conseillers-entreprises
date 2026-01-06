@@ -2,13 +2,13 @@
 #
 # Table name: companies
 #
-#  id               :integer          not null, primary key
+#  id               :bigint(8)        not null, primary key
 #  code_effectif    :string
 #  date_de_creation :date
 #  effectif         :float
 #  forme_exercice   :string
 #  legal_form_code  :string
-#  name             :string
+#  name             :string           not null
 #  siren            :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

@@ -9,7 +9,7 @@
 #  effectif_min           :integer
 #  excluded_legal_forms   :string           is an Array
 #  excluded_naf_codes     :string           is an Array
-#  filtrable_element_type :string
+#  filtrable_element_type :string           not null
 #  max_years_of_existence :integer
 #  min_years_of_existence :integer
 #  created_at             :datetime         not null

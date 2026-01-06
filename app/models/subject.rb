@@ -2,10 +2,10 @@
 #
 # Table name: subjects
 #
-#  id                   :integer          not null, primary key
+#  id                   :bigint(8)        not null, primary key
 #  archived_at          :datetime
 #  interview_sort_order :integer
-#  is_support           :boolean          default(FALSE)
+#  is_support           :boolean          default(FALSE), not null
 #  label                :string           not null
 #  slug                 :string           not null
 #  created_at           :datetime         not null

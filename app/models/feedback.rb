@@ -4,12 +4,12 @@
 #
 #  id                :bigint(8)        not null, primary key
 #  category          :enum             not null
-#  description       :text
-#  feedbackable_type :string
+#  description       :text             not null
+#  feedbackable_type :string           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  feedbackable_id   :bigint(8)
-#  user_id           :bigint(8)
+#  feedbackable_id   :bigint(8)        not null
+#  user_id           :bigint(8)        not null
 #
 # Indexes
 #

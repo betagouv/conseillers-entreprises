@@ -23,7 +23,6 @@ class FixSchema < ActiveRecord::Migration[7.2]
     change_column_null :institutions_subjects, :subject_id, false
     change_column_null :experts_subjects, :expert_id, false
     change_column_null :experts_subjects, :institution_subject_id, false
-    change_column_null :communes, :insee_code, false
     change_column_null :badge_badgeables, :badge_id, false
     change_column_null :activity_reports, :reportable_id, false
     change_column_null :activity_reports, :reportable_type, false
@@ -69,7 +68,6 @@ class FixSchema < ActiveRecord::Migration[7.2]
     # add_foreign_key :user_rights, :antennes, column: :rightable_element_id, primary_key: :id
     # add_foreign_key :user_rights, :cooperations, column: :rightable_element_id, primary_key: :id
     # add_foreign_key :user_rights, :territorial_zones, column: :rightable_element_id, primary_key: :id
-    add_foreign_key :territories, :users, column: :support_contact_id, primary_key: :id
     add_foreign_key :subject_questions, :subjects, column: :subject_id, primary_key: :id
     add_foreign_key :subject_answers, :subject_questions, column: :subject_question_id, primary_key: :id
     add_foreign_key :landing_joint_themes, :landing_themes, column: :landing_theme_id, primary_key: :id
