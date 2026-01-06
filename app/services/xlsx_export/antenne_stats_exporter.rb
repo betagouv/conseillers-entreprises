@@ -30,7 +30,7 @@ module XlsxExport
       if @antenne.national?
         wb.add_worksheet(name: I18n.t('antenne_stats_exporter.quarter_stats_by_region')) do |sheet|
           sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.by_region')} - #{period}"], style: title
-          XlsxExport::AntenneStatsWorksheetGenerator::ByTerritory.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
+          XlsxExport::AntenneStatsWorksheetGenerator::ByRegion.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
         end
       elsif @antenne.regional? && @antenne.territorial_antennes.any?
         wb.add_worksheet(name: I18n.t('antenne_stats_exporter.quarter_stats_by_antenne')) do |sheet|
@@ -61,7 +61,7 @@ module XlsxExport
       if @antenne.national?
         wb.add_worksheet(name: I18n.t('antenne_stats_exporter.annual_stats_by_region')) do |sheet|
           sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.from_beginning_of_year', year: @start_date.year)}"], style: title
-          XlsxExport::AntenneStatsWorksheetGenerator::ByTerritory.new(sheet, @antenne, needs.created_between(year_start_date, @end_date), wb.styles).generate
+          XlsxExport::AntenneStatsWorksheetGenerator::ByRegion.new(sheet, @antenne, needs.created_between(year_start_date, @end_date), wb.styles).generate
         end
       elsif @antenne.regional? && @antenne.territorial_antennes.any?
         wb.add_worksheet(name: I18n.t('antenne_stats_exporter.annual_stats_by_antenne')) do |sheet|

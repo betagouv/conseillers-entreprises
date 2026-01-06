@@ -11,7 +11,7 @@ ActiveAdmin.register Subject do
 
   ## Index
   #
-  includes :theme, :institutions_subjects, :experts, :matches, :needs, :institutions, :subject_answer_filters, :territories, :intern_landings, :iframe_landings, :api_landings
+  includes :theme, :institutions_subjects, :experts, :matches, :needs, :institutions, :subject_answer_filters, :territorial_zones, :intern_landings, :iframe_landings, :api_landings
   config.sort_order = 'interview_sort_order_asc'
 
   index do
@@ -35,7 +35,7 @@ ActiveAdmin.register Subject do
     end
     column t('active_admin.particularities') do |s|
       div s.cooperations.map { |c| admin_link_to c }.join(', ').html_safe
-      div s.territories.map(&:name).join(', ')
+      div s.territorial_zones.map(&:name).join(', ')
     end
     actions dropdown: true do |d|
       index_row_archive_actions(d)

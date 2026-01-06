@@ -29,7 +29,7 @@ class Antenne < ApplicationRecord
   include SoftDeletable
   include WithTerritorialZones
   include InvolvementConcern
-  include TerritoryNeedsStatus
+  include PerimeterNeedsStatus
   include WithSupportUser
 
   enum :territorial_level, {
@@ -46,8 +46,6 @@ class Antenne < ApplicationRecord
 
   ## Associations
   #
-  has_and_belongs_to_many :communes, inverse_of: :antennes
-
   belongs_to :institution, inverse_of: :antennes
 
   has_many :experts, -> { not_deleted }, inverse_of: :antenne
@@ -109,7 +107,6 @@ class Antenne < ApplicationRecord
 
   ##
   #
-  scope :without_communes, -> { not_deleted.where.missing(:communes) }
   scope :without_territorial_zones, -> { not_deleted.where.missing(:territorial_zones) }
 
   scope :without_managers, -> { where.missing(:managers) }
@@ -316,12 +313,12 @@ class Antenne < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     [
-      "advisors", "communes", "experts", "experts_including_deleted", "institution", "managers", "match_filters",
+      "advisors", "experts", "experts_including_deleted", "institution", "managers", "match_filters",
       "matches_reports", "stats_reports", "received_diagnoses", "received_diagnoses_including_from_deleted_experts",
       "received_matches", "received_matches_including_from_deleted_experts", "received_needs",
       "received_needs_including_from_deleted_experts", "received_solicitations",
       "received_solicitations_including_from_deleted_experts", "regions", "sent_diagnoses",
-      "sent_matches", "sent_needs", "stats_reports", "territories", "themes", "user_rights", "user_rights_manager"
+      "sent_matches", "sent_needs", "stats_reports", "themes", "user_rights", "user_rights_manager"
     ]
   end
 

@@ -11,7 +11,7 @@
         - grouped_subjects.each do |theme, subjects|
           %th{ colspan: subjects.values.sum(&:size) }
             = theme.label
-            - if theme.territories.any?
+            - if theme.territorial_zones.any?
               %span.ri-map-2-line.blue.fr-ml-1v{ aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.theme_with_specific_territories') }
       %tr.subjects
         -# Subjects columns, first row: the subjects, column-spanned for the remaining header row

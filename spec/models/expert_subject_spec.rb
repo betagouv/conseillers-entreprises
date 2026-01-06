@@ -21,7 +21,6 @@ RSpec.describe ExpertSubject do
 
       context 'when the expert isn’t on the commune' do
         let(:the_subject) { need.subject }
-        let(:communes) { [create(:commune)] }
         let(:insee_code) { "72026" }
 
         it{ is_expected.to be_blank }

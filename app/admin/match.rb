@@ -31,10 +31,6 @@ ActiveAdmin.register Match do
         additional_includes += [:expert, :expert_antenne, :expert_institution]
       end
 
-      if params.dig(:q, :facility_id_eq).present? || params.dig(:q, :facility_regions_id_eq).present?
-        additional_includes += [{ facility: [:commune, :territories] }]
-      end
-
       if params.dig(:q, :landing_id_eq).present? || params.dig(:q, :landing_theme_id_eq).present?
         additional_includes += [:landing, :landing_theme, :landing_subject]
       end

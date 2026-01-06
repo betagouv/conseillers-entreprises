@@ -449,7 +449,7 @@ describe CreateTerritorialCoverage do
       let(:a_subject) { create(:subject, theme: a_theme) }
       let(:institution_subject) { create(:institution_subject, subject: a_subject, institution: institution) }
 
-      describe 'Une antenne dans la région avec des trou de référencement sur ce sujet apparait comme non couverte' do
+      describe 'Une antenne dans la région avec des trous de référencement sur ce sujet apparait comme non couverte' do
         let!(:expert_without_users) { create(:expert, antenne: regional_antenne, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
         let(:grouped_experts) { { regional_antenne => { expert_without_users => expert_without_users.users } } }
 

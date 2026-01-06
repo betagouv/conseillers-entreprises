@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_19_102410) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -80,13 +80,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.index ["updated_at"], name: "index_antennes_on_updated_at"
   end
 
-  create_table "antennes_communes", id: false, force: :cascade do |t|
-    t.bigint "antenne_id", null: false
-    t.bigint "commune_id", null: false
-    t.index ["antenne_id"], name: "index_antennes_communes_on_antenne_id"
-    t.index ["commune_id"], name: "index_antennes_communes_on_commune_id"
-  end
-
   create_table "api_keys", force: :cascade do |t|
     t.bigint "institution_id", null: false
     t.string "token_digest", null: false
@@ -126,25 +119,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.bigint "category_id", null: false
     t.index ["category_id"], name: "index_categories_institutions_on_category_id"
     t.index ["institution_id"], name: "index_categories_institutions_on_institution_id"
-  end
-
-  create_table "communes", force: :cascade do |t|
-    t.string "insee_code"
-    t.index ["insee_code"], name: "index_communes_on_insee_code", unique: true
-  end
-
-  create_table "communes_experts", id: false, force: :cascade do |t|
-    t.bigint "commune_id", null: false
-    t.bigint "expert_id", null: false
-    t.index ["commune_id"], name: "index_communes_experts_on_commune_id"
-    t.index ["expert_id"], name: "index_communes_experts_on_expert_id"
-  end
-
-  create_table "communes_territories", force: :cascade do |t|
-    t.bigint "territory_id", null: false
-    t.bigint "commune_id", null: false
-    t.index ["commune_id"], name: "index_communes_territories_on_commune_id"
-    t.index ["territory_id"], name: "index_communes_territories_on_territory_id"
   end
 
   create_table "companies", id: :serial, force: :cascade do |t|
@@ -632,26 +606,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
     t.index ["zoneable_type", "zoneable_id"], name: "index_territorial_zones_on_zoneable"
   end
 
-  create_table "territories", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.boolean "bassin_emploi", default: false, null: false
-    t.bigint "support_contact_id"
-    t.integer "code_region"
-    t.index ["code_region"], name: "index_territories_on_code_region", unique: true
-    t.index ["support_contact_id"], name: "index_territories_on_support_contact_id"
-  end
-
-  create_table "territories_themes", force: :cascade do |t|
-    t.bigint "theme_id", null: false
-    t.bigint "territory_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["territory_id"], name: "index_territories_themes_on_territory_id"
-    t.index ["theme_id"], name: "index_territories_themes_on_theme_id"
-  end
-
   create_table "themes", force: :cascade do |t|
     t.string "label", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -716,14 +670,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "antennes", "institutions"
-  add_foreign_key "antennes_communes", "antennes"
-  add_foreign_key "antennes_communes", "communes"
   add_foreign_key "api_keys", "institutions"
   add_foreign_key "badge_badgeables", "badges"
-  add_foreign_key "communes_experts", "communes"
-  add_foreign_key "communes_experts", "experts"
-  add_foreign_key "communes_territories", "communes"
-  add_foreign_key "communes_territories", "territories"
   add_foreign_key "company_satisfactions", "needs"
   add_foreign_key "contacts", "companies"
   add_foreign_key "cooperation_themes", "cooperations"
@@ -765,8 +713,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_162726) do
   add_foreign_key "solicitations", "landings"
   add_foreign_key "subject_answer_groupings", "institutions"
   add_foreign_key "subjects", "themes"
-  add_foreign_key "territories_themes", "territories"
-  add_foreign_key "territories_themes", "themes"
   add_foreign_key "user_rights", "users"
   add_foreign_key "users", "antennes"
   add_foreign_key "users", "users", column: "inviter_id"

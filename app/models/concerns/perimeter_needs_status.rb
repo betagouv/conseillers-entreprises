@@ -1,4 +1,4 @@
-module TerritoryNeedsStatus
+module PerimeterNeedsStatus
   extend ActiveSupport::Concern
 
   # These methods can be called on any object that implements #perimeter_received_needs

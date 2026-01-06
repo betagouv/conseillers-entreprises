@@ -72,7 +72,7 @@ jobs:
     steps:
       - checkout
       - browser-tools/install-browser-tools:
-          chrome-version: 121.0.6167.184
+          chrome-version: '140.0.7339.127'
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - *check_chrome_installation
