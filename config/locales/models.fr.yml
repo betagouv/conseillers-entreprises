@@ -26,7 +26,6 @@ fr:
         one: "%{count} mise en relation réattribuée à %{expert}"
         other: "%{count} mises en relation réattribuées à %{expert}"
       skills: Compétences
-      specifique_zone: Zone spécifique
     experts:
       deleted: Experts supprimés avec succès
     flag:
