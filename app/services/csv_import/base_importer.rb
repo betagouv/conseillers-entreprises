@@ -6,6 +6,7 @@ module CsvImport
     def initialize(input, options = {})
       @input = input
       @options = options
+      @imported_at = Time.zone.now
     end
 
     def import
@@ -35,6 +36,7 @@ module CsvImport
           object, attributes = find_instance(attributes)
           next if object.nil?
 
+          object.imported_at = @imported_at
           object.update(attributes)
 
           object = postprocess(object, row)

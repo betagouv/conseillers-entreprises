@@ -1058,6 +1058,7 @@ fr:
       no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire. (14 chiffres)
       phone_number_html: 'Exemple : 0612345678 ou +33 6 12 34 56 78'
     iframe_landings: Iframes
+    imported_at: Date d’import
     insee_code: Code Insee
     institution: Institution
     institution_antenne: Institution / Antenne
