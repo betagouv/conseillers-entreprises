@@ -1,5 +1,5 @@
 module CsvImport
-  # CSV Im=porting abstract implementation, to be subclassed for specific models.
+  # CSV Importing abstract implementation, to be subclassed for specific models.
   #
   # See also csv_import.rb for the high-level API.
   class BaseImporter
