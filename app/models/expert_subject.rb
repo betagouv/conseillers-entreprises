@@ -4,12 +4,11 @@
 #
 #  id                     :bigint(8)        not null, primary key
 #  intervention_criteria  :string
-#  expert_id              :bigint(8)
-#  institution_subject_id :bigint(8)
+#  expert_id              :bigint(8)        not null
+#  institution_subject_id :bigint(8)        not null
 #
 # Indexes
 #
-#  index_experts_subjects_on_expert_id                             (expert_id)
 #  index_experts_subjects_on_expert_id_and_institution_subject_id  (expert_id,institution_subject_id) UNIQUE
 #  index_experts_subjects_on_institution_subject_id                (institution_subject_id)
 #

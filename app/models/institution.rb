@@ -5,11 +5,11 @@
 #  id                           :bigint(8)        not null, primary key
 #  code_region                  :integer
 #  deleted_at                   :datetime
-#  display_logo_in_partner_list :boolean          default(TRUE)
-#  display_logo_on_home_page    :boolean          default(TRUE)
+#  display_logo_in_partner_list :boolean          default(TRUE), not null
+#  display_logo_on_home_page    :boolean          default(TRUE), not null
 #  france_competence_code       :string
 #  name                         :string           not null
-#  show_on_list                 :boolean          default(FALSE)
+#  show_on_list                 :boolean          default(FALSE), not null
 #  siren                        :text
 #  slug                         :string           not null
 #  created_at                   :datetime         not null

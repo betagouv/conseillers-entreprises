@@ -5,7 +5,7 @@
 #  id                :bigint(8)        not null, primary key
 #  deleted_at        :datetime
 #  imported_at       :datetime
-#  name              :string
+#  name              :string           not null
 #  territorial_level :enum             default("local"), not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
@@ -24,6 +24,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (institution_id => institutions.id)
+#  fk_rails_...  (parent_antenne_id => antennes.id)
 #
 
 class Antenne < ApplicationRecord

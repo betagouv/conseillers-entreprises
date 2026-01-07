@@ -6,12 +6,13 @@
 #  badgeable_type :string           not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  badge_id       :bigint(8)
+#  badge_id       :bigint(8)        not null
 #  badgeable_id   :bigint(8)        not null
 #
 # Indexes
 #
-#  index_badge_badgeables_on_badge_id  (badge_id)
+#  index_badge_badgeables_badgeable_id_badgeable_type  (badgeable_id,badgeable_type)
+#  index_badge_badgeables_on_badge_id                  (badge_id)
 #
 # Foreign Keys
 #

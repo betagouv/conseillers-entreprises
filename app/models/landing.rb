@@ -5,7 +5,7 @@
 #  id               :bigint(8)        not null, primary key
 #  archived_at      :datetime
 #  custom_css       :string
-#  emphasis         :boolean          default(FALSE)
+#  emphasis         :boolean          default(FALSE), not null
 #  home_description :text             default("")
 #  iframe_category  :integer          default("integral")
 #  integration      :integer          default("intern")

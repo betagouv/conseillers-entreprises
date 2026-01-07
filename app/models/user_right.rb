@@ -13,7 +13,6 @@
 # Indexes
 #
 #  index_user_rights_on_rightable_element   (rightable_element_type,rightable_element_id)
-#  index_user_rights_on_user_id             (user_id)
 #  unique_category_rightable_element_index  (user_id,category,rightable_element_id,rightable_element_type) UNIQUE
 #
 # Foreign Keys

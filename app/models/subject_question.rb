@@ -3,14 +3,17 @@
 # Table name: subject_questions
 #
 #  id         :bigint(8)        not null, primary key
-#  key        :string
+#  key        :string           not null
 #  position   :integer
 #  subject_id :bigint(8)        not null
 #
 # Indexes
 #
 #  additional_subject_question_subject_key_index  (subject_id,key) UNIQUE
-#  index_subject_questions_on_subject_id          (subject_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (subject_id => subjects.id)
 #
 class SubjectQuestion < ApplicationRecord
   ## Associations

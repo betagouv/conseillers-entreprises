@@ -14,7 +14,6 @@
 #
 #  index_shared_satisfactions_on_company_satisfaction_id  (company_satisfaction_id)
 #  index_shared_satisfactions_on_expert_id                (expert_id)
-#  index_shared_satisfactions_on_user_id                  (user_id)
 #  shared_satisfactions_references_index                  (user_id,company_satisfaction_id,expert_id) UNIQUE
 #
 # Foreign Keys
