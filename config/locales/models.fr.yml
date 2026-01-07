@@ -905,6 +905,7 @@ fr:
     national: National
     needs: Besoins
     needs_count: Nb de besoins
+    needs_count_on_subject: Nb de besoins
     needs_percentage: Part des besoins
     needs_refused_percentage: Part des besoins refusés
     no_antennes_without_needs: "* Les antennes qui n’ont pas reçu de besoin n’apparaissent pas dans ce tableau."
@@ -931,6 +932,7 @@ fr:
     quo_caption_definition: L’expert ne s’est pas positionné sur le besoin malgré les relances de l’équipe de Conseillers-Entreprises.
     quo_caption_label: En attente de positionnement
     quo_rate: Taux de sans positionnement
+    refusal_rate_on_subject: Taux de refus
     refusals: Refus trim.
     refusals_count: Nb de refus
     region: Région
