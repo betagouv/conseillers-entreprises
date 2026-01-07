@@ -4,6 +4,7 @@
 #
 #  id                :bigint(8)        not null, primary key
 #  deleted_at        :datetime
+#  imported_at       :datetime
 #  name              :string
 #  territorial_level :enum             default("local"), not null
 #  created_at        :datetime         not null

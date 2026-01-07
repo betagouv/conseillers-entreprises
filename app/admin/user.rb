@@ -172,6 +172,7 @@ ActiveAdmin.register User do
   sidebar I18n.t('active_admin.user.connection'), only: :show do
     attributes_table_for user do
       row :created_at
+      row :imported_at
       row :inviter
       row :invitation_sent_at
       row :invitation_accepted_at
