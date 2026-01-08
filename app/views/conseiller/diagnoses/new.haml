@@ -28,7 +28,7 @@
       = form_with model: @diagnosis, url: conseiller_diagnoses_path, local: true do |form|
         - if @diagnosis.errors.present?
           .fr-alert.fr-alert--error.fr-alert--sm
-            = @diagnosis.errors.full_messages.to_sentence
+            %p= @diagnosis.errors.full_messages.to_sentence
         - if @diagnosis.solicitation.present?
           = form.hidden_field :solicitation_id
         = form.fields_for :facility do |facility_form|
