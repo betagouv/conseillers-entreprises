@@ -84,6 +84,13 @@ describe PartnerOrigin do
         it { is_expected.to eq "https://entreprendre.service-public.gouv.fr/vosdroits/F1111" }
       end
 
+      context 'MTE custom' do
+        let(:cooperation) { build :cooperation, name: 'Mission transition écologique des entreprises', root_url: 'https://mte.gouv.fr' }
+        let(:solicitation) { build :solicitation, cooperation: cooperation, origin_url: 'https://mission-transition-ecologique.beta.gouv.fr/custom' }
+
+        it { is_expected.to eq 'https://mte.gouv.fr' }
+      end
+
       context 'with landing url' do
         let(:solicitation) { build :solicitation, landing: create(:landing, cooperation: cooperation, url_path: '/aide-1') }
 
