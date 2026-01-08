@@ -27,9 +27,12 @@
             .fr-my-3w.hidden{ data: { 'pages-siret-autocomplete-target': 'noResultLink' } }
               = link_to t('solicitations.creation_form.buttons.manual_step_company'), step_company_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs'), class: 'fr-link'
 
-      .submit-buttons
-        = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
-        = render 'next_button'
+      %ul.fr-btns-group.fr-btns-group--right
+        %li= render 'previous_button',
+                path: step_contact_solicitation_path(@solicitation.uuid,
+                anchor: 'section-breadcrumbs'),
+                label: t('solicitations.creation_form.step_company.previous')
+        %li= render 'next_button'
 
 - content_for :footer do
   = render 'iframe_footer', landing: @solicitation.landing
