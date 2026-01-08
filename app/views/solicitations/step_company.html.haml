@@ -40,9 +40,12 @@
           - if @solicitation.errors.present?
             .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
 
-      .submit-buttons
-        = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
-        = render 'next_button'
+      %ul.fr-btns-group.fr-btns-group--inline.fr-btns-group--right
+        %li= render 'previous_button',
+                path: step_contact_solicitation_path(@solicitation.uuid,
+                anchor: 'section-breadcrumbs'),
+                label: t('solicitations.creation_form.step_company.previous')
+        %li= render 'next_button'
 
 - content_for :footer do
   = render 'iframe_footer', landing: @solicitation.landing

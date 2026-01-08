@@ -53,9 +53,14 @@
               = check_box_tag :certify_being_company_boss, false, @solicitation.certify_being_company_boss, required: true
               = label_tag :certify_being_company_boss, t('solicitations.creation_form.certify_being_company_boss'), class: 'fr-label'
 
-      .form__group.submit-buttons
-        = render 'previous_button', path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
-        = f.submit t('solicitations.creation_form.buttons.send'), class: 'fr-btn', data: { disable_with: t('solicitations.creation_form.submit_in_progress') }
+      %ul.fr-btns-group.fr-btns-group--inline.fr-btns-group--right
+        %li= render 'previous_button',
+                path: step_company_search_solicitation_path(@solicitation.uuid,
+                anchor: 'section-breadcrumbs'),
+                label: t('solicitations.creation_form.step_description.previous')
+        %li= f.submit t('solicitations.creation_form.buttons.send'),
+                class: 'fr-btn',
+                data: { disable_with: t('solicitations.creation_form.submit_in_progress') }
 
 - content_for :footer do
   = render 'iframe_footer', landing: @solicitation.landing

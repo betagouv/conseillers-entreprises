@@ -839,7 +839,6 @@ fr:
       buttons:
         manual_step_company: Je ne trouve pas mon entreprise
         next: Suivant
-        previous: Précédent
         send: Envoyer ma demande
       certify_being_company_boss: Je certifie être dirigeant(e) de l’entreprise ou mandaté(e) officiellement par ma direction. Toute demande d'intermédiaire ou de salarié(e) ne sera pas prise en charge.
       description: 'Complétez votre demande :'
@@ -893,6 +892,10 @@ fr:
         siret: 123 456 789 00010
       search_facility_placeholder: 'ex : "Boucherie Sanzot" ou "130 025 265 00013"'
       siret: Votre numéro SIRET
+      step_company:
+        previous: Retour à l'étape vos coordonnées
+      step_description:
+        previous: Retour à l'étape votre entreprise
       steps:
         step_company: Votre entreprise
         step_contact: Vos coordonnées
