@@ -2,7 +2,7 @@
   <mj-column>
     <mj-text><%= t('mailers.hello') %></mj-text>
 
-    <% if partner_url(@solicitation).present? %>
+    <% if PartnerOrigin.partner_url(@solicitation).present? %>
       <mj-text><%= t('.your_solicitation_cooperation_html', subject: @solicitation.subject) %></mj-text>
       <mj-text><%= link_to_partner_url(@solicitation) %></mj-text>
       <mj-text><%= t('mailers.cooperation_uses_ce') %></mj-text>

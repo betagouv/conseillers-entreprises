@@ -1,5 +1,5 @@
 module PartnerOrigin
-  # Helper methods for partner origin
+  # Helper methods for partner-specific behaviour
 
   # Hardcoded behaviour for Entreprendre
   ENTREPRENDRE_HOME_URL = "https://entreprendre.service-public.gouv.fr"
@@ -8,11 +8,23 @@ module PartnerOrigin
 
   def self.from_entreprendre?(solicitation: nil, campaign: nil, kwd: nil)
     if solicitation.present?
-      solicitation.cooperation&.mtm_campaign == 'entreprendre' || from_entreprendre?(campaign: self.campaign, kwd: self.kwd)
+      solicitation.cooperation&.mtm_campaign == 'entreprendre' || from_entreprendre?(campaign: solicitation.campaign, kwd: solicitation.kwd)
     elsif campaign.present? || kwd.present?
       campaign == 'entreprendre' || !!(kwd =~ ENTREPRENDRE_PAGE_PATTERN)
     else
       false
+    end
+  end
+
+  def self.partner_url(solicitation, full: false)
+    return if solicitation.nil?
+
+    if solicitation.origin_url.present?
+      solicitation.origin_url
+    elsif (solicitation.from_entreprendre && solicitation.kwd.present?)
+      entreprendre_url(solicitation, full: full)
+    else
+      landing_partner_url(solicitation, full: full)
     end
   end
 

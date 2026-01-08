@@ -36,53 +36,68 @@ describe PartnerOrigin do
     end
 
     context 'with solicitation' do
-      let(:solicitation) { instance_double(Solicitation, cooperation: instance_double(Cooperation, mtm_campaign: 'entreprendre')) }
+      let(:solicitation) { build :solicitation, cooperation: build(:cooperation, mtm_campaign: 'entreprendre') }
 
       it { is_expected.to be(true) }
     end
   end
 
-  describe '#entreprendre_url' do
-    subject { described_class.entreprendre_url(solicitation, full: full) }
+  describe 'partner_url' do
+    subject { described_class.partner_url(solicitation, full: full) }
 
-    let(:solicitation) { nil }
-    let(:full) { nil }
+    let(:cooperation) { build :cooperation, root_url: 'https://exemple.fr' }
 
-    context 'with nil values' do
-      it { is_expected.to eq("https://entreprendre.service-public.gouv.fr") }
-    end
-
-    context 'full with entreprendre page kwd' do
-      let(:solicitation) { instance_double(Solicitation, kwd: "F1234") }
-      let(:full) { true }
-
-      it { is_expected.to eq("https://entreprendre.service-public.gouv.fr/vosdroits/F1234") }
-    end
-
-    context 'full with other kwd' do
-      let(:solicitation) { instance_double(Solicitation, kwd: "accueil") }
-      let(:full) { true }
-
-      it { is_expected.to eq("https://entreprendre.service-public.gouv.fr") }
-    end
-  end
-
-  describe "#landing_partner_url" do
-    let(:landing) { instance_double(Landing, partner_url: "https://example.com", partner_full_url: "https://example.com/long_path") }
-    let(:solicitation) { instance_double(Solicitation, landing: landing) }
-
-    subject { described_class.landing_partner_url(solicitation, full: full) }
-
-    context 'full' do
-      let(:full) { true }
-
-      it { is_expected.to eq("https://example.com/long_path") }
-    end
-
-    context 'short' do
+    context 'without full display' do
       let(:full) { false }
 
-      it { is_expected.to eq("https://example.com") }
+      context 'entreprendre solicitation' do
+        let(:solicitation) { build :solicitation, mtm_campaign: 'entreprendre', mtm_kwd: 'F1111' }
+
+        it { is_expected.to eq "https://entreprendre.service-public.gouv.fr" }
+      end
+
+      context 'with landing url' do
+        let(:solicitation) do
+          build :solicitation,
+                landing: build(:landing, cooperation: cooperation, url_path: '/aide-1')
+        end
+
+        it { is_expected.to eq 'https://exemple.fr' }
+      end
+
+      context 'with origin_url' do
+        let(:solicitation) do
+          build :solicitation, form_info: { "origin_url" => "exemple.fr/super-aide", "origin_title" => "Super aide" },
+                           landing: build(:landing, url_path: '/aide-1')
+        end
+
+        it { is_expected.to eq "exemple.fr/super-aide" }
+      end
+    end
+
+    context 'with full display' do
+      let(:full) { true }
+
+      context 'entreprendre solicitation' do
+        let(:solicitation) { build :solicitation, mtm_campaign: 'entreprendre', mtm_kwd: 'F1111' }
+
+        it { is_expected.to eq "https://entreprendre.service-public.gouv.fr/vosdroits/F1111" }
+      end
+
+      context 'with landing url' do
+        let(:solicitation) { build :solicitation, landing: create(:landing, cooperation: cooperation, url_path: '/aide-1') }
+
+        it { is_expected.to eq 'https://exemple.fr/aide-1' }
+      end
+
+      context 'with origin_url' do
+        let(:solicitation) do
+          build :solicitation, form_info: { "origin_url" => "exemple-bis.fr/super-aide", "origin_title" => "Super aide" },
+                           landing: build(:landing, cooperation: cooperation, url_path: '/aide-1')
+        end
+
+        it { is_expected.to eq "exemple-bis.fr/super-aide" }
+      end
     end
   end
 end
