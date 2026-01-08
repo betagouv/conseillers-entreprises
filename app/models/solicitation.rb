@@ -609,8 +609,7 @@ class Solicitation < ApplicationRecord
 
   # Format fiche : F1234..
   def from_entreprendre
-    self.cooperation&.mtm_campaign == 'entreprendre' ||
-    QueryFromEntreprendre.new(campaign: self.campaign, kwd: self.kwd).call
+    PartnerOrigin.from_entreprendre?(solicitation: self)
   end
 
   # Experimentation pour l'URSSAF 59 et 62
