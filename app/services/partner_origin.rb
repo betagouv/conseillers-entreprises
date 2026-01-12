@@ -21,7 +21,7 @@ module PartnerOrigin
 
     if solicitation.origin_url.present?
       solicitation.origin_url
-    elsif (solicitation.from_entreprendre && solicitation.kwd.present?)
+    elsif from_entreprendre?(solicitation: solicitation) && solicitation.kwd.present?
       entreprendre_url(solicitation, full: full)
     else
       landing_partner_url(solicitation, full: full)

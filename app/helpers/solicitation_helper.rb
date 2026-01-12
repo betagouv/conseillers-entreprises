@@ -58,7 +58,7 @@ module SolicitationHelper
   end
 
   def display_solicitation_attribute(solicitation, attribute)
-    if attribute == :provenance_detail && solicitation.from_entreprendre
+    if attribute == :provenance_detail && solicitation.from_entreprendre?
       link_to solicitation.send(attribute), PartnerOrigin.partner_url(solicitation, full: true), title: "#{to_new_window_title(t('needs.show.origin_source_title'))}", target: '_blank', rel: 'noopener', data: { turbo: false }
     elsif attribute == :siret
       link_to(solicitation.normalized_siret, show_with_siret_companies_path(solicitation.siret), data: { turbo: false })
