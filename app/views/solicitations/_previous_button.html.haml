@@ -1,3 +1,3 @@
-= link_to path, class: 'fr-btn fr-btn--secondary' do
+= link_to path, class: 'fr-btn fr-btn--secondary', aria: { label: label } do
   %span.icon.ri-arrow-left-s-line{ 'aria-hidden': 'true' }
-  %span= label
+  %span= t('solicitations.creation_form.previous')

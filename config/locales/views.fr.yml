@@ -890,6 +890,7 @@ fr:
         description_html: Bonjour, Je suis....
         location: Hauts-de-France ; région de Milly-la-forêt ; 91260…
         siret: 123 456 789 00010
+      previous: Précédent
       search_facility_placeholder: 'ex : "Boucherie Sanzot" ou "130 025 265 00013"'
       siret: Votre numéro SIRET
       step_company:
