@@ -60,9 +60,17 @@ module PartnerOrigin
     end
   end
 
+  MINISTERE_DU_TRAVAIL_KWD_PATCHES = {
+    "burn-out-et-rps" => "burn-out-et-risques-psychosociaux-comprendre-pour-mieux-prevenir",
+    "cadre-general-detachement" => "cadre-general-du-detachement-des-salaries",
+    "comment-fonctionne-la-formation" => "comment-fonctionne-la-formation-des-salaries",
+    "creation-ou-reprise-activite" => "creation-ou-reprise-dactivite-quels-dispositifs",
+    "presentation-service" => "ouverture-nationale-du-service-place-des-entreprises",
+  }
   def self.ministere_du_travail_url(solicitation, full: false)
     if full && solicitation.kwd.present?
-      "#{solicitation.cooperation.root_url}/#{solicitation.kwd}"
+      kwd = MINISTERE_DU_TRAVAIL_KWD_PATCHES.fetch(solicitation.kwd, solicitation.kwd)
+      "#{solicitation.cooperation.root_url}/#{kwd}"
     else
       solicitation.cooperation.root_url
     end
