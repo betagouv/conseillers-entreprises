@@ -9,6 +9,7 @@
 #  email                            :string
 #  form_info                        :jsonb
 #  full_name                        :string
+#  insee_code                       :string
 #  landing_slug                     :string
 #  location                         :string
 #  phone_number                     :string

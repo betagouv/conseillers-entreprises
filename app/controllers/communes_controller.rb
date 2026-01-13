@@ -37,10 +37,10 @@ class CommunesController < ApplicationController
 
   def normalize_string(str)
     str.downcase
-       .unicode_normalize(:nfd)
-       .gsub(/\p{Mn}/, '')
-       .gsub(/[^a-z0-9]/, ' ')
-       .gsub(/\s+/, ' ')
-       .strip
+      .unicode_normalize(:nfd)
+      .gsub(/\p{Mn}/, '')
+      .gsub(/[^a-z0-9]/, ' ')
+      .gsub(/\s+/, ' ')
+      .strip
   end
 end
