@@ -12,7 +12,7 @@
         %p
           %time.date{ datetime: @need.solicited_at }= t('needs.dates.solicited_at', date: l(@need.solicited_at, format: :long_sentence))
         = need_general_context(@need)
-        - display_partner_url = (@need.solicitation&.cooperation&.display_url && partner_url(@need.solicitation).present?)
+        - display_partner_url = (@need.solicitation&.cooperation&.display_url && PartnerOrigin.partner_url(@need.solicitation).present?)
         - if @need.subject_answers.any? || display_partner_url
           %hr
           .need-description__meta.fr-text--sm
@@ -26,7 +26,7 @@
               %p.fr-text--sm
                 = t('.origin_source')
                 %br
-                = link_to partner_title(@need.solicitation), partner_url(@need.solicitation, full: true), title: "#{to_new_window_title(t('.origin_source_title'))}", target: '_blank', rel: 'noopener'
+                = link_to partner_title(@need.solicitation), PartnerOrigin.partner_url(@need.solicitation, full: true), title: "#{to_new_window_title(t('.origin_source_title'))}", target: '_blank', rel: 'noopener'
 
     .fr-col-md-4.order-minus-one.bp-sm
       .fr-grid-row.need-metadata

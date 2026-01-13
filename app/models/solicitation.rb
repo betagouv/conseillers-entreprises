@@ -209,7 +209,7 @@ class Solicitation < ApplicationRecord
   def set_cooperation
     self.cooperation ||= landing&.cooperation ||
       (Cooperation.find_by(mtm_campaign: self.campaign) if self.campaign.present?) ||
-      (Cooperation.find_by(mtm_campaign: 'entreprendre') if self.from_entreprendre) # si pas de mtm_campaign enregistré
+      (Cooperation.find_by(mtm_campaign: 'entreprendre') if self.from_entreprendre?) # si pas de mtm_campaign enregistré
   end
 
   def set_provenance_detail
@@ -218,7 +218,7 @@ class Solicitation < ApplicationRecord
 
   def calculate_provenance_detail
     # On regarde en priorité les cooperations
-    return kwd if from_entreprendre
+    return kwd if from_entreprendre?
     return origin_title if cooperation&.id == 3 # les-aides
     return origin_url&.gsub("https://mission-transition-ecologique.beta.gouv.fr/", "") if cooperation&.id == 4 # MTEE
     # puis le reste
@@ -608,9 +608,8 @@ class Solicitation < ApplicationRecord
   end
 
   # Format fiche : F1234..
-  def from_entreprendre
-    self.cooperation&.mtm_campaign == 'entreprendre' ||
-    QueryFromEntreprendre.new(campaign: self.campaign, kwd: self.kwd).call
+  def from_entreprendre?
+    PartnerOrigin.from_entreprendre?(solicitation: self)
   end
 
   # Experimentation pour l'URSSAF 59 et 62

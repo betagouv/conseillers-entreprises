@@ -58,8 +58,8 @@ module SolicitationHelper
   end
 
   def display_solicitation_attribute(solicitation, attribute)
-    if attribute == :provenance_detail && solicitation.from_entreprendre
-      link_to solicitation.send(attribute), partner_url(solicitation, full: true), title: "#{to_new_window_title(t('needs.show.origin_source_title'))}", target: '_blank', rel: 'noopener', data: { turbo: false }
+    if attribute == :provenance_detail && solicitation.from_entreprendre?
+      link_to solicitation.send(attribute), PartnerOrigin.partner_url(solicitation, full: true), title: "#{to_new_window_title(t('needs.show.origin_source_title'))}", target: '_blank', rel: 'noopener', data: { turbo: false }
     elsif attribute == :siret
       link_to(solicitation.normalized_siret, show_with_siret_companies_path(solicitation.siret), data: { turbo: false })
     else
@@ -72,20 +72,13 @@ module SolicitationHelper
     if solicitation.origin_title.present? && solicitation.landing.partner_url.present?
       "#{solicitation.origin_title} (#{solicitation.landing.partner_url})"
     else
-      partner_url(solicitation)
+      PartnerOrigin.partner_url(solicitation)
     end
   end
 
-  def partner_url(solicitation, full: false)
-    return if solicitation.nil?
-    return solicitation.origin_url if solicitation.origin_url.present?
-    return entreprendre_url(solicitation, full: full) if (solicitation.from_entreprendre && solicitation.kwd.present?)
-    return landing_partner_url(solicitation, full: full)
-  end
-
   def link_to_partner_url(solicitation)
-    link_url = partner_url(solicitation, full: true)
-    link_title = partner_url(solicitation, full: false).gsub(/https?:\/\//, '')
+    link_url = PartnerOrigin.partner_url(solicitation, full: true)
+    link_title = PartnerOrigin.partner_url(solicitation, full: false).gsub(/https?:\/\//, '')
     link_to link_title, link_url
   end
 
@@ -99,13 +92,5 @@ module SolicitationHelper
       concat(link_to need.subject.label, path, title: title, 'aria-describedby': aria_describedby, 'data-turbo': false)
       concat(tag.span title, class: 'fr-tooltip fr-placement', id: "tooltip-#{need.id}", role: 'tooltip', 'aria-hidden': true)
     end
-  end
-
-  def entreprendre_url(solicitation, full: false)
-    full ? "https://entreprendre.service-public.gouv.fr/vosdroits/#{solicitation.kwd}" : "https://entreprendre.service-public.gouv.fr"
-  end
-
-  def landing_partner_url(solicitation, full: false)
-    full ? solicitation.landing.partner_full_url : solicitation.landing.partner_url
   end
 end
