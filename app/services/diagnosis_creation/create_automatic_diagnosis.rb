@@ -51,7 +51,8 @@ module DiagnosisCreation
     end
 
     def retrieve_insee_code
-      # TODO : à revoir quand on aura une meilleure gestion des zones
+      return solicitation.insee_code if solicitation.insee_code.present?
+      # Fallback to the old method using API adresse for backward compatibility
       # See https://github.com/betagouv/conseillers-entreprises/issues/4134
       query = solicitation.location.parameterize
       result = Api::Adresse::SearchMunicipality.new(query).call

@@ -4,13 +4,14 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 (function () {
   addEventListener('turbo:load', setupCityAutocomplete)
 
-  const SEARCH_URL = '/communes/search?q=tu conn'
+  const SEARCH_URL = '/communes/search?q='
 
   function setupCityAutocomplete () {
     const targetField = document.querySelector("[data-target='insee-code']")
-    const autocompleteField = document.querySelector("[data-action='city-autocomplete']")
+    const autocompleteFields = document.querySelectorAll("[data-action='city-autocomplete']")
+    const autocompleteField = autocompleteFields.length > 0 ? autocompleteFields[0] : null
 
-    if (exists(autocompleteField)) {
+    if (exists(autocompleteField) && exists(targetField)) {
 
       accessibleAutocomplete({
         element: autocompleteField,
@@ -30,7 +31,16 @@ import accessibleAutocomplete from 'accessible-autocomplete';
         }, 150),
         onConfirm: (val) => {
           if (val && targetField) {
-            targetField.value = val.code
+            // For solicitation form: store "City Name (DEPT_CODE)" in location field
+            // For diagnosis form: store just the INSEE code in the hidden insee_code field
+            if (targetField.id.includes('insee_code') || targetField.name.includes('insee_code')) {
+              targetField.value = val.code
+            } else {
+              // This is the solicitation form - store both name and department code
+              targetField.value = `${val.nom} (${val.departement_code})`
+            }
+          } else {
+            console.warn('No target field found or no value selected')
           }
         }
       })
