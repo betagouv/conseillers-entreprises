@@ -73,6 +73,18 @@ RSpec.describe User do
         expect(diagnosis.advisor).to be user
       end
     end
+
+    context 'with a related single-user expert' do
+      subject(:user) { create :user, :with_expert }
+
+      let(:expert) { user.single_user_experts.first }
+
+      it 'soft-deletes the expert too' do
+        is_expected.to be_deleted
+        is_expected.to be_persisted
+        is_expected.not_to be_destroyed
+      end
+    end
   end
 
   describe 'scopes' do
