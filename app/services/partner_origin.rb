@@ -17,11 +17,20 @@ module PartnerOrigin
     end
   end
 
+  MTE_COOPERATION_NAME = "Mission transition écologique des entreprises"
+  MTE_ORIGIN_URL_CUSTOM = "https://mission-transition-ecologique.beta.gouv.fr/custom"
+
+  def self.from_mte?(solicitation)
+    if solicitation.present?
+      solicitation.cooperation&.name == MTE_COOPERATION_NAME
+    end
+  end
+
   def self.partner_url(solicitation, full: false)
     return if solicitation.nil?
 
     if solicitation.origin_url.present?
-      solicitation.origin_url
+      origin_url(solicitation)
     elsif from_entreprendre?(solicitation: solicitation) && solicitation.kwd.present?
       entreprendre_url(solicitation, full: full)
     else
@@ -39,5 +48,13 @@ module PartnerOrigin
 
   def self.landing_partner_url(solicitation, full: false)
     full ? solicitation.landing.partner_full_url : solicitation.landing.partner_url
+  end
+
+  def self.origin_url(solicitation)
+    if from_mte?(solicitation) && solicitation.origin_url == MTE_ORIGIN_URL_CUSTOM
+      solicitation.cooperation.root_url
+    else
+      solicitation.origin_url
+    end
   end
 end
