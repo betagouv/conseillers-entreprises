@@ -286,6 +286,9 @@ Rails.application.routes.draw do
 
   # Partie publique ===================================================
 
+  # Autocomplete communes
+  get 'communes/search', to: 'communes#search', as: :communes_search
+
   root controller: "landings/landings", action: :home
   resources :landings, param: :landing_slug, controller: "landings/landings", only: [:show], path: 'aide-entreprise' do
     # Utilisation de member pour que ce soit :landing_slug qui soit utilisé sur toutes les routes
