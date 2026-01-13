@@ -393,7 +393,7 @@ ActiveAdmin.register Expert do
   end
 
   batch_action :destroy, confirm: I18n.t('active_admin.expert.delete_confirmation') do |ids|
-    Expert.where(id: ids).find_each { |u| u.soft_delete }
+    Expert.where(id: ids).destroy_all
     redirect_to collection_path, notice: I18n.t('active_admin.experts.deleted')
   end
 end

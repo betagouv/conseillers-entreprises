@@ -356,7 +356,7 @@ ActiveAdmin.register User do
   end
 
   batch_action :destroy, confirm: I18n.t('active_admin.users.delete_confirmation') do |ids|
-    User.where(id: ids).find_each { |u| u.soft_delete }
+    User.where(id: ids).destroy_all
     redirect_to collection_path, notice: I18n.t('active_admin.user.deleted')
   end
 
