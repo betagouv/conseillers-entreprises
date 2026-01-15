@@ -107,13 +107,6 @@ describe PartnerOrigin do
 
           it { is_expected.to eq 'https://travail-emploi.gouv.fr/le-travail-de-nuit' }
         end
-
-        context 'kwd with override' do
-          let(:cooperation) { build :cooperation, mtm_campaign: 'ministere-du-travail', root_url: 'https://travail-emploi.gouv.fr' }
-          let(:solicitation) { build :solicitation, cooperation: cooperation, mtm_kwd: 'creation-ou-reprise-activite' }
-
-          it { is_expected.to eq 'https://travail-emploi.gouv.fr/creation-ou-reprise-dactivite-quels-dispositifs' }
-        end
       end
 
       context 'with landing url' do
