@@ -17,7 +17,7 @@
           %nav.fr-header__tools-links{ role: 'navigation' }
             %ul.fr-links-group
               %li
-                = link_to t('experts_login'), user_signed_in? ? needs_path : new_user_session_path, class: 'fr-link fr-icon-lock-line'
+                = link_to t('experts_login'), user_signed_in? ? app_root_path : new_user_session_path, class: 'fr-link fr-icon-lock-line'
   .fr-header__menu.fr-modal#modal-responsive-menu{ 'aria-labelledby': 'fr-btn-menu-mobile-4' }
     .fr-container
       %button.fr-link--close.fr-link{ 'aria-controls': 'modal-responsive-menu' }= t('navbar.close')

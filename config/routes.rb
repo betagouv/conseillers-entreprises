@@ -44,6 +44,8 @@ Rails.application.routes.draw do
              },
              skip: [:registrations]
 
+  resource :app_root, path: "app", only: [:show]
+
   devise_scope :user do
     resource :user, only: %i[show update], path: 'mon_compte', controller: 'users/registrations' do
       get :edit, path: 'informations'
