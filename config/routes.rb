@@ -111,7 +111,7 @@ Rails.application.routes.draw do
         get :quo_matches, path: 'mer-en-attente'
       end
     end
-    resources :veille, only: %i[index], path: 'veille' do
+    resources :optimisation, only: %i[index], path: 'optimisation' do
       collection do
         get :starred_needs, path: 'besoins-suivis'
         get :taking_care_matches, path: 'stock-en-cours'

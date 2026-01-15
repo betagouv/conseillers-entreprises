@@ -38,7 +38,7 @@ module AdminExpertCardFooterHelper
   end
 
   def closing_good_practice_email(expert)
-    expert_email_form_builder(send_closing_good_practice_email_conseiller_veille_path(expert), t('reminders.experts.send_closing_good_practice_email.label'), expert)
+    expert_email_form_builder(send_closing_good_practice_email_conseiller_optimisation_path(expert), t('reminders.experts.send_closing_good_practice_email.label'), expert)
   end
 
   def expert_email_form_builder(path, text, expert, form_options = {})

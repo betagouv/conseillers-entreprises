@@ -595,7 +595,7 @@ RSpec.describe Need do
     end
   end
 
-  describe 'veille' do
+  describe 'optimisation' do
     describe 'with_filtered_matches_quo' do
       let!(:need_quo_recent) { create :need, status: :done, matches: [ create(:match, status: :done), create(:match, status: :quo)] }
       let!(:need_quo_expired) { create :need, status: :done, matches: [ create(:match, status: :done, sent_at: 46.days.ago), create(:match, status: :quo, sent_at: 46.days.ago)] }

@@ -373,18 +373,18 @@ fr:
         quo_matches: MER en attente de réponse depuis + de 21 jours et - de 45 jours hors PQ
       titles:
         quo_matches: MER en attente
-    veille:
+    optimisation:
       index:
-        title: Veille
+        title: Optimisation
       instructions:
         starred_needs: Besoins marqués comme suivi lors de l'analyse
         taking_care_matches: Experts ayant en stock + de 5 besoins pris en charge il y a + d'un mois
       starred_needs:
         no_results: Aucun résultat
-        title: Veille - besoins suivis
+        title: Optimisation - besoins suivis
       taking_care_matches:
         no_results: Aucun résultat
-        title: Veille - Stock en cours
+        title: Optimisation - Stock en cours
       titles:
         starred_needs: Besoins suivis
         taking_care_matches: Stock en cours

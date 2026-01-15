@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Conseiller::VeilleController do
+RSpec.describe Conseiller::OptimisationController do
   login_admin
 
   describe 'index pages' do
