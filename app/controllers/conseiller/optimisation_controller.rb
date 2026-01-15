@@ -1,4 +1,4 @@
-class Conseiller::VeilleController < ApplicationController
+class Conseiller::OptimisationController < ApplicationController
   include PersistedSearch
   include Inbox
 
@@ -37,7 +37,7 @@ class Conseiller::VeilleController < ApplicationController
         render turbo_stream: turbo_stream.update("display-feedbacks-#{expert.id}",
                                                  partial: "experts/expert_feedbacks",
                                                  locals: { expert: expert })
-        format.html { redirect_back_or_to taking_care_matches_conseiller_veille_index_path }
+        format.html { redirect_back_or_to taking_care_matches_conseiller_optimisation_index_path }
       end
     end
   end
@@ -57,7 +57,7 @@ class Conseiller::VeilleController < ApplicationController
   end
 
   def collections_counts
-    @collections_by_veille_count = Rails.cache.fetch(['veille', retrieve_taking_care_matches_experts.size, retrieve_starred_needs.size]) do
+    @collections_by_optimisation_count = Rails.cache.fetch(['optimisation', retrieve_taking_care_matches_experts.size, retrieve_starred_needs.size]) do
       {
         starred_needs: retrieve_starred_needs.size,
         taking_care_matches: retrieve_taking_care_matches_experts.to_a.size
@@ -66,7 +66,7 @@ class Conseiller::VeilleController < ApplicationController
   end
 
   def search_session_key
-    :veille_search
+    :optimisation_search
   end
 
   def search_fields
