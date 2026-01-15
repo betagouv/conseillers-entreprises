@@ -91,50 +91,6 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "1124eb85ae5636de4a5b95ecff655c2283b4402d00ae7d9c17a911facbd5a289",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/conseiller/suivi_qualite/_refused_feedback_need.haml",
-      "line": 35,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "build_admin_need_card_footer(:refused_feedback, (Unresolved Model).new)",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Conseiller::SuiviQualiteController",
-          "method": "refused_feedbacks",
-          "line": 34,
-          "file": "app/controllers/conseiller/suivi_qualite_controller.rb",
-          "rendered": {
-            "name": "conseiller/suivi_qualite/index",
-            "file": "app/views/conseiller/suivi_qualite/index.html.haml"
-          }
-        },
-        {
-          "type": "template",
-          "name": "conseiller/suivi_qualite/index",
-          "line": 15,
-          "file": "app/views/conseiller/suivi_qualite/index.html.haml",
-          "rendered": {
-            "name": "conseiller/suivi_qualite/_refused_feedback_need",
-            "file": "app/views/conseiller/suivi_qualite/_refused_feedback_need.haml"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "conseiller/suivi_qualite/_refused_feedback_need"
-      },
-      "user_input": "(Unresolved Model).new",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
       "fingerprint": "8dc87301b09e2a71fb8ed148245c7ba5f09272f065a403c8626e4b5158733ce9",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
