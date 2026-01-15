@@ -1,0 +1,6 @@
+%ul.fr-sidemenu__list
+  - collections_count.each do |name, count|
+    - label = t(name, scope: [:conseiller, :optimisation, :titles])
+    - url = [name, :conseiller, :optimisation, :index]
+    - title = t(name, scope: [:conseiller, :optimisation, :instructions])
+    = menu_link_with_count(label, count, url, class: 'item', title: title)
