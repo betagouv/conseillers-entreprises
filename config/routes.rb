@@ -173,7 +173,6 @@ Rails.application.routes.draw do
       get :needs, path: 'besoins'
     end
     collection do
-      get :search, path: 'search'
       get :show_with_siret, path: 'siret/:siret'
     end
   end
@@ -283,6 +282,9 @@ Rails.application.routes.draw do
   end
 
   # Partie publique ===================================================
+
+  # Autocomplete communes
+  get 'communes/search', to: 'communes#search', as: :communes_search
 
   root controller: "landings/landings", action: :home
   resources :landings, param: :landing_slug, controller: "landings/landings", only: [:show], path: 'aide-entreprise' do

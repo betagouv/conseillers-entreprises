@@ -152,6 +152,19 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
           expect(solicitation.prepare_diagnosis_errors).to eq({ "needs" => [{ "error" => "solicitation_has_no_preselected_subject" }] })
         end
       end
+
+      context 'with insee_code field containing INSEE code' do
+        let(:solicitation) { create :solicitation, siret: nil, location: "Paris", insee_code: "75056" }
+        let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
+        let(:errors) { {} }
+        let(:prepare_needs) { [] }
+        let(:facility_attributes) { { insee_code: '75056', company_attributes: { name: solicitation.full_name } } }
+
+        it 'uses INSEE code from insee_code field' do
+          expect(solicitation.diagnosis).not_to be_nil
+          expect(solicitation.prepare_diagnosis_errors).to eq({})
+        end
+      end
     end
   end
 end

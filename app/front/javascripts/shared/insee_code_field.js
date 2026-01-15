@@ -4,14 +4,13 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 (function () {
   addEventListener('turbo:load', setupCityAutocomplete)
 
-  const SEARCH_URL = 'https://api-adresse.data.gouv.fr/search/?type=municipality&q='
+  const SEARCH_URL = '/communes/search?q='
 
   function setupCityAutocomplete () {
     const targetField = document.querySelector("[data-target='insee-code']")
     const autocompleteField = document.querySelector("[data-action='city-autocomplete']")
 
-    if (exists(autocompleteField)) {
-
+    if (exists(autocompleteField) && exists(targetField)) {
       accessibleAutocomplete({
         element: autocompleteField,
         id: autocompleteField.dataset.id || 'city_autocomplete',
@@ -25,13 +24,19 @@ import accessibleAutocomplete from 'accessible-autocomplete';
         tAssistiveHint: () => autocompleteField.dataset.assistiveHint,
         source: debounce(async (query, populateResults) => {
           // display autocomplete suggestions
-          const res = await fetchSource(query, SEARCH_URL).catch(displayError)
-          const results = res.features
-          populateResults(results)
-        }, 300),
+          const results = await fetchSource(query, SEARCH_URL).catch(displayError)
+          populateResults(results || [])
+        }, 150),
         onConfirm: (val) => {
           if (val && targetField) {
-            targetField.value = val.properties.citycode
+            // For solicitation form: store "City Name (DEPT_CODE)" in location field
+            // For diagnosis form: store just the INSEE code in the hidden insee_code field
+            if (targetField.id.includes('insee_code') || targetField.name.includes('insee_code')) {
+              targetField.value = val.code
+            } else {
+              // This is the solicitation form - store both name and department code
+              targetField.value = `${val.nom} (${val.departement_code})`
+            }
           }
         }
       })
@@ -46,11 +51,13 @@ import accessibleAutocomplete from 'accessible-autocomplete';
   // Récupération des résultats ----------------------------------------------------
 
   async function fetchSource (query, url) {
-    query = query.trim().toLowerCase().replace(/[^a-zA-Z0-9 -]/, "").replace(/\s/g, "-");
+    query = query.trim();
+    if (query.length < 3) {
+      return [];
+    }
     const res = await fetch(`${url}${encodeURIComponent(query)}`)
     if (res.ok) {
-      const data = await res.json()
-      return data
+      return await res.json()
     } else {
       return Promise.reject(res);
     }
@@ -60,13 +67,12 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 
   function suggestionTemplate (result) {
     if (!result) return
-    const properties = result.properties
-    return result && `<span></span><strong> ${properties.city} </strong> - ${properties.postcode}</p>`
+    return result && `<span></span><strong> ${result.nom} </strong> (${result.departement_code})</p>`
   }
 
   function inputValueTemplate (result) {
     if (!result) return
-    return `${result.properties.city} - ${result.properties.postcode}`
+    return `${result.nom} (${result.departement_code})`
   }
 
   function displayError (err) {
@@ -74,4 +80,3 @@ import accessibleAutocomplete from 'accessible-autocomplete';
     alert(`Désolée, un problème a été rencontré, vous pouvez réessayer un peu + tard` );
   }
 })()
-

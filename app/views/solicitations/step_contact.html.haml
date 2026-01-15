@@ -47,9 +47,9 @@
                 value: (f.object.send(field) || params[field])
 
           - if @solicitation.errors.present?
-            .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
+            %p.fr-error-text{ data: { controller: "pages-error-focus" } }= @solicitation.errors.full_messages_for(field).to_sentence
 
-      .submit-buttons
+      .fr-btns-group.fr-btns-group--icon-lg.fr-btns-group--inline.fr-btns-group--right
         = render 'solicitations/next_button'
 
 - content_for :form_footer do
