@@ -8,11 +8,9 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 
   function setupCityAutocomplete () {
     const targetField = document.querySelector("[data-target='insee-code']")
-    const autocompleteFields = document.querySelectorAll("[data-action='city-autocomplete']")
-    const autocompleteField = autocompleteFields.length > 0 ? autocompleteFields[0] : null
+    const autocompleteField = document.querySelector("[data-action='city-autocomplete']")
 
     if (exists(autocompleteField) && exists(targetField)) {
-
       accessibleAutocomplete({
         element: autocompleteField,
         id: autocompleteField.dataset.id || 'city_autocomplete',
@@ -39,8 +37,6 @@ import accessibleAutocomplete from 'accessible-autocomplete';
               // This is the solicitation form - store both name and department code
               targetField.value = `${val.nom} (${val.departement_code})`
             }
-          } else {
-            console.warn('No target field found or no value selected')
           }
         }
       })
@@ -84,4 +80,3 @@ import accessibleAutocomplete from 'accessible-autocomplete';
     alert(`Désolée, un problème a été rencontré, vous pouvez réessayer un peu + tard` );
   }
 })()
-
