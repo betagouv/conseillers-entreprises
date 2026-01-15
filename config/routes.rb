@@ -175,7 +175,6 @@ Rails.application.routes.draw do
       get :needs, path: 'besoins'
     end
     collection do
-      get :search, path: 'search'
       get :show_with_siret, path: 'siret/:siret'
     end
   end

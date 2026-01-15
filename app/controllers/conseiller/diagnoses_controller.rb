@@ -8,7 +8,6 @@ class Conseiller::DiagnosesController < ApplicationController
     if @current_solicitation.present?
       @needs = Need.where(id: Need.diagnosis_completed.for_emails(@current_solicitation.email))
         .or(Need.where(id: Need.diagnosis_completed.for_sirets(@current_solicitation.siret)))
-      @tab = 'search_manually' if @current_solicitation.siret.nil?
     else
       @needs = []
     end
@@ -22,8 +21,15 @@ class Conseiller::DiagnosesController < ApplicationController
       DiagnosisCreation::Steps.new(@diagnosis).autofill_steps
       redirect_to controller: 'conseiller/diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     else
-      flash[:alert] = @diagnosis.errors.full_messages.to_sentence
-      redirect_back_or_to(new_conseiller_diagnosis_path(solicitation: diagnosis_params[:solicitation_id]))
+      @current_solicitation = Solicitation.find_by(id: diagnosis_params[:solicitation_id]) if diagnosis_params[:solicitation_id].present?
+      if @current_solicitation.present?
+        @needs = Need.where(id: Need.diagnosis_completed.for_emails(@current_solicitation.email))
+          .or(Need.where(id: Need.diagnosis_completed.for_sirets(@current_solicitation.siret)))
+      else
+        @needs = []
+      end
+      flash.now[:alert] = @diagnosis.errors.full_messages.to_sentence
+      render :new, status: :unprocessable_content
     end
   end
 

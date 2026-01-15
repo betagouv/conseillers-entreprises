@@ -1,36 +1,11 @@
 class CompaniesController < ApplicationController
-  def search
-    @current_solicitation = get_current_solicitation
-    # si l'utilisateur a utilisé l'autocompletion
-    if siret_is_set?
-      redirect_to show_with_siret_companies_path(params[:siret], solicitation: @current_solicitation&.id)
-    else
-
-      result = SearchFacility::All.new(search_params).from_full_text_or_siren if search_params.present?
-      respond_to do |format|
-        format.html do
-          if result.present?
-            if result[:error].blank?
-              @etablissements = result[:items]
-            else
-              flash.now.alert = result[:error] || I18n.t('companies.search.generic_error')
-            end
-          end
-        end
-        format.json do
-          render json: result.as_json
-        end
-      end
-    end
-  end
-
   def show
     @diagnosis = DiagnosisCreation::NewDiagnosis.new.call
     facility = Facility.find(params.permit(:id)[:id])
 
     search_facility_informations(facility.siret)
     if defined? @message
-      redirect_back_or_to({ action: :search }, alert: @message)
+      redirect_back_or_to root_path, alert: @message
     end
   end
 
@@ -43,8 +18,8 @@ class CompaniesController < ApplicationController
     if clean_siret == siret
       search_facility_informations(siret)
       if @message.present?
-        flash.now[:alert] = @message
-        redirect_back_or_to({ action: :search }, alert: @message)
+        flash[:alert] = @message
+        redirect_back_or_to root_path, alert: @message
       else
         render :show
       end
@@ -92,14 +67,6 @@ class CompaniesController < ApplicationController
       Sentry.capture_message(e)
       @message = I18n.t("api_requests.generic_error")
     end
-  end
-
-  def search_params
-    params.permit(:query)
-  end
-
-  def siret_is_set?
-    params[:siret].present? && params[:siret].length == 14
   end
 
   def get_current_solicitation
