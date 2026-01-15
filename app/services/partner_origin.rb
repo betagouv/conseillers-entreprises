@@ -26,6 +26,18 @@ module PartnerOrigin
     end
   end
 
+  MINISTERE_DU_TRAVAIL_COOPERATION_CAMPAIGN = 'ministere-du-travail'
+
+  def self.from_ministere_du_travail?(solicitation: nil, campaign: nil)
+    if solicitation.present?
+      solicitation.cooperation&.mtm_campaign == MINISTERE_DU_TRAVAIL_COOPERATION_CAMPAIGN || from_ministere_du_travail?(campaign: solicitation.campaign)
+    elsif campaign.present?
+      campaign == MINISTERE_DU_TRAVAIL_COOPERATION_CAMPAIGN
+    else
+      false
+    end
+  end
+
   def self.partner_url(solicitation, full: false)
     return if solicitation.nil?
 
@@ -33,6 +45,8 @@ module PartnerOrigin
       origin_url(solicitation)
     elsif from_entreprendre?(solicitation: solicitation) && solicitation.kwd.present?
       entreprendre_url(solicitation, full: full)
+    elsif from_ministere_du_travail?(solicitation: solicitation)
+      ministere_du_travail_url(solicitation, full: full)
     else
       landing_partner_url(solicitation, full: full)
     end
@@ -43,6 +57,14 @@ module PartnerOrigin
       "#{ENTREPRENDRE_PAGE_BASE_URL}#{solicitation.kwd}"
     else
       ENTREPRENDRE_HOME_URL
+    end
+  end
+
+  def self.ministere_du_travail_url(solicitation, full: false)
+    if full && solicitation.kwd.present?
+      "#{solicitation.cooperation.root_url}/#{solicitation.kwd}"
+    else
+      solicitation.cooperation.root_url
     end
   end
 

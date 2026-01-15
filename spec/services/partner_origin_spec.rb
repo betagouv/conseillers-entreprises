@@ -100,6 +100,15 @@ describe PartnerOrigin do
         end
       end
 
+      context 'partenaire ministere du travail' do
+        context 'regular kwd' do
+          let(:cooperation) { build :cooperation, mtm_campaign: 'ministere-du-travail', root_url: 'https://travail-emploi.gouv.fr' }
+          let(:solicitation) { build :solicitation, cooperation: cooperation, mtm_kwd: 'le-travail-de-nuit' }
+
+          it { is_expected.to eq 'https://travail-emploi.gouv.fr/le-travail-de-nuit' }
+        end
+      end
+
       context 'with landing url' do
         let(:solicitation) { build :solicitation, landing: create(:landing, cooperation: cooperation, url_path: '/aide-1') }
 
