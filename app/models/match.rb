@@ -173,12 +173,6 @@ class Match < ApplicationRecord
     joins(:solicitation).merge(Solicitation.mtm_kwd_end(query))
   }
 
-  scope :with_recent_refused_feedbacks, -> {
-    joins("INNER JOIN feedbacks ON feedbacks.feedbackable_id = matches.need_id AND feedbacks.feedbackable_type = 'Need'")
-      .where(status: :not_for_me, taken_care_of_at: 15.days.ago..)
-      .where('feedbacks.user_id IN (SELECT user_id FROM experts_users WHERE expert_id = matches.expert_id)')
-  }
-
   scope :taken_care_before, -> (number_of_days) {
     with_exchange
       .where('ABS(DATE_PART(\'day\', matches.taken_care_of_at - matches.sent_at)) < ?', number_of_days)
