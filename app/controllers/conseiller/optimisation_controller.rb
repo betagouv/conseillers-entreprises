@@ -10,15 +10,7 @@ class Conseiller::OptimisationController < ApplicationController
   layout 'side_menu'
 
   def index
-    redirect_to action: :starred_needs
-  end
-
-  def starred_needs # here
-    @needs = retrieve_starred_needs
-      .with_card_includes
-      .order(created_at: :asc)
-      .page(params[:page])
-    @action = :starred_need
+    redirect_to action: :taking_care_matches
   end
 
   def taking_care_matches
@@ -28,6 +20,14 @@ class Conseiller::OptimisationController < ApplicationController
       .order(created_at: :asc)
       .page(params[:page])
     @action = :taking_care_matches
+  end
+
+  def starred_needs
+    @needs = retrieve_starred_needs
+      .with_card_includes
+      .order(created_at: :asc)
+      .page(params[:page])
+    @action = :starred_need
   end
 
   def send_closing_good_practice_email
@@ -48,10 +48,6 @@ class Conseiller::OptimisationController < ApplicationController
 
   private
 
-  def retrieve_starred_needs
-    Need.starred.apply_filters(index_search_params)
-  end
-
   def retrieve_taking_care_matches_experts
     Expert
       .with_taking_care_stock
@@ -60,11 +56,15 @@ class Conseiller::OptimisationController < ApplicationController
       .distinct
   end
 
+  def retrieve_starred_needs
+    Need.starred.apply_filters(index_search_params)
+  end
+
   def collections_counts
     @collections_by_optimisation_count = Rails.cache.fetch(['optimisation', retrieve_taking_care_matches_experts.size, retrieve_starred_needs.size]) do
       {
+        taking_care_matches: retrieve_taking_care_matches_experts.to_a.size,
         starred_needs: retrieve_starred_needs.size,
-        taking_care_matches: retrieve_taking_care_matches_experts.to_a.size
       }
     end
   end
