@@ -21,9 +21,9 @@
             = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description_html"),
                 rows: 12, required: true, class: 'fr-input white-bg',
                 data: { 'prefill-textarea-target': 'destinationField' },
-                aria: { describedby: (@solicitation.errors.present? ? 'description-error' : nil), invalid: (@solicitation.errors.present? ? 'true' : nil) }
+                aria: { describedby: (@solicitation.errors[:description].present? ? 'description-error' : nil), invalid: (@solicitation.errors[:description].present? ? 'true' : nil) }
 
-          - if @solicitation.errors.present?
+          - if @solicitation.errors[:description].present?
             %p.fr-error-text{ id: 'description-error',
                 data: { controller: "pages-error-focus" } }= @solicitation.errors.full_messages_for(:description).to_sentence
 
