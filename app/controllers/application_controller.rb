@@ -15,7 +15,7 @@ class ApplicationController < SharedController
     elsif user.is_only_cooperation_manager?
       needs_conseiller_cooperations_path
     elsif user.is_manager?
-      reports_path
+      manager_needs_path
     elsif user.is_admin?
       conseiller_solicitations_path
     else
