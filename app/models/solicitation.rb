@@ -161,6 +161,7 @@ class Solicitation < ApplicationRecord
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
   validates :origin_url, presence: true, if: -> { landing&.api? }
   validates :completed_at, presence: true, if: -> { step_complete? }
+  validates :insee_code, format: { with: /\A[0-9AB]{5}\z/, message: :invalid_insee_code }, allow_blank: true
 
   # Todo : à supprimer une fois que la migration api_url est passée ?
   validate if: -> { landing&.api? } do

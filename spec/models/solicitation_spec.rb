@@ -161,6 +161,68 @@ end
         end
       end
     end
+
+    describe 'validate insee_code' do
+      context 'with valid INSEE codes' do
+        it 'accepts 5-digit numeric codes' do
+          solicitation = build(:solicitation, insee_code: '75056')
+          expect(solicitation).to be_valid
+        end
+
+        it 'accepts codes with letters (Corse)' do
+          solicitation = build(:solicitation, insee_code: '2A001')
+          expect(solicitation).to be_valid
+        end
+
+        it 'accepts codes with 2B (Corse)' do
+          solicitation = build(:solicitation, insee_code: '2B033')
+          expect(solicitation).to be_valid
+        end
+
+        it 'accepts blank insee_code' do
+          solicitation = build(:solicitation, insee_code: nil)
+          expect(solicitation).to be_valid
+        end
+      end
+
+      context 'with invalid INSEE codes' do
+        it 'rejects codes shorter than 5 characters' do
+          solicitation = build(:solicitation, insee_code: '7505')
+          expect(solicitation).not_to be_valid
+          expect(solicitation.errors[:insee_code]).to be_present
+        end
+
+        it 'rejects codes longer than 5 characters' do
+          solicitation = build(:solicitation, insee_code: '750561')
+          expect(solicitation).not_to be_valid
+          expect(solicitation.errors[:insee_code]).to be_present
+        end
+
+        it 'rejects codes with lowercase letters' do
+          solicitation = build(:solicitation, insee_code: '2a001')
+          expect(solicitation).not_to be_valid
+          expect(solicitation.errors[:insee_code]).to be_present
+        end
+
+        it 'rejects codes with letters other than A or B' do
+          solicitation = build(:solicitation, insee_code: '2C001')
+          expect(solicitation).not_to be_valid
+          expect(solicitation.errors[:insee_code]).to be_present
+        end
+
+        it 'rejects codes with special characters' do
+          solicitation = build(:solicitation, insee_code: '75-56')
+          expect(solicitation).not_to be_valid
+          expect(solicitation.errors[:insee_code]).to be_present
+        end
+
+        it 'rejects codes with spaces' do
+          solicitation = build(:solicitation, insee_code: '750 6')
+          expect(solicitation).not_to be_valid
+          expect(solicitation.errors[:insee_code]).to be_present
+        end
+      end
+    end
   end
 
   describe 'callbacks' do
