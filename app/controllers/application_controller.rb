@@ -9,20 +9,24 @@ class ApplicationController < SharedController
     current_user.is_admin? || not_found
   end
 
-  ## Devise overrides
-  def after_sign_in_path_for(resource_or_scope)
-    path = if resource_or_scope.sign_in_count == 1
+  def app_root_for_user(user = current_user)
+    if user.sign_in_count == 1
       tutoriels_path
-    elsif resource_or_scope.is_only_cooperation_manager?
+    elsif user.is_only_cooperation_manager?
       needs_conseiller_cooperations_path
-    elsif resource_or_scope.is_manager?
-      reports_path
-    elsif resource_or_scope.is_admin?
+    elsif user.is_manager?
+      manager_needs_path
+    elsif user.is_admin?
       conseiller_solicitations_path
     else
       quo_active_needs_path
     end
-    stored_location_for(resource_or_scope) || path
+  end
+  helper_method :app_root_for_user
+
+  ## Devise overrides
+  def after_sign_in_path_for(user)
+    stored_location_for(user) || app_root_for_user(user)
   end
 
   def after_sign_out_path_for(resource_or_scope)
