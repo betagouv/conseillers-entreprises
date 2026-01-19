@@ -113,8 +113,8 @@ Rails.application.routes.draw do
     end
     resources :optimisation, only: %i[index], path: 'optimisation' do
       collection do
-        get :starred_needs, path: 'besoins-suivis'
         get :taking_care_matches, path: 'stock-en-cours'
+        get :starred_needs, path: 'besoins-suivis'
       end
       member do
         post :send_closing_good_practice_email
