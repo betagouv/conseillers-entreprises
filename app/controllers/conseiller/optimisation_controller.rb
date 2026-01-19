@@ -73,13 +73,12 @@ class Conseiller::OptimisationController < ApplicationController
   end
 
   def collections_counts
-    @collections_by_optimisation_count = Rails.cache.fetch(['optimisation', retrieve_taking_care_matches_experts.size, retrieve_starred_needs.size]) do
+    @collections_by_optimisation_count ||=
       {
         quo_matches: retrieve_quo_matches_needs.size,
         taking_care_matches: retrieve_taking_care_matches_experts.to_a.size,
         starred_needs: retrieve_starred_needs.size,
       }
-    end
   end
 
   def search_session_key
