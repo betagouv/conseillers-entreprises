@@ -21,14 +21,17 @@ class CommunesController < ApplicationController
   private
 
   def communes_cache
-    @communes_cache ||= Rails.cache.fetch('communes_autocomplete', expires_in: 24.hours) do
+    @communes_cache ||= Rails.cache.fetch('communes_autocomplete_v2', expires_in: 24.hours) do
+      # Pré-charger tous les départements en une seule fois pour éviter le N+1
+      departements = DecoupageAdministratif::Departement.all.index_by(&:code)
+
       DecoupageAdministratif::Commune.all.map do |commune|
-        departement = DecoupageAdministratif::Departement.find(commune.departement_code)
+        departement = departements[commune.departement_code]
         {
           nom: commune.nom,
           code: commune.code,
           departement_code: commune.departement_code,
-          departement_nom: departement.nom,
+          departement_nom: departement&.nom,
           normalized_nom: normalize_string(commune.nom)
         }
       end
