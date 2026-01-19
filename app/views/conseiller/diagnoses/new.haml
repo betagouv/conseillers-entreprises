@@ -22,7 +22,7 @@
         .fr-fieldset__element
           = label_tag 'city-autocomplete', t('.city')
           %div{ data: { action: 'city-autocomplete', 'default-value': h(@diagnosis.solicitation&.location) } }
-          = facility_form.hidden_field :insee_code, data: { target: 'insee-code' }, value: @diagnosis.solicitation&.insee_code
+          = facility_form.hidden_field :insee_code, data: { target: 'insee-code', value_type: 'insee-code' }, value: @diagnosis.solicitation&.insee_code
       .text-right
         = form.button :submit, class: 'fr-btn btn-green btn-icon' do
           = t('next_step')

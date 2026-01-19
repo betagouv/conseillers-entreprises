@@ -29,12 +29,13 @@ import accessibleAutocomplete from 'accessible-autocomplete';
         }, 150),
         onConfirm: (val) => {
           if (val && targetField) {
-            // For solicitation form: store "City Name (DEPT_CODE)" in location field
-            // For diagnosis form: store just the INSEE code in the hidden insee_code field
-            if (targetField.id.includes('insee_code') || targetField.name.includes('insee_code')) {
+            // data-value-type="insee-code" → store INSEE code only (e.g., "75056")
+            // data-value-type="formatted" → store formatted "City (DEPT)" string (e.g., "Paris (75)")
+            const valueType = targetField.dataset.valueType || 'insee-code'
+
+            if (valueType === 'insee-code') {
               targetField.value = val.code
             } else {
-              // This is the solicitation form - store both name and department code
               targetField.value = `${val.nom} (${val.departement_code})`
             }
           }

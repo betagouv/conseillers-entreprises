@@ -25,7 +25,7 @@
                   = t("attributes.#{field}")
                   %span.fr-hint-text= t('attributes.help.location')
                 %div{ data: { action: 'city-autocomplete', id: 'solicitation_location', name: 'solicitation[location]', 'default-value': h(@solicitation.location) } }
-                = f.hidden_field :insee_code, data: { target: 'insee-code' }
+                = f.hidden_field :insee_code, data: { target: 'insee-code', value_type: 'insee-code' }
               - else
                 - help = t(".attributes.help.#{field}_html", default: [:".attributes.help.#{field}", ''])
                 = f.label field, class: 'fr-label' do
