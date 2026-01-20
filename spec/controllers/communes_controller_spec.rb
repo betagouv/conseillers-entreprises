@@ -72,18 +72,6 @@ RSpec.describe CommunesController do
       end
     end
 
-    context 'with a query shorter than 3 characters' do
-      it 'returns an empty array' do
-        get :search, params: { q: 'Pa' }
-
-        expect(response).to be_successful
-        json = response.parsed_body
-        # Handle both raw array and wrapped response
-        data = json.is_a?(Hash) ? json['data'] : json
-        expect(data).to eq([])
-      end
-    end
-
     context 'with an empty query' do
       it 'returns an empty array' do
         get :search, params: { q: '' }

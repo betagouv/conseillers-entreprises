@@ -3,12 +3,15 @@ class CommunesController < ApplicationController
 
   def search
     query = params[:q].to_s.strip
-
     normalized_query = normalize_string(query)
 
-    communes = communes_cache.select do |commune_data|
-      commune_data[:normalized_nom].include?(normalized_query)
-    end.first(20)
+    communes = if normalized_query.blank?
+      []
+    else
+      communes_cache.select do |commune_data|
+        commune_data[:normalized_nom].include?(normalized_query)
+      end.first(20)
+    end
 
     render json: communes
   end

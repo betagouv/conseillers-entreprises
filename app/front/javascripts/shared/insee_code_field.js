@@ -53,9 +53,6 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 
   async function fetchSource (query, url) {
     query = query.trim();
-    if (query.length < 3) {
-      return [];
-    }
     const res = await fetch(`${url}${encodeURIComponent(query)}`)
     if (res.ok) {
       return await res.json()

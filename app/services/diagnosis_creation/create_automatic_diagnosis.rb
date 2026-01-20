@@ -51,13 +51,7 @@ module DiagnosisCreation
     end
 
     def retrieve_insee_code
-      return solicitation.insee_code if solicitation.insee_code.present?
-      # Fallback to the old method using API adresse for backward compatibility
-      # See https://github.com/betagouv/conseillers-entreprises/issues/4134
-      query = solicitation.location.parameterize
-      result = Api::Adresse::SearchMunicipality.new(query).call
-      # Ensure that result is a hash and contains a non-blank insee_code
-      result[:insee_code].presence if result.is_a?(Hash)
+      solicitation.insee_code
     end
   end
 end
