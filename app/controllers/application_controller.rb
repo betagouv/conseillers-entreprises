@@ -22,7 +22,6 @@ class ApplicationController < SharedController
       quo_active_needs_path
     end
   end
-  helper_method :app_root_for_user
 
   ## Devise overrides
   def after_sign_in_path_for(user)
