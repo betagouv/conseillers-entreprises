@@ -34,10 +34,10 @@ module XlsxExport
         needs_by_regions = {}
 
         RegionOrderingService.call.each do |region|
-          needs_by_territories[region.nom] = @needs.by_region(region.code).distinct
+          needs_by_regions[region.nom] = @needs.by_region(region.code).distinct
         end
 
-        needs_by_territories.sort_by { |_, needs| -needs.count }.each do |region_name, needs|
+        needs_by_regions.sort_by { |_, needs| -needs.count }.each do |region_name, needs|
           ratio = calculate_rate(needs.count, @needs)
           add_agglomerate_rows(needs, region_name, @antenne, ratio)
         end
