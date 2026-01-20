@@ -21,12 +21,12 @@ class Conseiller::DiagnosesController < ApplicationController
       DiagnosisCreation::Steps.new(@diagnosis).autofill_steps
       redirect_to controller: 'conseiller/diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     else
-      @current_solicitation = Solicitation.find_by(id: diagnosis_params[:solicitation_id]) if diagnosis_params[:solicitation_id].present?
-      if @current_solicitation.present?
-        @needs = Need.where(id: Need.diagnosis_completed.for_emails(@current_solicitation.email))
+      @current_solicitation = Solicitation.find_by(id: diagnosis_params[:solicitation_id])
+      @needs = if @current_solicitation.present?
+        Need.where(id: Need.diagnosis_completed.for_emails(@current_solicitation.email))
           .or(Need.where(id: Need.diagnosis_completed.for_sirets(@current_solicitation.siret)))
       else
-        @needs = []
+        []
       end
       flash.now[:alert] = @diagnosis.errors.full_messages.to_sentence
       render :new, status: :unprocessable_content
