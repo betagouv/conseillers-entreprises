@@ -33,6 +33,7 @@ class Antenne < ApplicationRecord
   include InvolvementConcern
   include PerimeterNeedsStatus
   include WithSupportUser
+  include Monitoring
 
   enum :territorial_level, {
     local: 'local',

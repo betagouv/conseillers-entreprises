@@ -27,6 +27,7 @@
 class Institution < ApplicationRecord
   include SoftDeletable
   include WithSlug
+  include Monitoring
 
   ## Associations
   #
