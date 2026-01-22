@@ -80,8 +80,8 @@ describe 'admin panel' do
       click_on 'Contacts'
       click_on 'Créer Contact'
 
-      click_on 'Satisfactions'
-      click_on 'Créer Satisfaction'
+      click_on 'Avis d’entreprises'
+      click_on 'Créer Avis d’entreprise'
 
       click_on 'Email Retentions'
       click_on 'Créer Email Retention'
