@@ -43,14 +43,10 @@ module CsvExport
     # Methods implemented by subclasses
 
     # The mapping from ActiveRecord attributes to csv column names.
-    def fields
-      raise NotImplementedError
-    end
+    def fields = raise NoMethodError, "The method #{__method__} needs to be implemented in #{self.class}"
 
     # The preloaded associations for the query
-    def preloaded_associations
-      raise NotImplementedError
-    end
+    def preloaded_associations = raise NoMethodError, "The method #{__method__} needs to be implemented in #{self.class}"
 
     def sort_relation(relation)
       relation.preload(*preloaded_associations)
