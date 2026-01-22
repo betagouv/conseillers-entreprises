@@ -1,11 +1,10 @@
 /# locals: (collections_count:)
 
-%ul.fr-sidemenu__list
+%ul.fr-sidemenu__list.sidemenu--monitoring
   - collections_count.each do |name, count|
     - label = t(name, scope: [:monitoring, :antennes, :titles])
     - url = polymorphic_path([:monitoring, :antennes], collection: t(name, scope: 'monitoring.antennes.path'))
     - title = t(name, scope: [:monitoring, :antennes, :instructions])
-    = menu_link_with_count(count, url, class: 'item', title: title) do
+    = menu_link_with_count(count, url, class: 'item', data: { 'monitoring-collection': name }, title: title) do
       = label
-      %span{ class: "fr-ml-1v reminders-icon ri-thunderstorms-line", 'aria-hidden': true }
-
+      %span{ 'aria-hidden': true, class: "fr-ml-1v #{t(name, scope: 'monitoring.antennes.icon')}" }

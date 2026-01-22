@@ -18,6 +18,9 @@ class Monitoring::AntennesController < ApplicationController
     @antennes = Antenne
       .public_send(collection_name)
       .apply_filters(index_search_params)
+      .page(params[:page])
+      .order(collection_order(collection_name))
+      .preload(:parent_antenne, :institution)
   end
 
   private
@@ -33,5 +36,13 @@ class Monitoring::AntennesController < ApplicationController
         rarely_done: Antenne.rarely_done.size,
         rarely_satisfying: Antenne.rarely_satisfying.size,
       }
+  end
+
+  def collection_order(collection_name)
+    {
+      often_not_for_me: { not_for_me_rate: :desc },
+      rarely_done: { done_rate: :asc },
+      rarely_satisfying: { satisfying_rate: :asc },
+    }[collection_name.to_sym]
   end
 end
