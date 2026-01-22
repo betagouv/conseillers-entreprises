@@ -547,7 +547,12 @@ fr:
       taken_care_of_at: Prise en charge
   monitoring:
     antennes:
+      icon:
+        often_not_for_me: ri-arrow-go-back-line
+        rarely_done: ri-question-line
+        rarely_satisfying: ri-emotion-sad-line
       index:
+        no_results: Aucun résultat
         title: Suivi des antennes
       instructions:
         often_not_for_me: Plus de 30% de refus sur le dernier trimestre calendaire; au moins 50 mises en relation reçues.
