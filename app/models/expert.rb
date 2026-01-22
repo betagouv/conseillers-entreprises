@@ -82,8 +82,6 @@ class Expert < ApplicationRecord
   accepts_nested_attributes_for :experts_subjects, allow_destroy: true
   accepts_nested_attributes_for :match_filters, allow_destroy: true
 
-  paginates_per 25
-
   ## Scopes
   #
   scope :support_experts, -> do
