@@ -184,7 +184,13 @@ fr:
   activerecord:
     attributes:
       antenne:
+        helping_count: Nombre de prise en charge
+        helping_rate: Taux de prise en charge
         match_filters: Filtres pour les mises en relation
+        rejecting_count: Nombre de refus
+        rejecting_rate: Taux de refus
+        satisfying_count: Nombre de retours oui/oui
+        satisfying_rate: Taux de retours oui/oui
       antenne/territorial_levels:
         local: Local
         national: National

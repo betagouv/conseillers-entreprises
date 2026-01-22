@@ -1,0 +1,8 @@
+/# locals: (collections_count:)
+
+%ul.fr-sidemenu__list
+  - collections_count.each do |name, count|
+    - label = t(name, scope: [:monitoring, :antennes, :titles])
+    - url = polymorphic_path([:monitoring, :antennes], collection: name)
+    - title = t(name, scope: [:monitoring, :antennes, :instructions])
+    = menu_link_with_count(label, count, url, class: 'item', title: title)

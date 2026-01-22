@@ -1,0 +1,10 @@
+/# locals: (antenne:)
+
+.card.card--expert.fr-my-4w
+  .card__header{ class: "" }
+    %h2.fr-h4.fr-card__title
+      = link_to antenne.name, admin_antenne_path(antenne), class: 'fr-card__link'
+    .fr-grid-row
+      .fr-col-7.fr-pb-2v
+        %ul.list-unstyled.card-expert__list
+          %li= t('.creation_date', date: I18n.l(antenne.created_at.to_date, format: :long))
