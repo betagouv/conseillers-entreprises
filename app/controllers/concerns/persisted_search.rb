@@ -7,7 +7,9 @@ module PersistedSearch
     helper_method :possible_territories_options
   end
 
-  private
+  def search_session_key = raise NoMethodError, "The method #{__method__} needs to be implemented in #{self.class}"
+
+  def search_fields = raise NoMethodError, "The method #{__method__} needs to be implemented in #{self.class}"
 
   def index_search_params
     session[search_session_key]&.with_indifferent_access || {}
