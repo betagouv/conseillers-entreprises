@@ -1,4 +1,4 @@
-/# locals: (antenne:)
+/# locals: (antenne:, collection_name:)
 
 .card.card--expert.fr-my-4w
   .card__header{ class: "" }
@@ -8,3 +8,31 @@
       .fr-col-7.fr-pb-2v
         %ul.list-unstyled.card-expert__list
           %li= t('.creation_date', date: I18n.l(antenne.created_at.to_date, format: :long))
+          %li #{Antenne.human_attribute_name(:institution)} : #{antenne.institution.name}
+          - if antenne.parent_antenne.present?
+            %li #{Antenne.human_attribute_name(:parent_antenne)} : #{antenne.parent_antenne.name}
+      .fr-col-5
+        - antenne.managers.each do |manager|
+          %ul.list-unstyled.card-expert__list
+            %li
+              %span.picto.ri-nurse-fill{ 'aria-hidden': 'true' }
+              = t('.manager_name', name: manager.full_name)
+            - if manager.job.present?
+              %li
+                %span.picto.ri-contacts-book-fill{ 'aria-hidden': 'true' }
+                = manager.job
+            - if manager.phone_number.present?
+              %li
+                %span.picto.ri-phone-fill{ 'aria-hidden': 'true' }
+                = link_to(manager.phone_number, "tel:#{manager.phone_number}")
+            %li
+              %span.picto.ri-mail-fill{ 'aria-hidden': 'true' }
+              = mail_to manager.email, manager.email, class: 'break-word'
+  .fr-card__body
+    .fr-card__content
+      - attributes = collection_attributes(collection_name)
+      .fr-tags-group
+        - attributes.each do |attribute|
+          %p.fr-tag
+            %span.bold.fr-mr-1v= antenne.public_send(attribute)
+            = Antenne.human_attribute_name(attribute)

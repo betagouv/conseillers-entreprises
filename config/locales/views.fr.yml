@@ -547,6 +547,9 @@ fr:
       taken_care_of_at: Prise en charge
   monitoring:
     antennes:
+      antenne:
+        creation_date: Création le %{date}
+        manager_name: 'Responsable : %{name}'
       index:
         no_results: Aucun résultat
         title: Suivi des antennes
