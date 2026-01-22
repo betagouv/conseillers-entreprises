@@ -158,6 +158,14 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :monitoring, path: I18n.t('monitoring.path') do
+    resources :antennes, only: [] do
+      # override the :index action to require predefined collections (collection is optional here but will redirect to the first collection)
+      get "/(:collection)", on: :collection, action: :index, as: "",
+          constraints: { collection: Regexp.union(Monitoring::AntennesController::COLLECTIONS.keys) }
+    end
+  end
+
   resources :reports, path: 'export-des-donnees', only: :index do
     collection do
       get :stats, path: 'statistiques'

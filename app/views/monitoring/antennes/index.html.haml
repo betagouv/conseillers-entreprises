@@ -1,0 +1,6 @@
+- meta title: t('.title')
+- content_for :header, render('header', title: t('.title'), collection_name: @collection_name)
+- content_for :menu, render('menu', collections_count: @collections_counts)
+
+= render 'filters', antennes: @antennes, collection_name: @collection_name
+

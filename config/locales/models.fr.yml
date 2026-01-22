@@ -757,8 +757,8 @@ fr:
         one: Entreprise
         other: Entreprises
       company_satisfaction:
-        one: Satisfaction
-        other: Satisfactions
+        one: Avis d’entreprise
+        other: Avis d’entreprises
       contact:
         one: Contact
         other: Contacts
