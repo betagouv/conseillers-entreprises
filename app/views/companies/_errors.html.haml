@@ -4,4 +4,4 @@
   .fr-alert.fr-alert--warning.fr-alert--sm
     %h4.fr-alert__title= t(".title")
     - failing_apis = [] + Array(errors[:standard_api_errors]&.keys) + Array(errors[:unreachable_apis]&.keys)
-    = t(".unavailable", names: failing_apis.map{ t(it, scope: 'api_name') }.to_sentence, count: failing_apis.count)
+    %p= t(".unavailable", names: failing_apis.map{ t(it, scope: 'api_name') }.to_sentence, count: failing_apis.count)
