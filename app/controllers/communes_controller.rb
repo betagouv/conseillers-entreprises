@@ -20,7 +20,6 @@ class CommunesController < ApplicationController
 
   def communes_cache
     @communes_cache ||= Rails.cache.fetch('communes_autocomplete_v2', expires_in: 24.hours) do
-      # Pre-load all departments at once to avoid N+1 queries
       departements = DecoupageAdministratif::Departement.all.index_by(&:code)
 
       DecoupageAdministratif::Commune.all.map do |commune|
