@@ -44,14 +44,10 @@ module DiagnosisCreation
         { siret: FormatSiret.clean_siret(solicitation.siret) }
       else
         {
-          insee_code: retrieve_insee_code,
+          insee_code: solicitation.insee_code,
           company_attributes: { name: solicitation.full_name }
         }
       end
-    end
-
-    def retrieve_insee_code
-      solicitation.insee_code
     end
   end
 end
