@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CommunesController do
+RSpec.describe Api::Internal::CommunesController do
   describe 'GET #search' do
     let(:json_response) { response.parsed_body }
 

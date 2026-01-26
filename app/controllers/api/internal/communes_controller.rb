@@ -1,6 +1,4 @@
-class CommunesController < ApplicationController
-  skip_before_action :authenticate_user!
-
+class Api::Internal::CommunesController < Api::Internal::BaseController
   def search
     query = params[:q].to_s.strip
     normalized_query = normalize_string(query)

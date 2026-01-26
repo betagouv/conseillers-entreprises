@@ -31,6 +31,9 @@ Rails.application.routes.draw do
       end
       resources :solicitations, only: [:create]
     end
+    namespace :internal do
+      get 'communes/search', to: 'communes#search', as: :communes_search
+    end
   end
 
   # Partie conseiller ================================================
@@ -284,9 +287,6 @@ Rails.application.routes.draw do
   end
 
   # Partie publique ===================================================
-
-  # Autocomplete communes
-  get 'communes/search', to: 'communes#search', as: :communes_search
 
   root controller: "landings/landings", action: :home
   resources :landings, param: :landing_slug, controller: "landings/landings", only: [:show], path: 'aide-entreprise' do

@@ -4,7 +4,7 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 (function () {
   addEventListener('turbo:load', setupCityAutocomplete)
 
-  const SEARCH_URL = '/communes/search?q='
+  const SEARCH_URL = '/api/internal/communes/search?q='
 
   function setupCityAutocomplete () {
     const targetField = document.querySelector("[data-target='insee-code']")
