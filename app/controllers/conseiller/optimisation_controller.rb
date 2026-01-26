@@ -10,7 +10,15 @@ class Conseiller::OptimisationController < ApplicationController
   layout 'side_menu'
 
   def index
-    redirect_to action: :taking_care_matches
+    redirect_to action: :quo_matches
+  end
+
+  def quo_matches
+    @needs = retrieve_quo_matches_needs
+      .with_card_includes
+      .order(created_at: :asc)
+      .page(params[:page])
+    @action = :quo_match
   end
 
   def taking_care_matches
@@ -48,6 +56,10 @@ class Conseiller::OptimisationController < ApplicationController
 
   private
 
+  def retrieve_quo_matches_needs
+    @quo_matches_needs ||= Need.apply_filters(index_search_params).with_filtered_matches_quo
+  end
+
   def retrieve_taking_care_matches_experts
     Expert
       .with_taking_care_stock
@@ -63,6 +75,7 @@ class Conseiller::OptimisationController < ApplicationController
   def collections_counts
     @collections_by_optimisation_count = Rails.cache.fetch(['optimisation', retrieve_taking_care_matches_experts.size, retrieve_starred_needs.size]) do
       {
+        quo_matches: retrieve_quo_matches_needs.size,
         taking_care_matches: retrieve_taking_care_matches_experts.to_a.size,
         starred_needs: retrieve_starred_needs.size,
       }
@@ -74,6 +87,6 @@ class Conseiller::OptimisationController < ApplicationController
   end
 
   def search_fields
-    [:by_region]
+    [:by_region, :institution_id]
   end
 end

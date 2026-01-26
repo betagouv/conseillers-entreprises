@@ -303,6 +303,26 @@ fr:
           need_content_placeholder: Plus d’infos sur ce besoin
           save_and_return_solicitation_page: Enregistrer et revenir à la sollicitation
           select_at_least_one_need: Cochez au minimum un besoin identifié.
+    optimisation:
+      index:
+        title: Optimisation
+      instructions:
+        quo_matches: MER en attente de réponse depuis + de 21 jours et - de 45 jours hors PQ
+        starred_needs: Besoins marqués comme suivi lors de l'analyse
+        taking_care_matches: Experts ayant en stock + de 5 besoins pris en charge il y a + d'un mois
+      quo_matches:
+        no_results: Aucun résultat
+        title: Mises en relation en attente
+      starred_needs:
+        no_results: Aucun résultat
+        title: Besoins suivis
+      taking_care_matches:
+        no_results: Aucun résultat
+        title: Stock en cours
+      titles:
+        quo_matches: MER en attente
+        starred_needs: Besoins suivis
+        taking_care_matches: Stock en cours
     shared_satisfactions:
       callout:
         text: À la suite de leurs mises en relation, les entreprises ont la possibilité de s'exprimer au sujet de l’utilité du service. Les retours des entreprises partagés ici concernent les besoins clôturés par « aide proposée ». Ils sont donc destinés à l’ensemble des partenaires intervenus sur leurs besoins.
@@ -365,29 +385,6 @@ fr:
         canceled: Abandonnées
         index: Reçues
         processed: Mises en relation
-    suivi_qualite:
-      index:
-        no_results: Aucun résultat
-        title: Suivi qualité
-      instructions:
-        quo_matches: MER en attente de réponse depuis + de 21 jours et - de 45 jours hors PQ
-      titles:
-        quo_matches: MER en attente
-    optimisation:
-      index:
-        title: Optimisation
-      instructions:
-        starred_needs: Besoins marqués comme suivi lors de l'analyse
-        taking_care_matches: Experts ayant en stock + de 5 besoins pris en charge il y a + d'un mois
-      starred_needs:
-        no_results: Aucun résultat
-        title: Optimisation - besoins suivis
-      taking_care_matches:
-        no_results: Aucun résultat
-        title: Optimisation - Stock en cours
-      titles:
-        starred_needs: Besoins suivis
-        taking_care_matches: Stock en cours
   contacts:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
