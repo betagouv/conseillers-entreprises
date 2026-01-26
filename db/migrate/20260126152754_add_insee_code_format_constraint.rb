@@ -1,5 +1,5 @@
 # Preview migration for adding INSEE code format constraint
-class AddInseeCodeFormatConstraint < ActiveRecord::Migration[7.0]
+class AddInseeCodeFormatConstraint < ActiveRecord::Migration[7.2]
   def change
     # Add CHECK constraint to validate INSEE code format
     # Format: 5 characters that are digits (0-9) or letters A or B
