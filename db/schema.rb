@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_13_150217) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_26_152754) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -283,6 +283,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_13_150217) do
     t.index ["company_id"], name: "index_facilities_on_company_id"
     t.index ["opco_id"], name: "index_facilities_on_opco_id"
     t.index ["siret"], name: "index_facilities_on_siret", unique: true, where: "((siret)::text <> NULL::text)"
+    t.check_constraint "insee_code::text ~ '^[0-9AB]{5}$'::text", name: "check_facilities_insee_code_format"
   end
 
   create_table "feedbacks", force: :cascade do |t|
@@ -539,6 +540,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_13_150217) do
     t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"
     t.index ["status"], name: "index_solicitations_on_status"
     t.index ["uuid"], name: "index_solicitations_on_uuid"
+    t.check_constraint "insee_code::text ~ '^[0-9AB]{5}$'::text", name: "check_solicitations_insee_code_format"
   end
 
   create_table "spams", force: :cascade do |t|
