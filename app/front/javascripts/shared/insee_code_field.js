@@ -29,15 +29,7 @@ import accessibleAutocomplete from 'accessible-autocomplete';
         }, 150),
         onConfirm: (val) => {
           if (val && targetField) {
-            // data-value-type="insee-code" → store INSEE code only (e.g., "75056")
-            // data-value-type="formatted" → store formatted "City (DEPT)" string (e.g., "Paris (75)")
-            const valueType = targetField.dataset.valueType || 'insee-code'
-
-            if (valueType === 'insee-code') {
-              targetField.value = val.code
-            } else {
-              targetField.value = `${val.nom} (${val.departement_code})`
-            }
+            targetField.value = val.code
           }
         }
       })
