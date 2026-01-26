@@ -9,7 +9,11 @@ class Conseiller::OptimisationController < ApplicationController
 
   layout 'side_menu'
 
-  def starred_needs
+  def index
+    redirect_to action: :starred_needs
+  end
+
+  def starred_needs # here
     @needs = retrieve_starred_needs
       .with_card_includes
       .order(created_at: :asc)
