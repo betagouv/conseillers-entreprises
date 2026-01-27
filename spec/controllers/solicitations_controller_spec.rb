@@ -18,9 +18,9 @@ RSpec.describe SolicitationsController do
       let(:landing) { create(:landing) }
 
       it do
-        get :new, params: { landing_slug: landing.slug, landing_subject_slug: 'unknown' }
-        expect(response).to redirect_to root_path
-        expect(response).to have_http_status(:moved_permanently)
+        expect do
+          get :new, params: { landing_slug: landing.slug, landing_subject_slug: 'unknown' }
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -35,9 +35,9 @@ RSpec.describe SolicitationsController do
 
     context 'with a bad solicitation uuid' do
       it do
-        get :new, params: { uuid: 'bad-solicitation-uuid', landing_slug: landing.slug, landing_subject_slug: landing_subject.slug }
-        expect(response).to redirect_to root_path
-        expect(response).to have_http_status(:moved_permanently)
+        expect do
+          get :new, params: { uuid: 'bad-solicitation-uuid', landing_slug: landing.slug, landing_subject_slug: landing_subject.slug }
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 

@@ -22,9 +22,9 @@ RSpec.describe Landings::LandingsController do
 
     context 'without existing landing' do
       it do
-        get :show, params: { landing_slug: 'unknown' }
-        expect(response).to redirect_to root_path
-        expect(response).to have_http_status(:moved_permanently)
+        expect do
+          get :show, params: { landing_slug: 'unknown' }
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
