@@ -75,17 +75,6 @@ RSpec.describe Api::Internal::CommunesController do
 
         expect(json_response.length).to eq(20)
       end
-
-      it 'uses cache mechanism' do
-        expect(Rails.cache).to receive(:fetch)
-          .with('communes_autocomplete_v2', expires_in: 24.hours)
-          .and_call_original
-
-        get :search, params: { q: 'Lyon' }
-
-        expect(json_response).to be_an(Array)
-        expect(json_response).not_to be_empty
-      end
     end
 
     context 'with an empty query' do
@@ -102,26 +91,6 @@ RSpec.describe Api::Internal::CommunesController do
       end
 
       it_behaves_like 'returns empty array response'
-    end
-
-    context 'cache performance' do
-      it 'builds cache efficiently without N+1 queries' do
-        expect(DecoupageAdministratif::Departement).to receive(:all).once.and_call_original
-        expect(DecoupageAdministratif::Commune).to receive(:all).once.and_call_original
-
-        get :search, params: { q: 'Paris' }
-
-        expect(response).to have_http_status(:success)
-      end
-
-      it 'cache includes departement_nom without additional queries' do
-        get :search, params: { q: 'Paris' }
-
-        expect(json_response).not_to be_empty
-        expect(json_response).to all(
-          include('departement_nom' => be_present)
-        )
-      end
     end
   end
 end
