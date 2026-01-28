@@ -10,7 +10,7 @@ class TimeDurationService::Base
         first_date = first_interval_date(date)
         last_date = last_interval_date(date)
         next if last_date >= today
-        intervals << [first_date, last_date]
+        intervals << (first_date..last_date)
         date = last_date + 1.day
       end
     end
