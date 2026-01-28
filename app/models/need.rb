@@ -48,8 +48,6 @@ class Need < ApplicationRecord
 
   attribute :match_sent_at, :datetime # Used in inbox.rb, see also involvement_concern.rb
 
-  paginates_per 25
-
   ## Associations
   #
   belongs_to :diagnosis, inverse_of: :needs, touch: true

@@ -78,8 +78,6 @@ class Solicitation < ApplicationRecord
 
   after_update :update_diagnosis
 
-  paginates_per 25
-
   GENERIC_EMAILS_TYPES = [
     %i[bad_quality no_expert moderation creation intermediary],
     %i[sie_tva_and_others sie_sip_declare_and_pay formalites_asso_agri_sci tns_training no_expert_agri],
