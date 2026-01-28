@@ -21,10 +21,12 @@ RSpec.describe Landings::LandingsController do
     end
 
     context 'without existing landing' do
+      before { ENV['TEST_ERROR_RENDERING'] = 'true' }
+      after { ENV['TEST_ERROR_RENDERING'] = 'false' }
+
       it do
-        expect do
-          get :show, params: { landing_slug: 'unknown' }
-        end.to raise_error(ActiveRecord::RecordNotFound)
+        get :show, params: { landing_slug: 'unknown' }
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
