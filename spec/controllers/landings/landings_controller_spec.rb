@@ -21,10 +21,12 @@ RSpec.describe Landings::LandingsController do
     end
 
     context 'without existing landing' do
+      before { ENV['TEST_ERROR_RENDERING'] = 'true' }
+      after { ENV['TEST_ERROR_RENDERING'] = 'false' }
+
       it do
         get :show, params: { landing_slug: 'unknown' }
-        expect(response).to redirect_to root_path
-        expect(response).to have_http_status(:moved_permanently)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

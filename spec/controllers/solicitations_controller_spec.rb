@@ -17,10 +17,12 @@ RSpec.describe SolicitationsController do
     context 'with existing landing but without landing subject' do
       let(:landing) { create(:landing) }
 
+      before { ENV['TEST_ERROR_RENDERING'] = 'true' }
+      after { ENV['TEST_ERROR_RENDERING'] = 'false' }
+
       it do
         get :new, params: { landing_slug: landing.slug, landing_subject_slug: 'unknown' }
-        expect(response).to redirect_to root_path
-        expect(response).to have_http_status(:moved_permanently)
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -34,10 +36,12 @@ RSpec.describe SolicitationsController do
     end
 
     context 'with a bad solicitation uuid' do
+      before { ENV['TEST_ERROR_RENDERING'] = 'true' }
+      after { ENV['TEST_ERROR_RENDERING'] = 'false' }
+
       it do
         get :new, params: { uuid: 'bad-solicitation-uuid', landing_slug: landing.slug, landing_subject_slug: landing_subject.slug }
-        expect(response).to redirect_to root_path
-        expect(response).to have_http_status(:moved_permanently)
+        expect(response).to have_http_status(:not_found)
       end
     end
 

@@ -5,8 +5,7 @@ class Landings::LandingThemesController < Landings::BaseController
     if @landing.is_paused?
       redirect_to({ controller: "landings/landings", action: "paused", landing_slug: @landing.slug })
     else
-      @landing_theme = LandingTheme.not_archived.find_by(slug: params[:slug])
-      redirect_to root_path and return if @landing_theme.nil?
+      @landing_theme = LandingTheme.not_archived.find_by!(slug: params[:slug])
       # pas de page "theme" pour les landing `single_page`
       redirect_to({ controller: "landings/landings", action: "show", landing_slug: @landing.slug }.merge(query_params)) if (@landing.layout_single_page? && !@landing.iframe?)
 

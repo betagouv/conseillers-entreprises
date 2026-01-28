@@ -15,19 +15,16 @@ module IframePrefix
     # Controller Landing & LandingTheme
     landing_slug = params[:landing_slug]
     if landing_slug.present?
-      @landing = Landing.not_archived.find_by(slug: landing_slug)
-      redirect_to root_path, status: :moved_permanently and return if @landing.nil?
+      @landing = Landing.not_archived.find_by!(slug: landing_slug)
     end
     landing_subject_slug = params[:landing_subject_slug]
     if landing_subject_slug.present?
-      @landing_subject = LandingSubject.not_archived.find_by(slug: landing_subject_slug)
-      redirect_to root_path, status: :moved_permanently and return if @landing_subject.nil?
+      @landing_subject = LandingSubject.not_archived.find_by!(slug: landing_subject_slug)
     end
     # Controller Solicitation#other_methods
     solicitation_uuid = params[:uuid]
     if solicitation_uuid.present?
-      @solicitation ||= Solicitation.find_by(uuid: solicitation_uuid)
-      redirect_to root_path, status: :moved_permanently and return if @solicitation.nil?
+      @solicitation ||= Solicitation.find_by!(uuid: solicitation_uuid)
       @landing = @solicitation.landing
       @landing_subject = @solicitation.landing_subject
     end
