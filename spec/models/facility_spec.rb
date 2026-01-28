@@ -13,6 +13,25 @@ RSpec.describe Facility do
     it do
       is_expected.to validate_uniqueness_of(:siret).ignoring_case_sensitivity
     end
+
+    describe 'insee_code format' do
+      def facility_with_code(code)
+        build(:facility, insee_code: code)
+      end
+
+      context 'with valid INSEE codes' do
+        it('accepts 5-digit numeric codes') { expect(facility_with_code('75056')).to be_valid }
+        it('accepts codes with A (Corse)') { expect(facility_with_code('2A001')).to be_valid }
+        it('accepts codes with B (Corse)') { expect(facility_with_code('2B033')).to be_valid }
+      end
+
+      context 'with invalid INSEE codes' do
+        it('rejects codes shorter than 5 characters') { expect(facility_with_code('7505')).not_to be_valid }
+        it('rejects codes longer than 5 characters') { expect(facility_with_code('750561')).not_to be_valid }
+        it('rejects codes with invalid letters') { expect(facility_with_code('2C001')).not_to be_valid }
+        it('rejects blank insee_code') { expect(facility_with_code(nil)).not_to be_valid }
+      end
+    end
   end
 
   describe 'to_s' do

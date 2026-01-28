@@ -50,7 +50,7 @@ RSpec.describe CompaniesController do
 
       it do
         get :show_with_siret, params: { siret: siret }
-        expect(response).to redirect_to search_companies_url
+        expect(response).to redirect_to root_path
       end
     end
   end
@@ -60,13 +60,6 @@ RSpec.describe CompaniesController do
 
     it do
       get :show, params: { id: facility.id }
-      expect(response).to be_successful
-    end
-  end
-
-  describe 'GET #search' do
-    it do
-      get :search, params: { query: siren }
       expect(response).to be_successful
     end
   end

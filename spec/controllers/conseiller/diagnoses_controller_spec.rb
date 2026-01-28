@@ -21,7 +21,7 @@ RSpec.describe Conseiller::DiagnosesController do
 
       it 'returns an error' do
         post :create, params: { diagnosis: some_params }
-        expect(response).to redirect_to new_conseiller_diagnosis_path
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe Conseiller::DiagnosesController do
 
       it 'returns an error' do
         post :create, params: { diagnosis: some_params }
-        expect(response).to redirect_to new_conseiller_diagnosis_path
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 

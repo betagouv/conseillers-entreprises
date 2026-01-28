@@ -2,7 +2,6 @@ require 'rails_helper'
 describe DiagnosisCreation::CreateAutomaticDiagnosis do
   describe 'call' do
     let(:user) { create :user }
-    let(:api_url) { "https://api-adresse.data.gouv.fr/search/?q=matignon&type=municipality" }
     let(:some_params) do
       {
         advisor: user,
@@ -26,9 +25,6 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
       allow(diagnosis_steps).to receive(:prepare_happened_on_from_solicitation)
       allow(diagnosis_steps).to receive(:prepare_visitee_from_solicitation)
       allow(diagnosis_steps).to receive(:prepare_matches_from_solicitation)
-      stub_request(:get, api_url).to_return(
-        body: file_fixture('api_adresse_search_municipality.json')
-      )
       described_class.new(solicitation, user).call
     end
 
@@ -117,7 +113,7 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
 
     context 'solicitation without siret' do
       let(:location) { "matignon" }
-      let(:solicitation) { create :solicitation, siret: nil, location: location }
+      let(:solicitation) { create :solicitation, siret: nil, location: location, insee_code: '22143' }
       let(:facility_attributes) { { insee_code: '22143', company_attributes: { name: solicitation.full_name } } }
 
       context 'all is well' do
@@ -150,6 +146,19 @@ describe DiagnosisCreation::CreateAutomaticDiagnosis do
         it do
           expect(solicitation.diagnosis).to be_nil
           expect(solicitation.prepare_diagnosis_errors).to eq({ "needs" => [{ "error" => "solicitation_has_no_preselected_subject" }] })
+        end
+      end
+
+      context 'with insee_code field containing INSEE code' do
+        let(:solicitation) { create :solicitation, siret: nil, location: "Paris", insee_code: "75056" }
+        let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
+        let(:errors) { {} }
+        let(:prepare_needs) { [] }
+        let(:facility_attributes) { { insee_code: '75056', company_attributes: { name: solicitation.full_name } } }
+
+        it 'uses INSEE code from insee_code field' do
+          expect(solicitation.diagnosis).not_to be_nil
+          expect(solicitation.prepare_diagnosis_errors).to eq({})
         end
       end
     end

@@ -161,6 +161,29 @@ end
         end
       end
     end
+
+    describe 'validate insee_code' do
+
+      def solicitation_with_code(code)
+        build(:solicitation, insee_code: code)
+      end
+
+      context 'with valid INSEE codes' do
+        it('5-digit numeric code is valid') { expect(solicitation_with_code('75056')).to be_valid }
+        it('codes with A (Corse) are valid') { expect(solicitation_with_code('2A001')).to be_valid }
+        it('codes with B (Corse) are valid') { expect(solicitation_with_code('2B033')).to be_valid }
+        it('valid insee_code') { expect(solicitation_with_code(nil)).to be_valid }
+      end
+
+      context 'with invalid INSEE codes' do
+        it('codes shorter than 5 characters') { expect(solicitation_with_code('7505')).not_to be_valid }
+        it('codes longer than 5 characters') { expect(solicitation_with_code('750561')).not_to be_valid }
+        it('codes with lowercase letters') { expect(solicitation_with_code('2a001')).not_to be_valid }
+        it('codes with letters other than A or B') { expect(solicitation_with_code('2C001')).not_to be_valid }
+        it('codes with special characters') { expect(solicitation_with_code('75-56')).not_to be_valid }
+        it('codes with spaces') { expect(solicitation_with_code('750 6')).not_to be_valid }
+      end
+    end
   end
 
   describe 'callbacks' do

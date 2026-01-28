@@ -31,6 +31,9 @@ Rails.application.routes.draw do
       end
       resources :solicitations, only: [:create]
     end
+    namespace :internal do
+      get 'communes/search', to: 'communes#search', as: :communes_search
+    end
   end
 
   # Partie conseiller ================================================
@@ -175,7 +178,6 @@ Rails.application.routes.draw do
       get :needs, path: 'besoins'
     end
     collection do
-      get :search, path: 'search'
       get :show_with_siret, path: 'siret/:siret'
     end
   end

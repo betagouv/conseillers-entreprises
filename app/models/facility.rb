@@ -45,7 +45,7 @@ class Facility < ApplicationRecord
   ## Validations
   #
   validates :siret, uniqueness: { allow_nil: true }
-  validates :insee_code, presence: true
+  validates :insee_code, presence: true, format: { with: /\A[0-9AB]{5}\z/, message: :invalid_insee_code }
 
   ## “Through” Associations
   #
