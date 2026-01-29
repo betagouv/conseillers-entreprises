@@ -1,7 +1,6 @@
 # See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
-#
-# Incompatibilité avec balise noindex ? https://developers.google.com/search/docs/advanced/crawling/remove-information?visit_id=637529589118073605-2322335355&rd=1#if-the-information-still-exists-on-the-web
-User-agent: Googlebot
-Disallow: /e/
+
+User-agent: *
+Crawl-delay: 5
 
 Sitemap: https://conseillers-entreprises.service-public.gouv.fr/sitemap.xml
