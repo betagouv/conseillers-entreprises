@@ -77,7 +77,7 @@ module CsvExport
         landing_theme_title: -> { landing_theme&.title },
         landing_subject_title: -> { subject&.label },
         siret: -> { siret },
-        commune: -> { diagnosis&.facility&.commune },
+        commune: -> { diagnosis&.facility&.commune_name },
         facility_regions: -> { facility&.region&.nom },
         company_name: -> { diagnosis&.company&.name },
         company_categorie_juridique: -> { diagnosis&.company&.categorie_juridique },
@@ -96,7 +96,7 @@ module CsvExport
 
     def preloaded_associations
       [
-        :diagnosis, :facility, :badges, :landing_theme, :landing, :subject, diagnosis: :company, facility: :commune
+        :diagnosis, :facility, :badges, :landing_theme, :landing, :subject, :facility, diagnosis: :company
       ]
     end
 
