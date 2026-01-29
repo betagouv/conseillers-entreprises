@@ -1,3 +1,6 @@
 # See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
 
+User-agent: *
+Crawl-delay: 5
+
 Sitemap: https://conseillers-entreprises.service-public.gouv.fr/sitemap.xml
