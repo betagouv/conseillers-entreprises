@@ -555,11 +555,11 @@ fr:
         title: Suivi des antennes
       instructions:
         often_rejecting: Plus de 30% de taux de refus sur le dernier trimestre calendaire
-        rarely_helping: Moins de 25% de taux d’aide proposée sur le dernier trimestre calendaire
+        rarely_taking_care: Moins de 25% de taux d’aide proposée sur le dernier trimestre calendaire
         rarely_satisfying: Moins de 45% de oui/oui sur les retours d’entreprises sur l’année passée
       titles:
         often_rejecting: Refus importants
-        rarely_helping: Faible aide proposée
+        rarely_taking_care: Faible aide proposée
         rarely_satisfying: Faible satisfaction
   navbar:
     close: Fermer

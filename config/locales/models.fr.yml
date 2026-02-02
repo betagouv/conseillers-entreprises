@@ -184,8 +184,8 @@ fr:
   activerecord:
     attributes:
       antenne:
-        helping_count: Nombre de prise en charge
-        helping_rate: Taux de prise en charge
+        taking_care_count: Nombre de prise en charge
+        taking_care_rate: Taux de prise en charge
         match_filters: Filtres pour les mises en relation
         rejecting_count: Nombre de refus
         rejecting_rate: Taux de refus

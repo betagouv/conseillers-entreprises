@@ -1,12 +1,14 @@
 /# locals: (antenne:, collection_name:)
 
-.card.card--expert.fr-my-4w
+.card.card--expert.fr-my-4w{ class: "card--antenne-#{collection_name}" }
+  / dynamic class with collection_name
   .card__header{ class: "" }
     %h2.fr-h4.fr-card__title
       = link_to antenne.name, admin_antenne_path(antenne), class: 'fr-card__link'
     .fr-grid-row
       .fr-col-7.fr-pb-2v
         %ul.list-unstyled.card-expert__list
+          -# no expert css!
           %li= t('.creation_date', date: I18n.l(antenne.created_at.to_date, format: :long))
           %li #{Antenne.human_attribute_name(:institution)} : #{antenne.institution.name}
           - if antenne.parent_antenne.present?
@@ -30,9 +32,15 @@
               = mail_to manager.email, manager.email, class: 'break-word'
   .fr-card__body
     .fr-card__content
-      - attributes = collection_attributes(collection_name)
+      - rate_attribute = collection_attributes(collection_name)[:rate]
+      - count_attribute = collection_attributes(collection_name)[:count]
       .fr-tags-group
-        - attributes.each do |attribute|
-          %p.fr-tag
-            %span.bold.fr-mr-1v= antenne.public_send(attribute)
-            = Antenne.human_attribute_name(attribute)
+        %p.fr-tag
+          %span.bold.fr-mr-1v= antenne.received_matches_count
+          = Antenne.human_attribute_name(:received_matches, count: 2)
+        %p.fr-tag
+          %span.bold.fr-mr-1v= number_to_percentage(100 * antenne.public_send(rate_attribute))
+          = Antenne.human_attribute_name(rate_attribute)
+        %p.fr-tag
+          %span.bold.fr-mr-1v= antenne.public_send(count_attribute)
+          = Antenne.human_attribute_name(count_attribute)
