@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://gem.coop'
 
 git_source(:github) do |repo_name|
   if repo_name.exclude?('/')
