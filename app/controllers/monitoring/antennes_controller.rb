@@ -11,7 +11,7 @@ class Monitoring::AntennesController < ApplicationController
 
   def search_fields = [:region_code, :institution_id]
 
-  COLLECTIONS = %w[often_rejecting rarely_taking_care rarely_satisfying].freeze
+  COLLECTIONS = %w[often_not_for_me rarely_done rarely_satisfying].freeze
   def index
     @antennes = Antenne
       .public_send(collection_name)
@@ -29,16 +29,16 @@ class Monitoring::AntennesController < ApplicationController
   def collections_counts
     @collections_counts ||=
       {
-        often_rejecting: Antenne.often_rejecting.size,
-        rarely_taking_care: Antenne.rarely_taking_care.size,
+        often_not_for_me: Antenne.often_not_for_me.size,
+        rarely_done: Antenne.rarely_done.size,
         rarely_satisfying: Antenne.rarely_satisfying.size,
       }
   end
 
   def collection_attributes(collection_name)
     {
-      often_rejecting: { rate: :rejecting_rate, count: :rejecting_count, order: {rejecting_rate: :desc} },
-      rarely_taking_care: { rate: :taking_care_rate, count: :taking_care_count, order: {taking_care_rate: :asc} },
+      often_not_for_me: { rate: :not_for_me_rate, count: :not_for_me_count, order: {not_for_me_rate: :desc} },
+      rarely_done: { rate: :done_rate, count: :done_count, order: {done_rate: :asc} },
       rarely_satisfying: { rate: :satisfying_rate, count: :satisfying_count, order: {satisfying_rate: :asc} },
     }[collection_name.to_sym]
   end

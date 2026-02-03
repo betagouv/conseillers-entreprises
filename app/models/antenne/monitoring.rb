@@ -3,38 +3,38 @@ class Antenne
     extend ActiveSupport::Concern
 
     included do
-      # attributes :received_matches_count
-      # attributes :taking_care_count, :taking_care_rate
-      # attributes :rejecting_count, :rejecting_rate
-      # attributes :company_satisfactions_count
-      # attributes :contacted_by_expert_count, :useful_exchange_count, :satisfying_count, :satisfying_rate
+      attributes :received_matches_count
+      attributes :done_count, :done_rate
+      attributes :not_for_me_count, :not_for_me_rate
+      attributes :company_satisfactions_count
+      attributes :contacted_by_expert_count, :useful_exchange_count, :satisfying_count, :satisfying_rate
 
-      scope :often_rejecting, -> do
-        by_rejection(rate: 0.3.., activity: 50.., period: TimeDurationService::Quarters.new.call.first)
+      scope :often_not_for_me, -> do
+        by_not_for_me(rate: 0.3.., activity: 50.., period: TimeDurationService::Quarters.new.call.first)
       end
 
-      scope :by_rejection, -> (rate:, activity:, period:) do
+      scope :by_not_for_me, -> (rate:, activity:, period:) do
         from(includes_match_status_rates(period: period), 'antennes')
           .where(received_matches_count: activity)
-          .where(rejecting_rate: rate)
+          .where(not_for_me_rate: rate)
       end
 
-      scope :rarely_taking_care, -> do
-        by_taken_care_of(rate: ..0.25, activity: 50.., period: TimeDurationService::Quarters.new.call.first)
+      scope :rarely_done, -> do
+        by_done(rate: ..0.25, activity: 50.., period: TimeDurationService::Quarters.new.call.first)
       end
 
-      scope :by_taken_care_of, -> (rate:, activity:, period:) do #rename, this is aide proposée, not taking_care
+      scope :by_done, -> (rate:, activity:, period:) do
         from(includes_match_status_rates(period: period), 'antennes')
           .where(received_matches_count: activity)
-          .where(taking_care_rate: rate)
+          .where(done_rate: rate)
       end
 
       scope :includes_match_status_rates, -> (period:) do
         from(includes_match_status_counts(period: period), 'antennes')
           .select(<<~SQL.squish
             *,
-            taking_care_count::FLOAT / received_matches_count::FLOAT AS taking_care_rate,
-            rejecting_count::FLOAT / received_matches_count::FLOAT as rejecting_rate
+            done_count::FLOAT / received_matches_count::FLOAT AS done_rate,
+            not_for_me_count::FLOAT / received_matches_count::FLOAT as not_for_me_rate
           SQL
                  )
       end
@@ -46,8 +46,8 @@ class Antenne
           .select(<<~SQL.squish
             antennes.*,
             COUNT(matches.id) AS received_matches_count,
-            SUM(CASE WHEN matches.status IN ('done') THEN 1 ELSE 0 END) AS taking_care_count,
-            SUM(CASE WHEN matches.status IN ('not_for_me') THEN 1 ELSE 0 END) AS rejecting_count
+            SUM(CASE WHEN matches.status IN ('done') THEN 1 ELSE 0 END) AS done_count,
+            SUM(CASE WHEN matches.status IN ('not_for_me') THEN 1 ELSE 0 END) AS not_for_me_count
           SQL
                  )
       end

@@ -554,12 +554,12 @@ fr:
         no_results: Aucun résultat
         title: Suivi des antennes
       instructions:
-        often_rejecting: Plus de 30% de taux de refus sur le dernier trimestre calendaire
-        rarely_taking_care: Moins de 25% de taux d’aide proposée sur le dernier trimestre calendaire
+        often_not_for_me: Plus de 30% de taux de refus sur le dernier trimestre calendaire
+        rarely_done: Moins de 25% de taux d’aide proposée sur le dernier trimestre calendaire
         rarely_satisfying: Moins de 45% de oui/oui sur les retours d’entreprises sur l’année passée
       titles:
-        often_rejecting: Refus importants
-        rarely_taking_care: Faible prise en charge
+        often_not_for_me: Refus importants
+        rarely_done: Faible prise en charge
         rarely_satisfying: Faible satisfaction
   navbar:
     close: Fermer
