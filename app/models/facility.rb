@@ -77,7 +77,7 @@ class Facility < ApplicationRecord
 
   def commune_name
     # TODO : garder readable locality ou passer sur la gem pour afficher le nom ?
-    readable_locality || insee_code
+    readable_locality || DecoupageAdministratif::Commune.find(insee_code).nom
   end
 
   def all_nature_activites

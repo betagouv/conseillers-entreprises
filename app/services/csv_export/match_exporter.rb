@@ -14,7 +14,7 @@ module CsvExport
         landing_theme_title: -> { solicitation&.landing_theme&.title },
         landing_subject_title: -> { solicitation&.subject&.label },
         siret: -> { facility.siret },
-        commune: -> { facility.insee_code },
+        commune: -> { facility.commune_name },
         facility_region: -> { facility.region&.nom },
         company_name: -> { company&.name },
         company_categorie_juridique: -> { company.categorie_juridique },
