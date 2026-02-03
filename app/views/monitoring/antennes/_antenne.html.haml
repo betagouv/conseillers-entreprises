@@ -3,7 +3,7 @@
 .fr-grid-row.fr-grid-row--gutters
   .fr-col-12
     .fr-card
-      .fr-card__header.fr-px-4w.fr-py-2w{ class: "card--antenne-#{collection_name}" }
+      .fr-card__header.fr-px-4w.fr-py-2w{ class: "card--monitoring-#{collection_name}" }
         %h3.fr-card__title
           = link_to antenne.name, admin_antenne_path(antenne)
       .fr-card__body
@@ -39,19 +39,4 @@
                       = mail_to manager.email, manager.email, class: 'break-word'
         .fr-card__footer.fr-pb-1w
           .fr-tags-group
-            - rate_attribute = collection_attributes(collection_name)[:rate]
-            - count_attribute = collection_attributes(collection_name)[:count]
-            - total_attribute = collection_attributes(collection_name)[:total_count]
-            .fr-tag
-              %span
-                %b= antenne.public_send(total_attribute)
-                = Antenne.human_attribute_name(total_attribute, count: 2)
-            .fr-tag
-              %span
-                %b= antenne.public_send(count_attribute)
-                = Antenne.human_attribute_name(count_attribute)
-            .fr-tag
-              %span
-                %b= number_to_percentage(100 * antenne.public_send(rate_attribute), precision: 0)
-                = Antenne.human_attribute_name(rate_attribute)
-
+            = render partial: collection_name, locals: { antenne: antenne }
