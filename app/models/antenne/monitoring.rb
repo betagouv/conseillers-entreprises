@@ -3,32 +3,34 @@ class Antenne
     extend ActiveSupport::Concern
 
     included do
-      attributes :received_matches_count
-      attributes :done_count, :done_rate
-      attributes :not_for_me_count, :not_for_me_rate
-      attributes :company_satisfactions_count
-      attributes :contacted_by_expert_count, :useful_exchange_count, :satisfying_count, :satisfying_rate
-
+      ## High-level monitoring scopes
+      # These three scopes rely on the implementation below to filter on the match status of satisfaction rates
       scope :often_not_for_me, -> do
-        by_not_for_me(rate: 0.3.., activity: 50.., period: TimeDurationService::Quarters.new.call.first)
-      end
-
-      scope :by_not_for_me, -> (rate:, activity:, period:) do
-        from(includes_match_status_rates(period: period), 'antennes')
-          .where(received_matches_count: activity)
-          .where(not_for_me_rate: rate)
+        from(includes_match_status_rates(period: TimeDurationService::Quarters.new.call.first), 'antennes')
+          .where(received_matches_count: 50..)
+          .where(not_for_me_rate: 0.3..)
       end
 
       scope :rarely_done, -> do
-        by_done(rate: ..0.25, activity: 50.., period: TimeDurationService::Quarters.new.call.first)
+        from(includes_match_status_rates(period: TimeDurationService::Quarters.new.call.first), 'antennes')
+          .where(received_matches_count: 50..)
+          .where(done_rate: ..0.25)
       end
 
-      scope :by_done, -> (rate:, activity:, period:) do
-        from(includes_match_status_rates(period: period), 'antennes')
-          .where(received_matches_count: activity)
-          .where(done_rate: rate)
+      scope :rarely_satisfying, -> do
+        from(includes_satisfying_rate(period: TimeDurationService::Years.new.call.first), 'antennes')
+          .where(company_satisfactions_count: 100..)
+          .where(satisfying_rate: ..0.45)
       end
 
+      ## Low-level monitoring scopes
+      # These scopes join / group by / count the received matches and compute the results as additional columns.
+      # /!\ The second parameter of the #from calls is essential for the calling scope to properly work.
+
+      # Compute match status rates
+      # The returned collection has these additional new attributes:
+      attribute :done_rate, :float
+      attribute :not_for_me_rate, :float
       scope :includes_match_status_rates, -> (period:) do
         from(includes_match_status_counts(period: period), 'antennes')
           .select(<<~SQL.squish
@@ -39,6 +41,11 @@ class Antenne
                  )
       end
 
+      # Compute match status counts
+      # The returned collection has these additional new attributes:
+      attribute :received_matches_count, :integer
+      attribute :done_count, :integer
+      attribute :not_for_me_count, :integer
       scope :includes_match_status_counts, -> (period:) do
         joins(:received_matches)
           .where(matches: { sent_at: period })
@@ -52,16 +59,9 @@ class Antenne
                  )
       end
 
-      scope :rarely_satisfying, ->  do
-        by_satisfaction(rate: ..0.45, activity: 100.., period: TimeDurationService::Years.new.call.first)
-      end
-
-      scope :by_satisfaction, -> (rate:, activity:, period:) do
-        from(includes_satisfying_rate(period: period), 'antennes')
-          .where(company_satisfactions_count: activity)
-          .where(satisfying_rate: rate)
-      end
-
+      # Compute company satisfaction rate
+      # The returned collection has these additional new attributes:
+      attribute :satisfying_rate, :float
       scope :includes_satisfying_rate, -> (period:) do
         from(includes_satisfaction_counts(period: period), 'antennes')
           .select(<<~SQL.squish
@@ -71,6 +71,12 @@ class Antenne
                  )
       end
 
+      # Compute company_satisfaction count per antenne
+      # The returned collection has these additional new attributes:
+      attribute :company_satisfactions_count, :integer
+      attribute :contacted_by_expert_count, :integer
+      attribute :useful_exchange_count, :integer
+      attribute :satisfying_count, :integer
       scope :includes_satisfaction_counts, -> (period:) do
         joins(received_matches: { need: :company_satisfaction })
           .where(matches: { status: :done })
