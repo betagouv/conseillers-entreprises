@@ -29,8 +29,7 @@ class Antenne
 
       # Compute match status rates
       # The returned collection has these additional new attributes:
-      attribute :done_rate, :float
-      attribute :not_for_me_rate, :float
+      # :done_rate, :not_for_me_rate
       scope :includes_match_status_rates, -> (period:) do
         from(includes_match_status_counts(period: period), self.table_name)
           .select(<<~SQL.squish
@@ -43,15 +42,13 @@ class Antenne
 
       # Compute match status counts
       # The returned collection has these additional new attributes:
-      attribute :received_matches_count, :integer
-      attribute :done_count, :integer
-      attribute :not_for_me_count, :integer
+      # :received_matches_count, :done_count, :not_for_me_count
       scope :includes_match_status_counts, -> (period:) do
         joins(:received_matches)
           .where(matches: { sent_at: period })
           .group(:id)
           .select(<<~SQL.squish
-            antennes.*,
+            "#{self.table_name}".*,
             COUNT(matches.id) AS received_matches_count,
             SUM(CASE WHEN matches.status IN ('done') THEN 1 ELSE 0 END) AS done_count,
             SUM(CASE WHEN matches.status IN ('not_for_me') THEN 1 ELSE 0 END) AS not_for_me_count
@@ -61,7 +58,7 @@ class Antenne
 
       # Compute company satisfaction rate
       # The returned collection has these additional new attributes:
-      attribute :satisfying_rate, :float
+      # :satisfying_rate
       scope :includes_satisfying_rate, -> (period:) do
         from(includes_satisfaction_counts(period: period), self.table_name)
           .select(<<~SQL.squish
@@ -71,20 +68,16 @@ class Antenne
                  )
       end
 
-      # Compute company_satisfaction count per antenne
+      # Compute company_satisfaction count per record
       # The returned collection has these additional new attributes:
-      attribute :company_satisfactions_count, :integer
-      attribute :contacted_by_expert_count, :integer
-      attribute :useful_exchange_count, :integer
-      attribute :satisfying_count, :integer
+      # :company_satisfactions_count, :contacted_by_expert_count, :useful_exchange_count, :satisfying_count
       scope :includes_satisfaction_counts, -> (period:) do
         joins(received_matches: { need: :company_satisfaction })
           .where(matches: { status: :done })
           .where(matches: { sent_at: period })
           .group(:id)
           .select(<<~SQL.squish
-            antennes.*,
-            COUNT(matches.id) AS received_matches_count,
+            "#{self.table_name}".*,
             COUNT(company_satisfactions.id) AS company_satisfactions_count,
             COUNT(CASE company_satisfactions.contacted_by_expert WHEN TRUE THEN 1 ELSE NULL END) AS contacted_by_expert_count,
             COUNT(CASE company_satisfactions.useful_exchange WHEN TRUE THEN 1 ELSE NULL END) AS useful_exchange_count,
