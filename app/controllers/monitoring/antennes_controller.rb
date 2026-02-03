@@ -37,9 +37,9 @@ class Monitoring::AntennesController < ApplicationController
 
   def collection_attributes(collection_name)
     {
-      often_not_for_me: { rate: :not_for_me_rate, count: :not_for_me_count, order: {not_for_me_rate: :desc} },
-      rarely_done: { rate: :done_rate, count: :done_count, order: {done_rate: :asc} },
-      rarely_satisfying: { rate: :satisfying_rate, count: :satisfying_count, order: {satisfying_rate: :asc} },
+      often_not_for_me: { rate: :not_for_me_rate, count: :not_for_me_count, order: { not_for_me_rate: :desc } },
+      rarely_done: { rate: :done_rate, count: :done_count, order: { done_rate: :asc } },
+      rarely_satisfying: { rate: :satisfying_rate, count: :satisfying_count, order: { satisfying_rate: :asc } },
     }[collection_name.to_sym]
   end
   helper_method :collection_attributes
