@@ -6,19 +6,19 @@ class Antenne
       ## High-level monitoring scopes
       # These three scopes rely on the implementation below to filter on the match status of satisfaction rates
       scope :often_not_for_me, -> do
-        from(includes_match_status_rates(period: TimeDurationService::Quarters.new.call.first), 'antennes')
+        from(includes_match_status_rates(period: TimeDurationService::Quarters.new.call.first), self.table_name)
           .where(received_matches_count: 50..)
           .where(not_for_me_rate: 0.3..)
       end
 
       scope :rarely_done, -> do
-        from(includes_match_status_rates(period: TimeDurationService::Quarters.new.call.first), 'antennes')
+        from(includes_match_status_rates(period: TimeDurationService::Quarters.new.call.first), self.table_name)
           .where(received_matches_count: 50..)
           .where(done_rate: ..0.25)
       end
 
       scope :rarely_satisfying, -> do
-        from(includes_satisfying_rate(period: TimeDurationService::Years.new.call.first), 'antennes')
+        from(includes_satisfying_rate(period: TimeDurationService::Years.new.call.first), self.table_name)
           .where(company_satisfactions_count: 100..)
           .where(satisfying_rate: ..0.45)
       end
@@ -32,7 +32,7 @@ class Antenne
       attribute :done_rate, :float
       attribute :not_for_me_rate, :float
       scope :includes_match_status_rates, -> (period:) do
-        from(includes_match_status_counts(period: period), 'antennes')
+        from(includes_match_status_counts(period: period), self.table_name)
           .select(<<~SQL.squish
             *,
             done_count::FLOAT / received_matches_count::FLOAT AS done_rate,
@@ -63,7 +63,7 @@ class Antenne
       # The returned collection has these additional new attributes:
       attribute :satisfying_rate, :float
       scope :includes_satisfying_rate, -> (period:) do
-        from(includes_satisfaction_counts(period: period), 'antennes')
+        from(includes_satisfaction_counts(period: period), self.table_name)
           .select(<<~SQL.squish
             *,
             satisfying_count::FLOAT / company_satisfactions_count::FLOAT AS satisfying_rate
