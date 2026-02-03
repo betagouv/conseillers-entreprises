@@ -11,7 +11,7 @@
           .fr-tag{ class: "card--antenne-#{collection_name}" }
             %span
               = Antenne.human_attribute_name(rate_attribute)
-              %b=number_to_percentage(100 * antenne.public_send(rate_attribute), precision: 0)
+              %b= number_to_percentage(100 * antenne.public_send(rate_attribute), precision: 0)
           .fr-tag
             %span
               = Antenne.human_attribute_name(count_attribute)
@@ -43,4 +43,3 @@
           %li
             %span.picto.ri-mail-fill{ 'aria-hidden': 'true' }
             = mail_to manager.email, manager.email, class: 'break-word'
-
