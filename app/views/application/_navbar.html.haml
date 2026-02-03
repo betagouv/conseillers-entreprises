@@ -86,17 +86,11 @@
               = active_link_to reminders_experts_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
                 %span.ri-award-fill.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('reminders.experts.navbar.title')
-              = active_link_to conseiller_suivi_qualite_index_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
-                %span.ri-file-marked-line.fr-mr-1w{ 'aria-hidden': 'true' }
-                = t('conseiller.suivi_qualite.index.title')
-              = active_link_to starred_needs_conseiller_veille_index_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
-                %span.ri-radar-line.fr-mr-1w{ 'aria-hidden': 'true' }
-                = t('conseiller.veille.index.title')
+              = active_link_to conseiller_optimisation_index_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
+                %span.ri-funds-line.fr-mr-1w{ 'aria-hidden': 'true' }
+                = t('conseiller.optimisation.index.title')
 
           %ul.fr-nav__list
-            = active_link_to tutoriels_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
-              %span.ri-video-line.fr-mr-1w{ 'aria-hidden': 'true' }
-              = t('user_pages.tutoriels.title')
             - if policy(User).admin?
               %li.fr-nav__item.fr-nav__item--align-right
                 %button.fr-nav__btn{ 'aria-controls': "fr-nav-item-account", 'aria-expanded': "false", data: { controller: 'fr-dropdown', action: 'click->fr-dropdown#collapse' } }
@@ -118,6 +112,10 @@
                     = active_link_to new_user_invitation_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
                       %span.ri-user-add-line.fr-mr-1w{ 'aria-hidden': 'true' }
                       = t('.invite')
+            - else
+              = active_link_to tutoriels_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
+                %span.ri-video-line.fr-mr-1w{ 'aria-hidden': 'true' }
+                = t('user_pages.tutoriels.title')
         - else
           %ul.fr-nav__list
             = active_link_to root_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', active: :exclusive do

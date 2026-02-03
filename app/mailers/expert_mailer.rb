@@ -75,7 +75,7 @@ class ExpertMailer < ApplicationMailer
   end
 
   def closing_good_practice
-    # Envoyé depuis veille - stock en cours
+    # Envoyé depuis optimisation - stock en cours
     mail(
       to: @expert.email_with_display_name,
       reply_to: @support_user.email_with_display_name,
