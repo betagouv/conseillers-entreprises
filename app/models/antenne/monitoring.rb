@@ -23,7 +23,7 @@ class Antenne
         by_taken_care_of(rate: ..0.25, activity: 50.., period: TimeDurationService::Quarters.new.call.first)
       end
 
-      scope :by_taken_care_of, -> (rate:, activity:, period:) do
+      scope :by_taken_care_of, -> (rate:, activity:, period:) do #rename, this is aide proposée, not taking_care
         from(includes_match_status_rates(period: period), 'antennes')
           .where(received_matches_count: activity)
           .where(taking_care_rate: rate)
@@ -46,7 +46,7 @@ class Antenne
           .select(<<~SQL.squish
             antennes.*,
             COUNT(matches.id) AS received_matches_count,
-            SUM(CASE WHEN matches.status IN ('taking_care', 'done', 'done_no_help', 'done_not_reachable') THEN 1 ELSE 0 END) AS taking_care_count,
+            SUM(CASE WHEN matches.status IN ('done') THEN 1 ELSE 0 END) AS taking_care_count,
             SUM(CASE WHEN matches.status IN ('not_for_me') THEN 1 ELSE 0 END) AS rejecting_count
           SQL
                  )

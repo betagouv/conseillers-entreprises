@@ -1,46 +1,46 @@
 /# locals: (antenne:, collection_name:)
 
-.card.card--expert.fr-my-4w{ class: "card--antenne-#{collection_name}" }
-  / dynamic class with collection_name
-  .card__header{ class: "" }
-    %h2.fr-h4.fr-card__title
-      = link_to antenne.name, admin_antenne_path(antenne), class: 'fr-card__link'
-    .fr-grid-row
-      .fr-col-7.fr-pb-2v
-        %ul.list-unstyled.card-expert__list
-          -# no expert css!
-          %li= t('.creation_date', date: I18n.l(antenne.created_at.to_date, format: :long))
-          %li #{Antenne.human_attribute_name(:institution)} : #{antenne.institution.name}
-          - if antenne.parent_antenne.present?
-            %li #{Antenne.human_attribute_name(:parent_antenne)} : #{antenne.parent_antenne.name}
-      .fr-col-5
-        - antenne.managers.each do |manager|
-          %ul.list-unstyled.card-expert__list
-            %li
-              %span.picto.ri-nurse-fill{ 'aria-hidden': 'true' }
-              = t('.manager_name', name: manager.full_name)
-            - if manager.job.present?
-              %li
-                %span.picto.ri-contacts-book-fill{ 'aria-hidden': 'true' }
-                = manager.job
-            - if manager.phone_number.present?
-              %li
-                %span.picto.ri-phone-fill{ 'aria-hidden': 'true' }
-                = link_to(manager.phone_number, "tel:#{manager.phone_number}")
-            %li
-              %span.picto.ri-mail-fill{ 'aria-hidden': 'true' }
-              = mail_to manager.email, manager.email, class: 'break-word'
+.card-solicitation.fr-my-4w.card
+  .card__header
+    .card__title
+      %h4= link_to antenne.name, admin_antenne_path(antenne), class: 'fr-card__link'
+      .subtitle
+        .fr-tags-group
+          - rate_attribute = collection_attributes(collection_name)[:rate]
+          - count_attribute = collection_attributes(collection_name)[:count]
+          .fr-tag{ class: "card--antenne-#{collection_name}" }
+            %span
+              = Antenne.human_attribute_name(rate_attribute)
+              %b=number_to_percentage(100 * antenne.public_send(rate_attribute), precision: 0)
+          .fr-tag
+            %span
+              = Antenne.human_attribute_name(count_attribute)
+              %b= antenne.public_send(count_attribute)
+          .fr-tag
+            %span
+              %b= antenne.received_matches_count
+              = Antenne.human_attribute_name(:received_matches, count: 2)
   .fr-card__body
     .fr-card__content
-      - rate_attribute = collection_attributes(collection_name)[:rate]
-      - count_attribute = collection_attributes(collection_name)[:count]
-      .fr-tags-group
-        %p.fr-tag
-          %span.bold.fr-mr-1v= antenne.received_matches_count
-          = Antenne.human_attribute_name(:received_matches, count: 2)
-        %p.fr-tag
-          %span.bold.fr-mr-1v= number_to_percentage(100 * antenne.public_send(rate_attribute))
-          = Antenne.human_attribute_name(rate_attribute)
-        %p.fr-tag
-          %span.bold.fr-mr-1v= antenne.public_send(count_attribute)
-          = Antenne.human_attribute_name(count_attribute)
+      %ul.list-unstyled
+        %li= t('.creation_date', date: I18n.l(antenne.created_at.to_date, format: :long))
+        %li #{Antenne.human_attribute_name(:institution)} : #{antenne.institution.name}
+        - if antenne.parent_antenne.present?
+          %li #{Antenne.human_attribute_name(:parent_antenne)} : #{antenne.parent_antenne.name}
+      - antenne.managers.each do |manager|
+        %ul.list-unstyled
+          %li
+            %span.picto.ri-nurse-fill{ 'aria-hidden': 'true' }
+            = t('.manager_name', name: manager.full_name)
+          - if manager.job.present?
+            %li
+              %span.picto.ri-contacts-book-fill{ 'aria-hidden': 'true' }
+              = manager.job
+          - if manager.phone_number.present?
+            %li
+              %span.picto.ri-phone-fill{ 'aria-hidden': 'true' }
+              = link_to(manager.phone_number, "tel:#{manager.phone_number}")
+          %li
+            %span.picto.ri-mail-fill{ 'aria-hidden': 'true' }
+            = mail_to manager.email, manager.email, class: 'break-word'
+

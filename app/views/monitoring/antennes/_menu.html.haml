@@ -5,4 +5,7 @@
     - label = t(name, scope: [:monitoring, :antennes, :titles])
     - url = polymorphic_path([:monitoring, :antennes], collection: name)
     - title = t(name, scope: [:monitoring, :antennes, :instructions])
-    = menu_link_with_count(label, count, url, class: 'item', title: title)
+    = menu_link_with_count(count, url, class: 'item', title: title) do
+      = label
+      %span{ class: "fr-ml-1v reminders-icon ri-thunderstorms-line", 'aria-hidden': true }
+
