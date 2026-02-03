@@ -1,12 +1,3 @@
-def check_links_text(context)
-  within(context) do
-    all_links = all("a").map(&:text) # get text for all links
-    all_links.each do |i|
-      puts i
-    end
-  end
-end
-
 def create_base_dummy_data
   create(:antenne)
   create(:badge)
