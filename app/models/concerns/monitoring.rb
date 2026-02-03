@@ -80,6 +80,7 @@ module Monitoring
         .group(:id)
         .select(<<~SQL.squish
           "#{self.table_name}".*,
+          COUNT(matches.id) AS received_matches_count,
           COUNT(company_satisfactions.id) AS company_satisfactions_count,
           COUNT(CASE company_satisfactions.contacted_by_expert WHEN TRUE THEN 1 ELSE NULL END) AS contacted_by_expert_count,
           COUNT(CASE company_satisfactions.useful_exchange WHEN TRUE THEN 1 ELSE NULL END) AS useful_exchange_count,
