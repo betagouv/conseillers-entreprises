@@ -35,6 +35,6 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           branch: 'update-dependencies'
-          commit-message: 'Update depedencies'
-          title: 'Update depedencies'
+          commit-message: 'Update dependencies'
+          title: 'Update dependencies'
           base: main
