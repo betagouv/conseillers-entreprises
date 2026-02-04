@@ -1,9 +1,13 @@
 class NeedsController < ApplicationController
   include Inbox
+  include ManagerFilters
 
   before_action :retrieve_user, except: %i[index]
   before_action :retrieve_need, only: %i[show]
   before_action :persist_search_params, only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired]
+  before_action only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired] do
+    initialize_filters(all_filter_keys)
+  end
 
   layout 'side_menu', except: :show
 
@@ -113,5 +117,17 @@ class NeedsController < ApplicationController
 
   def recipient_for_search
     @user
+  end
+
+  def base_needs_for_filters
+    @base_needs_for_filters ||= current_user.received_needs.distinct
+  end
+
+  def all_filter_keys
+    [:themes, :subjects]
+  end
+
+  def dynamic_filter_keys
+    [:subjects]
   end
 end
