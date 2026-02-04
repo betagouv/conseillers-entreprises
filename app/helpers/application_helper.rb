@@ -29,7 +29,7 @@ module ApplicationHelper
   end
 
   def canonical_base_url
-    raw ENV['HOST_NAME']
+    raw ENV['PRODUCTION_HOST_NAME']
   end
 
   def to_new_window_title(title)
