@@ -58,9 +58,9 @@ class SharedController < ActionController::Base
   end
 
   def http_authentication
-    if Rails.env.production? && ENV['SP_AUTHENTICATION_ACTIVATED'].to_b
+    if Rails.env.production? && ENV['BASIC_AUTH_ENABLED'].to_b
       authenticate_or_request_with_http_basic do |username, password|
-        username == ENV['SP_LOGIN'] && password == ENV['SP_PASSWORD']
+        username == ENV['BASIC_AUTH_LOGIN'] && password == ENV['BASIC_AUTH_PASSWORD']
       end
     end
   end
