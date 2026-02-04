@@ -13,7 +13,7 @@ class SharedController < ActionController::Base
   protect_from_forgery with: :exception
   rescue_from Exception, with: :render_error
 
-  before_action :set_sentry_context, :http_authentication
+  before_action :set_sentry_context, :http_authentication, :no_robots_in_staging
 
   def not_found
     raise ActionController::RoutingError, 'Not Found'
@@ -62,6 +62,12 @@ class SharedController < ActionController::Base
       authenticate_or_request_with_http_basic do |username, password|
         username == ENV['BASIC_AUTH_LOGIN'] && password == ENV['BASIC_AUTH_PASSWORD']
       end
+    end
+  end
+
+  def no_robots_in_staging
+    if ENV['STAGING_ENV'] == 'true'
+      response.headers['X-Robots-Tag'] = 'none'
     end
   end
 
