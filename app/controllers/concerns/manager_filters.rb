@@ -15,7 +15,11 @@ module ManagerFilters
   private
 
   def base_themes
-    @base_themes ||= Theme.joins(subjects: :needs).where(subjects: { needs: base_needs_for_filters }).distinct.sort_by(&:label)
+    @base_themes ||= Theme.joins(subjects: :needs)
+      .merge(Subject.not_archived)
+      .where(subjects: { needs: base_needs_for_filters })
+      .distinct
+      .sort_by(&:label)
   end
 
   def base_subjects

@@ -1,20 +1,28 @@
-= form_with url: request.path, method: :get, local: true, class: 'fr-mb-2w' do |f|
+-# locals: (needs:, collection_name:, filters:, antennes: nil)
+= form_with url: request.path, method: :get, local: true, class: 'fr-mb-2w', data: { controller: 'filters', url: load_filter_options_needs_path } do |f|
   -# on n'affiche le select que si BAL manager + plusieurs antennes gérées
-  - if defined?(antennes) && antennes.size > 1
-    .fr-grid-row.fr-grid-row--gutters
-      .fr-col
-        = f.label :antenne_id, t('filters.select_antenne'), class: 'fr-label'
-        = f.collection_select :antenne_id, antennes, :id, :name, { selected: params[:antenne_id] || antennes.first.id }, class: "fr-select fr-mb-2v"
   .fr-grid-row.fr-grid-row--gutters
-    .fr-col-md-6.fr-col-12
-      - options = { include_blank: t('all.masculin'), class: 'fr-select' }
-      - collection_for_select = build_collection_for_select
-      = f.label :subject_id, t('attributes.subject'), class: 'fr-label'
-      = f.select :subject_id, collection_for_select, options.dup, { class: 'fr-select' }
-    .fr-col-md-6.fr-col-12
+    - if antennes.present? && antennes.size > 1
+      .fr-col-md-6.fr-col-12
+        .fr-col
+          = f.label :antenne_id, t('filters.select_antenne'), class: 'fr-label'
+          = f.collection_select :antenne_id, antennes, :id, :name, { selected: params[:antenne_id] || antennes.first.id }, class: "fr-select fr-mb-2v"
+    %div{ class: "#{antennes.present? && (antennes.size > 1) ? 'fr-col-md-6 fr-col-12' : 'fr-col' }" }
       .fr-input-group
         = f.label :omnisearch, t('.omnisearch'), class: 'fr-label'
         = f.search_field :omnisearch, value: needs_search_params[:omnisearch], class: 'fr-input', placeholder: t('.search_placeholder')
+
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col-md-6.fr-col-12
+      .fr-select-group
+        = f.label :theme_id, t('attributes.theme'), class: 'fr-label'
+        = f.collection_select :theme_id, filters[:themes], :id, :label, { selected: params[:theme_id], include_blank: t('all.feminine') }, class: 'fr-select', data: { action: 'change->filters#fetchFilters', 'filters-target': 'themes' }
+    .fr-col-md-6.fr-col-12
+      .fr-select-group
+        = f.label :subject_id, class: 'fr-label' do
+          = t('attributes.subject')
+          .loader.loader--sm.hidden{ data: { 'filters-target': 'loader' } }
+        = f.collection_select :subject_id, filters[:subjects], :id, :label, { selected: params[:subject_id], include_blank: t('all.masculin') }, class: 'fr-select', data: { 'filters-target': 'subjects' }
 
   .fr-accordion.box-shadow-none.fr-my-2v
     %h2.fr-accordion__title
