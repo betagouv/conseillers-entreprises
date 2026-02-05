@@ -3,7 +3,7 @@
 .fr-grid-row.fr-grid-row--gutters
   .fr-col-12
     .fr-card
-      .fr-card__header.fr-px-4w.fr-py-2w{ class: "card--monitoring-#{collection_name}" }
+      .fr-card__header.fr-px-4w.fr-py-2w
         %h3.fr-card__title
           = link_to antenne.name, admin_antenne_path(antenne)
       .fr-card__body
@@ -12,31 +12,16 @@
             .fr-grid-row
               .fr-col-6
                 %ul.list-unstyled.card-expert__list
-                  %li= t('.creation_date', date: I18n.l(antenne.created_at.to_date, format: :long))
+                  %li{ title: Antenne.human_attribute_name(:institution) }
+                    %span.picto.ri-government-fill{ 'aria-hidden': 'true' }
+                    = antenne.institution.name
                   - if antenne.parent_antenne.present?
                     %li
                       %span.picto.ri-government-line{ 'aria-hidden': 'true' }
-                      = "#{Antenne.human_attribute_name(:parent_antenne)} : #{antenne.parent_antenne.name}"
-                  %li
-                    %span.picto.ri-government-fill{ 'aria-hidden': 'true' }
-                    = "#{Antenne.human_attribute_name(:institution)} : #{antenne.institution.name}"
+                      %span
+                        = "#{Antenne.human_attribute_name(:parent_antenne)} : "
+                        %b= antenne.parent_antenne.name
               .fr-col-6
-                - antenne.managers.each do |manager|
-                  %ul.list-unstyled.card-expert__list
-                    %li
-                      %span.picto.ri-nurse-fill{ 'aria-hidden': 'true' }
-                      = t('.manager_name', name: manager.full_name)
-                    - if manager.job.present?
-                      %li
-                        %span.picto.ri-contacts-book-fill{ 'aria-hidden': 'true' }
-                        = manager.job
-                    - if manager.phone_number.present?
-                      %li
-                        %span.picto.ri-phone-fill{ 'aria-hidden': 'true' }
-                        = link_to(manager.phone_number, "tel:#{manager.phone_number}")
-                    %li
-                      %span.picto.ri-mail-fill{ 'aria-hidden': 'true' }
-                      = mail_to manager.email, manager.email, class: 'break-word'
         .fr-card__footer.fr-pb-1w
           .fr-tags-group
             = render partial: collection_name, locals: { antenne: antenne }

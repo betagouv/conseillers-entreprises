@@ -546,6 +546,11 @@ fr:
       sent_at: Envoi
       taken_care_of_at: Prise en charge
   monitoring:
+    scopes:
+      icon:
+        often_not_for_me: ri-arrow-go-back-line
+        rarely_done: ri-file-unknow-fill
+        rarely_satisfying: ri-emotion-sad-line
     antennes:
       antenne:
         creation_date: Création le %{date}

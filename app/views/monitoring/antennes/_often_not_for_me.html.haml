@@ -3,13 +3,12 @@
 .fr-tag
   %span
     %b= antenne.received_matches_count
-    = Antenne.human_attribute_name(:received_matches_count, count: 2)
+    = Antenne.human_attribute_name(:received_matches, count: 2).downcase
 .fr-tag
   %span
     %b= antenne.not_for_me_count
     = Antenne.human_attribute_name(:not_for_me_count)
-.fr-tag
+.fr-tag{ class: "card--monitoring-often_not_for_me" }
   %span
-    %b= number_to_percentage(100 * antenne.not_for_me_rate, precision: 0)
     = Antenne.human_attribute_name(:not_for_me_rate)
-
+    %b= number_to_percentage(100 * antenne.not_for_me_rate, precision: 0)
