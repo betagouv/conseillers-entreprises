@@ -17,7 +17,7 @@ class Monitoring::AntennesController < ApplicationController
       .public_send(collection_name)
       .apply_filters(index_search_params)
       .page(params[:page])
-      .order(collection_attributes(collection_name)[:order])
+      .order(collection_order(collection_name))
   end
 
   private
@@ -35,12 +35,11 @@ class Monitoring::AntennesController < ApplicationController
       }
   end
 
-  def collection_attributes(collection_name)
+  def collection_order(collection_name)
     {
-      often_not_for_me: { rate: :not_for_me_rate, count: :not_for_me_count, total_count: :received_matches_count, order: { not_for_me_rate: :desc } },
-      rarely_done: { rate: :done_rate, count: :done_count, total_count: :received_matches_count, order: { done_rate: :asc } },
-      rarely_satisfying: { rate: :satisfying_rate, count: :satisfying_count, total_count: :company_satisfactions_count, order: { satisfying_rate: :asc } },
+      often_not_for_me: { not_for_me_rate: :desc },
+      rarely_done: { done_rate: :asc },
+      rarely_satisfying: { satisfying_rate: :asc },
     }[collection_name.to_sym]
   end
-  helper_method :collection_attributes
 end

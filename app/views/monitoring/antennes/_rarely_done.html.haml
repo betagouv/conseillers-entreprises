@@ -1,0 +1,15 @@
+/# locals: (antenne:)
+
+.fr-tag
+  %span
+    %b= antenne.received_matches_count
+    = Antenne.human_attribute_name(:received_matches_count, count: 2)
+.fr-tag
+  %span
+    %b= antenne.done_count
+    = Antenne.human_attribute_name(:done_count)
+.fr-tag
+  %span
+    %b= number_to_percentage(100 * antenne.done_rate, precision: 0)
+    = Antenne.human_attribute_name(:done_rate)
+

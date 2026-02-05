@@ -1,0 +1,15 @@
+/# locals: (antenne:)
+
+.fr-tag
+  %span
+    %b= antenne.company_satisfactions_count
+    = Antenne.human_attribute_name(:company_satisfactions_count, count: 2)
+.fr-tag
+  %span
+    %b= antenne.satisfying_count
+    = Antenne.human_attribute_name(:satisfying_count)
+.fr-tag
+  %span
+    %b= number_to_percentage(100 * antenne.satisfying_rate, precision: 0)
+    = Antenne.human_attribute_name(:satisfying_rate)
+
