@@ -33,6 +33,7 @@ class Antenne < ApplicationRecord
   include InvolvementConcern
   include PerimeterNeedsStatus
   include WithSupportUser
+  include Monitoring
 
   enum :territorial_level, {
     local: 'local',
@@ -153,6 +154,7 @@ class Antenne < ApplicationRecord
     klass = klass.by_region(params[:region_code]) if params[:region_code].present?
     klass = klass.by_subject(params[:subject_id]) if params[:subject_id].present?
     klass = klass.by_theme(params[:theme_id]) if params[:theme_id].present?
+    klass = klass.where(institution_id: params[:institution_id]) if params[:institution_id].present?
     klass.all
   end
 

@@ -21,3 +21,31 @@
   .fr-collapse.team-members
     border-left: 1px solid $grey-light
     padding-left: 0.4rem
+
+:root
+  --color-often_not_for_me: var(--orange-terre-battue-main-645)
+  --color-rarely_done: var(--yellow-moutarde-850-200)
+  --color-rarely_satisfying: var(--artwork-minor-purple-glycine)
+
+.monitoring-menu
+  .collection-often_not_for_me
+    --icon-color: var(--color-often_not_for_me)
+  .collection-rarely_done
+    --icon-color: var(--color-rarely_done)
+  .collection-rarely_satisfying
+    --icon-color: var(--color-rarely_satisfying)
+  .item-with-tag
+    a
+      display: flex
+      justify-content: space-between
+    [class*=" ri-"]
+      font-size: 1.5rem
+      color: var(--icon-color)
+
+.card--monitoring-often_not_for_me
+  background-color: var(--color-often_not_for_me)
+.card--monitoring-rarely_done
+  background-color: var(--color-rarely_done)
+.card--monitoring-rarely_satisfying
+  background-color: var(--color-rarely_satisfying)
+  color: white

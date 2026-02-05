@@ -1,0 +1,7 @@
+/# locals: (title:, collection_name:)
+
+%h1.fr-h2
+  = title
+
+- current_page = t(collection_name, scope: [:monitoring, :antennes, :titles], default: title)
+= render 'shared/breadcrumb', pages: [{ title: t('monitoring.antennes.index.title'), path: conseiller_optimisation_index_path }], current_page: current_page

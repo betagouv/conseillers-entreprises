@@ -96,4 +96,5 @@ Rails.application.configure do
   end
 end
 
+PpSql.rewrite_to_sql_method = false
 PpSql.add_rails_logger_formatting = false

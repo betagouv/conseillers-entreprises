@@ -545,6 +545,27 @@ fr:
       see_match_info: Voir plus d'infos sur la MER
       sent_at: Envoi
       taken_care_of_at: Prise en charge
+  monitoring:
+    scopes:
+      icon:
+        often_not_for_me: ri-arrow-go-back-line
+        rarely_done: ri-file-unknow-fill
+        rarely_satisfying: ri-emotion-sad-line
+    antennes:
+      antenne:
+        creation_date: Création le %{date}
+        manager_name: 'Responsable : %{name}'
+      index:
+        no_results: Aucun résultat
+        title: Suivi des antennes
+      instructions:
+        often_not_for_me: Plus de 30% de refus sur le dernier trimestre calendaire; au moins 50 mises en relation reçues.
+        rarely_done: Moins de 25% d’aide proposée sur le dernier trimestre calendaire; au moins 50 mises en relation reçues.
+        rarely_satisfying: Moins de 45% de rappelé/utile sur la satisfaction d’entreprises sur l’année passée; au moins 100 retours d’entreprises.
+      titles:
+        often_not_for_me: Refus fréquents
+        rarely_done: Peu d’aide proposée
+        rarely_satisfying: Faible satisfaction
   navbar:
     close: Fermer
     main_menu: Menu principal
