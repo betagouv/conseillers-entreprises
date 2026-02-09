@@ -23,10 +23,12 @@
                     = question_label(answer.key, :long)
                     %strong= answer_label(answer.key, answer.filter_value)
             - if display_partner_url
-              %p.fr-text--sm
-                = t('.origin_source')
-                %br
-                = link_to partner_title(@need.solicitation), PartnerOrigin.partner_url(@need.solicitation, full: true), title: "#{to_new_window_title(t('.origin_source_title'))}", target: '_blank', rel: 'noopener'
+              .fr-callout
+                %p.fr-callout__text
+                  %span.ri-information-line.fr-mr-1v{ 'aria-hidden': 'true' }
+                  = t('.origin_source')
+                  %br
+                  = link_to partner_title(@need.solicitation), PartnerOrigin.partner_url(@need.solicitation, full: true), title: "#{to_new_window_title(t('.origin_source_title'))}", target: '_blank', rel: 'noopener', class: 'fr-link fr-link--icon-right fr-icon-external-link-line'
 
     .fr-col-md-4.order-minus-one.bp-sm
       .fr-grid-row.need-metadata
