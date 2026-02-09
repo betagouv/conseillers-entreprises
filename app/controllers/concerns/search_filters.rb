@@ -1,4 +1,4 @@
-module ManagerFilters
+module SearchFilters
   extend ActiveSupport::Concern
 
   def initialize_filters(filter_keys)
