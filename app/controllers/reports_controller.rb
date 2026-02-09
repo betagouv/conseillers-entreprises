@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  include ManagerFilters
+  include SearchFilters
 
   before_action :retrieve_antenne, only: [:stats, :matches]
   before_action :retrieve_quarters, only: [:stats]

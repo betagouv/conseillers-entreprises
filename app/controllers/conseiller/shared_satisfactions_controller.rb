@@ -1,6 +1,6 @@
 class Conseiller::SharedSatisfactionsController < ApplicationController
   include PersistedSearch
-  include ManagerFilters
+  include SearchFilters
 
   before_action only: [:index, :unseen, :seen] do
     initialize_filters(all_filter_keys)
@@ -87,7 +87,7 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
 
   # Filtering
   #
-  # utilisé pour initialisé les filtres ManagerFilters
+  # utilisé pour initialisé les filtres SearchFilters
   def base_needs_for_filters
     current_user.needs_with_shared_satisfaction
   end

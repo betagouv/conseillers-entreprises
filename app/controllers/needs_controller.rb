@@ -1,6 +1,6 @@
 class NeedsController < ApplicationController
   include Inbox
-  include ManagerFilters
+  include SearchFilters
 
   before_action :retrieve_user, except: %i[index]
   before_action :retrieve_need, only: %i[show]
