@@ -1,6 +1,6 @@
 class Manager::NeedsController < ApplicationController
   include Inbox
-  include ManagerFilters
+  include SearchFilters
 
   before_action :authorize_index_needs
   before_action :retrieve_recipient
@@ -55,7 +55,7 @@ class Manager::NeedsController < ApplicationController
 
   # Filtering
   #
-  # utilisé pour initialisé les filtres ManagerFilters
+  # utilisé pour initialisé les filtres SearchFilters
   def base_needs_for_filters
     @base_needs_for_filters ||= @recipient.perimeter_received_needs.distinct
   end
