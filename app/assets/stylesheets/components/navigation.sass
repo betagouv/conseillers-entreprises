@@ -56,6 +56,14 @@
     .fr-tag
       color: $grey-dark
 
+.fr-sidemenu__item // adjust space between link and icon
+  a:has([class*="ri-"])
+    display: flex
+    justify-content: space-between
+    [class*="ri-"]
+      font-size: 1.5rem
+      color: var(--color-sidemenu__item-icon) // context-specific color
+
 .item-with-tag
   display: flex
   align-items: center
