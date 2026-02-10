@@ -2,7 +2,7 @@
 - meta title: title
 - content_for :header, render('header', collection_name: @collection_name, title: title)
 - content_for :menu, render('menu', collections_counts: @inbox_collections_counts)
-- content_for :search, render('search', needs: @needs, collection_name: @collection_name, filters: @filters)
+- content_for :search, render('shared/needs_search', needs: @needs, filters: @filters, load_filter_options_path: load_filter_options_manager_needs_path, show_cooperation: true, omnisearch_in_accordion: true, use_cooperation_label: true)
 
 - if @needs.empty?
   = render 'needs/empty_placeholder', recipient: @recipient
