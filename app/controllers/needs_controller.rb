@@ -122,12 +122,4 @@ class NeedsController < ApplicationController
   def base_needs_for_filters
     @base_needs_for_filters ||= current_user.received_needs.distinct
   end
-
-  def all_filter_keys
-    [:themes, :subjects]
-  end
-
-  def dynamic_filter_keys
-    [:subjects]
-  end
 end
