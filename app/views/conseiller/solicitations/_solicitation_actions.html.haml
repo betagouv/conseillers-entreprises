@@ -16,8 +16,9 @@
             = t('.start_auto_diagnosis')
             %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
     - else
+      - diagnosis_path = FormatSiret.siret_is_valid(FormatSiret.clean_siret(solicitation.siret)) ? show_with_siret_companies_path(solicitation.siret, solicitation: solicitation.id) : new_conseiller_diagnosis_path(solicitation: solicitation.id)
       .actions.success-main-525-bg
-        = link_to new_conseiller_diagnosis_path(solicitation: solicitation.id), class: 'button', 'data-turbo': false do
+        = link_to diagnosis_path, class: 'button', 'data-turbo': false do
           = t('.start_diagnosis')
           %span.ri-arrow-right-s-line.fr-ml-1w{ 'aria-hidden': 'true' }
 
