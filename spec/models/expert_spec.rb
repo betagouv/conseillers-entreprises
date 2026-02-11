@@ -173,6 +173,15 @@ RSpec.describe Expert do
         expect(expert.email).to be_nil
         expect(expert.phone_number).to be_nil
       end
+    end
+
+    describe 'deleting with in-progress matches fails' do
+      before do
+        create(:match, expert: expert, status: :quo)
+      end
+
+      it do
+        expect{ expert.destroy }.to raise_error(ActiveRecord::RecordNotDestroyed)
       end
     end
   end

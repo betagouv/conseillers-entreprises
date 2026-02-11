@@ -343,6 +343,10 @@ class Expert < ApplicationRecord
 
   def soft_delete
     self.transaction do
+      if received_matches.in_progress.exists?
+        errors.add(:base, :cant_delete_experts_with_in_progress_matches)
+        raise ActiveRecord::RecordNotDestroyed.new(errors.full_messages.to_sentence, self)
+      end
       update_columns(SoftDeletable.persons_attributes)
     end
   end

@@ -715,6 +715,10 @@ fr:
               solicitation_has_no_preselected_subject: il n’y a pas de sujet présélectionné
             solicitation:
               has_already_a_diagnosis: Une analyse existe deja pour cette sollicitation.
+        expert:
+          attributes:
+            base:
+              cant_delete_experts_with_in_progress_matches: Les mises en relation en cours doivent être transférées à un autre expert avant de pouvoir supprimer celui-ci.
         landing_subjects:
           restrict_dependent_destroy:
             solicitations: Vous ne pouvez pas supprimer le sujet de landing car des solicitations y font référence

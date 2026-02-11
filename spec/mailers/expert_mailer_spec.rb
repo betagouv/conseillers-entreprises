@@ -52,7 +52,10 @@ describe ExpertMailer do
     end
 
     describe 'when the recipient is deleted' do
-      before { expert.soft_delete }
+      before do
+        expert.received_matches.in_progress.update_all(status: :not_for_me)
+        expert.soft_delete
+      end
 
       let(:mail) { subject }
 
