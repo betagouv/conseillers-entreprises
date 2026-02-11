@@ -313,7 +313,7 @@ ActiveAdmin.register User do
   config.action_items.delete_at(2)
 
   action_item :destroy, only: :show do
-    link_to t('active_admin.user.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.user.delete_confirmation') }
+    link_to t('active_admin.user.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.user.delete_confirmation', count: 1) }
   end
 
   member_action :normalize_values do
@@ -355,7 +355,7 @@ ActiveAdmin.register User do
     redirect_back_or_to collection_path, notice: I18n.t('active_admin.user.invited_to_demo')
   end
 
-  batch_action :destroy, confirm: I18n.t('active_admin.users.delete_confirmation') do |ids|
+  batch_action :destroy, confirm: I18n.t('active_admin.user.delete_confirmation', count: 2) do |ids|
     User.where(id: ids).destroy_all
     redirect_to collection_path, notice: I18n.t('active_admin.user.deleted')
   end

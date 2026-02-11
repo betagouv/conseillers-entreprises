@@ -377,7 +377,7 @@ ActiveAdmin.register Expert do
   end
 
   action_item :destroy, only: :show do
-    link_to t('active_admin.expert.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.expert.delete_confirmation') }
+    link_to t('active_admin.expert.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.expert.delete_confirmation', count: 1) }
   end
 
   member_action :normalize_values do
@@ -392,7 +392,7 @@ ActiveAdmin.register Expert do
     redirect_back_or_to collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
   end
 
-  batch_action :destroy, confirm: I18n.t('active_admin.expert.delete_confirmation') do |ids|
+  batch_action :destroy, confirm: I18n.t('active_admin.expert.delete_confirmation', count: 2) do |ids|
     Expert.where(id: ids).destroy_all
     redirect_to collection_path, notice: I18n.t('active_admin.experts.deleted')
   end
