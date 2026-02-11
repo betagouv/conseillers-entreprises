@@ -209,7 +209,7 @@ RSpec.describe Expert do
     let!(:match_taking_care) { create :match, status: :taking_care, expert: old_expert }
     let!(:match_done) { create :match, status: :done, expert: old_expert }
 
-    before { old_expert.transfer_in_progress_matches(new_expert) }
+    before { old_expert.reassign_matches(new_expert) }
 
     it 'transfers only in progress matches to new expert' do
       expect(new_expert.received_matches).to contain_exactly(match_quo, match_taking_care)

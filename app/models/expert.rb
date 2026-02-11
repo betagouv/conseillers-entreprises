@@ -312,15 +312,6 @@ class Expert < ApplicationRecord
     antenne.support_user
   end
 
-  # Utilisé pour la réattribution des matches d'un expert
-  def transfer_in_progress_matches(expert)
-    ActiveRecord::Base.transaction do
-      received_matches.in_progress.each do |match|
-        match.update(expert: expert)
-      end
-    end
-  end
-
   ## Referencing
   def custom_territories?
     territorial_zones.any?
@@ -348,6 +339,14 @@ class Expert < ApplicationRecord
         raise ActiveRecord::RecordNotDestroyed.new(errors.full_messages.to_sentence, self)
       end
       update_columns(SoftDeletable.persons_attributes)
+    end
+  end
+
+  def reassign_matches(expert)
+    ActiveRecord::Base.transaction do
+      received_matches.in_progress.each do |match|
+        match.update(expert: expert)
+      end
     end
   end
 
