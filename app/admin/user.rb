@@ -362,6 +362,8 @@ ActiveAdmin.register User do
   batch_action :destroy, confirm: I18n.t('active_admin.user.delete_confirmation', count: 2) do |ids|
     User.where(id: ids).destroy_all
     redirect_to collection_path, notice: I18n.t('active_admin.user.deleted')
+  rescue ActiveRecord::RecordNotDestroyed => e
+    redirect_back_or_to collection_path, alert: e.record.errors.full_messages.join(". ")
   end
 
   controller do

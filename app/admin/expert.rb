@@ -399,5 +399,7 @@ ActiveAdmin.register Expert do
   batch_action :destroy, confirm: I18n.t('active_admin.expert.delete_confirmation', count: 2) do |ids|
     Expert.where(id: ids).destroy_all
     redirect_to collection_path, notice: I18n.t('active_admin.experts.deleted')
+  rescue ActiveRecord::RecordNotDestroyed => e
+    redirect_back_or_to collection_path, alert: e.record.errors.full_messages.join(". ")
   end
 end
