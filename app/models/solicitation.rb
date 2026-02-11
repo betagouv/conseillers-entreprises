@@ -74,6 +74,7 @@ class Solicitation < ApplicationRecord
 
   attr_accessor :certify_being_company_boss
 
+  before_validation :normalize_insee_code
   before_create :set_uuid, :set_cooperation, :set_provenance_detail
 
   after_update :update_diagnosis
@@ -205,6 +206,10 @@ class Solicitation < ApplicationRecord
 
   ## Callbacks
   #
+
+  def normalize_insee_code
+    self.insee_code = nil if insee_code.blank?
+  end
 
   def set_cooperation
     self.cooperation ||= landing&.cooperation ||

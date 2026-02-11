@@ -173,6 +173,7 @@ end
         it('codes with A (Corse) are valid') { expect(solicitation_with_code('2A001')).to be_valid }
         it('codes with B (Corse) are valid') { expect(solicitation_with_code('2B033')).to be_valid }
         it('valid insee_code') { expect(solicitation_with_code(nil)).to be_valid }
+        it('empty string is valid') { expect(solicitation_with_code('')).to be_valid }
       end
 
       context 'with invalid INSEE codes' do
@@ -187,6 +188,28 @@ end
   end
 
   describe 'callbacks' do
+    describe 'normalize_insee_code' do
+      let(:solicitation) { build(:solicitation, insee_code: insee_code) }
+
+      context 'with empty string' do
+        let(:insee_code) { '' }
+
+        it 'converts to nil' do
+          solicitation.valid?
+          expect(solicitation.insee_code).to be_nil
+        end
+      end
+
+      context 'with valid code' do
+        let(:insee_code) { '75056' }
+
+        it 'preserves the value' do
+          solicitation.valid?
+          expect(solicitation.insee_code).to eq('75056')
+        end
+      end
+    end
+
     describe 'set_cooperation' do
       subject { solicitation.set_cooperation }
 
