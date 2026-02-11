@@ -21,6 +21,10 @@ ActiveAdmin.register User do
       includes = base_includes + additional_includes
       super.preload(includes.uniq)
     end
+
+    def destroy
+      super(location: resource_path(resource)) # Redirect to the show page after a soft-delete
+    end
   end
 
   # Index
