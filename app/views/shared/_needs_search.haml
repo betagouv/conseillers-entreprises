@@ -27,7 +27,7 @@
 
   .fr-accordion.box-shadow-none.fr-my-2v
     %h2.fr-accordion__title
-      - accordion_opened = omnisearch_in_accordion ? needs_search_params.slice(:created_since, :created_until, :omnisearch).values.any?(&:present?) : (needs_search_params[:created_since].present? || needs_search_params[:created_until].present?)
+      - accordion_opened = accordion_should_open?(omnisearch_in_accordion)
       %button.fr-accordion__btn.fr-btn.fr-btn--secondary.fr-btn--sm.fr-p-2v{ type: 'button', aria: { controls: "accordion-inbox", expanded: "#{accordion_opened}" }, data: { turbo: 'false' } }= t('needs.search.more_filters')
     %div{ class: ["fr-collapse", ("fr-px-0 fr-mx-0" if omnisearch_in_accordion)].compact.join(' '), id: 'accordion-inbox' }
       .fr-grid-row.fr-grid-row--gutters
