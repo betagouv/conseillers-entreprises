@@ -8,7 +8,7 @@ module Monitoring
   MATCHES_PERIOD = TimeDurationService::Quarters.new.call.first
   MATCHES_COUNT = (50..)
   MATCHES_NOT_FOR_ME_RATE = (0.3..)
-  MATCHES_DONE_RADE = (..0.25)
+  MATCHES_DONE_RATE = (..0.25)
 
   SOLICITATIONS_PERIOD = TimeDurationService::Years.new.call.first
   SOLICITATIONS_COUNT = (100..)
@@ -33,7 +33,7 @@ module Monitoring
     scope :rarely_done, -> do
       from(includes_match_status_rates(period: MATCHES_PERIOD), self.table_name)
         .where(received_matches_count: MATCHES_COUNT)
-        .where(done_rate: MATCHES_DONE_RADE)
+        .where(done_rate: MATCHES_DONE_RATE)
     end
 
     scope :rarely_satisfying, -> do

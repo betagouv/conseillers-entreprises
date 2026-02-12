@@ -555,9 +555,9 @@ fr:
         no_results: Aucun résultat
         title: Suivi des antennes
       instructions:
-        often_not_for_me: Plus de 30% de refus sur le dernier trimestre calendaire; au moins 50 mises en relation reçues.
-        rarely_done: Moins de 25% d’aide proposée sur le dernier trimestre calendaire; au moins 50 mises en relation reçues.
-        rarely_satisfying: Moins de 45% de rappelé/utile sur la satisfaction d’entreprises sur l’année passée; au moins 100 retours d’entreprises.
+        often_not_for_me: Plus de 30% de refus sur le dernier trimestre calendaire ; au moins 50 mises en relation reçues.
+        rarely_done: Moins de 25% d’aide proposée sur le dernier trimestre calendaire ; au moins 50 mises en relation reçues.
+        rarely_satisfying: Moins de 45% de rappelé/utile sur la satisfaction d’entreprises sur l’année passée ; au moins 100 retours d’entreprises.
       path:
         often_not_for_me: refus_frequents
         rarely_done: peu_d_aide_proposee
