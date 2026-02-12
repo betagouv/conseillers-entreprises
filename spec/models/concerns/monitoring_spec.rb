@@ -55,7 +55,7 @@ RSpec.describe Monitoring do
       stub_const('Monitoring::MATCHES_NOT_FOR_ME_RATE', 0.5..)
       stub_const('Monitoring::MATCHES_PERIOD', 1.day.ago..)
       stub_const('Monitoring::SOLICITATIONS_PERIOD', 1.day.ago..)
-      stub_const('Monitoring::MATCHES_DONE_RADE', ..0.5)
+      stub_const('Monitoring::MATCHES_DONE_RATE', ..0.5)
       stub_const('Monitoring::SOLICITATIONS_COUNT', 2..)
       stub_const('Monitoring::SOLICITATIONS_SATISFYING_RATE', ..0.5)
     end
