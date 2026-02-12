@@ -381,7 +381,11 @@ ActiveAdmin.register Expert do
   end
 
   action_item :destroy, only: :show do
-    link_to t('active_admin.expert.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.expert.delete_confirmation', count: 1) }
+    if expert.received_matches.in_progress.exists?
+      button_tag t('active_admin.expert.delete'), title: t('activerecord.errors.models.expert.attributes.base.cant_delete_experts_with_in_progress_matches'), disabled: true, class: "button-base"
+    else
+      link_to t('active_admin.expert.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.expert.delete_confirmation', count: 1) }
+    end
   end
 
   member_action :normalize_values do
