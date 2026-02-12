@@ -1,14 +1,14 @@
 // Colors for /monitoring
 
-:has([data-monitoring-collection=often_not_for_me])
+[data-monitoring-collection=often_not_for_me]
   --collection-color: var(--orange-terre-battue-main-645)
-:has([data-monitoring-collection=rarely_done])
+[data-monitoring-collection=rarely_done]
   --collection-color: var(--yellow-moutarde-850-200)
-:has([data-monitoring-collection=rarely_satisfying])
+[data-monitoring-collection=rarely_satisfying]
   --collection-color: var(--purple-glycine-sun-319-moon-630-active)
 
 .sidemenu--monitoring
-  .item
+  .item span
     --color-sidemenu__item-icon: var(--collection-color)
 
 .tag--collection-tinted
