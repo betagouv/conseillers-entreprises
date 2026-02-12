@@ -208,7 +208,7 @@ class Need < ApplicationRecord
     where(id: needs_with_matches)
   end
 
-  # Veille : besoins hors relances avec des MER en attente
+  # Optimisation : besoins hors relances avec des MER en attente
   scope :with_filtered_matches_quo, -> do
     range = Range.new(REMINDERS_DAYS[:abandon].days.ago, REMINDERS_DAYS[:last_chance].days.ago)
     relance_experts = Expert.in_reminders_registers
