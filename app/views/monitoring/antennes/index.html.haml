@@ -1,0 +1,13 @@
+- meta title: t('.title')
+- content_for :header, render('header', title: t('.title'), collection_name: @collection_name)
+- content_for :menu, render('menu', collections_count: @collections_counts)
+
+= render 'filters', antennes: @antennes, collection_name: @collection_name
+
+- if @antennes.to_a.size == 0
+  .fr-container.text-center.fr-mt-18v
+    .fr-h3= t('.no_results')
+- else
+  %div{ data: { 'monitoring-collection': @collection_name } }
+    = render partial: 'antenne', collection: @antennes, locals: { collection_name: @collection_name }
+    = paginate @antennes
