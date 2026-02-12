@@ -74,6 +74,7 @@ class Solicitation < ApplicationRecord
 
   attr_accessor :certify_being_company_boss
 
+  before_validation :normalize_insee_code
   before_create :set_uuid, :set_cooperation, :set_provenance_detail
 
   after_update :update_diagnosis
@@ -205,6 +206,10 @@ class Solicitation < ApplicationRecord
 
   ## Callbacks
   #
+
+  def normalize_insee_code
+    self.insee_code = nil if insee_code.blank?
+  end
 
   def set_cooperation
     self.cooperation ||= landing&.cooperation ||
@@ -433,9 +438,9 @@ class Solicitation < ApplicationRecord
   ## Diagnosis preparation
 
   def may_prepare_diagnosis?
-    self.preselected_subject.present? &&
-    FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret)) &&
-    self.not_spam?
+    preselected_subject.present? &&
+    has_valid_siret? &&
+    not_spam?
   end
 
   # diagnosis_errors peut être un ActiveModel::Errors ou un Hash (erreur API)
@@ -530,6 +535,10 @@ class Solicitation < ApplicationRecord
   end
 
   # Trouver les sirets probables des solicitations pour identifier relances et doublons
+  def has_valid_siret?
+    FormatSiret.siret_is_valid(FormatSiret.clean_siret(siret))
+  end
+
   def valid_sirets
     sirets = []
     sirets << self.facility.siret if self.facility.present?
