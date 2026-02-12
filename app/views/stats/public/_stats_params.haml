@@ -2,7 +2,7 @@
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3
     %h2= t('stats.stats_params.title')
     - path = { controller: "stats/public", action: "index" }
-    = form_with url: path, method: :get, skip_enforcing_utf8: true, local: true do |f|
+    = form_with url: path, method: :get, local: true do |f|
       = hidden_field_tag :anchor, 'stats-charts'
       .fr-select-group
         = f.label :region_code, t('stats.stats_params.region'), class: 'fr-label'
