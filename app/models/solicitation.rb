@@ -438,9 +438,9 @@ class Solicitation < ApplicationRecord
   ## Diagnosis preparation
 
   def may_prepare_diagnosis?
-    self.preselected_subject.present? &&
-    FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret)) &&
-    self.not_spam?
+    preselected_subject.present? &&
+    has_valid_siret? &&
+    not_spam?
   end
 
   # diagnosis_errors peut être un ActiveModel::Errors ou un Hash (erreur API)
@@ -535,6 +535,10 @@ class Solicitation < ApplicationRecord
   end
 
   # Trouver les sirets probables des solicitations pour identifier relances et doublons
+  def has_valid_siret?
+    FormatSiret.siret_is_valid(FormatSiret.clean_siret(siret))
+  end
+
   def valid_sirets
     sirets = []
     sirets << self.facility.siret if self.facility.present?
