@@ -2,15 +2,11 @@ require 'rails_helper'
 
 RSpec.describe SearchFilters do
   controller(ApplicationController) do
-    include SearchFilters
+    include SearchFilters # rubocop:disable RSpec/DescribedClass
 
     def index
       initialize_filters(all_filter_keys)
       head :ok
-    end
-
-    def load_filter_options
-      super
     end
 
     def base_needs_for_filters
