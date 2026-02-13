@@ -247,10 +247,20 @@ class Expert < ApplicationRecord
 
     # Experts with specific territorial zones that cover this commune
     experts_with_zones_ids = left_joins(:territorial_zones)
+      # Exact commune match
       .where(territorial_zones: { zone_type: :commune, code: insee_code })
+      # EPCI match
       .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci&.code }))
-      .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
-      .or(left_joins(:territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code })).ids
+      # Departement match
+      .or(left_joins(:territorial_zones).where(
+            "territorial_zones.zone_type = 'departement' AND ? LIKE territorial_zones.code || '%'",
+        insee_code
+          ))
+      # Region match: check if region code is in the regions_codes array
+      .or(left_joins(:territorial_zones).where(
+            "territorial_zones.zone_type = 'region' AND territorial_zones.regions_codes && ARRAY[?]::varchar[]",
+        commune.region_code
+          )).ids
 
     # Get all experts that have specific territorial zones (to exclude them from antenne-based search)
     experts_with_any_zones_ids = with_territorial_zones.ids
@@ -258,10 +268,21 @@ class Expert < ApplicationRecord
     # Experts without specific zones, relying on their antenne's coverage
     experts_without_zones_ids = where.not(id: experts_with_any_zones_ids)
       .left_joins(antenne: :territorial_zones)
+      # Exact commune match
       .where(territorial_zones: { zone_type: :commune, code: insee_code })
+      # EPCI match
       .or(where.not(id: experts_with_any_zones_ids).left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci&.code }))
-      .or(where.not(id: experts_with_any_zones_ids).left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
-      .or(where.not(id: experts_with_any_zones_ids).left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code }))
+      # Departement match
+      .or(where.not(id: experts_with_any_zones_ids).left_joins(antenne: :territorial_zones).where(
+            "territorial_zones.zone_type = 'departement' AND ? LIKE territorial_zones.code || '%'",
+        insee_code
+          ))
+      # Region match
+      .or(where.not(id: experts_with_any_zones_ids).left_joins(antenne: :territorial_zones).where(
+            "territorial_zones.zone_type = 'region' AND territorial_zones.regions_codes && ARRAY[?]::varchar[]",
+        commune.region_code
+          ))
+      # Global zone experts
       .or(where.not(id: experts_with_any_zones_ids).left_joins(antenne: :territorial_zones).where(is_global_zone: true)).ids
 
     where(id: experts_with_zones_ids).or(where(id: experts_without_zones_ids))

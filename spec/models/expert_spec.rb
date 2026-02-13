@@ -403,6 +403,54 @@ RSpec.describe Expert do
         expect(subject.count).to eq 0
       end
     end
+
+    context "with arrondissements" do
+      let(:insee_code_paris_1er) { "75101" } # Paris 1er Arrondissement
+
+      subject { described_class.in_commune(insee_code_paris_1er) }
+
+      context "when expert has departement 75 as territory" do
+        let!(:expert_with_dept_75) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :departement, code: "75")] }
+        let!(:expert_with_dept_69) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :departement, code: "69")] }
+
+        it "matches expert with departement 75" do
+          expect(subject).to include(expert_with_dept_75)
+          expect(subject).not_to include(expert_with_dept_69)
+        end
+      end
+
+      context "when expert has region 11 (Île-de-France) as territory" do
+        let!(:expert_with_region_11) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :region, code: "11")] }
+        let!(:expert_with_region_84) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :region, code: "84")] }
+
+        it "matches expert with region 11" do
+          expect(subject).to include(expert_with_region_11)
+          expect(subject).not_to include(expert_with_region_84)
+        end
+      end
+
+      context "when expert has commune 75101 as territory" do
+        let!(:expert_with_commune) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: insee_code_paris_1er)] }
+        let!(:expert_with_other_commune) { create :expert, :with_expert_subjects, territorial_zones: [create(:territorial_zone, :commune, code: "75102")] }
+
+        it "matches expert with exact commune" do
+          expect(subject).to include(expert_with_commune)
+          expect(subject).not_to include(expert_with_other_commune)
+        end
+      end
+
+      context "when antenne has departement 75 as territory" do
+        let(:antenne_with_dept_75) { create :antenne, territorial_zones: [create(:territorial_zone, :departement, code: "75")] }
+        let(:antenne_with_dept_69) { create :antenne, territorial_zones: [create(:territorial_zone, :departement, code: "69")] }
+        let!(:expert_with_antenne_75) { create :expert, :with_expert_subjects, antenne: antenne_with_dept_75 }
+        let!(:expert_with_antenne_69) { create :expert, :with_expert_subjects, antenne: antenne_with_dept_69 }
+
+        it "matches expert whose antenne has departement 75" do
+          expect(subject).to include(expert_with_antenne_75)
+          expect(subject).not_to include(expert_with_antenne_69)
+        end
+      end
+    end
   end
 
   describe '#with_identical_user?' do
