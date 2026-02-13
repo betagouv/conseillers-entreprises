@@ -11,7 +11,7 @@
     %h2= t('.title')
     %p= t('.sub_title')
 
-    = form_with model: @diagnosis, url: conseiller_diagnoses_path, local: true, html: { data: { turbo: false } } do |form|
+    = form_with model: @diagnosis, url: conseiller_diagnoses_path, html: { data: { turbo: false } } do |form|
       - if @diagnosis.solicitation.present?
         = form.hidden_field :solicitation_id
       = form.fields_for :facility do |facility_form|

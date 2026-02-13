@@ -11,7 +11,7 @@
         %p= t('mailers.company_mailer.satisfaction.intro_html', company: @company_satisfaction.need.company.name)
         %p.fr-text--lg.bold= @company_satisfaction.need.subject.label
 
-        = form_with model: @company_satisfaction, class: 'satisfaction-form', local: true do |f|
+        = form_with model: @company_satisfaction, class: 'satisfaction-form' do |f|
           = f.hidden_field :need_id
           .fr-form-group
             %fieldset.fr-fieldset.fr-fieldset--inline
