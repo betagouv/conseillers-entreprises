@@ -4,15 +4,16 @@ RSpec.describe SoftDeletable do
   describe 'For Users' do
     context 'destroy (soft_delete)' do
       context 'user with single_user_experts' do
-        # Utilisateur avec un seul expert du même nom KO
-        let(:user) { create :user }
-        let!(:expert) { create :expert, users: [user] }
+        # Utilisateur avec un seul expert du même nom
+        subject(:user) { create :user, :with_expert }
+
+        let!(:expert) { user.single_user_experts.first }
 
         before { user.destroy }
 
-        it 'Soft delete the user but not his expert' do
-          expect(user.deleted?).to be true
-          expect(expert.reload.deleted?).to be false
+        it 'soft-deletes the expert too' do
+          expect(user).to be_deleted
+          expect(expert.reload).to be_deleted
         end
       end
 

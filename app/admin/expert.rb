@@ -54,6 +54,10 @@ ActiveAdmin.register Expert do
         end
       end
     end
+
+    def destroy
+      super(location: resource_path(resource)) # Redirect to the show page after a soft-delete
+    end
   end
 
   # Index
@@ -377,7 +381,11 @@ ActiveAdmin.register Expert do
   end
 
   action_item :destroy, only: :show do
-    link_to t('active_admin.expert.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.expert.delete_confirmation') }
+    if expert.received_matches.in_progress.exists?
+      button_tag t('active_admin.expert.delete'), title: t('activerecord.errors.models.expert.attributes.base.cant_delete_experts_with_in_progress_matches'), disabled: true, class: "button-base"
+    else
+      link_to t('active_admin.expert.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.expert.delete_confirmation', count: 1) }
+    end
   end
 
   member_action :normalize_values do
@@ -392,8 +400,10 @@ ActiveAdmin.register Expert do
     redirect_back_or_to collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
   end
 
-  batch_action :destroy, confirm: I18n.t('active_admin.expert.delete_confirmation') do |ids|
-    Expert.where(id: ids).find_each { |u| u.soft_delete }
+  batch_action :destroy, confirm: I18n.t('active_admin.expert.delete_confirmation', count: 2) do |ids|
+    Expert.where(id: ids).destroy_all
     redirect_to collection_path, notice: I18n.t('active_admin.experts.deleted')
+  rescue ActiveRecord::RecordNotDestroyed => e
+    redirect_back_or_to collection_path, alert: e.record.errors.full_messages.join(". ")
   end
 end

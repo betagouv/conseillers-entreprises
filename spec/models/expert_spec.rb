@@ -155,21 +155,33 @@ RSpec.describe Expert do
   describe 'soft deletion' do
     subject(:expert) { create :expert }
 
-    before { expert.destroy }
-
     describe 'deleting user does not really destroy' do
-      it { is_expected.to be_deleted }
-      it { is_expected.to be_persisted }
-      it { is_expected.not_to be_destroyed }
+      it do
+        expert.destroy
+
+        is_expected.to be_deleted
+        is_expected.to be_persisted
+        is_expected.not_to be_destroyed
+      end
     end
 
     describe 'deleted experts get their attributes nilled, and full_name masked' do
       it do
-        expect(expert[:full_name]).to eq I18n.t('deleted_account.full_name')
-        expect(expert[:email]).to be_nil
-        expect(expert[:phone_number]).to be_nil
+        expert.destroy
 
-        expect(expert.full_name).not_to be_nil
+        expect(expert.full_name).to eq I18n.t('deleted_account.full_name')
+        expect(expert.email).to be_nil
+        expect(expert.phone_number).to be_nil
+      end
+    end
+
+    describe 'deleting with in-progress matches fails' do
+      before do
+        create(:match, expert: expert, status: :quo)
+      end
+
+      it do
+        expect{ expert.destroy }.to raise_error(ActiveRecord::RecordNotDestroyed)
       end
     end
   end
@@ -197,7 +209,7 @@ RSpec.describe Expert do
     let!(:match_taking_care) { create :match, status: :taking_care, expert: old_expert }
     let!(:match_done) { create :match, status: :done, expert: old_expert }
 
-    before { old_expert.transfer_in_progress_matches(new_expert) }
+    before { old_expert.reassign_matches(new_expert) }
 
     it 'transfers only in progress matches to new expert' do
       expect(new_expert.received_matches).to contain_exactly(match_quo, match_taking_care)

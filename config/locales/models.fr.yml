@@ -19,7 +19,9 @@ fr:
       activity_reports: Rapports d'activité
     expert:
       delete: Supprimer l’expert (sans ses utilisateurs)
-      delete_confirmation: Voulez-vous supprimer cet expert ?
+      delete_confirmation:
+        one: Voulez-vous supprimer cet expert ?
+        other: Voulez-vous supprimer ces experts ?
       match_filters: Filtres de mise en relation de l’expert
       no_specifique_zone: Cet expert n’a pas de territoire spécifique
       reassign_matches_done:
@@ -161,7 +163,9 @@ fr:
       create_expert_done: L’expert a bien été créé
       created: Utilisateur créé avec succès
       delete: Supprimer l’utilisateur
-      delete_confirmation: Voulez-vous supprimer cet utilisateur ?
+      delete_confirmation:
+        one: Voulez-vous supprimer cet utilisateur ? Cela va aussi supprimer son équipe individuelle.
+        other: Voulez-vous supprimer ces utilisateurs ? Cela va aussi supprimer leur équipe individuelle.
       deleted: Utilisateurs supprimés avec succès
       do_invite: Envoyer la ou les invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
@@ -175,8 +179,6 @@ fr:
       saved: Conseiller mis à jour
       send_emails: Envoi d’emails
       user_info: Informations utilisateur
-    users:
-      delete_confirmation: Voulez-vous supprimer ces utilisateurs ? Cela va aussi supprimer leur expert personnel.
   activeadmin:
     feedback:
       created_at: Date de création du commentaire
@@ -644,7 +646,6 @@ fr:
         experts:
           one: Équipe
           other: Équipes
-        have_not_relevant_expert: "%{user} n’a pas d’expert personnel avec des compétences"
         invitation_accepted_at: Invitation acceptée
         invitation_sent_at: Invitation envoyée
         invitees: Invités
@@ -714,6 +715,10 @@ fr:
               solicitation_has_no_preselected_subject: il n’y a pas de sujet présélectionné
             solicitation:
               has_already_a_diagnosis: Une analyse existe deja pour cette sollicitation.
+        expert:
+          attributes:
+            base:
+              cant_delete_experts_with_in_progress_matches: Les mises en relation en cours doivent être transférées à un autre expert avant de pouvoir supprimer celui-ci.
         landing_subjects:
           restrict_dependent_destroy:
             solicitations: Vous ne pouvez pas supprimer le sujet de landing car des solicitations y font référence

@@ -21,6 +21,10 @@ ActiveAdmin.register User do
       includes = base_includes + additional_includes
       super.preload(includes.uniq)
     end
+
+    def destroy
+      super(location: resource_path(resource)) # Redirect to the show page after a soft-delete
+    end
   end
 
   # Index
@@ -313,7 +317,11 @@ ActiveAdmin.register User do
   config.action_items.delete_at(2)
 
   action_item :destroy, only: :show do
-    link_to t('active_admin.user.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.user.delete_confirmation') }
+    if Match.sent.where(expert: user.single_user_experts).in_progress.exists?
+      button_tag t('active_admin.user.delete'), title: t('activerecord.errors.models.expert.attributes.base.cant_delete_experts_with_in_progress_matches'), disabled: true, class: "button-base"
+    else
+      link_to t('active_admin.user.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.user.delete_confirmation', count: 1) }
+    end
   end
 
   member_action :normalize_values do
@@ -355,9 +363,11 @@ ActiveAdmin.register User do
     redirect_back_or_to collection_path, notice: I18n.t('active_admin.user.invited_to_demo')
   end
 
-  batch_action :destroy, confirm: I18n.t('active_admin.users.delete_confirmation') do |ids|
-    User.where(id: ids).find_each { |u| u.soft_delete }
+  batch_action :destroy, confirm: I18n.t('active_admin.user.delete_confirmation', count: 2) do |ids|
+    User.where(id: ids).destroy_all
     redirect_to collection_path, notice: I18n.t('active_admin.user.deleted')
+  rescue ActiveRecord::RecordNotDestroyed => e
+    redirect_back_or_to collection_path, alert: e.record.errors.full_messages.join(". ")
   end
 
   controller do

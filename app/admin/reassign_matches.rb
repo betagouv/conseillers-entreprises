@@ -6,7 +6,7 @@ ActiveAdmin.register_page 'Reassign matches' do
     old_expert = Expert.find(params[:expert_id])
     selected_expert = Expert.find(params[:selected_expert_id])
     begin
-      result = old_expert.transfer_in_progress_matches(selected_expert)
+      result = old_expert.reassign_matches(selected_expert)
       flash[:notice] = t('active_admin.expert.reassign_matches_done', count: result.count, expert: selected_expert)
       redirect_to admin_expert_path(old_expert)
     rescue StandardError => e
