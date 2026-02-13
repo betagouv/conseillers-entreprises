@@ -1,4 +1,4 @@
-= form_with url: request.url, method: :get, skip_enforcing_utf8: true, local: true, data: { turbo: false } do |f|
+= form_with url: request.url, method: :get, local: true, data: { turbo: false } do |f|
   .fr-grid-row.fr-py-3w.fr-mb-3w.white-bg#stats-params{ data: { controller: 'filters', url: load_filter_options_team_index_path } }
 
     .fr-col-12.fr-col-md-4.fr-p-2w
