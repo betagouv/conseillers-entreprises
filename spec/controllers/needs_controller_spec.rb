@@ -161,9 +161,7 @@ RSpec.describe NeedsController do
       end
 
       it 'returns subjects' do
-        json_response = response.parsed_body
-
-        expect(json_response).to have_key('subjects')
+        expect(response.parsed_body).to have_key('subjects')
       end
 
       context 'with theme_id parameter' do
