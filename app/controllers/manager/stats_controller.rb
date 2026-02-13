@@ -1,7 +1,7 @@
 module Manager
   class StatsController < ApplicationController
     include StatsUtilities
-    include ManagerFilters
+    include SearchFilters
 
     before_action :authorize_index_manager_stats, only: %i[index load_data]
     before_action :set_stats_params, only: :index
@@ -58,7 +58,7 @@ module Manager
 
     # Filtering
     #
-    # utilisé pour initialisé les filtres ManagerFilters
+    # utilisé pour initialisé les filtres SearchFilters
     def base_needs_for_filters
       @base_needs_for_filters ||= current_user.supervised_antennes.by_higher_territorial_level.first.perimeter_received_needs.distinct
     end
