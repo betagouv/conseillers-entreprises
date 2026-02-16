@@ -1,15 +1,18 @@
 // Colors for /monitoring
 
 [data-monitoring-collection=often_not_for_me]
-  --collection-color: var(--orange-terre-battue-main-645)
+  --collection-color-line: var(--orange-terre-battue-main-645)
+  --collection-color-fill: var(--orange-terre-battue-850-200)
 [data-monitoring-collection=rarely_done]
-  --collection-color: var(--yellow-moutarde-850-200)
+  --collection-color-line: var(--yellow-moutarde-main-679)
+  --collection-color-fill: var(--background-action-low-yellow-moutarde)
 [data-monitoring-collection=rarely_satisfying]
-  --collection-color: var(--purple-glycine-sun-319-moon-630-active)
+  --collection-color-line: var(--purple-glycine-main-494)
+  --collection-color-fill: var(--background-action-low-purple-glycine)
 
 .sidemenu--monitoring
   .item span
-    --color-sidemenu__item-icon: var(--collection-color)
+    --color-sidemenu__item-icon: var(--collection-color-line)
 
 .tag--collection-tinted
-  background-color: var(--collection-color)
+  background-color: var(--collection-color-fill)
