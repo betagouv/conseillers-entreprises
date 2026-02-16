@@ -1,6 +1,12 @@
 if ENV['CI'] || ENV['COVERAGE']
   require 'simplecov'
-  SimpleCov.start 'rails'
+  require 'simplecov_json_formatter'
+  SimpleCov.start 'rails' do
+    formatter SimpleCov::Formatter::MultiFormatter.new([
+      SimpleCov::Formatter::HTMLFormatter,
+      SimpleCov::Formatter::JSONFormatter
+    ])
+  end
 end
 
 ENV['RAILS_ENV'] ||= 'test'
