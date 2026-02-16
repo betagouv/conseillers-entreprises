@@ -105,7 +105,7 @@ jobs:
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - qlty/coverage_publish:
-          files: coverage/.resultset.json
+          files: coverage/coverage.json
           total_parts_count: 4
       - store_test_results:
           path: /tmp/test-results
