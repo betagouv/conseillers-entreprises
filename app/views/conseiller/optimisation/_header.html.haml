@@ -2,4 +2,4 @@
   = title
 
 - current_page = t(controller.action_name, scope: [:conseiller, :optimisation, :titles], default: title)
-= render 'shared/breadcrumb', pages: [{ title: title, path: conseiller_optimisation_index_path }], current_page: current_page
+= render 'shared/breadcrumb', pages: [{ title: t('conseiller.optimisation.index.title'), path: conseiller_optimisation_index_path }], current_page: current_page
