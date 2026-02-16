@@ -186,7 +186,13 @@ fr:
   activerecord:
     attributes:
       antenne:
+        done_count: MER prises en charges
+        done_rate: Taux de prise en charge
         match_filters: Filtres pour les mises en relation
+        not_for_me_count: MER refusées
+        not_for_me_rate: Taux de refus
+        satisfying_count: Retours “oui/oui”
+        satisfying_rate: Taux de “oui/oui”
       antenne/territorial_levels:
         local: Local
         national: National
@@ -757,8 +763,8 @@ fr:
         one: Entreprise
         other: Entreprises
       company_satisfaction:
-        one: Satisfaction
-        other: Satisfactions
+        one: Avis d’entreprise
+        other: Avis d’entreprises
       contact:
         one: Contact
         other: Contacts

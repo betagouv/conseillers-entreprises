@@ -1,0 +1,24 @@
+/# locals: (antenne:, collection_name:)
+
+.fr-grid-row.fr-grid-row--gutters
+  .fr-col-12
+    .fr-card
+      .fr-card__header.fr-px-4w.fr-py-2w
+        %h2.fr-card__title
+          = link_to antenne.name, admin_antenne_path(antenne)
+      .fr-card__body
+        .fr-card__content.fr-py-0
+          .fr-card__desc
+            %ul.list-unstyled.card-expert__list
+              %li{ title: Antenne.human_attribute_name(:institution) }
+                %span.picto.ri-government-fill{ 'aria-hidden': 'true' }
+                = antenne.institution.name
+              - if antenne.parent_antenne.present?
+                %li
+                  %span.picto.ri-government-line{ 'aria-hidden': 'true' }
+                  %span
+                    = Antenne.human_attribute_name(:parent_antenne) + " : "
+                    %b= antenne.parent_antenne.name
+        .fr-card__footer.fr-pb-1w
+          .fr-tags-group
+            = render partial: "tags_#{collection_name}", locals: { antenne: antenne }

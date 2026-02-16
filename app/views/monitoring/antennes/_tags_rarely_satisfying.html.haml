@@ -1,0 +1,14 @@
+/# locals: (antenne:)
+
+%p.fr-tag
+  %span
+    %b= antenne.company_satisfactions_count
+    = CompanySatisfaction.model_name.human(count: 2).downcase
+%p.fr-tag
+  %span
+    %b= antenne.satisfying_count
+    = Antenne.human_attribute_name(:satisfying_count).downcase
+%p.fr-tag.tag--collection-tinted
+  %span
+    = Antenne.human_attribute_name(:satisfying_rate)
+    %b= number_to_percentage(100 * antenne.satisfying_rate, precision: 0)

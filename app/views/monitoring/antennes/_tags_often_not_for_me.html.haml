@@ -1,0 +1,14 @@
+/# locals: (antenne:)
+
+%p.fr-tag
+  %span
+    %b= antenne.received_matches_count
+    = Antenne.human_attribute_name(:received_matches, count: 2).downcase
+%p.fr-tag
+  %span
+    %b= antenne.not_for_me_count
+    = Antenne.human_attribute_name(:not_for_me_count)
+%p.fr-tag.tag--collection-tinted
+  %span
+    = Antenne.human_attribute_name(:not_for_me_rate)
+    %b= number_to_percentage(100 * antenne.not_for_me_rate, precision: 0)

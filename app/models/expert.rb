@@ -29,6 +29,7 @@ class Expert < ApplicationRecord
   include InvolvementConcern
   include SoftDeletable
   include WithTerritorialZones
+  include Monitoring
 
   ## Associations
   #
