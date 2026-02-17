@@ -1,6 +1,6 @@
 /-# locals: (needs:, filters:, load_filter_options_path:)
 - options = needs_search_options
-= form_with url: request.path, method: :get, local: true, class: 'fr-mb-2w', data: { controller: 'filters', url: load_filter_options_path } do |f|
+= form_with url: request.path, method: :get, class: 'fr-mb-2w', data: { controller: 'filters', url: load_filter_options_path } do |f|
   -# on n'affiche le select que si BAL manager + plusieurs antennes gérées
   - if filters[:antennes].present? && filters[:antennes].size > 1
     .fr-grid-row.fr-grid-row--gutters
