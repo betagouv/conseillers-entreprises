@@ -44,6 +44,7 @@ class ReportsController < ApplicationController
     @quarters = @antenne.stats_reports.order(start_date: :desc).pluck(:start_date, :end_date).uniq
   end
 
+  # SearchFilter
   def base_needs_for_filters
     @base_needs_for_filters ||= @antenne.perimeter_received_needs.distinct
   end

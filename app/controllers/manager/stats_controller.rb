@@ -58,17 +58,15 @@ module Manager
 
     # Filtering
     #
-    # utilisé pour initialiser les filtres SearchFilters
+    # SearchFilters
     def base_needs_for_filters
       @base_needs_for_filters ||= current_user.supervised_antennes.by_higher_territorial_level.first.perimeter_received_needs.distinct
     end
 
-    # Utilisé à l'initialisation de la page
     def all_filter_keys
       [:antennes, :regions, :themes, :subjects, :cooperations]
     end
 
-    # Utilisé lors des chargements dynamiques js des options
     def dynamic_filter_keys
       [:subjects]
     end

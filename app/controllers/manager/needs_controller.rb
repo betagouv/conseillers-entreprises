@@ -55,7 +55,7 @@ class Manager::NeedsController < ApplicationController
 
   # Filtering
   #
-  # utilisé pour initialisé les filtres SearchFilters
+  # SearchFilters
   def base_needs_for_filters
     @base_needs_for_filters ||= @recipient.perimeter_received_needs.distinct
   end
