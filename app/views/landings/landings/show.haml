@@ -18,10 +18,10 @@
           .fr-col-12.fr-col-md-5#col-image
             = picture_tag { tag.source(srcset: image_path("home-430w.png"), media: "(max-width: 430px)") + tag.source(srcset: image_path("home.webp")) + image_tag("home.png", alt: "", fetchpriority: "high") }
 
-  - if in_iframe?
-    = render_information_banner(@landing)
-  - else
+  - unless in_iframe?
     #scroll-section
+
+  = render 'landings/landings/information_banner', landing: @landing
 
   - if @landing.layout_single_page?
     = render 'single_page', landing_themes: @landing.landing_themes, landing: @landing
