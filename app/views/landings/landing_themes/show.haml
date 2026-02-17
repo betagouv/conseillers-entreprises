@@ -26,6 +26,7 @@
   .fr-container--fluid.light-blue-bg.fr-py-7w.landing
     .fr-container.landing-subject-section
       %h2.fr-h3.card-section-header= t('you_wish')
+      = render_information_banner(@landing)
       .fr-grid-row.fr-grid-row--gutters
         = render partial: 'landings/landing_subjects/card', collection: @landing_subjects, as: :landing_subject, locals: { landing: @landing }
 
