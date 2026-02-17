@@ -119,6 +119,7 @@ class NeedsController < ApplicationController
     @user
   end
 
+  # SearchFilter
   def base_needs_for_filters
     @base_needs_for_filters ||= current_user.received_needs.distinct
   end
