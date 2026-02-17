@@ -58,7 +58,7 @@ module Manager
 
     # Filtering
     #
-    # utilisé pour initialisé les filtres SearchFilters
+    # utilisé pour initialiser les filtres SearchFilters
     def base_needs_for_filters
       @base_needs_for_filters ||= current_user.supervised_antennes.by_higher_territorial_level.first.perimeter_received_needs.distinct
     end
