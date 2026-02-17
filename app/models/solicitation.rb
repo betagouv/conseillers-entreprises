@@ -176,6 +176,9 @@ class Solicitation < ApplicationRecord
     required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
+    if required_fields.include?(:location) && location.present?
+      errors.add(:location, :blank) if insee_code.blank?
+    end
     # on ne vérifie la validité du siret qu'à cette étape, car on a bcp de vieilles solicitations avec un siret invalide
     if company_step_is_siret? && siret.present?
       self.siret = FormatSiret.clean_siret(siret)
