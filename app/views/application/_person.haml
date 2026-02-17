@@ -13,8 +13,10 @@
         %span.picto.ri-contacts-book-line{ 'aria-hidden': 'true' }
         = job
     - if phone_number.present?
-      %li.li--marker.li--phone-line
+      %li
+        %span.picto.ri-phone-line{ 'aria-hidden': 'true' }
         = link_to(phone_number, "tel:#{ERB::Util.url_encode(phone_number)}", class: 'fr-link')
     - if email.present?
-      %li.li--marker.li--mail-line
+      %li
+        %span.picto.ri-mail-line{ 'aria-hidden': 'true' }
         = mail_to email, email, class: 'fr-link'
