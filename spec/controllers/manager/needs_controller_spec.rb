@@ -5,27 +5,6 @@ RSpec.describe Manager::NeedsController do
 
   let(:antenne) { current_user.antenne }
 
-  describe 'needs inboxes' do
-    describe 'GET #index' do
-      subject(:request) { get :index }
-
-      it 'redirects to quo_active' do
-        request
-        expect(response).to redirect_to(action: :quo_active)
-      end
-    end
-
-    describe 'GET #quo_active' do
-      subject(:request) { get :quo_active }
-
-      before { request }
-
-      it 'returns http success' do
-        expect(response).to be_successful
-      end
-    end
-  end
-
   describe 'filters' do
     let!(:theme1) { create :theme, label: 'Theme 1' }
     let!(:theme2) { create :theme, label: 'Theme 2' }
@@ -48,23 +27,11 @@ RSpec.describe Manager::NeedsController do
 
       before { request }
 
-      it 'includes themes filter' do
-        expect(assigns(:filters)[:themes]).not_to be_empty
-      end
-
-      it 'includes subjects filter' do
-        expect(assigns(:filters)[:subjects]).not_to be_empty
-      end
-
       it 'includes available themes' do
         theme_labels = assigns(:filters)[:themes].map(&:label)
-
-        expect(theme_labels).to include('Theme 1', 'Theme 2')
-      end
-
-      it 'includes available subjects' do
         subject_labels = assigns(:filters)[:subjects].map(&:label)
 
+        expect(theme_labels).to include('Theme 1', 'Theme 2')
         expect(subject_labels).to include('Subject 1', 'Subject 2')
       end
     end

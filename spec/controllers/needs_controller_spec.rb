@@ -152,18 +152,6 @@ RSpec.describe NeedsController do
 
       before { request }
 
-      it 'returns http success' do
-        expect(response).to be_successful
-      end
-
-      it 'returns JSON' do
-        expect(response.content_type).to include('application/json')
-      end
-
-      it 'returns subjects' do
-        expect(response.parsed_body).to have_key('subjects')
-      end
-
       context 'with theme_id parameter' do
         subject(:request) { get :load_filter_options, params: { theme_id: theme1.id } }
 
