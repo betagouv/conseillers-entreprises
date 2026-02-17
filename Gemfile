@@ -81,6 +81,7 @@ gem 'parallel'
 gem "sentry-ruby"
 gem "sentry-rails"
 gem "sentry-sidekiq"
+gem "appsignal"
 
 # Helper gems
 gem 'browser'
