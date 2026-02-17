@@ -30,7 +30,7 @@
     %h2.fr-accordion__title
       - accordion_opened = accordion_should_open?(options[:omnisearch_in_accordion])
       %button.fr-accordion__btn.fr-btn.fr-btn--secondary.fr-btn--sm.fr-p-2v{ type: 'button', aria: { controls: "accordion-inbox", expanded: "#{accordion_opened}" }, data: { turbo: 'false' } }= t('needs.search.more_filters')
-    %div{ class: ["fr-collapse", ("fr-px-0 fr-mx-0" if options[:omnisearch_in_accordion])].compact.join(' '), id: 'accordion-inbox' }
+    #accordion-inbox{ class: class_names("fr-collapse", options[:omnisearch_in_accordion] => "fr-px-0 fr-mx-0") }
       .fr-grid-row.fr-grid-row--gutters
         .fr-col-md-6.fr-col-12
           = f.label :created_since, t('needs.search.created_since'), class: 'fr-label'
