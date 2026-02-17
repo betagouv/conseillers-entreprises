@@ -18,15 +18,4 @@ module NeedsHelper
     end
   end
 
-  def manager_needs_search?
-    controller_path.start_with?('manager/')
-  end
-
-  def needs_search_options
-    if manager_needs_search?
-      { show_cooperation: true, omnisearch_in_accordion: true, use_cooperation_label: true }
-    else
-      { show_cooperation: false, omnisearch_in_accordion: false, use_cooperation_label: false }
-    end
-  end
 end
