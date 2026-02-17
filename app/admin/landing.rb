@@ -92,6 +92,7 @@ ActiveAdmin.register Landing do
     attributes_table title: I18n.t("landings.landings.admin.iframe_fields") do
       row(:iframe_category) { |landing| human_attribute_status_tag landing, :iframe_category }
       row :custom_css
+      row :information_banner
     end
 
     attributes_table title: I18n.t("active_admin.meta") do
@@ -119,7 +120,7 @@ ActiveAdmin.register Landing do
                 :emphasis, :home_description,
                 :meta_title, :meta_description,
                 :integration, :cooperation_id, :url_path,
-                :iframe_category, :custom_css,
+                :iframe_category, :custom_css, :information_banner,
                 landing_joint_themes_attributes: landing_joint_themes_attributes
 
   form title: :title do |f|
@@ -143,6 +144,7 @@ ActiveAdmin.register Landing do
     f.inputs I18n.t("landings.landings.admin.iframe_fields") do
       f.input :iframe_category, as: :select, collection: Landing.human_attribute_values(:iframe_category).invert
       f.input :custom_css, as: :text, input_html: { style: 'font-family:monospace', rows: 10 }
+      f.input :information_banner, as: :quill_editor
     end
 
     panel I18n.t("active_admin.meta") do
