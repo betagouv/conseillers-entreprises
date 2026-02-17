@@ -112,6 +112,9 @@ GEM
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
+    appsignal (4.8.2)
+      logger
+      rack (>= 2.0.0)
     arbre (1.7.0)
       activesupport (>= 3.0.0)
       ruby2_keywords (>= 0.0.2)
@@ -756,6 +759,7 @@ DEPENDENCIES
   activeadmin_quill_editor (~> 1.3.0)
   acts_as_list
   annotate
+  appsignal
   auto_strip_attributes
   awesome_print
   aws-sdk-s3
