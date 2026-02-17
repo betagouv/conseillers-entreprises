@@ -185,6 +185,51 @@ end
         it('codes with spaces') { expect(solicitation_with_code('750 6')).not_to be_valid }
       end
     end
+
+    describe 'validation location / insee_code presence' do
+      subject { solicitation.errors }
+
+      before { solicitation.validate }
+
+      let(:solicitation) do
+        build(:solicitation, status: :step_description,
+              landing_subject: build(:landing_subject, fields_mode: fields_mode),
+              insee_code: insee_code, location: location)
+      end
+
+      context "subject with siret mode" do
+        let(:fields_mode) { :siret }
+        let(:insee_code) { nil }
+        let(:location) { nil }
+
+        it { is_expected.to be_empty }
+      end
+
+      context "subject with location mode" do
+        let(:fields_mode) { :location }
+
+        context "no insee code" do
+          let(:insee_code) { nil }
+          let(:location) { "test" }
+
+          it { is_expected.to include(:location) }
+        end
+
+        context "no location" do
+          let(:insee_code) { "12345" }
+          let(:location) { nil }
+
+          it { is_expected.to include(:location) }
+        end
+
+        context "insee code and location" do
+          let(:insee_code) { "12345" }
+          let(:location) { "test" }
+
+          it { is_expected.to be_empty }
+        end
+      end
+    end
   end
 
   describe 'callbacks' do
