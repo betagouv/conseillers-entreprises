@@ -41,8 +41,8 @@ RSpec.describe Solicitation do
     describe 'validate siret' do
 
       describe 'moment of validation' do
-        let(:subject_with_siret) { create :landing_subject, requires_siret: true }
-        let(:subject_without_siret) { create :landing_subject, requires_siret: false }
+        let(:subject_with_siret) { create :landing_subject, fields_mode: :siret }
+        let(:subject_without_siret) { create :landing_subject, fields_mode: :location }
         # solicitation à l'étape contact ko
         let(:contact_solicitation) { build :solicitation, status: :step_contact, landing_subject: subject_with_siret }
         # solicitation à l'étape company ko

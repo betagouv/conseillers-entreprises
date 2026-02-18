@@ -168,19 +168,18 @@ class Solicitation < ApplicationRecord
   end
 
   validate if: -> { status_step_contact? || status_step_company? || status_step_description? || landing&.api? } do
-    contact_step_required_fields.each do |attr|
+    CONTACT_FIELDS.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
   end
   validate if: -> { status_step_description? || landing&.api? } do
-    required_fields.each do |attr|
-      errors.add(attr, :blank) if self.public_send(attr).blank?
-    end
-    if required_fields.include?(:location) && location.present?
-      errors.add(:location, :blank) if insee_code.blank?
+    if landing_subject.fields_mode_siret?
+      errors.add(:siret, :blank) if siret.blank?
+    elsif landing_subject.fields_mode_location?
+      errors.add(:location, :blank) if location.blank? || insee_code.blank?
     end
     # on ne vérifie la validité du siret qu'à cette étape, car on a bcp de vieilles solicitations avec un siret invalide
-    if company_step_is_siret? && siret.present?
+    if landing_subject.fields_mode_siret? && siret.present?
       self.siret = FormatSiret.clean_siret(siret)
       if !FormatSiret.siret_is_valid(siret)
         errors.add(:siret, :must_be_a_valid_siret)
@@ -578,24 +577,7 @@ class Solicitation < ApplicationRecord
 
   ## Visible fields in form
   #
-  BASE_REQUIRED_FIELDS = %i[full_name phone_number email]
-  DEFAULT_REQUIRED_FIELDS = %i[full_name phone_number email siret]
-
-  def contact_step_required_fields
-    BASE_REQUIRED_FIELDS
-  end
-
-  def company_step_required_fields
-    landing_subject&.required_fields || %i[siret]
-  end
-
-  def company_step_is_siret?
-    company_step_required_fields == [:siret]
-  end
-
-  def required_fields
-    contact_step_required_fields + company_step_required_fields
-  end
+  CONTACT_FIELDS = %i[full_name phone_number email]
 
   FIELD_TYPES = {
     full_name: 'text',

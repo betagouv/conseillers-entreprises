@@ -4,7 +4,7 @@ require 'api_helper'
 describe 'Landings', :js, :flaky do
   let(:pde_subject) { create :subject }
   let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
-  let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, subject: pde_subject, title: "Super sujet", description: "Description LS", requires_siret: true }
+  let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, subject: pde_subject, title: "Super sujet", description: "Description LS", fields_mode: :siret }
 
   describe 'single_page_layout' do
     let!(:landing) { create :landing, integration: :intern, slug: 'intern', layout: 'single_page' }

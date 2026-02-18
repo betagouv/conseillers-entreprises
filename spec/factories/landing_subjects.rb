@@ -7,5 +7,6 @@ FactoryBot.define do
     form_title { Faker::Lorem.words }
     description { Faker::Lorem.sentence }
     form_description { Faker::Lorem.sentence }
+    fields_mode { :siret }
   end
 end

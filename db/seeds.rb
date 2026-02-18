@@ -23,7 +23,7 @@ if Rails.env.development? || ENV['IS_REVIEW_APP'] == 'true'
     form_title: "Form Titre landing subject test",
     form_description: "Form Description landing subject test",
     description_explanation: "Description explication landing subject test",
-    requires_siret: true,
+    fields_mode: :siret,
   )
   ## Institution and Antenne
   institution = Institution.find_or_create_by!(name: 'Test Institution')
