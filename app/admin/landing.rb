@@ -76,6 +76,7 @@ ActiveAdmin.register Landing do
         row :paused_at
         row(:layout) { |landing| human_attribute_status_tag landing, :layout }
         row(:integration) { |landing| human_attribute_status_tag landing, :integration }
+        row :information_banner
       end
     end
 
@@ -119,7 +120,7 @@ ActiveAdmin.register Landing do
                 :emphasis, :home_description,
                 :meta_title, :meta_description,
                 :integration, :cooperation_id, :url_path,
-                :iframe_category, :custom_css,
+                :iframe_category, :custom_css, :information_banner,
                 landing_joint_themes_attributes: landing_joint_themes_attributes
 
   form title: :title do |f|
@@ -128,6 +129,7 @@ ActiveAdmin.register Landing do
       f.input :slug
       f.input :layout, as: :select, collection: Landing.human_attribute_values(:layout).invert
       f.input :integration, as: :select, collection: Landing.human_attribute_values(:integration).invert
+      f.input :information_banner, as: :quill_editor
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do

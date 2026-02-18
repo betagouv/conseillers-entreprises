@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_26_152754) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_16_135245) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -395,6 +395,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_26_152754) do
     t.integer "integration", default: 0
     t.bigint "cooperation_id"
     t.datetime "paused_at"
+    t.text "information_banner"
     t.index ["archived_at"], name: "index_landings_on_archived_at"
     t.index ["cooperation_id"], name: "index_landings_on_cooperation_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true

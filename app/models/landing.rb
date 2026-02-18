@@ -2,23 +2,24 @@
 #
 # Table name: landings
 #
-#  id               :bigint(8)        not null, primary key
-#  archived_at      :datetime
-#  custom_css       :string
-#  emphasis         :boolean          default(FALSE), not null
-#  home_description :text             default("")
-#  iframe_category  :integer          default("integral")
-#  integration      :integer          default("intern")
-#  layout           :integer          default("multiple_steps")
-#  meta_description :string
-#  meta_title       :string
-#  paused_at        :datetime
-#  slug             :string           not null
-#  title            :string
-#  url_path         :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  cooperation_id   :bigint(8)
+#  id                 :bigint(8)        not null, primary key
+#  archived_at        :datetime
+#  custom_css         :string
+#  emphasis           :boolean          default(FALSE), not null
+#  home_description   :text             default("")
+#  iframe_category    :integer          default("integral")
+#  information_banner :text
+#  integration        :integer          default("intern")
+#  layout             :integer          default("multiple_steps")
+#  meta_description   :string
+#  meta_title         :string
+#  paused_at          :datetime
+#  slug               :string           not null
+#  title              :string
+#  url_path           :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  cooperation_id     :bigint(8)
 #
 # Indexes
 #

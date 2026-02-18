@@ -20,6 +20,9 @@
 
   - unless in_iframe?
     #scroll-section
+
+  = render 'landings/landings/information_banner', landing: @landing
+
   - if @landing.layout_single_page?
     = render 'single_page', landing_themes: @landing.landing_themes, landing: @landing
 
