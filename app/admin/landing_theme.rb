@@ -77,9 +77,7 @@ ActiveAdmin.register LandingTheme do
             row(:description_prefill) { |ls| ls.description_prefill&.html_safe }
             row :form_title
             row(:form_description) { |ls| ls.form_description&.html_safe }
-            row :requires_location
-            row :requires_requested_help_amount
-            row :requires_siret
+            row :fields_mode
             row :meta_title
             row :meta_description
           end
@@ -92,7 +90,7 @@ ActiveAdmin.register LandingTheme do
   #
   landing_subjects_attributes = [
     :id, :title, :slug, :subject_id, :description, :description_explanation, :description_prefill, :form_title, :form_description,
-    :meta_title, :meta_description, :requires_location, :requires_requested_help_amount, :requires_siret, :archived_at,
+    :meta_title, :meta_description, :fields_mode, :archived_at,
     :position, :_destroy
   ]
 
@@ -122,9 +120,7 @@ ActiveAdmin.register LandingTheme do
         ls.input :description_explanation, as: :quill_editor
         ls.input :description_prefill
         ls.input :form_title
-        ls.input :requires_location
-        ls.input :requires_requested_help_amount
-        ls.input :requires_siret
+        ls.input :fields_mode, as: :select, collection: LandingSubject.fields_modes, include_blank: false
         ls.input :form_description, as: :quill_editor
         ls.input :meta_title
         ls.input :meta_description

@@ -14,6 +14,10 @@ class Api::V1::LandingSubjectSerializer < ActiveModel::Serializer
     object.landings.merge(current_institution.landings).first.id
   end
 
+  def requires_siret = object.fields_mode_siret? # rubocop:disable Naming/PredicateMethod
+
+  def requires_location = object.fields_mode_location? # rubocop:disable Naming/PredicateMethod
+
   def subject_questions
     object.subject.subject_questions
   end

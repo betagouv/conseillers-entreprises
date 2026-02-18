@@ -188,7 +188,7 @@ class SolicitationsController < PagesController
 
   # on dirige vers la recherche de siret si le champs "company" est le siret
   def retrieve_company_step_path
-    @solicitation.company_step_is_siret? ? step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs') : step_company_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
+    @solicitation.landing_subject.fields_mode_siret? ? step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs') : step_company_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
   end
 
   def siret_is_set?

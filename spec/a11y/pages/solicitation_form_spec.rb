@@ -10,7 +10,7 @@ describe 'solicitation_form', :js, type: :feature do
     let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
     let!(:landing_subject) do
       create :landing_subject, landing_theme: landing_theme, subject: pde_subject,
-                                    title: "Super sujet", description: "Description LS", requires_siret: true
+                                    title: "Super sujet", description: "Description LS", fields_mode: :siret
     end
     let!(:additional_question_1) { create :subject_question, subject: pde_subject, key: 'recrutement_poste_cadre' }
     let!(:additional_question_2) { create :subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }

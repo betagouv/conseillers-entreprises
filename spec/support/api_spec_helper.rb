@@ -33,8 +33,7 @@ module ApiSpecHelper
       title: 'Recruter un ou plusieurs salariés', slug: 'recruter',
       description: "<ul><li>S’informer sur les aides à l'embauche des jeunes, à l'apprentissage</li><li>S'informer sur les emplois francs en quartiers prioritaires, le contrat de professionnalisation, le VTE Vert sur les métiers de la transition écologique</li><li>Trouver des candidats</li></ul>",
       description_explanation: "<ul><li>le type de poste</li><li>si l'offre est déjà connue de Pôle emploi</li><li>si vous envisagez de recruter une personne en situation de handicap</li></ul>",
-      requires_siret: true,
-      requires_requested_help_amount: false)
+      fields_mode: :siret)
     cci = create(:institution, name: "Chambre de Commerce et d'Industrie (CCI)", logo: Logo.create(filename: 'cci', name: 'Cci'))
     cci.institutions_subjects.create(subject: recrutement_subject.subject)
     recrutement_subject
@@ -45,8 +44,7 @@ module ApiSpecHelper
       title: 'Mettre en place un projet de formation', slug: 'former',
       description: "<ul><li>Choisir la bonne formation</li><li>Trouver votre OPCO, financer la formation</li><li>Mettre en place un plan de formation entreprise</li><li>Se former en tant que chef d'entreprise</li><li>Former vos salariés en activité partielle grâce au FNE formation</li></ul>",
       description_explanation: "<ul><li>votre activité</li><li>combien de salariés vous souhaitez former</li><li>sur quelles thématiques</li><li>dans quel but</li></ul>",
-      requires_siret: true,
-      requires_requested_help_amount: false)
+      fields_mode: :siret)
   end
 
   def create_cadre_question(pde_subject)
@@ -69,8 +67,7 @@ module ApiSpecHelper
       title: 'Traitement et valorisation des déchets', slug: 'dechets',
       description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire vos déchets</li><li>Valoriser la revente de matières, trouver de nouveaux débouchés</li></ul>",
       description_explanation: "<ul><li>quelle est concrètement votre activité</li><li>ce que votre projet apporte à votre entreprise</li><li>quel accompagnement vous souhaitez (réflexion stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>",
-      requires_siret: true,
-      requires_requested_help_amount: false)
+      fields_mode: :siret)
   end
 
   def create_eau_subject(landing_theme)
@@ -78,8 +75,7 @@ module ApiSpecHelper
       title: 'Gestion de l’eau', slug: 'eau',
       description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner la récupération d’eau pluviale</li><li>Maintenir de la biodiversité sur votre territoire</li></ul>",
       description_explanation: "<ul><li>quelle est concrètement votre activité</li><li>si vous utilisez de l’eau dans votre process de fabrication</li><li>ce que votre projet apporte à votre entreprise</li><li>quel accompagnement vous souhaitez (réflexion stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>",
-      requires_siret: true,
-      requires_requested_help_amount: false)
+      fields_mode: :siret)
   end
 
   ## Santé
@@ -94,7 +90,6 @@ module ApiSpecHelper
       title: 'Répondre à vos obligations en matière de santé et de sécurité', slug: 'obligations-sante-securite',
       description: "<ul><li>Rédiger ou réviser votre document unique d'évaluation des risques professionnels (DUERP)</li><li>Faire une étude de poste</li><li><span style=\"background-color: rgb(255, 255, 255);\">Réduire la pénibilité au travail, m</span>onter un dossier de subvention Carsat</li><li>Connaître les règles d'hygiène applicables à votre activité</li></ul>",
       description_explanation: "<ul><li>votre activité</li><li>si vous avez un document unique</li><li>ce qui a déjà été mis en place</li></ul>",
-      requires_siret: true,
-      requires_requested_help_amount: false)
+      fields_mode: :siret)
   end
 end
