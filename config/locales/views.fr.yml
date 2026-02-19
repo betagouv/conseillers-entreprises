@@ -139,6 +139,7 @@ fr:
       tools: Outils
     pde_partnership_mention: Ce service public d'accompagnement des entreprises est proposé par Conseillers Entreprises.
     person_modal:
+      confidentiality_notice: Usage interne aux services. Ne pas diffuser.
       manager_name: 'Responsable : %{name}'
     user_admin_view:
       invitation_not_accepted: Cette personne n’a pas encore accepté son invitation

@@ -14,6 +14,11 @@
               %span.fr-icon-arrow-right-line.fr-icon--lg{ 'aria-hidden': 'true' }
               = person.full_name
             = person_block(person, name_outside: true)
+            .fr-callout.fr-mb-0.fr-p-2w
+              %p.fr-text--sm
+                %span.ri-information-line.fr-mr-1v{ 'aria-hidden': 'true' }
+                = t('.confidentiality_notice')
+
             - if defined?(managers_antenne)
               %hr.fr-mt-3w
               .block-infos
