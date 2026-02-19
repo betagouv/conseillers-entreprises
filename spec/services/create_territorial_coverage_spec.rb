@@ -443,7 +443,7 @@ describe CreateTerritorialCoverage do
       let!(:regional_antenne) { create(:antenne, :regional, institution: institution, parent_antenne: national_antenne, territorial_zones: [create(:territorial_zone, zone_type: :region, code: "53")]) }
       let(:cooperation) { create(:cooperation, institution: institution) }
       let(:landing) { create(:landing, cooperation: cooperation) }
-      let!(:landing_theme) { create(:landing_theme, landings: [landing], subjects: [a_subject]) }
+      let!(:landing_theme) { create(:landing_theme, landings: [landing], landing_subjects: [build(:landing_subject, fields_mode: :siret, subject: a_subject)]) }
       let!(:cooperation_theme) { create(:cooperation_theme, cooperation: cooperation, theme: a_theme) }
       let(:a_theme) { create(:theme, territorial_zones: [create(:territorial_zone, zone_type: :departement, code: '22')]) }
       let(:a_subject) { create(:subject, theme: a_theme) }
