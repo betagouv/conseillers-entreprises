@@ -14,13 +14,13 @@
     .fr-col-md-6.fr-col-12
       .fr-select-group
         = f.label :theme_id, t('attributes.theme'), class: 'fr-label'
-        = f.collection_select :theme_id, filters[:themes], :id, :label, { selected: params[:theme_id], include_blank: t('all.feminine') }, class: 'fr-select', data: { action: 'change->filters#fetchFilters', 'filters-target': 'themes' }
+        = f.collection_select :theme_id, filters[:themes], :id, :label, { selected: needs_search_params[:theme_id], include_blank: t('all.feminine') }, class: 'fr-select', data: { action: 'change->filters#fetchFilters', 'filters-target': 'themes' }
     .fr-col-md-6.fr-col-12
       .fr-select-group
         = f.label :subject_id, class: 'fr-label' do
           = t('activerecord.models.subject.one')
           .loader.loader--sm.hidden{ data: { 'filters-target': 'loader' } }
-        = f.collection_select :subject_id, filters[:subjects], :id, (mode.manager? ? :label_with_cooperation : :label), { selected: params[:subject_id], include_blank: t('all.masculin') }, class: 'fr-select', data: { 'filters-target': 'subjects' }
+        = f.collection_select :subject_id, filters[:subjects], :id, (mode.manager? ? :label_with_cooperation : :label), { selected: needs_search_params[:subject_id], include_blank: t('all.masculin') }, class: 'fr-select', data: { 'filters-target': 'subjects' }
 
     - unless mode.manager?
       .fr-col-md-12.fr-col-12
