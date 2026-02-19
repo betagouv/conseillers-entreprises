@@ -17,5 +17,4 @@ module NeedsHelper
       needs_search_params[:created_since].present? || needs_search_params[:created_until].present?
     end
   end
-
 end
