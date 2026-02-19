@@ -1,4 +1,4 @@
-= form_with url: annuaire_search_path, class: 'fr-mb-3w' do |f|
+= form_with url: annuaire_search_path, local: true, class: 'fr-mb-3w' do |f|
   = f.hidden_field :institution_slug, value: params[:institution_slug].presence || (institution.slug if defined?(institution) && institution.present?)
   = f.hidden_field :antenne, value: params[:antenne].presence || (antenne.id if defined?(antenne) && antenne.present?)
   .fr-grid-row.fr-grid-row--gutters{ data: { controller: 'filters', url: annuaire_load_filter_options_path } }
