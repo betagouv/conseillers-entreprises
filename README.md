@@ -24,3 +24,5 @@ Le développement logiciel du service Conseillers-Entreprises est réalisé de f
 <!--Le projet est opensource, ce qui nous donne accès gratuitement à Browserstack, en échange de ce paragraphe qui doit rester visible sur le README.-->
 Browser compatibility is tested with Browserstack :+1:<br/>
 [<img src="doc/browserstack-logo-600x315.png" width="200">](https://www.browserstack.com/)
+
+Application performance monitoring sponsored by [AppSignal](https://www.appsignal.com/)
