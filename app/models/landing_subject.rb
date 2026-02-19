@@ -2,25 +2,23 @@
 #
 # Table name: landing_subjects
 #
-#  id                             :bigint(8)        not null, primary key
-#  archived_at                    :datetime
-#  description                    :text
-#  description_explanation        :text
-#  description_prefill            :text
-#  form_description               :text
-#  form_title                     :string
-#  meta_description               :string
-#  meta_title                     :string
-#  position                       :integer
-#  requires_location              :boolean          default(FALSE), not null
-#  requires_requested_help_amount :boolean          default(FALSE), not null
-#  requires_siret                 :boolean          default(TRUE), not null
-#  slug                           :string
-#  title                          :string
-#  created_at                     :datetime         not null
-#  updated_at                     :datetime         not null
-#  landing_theme_id               :bigint(8)        not null
-#  subject_id                     :bigint(8)        not null
+#  id                      :bigint(8)        not null, primary key
+#  archived_at             :datetime
+#  description             :text
+#  description_explanation :text
+#  description_prefill     :text
+#  fields_mode             :enum             not null
+#  form_description        :text
+#  form_title              :string
+#  meta_description        :string
+#  meta_title              :string
+#  position                :integer
+#  slug                    :string
+#  title                   :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  landing_theme_id        :bigint(8)        not null
+#  subject_id              :bigint(8)        not null
 #
 # Indexes
 #
@@ -37,6 +35,8 @@
 class LandingSubject < ApplicationRecord
   include WithSlug
   include Archivable
+
+  enum :fields_mode, { location: :location, siret: :siret }, prefix: true
 
   ## Associations
   #
