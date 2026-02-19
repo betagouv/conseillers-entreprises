@@ -103,11 +103,11 @@ Le domaine `service-public.gouv.fr` est géré par la DILA. La gestion du sous-d
 Conseillers-Entreprises récupère les données publiques des entreprises sur [annuaire-entreprises.data.gouv.fr](https://annuaire-entreprises.data.gouv.fr/), [entreprise.api.gouv.fr](https://entreprise.api.gouv.fr), l' [API de l'INSEE](https://api.insee.fr/catalogue) ou [registre-national-entreprises.inpi.fr](https://registre-national-entreprises.inpi.fr/api/), des plateformes maintenues par l'administration.
 
 Nous utilisons aussi des outils propres à la communauté betagouv :
-* [sentry.data.gouv.fr/betagouvfr/](https://sentry.data.gouv.fr/betagouvfr/) est un outil standard de monitoring de pannes logicielles; les erreurs et crashes de conseillers-entreprises.service-public.gouv.fr, côté client comme serveur, y sont consignés.
-* [stats.beta.gouv.fr](https://stats.beta.gouv.fr) est une instance [Matomo](https://matomo.org), un outil libre de mesure d’audience web,  [recommandé par la cnil](https://www.cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience).
+* [stats.beta.gouv.fr](https://stats.beta.gouv.fr) est une instance [Matomo](https://matomo.org), un outil libre de mesure d’audience web, [recommandé par la cnil](https://www.cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience).
 
 ### Services tiers
 
+* [AppSignal](https://www.appsignal.com/) est un outil de monitoring de performance applicative (APM) et de suivi des erreurs.
 * [Brevo](https://www.brevo.com/) nous sert à envoyer les emails de confirmation, d’inscription, de notification… aux différents utilisateurs du service.
 * [ipinfo.io](https://ipinfo.io/) est utilisé de façon annexe. La géolocalisation IP est utilisée uniquement pour afficher des logos spécifiques à la région de localisation des visiteurs.
 
