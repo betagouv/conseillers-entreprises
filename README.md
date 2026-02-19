@@ -25,4 +25,5 @@ Le développement logiciel du service Conseillers-Entreprises est réalisé de f
 Browser compatibility is tested with Browserstack :+1:<br/>
 [<img src="doc/browserstack-logo-600x315.png" width="200">](https://www.browserstack.com/)
 
+<!--Le projet est opensource et “pour le bien public”, ce qui nous donne accès gratuitement à AppSignal.-->
 Application performance monitoring sponsored by [AppSignal](https://www.appsignal.com/)
