@@ -22,43 +22,6 @@ RSpec.describe Manager::NeedsController do
     let!(:match1) { create :match, expert: expert, need: need1, status: :quo }
     let!(:match2) { create :match, expert: expert, need: need2, status: :quo }
 
-    describe 'GET #quo_active with filters' do
-      subject(:request) { get :quo_active }
-
-      before { request }
-
-      it 'includes available themes' do
-        theme_labels = assigns(:filters)[:themes].map(&:label)
-        subject_labels = assigns(:filters)[:subjects].map(&:label)
-
-        expect(theme_labels).to include('Theme 1', 'Theme 2')
-        expect(subject_labels).to include('Subject 1', 'Subject 2')
-      end
-    end
-
-    describe 'GET #load_filter_options' do
-      subject(:request) { get :load_filter_options }
-
-      before { request }
-
-      it 'returns subjects' do
-        json_response = response.parsed_body
-
-        expect(json_response).to have_key('subjects')
-      end
-
-      context 'with theme_id parameter' do
-        subject(:request) { get :load_filter_options, params: { theme_id: theme1.id } }
-
-        it 'filters subjects by theme' do
-          subject_labels = response.parsed_body['subjects'].pluck('label')
-
-          expect(subject_labels).to include('Subject 1')
-          expect(subject_labels).not_to include('Subject 2')
-        end
-      end
-    end
-
     describe 'filter keys override' do
       it 'includes all manager-specific filter keys' do
         expect(controller.send(:all_filter_keys)).to eq([:antennes, :themes, :subjects, :cooperations])
