@@ -1,4 +1,4 @@
-= form_with url: request.url, method: :get do |f|
+= form_with url: request.url, method: :get, local: true do |f|
   .fr-grid-row.fr-grid-row--gutters
     .fr-col
       = f.label :antenne_id, t('filters.select_antenne'), class: 'fr-label'

@@ -13,7 +13,7 @@
   - else
     - if controller.action_name == 'unseen'
       .fr-container--fluid.fr-mb-2w
-        = form_with url: mark_all_as_seen_conseiller_shared_satisfactions_path, id: 'mark-all-as-seen', method: :patch, data: { turbo: false } do |form|
+        = form_with url: mark_all_as_seen_conseiller_shared_satisfactions_path, id: 'mark-all-as-seen', method: :patch, local: true, data: { turbo: false } do |form|
           .fr-grid-row
             .fr-col-12.fr-col-md-6.vertical-centered
               .fr-checkbox-group.fr-mb-2v
