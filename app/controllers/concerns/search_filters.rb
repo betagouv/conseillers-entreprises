@@ -1,4 +1,4 @@
-module ManagerFilters
+module SearchFilters
   extend ActiveSupport::Concern
 
   def initialize_filters(filter_keys)
@@ -15,13 +15,24 @@ module ManagerFilters
   private
 
   def base_themes
-    @base_themes ||= Theme.joins(subjects: :needs).where(subjects: { needs: base_needs_for_filters }).distinct.sort_by(&:label)
+    @base_themes ||= Theme.joins(subjects: :needs)
+      .merge(Subject.not_archived)
+      .where(subjects: { needs: base_needs_for_filters })
+      .distinct
+      .sort_by(&:label)
   end
 
   def base_subjects
-    @base_subjects = Subject.where(theme: base_themes).not_archived.order(:label)
-    @base_subjects = @base_subjects.where(theme_id: params[:theme_id]) if params[:theme_id].present?
-    @base_subjects
+    @base_subjects ||= begin
+      subjects = Subject.where(theme: base_themes).not_archived.order(:label)
+
+      if params[:theme_id].present?
+        theme_id = params[:theme_id].to_i
+        subjects = subjects.where(theme_id: theme_id) if base_themes.map(&:id).include?(theme_id)
+      end
+
+      subjects
+    end
   end
 
   def base_cooperations
@@ -36,5 +47,14 @@ module ManagerFilters
     return [] unless current_user.is_manager?
     managed_antennes = current_user.managed_antennes
     managed_antennes&.first&.national? ? RegionOrderingService.call : managed_antennes.map(&:regions).flatten.uniq
+  end
+
+  # Default implementations that can be overridden in controllers
+  def all_filter_keys
+    [:themes, :subjects]
+  end
+
+  def dynamic_filter_keys
+    [:subjects]
   end
 end

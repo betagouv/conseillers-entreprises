@@ -198,6 +198,7 @@ Rails.application.routes.draw do
       get :done, path: 'cloturees'
       get :not_for_me, path: 'refusees'
       get :expired, path: 'expirees'
+      get :load_filter_options
     end
     member do
       post :add_match
