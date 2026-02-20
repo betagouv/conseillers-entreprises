@@ -6,7 +6,7 @@ describe 'New Solicitation', :js do
   let(:pde_subject) { create :subject }
   let!(:landing) { create :landing, slug: 'accueil', title: 'Accueil' }
   let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
-  let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, subject: pde_subject, title: "Super sujet", description: "Description LS", requires_siret: true }
+  let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, subject: pde_subject, title: "Super sujet", description: "Description LS", fields_mode: :siret }
   let(:siret) { '41816609600069' }
   let(:siren) { siret[0..8] }
   let(:solicitation) { Solicitation.last }

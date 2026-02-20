@@ -59,8 +59,7 @@
 
       %ul.fr-btns-group.fr-btns-group--inline.fr-btns-group--right
         %li= render 'previous_button',
-                path: step_company_search_solicitation_path(@solicitation.uuid,
-                anchor: 'section-breadcrumbs'),
+                path: retrieve_company_step_path,
                 label: t('solicitations.creation_form.step_description.previous')
         %li= f.submit t('solicitations.creation_form.buttons.send'),
                 class: 'fr-btn',

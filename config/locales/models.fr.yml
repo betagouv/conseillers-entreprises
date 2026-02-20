@@ -321,14 +321,15 @@ fr:
       landing_subject:
         description_explanation: Explications de la description
         description_prefill: Préremplissage de la description
+        fields_mode: Champs requis
         form_description: Description du formulaire
         form_title: Titre du formulaire
         meta_description: Description méta
         meta_title: Titre méta
-        requires_location: Champ Localisation
-        requires_requested_help_amount: Champ Montant de l’aide
-        requires_siret: Champ SIRET
         title: Intitulé de sujet
+      landing_subject/fields_mode:
+        location: Champ Localisation
+        siret: Champ SIRET
       landing_theme:
         meta_description: Description méta
         meta_title: Titre méta
