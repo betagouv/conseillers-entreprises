@@ -69,7 +69,7 @@ module CsvImport
 
     def territories_attributes(row)
       attributes = row_to_attributes(row)
-      attributes.slice(:communes_codes, :epci_codes, :departements_codes, :region_codes)
+      attributes.slice(:communes_codes, :epcis_codes, :departements_codes, :region_codes)
     end
 
     def import_territories(instance, attributes)

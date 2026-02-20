@@ -160,7 +160,7 @@ ActiveAdmin.register Expert do
       row :phone_number
       row :institution
       row :antenne
-      row(:intervention_zone) do |e|
+      row(:territorial_zone) do |e|
         if e.is_global_zone
           status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
         end
