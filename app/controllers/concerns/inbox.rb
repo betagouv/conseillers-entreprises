@@ -34,11 +34,13 @@ module Inbox
     antenne_inbox_collections_counts(@recipient)
     @collection_name = collection_name
 
-    @needs = @recipient.send(:"territory_needs_#{@collection_name}")
+    needs_method = direct_antenne_scope? ? :"direct_territory_needs_#{@collection_name}" : :"territory_needs_#{@collection_name}"
 
-    # on reject antenne_id, sinon le filtre by_antenne peut venir enlever des besoins
-    # (cas des antennes régionales)
-    @needs = @needs.includes(:company, :subject, :solicitation, :facility, subject: :theme)
+    # Reject antenne_id from filters: the antenne scope is already set via @recipient.
+    # For regional antennes, including antenne_id would incorrectly filter out needs
+    # when the aggregated "avec antennes locales" id is in session params.
+    @needs = @recipient.send(needs_method)
+      .includes(:company, :subject, :solicitation, :facility, subject: :theme)
       .select("needs.*, matches.sent_at as match_sent_at")
       .apply_filters(needs_search_params.except(:antenne_id))
       .order(created_at: order)
@@ -53,14 +55,21 @@ module Inbox
 
   def antenne_inbox_collections_counts(recipient)
     @inbox_collections_counts = if recipient.is_a?(Antenne)
-      inbox_collection_names.index_with do |name|
-        recipient.send(:"territory_needs_#{name}").size
-      end
+      method_prefix = (direct_antenne_scope? && recipient.regional?) ? "direct_territory_needs" : "territory_needs"
+      inbox_collection_names.index_with { |name| recipient.send(:"#{method_prefix}_#{name}").size }
     else
       inbox_collection_names.index_with do |name|
         Need.in_antennes_perimeters(recipient).merge!(Need.where(id: recipient.map { |a| a.send(:"territory_needs_#{name}") }.flatten)).size
       end
     end
+  end
+
+  def direct_antenne_scope?
+    antenne_id = needs_search_params[:antenne_id]
+    return false if antenne_id.blank?
+    return false if antenne_id.to_s.include?('locales')
+
+    @recipient&.regional?
   end
 
   def needs_search_params
