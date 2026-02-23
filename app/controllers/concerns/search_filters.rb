@@ -24,14 +24,14 @@ module SearchFilters
 
   def base_subjects
     @base_subjects ||= begin
-      subjects = Subject.where(theme: base_themes).not_archived.order(:label)
+      authorized_theme_id = params[:theme_id].presence&.to_i
+      theme_filter = if authorized_theme_id && base_themes.map(&:id).include?(authorized_theme_id)
+                       authorized_theme_id
+                     else
+                       base_themes
+                     end
 
-      if params[:theme_id].present?
-        theme_id = params[:theme_id].to_i
-        subjects = subjects.where(theme_id: theme_id) if base_themes.map(&:id).include?(theme_id)
-      end
-
-      subjects
+      Subject.where(theme: theme_filter).not_archived.order(:label)
     end
   end
 
