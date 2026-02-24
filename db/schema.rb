@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_16_135245) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_18_085238) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -20,6 +21,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_16_135245) do
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "activity_reports_categories", ["matches", "stats", "cooperation", "solicitations"]
   create_enum "feedbacks_categories", ["need", "need_reminder", "solicitation", "expert_reminder"]
+  create_enum "landing_subject_fields_mode", ["siret", "location"]
   create_enum "match_status", ["quo", "taking_care", "done", "done_no_help", "done_not_reachable", "not_for_me"]
   create_enum "need_status", ["diagnosis_not_complete", "quo", "taking_care", "done", "not_for_me", "done_no_help", "done_not_reachable"]
   create_enum "territorial_level", ["local", "regional", "national"]
@@ -351,13 +353,11 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_16_135245) do
     t.string "form_title"
     t.text "form_description"
     t.text "description_explanation"
-    t.boolean "requires_siret", default: true, null: false
-    t.boolean "requires_requested_help_amount", default: false, null: false
-    t.boolean "requires_location", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "archived_at", precision: nil
     t.text "description_prefill"
+    t.enum "fields_mode", null: false, enum_type: "landing_subject_fields_mode"
     t.index ["archived_at"], name: "index_landing_subjects_on_archived_at"
     t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
     t.index ["slug", "landing_theme_id"], name: "index_landing_subjects_on_slug_and_landing_theme_id", unique: true

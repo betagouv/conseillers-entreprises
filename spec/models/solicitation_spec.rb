@@ -41,8 +41,8 @@ RSpec.describe Solicitation do
     describe 'validate siret' do
 
       describe 'moment of validation' do
-        let(:subject_with_siret) { create :landing_subject, requires_siret: true }
-        let(:subject_without_siret) { create :landing_subject, requires_siret: false }
+        let(:subject_with_siret) { create :landing_subject, fields_mode: :siret }
+        let(:subject_without_siret) { create :landing_subject, fields_mode: :location }
         # solicitation à l'étape contact ko
         let(:contact_solicitation) { build :solicitation, status: :step_contact, landing_subject: subject_with_siret }
         # solicitation à l'étape company ko
@@ -183,6 +183,51 @@ end
         it('codes with letters other than A or B') { expect(solicitation_with_code('2C001')).not_to be_valid }
         it('codes with special characters') { expect(solicitation_with_code('75-56')).not_to be_valid }
         it('codes with spaces') { expect(solicitation_with_code('750 6')).not_to be_valid }
+      end
+    end
+
+    describe 'validation location / insee_code presence' do
+      subject { solicitation.errors }
+
+      before { solicitation.validate }
+
+      let(:solicitation) do
+        build(:solicitation, status: :step_description,
+              landing_subject: build(:landing_subject, fields_mode: fields_mode),
+              insee_code: insee_code, location: location)
+      end
+
+      context "subject with siret mode" do
+        let(:fields_mode) { :siret }
+        let(:insee_code) { nil }
+        let(:location) { nil }
+
+        it { is_expected.to be_empty }
+      end
+
+      context "subject with location mode" do
+        let(:fields_mode) { :location }
+
+        context "no insee code" do
+          let(:insee_code) { nil }
+          let(:location) { "test" }
+
+          it { is_expected.to include(:location) }
+        end
+
+        context "no location" do
+          let(:insee_code) { "12345" }
+          let(:location) { nil }
+
+          it { is_expected.to include(:location) }
+        end
+
+        context "insee code and location" do
+          let(:insee_code) { "12345" }
+          let(:location) { "test" }
+
+          it { is_expected.to be_empty }
+        end
       end
     end
   end
