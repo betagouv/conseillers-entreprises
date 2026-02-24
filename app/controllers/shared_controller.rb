@@ -53,8 +53,15 @@ class SharedController < ActionController::Base
   end
 
   def respond_with_status(status)
-    fetch_themes
-    render "shared/errors/#{status}", status: status, layout: 'pages'
+    respond_to do |format|
+      format.html do
+        fetch_themes
+        render "shared/errors/#{status}", status: status, layout: 'pages'
+      end
+      format.any do
+        head :not_found
+      end
+    end
   end
 
   def http_authentication
