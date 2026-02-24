@@ -26,10 +26,10 @@ module SearchFilters
     @base_subjects ||= begin
       authorized_theme_id = params[:theme_id].presence&.to_i
       theme_filter = if authorized_theme_id && base_themes.map(&:id).include?(authorized_theme_id)
-                       authorized_theme_id
-                     else
-                       base_themes
-                     end
+        authorized_theme_id
+      else
+        base_themes
+      end
 
       Subject.where(theme: theme_filter).not_archived.order(:label)
     end
