@@ -9,4 +9,12 @@ module NeedsHelper
     end
     raw context
   end
+
+  def accordion_should_open?(omnisearch_in_accordion)
+    if omnisearch_in_accordion
+      needs_search_params.slice(:created_since, :created_until, :omnisearch).values.any?(&:present?)
+    else
+      needs_search_params[:created_since].present? || needs_search_params[:created_until].present?
+    end
+  end
 end

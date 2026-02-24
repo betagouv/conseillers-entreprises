@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  include ManagerFilters
+  include SearchFilters
 
   before_action :retrieve_antenne, only: [:stats, :matches]
   before_action :retrieve_quarters, only: [:stats]
@@ -42,5 +42,10 @@ class ReportsController < ApplicationController
 
   def retrieve_quarters
     @quarters = @antenne.stats_reports.order(start_date: :desc).pluck(:start_date, :end_date).uniq
+  end
+
+  # SearchFilter
+  def base_needs_for_filters
+    @base_needs_for_filters ||= @antenne.perimeter_received_needs.distinct
   end
 end
