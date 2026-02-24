@@ -87,7 +87,7 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
 
   # Filtering
   #
-  # utilisé pour initialisé les filtres SearchFilters
+  # SearchFilters
   def base_needs_for_filters
     current_user.needs_with_shared_satisfaction
   end
