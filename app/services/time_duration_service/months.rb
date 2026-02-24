@@ -12,4 +12,9 @@ class TimeDurationService::Months < TimeDurationService::Base
   def number_of_parts
     12
   end
+
+  def past_two_years
+    today = Date.today
+    [today.year - 1, today.year]
+  end
 end
