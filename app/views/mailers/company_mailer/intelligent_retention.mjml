@@ -7,11 +7,11 @@
     <mj-text><%= t('.and_you') %></mj-text>
 
     <% campaign = '?' + { mtm_campaign: 'retention2', mtm_kwd: "retention2-#{@email_retention.subject.label.parameterize}" }.to_query %>
-    <mj-button href="<%= new_solicitation_url(Landing.accueil, Landing.accueil.landing_subjects.joins(:subject).find_by(subject: @email_retention.first_subject)) + campaign %>"
+    <mj-button href="<%= new_solicitation_url(landing_slug: Landing.accueil.slug, landing_subject_slug: Landing.accueil.landing_subjects.joins(:subject).find_by(subject: @email_retention.first_subject).slug) + campaign %>"
                 background-color="#000091" color="white" border-radius="0" font-weight="700">
       <%= @email_retention.first_subject_label %>
     </mj-button>
-    <mj-button href="<%= new_solicitation_url(Landing.accueil, Landing.accueil.landing_subjects.joins(:subject).find_by(subject: @email_retention.second_subject)) + campaign %>"
+    <mj-button href="<%= new_solicitation_url(landing_slug: Landing.accueil.slug, landing_subject_slug: Landing.accueil.landing_subjects.joins(:subject).find_by(subject: @email_retention.second_subject).slug) + campaign %>"
                background-color="#000091" color="white" border-radius="0" font-weight="700">
       <%= @email_retention.second_subject_label %>
     </mj-button>
