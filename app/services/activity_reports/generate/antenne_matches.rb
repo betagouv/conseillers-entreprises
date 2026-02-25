@@ -3,7 +3,7 @@ module ActivityReports
     private
 
     def generate_files(period)
-      needs = antenne.perimeter_received_needs.created_between(period.first, period.last)
+      needs = antenne.perimeter_received_needs.where(created_at: period)
       return if needs.blank?
 
       matches = Match.joins(:need).where(need: needs)
