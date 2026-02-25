@@ -5,12 +5,12 @@ module Monitoring
   # Efficiently compute the count and rate of done or not_for_me (using matches) or the satisfying rate (using company_satisfaction).
 
   ## Constants for high-level scopes
-  MATCHES_PERIOD = TimeDurationService::Quarters.new.call.first
+  MATCHES_PERIOD = -> { TimeDurationService::Quarters.new.call.first }
   MATCHES_COUNT = (50..)
   MATCHES_NOT_FOR_ME_RATE = (0.3..)
   MATCHES_DONE_RATE = (..0.25)
 
-  SOLICITATIONS_PERIOD = TimeDurationService::Years.new.call.first
+  SOLICITATIONS_PERIOD = -> { TimeDurationService::Years.new.call.first }
   SOLICITATIONS_COUNT = (100..)
   SOLICITATIONS_SATISFYING_RATE = (..0.45)
 
@@ -50,6 +50,7 @@ module Monitoring
     # The returned collection has these additional new attributes:
     # :done_rate, :not_for_me_rate
     scope :includes_match_status_rates, -> (period:) do
+      period = period.call if period.respond_to?(:call)
       from(includes_match_status_counts(period: period), self.table_name)
         .select(<<~SQL.squish
           *,
@@ -79,6 +80,7 @@ module Monitoring
     # The returned collection has these additional new attributes:
     # :satisfying_rate
     scope :includes_satisfying_rate, -> (period:) do
+      period = period.call if period.respond_to?(:call)
       from(includes_satisfaction_counts(period: period), self.table_name)
         .select(<<~SQL.squish
           *,
