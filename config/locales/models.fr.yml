@@ -276,7 +276,7 @@ fr:
       feedback/categories:
         need: Besoin
         reminder: Relance
-        solicitation: Solicitation
+        solicitation: Sollicitation
       institution:
         antennes: Antennes
         subjects: Sujets
@@ -729,10 +729,10 @@ fr:
               cant_delete_experts_with_in_progress_matches: Les mises en relation en cours doivent être transférées à un autre expert avant de pouvoir supprimer celui-ci.
         landing_subjects:
           restrict_dependent_destroy:
-            solicitations: Vous ne pouvez pas supprimer le sujet de landing car des solicitations y font référence
+            solicitations: Vous ne pouvez pas supprimer le sujet de landing car des sollicitations y font référence
         landing_themes:
           restrict_dependent_destroy:
-            solicitations: Vous ne pouvez pas supprimer la thématique car des solicitations y font référence
+            solicitations: Vous ne pouvez pas supprimer la thématique car des sollicitations y font référence
         solicitation:
           attributes:
             siret:
@@ -1260,8 +1260,8 @@ fr:
       tab: Répartition trimestrielle
       title: Coopération %{cooperation} - Répartition des besoins - %{period}
     solicitations:
-      header: Solicitations reçues sur la période
-      tab: Solicitations
+      header: Sollicitations reçues sur la période
+      tab: Sollicitations
       title: Coopération %{cooperation} - Solicitations - %{period}
     volume:
       annual_tab: Volume annuel
