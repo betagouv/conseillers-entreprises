@@ -3,9 +3,9 @@ describe ActivityReports::Generate::AntenneMatches do
   describe 'generate_files' do
     let(:antenne) { create :antenne }
     let!(:expert) { create :expert_with_users, antenne: antenne }
-    let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 2.months.ago) }
-    let(:quarters) { described_class.new(antenne).send(:last_periods) }
-    let(:generate_files) { described_class.new(antenne).send(:generate_files, quarters.first) }
+    let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 1.month.ago) }
+    let(:months) { described_class.new(antenne).send(:last_periods) }
+    let(:generate_files) { described_class.new(antenne).send(:generate_files, months.first) }
 
     it 'create activity_report' do
       expect { generate_files }.to change(ActivityReport, :count).by(1)
