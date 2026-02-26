@@ -37,12 +37,6 @@ module Manager
       session[:manager_stats_params] = @stats_params
     end
 
-    def default_antenne_id
-      # Prefer the aggregated entry (with "locales") when it exists
-      base_antennes&.find { |a| a[:id].to_s.include?('locales') }&.dig(:id)&.to_s ||
-        base_antennes&.first&.dig(:id)&.to_s
-    end
-
     def set_charts_names
       @charts_names = %w[
         needs_transmitted matches_positioning matches_taking_care matches_done
