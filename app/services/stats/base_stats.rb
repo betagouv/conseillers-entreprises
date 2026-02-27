@@ -16,8 +16,8 @@ module Stats
       params = OpenStruct.new(params)
       @region_code = params.region_code
       @institution_id = params.institution_id
-      @antenne_id = params.antenne_id
-      @with_agglomerate_data = params.antenne_id.include?('locales') if params.antenne_id.present?
+      @antenne_id = extract_numeric_antenne_id(params.antenne_id)
+      @with_agglomerate_data = params.antenne_id.to_s.include?('locales') if params.antenne_id.present?
       @subject_id = params.subject_id
       @integration = params.integration
       @landing_id = params.landing_id
@@ -126,6 +126,11 @@ module Stats
 
     def institution
       @institution ||= Institution.find_by(id: @institution_id) if @institution_id.present?
+    end
+
+    def extract_numeric_antenne_id(raw_id)
+      return nil if raw_id.blank?
+      raw_id.to_s.split(I18n.t('helpers.stats_helper.with_locales')).first.strip
     end
 
     ## Overrides
