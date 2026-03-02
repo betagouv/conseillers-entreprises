@@ -7,40 +7,9 @@ ActiveAdmin.register Match do
     include DynamicallyFiltrable
 
     def scoped_collection
-      base_includes = [
-        :need, :facility, :company, :advisor, :expert, :subject, :theme,
-      ]
-      additional_includes = []
-
-      if params[:scope] == 'sent' || params[:scope].nil?
-        # Default scope: load all associations for complete display
-        additional_includes += [
-          :related_matches, :advisor_antenne, :advisor_institution,
-          :expert_antenne, :expert_institution, :solicitation, :diagnosis,
-          :landing, :landing_theme, :landing_subject, { need: :subject }
-        ]
-      else
-        additional_includes += [
-          :advisor_antenne, :advisor_institution, :expert_antenne, :solicitation, :diagnosis,
-          { need: :subject }
-        ]
-      end
-
-      # Optimize based on active filters
-      if params.dig(:q, :expert_id_eq).present? || params.dig(:q, :expert_antenne_id_eq).present?
-        additional_includes += [:expert, :expert_antenne, :expert_institution]
-      end
-
-      if params.dig(:q, :landing_id_eq).present? || params.dig(:q, :landing_theme_id_eq).present?
-        additional_includes += [:landing, :landing_theme, :landing_subject]
-      end
-
-      if params.dig(:q, :theme_id_eq).present? || params.dig(:q, :subject_id_eq).present?
-        additional_includes += [:subject, :theme]
-      end
-
-      includes = base_includes + additional_includes
-      super.includes(includes.uniq)
+      # Performance fix for #4295: Minimize eager loading to avoid slow queries
+      # Only eager load what's necessary for the index display
+      super.includes(:need, :expert, :subject)
     end
   end
 
