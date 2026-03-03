@@ -176,12 +176,12 @@ class Conseiller::SolicitationsController < ApplicationController
   end
 
   def get_facilities_for_email_and_sirets(emails, sirets)
+    return Facility.none if emails.empty? && sirets.empty?
+
     Facility
-      .select('facilities.*, companies.name AS company_name, contacts.email AS contact_email')
-      .joins(:diagnoses, company: :contacts)
+      .select('DISTINCT facilities.id, facilities.*, companies.name AS company_name, COALESCE(contacts.email, \'\') AS contact_email')
+      .joins(:company, :diagnoses, company: :contacts)
       .where(diagnoses: { step: 5 })
-      .where(contacts: { email: emails })
-      .or(Facility.where(diagnoses: { step: 5 }).where(siret: sirets))
-      .uniq
+      .where('contacts.email IN (?) OR facilities.siret IN (?)', emails, sirets)
   end
 end
