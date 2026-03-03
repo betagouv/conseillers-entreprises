@@ -97,6 +97,7 @@ gem "aws-sdk-s3", require: false
 
 # Performance
 gem "rorvswild"
+gem 'rack-timeout'
 
 group :test do
   gem 'capybara'
