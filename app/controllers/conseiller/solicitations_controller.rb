@@ -31,15 +31,16 @@ class Conseiller::SolicitationsController < ApplicationController
     reset_session
     nb_per_page = Solicitation.page(1).limit_value
     anchor = "solicitation_#{@solicitation.id}"
+
     case @solicitation.status
     when 'canceled'
-      page = (Solicitation.status_canceled.where(completed_at: ...@solicitation.completed_at).count / nb_per_page) + 1
+      page = calculate_page_number(:status_canceled, @solicitation.completed_at, nb_per_page, :desc)
       redirect_to canceled_conseiller_solicitations_path(anchor: anchor, page: page)
     when 'processed'
-      page = (Solicitation.status_processed.where(completed_at: ...@solicitation.completed_at).count / nb_per_page) + 1
+      page = calculate_page_number(:status_processed, @solicitation.completed_at, nb_per_page, :desc)
       redirect_to processed_conseiller_solicitations_path(anchor: anchor, page: page)
     else
-      page = (Solicitation.status_in_progress.where(completed_at: ...@solicitation.completed_at).count / nb_per_page) + 1
+      page = calculate_page_number(:status_in_progress, @solicitation.completed_at, nb_per_page, :asc)
       redirect_to conseiller_solicitations_path(anchor: anchor, page: page)
     end
   end
@@ -183,5 +184,17 @@ class Conseiller::SolicitationsController < ApplicationController
       .joins(:company, :diagnoses, company: :contacts)
       .where(diagnoses: { step: 5 })
       .where('contacts.email IN (?) OR facilities.siret IN (?)', emails, sirets)
+  end
+
+  def calculate_page_number(status_scope, completed_at, nb_per_page, order = :asc)
+    count = if order == :desc
+      # Pour un ordre DESC, on compte les éléments après la date (plus récents)
+      Solicitation.public_send(status_scope).where(completed_at: completed_at..).count
+    else
+      # Pour un ordre ASC, on compte les éléments avant la date (plus anciens)
+      Solicitation.public_send(status_scope).where(completed_at: ...completed_at).count
+    end
+
+    (count / nb_per_page) + 1
   end
 end
