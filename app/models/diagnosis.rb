@@ -17,11 +17,12 @@
 #
 # Indexes
 #
-#  index_diagnoses_on_advisor_id           (advisor_id)
-#  index_diagnoses_on_facility_id          (facility_id)
-#  index_diagnoses_on_solicitation_id      (solicitation_id)
-#  index_diagnoses_on_step_and_created_at  (step,created_at)
-#  index_diagnoses_on_visitee_id           (visitee_id)
+#  index_diagnoses_on_advisor_id            (advisor_id)
+#  index_diagnoses_on_facility_id           (facility_id)
+#  index_diagnoses_on_facility_id_and_step  (facility_id,step)
+#  index_diagnoses_on_solicitation_id       (solicitation_id)
+#  index_diagnoses_on_step_and_created_at   (step,created_at)
+#  index_diagnoses_on_visitee_id            (visitee_id)
 #
 # Foreign Keys
 #

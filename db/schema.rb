@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_18_085238) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_03_133123) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -158,6 +158,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_18_085238) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "full_name", null: false
     t.index ["company_id"], name: "index_contacts_on_company_id"
+    t.index ["email"], name: "index_contacts_on_email"
   end
 
   create_table "cooperation_themes", force: :cascade do |t|
@@ -214,6 +215,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_18_085238) do
     t.datetime "completed_at", precision: nil
     t.boolean "retention_email_sent", default: false, null: false
     t.index ["advisor_id"], name: "index_diagnoses_on_advisor_id"
+    t.index ["facility_id", "step"], name: "index_diagnoses_on_facility_id_and_step"
     t.index ["facility_id"], name: "index_diagnoses_on_facility_id"
     t.index ["solicitation_id"], name: "index_diagnoses_on_solicitation_id"
     t.index ["step", "created_at"], name: "index_diagnoses_on_step_and_created_at"
