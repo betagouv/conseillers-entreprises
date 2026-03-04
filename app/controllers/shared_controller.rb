@@ -13,7 +13,7 @@ class SharedController < ActionController::Base
   protect_from_forgery with: :exception
   rescue_from Exception, with: :render_error
 
-  before_action :set_sentry_context, :http_authentication, :no_robots_in_staging
+  before_action :http_authentication, :no_robots_in_staging
 
   def not_found
     raise ActionController::RoutingError, 'Not Found'
@@ -37,18 +37,8 @@ class SharedController < ActionController::Base
       @user = current_user
       respond_with_status(404)
     else
-      Sentry.capture_exception(exception)
+      Appsignal.send_exception(exception)
       respond_with_status(500)
-    end
-  end
-
-  def set_sentry_context
-    Sentry.configure_scope do |scope|
-      scope.set_user(id: current_user&.id)
-      scope.set_extras(
-        params: params.to_unsafe_h,
-        url: request.url
-      )
     end
   end
 

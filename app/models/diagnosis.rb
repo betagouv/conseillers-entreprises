@@ -232,11 +232,10 @@ class Diagnosis < ApplicationRecord
   end
 
   def warn_debug_developers
-    if solicitation.nil?
-      Sentry.with_scope do |scope|
-        scope.set_tags(diagnosis: self.id)
-        Sentry.capture_message("Analyse sans sollicitation")
-      end
+    return if solicitation.present?
+
+    Appsignal.send_error(StandardError.new("Analyse sans sollicitation")) do |transaction|
+      transaction.set_tags(diagnosis: id)
     end
   end
 end
