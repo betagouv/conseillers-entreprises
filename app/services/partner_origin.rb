@@ -69,7 +69,7 @@ module PartnerOrigin
   end
 
   def self.landing_partner_url(solicitation, full: false)
-    full ? solicitation.landing.partner_full_url : solicitation.landing.partner_url
+    full ? solicitation.landing&.partner_full_url : solicitation.landing&.partner_url
   end
 
   def self.origin_url(solicitation)

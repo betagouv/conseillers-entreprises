@@ -31,15 +31,16 @@ class Conseiller::SolicitationsController < ApplicationController
     reset_session
     nb_per_page = Solicitation.page(1).limit_value
     anchor = "solicitation_#{@solicitation.id}"
+
     case @solicitation.status
     when 'canceled'
-      page = (Solicitation.status_canceled.where(completed_at: ...@solicitation.completed_at).count / nb_per_page) + 1
+      page = calculate_page_number(:status_canceled, @solicitation.completed_at, nb_per_page, :desc)
       redirect_to canceled_conseiller_solicitations_path(anchor: anchor, page: page)
     when 'processed'
-      page = (Solicitation.status_processed.where(completed_at: ...@solicitation.completed_at).count / nb_per_page) + 1
+      page = calculate_page_number(:status_processed, @solicitation.completed_at, nb_per_page, :desc)
       redirect_to processed_conseiller_solicitations_path(anchor: anchor, page: page)
     else
-      page = (Solicitation.status_in_progress.where(completed_at: ...@solicitation.completed_at).count / nb_per_page) + 1
+      page = calculate_page_number(:status_in_progress, @solicitation.completed_at, nb_per_page, :asc)
       redirect_to conseiller_solicitations_path(anchor: anchor, page: page)
     end
   end
@@ -95,8 +96,10 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def ordered_solicitations(status, order = :asc)
     Solicitation
-      .includes(:badge_badgeables, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne },
-        landing_subject: :subject, institution: :logo, subject_answers: :subject_question)
+      .includes(:badges, :diagnosis, :facility,
+        feedbacks: { user: :antenne },
+        landing_subject: :subject,
+        subject_answers: :subject_question)
       .where(status: status)
       .apply_filters(index_search_params)
       .order(completed_at: order)
@@ -174,12 +177,24 @@ class Conseiller::SolicitationsController < ApplicationController
   end
 
   def get_facilities_for_email_and_sirets(emails, sirets)
+    return Facility.none if emails.empty? && sirets.empty?
+
     Facility
-      .select('facilities.*, companies.name AS company_name, contacts.email AS contact_email')
-      .joins(:diagnoses, company: :contacts)
+      .select('DISTINCT facilities.id, facilities.*, companies.name AS company_name, COALESCE(contacts.email, \'\') AS contact_email')
+      .joins(:company, :diagnoses, company: :contacts)
       .where(diagnoses: { step: 5 })
-      .where(contacts: { email: emails })
-      .or(Facility.where(diagnoses: { step: 5 }).where(siret: sirets))
-      .uniq
+      .where('contacts.email IN (?) OR facilities.siret IN (?)', emails, sirets)
+  end
+
+  def calculate_page_number(status_scope, completed_at, nb_per_page, order = :asc)
+    count = if order == :desc
+      # Pour un ordre DESC, on compte les éléments après la date (plus récents)
+      Solicitation.public_send(status_scope).where(completed_at: completed_at..).count
+    else
+      # Pour un ordre ASC, on compte les éléments avant la date (plus anciens)
+      Solicitation.public_send(status_scope).where(completed_at: ...completed_at).count
+    end
+
+    (count / nb_per_page) + 1
   end
 end

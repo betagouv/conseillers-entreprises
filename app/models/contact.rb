@@ -13,6 +13,7 @@
 # Indexes
 #
 #  index_contacts_on_company_id  (company_id)
+#  index_contacts_on_email       (email)
 #
 # Foreign Keys
 #
