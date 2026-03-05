@@ -6,11 +6,6 @@ module RegionsHelper
     image_tag(path, params) if path
   end
 
-  def prefet_region_logo(region_code)
-    return if region_code.nil?
-    folder_logo(region_code, "prefets_regions")
-  end
-
   def region_logo(region_code)
     return if region_code.nil?
     folder_logo(region_code, "regions")

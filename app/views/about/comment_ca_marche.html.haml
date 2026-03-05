@@ -14,8 +14,6 @@
   .fr-container
     %h2.fr-h3= t('.partners')
     .logo-list
-      = prefet_region_logo(session[:region_code])
-      = region_logo(session[:region_code])
       = all_institutions_images
     .fr-grid-row
       - @institutions.each do |institutions_column|

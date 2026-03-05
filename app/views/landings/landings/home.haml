@@ -38,5 +38,4 @@
 
 .fr-container-fluid.section-partners.fr-py-7w.lighter-blue-bg
   .fr-container.text-center
-    - cache("institutions-#{session[:region_code]}", expires_in: 1.minute) do
-      = render 'index_institutions'
+    = render 'index_institutions'
