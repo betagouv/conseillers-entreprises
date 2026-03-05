@@ -1,5 +1,7 @@
 module XlsxExport
   class AnnuaireUserExporter < BaseExporter
+    include InstitutionsSubjectsSorter
+
     def fields
       fields = base_fields
       fields.merge!(fields_for_team)
@@ -37,7 +39,7 @@ module XlsxExport
     end
 
     def fields_for_subjects
-      @options[:institutions_subjects].to_h do |institution_subject|
+      sorted_institutions_subjects.to_h do |institution_subject|
         # We build a hash of <institution subject>: <expert subject>
         # * There can be only one expert_subject for an (expert, institution_subject) pair.
         title = institution_subject.unique_name
@@ -72,7 +74,14 @@ module XlsxExport
 
     def build_headers_rows(sheet, attributes, _)
       # first row
-      sheet.add_row(headers, height: 60)
+      first_row = headers.dup
+      index = 12
+      sorted_institutions_subjects.each do |is|
+        theme = is.theme
+        first_row[index] = "(#{theme.cooperations.pluck(:name).join(', ')})" if theme.cooperation?
+        index += 1
+      end
+      sheet.add_row(first_row, height: 60)
       # second row, columns titles
       sheet.add_row(attributes.keys.map{ |attr| User.human_attribute_name(attr, default: attr) }, height: 60, widths: [:ignore, :auto,80])
       # third row, institution subject description
@@ -83,7 +92,7 @@ module XlsxExport
       third_row[5] = I18n.t('export_xls.teams_instructions')
       third_row[6..11] = third_row[6..11].map { |v| v = '' }
       index = 12
-      @options[:institutions_subjects].each do |is|
+      sorted_institutions_subjects.each do |is|
         third_row[index] = is.description
         index += 1
       end
