@@ -77,9 +77,6 @@ gem 'decoupage_administratif', '~> 0.3.1'
 gem 'parallel'
 
 # Notifiers
-gem "sentry-ruby"
-gem "sentry-rails"
-gem "sentry-sidekiq"
 gem "appsignal"
 
 # Helper gems

@@ -22,7 +22,7 @@ class Api::V1::SolicitationsController < Api::V1::BaseController
       errors = [{ source: e.class.name, message: e.message }]
       render_error_payload(errors: errors, status: :unprocessable_content)
 
-      Sentry.capture_exception(e)
+      Appsignal.send_exception(e)
     end
   end
 

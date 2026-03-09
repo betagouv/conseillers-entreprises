@@ -12,9 +12,9 @@ Rails.application.config.content_security_policy do |p|
   p.img_src     :self, :data, 'https://jedonnemonavis.numerique.gouv.fr', 'https://stats.beta.gouv.fr/', 'https://www.google.com', 'https://www.google.fr', 'https://googleads.g.doubleclick.net', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://www.gstatic.com', 'https://adservice.google.com', '415474841.privacysandbox.googleadservices.com'
   p.object_src  :none
   p.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
-  p.script_src  :self, :blob, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.beta.gouv.fr/', 'https://cdn.jsdelivr.net/', 'https://www.googletagmanager.com/', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com'
-  p.frame_src :self, 'stats.data.gouv.fr', 'stats.beta.gouv.fr', 'browser.sentry-cdn.com', 'https://cdn.jsdelivr.net/', 'https://bid.g.doubleclick.net', 'https://tpc.googlesyndication.com', 'https://www.youtube-nocookie.com'
-  p.connect_src :self, '*.sentry.io', 'https://api-adresse.data.gouv.fr/', '*.google.com', 'https://adservice.google.com', 'https://pagead2.googlesyndication.com', 'https://tpc.googlesyndication.com', 'https://googleads.g.doubleclick.net', 'https://stats.beta.gouv.fr/', 'https://www.googletagmanager.com', 'https://browser.sentry-cdn.com', 'https://cdn.jsdelivr.net/'
+  p.script_src  :self, :blob, 'https://stats.beta.gouv.fr/', 'https://cdn.jsdelivr.net/', 'https://www.googletagmanager.com/', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com'
+  p.frame_src :self, 'stats.data.gouv.fr', 'stats.beta.gouv.fr', 'https://cdn.jsdelivr.net/', 'https://bid.g.doubleclick.net', 'https://tpc.googlesyndication.com', 'https://www.youtube-nocookie.com'
+  p.connect_src :self, 'https://api-adresse.data.gouv.fr/', '*.google.com', 'https://adservice.google.com', 'https://pagead2.googlesyndication.com', 'https://tpc.googlesyndication.com', 'https://googleads.g.doubleclick.net', 'https://stats.beta.gouv.fr/', 'https://www.googletagmanager.com', 'https://cdn.jsdelivr.net/'
   if ENV["CSP_REPORT_URI"].present? && ENV["CSP_REPORT_ACTIVATED"] == "true"
     p.report_uri ENV["CSP_REPORT_URI"]
   end

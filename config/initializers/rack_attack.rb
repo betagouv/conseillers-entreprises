@@ -114,7 +114,6 @@ class Rack::Attack
   Rack::Attack.blocklisted_responder = lambda do |request|
     # Using 503 because it may make attacker think that they have successfully
     # DOSed the site. Rack::Attack returns 403 for blocklists by default
-    Sentry.capture_message("IP bloquée : IP = #{request.ip} ; Remote IP = #{request.remote_ip}")
     [ 403, {}, ['Forbidden']]
   end
 
