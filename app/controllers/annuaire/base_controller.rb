@@ -11,7 +11,7 @@ module Annuaire
 
     def form_params
       %i[institution antenne name region_code theme_id subject_id]
-        .reduce({}) { |h,key| h[key] = params[key]; h }
+        .index_with { |key| params[key] }
     end
 
     def retrieve_form_params

@@ -31,9 +31,9 @@ module  Annuaire
         .apply_filters(index_search_params)
         .group('antennes.institution_id')
 
-      @antennes_count = antennes_count.each_with_object({}) do |institution, hash|
-        hash[institution.institution_id] = institution.antennes_count
-      end
+      @antennes_count = antennes_count.to_h do |institution|
+                          [institution.institution_id, institution.antennes_count]
+                        end
     end
 
     def get_users_count
@@ -46,9 +46,9 @@ module  Annuaire
         .by_theme(index_search_params[:theme_id])
         .group('antennes.institution_id')
 
-      @users_count = users_count.each_with_object({}) do |institution, hash|
-        hash[institution.institution_id] = institution.users_count
-      end
+      @users_count = users_count.to_h do |institution|
+                       [institution.institution_id, institution.users_count]
+                     end
     end
   end
 end

@@ -29,7 +29,7 @@ module CsvImport
           attributes = row_to_attributes(row)
 
           preprocess << preprocess(attributes)
-          preprocess_errors = preprocess.filter { |result| result.is_a? CsvImport::PreprocessError }
+          preprocess_errors = preprocess.grep(CsvImport::PreprocessError)
           next if preprocess_errors.present?
 
           # Create objects
@@ -81,7 +81,7 @@ module CsvImport
       separators = %w[, ;]
       attempted = separators.map { |separator| open_with_separator(input, separator) }
 
-      opened_files = attempted.filter { |csv| !csv.is_a? CSV::MalformedCSVError }
+      opened_files = attempted.grep_v(CSV::MalformedCSVError)
       return attempted.first if opened_files.empty?
 
       # Find the separator that find the most headers

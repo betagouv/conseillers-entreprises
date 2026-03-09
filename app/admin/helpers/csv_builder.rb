@@ -8,7 +8,7 @@ module Admin
       end
 
       def column_list(association)
-        column(association) { |object| object.send(association).map(&:to_s).join('/') }
+        column(association) { |object| object.send(association).join('/') }
       end
     end
 

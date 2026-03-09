@@ -5,10 +5,12 @@ class CsvJob < ApplicationJob
       relation = klass.ransack(ransack_params).result
       result = relation.export_csv
       file = result.build_file
-      user.csv_exports.attach(io: File.open(file.path),
-                              key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
-                              filename: result.filename,
-                              content_type: 'application/csv')
+      File.open(file.path) do |io|
+        user.csv_exports.attach(io: io,
+                                key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
+                                filename: result.filename,
+                                content_type: 'application/csv')
+      end
       file.unlink
     end
   end

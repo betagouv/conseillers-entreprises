@@ -17,9 +17,9 @@ module XlsxExport
       def by_theme_stats
         add_header_row('repartition.by_theme_header')
 
-        grouped_hash = Theme.joins(:subjects).where(subjects: { id: [base_needs.pluck(:subject_id)] }).each_with_object({}) do |theme, hash|
-          hash[theme.label] = theme.present? ? calculate_needs_by_theme_size(theme) : nil
-        end
+        grouped_hash = Theme.joins(:subjects).where(subjects: { id: [base_needs.pluck(:subject_id)] }).to_h do |theme|
+                         [theme.label, theme.present? ? calculate_needs_by_theme_size(theme) : nil]
+                       end
 
         # Tri selon le nombre de besoins en ordre décroissant
         grouped_hash.sort_by { |_, count| -count }.each do |label, count|
@@ -43,9 +43,9 @@ module XlsxExport
       def by_region_stats
         add_header_row('repartition.by_region_header')
 
-        grouped_hash = RegionOrderingService.call.each_with_object({}) do |region, hash|
-          hash[region.nom] = base_needs.by_region(region.code).size
-        end
+        grouped_hash = RegionOrderingService.call.to_h do |region|
+                         [region.nom, base_needs.by_region(region.code).size]
+                       end
 
         grouped_hash.sort_by { |_, count| -count }.each do |label, count|
           add_count_percentage_row(label, count, base_needs)

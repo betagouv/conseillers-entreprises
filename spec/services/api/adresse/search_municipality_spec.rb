@@ -32,7 +32,7 @@ RSpec.describe Api::Adresse::SearchMunicipality do
         "query" => "lalalalala",
         "filters" => { "type" => "municipality" },
         "limit" => 5 }
-        .to_json)
+            .to_json)
       )
     end
 
