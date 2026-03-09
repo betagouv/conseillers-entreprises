@@ -48,6 +48,8 @@ class Solicitation < ApplicationRecord
   include RangeScopes
   include MandatoryAnswers
 
+  paginates_per 15
+
   ## Associations
   #
   belongs_to :landing, inverse_of: :solicitations, optional: true
