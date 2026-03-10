@@ -49,7 +49,8 @@ class BuildAntennesCollection
         antennes_collection << { name: antenne.name, id: aggregated_id, territorial_level: territorial_level }
       end
     end
-    antennes_collection.sort_by { |a| [a[:territorial_level], a[:name]] }
+    with_locales_suffix = I18n.t('helpers.stats_helper.with_locales')
+    antennes_collection.sort_by { |a| [a[:territorial_level], a[:name].delete_suffix(with_locales_suffix), a[:id].to_s.include?('locales') ? 0 : 1] }
   end
 
   def manager_antennes_included_regionals
