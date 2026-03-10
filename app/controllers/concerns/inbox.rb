@@ -34,12 +34,10 @@ module Inbox
     antenne_inbox_collections_counts(@recipient)
     @collection_name = collection_name
 
-    needs_method = aggregate? ? :"direct_territory_needs_#{@collection_name}" : :"territory_needs_#{@collection_name}"
-
     # Reject antenne_id from filters: the antenne scope is already set via @recipient.
     # For regional antennes, including antenne_id would incorrectly filter out needs
     # when the aggregated "avec antennes locales" id is in session params.
-    @needs = @recipient.send(needs_method)
+    @needs = @recipient.send("territory_needs_#{@collection_name}", aggregate: aggregate?)
       .includes(:company, :subject, :solicitation, :facility, subject: :theme)
       .select("needs.*, matches.sent_at as match_sent_at")
       .apply_filters(needs_search_params.except(:antenne_id))
@@ -55,21 +53,19 @@ module Inbox
 
   def antenne_inbox_collections_counts(recipient)
     @inbox_collections_counts = if recipient.is_a?(Antenne)
-      method_prefix = (aggregate? && recipient.regional?) ? "direct_territory_needs" : "territory_needs"
-      inbox_collection_names.index_with { |name| recipient.send(:"#{method_prefix}_#{name}").size }
+      inbox_collection_names.index_with { |name| recipient.send(:"territory_needs_#{name}", aggregate: aggregate?).size }
     else
       inbox_collection_names.index_with do |name|
-        Need.in_antennes_perimeters(recipient).merge!(Need.where(id: recipient.map { |a| a.send(:"territory_needs_#{name}") }.flatten)).size
+        Need.in_antennes_perimeters(recipient).merge!(Need.where(id: recipient.map { |a| a.send(:"territory_needs_#{name}", aggregate: aggregate?) }.flatten)).size
       end
     end
   end
 
   def aggregate?
-    antenne_id = needs_search_params[:antenne_id]
+    antenne_id = needs_search_params[:antenne_id].presence || params[:antenne_id]
     return false if antenne_id.blank?
-    return false if antenne_id.to_s.include?('locales')
 
-    @recipient&.regional?
+    @recipient&.regional? && antenne_id.to_s.include?('locales')
   end
 
   def needs_search_params
