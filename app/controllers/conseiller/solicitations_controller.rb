@@ -63,7 +63,7 @@ class Conseiller::SolicitationsController < ApplicationController
   end
 
   def update_badges
-    badges_params = params.require(:solicitation).permit(badge_ids: [])
+    badges_params = params.expect(solicitation: [badge_ids: []])
     if @solicitation.valid?
       @solicitation.update(badges_params)
     else
@@ -115,8 +115,8 @@ class Conseiller::SolicitationsController < ApplicationController
   end
 
   def solicitation_params
-    params.require(:solicitation)
-      .permit(:description, :siret, :phone_number, :email, :full_name, form_info: {}, needs: {})
+    params
+      .expect(solicitation: [:description, :siret, :phone_number, :email, :full_name, form_info: {}, needs: {}])
   end
 
   def set_category_content

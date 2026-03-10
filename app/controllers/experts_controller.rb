@@ -26,7 +26,7 @@ class ExpertsController < ApplicationController
   private
 
   def expert_params
-    params.require(:expert).permit(:phone_number, :job)
+    params.expect(expert: [:phone_number, :job])
   end
 
   def find_expert
