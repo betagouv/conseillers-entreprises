@@ -34,7 +34,7 @@ module Inbox
     antenne_inbox_collections_counts(@recipient)
     @collection_name = collection_name
 
-    needs_method = direct_antenne_scope? ? :"direct_territory_needs_#{@collection_name}" : :"territory_needs_#{@collection_name}"
+    needs_method = aggregate? ? :"direct_territory_needs_#{@collection_name}" : :"territory_needs_#{@collection_name}"
 
     # Reject antenne_id from filters: the antenne scope is already set via @recipient.
     # For regional antennes, including antenne_id would incorrectly filter out needs
@@ -55,7 +55,7 @@ module Inbox
 
   def antenne_inbox_collections_counts(recipient)
     @inbox_collections_counts = if recipient.is_a?(Antenne)
-      method_prefix = (direct_antenne_scope? && recipient.regional?) ? "direct_territory_needs" : "territory_needs"
+      method_prefix = (aggregate? && recipient.regional?) ? "direct_territory_needs" : "territory_needs"
       inbox_collection_names.index_with { |name| recipient.send(:"#{method_prefix}_#{name}").size }
     else
       inbox_collection_names.index_with do |name|
@@ -64,7 +64,7 @@ module Inbox
     end
   end
 
-  def direct_antenne_scope?
+  def aggregate?
     antenne_id = needs_search_params[:antenne_id]
     return false if antenne_id.blank?
     return false if antenne_id.to_s.include?('locales')
