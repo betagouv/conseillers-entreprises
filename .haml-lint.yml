@@ -6,3 +6,6 @@ linters:
     max_consecutive: 5
   ViewLength:
     exclude: 'app/views/application/_navbar.html.haml'
+  RuboCop:
+    ignored_cops:
+      - Layout/FirstHashElementIndentation
