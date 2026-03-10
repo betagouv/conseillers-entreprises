@@ -749,7 +749,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   active_link_to
-  active_model_serializers (~> 0.10)
+  active_model_serializers
   activeadmin
   activeadmin-ajax_filter
   activeadmin_blaze_theme
@@ -776,7 +776,7 @@ DEPENDENCIES
   daemons
   dartsass-sprockets
   database_consistency
-  decoupage_administratif (~> 0.3.1)
+  decoupage_administratif
   devise
   devise-async
   devise_invitable
@@ -820,7 +820,7 @@ DEPENDENCIES
   rails-i18n
   rails_autolink
   recipient_interceptor
-  redis (~> 4.0)
+  redis
   rorvswild
   rspec-rails
   rspec-retry
@@ -840,11 +840,11 @@ DEPENDENCIES
   rubocop-rspec_rails
   selenium-webdriver
   shoulda-matchers
-  sib-api-v3-sdk (~> 7.2)
-  sidekiq (< 8)
+  sib-api-v3-sdk
+  sidekiq
   sidekiq-failures
   simplecov
-  spring (>= 3.0.0)
+  spring
   spring-commands-parallel-tests
   spring-commands-rspec
   squasher
