@@ -27,14 +27,15 @@
 #
 # Indexes
 #
-#  index_solicitations_on_code_region         (code_region)
-#  index_solicitations_on_cooperation_id      (cooperation_id)
-#  index_solicitations_on_email               (email)
-#  index_solicitations_on_landing_id          (landing_id)
-#  index_solicitations_on_landing_slug        (landing_slug)
-#  index_solicitations_on_landing_subject_id  (landing_subject_id)
-#  index_solicitations_on_status              (status)
-#  index_solicitations_on_uuid                (uuid)
+#  index_solicitations_on_code_region              (code_region)
+#  index_solicitations_on_cooperation_id           (cooperation_id)
+#  index_solicitations_on_email                    (email)
+#  index_solicitations_on_landing_id               (landing_id)
+#  index_solicitations_on_landing_slug             (landing_slug)
+#  index_solicitations_on_landing_subject_id       (landing_subject_id)
+#  index_solicitations_on_status                   (status)
+#  index_solicitations_on_status_and_completed_at  (status,completed_at)
+#  index_solicitations_on_uuid                     (uuid)
 #
 # Foreign Keys
 #
