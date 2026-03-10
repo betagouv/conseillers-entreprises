@@ -65,7 +65,7 @@ module Inbox
     antenne_id = needs_search_params[:antenne_id].presence || params[:antenne_id]
     return false if antenne_id.blank?
 
-    @recipient&.regional? && antenne_id.to_s.include?('locales')
+    @recipient&.regional? && antenne_id.to_s.include?('aggregate')
   end
 
   def needs_search_params

@@ -22,8 +22,8 @@ module NeedsHelper
     # Return the antenne_id from session if present
     return needs_search_params[:antenne_id] if needs_search_params[:antenne_id].present?
 
-    # select the aggregated antenne (with " avec antennes locales") if available
-    aggregated_antenne = antennes_collection.find { |a| a[:id].to_s.include?(I18n.t('helpers.stats_helper.with_locales')) }
+    # select the aggregated antenne if available
+    aggregated_antenne = antennes_collection.find { |a| a[:id].to_s.include?('aggregate') }
     return aggregated_antenne[:id] if aggregated_antenne
 
     # Fallback: select the first antenne

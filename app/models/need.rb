@@ -336,7 +336,7 @@ class Need < ApplicationRecord
   end
 
   scope :by_antenne, -> (antenne_id) do
-    if antenne_id.include?('locales')
+    if antenne_id.include?('aggregate')
       where(id: Antenne.find_by(id: antenne_id.to_i)&.perimeter_received_needs)
     else
       joins(:matches).merge(Match.by_antenne(antenne_id))

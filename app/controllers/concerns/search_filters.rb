@@ -61,8 +61,8 @@ module SearchFilters
   def default_antenne_id
     return if params[:antenne_id].present?
 
-    # Prefer the aggregated entry (with "locales") when it exists
-    params[:antenne_id] = base_antennes.find { |a| a[:id].to_s.include?('locales') }&.dig(:id)&.to_s ||
+    # Prefer the aggregated entry when it exists
+    params[:antenne_id] = base_antennes.find { |a| a[:id].to_s.include?('aggregate') }&.dig(:id)&.to_s ||
                           base_antennes.first&.dig(:id)&.to_s
   end
 end

@@ -38,7 +38,7 @@ class BuildAntennesCollection
 
       antennes_collection.delete_if { |a| a[:id] == antenne.id }
       territorial_level = Antenne::TERRITORIAL_ORDER[antenne.territorial_level.to_sym]
-      aggregated_id = "#{antenne[:id]}#{I18n.t('helpers.stats_helper.with_locales')}"
+      aggregated_id = "#{antenne[:id]}-aggregate"
 
       if antenne.regional?
         # Regional antennes expose two entries: direct needs (own antenne only) and aggregated (regional + locals)
@@ -49,8 +49,7 @@ class BuildAntennesCollection
         antennes_collection << { name: antenne.name, id: aggregated_id, territorial_level: territorial_level }
       end
     end
-    with_locales_suffix = I18n.t('helpers.stats_helper.with_locales')
-    antennes_collection.sort_by { |a| [a[:territorial_level], a[:name].delete_suffix(with_locales_suffix), a[:id].to_s.include?('locales') ? 0 : 1] }
+    antennes_collection.sort_by { |a| [a[:territorial_level], a[:name].delete_suffix(I18n.t('helpers.stats_helper.with_locales')), a[:id].to_s.include?('aggregate') ? 0 : 1] }
   end
 
   def manager_antennes_included_regionals

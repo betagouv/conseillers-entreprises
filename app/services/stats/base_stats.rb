@@ -17,7 +17,7 @@ module Stats
       @region_code = params.region_code
       @institution_id = params.institution_id
       @antenne_id = extract_numeric_antenne_id(params.antenne_id)
-      @with_agglomerate_data = params.antenne_id.to_s.include?('locales') if params.antenne_id.present?
+      @with_agglomerate_data = params.antenne_id.to_s.include?('aggregate') if params.antenne_id.present?
       @subject_id = params.subject_id
       @integration = params.integration
       @landing_id = params.landing_id
@@ -130,7 +130,7 @@ module Stats
 
     def extract_numeric_antenne_id(raw_id)
       return nil if raw_id.blank?
-      raw_id.to_s.split(I18n.t('helpers.stats_helper.with_locales')).first.strip
+      raw_id.to_s.split('aggregate').first.strip
     end
 
     ## Overrides
