@@ -8,7 +8,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '3.4.6'
+ruby '3.4.8'
 
 gem 'rails', '~> 7.2.2'
 
@@ -16,7 +16,7 @@ gem 'rails', '~> 7.2.2'
 gem 'foreman'
 gem 'pg'
 gem 'puma'
-gem 'openssl', '>= 3.3.1' # See issue #4090
+gem 'openssl'
 
 # Assets
 gem 'haml-rails'

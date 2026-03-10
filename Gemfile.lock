@@ -802,7 +802,7 @@ DEPENDENCIES
   matrix
   metamagic
   mjml-rails
-  openssl (>= 3.3.1)
+  openssl
   parallel
   parallel_tests
   pg
@@ -857,7 +857,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.4.6p54
+   ruby 3.4.8p72
 
 BUNDLED WITH
    2.4.22
