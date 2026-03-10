@@ -64,7 +64,6 @@ gem 'honeypot-captcha'
 gem 'kaminari'
 gem 'bootsnap', require: false
 gem 'rails_autolink'
-gem 'sib-api-v3-sdk'
 gem 'recipient_interceptor'
 gem 'ip_anonymizer'
 gem 'highline'
