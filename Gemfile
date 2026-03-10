@@ -127,7 +127,7 @@ group :development do
   gem 'i18n-tasks'
   gem 'listen'
   gem 'web-console'
-  gem 'annotate'
+  gem 'annotaterb'
   gem 'letter_opener_web'
   gem 'bullet'
   gem 'squasher'
