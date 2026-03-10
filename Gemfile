@@ -79,7 +79,7 @@ gem 'parallel'
 gem 'connection_pool', '< 3' # See #4334
 
 # Notifiers
-gem "appsignal"
+gem 'appsignal'
 
 # Helper gems
 gem 'browser'
@@ -91,10 +91,10 @@ gem 'active_link_to'
 gem 'rack-attack'
 
 # Storage
-gem "aws-sdk-s3", require: false
+gem 'aws-sdk-s3', require: false
 
 # Performance
-gem "rorvswild"
+gem 'rorvswild'
 gem 'rack-timeout'
 
 group :test do
@@ -117,7 +117,7 @@ group :development, :test do
   gem 'rspec_junit_formatter', require: false
   gem 'parallel_tests'
   gem 'spring-commands-parallel-tests'
-  gem "dotenv-rails"
+  gem 'dotenv-rails'
   gem 'w3c_validators', require: false
   gem 'rswag-specs'
 end
@@ -147,10 +147,10 @@ group :development do
   gem 'rubocop-factory_bot', require: false
   gem 'rubocop-rspec_rails', require: false
   gem 'brakeman', require: false
-  gem "rails-erd"
+  gem 'rails-erd'
   gem 'database_consistency', require: false
 end
 
 # Use Redis for Action Cable
-gem "redis"
+gem 'redis'
 gem 'hiredis'
