@@ -18,10 +18,10 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 require 'system_helper'
-require 'sidekiq/testing'
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
+Sidekiq.testing!(:fake)
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
