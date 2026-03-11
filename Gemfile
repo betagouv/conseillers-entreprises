@@ -76,6 +76,8 @@ gem 'progress_bar'
 gem 'decoupage_administratif', '~> 0.3.1'
 gem 'parallel'
 
+gem 'connection_pool', '< 3' # See #4334
+
 # Notifiers
 gem "appsignal"
 
