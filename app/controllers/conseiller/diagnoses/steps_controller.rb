@@ -82,7 +82,7 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
 
   def params_for_needs
     params
-      .expect(diagnosis: [:content, needs_attributes: [:_destroy, :content, :subject_id, :id, subject_answers_attributes: [:_destroy, :id, :subject_question_id, :filter_value]]])
+      .expect(diagnosis: [:content, needs_attributes: [[:_destroy, :content, :subject_id, :id, subject_answers_attributes: [[:_destroy, :id, :subject_question_id, :filter_value]]]]])
   end
 
   def params_for_visit
@@ -96,6 +96,6 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
 
   def params_for_matches
     params
-      .expect(diagnosis: [:content, needs_attributes: [:id, matches_attributes: [:_destroy, :id, :subject_id, :expert_id]]])
+      .expect(diagnosis: [:content, needs_attributes: [[:id, matches_attributes: [[:_destroy, :id, :subject_id, :expert_id]]]]])
   end
 end

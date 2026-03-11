@@ -37,7 +37,7 @@ class Api::V1::SolicitationsController < Api::V1::BaseController
       .expect(solicitation: [
         :landing_id, :landing_subject_id, :description, :code_region, :origin_url,
         *Solicitation::FIELD_TYPES.keys,
-        questions_additionnelles: [:question_id, :answer]
+        questions_additionnelles: [[:question_id, :answer]]
       ]).merge(status: :step_description)
   end
 
