@@ -35,9 +35,9 @@ module XlsxExport
           cooperations.each do |cooperation|
             sheet.add_row []
             add_subject_table_header(cooperation)
-            needs_by_cooperation_subjects = cooperation_needs.by_cooperation(cooperation).map(&:subject).uniq.each_with_object({}) do |subject, hash|
-              hash[subject.label] = cooperation_needs.where(subject: subject)
-            end
+            needs_by_cooperation_subjects = cooperation_needs.by_cooperation(cooperation).map(&:subject).uniq.to_h do |subject|
+                                              [subject.label, cooperation_needs.where(subject: subject)]
+                                            end
             generate_subjects_row(needs_by_cooperation_subjects)
           end
         end

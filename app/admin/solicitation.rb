@@ -160,7 +160,7 @@ ActiveAdmin.register Solicitation do
     column(:landing) { |s| s.landing&.slug }
     column(:subject) { |s| s.landing_subject&.slug }
     column :diagnosis
-    column(:badges) { |s| s.badges.map(&:to_s).join(",") }
+    column(:badges) { |s| s.badges.join(",") }
     column(:regions) { |s| s.region&.nom }
     Solicitation::FORM_INFO_KEYS.each { |k| column k, humanize_name: false }
   end

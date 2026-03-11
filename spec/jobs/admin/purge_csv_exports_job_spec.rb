@@ -13,10 +13,12 @@ RSpec.describe Admin::PurgeCsvExportsJob do
     context 'recent export' do
       before do
         travel_to(2.days.ago) do
-          user.csv_exports.attach(io: File.open(file.path),
-                                  key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
-                                  filename: result.filename,
-                                  content_type: 'application/csv')
+          File.open(file.path) do |io|
+            user.csv_exports.attach(io: io,
+                                    key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
+                                    filename: result.filename,
+                                    content_type: 'application/csv')
+          end
         end
         travel_back
       end
@@ -29,10 +31,12 @@ RSpec.describe Admin::PurgeCsvExportsJob do
     context 'old export' do
       before do
         travel_to(2.weeks.ago) do
-          user.csv_exports.attach(io: File.open(file.path),
-                                  key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
-                                  filename: result.filename,
-                                  content_type: 'application/csv')
+          File.open(file.path) do |io|
+            user.csv_exports.attach(io: io,
+                                    key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
+                                    filename: result.filename,
+                                    content_type: 'application/csv')
+          end
         end
         travel_back
       end
