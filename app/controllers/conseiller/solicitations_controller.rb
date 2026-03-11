@@ -114,11 +114,6 @@ class Conseiller::SolicitationsController < ApplicationController
     @solicitation = Solicitation.find(params[:id])
   end
 
-  def solicitation_params
-    params
-      .expect(solicitation: [:description, :siret, :phone_number, :email, :full_name, form_info: {}, needs: {}])
-  end
-
   def set_category_content
     @category_content = Badge
       .pluck(:title).map { |title| { category: t('solicitations.set_category_content.tags'), title: title } }
