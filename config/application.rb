@@ -28,12 +28,22 @@ module PlaceDesEntreprises
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    config.time_zone = 'Paris'
+
+    config.i18n.available_locales = [:fr]
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    config.i18n.default_locale = :fr
+    config.i18n.fallbacks = [I18n.default_locale]
+    config.active_model.i18n_customize_full_message = true
+
+    config.action_mailer.default_url_options = { host: ENV['HOST_NAME'] }
+
+    config.active_job.queue_adapter = :sidekiq
+
+    config.middleware.insert_after ActionDispatch::RemoteIp, IpAnonymizer::MaskIp
+    config.action_view.form_with_generates_remote_forms = true
   end
 end
+
+require "rswag/ui/CSP"
+require "api_adapters/pde_adapter"
