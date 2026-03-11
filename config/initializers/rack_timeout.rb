@@ -14,3 +14,7 @@ Rack::Timeout.register_state_change_observer(:appsignal_context) do |env|
     )
   end
 end
+
+if Rails.env.development?
+  Rack::Timeout::Logger.disable
+end
