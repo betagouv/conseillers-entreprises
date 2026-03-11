@@ -82,27 +82,21 @@ Rails.application.configure do
   # Change to "debug" to log everything (including potentially personally-identifiable information!)
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
-  # Use a different cache store in production.
-  config.cache_store =
-    :redis_cache_store, { url: ENV['REDIS_URL'], reconnect_attempts: 3,
-                                                 error_handler: -> (method:, returning:, exception:) {
-                                                   Appsignal.send_error(exception) do |transaction|
-                                                     transaction.set_tags(method: method, returning: returning)
-                                                   end
-                                                 }
-      }
-
   # Prevent health checks from clogging up the logs.
   config.silence_healthcheck_path = "/up"
 
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  config.action_mailer.asset_host = ENV['HOST_NAME']
-  # Actually send emails, but use sendinblue/brevo in production and Mailtrap in staging
-  config.action_mailer.perform_caching = false
   # Replace the default in-process memory cache store with a durable alternative.
-  # config.cache_store = :mem_cache_store
+  config.cache_store =
+    :redis_cache_store, { url: ENV['REDIS_URL'], reconnect_attempts: 3,
+                          error_handler: -> (method:, returning:, exception:) {
+                            Appsignal.send_error(exception) do |transaction|
+                              transaction.set_tags(method: method, returning: returning)
+                            end
+                          }
+    }
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   # config.active_job.queue_adapter = :resque
@@ -111,6 +105,10 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
+  config.action_mailer.perform_caching = false
+  config.action_mailer.asset_host = ENV['HOST_NAME']
+
+  # Actually send emails, but use sendinblue/brevo in production and Mailtrap in staging
   if ENV['SENDINBLUE_USER_NAME'].present?
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
@@ -152,12 +150,6 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-  #
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new($stdout)
-    logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
-  end
 
   if ENV['STAGING_ENV'].present? && ENV['STAGING_ENV'] == 'true'
     # Let Faker load its :en text
