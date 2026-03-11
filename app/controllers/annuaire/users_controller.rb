@@ -1,5 +1,6 @@
 module  Annuaire
   class UsersController < BaseController
+    include InstitutionsSubjectsSorter
     before_action :retrieve_institution
     before_action :retrieve_antenne, only: [:index, :create_territorial_coverage]
     before_action :retrieve_experts_and_users, only: [:index, :create_territorial_coverage]
@@ -9,8 +10,8 @@ module  Annuaire
     def index
       institutions_subjects_by_theme = @institution.institutions_subjects
         .includes(:subject, :theme, :experts_subjects, :not_deleted_experts)
+        .sort { |a, b| compare_institution_subjects(a, b) }
         .group_by(&:theme)
-        .sort_by { |theme, _| [theme.territorial_zones.present? || theme.cooperation? ? 1 : 0, theme.label] }
         .to_h
       institutions_subjects_exportable = institutions_subjects_by_theme.values.flatten
 

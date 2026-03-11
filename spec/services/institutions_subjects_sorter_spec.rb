@@ -1,13 +1,7 @@
 require 'rails_helper'
 
 describe InstitutionsSubjectsSorter do
-  let(:sorter_class) do
-    Class.new do
-      include InstitutionsSubjectsSorter
-    end
-  end
-
-  subject(:sorter) { sorter_class.new }
+  subject(:sorter) { Object.new.tap { |o| o.extend(InstitutionsSubjectsSorter) } }
 
   describe '#sorted_institutions_subjects' do
     let(:institution) { create(:institution) }
