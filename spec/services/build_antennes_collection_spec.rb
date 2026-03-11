@@ -28,7 +28,7 @@ describe BuildAntennesCollection do
         end
       end
 
-      context "Antenne regional qui n'a pas d'expert mais des antennes locales" do
+      context "Antenne regional qui n’a pas d'expert mais des antennes locales" do
         let!(:local_antenne) { create :antenne, :local, institution: institution, parent_antenne: regional_antenne }
         let!(:expert) { create :expert_with_users, antenne: local_antenne }
         let!(:expert_subject) { create :expert_subject, expert: expert }
