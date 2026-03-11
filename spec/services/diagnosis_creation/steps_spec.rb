@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'api'
 
 describe DiagnosisCreation::Steps do
   describe 'prepare_needs_from_solicitation' do
