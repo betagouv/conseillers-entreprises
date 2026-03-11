@@ -45,7 +45,7 @@ module CsvExport
     end
 
     def fields_for_subjects
-      sorted_institutions_subjects.to_h do |institution_subject|
+      sorted_institutions_subjects(@options[:institutions_subjects]).to_h do |institution_subject|
         # We build a hash of <institution subject>: <expert subject>
         # * There can be only one expert_subject for an (expert, institution_subject) pair.
         theme = institution_subject.theme

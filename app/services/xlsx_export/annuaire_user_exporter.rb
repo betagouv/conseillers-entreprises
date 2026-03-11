@@ -39,7 +39,7 @@ module XlsxExport
     end
 
     def fields_for_subjects
-      sorted_institutions_subjects.to_h do |institution_subject|
+      sorted_institutions_subjects(@options[:institutions_subjects]).to_h do |institution_subject|
         # We build a hash of <institution subject>: <expert subject>
         # * There can be only one expert_subject for an (expert, institution_subject) pair.
         title = institution_subject.unique_name
@@ -79,7 +79,7 @@ module XlsxExport
     def theme_column_groups
       # Group institutions_subjects by theme
       # Column index starts at 12 after the team columns
-      sorted_institutions_subjects
+      sorted_institutions_subjects(@options[:institutions_subjects])
         .each_with_index
         .chunk_while { |(is1, _), (is2, _)| is1.theme == is2.theme }
         .map do |group|
@@ -95,7 +95,7 @@ module XlsxExport
       # second row: theme labels
       index = 12
       second_row = Array.new(index)
-      sorted_institutions_subjects.each do |is|
+      sorted_institutions_subjects(@options[:institutions_subjects]).each do |is|
         theme = is.theme
         label = theme.cooperation? ? "#{theme.label} (#{theme.cooperations.pluck(:name).join(', ')})" : theme.label
         second_row[index] = label
@@ -112,7 +112,7 @@ module XlsxExport
       third_row[5] = I18n.t('export_xls.teams_instructions')
       third_row[6..11] = third_row[6..11].map { |v| v = '' }
       index = 12
-      sorted_institutions_subjects.each do |is|
+      sorted_institutions_subjects(@options[:institutions_subjects]).each do |is|
         third_row[index] = is.description
         index += 1
       end
