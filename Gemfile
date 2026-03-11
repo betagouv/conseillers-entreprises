@@ -30,7 +30,7 @@ gem 'jsbundling-rails'
 # Parallel processes
 gem 'clockwork'
 gem 'daemons'
-gem 'sidekiq', '< 8'
+gem 'sidekiq'
 gem 'sidekiq-failures'
 
 # Improving models
@@ -42,7 +42,7 @@ gem 'pundit'
 gem 'auto_strip_attributes'
 gem 'acts_as_list'
 gem 'aasm'
-gem 'active_model_serializers', '~> 0.10'
+gem 'active_model_serializers'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'faker'
@@ -64,7 +64,6 @@ gem 'honeypot-captcha'
 gem 'kaminari'
 gem 'bootsnap', require: false
 gem 'rails_autolink'
-gem 'sib-api-v3-sdk', '~> 7.2'
 gem 'recipient_interceptor'
 gem 'ip_anonymizer'
 gem 'highline'
@@ -73,13 +72,13 @@ gem 'caxlsx_rails'
 gem 'matrix'
 gem 'mjml-rails'
 gem 'progress_bar'
-gem 'decoupage_administratif', '~> 0.3.1'
+gem 'decoupage_administratif'
 gem 'parallel'
 
 gem 'connection_pool', '< 3' # See #4334
 
 # Notifiers
-gem "appsignal"
+gem 'appsignal'
 
 # Helper gems
 gem 'browser'
@@ -91,10 +90,10 @@ gem 'active_link_to'
 gem 'rack-attack'
 
 # Storage
-gem "aws-sdk-s3", require: false
+gem 'aws-sdk-s3', require: false
 
 # Performance
-gem "rorvswild"
+gem 'rorvswild'
 gem 'rack-timeout'
 
 group :test do
@@ -117,7 +116,7 @@ group :development, :test do
   gem 'rspec_junit_formatter', require: false
   gem 'parallel_tests'
   gem 'spring-commands-parallel-tests'
-  gem "dotenv-rails"
+  gem 'dotenv-rails'
   gem 'w3c_validators', require: false
   gem 'rswag-specs'
 end
@@ -134,7 +133,7 @@ group :development do
   gem 'squasher'
   gem 'pp_sql'
 
-  gem 'spring', ">=3.0.0"
+  gem 'spring'
   gem 'spring-commands-rspec'
 
   gem 'rubocop', require: false
@@ -147,10 +146,10 @@ group :development do
   gem 'rubocop-factory_bot', require: false
   gem 'rubocop-rspec_rails', require: false
   gem 'brakeman', require: false
-  gem "rails-erd"
+  gem 'rails-erd'
   gem 'database_consistency', require: false
 end
 
 # Use Redis for Action Cable
-gem "redis", "~> 4.0"
+gem 'redis'
 gem 'hiredis'
