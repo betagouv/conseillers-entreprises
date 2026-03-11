@@ -1,6 +1,7 @@
 module  Annuaire
   class UsersController < BaseController
     include InstitutionsSubjectsSorter
+
     before_action :retrieve_institution
     before_action :retrieve_antenne, only: [:index, :create_territorial_coverage]
     before_action :retrieve_experts_and_users, only: [:index, :create_territorial_coverage]
