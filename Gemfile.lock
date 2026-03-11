@@ -209,7 +209,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.3.6)
-    connection_pool (3.0.2)
+    connection_pool (2.5.4)
     crack (1.0.1)
       bigdecimal
       rexml
@@ -543,7 +543,7 @@ GEM
     recipient_interceptor (0.3.3)
       mail
     redis (4.8.1)
-    redis-client (0.26.4)
+    redis-client (0.27.0)
       connection_pool
     regexp_parser (2.11.3)
     reline (0.6.3)
@@ -771,6 +771,7 @@ DEPENDENCIES
   caxlsx
   caxlsx_rails
   clockwork
+  connection_pool (< 3)
   css_parser
   daemons
   dartsass-sprockets
