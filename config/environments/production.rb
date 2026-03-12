@@ -134,10 +134,10 @@ Rails.application.configure do
     config.action_mailer.smtp_settings = {
       user_name: ENV['MAILTRAP_USER_NAME'],
       password: ENV['MAILTRAP_PASSWORD'],
-      address: 'smtp.mailtrap.io',
-      domain: 'smtp.mailtrap.io',
+      address: 'sandbox.smtp.mailtrap.io',
+      domain: 'sandbox.smtp.mailtrap.io',
       port: '2525',
-      authentication: :cram_md5
+      authentication: :login
     }
   else
     config.action_mailer.perform_deliveries = false
