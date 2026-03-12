@@ -14,6 +14,8 @@ ActiveAdmin.register ProfilPicture do
     actions
   end
 
+  config.filters = false
+
   form do |f|
     f.inputs do
       f.input :user, as: :select, collection: User.not_deleted.admin
