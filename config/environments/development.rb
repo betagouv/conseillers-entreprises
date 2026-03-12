@@ -43,6 +43,9 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
+  # Use LetterOpener
+  # config.action_mailer.delivery_method = :letter_opener_web
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -77,9 +80,6 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   Rails.application.routes.default_url_options = { host: ENV['HOST_NAME'], port: ENV['PORT'] }
-
-  # Use LetterOpener
-  config.action_mailer.delivery_method = :letter_opener_web
 
   # Perform delayed jobs synchronously
   if ENV['DEVELOPMENT_INLINE_JOBS'].to_b
