@@ -15,6 +15,6 @@ Rack::Timeout.register_state_change_observer(:appsignal_context) do |env|
   end
 end
 
-if Rails.env.development?
-  Rack::Timeout::Logger.disable
+if Rails.env.development? && !ENV['DEVELOPMENT_ENABLE_RACK_ATTACK'].to_b
+  Rails.application.config.middleware.delete(Rack::Timeout)
 end
