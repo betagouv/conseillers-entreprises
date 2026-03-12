@@ -1,5 +1,7 @@
 module XlsxExport
   class AnnuaireUserExporter < BaseExporter
+    include InstitutionsSubjectsSorter
+
     def fields
       fields = base_fields
       fields.merge!(fields_for_team)
@@ -37,7 +39,7 @@ module XlsxExport
     end
 
     def fields_for_subjects
-      @options[:institutions_subjects].to_h do |institution_subject|
+      sorted_institutions_subjects(@options[:institutions_subjects]).to_h do |institution_subject|
         # We build a hash of <institution subject>: <expert subject>
         # * There can be only one expert_subject for an (expert, institution_subject) pair.
         title = institution_subject.unique_name
@@ -70,11 +72,38 @@ module XlsxExport
       s
     end
 
+    def col_letter(index)
+      Axlsx.col_ref(index)
+    end
+
+    def theme_column_groups
+      # Group institutions_subjects by theme
+      # Column index starts at 12 after the team columns
+      sorted_institutions_subjects(@options[:institutions_subjects])
+        .each_with_index
+        .chunk_while { |(is1, _), (is2, _)| is1.theme == is2.theme }
+        .map do |group|
+          first_col = 12 + group.first.last
+          last_col  = 12 + group.last.last
+          [first_col, last_col]
+        end
+    end
+
     def build_headers_rows(sheet, attributes, _)
-      # first row
-      sheet.add_row(headers, height: 60)
-      # second row, columns titles
-      sheet.add_row(attributes.keys.map{ |attr| User.human_attribute_name(attr, default: attr) }, height: 60, widths: [:ignore, :auto,80])
+      # first row: instructions
+      sheet.add_row(headers.dup)
+      # second row: theme labels
+      index = 12
+      second_row = Array.new(index)
+      sorted_institutions_subjects(@options[:institutions_subjects]).each do |is|
+        theme = is.theme
+        label = theme.cooperation? ? "#{theme.label} (#{theme.cooperations.pluck(:name).join(', ')})" : theme.label
+        second_row[index] = label
+        index += 1
+      end
+      sheet.add_row(second_row, height: 60)
+      # third row, columns titles
+      sheet.add_row(attributes.keys.map{ |attr| User.human_attribute_name(attr, default: attr) }, height: 60, widths: [:ignore, :auto, 80])
       # third row, institution subject description
       third_row = fields.values
       third_row[0] = ''
@@ -83,7 +112,7 @@ module XlsxExport
       third_row[5] = I18n.t('export_xls.teams_instructions')
       third_row[6..11] = third_row[6..11].map { |v| v = '' }
       index = 12
-      @options[:institutions_subjects].each do |is|
+      sorted_institutions_subjects(@options[:institutions_subjects]).each do |is|
         third_row[index] = is.description
         index += 1
       end
@@ -117,37 +146,44 @@ module XlsxExport
     end
 
     def apply_style(sheet, attributes)
+      sheet.merge_cells('A1:C2')
+      sheet.merge_cells('D1:D2')
+      sheet.merge_cells('E1:E2')
+      sheet.merge_cells('F1:L2')
       sheet.rows.each_index do |i|
         case i
-        when 0
+        when 0, 1
           sheet.row_style(i, @first_row_style)
-        when 1
-          sheet.row_style(i, @second_row_style)
         when 2
+          sheet.row_style(i, @second_row_style)
+        when 3
           sheet.row_style(i, @third_row_style)
         else
           sheet.row_style i, @default_style
           sheet.rows[i].cells[5..11].map { |cell| cell.style = @green_bg }
         end
       end
-
-      sheet.merge_cells('A1:C1')
-      sheet.merge_cells('F1:L1')
-      sheet.merge_cells('B3:E3')
-      sheet.merge_cells('F3:L3')
-      sheet.merge_cells('M1:O1')
-      sheet.rows[0].cells[4].style = @text_red
-      sheet.rows[0].cells[8].style = @text_red
+      sheet.merge_cells('B4:E4')
+      sheet.merge_cells('F4:L4')
+      last_column_letter = "L"
+      theme_column_groups.each do |(start_col, end_col)|
+        sheet.merge_cells("#{col_letter(start_col)}2:#{col_letter(end_col)}2")
+        last_column_letter = col_letter(end_col)
+      end
+      sheet.merge_cells("M1:#{last_column_letter}1")
+      sheet.rows[0].cells[3].style = @first_row_style
+      sheet.rows[1].cells[4].style = @text_red
+      sheet.rows[1].cells[8].style = @text_red
       sheet.rows[0].cells[5..11].map { |cell| cell.style = @green_bg }
-      sheet.rows[1].cells[5..11].map { |cell| cell.style = @green_bg_bold }
-      sheet.col_style 5, @green_bg, row_offset: 2
-      sheet.col_style 6, @green_bg, row_offset: 2
-      sheet.col_style 7, @green_bg, row_offset: 2
-      sheet.col_style 8, @green_bg, row_offset: 2
-      sheet.col_style 9, @green_bg, row_offset: 2
-      sheet.col_style 10, @green_bg, row_offset: 2
-      sheet.col_style 11, @green_bg, row_offset: 2
-      sheet.rows[2].cells[5].style = @green_bg_italic
+      sheet.col_style 5, @green_bg, row_offset: 1
+      sheet.col_style 6, @green_bg, row_offset: 1
+      sheet.col_style 7, @green_bg, row_offset: 1
+      sheet.col_style 8, @green_bg, row_offset: 1
+      sheet.col_style 9, @green_bg, row_offset: 1
+      sheet.col_style 10, @green_bg, row_offset: 1
+      sheet.col_style 11, @green_bg, row_offset: 1
+      sheet.rows[2].cells[5..11].map { |cell| cell.style = @green_bg_bold }
+      sheet.rows[3].cells[5].style = @green_bg_italic
 
       attributes.keys.each_index do |i|
         width = if i < 12

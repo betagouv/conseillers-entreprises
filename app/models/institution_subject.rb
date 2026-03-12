@@ -98,11 +98,13 @@ class InstitutionSubject < ApplicationRecord
   end
 
   def possible_names
+    cooperation_names = theme.cooperations.pluck(:name).join(', ')
     [
       "#{theme.label}:#{subject.label}:#{description}".downcase.strip,
       "#{subject.label}:#{description}".downcase.strip,
       description&.downcase.strip,
       subject.label.downcase.strip,
+      "#{subject.label} (#{cooperation_names})".downcase.strip,
       theme.label.downcase.strip
     ]
   end
