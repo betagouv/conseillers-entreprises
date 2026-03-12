@@ -60,7 +60,7 @@ gem 'http'
 gem 'jbuilder'
 gem 'turbo-rails'
 gem 'rails-i18n'
-gem 'honeypot-captcha'
+gem 'honeypot_guard'
 gem 'kaminari'
 gem 'bootsnap', require: false
 gem 'rails_autolink'

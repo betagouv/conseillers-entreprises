@@ -303,7 +303,8 @@ GEM
     highline (3.1.2)
       reline
     hiredis (0.6.3)
-    honeypot-captcha (1.0.1)
+    honeypot_guard (0.1.0)
+      rails (>= 7.2, < 9.0)
     htmlentities (4.4.2)
     http (5.3.1)
       addressable (~> 2.8)
@@ -779,7 +780,7 @@ DEPENDENCIES
   highcharts-rails
   highline
   hiredis
-  honeypot-captcha
+  honeypot_guard
   http
   i18n-tasks
   ip_anonymizer
@@ -846,7 +847,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 4.0.1p0
+  ruby 4.0.1p0
 
 BUNDLED WITH
-   4.0.7
+  4.0.7

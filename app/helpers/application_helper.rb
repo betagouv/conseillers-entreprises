@@ -35,4 +35,19 @@ module ApplicationHelper
   def to_new_window_title(title)
     [title, t('to_new_window')].join(' - ')
   end
+
+  def spam_trap_fields # override the HoneypotGuard implementation
+    hp = HoneypotGuard.honeypot_field
+    ts = HoneypotGuard.timestamp_field
+
+    honeypot_html = content_tag(:div, class: "hp-field") do
+      tag.style(".hp-field { display: none };", nonce: content_security_policy_nonce) +
+        label_tag(hp, t('honeypot_captcha.comment')) +
+        text_field_tag(hp, nil, autocomplete: "off")
+    end
+
+    timestamp_html = hidden_field_tag(ts, Time.now.to_i)
+
+    honeypot_html + timestamp_html
+  end
 end
