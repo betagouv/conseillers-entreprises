@@ -3,6 +3,6 @@ FactoryBot.define do
     company_satisfaction
     user
     expert
-    seen_at { false }
+    seen_at { nil }
   end
 end

@@ -50,7 +50,7 @@ class Conseiller::DiagnosesController < ApplicationController
   end
 
   def diagnosis_params
-    params.require(:diagnosis)
-      .permit(:solicitation_id, facility_attributes: [ :siret, :insee_code, company_attributes: :name ])
+    params
+      .expect(diagnosis: [:solicitation_id, facility_attributes: [ :siret, :insee_code, company_attributes: :name ]])
   end
 end
