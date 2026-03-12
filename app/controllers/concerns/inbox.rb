@@ -37,7 +37,7 @@ module Inbox
     # Reject antenne_id from filters: the antenne scope is already set via @recipient.
     # For regional antennes, including antenne_id would incorrectly filter out needs
     # when the aggregated "avec antennes locales" id is in session params.
-    @needs = @recipient.send("territory_needs_#{@collection_name}", aggregate: aggregate?)
+    @needs = @recipient.territory_needs(@collection_name, aggregate: aggregate?)
       .includes(:company, :subject, :solicitation, :facility, subject: :theme)
       .select("needs.*, matches.sent_at as match_sent_at")
       .apply_filters(needs_search_params.except(:antenne_id))
@@ -53,10 +53,10 @@ module Inbox
 
   def antenne_inbox_collections_counts(recipient)
     @inbox_collections_counts = if recipient.is_a?(Antenne)
-      inbox_collection_names.index_with { |name| recipient.send(:"territory_needs_#{name}", aggregate: aggregate?).size }
+      inbox_collection_names.index_with { |name| recipient.territory_needs(name, aggregate: aggregate?).size }
     else
-      inbox_collection_names.index_with do |name|
-        Need.in_antennes_perimeters(recipient).merge!(Need.where(id: recipient.map { |a| a.send(:"territory_needs_#{name}", aggregate: aggregate?) }.flatten)).size
+      inbox_collection_names.index_with do |collection_name|
+        Need.in_antennes_perimeters(recipient).merge!(Need.where(id: recipient.map { |a| a.territory_needs(collection_name, aggregate: aggregate?) }.flatten)).size
       end
     end
   end
