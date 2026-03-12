@@ -62,15 +62,17 @@ describe 'needs' do
       visit '/manager/besoins-des-antennes'
 
       expect(page).to have_select 'antenne_id'
-      expect(page).to have_css 'h1', text: managed_antenne_01.name
 
+      select(managed_antenne_01.name, from: 'antenne_id')
+      click_on 'Rechercher'
+      expect(page).to have_css 'h1', text: managed_antenne_01.name
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 
-      expect(side_menu_link(quo_active_manager_needs_path)).to have_text('1')
-      expect(side_menu_link(taking_care_manager_needs_path)).to have_text('0')
-      expect(side_menu_link(done_manager_needs_path)).to have_text('0')
-      expect(side_menu_link(not_for_me_manager_needs_path)).to have_text('0')
-      expect(side_menu_link(expired_manager_needs_path)).to have_text('0')
+      expect(side_menu_link(quo_active_manager_needs_path(antenne_id: managed_antenne_01.id))).to have_text('1')
+      expect(side_menu_link(taking_care_manager_needs_path(antenne_id: managed_antenne_01.id))).to have_text('0')
+      expect(side_menu_link(done_manager_needs_path(antenne_id: managed_antenne_01.id))).to have_text('0')
+      expect(side_menu_link(not_for_me_manager_needs_path(antenne_id: managed_antenne_01.id))).to have_text('0')
+      expect(side_menu_link(expired_manager_needs_path(antenne_id: managed_antenne_01.id))).to have_text('0')
 
       select(managed_antenne_02.name, from: 'antenne_id')
       click_on 'Rechercher'

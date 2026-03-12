@@ -109,7 +109,7 @@ module Stats
         graph_struct.antenne_or_institution = Antenne.find_by(id: @stats_params[:antenne_id]).presence ||
                                                Institution.find_by(id: @stats_params[:institution_id]).presence
         # Calculate with_agglomerate_data similar to Stats::BaseStats
-        graph_struct.with_agglomerate_data = @stats_params[:antenne_id].to_s.include?('locales') if @stats_params[:antenne_id].present?
+        graph_struct.with_agglomerate_data = @stats_params[:antenne_id].to_s.include?('aggregate') if @stats_params[:antenne_id].present?
         Stats::Filters::Needs.new(base_scope, graph_struct).call.distinct
       end
     end

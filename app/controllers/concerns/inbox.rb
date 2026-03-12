@@ -34,11 +34,11 @@ module Inbox
     antenne_inbox_collections_counts(@recipient)
     @collection_name = collection_name
 
-    @needs = @recipient.send(:"territory_needs_#{@collection_name}")
-
-    # on reject antenne_id, sinon le filtre by_antenne peut venir enlever des besoins
-    # (cas des antennes régionales)
-    @needs = @needs.includes(:company, :subject, :solicitation, :facility, subject: :theme)
+    # Reject antenne_id from filters: the antenne scope is already set via @recipient.
+    # For regional antennes, including antenne_id would incorrectly filter out needs
+    # when the aggregated "avec antennes locales" id is in session params.
+    @needs = @recipient.territory_needs(@collection_name, aggregate: aggregate?)
+      .includes(:company, :subject, :solicitation, :facility, subject: :theme)
       .select("needs.*, matches.sent_at as match_sent_at")
       .apply_filters(needs_search_params.except(:antenne_id))
       .order(created_at: order)
@@ -53,14 +53,19 @@ module Inbox
 
   def antenne_inbox_collections_counts(recipient)
     @inbox_collections_counts = if recipient.is_a?(Antenne)
-      inbox_collection_names.index_with do |name|
-        recipient.send(:"territory_needs_#{name}").size
-      end
+      inbox_collection_names.index_with { |name| recipient.territory_needs(name, aggregate: aggregate?).size }
     else
-      inbox_collection_names.index_with do |name|
-        Need.in_antennes_perimeters(recipient).merge!(Need.where(id: recipient.map { |a| a.send(:"territory_needs_#{name}") }.flatten)).size
+      inbox_collection_names.index_with do |collection_name|
+        Need.in_antennes_perimeters(recipient).merge!(Need.where(id: recipient.map { |a| a.territory_needs(collection_name, aggregate: aggregate?) }.flatten)).size
       end
     end
+  end
+
+  def aggregate?
+    antenne_id = needs_search_params[:antenne_id].presence || params[:antenne_id]
+    return false if antenne_id.blank?
+
+    @recipient&.regional? && antenne_id.to_s.include?('aggregate')
   end
 
   def needs_search_params

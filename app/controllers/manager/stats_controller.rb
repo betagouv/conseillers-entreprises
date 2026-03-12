@@ -30,8 +30,7 @@ module Manager
       @stats_params = stats_filter_params
       @stats_params[:start_date] ||= 6.months.ago.beginning_of_month.to_date
       @stats_params[:end_date] ||= Date.today
-      # '.to_s' to keep 'plus antennes locales' in params // base_antennes peut être vide
-      @stats_params[:antenne_id] ||= base_antennes&.first&.dig(:id)&.to_s
+      @stats_params[:antenne_id] ||= default_antenne_id
       @stats_params[:institution_id] = current_user.institution.id
       @stats_params[:colors] = %w[#cacafb #000091]
       session[:manager_stats_params] = @stats_params

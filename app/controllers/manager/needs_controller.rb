@@ -3,6 +3,7 @@ class Manager::NeedsController < ApplicationController
   include SearchFilters
 
   before_action :authorize_index_needs
+  before_action :default_antenne_id
   before_action :retrieve_recipient
   before_action :persist_search_params, only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired]
   before_action only: [:index, :quo_active, :taking_care, :done, :not_for_me, :expired] do

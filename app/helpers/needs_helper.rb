@@ -17,4 +17,16 @@ module NeedsHelper
       needs_search_params[:created_since].present? || needs_search_params[:created_until].present?
     end
   end
+
+  def selected_antenne_id(antennes_collection)
+    # Return the antenne_id from session if present
+    return needs_search_params[:antenne_id] if needs_search_params[:antenne_id].present?
+
+    # select the aggregated antenne if available
+    aggregated_antenne = antennes_collection.find { |a| a[:id].to_s.include?('aggregate') }
+    return aggregated_antenne[:id] if aggregated_antenne
+
+    # Fallback: select the first antenne
+    antennes_collection.first&.dig(:id)
+  end
 end

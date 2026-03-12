@@ -2,6 +2,7 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
   include PersistedSearch
   include SearchFilters
 
+  before_action :default_antenne_id, only: [:index, :unseen, :seen]
   before_action only: [:index, :unseen, :seen] do
     initialize_filters(all_filter_keys)
   end
