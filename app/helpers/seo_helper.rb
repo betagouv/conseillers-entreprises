@@ -4,9 +4,9 @@ module SeoHelper
     schema = {
       "@type": "WebPage",
       "@id": "#{page_url}#webpage",
-      "name": title,
+      "name": strip_tags(title),
       "url": page_url,
-      "description": description,
+      "description": strip_tags(description),
       "image": image_url('logo-ce.png'),
       "inLanguage": "fr-FR",
       "isPartOf": { "@id": "#{root_url}#website" }
