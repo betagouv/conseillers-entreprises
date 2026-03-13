@@ -1,7 +1,7 @@
 module SeoHelper
-  def page_schema(title:, description:, url: nil)
+  def page_schema(title:, description:, url: nil, with_breadcrumb: true)
     page_url = url || request.original_url
-    {
+    schema = {
       "@type": "WebPage",
       "@id": "#{page_url}#webpage",
       "name": title,
@@ -11,6 +11,11 @@ module SeoHelper
       "inLanguage": "fr-FR",
       "isPartOf": { "@id": "#{root_url}#website" }
     }
+    
+    # Lier au breadcrumb si présent
+    schema["breadcrumb"] = { "@id": "#{page_url}#breadcrumb" } if with_breadcrumb
+    
+    schema
   end
 
   def add_page_schema(schema)
@@ -89,6 +94,23 @@ module SeoHelper
       image: image_url('logo-ce.png'),
       inLanguage: "fr-FR",
       publisher: { '@id': "#{root_url}#organization" }
+    }
+  end
+
+  def breadcrumb_schema(items)
+    return nil if items.blank?
+
+    {
+      '@type': "BreadcrumbList",
+      '@id': "#{request.original_url}#breadcrumb",
+      itemListElement: items.map.with_index do |item, index|
+        {
+          '@type': "ListItem",
+          position: index + 1,
+          name: item[:name],
+          item: item[:url]
+        }
+      end
     }
   end
 end
