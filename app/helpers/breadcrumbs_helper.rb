@@ -39,4 +39,41 @@ module BreadcrumbsHelper
       link_to(t('breadcrumbs_helper.home_link.home'), root_path(params), class: 'fr-breadcrumb__link blue')
     end
   end
+
+  # Extrait les données structurées du breadcrumb pour Schema.org
+  def breadcrumbs_data_landing(landing_params = {}, query_params = {}, title = nil)
+    landing = landing_params[:landing]
+    landing_theme = landing_params[:landing_theme]
+    landing_subject = landing_params[:landing_subject]
+
+    items = []
+
+    # Accueil
+    home_text = landing&.iframe? ? t('breadcrumbs_helper.home_link.iframe') : t('breadcrumbs_helper.home_link.home')
+    home_url = landing&.iframe? ? landing_url(landing, query_params) : root_url(query_params)
+    items << { name: home_text, url: home_url }
+
+    # Landing theme (comme lien intermédiaire si on a un subject)
+    if landing_subject.present? && landing_theme.present? && show_landing_theme_breadcrumb?(landing)
+      items << { name: landing_theme.title, url: landing_theme_url(landing, landing_theme, query_params) }
+    end
+
+    # Dernier élément (page actuelle)
+    if landing_subject.present?
+      items << { name: landing_subject.title, url: request.original_url }
+    elsif landing_theme.present?
+      items << { name: landing_theme.title, url: request.original_url }
+    elsif title.present?
+      items << { name: title, url: request.original_url }
+    end
+
+    items
+  end
+
+  def breadcrumbs_data_page(title)
+    [
+      { name: t('breadcrumbs_helper.home_link.home'), url: root_url },
+      { name: title, url: request.original_url }
+    ]
+  end
 end
