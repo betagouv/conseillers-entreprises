@@ -1,7 +1,5 @@
 - meta title: t('.meta.title'), description: t('.meta.description')
-- content_for :schema do
-  %script{ type: "application/ld+json" }
-    !=home_schema
+- add_page_schema(page_schema(title: t('.meta.title'), description: t('.meta.description')))
 
 .fr-container-fluid.fr-py-8w.home-banner
   .fr-container
