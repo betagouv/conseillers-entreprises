@@ -34,7 +34,7 @@ module Api::Rne::Token
     def initialize(call_count)
       @call_count = call_count
       begin
-        @http_response = HTTP.post(base_url, json: json_params)
+        @http_response = HTTP.timeout(5).post(base_url, json: json_params)
         @data = @http_response.parse(:json)
       rescue StandardError => e
         @error = e

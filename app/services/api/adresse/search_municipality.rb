@@ -25,7 +25,7 @@ module Api::Adresse
     def initialize(location)
       @location = location
       begin
-        @http_response = HTTP.get(url)
+        @http_response = HTTP.timeout(10).get(url)
         @data = @http_response.parse(:json)
       rescue StandardError => e
         @error = e

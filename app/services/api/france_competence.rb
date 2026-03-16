@@ -6,7 +6,7 @@ module Api::FranceCompetence
     ERROR_CODES = {}
 
     def get_url
-      @http_response = HTTP.auth("Bearer #{token}").get(url, headers: headers)
+      @http_response = HTTP.timeout(10).auth("Bearer #{token}").get(url, headers: headers)
     end
 
     def token
