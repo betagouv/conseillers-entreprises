@@ -6,7 +6,7 @@ module Api::ApiEntreprise
     DEFAULT_ERROR_MESSAGE = I18n.t('api_requests.default_error_message.etablissement')
 
     def get_url
-      HTTP.auth("Bearer #{token}").get(url)
+      HTTP.timeout(10).auth("Bearer #{token}").get(url)
     end
 
     def data_error_message

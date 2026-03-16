@@ -8,7 +8,7 @@ module Api::Rne
 
   class Request < Api::Request
     def get_url
-      HTTP.auth("Bearer #{token}").get(url)
+      HTTP.timeout(10).auth("Bearer #{token}").get(url)
     end
 
     def token

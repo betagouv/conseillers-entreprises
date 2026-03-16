@@ -18,7 +18,7 @@ module Api::Insee
 
   class Request < Api::Request
     def get_url
-      HTTP.get(url, headers: headers)
+      HTTP.timeout(10).get(url, headers: headers)
     end
 
     def headers

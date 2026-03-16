@@ -23,7 +23,7 @@ module Api::FranceCompetence::Token
     }.freeze
 
     def initialize
-      @http_response = HTTP.post(url, json: json_params, headers: headers)
+      @http_response = HTTP.timeout(5).post(url, json: json_params, headers: headers)
       begin
         @data = @http_response.body.to_s
       rescue StandardError => e

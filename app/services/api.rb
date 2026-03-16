@@ -75,7 +75,7 @@ module Api
     end
 
     def get_url
-      HTTP.get(url)
+      HTTP.timeout(10).get(url)
     end
 
     def success?
