@@ -4,14 +4,10 @@ class CsvJob < ApplicationJob
       klass = model.constantize
       relation = klass.ransack(ransack_params).result
       result = relation.export_csv
-      file = result.build_file
-      File.open(file.path) do |io|
-        user.csv_exports.attach(io: io,
-                                key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
-                                filename: result.filename,
-                                content_type: 'application/csv')
-      end
-      file.unlink
+      user.csv_exports.attach(io: StringIO.new(result.csv),
+                              key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
+                              filename: result.filename,
+                              content_type: 'application/csv')
     end
   end
 end
