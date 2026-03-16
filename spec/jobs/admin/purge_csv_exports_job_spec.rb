@@ -8,17 +8,14 @@ RSpec.describe Admin::PurgeCsvExportsJob do
     let(:user) { create :user, :admin }
     let(:solicitation_01) { create :solicitation }
     let(:result) { Solicitation.all.export_csv }
-    let(:file) { result.build_file }
 
     context 'recent export' do
       before do
         travel_to(2.days.ago) do
-          File.open(file.path) do |io|
-            user.csv_exports.attach(io: io,
-                                    key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
-                                    filename: result.filename,
-                                    content_type: 'application/csv')
-          end
+          user.csv_exports.attach(io: result.io,
+                                  key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
+                                  filename: result.filename,
+                                  content_type: 'application/csv')
         end
         travel_back
       end
@@ -31,12 +28,10 @@ RSpec.describe Admin::PurgeCsvExportsJob do
     context 'old export' do
       before do
         travel_to(2.weeks.ago) do
-          File.open(file.path) do |io|
-            user.csv_exports.attach(io: io,
-                                    key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
-                                    filename: result.filename,
-                                    content_type: 'application/csv')
-          end
+          user.csv_exports.attach(io: result.io,
+                                  key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
+                                  filename: result.filename,
+                                  content_type: 'application/csv')
         end
         travel_back
       end
