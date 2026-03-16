@@ -27,14 +27,8 @@ module CsvExport
       @csv, @filename = csv, filename
     end
 
-    def build_file
-      file = Tempfile.new(["#{filename}-", ".csv"])
-      begin
-        file.write(csv)
-      ensure
-        file.close
-      end
-      file
+    def io
+      StringIO.new(csv)
     end
   end
 end

@@ -12,7 +12,7 @@ RSpec.describe Admin::PurgeCsvExportsJob do
     context 'recent export' do
       before do
         travel_to(2.days.ago) do
-          user.csv_exports.attach(io: StringIO.new(result.csv),
+          user.csv_exports.attach(io: result.io,
                                   key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
                                   filename: result.filename,
                                   content_type: 'application/csv')
@@ -28,7 +28,7 @@ RSpec.describe Admin::PurgeCsvExportsJob do
     context 'old export' do
       before do
         travel_to(2.weeks.ago) do
-          user.csv_exports.attach(io: StringIO.new(result.csv),
+          user.csv_exports.attach(io: result.io,
                                   key: "csv_exports/#{user.full_name.parameterize}/#{result.filename}",
                                   filename: result.filename,
                                   content_type: 'application/csv')
