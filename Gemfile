@@ -10,7 +10,7 @@ end
 
 ruby '3.4.8'
 
-gem 'rails', '~> 8.0.0'
+gem 'rails', '~> 8.0'
 
 # Server
 gem 'foreman'
@@ -74,8 +74,6 @@ gem 'mjml-rails'
 gem 'progress_bar'
 gem 'decoupage_administratif'
 gem 'parallel'
-
-gem 'connection_pool', '< 3' # See #4334
 
 # Notifiers
 gem 'appsignal'

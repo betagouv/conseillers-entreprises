@@ -45,10 +45,11 @@ Rails.application.configure do
   config.assets.js_compressor = :terser
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
+  # Cache assets for far-future expiry since they are all digest stamped.
+  config.public_file_server.headers = { "cache-control" => "public, max-age=#{1.year.to_i}" }
 
   # Do not fall back to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
-  config.ssl_options = { hsts: { subdomains: true, preload: false } }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
@@ -79,11 +80,26 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
   config.logger   = ActiveSupport::TaggedLogging.logger($stdout)
 
-  # Change to "debug" to log everything (including potentially personally-identifiable information!)
+  # "info" includes generic and useful information about system operation, but avoids logging too much
+  # information to avoid inadvertent exposure of personally identifiable information (PII). If you
+  # want to log everything, set the level to "debug".
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
+
+  # Use a different cache store in production.
+  config.cache_store =
+    :redis_cache_store, { url: ENV['REDIS_URL'], reconnect_attempts: 3,
+                                                 error_handler: -> (method:, returning:, exception:) {
+                                                   Appsignal.send_error(exception) do |transaction|
+                                                     transaction.set_tags(method: method, returning: returning)
+                                                   end
+                                                 }
+      }
 
   # Prevent health checks from clogging up the logs.
   config.silence_healthcheck_path = "/up"
+  # Use a real queuing backend for Active Job (and separate queues per environment).
+  # config.active_job.queue_adapter = :resque
+  # config.active_job.queue_name_prefix = "place_des_entreprises_production"
 
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
