@@ -30,7 +30,7 @@ class FeedbacksController < ApplicationController
   private
 
   def feedback_params
-    params.expect(feedback: [:description, :feedbackable_id, :feedbackable_type, :category])
+    params.require(:feedback).permit(:description, :feedbackable_id, :feedbackable_type, :category)
   end
 
   def retrieve_feedback

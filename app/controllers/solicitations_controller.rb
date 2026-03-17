@@ -170,12 +170,10 @@ class SolicitationsController < PagesController
   private
 
   def solicitation_params
-    params
-      .expect(solicitation: [
-        :landing_id, :landing_subject_id, :description, :code_region, :status, :insee_code,
-        *Solicitation::FIELD_TYPES.keys,
-        subject_answers_attributes: [[:id, :subject_question_id, :filter_value]]
-      ])
+    params.require(:solicitation)
+      .permit(:landing_id, :landing_subject_id, :description, :code_region, :status, :insee_code,
+              *Solicitation::FIELD_TYPES.keys,
+              subject_answers_attributes: [:id, :subject_question_id, :filter_value])
   end
 
   def search_params

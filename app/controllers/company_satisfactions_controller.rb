@@ -26,6 +26,6 @@ class CompanySatisfactionsController < PagesController
   private
 
   def satisfaction_params
-    params.expect(company_satisfaction: [:need_id, :contacted_by_expert, :useful_exchange, :comment])
+    params.require(:company_satisfaction).permit(:need_id, :contacted_by_expert, :useful_exchange, :comment)
   end
 end
