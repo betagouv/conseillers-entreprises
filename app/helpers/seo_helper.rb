@@ -238,4 +238,39 @@ module SeoHelper
       end
     }
   end
+
+  def review_schema(author:, content:, index: 1, job_title: nil, company: nil, rating: nil)
+    return nil if author.blank? || content.blank?
+
+    schema = {
+      '@type': "Review",
+      '@id': "#{request.original_url}#review-#{index}",
+      itemReviewed: { '@id': "#{root_url}#service" },
+      reviewBody: strip_tags(content),
+      author: {
+        '@type': "Person",
+        name: strip_tags(author)
+      }
+    }
+
+    # Ajouter le titre et l'entreprise si fournis
+    if job_title.present? || company.present?
+      schema[:author]["jobTitle"] = strip_tags(job_title) if job_title.present?
+      schema[:author]["worksFor"] = {
+        '@type': "Organization",
+        name: strip_tags(company)
+      } if company.present?
+    end
+
+    # Ajouter la note si fournie
+    if rating.present?
+      schema["reviewRating"] = {
+        '@type': "Rating",
+        ratingValue: rating,
+        bestRating: 5
+      }
+    end
+
+    schema
+  end
 end

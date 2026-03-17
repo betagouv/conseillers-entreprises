@@ -9,7 +9,7 @@
   description = landing_subject.meta_description.presence || landing_subject.description.presence || landing_subject.landing_theme.meta_description
   meta title: title,
     description: description
-  add_page_schema(page_schema(title: title, description: description))
+  add_page_schema(page_schema(title: title, description: description, breadcrumb: true))
 
 - unless in_iframe?
   .lighter-blue-bg
