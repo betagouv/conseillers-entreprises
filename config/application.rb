@@ -47,5 +47,4 @@ module PlaceDesEntreprises
   end
 end
 
-require "rswag/ui/CSP"
 require "api_adapters/pde_adapter"
