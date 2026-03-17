@@ -1,13 +1,5 @@
 source 'https://gem.coop'
 
-git_source(:github) do |repo_name|
-  if repo_name.exclude?('/')
-    repo_name = "#{repo_name}/#{repo_name}"
-  end
-
-  "https://github.com/#{repo_name}.git"
-end
-
 ruby '4.0.1'
 
 gem 'rails', '~> 8.0'
