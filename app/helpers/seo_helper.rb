@@ -1,7 +1,7 @@
 module SeoHelper
-  def page_schema(title:, description:, url: nil, with_breadcrumb: true)
+  def page_schema(title:, description:, url: nil)
     page_url = url || request.original_url
-    schema = {
+    {
       "@type": "WebPage",
       "@id": "#{page_url}#webpage",
       "name": strip_tags(title),
@@ -11,11 +11,6 @@ module SeoHelper
       "inLanguage": "fr-FR",
       "isPartOf": { "@id": "#{root_url}#website" }
     }
-    
-    # Lier au breadcrumb si présent
-    schema["breadcrumb"] = { "@id": "#{page_url}#breadcrumb" } if with_breadcrumb
-    
-    schema
   end
 
   def add_page_schema(schema)
@@ -38,7 +33,14 @@ module SeoHelper
 
   def schema_org
     # Collecter tous les schémas : organization en premier (pour les références @id), puis les autres
-    all_schemas = [government_organization_schema, website_schema, government_service_schema]
+    all_schemas = [
+      government_organization_schema,
+      website_schema,
+      government_service_schema,
+      area_served_schema,
+      business_audience_schema,
+      free_offer_schema
+    ]
     all_schemas += Array.wrap(@page_schemas) if defined?(@page_schemas) && @page_schemas.present?
 
     schema_org_tag(schema_graph(*all_schemas))
@@ -46,41 +48,43 @@ module SeoHelper
 
   def government_service_schema
     {
-      "@type": "GovernmentService",
-      "@id": "#{root_url}#service",
-      "name": "Conseillers-Entreprises Service Public",
-      "description": "Service public d'accompagnement gratuit pour les TPE et PME en France",
-      "url": root_url,
-      "serviceType": "Conseil aux entreprises",
-      "provider": { "@id": "#{root_url}#organization" },
-      "areaServed": {
-        "@type": "Country",
-        "name": "France"
+      '@type': "GovernmentService",
+      '@id': "#{root_url}#service",
+      name: "Conseillers-Entreprises Service Public",
+      description: "Service public d'accompagnement gratuit pour les TPE et PME en France",
+      url: root_url,
+      serviceType: "Conseil aux entreprises",
+      provider: { '@id': "#{root_url}#organization" },
+      areaServed: { '@id': "#{root_url}#areaserved" },
+      audience: { '@id': "#{root_url}#audience" },
+      offers: { '@id': "#{root_url}#offer" },
+      category: ["Accompagnement entreprise", "Service public", "Conseil gratuit"],
+      jurisdiction: {
+        '@type': "AdministrativeArea",
+        name: "France"
       },
-      "audience": {
-        "@type": "BusinessAudience",
-        "audienceType": "TPE et PME"
-      },
-      "availableChannel": {
-        "@type": "ServiceChannel",
-        "serviceUrl": root_url,
-        "availableLanguage": "fr"
+      serviceOutput: "Mise en relation avec un conseiller expert pour accompagner votre entreprise",
+      termsOfService: "#{root_url}cgu",
+      availableChannel: {
+        '@type': "ServiceChannel",
+        serviceUrl: root_url,
+        availableLanguage: "fr-FR"
       }
     }
   end
 
   def government_organization_schema
     {
-      "@type": "GovernmentOrganization",
-      "@id": "#{root_url}#organization",
-      "name": "Conseillers-Entreprises Service Public",
-      "url": root_url,
-      "logo": image_url('logo-ce.png'),
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": ENV['APPLICATION_EMAIL'],
-        "contactType": "customer service",
-        "availableLanguage": "French"
+      '@type': "GovernmentOrganization",
+      '@id': "#{root_url}#organization",
+      name: "Conseillers-Entreprises Service Public",
+      url: root_url,
+      logo: image_url('logo-ce.png'),
+      contactPoint: {
+        '@type': "ContactPoint",
+        email: ENV['APPLICATION_EMAIL'],
+        contactType: "customer service",
+        availableLanguage: "fr-FR"
       }
     }
   end
@@ -94,6 +98,37 @@ module SeoHelper
       image: image_url('logo-ce.png'),
       inLanguage: "fr-FR",
       publisher: { '@id': "#{root_url}#organization" }
+    }
+  end
+
+  def area_served_schema
+    {
+      '@type': "Country",
+      '@id': "#{root_url}#areaserved",
+      name: "France"
+    }
+  end
+
+  def business_audience_schema
+    {
+      '@type': "BusinessAudience",
+      '@id': "#{root_url}#audience",
+      audienceType: "TPE et PME"
+    }
+  end
+
+  def free_offer_schema
+    {
+      '@type': "Offer",
+      '@id': "#{root_url}#offer",
+      price: "0",
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      priceSpecification: {
+        '@type': "PriceSpecification",
+        price: "0",
+        priceCurrency: "EUR"
+      }
     }
   end
 
@@ -112,5 +147,68 @@ module SeoHelper
         }
       end
     }
+  end
+
+  def item_list_schema(name:, description:, items:, service_type: "GovernmentService")
+    return nil if items.blank?
+
+    {
+      '@type': "ItemList",
+      '@id': "#{request.original_url}#itemlist",
+      name: strip_tags(name),
+      description: strip_tags(description),
+      numberOfItems: items.count,
+      itemListOrder: "https://schema.org/ItemListOrderAscending",
+      itemListElement: items.map.with_index do |item, index|
+        service_schema = {
+          '@type': service_type,
+          name: strip_tags(item[:name]),
+          url: item[:url],
+          provider: { '@id': "#{root_url}#organization" },
+          serviceType: "Conseil aux entreprises",
+          areaServed: { '@id': "#{root_url}#areaserved" },
+          audience: { '@id': "#{root_url}#audience" },
+          offers: { '@id': "#{root_url}#offer" },
+          category: item[:category] || "Accompagnement entreprise",
+          serviceOutput: "Mise en relation avec un conseiller expert"
+        }
+
+        service_schema["description"] = strip_tags(item[:description]) if item[:description].present?
+
+        # Ajouter jurisdiction uniquement pour GovernmentService
+        if service_type == "GovernmentService"
+          service_schema["jurisdiction"] = {
+            '@type': "AdministrativeArea",
+            name: "France"
+          }
+        end
+
+        {
+          '@type': "ListItem",
+          position: index + 1,
+          item: service_schema
+        }
+      end
+    }
+  end
+
+  def prepare_themes_schema_items(landing_themes, landing_slug)
+    landing_themes.map do |theme|
+      {
+        name: theme.title,
+        description: theme.description,
+        url: landing_theme_url(landing_slug: landing_slug, slug: theme.slug)
+      }
+    end
+  end
+
+  def prepare_subjects_schema_items(landing_subjects, landing_slug)
+    landing_subjects.map do |subject|
+      {
+        name: subject.title,
+        description: subject.description,
+        url: new_solicitation_url(landing_slug: landing_slug, landing_subject_slug: subject.slug)
+      }
+    end
   end
 end
