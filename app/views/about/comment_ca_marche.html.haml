@@ -1,4 +1,14 @@
-- meta title: t('.meta_title'), description: t('.meta_description')
+:ruby
+  meta title: t('.meta_title'), description: t('.meta_description')
+  add_page_schema(page_schema(
+    title: t('.meta_title'), 
+    description: t('.meta_description'),
+    breadcrumb: true,
+    main_entity_id: "#{request.original_url}#faqpage"
+  ))
+  faq_items = I18n.t('faq').values
+  add_page_schema(faq_page_schema(faq_items))
+
 .fr-container.fr-py-7w.fr-mt-3v
   %h1.fr-h2= t('.long_title')
   %p.fr-text--lg= t('.subtitle')
@@ -8,7 +18,7 @@
 = render 'pages/how_it_works_long'
 
 .fr-container.fr-pb-5w
-  = render 'pages/faq', faq: @faq, ld_json: @ld_json
+  = render 'pages/faq', faq: FaqGenerator.new(faq_items).to_html
 
 .fr-container--fluid.light-blue-bg.fr-py-7w#liste-partenaires
   .fr-container

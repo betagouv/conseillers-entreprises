@@ -1,16 +1,24 @@
 module SeoHelper
-  def page_schema(title:, description:, url: nil)
+  def page_schema(title:, description:, url: nil, breadcrumb: false, main_entity_id: nil)
     page_url = url || request.original_url
-    {
-      "@type": "WebPage",
-      "@id": "#{page_url}#webpage",
-      "name": strip_tags(title),
-      "url": page_url,
-      "description": strip_tags(description),
-      "image": image_url('logo-ce.png'),
-      "inLanguage": "fr-FR",
-      "isPartOf": { "@id": "#{root_url}#website" }
+    schema = {
+      '@type': "WebPage",
+      '@id': "#{page_url}#webpage",
+      name: strip_tags(title),
+      url: page_url,
+      description: strip_tags(description),
+      image: image_url('logo-ce.png'),
+      inLanguage: "fr-FR",
+      isPartOf: { '@id': "#{root_url}#website" }
     }
+
+    # Lier au breadcrumb si demandé
+    schema["breadcrumb"] = { '@id': "#{page_url}#breadcrumb" } if breadcrumb
+
+    # Lier à l'entité principale (FAQ, Article, etc.) si fournie
+    schema["mainEntity"] = { '@id': main_entity_id } if main_entity_id.present?
+
+    schema
   end
 
   def add_page_schema(schema)
@@ -210,5 +218,24 @@ module SeoHelper
         url: new_solicitation_url(landing_slug: landing_slug, landing_subject_slug: subject.slug)
       }
     end
+  end
+
+  def faq_page_schema(faq_items)
+    return nil if faq_items.blank?
+
+    {
+      '@type': "FAQPage",
+      '@id': "#{request.original_url}#faqpage",
+      mainEntity: faq_items.map do |item|
+        {
+          '@type': "Question",
+          name: strip_tags(item[:question]),
+          acceptedAnswer: {
+            '@type': "Answer",
+            text: strip_tags(item[:answer])
+          }
+        }
+      end
+    }
   end
 end
