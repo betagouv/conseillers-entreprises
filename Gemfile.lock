@@ -793,6 +793,7 @@ DEPENDENCIES
   metamagic
   mjml-rails
   openssl
+  ostruct
   parallel
   parallel_tests
   pg
@@ -846,7 +847,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 4.0.1p0
+  ruby 4.0.1p0
 
 BUNDLED WITH
-   4.0.7
+  4.0.7
