@@ -10,7 +10,7 @@ end
 
 ruby '3.4.8'
 
-gem 'rails', '~> 7.2.2'
+gem 'rails', '~> 8.0.0'
 
 # Server
 gem 'foreman'
@@ -127,7 +127,7 @@ group :development do
   gem 'i18n-tasks'
   gem 'listen'
   gem 'web-console'
-  gem 'annotate'
+  gem 'annotaterb'
   gem 'letter_opener_web'
   gem 'bullet'
   gem 'squasher'

@@ -81,19 +81,21 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
   end
 
   def params_for_needs
-    params.require(:diagnosis)
-      .permit(:content, needs_attributes: [:_destroy, :content, :subject_id, :id, subject_answers_attributes: [:_destroy, :id, :subject_question_id, :filter_value]])
+    params
+      .expect(diagnosis: [:content, needs_attributes: [[:_destroy, :content, :subject_id, :id, subject_answers_attributes: [[:_destroy, :id, :subject_question_id, :filter_value]]]]])
   end
 
   def params_for_visit
-    params.require(:diagnosis)
-      .permit(:happened_on,
-              visitee_attributes: [:full_name, :email, :phone_number, :id],
-              facility_attributes: [:insee_code, :id])
+    params
+      .expect(diagnosis: [
+        :happened_on,
+        visitee_attributes: [:full_name, :email, :phone_number, :id],
+        facility_attributes: [:insee_code, :id]
+      ])
   end
 
   def params_for_matches
-    params.require(:diagnosis)
-      .permit(:content, needs_attributes: [:id, matches_attributes: [:_destroy, :id, :subject_id, :expert_id]])
+    params
+      .expect(diagnosis: [:content, needs_attributes: [[:id, matches_attributes: [[:_destroy, :id, :subject_id, :expert_id]]]]])
   end
 end

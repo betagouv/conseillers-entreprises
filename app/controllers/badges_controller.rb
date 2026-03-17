@@ -52,7 +52,7 @@ class BadgesController < ApplicationController
   private
 
   def safe_params
-    params.require(:badge).permit(:title, :color, :category)
+    params.expect(badge: [:title, :color, :category])
   end
 
   def find_badge
