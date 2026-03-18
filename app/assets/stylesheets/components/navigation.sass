@@ -1,3 +1,5 @@
+@use "../shared/base"
+
 // Main navigation
 
 .fr-header
@@ -43,7 +45,7 @@
     li
       margin-left: 0.5rem
     .fr-sidemenu__item--active, .fr-sidemenu__link:hover
-      color: $blue
+      color: base.$blue
     .fr-sidemenu__link
       i
         display: contents
@@ -52,9 +54,9 @@
 
   .fr-sidemenu__item.grey
     a
-      color: $grey-dark
+      color: base.$grey-dark
     .fr-tag
-      color: $grey-dark
+      color: base.$grey-dark
 
 .fr-sidemenu__item // adjust space between link and icon
   a:has([class*="ri-"])
@@ -70,7 +72,7 @@
   align-items: center
 
 a.fr-nav__link[href]:hover
-    color: $blue
+    color: base.$blue
 
 .logo-sign-in
   width: 156px
