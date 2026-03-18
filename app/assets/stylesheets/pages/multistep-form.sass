@@ -1,3 +1,5 @@
+@use "../shared/base"
+
 .multistep-form
   .contact-delay
     display: flex
@@ -11,7 +13,7 @@
   .fr-fieldset__content
     display: flex
   .fr-stepper__steps
-    background-image: repeating-linear-gradient(to right, var(--background-active-blue-france) 0%, var(--background-active-blue-france) var(--active-inner), transparent var(--active-inner), transparent var(--active-outer)), repeating-linear-gradient(to right, $white 0%, $white var(--default-inner), transparent var(--default-inner), transparent var(--default-outer)) !important
+    background-image: repeating-linear-gradient(to right, var(--background-active-blue-france) 0%, var(--background-active-blue-france) var(--active-inner), transparent var(--active-inner), transparent var(--active-outer)), repeating-linear-gradient(to right, base.$white 0%, base.$white var(--default-inner), transparent var(--default-inner), transparent var(--default-outer)) !important
   .autocomplete__menu
     z-index: 2
   .autocomplete__wrapper
@@ -32,7 +34,7 @@
   p
     font-size: 0.7rem
     margin: 1.5rem auto 0 auto
-    color: $grey-dark
+    color: base.$grey-dark
   img
     padding-bottom: 2px
 
