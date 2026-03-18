@@ -270,19 +270,11 @@ ActiveAdmin.register Expert do
     :id, :min_years_of_existence, :max_years_of_existence, :effectif_max, :effectif_min,
     :raw_accepted_naf_codes, :raw_excluded_naf_codes, :raw_accepted_legal_forms, :raw_excluded_legal_forms, :_destroy, subject_ids: []
   ]
-  permit_params [
-    :full_name,
-    :job,
-    :antenne_id,
-    :email,
-    :phone_number,
-    :is_global_zone,
-    user_ids: [],
-    experts_subjects_ids: [],
+  permit_params :full_name, :job, :antenne_id, :email, :phone_number, :is_global_zone,
+    user_ids: [], experts_subjects_ids: [],
     experts_subjects_attributes: %i[id intervention_criteria institution_subject_id _create _update _destroy],
     match_filters_attributes: match_filters_attributes,
     territorial_zones_attributes: [:id, :zone_type, :code, :_destroy]
-  ]
 
   form do |f|
     f.inputs do
