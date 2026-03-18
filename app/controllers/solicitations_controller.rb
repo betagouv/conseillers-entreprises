@@ -1,11 +1,14 @@
 class SolicitationsController < PagesController
   include IframePrefix
+  include HoneypotGuard::Controller
 
   layout 'solicitation_form'
 
   before_action :redirect_entreprendre_solicitations
   before_action :prevent_completed_solicitation_modification, except: [:new, :create, :form_complete]
   before_action :calculate_needs_count
+
+  before_action :filter_spam, only: [:create, :update_step_contact, :update_step_company, :update_step_description]
 
   # Step contact
   #

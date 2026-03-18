@@ -12,7 +12,7 @@ Rails.application.configure do
     policy.font_src    :self, :data, 'https://fonts.gstatic.com'
     policy.img_src     :self, :data, 'https://jedonnemonavis.numerique.gouv.fr', 'https://stats.beta.gouv.fr/', 'https://www.google.com', 'https://www.google.fr', 'https://googleads.g.doubleclick.net', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://www.gstatic.com', 'https://adservice.google.com', '415474841.privacysandbox.googleadservices.com'
     policy.object_src  :none
-    policy.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
+    policy.style_src   :self, 'https://fonts.googleapis.com'
     policy.script_src  :self, :blob, 'https://stats.beta.gouv.fr/', 'https://cdn.jsdelivr.net/', 'https://www.googletagmanager.com/', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com'
     policy.frame_src :self, 'stats.data.gouv.fr', 'stats.beta.gouv.fr', 'https://cdn.jsdelivr.net/', 'https://bid.g.doubleclick.net', 'https://tpc.googlesyndication.com', 'https://www.youtube-nocookie.com'
     policy.connect_src :self, 'https://api-adresse.data.gouv.fr/', '*.google.com', 'https://adservice.google.com', 'https://pagead2.googlesyndication.com', 'https://tpc.googlesyndication.com', 'https://googleads.g.doubleclick.net', 'https://stats.beta.gouv.fr/', 'https://www.googletagmanager.com', 'https://cdn.jsdelivr.net/'
@@ -24,7 +24,7 @@ Rails.application.configure do
 
   # Generate session nonces for permitted importmap, inline scripts, and inline styles.
   config.content_security_policy_nonce_generator = -> (request) { request.session.id.to_s }
-  config.content_security_policy_nonce_directives = %w(script-src)
+  config.content_security_policy_nonce_directives = %w(script-src style-src)
 
   # Automatically add `nonce` to `javascript_tag`, `javascript_include_tag`, and `stylesheet_link_tag`
   # if the corresponding directives are specified in `content_security_policy_nonce_directives`.

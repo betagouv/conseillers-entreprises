@@ -35,4 +35,18 @@ module ApplicationHelper
   def to_new_window_title(title)
     [title, t('to_new_window')].join(' - ')
   end
+
+  def spam_trap_fields
+    # Override the HoneypotGuard implementation
+    # to localize the label and add the nonce in the style tag. See #4341.
+    honeypot_html = content_tag(:div, class: "hp-field") do
+      tag.style(".hp-field { display: none };", nonce: content_security_policy_nonce) +
+        label_tag(HoneypotGuard.honeypot_field, t('honeypot_captcha.comment')) +
+        text_field_tag(HoneypotGuard.honeypot_field, nil, autocomplete: "off")
+    end
+
+    timestamp_html = hidden_field_tag(HoneypotGuard.timestamp_field, Time.now.to_i)
+
+    honeypot_html + timestamp_html
+  end
 end
