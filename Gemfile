@@ -1,14 +1,6 @@
 source 'https://gem.coop'
 
-git_source(:github) do |repo_name|
-  if repo_name.exclude?('/')
-    repo_name = "#{repo_name}/#{repo_name}"
-  end
-
-  "https://github.com/#{repo_name}.git"
-end
-
-ruby '3.4.8'
+ruby '4.0.1'
 
 gem 'rails', '~> 8.0'
 
@@ -45,6 +37,7 @@ gem 'aasm'
 gem 'active_model_serializers'
 gem 'rswag-api'
 gem 'rswag-ui'
+gem 'ostruct' # for rswag in ruy 4, until https://github.com/rswag/rswag/pull/790 or https://github.com/rswag/rswag/pull/872 is merged and released
 gem 'faker'
 gem 'pg_search'
 
