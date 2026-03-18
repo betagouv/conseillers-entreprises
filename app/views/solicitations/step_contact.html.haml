@@ -22,7 +22,7 @@
 
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3
-    = form_with(model: @solicitation, url: path, local: true, html: { data: { turbo: false } }) do |f|
+    = form_with(model: @solicitation, url: path, html: { data: { turbo: false } }) do |f|
       = spam_trap_fields
       .fr-fieldset
         .fr-fieldset__element

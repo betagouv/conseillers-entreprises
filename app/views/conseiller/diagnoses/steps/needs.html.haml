@@ -6,8 +6,7 @@
   #needs-app
     = form_with model: @diagnosis,
       url: update_needs_conseiller_diagnosis_path,
-      data: { turbo: 'false', checkboxes_require_one_with: t(".select_at_least_one_need"), controller: "diagnosis-needs-step" },
-      local: true do |diagnosis_form|
+      data: { turbo: 'false', checkboxes_require_one_with: t(".select_at_least_one_need"), controller: "diagnosis-needs-step" } do |diagnosis_form|
 
       %h1.fr-h2= Diagnosis.human_attribute_value(:step, :needs)
 

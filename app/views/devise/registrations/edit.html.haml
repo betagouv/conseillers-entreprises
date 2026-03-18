@@ -1,5 +1,5 @@
 .fr-container
-  = form_with model: @user, url: user_path, local: true do |f|
+  = form_with model: @user, url: user_path do |f|
     = render "devise/shared/error_messages", resource: @user
     .fr-input-group
       = f.label :email, class: 'fr-label'
