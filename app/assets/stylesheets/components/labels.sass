@@ -1,5 +1,8 @@
+@use "sass:color"
+@use "../shared/base"
+
 .label
-  border: 1px solid $grey-light
+  border: 1px solid base.$grey-light
   font-size: 0.75rem
   display: inline-block
   line-height: 1
@@ -14,26 +17,26 @@
     font-size: 1rem
     vertical-align: calc((0.75em - 1rem) * 0.75)
   &.green
-    color: $green
-    border-color: $green
-    background-color: $green-lighter
+    color: base.$green
+    border-color: base.$green
+    background-color: base.$green-lighter
   &.tilleul
-    color: $tilleul
-    border-color: $tilleul
-    background-color: $tilleul-lighter
+    color: base.$tilleul
+    border-color: base.$tilleul
+    background-color: base.$tilleul-lighter
   &.red
-    color: $red
-    border-color: $red
-    background-color: $red-lighter
+    color: base.$red
+    border-color: base.$red
+    background-color: base.$red-lighter
   &.grey-blue
-    color: $grey-blue
-    border-color: $grey-blue
+    color: base.$grey-blue
+    border-color: base.$grey-blue
     background-color: #fff
   &.blue-dark
-    color: $blue-dark
-    border-color: $blue-dark
-    background-color: lighten($blue-dark, 67%)
+    color: base.$blue-dark
+    border-color: base.$blue-dark
+    background-color: color.adjust(base.$blue-dark, $lightness: 67%)
   &.orange
-    color: $orange
-    border-color: $orange
+    color: base.$orange
+    border-color: base.$orange
     background-color: #fff
