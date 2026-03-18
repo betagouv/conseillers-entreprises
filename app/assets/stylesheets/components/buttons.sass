@@ -1,3 +1,5 @@
+@use "../shared/base"
+
 input[type="submit" i]
   border: none
 
@@ -6,40 +8,40 @@ input[type="submit" i]
   --color-active: none
 
 .fr-btn.btn-blue
-  background-color: $blue
+  background-color: base.$blue
   &:hover, &:focus
-    background-color: $blue
-    color: $white
+    background-color: base.$blue
+    color: base.$white
 
 .fr-btn.btn-blue-dark
-  background-color: $blue-dark
+  background-color: base.$blue-dark
   &:hover, &:focus
-    background-color: $blue-dark
-    color: $white
+    background-color: base.$blue-dark
+    color: base.$white
 
 .fr-btn.btn-green
-  background-color: $green
+  background-color: base.$green
   &:hover, &:focus
-    background-color: $green
-    color: $white
+    background-color: base.$green
+    color: base.$white
   &:disabled
     opacity: 0.6
-    color: $white
+    color: base.$white
 
 .fr-btn.btn-orange
-  background-color: $orange
+  background-color: base.$orange
   &:hover, &:focus
-    background-color: $orange
-    color: $white
+    background-color: base.$orange
+    color: base.$white
 
 .fr-btn.btn-red
-  background-color: $red
+  background-color: base.$red
   &:hover, &:focus
-    background-color: $red
-    color: $white
+    background-color: base.$red
+    color: base.$white
   &.fr-btn--secondary
-    color: $red
-    box-shadow: inset 0 0 0 1px $red
+    color: base.$red
+    box-shadow: inset 0 0 0 1px base.$red
     background: none
 
 .btn-unstyled
@@ -50,7 +52,7 @@ input[type="submit" i]
 .gray-link
   border: none
   background: none
-  color: $grey-dark
+  color: base.$grey-dark
   text-decoration: underline
   cursor: pointer
 
@@ -60,8 +62,8 @@ input[type="submit" i]
     font-size: 1.5rem
 
 .fr-btn.fr-btn--secondary.fr-btn-green
-  box-shadow: inset 0 0 0 1px $green
-  color: $green
+  box-shadow: inset 0 0 0 1px base.$green
+  color: base.$green
 
 button.fr-link
   background-image: linear-gradient(0deg, currentColor, currentColor), linear-gradient(0deg, currentColor, currentColor)

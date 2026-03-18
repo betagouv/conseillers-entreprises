@@ -1,3 +1,6 @@
+@use "sass:color"
+@use "../shared/base"
+
 .fr-table.fr-table--c-sm
   td, th
     padding: 0.5rem
@@ -11,7 +14,7 @@
   margin-bottom: 2.5rem
   table
     border-spacing: 0
-    border-top: 0.125rem solid $grey
+    border-top: 0.125rem solid base.$grey
   thead
     position: sticky
     inset-block-start: 0
@@ -24,10 +27,10 @@
     font-size: 0.875rem
     line-height: 1.5rem
   td
-    border-left: 1px solid $grey-light
-    border-bottom: 1px solid $grey-light
+    border-left: 1px solid base.$grey-light
+    border-bottom: 1px solid base.$grey-light
     &:last-child
-      border-right: 1px solid $grey-light
+      border-right: 1px solid base.$grey-light
     &.td-header
       left: 0
       position: sticky
@@ -41,7 +44,7 @@
       left: 110px
     &.td-header--user
       left: 226px
-      border-right: 0.125rem solid $grey
+      border-right: 0.125rem solid base.$grey
     &.yellow
       background: #fff9d2
       color: #B58105
@@ -54,7 +57,7 @@
       padding: 0.75rem
       text-decoration: underline dotted
       width: 100%
-      color: $white
+      color: base.$white
       font-weight: bold
       &.error-table-cell
         background-color: var(--error-425-625) !important
@@ -73,22 +76,22 @@
         &:hover
           background-color: var(--info-425-625-hover) !important
   th.red, td.red
-      background: $red-lighter
-      color: $red
+      background: base.$red-lighter
+      color: base.$red
   th.orange, td.orange
-      background: $orange-lighter
-      color: $orange
+      background: base.$orange-lighter
+      color: base.$orange
   th, td.td-header
     top: 0
-    border-left: 0.125rem solid $grey
-    border-bottom: 0.125rem solid $grey
-    background-color: $fr-beige
-    background-color: $fr-beige
-    color: $grey-darker
+    border-left: 0.125rem solid base.$grey
+    border-bottom: 0.125rem solid base.$grey
+    background-color: base.$fr-beige
+    background-color: base.$fr-beige
+    color: base.$grey-darker
     font-weight: 700
     z-index: 0
   th:last-child
-    border-right: 0.125rem solid $grey
+    border-right: 0.125rem solid base.$grey
   // sticky header
   thead tr.subjects th
     top: 64px
@@ -99,11 +102,11 @@
   tbody tr:hover
     background: rgba(0,0,0,0.02)
     .td-header
-      background-color: darken($fr-beige, 2%)
+      background-color: color.adjust(base.$fr-beige, $lightness: -2%)
   .tr--distinct:not(:first-child) td
-    border-top: 5px solid $grey
+    border-top: 5px solid base.$grey
   tr.blue, tr.blue td
-    background-color: $grey-blue-lighter
+    background-color: base.$grey-blue-lighter
   img
     max-width: 50px
     max-height: 30px
