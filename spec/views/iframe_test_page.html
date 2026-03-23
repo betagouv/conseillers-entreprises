@@ -12,6 +12,18 @@
  </style>
 </head>
 <body>
+  <h1>🙂</h1>
+  <div>
+    <div class="container">
+      <form id='form'>
+        <input type="text" id="textinput"/>
+        <input type="submit" value="Go"/>
+      </form>
+      <iframe id='iframe' width="100%" style="border: none; background:peachpuff;"></iframe>
+    </div>
+  </div>
+  <h1>🙃</h1>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/iframe-resizer@4.3.2/js/iframeResizer.min.js"></script>
   <script type="text/javascript">
     let base_url = "https://localhost:3000/"
     let default_path = 'aide-entreprise/portail-des-travailleurs-independants-handicapes'
@@ -22,19 +34,10 @@
         e.preventDefault()
         document.getElementById('iframe').src = base_url + document.getElementById('textinput').value
       });
+
+      iFrameResize({ log: true }, "#iframe")
     }
   </script>
-  <h1>🙂</h1>
-  <div>
-    <div class="container">
-      <form id='form'>
-        <input type="text" id="textinput"/>
-        <input type="submit" value="Go"/>
-      </form>
-      <iframe id='iframe' width="100%" height="900px" style="border: none; background:peachpuff;"></iframe>
-    </div>
-  </div>
-  <h1>🙃</h1>
 </body>
 </html>
 
