@@ -3,7 +3,7 @@ module Stats
     include LoadFilterOptions
 
     before_action :authorize_team
-    before_action :init_filters, except: %i[search_antennes]
+    before_action :init_filters
     before_action :clean_public_filters, only: :public
     before_action :set_stats_params, only: %i[public needs matches acquisition]
 
