@@ -329,7 +329,7 @@ describe 'New Solicitation', :js do
       click_on "Je ne trouve pas mon entreprise"
       fill_in 'Votre numéro SIRET', with: "n'importe quoi"
       click_on 'Suivant'
-      expect(page).to have_current_path(/\/votre-demande\/.*\/update_step_company/)
+      expect(page).to have_current_path(/\/votre-demande\/.*\/etablissement/)
       expect(page).to have_content('SIRET doit être un numéro à 14 chiffres')
       expect(solicitation.reload.siret).to be_nil
 
