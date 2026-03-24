@@ -19,6 +19,8 @@ class Badge < ApplicationRecord
     solicitations: 0, needs: 1
   }, prefix: true
 
+  DEFAULT_COLOR = "#000000"
+
   ## Associations
   #
   has_many :badge_badgeables, dependent: :destroy
@@ -37,9 +39,17 @@ class Badge < ApplicationRecord
   validates :title, :color, :category, presence: true, allow_blank: false
   validates :title, uniqueness: { scope: :category }
 
+  ## Scopes
+  #
+  scope :colored, -> { where.not(color: Badge::DEFAULT_COLOR) }
+
   ##
   #
   def to_s
     title
+  end
+
+  def long_name
+    "#{category}-#{title.parameterize}"
   end
 end
