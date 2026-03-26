@@ -31,7 +31,6 @@ class SolicitationsController < PagesController
         session.delete(:solicitation_form_info)
         redirect_to retrieve_company_step_path
       else
-        flash.alert = @solicitation.errors.full_messages.to_sentence
         render :step_contact, status: :unprocessable_content
       end
     end
@@ -47,7 +46,6 @@ class SolicitationsController < PagesController
       if @solicitation.update(sanitize_params(solicitation_params))
         redirect_to retrieve_company_step_path
       else
-        flash.alert = @solicitation.errors.full_messages.to_sentence
         render :step_contact, status: :unprocessable_content
       end
     end
@@ -119,7 +117,6 @@ class SolicitationsController < PagesController
     if @solicitation.update(sanitized_params)
       redirect_to step_description_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
     else
-      flash.alert = @solicitation.errors.full_messages.to_sentence
       render :step_company, status: :unprocessable_content
     end
   end
