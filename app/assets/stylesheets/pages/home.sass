@@ -1,3 +1,5 @@
+@use "../shared/base"
+
 .home-banner
   #col-text
     display: flex
@@ -28,14 +30,14 @@
 
 .home
   .emphasis.fr-grid-row
-    background-color: $emphasis-background
-    border: 1px solid $emphasis-border
+    background-color: base.$emphasis-background
+    border: 1px solid base.$emphasis-border
     margin-top: -5rem
     margin-bottom: 3rem
     padding: 1rem
     display: flex
     &:hover
-      border: 2px solid $emphasis-border-hover
+      border: 2px solid base.$emphasis-border-hover
       padding: calc(1rem - 1px)
     h2
       line-height: 1.5rem
@@ -44,7 +46,7 @@
     span
       margin: 0 0.5rem
     .fr-btn--secondary
-      background-color: $white
+      background-color: base.$white
       position: static
     img
       max-height: 50px
@@ -54,4 +56,4 @@
   font-size: 1.2rem
   margin: 3rem 0 2rem
   a
-    color: $blue
+    color: base.$blue

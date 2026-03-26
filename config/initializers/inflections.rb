@@ -14,6 +14,8 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'expert_subject', 'experts_subjects'
   inflect.irregular 'match', 'matches'
   inflect.irregular 'Match', 'Matches'
+
+  inflect.acronym 'CSP'
 end
 
 # These inflection rules are supported but not enabled by default:

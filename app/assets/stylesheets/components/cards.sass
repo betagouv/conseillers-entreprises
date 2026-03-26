@@ -1,3 +1,5 @@
+@use "../shared/base"
+
 .card-expert__list
   margin-top: 0
   margin-bottom: 0.75rem
@@ -65,9 +67,9 @@
     &::before, &::after
       font-size: 2rem
   &.comment__container--refused-fb
-    background-color: $red-lighter
+    background-color: base.$red-lighter
     &::after
-      border-top-color: $red-lighter
+      border-top-color: base.$red-lighter
     .comment__title
       margin-bottom: 0 
     .comment__meta
@@ -76,7 +78,7 @@
 
 // Carte reminders need =================================
 .card-admin-need
-  border: 1px solid $grey-light
+  border: 1px solid base.$grey-light
   .subtitle
     display: flex
 
@@ -84,7 +86,7 @@
     display: flex
     justify-content: space-between
     align-items: center
-    background-color: $beige
+    background-color: base.$beige
     padding: 1.5rem
     a
       text-decoration: none
@@ -109,7 +111,7 @@
   .card__title
     flex: 1 1 auto
     .subtitle
-      color: $grey-dark
+      color: base.$grey-dark
       font-size: 0.875rem
     h2
       font-size: 1.25rem
@@ -130,7 +132,7 @@
     .card__description__content
       margin-top: 1rem
       padding-left: 1rem
-      border-left: 3px solid $grey-light
+      border-left: 3px solid base.$grey-light
     p
       margin-bottom: 0.75rem
   .card__meta
@@ -172,9 +174,9 @@
     margin-right: 0.3rem
 
 .card
-  border: 1px solid $grey-light
+  border: 1px solid base.$grey-light
   .card__header
-    background-color: $beige
+    background-color: base.$beige
     padding: 1.5rem
     display: flex
     justify-content: space-between
@@ -184,7 +186,7 @@
     justify-content: flex-end
     align-items: center
     padding: 1rem 1.5rem
-    background-color: $grey-lightest
+    background-color: base.$grey-lightest
 
 .close-need-box
   .fr-card__title

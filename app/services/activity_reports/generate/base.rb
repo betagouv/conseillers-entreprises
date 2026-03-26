@@ -24,11 +24,17 @@ module ActivityReports::Generate
 
     def create_file(result, period)
       filename = build_filename(period)
+      key = "activity_report_#{report_type}/#{@item.id}-#{@item.name.parameterize}/#{filename}"
+
+      # Delete any stray attachment that may have been left over from a previous (failed?) run
+      blob = ActiveStorage::Blob.find_by(key: key)
+      blob.attachments.each(&:purge) if blob.present?
+
+      # Generate ActivityReport object
       report = reports.create!(start_date: period.first, end_date: period.last)
-      report.file.attach(io: result.xlsx.to_stream(confirm_valid: true),
-                         key: "activity_report_#{report_type}/#{@item.id}-#{@item.name.parameterize}/#{filename}",
-                         filename: filename,
-                         content_type: 'application/xlsx')
+
+      # Attach (and upload) file
+      report.file.attach(io: result.xlsx.to_stream(confirm_valid: true), key: key, filename: filename, content_type: 'application/xlsx')
     end
 
     def last_periods

@@ -23,7 +23,7 @@ Rails.application.configure do
   end
 
   # Generate session nonces for permitted importmap, inline scripts, and inline styles.
-  config.content_security_policy_nonce_generator = -> (request) { request.session.id.to_s }
+  config.content_security_policy_nonce_generator = -> (request) { request.session[:csp_nonce] ||= SecureRandom.base64(16) }
   config.content_security_policy_nonce_directives = %w(script-src style-src)
 
   # Automatically add `nonce` to `javascript_tag`, `javascript_include_tag`, and `stylesheet_link_tag`
@@ -32,4 +32,11 @@ Rails.application.configure do
 
   # Report violations without enforcing the policy.
   # config.content_security_policy_report_only = true
+end
+
+## Overrides for third-party engines
+#
+ActiveSupport::Reloader.to_prepare do
+  Rswag::Ui::Middleware.prepend Extensions::CSP::Rswag
+  LetterOpenerWeb::LettersController.prepend Extensions::CSP::LetterOpener if Rails.env.development?
 end

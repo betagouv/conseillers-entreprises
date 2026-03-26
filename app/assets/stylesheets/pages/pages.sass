@@ -1,3 +1,5 @@
+@use "../shared/base"
+
 .tac_visually-hidden
   display: none
 
@@ -6,8 +8,8 @@
     font-size: 0.9rem
 
 .section-color
-  background-image: linear-gradient(to left, $blue, $blue-dark)
-  color: $white
+  background-image: linear-gradient(to left, base.$blue, base.$blue-dark)
+  color: base.$white
   p
     font-size: 1.5rem
   span

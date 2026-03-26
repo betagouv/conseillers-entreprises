@@ -1,6 +1,8 @@
+@use "../shared/base"
+
 form
   .fr-input, .fr-select
-    box-shadow: inset 0 -2px 0 0 $blue
+    box-shadow: inset 0 -2px 0 0 base.$blue
   .fr-input-group.required
     label:after
       margin: -0.2em 0 0 0.2em
@@ -11,4 +13,4 @@ form
 .ss-main .ss-values .ss-value,
 .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected,
 .ss-content .ss-list .ss-option:hover
-  background-color: $blue
+  background-color: base.$blue
