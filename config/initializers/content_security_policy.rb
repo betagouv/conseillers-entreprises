@@ -33,3 +33,10 @@ Rails.application.configure do
   # Report violations without enforcing the policy.
   # config.content_security_policy_report_only = true
 end
+
+## Overrides for third-party engines
+#
+ActiveSupport::Reloader.to_prepare do
+  Rswag::Ui::Middleware.prepend Extensions::CSP::Rswag
+  LetterOpenerWeb::LettersController.prepend Extensions::CSP::LetterOpener if Rails.env.development?
+end
