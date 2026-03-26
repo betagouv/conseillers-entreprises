@@ -32,7 +32,7 @@ class SolicitationsController < PagesController
         redirect_to retrieve_company_step_path
       else
         flash.alert = @solicitation.errors.full_messages.to_sentence
-        render :step_contact
+        render :step_contact, status: :unprocessable_content
       end
     end
   end
@@ -48,7 +48,7 @@ class SolicitationsController < PagesController
         redirect_to retrieve_company_step_path
       else
         flash.alert = @solicitation.errors.full_messages.to_sentence
-        render :step_contact
+        render :step_contact, status: :unprocessable_content
       end
     end
   end
@@ -120,7 +120,7 @@ class SolicitationsController < PagesController
       redirect_to step_description_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
-      render :step_company
+      render :step_company, status: :unprocessable_content
     end
   end
 
@@ -142,7 +142,7 @@ class SolicitationsController < PagesController
       else
         flash.now.alert = @solicitation.errors.full_messages.to_sentence
         build_subject_answers if @solicitation.subject_answers.blank?
-        render :step_description
+        render :step_description, status: :unprocessable_content
       end
     end
   end

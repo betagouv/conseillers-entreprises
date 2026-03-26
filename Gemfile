@@ -123,6 +123,7 @@ group :development do
   gem 'bullet'
   gem 'squasher'
   gem 'pp_sql'
+  gem 'localhost' # use https in development
 
   gem 'spring'
   gem 'spring-commands-rspec'

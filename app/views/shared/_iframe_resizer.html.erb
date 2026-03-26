@@ -5,3 +5,14 @@
 </style>
 
 <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/iframe-resizer@4.3.2/js/iframeResizer.contentWindow.min.js', integrity: "sha256-rbC2imHDJIBYUIXvf+XiYY+2cXmiSlctlHgI+rrezQo=", crossorigin: "anonymous", nonce: true %>
+
+<script nonce="<%= content_security_policy_nonce %>">
+  window.iFrameResizer = {
+    onReady: () => {
+      addEventListener('turbo:load', () => {
+        window.parentIFrame.size()
+        window.parentIFrame.moveToAnchor(window.parentIFrame.getId());
+      })
+    }
+  }
+</script>
