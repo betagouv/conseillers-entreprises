@@ -1,3 +1,5 @@
+@use "../shared/base"
+
 .solicitation-actions
   display: flex
   border-radius: 0.29rem
@@ -12,7 +14,7 @@
     display: flex
     align-items: center
     height: 3rem
-    color: $white
+    color: base.$white
     background: transparent
     &:hover
       background: transparent
@@ -28,13 +30,13 @@
       position: absolute
       z-index: 2
       right: 0
-      box-shadow: 0 2px 6px $grey
+      box-shadow: 0 2px 6px base.$grey
       a, .clickable
         padding: 0.5rem 0.5rem 0.5rem 1rem
         background: none
         cursor: pointer
         &:hover
-          background-color: $grey-lighter
+          background-color: base.$grey-lighter
   .dropdown:hover .dropdown-content
     display: block
   .dropdown#generic-emails:hover .dropdown-content

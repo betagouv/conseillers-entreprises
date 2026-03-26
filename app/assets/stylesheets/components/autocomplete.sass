@@ -1,3 +1,6 @@
+@use "../shared/base"
+@use "../shared/utilities"
+
 .autocomplete__wrapper
   position: relative
 
@@ -34,7 +37,7 @@
   top: 10px
 
 .autocomplete__menu
-  background-color: $white
+  background-color: base.$white
   border: 1px solid #adb9c9
   border-top: 0
   color: #0b0c0c
@@ -82,7 +85,7 @@
 
 .autocomplete__option--no-results
   background-color: #fafafa
-  color: $grey-dark
+  color: base.$grey-dark
   cursor: not-allowed
 
 .autocomplete__option
@@ -92,17 +95,17 @@
   .small
     margin: 0
     font-size: 0.9rem
-    color: $grey-dark
+    color: base.$grey-dark
 
 .autocomplete__option--focused, .autocomplete__option:hover
-  background-color: $blue
-  border-color: $blue
-  color: $white
+  background-color: base.$blue
+  border-color: base.$blue
+  color: base.$white
   outline: 0
   h1, h2, h3, h4
-    color: $white
+    color: base.$white
   .small
-    color: $white
+    color: base.$white
 
 .autocomplete__hint, .autocomplete__option
   padding: 5px
@@ -125,5 +128,5 @@
     z-index: 3
     right: 10px
     top: 6px
-    @media (max-width: $bp-md)
+    @media (max-width: base.$bp-md)
       top: 40px

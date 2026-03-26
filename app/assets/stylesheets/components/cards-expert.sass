@@ -1,3 +1,5 @@
+@use "../shared/base"
+
 .card--expert
   .fr-card__title
     font-size: 1.6rem
@@ -15,9 +17,9 @@
     &.one_pending_need
       background-color: #BCDD96
     &.optimisation
-      background-color: $fr-brown-caramel
+      background-color: base.$fr-brown-caramel
   .fr-accordion__btn
     padding: 0.25rem 0.75rem
   .fr-collapse.team-members
-    border-left: 1px solid $grey-light
+    border-left: 1px solid base.$grey-light
     padding-left: 0.4rem
