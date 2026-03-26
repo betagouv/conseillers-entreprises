@@ -1,3 +1,5 @@
+@use "../shared/base"
+
 .steps
   display: grid
   grid-template-columns: 1fr 1fr 1fr
@@ -5,20 +7,20 @@
     width: 100%
   .step__title
     position: relative
-    background-color: $grey-dark
+    background-color: base.$grey-dark
     height: 3rem
     width: 90%
     display: grid
     place-items: center
-    color: $white
+    color: base.$white
     font-size: 1.2rem
     &.active
       text-decoration: underline
       font-weight: bold
     &.completed
-      background-color: $green
+      background-color: base.$green
       &:after
-        border-left: 20px solid $green
+        border-left: 20px solid base.$green
     &:before, &:after
       content: ""
       position: absolute
@@ -28,12 +30,12 @@
       border-left: 20px solid white
       left: 0
     &:after
-      border-left: 20px solid $grey-dark
+      border-left: 20px solid base.$grey-dark
       right: -20px
 
 
 .diagnosis-creation-header
-  background-color: $beige
+  background-color: base.$beige
   margin-top: -3rem
   .company-description
     text-align: center
@@ -42,14 +44,14 @@
 
 #matches-app
   textarea.fr-input#diagnosis_content
-    background-color: $beige
+    background-color: base.$beige
   .card-matches
-    border: 1px solid $grey-light
+    border: 1px solid base.$grey-light
     .card__header
       display: flex
       justify-content: space-between
       align-items: center
-      background-color: $beige
+      background-color: base.$beige
       padding: 1.5rem
   .fr-checkbox-group input[type="checkbox"] + label::before
     top: 0.5rem

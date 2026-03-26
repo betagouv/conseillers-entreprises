@@ -1,3 +1,5 @@
+@use "base"
+
 .list-unstyled
   list-style: none
   & > li::before
@@ -11,42 +13,42 @@
 .order-minus-one
   order: -1
   &.bp-sm
-    @media (max-width: $bp-sm)
+    @media (max-width: base.$bp-sm)
       order: 0
 
 .light-blue-bg
-  background-color: $blue-light
+  background-color: base.$blue-light
 
 .lighter-blue-bg
-  background-color: $blue-lighter
+  background-color: base.$blue-lighter
 
 .white-bg
-  background-color: $white
+  background-color: base.$white
 
 .info-main-525-bg
-  background-color: $info-main-525 !important
+  background-color: base.$info-main-525 !important
   &:hover
-    background-color: $info-main-525-hover !important
+    background-color: base.$info-main-525-hover !important
 
 .warning-main-525-bg
-  background-color: $warning-main-525 !important
+  background-color: base.$warning-main-525 !important
   &:hover
-    background-color: $warning-main-525-hover !important
+    background-color: base.$warning-main-525-hover !important
 
 .error-425-bg
-  background-color: $error-425 !important
+  background-color: base.$error-425 !important
   &:hover
-    background-color: $error-425-hover !important
+    background-color: base.$error-425-hover !important
 
 .success-main-525-bg
-  background: $success-main-525 !important
+  background: base.$success-main-525 !important
   &:hover
-    background-color: $success-main-525-hover !important
+    background-color: base.$success-main-525-hover !important
 
 .grey-medium-bg
-  background-color: $grey-dark !important
+  background-color: base.$grey-dark !important
   &:hover
-    background-color: $grey !important
+    background-color: base.$grey !important
 
 .hidden
   display: none
@@ -135,7 +137,7 @@ a.fr-breadcrumb__item a.break-word, .fr-prose a.break-word, [class*=" fr-"] a.br
 
 .loader
   border: 3px solid #f3f3f3
-  border-top: 3px solid $blue
+  border-top: 3px solid base.$blue
   border-radius: 50%
   width: 25px
   height: 25px
@@ -169,7 +171,7 @@ button.link
 
 .columns-2
   column-count: 2
-  @media (max-width: $bp-sm)
+  @media (max-width: base.$bp-sm)
     column-count: 1
 
 .height-fit-content

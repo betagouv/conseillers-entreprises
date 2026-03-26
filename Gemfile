@@ -37,7 +37,7 @@ gem 'aasm'
 gem 'active_model_serializers'
 gem 'rswag-api'
 gem 'rswag-ui'
-gem 'ostruct' # for rswag in ruy 4, until https://github.com/rswag/rswag/pull/790 or https://github.com/rswag/rswag/pull/872 is merged and released
+gem 'ostruct' # for rswag in ruby 4, until https://github.com/rswag/rswag/pull/790 or https://github.com/rswag/rswag/pull/872 is merged and released
 gem 'faker'
 gem 'pg_search'
 
@@ -123,6 +123,7 @@ group :development do
   gem 'bullet'
   gem 'squasher'
   gem 'pp_sql'
+  gem 'localhost' # use https in development
 
   gem 'spring'
   gem 'spring-commands-rspec'

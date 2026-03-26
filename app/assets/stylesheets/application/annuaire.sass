@@ -1,3 +1,5 @@
+@use "../shared/base"
+
 .annuaire-region-select
   select
     width: 30%
@@ -8,15 +10,15 @@
   min-width: 25rem
   max-height: 10rem
   position: absolute
-  background: $white
+  background: base.$white
   overflow-y: scroll
   list-style: none
   cursor: pointer
-  box-shadow: 0px 10px 10px -5px $grey-dark
+  box-shadow: 0px 10px 10px -5px base.$grey-dark
   z-index: 100
   .list-group-item
     &:hover
-      background-color: $grey-lighter
+      background-color: base.$grey-lighter
 
 .autocomplete-field
   .fr-input
