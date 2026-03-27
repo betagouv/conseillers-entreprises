@@ -5,11 +5,11 @@
     description: description
   add_page_schema(page_schema(title: title, description: description))
   add_page_schema(item_list_schema(
-    name: "Services disponibles pour #{@landing_theme.title}",
-    description: description,
-    items: prepare_subjects_schema_items(@landing_subjects, @landing.slug),
-    service_type: "Service"
-  ))
+                    name: "Services disponibles pour #{@landing_theme.title}",
+                    description: description,
+                    items: prepare_subjects_schema_items(@landing_subjects, @landing.slug),
+                    service_type: "Service"
+                  ))
 
 
 - cache_unless(flash.present?, [@landing_theme, @landing, @landing_subjects, query_params]) do
