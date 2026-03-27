@@ -30,6 +30,7 @@ export default class extends Controller {
       },
       tNoResults: () => this.statusMessage,
       tAssistiveHint: () => this.fieldTarget.dataset.assistiveHint,
+      tStatusQueryTooShort: (minQueryLength) => `Saisissez au moins ${minQueryLength} caractères.`,
       tStatusNoResults: () => this.statusMessage,
       tStatusSelectedOption: (selectedOption, length, index) => `${selectedOption} ${index + 1} sur ${length} est sélectionné`,
       tStatusResults: (length, contentSelectedOption) => {

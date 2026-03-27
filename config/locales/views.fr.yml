@@ -903,6 +903,7 @@ fr:
         previous: Retour à l’étape « Vos coordonnées »
       step_description:
         previous: Retour à l’étape « Votre entreprise »
+      step_next: Étape suivante
       steps:
         step_company: Votre entreprise
         step_contact: Vos coordonnées
