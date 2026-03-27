@@ -34,7 +34,10 @@ module RecordExtensions
         end
         context = options.delete(:context)
         enum_i18n_scope = [enum_name.to_s.pluralize, context].compact.join('/')
-        human_attribute_name("#{enum_i18n_scope}.#{value}", options)
+        defaults = lookup_ancestors.map { |klass| :"activerecord.attributes.#{klass.model_name.i18n_key}/#{enum_i18n_scope}.#{value}" }
+        defaults << :"attributes.#{enum_i18n_scope}.#{value}"
+        defaults << value.to_s.humanize
+        I18n.t(defaults.shift, default: defaults, **options)
       end
 
       # Returns a hash of the enum values => localized text
