@@ -22,7 +22,9 @@ module SeoHelper
   end
 
   def add_page_schema(schema)
-    content_for(:page_schemas_json, schema.to_json + "\n")
+    request.env['page_schemas'] ||= []
+    request.env['page_schemas'] << schema
+    nil
   end
 
   def schema_org_tag(data)
@@ -49,11 +51,9 @@ module SeoHelper
       free_offer_schema
     ]
 
-    # Récupérer les schémas ajoutés via content_for
-    if content_for?(:page_schemas_json)
-      page_schemas_json = content_for(:page_schemas_json).strip.split("\n")
-      page_schemas = page_schemas_json.map { |json| JSON.parse(json) }
-      all_schemas += page_schemas
+    # Récupérer les schémas ajoutés via add_page_schema
+    if request.env['page_schemas'].present?
+      all_schemas += request.env['page_schemas']
     end
 
     schema_org_tag(schema_graph(*all_schemas))
