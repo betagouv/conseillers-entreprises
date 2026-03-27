@@ -64,7 +64,7 @@ module SeoHelper
       '@type': "GovernmentService",
       '@id': "#{root_url}#service",
       name: "Conseillers-Entreprises Service Public",
-      description: "Service public d'accompagnement gratuit pour les TPE et PME en France",
+      description: "Service public d’accompagnement pour les TPE et PME en France",
       url: root_url,
       serviceType: "Conseil aux entreprises",
       provider: { '@id': "#{root_url}#organization" },
@@ -76,7 +76,7 @@ module SeoHelper
         '@type': "AdministrativeArea",
         name: "France"
       },
-      serviceOutput: "Mise en relation avec un conseiller expert pour accompagner votre entreprise",
+      serviceOutput: "Être rappelé par le conseiller qui peut vous aider",
       termsOfService: "#{root_url}cgu",
       availableChannel: {
         '@type': "ServiceChannel",
@@ -183,7 +183,7 @@ module SeoHelper
           audience: { '@id': "#{root_url}#audience" },
           offers: { '@id': "#{root_url}#offer" },
           category: item[:category] || "Accompagnement entreprise",
-          serviceOutput: "Mise en relation avec un conseiller expert"
+          serviceOutput: "Être rappelé par le conseiller qui peut vous aider"
         }
 
         service_schema["description"] = strip_tags(item[:description]) if item[:description].present?
@@ -209,7 +209,7 @@ module SeoHelper
     landing_themes.map do |theme|
       {
         name: theme.title,
-        description: theme.description,
+        description: theme.meta_description.presence || theme.description,
         url: landing_theme_url(landing_slug: landing_slug, slug: theme.slug)
       }
     end
@@ -219,7 +219,7 @@ module SeoHelper
     landing_subjects.map do |subject|
       {
         name: subject.title,
-        description: subject.description,
+        description: strip_tags(subject.description&.gsub(/<\/li>\s*<li/, "</li>. <li"))&.squish,
         url: new_solicitation_url(landing_slug: landing_slug, landing_subject_slug: subject.slug)
       }
     end
