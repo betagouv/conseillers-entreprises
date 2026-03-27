@@ -22,8 +22,7 @@ module SeoHelper
   end
 
   def add_page_schema(schema)
-    @page_schemas ||= []
-    @page_schemas << schema
+    content_for(:page_schemas_json, schema.to_json + "\n")
   end
 
   def schema_org_tag(data)
@@ -49,7 +48,13 @@ module SeoHelper
       business_audience_schema,
       free_offer_schema
     ]
-    all_schemas += Array.wrap(@page_schemas) if defined?(@page_schemas) && @page_schemas.present?
+    
+    # Récupérer les schémas ajoutés via content_for
+    if content_for?(:page_schemas_json)
+      page_schemas_json = content_for(:page_schemas_json).strip.split("\n")
+      page_schemas = page_schemas_json.map { |json| JSON.parse(json) }
+      all_schemas += page_schemas
+    end
 
     schema_org_tag(schema_graph(*all_schemas))
   end
