@@ -48,7 +48,7 @@ module SeoHelper
       business_audience_schema,
       free_offer_schema
     ]
-    
+
     # Récupérer les schémas ajoutés via content_for
     if content_for?(:page_schemas_json)
       page_schemas_json = content_for(:page_schemas_json).strip.split("\n")
