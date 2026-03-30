@@ -4,11 +4,9 @@ class Api::V1::SolicitationsController < Api::V1::BaseController
       params = format_params(sanitize_params(solicitation_params))
       @solicitation = Solicitation.new(params)
       if @solicitation.complete!
-        ActiveRecord::Base.transaction do
-          CreateAutomaticDiagnosisJob.perform_later(@solicitation.id)
-          CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
-          render json: @solicitation, serializer: serializer, status: 200
-        end
+        CreateAutomaticDiagnosisJob.perform_later(@solicitation.id)
+        CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
+        render json: @solicitation, serializer: serializer, status: 200
       else
         errors = @solicitation.errors.map{ |e| { source: I18n.t(e.attribute, scope: [:activerecord, :attributes, :solicitation]), message: e.message } }
         render_error_payload(errors: errors, status: :unprocessable_content)
