@@ -16,15 +16,15 @@
               %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-no-nature-activite-#{solicitation.id}", href: '#' } ?
               %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-no-nature-activite-#{solicitation.id}" }
                 = t('.solicitation_no_nature_activites')
-            - if solicitation.recent_matched_solicitations.any?
+            - if solicitation_flags&.dig(solicitation.id, :has_relances)
               %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-recent-matched-#{solicitation.id}", href: '#' } R
               %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-recent-matched-#{solicitation.id}" }
                 = t('.solicitation_relance_explanation')
-            - if solicitation.doublon_solicitations.any?
+            - if solicitation_flags&.dig(solicitation.id, :has_doublons)
               %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-doublon-#{solicitation.id}", href: '#' } D
               %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-doublon-#{solicitation.id}" }
                 = t('.solicitation_doublon_explanation')
-            - if solicitation.has_similar_abandonned_solicitations?
+            - if solicitation_flags&.dig(solicitation.id, :has_similar_abandonned)
               %li.fr-badge.fr-badge--warning.fr-badge--no-icon{ 'aria-describedby': "tooltip-from-similar-#{solicitation.id}", href: '#' } A
               %span.fr-tooltip.fr-placement{ 'aria-hidden': "true", role: 'tooltip', id: "tooltip-from-similar-#{solicitation.id}" }
                 = t('.similar_abandonned_solicitations_explanation')
