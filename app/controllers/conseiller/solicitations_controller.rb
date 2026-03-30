@@ -9,12 +9,14 @@ class Conseiller::SolicitationsController < ApplicationController
   def index
     @solicitations = ordered_solicitations(:in_progress)
     @facilities = get_and_format_facilities
+    @solicitation_flags = precompute_solicitation_flags
     @status = t('solicitations.header.index')
   end
 
   def processed
     @solicitations = ordered_solicitations(:processed, :desc)
     @facilities = get_and_format_facilities
+    @solicitation_flags = precompute_solicitation_flags
     @status = t('solicitations.header.processed')
     render :index
   end
@@ -22,6 +24,7 @@ class Conseiller::SolicitationsController < ApplicationController
   def canceled
     @solicitations = ordered_solicitations(:canceled, :desc)
     @facilities = get_and_format_facilities
+    @solicitation_flags = precompute_solicitation_flags
     @status = t('solicitations.header.canceled')
     render :index
   end
@@ -191,5 +194,71 @@ class Conseiller::SolicitationsController < ApplicationController
     end
 
     (count / nb_per_page) + 1
+  end
+
+  def precompute_solicitation_flags
+    return {} if @solicitations.empty?
+
+    emails = @solicitations.map(&:email).compact
+    sirets_map = precompute_sirets_per_solicitation(emails)
+    all_sirets = sirets_map.values.flatten.uniq
+
+    doublons = precompute_doublons(all_sirets, emails)
+    relances = precompute_relances(all_sirets, emails)
+    abandons = precompute_similar_abandonned(all_sirets, emails)
+
+    @solicitations.each_with_object({}) do |solicitation, hash|
+      sirets = sirets_map[solicitation.id]
+      email = solicitation.email
+      hash[solicitation.id] = {
+        has_doublons: doublons.any? { |other_id, other_siret, other_email| other_id != solicitation.id && (other_email == email || sirets.include?(other_siret)) },
+        has_relances: relances.any? { |other_id, other_siret, other_email, other_subject_id| other_id != solicitation.id && (other_email == email || sirets.include?(other_siret)) && other_subject_id == solicitation.landing_subject_id },
+        has_similar_abandonned: abandons.count { |other_id, other_siret, other_email| other_id != solicitation.id && (other_email == email || sirets.include?(other_siret)) } >= 4
+      }
+    end
+  end
+
+  def precompute_sirets_per_solicitation(emails)
+    facility_sirets = Facility.joins(:company, company: :contacts)
+      .where(contacts: { email: emails })
+      .pluck(:siret, 'contacts.email')
+      .group_by { |_, email| email }
+      .transform_values { |pairs| pairs.map(&:first).compact }
+
+    @solicitations.each_with_object({}) do |solicitation, hash|
+      sirets = [solicitation.facility&.siret]
+      clean_siret = FormatSiret.clean_siret(solicitation.siret)
+      sirets << clean_siret if FormatSiret.siret_is_valid(clean_siret)
+      sirets |= facility_sirets[solicitation.email] || []
+      hash[solicitation.id] = sirets.compact
+    end
+  end
+
+  def same_companies_scope(all_sirets, all_emails)
+    t = Solicitation.arel_table
+    same_company = t[:siret].in(all_sirets).or(t[:email].in(all_emails))
+    Solicitation.where(same_company)
+  end
+
+  def precompute_doublons(all_sirets, all_emails)
+    same_companies_scope(all_sirets, all_emails)
+      .where(status: :in_progress)
+      .pluck(:id, :siret, :email)
+  end
+
+  def precompute_relances(all_sirets, all_emails)
+    landing_subject_ids = @solicitations.map(&:landing_subject_id).compact.uniq
+    return [] if landing_subject_ids.empty?
+
+    same_companies_scope(all_sirets, all_emails)
+      .where(status: :processed, landing_subject_id: landing_subject_ids)
+      .where(created_at: 3.weeks.ago..Time.zone.now)
+      .pluck(:id, :siret, :email, :landing_subject_id)
+  end
+
+  def precompute_similar_abandonned(all_sirets, all_emails)
+    same_companies_scope(all_sirets, all_emails)
+      .where(status: :canceled)
+      .pluck(:id, :siret, :email)
   end
 end
