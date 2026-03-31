@@ -34,6 +34,17 @@
                 .fr-radio-group
                   = f.radio_button :useful_exchange, false, required: true
                   = f.label t('no'), for: 'company_satisfaction_useful_exchange_false', class: 'fr-label'
+          .fr-form-group
+            %fieldset.fr-fieldset
+              %legend.fr-fieldset__legend.fr-text--regular
+                = t('.outcome')
+              .fr-fieldset__content
+                .fr-radio-group
+                  = f.collection_radio_buttons :outcome, CompanySatisfaction.outcomes.keys, :to_s,
+                   -> { CompanySatisfaction.human_attribute_value(:outcome, it) },
+                   {}, required: true do |b|
+                    = b.radio_button
+                    = b.label class: 'fr-label'
           .fr-input-group
             = f.label :comment, t('.comment'), class: 'fr-label'
             = f.text_area :comment, class: 'fr-input white-bg', rows: 8

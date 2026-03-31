@@ -215,6 +215,12 @@ fr:
         solicitation_mtm_kwd: Mots-clés
         useful_exchange: Échange utile
         with_comment: Commentaire
+      company_satisfaction/outcomes:
+        find_institution: de découvrir les services d’une institution que vous n’auriez pas contactée.
+        find_measure: d’accéder à un dispositif public dont vous n’aviez pas connaissance.
+        help_choice: de faciliter un choix.
+        other: autre chose (précisez en commentaire)
+        start_action: d’entreprendre des actions auxquelles vous n’auriez pas pensé.
       contact:
         company: Entreprise
         job: Fonction
