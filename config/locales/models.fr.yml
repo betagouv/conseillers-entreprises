@@ -207,6 +207,11 @@ fr:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
         landing: Page d’atterrissage
+        outcome_find_institution: institution
+        outcome_find_measure: dispositif
+        outcome_help_choice: choix
+        outcome_other: autre
+        outcome_start_action: actions
         outcomes: Solutions
         shared: Partagé
         shared_satisfactions: Le partage de satisfaction
@@ -215,6 +220,12 @@ fr:
         solicitation_mtm_kwd: Mots-clés
         useful_exchange: Échange utile
         with_comment: Commentaire
+      company_satisfaction/outcomes/long:
+        outcome_find_institution: Découvrir les services d’une institution non contactée
+        outcome_find_measure: Accéder à un dispositif public inconnu
+        outcome_help_choice: Faciliter un choix
+        outcome_other: autre
+        outcome_start_action: Entreprendre des actions inconnues
       company_satisfaction/outcomes/question:
         outcome_find_institution: de découvrir les services d’une institution que vous n’auriez pas contactée ?
         outcome_find_measure: d’accéder à un dispositif public dont vous n’aviez pas connaissance ?
