@@ -7,6 +7,7 @@ ActiveAdmin.register CompanySatisfaction do
 
   ## Index
   #
+  includes :shared_satisfactions, [need: [:company, :subject]], :solicitation, :landing
   before_action only: :index do
     init_subjects_filter
   end
@@ -19,6 +20,15 @@ ActiveAdmin.register CompanySatisfaction do
     selectable_column
     column :contacted_by_expert
     column :useful_exchange
+    column :outcomes do |s|
+      div do
+        s.outcomes.each do |outcome|
+          status_tag CompanySatisfaction.human_attribute_value(:outcome, outcome, context: :short),
+                     class: 'yes',
+                     title: CompanySatisfaction.human_attribute_value(:outcome, outcome, context: :long)
+        end
+      end
+    end
     column :comment do |s|
       div s.comment
       if s.shared
@@ -76,6 +86,7 @@ ActiveAdmin.register CompanySatisfaction do
     column :created_at
     column :contacted_by_expert
     column :useful_exchange
+    column :outcomes
     column :comment
     column(:landing) { |s| s.landing&.slug }
     column(:subject) { |s| s.subject&.slug }
@@ -90,21 +101,43 @@ ActiveAdmin.register CompanySatisfaction do
   ## Show
   #
   show do
-      attributes_table do
-          row :created_at
-          row :contacted_by_expert
-          row :useful_exchange
-          row :comment
-          row :need
-          row(:shared_with) do |s|
-            div raw shared_satisfactions_links(s.shared_satisfactions) if s.shared_satisfactions.any?
+    attributes_table do
+      row :created_at
+      row :contacted_by_expert
+      row :useful_exchange
+      row :outcomes do |s|
+        div do
+          s.outcomes.map do |outcome|
+            status_tag CompanySatisfaction.human_attribute_name(outcome),
+                       class: 'yes',
+                       title: CompanySatisfaction.human_attribute_value(:outcome, outcome, context: :long)
           end
         end
+      end
+      row :comment
+      row :need
+      row(:shared_with) do |s|
+        div raw shared_satisfactions_links(s.shared_satisfactions) if s.shared_satisfactions.any?
+      end
     end
+  end
+
+  ## Form
+  #
+  permit_params :contacted_by_expert, :useful_exchange, *CompanySatisfaction::OUTCOMES, :comment
+  form do |f|
+    f.inputs do
+      f.input :contacted_by_expert
+      f.input :useful_exchange
+      CompanySatisfaction::OUTCOMES.each { f.input it }
+      f.input :comment
+    end
+
+    f.actions
+  end
 
   ## Actions
   #
-
   action_item :share, only: :show do
     link_to t('active_admin.company_satisfaction.share'), { action: :share }, data: { confirm: t('active_admin.company_satisfaction.share_confirmation') }
   end
