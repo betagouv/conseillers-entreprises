@@ -1,8 +1,7 @@
 :ruby
   title = @landing_theme.meta_title.presence || @landing_theme.title
   description = @landing_theme.meta_description.presence || @landing_theme.description
-  meta title: title,
-    description: description
+  meta(title: title, description: description)
   add_page_schema(page_schema(title: title, description: description))
   add_page_schema(item_list_schema(
                     name: "Services disponibles pour #{@landing_theme.title}".capitalize,
