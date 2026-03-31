@@ -29,6 +29,7 @@ module RecordExtensions
       # > Solicitation.human_attribute_value(:status, :canceled, context: :done, count: 2)
       # => "annulées" # I18n.t('activerecord.attributes.solicitation/statuses/done.canceled.other')
       def human_attribute_value(enum_name, value, options = {})
+        return if value.nil?
         unless options.delete(:disable_cast)
           value = attribute_types[enum_name.to_s].cast(value)
         end
