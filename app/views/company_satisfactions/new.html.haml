@@ -39,12 +39,10 @@
               %legend.fr-fieldset__legend.fr-text--regular
                 = t('.outcome')
               .fr-fieldset__content
-                .fr-radio-group
-                  = f.collection_radio_buttons :outcome, CompanySatisfaction.outcomes.keys, :to_s,
-                   -> { CompanySatisfaction.human_attribute_value(:outcome, it) },
-                   {}, required: true do |b|
-                    = b.radio_button
-                    = b.label class: 'fr-label'
+                .fr-checkbox-group
+                  - CompanySatisfaction::OUTCOMES.each do |outcome_attribute|
+                    = f.checkbox outcome_attribute
+                    = f.label outcome_attribute, CompanySatisfaction.human_attribute_value(:outcome, outcome_attribute, context: :question), class: 'fr-label'
           .fr-input-group
             = f.label :comment, t('.comment'), class: 'fr-label'
             = f.text_area :comment, class: 'fr-input white-bg', rows: 8
