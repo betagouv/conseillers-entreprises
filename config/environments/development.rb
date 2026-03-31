@@ -38,7 +38,10 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.default_url_options = { host: ENV['HOST_NAME'], port: ENV['PORT'] }
+
+  # We use https even for local development (see Procfile.dev and the localhost gem)
+  config.force_ssl = true
 
   # Use LetterOpener
   config.action_mailer.delivery_method = :letter_opener_web
