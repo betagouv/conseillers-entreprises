@@ -16,7 +16,7 @@ class CompanyMailerPreview < ActionMailer::Preview
   end
 
   def satisfaction
-    CompanyMailer.satisfaction(Need.where(status: :done).find_random)
+    CompanyMailer.satisfaction(Need.where(status: :done).joins(:visitee).where.not(visitee: { email: nil }).find_random)
   end
 
   def retention
