@@ -1170,6 +1170,7 @@ fr:
     region_name: Institution de la région
     satisfaction_comment: Commentaire de satisfaction
     satisfaction_contacted_by_expert: Satisfaction - rappel
+    satisfaction_outcomes: Satisfaction - solutions
     satisfaction_useful_exchange: Satisfaction - utilité
     searches:
       one: Recherche
