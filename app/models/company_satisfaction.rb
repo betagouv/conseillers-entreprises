@@ -99,6 +99,8 @@ class CompanySatisfaction < ApplicationRecord
     joins(:facility).merge(Facility.by_region(region_code))
   }
 
+  def outcomes = OUTCOMES.filter { self[it] }
+
   # Partage aux conseillers
   #
   def share # rubocop:disable Naming/PredicateMethod
