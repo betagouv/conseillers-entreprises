@@ -131,11 +131,9 @@ class SolicitationsController < PagesController
     with_step_data do
       @solicitation.complete if @solicitation.may_complete?
       if @solicitation.update(sanitize_params(solicitation_params))
-        ActiveRecord::Base.transaction do
-          CreateAutomaticDiagnosisJob.perform_later(@solicitation.id)
-          CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
-          redirect_to form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
-        end
+        CreateAutomaticDiagnosisJob.perform_later(@solicitation.id)
+        CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
+        redirect_to form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
       else
         flash.now.alert = @solicitation.errors.full_messages.to_sentence
         build_subject_answers if @solicitation.subject_answers.blank?
