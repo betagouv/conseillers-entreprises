@@ -235,8 +235,8 @@ class Conseiller::SolicitationsController < ApplicationController
   end
 
   def same_companies_scope(all_sirets, all_emails)
-    t = Solicitation.arel_table
-    same_company = t[:siret].in(all_sirets).or(t[:email].in(all_emails))
+    table = Solicitation.arel_table
+    same_company = table[:siret].in(all_sirets).or(table[:email].in(all_emails))
     Solicitation.where(same_company)
   end
 
