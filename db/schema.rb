@@ -10,10 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_10_152231) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_30_132110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
 
@@ -541,6 +540,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_152231) do
     t.index ["landing_id"], name: "index_solicitations_on_landing_id"
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
     t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"
+    t.index ["siret"], name: "index_solicitations_on_siret"
     t.index ["status", "completed_at"], name: "index_solicitations_on_status_and_completed_at"
     t.index ["status"], name: "index_solicitations_on_status"
     t.index ["uuid"], name: "index_solicitations_on_uuid"
