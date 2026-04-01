@@ -199,7 +199,7 @@ class Conseiller::SolicitationsController < ApplicationController
   def precompute_solicitation_flags
     return {} if @solicitations.empty?
 
-    emails = @solicitations.map(&:email).compact
+    emails = @solicitations.filter_map(&:email)
     sirets_map = precompute_sirets_per_solicitation(emails)
     all_sirets = sirets_map.values.flatten.uniq
 
@@ -223,7 +223,7 @@ class Conseiller::SolicitationsController < ApplicationController
       .where(contacts: { email: emails })
       .pluck(:siret, 'contacts.email')
       .group_by { |_, email| email }
-      .transform_values { |pairs| pairs.map(&:first).compact }
+      .transform_values { |pairs| pairs.filter_map(&:first) }
 
     @solicitations.each_with_object({}) do |solicitation, hash|
       sirets = [solicitation.facility&.siret]
@@ -247,7 +247,7 @@ class Conseiller::SolicitationsController < ApplicationController
   end
 
   def precompute_relances(all_sirets, all_emails)
-    landing_subject_ids = @solicitations.map(&:landing_subject_id).compact.uniq
+    landing_subject_ids = @solicitations.filter_map(&:landing_subject_id).uniq
     return [] if landing_subject_ids.empty?
 
     same_companies_scope(all_sirets, all_emails)
