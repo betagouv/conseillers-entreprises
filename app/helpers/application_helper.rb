@@ -40,8 +40,7 @@ module ApplicationHelper
     # Override the HoneypotGuard implementation
     # to localize the label and add the nonce in the style tag. See #4341.
     honeypot_html = content_tag(:div, class: "hp-field") do
-      tag.style(".hp-field { display: none };", nonce: content_security_policy_nonce) +
-        label_tag(HoneypotGuard.honeypot_field, t('honeypot_captcha.comment')) +
+      label_tag(HoneypotGuard.honeypot_field, t('honeypot_captcha.comment')) +
         text_field_tag(HoneypotGuard.honeypot_field, nil, autocomplete: "off")
     end
 
