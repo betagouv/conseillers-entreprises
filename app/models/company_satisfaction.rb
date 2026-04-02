@@ -2,14 +2,18 @@
 #
 # Table name: company_satisfactions
 #
-#  id                  :bigint(8)        not null, primary key
-#  comment             :text
-#  contacted_by_expert :boolean          not null
-#  outcome             :enum
-#  useful_exchange     :boolean          not null
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  need_id             :bigint(8)        not null
+#  id                       :bigint(8)        not null, primary key
+#  comment                  :text
+#  contacted_by_expert      :boolean          not null
+#  outcome_find_institution :boolean
+#  outcome_find_measure     :boolean
+#  outcome_help_choice      :boolean
+#  outcome_other            :boolean
+#  outcome_start_action     :boolean
+#  useful_exchange          :boolean          not null
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  need_id                  :bigint(8)        not null
 #
 # Indexes
 #
@@ -20,8 +24,6 @@
 #  fk_rails_...  (need_id => needs.id)
 #
 class CompanySatisfaction < ApplicationRecord
-  enum :outcome, %i[find_institution find_measure start_action help_choice other].index_with(&:to_s)
-
   belongs_to :need, inverse_of: :company_satisfaction
 
   has_one :diagnosis, through: :need, inverse_of: :company_satisfactions
