@@ -10,15 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_30_132110) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_31_101238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "activity_reports_categories", ["matches", "stats", "cooperation", "solicitations"]
+  create_enum "company_satisfaction_outcome", ["find_institution", "find_measure", "start_action", "help_choice", "other"]
   create_enum "feedbacks_categories", ["need", "need_reminder", "solicitation", "expert_reminder"]
   create_enum "landing_subject_fields_mode", ["siret", "location"]
   create_enum "match_status", ["quo", "taking_care", "done", "done_no_help", "done_not_reachable", "not_for_me"]
@@ -144,6 +146,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_30_132110) do
     t.boolean "contacted_by_expert", null: false
     t.datetime "created_at", null: false
     t.bigint "need_id", null: false
+    t.enum "outcome", enum_type: "company_satisfaction_outcome"
     t.datetime "updated_at", null: false
     t.boolean "useful_exchange", null: false
     t.index ["need_id"], name: "index_company_satisfactions_on_need_id"
