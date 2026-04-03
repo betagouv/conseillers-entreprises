@@ -188,13 +188,10 @@ module SeoHelper
 
         service_schema["description"] = strip_tags(item[:description]) if item[:description].present?
 
-        # Ajouter jurisdiction uniquement pour GovernmentService
-        if service_type == "GovernmentService"
-          service_schema["jurisdiction"] = {
-            '@type': "AdministrativeArea",
-            name: "France"
-          }
-        end
+        service_schema["jurisdiction"] = {
+          '@type': "AdministrativeArea",
+          name: "France"
+        }
 
         {
           '@type': "ListItem",
@@ -208,7 +205,7 @@ module SeoHelper
   def prepare_themes_schema_items(landing_themes, landing_slug)
     landing_themes.map do |theme|
       {
-        name: theme.title,
+        name: theme.meta_title.presence || theme.title,
         description: theme.meta_description.presence || theme.description,
         url: landing_theme_url(landing_slug: landing_slug, slug: theme.slug)
       }
@@ -217,9 +214,11 @@ module SeoHelper
 
   def prepare_subjects_schema_items(landing_subjects, landing_slug)
     landing_subjects.map do |subject|
+      description = subject.meta_description.presence || subject.description
+      title = subject.meta_title.presence || subject.title
       {
-        name: subject.title,
-        description: strip_tags(subject.description&.gsub(/<\/li>\s*<li/, "</li>. <li"))&.squish,
+        name: title,
+        description: strip_tags(description&.gsub(/<\/li>\s*<li/, "</li>. <li"))&.squish,
         url: new_solicitation_url(landing_slug: landing_slug, landing_subject_slug: subject.slug)
       }
     end
@@ -244,10 +243,10 @@ module SeoHelper
     }
   end
 
-  def review_schema(author:, content:, index: 1, job_title: nil, company: nil, rating: nil)
+  def review_schema(author:, content:, index: 1)
     return nil if author.blank? || content.blank?
 
-    schema = {
+    {
       '@type': "Review",
       '@id': "#{request.original_url}#review-#{index}",
       itemReviewed: { '@id': "#{root_url}#service" },
@@ -257,25 +256,5 @@ module SeoHelper
         name: strip_tags(author)
       }
     }
-
-    # Ajouter le titre et l'entreprise si fournis
-    if job_title.present? || company.present?
-      schema[:author]["jobTitle"] = strip_tags(job_title) if job_title.present?
-      schema[:author]["worksFor"] = {
-        '@type': "Organization",
-        name: strip_tags(company)
-      } if company.present?
-    end
-
-    # Ajouter la note si fournie
-    if rating.present?
-      schema["reviewRating"] = {
-        '@type': "Rating",
-        ratingValue: rating,
-        bestRating: 5
-      }
-    end
-
-    schema
   end
 end
