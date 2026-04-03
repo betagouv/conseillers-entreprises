@@ -59,12 +59,19 @@ module SeoHelper
     schema_org_tag(schema_graph(*all_schemas))
   end
 
+  def service_output_schema
+    {
+      '@type': "Thing",
+      name: "Être rappelé par le conseiller qui peut vous aider"
+    }
+  end
+
   def government_service_schema
     {
       '@type': "GovernmentService",
       '@id': "#{root_url}#service",
       name: "Conseillers-Entreprises Service Public",
-      description: "Service public d’accompagnement pour les TPE et PME en France",
+      description: "Service public d’accompagnement pour les TPE et PME en France. Un réseau de 10 000 conseillers au sein de 40 administrations et opérateurs de l'État à votre disposition.",
       url: root_url,
       serviceType: "Conseil aux entreprises",
       provider: { '@id': "#{root_url}#organization" },
@@ -76,7 +83,7 @@ module SeoHelper
         '@type': "AdministrativeArea",
         name: "France"
       },
-      serviceOutput: "Être rappelé par le conseiller qui peut vous aider",
+      serviceOutput: service_output_schema,
       termsOfService: "#{root_url}cgu",
       availableChannel: {
         '@type': "ServiceChannel",
@@ -183,7 +190,7 @@ module SeoHelper
           audience: { '@id': "#{root_url}#audience" },
           offers: { '@id': "#{root_url}#offer" },
           category: item[:category] || "Accompagnement entreprise",
-          serviceOutput: "Être rappelé par le conseiller qui peut vous aider"
+          serviceOutput: service_output_schema
         }
 
         service_schema["description"] = strip_tags(item[:description]) if item[:description].present?
