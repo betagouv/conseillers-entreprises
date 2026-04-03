@@ -62,7 +62,7 @@ module SeoHelper
   def service_output_schema
     {
       '@type': "Thing",
-      name: "Être rappelé par le conseiller qui peut vous aider"
+      name: "Être rappelé par le conseiller qui peut vous aider dans les 5 jours"
     }
   end
 
