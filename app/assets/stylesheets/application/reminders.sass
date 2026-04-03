@@ -1,7 +1,11 @@
+[data-collection="many_pending_needs"]
+  --color-reminders-collection: var(--color-reminders-many_pending_needs)
+[data-collection="medium_pending_needs"]
+  --color-reminders-collection: var(--color-reminders-medium_pending_needs)
+[data-collection="one_pending_need"]
+  --color-reminders-collection: var(--color-reminders-one_pending_need)
+
 .reminders-icon
-  &.ri-thunderstorms-line
-    --color-sidemenu__item-icon: #EEB45C
-  &.ri-cloudy-line
-    --color-sidemenu__item-icon: #95C8E7
-  &.ri-sun-line
-    --color-sidemenu__item-icon: #a4c97b
+  font-size: 1.5rem
+  cursor: help
+  color: var(--color-reminders-collection)
