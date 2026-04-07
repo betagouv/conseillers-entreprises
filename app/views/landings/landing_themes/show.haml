@@ -4,7 +4,7 @@
   meta(title: title, description: description)
   add_page_schema(page_schema(title: title, description: description))
   add_page_schema(item_list_schema(
-                    name: "Services disponibles pour #{@landing_theme.title}".capitalize,
+                    name: "Échanger avec le bon conseiller pour #{@landing_theme.title}".capitalize,
                     description: description,
                     items: prepare_subjects_schema_items(@landing_subjects, @landing.slug),
                     service_type: "Service"
