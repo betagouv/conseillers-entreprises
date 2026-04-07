@@ -9,7 +9,7 @@
 = render 'pages/how_it_works_long'
 
 .fr-container.fr-pb-5w
-  = render 'pages/faq', faq: FaqGenerator.new(faq_items).to_html
+  = render 'pages/faq', faq: FaqGenerator.new(I18n.t('faq').values).to_html
 
 .fr-container--fluid.light-blue-bg.fr-py-7w#liste-partenaires
   .fr-container
