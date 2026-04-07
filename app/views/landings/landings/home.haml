@@ -1,11 +1,4 @@
-:ruby
-  meta title: t('.meta.title'), description: t('.meta.description')
-  add_page_schema(page_schema(title: t('.meta.title'), description: t('.meta.description')))
-  add_page_schema(item_list_schema(
-                    name: "Thématiques d'accompagnement pour les entreprises",
-                    description: "Services d'accompagnement gratuits pour les TPE et PME en France",
-                    items: prepare_themes_schema_items(@landing_themes, @landing.slug)
-                  ))
+- setup_home_seo_schemas(landing_themes: @landing_themes, landing: @landing)
 
 .fr-container-fluid.fr-py-8w.home-banner
   .fr-container

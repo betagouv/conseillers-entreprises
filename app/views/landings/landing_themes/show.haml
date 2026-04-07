@@ -1,15 +1,4 @@
-:ruby
-  title = @landing_theme.meta_title.presence || @landing_theme.title
-  description = @landing_theme.meta_description.presence || @landing_theme.description
-  meta(title: title, description: description)
-  add_page_schema(page_schema(title: title, description: description))
-  add_page_schema(item_list_schema(
-                    name: "Échanger avec le bon conseiller pour #{@landing_theme.title}".capitalize,
-                    description: description,
-                    items: prepare_subjects_schema_items(@landing_subjects, @landing.slug),
-                    service_type: "Service"
-                  ))
-  set_theme_partner_institutions(@landing_theme)
+- setup_landing_theme_seo_schemas(landing_theme: @landing_theme, landing_subjects: @landing_subjects, landing: @landing)
 
 
 - cache_unless(flash.present?, [@landing_theme, @landing, @landing_subjects, query_params]) do
