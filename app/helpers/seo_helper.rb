@@ -27,6 +27,11 @@ module SeoHelper
     nil
   end
 
+  def set_theme_partner_institutions(landing_theme)
+    request.env['theme_partner_institutions'] = theme_partner_institutions(landing_theme)
+    nil
+  end
+
   def schema_org_tag(data)
     content_tag(:script, type: 'application/ld+json') do
       raw(data.to_json.gsub('</', '<\/"'))
@@ -41,11 +46,13 @@ module SeoHelper
   end
 
   def schema_org
+    institutions = request.env['theme_partner_institutions']
+    
     # Collecter tous les schémas : organization en premier (pour les références @id), puis les autres
     all_schemas = [
       government_organization_schema,
       website_schema,
-      government_service_schema,
+      government_service_schema(institutions: institutions),
       area_served_schema,
       business_audience_schema,
       free_offer_schema
@@ -66,15 +73,18 @@ module SeoHelper
     }
   end
 
-  def government_service_schema
+  def government_service_schema(institutions: nil)
+    providers = [{ '@id': "#{root_url}#organization" }]
+    providers += partner_organizations_schema(institutions: institutions)
+
     {
       '@type': "GovernmentService",
       '@id': "#{root_url}#service",
       name: "Conseillers-Entreprises Service Public",
-      description: "Service public d’accompagnement pour les TPE et PME en France. Un réseau de 10 000 conseillers au sein de 40 administrations et opérateurs de l'État à votre disposition.",
+      description: "Service public d'accompagnement pour les TPE et PME en France. Un réseau de 10 000 conseillers au sein de 40 administrations et opérateurs de l'État à votre disposition.",
       url: root_url,
       serviceType: "Conseil aux entreprises",
-      provider: { '@id': "#{root_url}#organization" },
+      provider: providers,
       areaServed: { '@id': "#{root_url}#areaserved" },
       audience: { '@id': "#{root_url}#audience" },
       offers: { '@id': "#{root_url}#offer" },
@@ -226,7 +236,7 @@ module SeoHelper
       description = subject.meta_description.presence || subject.description
       title = "Échanger avec le bon conseiller pour #{subject.meta_title.presence || subject.title}"
       {
-        name: title,
+        name: title.capitalize,
         description: strip_tags(description&.gsub(/<\/li>\s*<li/, "</li>. <li"))&.squish,
         url: new_solicitation_url(landing_slug: landing_slug, landing_subject_slug: subject.slug)
       }
@@ -265,5 +275,27 @@ module SeoHelper
         name: strip_tags(author)
       }
     }
+  end
+
+  def partner_organizations_schema(institutions: nil)
+    # Si aucune liste d'institutions n'est fournie, utiliser tous les partenaires nationaux
+    institutions_list = institutions || Institution.national.with_home_page_logo
+    
+    institutions_list.map do |institution|
+      {
+        '@type': "GovernmentOrganization",
+        name: institution.name
+      }
+    end
+  end
+
+  def theme_partner_institutions(landing_theme)
+    # Récupère toutes les institutions liées aux subjects de ce thème
+    Institution
+      .joins(institutions_subjects: { subject: :landing_subjects })
+      .where(landing_subjects: { landing_theme_id: landing_theme.id })
+      .with_solicitable_logo
+      .distinct
+      .order(:name)
   end
 end

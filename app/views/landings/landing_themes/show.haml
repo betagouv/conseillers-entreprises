@@ -9,6 +9,7 @@
                     items: prepare_subjects_schema_items(@landing_subjects, @landing.slug),
                     service_type: "Service"
                   ))
+  set_theme_partner_institutions(@landing_theme)
 
 
 - cache_unless(flash.present?, [@landing_theme, @landing, @landing_subjects, query_params]) do
