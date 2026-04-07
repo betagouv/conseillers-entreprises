@@ -135,7 +135,6 @@ class SolicitationsController < PagesController
         CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
         redirect_to form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs')
       else
-        flash.now.alert = @solicitation.errors.full_messages.to_sentence
         build_subject_answers if @solicitation.subject_answers.blank?
         render :step_description, status: :unprocessable_content
       end
