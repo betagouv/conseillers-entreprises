@@ -195,10 +195,12 @@ module SeoHelper
 
         service_schema["description"] = strip_tags(item[:description]) if item[:description].present?
 
-        service_schema["jurisdiction"] = {
-          '@type': "AdministrativeArea",
-          name: "France"
-        }
+        if service_type == "GovernmentService"
+          service_schema["jurisdiction"] = {
+            '@type': "AdministrativeArea",
+            name: "France"
+          }
+        end
 
         {
           '@type': "ListItem",
@@ -222,7 +224,7 @@ module SeoHelper
   def prepare_subjects_schema_items(landing_subjects, landing_slug)
     landing_subjects.map do |subject|
       description = subject.meta_description.presence || subject.description
-      title = subject.meta_title.presence || subject.title
+      title = "Échanger avec le bon conseiller pour #{subject.meta_title.presence || subject.title}"
       {
         name: title,
         description: strip_tags(description&.gsub(/<\/li>\s*<li/, "</li>. <li"))&.squish,
