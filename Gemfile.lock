@@ -107,7 +107,7 @@ GEM
     acts_as_list (1.2.6)
       activerecord (>= 6.1)
       activesupport (>= 6.1)
-    addressable (2.8.9)
+    addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     anbt-sql-formatter (0.1.2)
     annotaterb (4.22.0)
