@@ -17,7 +17,7 @@
             = link_to t('pages.footer.who_are_we'), equipe_path, class: 'fr-footer__content-link'
           %li.fr-footer__content-item
             = link_to t('usage_stats'), public_index_path, class: 'fr-footer__content-link'
-          - if policy(Stats::All).team?
+          - if policy([:stats, :team]).index?
             %li.fr-footer__content-item
               = link_to t('usage_team_stats'), team_index_path, class: 'fr-footer__content-link'
     .fr-footer__bottom

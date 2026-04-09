@@ -65,7 +65,7 @@ module Stats
     private
 
     def authorize_team
-      authorize Stats::All, :team?
+      authorize [:stats, :team]
     end
 
     def clean_public_filters
