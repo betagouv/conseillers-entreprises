@@ -1,5 +1,3 @@
 class Manager::StatsPolicy < ApplicationPolicy
-  def index?
-    manager? || admin?
-  end
+  def index? = @user&.is_manager? || @user&.is_admin?
 end

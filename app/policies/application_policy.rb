@@ -39,11 +39,7 @@ class ApplicationPolicy
   end
 
   def admin?
-    UserPolicy.new(@user, @record).admin?
-  end
-
-  def manager?
-    UserPolicy.new(@user, @record).manager?
+    @user&.is_admin?
   end
 
   class Scope
