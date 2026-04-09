@@ -24,6 +24,7 @@ class UserRight < ApplicationRecord
   belongs_to :antenne, -> { joins(:user_rights).where(user_rights: { rightable_element_type: 'Antenne' }) }, class_name: 'Antenne', foreign_key: 'rightable_element_id', inverse_of: :user_rights, optional: true
   belongs_to :cooperation, -> { joins(:user_rights).where(user_rights: { rightable_element_type: 'Cooperation' }) }, class_name: 'Cooperation', foreign_key: 'rightable_element_id', inverse_of: :user_rights, optional: true
   belongs_to :territorial_zone, -> { joins(:user_rights).where(user_rights: { rightable_element_type: 'TerritorialZone' }) }, class_name: 'TerritorialZone', foreign_key: 'rightable_element_id', inverse_of: :user_rights, optional: true
+  belongs_to :institution, -> { joins(:user_rights).where(user_rights: { rightable_element_type: 'Institution' }) }, class_name: 'Institution', foreign_key: 'rightable_element_id', inverse_of: :user_rights, optional: true
 
   belongs_to :user, inverse_of: :user_rights
 
@@ -34,7 +35,8 @@ class UserRight < ApplicationRecord
     main_referent: 3,
     cooperation_manager: 4,
     cooperations_referent: 5,
-    territorial_referent: 6
+    territorial_referent: 6,
+    sponsor: 7
   }, prefix: true
 
   ADMIN_ONLY_CATEGORIES = %i[admin national_referent main_referent cooperations_referent territorial_referent]

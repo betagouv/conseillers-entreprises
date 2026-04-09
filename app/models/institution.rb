@@ -46,6 +46,10 @@ class Institution < ApplicationRecord
   has_many :match_filters, as: :filtrable_element, dependent: :destroy, inverse_of: :filtrable_element
   accepts_nested_attributes_for :match_filters, allow_destroy: true
 
+  has_many :user_rights, as: :rightable_element, dependent: :destroy
+  has_many :user_rights_sponsor, ->{ category_sponsor }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
+  has_many :sponsors, through: :user_rights_sponsor, source: :user, inverse_of: :sponsored_institutions
+
   has_one :api_key
 
   ## Hooks and Validations

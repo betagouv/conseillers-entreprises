@@ -103,8 +103,11 @@ class User < ApplicationRecord
   has_many :user_rights_for_admin, ->{ for_admin }, class_name: 'UserRight', inverse_of: :user
   has_many :user_rights_cooperation_manager, ->{ category_cooperation_manager }, class_name: 'UserRight', inverse_of: :user
   has_many :user_rights_territorial_referent, ->{ category_territorial_referent }, class_name: 'UserRight', inverse_of: :user
+  has_many :user_rights_sponsor, ->{ category_sponsor }, class_name: 'UserRight', inverse_of: :user
   has_many :managed_antennes, ->{ distinct }, through: :user_rights_manager, source: :antenne, inverse_of: :managers
   has_many :managed_cooperations, ->{ distinct }, through: :user_rights_cooperation_manager, source: :cooperation, inverse_of: :managers
+  has_many :sponsored_institutions, ->{ distinct }, through: :user_rights_sponsor, source: :institution, inverse_of: :sponsors
+
   # Utiles pour active_admin
   accepts_nested_attributes_for :user_rights, allow_destroy: true
   accepts_nested_attributes_for :user_rights_for_admin, allow_destroy: true
