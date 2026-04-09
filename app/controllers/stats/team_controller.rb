@@ -59,17 +59,13 @@ module Stats
       data = Rails.cache.fetch(cache_key, expires_in: 6.hours) do
         invoke_stats(name, session[:team_stats_params])
       end
-      render_partial(data, name)
+      render partial: 'stats/load_stats', locals: { data: data, name: name }
     end
 
     private
 
     def authorize_team
       authorize Stats::All, :team?
-    end
-
-    def render_partial(data, name)
-      render partial: 'stats/load_stats', locals: { data: data, name: name }
     end
 
     def clean_public_filters
