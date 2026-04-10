@@ -17,7 +17,7 @@ module Seo
     def prepare_subjects_schema_items(landing_subjects, landing_slug)
       landing_subjects.map do |subject|
         description = subject.meta_description.presence || subject.description
-        title = "Échanger avec le bon conseiller pour #{subject.meta_title.presence || subject.title}"
+        title = I18n.t('landings.landings.seo.advisor_for', title: subject.meta_title.presence || subject.title)
         {
           name: title.capitalize,
           description: strip_tags(description&.gsub(/<\/li>\s*<li/, "</li>. <li"))&.squish,
@@ -29,7 +29,7 @@ module Seo
     def partner_organizations_schema(institutions: nil)
       # Si aucune liste d'institutions n'est fournie, utiliser tous les partenaires nationaux affichés sur la page d'accueil
       institutions_list = institutions || Institution.national.with_home_page_logo
-      
+
       institutions_list.map do |institution|
         {
           '@type': "GovernmentOrganization",

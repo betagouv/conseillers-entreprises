@@ -1,6 +1,4 @@
 - setup_landing_theme_seo_schemas(landing_theme: @landing_theme, landing_subjects: @landing_subjects, landing: @landing)
-
-
 - cache_unless(flash.present?, [@landing_theme, @landing, @landing_subjects, query_params]) do
 
   - unless in_iframe?
