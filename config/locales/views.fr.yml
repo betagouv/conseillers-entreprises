@@ -1283,7 +1283,7 @@ fr:
     team:
       acquisition: Acquisition
       index:
-        select_partner: Attention ! Pensez à sélectionner un partenaire
+        select_partner: Attention ! Pensez à sélectionner un partenaire.
         title: Statistiques équipe
         unselect_partner: Attention, les statistiques publiques mesurent l’activité cumulée des partenaires.
       matches: Pilotage par partenaire
