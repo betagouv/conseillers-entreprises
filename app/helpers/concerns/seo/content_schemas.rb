@@ -37,11 +37,11 @@ module Seo
             name: strip_tags(item[:name]),
             url: item[:url],
             provider: { '@id': "#{root_url}#organization" },
-            serviceType: "Conseil aux entreprises",
+            serviceType: I18n.t('landings.landings.seo.business_support_service'),
             areaServed: { '@id': "#{root_url}#areaserved" },
             audience: { '@id': "#{root_url}#audience" },
             offers: { '@id': "#{root_url}#offer" },
-            category: item[:category] || "Accompagnement entreprise",
+            category: item[:category] || I18n.t('landings.landings.seo.business_support'),
             serviceOutput: service_output_schema
           }
 
@@ -50,7 +50,7 @@ module Seo
           if service_type == "GovernmentService"
             service_schema["jurisdiction"] = {
               '@type': "AdministrativeArea",
-              name: "France"
+              name: I18n.t('landings.landings.seo.country_france')
             }
           end
 

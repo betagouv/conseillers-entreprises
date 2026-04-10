@@ -51,7 +51,7 @@ module SeoHelper
 
   def schema_org
     institutions = request.env['theme_partner_institutions']
-    
+
     # Collecter tous les schémas : organization en premier (pour les références @id), puis les autres
     all_schemas = [
       government_organization_schema,

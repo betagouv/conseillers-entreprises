@@ -7,7 +7,7 @@ module Seo
     def service_output_schema
       {
         '@type': "Thing",
-        name: "Être rappelé par le conseiller qui peut vous aider dans les 5 jours"
+        name: I18n.t('landings.landings.seo.service_output')
       }
     end
 
@@ -18,18 +18,18 @@ module Seo
       {
         '@type': "GovernmentService",
         '@id': "#{root_url}#service",
-        name: "Conseillers-Entreprises Service Public",
-        description: "Service public d'accompagnement pour les TPE et PME en France. Un réseau de 10 000 conseillers au sein de 40 administrations et opérateurs de l'État à votre disposition.",
+        name: I18n.t('landings.landings.seo.service_name'),
+        description: I18n.t('landings.landings.seo.service_description'),
         url: root_url,
-        serviceType: "Conseil aux entreprises",
+        serviceType: I18n.t('landings.landings.seo.business_support_service'),
         provider: providers,
         areaServed: { '@id': "#{root_url}#areaserved" },
         audience: { '@id': "#{root_url}#audience" },
         offers: { '@id': "#{root_url}#offer" },
-        category: ["Accompagnement entreprise", "Service public", "Conseil gratuit"],
+        category: [I18n.t('landings.landings.seo.business_support'), I18n.t('landings.landings.seo.public_service'), I18n.t('landings.landings.seo.free_advice')],
         jurisdiction: {
           '@type': "AdministrativeArea",
-          name: "France"
+          name: I18n.t('landings.landings.seo.country_france')
         },
         serviceOutput: service_output_schema,
         termsOfService: "#{root_url}cgu",
@@ -45,7 +45,7 @@ module Seo
       {
         '@type': "GovernmentOrganization",
         '@id': "#{root_url}#organization",
-        name: "Conseillers-Entreprises Service Public",
+        name: I18n.t('landings.landings.seo.service_name'),
         url: root_url,
         logo: image_url('logo-ce.png'),
         contactPoint: {
@@ -61,7 +61,7 @@ module Seo
       {
         '@type': "WebSite",
         '@id': "#{root_url}#website",
-        name: "Conseillers-Entreprises Service Public",
+        name: I18n.t('landings.landings.seo.service_name'),
         url: root_url,
         image: image_url('logo-ce.png'),
         inLanguage: "fr-FR",
@@ -73,7 +73,7 @@ module Seo
       {
         '@type': "Country",
         '@id': "#{root_url}#areaserved",
-        name: "France"
+        name: I18n.t('landings.landings.seo.country_france')
       }
     end
 
@@ -81,7 +81,7 @@ module Seo
       {
         '@type': "BusinessAudience",
         '@id': "#{root_url}#audience",
-        audienceType: "TPE et PME"
+        audienceType: I18n.t('landings.landings.seo.audience_type')
       }
     end
 
