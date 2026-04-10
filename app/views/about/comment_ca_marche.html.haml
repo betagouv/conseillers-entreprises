@@ -1,4 +1,5 @@
-- meta title: t('.meta_title'), description: t('.meta_description')
+- setup_comment_ca_marche_seo_schemas(temoignages: @temoignages)
+
 .fr-container.fr-py-7w.fr-mt-3v
   %h1.fr-h2= t('.long_title')
   %p.fr-text--lg= t('.subtitle')
@@ -8,7 +9,7 @@
 = render 'pages/how_it_works_long'
 
 .fr-container.fr-pb-5w
-  = render 'pages/faq', faq: @faq, ld_json: @ld_json
+  = render 'pages/faq', faq: FaqGenerator.new(I18n.t('faq').values).to_html
 
 .fr-container--fluid.light-blue-bg.fr-py-7w#liste-partenaires
   .fr-container

@@ -1,7 +1,4 @@
-:ruby
-  meta title: @landing_theme.meta_title.presence || @landing_theme.title,
-    description: @landing_theme.meta_description.presence || @landing_theme.description
-
+- setup_landing_theme_seo_schemas(landing_theme: @landing_theme, landing_subjects: @landing_subjects, landing: @landing)
 - cache_unless(flash.present?, [@landing_theme, @landing, @landing_subjects, query_params]) do
 
   - unless in_iframe?

@@ -1,7 +1,4 @@
-- meta title: t('.meta.title'), description: t('.meta.description')
-- content_for :schema do
-  %script{ type: "application/ld+json" }
-    !=home_schema
+- setup_home_seo_schemas(landing_themes: @landing_themes, landing: @landing)
 
 .fr-container-fluid.fr-py-8w.home-banner
   .fr-container
