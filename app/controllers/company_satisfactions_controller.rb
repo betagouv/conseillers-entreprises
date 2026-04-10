@@ -2,7 +2,7 @@ class CompanySatisfactionsController < PagesController
   def new
     need = Need.find(params[:besoin])
     satisfaction = CompanySatisfaction.find_by(need: need)
-    email_token = Digest::SHA256.hexdigest(need.diagnosis.visitee.email)
+    email_token = Digest::SHA256.hexdigest(need.diagnosis.visitee.email) # Note: this is not very secure
     if satisfaction.present?
       flash.notice = t('.company_satisfaction_exist')
       redirect_to root_path
@@ -26,6 +26,6 @@ class CompanySatisfactionsController < PagesController
   private
 
   def satisfaction_params
-    params.expect(company_satisfaction: [:need_id, :contacted_by_expert, :useful_exchange, :comment])
+    params.expect(company_satisfaction: [:need_id, :contacted_by_expert, :useful_exchange, *CompanySatisfaction::OUTCOMES, :comment])
   end
 end

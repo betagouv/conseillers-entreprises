@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_30_132110) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_31_101238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
 
@@ -144,6 +145,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_30_132110) do
     t.boolean "contacted_by_expert", null: false
     t.datetime "created_at", null: false
     t.bigint "need_id", null: false
+    t.boolean "outcome_find_institution"
+    t.boolean "outcome_find_measure"
+    t.boolean "outcome_help_choice"
+    t.boolean "outcome_other"
+    t.boolean "outcome_start_action"
     t.datetime "updated_at", null: false
     t.boolean "useful_exchange", null: false
     t.index ["need_id"], name: "index_company_satisfactions_on_need_id"
