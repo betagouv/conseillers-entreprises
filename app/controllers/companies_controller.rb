@@ -51,12 +51,13 @@ class CompaniesController < ApplicationController
   private
 
   def search_facility_informations(siret)
-    begin
+    begin # et du coup ici on rescue plus rien, et @message n’existe plus
       @facility = ApiConsumption::Facility.new(siret).call
       @company = ApiConsumption::Company.new(siret[0,9]).call
       unless @facility.siege_social
         @siege_facility = ApiConsumption::Facility.new(@company.siret_siege_social).call
       end
+
     rescue Api::BasicError => e
       @message = e.message || I18n.t("api_requests.generic_error")
     rescue Api::TechnicalError => e
