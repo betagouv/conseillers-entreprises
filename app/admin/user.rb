@@ -156,18 +156,16 @@ ActiveAdmin.register User do
   end
 
   sidebar I18n.t('active_admin.user.roles'), only: :show do
-    attributes_table do
-      ul do
-        resource.user_rights.each do |ur|
-          li do
-            right = I18n.t(ur.category, scope: "activerecord.attributes.user_right/categories")
-            if ur.rightable_element.present? && !ur.rightable_element.is_a?(TerritorialZone)
-              right = "#{right} : #{admin_link_to(ur.rightable_element)}".html_safe
-            elsif ur.rightable_element.is_a?(TerritorialZone)
-              right = "#{right} : #{ur.rightable_element.name}"
-            else
-              right
-            end
+    ul do
+      resource.user_rights.each do |ur|
+        li do
+          right = I18n.t(ur.category, scope: "activerecord.attributes.user_right/categories")
+          if ur.rightable_element.present? && !ur.rightable_element.is_a?(TerritorialZone)
+            "#{right} : #{admin_link_to(ur.rightable_element)}".html_safe
+          elsif ur.rightable_element.is_a?(TerritorialZone)
+            "#{right} : #{ur.rightable_element.name}"
+          else
+            right
           end
         end
       end
