@@ -16,6 +16,8 @@ class ApplicationController < SharedController
       needs_conseiller_cooperations_path
     elsif user.is_manager?
       manager_needs_path
+    elsif user.is_sponsor?
+      team_index_path
     elsif user.is_admin?
       conseiller_solicitations_path
     else
