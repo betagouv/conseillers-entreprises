@@ -58,7 +58,7 @@
   .fr-grid-row
     .fr-col-12.fr-pb-3w.legal-notice
       = t('solicitations.creation_form.legal_notice_html',
-        mailto_link: mail_to('dpo@entreprises.service-public.fr', 'dpo@entreprises.service-public.fr', target: :_blank),
+        mailto_link: mail_to('dpo@entreprises.service-public.gouv.fr', 'dpo@entreprises.service-public.gouv.fr', target: :_blank),
         informations: link_to(t('about.mentions_d_information.title').downcase, mentions_d_information_url(landing_slug: @solicitation.landing.slug)),
         subject_personalisation: t(@landing_subject.slug, scope: 'solicitations.creation_form.legal_notice_personalisation', default: ''))
 
