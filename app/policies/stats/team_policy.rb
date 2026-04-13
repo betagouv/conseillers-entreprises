@@ -1,5 +1,5 @@
 class Stats::TeamPolicy < ApplicationPolicy
-  def index? = @user&.is_admin?
+  def index? = @user&.is_admin? || @user&.is_sponsor?
 
   def public? = index?
   def needs? = index?

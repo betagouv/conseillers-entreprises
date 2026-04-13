@@ -30,6 +30,10 @@ FactoryBot.define do
       end
     end
 
+    trait :sponsor do
+      sponsored_institutions { [build(:institution)] }
+    end
+
     trait :manager do
       antenne factory: [:antenne, :with_experts_subjects]
       after(:build) do |user, _|

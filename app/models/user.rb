@@ -314,6 +314,10 @@ class User < ApplicationRecord
     user_rights_manager.any?
   end
 
+  def is_sponsor?
+    user_rights_sponsor.any?
+  end
+
   def is_cooperation_manager?
     user_rights_cooperation_manager.any?
   end
