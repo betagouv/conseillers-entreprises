@@ -1,7 +1,7 @@
 module ApiConsumption::Aggregators
   class Facility
     REQUESTS = {
-      api_entreprise_etablissement: Api::ApiEntreprise::Etablissement::Base,
+      api_entreprise_etablissement: Api::ApiEntreprise::Etablissement::Base, # raises technical error in case of failure because severity is major
       api_entreprise_effectifs: Api::ApiEntreprise::EtablissementEffectifMensuel::Base,
       opco_fc: Api::FranceCompetence::Siret::Base,
       api_rne_companies: Api::Rne::Companies::Base,
@@ -14,8 +14,13 @@ module ApiConsumption::Aggregators
     end
 
     def item_params
-      Parallel.map(requests, in_threads: requests.size) do |request|
-        request.new(@siret).call
+      Parallel.map(request_keys, in_threads: request_keys.size) do |request_key|
+        request_klass = REQUESTS[request_key]
+        begin
+          request_klass.new(@siret).call
+        rescue StandardError => e
+          { errors: { unreachable_apis: {request_key => e.message} } }
+        end
       end.each_with_object(base_hash.with_indifferent_access) do |response, hash|
         hash["etablissement"].deep_merge! response
       end
