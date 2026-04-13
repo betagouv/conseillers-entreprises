@@ -5,14 +5,20 @@ module Api
     attr_reader :query
 
     def initialize(query, options = {})
+      # wait on parle forcément de siret/siren dans toutes ces apis?
+      # Non, lol, certaines sous-classes n’appellent pas surper dans leur initialize.
       @query = FormatSiret.clean_siret(query)
       raise Api::BasicError, I18n.t('api_requests.invalid_siret_or_siren') unless valid_query?
       @options = options
     end
 
     def call
+      result = simulate_error
+      return result if result
+      # we need to simulate errors:
+      # - per api?
+      # - specify type (raise basic / raise technical / return unreachable / return standard )
       Rails.cache.fetch([id_key, @query].join('-'), expires_in: 12.hours) do
-        simulate_error
         http_request = request
         if http_request.success?
           responder(http_request).call
@@ -25,10 +31,15 @@ module Api
     def simulate_error
       return unless Rails.env.development?
 
-      message = ENV['DEVELOPMENT_API_ERROR_OVERRIDE_MESSAGE']
+      message = ENV['DEVELOPMENT_ENABLE_API_ERRORS_SIMULATION']
       return if message.blank?
 
-      raise TechnicalError.new(api: id_key), message
+      simulation = {
+        "api-apientreprise-etablissementeffectifmensuel-base" => -> { raise TechnicalError.new(api: id_key), "Ceci est un message d’erreur simulé." },
+        "api-francecompetence-siret-base" => -> { return {errors: { unreachable_apis: {id_key => "Ceci aussi est un message d’erreur simulé."} }}}
+      }[id_key]
+
+      return simulation.call if simulation
     end
 
     def request
@@ -42,10 +53,10 @@ module Api
     def handle_error(http_request)
       # On raise les erreurs api qu'on souhaite "bloquantes" (=pas de process si l'API est en carafe)
       if (severity == :major)
-        raise TechnicalError.new(api: id_key), http_request.error_message
+        raise TechnicalError.new(api: id_key), http_request.error_message # maybe don’t? Save the error and let the calling process handle it?
       else
         # on enregistre les autres erreurs pour pouvoir les traiter + tard
-        error_type = http_request.has_unreachable_api_error? ? :unreachable_apis : :standard_api_errors
+        error_type = http_request.has_unreachable_api_error? ? :unreachable_apis : :standard_api_errors # and have a new error type here for technical errors?
         return {
           errors: { error_type => { id_key => http_request.error_message } }
         }
