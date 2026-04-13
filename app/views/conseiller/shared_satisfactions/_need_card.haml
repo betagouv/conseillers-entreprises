@@ -23,5 +23,5 @@
             = link_to t('.see_need'), need_path(need), class: "fr-btn fr-btn--secondary"
           - if shared_satisfaction.unseen?
             %li
-              = form_with model: shared_satisfaction, url: mark_as_seen_conseiller_shared_satisfaction_path(shared_satisfaction), method: :patch, local: true do |f|
+              = form_with model: shared_satisfaction, url: mark_as_seen_conseiller_shared_satisfaction_path(shared_satisfaction), method: :patch do |f|
                 = f.submit t('.process'), class: 'fr-btn fr-mr-2v'

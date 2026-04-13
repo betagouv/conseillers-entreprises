@@ -1,4 +1,4 @@
-= form_with url: request.url, method: :get, local: true do |f|
+= form_with url: request.url, method: :get do |f|
   .fr-grid-row.fr-grid-row--gutters.fr-mb-3w#stats-params{ data: { controller: 'filters', url: manager_load_filter_options_path } }
 
     - if filters[:antennes].many?
