@@ -113,6 +113,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :user_rights_for_admin, allow_destroy: true
   accepts_nested_attributes_for :user_rights_territorial_referent, allow_destroy: true
   accepts_nested_attributes_for :user_rights_manager, allow_destroy: true
+  accepts_nested_attributes_for :user_rights_sponsor, allow_destroy: true
   accepts_nested_attributes_for :user_rights_cooperation_manager, allow_destroy: true
 
   ## Validations
@@ -144,6 +145,7 @@ class User < ApplicationRecord
   #
   scope :admin, -> { not_deleted.joins(:user_rights).merge(UserRight.category_admin) }
   scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_manager).distinct }
+  scope :sponsors, -> { not_deleted.joins(:user_rights).merge(UserRight.category_sponsor).distinct }
   scope :cooperation_managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_cooperation_manager).distinct }
   scope :national_referent, -> { not_deleted.joins(:user_rights).merge(UserRight.category_national_referent).distinct }
   scope :cooperations_referent, -> { not_deleted.joins(:user_rights).merge(UserRight.category_cooperations_referent).distinct }

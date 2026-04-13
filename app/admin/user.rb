@@ -39,6 +39,7 @@ ActiveAdmin.register User do
   scope :admin, group: :role
   scope :managers, group: :role
   scope :cooperation_managers, group: :role
+  scope :sponsors, group: :role
 
   scope :managers_not_invited, group: :invitations
   scope :not_invited, group: :invitations
@@ -201,7 +202,7 @@ ActiveAdmin.register User do
   user_rights_attributes = [:id, :rightable_element_id, :rightable_element_type, :category, :_destroy]
   permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id, :create_expert, :absence_start_at, :absence_end_at,
                 expert_ids: [], user_rights_attributes: user_rights_attributes, user_rights_for_admin_attributes: user_rights_attributes,
-                user_rights_manager_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes,
+                user_rights_manager_attributes: user_rights_attributes, user_rights_sponsor_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes,
                 user_rights_territorial_referent_attributes: user_rights_attributes
 
   form do |f|
@@ -244,6 +245,20 @@ ActiveAdmin.register User do
                    search_fields: [:name]
                  }
         ur.input :rightable_element_type, as: :hidden, input_html: { value: 'Antenne' }
+      end
+
+      # Droits sponsors
+      label_base = t('activerecord.models.user_right.sponsor')
+      f.has_many :user_rights_sponsor, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
+        ur.input :category, as: :hidden, input_html: { value: 'sponsor' }
+        ur.input :institution,
+                 collection: Institution.not_deleted.expert_provider.pluck(:name, :id),
+                 as: :ajax_select,
+                 data: {
+                   url: :admin_institutions_path,
+                   search_fields: [:name]
+                 }
+        ur.input :rightable_element_type, as: :hidden, input_html: { value: 'Institution' }
       end
 
       # Droits responsables de coopération

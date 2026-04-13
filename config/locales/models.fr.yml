@@ -108,6 +108,7 @@ fr:
       recent_active_invitation_not_accepted: Invitations non acceptées (- de 6 mois)
       sent: Mises en relation envoyées
       shared: Partagé
+      sponsors: Pilotage ministériel
       status_step_company: Étape entreprise
       status_step_description: Étape description
       step_complete: Terminées
@@ -698,6 +699,7 @@ fr:
         main_referent: Admin - référent principal
         manager: Responsable d’antenne
         national_referent: Admin - référent national
+        sponsor: Pilotage ministériel
         territorial_referent: Référent régional
     errors:
       messages:
@@ -869,6 +871,9 @@ fr:
           other: Droits responsable d'antenne
         one: Droit utilisateur
         other: Droits utilisateur
+        sponsor:
+          one: Droits pilotage ministériel
+          other: Droits pilotage ministériel
         territorial_referent:
           one: Droit référent régional
           other: Droits référent régional
