@@ -207,7 +207,12 @@ class Solicitation < ApplicationRecord
   end
 
   validate if: -> { status_in_progress? || landing&.api? } do
-    errors.add(:description, :blank) if (description.blank? || description == landing_subject&.description_prefill)
+    errors.add(:description, :blank) if (description.blank?)
+
+    if landing_subject&.description_prefill.present?
+      distance = DidYouMean::Levenshtein.distance(description, landing_subject.description_prefill)
+      errors.add(:description, :blank) if distance < 10 # not zero to allow for newline encoding changes
+    end
   end
 
   ## Callbacks
