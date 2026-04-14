@@ -1,3 +1,4 @@
+# rubocop:disable Rails/HelperInstanceVariable
 module SeoHelper
   include Seo::BaseSchemas
   include Seo::ContentSchemas
@@ -26,13 +27,13 @@ module SeoHelper
   end
 
   def add_page_schema(schema)
-    request.env['page_schemas'] ||= []
-    request.env['page_schemas'] << schema
+    @page_schemas ||= []
+    @page_schemas << schema
     nil
   end
 
   def set_theme_partner_institutions(landing_theme)
-    request.env['theme_partner_institutions'] = theme_partner_institutions(landing_theme)
+    @theme_partner_institutions = theme_partner_institutions(landing_theme)
     nil
   end
 
@@ -50,7 +51,7 @@ module SeoHelper
   end
 
   def schema_org
-    institutions = request.env['theme_partner_institutions']
+    institutions = @theme_partner_institutions
 
     # Collecter tous les schémas : organization en premier (pour les références @id), puis les autres
     all_schemas = [
@@ -63,10 +64,11 @@ module SeoHelper
     ]
 
     # Récupérer les schémas ajoutés via add_page_schema
-    if request.env['page_schemas'].present?
-      all_schemas += request.env['page_schemas']
+    if @page_schemas.present?
+      all_schemas += @page_schemas
     end
 
     schema_org_tag(schema_graph(*all_schemas))
   end
 end
+# rubocop:enable Rails/HelperInstanceVariable
