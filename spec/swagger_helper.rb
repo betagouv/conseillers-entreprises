@@ -28,7 +28,7 @@ RSpec.configure do |config|
         version: '1.0.0',
         contact: {
           name: 'Équipe technique',
-          email: 'tech@entreprises.service-public.fr'
+          email: 'tech@entreprises.service-public.gouv.fr'
         }
       },
       tags: [

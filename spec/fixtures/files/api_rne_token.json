@@ -3,7 +3,7 @@
   "user": {
     "roles": ["ROLE_NIVEAU_1_COMPANIES_METADATA", "ROLE_API"],
     "id": 123,
-    "email": "contact@entreprises.service-public.fr",
+    "email": "contact@entreprises.service-public.gouv.fr",
     "firstname": "Service Public",
     "lastname": "ENTREPRISES",
     "civilityCode": "MS",
