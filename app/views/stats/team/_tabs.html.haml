@@ -1,38 +1,8 @@
+-# locals: (filter_params:)
+
 .fr-container--fluid.fr-mb-3w
   .fr-grid-row.fr-grid-row--gutters
-    .fr-col-12.fr-col-md-3
-      .fr-tile.fr-tile--sm.fr-enlarge-link{class: active_link_to_class(public_team_index_path(params: filter_params), class_active: "fr-tile--grey")}
-        .fr-tile__body
-          .fr-tile__content
-            %h2.fr-tile__title
-              = active_link_to t('stats.team.public'), public_team_index_path(params: filter_params)
-        .fr-tile__header
-          .fr-tile__pictogram
-            = display_svg("pictos-dsfr/internet.svg")
-    .fr-col-12.fr-col-md-3
-      .fr-tile.fr-tile--sm.fr-enlarge-link{class: active_link_to_class(needs_team_index_path(params: filter_params), class_active: "fr-tile--grey")}
-        .fr-tile__body
-          .fr-tile__content
-            %h2.fr-tile__title
-              = active_link_to t('stats.team.needs'), needs_team_index_path(params: filter_params)
-        .fr-tile__header
-          .fr-tile__pictogram
-            = display_svg("pictos-dsfr/document.svg")
-    .fr-col-12.fr-col-md-3
-      .fr-tile.fr-tile--sm.fr-enlarge-link{class: active_link_to_class(matches_team_index_path(params: filter_params), class_active: "fr-tile--grey")}
-        .fr-tile__body
-          .fr-tile__content
-            %h2.fr-tile__title
-              = active_link_to t('stats.team.matches'), matches_team_index_path(params: filter_params)
-        .fr-tile__header
-          .fr-tile__pictogram
-            = display_svg("pictos-dsfr/city-hall.svg")
-    .fr-col-12.fr-col-md-3
-      .fr-tile.fr-tile--sm.fr-enlarge-link{class: active_link_to_class(acquisition_team_index_path(params: filter_params), class_active: "fr-tile--grey")}
-        .fr-tile__body
-          .fr-tile__content
-            %h2.fr-tile__title
-              = active_link_to t('stats.team.acquisition'), acquisition_team_index_path(params: filter_params)
-        .fr-tile__header
-          .fr-tile__pictogram
-            = display_svg("pictos-dsfr/data-visualization.svg")
+    = render 'tab', name: t('stats.team.public'), path: public_team_index_path(params: filter_params), image: 'pictos-dsfr/internet.svg'
+    = render 'tab', name: t('stats.team.needs'), path: needs_team_index_path(params: filter_params), image: 'pictos-dsfr/document.svg'
+    = render 'tab', name: t('stats.team.matches'), path: matches_team_index_path(params: filter_params), image: 'pictos-dsfr/city-hall.svg'
+    = render 'tab', name: t('stats.team.acquisition'), path: acquisition_team_index_path(params: filter_params), image: 'pictos-dsfr/data-visualization.svg'
