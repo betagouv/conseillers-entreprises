@@ -1,7 +1,5 @@
 module Seo
   module BaseSchemas
-    extend ActiveSupport::Concern
-
     # Schémas Schema.org de base pour le service gouvernemental
 
     def service_output_schema

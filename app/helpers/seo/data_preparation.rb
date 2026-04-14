@@ -1,7 +1,5 @@
 module Seo
   module DataPreparation
-    extend ActiveSupport::Concern
-
     # Méthodes de préparation des données pour les schémas SEO
 
     def prepare_themes_schema_items(landing_themes, landing_slug)

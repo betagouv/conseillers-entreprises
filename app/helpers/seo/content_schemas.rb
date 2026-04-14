@@ -1,7 +1,5 @@
 module Seo
   module ContentSchemas
-    extend ActiveSupport::Concern
-
     # Schémas Schema.org pour le contenu (breadcrumb, FAQ, reviews, listes)
 
     def breadcrumb_schema(items)
