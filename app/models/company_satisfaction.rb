@@ -23,6 +23,8 @@
 #  fk_rails_...  (need_id => needs.id)
 #
 class CompanySatisfaction < ApplicationRecord
+  OUTCOMES = %i[outcome_discover_support outcome_start_action outcome_help_choice outcome_other].freeze
+
   belongs_to :need, inverse_of: :company_satisfaction
 
   has_one :diagnosis, through: :need, inverse_of: :company_satisfactions
