@@ -49,6 +49,7 @@ class Solicitation < ApplicationRecord
   include AASM
   include RangeScopes
   include MandatoryAnswers
+  extend PrecomputeFlags
 
   paginates_per 15
 
@@ -77,7 +78,6 @@ class Solicitation < ApplicationRecord
   has_many :badges, through: :badge_badgeables, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
 
   attr_accessor :certify_being_company_boss
-  attr_accessor :has_doublons, :has_relances, :has_similar_abandonned
 
   before_validation :normalize_insee_code
   before_create :set_uuid, :set_cooperation, :set_provenance_detail
@@ -496,27 +496,11 @@ class Solicitation < ApplicationRecord
 
   ## Infos cartes solicitations
   #
-  def doublon_solicitations
-    Solicitation.where(status: [:in_progress])
-      .where.not(id: self.id)
-      .from_same_company(self)
-      .uniq
-  end
-
   def from_intermediary?
     facility = self.facility
     return false if facility.nil?
     intermediary_naf_codes = %w[7022Z 6920Z 9411Z 8299Z 7021Z 9499Z 8413Z]
     intermediary_naf_codes.include?(facility.naf_code&.delete('.'))
-  end
-
-  def recent_matched_solicitations
-    Solicitation.processed
-      .where.not(id: self.id)
-      .created_between(3.weeks.ago, Time.zone.now)
-      .where(landing_subject_id: self.landing_subject_id)
-      .from_same_company(self)
-      .distinct
   end
 
   def similar_abandonned_solicitations
@@ -540,10 +524,6 @@ class Solicitation < ApplicationRecord
     company.present? &&
       landing_subject.present? && landing_subject.subject.id == 261 &&
       company.legal_form_code[0...2] != "57"
-  end
-
-  def has_similar_abandonned_solicitations?
-    similar_abandonned_solicitations.size >= 4
   end
 
   # Trouver les sirets probables des solicitations pour identifier relances et doublons
