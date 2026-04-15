@@ -945,6 +945,8 @@ fr:
     quo_caption_definition: L’expert ne s’est pas positionné sur le besoin malgré les relances de l’équipe de Conseillers-Entreprises.
     quo_caption_label: En attente de positionnement
     quo_rate: Taux de sans positionnement
+    rate_calculation_change: "** Le taux est calculé différemment à partir 2026."
+    rate_calculation_change_detail: La formule est basée sur la date de transmission et non plus la date de dépôt du besoin.
     refusal_rate_on_subject: Taux de refus
     refusals: Refus trim.
     refusals_count: Nb de refus

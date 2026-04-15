@@ -14,10 +14,10 @@ module XlsxExport
       def generate
         generate_base_stats
         generate_matches_stats
+        add_help_row
         generate_needs_stats
         generate_institution_themes_stats
         generate_occasional_themes_stats
-        add_help_row
         finalise_style
       end
 
@@ -47,7 +47,7 @@ module XlsxExport
         ], style: count_rate_row_style
 
         add_status_rows(ordered_scopes, matches, previous_matches)
-        add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], matches.with_exchange, previous_matches)
+        add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], matches.with_exchange, previous_matches, suffix: ' **')
 
         sheet.add_row
       end
@@ -69,7 +69,7 @@ module XlsxExport
 
         # Subquery pour se débarasser du `join` sur les matches de l'antenne qui fausse les résultats
         unjoined_needs = Need.where(id: current_needs.with_exchange.ids)
-        add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], unjoined_needs)
+        add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], unjoined_needs, suffix: ' **')
 
         sheet.add_row
       end
@@ -121,11 +121,11 @@ module XlsxExport
         sheet.add_row
       end
 
-      def add_status_rows(scopes, recipient, previous_recipient = nil)
+      def add_status_rows(scopes, recipient, previous_recipient = nil, suffix: '')
         scopes.each do |scope|
           by_status_size = recipient.send(scope)&.size
           row = [
-            I18n.t("antenne_stats_exporter.funnel.#{scope}"),
+            I18n.t("antenne_stats_exporter.funnel.#{scope}") + suffix,
             by_status_size,
             calculate_rate(by_status_size, recipient),
           ]
@@ -138,6 +138,9 @@ module XlsxExport
       def add_help_row
         sheet.add_row [I18n.t('antenne_stats_exporter.count_difference')], style: [@italic]
         sheet.add_row [I18n.t('antenne_stats_exporter.work_in_progress'),], style: [@italic]
+        sheet.add_row [I18n.t('antenne_stats_exporter.rate_calculation_change')], style: [@italic]
+        sheet.add_row [I18n.t('antenne_stats_exporter.rate_calculation_change_detail')], style: [@italic]
+        sheet.add_row
       end
 
       def finalise_style
