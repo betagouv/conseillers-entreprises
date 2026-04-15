@@ -1,0 +1,11 @@
+-# locals: (name:, path:, image:)
+
+.fr-col-12.fr-col-md-3
+  .fr-tile.fr-tile--sm.fr-enlarge-link{ class: active_link_to_class(path, class_active: 'fr-tile--grey') }
+    .fr-tile__body
+      .fr-tile__content
+        %h2.fr-tile__title
+          = active_link_to name, path
+    .fr-tile__header
+      .fr-tile__pictogram
+        = display_svg image
