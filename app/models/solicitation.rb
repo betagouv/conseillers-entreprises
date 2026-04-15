@@ -77,6 +77,7 @@ class Solicitation < ApplicationRecord
   has_many :badges, through: :badge_badgeables, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
 
   attr_accessor :certify_being_company_boss
+  attr_accessor :has_doublons, :has_relances, :has_similar_abandonned
 
   before_validation :normalize_insee_code
   before_create :set_uuid, :set_cooperation, :set_provenance_detail

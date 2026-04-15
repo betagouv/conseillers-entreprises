@@ -9,14 +9,14 @@ class Conseiller::SolicitationsController < ApplicationController
   def index
     @solicitations = ordered_solicitations(:in_progress)
     @facilities = get_and_format_facilities
-    @solicitation_flags = precompute_solicitation_flags
+    precompute_solicitation_flags
     @status = t('solicitations.header.index')
   end
 
   def processed
     @solicitations = ordered_solicitations(:processed, :desc)
     @facilities = get_and_format_facilities
-    @solicitation_flags = precompute_solicitation_flags
+    precompute_solicitation_flags
     @status = t('solicitations.header.processed')
     render :index
   end
@@ -24,7 +24,7 @@ class Conseiller::SolicitationsController < ApplicationController
   def canceled
     @solicitations = ordered_solicitations(:canceled, :desc)
     @facilities = get_and_format_facilities
-    @solicitation_flags = precompute_solicitation_flags
+    precompute_solicitation_flags
     @status = t('solicitations.header.canceled')
     render :index
   end
@@ -197,7 +197,7 @@ class Conseiller::SolicitationsController < ApplicationController
   end
 
   def precompute_solicitation_flags
-    return {} if @solicitations.empty?
+    return if @solicitations.empty?
 
     emails = @solicitations.filter_map(&:email)
     sirets_map = precompute_sirets_per_solicitation(emails)
@@ -207,14 +207,12 @@ class Conseiller::SolicitationsController < ApplicationController
     relances = precompute_relances(all_sirets, emails)
     abandons = precompute_similar_abandonned(all_sirets, emails)
 
-    @solicitations.each_with_object({}) do |solicitation, hash|
+    @solicitations.each do |solicitation|
       sirets = sirets_map[solicitation.id]
       email = solicitation.email
-      hash[solicitation.id] = {
-        has_doublons: doublons.any? { |other_id, other_siret, other_email| other_id != solicitation.id && (other_email == email || sirets.include?(other_siret)) },
-        has_relances: relances.any? { |other_id, other_siret, other_email, other_subject_id| other_id != solicitation.id && (other_email == email || sirets.include?(other_siret)) && other_subject_id == solicitation.landing_subject_id },
-        has_similar_abandonned: abandons.count { |other_id, other_siret, other_email| other_id != solicitation.id && (other_email == email || sirets.include?(other_siret)) } >= 4
-      }
+      solicitation.has_doublons = doublons.any? { |other_id, other_siret, other_email| other_id != solicitation.id && (other_email == email || sirets.include?(other_siret)) }
+      solicitation.has_relances = relances.any? { |other_id, other_siret, other_email, other_subject_id| other_id != solicitation.id && (other_email == email || sirets.include?(other_siret)) && other_subject_id == solicitation.landing_subject_id }
+      solicitation.has_similar_abandonned = abandons.count { |other_id, other_siret, other_email| other_id != solicitation.id && (other_email == email || sirets.include?(other_siret)) } >= 4
     end
   end
 
