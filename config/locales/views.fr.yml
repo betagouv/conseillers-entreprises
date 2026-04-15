@@ -1153,6 +1153,9 @@ fr:
         title_table: Nombre de besoins d’entreprises transmis ayant donné lieu à un échange avec un conseiller
         with_exchange: Avec échange
         without_exchange: Sans échange
+      needs_helped_in_five_days:
+        title: des besoins sont clôturés par une aide dans les 5 jours après la transmission du besoin
+        title_table: Délai de clôture des besoins par une aide proposée
       needs_not_for_me:
         title: des besoins transmis sont refusés, soit %{secondary_count} besoins
         title_table: Nombre de besoins refusés
