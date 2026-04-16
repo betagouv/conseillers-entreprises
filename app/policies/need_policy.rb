@@ -9,6 +9,10 @@ class NeedPolicy < ApplicationPolicy
     end
   end
 
+  def index?
+    admin? || @user.antenne.present? # anyone actually
+  end
+
   def show?
     admin? ||
       @record.advisor == @user ||

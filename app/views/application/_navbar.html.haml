@@ -36,7 +36,7 @@
       %nav.fr-nav{ 'aria-label': t("navbar.main_menu"), role: 'navigation' }
         - if user_signed_in?
           %ul.fr-nav__list
-            - if current_user.experts.present?
+            - if policy(:need).index? && current_user.experts.present?
               = active_link_to needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-inbox-fill.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('needs.index.title')
@@ -47,11 +47,11 @@
               = active_link_to manager_needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-inbox-fill.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('manager.needs.index.title')
-            - if current_user.is_sponsor?
+            - if policy([:stats, :team]).index? && !current_user.is_admin?
               = active_link_to team_index_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-line-chart-line.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('usage_team_stats')
-            - if policy(:shared_satisfaction).show_navbar?
+            - if policy(:shared_satisfaction).index? && !current_user.is_admin?
               = active_link_to conseiller_shared_satisfactions_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-chat-heart-line.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('conseiller.shared_satisfactions.index.short_title')
@@ -62,11 +62,11 @@
               = active_link_to manager_stats_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-line-chart-line.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('.stats')
-            - if policy(:report).show_navbar?
+            - if policy(:report).index? && !current_user.is_admin?
               = active_link_to reports_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-file-text-line.fr-mr-1w{ 'aria-hidden': 'true' }
                 = t('.reports')
-            - if policy(:cooperation).show_navbar?
+            - if policy(:cooperation).index? && !current_user.is_admin?
               %li.fr-nav__item
                 %button.fr-nav__btn{ aria: { controls: "nav-cooperation", current: controller_name == 'cooperations', expanded: "false" } }
                   %span.ri-shake-hands-line.fr-mr-1w{ 'aria-hidden': 'true' }
@@ -75,7 +75,7 @@
                   %ul.fr-menu__list
                     = active_link_to needs_conseiller_cooperations_path, class: 'fr-nav__link', wrap_tag: :li do
                       = t('.cooperation_needs')
-                    - if policy(:cooperation).show_navbar_cooperation_matches?
+                    - if current_user.managed_cooperations.any?{ it.display_matches_stats? }
                       = active_link_to matches_conseiller_cooperations_path, class: 'fr-nav__link', wrap_tag: :li do
                         = t('.cooperation_matches')
                     = active_link_to reports_conseiller_cooperations_path, class: 'fr-nav__link', wrap_tag: :li do
