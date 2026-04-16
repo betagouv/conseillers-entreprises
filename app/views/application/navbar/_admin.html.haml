@@ -1,19 +1,9 @@
 %ul.fr-nav__list
-  = active_link_to conseiller_solicitations_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
-    %span.ri-message-2-line.fr-mr-1w{ 'aria-hidden': 'true' }
-    = t('solicitations.index.title')
-  = active_link_to reminders_needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
-    %span.ri-feedback-line.fr-mr-1w{ 'aria-hidden': 'true' }
-    = t('reminders.needs.navbar.title')
-  = active_link_to reminders_experts_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
-    %span.ri-award-fill.fr-mr-1w{ 'aria-hidden': 'true' }
-    = t('reminders.experts.navbar.title')
-  = active_link_to conseiller_optimisation_index_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
-    %span.ri-funds-line.fr-mr-1w{ 'aria-hidden': 'true' }
-    = t('conseiller.optimisation.index.title')
-  = active_link_to monitoring_antennes_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
-    %span.ri-radar-line.fr-mr-1w{ 'aria-hidden': 'true' }
-    = t("monitoring.antennes.index.title")
+  = navbar_item conseiller_solicitations_path, t('solicitations.index.title'), 'ri-message-2-line'
+  = navbar_item reminders_needs_path, t('reminders.needs.navbar.title'), 'ri-feedback-line'
+  = navbar_item reminders_experts_path, t('reminders.experts.navbar.title'), 'ri-award-fill'
+  = navbar_item conseiller_optimisation_index_path, t('solicitations.index.title'), 'ri-funds-line'
+  = navbar_item monitoring_antennes_path, t('monitoring.antennes.index.title'), 'ri-radar-line'
 
 %ul.fr-nav__list
   %li.fr-nav__item.fr-nav__item--align-right
@@ -21,18 +11,8 @@
       = t('.tools')
     .fr-menu.fr-collapse#fr-nav-item-account
       %ul.fr-menu__list
-        = active_link_to admin_root_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-          %span.ri-auction-line.fr-mr-1w{ 'aria-hidden': 'true' }
-          = t('.admin')
-        = active_link_to institutions_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-          %span.ri-government-line.fr-mr-1w{ 'aria-hidden': 'true' }
-          = t('.annuaire')
-        = active_link_to badges_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-          %span.ri-price-tag-3-line.fr-mr-1w{ 'aria-hidden': 'true' }
-          = t('.badges')
-        = active_link_to conseiller_csv_exports_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-          %span.ri-folder-download-line.fr-mr-1w{ 'aria-hidden': 'true' }
-          = t('.csv_exports')
-        = active_link_to new_user_invitation_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
-          %span.ri-user-add-line.fr-mr-1w{ 'aria-hidden': 'true' }
-          = t('.invite')
+        = navbar_item admin_root_path, t('.admin'), 'ri-auction-line'
+        = navbar_item institutions_path, t('.annuaire'), 'ri-government-line'
+        = navbar_item badges_path, t('.badges'), 'ri-price-tag-3-line'
+        = navbar_item conseiller_csv_exports_path, t('.csv_exports'), 'ri-folder-download-line'
+        = navbar_item new_user_invitation_path, t('.invite'), 'ri-user-add-line'

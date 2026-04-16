@@ -1,34 +1,22 @@
 %ul.fr-nav__list
   - if policy(:need).index? && current_user.experts.present?
-    = active_link_to needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
-      %span.ri-inbox-fill.fr-mr-1w{ 'aria-hidden': 'true' }
-      = t('needs.index.title')
+    = navbar_item needs_path, t('needs.index.title'), 'ri-inbox-fill' do
       - cache([current_user, current_user.needs_quo_active.size]) do
         - if current_user.needs_quo_active.size > 0
           %span.count-notification.fr-tag.fr-tag--sm.fr-ml-1w= current_user.needs_quo_active.size
   - if policy([:manager, :needs]).index?
-    = active_link_to manager_needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
-      %span.ri-inbox-fill.fr-mr-1w{ 'aria-hidden': 'true' }
-      = t('manager.needs.index.title')
+    = navbar_item manager_needs_path, t('manager.needs.index.title'), 'ri-inbox-fill'
   - if policy([:stats, :team]).index?
-    = active_link_to team_index_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
-      %span.ri-line-chart-line.fr-mr-1w{ 'aria-hidden': 'true' }
-      = t('usage_team_stats')
+    = navbar_item team_index_path, t('usage_team_stats'), 'ri-line-chart-line'
   - if policy(:shared_satisfaction).index?
-    = active_link_to conseiller_shared_satisfactions_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
-      %span.ri-chat-heart-line.fr-mr-1w{ 'aria-hidden': 'true' }
-      = t('conseiller.shared_satisfactions.index.short_title')
+    = navbar_item conseiller_shared_satisfactions_path, t('conseiller.shared_satisfactions.index.short_title'), 'ri-chat-heart-line' do
       - cache([current_user, current_user.shared_satisfactions.unseen.size]) do
         - if current_user.shared_satisfactions.unseen.size > 0
           %span.count-notification.count-notification--green.fr-tag.fr-tag--sm.fr-ml-1w#counter-unseen-nav= current_user.shared_satisfactions.unseen.size
   - if policy([:manager, :stats]).index?
-    = active_link_to manager_stats_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
-      %span.ri-line-chart-line.fr-mr-1w{ 'aria-hidden': 'true' }
-      = t('.stats')
+    = navbar_item manager_stats_path, t('.stats'), 'ri-line-chart-line'
   - if policy(:report).index?
-    = active_link_to reports_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
-      %span.ri-file-text-line.fr-mr-1w{ 'aria-hidden': 'true' }
-      = t('.reports')
+    = navbar_item reports_path, t('.reports'), 'ri-file-text-line'
   - if policy(:cooperation).index?
     %li.fr-nav__item
       %button.fr-nav__btn{ aria: { controls: "nav-cooperation", current: controller_name == 'cooperations', expanded: "false" } }
@@ -36,15 +24,10 @@
         = t('.cooperation')
       .fr-collapse.fr-menu#nav-cooperation
         %ul.fr-menu__list
-          = active_link_to needs_conseiller_cooperations_path, class: 'fr-nav__link', wrap_tag: :li do
-            = t('.cooperation_needs')
+          = navbar_item needs_conseiller_cooperations_path, t('.cooperation_needs')
           - if current_user.managed_cooperations.any?{ it.display_matches_stats? }
-            = active_link_to matches_conseiller_cooperations_path, class: 'fr-nav__link', wrap_tag: :li do
-              = t('.cooperation_matches')
-          = active_link_to reports_conseiller_cooperations_path, class: 'fr-nav__link', wrap_tag: :li do
-            = t('.cooperation_reports')
+            = navbar_item matches_conseiller_cooperations_path, t('.cooperation_matches')
+          = navbar_item reports_conseiller_cooperations_path, t('.cooperation_reports')
 
 %ul.fr-nav__list
-  = active_link_to tutoriels_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
-    %span.ri-video-line.fr-mr-1w{ 'aria-hidden': 'true' }
-    = t('user_pages.tutoriels.title')
+  = navbar_item tutoriels_path, t('user_pages.tutoriels.title'), 'ri-video-line'
