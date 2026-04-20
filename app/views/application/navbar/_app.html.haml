@@ -1,0 +1,33 @@
+%ul.fr-nav__list
+  - if policy(:need).index? && current_user.experts.present?
+    = navbar_item needs_path, t('needs.index.title'), 'ri-inbox-fill' do
+      - cache([current_user, current_user.needs_quo_active.size]) do
+        - if current_user.needs_quo_active.size > 0
+          %span.count-notification.fr-tag.fr-tag--sm.fr-ml-1w= current_user.needs_quo_active.size
+  - if policy([:manager, :needs]).index?
+    = navbar_item manager_needs_path, t('manager.needs.index.title'), 'ri-inbox-fill'
+  - if policy([:stats, :team]).index?
+    = navbar_item team_index_path, t('usage_team_stats'), 'ri-line-chart-line'
+  - if policy(:shared_satisfaction).index?
+    = navbar_item conseiller_shared_satisfactions_path, t('conseiller.shared_satisfactions.index.short_title'), 'ri-chat-heart-line' do
+      - cache([current_user, current_user.shared_satisfactions.unseen.size]) do
+        - if current_user.shared_satisfactions.unseen.size > 0
+          %span.count-notification.count-notification--green.fr-tag.fr-tag--sm.fr-ml-1w#counter-unseen-nav= current_user.shared_satisfactions.unseen.size
+  - if policy([:manager, :stats]).index?
+    = navbar_item manager_stats_path, t('.stats'), 'ri-line-chart-line'
+  - if policy(:report).index?
+    = navbar_item reports_path, t('.reports'), 'ri-file-text-line'
+  - if policy(:cooperation).index?
+    %li.fr-nav__item
+      %button.fr-nav__btn{ aria: { controls: "nav-cooperation", current: controller_name == 'cooperations', expanded: "false" } }
+        %span.ri-shake-hands-line.fr-mr-1w{ 'aria-hidden': 'true' }
+        = t('.cooperation')
+      .fr-collapse.fr-menu#nav-cooperation
+        %ul.fr-menu__list
+          = navbar_item needs_conseiller_cooperations_path, t('.cooperation_needs')
+          - if current_user.managed_cooperations.any?{ it.display_matches_stats? }
+            = navbar_item matches_conseiller_cooperations_path, t('.cooperation_matches')
+          = navbar_item reports_conseiller_cooperations_path, t('.cooperation_reports')
+
+%ul.fr-nav__list
+  = navbar_item tutoriels_path, t('user_pages.tutoriels.title'), 'ri-video-line'

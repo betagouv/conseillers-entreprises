@@ -121,22 +121,24 @@ fr:
       see_expert_coordinates: Voir les coordonnées de l'équipe
       see_person_coordinates: Voir les coordonnées de la personne
     navbar:
-      admin: Administration
-      annuaire: Annuaire
+      admin:
+        admin: Administration
+        annuaire: Annuaire
+        badges: Tags
+        csv_exports: Exports csv
+        invite: Inviter des utilisateurs
+        tools: Outils
       antenne_needs: Besoins de l’antenne
       antennes_needs: Besoins des antennes
-      badges: Tags
-      cooperation: Coopération
-      cooperation_matches: Pilotage par partenaire
-      cooperation_needs: Pilotage par besoin
-      cooperation_reports: Rapport d’activité
-      csv_exports: Exports csv
-      invite: Inviter des utilisateurs
+      app:
+        cooperation: Coopération
+        cooperation_matches: Pilotage par partenaire
+        cooperation_needs: Pilotage par besoin
+        cooperation_reports: Rapport d’activité
+        reports: Export des données
+        stats: Statistiques
       profile: Profil
-      reports: Export des données
       sign_out: Déconnexion
-      stats: Statistiques
-      tools: Outils
     pde_partnership_mention: Ce service public d'accompagnement des entreprises est proposé par Conseillers Entreprises.
     person_modal:
       confidentiality_notice: Usage interne aux services. Ne pas diffuser.

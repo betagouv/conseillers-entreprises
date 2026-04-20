@@ -1,0 +1,18 @@
+%ul.fr-nav__list
+  = navbar_item conseiller_solicitations_path, t('solicitations.index.title'), 'ri-message-2-line'
+  = navbar_item reminders_needs_path, t('reminders.needs.navbar.title'), 'ri-feedback-line'
+  = navbar_item reminders_experts_path, t('reminders.experts.navbar.title'), 'ri-award-fill'
+  = navbar_item conseiller_optimisation_index_path, t('solicitations.index.title'), 'ri-funds-line'
+  = navbar_item monitoring_antennes_path, t('monitoring.antennes.index.title'), 'ri-radar-line'
+
+%ul.fr-nav__list
+  %li.fr-nav__item.fr-nav__item--align-right
+    %button.fr-nav__btn{ 'aria-controls': "fr-nav-item-account", 'aria-expanded': "false" }
+      = t('.tools')
+    .fr-menu.fr-collapse#fr-nav-item-account
+      %ul.fr-menu__list
+        = navbar_item admin_root_path, t('.admin'), 'ri-auction-line'
+        = navbar_item institutions_path, t('.annuaire'), 'ri-government-line'
+        = navbar_item badges_path, t('.badges'), 'ri-price-tag-3-line'
+        = navbar_item conseiller_csv_exports_path, t('.csv_exports'), 'ri-folder-download-line'
+        = navbar_item new_user_invitation_path, t('.invite'), 'ri-user-add-line'
