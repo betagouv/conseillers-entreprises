@@ -86,7 +86,7 @@ module Seo
       {
         '@type': "Review",
         '@id': "#{request.original_url}#review-#{index}",
-        itemReviewed: { '@id': "#{root_url}#service" },
+        itemReviewed: { '@id': "#{root_url}#organization" },
         reviewBody: strip_tags(content),
         author: {
           '@type': "Person",

@@ -45,7 +45,10 @@ module Seo
         '@id': "#{root_url}#organization",
         name: I18n.t('landings.landings.seo.service_name'),
         url: root_url,
-        logo: image_url('logo-ce.png'),
+        logo: {
+          '@type': "ImageObject",
+          url: image_url('logo-ce.png')
+        },
         contactPoint: {
           '@type': "ContactPoint",
           email: ENV['APPLICATION_EMAIL'],
