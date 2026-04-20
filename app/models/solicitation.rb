@@ -570,7 +570,7 @@ class Solicitation < ApplicationRecord
 
   ##
   # Development helper
-  def self.new(attributes = nil, &)
+  def self.new(attributes = nil, &block)
     record = super
     if Rails.env.development? && ENV['DEVELOPMENT_PREFILL_SOLICITATION_FORM'].to_b
       record.assign_attributes(
