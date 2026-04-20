@@ -3,7 +3,7 @@ module Manager
     include StatsUtilities
     include SearchFilters
 
-    before_action :authorize_index_manager_stats, only: %i[index load_data]
+    before_action :authorize_index_manager_stats
     before_action :set_stats_params, only: :index
     before_action :set_charts_names, only: %i[index load_data]
 
@@ -23,7 +23,7 @@ module Manager
     private
 
     def authorize_index_manager_stats
-      authorize [:manager, :stats], :index?
+      authorize [:manager, :stats]
     end
 
     def set_stats_params

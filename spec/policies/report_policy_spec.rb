@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe ReportPolicy, type: :policy do
   subject { described_class }
 
-  permissions :show_navbar? do
-    context "denies access if user is an admin" do
+  permissions :index? do
+    context "grants access if user is an admin" do
       let(:user) { create :user, :admin }
 
-      it { is_expected.not_to permit(user) }
+      it { is_expected.to permit(user) }
     end
 
     context "grants access if user is a manager" do
@@ -23,7 +23,7 @@ RSpec.describe ReportPolicy, type: :policy do
     end
   end
 
-  permissions :index? do
+  permissions :stats? do
     let(:antenne) { create :antenne }
 
     context "grant access if user is an admin" do

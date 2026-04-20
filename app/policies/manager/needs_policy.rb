@@ -1,5 +1,3 @@
 class Manager::NeedsPolicy < ApplicationPolicy
-  def index?
-    manager?
-  end
+  def index? = @user&.is_manager?
 end

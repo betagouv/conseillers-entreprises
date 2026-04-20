@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe SharedSatisfactionPolicy, type: :policy do
   subject { described_class }
 
-  permissions :show_navbar? do
+  permissions :index? do
     let(:user) { create :user, antenne: create(:antenne, institution: create(:institution)) }
 
     context "grants access if user is manager" do
@@ -18,10 +18,10 @@ RSpec.describe SharedSatisfactionPolicy, type: :policy do
       it { is_expected.to permit(user) }
     end
 
-    context "denies access if user is admin" do
+    context "grants access if user is admin" do
       let(:user) { create :user, :admin }
 
-      it { is_expected.not_to permit(user) }
+      it { is_expected.to permit(user) }
     end
 
     context "denies access if user only cooperation manager" do
