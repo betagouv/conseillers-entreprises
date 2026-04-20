@@ -1,13 +1,13 @@
 !!!
 %html{ "data-fr-reset" => "", :lang => "fr" }
-  = render 'head'
+  = render 'application/head'
 
   %body
     = render 'shared/skiplinks'
-    = render 'navbar'
-    = render 'bandeau_info'
-    = render 'environment_ribbon'
-    = render 'user_impersonate'
+    = render 'application/navbar'
+    = render 'application/bandeau_info'
+    = render 'shared/environment_ribbon'
+    = render 'shared/user_impersonate'
 
     %main#content{ role: 'main' }
       = render 'shared/flashes'
@@ -15,6 +15,6 @@
       .fr-pt-5w
         = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts (e.g. side_menu)
   - if user_signed_in?
-    = render 'footer'
+    = render 'application/footer'
   - else
     = render 'pages/footer', footer_landing_themes: @footer_landing_themes, footer_landing: @footer_landing unless in_iframe?
