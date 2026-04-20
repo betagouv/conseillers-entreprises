@@ -349,7 +349,7 @@ Rails.application.routes.draw do
 
   controller :user_pages do
     get :tutoriels
-    get :bascule_seen
+    put "/app_info/:key", action: :app_info, constraints: { key: User::APP_INFO_KEYS }
   end
 
   controller :sitemap do
