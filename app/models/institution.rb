@@ -108,7 +108,7 @@ class Institution < ApplicationRecord
   scope :in_region, -> (region_code) do
     left_joins(antennes: :experts)
       .where(antennes: Antenne.by_region(region_code))
-      .or(Institution.where(antennes: { territorial_level: :national }))
+      .or(Institution.joins(antennes: { experts: :experts_subjects }).where(antennes: { territorial_level: :national }))
       .distinct
   end
 
