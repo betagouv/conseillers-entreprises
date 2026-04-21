@@ -47,6 +47,7 @@ module Stats
         acquisitions_overall_distribution_solicitations acquisitions_overall_distribution_solicitations_column
         acquisitions_overall_distribution_needs_transmitted acquisitions_overall_distribution_needs_transmitted_column
         acquisitions_overall_distribution_needs_done_with_help acquisitions_overall_distribution_needs_done_with_help_column
+        acquisitions_by_new_companies
       ]
       render :index
     end
