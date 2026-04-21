@@ -142,7 +142,6 @@ ActiveAdmin.register Expert do
     column :phone_number
     column :institution
     column :antenne
-    column :is_global_zone
     column_count :territorial_zones
     column_count :users
     column_count :subjects

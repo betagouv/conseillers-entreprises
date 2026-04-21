@@ -482,9 +482,9 @@ describe CreateTerritorialCoverage do
     end
 
     context "Expert with global coverage" do
-      let!(:global_expert) { create(:expert_with_users, antenne: national_antenne, is_global_zone: true, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
-      let(:grouped_experts) { { national_antenne => { global_expert => global_expert.users } } }
-      let(:experts_ids) { global_expert.id }
+      let!(:national_expert) { create(:expert_with_users, antenne: national_antenne, experts_subjects: [create(:expert_subject, institution_subject: institution_subject)]) }
+      let(:grouped_experts) { { national_antenne => { national_expert => national_expert.users } } }
+      let(:experts_ids) { national_expert.id }
 
       before { subject }
 

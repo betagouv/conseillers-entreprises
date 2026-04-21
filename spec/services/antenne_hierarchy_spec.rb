@@ -68,22 +68,6 @@ describe AntenneHierarchy do
       end
     end
 
-    context 'with global zone experts' do
-      let!(:local_antenne_with_global_expert) do
-  create :antenne, :local, institution: institution,
-                                                 territorial_zones: [create(:territorial_zone, :departement, code: "75")],
-                                                 experts: [create(:expert, antenne: antenne, is_global_zone: true)]
-end
-      let(:antenne) { regional_antenne }
-
-      before { described_class.new(antenne).call }
-
-      it "includes antennes with global zone experts even outside perimeter" do
-        expect(local_antenne_with_global_expert.reload.parent_antenne).to eq(regional_antenne)
-        expect(antenne.child_antennes).to include(local_antenne_with_global_expert)
-      end
-    end
-
     context 'when cleaning wrong parent relationships for national antenne' do
       let!(:regional_from_other_institution) { create :antenne, :regional, institution: create(:institution) }
       let!(:regional_with_wrong_parent) do

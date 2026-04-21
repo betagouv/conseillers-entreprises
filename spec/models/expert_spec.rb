@@ -68,11 +68,10 @@ RSpec.describe Expert do
   describe 'geographical notions' do
     let(:local_expert) { create :expert, antenne: create(:antenne, :local) }
     let(:national_expert) { create :expert, antenne: create(:antenne, :national) }
-    let(:global_expert) { create :expert, is_global_zone: true }
 
     subject { described_class.with_national_perimeter }
 
-    it { is_expected.to contain_exactly(national_expert, global_expert) }
+    it { is_expected.to contain_exactly(national_expert) }
   end
 
   describe 'a user cannot be member of the same team twice' do
@@ -298,8 +297,8 @@ RSpec.describe Expert do
       end
 
       context "Expert national" do
-        let(:antenne) { create :antenne }
-        let!(:expert_with_code) { create :expert, :with_expert_subjects, is_global_zone: true, antenne: antenne }
+        let(:antenne) { create :antenne, territorial_level: :national }
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, antenne: antenne }
         let!(:expert_without_code) { create :expert, :with_expert_subjects }
 
         it { expect_expert_with_commune }
@@ -337,7 +336,7 @@ RSpec.describe Expert do
       end
 
       context "Expert national" do
-        let!(:expert_with_code) { create :expert, :with_expert_subjects, is_global_zone: true }
+        let!(:expert_with_code) { create :expert, :with_expert_subjects, antenne: create(:antenne, territorial_level: :national) }
         let!(:expert_without_code) { create :expert, :with_expert_subjects }
 
         it { expect_expert_with_commune }
