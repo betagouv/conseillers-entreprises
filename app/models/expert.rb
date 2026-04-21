@@ -322,6 +322,10 @@ class Expert < ApplicationRecord
     ExpertMailer.with(expert: self).first_notification_help.deliver_later
   end
 
+  def is_national?
+    antenne.territorial_level == :national
+  end
+
   ## Soft deletion
   #
   def full_name

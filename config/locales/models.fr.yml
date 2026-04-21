@@ -252,7 +252,7 @@ fr:
         errors:
           cant_transfer_match: 'Les mises en relation n’ont pas pu être transférés : %{error}'
         full_name: Nom de l’équipe
-        is_global_zone: Global
+        is_national: Global
         job: Fonction
         users:
           one: Membre
