@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_30_132110) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_21_130510) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -243,7 +243,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_30_132110) do
     t.datetime "deleted_at", precision: nil
     t.string "email"
     t.string "full_name", null: false
-    t.boolean "is_global_zone", default: false, null: false
     t.string "job"
     t.string "phone_number"
     t.datetime "updated_at", precision: nil, null: false
