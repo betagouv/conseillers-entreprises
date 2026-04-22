@@ -11,6 +11,12 @@ class DeviseMailerPreview < ActionMailer::Preview
     CustomDeviseMailer.invitation_instructions(user, 'faketoken')
   end
 
+  def invitation_instructions_sponsor
+    user = User.not_deleted.sponsors.find_random
+    user.inviter = User.all.find_random
+    CustomDeviseMailer.invitation_instructions(user, 'faketoken')
+  end
+
   def reset_password_instructions
     user = User.not_deleted.find_random
     user.reset_password_sent_at = Time.now.utc

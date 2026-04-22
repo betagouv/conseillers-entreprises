@@ -2,7 +2,17 @@ class CustomDeviseMailer < Devise::Mailer
   layout 'expert_mailers'
 
   def invitation_instructions(record, token, opts = {})
-    if record.is_cooperation_manager?
+    if record.is_sponsor?
+      opts[:template_name] = 'invitation_instructions_sponsor'
+
+      @antenne = record.antenne
+      @institution_logo_name = record.institution.logo&.filename
+      @support_user = record.support_user
+
+      opts[:subject] = I18n.t('devise.mailer.invitation_instructions_sponsor.subject')
+      opts[:from] = email_address_with_name(ApplicationMailer::SENDER.call, record.antenne.support_user_name)
+      opts[:reply_to] = record.antenne.support_user_email_with_name
+    elsif record.is_cooperation_manager?
       opts[:template_name] = 'invitation_instructions_cooperation_manager'
 
       @cooperation = record.managed_cooperations.first

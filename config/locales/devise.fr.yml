@@ -46,6 +46,15 @@ fr:
         looking_forward: Au plaisir d’échanger à cette occasion,
         question_one: Pourquoi recevez-vous ce mail ?
         subject: Invitation à votre accès de pilotage pour la coopération avec Conseillers-Entreprises
+      invitation_instructions_sponsor:
+        accept: Choisir mon mot de passe
+        accept_user_invitation_instruction: 'Pour avoir accès aux statistiques de pilotage du service et des opérateurs relevant de votre champ de compétences, choisissez votre mot de passe :'
+        answer_one: Financé par la DILA (Services du Premier ministre) et la DGEFP (Ministère du Travail), ce service permet d’offrir un conseil humain et de proximité aux TPE & PME.
+        answer_two: En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations, organismes publics et parapublics chargés de l’accompagner sur son territoire.
+        description_html: Vous êtes invité(e) à rejoindre le service public Conseillers-Entreprises, au sein de l’antenne %{antenne}.
+        looking_forward: Au plaisir d’échanger à cette occasion,
+        question_one: Comment fonctionne le service public Conseillers-Entreprises ?
+        subject: Invitation à votre accès de pilotage pour Conseillers-Entreprises
       reset_password_instructions:
         account_but_never_connected_html: "<p>Vous disposez d’un compte sur le service public Conseillers-Entreprises, mais il n’est pas encore activé. Cliquez sur le bouton ci-dessous pour choisir votre mot de passe et activer votre compte.</p>"
         change_my_password: Changer de mot de passe
