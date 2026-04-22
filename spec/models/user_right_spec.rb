@@ -189,6 +189,16 @@ RSpec.describe UserRight do
         end
       end
     end
+
+    describe 'sponsor_has_institution' do
+      let(:user) { create :user }
+      let(:user_right) { build :user_right, user: user, category: :sponsor }
+
+      it do
+        expect(user_right).not_to be_valid
+        expect(user_right.errors[:rightable_element_id]).to include(I18n.t('errors.sponsor_without_institution'))
+      end
+    end
   end
 
   describe 'Constants' do

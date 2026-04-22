@@ -52,7 +52,8 @@ class UserRight < ApplicationRecord
            :be_admin_to_have_rights_for_admins,
            :only_one_user_by_referent,
            :territorial_referent_has_managed_region,
-           :only_one_territorial_referent_per_region
+           :only_one_territorial_referent_per_region,
+           :sponsor_has_institution
 
   before_validation :create_territorial_zone_if_needed
   after_save :finalize_territorial_zone_link
@@ -100,6 +101,13 @@ class UserRight < ApplicationRecord
     return unless existing_territorial_referent_for_region?
 
     errors.add(:rightable_element_id, I18n.t('errors.one_territorial_referent_per_region'))
+  end
+
+  def sponsor_has_institution
+    return unless category_sponsor?
+    return if rightable_element.is_a?(Institution)
+
+    errors.add(:rightable_element_id, I18n.t('errors.sponsor_without_institution'))
   end
 
   def valid_territorial_zone_region?

@@ -194,6 +194,7 @@ fr:
     only_one_cooperation: Une seule coopération peut être attribuée au responsable de coopération. S'il faut modifier cette règle, demandez aux devs !
     page_title: Erreur - %{title}
     satisfaction_without_comment: Vous ne pouvez pas partager une satisfaction sans commentaire
+    sponsor_without_institution: Une institution doit être attribuée à ce pilotage ministériel
     template:
       body: 'Veuillez vérifier les champs suivants : '
       header:
