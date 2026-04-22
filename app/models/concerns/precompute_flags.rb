@@ -3,7 +3,7 @@ module PrecomputeFlags
     base.attr_accessor :has_doublons, :has_relances, :has_similar_abandonned
   end
 
-  def precompute_flags
+  def precompute_flags(date_range: 3.weeks.ago..Time.zone.now)
     records = current_scope.to_a
     return records if records.empty?
 
@@ -12,7 +12,7 @@ module PrecomputeFlags
     all_sirets = sirets_map.values.flatten.uniq
 
     doublons = precompute_doublons(all_sirets, emails)
-    relances = precompute_relances(records, all_sirets, emails)
+    relances = precompute_relances(records, all_sirets, emails, date_range)
     abandons = precompute_similar_abandonned(all_sirets, emails)
 
     records.each do |solicitation|
@@ -56,13 +56,13 @@ module PrecomputeFlags
       .pluck(:id, :siret, :email)
   end
 
-  def precompute_relances(records, all_sirets, all_emails)
+  def precompute_relances(records, all_sirets, all_emails, date_range)
     landing_subject_ids = records.filter_map(&:landing_subject_id).uniq
     return [] if landing_subject_ids.empty?
 
     same_companies_scope(all_sirets, all_emails)
       .where(status: :processed, landing_subject_id: landing_subject_ids)
-      .where(created_at: 3.weeks.ago..Time.zone.now)
+      .where(created_at: date_range)
       .pluck(:id, :siret, :email, :landing_subject_id)
   end
 

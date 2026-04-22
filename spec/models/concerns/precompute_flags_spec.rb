@@ -9,8 +9,10 @@ RSpec.describe PrecomputeFlags do
     create :solicitation, siret: siret, email: email, landing_subject: landing_subject
   end
 
+  let(:date_range) { 3.weeks.ago..Time.zone.now }
+
   def precompute_result
-    Solicitation.where(id: solicitation.id).precompute_flags.first
+    Solicitation.where(id: solicitation.id).precompute_flags(date_range: date_range).first
   end
 
   describe 'has_doublons' do
