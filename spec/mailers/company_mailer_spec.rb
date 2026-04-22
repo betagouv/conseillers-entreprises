@@ -9,7 +9,7 @@ describe CompanyMailer do
 
     it_behaves_like 'an email'
 
-    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER.call }
   end
 
   describe '#notify_taking_care' do
@@ -20,7 +20,7 @@ describe CompanyMailer do
 
     it_behaves_like 'an email'
 
-    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER.call }
   end
 
   describe '#solicitation_relaunch_company' do
@@ -30,7 +30,7 @@ describe CompanyMailer do
 
     it_behaves_like 'an email'
 
-    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER.call }
   end
 
   describe '#intelligent_retention' do

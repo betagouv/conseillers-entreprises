@@ -16,7 +16,7 @@ describe ExpertMailer do
     describe 'email behavior' do
       it_behaves_like 'an email'
 
-      it { expect(mail.header[:from].value).to eq described_class::SENDER }
+      it { expect(mail.header[:from].value).to eq described_class::SENDER.call }
     end
 
     describe 'password instructions reminder' do
@@ -48,7 +48,7 @@ describe ExpertMailer do
     describe 'when the recipient is active' do
       it_behaves_like 'an email'
 
-      it { expect(mail.header[:from].value).to eq described_class::SENDER }
+      it { expect(mail.header[:from].value).to eq described_class::SENDER.call }
     end
 
     describe 'when the recipient is deleted' do
@@ -73,7 +73,7 @@ describe ExpertMailer do
     describe 'when the recipient is not deleted' do
       it_behaves_like 'an email'
 
-      it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+      it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER.call }
     end
 
     describe 'when the recipient is deleted' do
