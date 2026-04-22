@@ -3,11 +3,13 @@ class CustomDeviseMailer < Devise::Mailer
 
   def invitation_instructions(record, token, opts = {})
     if record.is_cooperation_manager?
+      opts[:template_name] = 'invitation_instructions_cooperation_manager'
+
       @cooperation = record.managed_cooperations.first
       @cooperation_logo_name = @cooperation.logo&.filename
       @support_user = record.support_user
 
-      opts[:subject] = I18n.t('devise.mailer.invitation_instructions.subject_cooperation', cooperation: @cooperation.name)
+      opts[:subject] = I18n.t('devise.mailer.invitation_instructions_cooperation_manager.subject', cooperation: @cooperation.name)
       opts[:from] = email_address_with_name(ApplicationMailer::SENDER.call, @cooperation.support_user_name)
       opts[:reply_to] = @cooperation.support_user_email_with_name
     else

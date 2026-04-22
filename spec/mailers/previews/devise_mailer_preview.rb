@@ -1,11 +1,11 @@
 class DeviseMailerPreview < ActionMailer::Preview
-  def invitation_instructions
-    user = User.not_deleted.find_random
+  def invitation_instructions_user
+    user = User.not_deleted.left_outer_joins(:user_rights_cooperation_manager).where(user_rights: { id: nil }).find_random
     user.inviter = User.all.find_random
     CustomDeviseMailer.invitation_instructions(user, 'faketoken')
   end
 
-  def cooperation_invitation_instructions
+  def invitation_instructions_cooperation_manager
     user = User.not_deleted.cooperation_managers.find_random
     user.inviter = User.all.find_random
     CustomDeviseMailer.invitation_instructions(user, 'faketoken')
