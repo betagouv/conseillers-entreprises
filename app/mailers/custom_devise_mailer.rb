@@ -7,29 +7,25 @@ class CustomDeviseMailer < Devise::Mailer
 
       @antenne = record.antenne
       @institution_logo_name = record.institution.logo&.filename
-      @support_user = record.support_user
 
       opts[:subject] = I18n.t('devise.mailer.invitation_instructions_sponsor.subject')
-      opts[:from] = email_address_with_name(ApplicationMailer::SENDER.call, record.antenne.support_user_name)
-      opts[:reply_to] = record.antenne.support_user_email_with_name
     elsif record.is_cooperation_manager?
       opts[:template_name] = 'invitation_instructions_cooperation_manager'
 
       @cooperation = record.managed_cooperations.first
       @cooperation_logo_name = @cooperation.logo&.filename
-      @support_user = record.support_user
 
       opts[:subject] = I18n.t('devise.mailer.invitation_instructions_cooperation_manager.subject', cooperation: @cooperation.name)
-      opts[:from] = email_address_with_name(ApplicationMailer::SENDER.call, @cooperation.support_user_name)
-      opts[:reply_to] = @cooperation.support_user_email_with_name
     else
       @institution_logo_name = record.institution.logo&.filename
-      @support_user = record.support_user
 
       opts[:subject] = I18n.t('devise.mailer.invitation_instructions.subject', institution: record.institution.name)
-      opts[:from] = email_address_with_name(ApplicationMailer::SENDER.call, record.antenne.support_user_name)
-      opts[:reply_to] = record.antenne.support_user_email_with_name
     end
+
+    @support_user = record.support_user
+    full_name_with_suffix = [@support_user.full_name, I18n.t('app_name')].compact.join(" - ")
+    opts[:from] = email_address_with_name(ApplicationMailer::SENDER.call, full_name_with_suffix)
+    opts[:reply_to] = email_address_with_name(@support_user.email, full_name_with_suffix)
 
     super
   end

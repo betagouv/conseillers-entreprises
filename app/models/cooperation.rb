@@ -27,7 +27,6 @@
 #
 class Cooperation < ApplicationRecord
   include Archivable
-  include WithSupportUser
 
   ## Associations
   #
