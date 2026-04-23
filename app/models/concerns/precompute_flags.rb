@@ -30,9 +30,9 @@ module PrecomputeFlags
 
   def precompute_sirets_per_solicitation(records, emails)
     facility_sirets = Facility
-                        .joins(:company, company: :contacts)
-                        .where(contacts: { email: emails })
-                        .pluck('contacts.email', :siret)
+      .joins(:company, company: :contacts)
+      .where(contacts: { email: emails })
+      .pluck('contacts.email', :siret)
 
     records.each_with_object({}) do |solicitation, hash|
       sirets = [solicitation.facility&.siret]
@@ -44,9 +44,7 @@ module PrecomputeFlags
   end
 
   def same_companies_scope(all_sirets, all_emails)
-    table = Solicitation.arel_table
-    same_company = table[:siret].in(all_sirets).or(table[:email].in(all_emails))
-    Solicitation.unscoped.where(same_company)
+    Solicitation.unscoped.where(siret: all_sirets).or(Solicitation.unscoped.where(email: all_emails))
   end
 
   def precompute_doublons(all_sirets, all_emails)
