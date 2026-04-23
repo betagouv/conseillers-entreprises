@@ -19,6 +19,19 @@ RSpec.describe CompanySatisfaction do
     end
   end
 
+  describe '#outcome' do
+    subject(:company_satisfaction) { create :company_satisfaction }
+
+    before do
+      company_satisfaction.outcome_discover_support = true
+      company_satisfaction.outcome_other = false
+    end
+
+    it 'returns the actual outcomes' do
+      expect(company_satisfaction.outcomes).to eq %i[outcome_discover_support]
+    end
+  end
+
   describe 'share' do
 
     context 'satisfaction with no comment' do

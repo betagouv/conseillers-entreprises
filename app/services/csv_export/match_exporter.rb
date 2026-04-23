@@ -48,6 +48,7 @@ module CsvExport
         page_besoin: -> { Rails.application.routes.url_helpers.need_url(self.need) },
         satisfaction_contacted_by_expert: -> { I18n.t(company_satisfaction.contacted_by_expert, scope: [:boolean, :text]) if company_satisfaction.present? },
         satisfaction_useful_exchange: -> { I18n.t(company_satisfaction.useful_exchange, scope: [:boolean, :text]) if company_satisfaction.present? },
+        satisfaction_outcomes: -> { company_satisfaction&.outcomes&.join(' ') },
         satisfaction_comment: -> { company_satisfaction&.comment },
       }
     end
