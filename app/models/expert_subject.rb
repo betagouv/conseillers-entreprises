@@ -93,12 +93,6 @@ class ExpertSubject < ApplicationRecord
     not_of_institution(irrelevant_opcos)
   end
 
-  scope :support_for, -> (diagnosis) do
-    support.where(expert: Expert.in_commune(diagnosis.facility.insee_code))
-  end
-
-  scope :support, -> { where(institution_subject: InstitutionSubject.support_subjects) }
-
   ##
   #
   def match_filters

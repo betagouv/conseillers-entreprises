@@ -303,7 +303,6 @@ fr:
           notify_matches: Notifier les experts sélectionnés
           select_at_least_one_expert: Cochez au minimum un expert à contacter.
           solicitation_reminder: Rappel du besoin
-          you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
         needs:
           diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
           diagnosis_content_subtitle: Informations générales sur cette entreprise

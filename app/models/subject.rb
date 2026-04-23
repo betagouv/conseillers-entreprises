@@ -5,7 +5,6 @@
 #  id                   :bigint(8)        not null, primary key
 #  archived_at          :datetime
 #  interview_sort_order :integer
-#  is_support           :boolean          default(FALSE), not null
 #  label                :string           not null
 #  slug                 :string           not null
 #  created_at           :datetime         not null
@@ -71,7 +70,6 @@ class Subject < ApplicationRecord
   validates :slug, presence: true
   validates :label, presence: true, uniqueness: true
   before_validation :compute_slug
-  before_save :set_support
 
   ## Scopes
   #
@@ -85,7 +83,6 @@ class Subject < ApplicationRecord
   scope :for_interview, -> do
     ordered_for_interview
       .archived(false)
-      .where(is_support: false)
   end
 
   scope :from_external_cooperation, -> do
@@ -130,16 +127,6 @@ class Subject < ApplicationRecord
     self.cooperations.any? && self.cooperations.all?(&:external)
   end
 
-  ##
-  #
-  def self.support_subject
-    find_by(is_support: true)
-  end
-
-  def define_as_support!
-    update(is_support: true)
-  end
-
   # Sujet avec traitement spécifique
   def self.other_need_subject
     Subject.find(59)
@@ -153,20 +140,12 @@ class Subject < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     [
-      "archived", "archived_at", "created_at", "id", "id_value", "interview_sort_order", "is_support", "label", "slug",
+      "archived", "archived_at", "created_at", "id", "id_value", "interview_sort_order", "label", "slug",
       "theme_id", "updated_at"
     ]
   end
 
   def self.ransackable_associations(auth_object = nil)
     ["subject_questions", "diagnoses", "experts", "experts_subjects", "institutions", "institutions_subjects", "landing_subjects", "match_filters", "matches", "needs", "theme"]
-  end
-
-  private
-
-  def set_support
-    if is_support
-      Subject.where.not(id: id).update_all(is_support: false)
-    end
   end
 end

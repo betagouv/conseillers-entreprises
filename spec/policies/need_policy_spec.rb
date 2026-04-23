@@ -75,28 +75,8 @@ RSpec.describe NeedPolicy, type: :policy do
       end
     end
 
-    context "grants access if user is support" do
-      let(:user) { create :user, experts: [expert] }
-      let(:expert) { create :expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: need.diagnosis.facility.insee_code)] }
-      let(:support_subject) { create :subject, is_support: true }
-      let!(:expert_subject) { create :expert_subject, expert: expert, institution_subject: institution_subject }
-      let(:institution_subject) { create :institution_subject, subject: support_subject }
-
-      it { is_expected.to permit(user, need) }
-    end
-
     context "denies access if user is another user" do
       let(:user) { create :user, antenne: create(:antenne) }
-
-      it { is_expected.not_to permit(user, need) }
-    end
-
-    context "denies access if user is another support_user" do
-      let(:user) { create :user, antenne: create(:antenne) }
-      let(:another_expert) { create :expert, users: [user] }
-      let!(:expert_subject2) { create :expert_subject, expert: another_expert, institution_subject: institution_subject }
-      let(:institution_subject) { create :institution_subject, subject: support_subject }
-      let(:support_subject) { create :subject, is_support: true }
 
       it { is_expected.not_to permit(user, need) }
     end
