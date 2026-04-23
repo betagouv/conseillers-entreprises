@@ -9,12 +9,14 @@ class Conseiller::SolicitationsController < ApplicationController
   def index
     @solicitations = ordered_solicitations(:in_progress)
     @facilities = get_and_format_facilities
+    @solicitations.precompute_flags
     @status = t('solicitations.header.index')
   end
 
   def processed
     @solicitations = ordered_solicitations(:processed, :desc)
     @facilities = get_and_format_facilities
+    @solicitations.precompute_flags
     @status = t('solicitations.header.processed')
     render :index
   end
@@ -22,6 +24,7 @@ class Conseiller::SolicitationsController < ApplicationController
   def canceled
     @solicitations = ordered_solicitations(:canceled, :desc)
     @facilities = get_and_format_facilities
+    @solicitations.precompute_flags
     @status = t('solicitations.header.canceled')
     render :index
   end
