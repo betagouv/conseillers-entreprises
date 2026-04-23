@@ -37,19 +37,10 @@ fr:
         answer_two_html: "<p>Financé par le Ministère de l’Économie et le Ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE et PME.</p><p>En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations et des organismes publics ou parapublics sur son territoire.</p><p>Vous pouvez ainsi échanger sur un besoin d’entreprise avec des conseillers du service public travaillant dans d’autres structures. Le service compte plus de 40 partenaires !</p>"
         description_cooperation_html: Vous êtes invité(e) à rejoindre le service public Conseillers-Entreprises, en tant que responsable de la coopération %{cooperation}.
         description_html: Vous êtes invité(e) à rejoindre le service public Conseillers-Entreprises, au sein de l’antenne %{antenne}.
-        details_answer: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon expert au sein des administrations, organismes publics et parapublics, et collectivités territoriales partenaires.
-        details_answer_service: C’est un nouveau service public porté par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
-        details_question: Qu’est-ce que le service Conseillers-Entreprises ?
-        discover_partners_html: Découvrez %{link} et rejoignez la communauté en choisissant votre mot de passe en un clic !
-        insitution_engagment: Au regard de ses missions, %{institution} est pleinement engagé(e) dans cette nouvelle dynamique collective.
-        livestorm_permalink: lien permanent livestorm
         looking_forward: Au plaisir d’échanger à cette occasion,
         question_one: Pourquoi recevez-vous ce mail ?
         question_two: Comment fonctionne le service public Conseillers-Entreprises ?
         subject: Invitation à rejoindre le service public Conseillers-Entreprises, partenaire de %{institution}
-        subject_cooperation: Invitation à votre accès de pilotage pour la coopération avec Conseillers-Entreprises
-        support_contact_label: 'Si vous avez le moindre souci pour votre compte, contactez :'
-        training_html: "<strong>Pour en savoir plus, inscrivez-vous à la prochaine démonstration du service</strong> : %{link}"
       reset_password_instructions:
         account_but_never_connected_html: "<p>Vous disposez d’un compte sur le service public Conseillers-Entreprises, mais il n’est pas encore activé. Cliquez sur le bouton ci-dessous pour choisir votre mot de passe et activer votre compte.</p>"
         change_my_password: Changer de mot de passe
