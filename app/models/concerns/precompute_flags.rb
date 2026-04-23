@@ -29,17 +29,16 @@ module PrecomputeFlags
   private
 
   def precompute_sirets_per_solicitation(records, emails)
-    facility_sirets = Facility.joins(:company, company: :contacts)
-      .where(contacts: { email: emails })
-      .pluck(:siret, 'contacts.email')
-      .group_by { |_, email| email }
-      .transform_values { |pairs| pairs.filter_map(&:first) }
+    facility_sirets = Facility
+                        .joins(:company, company: :contacts)
+                        .where(contacts: { email: emails })
+                        .pluck('contacts.email', :siret)
 
     records.each_with_object({}) do |solicitation, hash|
       sirets = [solicitation.facility&.siret]
       clean_siret = FormatSiret.clean_siret(solicitation.siret)
       sirets << clean_siret if FormatSiret.siret_is_valid(clean_siret)
-      sirets |= facility_sirets[solicitation.email] || []
+      sirets |= facility_sirets.filter_map { |email, siret| siret if email == solicitation.email }
       hash[solicitation.id] = sirets.compact
     end
   end
