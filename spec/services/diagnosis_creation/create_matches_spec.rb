@@ -4,7 +4,7 @@ describe DiagnosisCreation::CreateMatches do
     let(:diagnosis) { create :diagnosis, solicitation: solicitation }
     let(:solicitation) { create :solicitation }
     let(:need) { create :need, diagnosis: diagnosis }
-    let!(:other_need_subject) { create :subject, id: 59 }
+    let!(:other_need_subject) { create :subject, :other_need }
 
     let!(:expert_subject) do
       create :expert_subject,

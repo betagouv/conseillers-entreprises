@@ -48,7 +48,7 @@ RSpec.describe Conseiller::DiagnosesController do
 
     context 'when from solicitation creation succeeds' do
       let(:diagnosis) { create :diagnosis, solicitation: create(:solicitation) }
-      let!(:other_need_subject) { create :subject, id: 59 }
+      let!(:other_need_subject) { create :subject, :other_need }
 
       it 'redirects to the diagnosis page' do
         post :create, params: { diagnosis: some_params }

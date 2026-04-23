@@ -129,7 +129,7 @@ class Subject < ApplicationRecord
 
   # Sujet avec traitement spécifique
   def self.other_need_subject
-    Subject.find(59)
+    Subject.find_by(slug: 'autres_typologies_de_besoins_autre_besoin_non_reference')
   end
 
   def compute_slug

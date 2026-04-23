@@ -58,7 +58,7 @@ describe DiagnosisCreation::Steps do
     let!(:diagnosis) { build :diagnosis, solicitation: solicitation, step: 'needs', facility: create(:facility, insee_code: insee_code) }
     let(:solicitation) { create :solicitation }
     let!(:need) { create :need, diagnosis: diagnosis }
-    let!(:other_need_subject) { create :subject, id: 59 }
+    let!(:other_need_subject) { create :subject, :other_need }
 
     let!(:expert_subject) do
       create :expert_subject,
