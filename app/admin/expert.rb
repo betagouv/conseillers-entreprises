@@ -142,7 +142,6 @@ ActiveAdmin.register Expert do
     column :phone_number
     column :institution
     column :antenne
-    column :is_global_zone
     column_count :territorial_zones
     column_count :users
     column_count :subjects
@@ -161,8 +160,8 @@ ActiveAdmin.register Expert do
       row :institution
       row :antenne
       row(:territorial_zone) do |e|
-        if e.is_global_zone
-          status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
+        if e.is_national?
+          status_tag t('activerecord.attributes.expert.is_national'), class: 'yes'
         end
       end
       row(:users) do |e|
@@ -270,7 +269,7 @@ ActiveAdmin.register Expert do
     :id, :min_years_of_existence, :max_years_of_existence, :effectif_max, :effectif_min,
     :raw_accepted_naf_codes, :raw_excluded_naf_codes, :raw_accepted_legal_forms, :raw_excluded_legal_forms, :_destroy, subject_ids: []
   ]
-  permit_params :full_name, :job, :antenne_id, :email, :phone_number, :is_global_zone,
+  permit_params :full_name, :job, :antenne_id, :email, :phone_number,
     user_ids: [], experts_subjects_ids: [],
     experts_subjects_attributes: %i[id intervention_criteria institution_subject_id _create _update _destroy],
     match_filters_attributes: match_filters_attributes,
@@ -299,10 +298,6 @@ ActiveAdmin.register Expert do
                 url: :admin_users_path,
                 search_fields: [:full_name],
               }
-    end
-
-    f.inputs t('attributes.is_global_zone') do
-      f.input :is_global_zone
     end
 
     f.inputs do

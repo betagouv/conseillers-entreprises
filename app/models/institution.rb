@@ -108,7 +108,7 @@ class Institution < ApplicationRecord
   scope :in_region, -> (region_code) do
     left_joins(antennes: :experts)
       .where(antennes: Antenne.by_region(region_code))
-      .or(Institution.where(experts: { is_global_zone: true }))
+      .or(Institution.joins(antennes: { experts: :experts_subjects }).where(antennes: { territorial_level: :national }))
       .distinct
   end
 
@@ -139,7 +139,6 @@ class Institution < ApplicationRecord
     not_deleted_antennes
       .left_joins(:experts)
       .where(antennes: { id: Antenne.by_region(region_code).select(:id) })
-      .or(self.antennes.where(experts: { is_global_zone: true }))
       .order(:name)
       .distinct
   end
@@ -148,7 +147,6 @@ class Institution < ApplicationRecord
     advisors
       .left_joins(antennes: :experts)
       .where(antennes: Antenne.by_region(region_code))
-      .or(self.antennes.where(experts: { is_global_zone: true }))
       .distinct
   end
 

@@ -7,9 +7,10 @@ module WithTerritorialZones
 
     scope :by_region, -> (region_code) {
       return all if region_code.blank?
-      joins(:territorial_zones)
+      result = joins(:territorial_zones)
         .where("territorial_zones.regions_codes && ARRAY[?]::varchar[]", [region_code])
-        .distinct
+      result = result.or(territorial_level_national) if respond_to?(:territorial_level_national)
+      result.distinct
     }
 
     scope :with_insee_codes, -> (insee_codes) {

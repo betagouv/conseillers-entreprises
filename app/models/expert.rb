@@ -2,16 +2,15 @@
 #
 # Table name: experts
 #
-#  id             :bigint(8)        not null, primary key
-#  deleted_at     :datetime
-#  email          :string
-#  full_name      :string           not null
-#  is_global_zone :boolean          default(FALSE), not null
-#  job            :string
-#  phone_number   :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  antenne_id     :bigint(8)        not null
+#  id           :bigint(8)        not null, primary key
+#  deleted_at   :datetime
+#  email        :string
+#  full_name    :string           not null
+#  job          :string
+#  phone_number :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  antenne_id   :bigint(8)        not null
 #
 # Indexes
 #
@@ -152,12 +151,8 @@ class Expert < ApplicationRecord
   scope :with_territorial_zones, -> { not_deleted.joins(:territorial_zones) }
   scope :without_territorial_zones, -> { not_deleted.where.not(id: with_territorial_zones.ids) }
 
-  scope :with_global_zone, -> do
-    where(is_global_zone: true)
-  end
-
   scope :with_national_perimeter, -> do
-    joins(:antenne).with_global_zone.or(joins(:antenne).merge(Antenne.territorial_level_national))
+    joins(:antenne).merge(Antenne.territorial_level_national)
   end
 
   # Override du scope by_region du concern pour gérer les experts avec et sans territoires specifiques
@@ -263,7 +258,7 @@ class Expert < ApplicationRecord
       .or(where.not(id: experts_with_any_zones_ids).left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :epci, code: commune.epci&.code }))
       .or(where.not(id: experts_with_any_zones_ids).left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :departement, code: commune.departement.code }))
       .or(where.not(id: experts_with_any_zones_ids).left_joins(antenne: :territorial_zones).where(territorial_zones: { zone_type: :region, code: commune.region_code }))
-      .or(where.not(id: experts_with_any_zones_ids).left_joins(antenne: :territorial_zones).where(is_global_zone: true)).ids
+      .or(where.not(id: experts_with_any_zones_ids).left_joins(antenne: :territorial_zones).where(antennes: { territorial_level: :national })).ids
 
     where(id: experts_with_zones_ids).or(where(id: experts_without_zones_ids))
   end
@@ -327,6 +322,10 @@ class Expert < ApplicationRecord
     ExpertMailer.with(expert: self).first_notification_help.deliver_later
   end
 
+  def is_national?
+    antenne.territorial_level == :national
+  end
+
   ## Soft deletion
   #
   def full_name
@@ -353,7 +352,7 @@ class Expert < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     [
-      "antenne_id", "created_at", "deleted_at", "email", "full_name", "id", "id_value", "is_global_zone", "job",
+      "antenne_id", "created_at", "deleted_at", "email", "full_name", "id", "id_value", "job",
       "phone_number", "updated_at"
     ]
   end

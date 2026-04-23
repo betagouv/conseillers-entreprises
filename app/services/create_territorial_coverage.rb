@@ -12,9 +12,9 @@ class CreateTerritorialCoverage
     return theme_outside_territories if theme_outside_territories? && !has_cooperation?
 
     experts_and_users_by_insee_code = initialize_experts_and_users_by_insee_code
-    global_experts_and_users = build_global_experts_and_users
+    national_experts_and_users = build_national_experts_and_users
 
-    check_coverage(experts_and_users_by_insee_code, global_experts_and_users)
+    check_coverage(experts_and_users_by_insee_code, national_experts_and_users)
   end
 
   private
@@ -29,7 +29,7 @@ class CreateTerritorialCoverage
   end
 
   def gather_all_experts
-    experts_without_specific_territories + experts_with_specific_territories + experts_with_global_zone
+    experts_without_specific_territories + experts_with_specific_territories + experts_with_national_perimeter
   end
 
   def initialize_experts_and_users_by_insee_code
@@ -40,8 +40,8 @@ class CreateTerritorialCoverage
     process_experts(experts_and_users_by_insee_code, experts_with_specific_territories, :expert)
   end
 
-  def build_global_experts_and_users
-    experts_with_global_zone.map do |expert|
+  def build_national_experts_and_users
+    experts_with_national_perimeter.map do |expert|
       { expert_id: expert.id, users_ids: expert.users.map(&:id) }
     end
   end
@@ -55,9 +55,9 @@ class CreateTerritorialCoverage
       .uniq
   end
 
-  def experts_with_global_zone
-    @experts_with_global_zone ||= @institution_subject.not_deleted_experts
-      .with_global_zone
+  def experts_with_national_perimeter
+    @experts_with_national_perimeter ||= @institution_subject.not_deleted_experts
+      .with_national_perimeter
       .includes(:users)
       .where(antenne_id: @all_potential_antennes_ids)
       .distinct
@@ -127,8 +127,8 @@ class CreateTerritorialCoverage
     @all_potential_antennes_ids
   end
 
-  def check_coverage(experts_and_users_by_insee_code, experts_global_with_users)
-    coverage_result = determine_coverage_status(experts_and_users_by_insee_code, experts_global_with_users)
+  def check_coverage(experts_and_users_by_insee_code, experts_national_with_users)
+    coverage_result = determine_coverage_status(experts_and_users_by_insee_code, experts_national_with_users)
     add_metadata_to_result(coverage_result)
   end
 
@@ -140,7 +140,7 @@ class CreateTerritorialCoverage
   end
 
   # - que des experts avec codes insee, et somme des codes insee < antenne.codes_insee
-  # - /!\ et pas d'expert global sur le sujet
+  # - /!\ et pas d'expert national sur le sujet
   # - /!\ et pas d'expert de l'antenne ou de la région sur le sujet sans code insee
   def missing_insee_codes(code_experts_users_hash)
     missing_codes = code_experts_users_hash.select{ |_,v| v.empty? }.keys
@@ -267,11 +267,11 @@ class CreateTerritorialCoverage
     end
   end
 
-  def determine_coverage_status(experts_by_insee, global_experts)
+  def determine_coverage_status(experts_by_insee, national_experts)
     return good_coverage if theme_outside_covered_territories?(experts_by_insee)
-    return no_expert if no_experts_available?(experts_by_insee, global_experts)
+    return no_expert if no_experts_available?(experts_by_insee, national_experts)
     return missing_insee_codes(experts_by_insee) if has_missing_coverage?(experts_by_insee)
-    return no_user if has_experts_but_no_users?(experts_by_insee, global_experts)
+    return no_user if has_experts_but_no_users?(experts_by_insee, national_experts)
     return extra_insee_codes(experts_by_insee) if has_duplicate_coverage?(experts_by_insee)
 
     good_coverage
@@ -298,19 +298,19 @@ class CreateTerritorialCoverage
     territories_mismatch || theme_codes_mismatch
   end
 
-  def no_experts_available?(experts_by_insee, global_experts)
-    experts_by_insee.values.all?([]) && global_experts.pluck(:expert_id).empty?
+  def no_experts_available?(experts_by_insee, national_experts)
+    experts_by_insee.values.all?([]) && national_experts.pluck(:expert_id).empty?
   end
 
   def has_missing_coverage?(experts_by_insee)
     experts_by_insee.values.any?([])
   end
 
-  def has_experts_but_no_users?(experts_by_insee, global_experts)
+  def has_experts_but_no_users?(experts_by_insee, national_experts)
     local_experts_no_users = experts_by_insee.values.flatten.pluck(:users_ids).all?([])
-    global_experts_no_users = global_experts.pluck(:users_ids).empty?
+    national_experts_no_users = national_experts.pluck(:users_ids).empty?
 
-    local_experts_no_users && global_experts_no_users
+    local_experts_no_users && national_experts_no_users
   end
 
   def has_duplicate_coverage?(experts_by_insee)

@@ -6,7 +6,6 @@
 #  deleted_at     :datetime
 #  email          :string
 #  full_name      :string
-#  is_global_zone :boolean          default(FALSE)
 #  job            :string
 #  phone_number   :string
 #  created_at     :datetime         not null
