@@ -7,6 +7,7 @@
 #  accepted_naf_codes     :string           is an Array
 #  effectif_max           :integer
 #  effectif_min           :integer
+#  excluded_insee_codes   :string           default([]), is an Array
 #  excluded_legal_forms   :string           is an Array
 #  excluded_naf_codes     :string           is an Array
 #  filtrable_element_type :string           not null
@@ -35,6 +36,7 @@ class MatchFilter < ApplicationRecord
     raw_excluded_legal_forms
     raw_accepted_naf_codes
     raw_excluded_naf_codes
+    raw_excluded_insee_codes
     subjects
   ]
 
@@ -94,6 +96,15 @@ class MatchFilter < ApplicationRecord
   def raw_excluded_naf_codes=(naf_codes)
     updated_naf_codes = naf_codes.delete('.').split(/[,\s]/).delete_if(&:empty?)
     self.excluded_naf_codes = updated_naf_codes
+  end
+
+  def raw_excluded_insee_codes
+    excluded_insee_codes&.join(' ')
+  end
+
+  def raw_excluded_insee_codes=(insee_codes)
+    normalized = FormatInseeCodes.normalize(insee_codes)
+    self.excluded_insee_codes = normalized.split.delete_if(&:empty?)
   end
 
   def raw_accepted_legal_forms=(legal_form_code)

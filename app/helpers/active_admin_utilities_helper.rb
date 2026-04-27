@@ -22,6 +22,8 @@ module ActiveAdminUtilitiesHelper
         result[filter] = format_naf_codes(match_filter.accepted_naf_codes, match_filter.raw_accepted_naf_codes)
       when :raw_excluded_naf_codes
         result[filter] = format_naf_codes(match_filter.excluded_naf_codes, match_filter.raw_excluded_naf_codes)
+      when :raw_excluded_insee_codes
+        result[filter] = format_insee_codes(match_filter.excluded_insee_codes, match_filter.raw_excluded_insee_codes)
       when :raw_accepted_legal_forms
         result[filter] = format_legal_forms(match_filter.accepted_legal_forms, match_filter.raw_accepted_legal_forms)
       when :raw_excluded_legal_forms
@@ -46,6 +48,11 @@ module ActiveAdminUtilitiesHelper
       codes.map { |code| "#{code} - #{NafCode.naf_libelle(NafCode.level2_code(code), 'level2')}" }
         .join('<br>').html_safe
     end
+  end
+
+  def format_insee_codes(codes, raw_codes)
+    return nil if codes.blank?
+    codes.size > 10 ? raw_codes : codes.join('<br>').html_safe
   end
 
   # Format legal forms with descriptions if <= 10 codes, otherwise return raw string
