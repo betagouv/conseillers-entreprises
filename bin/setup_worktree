@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Creates symlinks for non-tracked config files from the main worktree.
+# Run this once after creating a new git worktree.
+set -euo pipefail
+
+MAIN_REPO=$(git worktree list | head -1 | awk '{print $1}')
+CURRENT_DIR=$(pwd)
+
+if [ "$MAIN_REPO" = "$CURRENT_DIR" ]; then
+  echo "You are already in the main worktree. Run this from a secondary worktree." >&2
+  exit 1
+fi
+
+FILES_TO_LINK=(
+  ".env"
+)
+
+for file in "${FILES_TO_LINK[@]}"; do
+  target="$MAIN_REPO/$file"
+
+  if [ ! -e "$target" ]; then
+    echo "Warning: $target not found, skipping."
+    continue
+  fi
+
+  if [ -L "$CURRENT_DIR/$file" ]; then
+    echo "$file symlink already exists, skipping."
+  elif [ -e "$CURRENT_DIR/$file" ]; then
+    echo "Warning: $file already exists and is not a symlink, skipping."
+  else
+    ln -s "$target" "$CURRENT_DIR/$file"
+    echo "Linked $file -> $target"
+  fi
+done
+
+echo "Done. Worktree setup complete."
