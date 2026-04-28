@@ -151,6 +151,7 @@ ActiveAdmin.register User do
         li link_to t('annuaire.users.table.duplicate_user'), admin_user_duplicate_user_path(user), class: 'action'
       end
       li link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user), class: 'action'
+      li link_to t('active_admin.user.clear_app_info'), clear_app_info_admin_user_path(user), class: 'action'
       li link_to t('active_admin.user.create_expert'), create_expert_admin_user_path(user), class: 'action'
     end
   end
@@ -180,6 +181,14 @@ ActiveAdmin.register User do
       row :invitation_sent_at
       row :invitation_accepted_at
       row :demo_invited_at
+    end
+  end
+
+  sidebar I18n.t("activerecord.attributes.user.app_info"), only: :show do
+    attributes_table_for user do
+      user.app_info&.each do |k,v|
+        row k, v
+      end
     end
   end
 
@@ -335,6 +344,11 @@ ActiveAdmin.register User do
     else
       link_to t('active_admin.user.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.user.delete_confirmation', count: 1) }
     end
+  end
+
+  member_action :clear_app_info do
+    resource.update(app_info: {})
+    redirect_back_or_to collection_path, notice: t('active_admin.user.clear_app_info_done')
   end
 
   member_action :normalize_values do
