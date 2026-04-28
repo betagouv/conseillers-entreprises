@@ -109,9 +109,6 @@ fr:
       theme_with_specific_territories: Thème avec des territoires spécifiques.
       user: "%{user_name} - %{antenne}"
   application:
-    bandeau_info:
-      button_title: Masquer le message
-      info: L’application du partenaire qui nous fournit les données entreprise connaît actuellement des ralentissements. Vous pourriez avoir des difficultés à accéder aux informations des entreprises. Toutes nos excuses pour la gêne occasionnée.
     footer:
       cookies: Gestion des cookies
       open_cookies: Ouvre la fenêtre de gestion des cookies
