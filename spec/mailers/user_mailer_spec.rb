@@ -12,7 +12,7 @@ describe UserMailer do
 
       it_behaves_like 'an email'
 
-      it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+      it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER.call }
     end
 
     context 'when user has no subjects' do
