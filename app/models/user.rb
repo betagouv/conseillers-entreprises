@@ -65,7 +65,8 @@ class User < ApplicationRecord
 
   attr_accessor :cgu_accepted, :specifics_territories, :create_expert
 
-  store_accessor :app_info, ['bascule_seen']
+  APP_INFO_KEYS = %w[bascule_seen questionnaire_2026_seen questionnaire_2026_done]
+  store_accessor :app_info, APP_INFO_KEYS
 
   after_create_commit :create_single_user_experts, if: -> { create_expert.to_b }
   before_validation :fill_absence_start_at, if: -> { absence_end_at.present? && absence_start_at.nil? }

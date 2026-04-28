@@ -135,6 +135,7 @@ fr:
         cooperation_matches: Pilotage par partenaire
         cooperation_needs: Pilotage par besoin
         cooperation_reports: Rapport d’activité
+        questionnaire: Questionnaire de satisfaction
         reports: Export des données
         stats: Statistiques
       profile: Profil
@@ -143,6 +144,13 @@ fr:
     person_modal:
       confidentiality_notice: Usage interne aux services. Ne pas diffuser.
       manager_name: 'Responsable : %{name}'
+    questionnaire:
+      already_done: J’ai déjà répondu
+      description: Vous utilisez régulièrement notre service. Votre avis nous est précieux ! Ce court questionnaire nous permettra de nous améliorer et de répondre au mieux à votre besoin.
+      not_now: Pas maintenant
+      show_questionnaire: Répondre au questionnaire
+      subtitle: Votre expérience avec le service public Conseillers-Entreprises.
+      title: Enquête de satisfaction
     user_admin_view:
       invitation_not_accepted: Cette personne n’a pas encore accepté son invitation
   at_your_disposal: Nous restons à votre disposition pour tout complément d’informations.

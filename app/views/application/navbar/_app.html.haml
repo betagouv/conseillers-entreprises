@@ -30,4 +30,6 @@
           = navbar_item reports_conseiller_cooperations_path, t('.cooperation_reports')
 
 %ul.fr-nav__list
+  - if display_questionnaire_navbar_item?
+    = navbar_item questionnaire_url, t('.questionnaire'), 'ri-chat-3-line', class: 'fr-nav__link fr-nav__link--highlight', target: '_blank'
   = navbar_item tutoriels_path, t('user_pages.tutoriels.title'), 'ri-video-line'

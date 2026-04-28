@@ -1,0 +1,23 @@
+- if display_questionnaire_modal?
+  %dialog.fr-modal#questionnaire-modal{ 'aria-labelledby': 'questionnaire-title', 'data-controller': 'user-app-info' }
+    .fr-container.fr-container--fluid.fr-container-md
+      .fr-grid-row.fr-grid-row--center
+        .fr-col-8
+          .fr-modal__body
+            .fr-modal__header
+            .fr-modal__content
+              %h2.fr-modal__title#questionnaire-title
+                %span.fr-icon-arrow-right-line.fr-icon--lg{ 'aria-hidden': 'true' }
+                = t('.title')
+              %h3= t('.subtitle')
+              %p
+                = t('.description')
+              .fr-btns-group.fr-btns-group--right.fr-btns-group--inline-lg.fr-btns-group--icon-right
+                %a.fr-btn{ href: questionnaire_url, target: '_blank' }
+                  = t('.show_questionnaire')
+            .fr-modal__footer
+              .fr-btns-group.fr-btns-group--right.fr-btns-group--inline.fr-btns-group--inline-sm.fr-btns-group--icon-left
+                %button.fr-btn.fr-icon-checkbox-circle-line.fr-btn--icon-left.fr-btn--tertiary.fr-btn--close{ 'aria-controls': "questionnaire-modal", data: { action: 'user-app-info#mark', 'user-app-info-key-param': 'questionnaire_2026_done' } }
+                  = t('.already_done')
+                %button.fr-btn.fr-btn--secondary.fr-btn--close{ 'aria-controls': "questionnaire-modal", data: { action: 'user-app-info#mark', 'user-app-info-key-param': 'questionnaire_2026_seen' } }
+                  = t('.not_now')
