@@ -57,6 +57,7 @@ class Diagnosis < ApplicationRecord
   validate :step_completed_has_advisor
   validate :without_solicitation_has_advisor
   validate :only_one_solicitation
+  validate :step_cannot_go_backward, on: :update
 
   accepts_nested_attributes_for :facility
   accepts_nested_attributes_for :needs, allow_destroy: true
@@ -196,6 +197,13 @@ class Diagnosis < ApplicationRecord
 
   def update_needs
     needs.each { |n| n.update_status }
+  end
+
+  def step_cannot_go_backward
+    return unless step_changed?
+    if Diagnosis.steps[step] < Diagnosis.steps[step_was]
+      errors.add(:step, :cannot_go_backward)
+    end
   end
 
   def step_needs_has_contact

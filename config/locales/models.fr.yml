@@ -745,6 +745,8 @@ fr:
               solicitation_has_no_preselected_subject: il n’y a pas de sujet présélectionné
             solicitation:
               has_already_a_diagnosis: Une analyse existe deja pour cette sollicitation.
+            step:
+              cannot_go_backward: ne peut pas revenir à une étape précédente.
         expert:
           attributes:
             base:
