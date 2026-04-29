@@ -118,6 +118,35 @@ RSpec.describe Diagnosis do
       end
     end
 
+    describe 'step_cannot_go_backward' do
+      subject(:diagnosis) { create :diagnosis_completed }
+
+      it 'allows step to stay the same' do
+        expect(diagnosis.update(step: :completed)).to be true
+      end
+
+      it 'forbids going from completed to matches' do
+        expect(diagnosis.update(step: :matches)).to be false
+        expect(diagnosis.errors[:step]).to be_present
+      end
+
+      it 'forbids going from completed to needs' do
+        expect(diagnosis.update(step: :needs)).to be false
+        expect(diagnosis.errors[:step]).to be_present
+      end
+
+      it 'forbids going from matches to needs' do
+        diagnosis.update_column(:step, 4)
+        expect(diagnosis.update(step: :needs)).to be false
+        expect(diagnosis.errors[:step]).to be_present
+      end
+
+      it 'allows going forward' do
+        diagnosis.update_column(:step, 3)
+        expect(diagnosis.update(step: :matches)).to be true
+      end
+    end
+
     describe 'only one diagnosis by solicitation' do
       let(:solicitation) { create :solicitation }
       let!(:another_diagnosis) { create :diagnosis, solicitation: solicitation }
