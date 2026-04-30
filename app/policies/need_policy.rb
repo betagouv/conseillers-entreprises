@@ -16,7 +16,6 @@ class NeedPolicy < ApplicationPolicy
   def show?
     admin? ||
       @record.advisor == @user ||
-      support?(@user, @record) ||
       @record.advisor_antenne == @user.antenne ||
       @record.in?(@user&.received_needs) ||
       @record.in?(@user.antenne.received_needs) ||

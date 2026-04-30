@@ -31,14 +31,8 @@
             = turbo_frame_tag "match-checkboxes-#{need.id}" do
               - experts_subjects = DiagnosisCreation::FindRelevantExpertSubjects.new(need).call
               - other_matches = need.matches.where.not(expert_id: [experts_subjects.pluck(:expert_id)])
-              - support_subject = ExpertSubject.support_for(@diagnosis)
               - if experts_subjects.present? || other_matches.present?
                 = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects, other_matches: other_matches
-              - elsif support_subject.present?
-                .fr-highlight.fr-mt-2w
-                  %p= t('.no_expert_subject')
-                  %p= t('.you_can_contact_support')
-                = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: support_subject
               - else
                 .fr-highlight.fr-mt-2w
                   %p= t('.no_expert_subject')

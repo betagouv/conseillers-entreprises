@@ -181,11 +181,6 @@ class User < ApplicationRecord
       .order('institutions.name', 'antennes.name', :full_name)
   end
 
-  scope :support_users, -> do
-    joins(:experts)
-      .merge(Expert.support_experts)
-  end
-
   scope :currently_absent, -> {
     where('users.absence_start_at < ? AND users.absence_end_at > ?', Time.current, Time.current)
   }

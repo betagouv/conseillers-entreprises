@@ -63,22 +63,9 @@ RSpec.describe Subject do
 
       before do
         create :subject, archived_at: 2.days.ago
-        create :subject, is_support: true
       end
 
       it { is_expected.to contain_exactly(q) }
-    end
-  end
-
-  describe 'support' do
-    describe 'unicity' do
-      subject { described_class.where(is_support: true) }
-
-      before { create :subject, is_support: true }
-
-      let!(:q2) { create :subject, is_support: true }
-
-      it { is_expected.to contain_exactly(q2) }
     end
   end
 

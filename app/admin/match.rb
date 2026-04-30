@@ -24,7 +24,6 @@ ActiveAdmin.register Match do
   scope :sent, default: true, group: :all
   scope :all, group: :all
   scope :with_deleted_expert
-  scope :to_support
 
   index do
     selectable_column

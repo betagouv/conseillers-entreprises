@@ -44,7 +44,6 @@ ActiveAdmin.register Subject do
 
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :label
-  filter :is_support
 
   ## CSV
   #
@@ -54,7 +53,6 @@ ActiveAdmin.register Subject do
     column :interview_sort_order
     column_count :institutions_subjects
     column :is_archived
-    column :is_support
     column_count :institutions
     column_count :experts
   end
@@ -67,7 +65,6 @@ ActiveAdmin.register Subject do
       row :label
       row :interview_sort_order
       row :archived_at
-      row :is_support
     end
     attributes_table do
       row(:needs) { |s| admin_link_to(s, :needs) }
@@ -117,14 +114,6 @@ ActiveAdmin.register Subject do
 
   ## Actions
   #
-  action_item :define_as_support, only: :show do
-    link_to t('active_admin.subject.define_as_support'), define_as_support_admin_subject_path(resource), method: :put
-  end
-  member_action :define_as_support, method: :put do
-    resource.define_as_support!
-    redirect_to resource_path, alert: t('active_admin.subject.done')
-  end
-
   member_action :copy_from_other, method: :put do
     other = Subject.find(params[:copy_from_other][:subject_to_copy_from])
     resource.copy_experts_from_other(other)

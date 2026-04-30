@@ -53,12 +53,6 @@ class InstitutionSubject < ApplicationRecord
   validates :subject, uniqueness: { scope: [:institution_id, :description] }
   validate :validate_description_presence
 
-  ## Scopes
-  #
-  scope :support_subjects, -> do
-    where(subject: Subject.support_subject)
-  end
-
   ##
   #
   def to_s

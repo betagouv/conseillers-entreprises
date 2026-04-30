@@ -5,10 +5,6 @@ describe "conseiller/diagnoses/steps/matches" do
   let(:need) { create :need }
   let(:diagnosis) { create :diagnosis, needs: [need], facility: facility }
   let(:institution_subject) { create :institution_subject, subject: need.subject }
-  let(:support_subject) { create :subject, is_support: true }
-  let(:institution_subject_support) { create :institution_subject, subject: support_subject }
-  let(:expert_support) { create :expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: "36202")] }
-  let!(:expert_subject_support) { create :expert_subject, expert: expert_support, institution_subject: institution_subject_support }
   let(:facility) { create :facility, insee_code: "36202" }
 
   describe "diagnosis with experts" do
@@ -21,7 +17,6 @@ describe "conseiller/diagnoses/steps/matches" do
       render
 
       expect(response.body).to match expert.full_name
-      expect(response.body).not_to match expert_support.full_name
     end
   end
 
@@ -31,7 +26,7 @@ describe "conseiller/diagnoses/steps/matches" do
 
       render
 
-      expect(response.body).to match expert_support.full_name
+      expect(response.body).to match "Aucune aide ne répond à ce besoin sur ce territoire pour l’instant."
     end
   end
 end

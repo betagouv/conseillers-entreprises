@@ -116,7 +116,6 @@ fr:
       support_experts: Support
       team_members: Équipiers
       teams: Équipes
-      to_support: Support
       tooltips:
         diagnosis_completed: Besoins identifiés dans des analyses terminées
         from_solicitation: Analyses à partir d’une sollicitation directe
@@ -152,8 +151,6 @@ fr:
       copy_experts_details: Copier le référencement depuis un autre sujet. Les institutions et experts de ce sujet remplaceront ceux du sujet courant. Le référencement du sujet copié ne sera pas modifié.
       copy_experts_done: Référencement copié.
       copy_experts_title: Référencement
-      define_as_support: Définir comme sujet support
-      done: Ce sujet est maintenant le seul sujet support
     subject_answer_grouping:
       title_with_index: Question filtrante %{index}
     user:
@@ -576,8 +573,6 @@ fr:
         processed:
           one: mise en relation
           other: mises en relation
-      subject:
-        is_support: Support
       subject_questions:
         ameliorer_conditions_travail:
           label:

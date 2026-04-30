@@ -88,8 +88,6 @@ class Match < ApplicationRecord
 
   ## Scopes
   #
-  scope :to_support, -> { joins(:need).where(subject: Subject.support_subject) }
-
   scope :with_deleted_expert, ->{ where(expert: nil) }
 
   scope :not_sent, -> { where(sent_at: nil) }

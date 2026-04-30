@@ -32,12 +32,6 @@ class ApplicationPolicy
     false
   end
 
-  def support?(user, diagnosis)
-    user&.experts.any? do |expert|
-      return true if expert.experts_subjects.support_for(diagnosis).present?
-    end
-  end
-
   def admin?
     @user&.is_admin?
   end
