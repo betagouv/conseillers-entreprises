@@ -391,6 +391,48 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
       end
     end
 
+    context 'insee_code && subject' do
+      let(:diagnosis) { create :diagnosis, facility: facility }
+      let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
+
+      let!(:difficulte_subject) { create :subject }
+      let(:match_filter_excluding_insee) { create :match_filter, :for_antenne, excluded_insee_codes: ['75056'], subjects: [difficulte_subject] }
+
+      let!(:es_excluding_insee) { create :expert_subject }
+
+      before do
+        es_excluding_insee.expert.antenne.match_filters << match_filter_excluding_insee
+      end
+
+      context 'matching subject only, non-excluded insee_code' do
+        let(:need_subject) { difficulte_subject }
+        let(:facility) { create :facility, insee_code: '69123' }
+
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_excluding_insee) }
+      end
+
+      context 'matching excluded insee_code only (different subject)' do
+        let(:need_subject) { create :subject }
+        let(:facility) { create :facility, insee_code: '75056' }
+
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_excluding_insee) }
+      end
+
+      context 'matching excluded insee_code and subject' do
+        let(:need_subject) { difficulte_subject }
+        let(:facility) { create :facility, insee_code: '75056' }
+
+        it { is_expected.to contain_exactly(expert_subject_without_filter) }
+      end
+
+      context 'matching nothing' do
+        let(:need_subject) { create :subject }
+        let(:facility) { create :facility, insee_code: '69123' }
+
+        it { is_expected.to contain_exactly(expert_subject_without_filter, es_excluding_insee) }
+      end
+    end
+
     context 'many filters' do
       let(:diagnosis) { create :diagnosis, facility: facility }
       let(:need) { create :need, diagnosis: diagnosis }

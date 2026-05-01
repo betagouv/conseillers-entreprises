@@ -116,6 +116,28 @@ RSpec.describe MatchFilter do
     end
   end
 
+  describe '#raw_excluded_insee_codes' do
+    let(:match_filter) { create(:match_filter, :for_antenne, excluded_insee_codes: excluded_insee_codes) }
+
+    subject { match_filter.raw_excluded_insee_codes }
+
+    context 'when excluded_insee_codes is not empty' do
+      let(:excluded_insee_codes) { ['75056', '69123'] }
+
+      it 'returns a string of excluded_insee_codes joined by space' do
+        is_expected.to eq('75056 69123')
+      end
+    end
+
+    context 'when excluded_insee_codes is empty' do
+      let(:excluded_insee_codes) { [] }
+
+      it 'returns empty string' do
+        is_expected.to eq ''
+      end
+    end
+  end
+
   describe '#raw_accepted_legal_forms' do
     let(:match_filter) { create(:match_filter, :for_antenne, accepted_legal_forms: accepted_legal_forms) }
     let(:accepted_legal_forms) { ['SA', 'SARL'] }

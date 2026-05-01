@@ -51,6 +51,7 @@ module DiagnosisCreation
         accepting_effectif?(match_filter),
         accepting_naf_codes?(match_filter),
         excluding_naf_codes?(match_filter),
+        excluding_insee_codes?(match_filter),
         accepting_legal_forms_codes?(match_filter),
         excluding_legal_forms_codes?(match_filter),
       ]
@@ -131,6 +132,11 @@ module DiagnosisCreation
     def excluding_naf_codes?(match_filter)
       return true if match_filter.excluded_naf_codes.blank?
       match_filter.excluded_naf_codes.exclude?(facility.naf_code)
+    end
+
+    def excluding_insee_codes?(match_filter)
+      return true if match_filter.excluded_insee_codes.blank?
+      match_filter.excluded_insee_codes.exclude?(facility.insee_code)
     end
 
     # Forme juridique
