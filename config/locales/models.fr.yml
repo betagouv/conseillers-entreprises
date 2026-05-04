@@ -156,6 +156,8 @@ fr:
     user:
       absence: Absence
       active: Référencés
+      clear_app_info: Effacer les marqueurs
+      clear_app_info_done: Marqueurs effacés
       connection: Connexion
       create_expert: Créer un expert identique
       create_expert_done: L’expert a bien été créé
@@ -661,6 +663,7 @@ fr:
         activity_matches:
           one: Action de MER
           other: Actions de MER
+        app_info: Marqueurs
         created_at: Création
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
