@@ -105,21 +105,4 @@ class MatchFilter < ApplicationRecord
     updated_legal_form_code = legal_form_code.split(/[,\s]/).delete_if(&:empty?)
     self.excluded_legal_forms = updated_legal_form_code
   end
-
-  def has_same_fields_filled?(other_match_filter)
-    fields_to_compare = %i[
-      accepted_naf_codes excluded_naf_codes accepted_legal_forms excluded_legal_forms
-      effectif_min effectif_max min_years_of_existence max_years_of_existence
-    ]
-    subjects == other_match_filter.subjects &&
-    fields_to_compare.all? do |field|
-      self.send(field).present? == other_match_filter.send(field).present?
-    end
-  end
-
-  private
-
-  def filter_on_expert_exist?(mf)
-    mf.filtrable_element_type == 'Expert' && (filtrable_element.experts.exists? mf.filtrable_element.id)
-  end
 end
