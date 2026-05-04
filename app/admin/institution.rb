@@ -187,9 +187,9 @@ ActiveAdmin.register Institution do
         mf.input :effectif_max
         mf.input :raw_accepted_legal_forms
         mf.input :raw_excluded_legal_forms
-        mf.input :raw_accepted_naf_codes, as: :text
-        mf.input :raw_excluded_naf_codes, as: :text
-        mf.input :raw_excluded_insee_codes, as: :text
+        mf.input :raw_accepted_naf_codes, as: :text, input_html: { rows: 5 }
+        mf.input :raw_excluded_naf_codes, as: :text, input_html: { rows: 5 }
+        mf.input :raw_excluded_insee_codes, as: :text, input_html: { rows: 5 }
       end
     end
 
