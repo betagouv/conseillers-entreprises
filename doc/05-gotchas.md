@@ -7,7 +7,7 @@
 * ➡ [Gotchas & tips (fr)](05-gotchas.md)
 * [Maintenance (fr)](06-maintenance.md)
 
-# Conseillers-Entreprises - Gotchas & Tips
+# Service Public Conseillers entreprises - Gotchas & Tips
 
 ## Limitations RNE
 

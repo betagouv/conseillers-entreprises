@@ -1,7 +1,7 @@
 ---
 openapi: 3.1.1
 info:
-  title: API Conseillers-Entreprises V1
+  title: API Service Public Conseillers entreprises V1
   description: "## Bienvenue sur la documentation de l’API de conseillers-entreprises.service-public.gouv.fr\n
     \       \nCette API permet à une organisation de proposer un formulaire de dépôt
     de besoin d'entreprise connecté à Conseillers-entreprises.service-public.gouv.fr sur

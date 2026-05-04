@@ -87,11 +87,11 @@ You may encounter dependencies problems. If so, you may have to change `/lib/tas
 
 If you want to refresh demo data, you can run `scalingo --app ce-staging run rake staging:refresh_demo_data`.
 
-## API Conseillers-Entreprises
+## API Service Public Conseillers entreprises
 
 ### Documentation
 
-Conseillers-Entreprises API documentation makes use of swagger (`rswag` gem).
+Service Public Conseillers entreprises API documentation makes use of swagger (`rswag` gem).
 In order to generate documentation with automatic examples, run :
 
 `rake rswag:specs:swaggerize SWAGGER_DRY_RUN=0`

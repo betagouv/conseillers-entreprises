@@ -7,7 +7,7 @@
 * [Gotchas & tips (fr)](05-gotchas.md)
 * ➡ [Maintenance (fr)](06-maintenance.md)
 
-# Conseillers-Entreprises - Mise en maintenance
+# Service Public Conseillers entreprises - Mise en maintenance
 
 La mise en maintenance du site se fait via Baleen.
 

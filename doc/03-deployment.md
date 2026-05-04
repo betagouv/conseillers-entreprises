@@ -33,7 +33,7 @@ In case of emergency, you can always run the rails console in production using t
 
 ## Waf
 
-Conseillers-Entreprises is protected behind a French WAF solution : [Baleen](https://baleen.cloud/)
+Service Public Conseillers entreprises is protected behind a French WAF solution : [Baleen](https://baleen.cloud/)
 
 ## HSTS
 

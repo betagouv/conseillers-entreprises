@@ -239,7 +239,7 @@ fr:
         job: Fonction
       cooperation:
         display_matches_stats: Afficher le pilotage par partenaire
-        display_pde_partnership_mention: Afficher le partenariat Conseillers-Entreprises (logo + phrase en bas d’iframe)
+        display_pde_partnership_mention: Afficher le partenariat Service Public Conseillers entreprises (logo + phrase en bas d’iframe)
         display_url: Afficher l’url du partenaire
         external: Coopération externe
         landings_or_mtm: Landing / Campagne
@@ -969,7 +969,7 @@ fr:
     quarter_stats_by_region: Stats trim. par territoire
     quarter_stats_by_subject: Stats trim. par sujet
     quo: Taux de sans positionnement
-    quo_caption_definition: L’expert ne s’est pas positionné sur le besoin malgré les relances de l’équipe de Conseillers-Entreprises.
+    quo_caption_definition: L’expert ne s’est pas positionné sur le besoin malgré les relances de l’équipe de Service Public Conseillers entreprises.
     quo_caption_label: En attente de positionnement
     quo_rate: Taux de sans positionnement
     rate_calculation_change: "** Le taux est calculé différemment à partir 2026."

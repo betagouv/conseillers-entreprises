@@ -18,7 +18,7 @@ describe 'monitoring antennes' do
     visit monitoring_antennes_path
 
     expect(page).to have_current_path monitoring_antennes_path(collection: 'refus_frequents'), ignore_query: true
-    expect(title).to eq "Suivi des antennes | Conseillers-Entreprises"
+    expect(title).to eq "Suivi des antennes | Service Public Conseillers entreprises"
 
     expect(page).to have_text "1 Antenne"
     expect(page).to have_text antenne.name
