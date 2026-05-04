@@ -13,7 +13,7 @@ fr:
       meta_title: Comment ça marche
       partners: 'Service Public Conseillers entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
       pde_testimonial: Témoignage d’un chef d’entreprise.
-      subtitle: Porté par le Ministère de l’Économie et le Ministère du Travail, Service Public Conseillers entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
+      subtitle: Porté par les services du Premier ministre (DILA) et le ministère du Travail (DGEFP), Service Public Conseillers entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
     equipe:
       subtitle: Une petite équipe investie est à votre disposition pour répondre à vos questions. N'hésitez pas à nous écrire et partager vos idées pour améliorer le service.
@@ -543,7 +543,7 @@ fr:
     prefets_regions: Préfet région %{name}
     regions: Conseil régional %{name}
     republique_francaise: République française
-    title: 'Service Public Conseillers entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
+    title: 'Service Public Conseillers entreprises est porté par les services du Premier ministre et le ministère du Travail, en partenariat avec :'
   manager:
     needs:
       index:
@@ -874,7 +874,7 @@ fr:
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours</b>"
       form_complete: Demande envoyée
       give_my_opinion_alt: Je donne mon avis
-      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l’Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Service Public Conseillers entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner %{subject_personalisation}, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez nous contacter par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris. Pour en savoir plus, consultez les %{informations}.</p>"
+      legal_notice_html: "<p>Les services du Premier ministre (DILA) et le ministère du Travail (DGEFP) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Service Public Conseillers entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner %{subject_personalisation}, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez nous contacter par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris. Pour en savoir plus, consultez les %{informations}.</p>"
       legal_notice_personalisation:
         activite-partielle: sur l’activité partielle
         agrement-esus: sur les conditions de l’agrément « Entreprise solidaire d’utilité sociale » (ESUS) et ses avantages

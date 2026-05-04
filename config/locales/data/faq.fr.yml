@@ -14,7 +14,7 @@ fr:
       id: aides
       question: Quelles sont les aides proposées par Service Public Conseillers entreprises ?
     '4':
-      answer: "<p>Le service de mise en relation avec le bon conseiller est totalement gratuit et financé par le Ministère de l’Économie et le Ministère du Travail. </p><p> L’essentiel des accompagnements ensuite proposés par les conseillers sont gratuits, à l’exception des accompagnements techniques sur la durée, principalement réalisés par les chambres consulaires. Après échange avec un conseiller, vous êtes libre de poursuivre ou non un accompagnement. </p><p> Par exemple, des prestations techniques pour la création d’un site internet ou la réduction de votre consommation d’énergie sont payantes, mais à des prix attractifs grâce au soutien financier de l’État ou des collectivités territoriales, dans le cadre de politiques publiques prioritaires.</p>"
+      answer: "<p>Le service de mise en relation avec le bon conseiller est totalement gratuit et financé par les services du Premier ministre et le ministère du Travail. </p><p> L’essentiel des accompagnements ensuite proposés par les conseillers sont gratuits, à l’exception des accompagnements techniques sur la durée, principalement réalisés par les chambres consulaires. Après échange avec un conseiller, vous êtes libre de poursuivre ou non un accompagnement. </p><p> Par exemple, des prestations techniques pour la création d’un site internet ou la réduction de votre consommation d’énergie sont payantes, mais à des prix attractifs grâce au soutien financier de l’État ou des collectivités territoriales, dans le cadre de politiques publiques prioritaires.</p>"
       id: gratuite
       question: Pourquoi ce service est-il gratuit ?
     '5':

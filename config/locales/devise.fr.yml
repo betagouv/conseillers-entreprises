@@ -31,7 +31,7 @@ fr:
         accept: Choisir mon mot de passe
         accept_user_invitation_instruction: 'Pour recevoir des besoins et rejoindre la communauté, choisissez votre mot de passe :'
         answer_one: "%{institution_name} est partenaire de ce service public en vertu d’un accord national, décliné localement. D’après les données communiquées, vous avez été identifié(e) pour participer à cette dynamique. Ce service est le fruit d’une co-construction avec des conseillers et des chefs d’entreprises, n’hésitez à nous partager votre retour d’expérience."
-        answer_two_html: "<p>Financé par le Ministère de l’Économie et le Ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE et PME.</p><p>En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations et des organismes publics ou parapublics sur son territoire.</p><p>Vous pouvez ainsi échanger sur un besoin d’entreprise avec des conseillers du service public travaillant dans d’autres structures. Le service compte plus de 40 partenaires !</p>"
+        answer_two_html: "<p>Financé par les services du Premier ministre et le ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE et PME.</p><p>En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations et des organismes publics ou parapublics sur son territoire.</p><p>Vous pouvez ainsi échanger sur un besoin d’entreprise avec des conseillers du service public travaillant dans d’autres structures. Le service compte plus de 40 partenaires !</p>"
         description_html: Vous êtes invité(e) à rejoindre Service Public Conseillers entreprises, au sein de l’antenne %{antenne}.
         looking_forward: Au plaisir d’échanger à cette occasion,
         question_one: Pourquoi recevez-vous ce mail ?
@@ -49,7 +49,7 @@ fr:
       invitation_instructions_sponsor:
         accept: Choisir mon mot de passe
         accept_user_invitation_instruction: 'Pour avoir accès aux statistiques de pilotage du service et des opérateurs relevant de votre champ de compétences, choisissez votre mot de passe :'
-        answer_one: Financé par la DILA (Services du Premier ministre) et la DGEFP (Ministère du Travail), ce service permet d’offrir un conseil humain et de proximité aux TPE & PME.
+        answer_one: Financé par la DILA (services du Premier ministre) et la DGEFP (ministère du Travail), ce service permet d’offrir un conseil humain et de proximité aux TPE & PME.
         answer_two: En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations, organismes publics et parapublics chargés de l’accompagner sur son territoire.
         description_html: Vous êtes invité(e) à rejoindre Service Public Conseillers entreprises, au sein de l’antenne %{antenne}.
         looking_forward: Au plaisir d’échanger à cette occasion,
