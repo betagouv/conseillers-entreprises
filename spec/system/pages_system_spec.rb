@@ -12,14 +12,14 @@ describe 'Pages' do
     visit '/'
 
     first("a[href='#{comment_ca_marche_path}']").click
-    expect(page).to have_content "Questions fréquentes"
+    expect(page).to have_text "Questions fréquentes"
     expect(page).to have_css '.faq', count: 4
     advisors_count = User.not_deleted.invitation_accepted.distinct.count
     needs_count = Need.diagnosis_completed.count
     companies_count = Company.includes(:needs).references(:needs).where(facilities: { diagnoses: { step: :completed } }).distinct.count
-    expect(page).to have_content(advisors_count)
-    expect(page).to have_content(needs_count)
-    expect(page).to have_content(companies_count)
+    expect(page).to have_text(advisors_count)
+    expect(page).to have_text(needs_count)
+    expect(page).to have_text(companies_count)
 
     click_on 'Accès conseillers'
     click_on 'Accueil'
@@ -35,6 +35,6 @@ describe 'Pages' do
     click_on 'Rechercher'
     expect(page).to have_select 'region_code'
     click_on 'Plan du site'
-    expect(page).to have_content(Landing.first.landing_themes.first.title)
+    expect(page).to have_text(Landing.first.landing_themes.first.title)
   end
 end

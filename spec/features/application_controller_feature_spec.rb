@@ -9,7 +9,7 @@ describe 'ApplicationController specific features' do
     context 'user is not admin' do
       it do
         visit '/admin'
-        expect(page).to have_content("Routing Error")
+        expect(page).to have_text("Routing Error")
         expect(page.status_code).to eq 404
       end
     end

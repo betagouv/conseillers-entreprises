@@ -109,7 +109,7 @@ describe 'New Solicitation', :js do
       # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
       option = find(".autocomplete__option", match: :first)
       # rubocop:enable Capybara/FindAllFirst
-      expect(option).to have_content('Octo Technology')
+      expect(option).to have_text('Octo Technology')
       page.execute_script("document.querySelector('.autocomplete__option').click()")
       click_on 'Suivant'
 
@@ -129,7 +129,7 @@ describe 'New Solicitation', :js do
       click_on 'Envoyer ma demande'
 
       expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
-      expect(page).to have_content('Merci')
+      expect(page).to have_text('Merci')
       expect(solicitation.reload.status_in_progress?).to be true
       expect(solicitation.completed_at).not_to be_nil
     end
@@ -175,7 +175,7 @@ describe 'New Solicitation', :js do
       fill_in 'Recherchez votre entreprise', with: siret
       click_on 'Suivant'
       expect(page).to have_current_path(/\/votre-demande\/.*\/recherche-entreprise/)
-      expect(page).to have_content("Sélectionnez votre entreprise :")
+      expect(page).to have_text("Sélectionnez votre entreprise :")
 
       click_on "#{siret} - Octo Technology"
       expect(solicitation.reload.siret).to eq siret
@@ -219,7 +219,7 @@ describe 'New Solicitation', :js do
       # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
       option = find(".autocomplete__option", match: :first)
       # rubocop:enable Capybara/FindAllFirst
-      expect(option).to have_content('Octo Technology')
+      expect(option).to have_text('Octo Technology')
       page.execute_script("document.querySelector('.autocomplete__option').click()")
       click_on 'Suivant'
       expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
@@ -231,7 +231,7 @@ describe 'New Solicitation', :js do
       click_on 'Envoyer ma demande'
 
       expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
-      expect(page).to have_content('Merci')
+      expect(page).to have_text('Merci')
       expect(solicitation.reload.status_in_progress?).to be true
       expect(solicitation.reload.completed_at).not_to be_nil
     end
@@ -272,14 +272,14 @@ describe 'New Solicitation', :js do
       # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
       option = find(".autocomplete__option", match: :first)
       # rubocop:enable Capybara/FindAllFirst
-      expect(option).to have_content('Octo Technology')
+      expect(option).to have_text('Octo Technology')
       page.execute_script("document.querySelector('.autocomplete__option').click()")
       click_on 'Suivant'
       expect(page).to have_current_path(/\/votre-demande\/.*\/recherche-etablissement/)
       expect(solicitation.reload.siret).to be_nil
       expect(solicitation.status_step_description?).to be false
 
-      expect(page).to have_content("Sélectionnez l'établissement concerné :")
+      expect(page).to have_text("Sélectionnez l'établissement concerné :")
       click_on("#{siret} - Octo Technology", match: :first)
       expect(page).to have_current_path(/\/votre-demande\/.*\/description/)
       expect(solicitation.reload.siret).to eq siret
@@ -289,7 +289,7 @@ describe 'New Solicitation', :js do
       click_on 'Envoyer ma demande'
 
       expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
-      expect(page).to have_content('Merci')
+      expect(page).to have_text('Merci')
       expect(solicitation.reload.status_in_progress?).to be true
     end
   end
@@ -324,13 +324,13 @@ describe 'New Solicitation', :js do
       fill_in 'Recherchez votre entreprise', with: 'toto'
       click_on 'Suivant'
       expect(page).to have_current_path(/\/votre-demande\/.*\/recherche-entreprise/)
-      expect(page).to have_content('Sélectionnez votre entreprise :')
+      expect(page).to have_text('Sélectionnez votre entreprise :')
 
       click_on "Je ne trouve pas mon entreprise"
       fill_in 'Votre numéro SIRET', with: "n'importe quoi"
       click_on 'Suivant'
       expect(page).to have_current_path(/\/votre-demande\/.*\/etablissement/)
-      expect(page).to have_content('SIRET doit être un numéro à 14 chiffres')
+      expect(page).to have_text('SIRET doit être un numéro à 14 chiffres')
       expect(solicitation.reload.siret).to be_nil
 
       fill_in 'Votre numéro SIRET', with: "418 166 096 00069"
@@ -344,7 +344,7 @@ describe 'New Solicitation', :js do
       click_on 'Envoyer ma demande'
       expect(page).to have_current_path(/\/votre-demande\/.*\/merci/)
 
-      expect(page).to have_content('Merci')
+      expect(page).to have_text('Merci')
       expect(solicitation.reload.status_in_progress?).to be true
     end
   end
@@ -368,9 +368,9 @@ describe 'New Solicitation', :js do
 
       fill_in 'Recherchez votre entreprise', with: '40440440440400'
       click_on 'Suivant'
-      expect(page).to have_no_content('Sélectionnez votre entreprise :')
+      expect(page).to have_no_text('Sélectionnez votre entreprise :')
 
-      expect(page).to have_content("L’identifiant (siret ou siren) est invalide")
+      expect(page).to have_text("L’identifiant (siret ou siren) est invalide")
     end
   end
 end

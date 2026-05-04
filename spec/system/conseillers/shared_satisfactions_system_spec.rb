@@ -24,7 +24,7 @@ describe 'shared_satisfactions' do
       expect(page).to have_current_path(unseen_conseiller_shared_satisfactions_path, ignore_query: true)
       expect(page).to have_css('.fr-card__c-container--need', count: 1)
 
-      expect(page).to have_content(company_satisfaction2.comment)
+      expect(page).to have_text(company_satisfaction2.comment)
 
       expect(side_menu_link(unseen_conseiller_shared_satisfactions_path)).to have_text('1')
       expect(side_menu_link(seen_conseiller_shared_satisfactions_path)).to have_text('1')
