@@ -20,10 +20,10 @@ describe 'Annuaire::Users' do
       before { visit institution_users_path(institution_slug: institution_1.slug) }
 
       it 'return all users for the institution' do
-        expect(page).to have_content(antenne_1.name)
-        expect(page).to have_content(expert_1.full_name)
-        expect(page).to have_content(expert_1_same_antenne.full_name)
-        expect(page).to have_content(expert_2.full_name)
+        expect(page).to have_text(antenne_1.name)
+        expect(page).to have_text(expert_1.full_name)
+        expect(page).to have_text(expert_1_same_antenne.full_name)
+        expect(page).to have_text(expert_2.full_name)
       end
     end
 
@@ -31,10 +31,10 @@ describe 'Annuaire::Users' do
       before { visit institution_users_path(institution_slug: institution_1.slug, advisor: user_1, antenne_id: antenne_1.id) }
 
       it 'return all users for the user antenne' do
-        expect(page).to have_content(antenne_1.name)
-        expect(page).to have_content(expert_1.full_name)
-        expect(page).to have_content(user_1.full_name)
-        expect(page).to have_content(expert_1_same_antenne.full_name)
+        expect(page).to have_text(antenne_1.name)
+        expect(page).to have_text(expert_1.full_name)
+        expect(page).to have_text(user_1.full_name)
+        expect(page).to have_text(expert_1_same_antenne.full_name)
       end
     end
 
@@ -42,9 +42,9 @@ describe 'Annuaire::Users' do
       before { visit institution_users_path(institution_slug: institution_1.slug, antenne_id: antenne_1.id) }
 
       it 'return all users for the antenne' do
-        expect(page).to have_content(antenne_1.name)
-        expect(page).to have_content(expert_1.full_name)
-        expect(page).to have_content(expert_1_same_antenne.full_name)
+        expect(page).to have_text(antenne_1.name)
+        expect(page).to have_text(expert_1.full_name)
+        expect(page).to have_text(expert_1_same_antenne.full_name)
       end
     end
 
@@ -57,8 +57,8 @@ describe 'Annuaire::Users' do
       end
 
       it 'return all users for the antenne' do
-        expect(page).to have_content(antenne_1.name)
-        expect(page).to have_content(manager.full_name)
+        expect(page).to have_text(antenne_1.name)
+        expect(page).to have_text(manager.full_name)
       end
     end
   end

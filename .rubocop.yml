@@ -846,7 +846,7 @@ Rails:
 RSpec/AnyInstance:
   Enabled: false
 
-Capybara/SpecificMatcher:
+Capybara/RSpec/SpecificMatcher:
   Enabled: false
 
 RSpec/ContextWording:

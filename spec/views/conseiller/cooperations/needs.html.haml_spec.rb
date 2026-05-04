@@ -20,7 +20,7 @@ RSpec.describe 'conseiller/cooperations/needs' do
 
       render
 
-      expect(rendered).to have_content("Pilotage par besoin")
+      expect(rendered).to have_text("Pilotage par besoin")
       expect(rendered).to have_css('.card-title', count: 12)
     end
   end
