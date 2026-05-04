@@ -9,13 +9,4 @@
 
 # Service Public Conseillers entreprises - Mise en maintenance
 
-La mise en maintenance du site se fait via Baleen.
-
-## Redirection vers une page de maintenance
-
-- Se connecter sur Baleen, et vérifier qu'on est bien sur l'application "Conseillers-Entreprises"
-- Créer une nouvelle règle de redirection (“Personnaliser votre trafic” > “Règles de redirection”) : 
-  - rediriger `/` vers `https://redirect.conseillers-entreprises.service-public.gouv.fr/ `
-  - Cocher "Redirection temporaire" et supprimer les "Query strings"
-
-Pour désactiver le mode maintenance, il suffit de supprimer la règle de redirection.
+La mise en maintenance du site se fait sur Ubika.
