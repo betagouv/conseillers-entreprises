@@ -16,7 +16,7 @@ module Stats
     def public
       @charts_names = %w[
         solicitations_completed solicitations_diagnoses needs_exchange_with_expert needs_done
-        needs_taken_care_in_three_days needs_taken_care_in_five_days
+        needs_taken_care_in_three_days needs_taken_care_in_five_days needs_helped_in_five_days
         needs_themes_all needs_subjects_all companies_by_employees companies_by_naf_code
       ]
       render :index
@@ -47,6 +47,7 @@ module Stats
         acquisitions_overall_distribution_solicitations acquisitions_overall_distribution_solicitations_column
         acquisitions_overall_distribution_needs_transmitted acquisitions_overall_distribution_needs_transmitted_column
         acquisitions_overall_distribution_needs_done_with_help acquisitions_overall_distribution_needs_done_with_help_column
+        acquisitions_by_new_companies
       ]
       render :index
     end

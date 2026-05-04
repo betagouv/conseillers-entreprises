@@ -977,6 +977,8 @@ fr:
   stats:
     done_no_help_status: Statut « cloturé sans aide »
     done_status: Statut « cloturé avec aide »
+    from_known_companies: Entreprises déjà connues de Conseillers-Entreprises
+    from_new_companies: Entreprises contactant le service pour la première fois
     less_than_72h: Moins de 72h
     main_stats_chart:
       title: Notre mesure d’impact phare
@@ -993,6 +995,9 @@ fr:
       stats_params:
         datepicker_format: 'Format attendu : JJ/MM/AAAA'
     series:
+      acquisitions_by_new_companies:
+        title: des besoins ont été déposés par des entreprises utilisant le service pour la première fois soit %{secondary_count} besoins
+        title_table: Répartition des besoins reçus selon que l’entreprise utilise Conseillers-Entreprises pour la première fois ou non.
       acquisitions_entreprendre:
         title:
           one: des besoins transmis aux conseillers proviennent du site Entreprendre.Service-Public.fr, soit %{secondary_count} besoin
@@ -1153,6 +1158,9 @@ fr:
         title_table: Nombre de besoins d’entreprises transmis ayant donné lieu à un échange avec un conseiller
         with_exchange: Avec échange
         without_exchange: Sans échange
+      needs_helped_in_five_days:
+        title: des besoins sont clôturés par une aide dans les 5 jours après la transmission du besoin
+        title_table: Délai de clôture des besoins par une aide proposée
       needs_not_for_me:
         title: des besoins transmis sont refusés, soit %{secondary_count} besoins
         title_table: Nombre de besoins refusés

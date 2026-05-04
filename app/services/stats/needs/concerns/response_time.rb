@@ -1,14 +1,8 @@
-module Stats::Needs::Concerns::TakingCareTime
+module Stats::Needs::Concerns::ResponseTime
   include ::Stats::BaseStats
 
-  def main_query
-    Need.with_exchange
-      .joins(:matches)
-      .where(created_at: @start_date..@end_date)
-  end
-
-  def number_of_days
-    @number_of_days ||= 5
+  def base_scope
+    Need.joins(:matches).where(created_at: @start_date..@end_date)
   end
 
   def build_series

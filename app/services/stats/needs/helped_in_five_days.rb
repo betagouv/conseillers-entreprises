@@ -1,8 +1,8 @@
 module Stats::Needs
-  class TakenCareInFiveDays
+  class HelpedInFiveDays
     include ::Stats::Needs::Concerns::ResponseTime
 
-    def main_query = base_scope.with_exchange
+    def main_query = base_scope.status_done
 
     def number_of_days
       @number_of_days ||= 5
