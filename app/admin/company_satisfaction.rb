@@ -85,18 +85,18 @@ ActiveAdmin.register CompanySatisfaction do
   csv do
     column :id
     column :created_at
-    column :contacted_by_expert
-    column :useful_exchange
-    column :outcomes
+    column(:contacted_by_expert) { |s| I18n.t(s.contacted_by_expert, scope: [:boolean, :text]) }
+    column(:useful_exchange) { |s| I18n.t(s.useful_exchange, scope: [:boolean, :text]) }
+    column(:outcomes) { |s| s.outcomes.map { CompanySatisfaction.human_attribute_value(:outcome, it, context: :short) }.join(", ") }
     column :comment
-    column(:landing) { |s| s.landing&.slug }
-    column(:subject) { |s| s.subject&.slug }
+    column(:subject) { |s| s.subject.label }
     column(t('activerecord.attributes.solicitation.mtm_campaign')) do |s|
       s.solicitation&.campaign.presence
     end
     column(t('activerecord.attributes.solicitation.mtm_kwd')) do |s|
       s.solicitation&.provenance_detail
     end
+    column(:need) { |s| conseiller_diagnosis_url(s.need.diagnosis) }
   end
 
   ## Show
