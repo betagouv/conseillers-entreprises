@@ -234,6 +234,11 @@ fr:
         outcome_help_choice: choix
         outcome_other: autre
         outcome_start_action: actions
+      company_satisfaction/outcomes/tag_css_class:
+        outcome_discover_support: 'yes'
+        outcome_help_choice: 'yes'
+        outcome_other: warning
+        outcome_start_action: 'yes'
       contact:
         company: Entreprise
         job: Fonction

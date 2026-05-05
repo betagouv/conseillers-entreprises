@@ -24,7 +24,7 @@ ActiveAdmin.register CompanySatisfaction do
       div do
         s.outcomes.each do |outcome|
           status_tag CompanySatisfaction.human_attribute_value(:outcome, outcome, context: :short),
-                     class: 'yes',
+                     class: CompanySatisfaction.human_attribute_value(:outcome, outcome, context: :tag_css_class),
                      title: CompanySatisfaction.human_attribute_value(:outcome, outcome, context: :long)
         end
       end
@@ -64,6 +64,8 @@ ActiveAdmin.register CompanySatisfaction do
   filter :created_at
   filter :contacted_by_expert
   filter :useful_exchange
+  filter :outcomes, as: :select, multiple: true, collection: CompanySatisfaction::OUTCOMES.index_by{ CompanySatisfaction.human_attribute_value(:outcome, it, context: :short) }
+  filter :shared, as: :select, collection: [["Oui", 'shared'], ["Non", 'not_shared']]
   filter :with_comment, as: :select, collection: [["Avec commentaire", 'with_comment'], ["Sans commentaire", 'without_comment']]
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :subject, as: :ajax_select, collection: -> { @subjects.pluck(:label, :id) }, data: { url: :admin_subjects_path, search_fields: [:label] }
@@ -74,7 +76,6 @@ ActiveAdmin.register CompanySatisfaction do
   filter :facility_region, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }, label: 'Région'
   filter :solicitation_email_cont
   filter :landing, as: :ajax_select, collection: -> { Landing.not_archived.pluck(:title, :id) }, data: { url: :admin_landings_path, search_fields: [:title] }
-  filter :shared, as: :select, collection: [["Oui", 'shared'], ["Non", 'not_shared']]
 
   filter :solicitation_mtm_campaign, as: :string
   filter :solicitation_mtm_kwd, as: :string
@@ -109,7 +110,7 @@ ActiveAdmin.register CompanySatisfaction do
         div do
           s.outcomes.map do |outcome|
             status_tag CompanySatisfaction.human_attribute_name(outcome),
-                       class: 'yes',
+                       class: CompanySatisfaction.human_attribute_value(:outcome, outcome, context: :tag_css_class),
                        title: CompanySatisfaction.human_attribute_value(:outcome, outcome, context: :long)
           end
         end
@@ -129,7 +130,7 @@ ActiveAdmin.register CompanySatisfaction do
     f.inputs do
       f.input :contacted_by_expert
       f.input :useful_exchange
-      CompanySatisfaction::OUTCOMES.each { f.input it }
+      CompanySatisfaction::OUTCOMES.each { f.input(it, label: CompanySatisfaction.human_attribute_value(:outcome, it, context: :long)) }
       f.input :comment
     end
 

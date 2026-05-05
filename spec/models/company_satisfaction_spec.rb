@@ -17,6 +17,20 @@ RSpec.describe CompanySatisfaction do
 
       it { is_expected.to contain_exactly(company_satisfaction_2) }
     end
+
+    describe 'outcomes_in' do
+      let!(:cs1) { create :company_satisfaction, outcome_discover_support: true, outcome_help_choice: true }
+      let!(:cs2) { create :company_satisfaction, outcome_discover_support: true, outcome_start_action: true }
+      let!(:cs3) { create :company_satisfaction }
+
+      it do
+        expect(described_class.outcomes_in(:outcome_discover_support)).to include(cs1, cs2)
+        expect(described_class.outcomes_in(:outcome_discover_support, :outcome_help_choice)).to include(cs1)
+        expect(described_class.outcomes_in(:outcome_discover_support, :outcome_other)).to be_empty
+        expect(described_class.outcomes_in(:outcome_other)).to be_empty
+        expect(described_class.outcomes_in).to include(cs1, cs2, cs3)
+      end
+    end
   end
 
   describe '#outcome' do

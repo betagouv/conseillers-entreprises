@@ -96,6 +96,10 @@ class CompanySatisfaction < ApplicationRecord
     query == 'with_comment' ? where.not(comment: "") : where(comment: "")
   }
 
+  scope :outcomes_in, -> (*outcomes) {
+    where(outcomes.index_with(true))
+  }
+
   scope :facility_region_eq, -> (region_code) {
     joins(:facility).merge(Facility.by_region(region_code))
   }
@@ -135,7 +139,7 @@ class CompanySatisfaction < ApplicationRecord
     %w[
       solicitation_mtm_campaign_cont solicitation_mtm_campaign_eq solicitation_mtm_campaign_start solicitation_mtm_campaign_end
       solicitation_mtm_kwd_cont solicitation_mtm_kwd_eq solicitation_mtm_kwd_start solicitation_mtm_kwd_end
-      shared_eq experts_id_eq with_comment_eq facility_region_eq
+      shared_eq experts_id_eq with_comment_eq outcomes_in facility_region_eq
     ]
   end
 
