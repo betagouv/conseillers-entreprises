@@ -6,23 +6,28 @@ class Conseiller::CooperationsController < ApplicationController
   before_action :retrieve_cooperation, only: %i[needs matches reports solicitations load_filter_options provenance_detail_autocomplete]
   before_action :init_filters, only: %i[needs matches load_filter_options]
 
-  def needs
-    set_stats_params(cooperation_id: @cooperation.id)
-    @charts_names = %w[
+  CHART_NAMES = {
+    needs: %w[
       solicitations_completed solicitations_diagnoses
       needs_positioning needs_done needs_done_no_help needs_done_not_reachable needs_not_for_me needs_taking_care
       needs_taken_care_in_five_days needs_themes_all needs_subjects_all companies_by_employees companies_by_naf_code
+    ],
+    matches: %w[
+      needs_transmitted matches_positioning matches_taking_care matches_done
+      matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
+      matches_taken_care_in_three_days matches_taken_care_in_five_days
     ]
+  }
+
+  def needs
+    set_stats_params(cooperation_id: @cooperation.id)
+    @charts_names = CHART_NAMES[:needs]
   end
 
   def matches
     # On filtre les MER de l'institution
     set_stats_params(cooperation_id: @cooperation.id, institution_id: @cooperation.institution.id)
-    @charts_names = %w[
-      needs_transmitted matches_positioning matches_taking_care matches_done
-      matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
-      matches_taken_care_in_three_days matches_taken_care_in_five_days
-    ]
+    @charts_names = CHART_NAMES[:matches]
   end
 
   def reports
@@ -36,6 +41,10 @@ class Conseiller::CooperationsController < ApplicationController
 
   def load_data
     name = params.permit(:chart_name)[:chart_name]
+    unless CHART_NAMES.values.flatten.include?(name)
+      head :not_found and return
+    end
+
     data = Rails.cache.fetch(['cooperation-stats', name, session[:cooperation_stats_params]], expires_in: 6.hours) do
       invoke_stats(name, session[:cooperation_stats_params])
     end

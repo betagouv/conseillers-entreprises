@@ -9,51 +9,69 @@ module Stats
 
     layout -> { current_user.is_sponsor? ? 'application' : nil }
 
-    def index
-      redirect_to action: :public
-    end
-
-    def public
-      @charts_names = %w[
+    CHART_NAMES = {
+      public: %w[
         solicitations_completed solicitations_diagnoses needs_exchange_with_expert needs_done
         needs_taken_care_in_three_days needs_taken_care_in_five_days needs_helped_in_five_days
         needs_themes_all needs_subjects_all companies_by_employees companies_by_naf_code
-      ]
-      render :index
-    end
-
-    def needs
-      @charts_names = %w[
+      ],
+      needs: %w[
         solicitations_transmitted_less_than_72h needs_quo needs_taking_care needs_done needs_done_no_help
         needs_done_not_reachable needs_not_for_me needs_abandoned_total_count needs_abandoned
-      ]
-      render :index
-    end
-
-    def matches
-      @charts_names = %w[
+      ],
+      matches_1: %w[
         needs_transmitted matches_positioning matches_taking_care matches_done
         matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
         matches_taken_care_in_three_days matches_taken_care_in_five_days
-      ] + themes_subjects_charts +
-      %w[
+      ],
+      matches_2: %w[
         companies_by_employees companies_by_naf_code
-      ]
-      render :index
-    end
-
-    def acquisition
-      @charts_names = %w[
+      ],
+      themes_1: %w[
+        needs_themes_not_from_external_cooperation
+        needs_themes_from_external_cooperation
+        needs_subjects_not_from_external_cooperation
+        needs_subjects_from_external_cooperation
+      ],
+      themes_2: %w[needs_themes_all needs_subjects_all],
+      acquisition: %w[
         acquisitions_overall_distribution_solicitations acquisitions_overall_distribution_solicitations_column
         acquisitions_overall_distribution_needs_transmitted acquisitions_overall_distribution_needs_transmitted_column
         acquisitions_overall_distribution_needs_done_with_help acquisitions_overall_distribution_needs_done_with_help_column
         acquisitions_by_new_companies
       ]
+    }
+
+    def index
+      redirect_to action: :public
+    end
+
+    def public
+      @charts_names = CHART_NAMES[:public]
+      render :index
+    end
+
+    def needs
+      @charts_names = CHART_NAMES[:needs]
+      render :index
+    end
+
+    def matches
+      @charts_names = CHART_NAMES[:matches_1] + themes_subjects_charts + CHART_NAMES[:matches_2]
+      render :index
+    end
+
+    def acquisition
+      @charts_names = CHART_NAMES[:acquisition]
       render :index
     end
 
     def load_data
       name = params.permit(:chart_name)[:chart_name]
+      unless CHART_NAMES.values.flatten.include?(name)
+        head :not_found and return
+      end
+
       cache_key = [
         'team-public-stats',
         name,
@@ -85,14 +103,9 @@ module Stats
 
     def themes_subjects_charts
       if @stats_params[:has_external_cooperation]
-        %w[
-          needs_themes_not_from_external_cooperation
-          needs_themes_from_external_cooperation
-          needs_subjects_not_from_external_cooperation
-          needs_subjects_from_external_cooperation
-        ]
+        CHART_NAMES[:themes_1]
       else
-        %w[needs_themes_all needs_subjects_all]
+        CHART_NAMES[:themes_2]
       end
     end
 
