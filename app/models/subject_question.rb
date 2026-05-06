@@ -22,6 +22,10 @@ class SubjectQuestion < ApplicationRecord
   has_many :subject_answers, dependent: :destroy, inverse_of: :subject_question
   has_many :subject_answer_filters, class_name: 'SubjectAnswer::Filter', dependent: :destroy, inverse_of: :subject_question
 
+  ## Scopes
+  #
+  scope :ordered, -> { order(:position) }
+
   ## Validations
   #
   validates :key, presence: true

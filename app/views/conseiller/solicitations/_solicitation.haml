@@ -53,7 +53,7 @@
             = simple_format(solicitation.description)
             - if solicitation.subject_answers.any?
               %ul
-                - solicitation.subject_answers.each do |answer|
+                - solicitation.subject_answers.ordered.each do |answer|
                   %li
                     = question_label(answer.key, :short)
                     %strong= answer_label(answer.key, answer.filter_value)

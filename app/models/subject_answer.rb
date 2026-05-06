@@ -29,6 +29,10 @@ class SubjectAnswer < ApplicationRecord
   #
   belongs_to :subject_question
 
+  ## Scopes
+  #
+  scope :ordered, -> { joins(:subject_question).merge(SubjectQuestion.ordered) }
+
   delegate :key, to: :subject_question
 
   scope :by_subject, -> (subject_id) do

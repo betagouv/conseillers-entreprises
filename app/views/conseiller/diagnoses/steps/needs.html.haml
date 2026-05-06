@@ -32,7 +32,7 @@
                     = need_form.label :_destroy, subject, class: 'fr-label '
                     = need_form.hidden_field :subject_id
                     -# Institution filters
-                    - subject_questions = SubjectQuestion.where(subject: subject)
+                    - subject_questions = SubjectQuestion.where(subject: subject).ordered
                     - subject_questions.each do |question|
                       - answer = need.subject_answers.where(subject_question: question).first_or_initialize
                       = need_form.fields_for :subject_answers, answer do |answer_form|

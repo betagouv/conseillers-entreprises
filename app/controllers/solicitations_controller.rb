@@ -180,7 +180,7 @@ class SolicitationsController < PagesController
   end
 
   def build_subject_answers
-    @solicitation.subject.subject_questions.order(:position).each do |question|
+    @solicitation.subject.subject_questions.ordered.each do |question|
       @solicitation.subject_answers.where(subject_question: question).first_or_initialize
     end
   end

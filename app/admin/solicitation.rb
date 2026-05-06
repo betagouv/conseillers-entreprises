@@ -45,7 +45,7 @@ ActiveAdmin.register Solicitation do
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
 
       ul class: 'mb-1' do
-        s.subject_answers.each do |answer|
+        s.subject_answers.ordered.each do |answer|
           li "- #{question_label(answer.key, :short)} #{tag.strong(answer_label(answer.key, answer.filter_value))} <br>".html_safe
         end
       end
@@ -178,7 +178,7 @@ ActiveAdmin.register Solicitation do
       end
       blockquote simple_format(solicitation.description)
       ul class: 'mb-1' do
-        solicitation.subject_answers.each do |filter|
+        solicitation.subject_answers.ordered.each do |filter|
           li "#{question_label(filter.key, :short)} #{tag.strong(answer_label(filter.key, filter.filter_value))} <br>".html_safe
         end
       end
