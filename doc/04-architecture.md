@@ -33,7 +33,7 @@ Une fois la sollicitation de l’entrepreneur reçue et validée, les informatio
 * Données publiques de l’entreprise : raison sociale, forme juridique, tranche d’effectif, capital social, code NAF, adresse, IDCC ;
 * Données sur les gérants : nom et fonction ;
 
-Cette liste n’est pas exhaustive: d’autres informations disponibles dans les bases administratives sont appelées à être utilisées. Ces informations vont servir à sélectionner automatiquement les agents partenaires les plus susceptibles de venir à l’aide de l’entreprise. En particulier, l’adresse de l’établissement permet de choisir, par exemple, la bonne agence France Travail.
+Cette liste n’est pas exhaustive : d’autres informations disponibles dans les bases administratives sont appelées à être utilisées. Ces informations vont servir à sélectionner automatiquement les agents partenaires les plus susceptibles de venir à l’aide de l’entreprise. En particulier, l’adresse de l’établissement permet de choisir, par exemple, la bonne agence France Travail.
 
 ### Agents publics et parapublics
 
@@ -70,6 +70,13 @@ Conseillers-entreprises.service-public.gouv.fr est une application web écrite e
 * Ruby on Rails est un framework de développement parmi les plus utilisés au monde, entre autres au sein de la communauté betagouv. Cela garantit des mises à jours régulières, ainsi que des corrections de failles de sécurité; par ailleurs, cela nous permet de trouver assez facilement de nouveaux développeurs.
 * PostgreSQL est un système de gestion de base de données performant et moderne, souvent associé à Ruby on Rails pour les applications de ce type.
 
+L'application tourne avec trois processus distincts en production :
+* [Puma](https://puma.io) sert les requêtes HTTP ;
+* [Sidekiq](https://sidekiq.org) traite les jobs asynchrones (envoi d'emails, appels aux APIs externes...) ;
+* [Clockwork](https://github.com/Rykian/clockwork) déclenche les tâches planifiées (relances, exports...).
+
+Le frontend s'appuie sur le [Système de Design de l'État (DSFR)](https://www.systeme-de-design.gouv.fr/), avec [Stimulus](https://stimulus.hotwired.dev/) et [Turbo](https://turbo.hotwired.dev/) pour les interactions côté navigateur.
+
 ### Développement
 
 Le développement du Service Public Conseillers entreprises est organisé sur [github](https://github.com/betagouv/conseillers-entreprises).
@@ -80,7 +87,16 @@ L’app Ruby est développée principalement sous forme de « [monolithe](https
 
 Nous travaillons de façon agile, par sprints de deux semaines. Le développement logiciel est fait en concertation permanente avec les autres membres de l’équipe. Un aperçu des sujets en cours est visible [directement sur github](https://github.com/orgs/betagouv/projects/96).
 
-Nous utilisons les outils standard d’audit automatique de qualité de code ([rubocop](https://rubocop.org)) et de sécurité ([brakeman](https://brakemanscanner.org)). Par ailleurs, nous développons, en parallèle des fonctionnalités, les tests associés. Ces tests sont executés de façon automatique avant l’intégration de chaque changement dans le code. Nous utilisons [Circle-CI](https://circleci.com) pour faire tourner ces tests automatiques.
+Nous utilisons les outils standard d’audit automatique de qualité de code et de sécurité. Par ailleurs, nous développons, en parallèle des fonctionnalités, les tests associés. Ces tests sont executés de façon automatique avant l’intégration de chaque changement dans le code. Nous utilisons [Circle-CI](https://circleci.com) pour faire tourner ces tests automatiques.
+
+Plus précisément, le pipeline de qualité inclut :
+* `rubocop` : style et conventions Ruby ;
+* `haml-lint` : style des templates HTML ;
+* `i18n-tasks` : cohérence des fichiers de traduction ;
+* `brakeman` : analyse statique de sécurité Rails ;
+* `eslint` : qualité du code JavaScript.
+
+Les tests RSpec sont exécutés en parallèle sur plusieurs runners pour accélérer le feedback. Les tests incluent des vérifications d’accessibilité (axe-core) pour s’assurer du respect du RGAA.
 
 ## Déploiement
 
@@ -90,7 +106,7 @@ Par ailleurs, le code revu et accepté est déployé de façon automatique et co
 
 ### Hébergement
 
-Conseillers-entreprises.service-public.gouv.fr est déployé sur la plateforme PAAS de [Scalingo](https://scalingo.com/fr), comme quelques autres startups d’États. Conseillers-entreprises.service-public.gouv.fr est sur la zone `osc-fr1` de Scalingo, hébergé dans un datacenter de Outscale, [situé en France](https://scalingo.com/fr/data-processing-agreement#pour-la-région-osc-fr1).
+Conseillers-entreprises.service-public.gouv.fr est déployé sur la plateforme PAAS de [Scalingo](https://scalingo.com/fr), comme quelques autres startups d’États. Conseillers-entreprises.service-public.gouv.fr est sur la zone `osc-secnum-fr1` de Scalingo, hébergé dans un datacenter de Outscale, [situé en France](https://scalingo.com/fr/data-processing-agreement#pour-la-région-osc-secnum-fr1).
 
 ### Nom de domaine
 
