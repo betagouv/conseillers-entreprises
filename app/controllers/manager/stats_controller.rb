@@ -7,6 +7,22 @@ module Manager
     before_action :set_stats_params, only: :index
     before_action :set_charts_names, only: %i[index load_data]
 
+    CHART_NAMES = {
+      charts_1: %w[
+        needs_transmitted matches_positioning matches_taking_care matches_done
+        matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
+        matches_taken_care_in_three_days matches_taken_care_in_five_days
+      ],
+      charts_2: %w[
+        companies_by_employees companies_by_naf_code
+      ],
+      themes_1: %w[
+        needs_themes_not_from_external_cooperation needs_themes_from_external_cooperation
+        needs_subjects_not_from_external_cooperation needs_subjects_from_external_cooperation
+      ],
+      themes_2: %w[needs_themes_all needs_subjects_all]
+
+    }
     def index
       initialize_filters(all_filter_keys)
       @antenne = Antenne.find(@stats_params[:antenne_id]) if @stats_params[:antenne_id].present?
@@ -14,8 +30,12 @@ module Manager
 
     def load_data
       name = params.permit(:chart_name)[:chart_name]
+      unless CHART_NAMES.values.flatten.include?(name)
+        head :not_found and return
+      end
+
       data = Rails.cache.fetch(['manager-stats', name, session[:manager_stats_params]], expires_in: 6.hours) do
-        invoke_stats(name, session[:manager_stats_params]) if @charts_names.include?(name)
+        invoke_stats(name, session[:manager_stats_params])
       end
       render partial: 'stats/load_stats', locals: { data: data, name: name }
     end
@@ -37,21 +57,14 @@ module Manager
     end
 
     def set_charts_names
-      @charts_names = %w[
-        needs_transmitted matches_positioning matches_taking_care matches_done
-        matches_done_no_help matches_done_not_reachable matches_not_for_me matches_not_positioning
-        matches_taken_care_in_three_days matches_taken_care_in_five_days
-      ] + themes_subjects_charts +
-      %w[
-        companies_by_employees companies_by_naf_code
-      ]
+      @charts_names = CHART_NAMES[:charts_1] + themes_subjects_charts + CHART_NAMES[:charts_2]
     end
 
     def themes_subjects_charts
       if base_needs_for_filters.from_external_cooperation.any?
-        %w[needs_themes_not_from_external_cooperation needs_themes_from_external_cooperation needs_subjects_not_from_external_cooperation needs_subjects_from_external_cooperation]
+        CHART_NAMES[:themes_1]
       else
-        %w[needs_themes_all needs_subjects_all]
+        CHART_NAMES[:themes_2]
       end
     end
 
