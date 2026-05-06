@@ -5,15 +5,15 @@ fr:
       footer_title: 'Accessibilité : partiellement conforme'
       title: Accessibilité
     cgu:
-      title: Conditions d’utilisation du service numérique Service Public Conseillers entreprises
+      title: Conditions d’utilisation du service numérique du Service Public Conseillers entreprises
     comment_ca_marche:
       business_owners: Ces chefs d’entreprises utilisent déjà le service. Et vous ?
-      long_title: Service Public Conseillers entreprises, comment ça marche ?
+      long_title: Le Service Public Conseillers entreprises, comment ça marche ?
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
       meta_title: Comment ça marche
-      partners: 'Service Public Conseillers entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
+      partners: 'Le Service Public Conseillers entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
       pde_testimonial: Témoignage d’un chef d’entreprise.
-      subtitle: Porté par les services du Premier ministre (DILA) et le ministère du Travail (DGEFP), Service Public Conseillers entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
+      subtitle: Porté par les services du Premier ministre (DILA) et le ministère du Travail (DGEFP), le Service Public Conseillers entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
     equipe:
       subtitle: Une petite équipe investie est à votre disposition pour répondre à vos questions. N'hésitez pas à nous écrire et partager vos idées pour améliorer le service.
@@ -146,7 +146,7 @@ fr:
       description: Vous utilisez régulièrement notre service. Votre avis nous est précieux ! Ce court questionnaire nous permettra de nous améliorer et de répondre au mieux à votre besoin.
       not_now: Pas maintenant
       show_questionnaire: Répondre au questionnaire
-      subtitle: Votre expérience avec Service Public Conseillers entreprises.
+      subtitle: Votre expérience avec le Service Public Conseillers entreprises.
       title: Enquête de satisfaction
     user_admin_view:
       invitation_not_accepted: Cette personne n’a pas encore accepté son invitation
@@ -238,7 +238,7 @@ fr:
       contacted_by_expert: Avez-vous bien été rappelé(e) par au moins un conseiller ou une conseillère ?
       outcome: 'Cet échange vous a permis :'
       send: Envoyer
-      title: Donnez votre avis sur Service Public Conseillers entreprises
+      title: Donnez votre avis sur le Service Public Conseillers entreprises
       useful_exchange: Est-ce que cet échange a été utile pour vous ?
     thank_you:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
@@ -332,7 +332,7 @@ fr:
     shared_satisfactions:
       callout:
         text: À la suite de leurs mises en relation, les entreprises ont la possibilité de s'exprimer au sujet de l’utilité du service. Les retours des entreprises partagés ici concernent les besoins clôturés par « aide proposée ». Ils sont donc destinés à l’ensemble des partenaires intervenus sur leurs besoins.
-        warning: Toute réutilisation de ces retours nécessite le recueil par vos soins du consentement de la personne dirigeante. Une mention de Service Public Conseillers entreprises est également bienvenue pour promouvoir notre coopération. Nous comptons sur vous !
+        warning: Toute réutilisation de ces retours nécessite le recueil par vos soins du consentement de la personne dirigeante. Une mention du Service Public Conseillers entreprises est également bienvenue pour promouvoir notre coopération. Nous comptons sur vous !
       index:
         mark_all_as_seen: Tout marquer comme "vu"
         no_results: Aucun résultat
@@ -404,7 +404,7 @@ fr:
     edit:
       antenne_and_institution: Structure
       different_antenne_warning_html: 'Attention : cette antenne est différente de l’antenne à laquelle est rattaché votre compte utilisateur.<br/> C’est peut-être une erreur ; <a href="mailto:%{email}">contactez-nous</a> pour la modifier.'
-      team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Service Public Conseillers entreprises.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
+      team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur le Service Public Conseillers entreprises.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
       team_members: Membres de l’équipe
     expert:
       expert_creation_date: Inscription le %{date}
@@ -420,12 +420,12 @@ fr:
       expert_subject_title_solo: Vos domaines d'intervention
       expert_subject_title_team: Les domaines d'intervention de votre équipe
       institution_subject_title: Les autres domaines d'intervention de votre institution
-      instructions_html: En tant qu’expert de Service Public Conseillers entreprises, vous pouvez recevoir des besoins d’entreprises sur vos domaines d’intervention.
+      instructions_html: En tant qu’expert du Service Public Conseillers entreprises, vous pouvez recevoir des besoins d’entreprises sur vos domaines d’intervention.
       others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a> (%{email}). Vous êtes susceptible de n'intervenir que sur une partie de ces domaines.
     update:
       success: Les informations ont bien été mises à jour
   export_xls:
-    email_instructions: Les adresses mails individuelles sont indispensables à la création des comptes utilisateurs et l’accès à l’interface de Service Public Conseillers entreprises. Si des conseillers sont partis, merci de mettre en rouge les lignes en question pour que nous supprimions leurs comptes utilisateurs.
+    email_instructions: Les adresses mails individuelles sont indispensables à la création des comptes utilisateurs et l’accès à l’interface du Service Public Conseillers entreprises. Si des conseillers sont partis, merci de mettre en rouge les lignes en question pour que nous supprimions leurs comptes utilisateurs.
     phone_instructions: |-
       Un numéro différent par conseiller
       Pas de standard téléphonique
@@ -512,7 +512,7 @@ fr:
         subtitle: 'Service public simple et rapide : %{count} TPE & PME ont déjà été accompagnées cette année par un conseiller %{subject}'
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
-        title: Service Public Conseillers entreprises vous met en relation avec le conseiller qui peut vous aider.
+        title: Le Service Public Conseillers entreprises vous met en relation avec le conseiller qui peut vous aider.
       multiple_steps:
         contact_us: Découvrez les autres sujets.
         other_questions: Vous ne trouvez pas ce que vous voulez ?
@@ -543,7 +543,7 @@ fr:
     prefets_regions: Préfet région %{name}
     regions: Conseil régional %{name}
     republique_francaise: République française
-    title: 'Service Public Conseillers entreprises est porté par les services du Premier ministre et le ministère du Travail, en partenariat avec :'
+    title: 'Le Service Public Conseillers entreprises est porté par les services du Premier ministre et le ministère du Travail, en partenariat avec :'
   manager:
     needs:
       index:
@@ -590,7 +590,7 @@ fr:
     close: Fermer
     main_menu: Menu principal
     menu: Menu
-    root_path_title: Accueil Service Public Conseillers entreprises
+    root_path_title: Accueil du Service Public Conseillers entreprises
     service_alt: Service Public Conseillers entreprises, Vos droits et démarches plus simplement
   needs:
     additional_experts:
@@ -621,7 +621,7 @@ fr:
       welcome_subtitle_emails:
         one: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{emails}.
         other: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.
-      welcome_title: Bienvenue sur Service Public Conseillers entreprises
+      welcome_title: Bienvenue sur le Service Public Conseillers entreprises
     index:
       title: Mes besoins
     match_actions:
@@ -698,7 +698,7 @@ fr:
       legifrance_title: Lien vers le site legifrance.gouv.fr
       open_cookies: Ouvre la fenêtre de gestion des cookies
       service_presentation: Brochure de présentation (PDF 500 ko)
-      service_presentation_title: Brochure de présentation de Service Public Conseillers entreprises - lien de téléchargement (PDF 500 ko)
+      service_presentation_title: Brochure de présentation du Service Public Conseillers entreprises - lien de téléchargement (PDF 500 ko)
       service_public_title: Lien vers le site service-public.gouv.fr
       service_short_description: Échangez avec les conseillers qui peuvent vous aider dans vos projets, vos difficultés ou les transformations nécessaires à la réussite de votre entreprise.
       source_code: Github, lien vers le code source du site
@@ -709,7 +709,7 @@ fr:
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
       expert_contacts_you_html: "<span class='blue'>Le conseiller vous contacte</span> directement pour vous aider sous 5 jours*."
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Conseillers-entreprises.service-public.gouv.fr</a>
-      pde_presentation: Présentation de Service Public Conseillers entreprises
+      pde_presentation: Présentation du Service Public Conseillers entreprises
       select_expert_description: Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
     how_it_works_short:
       human_description: Vous échangez au téléphone avec une personne experte.
@@ -849,7 +849,7 @@ fr:
     sitemap:
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
       meta_title: Plan du site
-      subtitle: Retrouvez ici une vision synthétique de l’ensemble des contenus de Service Public Conseillers entreprises
+      subtitle: Retrouvez ici une vision synthétique de l’ensemble des contenus du Service Public Conseillers entreprises
       title: Plan du site
   solicitations:
     company_tile:
@@ -874,7 +874,7 @@ fr:
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours</b>"
       form_complete: Demande envoyée
       give_my_opinion_alt: Je donne mon avis
-      legal_notice_html: "<p>Les services du Premier ministre (DILA) et le ministère du Travail (DGEFP) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Service Public Conseillers entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner %{subject_personalisation}, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez nous contacter par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris. Pour en savoir plus, consultez les %{informations}.</p>"
+      legal_notice_html: "<p>Les services du Premier ministre (DILA) et le ministère du Travail (DGEFP) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Le Service Public Conseillers entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner %{subject_personalisation}, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez nous contacter par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris. Pour en savoir plus, consultez les %{informations}.</p>"
       legal_notice_personalisation:
         activite-partielle: sur l’activité partielle
         agrement-esus: sur les conditions de l’agrément « Entreprise solidaire d’utilité sociale » (ESUS) et ses avantages
@@ -929,9 +929,9 @@ fr:
         step_verification: Récapitulatif avant envoi
       submit_in_progress: Envoi en cours...
     form_complete:
-      iframe_message_html: Votre demande a bien été transmise à Service Public Conseillers entreprises, le service public de mise en relation pour les TPE & PME.
+      iframe_message_html: Votre demande a bien été transmise au Service Public Conseillers entreprises, le service public de mise en relation pour les TPE & PME.
       process_description_step_1_html: Nous allons <b> identifier le bon conseiller </b> près de chez vous.
-      process_description_step_1_iframe_html: Service Public Conseillers entreprises va <b> identifier le bon conseiller </b> près de chez vous.
+      process_description_step_1_iframe_html: Le Service Public Conseillers entreprises va <b> identifier le bon conseiller </b> près de chez vous.
       process_description_step_2_html: Le conseiller vous <b>contactera %{mode_contact}</b> dans les 5 jours (délai moyen de prise en charge).
       process_description_title: Et maintenant ?
       title: Merci pour votre demande
@@ -977,7 +977,7 @@ fr:
   stats:
     done_no_help_status: Statut « cloturé sans aide »
     done_status: Statut « cloturé avec aide »
-    from_known_companies: Entreprises déjà connues de Service Public Conseillers entreprises
+    from_known_companies: Entreprises déjà connues du Service Public Conseillers entreprises
     from_new_companies: Entreprises contactant le service pour la première fois
     less_than_72h: Moins de 72h
     main_stats_chart:
@@ -990,14 +990,14 @@ fr:
     positioning: L’expert s’est positionné
     public:
       index:
-        meta_description: Service Public Conseillers entreprises, permet aux TPE & PME d’être appelées par le bon conseiller pour répondre à leur demande. L’activité du service est mesurée à partir de statistiques publiques.
+        meta_description: Le Service Public Conseillers entreprises permet aux TPE & PME d’être appelées par le bon conseiller pour répondre à leur demande. L’activité du service est mesurée à partir de statistiques publiques.
         title: Statistiques d’utilisation
       stats_params:
         datepicker_format: 'Format attendu : JJ/MM/AAAA'
     series:
       acquisitions_by_new_companies:
         title: des besoins ont été déposés par des entreprises utilisant le service pour la première fois soit %{secondary_count} besoins
-        title_table: Répartition des besoins reçus selon que l’entreprise utilise Service Public Conseillers entreprises pour la première fois ou non.
+        title_table: Répartition des besoins reçus selon que l’entreprise utilise le Service Public Conseillers entreprises pour la première fois ou non.
       acquisitions_entreprendre:
         title:
           one: des besoins transmis aux conseillers proviennent du site Entreprendre.Service-Public.fr, soit %{secondary_count} besoin
@@ -1043,7 +1043,7 @@ fr:
         title_table: Secteurs d’activité des entreprises utilisatrices du service
       done_with_help_column:
         series: Besoins cloturés par une proposition d’aide
-        subtitle_html: "<p>Depuis l’ouverture du service, la promesse de Service Public Conseillers entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p>"
+        subtitle_html: "<p>Depuis l’ouverture du service, la promesse du Service Public Conseillers entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p>"
         title: besoins d'entreprises ont été clôturés par une proposition d'aide après échange avec un conseiller.
         title_table: Nombre de besoins d’entreprises ayant été cloturés par une aide proposée depuis l’ouverture du service
       experts:
@@ -1330,18 +1330,18 @@ fr:
       at_your_service_3: Assurer le suivi des besoins restés sans réponse ou refusés, afin qu’aucune entreprise ne reste sans réponse.
       at_your_service_4_html: Pour toute question, <a href="%{contact_url}">n’hésitez pas à prendre contact !</a>
       available_on_html: La vidéo est également visible sur %{dailymotion_link}.
-      comments: En cas de refus, les commentaires aident l’équipe en charge de Service Public Conseillers entreprises à améliorer l’orientation des besoins d’entreprises.
+      comments: En cas de refus, les commentaires aident l’équipe en charge du Service Public Conseillers entreprises à améliorer l’orientation des besoins d’entreprises.
       dailymotion: Dailymotion
       dailymotion_video_title: Lien vers la video tutoriel sur Dailymotion - nouvelle fenêtre
       emails: Recevoir les emails
-      explanation_emails: Je vérifie dans mon dossier "spams" et glisse, si je l'y trouve, l’email de Service Public Conseillers entreprises dans ma boîte de réception pour l’autoriser. Les prochains emails arriveront ainsi directement dans ma boîte de réception !
+      explanation_emails: Je vérifie dans mon dossier "spams" et glisse, si je l'y trouve, l’email du Service Public Conseillers entreprises dans ma boîte de réception pour l’autoriser. Les prochains emails arriveront ainsi directement dans ma boîte de réception !
       need_steps: Les 4 étapes de la prise en charge d’un besoin
       notifications_explanations_1_html: À l’arrivée d’un <b>nouveau besoin</b> d’une entreprise sur votre territoire
       notifications_explanations_2_html: Si vous avez des besoins en attente en réponse, vous recevrez également :<ul><li>un <b>récapitulatif hebdomadaire</b> tous les mardis regroupant tous les besoins en attente</li><li>une <b>relance de “la dernière chance”</b> 3 semaines après réception d’un besoin</li><li>un <b>mail de rappel</b> manuellement déclenché par un membre de l’équipe</li></ul>
       notifications_explanations_3_html: Lorsque le besoin est clôturé, vous ne recevez plus de notification.
       notifications_question: Quand recevez-vous une notification ?
       notifications_title: Comprendre les notifications
-      question_emails: Je ne reçois pas les emails de Service Public Conseillers entreprises, que faire ?
+      question_emails: Je ne reçois pas les emails du Service Public Conseillers entreprises, que faire ?
       step_1: Je me positionne sur le besoin de l’entreprise adressé sur mon champ de compétences, en cliquant sur le bouton de prise en charge (« J’appelle ») ou de refus (« Ce n’est pas pour moi »).
       step_2: Lorsque j’ai cliqué sur le bouton vert "J’appelle", je contacte le chef d’entreprise par téléphone pour préciser avec lui sa problématique et identifier l’aide ou l’accompagnement que ma structure peut lui proposer.
       step_3: Après l’appel, je clôture mon intervention en fonction de la réponse apportée ou de l’impossibilité de joindre le chef d’entreprise (n'oubliez alors pas de laisser vos coordonnées sur le répondeur).

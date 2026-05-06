@@ -12,8 +12,8 @@ fr:
     forgot_password: Mot de passe oublié ou inconnu ?
     invitations:
       edit:
-        accept_cgu_html: J’ai lu et j’accepte les <a href='%{cgu_path}'>conditions d’utilisation de Service Public Conseillers entreprises</a>
-        header: Bienvenue sur Service Public Conseillers entreprises
+        accept_cgu_html: J’ai lu et j’accepte les <a href='%{cgu_path}'>conditions d’utilisation du Service Public Conseillers entreprises</a>
+        header: Bienvenue sur le Service Public Conseillers entreprises
         password_description: 'Choisissez un mot de passe pour créer votre compte :'
         prefilled_description: 'Certaines informations ont été préremplies ; vous pouvez les corriger si nécessaire :'
         submit_button: Enregistrer
@@ -21,7 +21,7 @@ fr:
       invitation_token_invalid: Ce lien d’invitation est invalide ou expiré. Vous avez peut-être reçu une invitation plus récente. Si ce n'est pas le cas, écrivez-nous à contact@entreprises.service-public.gouv.fr pour recevoir une nouvelle invitation.
       new:
         description: 'L’inscription est réservée aux conseillers d’organismes publics : préférez une adresse mail professionnelle fournie par votre organisme.'
-        header: Inviter un conseiller sur Service Public Conseillers entreprises
+        header: Inviter un conseiller sur le Service Public Conseillers entreprises
         submit_button: Envoyer l’invitation
       send_instructions: Un email d’invitation a été envoyé à %{email}.
       updated: Mot de passe enregistré. Vous êtes maintenant connecté.
@@ -32,31 +32,31 @@ fr:
         accept_user_invitation_instruction: 'Pour recevoir des besoins et rejoindre la communauté, choisissez votre mot de passe :'
         answer_one: "%{institution_name} est partenaire de ce service public en vertu d’un accord national, décliné localement. D’après les données communiquées, vous avez été identifié(e) pour participer à cette dynamique. Ce service est le fruit d’une co-construction avec des conseillers et des chefs d’entreprises, n’hésitez à nous partager votre retour d’expérience."
         answer_two_html: "<p>Financé par les services du Premier ministre et le ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE et PME.</p><p>En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations et des organismes publics ou parapublics sur son territoire.</p><p>Vous pouvez ainsi échanger sur un besoin d’entreprise avec des conseillers du service public travaillant dans d’autres structures. Le service compte plus de 40 partenaires !</p>"
-        description_html: Vous êtes invité(e) à rejoindre Service Public Conseillers entreprises, au sein de l’antenne %{antenne}.
+        description_html: Vous êtes invité(e) à rejoindre le Service Public Conseillers entreprises, au sein de l’antenne %{antenne}.
         looking_forward: Au plaisir d’échanger à cette occasion,
         question_one: Pourquoi recevez-vous ce mail ?
-        question_two: Comment fonctionne Service Public Conseillers entreprises ?
-        subject: Invitation à rejoindre Service Public Conseillers entreprises, partenaire de %{institution}
+        question_two: Comment fonctionne le Service Public Conseillers entreprises ?
+        subject: Invitation à rejoindre le Service Public Conseillers entreprises, partenaire de %{institution}
       invitation_instructions_cooperation_manager:
         accept: Choisir mon mot de passe
         accept_user_invitation_instruction: 'Pour accéder aux statistiques de pilotage de la coopération, choisissez votre mot de passe :'
-        answer_one: Le site %{cooperation_name} a intégré pour ses utilisateurs Service Public Conseillers entreprises afin qu’ils puissent bénéficier d’un conseil humain et de proximité. Vous avez été identifié(e) comme référent(e) au sein de votre institution %{institution_name} pour suivre cette coopération.
+        answer_one: Le site %{cooperation_name} a intégré pour ses utilisateurs le Service Public Conseillers entreprises afin qu’ils puissent bénéficier d’un conseil humain et de proximité. Vous avez été identifié(e) comme référent(e) au sein de votre institution %{institution_name} pour suivre cette coopération.
         answer_two: Découvrez l’activité générée par ce partenariat et continuons ensemble d’améliorer notre impact auprès des entreprises.
-        description_html: Vous êtes invité(e) à rejoindre Service Public Conseillers entreprises, en tant que responsable de la coopération %{cooperation}.
+        description_html: Vous êtes invité(e) à rejoindre le Service Public Conseillers entreprises, en tant que responsable de la coopération %{cooperation}.
         looking_forward: Au plaisir d’échanger à cette occasion,
         question_one: Pourquoi recevez-vous ce mail ?
-        subject: Invitation à votre accès de pilotage pour la coopération avec Service Public Conseillers entreprises
+        subject: Invitation à votre accès de pilotage pour la coopération avec le Service Public Conseillers entreprises
       invitation_instructions_sponsor:
         accept: Choisir mon mot de passe
         accept_user_invitation_instruction: 'Pour avoir accès aux statistiques de pilotage du service et des opérateurs relevant de votre champ de compétences, choisissez votre mot de passe :'
         answer_one: Financé par la DILA (services du Premier ministre) et la DGEFP (ministère du Travail), ce service permet d’offrir un conseil humain et de proximité aux TPE & PME.
         answer_two: En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations, organismes publics et parapublics chargés de l’accompagner sur son territoire.
-        description_html: Vous êtes invité(e) à rejoindre Service Public Conseillers entreprises, au sein de l’antenne %{antenne}.
+        description_html: Vous êtes invité(e) à rejoindre le Service Public Conseillers entreprises, au sein de l’antenne %{antenne}.
         looking_forward: Au plaisir d’échanger à cette occasion,
-        question_one: Comment fonctionne Service Public Conseillers entreprises ?
-        subject: Invitation à votre accès de pilotage pour Service Public Conseillers entreprises
+        question_one: Comment fonctionne le Service Public Conseillers entreprises ?
+        subject: Invitation à votre accès de pilotage pour le Service Public Conseillers entreprises
       reset_password_instructions:
-        account_but_never_connected_html: "<p>Vous disposez d’un compte sur Service Public Conseillers entreprises, mais il n’est pas encore activé. Cliquez sur le bouton ci-dessous pour choisir votre mot de passe et activer votre compte.</p>"
+        account_but_never_connected_html: "<p>Vous disposez d’un compte sur le Service Public Conseillers entreprises, mais il n’est pas encore activé. Cliquez sur le bouton ci-dessous pour choisir votre mot de passe et activer votre compte.</p>"
         change_my_password: Changer de mot de passe
         choose_my_password: Choisir mon mot de passe
         ignore: Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail. Votre mot de passe ne sera pas modifié.
@@ -73,7 +73,7 @@ fr:
         change_own_password: Enregistrer le mot de passe
         new_password: Nouveau mot de passe
         password_reset: Choix du mot de passe
-        password_reset_description: 'Choisissez le nouveau mot de passe pour votre compte Service Public Conseillers entreprises :'
+        password_reset_description: 'Choisissez le nouveau mot de passe pour votre compte sur le Service Public Conseillers entreprises :'
       new:
         password_unknown_description: Si vous ne connaissez pas ou plus votre mot de passe, saisissez l’e-mail de votre compte pour recevoir les instructions de choix de mot de passe.
         send_me_reset_password_instructions: Envoyer les instructions
@@ -99,11 +99,11 @@ fr:
         email: Email professionnel nominatif
         email_help: 'Exemple : marie.dupont@mon-organisation.fr'
         how_to_sign_up_html: |
-          <h2> Qui sont les conseillers utilisant Service Public Conseillers entreprises ?</h2>
-          <p>Les conseillers de Service Public Conseillers entreprises sont les agents des administrations, des organismes publics et parapublics chargés d’accompagner les entreprises. Le service compte aujourd’hui <b>plus de 10 000 conseillers</b> au sein de 40 partenaires différents !</p>
+          <h2> Qui sont les conseillers utilisant le Service Public Conseillers entreprises ?</h2>
+          <p>Les conseillers du Service Public Conseillers entreprises sont les agents des administrations, des organismes publics et parapublics chargés d’accompagner les entreprises. Le service compte aujourd’hui <b>plus de 10 000 conseillers</b> au sein de 40 partenaires différents !</p>
           <p>En tant que conseiller(e), vous êtes référencé(e) comme expert(e) sur un ou plusieurs sujets avec un champ d’intervention précis. Le service vous permet ensuite de recevoir des besoins d’entreprises correspondant à votre expertise et d’échanger avec d’autres conseillers compétents pour aider une entreprise.</p>
           <p>Ce service vise autant à aider les TPE & PME qu’à <b>faciliter le travail quotidien</b> des conseillers qui les accompagnent, dans une logique de <b>complémentarité et de décloisonnement des institutions</b>. Aidons ensemble les TPE & PME dans leurs projets, leurs difficultés et leurs transformations.</p>
-        meta_description: Les conseillers de Service Public Conseillers entreprises sont les agents des administrations, des organismes publics et parapublics et des collectivités chargés d’accompagner les entreprises.
+        meta_description: Les conseillers du Service Public Conseillers entreprises sont les agents des administrations, des organismes publics et parapublics et des collectivités chargés d’accompagner les entreprises.
         meta_title: Accès conseiller
       signed_in: ''
       signed_out: Déconnecté.
