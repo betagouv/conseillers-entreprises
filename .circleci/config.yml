@@ -18,24 +18,24 @@ defaults:
 bundle_restore_cache:
   &bundle_restore_cache
   restore_cache:
-    key: v1-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
+    key: v2-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
 
 yarn_restore_cache:
   &yarn_restore_cache
   restore_cache:
-    key: v1-yarn-cache-{{ arch }}-{{ checksum "yarn.lock" }}
+    key: v2-yarn-cache-{{ arch }}-{{ checksum "yarn.lock" }}
 
 bundle_save_cache:
   &bundle_save_cache
   save_cache:
-    key: v1-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
+    key: v2-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
     paths:
       - ~/vendor/bundle
 
 yarn_save_cache:
   &yarn_save_cache
   save_cache:
-    key: v1-yarn-cache-{{ arch }}-{{ checksum "yarn.lock" }}
+    key: v2-yarn-cache-{{ arch }}-{{ checksum "yarn.lock" }}
     paths:
       - ~/.cache/yarn
 
