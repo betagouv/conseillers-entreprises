@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   browser-tools: circleci/browser-tools@1.5.1
-  qlty: qltysh/qlty-orb@0.0
 
 defaults:
   &defaults
@@ -102,9 +101,14 @@ jobs:
               --out /tmp/test-results/rspec.xml \
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      - qlty/coverage_publish:
-          files: coverage/coverage.json
-          total_parts_count: 4
+      - run:
+          name: Publish coverage to Qlty
+          command: |
+            curl -fsSL https://qlty.sh | bash
+            qlty coverage publish \
+              --override-branch main \
+              --total-parts-count 4 \
+              coverage/coverage.json
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
