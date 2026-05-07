@@ -28,16 +28,16 @@ fr:
         its_about: 'Elle concerne :'
         partner_list: 'Les partenaires pouvant vous rappeler sont :'
         subject: Confirmation de votre demande « %{subject} »
-      explanation_html: Ce service public d’accompagnement des entreprises est proposé par le Ministère de l’Économie et le Ministère du Travail pour faciliter la vie des petites entreprises. Il vous permet d’échanger avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
+      explanation_html: Ce service public d’accompagnement des entreprises est proposé par les services du Premier ministre et le ministère du Travail pour faciliter la vie des petites entreprises. Il vous permet d’échanger avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
       failed_need:
         no_experts: Nous avons transmis votre demande au sein de notre réseau de partenaires institutionnels publics et parapublics. Malheureusement et malgré nos efforts de relance, nous avons le regret de vous informer qu’aucun de nos partenaires n’est en mesure de vous accompagner pour votre demande.
         service_improvement: C’est en détectant de nouvelles situations que nous pouvons améliorer ce service. Nous faisons notre maximum pour compléter l’expertise du service en intégrant de nouveaux partenaires. Nous espérons ainsi proposer à terme un conseil personnalisé à toutes les TPE & PME dans votre situation.
-        subject: Échec de votre demande Conseillers-Entreprises
+        subject: Échec de votre demande sur le Service Public Conseillers entreprises
         your_need_html: Vous avez utilisé le service public %{link_to_root} - ou un site partenaire intégrant ce service - sur le sujet <strong>%{subject}</strong>.
       intelligent_retention:
         and_you: Et vous, souhaitez-vous être aidé par un conseiller sur ces sujets ?
-      intro_from_solicitation_html: 'Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concerne :'
-      intro_from_solicitation_with_subject_html: Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concerne <b>« %{subject} »</b>.
+      intro_from_solicitation_html: 'Vous avez utilisé le Service Public Conseillers entreprises pour <i>%{company}</i>. Votre demande concerne :'
+      intro_from_solicitation_with_subject_html: Vous avez utilisé le Service Public Conseillers entreprises pour <i>%{company}</i>. Votre demande concerne <b>« %{subject} »</b>.
       not_yet_taken_care:
         holiday_delay: En période de congés, les délais de prise en charge peuvent être exceptionnellement plus longs.
         subject: Suivi de votre demande « %{subject} »
@@ -51,13 +51,13 @@ fr:
         not_reachable_instructions: Si vous êtes injoignable, n’oubliez pas de consulter votre messagerie vocale et vos mails.
         subject: Prise en charge de votre demande « %{subject} »
       retention:
-        intro_html: 'Vous avez utilisé le service public Conseillers-Entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait :'
+        intro_html: 'Vous avez utilisé le Service Public Conseillers entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait :'
         list_html: 'Des dirigeants utilisent le service pour être accompagnés sur d’autres sujets : <ul><li>recrutement</li><li>formation</li><li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
         outro: Si vous souhaitez être accompagné(e), n’hésitez pas à déposer une demande.
         send_solicitation: Échanger avec un conseiller
         subject: Avez-vous besoin d’aide ?
       satisfaction:
-        intro_html: 'Vous avez utilisé le service public Conseillers-Entreprises pour <i>%{company}</i>. Votre demande concernait :'
+        intro_html: 'Vous avez utilisé le Service Public Conseillers entreprises pour <i>%{company}</i>. Votre demande concernait :'
         outro: Votre avis est important pour nous aider à améliorer ce service d'accompagnement des entreprises.
         question_one_html: Avez-vous été rappelé(e) par un conseiller ou une conseillère ? <a href='%{link_yes}' target='_blank' class='response-button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='response-button no'>Non</a>
         subject: Fin du suivi de votre demande « %{subject} »
@@ -65,21 +65,21 @@ fr:
         continue_button: Finaliser ma demande d’aide
         incomplete_step_explanation: 'Nous avons besoin de votre SIRET ou SIREN pour vous fournir un conseil humain et de proximité. Pour trouver votre SIRET, vous pouvez renseigner le nom de votre entreprise en cliquant ci-dessous :'
         incomplete_step_explanation_cooperation: 'Nous avons besoin de votre SIRET ou SIREN pour vous mettre en relation avec un conseiller. Pour trouver votre SIRET, vous pouvez renseigner le nom de votre entreprise en cliquant ci-dessous :'
-        service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
+        service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par les services du Premier ministre et le ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
         subject: Finalisez votre demande pour « %{subject} »
         your_solicitation_cooperation_html: 'Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site :'
         your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site conseillers-entreprises.service-public.gouv.fr.
       solicitation_relaunch_description:
         continue_button: Finaliser ma demande d’aide
         incomplete_step_explanation: Vous pouvez expliquer votre problématique avec quelques éléments de contexte pour bénéficier d’un conseil humain et de proximité.
-        service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par le Ministère de l’Économie et le Ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
+        service_explanation_html: Ce <strong>service public d’accompagnement des entreprises</strong> est proposé par les services du Premier ministre et le ministère du Travail. Il vous permet d’échanger gratuitement avec LE conseiller qui peut vous aider parmi plus de 40 partenaires.
         subject: Finalisez votre demande à propos de « %{subject} »
         your_solicitation_cooperation_html: 'Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site :'
         your_solicitation_html: Vous avez commencé une demande d’aide sur le sujet « <strong>%{subject}</strong> » sur le site conseillers-entreprises.service-public.gouv.fr.
       why_this_message_html: "<strong>Pourquoi recevez-vous ce message ?</strong>"
     contact_me: Pour toute question, contactez-moi
     contact_your_referent: Pour toute question, contactez votre référent
-    cooperation_uses_ce: Ce site utilise le service public Conseillers-Entreprises pour que vous puissiez bénéficier d’un conseil humain et de proximité.
+    cooperation_uses_ce: Ce site utilise le Service Public Conseillers entreprises pour que vous puissiez bénéficier d’un conseil humain et de proximité.
     email_sent: L’email a bien été envoyé
     expert_mailer:
       closing_good_practice:
@@ -87,14 +87,14 @@ fr:
         please_close_html: 'J’espère que vous allez bien. Pour que nous puissions valoriser au mieux toutes vos interventions, je vous invite à clôturer les derniers besoins « en cours » dans votre boîte de réception : %{link_to_needs}.'
         subject: Invitation à clôturer vos anciennes interventions
       first_notification_help:
-        answer: Financé par le Ministère de l’Économie et le Ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE & PME. L’objectif est de faciliter la vie des petites entreprises en apportant une réponse collectivement plus efficace.
+        answer: Financé par les services du Premier ministre et le ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE & PME. L’objectif est de faciliter la vie des petites entreprises en apportant une réponse collectivement plus efficace.
         answer_3: Vous pouvez ainsi échanger sur un besoin d’entreprise avec des conseillers du service public travaillant dans d’autres structures. Le service compte plus de 40 partenaires !
         answer_continuation: En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations et des organismes publics ou parapublics compétents sur son territoire.
-        received_need: Vous venez de recevoir votre premier besoin d’entreprise sur le service public Conseillers-Entreprises.
+        received_need: Vous venez de recevoir votre premier besoin d’entreprise sur le Service Public Conseillers entreprises.
         response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
-        subject: Service public Conseillers-Entreprises - Votre premier besoin
+        subject: Service Public Conseillers entreprises - Votre premier besoin
         watch_videos_html: N’hésitez pas à jeter un œil à <a href='https://youtu.be/MwYccPNUcyU?si=77HjEc44p5VbKH9Q' target='_blank'>la vidéo de démonstration ici</a> !
-        what_is_pde: Comment fonctionne le service public Conseillers-Entreprises ?
+        what_is_pde: Comment fonctionne le Service Public Conseillers entreprises ?
       last_chance:
         at_your_disposal: Je reste à votre disposition si vous avez besoin d’aide.
         company_solicitation_html: Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier.
@@ -109,22 +109,22 @@ fr:
       notify_company_needs:
         company_needs_you: Une entreprise a besoin de votre expertise sur « %{subject} ».
         subject: L’entreprise %{company_name} a besoin de vous
-        via_partner_html: Ce besoin a été déposé sur le site <a href='%{url}' target='_blank'>%{url}</a>, en partenariat avec le service public Conseillers-Entreprises.
+        via_partner_html: Ce besoin a été déposé sur le site <a href='%{url}' target='_blank'>%{url}</a>, en partenariat avec le Service Public Conseillers entreprises.
       positioning_rate_reminders:
         at_your_disposal: Je me tiens également à votre disposition pour toute modification de référencement ou si vous souhaitez faire un point sur la qualité des besoins transmis. Vos retours sont précieux pour nous aider à améliorer le service.
         call_me: Si jamais vous ne recevez pas les besoins par mail, appelez-moi pour que nous regardions ensemble.
-        needs_quo_html: Je vous écris car vous avez <strong>%{count} besoins d’entreprise</strong> en attente de votre positionnement sur le service public Conseillers-Entreprises. Vous pouvez les retrouver facilement en vous connectant sur votre %{account_link}.
+        needs_quo_html: Je vous écris car vous avez <strong>%{count} besoins d’entreprise</strong> en attente de votre positionnement sur le Service Public Conseillers entreprises. Vous pouvez les retrouver facilement en vous connectant sur votre %{account_link}.
         subject: Rappel : des entreprises ont besoin de vous !
         user_account: compte utilisateur
       re_engagement:
         ask_questions: N’hésitez pas à venir poser vos questions.
         at_your_service: Je me tiens également à votre disposition par téléphone.
-        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le service public Conseillers-Entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque jeudi à 14h30</strong> (heure de Paris) sur ce lien de visio : <a href="https://visio.numerique.gouv.fr/ize-ybtb-ibd"> https://visio.numerique.gouv.fr</a>.'
+        if_you_need_a_demo_html: 'Si vous souhaitez redécouvrir le Service Public Conseillers entreprises, nous organisons une démonstration et <strong>un temps d’échanges chaque jeudi à 14h30</strong> (heure de Paris) sur ce lien de visio : <a href="https://visio.numerique.gouv.fr/ize-ybtb-ibd"> https://visio.numerique.gouv.fr</a>.'
         position_yourself: Comme cela n’étais pas arrivé depuis longtemps, nous vous invitons à vous positionner sur ce besoin à l'aide du bouton « J’appelle » ou « Ce n’est pas pour moi ».
-        subject: Service public Conseillers-Entreprises - Nous vous accompagnons !
+        subject: Service Public Conseillers entreprises - Nous vous accompagnons !
         you_received_need_html: Vous venez de recevoir un besoin de l’entreprise <strong>%{company}</strong> sur le sujet %{subject}. Vous pouvez le retrouver sur votre <a href="%{url}">compte utilisateur</a>.
       remind_involvement:
-        needs_for_you: Les entreprises ci-dessous ont souhaité bénéficier de votre expertise via le service public Conseillers-Entreprises.
+        needs_for_you: Les entreprises ci-dessous ont souhaité bénéficier de votre expertise via le Service Public Conseillers entreprises.
         needs_quo: Pourriez-vous nous partager votre position concernant ces besoins ?
         other_needs_quo_html: Retrouvez facilement les autres besoins en attente de positionnement en vous connectant à votre %{account_link}.
         subject: 'Récap : Des entreprises ont besoin de vous !'
@@ -142,7 +142,7 @@ fr:
     sincerely: Bien à vous,
     solicitation:
       base_intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service).
-      subject: Votre demande sur le service public Conseillers-Entreprises
+      subject: Votre demande sur le Service Public Conseillers entreprisesEntreprises
     solicitation_mailer:
       administrations_collectivites:
         apprentissage_html: 'pour les questions liées à l’apprentissage : <a href=''https://www.fonction-publique.gouv.fr/devenir-agent-public/lapprentissage-dans-la-fonction-publique''>https://www.fonction-publique.gouv.fr/devenir-agent-public/lapprentissage-dans-la-fonction-publique</a>'
@@ -261,14 +261,14 @@ fr:
         solicitation_subject: concernant votre retraite
       sie_sip_declare_and_pay:
         income_and_taxation: Les questions relatives à la déclaration de vos revenus et à leur imposition relèvent de votre service des impôts des particuliers (SIP), tandis que les questions relatives à la CFE et à la TVA relèvent de votre service des impôts des entreprises (SIE).
-        not_partner_html: "<strong>Malheureusement ces deux services ne sont pas partenaires de Conseillers-Entreprises à ce jour</strong>.<br>Nous vous invitons à les solliciter directement :"
+        not_partner_html: "<strong>Malheureusement ces deux services ne sont pas partenaires du Service Public Conseillers entreprises à ce jour</strong>.<br>Nous vous invitons à les solliciter directement :"
         sie_html: 'Service des impôts des entreprises (SIE) : <a href=''https://lannuaire.service-public.gouv.fr/navigation/sie''>https://lannuaire.service-public.gouv.fr/navigation/sie</a>'
         sie_on_impots_html: Vous pouvez également joindre ces services sur votre compte professionnel ou votre compte particulier <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr'>impots.gouv.fr</a>, via votre messagerie personnalisée.
         sip_html: 'Service des impôts des particuliers (SIP)  : <a href=''https://lannuaire.service-public.gouv.fr/navigation/sip''>https://lannuaire.service-public.gouv.fr/navigation/sip</a>'
         solicitation_subject_html: concernant votre déclaration de revenus ou le paiement de vos impôts
       sie_tva_and_others:
         no_tva_number: Les démarches et les questions relatives à la TVA (déclaration et paiement de la TVA, obtention d’un n° de TVA intracommunautaire, seuil et changement de régime de TVA …) relèvent de votre service des impôts des entreprises (SIE).
-        sie_annuaire_html: "<b>Malheureusement ce service n’est pas partenaire de Conseillers-Entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href='https://lannuaire.service-public.gouv.fr/navigation/sie'>https://lannuaire.service-public.gouv.fr/navigation/sie</a>."
+        sie_annuaire_html: "<b>Malheureusement ce service n’est pas partenaire du Service Public Conseillers entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href='https://lannuaire.service-public.gouv.fr/navigation/sie'>https://lannuaire.service-public.gouv.fr/navigation/sie</a>."
         sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/'>impots.gouv.fr</a>, dans votre espace de messagerie personnalisée.
         solicitation_subject_html: concernant la TVA
       siret:
@@ -284,7 +284,7 @@ fr:
         no_expert: Malheureusement nous n’avons pas encore d'expert en mesure de répondre à votre problématique.
         tradespeople_html: "<strong>pour les commerçants</strong> : <a href='https://communication-agefice.fr'>https://communication-agefice.fr</a>"
         useful_links: 'Selon votre statut social de Travailleur Non Salarié, 4 organismes sont compétents :'
-    team_html: L’équipe <a href=%{url}> Conseillers-Entreprises </a>
+    team_html: L’équipe du <a href=%{url}> Service Public Conseillers entreprises </a>
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service.
     thanks_for_your_comprehension: Nous vous remercions pour votre compréhension.
@@ -293,8 +293,8 @@ fr:
       antenne_activity_report:
         activity_report_available_html: Le <strong>rapport statistique</strong> des besoins transmis à vos équipes, sur le dernier trimestre et depuis le début de l’année, est à télécharger dans votre compte. Le détail des besoins est disponible dans un second fichier.
         antenne_manager:
-          one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service Conseillers-Entreprises.
-          other: Vous êtes identifié(e) comme responsable des antennes %{antennes} au sein du service Conseillers-Entreprises.
+          one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du Service Public Conseillers entreprises.
+          other: Vous êtes identifié(e) comme responsable des antennes %{antennes} au sein du Service Public Conseillers entreprises.
         at_your_disposal: Nous restons à votre entière disposition pour toute question sur l’interprétation de ces données.
         discover_dynamic_stats: Découvrir mes statistiques
         dynamic_stats_html: Nous mettons à votre disposition des <strong>statistiques dynamiques</strong> pour le pilotage de l’activité générée par le service pour votre institution.
@@ -310,6 +310,6 @@ fr:
         demo_time_intro: Je vous invite à participer au webinaire de présentation du service (30 minutes) qui se déroule chaque jeudi à 14h30 (heure de Paris).
         intro_html: Dans le cadre de votre référencement au sein du service %{link_to_root}, je viens de vous envoyer une invitation afin de valider votre compte utilisateur. Attention, elle peut arriver dans vos indésirables.
         next_dates: 'Les prochaines dates :'
-        subject: Vous êtes invité(e) ! Webinaire de présentation de Conseillers-entreprises.service-public.gouv.fr
+        subject: Vous êtes invité(e) ! Webinaire de présentation du Service Public Conseillers entreprises
         video_tutorial_html: 'Ou venez découvrir notre tutoriel vidéo : <a href=''https://conseillers-entreprises.service-public.gouv.fr/tutoriels''>conseillers-entreprises.service-public.gouv.fr/tutoriels</a>'
         webinaire_link_html: 'Lien participant : <a href=''https://visio.numerique.gouv.fr/ize-ybtb-ibd''>cliquez ici pour accéder à la visio</a>'

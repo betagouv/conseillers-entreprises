@@ -16,11 +16,11 @@ RSpec.configure do |config|
     'v1/swagger.yaml' => {
       openapi: '3.1.1',
       info: {
-        title: 'API Conseillers-Entreprises V1',
+        title: 'API Service Public Conseillers entreprises V1',
         description: "## Bienvenue sur la documentation de l’API de conseillers-entreprises.service-public.gouv.fr
         \nCette API permet à une organisation de proposer un formulaire de dépôt de besoin d'entreprise connecté à Conseillers-entreprises.service-public.gouv.fr sur son propre site internet.
         \nConcrètement, cette API permet de :
-        \n- récupérer la liste des pages d'atterrisage, thèmes et sujets autorisés pour l'organisation concernée,
+        \n- récupérer la liste des pages d'atterrissage, thèmes et sujets autorisés pour l'organisation concernée,
         \n- d'envoyer à Conseillers-entreprises.service-public.gouv.fr un besoin
         \n### Limite des requêtes
         \nLe serveur accepte un maximum de 300 appels par 5 minutes.

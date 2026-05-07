@@ -4,17 +4,17 @@ fr:
     '1':
       answer: "<ol><li>Vous choisissez un sujet et déposez votre demande avec quelques éléments de contexte.</li><li>Nous identifions automatiquement le(s) conseiller(s) compétent(s) pour vous aider sur votre territoire, parmi tous les partenaires du service (administrations, collectivités, organismes publics et parapublics).</li><li>Le(s) conseiller(s) notifié(s) vous rappelle et vous accompagne en fonction de votre situation.</li></ol>"
       id: fonctionnement
-      question: Comment fonctionne le service public Conseillers-Entreprises ?
+      question: Comment fonctionne le Service Public Conseillers entreprises ?
     '2':
-      answer: "<p>Les conseillers du service Conseillers-Entreprises sont les agents des administrations, des organismes publics et parapublics chargés d’accompagner les entreprises. Le service compte aujourd’hui plus de 10 000 conseillers, au sein de 40 partenaires différents. Pour des difficultés financières par exemple, en fonction de votre demande, vous pourrez être aidé par un conseiller de la Banque de France, de l’Urssaf, de la Chambre de Commerce et d’Industrie ou de la Chambre des Métiers et de l’Artisanat.</p>"
+      answer: "<p>Les conseillers du Service Public Conseillers entreprises sont les agents des administrations, des organismes publics et parapublics chargés d’accompagner les entreprises. Le service compte aujourd’hui plus de 10 000 conseillers, au sein de 40 partenaires différents. Pour des difficultés financières par exemple, en fonction de votre demande, vous pourrez être aidé par un conseiller de la Banque de France, de l’Urssaf, de la Chambre de Commerce et d’Industrie ou de la Chambre des Métiers et de l’Artisanat.</p>"
       id: conseillers
-      question: Qui sont les conseillers de Conseillers-Entreprises ?
+      question: Qui sont les conseillers du Service Public Conseillers entreprises ?
     '3':
       answer: "<p>En fonction de votre problématique, les conseillers peuvent vous proposer une aide financière, vous apporter un conseil personnalisé, un renseignement ou un accompagnement technique grâce à leur expertise.</p>"
       id: aides
-      question: Quelles sont les aides proposées par Conseillers-Entreprises ?
+      question: Quelles sont les aides proposées par le Service Public Conseillers entreprises ?
     '4':
-      answer: "<p>Le service de mise en relation avec le bon conseiller est totalement gratuit et financé par le Ministère de l’Économie et le Ministère du Travail. </p><p> L’essentiel des accompagnements ensuite proposés par les conseillers sont gratuits, à l’exception des accompagnements techniques sur la durée, principalement réalisés par les chambres consulaires. Après échange avec un conseiller, vous êtes libre de poursuivre ou non un accompagnement. </p><p> Par exemple, des prestations techniques pour la création d’un site internet ou la réduction de votre consommation d’énergie sont payantes, mais à des prix attractifs grâce au soutien financier de l’État ou des collectivités territoriales, dans le cadre de politiques publiques prioritaires.</p>"
+      answer: "<p>Le service de mise en relation avec le bon conseiller est totalement gratuit et financé par les services du Premier ministre et le ministère du Travail. </p><p> L’essentiel des accompagnements ensuite proposés par les conseillers sont gratuits, à l’exception des accompagnements techniques sur la durée, principalement réalisés par les chambres consulaires. Après échange avec un conseiller, vous êtes libre de poursuivre ou non un accompagnement. </p><p> Par exemple, des prestations techniques pour la création d’un site internet ou la réduction de votre consommation d’énergie sont payantes, mais à des prix attractifs grâce au soutien financier de l’État ou des collectivités territoriales, dans le cadre de politiques publiques prioritaires.</p>"
       id: gratuite
       question: Pourquoi ce service est-il gratuit ?
     '5':
