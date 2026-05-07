@@ -20,4 +20,4 @@ test:
 
 production:
   <<: *default
-  database: place-des-entreprises-production
+  url: <%= ENV.fetch('DATABASE_URL', 'place-des-entreprises-production') %>
