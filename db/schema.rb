@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_23_172541) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_27_143545) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -422,6 +422,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_23_172541) do
     t.datetime "created_at", null: false
     t.integer "effectif_max"
     t.integer "effectif_min"
+    t.string "excluded_insee_codes", default: [], array: true
     t.string "excluded_legal_forms", array: true
     t.string "excluded_naf_codes", array: true
     t.bigint "filtrable_element_id", null: false
