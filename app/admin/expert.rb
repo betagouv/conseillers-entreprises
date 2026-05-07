@@ -267,7 +267,7 @@ ActiveAdmin.register Expert do
   #
   match_filters_attributes = [
     :id, :min_years_of_existence, :max_years_of_existence, :effectif_max, :effectif_min,
-    :raw_accepted_naf_codes, :raw_excluded_naf_codes, :raw_accepted_legal_forms, :raw_excluded_legal_forms, :_destroy, subject_ids: []
+    :raw_accepted_naf_codes, :raw_excluded_naf_codes, :raw_excluded_insee_codes, :raw_accepted_legal_forms, :raw_excluded_legal_forms, :_destroy, subject_ids: []
   ]
   permit_params :full_name, :job, :antenne_id, :email, :phone_number,
     user_ids: [], experts_subjects_ids: [],
@@ -342,8 +342,9 @@ ActiveAdmin.register Expert do
         mf.input :effectif_max
         mf.input :raw_accepted_legal_forms
         mf.input :raw_excluded_legal_forms
-        mf.input :raw_accepted_naf_codes, as: :text
-        mf.input :raw_excluded_naf_codes, as: :text
+        mf.input :raw_accepted_naf_codes, as: :text, input_html: { rows: 5 }
+        mf.input :raw_accepted_naf_codes, as: :text, input_html: { rows: 5 }
+        mf.input :raw_accepted_naf_codes, as: :text, input_html: { rows: 5 }
       end
     end
 
