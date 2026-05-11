@@ -1,5 +1,14 @@
 require 'rails_helper'
-describe ActivityReports::Generate::AntenneStats do
+describe ActivityReports::AntenneStats do
+  describe ActivityReports::AntenneStats::Generate do
+    let(:antenne) { create(:antenne) }
+
+    it do
+      described_class.perform_later(antenne)
+      assert_enqueued_with(job: described_class, args: [antenne])
+    end
+  end
+
   describe 'generate_files' do
     let(:antenne) { create :antenne }
     let!(:expert) { create :expert_with_users, antenne: antenne }

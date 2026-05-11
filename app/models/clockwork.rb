@@ -50,7 +50,7 @@ module Clockwork
       ActivityReports::AntenneMatches::EnqueueJob.perform_later
     end
     every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 20 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }, tz: 'UTC') do
-      ActivityReports::AntenneStats::EnqueueJob.perform_later
+      ActivityReports::AntenneStats::Enqueue.perform_later
       ActivityReports::Cooperation::EnqueueJob.perform_later
       ActivityReports::CooperationSolicitations::EnqueueJob.perform_later
     end
