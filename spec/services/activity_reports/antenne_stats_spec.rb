@@ -1,10 +1,10 @@
 require 'rails_helper'
 describe ActivityReports::AntenneStats do
-  describe ActivityReports::AntenneStats::Generate do
-    let(:antenne) { create(:antenne) }
+  describe 'enqueue' do
+    let!(:antenne) { create(:antenne) }
 
     it do
-      described_class.perform_later(antenne)
+      described_class::Enqueue.perform_now
       assert_enqueued_with(job: described_class, args: [antenne])
     end
   end

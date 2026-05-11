@@ -1,13 +1,7 @@
-class ActivityReports::AntenneMatches < ActivityReports::Generate::Base
-  class Enqueue < ApplicationJob::LowPriority
-    def perform = Antenne.find_each { Generate.perform_later(it) }
+class ActivityReports::AntenneMatches < ActivityReports::GeneratorBase
+  class Enqueue < EnqueueBase
+    def collection = Antenne.all
   end
-
-  class Generate < ApplicationJob::LowPriority
-    def perform(antenne) = ActivityReports::AntenneMatches.new(antenne).call
-  end
-
-  ##
 
   def generate_files(period)
     needs = antenne.perimeter_received_needs.created_between(period.begin, period.end)

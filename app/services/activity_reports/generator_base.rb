@@ -1,0 +1,80 @@
+class ActivityReports::GeneratorBase < ApplicationJob
+  class EnqueueBase < ApplicationJob
+    ## Enqueuing Job
+    # Concrete subclasses implement #collection
+    queue_as :low_priority
+    def perform
+      generator = self.class.module_parent
+      ActiveJob.perform_all_later(collection.map { generator.new(it) })
+    end
+
+    def collection = raise NoMethodError, "The method #{__method__} needs to be implemented in #{self.class}"
+  end
+
+  ## Proper Report generator Job
+  #
+  queue_as :low_priority
+
+  def initialize(*arguments)
+    super
+    @item = arguments.first
+  end
+
+  def perform
+    periods = last_periods
+    return if periods.nil?
+    periods.each do |period|
+      generate_files(period) if reports.find_by(start_date: period.first).blank?
+    end
+    destroy_old_files(periods)
+  end
+
+  private
+
+  def generate_files(period)
+    ActiveRecord::Base.transaction do
+      result = export_xls(period)
+      create_file(result, period)
+    end
+  end
+
+  def create_file(result, period)
+    filename = build_filename(period)
+    key = "activity_report_#{report_type}/#{@item.id}-#{@item.name.parameterize}/#{filename}"
+
+    # Delete any stray attachment that may have been left over from a previous (failed?) run
+    blob = ActiveStorage::Blob.find_by(key: key)
+    blob.attachments.each(&:purge) if blob.present?
+
+    # Generate ActivityReport object
+    report = reports.create!(start_date: period.first, end_date: period.last)
+
+    # Attach (and upload) file
+    report.file.attach(io: result.xlsx.to_stream(confirm_valid: true), key: key, filename: filename, content_type: 'application/xlsx')
+  end
+
+  def last_periods
+    needs = @item.perimeter_received_needs
+    return if needs.blank?
+    first_date = needs.minimum(:created_at).to_date
+    periods = find_last_year_periods
+    periods.reject! { |range| first_date > range.last }
+    periods
+  end
+
+  def destroy_old_files(periods)
+    reports.where.not(start_date: periods.flatten).destroy_all
+  end
+
+  def reports
+    @item.activity_reports
+  end
+
+  def find_last_year_periods
+    TimeDurationService::Quarters.new.call
+  end
+
+  def build_filename(period)
+    I18n.t("activity_report_service.#{report_type}_file_name", number: TimeDurationService::Quarters.new.find_quarter_for_month(period.first.month), year: period.first.year, item: @item.name.parameterize)
+  end
+end

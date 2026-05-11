@@ -1,13 +1,7 @@
-class ActivityReports::AntenneStats < ActivityReports::Generate::Base
-  class Enqueue < ApplicationJob::LowPriority
-    def perform = Antenne.not_deleted.find_each { Generate.perform_later(it) }
+class ActivityReports::AntenneStats < ActivityReports::GeneratorBase
+  class Enqueue < EnqueueBase
+    def collection = Antenne.not_deleted
   end
-
-  class Generate < ApplicationJob::LowPriority
-    def perform(antenne) = ActivityReports::AntenneStats.new(antenne).call
-  end
-
-  ##
 
   def export_xls(quarter)
     XlsxExport::AntenneStatsExporter

@@ -1,17 +1,7 @@
-class ActivityReports::CooperationSolicitations < ActivityReports::Generate::Base
-  class Enqueue < ApplicationJob::LowPriority
-    def perform
-      Cooperation.not_archived
-        .where(wants_solicitations_export: true)
-        .find_each { Generate.perform_later(it) }
-    end
+class ActivityReports::CooperationSolicitations < ActivityReports::GeneratorBase
+  class Enqueue < EnqueueBase
+    def collection = Cooperation.not_archived.where(wants_solicitations_export: true)
   end
-
-  class Generate < ApplicationJob::LowPriority
-    def perform = ActivityReports::CooperationSolicitations.new(cooperation).call
-  end
-
-  ##
 
   def export_xls(quarter)
     XlsxExport::CooperationSolicitationsExporter

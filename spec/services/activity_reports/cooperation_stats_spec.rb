@@ -1,10 +1,10 @@
 require 'rails_helper'
-describe ActivityReports::Cooperation do
-  describe ActivityReports::Cooperation::Generate do
-    let(:cooperation) { create(:cooperation) }
+describe ActivityReports::CooperationStats do
+  describe 'enqueue' do
+    let!(:cooperation) { create(:cooperation) }
 
     it do
-      described_class.perform_later(cooperation)
+      described_class::Enqueue.perform_now
       assert_enqueued_with(job: described_class, args: [cooperation])
     end
   end

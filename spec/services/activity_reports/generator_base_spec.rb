@@ -1,5 +1,5 @@
 require 'rails_helper'
-describe ActivityReports::Generate::Base do
+describe ActivityReports::GeneratorBase do
   describe 'last_periods' do
     let(:quarters) { described_class.new(antenne).send(:last_periods) }
 
