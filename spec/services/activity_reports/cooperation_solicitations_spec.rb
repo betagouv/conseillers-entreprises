@@ -1,5 +1,13 @@
 require 'rails_helper'
-describe ActivityReports::Generate::CooperationSolicitations do
+describe ActivityReports::CooperationSolicitations do
+  describe ActivityReports::CooperationSolicitations::Generate do
+    let(:cooperation) { create(:cooperation) }
+
+    it do
+      described_class.perform_later(cooperation)
+      assert_enqueued_with(job: described_class, args: [cooperation])
+    end
+  end
 
   describe 'generate_files' do
     let(:cooperation) { create :cooperation }
