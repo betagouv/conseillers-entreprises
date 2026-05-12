@@ -9,7 +9,7 @@ Rails.application.config.after_initialize do
   end
 
   Warden::Manager.before_failure do |env, opts|
-    email = env.dig('rack.request.form_hash', 'user', 'email').to_s.downcase.strip
+    email = ActionDispatch::Request.new(env).params.dig('user', 'email').to_s.downcase.strip
     ip = Rack::FullRemoteIpAndPort.call(env)
     Rails.logger.error("[AUTH] failure scope=#{opts[:scope]} reason=#{opts[:message]} email=#{email} ip=#{ip}")
   end
