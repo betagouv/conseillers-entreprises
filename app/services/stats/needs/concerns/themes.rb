@@ -31,8 +31,8 @@ module Stats::Needs::Concerns::Themes
       next if item[:name] == cooperation_label
       label = Theme.stats_label(item[:name], @detailed_graphs)
       if label != item[:name]
-        result.last[:data] = result.last[:data].zip(item[:data]).map { |a, b| a + b }
-        item[:data].map! { |x| x = 0 }
+        result.last[:data] = result.last[:data].zip(item[:data]).map { |a, b| a + b.to_i }
+        item[:data].map! { 0 }
       end
       item
     end
