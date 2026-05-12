@@ -21,6 +21,8 @@ class ActivityReports::GeneratorBase < ApplicationJob
     @item = arguments.first
   end
 
+  def job_status = SidekiqJob.status_for(self.class, @item)
+
   def perform(item = nil)
     @item ||= item
 
