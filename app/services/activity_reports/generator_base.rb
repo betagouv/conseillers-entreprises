@@ -82,6 +82,9 @@ class ActivityReports::GeneratorBase < ApplicationJob
   def destroy_expired_reports = expired_reports.destroy_all
 
   def build_filename(period)
-    I18n.t("activity_report_service.#{report_type}_file_name", number: TimeDurationService::Quarters.new.find_quarter_for_month(period.first.month), year: period.first.year, item: @item.name.parameterize)
+    prefix = I18n.t(report_type, scope: "reports.filename_prefix")
+    item_name = @item.name.parameterize
+    period_name = TimeDurationService.period_name(period)
+    "#{prefix}-#{item_name}-#{period_name}.xlsx"
   end
 end

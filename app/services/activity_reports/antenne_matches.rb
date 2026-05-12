@@ -20,8 +20,4 @@ class ActivityReports::AntenneMatches < ActivityReports::GeneratorBase
   def report_type = :matches
 
   def reports_periods = TimeDurationService::Months.new.call
-
-  def build_filename(period)
-    I18n.t("activity_report_service.#{report_type}_file_name", month: period.first.month, year: period.first.year, item: @item.name.parameterize)
-  end
 end
