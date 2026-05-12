@@ -828,6 +828,11 @@ fr:
       interval: "%{start_month} à %{end_month} %{year}"
       no_export_available: Vos fichiers statistiques trimestriels ne sont pas encore disponibles pour cette antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
       title: Statistiques trimestrielles %{antenne}
+    type:
+      cooperation: Rapports de coopération
+      matches: Export des mises en relation
+      solicitations: Export des sollicitations
+      stats: Rapport d’antenne
   republique_francaise_html: République <br /> Française
   shared:
     breadcrumb:
