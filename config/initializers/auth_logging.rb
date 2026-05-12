@@ -9,7 +9,12 @@ Rails.application.config.after_initialize do
   end
 
   Warden::Manager.before_failure do |env, opts|
-    email = ActionDispatch::Request.new(env).params.dig('user', 'email').to_s.downcase.strip
+    request = ActionDispatch::Request.new(env)
+    # Only log explicit login attempts, not unauthenticated access redirects.
+    # before_failure fires for any protected-page access; skip those (no user params).
+    next unless request.post? && request.params.dig('user', 'email').present?
+
+    email = request.params.dig('user', 'email').to_s.downcase.strip
     ip = Rack::FullRemoteIpAndPort.call(env)
     Rails.logger.error("[AUTH] failure scope=#{opts[:scope]} reason=#{opts[:message]} email=#{email} ip=#{ip}")
   end
