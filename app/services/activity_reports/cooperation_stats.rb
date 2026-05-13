@@ -5,13 +5,11 @@ class ActivityReports::CooperationStats < ActivityReports::GeneratorBase
 
   def export_xls(quarter)
     XlsxExport::CooperationExporter
-      .new(start_date: quarter.first, end_date: quarter.last, cooperation: cooperation)
+      .new(start_date: quarter.first, end_date: quarter.last, cooperation: @item)
       .export
   end
 
-  def cooperation = @item
-
   def report_type = :cooperation
 
-  def reports = cooperation.cooperation_reports
+  def reports_periods = TimeDurationService::Quarters.new.call
 end

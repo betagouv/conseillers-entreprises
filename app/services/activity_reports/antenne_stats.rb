@@ -5,13 +5,11 @@ class ActivityReports::AntenneStats < ActivityReports::GeneratorBase
 
   def export_xls(quarter)
     XlsxExport::AntenneStatsExporter
-      .new(start_date: quarter.first, end_date: quarter.last, antenne: antenne)
+      .new(start_date: quarter.first, end_date: quarter.last, antenne: @item)
       .export
   end
 
-  def antenne = @item
-
   def report_type = :stats
 
-  def reports = antenne.stats_reports
+  def reports_periods = TimeDurationService::Quarters.new.call
 end

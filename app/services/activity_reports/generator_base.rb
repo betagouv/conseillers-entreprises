@@ -11,8 +11,9 @@ class ActivityReports::GeneratorBase < ApplicationJob
     def collection = raise NoMethodError, "The method #{__method__} needs to be implemented in #{self.class}"
   end
 
-  ## Proper Report generator Job
-  #
+  ## Report generator Job
+  # item may be passed as the first argument of the initializer or as the argument of #perform method.
+  # i.e. `ActivityReports::<Subclass>.new(item)` or `ActivityReports::<Subclass>.perform_later(item)`.
   queue_as :low_priority
 
   def initialize(*arguments)
@@ -20,25 +21,51 @@ class ActivityReports::GeneratorBase < ApplicationJob
     @item = arguments.first
   end
 
-  def perform
-    periods = last_periods
-    return if periods.nil?
-    periods.each do |period|
-      generate_files(period) if reports.find_by(start_date: period.first).blank?
-    end
-    destroy_old_files(periods)
+  def perform(item = nil)
+    @item ||= item
+
+    return if @item.perimeter_received_needs.empty?
+
+    missing_reports_periods.each { |period| generate_report(period) }
+    destroy_expired_reports
   end
 
-  private
+  ## Methods to be implemented by subclasses
+  #
+  # one of `ActivityReport.categories`
+  def report_type = raise NoMethodError, "The method #{__method__} needs to be implemented in #{self.class}"
 
-  def generate_files(period)
+  # an ordered array of `Date` ranges
+  def reports_periods = raise NoMethodError, "The method #{__method__} needs to be implemented in #{self.class}"
+
+  # `XlsxExport::Result`
+  def export_xls(period) = raise NoMethodError, "The method #{__method__} needs to be implemented in #{self.class}"
+
+  ## Reports primitives
+  #
+  def reports_periods_with_data
+    first_date = @item.perimeter_received_needs.minimum(:created_at)&.to_date
+    return [] if first_date.nil?
+
+    reports_periods.filter { |range| range.last >= first_date }
+  end
+
+  def reports = @item.activity_reports.where(category: report_type)
+
+  def existing_reports_periods = reports.map(&:period).sort_by(&:begin)
+
+  def missing_reports_periods = reports_periods_with_data - existing_reports_periods
+
+  def expired_reports = reports.where.not(start_date: reports_periods.map(&:begin))
+
+  def generate_report(period)
     ActiveRecord::Base.transaction do
-      result = export_xls(period)
-      create_file(result, period)
+      data = export_xls(period)
+      create_file(data, period)
     end
   end
 
-  def create_file(result, period)
+  def create_file(data, period)
     filename = build_filename(period)
     key = "activity_report_#{report_type}/#{@item.id}-#{@item.name.parameterize}/#{filename}"
 
@@ -49,30 +76,10 @@ class ActivityReports::GeneratorBase < ApplicationJob
     # Generate ActivityReport object
     report = reports.create!(start_date: period.first, end_date: period.last)
 
-    # Attach (and upload) file
-    report.file.attach(io: result.xlsx.to_stream(confirm_valid: true), key: key, filename: filename, content_type: 'application/xlsx')
+    report.file.attach(io: data.xlsx.to_stream(confirm_valid: true), key: key, filename: filename, content_type: 'application/xlsx')
   end
 
-  def last_periods
-    needs = @item.perimeter_received_needs
-    return if needs.blank?
-    first_date = needs.minimum(:created_at).to_date
-    periods = find_last_year_periods
-    periods.reject! { |range| first_date > range.last }
-    periods
-  end
-
-  def destroy_old_files(periods)
-    reports.where.not(start_date: periods.flatten).destroy_all
-  end
-
-  def reports
-    @item.activity_reports
-  end
-
-  def find_last_year_periods
-    TimeDurationService::Quarters.new.call
-  end
+  def destroy_expired_reports = expired_reports.destroy_all
 
   def build_filename(period)
     I18n.t("activity_report_service.#{report_type}_file_name", number: TimeDurationService::Quarters.new.find_quarter_for_month(period.first.month), year: period.first.year, item: @item.name.parameterize)

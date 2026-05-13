@@ -3,8 +3,8 @@ class ActivityReports::AntenneMatches < ActivityReports::GeneratorBase
     def collection = Antenne.all
   end
 
-  def generate_files(period)
-    needs = antenne.perimeter_received_needs.created_between(period.begin, period.end)
+  def generate_report(period)
+    needs = @item.perimeter_received_needs.created_between(period.begin, period.end)
     return if needs.blank?
 
     matches = Match.joins(:need).where(need: needs)
@@ -17,13 +17,9 @@ class ActivityReports::AntenneMatches < ActivityReports::GeneratorBase
     end
   end
 
-  def antenne = @item
-
   def report_type = :matches
 
-  def reports = antenne.matches_reports
-
-  def find_last_year_periods = TimeDurationService::Months.new.call
+  def reports_periods = TimeDurationService::Months.new.call
 
   def build_filename(period)
     I18n.t("activity_report_service.#{report_type}_file_name", month: period.first.month, year: period.first.year, item: @item.name.parameterize)

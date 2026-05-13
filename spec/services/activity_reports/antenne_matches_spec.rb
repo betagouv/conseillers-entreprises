@@ -1,54 +1,40 @@
 require 'rails_helper'
 describe ActivityReports::AntenneMatches do
-  describe 'enqueue' do
-    let!(:antenne) { create(:antenne) }
-
-    it do
-      described_class::Enqueue.perform_now
-      assert_enqueued_with(job: described_class, args: [antenne])
-    end
-  end
-
-  describe 'generate_files' do
+  describe '#perform' do
     let(:antenne) { create :antenne }
-    let!(:expert) { create :expert_with_users, antenne: antenne }
-    let(:months) { described_class.new(antenne).send(:last_periods) }
-    let(:generate_files) { described_class.new(antenne).send(:generate_files, months.first) }
+    let(:generator) { described_class.new(antenne) }
 
-    context 'need on the first day of the month' do
-      let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 1.month.ago.beginning_of_month + 10.hours) }
+    around { |example| travel_to('10/07/2025'.to_date, &example) }
 
-      it 'create activity_report' do
-        expect { generate_files }.to change(ActivityReport, :count).by(1)
-        expect(ActivityReport.last.category).to eq('matches')
+    before do
+      # This antenne has received matches every month for 24 months
+      diag = build(:diagnosis)
+      needs = build_list(:need, 24, diagnosis: diag) { |need, index| need.created_at = index.months.ago }
+      matches = build_list(:match, 24) { |match, index| match.need = needs[index] }
+      create(:expert, antenne: antenne, received_matches: matches)
+
+      # Old reports already exists, but the last two months are missing
+      reports = build_list(:activity_report, 22, :category_matches, antenne: antenne) do |report, index|
+        report.period = index.months.before(3.months.ago).all_month
       end
+      antenne.matches_reports << reports
     end
 
-    context 'need on the last day of the month' do
-      let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 1.month.ago.end_of_month - 10.hours) }
+    it 'creates new and destroys old reports' do
+      # reports should include all months of 2024 until May 2025.
+      expect(generator.reports_periods_with_data.count).to eq 18
+      expect(generator.missing_reports_periods.count).to eq 2
+      expect(generator.expired_reports.count).to eq 6
 
-      it 'create activity_report' do
-        expect { generate_files }.to change(ActivityReport, :count).by(1)
-        expect(ActivityReport.last.category).to eq('matches')
-      end
-    end
-  end
+      old_reports_ids = generator.reports.ids
+      generator.perform
 
-  describe 'destroy_old_files' do
-    let(:antenne) { create :antenne }
-    let!(:expert) { create :expert_with_users, antenne: antenne }
-    let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 2.years.ago) }
-    let!(:activity_report_ok) { create :activity_report, :category_matches, reportable: antenne, start_date: 18.months.ago }
-    let!(:activity_report_ko) { create :activity_report, :category_matches, reportable: antenne, start_date: 3.years.ago }
-    let!(:activity_report_ko_2) { create :activity_report, :category_stats, reportable: antenne, start_date: 18.months.ago }
-    let(:quarters) { described_class.new(antenne).send(:last_periods) }
-    let(:destroy_old_report) { described_class.new(antenne).send(:destroy_old_files, quarters) }
-
-    before { activity_report_ok.update(start_date: quarters.first.first) }
-
-    it 'delete activity_report with date outside of quarters' do
-      expect { destroy_old_report }.to change(ActivityReport, :count).by(-1)
-      expect(activity_report_ok.reload).not_to be_nil
+      new_reports = generator.reports.order(:start_date)
+      expect(new_reports.count).to eq 18
+      expect((new_reports.ids - old_reports_ids).size).to eq 2
+      expect((old_reports_ids - new_reports.ids).size).to eq 6
+      expect(new_reports.first.period).to eq Date.new(2024,1).all_month
+      expect(new_reports.last.period).to eq Date.new(2025,6).all_month
     end
   end
 end

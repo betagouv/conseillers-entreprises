@@ -27,4 +27,13 @@ class ActivityReport < ApplicationRecord
              foreign_key: 'reportable_id', inverse_of: :activity_reports, optional: true
 
   has_one_attached :file
+
+  def period
+    start_date..end_date
+  end
+
+  def period=(range)
+    self.start_date = range.begin
+    self.end_date = range.end
+  end
 end

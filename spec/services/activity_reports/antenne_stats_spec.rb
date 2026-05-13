@@ -1,42 +1,35 @@
 require 'rails_helper'
 describe ActivityReports::AntenneStats do
-  describe 'enqueue' do
-    let!(:antenne) { create(:antenne) }
-
-    it do
-      described_class::Enqueue.perform_now
-      assert_enqueued_with(job: described_class, args: [antenne])
-    end
-  end
-
-  describe 'generate_files' do
+  describe '#perform' do
     let(:antenne) { create :antenne }
-    let!(:expert) { create :expert_with_users, antenne: antenne }
-    let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 4.months.ago) }
-    let(:quarters) { described_class.new(antenne).send(:last_periods) }
-    let(:generate_files) { described_class.new(antenne).send(:generate_files, quarters.first) }
+    let(:generator) { described_class.new(antenne) }
 
-    it 'create activity_report' do
-      expect { generate_files }.to change(ActivityReport, :count).by(1)
-      expect(ActivityReport.last.category).to eq('stats')
+    around { |example| travel_to('10/07/2025'.to_date, &example) }
+
+    before do
+      # Set up an antenne with activity and existing reports, except for the last quarter
+      create(:match, need: build(:need, created_at: 2.years.ago), expert: build(:expert, antenne: antenne))
+      reports = build_list(:activity_report, 7, :category_stats, antenne: antenne) do |report, index|
+        report.period = (index * 3).months.before(6.months.ago).all_quarter
+      end
+      antenne.stats_reports << reports
     end
-  end
 
-  describe 'destroy_old_files' do
-    let(:antenne) { create :antenne }
-    let!(:expert) { create :expert_with_users, antenne: antenne }
-    let!(:a_match) { create :match, expert: expert, need: create(:need, created_at: 2.years.ago) }
-    let!(:activity_report_ok) { create :activity_report, :category_stats, reportable: antenne, start_date: 18.months.ago }
-    let!(:activity_report_ko) { create :activity_report, :category_stats, reportable: antenne, start_date: 3.years.ago }
-    let!(:activity_report_ko_2) { create :activity_report, :category_matches, reportable: antenne, start_date: 18.months.ago }
-    let(:quarters) { described_class.new(antenne).send(:last_periods) }
-    let(:destroy_old_report) { described_class.new(antenne).send(:destroy_old_files, quarters) }
+    it 'creates new and destroys old reports' do
+      # reports should include all quarters of 2024 and first two quarters of 2025
+      expect(generator.reports_periods_with_data.count).to eq 6
+      expect(generator.missing_reports_periods.count).to eq 1
+      expect(generator.expired_reports.count).to eq 2
 
-    before { activity_report_ok.update(start_date: quarters.first.first) }
+      old_reports_ids = generator.reports.ids
+      generator.perform
 
-    it 'delete activity_report with date outside of quarters' do
-      expect { destroy_old_report }.to change(ActivityReport, :count).by(-1)
-      expect(activity_report_ok.reload).not_to be_nil
+      new_reports = generator.reports.order(:start_date)
+      expect(new_reports.count).to eq 6
+      expect((new_reports.ids - old_reports_ids).size).to eq 1
+      expect((old_reports_ids - new_reports.ids).size).to eq 2
+      expect(new_reports.first.period).to eq '01/2024'.to_date.all_quarter
+      expect(new_reports.last.period).to eq '04/2025'.to_date.all_quarter
     end
   end
 end
