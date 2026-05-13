@@ -30,7 +30,7 @@ RSpec.describe Api::RechercheEntreprises::Search::Fulltext do
     end
 
     it 'returns an error' do
-      expect { api }.to raise_error "Message d’erreur du serveur."
+      expect(api).to eq(errors: { standard_api_errors: { "api-rechercheentreprises-search-fulltext-base" => "Message d’erreur du serveur." } })
     end
   end
 
@@ -57,8 +57,8 @@ RSpec.describe Api::RechercheEntreprises::Search::Fulltext do
       )
     end
 
-    it 'raises an error' do
-      expect { api }.to raise_error(Api::TechnicalError, "Trop de requêtes.")
+    it 'returns an error' do
+      expect(api).to eq({ errors: { standard_api_errors: { "api-rechercheentreprises-search-fulltext-base" => "Trop de requêtes." } } })
     end
   end
 
@@ -73,8 +73,7 @@ RSpec.describe Api::RechercheEntreprises::Search::Fulltext do
     end
 
     it 'raises an error' do
-      expect { api }.to raise_error(Api::TechnicalError, "Connection refused")
+      expect(api).to eq({ errors: { unreachable_apis: { "api-rechercheentreprises-search-fulltext-base" => "Connection refused" } } })
     end
   end
-
 end

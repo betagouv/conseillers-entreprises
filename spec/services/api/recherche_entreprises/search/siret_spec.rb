@@ -32,7 +32,7 @@ RSpec.describe Api::RechercheEntreprises::Search::Siret do
     end
 
     it 'returns an error' do
-      expect { api }.to raise_error "Veuillez indiquer au moins un paramètre de recherche."
+      expect(api).to eq({ errors: { standard_api_errors: { "api-rechercheentreprises-search-siret-base" => "Veuillez indiquer au moins un paramètre de recherche." } } })
     end
   end
 end

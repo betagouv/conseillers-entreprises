@@ -13,10 +13,6 @@ module Api::RechercheEntreprises
         .squeeze(' ')
       ERB::Util.url_encode(query)
     end
-
-    def severity
-      :major
-    end
   end
 
   class Request < Api::Request
