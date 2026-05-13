@@ -15,5 +15,7 @@ fr:
     api-insee-siretsbysiren-base: Api Insee (sirets par siren)
     api-insee-token-base: Api Insee (token)
     api-rechercheentreprises-search-base: Api Recherche Entreprises
+    api-rechercheentreprises-search-fulltext-base: Api Recherche Entreprises
+    api-rechercheentreprises-search-siret-base: Api Recherche Entreprises
     api-rne-companies-base: Api RNE (entreprises)
     api-rne-token-base: Api RNE (token)

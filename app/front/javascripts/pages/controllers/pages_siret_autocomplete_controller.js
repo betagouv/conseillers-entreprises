@@ -24,6 +24,7 @@ export default class extends Controller {
       name: 'query',
       showNoOptionsFound: true,
       required: true,
+      minLength: 3,
       templates: {
         inputValue: this.inputValueTemplate,
         suggestion: this.suggestionTemplate
