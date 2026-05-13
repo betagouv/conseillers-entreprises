@@ -52,7 +52,7 @@ fr:
         subject: Prise en charge de votre demande « %{subject} »
       retention:
         intro_html: 'Vous avez utilisé le Service Public Conseillers entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait :'
-        list_html: 'Des dirigeants utilisent le service pour être accompagnés sur d’autres sujets : <ul><li>recrutement</li><li>formation</li><li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
+        list_html: 'Des dirigeants utilisent le service pour être accompagnés sur d’autres sujets : <ul><li>recrutement</li><li>formation</li><li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li></ul>'
         outro: Si vous souhaitez être accompagné(e), n’hésitez pas à déposer une demande.
         send_solicitation: Échanger avec un conseiller
         subject: Avez-vous besoin d’aide ?
