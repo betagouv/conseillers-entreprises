@@ -19,18 +19,31 @@ RSpec.describe Api::RechercheEntreprises::Search::Fulltext do
     end
   end
 
-  context 'Query vide' do
-    let(:query) { '' }
+  context 'Réponse erreur' do
+    let(:query) { 'lalala' }
 
     before do
       stub_request(:get, url).to_return(
         status: 400,
-        body: ({ erreur: "Veuillez indiquer au moins un paramètre de recherche." }.to_json)
+        body: ({ erreur: "Message d’erreur du serveur." }.to_json)
       )
     end
 
     it 'returns an error' do
-      expect { api }.to raise_error "Veuillez indiquer au moins un paramètre de recherche."
+      expect { api }.to raise_error "Message d’erreur du serveur."
+    end
+  end
+
+  context 'Query vide' do
+    let(:query) { '' }
+
+    before do
+      stub_request(:get, url)
+    end
+
+    it 'does not call the service' do
+      expect{ api }.to raise_error Api::BasicError, "Saisissez au moins 3 caractères."
+      assert_not_requested :get, url
     end
   end
 

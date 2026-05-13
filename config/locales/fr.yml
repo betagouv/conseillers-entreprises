@@ -28,6 +28,7 @@ fr:
     invalid_siret_or_siren: L’identifiant (siret ou siren) est invalide
     partner_error: Nous n’avons pas pu récupérer les données entreprises auprès de nos partenaires. Notre équipe technique en a été informée, veuillez réessayer ultérieurement.
     technical_error: Un problème technique est survenu chez l'un des partenaires fournissant les données entreprises, veuillez réessayer ultérieurement
+    too_short: Saisissez au moins %{min_length} caractères.
     unreachable_apis_errors_present: 'Attention, quelques API partenaires sont actuellement injoignables :'
   app_name: Service Public Conseillers entreprises
   app_tagline: Le service public d’accompagnement des entreprises

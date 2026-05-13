@@ -5,6 +5,10 @@ module Api::RechercheEntreprises::Search::Fulltext
   end
 
   class Request < Api::RechercheEntreprises::Search::Request
+    def initialize(query, options = {})
+      raise Api::BasicError, I18n.t("api_requests.too_short", min_length: 3) if query.size < 3
+      super
+    end
   end
 
   class Responder < Api::RechercheEntreprises::Search::Responder
