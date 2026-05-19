@@ -32,6 +32,7 @@ class Contact < ApplicationRecord
   ## Validations
   #
   validate :at_least_email_or_phone_number
+  validates :email, uniqueness: { scope: :company_id, allow_blank: true }
 
   ##
   #
