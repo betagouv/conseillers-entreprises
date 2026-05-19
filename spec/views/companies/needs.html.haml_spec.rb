@@ -31,7 +31,7 @@ RSpec.describe 'companies/needs' do
 
     it('displays title needs in progress') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_in_progress')) }
     it('not displays title needs done') { expect(render).to have_no_css('h2', text: I18n.t('companies.needs.needs_done')) }
-    it('displays needs') { expect(render).to have_css('div.company-need', count: 1) }
+    it('displays needs') { expect(render).to have_css('div.fr-tile', count: 1) }
     it('displays need subject') { expect(render).to have_link(text: need.subject.label) }
   end
 
@@ -44,7 +44,7 @@ RSpec.describe 'companies/needs' do
 
     it('displays title needs done') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_done')) }
     it('not displays title needs in progress') { expect(render).to have_no_css('h2', text: I18n.t('companies.needs.needs_in_progress')) }
-    it('displays needs') { expect(render).to have_css('div.company-need', count: 2) }
+    it('displays needs') { expect(render).to have_css('div.fr-tile', count: 2) }
     it('displays first need subject') { expect(render).to have_link(text: need.subject.label) }
     it('displays second need subject') { expect(render).to have_link(text: another_need.subject.label) }
   end
@@ -58,7 +58,7 @@ RSpec.describe 'companies/needs' do
 
     it('displays title needs done') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_done')) }
     it('displays title needs in progress') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_in_progress')) }
-    it('displays needs') { expect(render).to have_css('div.company-need', count: 2) }
+    it('displays needs') { expect(render).to have_css('div.fr-tile', count: 2) }
     it('displays first need subject') { expect(render).to have_link(text: need.subject.label) }
     it('displays second need subject') { expect(render).to have_link(text: another_need.subject.label) }
   end
