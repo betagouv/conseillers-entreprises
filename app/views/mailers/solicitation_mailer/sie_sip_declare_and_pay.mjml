@@ -4,17 +4,7 @@
 
     <mj-text><%= t('mailers.solicitation_mailer.intro_with_subject_html', link_to_root: link_to(t('app_name'), root_url), solicitation_subject: t('.solicitation_subject_html')) %></mj-text>
 
-    <mj-text><%= t('.income_and_taxation') %></mj-text>
-
-    <mj-text>
-      <%= t('.not_partner_html') %>
-      <ul>
-        <li><%= t('.sip_html') %></li>
-        <li><%= t('.sie_html') %></li>
-      </ul>
-    </mj-text>
-
-    <mj-text><%= t('.sie_on_impots_html') %></mj-text>
+    <mj-text><%= @solicitation_mail_template.body_html.html_safe %></mj-text>
 
     <mj-text><%= t('mailers.hope_to_helped') %></mj-text>
 

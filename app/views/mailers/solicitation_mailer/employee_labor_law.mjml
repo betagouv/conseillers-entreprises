@@ -4,17 +4,7 @@
 
     <mj-text><%= t('.intro_html', link_to_root: link_to(t('app_name'), root_url)) %></mj-text>
 
-    <mj-text><%= t('.contact_dreets_html') %></mj-text>
-
-    <mj-text><%= t('.dreets_phone_number_html') %></mj-text>
-
-    <mj-text>
-      <%= t('.other_informations') %>
-      <ul>
-        <li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/N19806">https://www.service-public.gouv.fr/particuliers/vosdroits/N19806</a></li>
-        <li><a href="https://code.travail.gouv.fr">https://code.travail.gouv.fr</a></li>
-      </ul>
-    </mj-text>
+    <mj-text><%= @solicitation_mail_template.body_html.html_safe %></mj-text>
 
     <mj-text><%= t('mailers.hope_to_helped') %></mj-text>
 

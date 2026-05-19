@@ -136,145 +136,40 @@ fr:
       subject: Votre demande sur le Service Public Conseillers entreprisesEntreprises
     solicitation_mailer:
       administrations_collectivites:
-        apprentissage_html: 'pour les questions liées à l’apprentissage : <a href=''https://www.fonction-publique.gouv.fr/devenir-agent-public/lapprentissage-dans-la-fonction-publique''>https://www.fonction-publique.gouv.fr/devenir-agent-public/lapprentissage-dans-la-fonction-publique</a>'
-        erp_html: 'pour votre établissement recevant du public (ERP) et son accessibilité : <a href=''https://www.ecologie.gouv.fr/politiques-publiques/laccessibilite-etablissements-recevant-du-public-erp''>https://www.ecologie.gouv.fr/politiques-publiques/laccessibilite-etablissements-recevant-du-public-erp</a>'
-        formation_agents_html: 'pour les questions liées à la formation professionnelle des agents : <a href=''https://www.service-public.gouv.fr/particuliers/vosdroits/N186''>https://www.service-public.gouv.fr/particuliers/vosdroits/N186</a>'
         intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root}, ou un site intégrant ce service.
-        local_project_html: 'pour tous vos projets locaux : <a href=''https://aides-territoires.beta.gouv.fr''>https://aides-territoires.beta.gouv.fr</a>'
-        no_administration_experts: Ce service public est destiné aux TPE et PME. Nous n’avons pas d’expert en mesure de répondre aux problématiques des administrations et des collectivités.
-        useful_links: 'Liens utiles selon votre démarche :'
       bad_quality:
         complete_solicitation: Compléter ma demande
-        for_better_taking_care_html: 'Pour pouvoir vous aider, les conseillers ont impérativement besoin d’éléments de contexte :'
-        intro_cooperation_html: Vous avez récemment déposé une demande sur le sujet « <strong>%{subject}</strong> » sur le site <strong>%{website}</strong>.
+        for_better_taking_care_html: "‘Pour pouvoir vous aider, les conseillers ont impérativement besoin d’éléments de contexte :’"
+        intro_cooperation_html: Vous avez récemment déposé une demande sur le sujet « <strong>%{subject}</strong> » sur le site <strong>%{website}</strong>.
         intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} pour <strong>"%{subject}"</strong>.
         investment_html: "<strong>pour votre projet d’investissement :</strong> type d’investissement, but et montant du besoin"
         recruitment_html: "<strong>pour votre projet de recrutement :</strong> contexte du recrutement et type de contrat"
         treasury_html: "<strong>pour votre problème de trésorerie :</strong> contexte des difficultés et montant du besoin"
-        upon_receipt: 'Nous vous invitons à compléter votre demande pour qu’elle soit transmise :'
+        upon_receipt: "‘Nous vous invitons à compléter votre demande pour qu’elle soit transmise :’"
       carsat:
-        duerp_html: 'Document unique d’évaluation des risques professionnels (DUERP) : <br />Toutes activités : <a href=''https://www.inrs.fr/demarche/evaluation-risques-professionnels''>https://www.inrs.fr/demarche/evaluation-risques-professionnels</a> <br />Spécifique au bâtiment : <a href=''https://www.preventionbtp.fr''>https://www.preventionbtp.fr</a>'
         intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant votre retraite ou les risques professionnels.
-        no_carsat_in_region_html: Malheureusement, l'organisme compétent, <strong>la CARSAT, n’est pas encore partenaire</strong> du service dans votre région. Nous vous invitons à <strong>la contacter au 3960 pour la retraite</strong> et au <strong>3679 pour les risques professionnels</strong>.
-        purchases_html: 'Subventions liées aux formations ou aux achats de matériels : sur <a href=''https://www.ameli.fr/''>le site Ameli</a>, choisir le département, puis « Entreprise » dans le bandeau du haut puis le sigle Euros « aides financières TPE PME » dans le bandeau de droite.'
-        retirement_html: 'Retraite : <a href=''https://www.lassuranceretraite.fr''>www.lassuranceretraite.fr</a>'
-        useful_links: 'Liens utiles :'
       creation:
-        adie: 'Adie :'
-        adie_label: 'Avec l’Adie : entreprendre c’est possible !'
-        agricultural_activities: 'pour les activités agricoles :'
-        artisanal_activities: 'pour les activités artisanales :'
-        banque_de_france: 'Banque de France :'
-        banque_de_france_label: Mes questions d’entrepreneur | Financer ma création (mesquestionsdentrepreneur.fr)
-        bpifrance: 'Bpifrance :'
-        bpifrance_label: Comment financer mon projet de création ou reprise d’entreprise ? | Bpifrance Création (bpifrance-creation.fr)
-        cci_initiative_html: 'Vous pouvez vous faire accompagner dans vos démarches de création par des conseillers proches de chez vous :'
-        commercial_activities: 'pour les activités commerciales :'
-        funding_resources: 'Vous retrouverez toutes les sources de financement possibles pour votre projet sur les sites suivants :'
-        initiative: 'Réseau Initiative :'
-        initiative_label: Accueil - Initiative France
-        liberal_activities: 'pour les activités libérales :'
-        no_creation: Ce service public ne s’adresse actuellement qu’aux entreprises déjà existantes.
         solicitation_subject: pour votre entreprise en création ou tout juste lancée
       employee_labor_law:
-        contact_dreets_html: En tant que salarié(e), nous vous invitons à contacter le service de renseignement en droit du travail de la <a href='https://dreets.gouv.fr/'>Direction régionale de l’économie, de l’emploi, du travail et des solidarités</a> (DREETS).
-        dreets_phone_number_html: Vous pouvez composer le <b>0806 000 126</b> [prix d’un appel local - pas de surcoût] du lundi au vendredi, de 8h45 à 11h30 et de 13h45 à 16h30.
-        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant le <b>droit du travail</b>. Il s'agit cependant d'un service public destiné aux chefs d'entreprises. Nous ne sommes donc pas en mesure de vous apporter une réponse.
-        other_informations: 'Vous trouverez également des informations en droit du travail sur :'
+        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant le <b>droit du travail</b>. Il s’agit cependant d’un service public destiné aux chefs d’entreprises. Nous ne sommes donc pas en mesure de vous apporter une réponse.
       formalites_asso_agri_sci:
-        agri_html: 'Pour les activités agricoles : <a href=''https://chambres-agriculture.fr/chambres-dagriculture/nous-connaitre/lannuaire-des-chambres-dagriculture/''>L’annuaire des Chambres d’agriculture</a>'
-        asso_html: 'Pour les associations : <ul><li><a href=''https://www.service-public.gouv.fr/particuliers/vosdroits/R1757''>Création d’une association en ligne</a></li><li><a href=''https://www.service-public.gouv.fr/particuliers/vosdroits/R37933''>Modification d’une association en ligne</a></li><li><a href=''https://lannuaire.service-public.gouv.fr/navigation/prefecture''>Annuaire des préfectures</a></li></ul>'
-        direct_contact: 'Nous vous conseillons de contacter :'
-        no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
-        sci_html: 'Pour les agents commerciaux et les SCI : <a href=''https://www.infogreffe.fr/rechercher-un-greffe''>Moteur de recherche de greffes</a>'
         solicitation_subject_html: concernant vos formalités
-      intermediary:
-        explications_2_html: Les demandes déposées par les intermédiaires, quel que soit le mandat, ne sont pas transmises. C’est pourquoi <strong>nous vous invitons à accompagner votre interlocuteur / client</strong> pour qu’il dépose lui-même une demande sur le site.
-        explications_html: Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 40 partenaires publics et parapublics du service ont à cœur <strong>d’échanger directement</strong> avec les entreprises pour répondre au mieux à leur problématique.
-        for_companies: Il s'agit d'un service public destiné aux chefs d'entreprises, afin d’aider les petites structures à se développer et à s’adapter.
       intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service).
       intro_with_subject_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) %{solicitation_subject}.
       kbis_extract:
         base_intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant l’extrait Kbis.
-        insee: un avis de situation de l’Insee
-        liberal_instruction: 'De façon générale, il est souvent possible de fournir d’autres justificatifs d’existence comme :'
-        no_expert_monidenum_html: 'Si vous rencontrez des difficultés techniques sur le site MonIdenum et <a href=''https://monidenum.fr/contact''>son support</a>, ce document est également disponible pour les activités commerciales sur le site du greffe : <a href=''https://www.infogreffe.fr/documents-officiels/extrait-kbis''>www.infogreffe.fr/documents-officiels/extrait-kbis</a>. Le coût de la formalité est défini par le greffe.'
-        non_diffusible_help_html: 'Enfin, si votre entreprise est « non diffusible », vous avez la possibilité de modifier ce statut pour télécharger vos documents : <a href=''https://statut-diffusion-sirene.insee.fr''>Accueil - Statut de diffusion Sirene - Insee</a>'
-        only_commercial_html: "<strong>Attention : l’extrait Kbis ne concerne que les activités commerciales</strong>."
-        rne: un extrait de votre inscription au Registre national des entreprises (extrait RNE)
-        use_for_commercant_html: Ces deux documents sont à télécharger gratuitement sur <a href=''https://annuaire-entreprises.data.gouv.fr''>annuaire-entreprises.data.gouv.fr</a>.
       mediateurs:
-        conseil: 'Nous vous conseillons de :'
-        juriste_conseil_html: 'se faire conseiller par un juriste via les informations suivantes : <a href=''https://www.service-public.gouv.fr/particuliers/vosdroits/F20706''>Comment consulter gratuitement un avocat ?</a>'
-        litige_agricole_html: 'Litige lié au domaine agricole : <ul><li>Médiateur des relations commerciales agricoles : <a href=''https://agriculture.gouv.fr/le-mediateur-des-relations-commerciales-agricoles''>https://agriculture.gouv.fr</a></li></ul>'
-        litige_assurance_html: 'Litige lié aux assurances : <ul><li>Médiateur des assurances : <a href=''https://www.mediation-assurance.org''>https://www.mediation-assurance.org</a></li></ul>'
-        litige_cotisation_html: 'Litige avec un gestionnaire des cotisations sociales : <ul><li>Médiateur de la MSA : <a href=''https://www.msa.fr/lfp/le-mediateur-de-la-msa''>https://www.msa.fr</a></li><li>Médiateur de l’URSSAF : <a href=''https://www.urssaf.fr/portail/home/utile-et-pratique/mediation.html''>https://www.urssaf.fr</a></li></ul>'
-        litige_energie_html: 'Litige lié à l’énergie : <ul><li>Médiateur National de l''énergie : <a href=''https://www.energie-mediateur.fr''>https://www.energie-mediateur.fr</a></li></ul>'
-        litige_formation_pro_html: 'Litige lié à la formation professionnelle : <ul><li>Médiateur de France Compétences : <a href=''https://www.francecompetences.fr/espace-mediation-de-france-competences''>https://www.francecompetences.fr</a></li></ul>'
-        litige_france_travail_html: 'Litige avec France Travail : <ul><li>Médiateur France Travail : <a href=''https://www.francetravail.fr/candidat/vos-droits-et-demarches/reclamations/le-mediateur-de-pole-emploi.html''>https://www.francetravail.fr</a></li></ul>'
-        litige_impots_html: 'Litige avec les impôts et services douaniers : <ul><li>Médiateur de Bercy : <a href=''https://www.economie.gouv.fr/mediateur/mediateur-bercy''>https://www.economie.gouv.fr</a></li></ul>'
-        litige_paris_idf_html: 'Litige avec la ville de Paris ou de la Région Île de France : <ul><li>Médiateur de la ville de Paris : <a href=''https://www.paris.fr/pages/le-mediateur-de-paris-2687/''>https://www.paris.fr</a></li><li>Médiateur de le région Île de France : <a href=''https://www.iledefrance.fr/saisir-le-mediateur-de-la-region-ile-de-france''>https://www.iledefrance.fr</a></li></ul>'
-        mediateurs_list: 'Voici également la liste des différents médiateurs en fonction de votre besoin :'
-        no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
-        recouvrement_html: 'procéder à un recouvrement amiable : par voie d’huissier, par exemple. La procédure est simplifiée jusqu’à 5 000 euros. Elle est enclenchée à l’initiative du créancier qui peut le faire directement via la plateforme de traitement des petites créances de la Chambre nationale des commissaires de justice : <a href=''https://www.credicys.fr''>https://www.credicys.fr</a>'
         solicitation_subject_html: concernant un litige
-      moderation:
-        no_new_element: En l’absence d’élément nouveau, nous ne pouvons réaliser de nouvelles mises en relation vers ce dernier.
-        quality_monitoring_html: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller. Nous vous invitons à bien <b>vérifier votre messagerie</b> électronique, vos courriers indésirables (spams) et votre messagerie vocale.
-        taking_care_by_experts: Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.
-      no_expert:
-        erp_html: 'pour votre établissement recevant du public (ERP) et son accessibilité : <a href=''https://entreprendre.service-public.gouv.fr/vosdroits/F32351''>https://entreprendre.service-public.gouv.fr/vosdroits/F32351</a>'
-        inpi_html: 'pour réaliser vos formalités d’entreprises : <a href=''https://procedures.inpi.fr''>https://procedures.inpi.fr</a>, ou pour les SCI <a href=''https://tribunal-commerce.fr''>https://tribunal-commerce.fr</a>'
-        juridique_html: pour votre problématique juridique, vous rapprocher d’un <a href="https://www.justice.gouv.fr/annuaire/lieux-daccueil-dinformation/point-justice">point d’accès justice</a> ou d’une <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F20706">permanence gratuite d’avocat</a>
-        no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
-        personal_services_html: 'pour devenir un service à la personne : <a href=''https://www.servicesalapersonne.gouv.fr''>https://www.servicesalapersonne.gouv.fr</a>'
-        service_improvement_html: C’est en détectant de nouvelles problématiques que nous pouvons améliorer ce service public.<strong> Nous faisons notre maximum pour compléter l’expertise</strong>.
-        useful_links: 'Liens utiles selon votre démarche :'
-      no_expert_agri:
-        adie_html: 'Adie : <a href="https://www.adie.org">Avec l’Adie : entreprendre c’est possible !</a>'
-        agri_html: '<b>pour les activités agricoles</b> : <a href="https://chambres-agriculture.fr/le-reseau-chambres/qui-sommes-nous/le-reseau-des-chambres-dagriculture">L’annuaire des Chambres d’agriculture - Chambres d’agriculture France (chambres-agriculture.fr)</a>'
-        bdf_html: 'Banque de France : <a href="https://www.mesquestionsdentrepreneur.fr/creer-entreprise/financer-creation-entreprise">Mes questions d’entrepreneur | Financer ma création (mesquestionsdentrepreneur.fr)</a>'
-        bpi_html: 'Bpifrance : <a href="https://bpifrance-creation.fr/boiteaoutils/comment-financer-mon-projet-creation-ou-reprise-dentreprise">Comment financer mon projet de création ou reprise d’entreprise ? | Bpifrance Création (bpifrance-creation.fr)</a>'
-        initiative_html: 'Réseau Initiative : <a href="https://initiative-france.fr">Accueil - Initiative - France</a>'
-        no_expert: Malheureusement, nous n’avons pas encore d’expert en mesure de répondre à votre problématique dans votre secteur d’activité.
-        service_improvement_html: C’est en détectant de nouvelles problématiques que nous pouvons améliorer ce service public.<strong> Nous faisons notre maximum pour compléter l’expertise</strong>.
-        useful_links: 'Liens utiles selon votre démarche :'
-        useful_links2: 'Vous retrouverez toutes les sources de financement possibles pour votre projet sur les sites suivants :'
       recruitment_foreign_worker:
-        interior_ministry_html: 'La demande d’autorisation de travail relève d’un service en ligne du Ministère de l’Intérieur : <a href=''https://administration-etrangers-en-france.interieur.gouv.fr/immiprousager/#/authentification''>https://administration-etrangers-en-france.interieur.gouv.fr</a>.'
-        phone_number_html: 'Pour plus d’informations : <b>0806 001 620</b> (appel gratuit).'
         solicitation_subject_html: concernant <b>le recrutement d’un travailleur étranger</b>
       retirement_liberal_professions:
-        carpimko: 'la CARPIMKO au 01 30 48 10 00 : Du lundi au vendredi, de 8h45 à 12h45, la Carpimko répond à vos questions et vous guide dans vos démarches.'
-        cipav_html: 'la CIPAV au 01 44 95 68 20 du lundi au vendredi, de 8h30 à 18h00 ou sur le lien suivant : <a href=''https://www.lacipav.fr/nous-contacter''>https://www.lacipav.fr/nous-contacter</a>'
-        direct_contact: 'Nous vous invitons à les contacter en direct :'
-        no_expert: Malheureusement, les organismes compétents, la CIPAV (caisse de retraite des professions libérales), la CARPIMKO (caisse de retraite des auxiliaires médicaux) et la MSA (caisse de retraite des professions agricoles) ne sont pas encore partenaires du service.
         solicitation_subject: concernant votre retraite
       sie_sip_declare_and_pay:
-        income_and_taxation: Les questions relatives à la déclaration de vos revenus et à leur imposition relèvent de votre service des impôts des particuliers (SIP), tandis que les questions relatives à la CFE et à la TVA relèvent de votre service des impôts des entreprises (SIE).
-        not_partner_html: "<strong>Malheureusement ces deux services ne sont pas partenaires du Service Public Conseillers entreprises à ce jour</strong>.<br>Nous vous invitons à les solliciter directement :"
-        sie_html: 'Service des impôts des entreprises (SIE) : <a href=''https://lannuaire.service-public.gouv.fr/navigation/sie''>https://lannuaire.service-public.gouv.fr/navigation/sie</a>'
-        sie_on_impots_html: Vous pouvez également joindre ces services sur votre compte professionnel ou votre compte particulier <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr'>impots.gouv.fr</a>, via votre messagerie personnalisée.
-        sip_html: 'Service des impôts des particuliers (SIP)  : <a href=''https://lannuaire.service-public.gouv.fr/navigation/sip''>https://lannuaire.service-public.gouv.fr/navigation/sip</a>'
         solicitation_subject_html: concernant votre déclaration de revenus ou le paiement de vos impôts
       sie_tva_and_others:
-        no_tva_number: Les démarches et les questions relatives à la TVA (déclaration et paiement de la TVA, obtention d’un n° de TVA intracommunautaire, seuil et changement de régime de TVA …) relèvent de votre service des impôts des entreprises (SIE).
-        sie_annuaire_html: "<b>Malheureusement ce service n’est pas partenaire du Service Public Conseillers entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href='https://lannuaire.service-public.gouv.fr/navigation/sie'>https://lannuaire.service-public.gouv.fr/navigation/sie</a>."
-        sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/'>impots.gouv.fr</a>, dans votre espace de messagerie personnalisée.
         solicitation_subject_html: concernant la TVA
-      siret:
-        commune_name_html: Par précaution, indiquez également <b>la commune</b> sur laquelle vous exercez votre activité.
-        siret_error: Il semble cependant qu’il y ait une erreur sur votre numéro de Siret. Pourriez-vous nous le faire parvenir à nouveau ?
-        siret_infos_html: 'Le numéro de Siret comporte <b>14 chiffres</b>. Si vous ne le connaissez pas, vous le trouverez facilement ici : <a href=''https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises''>https://annuaire-entreprises.data.gouv.fr</a>'
-        solicitation_transmission: Dès réception de ces éléments, nous transmettons votre demande au(x) conseiller(s) compétent(s) pour vous aider sur votre territoire. Ce(s) conseiller(s) vous rappelleront directement.
       tns_training:
-        agricole_html: "<strong>pour les professions agricoles </strong> : <a href='https://vivea.fr'>https://vivea.fr</a>"
-        artisans_html: "<strong>pour les artisans</strong> : <a href='https://www.fafcea.com/'>https://www.fafcea.com</a>"
         intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant le financement de votre formation.
-        liberal_professions_html: "<strong>pour les professions libérales</strong> : <a href='https://www.fifpl.fr/'>https://www.fifpl.fr</a>"
-        no_expert: Malheureusement nous n’avons pas encore d'expert en mesure de répondre à votre problématique.
-        tradespeople_html: "<strong>pour les commerçants</strong> : <a href='https://communication-agefice.fr'>https://communication-agefice.fr</a>"
-        useful_links: 'Selon votre statut social de Travailleur Non Salarié, 4 organismes sont compétents :'
     team_html: L’équipe du <a href=%{url}> Service Public Conseillers entreprises </a>
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service.
