@@ -4,14 +4,7 @@
 
     <mj-text><%= t('mailers.solicitation_mailer.intro_with_subject_html', link_to_root: link_to(t('app_name'), root_url), solicitation_subject: t('.solicitation_subject')) %></mj-text>
 
-    <mj-text><%= t('.no_expert') %></mj-text>
-
-    <mj-text><%= t('.direct_contact') %>
-      <ul>
-        <li><%= t('.cipav_html') %></li>
-        <li><%= t('.carpimko') %></li>
-        </ul>
-    </mj-text>
+    <mj-text><%= @solicitation_mail_template.body_html.html_safe %></mj-text>
 
     <mj-text><%= t('mailers.thanks_for_your_comprehension') %></mj-text>
 

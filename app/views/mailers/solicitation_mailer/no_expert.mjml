@@ -4,19 +4,7 @@
 
     <mj-text><%= t('mailers.solicitation.base_intro_html', link_to_root: link_to(t('app_name'), root_url)) %></mj-text>
 
-    <mj-text><%= t('.no_expert') %></mj-text>
-
-    <mj-text><%= t('.service_improvement_html') %></mj-text>
-
-    <mj-text>
-      <%= t('.useful_links') %>
-      <ul>
-        <li><%= t('.inpi_html') %></li>
-        <li><%= t('.personal_services_html') %></li>
-        <li><%= t('.erp_html') %></li>
-        <li><%= t('.juridique_html') %></li>
-      </ul>
-    </mj-text>
+    <mj-text><%= @solicitation_mail_template.body_html.html_safe %></mj-text>
 
     <mj-text><%= t('mailers.thanks_for_your_comprehension') %></mj-text>
 
