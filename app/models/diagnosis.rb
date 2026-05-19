@@ -63,6 +63,14 @@ class Diagnosis < ApplicationRecord
   accepts_nested_attributes_for :needs, allow_destroy: true
   accepts_nested_attributes_for :visitee
 
+  before_validation :deduplicate_visitee
+
+  def deduplicate_visitee
+    return unless visitee&.new_record? && visitee.email.present?
+    existing = facility.company.contacts.find_by(email: visitee.email)
+    self.visitee = existing if existing
+  end
+
   ## Through Associations
   #
   # :facility
