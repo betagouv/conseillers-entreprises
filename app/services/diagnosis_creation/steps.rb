@@ -17,10 +17,16 @@ module DiagnosisCreation
     def prepare_visitee_from_solicitation
       return unless solicitation.present? && diagnosis.visitee.blank?
 
-      diagnosis.build_visitee(full_name: solicitation.full_name,
-                         email: solicitation.email,
-                         phone_number: solicitation.phone_number,
-                         company: diagnosis.facility.company)
+      company = diagnosis.facility.company
+      existing_contact = company.contacts.find_by(email: solicitation.email)
+      if existing_contact
+        diagnosis.visitee = existing_contact
+      else
+        diagnosis.build_visitee(full_name: solicitation.full_name,
+                           email: solicitation.email,
+                           phone_number: solicitation.phone_number,
+                           company: company)
+      end
       diagnosis.step = :contact
       diagnosis.save # Validate and save both the new visitee and the diagnosis
 
