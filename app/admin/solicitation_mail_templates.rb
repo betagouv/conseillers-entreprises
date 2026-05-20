@@ -6,8 +6,8 @@ ActiveAdmin.register SolicitationMailTemplate do
   ## Index
   #
   index do
-    column :email_type do |c|
-      admin_link_to c
+    column :email_type do |solicitation_mail_template|
+      link_to solicitation_mail_template, admin_solicitation_mail_template_path(solicitation_mail_template)
     end
     column :updated_at
     actions
@@ -17,7 +17,9 @@ ActiveAdmin.register SolicitationMailTemplate do
   #
   show do
     attributes_table do
-      row :email_type
+      row :email_type do |solicitation_mail_template|
+        solicitation_mail_template.to_s
+      end
       row :updated_at
     end
 
