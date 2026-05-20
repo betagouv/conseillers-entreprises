@@ -600,6 +600,8 @@ fr:
         processed:
           one: mise en relation
           other: mises en relation
+      solicitation_mail_template:
+        email_type: Type d'email
       subject_questions:
         ameliorer_conditions_travail:
           label:

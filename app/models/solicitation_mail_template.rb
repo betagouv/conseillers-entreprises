@@ -17,7 +17,7 @@ class SolicitationMailTemplate < ApplicationRecord
   validates :body_html, presence: true
 
   def to_s
-    email_type
+    I18n.t("solicitations.solicitation_actions.emails.#{email_type}", default: email_type)
   end
 
   def self.ransackable_attributes(auth_object = nil)
