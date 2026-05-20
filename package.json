@@ -23,7 +23,7 @@
     "sass-migrator": "^2.5.7",
     "webpack": "^5.104.1",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.2.1"
+    "webpack-dev-server": "^5.2.4"
   },
   "scripts": {
     "lint:js": "eslint ./app/front/javascripts ./app/assets/javascripts ./config/webpack",
