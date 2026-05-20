@@ -23,8 +23,10 @@ ActiveAdmin.register SolicitationMailTemplate do
       row :updated_at
     end
 
-    panel 'Aperçu du corps' do
-      div resource.body_html.html_safe
+    panel "Aperçu de l'email" do
+      solicitation = Solicitation.step_complete.joins(:landing_subject).find_random
+      mail = SolicitationMailer.send(resource.email_type, solicitation)
+      div mail.body.decoded.html_safe
     end
   end
 
