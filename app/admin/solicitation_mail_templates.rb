@@ -18,9 +18,11 @@ ActiveAdmin.register SolicitationMailTemplate do
   show do
     attributes_table do
       row :email_type
-      row(:body_html) { |t| t.body_html.html_safe }
-      row :created_at
       row :updated_at
+    end
+
+    panel 'Aperçu du corps' do
+      div resource.body_html.html_safe
     end
   end
 
