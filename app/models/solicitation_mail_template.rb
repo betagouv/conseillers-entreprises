@@ -19,11 +19,13 @@ class SolicitationMailTemplate < ApplicationRecord
 
   validates :title, presence: true, uniqueness: true
   validates :email_type, presence: true, uniqueness: true,
-                         inclusion: { in: Solicitation::GENERIC_EMAILS_TYPES.flatten.without(:bad_quality).map(&:to_s) }
+                         format: { with: /\A[a-z0-9_]+\z/ }
   validates :body_html, presence: true
+  validate :email_type_is_not_bad_quality
+
+  attr_readonly :email_type
 
   def to_s
-    I18n.t("solicitations.solicitation_actions.emails.#{email_type}", default: email_type)
     title
   end
 
@@ -34,9 +36,14 @@ class SolicitationMailTemplate < ApplicationRecord
       self.email_type = title.parameterize(separator: '_').gsub('-', '_').gsub(/_+/, '_')
     end
   end
+
+  def email_type_is_not_bad_quality
+    if email_type == 'bad_quality'
+      errors.add(:email_type, :bad_quality)
+    end
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[email_type body_html created_at updated_at id]
+    %w[title email_type body_html created_at updated_at id]
   end
 end
