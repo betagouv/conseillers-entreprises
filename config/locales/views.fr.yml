@@ -54,6 +54,20 @@ fr:
     solicitations:
       diagnosis_in_progress: " (En cours)"
       id: Sollicitation %{id}
+    solicitation_mail_templates:
+      menu: 'Templates emails auto'
+      preview: "Aperçu de l'email"
+      form:
+        title:
+          label: "Titre de l'email (ex: Pas d'expert)"
+          hint: "Sera automatiquement transformé en identifiant technique unique (slug). Exemple : pas_d_expert"
+        email_type_edit:
+          label: "Identifiant technique unique (non modifiable)"
+  activity_report_service:
+    cooperation_file_name: rapport-activite-%{item}-%{year}T%{number}.xlsx
+    matches_file_name: export-mises-en-relation-%{item}-%{year}-%{month}.xlsx
+    solicitations_file_name: sollicitations-%{item}-%{year}T%{number}.xlsx
+    stats_file_name: export-stats-%{item}-%{year}T%{number}.xlsx
   admin:
     reassign_matches:
       reassign_matches:
