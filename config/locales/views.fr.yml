@@ -972,24 +972,7 @@ fr:
       tags: Tags
     solicitation_actions:
       emails:
-        administrations_collectivites: Administrations et collectivités
         bad_quality: Mauvaise qualité générique
-        carsat: CARSAT
-        creation: Création
-        employee_labor_law: Salarié Droit du travail
-        formalites_asso_agri_sci: Formalités asso, agri, SCI
-        intermediary: Intermédiaire
-        kbis_extract: Extrait Kbis
-        mediateurs: Médiateurs
-        moderation: Modération
-        no_expert: Pas d’expert
-        no_expert_agri: Pas d’expert agri
-        recruitment_foreign_worker: Travailleur étranger
-        retirement_liberal_professions: Retraite PL - CIPAV CARPIMKO
-        sie_sip_declare_and_pay: SIE - SIP déclarer et payer
-        sie_tva_and_others: SIE - TVA et autres
-        siret: SIRET
-        tns_training: Formation TNS du dirigeant
   stats:
     done_no_help_status: Statut « cloturé sans aide »
     done_status: Statut « cloturé avec aide »
