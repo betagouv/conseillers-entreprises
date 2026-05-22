@@ -43,7 +43,7 @@
       = t('.send_email')
       %span.ri-mail-add-fill.fr-ml-1w{ 'aria-hidden': 'true' }
     %ul.dropdown-content.fr-menu__list
-      - Solicitation::GENERIC_EMAILS_TYPES.each do |column|
+      - solicitation.available_email_types.in_groups(4, false).each do |column|
         %li.fr-menu__item
           %ul.fr-menu__list
             - column.each do |email_type|

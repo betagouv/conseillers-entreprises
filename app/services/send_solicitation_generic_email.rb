@@ -5,7 +5,9 @@ class SendSolicitationGenericEmail
   end
 
   def valid?
-    @email_type.present? && @solicitation.present? && Solicitation::GENERIC_EMAILS_TYPES.flatten.include?(@email_type.to_sym)
+    @email_type.present? && @solicitation.present? && (
+      @email_type.to_sym == :bad_quality || SolicitationMailTemplate.exists?(email_type: @email_type.to_s)
+    )
   end
 
   def send_email
@@ -18,9 +20,10 @@ class SendSolicitationGenericEmail
   private
 
   def email_type_to_badge_id
-    translated_email_type = I18n.t(@email_type, scope: 'solicitations.solicitation_actions.emails')
-    badge = Badge.find_by('lower(title) = ?', translated_email_type.squish.downcase)
-    badge = Badge.create(title: translated_email_type, color: "#000000", category: :solicitations) if badge.nil?
+    template = SolicitationMailTemplate.find_by(email_type: @email_type.to_s)
+    badge_title = template&.title.presence || I18n.t(@email_type, scope: 'solicitations.solicitation_actions.emails', default: @email_type.to_s.gsub('_', ' ').capitalize)
+    badge = Badge.find_by('lower(title) = ?', badge_title.squish.downcase)
+    badge = Badge.create(title: badge_title, color: "#000000", category: :solicitations) if badge.nil?
     badge.id
   end
 end
