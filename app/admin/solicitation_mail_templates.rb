@@ -1,7 +1,5 @@
 ActiveAdmin.register SolicitationMailTemplate do
-  menu parent: :solicitations, label: 'Templates emails auto'
-
-  actions :index, :show, :edit, :update
+  menu parent: :solicitations, label: proc { I18n.t('active_admin.solicitation_mail_templates.menu') }
 
   ## Index
   #
@@ -23,7 +21,7 @@ ActiveAdmin.register SolicitationMailTemplate do
       row :updated_at
     end
 
-    panel "Aperçu de l'email" do
+    panel I18n.t('active_admin.solicitation_mail_templates.preview') do
       solicitation = Solicitation.step_complete.joins(:landing_subject).find_random
       mail = SolicitationMailer.send(resource.email_type, solicitation)
       div mail.body.decoded.html_safe

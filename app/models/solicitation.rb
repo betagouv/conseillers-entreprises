@@ -84,12 +84,6 @@ class Solicitation < ApplicationRecord
 
   after_update :update_diagnosis
 
-  GENERIC_EMAILS_TYPES = [
-    %i[bad_quality no_expert moderation creation intermediary],
-    %i[sie_tva_and_others sie_sip_declare_and_pay formalites_asso_agri_sci tns_training no_expert_agri],
-    %i[carsat retirement_liberal_professions employee_labor_law recruitment_foreign_worker],
-    %i[administrations_collectivites siret mediateurs kbis_extract],
-  ]
 
   ## Status
   #
@@ -677,6 +671,10 @@ end
 
   def kwd
     mtm_kwd.presence || pk_kwd.presence
+  end
+
+  def available_email_types
+    [:bad_quality] + SolicitationMailTemplate.order(:id).pluck(:email_type).map(&:to_sym)
   end
 
   # Else ---------------------
