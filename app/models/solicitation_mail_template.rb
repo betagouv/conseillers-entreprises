@@ -13,7 +13,8 @@
 #  index_solicitation_mail_templates_on_email_type  (email_type) UNIQUE
 #
 class SolicitationMailTemplate < ApplicationRecord
-  validates :email_type, presence: true, uniqueness: true
+  validates :email_type, presence: true, uniqueness: true,
+                         inclusion: { in: Solicitation::GENERIC_EMAILS_TYPES.flatten.without(:bad_quality).map(&:to_s) }
   validates :body_html, presence: true
 
   def to_s
