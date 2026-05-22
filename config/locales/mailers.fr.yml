@@ -3,15 +3,6 @@ fr:
   mailers:
     admin_mailer:
       csv_export: Export CSV des %{model}
-      failed_jobs:
-        failed_jobs_list:
-          one: 'Il y a %{count} job en échec :'
-          other: 'Il y a %{count} jobs en échecs :'
-        hello: Salut les devs !
-        jobs_index: Index des jobs
-        subject:
-          one: "[Conseillers-Entreprises] %{count} job en erreur"
-          other: "[Conseillers-Entreprises] %{count} jobs en erreur"
       send_csv:
         content: L’export des %{model} est terminé, vous le trouverez en pièce jointe.
         ransack_params: Paramètres de recherche

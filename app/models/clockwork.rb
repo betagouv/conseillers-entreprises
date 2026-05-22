@@ -42,9 +42,6 @@ module Clockwork
   every(1.day, 'inteligent_retention', at: ('06:30'), tz: 'UTC') do
     CompanyEmails::SendIntelligentRetentionEmailsJob.perform_later
   end
-  every(1.day, 'send_failed_jobs_email', at: '10:00', tz: 'UTC') do
-    Admin::SendFailedJobsJob.perform_later
-  end
   every(1.day, 'relaunch_solicitations', at: ('12:00'), tz: 'UTC') do
     CompanyEmails::SolicitationsRelaunchJob.perform_later
   end
