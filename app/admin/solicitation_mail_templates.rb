@@ -6,9 +6,10 @@ ActiveAdmin.register SolicitationMailTemplate do
   ## Index
   #
   index do
-    column :email_type do |solicitation_mail_template|
-      link_to solicitation_mail_template, admin_solicitation_mail_template_path(solicitation_mail_template)
+    column :title do |solicitation_mail_template|
+      link_to solicitation_mail_template.title, admin_solicitation_mail_template_path(solicitation_mail_template)
     end
+    column :email_type
     column :updated_at
     actions
   end
@@ -17,9 +18,8 @@ ActiveAdmin.register SolicitationMailTemplate do
   #
   show do
     attributes_table do
-      row :email_type do |solicitation_mail_template|
-        solicitation_mail_template.to_s
-      end
+      row :title
+      row :email_type
       row :updated_at
     end
 
@@ -32,11 +32,18 @@ ActiveAdmin.register SolicitationMailTemplate do
 
   ## Form
   #
-  permit_params :body_html
+  permit_params :title, :body_html
 
   form do |f|
     f.inputs do
-      f.input :email_type, input_html: { disabled: true }
+      f.input :title, as: :string,
+              label: I18n.t('active_admin.solicitation_mail_templates.form.title.label'),
+              hint: I18n.t('active_admin.solicitation_mail_templates.form.title.hint')
+      unless f.object.new_record?
+        f.input :email_type,
+                label: I18n.t('active_admin.solicitation_mail_templates.form.email_type_edit.label'),
+                input_html: { disabled: true }
+      end
       f.input :body_html, as: :quill_editor
     end
 

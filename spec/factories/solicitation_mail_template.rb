@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :solicitation_mail_template do
-    sequence(:email_type) { |n| Solicitation::GENERIC_EMAILS_TYPES.flatten.without(:bad_quality)[n % 17].to_s }
+    sequence(:title) { |n| "Titre de l'email #{n}" }
+    sequence(:email_type) { |n| "email_type_#{n}" }
     body_html { '<p>Contenu de test</p>' }
   end
 end
