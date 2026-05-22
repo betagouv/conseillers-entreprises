@@ -7,11 +7,14 @@ describe SendSolicitationGenericEmail do
       let(:solicitation) { create :solicitation, status: 'in_progress' }
       let(:email_type) { :siret }
 
-      before { described_class.new(solicitation, email_type).send_email }
+      before do
+        create(:solicitation_mail_template, email_type: 'siret', title: 'Erreur SIRET')
+        described_class.new(solicitation, email_type).send_email
+      end
 
       it do
         expect(solicitation.badges.size).to eq 1
-        expect(solicitation.badges.first.title).to eq I18n.t(email_type, scope: 'solicitations.solicitation_actions.emails')
+        expect(solicitation.badges.first.title).to eq 'Erreur SIRET'
         expect(solicitation.status).to eq 'canceled'
         assert_enqueued_with(job: ActionMailer::MailDeliveryJob)
         expect(enqueued_jobs.count).to eq 1
