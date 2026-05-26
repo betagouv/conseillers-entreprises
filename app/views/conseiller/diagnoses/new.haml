@@ -6,7 +6,8 @@
 
     - if @needs.present?
       %h2.fr-h3= t('companies.needs.others')
-      = render partial: 'companies/need', collection: @needs
+      .fr-col
+        = render partial: 'companies/need', collection: @needs
 
     %h2= t('.title')
     %p= t('.sub_title')
