@@ -1,7 +1,0 @@
-= render 'mailers/header'
-
-%p= t('.hello')
-
-%p= t('.failed_jobs_list', count: @jobs_count)
-
-= link_to t('.jobs_index'), sidekiq_web_url
