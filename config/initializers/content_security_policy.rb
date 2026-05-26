@@ -15,7 +15,7 @@ Rails.application.configure do
     policy.style_src   :self, 'https://fonts.googleapis.com'
     policy.script_src  :self, :blob, 'https://stats.beta.gouv.fr/', 'https://cdn.jsdelivr.net/', 'https://www.googletagmanager.com/', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com'
     policy.frame_src :self, 'stats.data.gouv.fr', 'stats.beta.gouv.fr', 'https://cdn.jsdelivr.net/', 'https://bid.g.doubleclick.net', 'https://tpc.googlesyndication.com', 'https://www.youtube-nocookie.com'
-    policy.connect_src :self, 'https://api-adresse.data.gouv.fr/', '*.google.com', 'https://adservice.google.com', 'https://pagead2.googlesyndication.com', 'https://tpc.googlesyndication.com', 'https://googleads.g.doubleclick.net', 'https://stats.beta.gouv.fr/', 'https://www.googletagmanager.com', 'https://cdn.jsdelivr.net/', 'https://www.googleadservices.com', 'https://www.google.fr'
+    policy.connect_src :self, '*.google.com', 'https://adservice.google.com', 'https://pagead2.googlesyndication.com', 'https://tpc.googlesyndication.com', 'https://googleads.g.doubleclick.net', 'https://stats.beta.gouv.fr/', 'https://www.googletagmanager.com', 'https://cdn.jsdelivr.net/', 'https://www.googleadservices.com', 'https://www.google.fr'
     # Specify URI for violation reports
     if ENV["CSP_REPORT_URI"].present? && ENV["CSP_REPORT_ACTIVATED"] == "true"
       policy.report_uri ENV["CSP_REPORT_URI"]
