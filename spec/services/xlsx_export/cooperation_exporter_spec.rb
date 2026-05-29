@@ -73,7 +73,7 @@ RSpec.describe XlsxExport::CooperationExporter do
         expect(volume_sheet).not_to be_nil
 
         first_row_value = volume_sheet.rows.first.cells.first.value
-        period = "#{end_date.year}T#{TimeDurationService::Quarters.new.find_quarter_for_month(start_date.month)}"
+        period = "#{end_date.year}T#{start_date.quarter}"
         expected_title = I18n.t('cooperation_stats_exporter.volume.title', cooperation: cooperation.name, period: period)
 
         expect(first_row_value).to eq(expected_title)
@@ -111,7 +111,7 @@ RSpec.describe XlsxExport::CooperationExporter do
         expect(repartition_sheet).not_to be_nil
 
         first_row_value = repartition_sheet.rows.first.cells.first.value
-        period = "#{end_date.year}T#{TimeDurationService::Quarters.new.find_quarter_for_month(start_date.month)}"
+        period = "#{end_date.year}T#{start_date.quarter}"
         expected_title = I18n.t('cooperation_stats_exporter.repartition.title', cooperation: cooperation.name, period: period)
 
         expect(first_row_value).to eq(expected_title)
