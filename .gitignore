@@ -70,7 +70,3 @@ yarn-debug.log*
 /config/master.key
 /.mise.toml
 /certbot/
-
-# AI agents
-.claude/
-/GEMINI.md
