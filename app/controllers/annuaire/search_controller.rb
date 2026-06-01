@@ -5,7 +5,7 @@ module Annuaire
     before_action :init_filters, only: %i[load_filter_options]
 
     def search
-      model, id = params[:query].split('-')
+      model, id = params.expect(:query).split('-')
       institution_slug, antenne_id, advisor_id = fetch_institution_and_antenne(model, id)
 
       redirect_to institutions_path and return if institution_slug.nil?

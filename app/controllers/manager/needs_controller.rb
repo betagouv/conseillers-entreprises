@@ -40,7 +40,7 @@ class Manager::NeedsController < ApplicationController
 
   def retrieve_recipient
     @recipient = if params[:antenne_id].present?
-      current_user.supervised_antennes.find(params[:antenne_id])
+      current_user.supervised_antennes.find(params.expect(:antenne_id))
     else
       current_user.managed_antennes.by_higher_territorial_level.first
     end

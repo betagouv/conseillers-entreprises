@@ -56,6 +56,6 @@ class BadgesController < ApplicationController
   end
 
   def find_badge
-    @badge = Badge.find(params[:id])
+    @badge = Badge.find(params.expect(:id))
   end
 end

@@ -34,6 +34,6 @@ class Emails::SolicitationsController < ApplicationController
   end
 
   def find_solicitation
-    @solicitation = Solicitation.find(params[:id])
+    @solicitation = Solicitation.find(params.expect(:id))
   end
 end

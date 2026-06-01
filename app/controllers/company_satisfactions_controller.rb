@@ -1,6 +1,6 @@
 class CompanySatisfactionsController < PagesController
   def new
-    need = Need.find(params[:besoin])
+    need = Need.find(params.expect(:besoin))
     satisfaction = CompanySatisfaction.find_by(need: need)
     email_token = Digest::SHA256.hexdigest(need.diagnosis.visitee.email)
     if satisfaction.present?

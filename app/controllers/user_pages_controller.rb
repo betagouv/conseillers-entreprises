@@ -7,7 +7,7 @@ class UserPagesController < ApplicationController
   # See also user_app_info_controller.js
   def app_info
     return unless current_user
-    return unless params[:key].in? User::APP_INFO_KEYS
+    return unless params.expect(:key).in? User::APP_INFO_KEYS
 
     current_user.update(params[:key] => DateTime.now)
 
