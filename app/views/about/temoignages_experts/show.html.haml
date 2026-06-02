@@ -22,5 +22,5 @@
               %ul.fr-card__desc
                 - @temoignage.voir_aussi.each do |link|
                   - external_link = link[:url].start_with?(/https?/)
-                  - options = external_link ? { target: '_blank', rel: 'noopener' } : {}
+                  - options = external_link ? { target: '_blank', rel: 'noopener noreferrer', title: t('.new_window', name: link[:name], host: URI.parse(link[:url]).host) } : {}
                   %li= link_to link[:name], link[:url], **options
