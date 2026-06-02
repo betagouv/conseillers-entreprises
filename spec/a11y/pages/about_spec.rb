@@ -43,4 +43,16 @@ describe 'about', :js, type: :feature do
 
     it { is_expected.to be_accessible }
   end
+
+  describe '/temoignages' do
+    before { visit '/temoignages' }
+
+    it { is_expected.to be_accessible }
+  end
+
+  describe '/temoignages/<key>' do
+    before { visit '/temoignages/dgfip_accompagnement_fiscal_pme' }
+
+    it { is_expected.to be_accessible }
+  end
 end
