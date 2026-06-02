@@ -89,6 +89,40 @@
       "note": ""
     },
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "a6fd07313f1c6f43a2158467ee5024d6ccedb69e32ced83bc2a135b662f6e523",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/about/temoignages_experts/show.html.haml",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => params[:id], {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "About::TemoignagesExpertsController",
+          "method": "show",
+          "line": 13,
+          "file": "app/controllers/about/temoignages_experts_controller.rb",
+          "rendered": {
+            "name": "about/temoignages_experts/show",
+            "file": "app/views/about/temoignages_experts/show.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "about/temoignages_experts/show"
+      },
+      "user_input": "params[:id]",
+      "confidence": "High",
+      "cwe_id": [
+        22
+      ],
+      "note": "params[:id] is checked to be a key of the yml file"
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "a848f2ec57900fe0a8e2cc8aeab00277657870582bef079fa2f2d539a0b7d060",
@@ -162,7 +196,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/services/stats/base_stats.rb",
-      "line": 149,
+      "line": 154,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "query.group(\"DATE_TRUNC('month', #{query.model.name.pluralize}.created_at)\")",
       "render_path": null,
@@ -179,5 +213,5 @@
       "note": ""
     }
   ],
-  "brakeman_version": "7.1.1"
+  "brakeman_version": "8.0.4"
 }

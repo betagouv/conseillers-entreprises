@@ -1,0 +1,27 @@
+.fr-container.fr-py-7w.fr-mt-3v
+  .fr-grid-row
+    .fr-col-12.fr-col-md-8
+      %h1.fr-h2= t('.title_long')
+      %p.fr-text--lead
+        = t('.subtitle')
+    .fr-col-12.fr-col-md-4.landing-header__picture
+      = picture_tag { tag.source(srcset: image_path("home-430w.png"), media: "(max-width: 430px)") + tag.source(srcset: image_path("home.webp")) + image_tag("home.png", alt: "", fetchpriority: "high") }
+
+= render 'pages/breadcrumbs', title: t('about.temoignages_experts.title')
+
+.fr-container
+  .fr-grid-row.fr-grid-row--gutters.fr-my-7w
+    - @temoignages.each do |temoignage_key, data|
+      .fr-col-md-12
+        .fr-card.fr-card--sm.fr-enlarge-link.fr-card--horizontal.fr-card--horizontal-tier
+          .fr-card__body
+            .fr-card__content
+              %h2.fr-card__title
+                = link_to data["title"], temoignages_expert_path(temoignage_key)
+              %p.fr-card__desc= data["subtitle"].html_safe
+              .fr-card__end
+                %p.fr-card__detail
+                  #{data["expert"]} — #{@institutions_names[data["institution"]]}
+          .fr-card__header
+            .fr-card__img
+              = image_tag "temoignages_experts/#{temoignage_key}.jpeg", class: "fr-responsive-img", alt: "Illustration"
