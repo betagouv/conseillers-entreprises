@@ -1,0 +1,195 @@
+dgfip_accompagnement_fiscal_pme:
+  title: Comment le service d’accompagnement fiscal de la DGFIP éclaire les entreprises face à leurs problématiques fiscales ?
+  subtitle: Nous tissons une relation de confiance au cœur des échanges avec les entreprises et au plus près des
+    territoires. Cette posture nouvelle d’accompagnement sur les questions de fiscalité doit permettre aux entreprises
+    de grandir plus sereinement.
+  institution: dgfip
+  expert: Sophie Neel
+  publication_date: 2026-06-11
+  initial_publication_date: 2025-10-10
+  landing_subject: reduction-impots
+  mtm_kwd: article-afpme
+  voir_aussi:
+    - name: Je suis une PME et je souhaite un accompagnement fiscal
+      url: https://www.impots.gouv.fr/je-suis-une-pme-et-je-souhaite-un-accompagnement-fiscal-0
+banque_de_france:
+  title: Comment la Banque de France vous accompagne dès les premières inquiétudes de trésorerie ?
+  subtitle: J’écoute les chefs d’entreprise pour m’approcher au plus près de leurs problèmes de trésorerie et les orienter au mieux.
+  institution: banque-de-france
+  expert: Christine Perez-Porcher
+  publication_date: 2026-06-11
+  initial_publication_date: 2024-12-05
+  landing_subject: tresorerie
+  mtm_kwd: article-bdf
+  voir_aussi:
+    - name: Se protéger et détecter les signaux d’alerte
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/N32600
+    - name: Réagir aux premières difficultés
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/N32550
+    - name: Éviter la cessation des paiements
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/N32476
+    - name: Traiter les difficultés avec l’aide du tribunal
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/N32478
+    - name: Fermer l’entreprise
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/N32479
+    - name: Rebondir après la fermeture d’une entreprise
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/N32579
+    - name: Les ressources de la Banque de France pour la gestion d’entreprise sur « Mes questions d’entrepreneurs »
+      url: https://www.mesquestionsdentrepreneur.fr/creer-une-entreprise/les-reseaux-daccompagnement-la-creation/banque-de-france-correspondants-tpepme
+cma_reprise:
+  title: Comment la Chambre des Métiers et de l’Artisanat vous aide à reprendre une entreprise artisanale ?
+  subtitle: Reprendre une entreprise, c’est reprendre un savoir-faire, une clientèle, des salariés, un téléphone qui
+    sonne. Le tout dans un nouvel élan, une nouvelle énergie. La reprise est à mon sens un formidable accélérateur
+    de développement !
+  institution: cma
+  expert: Nicolas Sinoquet
+  publication_date: 2026-06-11
+  initial_publication_date: 2025-03-17
+  landing_subject: reprendre-entreprise
+  mtm_kwd: article-cma-reprise
+  voir_aussi:
+    - name: Je reprends
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/N31902
+droit_du_travail:
+  title: Comment les services de renseignement en droit du travail répondent aux interrogations des chefs
+    d’entreprise ?
+  subtitle: Nous sommes là pour accompagner les employeurs en vulgarisant le droit. Nous apportons une réponse
+    personnalisée en fonction du statut juridique de l’entreprise.
+  institution: dreets
+  expert: Mylène Barnabé
+  publication_date: 2026-06-11
+  initial_publication_date: 2025-01-28
+  landing_subject: droit-du-travail
+  mtm_kwd: article-droit-du-travail
+cci_energie:
+  title: Comment faire des économies d’énergie dans son entreprise ?
+  subtitle: "J’accompagne les chefs d’entreprises à agir par ordre de priorité : d’abord <strong> la sobriété</strong>
+             (enlever l'inutile), puis <strong>l’efficacité</strong> (agir pour réaliser des gains) et enfin
+              <strong>les énergies renouvelables</strong> (s’autonomiser pour être pérenne). Ce cheminement permet de
+              <strong>diminuer sa consommation d’énergie</strong>, un préalable pour mettre en place une énergie renouvelable
+              dimensionnée au besoin réel de son entreprise"
+  institution: cci
+  expert: Priscille Julien
+  publication_date: 2026-06-11
+  initial_publication_date: 2024-10-01
+  landing_subject: realiser-un-diagnostic-pour-reduire-votre-consommation-d-energie
+  mtm_kwd: article-energie-cci
+  voir_aussi:
+    - name: 'RSE: engager la transition écologique de son entreprise'
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/F37377
+    - name: 'Transition Écologique des Entreprises: un service clé en main pour passer à l’action'
+      url: https://entreprendre.service-public.gouv.fr/actualites/A16979
+    - name: 'Changement climatique: un guide sur le parcours d’adaptation de l’entreprise'
+      url: https://entreprendre.service-public.gouv.fr/actualites/A17670
+    - name: "Comment tirer profit du numérique lorsqu’on est artisan ?"
+      url: cma_artisan_numerique
+    - name: "Comment développer sereinement son activité libérale ?"
+      url: professions_liberales
+douanes:
+  title: Quelles facilités offre la Douane dans la gestion des flux de marchandises à l’international ?
+  subtitle: La Cellule Conseil des douanes aide les entreprises à anticiper les démarches douanières et les accompagne dans
+    leurs échanges internationaux. Il ne faut pas attendre que la marchandise soit bloquée pour nous appeler !
+  institution: douanes
+  expert: Séverine Bouet
+  publication_date: 2026-06-11
+  initial_publication_date: 2024-11-04
+  landing_subject: international
+  mtm_kwd: article-douanes
+  voir_aussi:
+    - name: "Comment faire des économies d’énergie dans son entreprise ?"
+      url: cci_energie
+    - name: "Comment tirer profit du numérique lorsqu’on est artisan ?"
+      url: cma_artisan_numerique
+    - name: "Comment développer sereinement son activité libérale ?"
+      url: professions_liberales
+cap_emploi_handicap:
+  title: Comment Cap emploi vous accompagne pour recruter une personne en situation de handicap ?
+  subtitle: Selon le film qu’on a vu ou l’expérience qu’on a vécue, on a telle ou telle représentation d’un handicap.
+    Mon métier, c’est d’aider les employeurs à lever ces barrières de la pensée et à s’ouvrir concrètement dans l’action !
+  institution: cap-emploi
+  expert: Bruno Munoz
+  publication_date: 2026-06-11
+  initial_publication_date: 2025-04-08
+  landing_subject: handicap-entreprise
+  mtm_kwd: article-capemploi-handicap
+  voir_aussi:
+    - name: Aides financières pour l’embauche d’un travailleur handicapé
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/F15204
+    - name: 'Secteur privé : qu’est-ce que l’obligation d’emploi des travailleurs handicapés (OETH)'
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/F23149
+    - name: Accessibilité d’un établissement recevant du public (ERP)
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/F32873
+professions_liberales:
+  title: Comment développer sereinement son activité libérale ?
+  subtitle: À la Maison des Professions Libérales, nous sommes convaincus que chaque travailleur indépendant a le potentiel
+    d’apporter une contribution positive à notre société. C’est la raison pour laquelle nous aidons chaque jour des
+    dizaines d’hommes et de femmes à créer leur entreprise de proximité et à en vivre dignement.
+  institution: unapl
+  expert: Sylvie Communier
+  publication_date: 2026-06-11
+  initial_publication_date: 2024-07-25
+  landing_subject: formalites-entreprise-statut
+  mtm_kwd: article-pl
+  voir_aussi:
+    - name: Maison des Professions Libérales du Grand Ouest
+      url: https://www.mplgrandouest.org/
+cma_artisan_numerique:
+  title: Comment tirer profit du numérique lorsqu’on est artisan ?
+  subtitle: J’aide les artisans, notamment les artisans multiservices, électriciens, plombiers, coiffeurs, instituts de
+    beauté, à se saisir des opportunités du numérique. À la CMA, nous leur montrons comment le numérique peut leur
+    faire gagner un temps précieux et développer leur activité.
+  institution: cma
+  expert: Maxime Cognard
+  publication_date: 2026-06-11
+  initial_publication_date: 2024-08-30
+  landing_subject: vendre-sur-internet
+  mtm_kwd: article-artisan-numerique
+  voir_aussi:
+    - name: Comment développer sereinement son activité libérale ?
+      url: professions_liberales
+    - name: Site des Chambres de métiers et de l'artisanat (CMA)
+      url: https://www.artisanat.fr/
+opco_entreprises_de_proximite:
+  title: Comment votre Opco vous accompagne dans l’évolution des compétences de vos salariés ?
+  subtitle: Nous sommes un outil pour les entreprises afin de les accompagner dans leur projet de développement des
+    compétences des salariés. N’hésitez pas à nous appeler, chaque entreprise dispose d’un conseiller formation à
+    son écoute.
+  institution: opco-entreprises-de-proximite
+  expert: Agnès Poix
+  publication_date: 2026-06-11
+  initial_publication_date: 2025-05-13
+  landing_subject: former
+  mtm_kwd: article-opcoep
+  voir_aussi:
+    - name: Aides à l’embauche en contrat d’apprentissage
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/F23556
+    - name: 'Recrutement d’un apprenti : ce qui change'
+      url: https://entreprendre.service-public.gouv.fr/actualites/A17983
+    - name: Connaître l'OPCO d'un SIRET
+      url: https://quel-est-mon-opco.francecompetences.fr/
+ccef:
+  title: Comment les conseillers du Commerce extérieur de la France vous aident à développer votre activité à l’étranger ?
+  subtitle: Nous agissons comme des grands frères pour aider le dirigeant à s’introduire dans le marché de destination en lui partageant bénévolement notre expérience.
+  institution: reseau-des-conseillers-du-commerce-exterieur
+  expert: David Elizalde
+  publication_date: 2026-06-11
+  initial_publication_date: 2025-06-06
+  landing_subject: international
+  mtm_kwd: article-ccef
+  voir_aussi:
+    - name: Les conseillers du Commerce extérieur de la France
+      url: https://www.cnccef.org/territoires/
+cma_dechets:
+  title: Comment la Chambre des métiers et de l’artisanat vous aide à mieux gérer vos déchets ?
+  subtitle: Je me rends dans l’entreprise pour réaliser un diagnostic déchets. En effet, on ne peut améliorer que ce que l’on mesure. Derrière une baguette jetée, il y a une quantité de farine, de l’énergie pour faire fonctionner le four, du temps salarié.
+  institution: cma
+  expert: Fanny Potagnik
+  publication_date: 2026-06-11
+  initial_publication_date: 2025-11-10
+  landing_subject: dechets
+  mtm_kwd: article-cma-dechets
+  voir_aussi:
+    - name: Chambres de métiers et de l’artisanat
+      url: https://www.artisanat.fr/
+    - name: Économie circulaire - Déchets
+      url: https://entreprendre.service-public.gouv.fr/vosdroits/N32301
