@@ -6,7 +6,7 @@ describe TimeDurationService::Years do
     context '1rst quarter' do
       it do
         travel_to('2025-01-20') do
-          is_expected.to contain_exactly(('01/01/2024'.to_date)..('31/12/2024'.to_date), ('01/01/2023'.to_date)..('31/12/2023'.to_date))
+          is_expected.to contain_exactly('01/2024'.to_date.all_year, '01/2023'.to_date.all_year)
         end
       end
     end
@@ -14,7 +14,7 @@ describe TimeDurationService::Years do
     context '2nd quarter' do
       it do
         travel_to('2025-04-20') do
-          is_expected.to contain_exactly(('01/01/2024'.to_date)..('31/12/2024'.to_date))
+          is_expected.to contain_exactly('01/2024'.to_date.all_year)
         end
       end
     end
