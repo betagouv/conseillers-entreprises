@@ -23,12 +23,4 @@
       %button.fr-link--close.fr-link{ 'aria-controls': 'modal-responsive-menu' }= t('navbar.close')
       .fr-header__menu-links{ 'aria-label': 'Menu principal' }
       %nav.fr-nav{ 'aria-label': t("navbar.main_menu"), role: 'navigation' }
-        %ul.fr-nav__list
-          = active_link_to root_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', active: :exclusive do
-            %span.ri-home-line.fr-mr-1w{ 'aria-hidden': 'true' }
-            = t('breadcrumbs_helper.home_link.home')
-          = active_link_to comment_ca_marche_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active', data: { turbo: false } do
-            %span.ri-presentation-line.fr-mr-1w{ 'aria-hidden': 'true' }
-            = t('about.comment_ca_marche.title')
-
-          -# Les liens du menu se mettent automatiquement ici
+        = render "application/navbar/public"
