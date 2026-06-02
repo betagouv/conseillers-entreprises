@@ -30,7 +30,7 @@ class ExpertsController < ApplicationController
   end
 
   def find_expert
-    @expert = Expert.find(params[:id])
+    @expert = Expert.find(params.expect(:id))
     authorize @expert, :update?
   end
 end

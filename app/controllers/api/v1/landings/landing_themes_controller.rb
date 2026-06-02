@@ -8,7 +8,7 @@ class Api::V1::Landings::LandingThemesController < Api::V1::Landings::BaseContro
   end
 
   def show
-    landing_theme = base_scope.find(params[:id])
+    landing_theme = base_scope.find(params.expect(:id))
     render json: landing_theme, serializer: serializer, meta: { total_subjects: landing_theme.landing_subjects.size }
   end
 

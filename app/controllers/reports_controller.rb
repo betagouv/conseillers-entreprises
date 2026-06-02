@@ -17,7 +17,7 @@ class ReportsController < ApplicationController
   end
 
   def download
-    report = ActivityReport.find(params[:id])
+    report = ActivityReport.find(params.expect(:id))
     authorize report, policy_class: ReportPolicy
     respond_to do |format|
       format.html
@@ -31,7 +31,7 @@ class ReportsController < ApplicationController
 
   def retrieve_antenne
     @antenne = if params[:antenne_id].present?
-      Antenne.find(params[:antenne_id])
+      Antenne.find(params.expect(:antenne_id))
     else
       current_user.managed_antennes.by_higher_territorial_level.first
     end

@@ -36,7 +36,7 @@ module  Annuaire
 
     def send_invitations
       invite_count = 0
-      params[:users_ids].split.each do |user_id|
+      params.expect(:users_ids).split.each do |user_id|
         user = User.find user_id
         next if user.invitation_sent_at.present?
         user.invite!(current_user)
@@ -159,7 +159,7 @@ module  Annuaire
 
     def base_experts
       if params[:advisor].present?
-        searched_user = User.find(params[:advisor])
+        searched_user = User.find(params.expect(:advisor))
         flash[:table_highlighted_ids] = [searched_user.id]
         experts = @antenne.experts.joins(:antenne)
       elsif session[:highlighted_antennes_ids] && @antenne.nil?

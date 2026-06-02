@@ -7,7 +7,7 @@ class Api::V1::Landings::LandingSubjectsController < Api::V1::Landings::BaseCont
   end
 
   def show
-    landing_subject = base_scope.find(params[:id])
+    landing_subject = base_scope.find(params.expect(:id))
     render json: landing_subject, serializer: serializer, meta: {}
   end
 

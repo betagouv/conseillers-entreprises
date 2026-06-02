@@ -31,7 +31,7 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
   end
 
   def mark_as_seen
-    @shared_satisfaction = SharedSatisfaction.find(params[:id])
+    @shared_satisfaction = SharedSatisfaction.find(params.expect(:id))
     @shared_satisfaction.touch(:seen_at)
     respond_to do |format|
       format.turbo_stream do

@@ -1,6 +1,6 @@
 class MatchesController < ApplicationController
   def update
-    @match = Match.find(params[:id])
+    @match = Match.find(params.expect(:id))
     authorize @match
     previous_status = @match.status
     @match.update status: params[:status]

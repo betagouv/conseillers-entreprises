@@ -7,7 +7,7 @@ class Conseiller::CsvExportsController < ApplicationController
   end
 
   def download
-    @export = current_user.csv_exports.find(params[:id])
+    @export = current_user.csv_exports.find(params.expect(:id))
     authorize @export, policy_class: CsvExportPolicy
 
     respond_to do |format|
