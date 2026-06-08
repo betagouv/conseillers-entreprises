@@ -1,4 +1,8 @@
 class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
+  class SolicitationMailTemplate < ActiveRecord::Base
+    self.table_name = 'solicitation_mail_templates'
+  end
+
   def up
     templates = [
       {
