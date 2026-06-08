@@ -3,15 +3,15 @@
 .fr-container.fr-py-7w
   .fr-grid-row.fr-grid-row--center
     .fr-col-12.fr-col-md-10.fr-col-lg-8
-      %h1= @data['title']
+      %h1= @temoignage.title
       %p.fr-text--xs= t('.published_date_html',
-        date: l(@data['publication_date'], format: :long),
-        initial_date: l(@data['initial_publication_date'], format: :long))
-      = render partial: @temoignage_key
+        date: l(@temoignage.publication_date, format: :long),
+        initial_date: l(@temoignage.initial_publication_date, format: :long))
+      = render partial: @key
   .fr-grid-row.fr-grid-row--center.fr-my-6w
     .fr-col-12.fr-col-md-10.fr-col-lg-8
       = render 'pages/cta_button', url: @new_solicitation_path
-  - if @data['voir_aussi'].present?
+  - if @temoignage.voir_aussi.present?
     .fr-grid-row.fr-grid-row--center
       .fr-col-12.fr-col-md-10.fr-col-lg-8
         .fr-card.fr-card--sm.fr-card--horizontal.fr-card--grey
@@ -20,7 +20,7 @@
               %h3.fr-card__title
                 Voir aussi
               %ul.fr-card__desc
-                - @data['voir_aussi'].each do |link|
-                  - external_link = link['url'].start_with?(/https?/)
+                - @temoignage.voir_aussi.each do |link|
+                  - external_link = link[:url].start_with?(/https?/)
                   - options = external_link ? { target: '_blank', rel: 'noopener' } : {}
-                  %li= link_to link['name'], link['url'], **options
+                  %li= link_to link[:name], link[:url], **options
