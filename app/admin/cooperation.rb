@@ -2,6 +2,7 @@ ActiveAdmin.register Cooperation do
   menu parent: :themes, priority: 3
 
   include AdminArchivable
+  include OnDemandActivityReports
 
   includes :institution, :cooperation_themes, :landings, :logo
 
@@ -60,12 +61,11 @@ ActiveAdmin.register Cooperation do
       row(:managers) do |c|
         div admin_link_to(c, :managers, list: true)
       end
-      row(:stats) do |c|
-        div link_to I18n.t('active_admin.cooperations.activity_reports'),reports_conseiller_cooperations_path(cooperation_id: c.id)
-      end
     end
   end
 
+  ## Form
+  #
   permit_params :name,
                 :logo_id, :mtm_campaign, :root_url, :display_url, :display_matches_stats, :wants_solicitations_export,
                 :external, :institution_id, landing_ids: []
@@ -95,5 +95,13 @@ ActiveAdmin.register Cooperation do
     end
 
     f.actions
+  end
+
+  sidebar I18n.t('active_admin.reports.title'), only: [:show, :edit] do
+    div link_to t('active_admin.reports.view_reports_app_page'), reports_conseiller_cooperations_path(cooperation_id: resource.id)
+    hr
+    activity_report_sidebar_contents(ActivityReports::CooperationStats.new(resource))
+    hr
+    activity_report_sidebar_contents(ActivityReports::CooperationSolicitations.new(resource))
   end
 end

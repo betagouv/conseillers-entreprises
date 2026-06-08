@@ -1,7 +1,7 @@
 require 'rails_helper'
 describe ActivityReports::AntenneStats do
   describe '#perform' do
-    let(:antenne) { create :antenne }
+    let(:antenne) { create :antenne, name: "Commune de Paris" }
     let(:generator) { described_class.new(antenne) }
 
     around { |example| travel_to('10/07/2025'.to_date, &example) }
@@ -30,6 +30,7 @@ describe ActivityReports::AntenneStats do
       expect((old_reports_ids - new_reports.ids).size).to eq 2
       expect(new_reports.first.period).to eq '01/2024'.to_date.all_quarter
       expect(new_reports.last.period).to eq '04/2025'.to_date.all_quarter
+      expect(new_reports.last.file.filename.to_s).to eq 'export-stats-commune-de-paris-2025T2.xlsx'
     end
   end
 end

@@ -1,6 +1,8 @@
 ActiveAdmin.register Antenne do
   menu parent: :experts, priority: 1
 
+  include OnDemandActivityReports
+
   controller do
     include SoftDeletable::ActiveAdminResourceController
     include TerritorialZonesSearchable
@@ -97,9 +99,6 @@ ActiveAdmin.register Antenne do
         if a.managers.any?
           div admin_link_to(a, :managers, list: true)
         end
-      end
-      row(:stats) do |a|
-        div link_to I18n.t('active_admin.antennes.stats_reports'),reports_path(antenne_id: a.id)
       end
     end
 
@@ -217,6 +216,14 @@ ActiveAdmin.register Antenne do
     end
 
     f.actions
+  end
+
+  sidebar I18n.t('active_admin.reports.title'), only: [:show, :edit] do
+    div link_to t('active_admin.reports.view_reports_app_page'), reports_path(antenne_id: resource.id)
+    hr
+    activity_report_sidebar_contents(ActivityReports::AntenneStats.new(resource))
+    hr
+    activity_report_sidebar_contents(ActivityReports::AntenneMatches.new(resource))
   end
 
   ## Actions

@@ -1,7 +1,7 @@
 require 'rails_helper'
 describe ActivityReports::AntenneMatches do
   describe '#perform' do
-    let(:antenne) { create :antenne }
+    let(:antenne) { create :antenne, name: "Commune de Paris" }
     let(:generator) { described_class.new(antenne) }
 
     around { |example| travel_to('10/07/2025'.to_date, &example) }
@@ -35,6 +35,7 @@ describe ActivityReports::AntenneMatches do
       expect((old_reports_ids - new_reports.ids).size).to eq 6
       expect(new_reports.first.period).to eq Date.new(2024,1).all_month
       expect(new_reports.last.period).to eq Date.new(2025,6).all_month
+      expect(new_reports.last.file.filename.to_s).to eq 'export-mises-en-relation-commune-de-paris-2025-6.xlsx'
     end
   end
 end

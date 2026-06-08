@@ -8,15 +8,12 @@ fr:
       no_territorial_zones: Cette antenne ne possède pas de territoire
     antennes:
       deleted: Antennes supprimées avec succès
-      stats_reports: Rapports statistiques
       territorial_antennes: "%{count} antennes liées : "
     company_satisfaction:
       share: Partager
       share_confirmation: Etes-vous sûr de vouloir partager ce commentaire aux conseillers qui ont aidé l'entreprise ?
       shared: Le commentaire a bien été partagé
       shared_with: 'Partagé avec :'
-    cooperations:
-      activity_reports: Rapports d'activité
     expert:
       delete: Supprimer l’expert (sans ses utilisateurs)
       delete_confirmation:
@@ -66,6 +63,27 @@ fr:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
     regional_theme: Thème régional
+    reports:
+      job_enqueued: Génération en attente
+      job_enqueued_at: Génération lancée le %{date}
+      job_running: Génération en cours
+      job_running_at: Génération lancée le %{date}
+      job_started: Fichiers en cours de génération
+      latest_report_period: 'Dernier rapport : %{period}'
+      missing_reports:
+        one: "%{count} rapport à générer"
+        other: "%{count} rapports à générer"
+      start_job_now: Générer maintenant
+      start_job_now_message:
+        expireds_reports:
+          one: "%{count} ancien rapport sera supprimé :"
+          other: "%{count} anciens rapports seront générés :"
+        missing_reports:
+          one: "%{count} rapport sera généré :"
+          other: "%{count} rapports seront générés :"
+        warning: Attention, si le rapport est généré à l’avance, les données seront tronquées.
+      title: Rapports d’activité
+      view_reports_app_page: Afficher les rapports
     save_and_edit: Sauvegarder et revenir à l’édition
     scopes:
       acquisition: Acquisition

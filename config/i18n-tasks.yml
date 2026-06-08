@@ -128,6 +128,8 @@ ignore_unused:
   - 'equipe.*'
   - 'sitemap.*'
   - 'natures_entreprise.*'
+  - 'reports.filename_prefix.*'
+  - 'reports.type.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

@@ -45,11 +45,6 @@ fr:
     solicitations:
       diagnosis_in_progress: " (En cours)"
       id: Sollicitation %{id}
-  activity_report_service:
-    cooperation_file_name: rapport-activite-%{item}-%{year}T%{number}.xlsx
-    matches_file_name: export-mises-en-relation-%{item}-%{year}-%{month}.xlsx
-    solicitations_file_name: sollicitations-%{item}-%{year}T%{number}.xlsx
-    stats_file_name: export-stats-%{item}-%{year}T%{number}.xlsx
   admin:
     reassign_matches:
       reassign_matches:
@@ -812,6 +807,11 @@ fr:
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
   reports:
+    filename_prefix:
+      cooperation: rapport-activite
+      matches: export-mises-en-relation
+      solicitations: sollicitations
+      stats: export-stats
     matches:
       download: Télécharger le fichier mises en relation %{date}
       file_infos: XLSX - %{weight} ko
@@ -828,6 +828,11 @@ fr:
       interval: "%{start_month} à %{end_month} %{year}"
       no_export_available: Vos fichiers statistiques trimestriels ne sont pas encore disponibles pour cette antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
       title: Statistiques trimestrielles %{antenne}
+    type:
+      cooperation: Rapports de coopération
+      matches: Export des mises en relation
+      solicitations: Export des sollicitations
+      stats: Rapport d’antenne
   republique_francaise_html: République <br /> Française
   shared:
     breadcrumb:
