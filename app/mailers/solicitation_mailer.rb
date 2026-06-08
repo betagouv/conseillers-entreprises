@@ -18,7 +18,7 @@ class SolicitationMailer < ApplicationMailer
       class_eval do
         define_method(method_name) do |solicitation|
           @solicitation_mail_template = SolicitationMailTemplate.find_by!(email_type: method_name.to_s)
-          mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+          mail(to: solicitation.email, subject: t('mailers.solicitation.subject'), template_name: 'solicitation_mail_template')
         end
       end
       super
