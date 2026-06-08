@@ -67,5 +67,47 @@ describe DiagnosisCreation::CreateOrUpdateFacilityAndCompany do
         expect(Facility.count).to eq 1
       end
     end
+
+    context 'when API requests fail (fallback behavior)' do
+      let(:fallback_name) { 'Ma Nouvelle Entreprise' }
+      let(:fallback_insee) { '13055' }
+
+      before do
+        stub_request(:get, entreprise_url).to_return(status: 404, body: '{"erreur": "Not Found"}')
+        stub_request(:get, etablissement_url).to_return(status: 404, body: '{"erreur": "Not Found"}')
+      end
+
+      it 'falls back to local options and records API warnings without raising blocking errors' do
+        result = described_class.new(
+          siret,
+          {
+            fallback_name: fallback_name,
+            fallback_insee_code: fallback_insee
+          }
+        ).call
+
+        expect(result[:errors][:unreachable_apis]).to be_present
+        expect(result[:facility]).to be_persisted
+        expect(result[:facility].company.name).to eq fallback_name
+        expect(result[:facility].insee_code).to eq fallback_insee
+      end
+
+      it 'uses I18n translation as default fallback name if fallback_name is not provided' do
+        result = described_class.new(
+          siret,
+          {
+            fallback_insee_code: fallback_insee
+          }
+        ).call
+
+        expect(result[:facility].company.name).to eq "Entreprise (SIREN: #{siren})"
+      end
+
+      it 're-raises the API error if fallback_insee_code is not present' do
+        expect do
+          described_class.new(siret).call
+        end.to raise_error(Api::TechnicalError)
+      end
+    end
   end
 end

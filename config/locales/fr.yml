@@ -267,6 +267,9 @@ fr:
   other: Autre
   previous_step: Précédent
   search: Rechercher
+  services:
+    create_or_update_facility_and_company:
+      fallback_company_name: 'Entreprise (SIREN: %{siren})'
   shared:
     errors:
       '404':
