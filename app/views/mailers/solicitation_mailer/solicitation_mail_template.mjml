@@ -2,7 +2,7 @@
   <mj-column>
     <mj-text><%= t('mailers.hello') %></mj-text>
 
-    <mj-text><%= t('.intro_html', link_to_root: link_to(t('app_name'), root_url)) %></mj-text>
+    <mj-text><%= t('mailers.solicitation.base_intro_html', link_to_root: link_to(t('app_name'), root_url)) %></mj-text>
 
     <mj-text><%= @solicitation_mail_template.body_html.html_safe %></mj-text>
 
