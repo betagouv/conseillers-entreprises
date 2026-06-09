@@ -84,8 +84,6 @@ cci_energie:
       url: https://entreprendre.service-public.gouv.fr/actualites/A17670
     - name: "Comment tirer profit du numérique lorsqu’on est artisan ?"
       url: cma_artisan_numerique
-    - name: "Comment développer sereinement son activité libérale ?"
-      url: professions_liberales
 douanes:
   title: Quelles facilités offre la Douane dans la gestion des flux de marchandises à l’international ?
   subtitle: La Cellule Conseil des douanes aide les entreprises à anticiper les démarches douanières et les accompagne dans
@@ -101,8 +99,6 @@ douanes:
       url: cci_energie
     - name: "Comment tirer profit du numérique lorsqu’on est artisan ?"
       url: cma_artisan_numerique
-    - name: "Comment développer sereinement son activité libérale ?"
-      url: professions_liberales
 cap_emploi_handicap:
   title: Comment Cap emploi vous accompagne pour recruter une personne en situation de handicap ?
   subtitle: Selon le film qu’on a vu ou l’expérience qu’on a vécue, on a telle ou telle représentation d’un handicap.
@@ -120,20 +116,6 @@ cap_emploi_handicap:
       url: https://entreprendre.service-public.gouv.fr/vosdroits/F23149
     - name: Accessibilité d’un établissement recevant du public (ERP)
       url: https://entreprendre.service-public.gouv.fr/vosdroits/F32873
-professions_liberales:
-  title: Comment développer sereinement son activité libérale ?
-  subtitle: À la Maison des Professions Libérales, nous sommes convaincus que chaque travailleur indépendant a le potentiel
-    d’apporter une contribution positive à notre société. C’est la raison pour laquelle nous aidons chaque jour des
-    dizaines d’hommes et de femmes à créer leur entreprise de proximité et à en vivre dignement.
-  institution: unapl
-  expert: Sylvie Communier
-  publication_date: 2026-06-11
-  initial_publication_date: 2024-07-25
-  landing_subject: formalites-entreprise-statut
-  mtm_kwd: article-pl
-  voir_aussi:
-    - name: Maison des Professions Libérales du Grand Ouest
-      url: https://www.mplgrandouest.org/
 cma_artisan_numerique:
   title: Comment tirer profit du numérique lorsqu’on est artisan ?
   subtitle: J’aide les artisans, notamment les artisans multiservices, électriciens, plombiers, coiffeurs, instituts de
@@ -146,8 +128,6 @@ cma_artisan_numerique:
   landing_subject: vendre-sur-internet
   mtm_kwd: article-artisan-numerique
   voir_aussi:
-    - name: Comment développer sereinement son activité libérale ?
-      url: professions_liberales
     - name: Site des Chambres de métiers et de l'artisanat (CMA)
       url: https://www.artisanat.fr/
 opco_entreprises_de_proximite:
