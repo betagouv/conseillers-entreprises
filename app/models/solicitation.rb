@@ -674,7 +674,7 @@ end
   end
 
   def available_email_types
-    [:bad_quality] + SolicitationMailTemplate.order(:id).pluck(:email_type).map(&:to_sym)
+    [:bad_quality] + SolicitationMailTemplate.order(:position, :id).pluck(:email_type).map(&:to_sym)
   end
 
   # Else ---------------------

@@ -1,13 +1,18 @@
 ActiveAdmin.register SolicitationMailTemplate do
   menu parent: :solicitations, label: proc { I18n.t('active_admin.solicitation_mail_templates.menu') }
 
+  config.paginate = false
+  config.sort_order = 'position_asc'
+  reorderable
+
   ## Index
   #
-  index do
+  index as: :reorderable_table do
     column :title do |solicitation_mail_template|
       link_to solicitation_mail_template.title, admin_solicitation_mail_template_path(solicitation_mail_template)
     end
     column :email_type
+    column :position
     column :updated_at
     actions
   end
@@ -18,6 +23,7 @@ ActiveAdmin.register SolicitationMailTemplate do
     attributes_table do
       row :title
       row :email_type
+      row :position
       row :updated_at
     end
 
@@ -30,7 +36,7 @@ ActiveAdmin.register SolicitationMailTemplate do
 
   ## Form
   #
-  permit_params :title, :body_html
+  permit_params :title, :body_html, :position
 
   form do |f|
     f.inputs do
@@ -42,6 +48,7 @@ ActiveAdmin.register SolicitationMailTemplate do
                 label: I18n.t('active_admin.solicitation_mail_templates.form.email_type_edit.label'),
                 input_html: { disabled: true }
       end
+      f.input :position
       f.input :body_html, as: :quill_editor
     end
 

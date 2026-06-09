@@ -5,6 +5,7 @@
 #  id         :bigint(8)        not null, primary key
 #  body_html  :text             not null
 #  email_type :string           not null
+#  position   :integer
 #  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -15,6 +16,8 @@
 #  index_solicitation_mail_templates_on_title       (title) UNIQUE
 #
 class SolicitationMailTemplate < ApplicationRecord
+  acts_as_list
+
   before_validation :slugify_email_type
 
   validates :title, presence: true, uniqueness: true
@@ -44,6 +47,10 @@ class SolicitationMailTemplate < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[title email_type body_html created_at updated_at id]
+    %w[title email_type body_html created_at updated_at id position]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    []
   end
 end
