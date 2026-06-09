@@ -120,20 +120,6 @@ cap_emploi_handicap:
       url: https://entreprendre.service-public.gouv.fr/vosdroits/F23149
     - name: Accessibilité d’un établissement recevant du public (ERP)
       url: https://entreprendre.service-public.gouv.fr/vosdroits/F32873
-professions_liberales:
-  title: Comment développer sereinement son activité libérale ?
-  subtitle: À la Maison des Professions Libérales, nous sommes convaincus que chaque travailleur indépendant a le potentiel
-    d’apporter une contribution positive à notre société. C’est la raison pour laquelle nous aidons chaque jour des
-    dizaines d’hommes et de femmes à créer leur entreprise de proximité et à en vivre dignement.
-  institution: unapl
-  expert: Sylvie Communier
-  publication_date: 2026-06-11
-  initial_publication_date: 2024-07-25
-  landing_subject: formalites-entreprise-statut
-  mtm_kwd: article-pl
-  voir_aussi:
-    - name: Maison des Professions Libérales du Grand Ouest
-      url: https://www.mplgrandouest.org/
 cma_artisan_numerique:
   title: Comment tirer profit du numérique lorsqu’on est artisan ?
   subtitle: J’aide les artisans, notamment les artisans multiservices, électriciens, plombiers, coiffeurs, instituts de
