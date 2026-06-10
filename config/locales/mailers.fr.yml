@@ -125,51 +125,23 @@ fr:
       contact_us_mailto_text: nous contacter
     hello: Bonjour,
     hello_name: Bonjour %{name},
-    hope_to_helped: En espérant que ces informations vous soient utiles,
     looking_forward: Au plaisir d’échanger,
     see_diagnosis: Voir le besoin de l’entreprise
     see_you_on_service_html: À très vite sur %{link_to_root}.
     see_you_soon: À très bientôt,
     sincerely: Bien à vous,
     solicitation:
-      base_intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service).
       subject: Votre demande sur le Service Public Conseillers entreprisesEntreprises
     solicitation_mailer:
-      administrations_collectivites:
-        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root}, ou un site intégrant ce service.
       bad_quality:
         complete_solicitation: Compléter ma demande
-        for_better_taking_care_html: "‘Pour pouvoir vous aider, les conseillers ont impérativement besoin d’éléments de contexte :’"
+        for_better_taking_care_html: 'Pour pouvoir vous aider, les conseillers ont impérativement besoin d’éléments de contexte :'
         intro_cooperation_html: Vous avez récemment déposé une demande sur le sujet « <strong>%{subject}</strong> » sur le site <strong>%{website}</strong>.
         intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} pour <strong>"%{subject}"</strong>.
         investment_html: "<strong>pour votre projet d’investissement :</strong> type d’investissement, but et montant du besoin"
         recruitment_html: "<strong>pour votre projet de recrutement :</strong> contexte du recrutement et type de contrat"
         treasury_html: "<strong>pour votre problème de trésorerie :</strong> contexte des difficultés et montant du besoin"
-        upon_receipt: "‘Nous vous invitons à compléter votre demande pour qu’elle soit transmise :’"
-      carsat:
-        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant votre retraite ou les risques professionnels.
-      creation:
-        solicitation_subject: pour votre entreprise en création ou tout juste lancée
-      employee_labor_law:
-        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant le <b>droit du travail</b>. Il s’agit cependant d’un service public destiné aux chefs d’entreprises. Nous ne sommes donc pas en mesure de vous apporter une réponse.
-      formalites_asso_agri_sci:
-        solicitation_subject_html: concernant vos formalités
-      intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service).
-      intro_with_subject_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) %{solicitation_subject}.
-      kbis_extract:
-        base_intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant l’extrait Kbis.
-      mediateurs:
-        solicitation_subject_html: concernant un litige
-      recruitment_foreign_worker:
-        solicitation_subject_html: concernant <b>le recrutement d’un travailleur étranger</b>
-      retirement_liberal_professions:
-        solicitation_subject: concernant votre retraite
-      sie_sip_declare_and_pay:
-        solicitation_subject_html: concernant votre déclaration de revenus ou le paiement de vos impôts
-      sie_tva_and_others:
-        solicitation_subject_html: concernant la TVA
-      tns_training:
-        intro_html: Vous avez récemment déposé une demande sur le service public %{link_to_root} (ou un site intégrant le service) concernant le financement de votre formation.
+        upon_receipt: 'Nous vous invitons à compléter votre demande pour qu’elle soit transmise :'
     team_html: L’équipe du <a href=%{url}> Service Public Conseillers entreprises </a>
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service.

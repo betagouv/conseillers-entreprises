@@ -3,6 +3,7 @@ ActiveAdmin.register SolicitationMailTemplate do
 
   config.paginate = false
   config.sort_order = 'position_asc'
+  config.filters = false
   reorderable
 
   ## Index
