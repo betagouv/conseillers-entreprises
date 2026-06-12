@@ -35,7 +35,32 @@ module SitemapGenerator
       @content << { "page_#{idx}": page_elt }
     end
 
-    @content
+    # Témoignages
+    temoignages_elt = {
+      loc: Rails.application.routes.url_helpers.temoignages_experts_url,
+      priority: 0.5,
+      title: I18n.t('about.temoignages_experts.title'),
+      href: true,
+      changefreq: 'monthly',
+      level: 1,
+      lastmod: 1.month.ago.iso8601,
+      elements: []
+    }
+    TemoignagesExperts.data.each do |key, temoignage|
+      temoignage_elt = {
+        loc: Rails.application.routes.url_helpers.temoignages_expert_url(key),
+        priority: 0.3,
+        title: temoignage.title,
+        href: true,
+        changefreq: 'yearly',
+        level: 3,
+        lastmod: temoignage.publication_date.iso8601
+      }
+
+      temoignages_elt[:elements] << { "temoignage_#{key}": temoignage_elt }
+    end
+
+    @content << { temoignages: temoignages_elt }
   end
 
   def self.create_landing_hash(landing)

@@ -1,3 +1,6 @@
-= link_to '#scroll-section', 'data-turbo': 'false', class: 'fr-btn fr-btn--lg' do
+-# locals: (url: nil)
+- url ||= '#scroll-section'
+
+= link_to url, 'data-turbo': 'false', class: 'fr-btn fr-btn--lg' do
   %span.ri-phone-fill.fr-mr-2v{ 'aria-hidden': 'true' }
   = t('cta_button')

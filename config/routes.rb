@@ -329,6 +329,10 @@ Rails.application.routes.draw do
     get :accessibilite
   end
 
+  scope module: 'about' do
+    resources :temoignages_experts, path: 'temoignages', only: [:index, :show]
+  end
+
   scope :stats, module: :stats do
     resources :public, only: :index, path: '/' do
       collection do
