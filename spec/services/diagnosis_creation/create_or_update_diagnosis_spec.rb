@@ -26,7 +26,7 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
         let!(:intermediary_result) { DiagnosisCreation::CreateOrUpdateFacilityAndCompany.new(siret) }
 
         before do
-          allow(DiagnosisCreation::CreateOrUpdateFacilityAndCompany).to receive(:new).with(siret) { intermediary_result }
+          allow(DiagnosisCreation::CreateOrUpdateFacilityAndCompany).to receive(:new).with(siret, anything) { intermediary_result }
         end
 
         context 'when ApiEntreprise accepts the SIRET' do

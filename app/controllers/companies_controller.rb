@@ -18,8 +18,8 @@ class CompaniesController < ApplicationController
     if clean_siret == siret
       search_facility_informations(siret)
       if @message.present?
-        flash[:alert] = @message
-        redirect_back_or_to root_path, alert: @message
+        flash[:alert] = I18n.t('companies.show_with_siret.fallback_manual_creation', message: @message)
+        redirect_to new_conseiller_diagnosis_path(solicitation: current_solicitation&.id, siret: siret)
       else
         render :show
       end
