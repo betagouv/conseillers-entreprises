@@ -7,10 +7,14 @@ RSpec.describe Emails::SolicitationsController do
   describe '#send_generic_email' do
     let!(:solicitation) { create :solicitation, full_name: "Top Entreprise" }
 
-    Solicitation::GENERIC_EMAILS_TYPES.flatten.each do |email_type|
+    %i[
+      bad_quality no_expert moderation creation intermediary
+      sie_tva_and_others sie_sip_declare_and_pay formalites_asso_agri_sci tns_training no_expert_agri
+      carsat retirement_liberal_professions employee_labor_law recruitment_foreign_worker
+      administrations_collectivites siret mediateurs kbis_extract
+    ].each do |email_type|
       it "displays #{email_type}" do
-        # click_on I18n.t(email_type, scope: "solicitations.solicitation_actions.emails")
-        # expect(page.html).to have_css('turbo-frame', text: I18n.t('emails.sent'))
+        create(:solicitation_mail_template, email_type: email_type.to_s) unless email_type == :bad_quality
         post :send_generic_email, params: { id: solicitation.id, email_type: email_type }, as: :turbo_stream
         expect(response.media_type).to eq(Mime[:turbo_stream])
         expect(response.body).to include(I18n.t('emails.sent'))

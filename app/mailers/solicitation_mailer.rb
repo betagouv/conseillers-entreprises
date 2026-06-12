@@ -4,10 +4,6 @@ class SolicitationMailer < ApplicationMailer
 
   helper :solicitation, :images
 
-  def administrations_collectivites(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
   def bad_quality(solicitation)
     @solicitation = solicitation
     @cooperation_logo_name = @solicitation.cooperation&.logo&.filename
@@ -17,67 +13,21 @@ class SolicitationMailer < ApplicationMailer
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 
-  def carsat(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  def self.method_missing(method_name, *args)
+    if SolicitationMailTemplate.exists?(email_type: method_name.to_s)
+      class_eval do
+        define_method(method_name) do |solicitation|
+          @solicitation_mail_template = SolicitationMailTemplate.find_by!(email_type: method_name.to_s)
+          mail(to: solicitation.email, subject: t('mailers.solicitation.subject'), template_name: 'solicitation_mail_template')
+        end
+      end
+      super
+    else
+      super
+    end
   end
 
-  def creation(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def employee_labor_law(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def formalites_asso_agri_sci(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def intermediary(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def kbis_extract(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def mediateurs(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def moderation(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def no_expert(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def no_expert_agri(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def recruitment_foreign_worker(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def retirement_liberal_professions(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def sie_sip_declare_and_pay(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def sie_tva_and_others(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def siret(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
-  end
-
-  def tns_training(solicitation)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  def self.respond_to_missing?(method_name, include_private = false)
+    SolicitationMailTemplate.exists?(email_type: method_name.to_s) || super
   end
 end

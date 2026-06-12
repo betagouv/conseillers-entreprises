@@ -45,6 +45,20 @@ fr:
     solicitations:
       diagnosis_in_progress: " (En cours)"
       id: Sollicitation %{id}
+    solicitation_mail_templates:
+      menu: 'Templates emails auto'
+      preview: "Aperçu de l'email"
+      form:
+        title:
+          label: "Titre de l'email (ex: Pas d'expert)"
+          hint: "Sera automatiquement transformé en identifiant technique unique (slug). Exemple : pas_d_expert"
+        email_type_edit:
+          label: "Identifiant technique unique (non modifiable)"
+  activity_report_service:
+    cooperation_file_name: rapport-activite-%{item}-%{year}T%{number}.xlsx
+    matches_file_name: export-mises-en-relation-%{item}-%{year}-%{month}.xlsx
+    solicitations_file_name: sollicitations-%{item}-%{year}T%{number}.xlsx
+    stats_file_name: export-stats-%{item}-%{year}T%{number}.xlsx
   admin:
     reassign_matches:
       reassign_matches:
@@ -961,24 +975,7 @@ fr:
       tags: Tags
     solicitation_actions:
       emails:
-        administrations_collectivites: Administrations et collectivités
         bad_quality: Mauvaise qualité générique
-        carsat: CARSAT
-        creation: Création
-        employee_labor_law: Salarié Droit du travail
-        formalites_asso_agri_sci: Formalités asso, agri, SCI
-        intermediary: Intermédiaire
-        kbis_extract: Extrait Kbis
-        mediateurs: Médiateurs
-        moderation: Modération
-        no_expert: Pas d’expert
-        no_expert_agri: Pas d’expert agri
-        recruitment_foreign_worker: Travailleur étranger
-        retirement_liberal_professions: Retraite PL - CIPAV CARPIMKO
-        sie_sip_declare_and_pay: SIE - SIP déclarer et payer
-        sie_tva_and_others: SIE - TVA et autres
-        siret: SIRET
-        tns_training: Formation TNS du dirigeant
   stats:
     done_no_help_status: Statut « cloturé sans aide »
     done_status: Statut « cloturé avec aide »

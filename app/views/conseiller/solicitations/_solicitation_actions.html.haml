@@ -37,17 +37,20 @@
       .actions.success-main-525-bg
         = link_to_diagnosis(solicitation.diagnosis)
 
+  - email_templates_by_type = SolicitationMailTemplate.all.index_by(&:email_type)
   .dropdown.actions.info-main-525-bg#generic-emails
     %button.button
       = t('.send_email')
       %span.ri-mail-add-fill.fr-ml-1w{ 'aria-hidden': 'true' }
     %ul.dropdown-content.fr-menu__list
-      - Solicitation::GENERIC_EMAILS_TYPES.each do |column|
+      - solicitation.available_email_types.in_groups(4, false).each do |column|
         %li.fr-menu__item
           %ul.fr-menu__list
             - column.each do |email_type|
+              - template = email_templates_by_type[email_type.to_s]
+              - title_label = template&.title.presence || t(email_type, scope: 'solicitations.solicitation_actions.emails', default: email_type.to_s.gsub('_', ' ').capitalize)
               %li.fr-menu__item
-                = link_to t(email_type, scope: 'solicitations.solicitation_actions.emails'),
+                = link_to title_label,
                   emails_solicitation_generic_path(email_type: email_type, id: solicitation.id, query: params[:query]),
                   method: :post, class: 'fr-nav__link', 'data-turbo': false
 
