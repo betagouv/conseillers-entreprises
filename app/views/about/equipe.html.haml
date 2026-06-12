@@ -8,8 +8,8 @@
 
 .fr-container
   .fr-grid-row.fr-grid-row--gutters.fr-my-7w
-    - t('equipe').each_value do |member|
-      .fr-col-md-4.fr-col-md
+    - t('equipe').each do |member|
+      .fr-col-sm-8.fr-col-md-6.fr-col-lg-4.fr-col
         .fr-card
           .fr-card__body
             .fr-card__content
@@ -22,10 +22,32 @@
                   %i.fr-text--sm= member[:territories]
                   %br
                 %br
-                = raw member[:description_html]
+                « #{member[:description_html].html_safe} »
               - if current_user.present?
                 .fr-card__end
                   %p.fr-card__detail= member[:email]
           .fr-card__header
-            .fr-card__img
+            .fr-card__img.card__img--avatar
+              = image_tag(member[:photo], alt: '', class: 'fr-responsive-img')
+  .fr-grid-row.fr-grid-row--gutters.fr-my-7w
+    - t('alumni').each do |member|
+      .fr-col-sm-8.fr-col-md-6.fr-col-lg-4.fr-col
+        .fr-card.card--alumni
+          .fr-card__body
+            .fr-card__content
+              %h2.fr-card__title
+                = member[:name]
+              %p.fr-card__desc.fr-mt-0
+                %span.fr-text--sm= member[:role]
+                %br
+                - if member[:territories].present?
+                  %i.fr-text--sm= member[:territories]
+                  %br
+                %br
+                « #{member[:description_html].html_safe} »
+              - if current_user.present?
+                .fr-card__end
+                  %p.fr-card__detail= member[:email]
+          .fr-card__header
+            .fr-card__img.card__img--avatar
               = image_tag(member[:photo], alt: '', class: 'fr-responsive-img')
