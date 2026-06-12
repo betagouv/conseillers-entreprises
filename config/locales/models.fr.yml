@@ -1291,6 +1291,7 @@ fr:
       done_not_reachable_count: Clôturé par injoignable
       done_not_reachable_rate: Taux Clôturé par injoignable
       done_solicitations_rate: Taux soll. clôturée par aide proposée
+      evolution: Évolution par rapport à l’année précédente
       matched_count: Mis en relation
       matched_rate: Taux Mis en relation
       not_for_me_count: Refusé

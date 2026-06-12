@@ -8,6 +8,7 @@ module XlsxExport
         header_row = [
           I18n.t('cooperation_stats_exporter.provenance.provenance_detail'),
           I18n.t('cooperation_stats_exporter.provenance.solicitations_count'),
+          I18n.t('cooperation_stats_exporter.provenance.evolution'),
           I18n.t('cooperation_stats_exporter.provenance.abandonned_count'),
           I18n.t('cooperation_stats_exporter.provenance.abandonned_rate'),
           I18n.t('cooperation_stats_exporter.provenance.matched_count'),
@@ -32,9 +33,14 @@ module XlsxExport
           solicitations = Solicitation.where(id: solicitations_array.map(&:id))
           needs = base_needs.joins(:solicitation).where(solicitation: { id: solicitations_array.map(&:id) })
 
+          reference_period = @start_date.years_ago(1)..@end_date.years_ago(1)
+          reference = base_solicitations.where(provenance_detail: provenance_detail).rewhere(completed_at: reference_period)
+          evolution = calculate_rate(solicitations.size, reference)
+
           body_row = [
             provenance_detail,
             solicitations.size,
+            evolution,
             solicitations.status_canceled.size,
             calculate_rate(solicitations.status_canceled.size, solicitations),
             needs.size,
@@ -59,27 +65,27 @@ module XlsxExport
       def finalise_style(row_count)
         count_width = 15
         rate_width = 12
-        widths = [35, count_width, count_width, rate_width, count_width, rate_width, count_width, rate_width, rate_width]
+        widths = [35, count_width, rate_width, count_width, rate_width, count_width, rate_width, count_width, rate_width, rate_width]
         STATUS.each{ |status| widths << count_width; widths << rate_width }
         sheet.column_widths(*widths)
 
         return if row_count <= 1 # No data rows, skip conditional formatting
 
-        sheet.add_conditional_formatting("D2:D#{row_count}",
+        sheet.add_conditional_formatting("E2:E#{row_count}",
           type: :cellIs,
           operator: :greaterThanOrEqual,
           formula: '50%',
           dxfId: @pink,
           priority: 1)
 
-        sheet.add_conditional_formatting("I2:I#{row_count}",
+        sheet.add_conditional_formatting("J2:J#{row_count}",
           type: :cellIs,
           operator: :lessThanOrEqual,
           formula: '50%',
           dxfId: @yellow,
           priority: 1)
 
-        sheet.add_conditional_formatting("S2:S#{row_count}",
+        sheet.add_conditional_formatting("T2:T#{row_count}",
           type: :cellIs,
           operator: :greaterThanOrEqual,
           formula: '50%',
@@ -88,13 +94,13 @@ module XlsxExport
       end
 
       def provenance_row_style
-        row_style = [@label, nil, nil, @rate, nil, @rate, nil, @rate, @rate]
+        row_style = [@label, nil, @rate, nil, @rate, nil, @rate, nil, @rate, @rate]
         STATUS.each{ |status| row_style << @count; row_style << @rate }
         row_style
       end
 
       def header_style
-        [@left_header] + Array.new(18, @right_header)
+        [@left_header] + Array.new(19, @right_header)
       end
     end
   end
