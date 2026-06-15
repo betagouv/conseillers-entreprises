@@ -30,7 +30,7 @@ RSpec.describe SolicitationMailTemplate do
     it 'does not allow email_type to be bad_quality' do
       template = build(:solicitation_mail_template, title: 'Bad Quality Label', email_type: 'bad_quality')
       expect(template).not_to be_valid
-      expect(template.errors[:email_type]).to include("ne peut pas être 'bad_quality' car ce type d'email est réservé au système.")
+      expect(template.errors[:email_type]).to include("ne peut pas être 'bad_quality' car ce type d'email est réservé.")
     end
 
     it 'slugifies the email_type from title before validation' do

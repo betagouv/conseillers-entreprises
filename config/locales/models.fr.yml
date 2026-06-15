@@ -792,7 +792,7 @@ fr:
         solicitation_mail_template:
           attributes:
             email_type:
-              bad_quality: ne peut pas être 'bad_quality' car ce type d'email est réservé au système.
+              bad_quality: ne peut pas être 'bad_quality' car ce type d'email est réservé.
               invalid: doit être composé uniquement de lettres minuscules, chiffres et tirets du bas (_)
         territorial_zones:
           code:
