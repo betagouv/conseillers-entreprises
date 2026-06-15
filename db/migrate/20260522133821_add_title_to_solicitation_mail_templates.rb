@@ -24,7 +24,7 @@ class AddTitleToSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       }
 
       SolicitationMailTemplate.find_each do |template|
-        title = existing_titles[template.email_type.to_sym] || template.email_type.to_s.gsub('_', ' ').capitalize
+        title = existing_titles[template.email_type.to_sym] || template.email_type.to_s.tr('_', ' ').capitalize
         template.update_columns(title: title)
       end
     end

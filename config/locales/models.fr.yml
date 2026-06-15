@@ -601,8 +601,8 @@ fr:
           one: mise en relation
           other: mises en relation
       solicitation_mail_template:
-        title: Titre de l'email
         email_type: Identifiant de l'email
+        title: Titre de l'email
       subject_questions:
         ameliorer_conditions_travail:
           label:
@@ -792,8 +792,8 @@ fr:
         solicitation_mail_template:
           attributes:
             email_type:
-              invalid: "doit être composé uniquement de lettres minuscules, chiffres et tirets du bas (_)"
-              bad_quality: "ne peut pas être 'bad_quality' car ce type d'email est réservé au système."
+              bad_quality: ne peut pas être 'bad_quality' car ce type d'email est réservé au système.
+              invalid: doit être composé uniquement de lettres minuscules, chiffres et tirets du bas (_)
         territorial_zones:
           code:
             invalid_format: Format pour %{zone_type} est invalide.
