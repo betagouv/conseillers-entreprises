@@ -145,7 +145,6 @@ fr:
     team_html: L’équipe du <a href=%{url}> Service Public Conseillers entreprises </a>
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service.
-    thanks_for_your_comprehension: Nous vous remercions pour votre compréhension.
     thanks_for_your_trust: Merci pour votre confiance,
     user_mailer:
       antenne_activity_report:
