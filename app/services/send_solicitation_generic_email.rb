@@ -20,10 +20,15 @@ class SendSolicitationGenericEmail
   private
 
   def email_type_to_badge_id
-    template = SolicitationMailTemplate.find_by(email_type: @email_type.to_s)
-    badge_title = template.title
     badge = Badge.find_by('lower(title) = ?', badge_title.squish.downcase)
-    badge = Badge.create(title: badge_title, color: "#000000", category: :solicitations) if badge.nil?
+    badge ||= Badge.create(title: badge_title, color: Badge::DEFAULT_COLOR, category: :solicitations)
     badge.id
+  end
+
+  # `bad_quality` is a built-in type without a template: its badge title comes
+  # from the locales. Other types use their template title.
+  def badge_title
+    template = SolicitationMailTemplate.find_by(email_type: @email_type.to_s)
+    template&.title || I18n.t(@email_type, scope: 'solicitations.solicitation_actions.emails')
   end
 end
