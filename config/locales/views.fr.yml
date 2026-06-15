@@ -51,18 +51,18 @@ fr:
     reassign_matches:
       title: Transférer les mises en relation
     save: Sauvegarder
+    solicitation_mail_templates:
+      form:
+        email_type_edit:
+          label: Identifiant technique unique (non modifiable)
+        title:
+          hint: 'Sera automatiquement transformé en identifiant technique unique (slug). Exemple : pas_d_expert'
+          label: 'Titre de l''email (ex: Pas d''expert)'
+      menu: Templates emails auto
+      preview: Aperçu de l'email
     solicitations:
       diagnosis_in_progress: " (En cours)"
       id: Sollicitation %{id}
-    solicitation_mail_templates:
-      menu: 'Templates emails auto'
-      preview: "Aperçu de l'email"
-      form:
-        title:
-          label: "Titre de l'email (ex: Pas d'expert)"
-          hint: "Sera automatiquement transformé en identifiant technique unique (slug). Exemple : pas_d_expert"
-        email_type_edit:
-          label: "Identifiant technique unique (non modifiable)"
   activity_report_service:
     cooperation_file_name: rapport-activite-%{item}-%{year}T%{number}.xlsx
     matches_file_name: export-mises-en-relation-%{item}-%{year}-%{month}.xlsx

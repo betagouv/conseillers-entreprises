@@ -36,7 +36,7 @@ class SolicitationMailTemplate < ApplicationRecord
 
   def slugify_email_type
     if new_record? && title.present? && email_type.blank?
-      self.email_type = title.parameterize(separator: '_').gsub('-', '_').gsub(/_+/, '_')
+      self.email_type = title.parameterize(separator: '_').tr('-', '_').squeeze('_')
     end
   end
 

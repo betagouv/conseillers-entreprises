@@ -21,7 +21,7 @@ class SendSolicitationGenericEmail
 
   def email_type_to_badge_id
     template = SolicitationMailTemplate.find_by(email_type: @email_type.to_s)
-    badge_title = template&.title.presence || I18n.t(@email_type, scope: 'solicitations.solicitation_actions.emails', default: @email_type.to_s.gsub('_', ' ').capitalize)
+    badge_title = template&.title.presence || I18n.t(@email_type, scope: 'solicitations.solicitation_actions.emails', default: @email_type.to_s.tr('_', ' ').capitalize)
     badge = Badge.find_by('lower(title) = ?', badge_title.squish.downcase)
     badge = Badge.create(title: badge_title, color: "#000000", category: :solicitations) if badge.nil?
     badge.id

@@ -84,7 +84,6 @@ class Solicitation < ApplicationRecord
 
   after_update :update_diagnosis
 
-
   ## Status
   #
 
