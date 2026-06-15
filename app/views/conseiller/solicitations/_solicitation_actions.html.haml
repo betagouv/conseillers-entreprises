@@ -37,7 +37,6 @@
       .actions.success-main-525-bg
         = link_to_diagnosis(solicitation.diagnosis)
 
-  - email_templates_by_type = SolicitationMailTemplate.all.index_by(&:email_type)
   .dropdown.actions.info-main-525-bg#generic-emails
     %button.button
       = t('.send_email')

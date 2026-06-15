@@ -83,6 +83,10 @@ module SolicitationHelper
     link_to link_title, link_url
   end
 
+  def email_templates_by_type
+    @email_templates_by_type ||= SolicitationMailTemplate.all.index_by(&:email_type)
+  end
+
   private
 
   def link_for_editable_subject(need)
