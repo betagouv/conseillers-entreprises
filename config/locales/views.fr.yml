@@ -58,7 +58,6 @@ fr:
         title:
           hint: 'Sera automatiquement transformé en identifiant technique unique (slug). Exemple : pas_d_expert'
           label: 'Titre de l''email (ex: Pas d''expert)'
-      menu: Templates emails auto
       preview: Aperçu de l'email
     solicitations:
       diagnosis_in_progress: " (En cours)"
