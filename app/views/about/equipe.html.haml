@@ -10,13 +10,13 @@
   .fr-grid-row.fr-grid-row--gutters.fr-my-7w
     - t('equipe').each do |member|
       .fr-col-sm-8.fr-col-md-6.fr-col-lg-4.fr-col
-        .fr-card
+        .fr-card{ id: member[:name] }
           .fr-card__body
             .fr-card__content
               %h2.fr-card__title
                 = member[:name]
               %p.fr-card__desc.fr-mt-0
-                %span.fr-text--sm= member[:role]
+                %span.fr-text--sm= member[:role].html_safe
                 %br
                 - if member[:territories].present?
                   %i.fr-text--sm= member[:territories]
@@ -29,16 +29,17 @@
           .fr-card__header
             .fr-card__img.card__img--avatar
               = image_tag(member[:photo], alt: '', class: 'fr-responsive-img')
-  .fr-grid-row.fr-grid-row--gutters.fr-my-7w
+  %hr
+  .fr-grid-row.fr-grid-row--gutters.fr-mt-4w.fr-mb-7w
     - t('alumni').each do |member|
       .fr-col-sm-8.fr-col-md-6.fr-col-lg-4.fr-col
-        .fr-card.card--alumni
+        .fr-card{ id: member[:name] }
           .fr-card__body
             .fr-card__content
               %h2.fr-card__title
                 = member[:name]
               %p.fr-card__desc.fr-mt-0
-                %span.fr-text--sm= member[:role]
+                %span.fr-text--sm= member[:role].html_safe
                 %br
                 - if member[:territories].present?
                   %i.fr-text--sm= member[:territories]
