@@ -22,7 +22,7 @@ module OnDemandActivityReports
           div t("active_admin.reports.missing_reports", count: generator.missing_reports_periods.count)
         end
         if generator.existing_reports_periods.any?
-          div t("active_admin.reports.latest_report_period", period: TimeDurationService.period_name(generator.existing_reports_periods.last))
+          div t("active_admin.reports.latest_report_period", period: ActivityPeriods.period_name(generator.existing_reports_periods.last))
         end
 
         job_status = generator.job_status
@@ -54,7 +54,7 @@ module OnDemandActivityReports
 
       if generator.missing_reports_periods.any?
         lines << t("active_admin.reports.start_job_now_message.missing_reports", count: generator.missing_reports_periods.count)
-        lines += generator.missing_reports_periods.map{ "- #{TimeDurationService.period_name(it)}" }
+        lines += generator.missing_reports_periods.map{ "- #{ActivityPeriods.period_name(it)}" }
       end
 
       if generator.expired_reports.any?

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe TimeDurationService do
+describe ActivityPeriods do
   describe '#period_name' do
     it do
       expect(described_class.period_name(('01/07/2024'.to_date)..('31/07/2024'.to_date))).to eq '2024-7'

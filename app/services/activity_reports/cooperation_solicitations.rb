@@ -11,5 +11,5 @@ class ActivityReports::CooperationSolicitations < ActivityReports::GeneratorBase
 
   def report_type = :solicitations
 
-  def reports_periods = TimeDurationService.quarters
+  def reports_periods = ActivityPeriods.quarters
 end

@@ -86,7 +86,7 @@ class ActivityReports::GeneratorBase < ApplicationJob
   def build_filename(period)
     prefix = I18n.t(report_type, scope: "reports.filename_prefix")
     item_name = @item.name.parameterize
-    period_name = TimeDurationService.period_name(period)
+    period_name = ActivityPeriods.period_name(period)
     "#{prefix}-#{item_name}-#{period_name}.xlsx"
   end
 end

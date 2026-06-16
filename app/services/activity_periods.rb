@@ -1,4 +1,4 @@
-module TimeDurationService
+module ActivityPeriods
   def self.period_name(period)
     if period.begin.month == period.end.month && period.begin == period.begin.beginning_of_month && period.end == period.end.end_of_month
       "#{period.begin.year}-#{period.begin.month}"
@@ -9,7 +9,7 @@ module TimeDurationService
     end
   end
 
-  def self.intervals(reference_date:, period_method:)
+  def self.past_periods(reference_date:, period_method:)
     today = Date.today
     past_two_years = [reference_date.year - 1, reference_date.year]
     intervals = []
@@ -26,9 +26,9 @@ module TimeDurationService
     intervals.reverse
   end
 
-  def self.months = intervals(reference_date: Date.today, period_method: :all_month)
+  def self.months = past_periods(reference_date: Date.today, period_method: :all_month)
 
-  def self.quarters = intervals(reference_date: 3.months.ago, period_method: :all_quarter)
+  def self.quarters = past_periods(reference_date: 3.months.ago, period_method: :all_quarter)
 
-  def self.years = intervals(reference_date: 3.months.ago, period_method: :all_year)
+  def self.years = past_periods(reference_date: 3.months.ago, period_method: :all_year)
 end
