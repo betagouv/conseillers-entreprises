@@ -20,7 +20,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["config/webpack/**/*.js", "babel.config.js"],
+      files: ["babel.config.js"],
       env: {
         node: true,
       },
