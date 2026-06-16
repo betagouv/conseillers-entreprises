@@ -4,9 +4,9 @@ class CompaniesController < ApplicationController
     facility = Facility.find(params.permit(:id)[:id])
 
     search_facility_informations(facility.siret)
-    if defined? @message
-      redirect_back_or_to root_path, alert: @message
-    end
+    # if defined? @message
+    #   redirect_back_or_to root_path, alert: @message
+    # end
   end
 
   def show_with_siret
