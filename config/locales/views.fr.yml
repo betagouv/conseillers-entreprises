@@ -25,6 +25,15 @@ fr:
       title: Mentions légales
     temoignage:
       temoignage_alt: Photo de %{author}
+    temoignages_experts:
+      index:
+        subtitle: Découvrez comment les conseillers partenaires du service peuvent vous accompagner selon votre problématique. Partout en France, pour un projet ou une difficulté, nous mobilisons des conseillers engagés à vos côtés.
+        title_long: Ils témoignent de leur engagement aux côtés des entreprises.
+      show:
+        new_window: "%{name} - %{host} - Nouvelle fenêtre"
+        published_date_html: Publié le %{date} - Initialement publié le %{initial_date}<br> Entreprendre Service Public / Direction de l’information légale et administrative (Premier ministre)
+        see_also: Voir aussi
+      title: Qui sont les conseillers ?
   active_admin:
     admin_link: Lien admin
     antenne:
