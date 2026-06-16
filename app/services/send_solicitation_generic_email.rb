@@ -14,7 +14,7 @@ class SendSolicitationGenericEmail
     raise StandardError, I18n.t('errors.cancel_solicitation_with_email') unless valid?
     @solicitation.update(badge_ids: @solicitation.badge_ids + [email_type_to_badge_id])
     @solicitation.cancel!
-    SolicitationMailer.send(@email_type, @solicitation).deliver_later
+    SolicitationMailer.send_email(@solicitation, @email_type).deliver_later
   end
 
   private

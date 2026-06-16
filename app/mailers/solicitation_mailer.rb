@@ -13,21 +13,9 @@ class SolicitationMailer < ApplicationMailer
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 
-  def self.method_missing(method_name, *args)
-    if SolicitationMailTemplate.exists?(email_type: method_name.to_s)
-      class_eval do
-        define_method(method_name) do |solicitation|
-          @solicitation_mail_template = SolicitationMailTemplate.find_by!(email_type: method_name.to_s)
-          mail(to: solicitation.email, subject: t('mailers.solicitation.subject'), template_name: 'solicitation_mail_template')
-        end
-      end
-      super
-    else
-      super
-    end
-  end
-
-  def self.respond_to_missing?(method_name, include_private = false)
-    SolicitationMailTemplate.exists?(email_type: method_name.to_s) || super
+  def send_email(solicitation, email_type)
+    @solicitation = solicitation
+    @solicitation_mail_template = SolicitationMailTemplate.find_by!(email_type: email_type.to_s)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'), template_name: 'solicitation_mail_template')
   end
 end

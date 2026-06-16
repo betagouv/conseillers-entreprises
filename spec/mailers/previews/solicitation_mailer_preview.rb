@@ -8,7 +8,7 @@ class SolicitationMailerPreview < ActionMailer::Preview
     next if respond_to?(email_type)
 
     define_method(email_type) do
-      SolicitationMailer.send(email_type, random_solicitation)
+      SolicitationMailer.send_email(random_solicitation, email_type)
     end
   end
 

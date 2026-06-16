@@ -30,7 +30,7 @@ ActiveAdmin.register SolicitationMailTemplate do
 
     panel I18n.t('active_admin.solicitation_mail_templates.preview') do
       solicitation = Solicitation.step_complete.joins(:landing_subject).find_random
-      mail = SolicitationMailer.send(resource.email_type, solicitation)
+      mail = SolicitationMailer.send_email(solicitation, resource.email_type)
       div mail.body.decoded.html_safe
     end
   end
