@@ -74,5 +74,24 @@ RSpec.describe SearchFacility::Diffusable do
         expect(data[0]["nombre_etablissements_ouverts"]).to eq(2)
       end
     end
+
+    context 'from_fulltext when the API returns a minor error' do
+      # Reproduces the production crash: "undefined method 'with_indifferent_access' for an instance of Array"
+      # Api::Base#call return an error Hash instead of an Array. from_full_text
+      # must handle it gracefully instead of raising NoMethodError.
+      let(:api_url) { "https://recherche-entreprises.api.gouv.fr/search?mtm_campaign=conseillers-entreprises&q=#{query}" }
+      let(:query) { 'octo technology' }
+      let(:result) { described_class.new(search_params).from_full_text_or_siren }
+
+      before do
+        stub_request(:get, api_url).to_return(status: 502, body: '{}')
+      end
+
+      it 'does not raise and returns no items' do
+        expect{ result }.not_to raise_error
+        expect(result[:items]).to eq([])
+        expect(result[:error]).to be_present
+      end
+    end
   end
 end

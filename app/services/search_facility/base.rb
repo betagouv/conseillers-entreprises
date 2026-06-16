@@ -32,6 +32,9 @@ module SearchFacility
     def from_full_text
       begin
         response = Api::RechercheEntreprises::Search::Fulltext::Base.new(@query).call
+        # En cas d'erreur non bloquante, l'API renvoie un Hash { errors: ... }
+        # au lieu de la liste d'établissements attendue.
+        return { items: [], error: I18n.t('api_requests.generic_error') } unless response.is_a?(Array)
         items = response.map do |entreprise_params|
           next if entreprise_params.blank?
           ApiConsumption::Models::FacilityAutocomplete::ApiRechercheEntreprises.new(entreprise_params)
