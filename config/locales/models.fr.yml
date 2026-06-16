@@ -891,7 +891,7 @@ fr:
       solicitation:
         one: Sollicitation
         other: Sollicitations
-      solicitation_mail_templates:
+      solicitation_mail_template:
         one: Template email auto
         other: Templates emails auto
       subject:

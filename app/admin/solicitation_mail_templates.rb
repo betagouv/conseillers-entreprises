@@ -1,5 +1,5 @@
 ActiveAdmin.register SolicitationMailTemplate do
-  menu parent: :solicitations, label: proc { I18n.t('active_admin.solicitation_mail_templates.menu') }
+  menu parent: :solicitations, priority: 1
 
   config.paginate = false
   config.sort_order = 'position_asc'
