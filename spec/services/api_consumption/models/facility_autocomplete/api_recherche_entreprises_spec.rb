@@ -12,6 +12,16 @@ RSpec.describe ApiConsumption::Models::FacilityAutocomplete::ApiRechercheEntrepr
       end
     end
 
+    context 'with an array instead of a hash' do
+      # Reproduces the production NoMethodError: when the API returns an error
+      # The model must not crash on a non-hash input
+      let(:params) { [:errors, { standard_api_errors: {} }] }
+
+      it 'fails silently' do
+        expect{ api_model }.not_to raise_error
+      end
+    end
+
     context 'with params' do
       let(:params) { JSON.parse(file_fixture('api_recherche_entreprises_entreprise_request_data.json').read) }
 
