@@ -172,7 +172,7 @@ RSpec.describe XlsxExport::CooperationExporter do
 
         expect(values_row[0]).to eq "Partner Website"
         expect(values_row[1]).to eq 3
-        expect(values_row[2]).to eq 1.5
+        expect(values_row[2]).to eq 0.5
       end
     end
 

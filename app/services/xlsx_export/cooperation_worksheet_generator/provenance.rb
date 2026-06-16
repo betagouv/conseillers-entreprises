@@ -36,6 +36,7 @@ module XlsxExport
           reference_period = @start_date.years_ago(1)..@end_date.years_ago(1)
           reference = base_solicitations.where(provenance_detail: provenance_detail).rewhere(completed_at: reference_period)
           evolution = calculate_rate(solicitations.size, reference)
+          evolution = evolution - 1.0 if evolution.present? # relative rate
 
           body_row = [
             provenance_detail,
@@ -94,7 +95,7 @@ module XlsxExport
       end
 
       def provenance_row_style
-        row_style = [@label, nil, @rate, nil, @rate, nil, @rate, nil, @rate, @rate]
+        row_style = [@label, nil, @evolution, nil, @rate, nil, @rate, nil, @rate, @rate]
         STATUS.each{ |status| row_style << @count; row_style << @rate }
         row_style
       end

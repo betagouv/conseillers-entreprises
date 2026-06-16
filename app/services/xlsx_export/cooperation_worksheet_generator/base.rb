@@ -80,6 +80,7 @@ module XlsxExport
         @right_header = s.add_style bg_color: 'eadecd', b: true, alignment: { horizontal: :right, wrap_text: true }, border: { color: 'AAAAAA', style: :thin }
         @label        = s.add_style alignment: { indent: 1 }
         @rate         = s.add_style format_code: '#0.0%'
+        @evolution    = s.add_style format_code: '+#0.0%;-#0.0%;#0.0%'
         @yellow       = s.add_style bg_color: 'FFEB84', type: :dxf
         @pink         = s.add_style bg_color: 'EAD1DC', type: :dxf
         @orange       = s.add_style bg_color: 'F79646', type: :dxf
