@@ -3,7 +3,7 @@ class Emails::SolicitationsController < ApplicationController
   before_action :authorize_index_solicitation
 
   def send_generic_email
-    email_type = ActionController::Base.helpers.sanitize(params[:email_type])
+    email_type = ActionController::Base.helpers.sanitize(params[:email_type]).to_str
     processor = SendSolicitationGenericEmail.new(@solicitation, email_type)
     if processor.valid?
       processor.send_email
