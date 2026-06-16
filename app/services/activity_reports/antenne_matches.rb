@@ -19,5 +19,5 @@ class ActivityReports::AntenneMatches < ActivityReports::GeneratorBase
 
   def report_type = :matches
 
-  def reports_periods = TimeDurationService::Months.new.call
+  def reports_periods = TimeDurationService.months
 end

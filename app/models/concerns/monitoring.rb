@@ -5,12 +5,12 @@ module Monitoring
   # Efficiently compute the count and rate of done or not_for_me (using matches) or the satisfying rate (using company_satisfaction).
 
   ## Constants for high-level scopes
-  MATCHES_PERIOD = -> { TimeDurationService::Quarters.new.call.first }
+  MATCHES_PERIOD = -> { TimeDurationService.quarters.first }
   MATCHES_COUNT = (50..)
   MATCHES_NOT_FOR_ME_RATE = (0.3..)
   MATCHES_DONE_RATE = (..0.25)
 
-  SOLICITATIONS_PERIOD = -> { TimeDurationService::Years.new.call.first }
+  SOLICITATIONS_PERIOD = -> { TimeDurationService.years.first }
   SOLICITATIONS_COUNT = (100..)
   SOLICITATIONS_SATISFYING_RATE = (..0.45)
 

@@ -11,5 +11,5 @@ class ActivityReports::AntenneStats < ActivityReports::GeneratorBase
 
   def report_type = :stats
 
-  def reports_periods = TimeDurationService::Quarters.new.call
+  def reports_periods = TimeDurationService.quarters
 end

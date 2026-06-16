@@ -9,40 +9,26 @@ module TimeDurationService
     end
   end
 
-  class Base
-    def call
-      today = Date.today
-      past_two_years = [reference_date.year - 1, reference_date.year]
-      intervals = []
+  def self.intervals(reference_date:, period_method:)
+    today = Date.today
+    past_two_years = [reference_date.year - 1, reference_date.year]
+    intervals = []
 
-      past_two_years.each do |year|
-        date = Date.new(year, 1, 1)
-        interval = interval_at(date)
-        while interval.end < today && interval.end <= date.end_of_year do
-          intervals << interval
-          interval = interval(interval.end + 1.day)
-        end
+    past_two_years.each do |year|
+      date = Date.new(year, 1, 1)
+      interval = date.send(period_method)
+      while interval.end < today && interval.end <= date.end_of_year do
+        intervals << interval
+        interval = (interval.end + 1.day).send(period_method)
       end
-
-      intervals.reverse
     end
+
+    intervals.reverse
   end
 
-  class Months < Base
-    def interval_at(date) = date.all_month
+  def self.months = intervals(reference_date: Date.today, period_method: :all_month)
 
-    def reference_date = Date.today
-  end
+  def self.quarters = intervals(reference_date: 3.months.ago, period_method: :all_quarter)
 
-  class Quarters < Base
-    def interval_at(date) = date.all_quarter
-
-    def reference_date = 3.months.ago # Don't take into account the current year if we are before the end of the first quarter
-  end
-
-  class Years < Base
-    def interval_at(date) = date.all_year
-
-    def reference_date = 3.months.ago # Don't take into account the current year if we are before the end of the first quarter
-  end
+  def self.years = intervals(reference_date: 3.months.ago, period_method: :all_year)
 end

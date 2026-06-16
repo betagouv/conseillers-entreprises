@@ -9,8 +9,8 @@ describe TimeDurationService do
     end
   end
 
-  describe TimeDurationService::Months do
-    subject { described_class.new.call }
+  describe 'months' do
+    subject { described_class.months }
 
     context 'beginning of the year (January)' do
       it 'returns only the 12 months of the previous year' do
@@ -94,8 +94,8 @@ describe TimeDurationService do
     end
   end
 
-  describe TimeDurationService::Quarters do
-    subject { described_class.new.call }
+  describe 'quarters' do
+    subject { described_class.quarters }
 
     context '1rst quarter' do
       it do
@@ -160,8 +160,8 @@ describe TimeDurationService do
     end
   end
 
-  describe TimeDurationService::Years do
-    subject { described_class.new.call }
+  describe 'years' do
+    subject { described_class.years }
 
     context '1rst quarter' do
       it do
