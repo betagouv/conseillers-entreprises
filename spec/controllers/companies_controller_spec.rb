@@ -50,7 +50,7 @@ RSpec.describe CompaniesController do
 
       it do
         get :show_with_siret, params: { siret: siret }
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to new_conseiller_diagnosis_path(siret: siret)
       end
     end
   end

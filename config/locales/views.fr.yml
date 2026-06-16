@@ -235,6 +235,8 @@ fr:
       create_diagnosis: Démarrer une analyse
       facility: Établissement concerné
       siege_social: Siège social
+    show_with_siret:
+      fallback_manual_creation: "%{message}. Vous pouvez créer l'analyse manuellement ci-dessous."
   company_satisfactions:
     new:
       comment: 'Un commentaire ? Une suggestion ? Nous sommes à votre écoute :'
