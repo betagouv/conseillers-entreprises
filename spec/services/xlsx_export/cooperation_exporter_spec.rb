@@ -137,15 +137,17 @@ RSpec.describe XlsxExport::CooperationExporter do
     end
 
     describe 'Provenance worksheet' do
-      let!(:solicitation_with_provenance) do
-        create(:solicitation,
-          landing: landing,
-          landing_subject: landing_subject,
+      before do
+        create_list(:solicitation, 3,
+          landing: landing, landing_subject: landing_subject, status: :processed,
           completed_at: Date.new(2025, 2, 15),
-          status: :processed,
+          provenance_detail: 'Partner Website')
+
+        create_list(:solicitation, 2,
+          landing: landing, landing_subject: landing_subject, status: :processed,
+          completed_at: Date.new(2024, 2, 15), # one year before
           provenance_detail: 'Partner Website')
       end
-      let!(:diagnosis) { create(:diagnosis_completed, solicitation: solicitation_with_provenance, created_at: Date.new(2025, 2, 16)) }
 
       it 'includes provenance worksheet when provenance details exist' do
         provenance_sheet = package.workbook.worksheets.find { |ws| ws.name == I18n.t('cooperation_stats_exporter.provenance.tab') }
@@ -158,11 +160,19 @@ RSpec.describe XlsxExport::CooperationExporter do
 
         header_row = provenance_sheet.rows.first.cells.map(&:value)
 
-        expect(header_row).to include(I18n.t('cooperation_stats_exporter.provenance.provenance_detail'))
-        expect(header_row).to include(I18n.t('cooperation_stats_exporter.provenance.solicitations_count'))
-        expect(header_row).to include(I18n.t('cooperation_stats_exporter.provenance.abandonned_count'))
-        expect(header_row).to include(I18n.t('cooperation_stats_exporter.provenance.matched_count'))
-        expect(header_row).to include(I18n.t('cooperation_stats_exporter.provenance.done_count'))
+        expect(header_row[0]).to eq "Provenance"
+        expect(header_row[1]).to eq "Nb sollicitations"
+        expect(header_row[2]).to eq "Évolution par rapport à l’année précédente"
+      end
+
+      it 'has correct values' do
+        provenance_sheet = package.workbook.worksheets.find { |ws| ws.name == I18n.t('cooperation_stats_exporter.provenance.tab') }
+
+        values_row = provenance_sheet.rows.last.cells.map(&:value)
+
+        expect(values_row[0]).to eq "Partner Website"
+        expect(values_row[1]).to eq 3
+        expect(values_row[2]).to eq 1.5
       end
     end
 
