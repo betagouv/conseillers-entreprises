@@ -105,7 +105,7 @@ jobs:
           name: Publish coverage to Qlty
           command: |
             curl -fsSL https://qlty.sh | bash
-            qlty coverage publish \
+            "$HOME/.qlty/bin/qlty" coverage publish \
               --override-branch main \
               --total-parts-count 4 \
               coverage/coverage.json
