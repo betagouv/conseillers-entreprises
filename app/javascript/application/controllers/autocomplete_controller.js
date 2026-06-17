@@ -92,7 +92,7 @@ export default class Autocomplete extends Controller {
     event.preventDefault()
   }
 
-  onTabKeydown = (event) => {
+  onTabKeydown = () => {
     const selected = this.selectedOption
     if (selected) this.commit(selected)
   }
@@ -220,7 +220,7 @@ export default class Autocomplete extends Controller {
   replaceResults(html) {
     this.resultsTarget.innerHTML = html
     this.identifyOptions()
-    if (!!this.options) {
+    if (this.options) {
       this.open()
     } else {
       this.close()
@@ -280,7 +280,7 @@ export default class Autocomplete extends Controller {
 const debounce = (fn, delay = 10) => {
   let timeoutId = null
 
-  return (...args) => {
+  return () => {
     clearTimeout(timeoutId)
     timeoutId = setTimeout(fn, delay)
   }
