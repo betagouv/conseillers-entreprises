@@ -1,4 +1,3 @@
-import "whatwg-fetch";
 import "@hotwired/turbo-rails";
 
 require("@rails/ujs").start();
