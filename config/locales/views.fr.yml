@@ -547,12 +547,17 @@ fr:
         free_support_services: Services d'accompagnement gratuits pour les TPE et PME en France
         public_service: Service public
         service_description: Service public d'accompagnement pour les TPE et PME en France. Un réseau de 10 000 conseillers au sein de 40 administrations et opérateurs de l'État à votre disposition.
+        service_how_it_works: Le dirigeant d'entreprise remplit un formulaire de sollicitation en ligne. Un ou plusieurs conseillers le rappellent ensuite, sous 5 jours, pour échanger sur sa problématique. L'objectif est de garder un contact humain et un accompagnement personnalisé.
         service_name: Service Public Conseillers entreprises
         service_output: Être rappelé par le conseiller qui peut vous aider dans les 5 jours
         support_themes: Thématiques d'accompagnement pour les entreprises
   layouts:
     side_menu:
       mobile_menu: Menu
+  llms:
+    sections:
+      about: À propos
+      landings: Aide aux entreprises
   logos:
     france_relance: France Relance
     pde: Conseillers-entreprises.service-public.gouv.fr
