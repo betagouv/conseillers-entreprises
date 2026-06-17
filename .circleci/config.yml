@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   browser-tools: circleci/browser-tools@1.5.1
-  qlty: qltysh/qlty-orb@0.0
 
 defaults:
   &defaults
@@ -19,24 +18,24 @@ defaults:
 bundle_restore_cache:
   &bundle_restore_cache
   restore_cache:
-    key: v1-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
+    key: v2-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
 
 yarn_restore_cache:
   &yarn_restore_cache
   restore_cache:
-    key: v1-yarn-cache-{{ arch }}-{{ checksum "yarn.lock" }}
+    key: v2-yarn-cache-{{ arch }}-{{ checksum "yarn.lock" }}
 
 bundle_save_cache:
   &bundle_save_cache
   save_cache:
-    key: v1-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
+    key: v2-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
     paths:
       - ~/vendor/bundle
 
 yarn_save_cache:
   &yarn_save_cache
   save_cache:
-    key: v1-yarn-cache-{{ arch }}-{{ checksum "yarn.lock" }}
+    key: v2-yarn-cache-{{ arch }}-{{ checksum "yarn.lock" }}
     paths:
       - ~/.cache/yarn
 
@@ -102,9 +101,14 @@ jobs:
               --out /tmp/test-results/rspec.xml \
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      - qlty/coverage_publish:
-          files: coverage/coverage.json
-          total_parts_count: 4
+      - run:
+          name: Publish coverage to Qlty
+          command: |
+            curl -fsSL https://qlty.sh | bash
+            "$HOME/.qlty/bin/qlty" coverage publish \
+              --override-branch main \
+              --total-parts-count 4 \
+              coverage/coverage.json
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
