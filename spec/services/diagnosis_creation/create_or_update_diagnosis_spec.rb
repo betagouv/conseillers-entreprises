@@ -64,6 +64,21 @@ describe DiagnosisCreation::CreateOrUpdateDiagnosis do
             expect(create_or_update_diagnosis[:errors]).to eq({ major_api_error: { "api-apientreprise-entreprise-base" => "some error message" } })
           end
         end
+
+        context 'when the SIRET is blank' do
+          let(:siret) { '' }
+          let!(:intermediary_result) { DiagnosisCreation::CreateOrUpdateFacilityAndCompany.new(siret, fallback_insee_code: "12345") }
+
+          before do
+            create(:facility, siret: '')
+            create(:company, siren: '')
+          end
+
+          it 'does not reuse a previously created facility with a blank SIRET' do
+            expect(create_or_update_diagnosis[:diagnosis].facility).to be_new_record
+          end
+        end
+
       end
 
       context 'with manual facility info' do
