@@ -9,7 +9,7 @@ module DiagnosisCreation
     def call
       begin
         Diagnosis.transaction do
-          if @params[:facility_attributes].include? :siret
+          if @params.dig(:facility_attributes, :siret).present?
             set_facility
           end
 
