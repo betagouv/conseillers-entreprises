@@ -16,7 +16,9 @@
       - if @diagnosis.solicitation.present?
         = form.hidden_field :solicitation_id
       = form.fields_for :facility do |facility_form|
-        = facility_form.hidden_field :siret, value: params[:siret] || @diagnosis.solicitation&.siret
+        - siret = params[:siret] || @diagnosis.solicitation&.siret
+        - if siret.present?
+          = facility_form.hidden_field :siret, value: siret
         .fr-fieldset__element
           = facility_form.fields_for :company do |company_form|
             = company_form.label :name, t('.name'), class: 'fr-label'
