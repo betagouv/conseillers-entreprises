@@ -11,14 +11,15 @@
     "mjml": ">4.15.3",
     "remixicon": "^4.2.0",
     "slim-select": "^2.9.2",
-    "stimulus": ">2.0.0"
+    "stimulus": ">2.0.0",
+    "tarteaucitronjs": ">1.33.0"
   },
   "devDependencies": {
-    "eslint": ">=7.14.0",
     "@eslint/eslintrc": ">=3.3.5",
     "@eslint/js": ">=10.0.1",
-    "globals": ">=17.6.0",
     "esbuild": ">=0.28.1",
+    "eslint": ">=7.14.0",
+    "globals": ">=17.6.0",
     "sass-migrator": "^2.5.7"
   },
   "scripts": {

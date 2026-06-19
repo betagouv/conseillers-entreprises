@@ -4,6 +4,7 @@
 
 //= link_directory ../stylesheets .css
 //= link highcharts.js
+//= link tarteaucitron.js
 //= link_tree ../builds
 //= link @gouvfr/dsfr/dist/dsfr.min.css
 //= link @gouvfr/dsfr/dist/utility/icons/icons.css
