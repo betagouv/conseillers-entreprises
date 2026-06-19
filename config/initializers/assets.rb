@@ -11,6 +11,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules', '@gouvf
 Rails.application.config.assets.paths << Rails.root.join('node_modules', '@gouvfr', 'dsfr', 'dist', 'utility', 'icons', 'icons-communication.min')
 Rails.application.config.assets.paths << Rails.root.join('node_modules', 'remixicon', 'fonts')
 Rails.application.config.assets.paths << Rails.root.join('node_modules', 'slim-select', 'dist')
+Rails.application.config.assets.paths << Rails.root.join('node_modules', 'tarteaucitronjs')
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
