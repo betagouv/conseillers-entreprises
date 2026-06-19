@@ -14,10 +14,20 @@ class SendSolicitationGenericEmail
     raise StandardError, I18n.t('errors.cancel_solicitation_with_email') unless valid?
     @solicitation.update(badge_ids: @solicitation.badge_ids + [email_type_to_badge_id])
     @solicitation.cancel!
-    SolicitationMailer.send_email(@solicitation, @email_type).deliver_later
+    deliver_email
   end
 
   private
+
+  # `bad_quality` is a built-in type without a template and has its own mailer
+  # method. Other types are template-driven and go through `send_email`.
+  def deliver_email
+    if @email_type.to_sym == :bad_quality
+      SolicitationMailer.bad_quality(@solicitation).deliver_later
+    else
+      SolicitationMailer.send_email(@solicitation, @email_type).deliver_later
+    end
+  end
 
   def email_type_to_badge_id
     badge = Badge.find_by('lower(title) = ?', badge_title.squish.downcase)
