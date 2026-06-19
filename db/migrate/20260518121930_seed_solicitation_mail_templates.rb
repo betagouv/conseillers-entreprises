@@ -7,7 +7,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
     templates = [
       {
         email_type: 'administrations_collectivites',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant ce service).</p>
           <p>Ce service public est destiné aux TPE et PME. Nous n'avons pas d'expert en mesure de répondre aux problématiques des administrations et des collectivités.</p>
           <p>Liens utiles selon votre démarche :</p>
@@ -22,7 +22,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'carsat',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service) concernant votre retraite ou les risques professionnels.</p>
           <p>Malheureusement, l'organisme compétent, <strong>la CARSAT, n'est pas encore partenaire</strong> du service dans votre région. Nous vous invitons à <strong>la contacter au 3960 pour la retraite</strong> et au <strong>3679 pour les risques professionnels</strong>.</p>
           <p>Liens utiles :</p>
@@ -41,7 +41,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'creation',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service) pour votre entreprise en création ou tout juste lancée.</p>
           <p>Ce service public ne s'adresse actuellement qu'aux entreprises déjà existantes.</p>
           <p>Vous pouvez vous faire accompagner dans vos démarches de création par des conseillers proches de chez vous :</p>
@@ -63,7 +63,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'employee_labor_law',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service) concernant le <b>droit du travail</b>. Il s’agit cependant d’un service public destiné aux chefs d’entreprises. Nous ne sommes donc pas en mesure de vous apporter une réponse.</p>
           <p>En tant que salarié(e), nous vous invitons à contacter le service de renseignement en droit du travail de la <a href="https://dreets.gouv.fr/">Direction régionale de l’économie, de l’emploi, du travail et des solidarités</a> (DREETS).</p>
           <p>Vous pouvez composer le <b>0806 000 126</b> [prix d'un appel local - pas de surcoût] du lundi au vendredi, de 8h45 à 11h30 et de 13h45 à 16h30.</p>
@@ -77,7 +77,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'formalites_asso_agri_sci',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service) concernant vos formalités.</p>
           <p>Malheureusement, nous n'avons pas encore d'expert en mesure de répondre à votre problématique dans votre secteur d'activité.</p>
           <p>Nous vous conseillons de contacter :</p>
@@ -97,7 +97,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'intermediary',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service).</p>
           <p>Il s'agit d'un service public destiné aux chefs d'entreprises, afin d’aider les petites structures à se développer et à s’adapter.</p>
           <p>Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 40 partenaires publics et parapublics du service ont à cœur <strong>d’échanger directement</strong> avec les entreprises pour répondre au mieux à leur problématique.</p>
@@ -107,7 +107,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'kbis_extract',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service) concernant l’extrait Kbis.</p>
           <p>Si vous rencontrez des difficultés techniques sur le site MonIdenum et <a href="https://monidenum.fr/contact">son support</a>, ce document est également disponible pour les activités commerciales sur le site du greffe : <a href="https://www.infogreffe.fr/documents-officiels/extrait-kbis">www.infogreffe.fr/documents-officiels/extrait-kbis</a>. Le coût de la formalité est défini par le greffe.</p>
           <p><strong>Attention : l'extrait Kbis ne concerne que les activités commerciales</strong>.</p>
@@ -123,7 +123,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'mediateurs',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service) concernant un litige.</p>
           <p>Malheureusement, nous n'avons pas encore d'expert en mesure de répondre à votre problématique dans votre secteur d'activité.</p>
           <p>Nous vous conseillons de :</p>
@@ -157,7 +157,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'moderation',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service).</p>
           <p>Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.</p>
           <p>Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller. Nous vous invitons à bien vérifier votre messagerie électronique, vos courriers indésirables (spams) et votre messagerie vocale.</p>
@@ -167,7 +167,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'no_expert',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service).</p>
           <p>Malheureusement, nous n'avons pas encore d'expert en mesure de répondre à votre problématique dans votre secteur d'activité.</p>
           <p>C'est en détectant de nouvelles problématiques que nous pouvons améliorer ce service public. <strong>Nous faisons notre maximum pour compléter l'expertise</strong>.</p>
@@ -183,7 +183,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'no_expert_agri',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service).</p>
           <p>Malheureusement, nous n'avons pas encore d'expert en mesure de répondre à votre problématique dans votre secteur d'activité.</p>
           <p>C'est en détectant de nouvelles problématiques que nous pouvons améliorer ce service public. <strong>Nous faisons notre maximum pour compléter l'expertise</strong>.</p>
@@ -203,7 +203,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'recruitment_foreign_worker',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service) concernant le <b>recrutement d’un travailleur étranger</b>.</p>
           <p>La demande d'autorisation de travail relève d'un service en ligne du Ministère de l'Intérieur : <a href="https://administration-etrangers-en-france.interieur.gouv.fr/immiprousager/#/authentification">https://administration-etrangers-en-france.interieur.gouv.fr</a>.</p>
           <p>Pour plus d'informations : <b>0806 001 620</b> (appel gratuit).</p>
@@ -212,7 +212,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'retirement_liberal_professions',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service) concernant votre retraite.</p>
           <p>Malheureusement, les organismes compétents, la CIPAV (caisse de retraite des professions libérales), la CARPIMKO (caisse de retraite des auxiliaires médicaux) et la MSA (caisse de retraite des professions agricoles) ne sont pas encore partenaires du service.</p>
           <p>Nous vous invitons à les contacter en direct :</p>
@@ -226,7 +226,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'sie_sip_declare_and_pay',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service) concernant votre déclaration de revenus ou le paiement de vos impôts.</p>
           <p>Les questions relatives à la déclaration de vos revenus et à leur imposition relèvent de votre service des impôts des particuliers (SIP), tandis que les questions relatives à la CFE et à la TVA relèvent de votre service des impôts des entreprises (SIE).</p>
           <p><strong>Malheureusement ces deux services ne sont pas partenaires du Service Public Conseillers entreprises à ce jour</strong>.<br>Nous vous invitons à les solliciter directement :</p>
@@ -240,7 +240,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'sie_tva_and_others',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service) concernant la TVA.</p>
           <p>Les démarches et les questions relatives à la TVA (déclaration et paiement de la TVA, obtention d'un n° de TVA intracommunautaire, seuil et changement de régime de TVA …) relèvent de votre service des impôts des entreprises (SIE).</p>
           <p><b>Malheureusement ce service n'est pas partenaire du Service Public Conseillers entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href="https://lannuaire.service-public.fr/navigation/sie">https://lannuaire.service-public.fr/navigation/sie</a>.</p>
@@ -250,7 +250,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'siret',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service).</p>
           <p>Il semble cependant qu'il y ait une erreur sur votre numéro de Siret. Pourriez-vous nous le faire parvenir à nouveau ?</p>
           <p>Le numéro de Siret comporte <b>14 chiffres</b>. Si vous ne le connaissez pas, vous le trouverez facilement ici : <a href="https://annuaire-entreprises.data.gouv.fr/">https://annuaire-entreprises.data.gouv.fr/</a></p>
@@ -261,7 +261,7 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
       },
       {
         email_type: 'tns_training',
-        body_html: <<~HTML.strip
+        body_html: <<~HTML
           <p>Vous avez récemment déposé une demande sur le service public <a href="https://conseillers-entreprises.service-public.gouv.fr">conseillers-entreprises.service-public.gouv.fr</a> (ou un site intégrant le service) concernant le financement de votre formation.</p>
           <p>Malheureusement nous n'avons pas encore d'expert en mesure de répondre à votre problématique.</p>
           <p>Selon votre statut social de Travailleur Non Salarié, 4 organismes sont compétents :</p>
