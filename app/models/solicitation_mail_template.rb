@@ -28,9 +28,7 @@ class SolicitationMailTemplate < ApplicationRecord
 
   attr_readonly :email_type
 
-  def to_s
-    title
-  end
+  def to_s = title
 
   private
 
