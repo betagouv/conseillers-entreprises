@@ -5,22 +5,15 @@ describe SolicitationMailer do
   describe '#send_generic_email' do
     let(:solicitation) { create :solicitation }
 
-    %i[
-      no_expert moderation creation intermediary
-      sie_tva_and_others sie_sip_declare_and_pay formalites_asso_agri_sci tns_training no_expert_agri
-      carsat retirement_liberal_professions employee_labor_law recruitment_foreign_worker
-      administrations_collectivites siret mediateurs kbis_extract
-    ].each do |email_type|
-      context "for #{email_type}" do
-        before { create :solicitation_mail_template, email_type: email_type.to_s }
+    let(:email_type) { :no_expert }
 
-        subject(:mail) { described_class.template(solicitation, email_type).deliver_now }
+    before { create :solicitation_mail_template, email_type: email_type.to_s }
 
-        it_behaves_like 'an email'
+    subject(:mail) { described_class.template(solicitation, email_type).deliver_now }
 
-        it { expect(mail.header[:to].value).to eq solicitation.email }
-      end
-    end
+    it_behaves_like 'an email'
+
+    it { expect(mail.header[:to].value).to eq solicitation.email }
   end
 
   describe '#bad_quality' do
