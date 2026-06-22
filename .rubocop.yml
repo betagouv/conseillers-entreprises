@@ -12,8 +12,6 @@ AllCops:
     - "db/schema.rb"
     - "tmp/**/*"
     - "node_modules/**/*"
-    - "bin/webpack"
-    - "bin/webpack-dev-server"
     - "bin/yarn"
   NewCops: enable
 
