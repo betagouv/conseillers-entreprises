@@ -46,8 +46,8 @@
         %li.fr-menu__item
           %ul.fr-menu__list
             - column.each do |email_type|
-              - template = email_templates_by_type[email_type.to_s]
-              - title_label = template&.title.presence || t(email_type, scope: 'solicitations.solicitation_actions.emails', default: email_type.to_s.tr('_', ' ').capitalize)
+              - template = email_templates_by_type[email_type]
+              - title_label = template&.title.presence || t(email_type, scope: 'solicitations.solicitation_actions.emails', default: email_type.tr('_', ' ').capitalize)
               %li.fr-menu__item
                 = link_to title_label,
                   emails_solicitation_generic_path(email_type: email_type, id: solicitation.id, query: params[:query]),
