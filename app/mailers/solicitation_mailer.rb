@@ -16,6 +16,6 @@ class SolicitationMailer < ApplicationMailer
   def template(solicitation, email_type)
     @solicitation = solicitation
     @solicitation_mail_template = SolicitationMailTemplate.find_by!(email_type: email_type)
-    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'), template_name: 'solicitation_mail_template')
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 end
