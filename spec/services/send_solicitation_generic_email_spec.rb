@@ -5,7 +5,7 @@ describe SendSolicitationGenericEmail do
   describe '#cancel' do
     context 'with valid params' do
       let(:solicitation) { create :solicitation, status: 'in_progress' }
-      let(:email_type) { :siret }
+      let(:email_type) { 'siret' }
 
       before do
         create(:solicitation_mail_template, email_type: 'siret', title: 'Erreur SIRET')
@@ -23,7 +23,7 @@ describe SendSolicitationGenericEmail do
 
     context 'with bad_quality built-in type' do
       let(:solicitation) { create :solicitation, status: 'in_progress' }
-      let(:email_type) { :bad_quality }
+      let(:email_type) { 'bad_quality' }
 
       before { described_class.new(solicitation, email_type).send_email }
 
@@ -37,7 +37,7 @@ describe SendSolicitationGenericEmail do
 
     context 'with invalid email_type' do
       let(:solicitation) { create :solicitation, status: 'in_progress' }
-      let(:email_type) { :tatayoyo }
+      let(:email_type) { 'tatayoyo' }
 
       it do
         expect { described_class.new(solicitation, email_type).send_email }.to raise_error StandardError

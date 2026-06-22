@@ -6,7 +6,7 @@ class SendSolicitationGenericEmail
 
   def valid?
     @email_type.present? && @solicitation.present? && (
-      @email_type.to_sym == :bad_quality || SolicitationMailTemplate.exists?(email_type: @email_type.to_s)
+      @email_type == 'bad_quality' || SolicitationMailTemplate.exists?(email_type: @email_type)
     )
   end
 
@@ -22,7 +22,7 @@ class SendSolicitationGenericEmail
   # `bad_quality` is a built-in type without a template and has its own mailer
   # method. Other types are template-driven and go through `template`.
   def deliver_email
-    if @email_type.to_sym == :bad_quality
+    if @email_type == 'bad_quality'
       SolicitationMailer.bad_quality(@solicitation).deliver_later
     else
       SolicitationMailer.template(@solicitation, @email_type).deliver_later
@@ -38,7 +38,7 @@ class SendSolicitationGenericEmail
   # `bad_quality` is a built-in type without a template: its badge title comes
   # from the locales. Other types use their template title.
   def badge_title
-    template = SolicitationMailTemplate.find_by(email_type: @email_type.to_s)
+    template = SolicitationMailTemplate.find_by(email_type: @email_type)
     template&.title || I18n.t(@email_type, scope: 'solicitations.solicitation_actions.emails')
   end
 end
