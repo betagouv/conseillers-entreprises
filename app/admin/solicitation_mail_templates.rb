@@ -13,7 +13,7 @@ ActiveAdmin.register SolicitationMailTemplate do
       link_to solicitation_mail_template.title, admin_solicitation_mail_template_path(solicitation_mail_template)
     end
     column :email_type
-    column :position
+    column I18n.t('active_admin.solicitation_mail_templates.index.position.label').html_safe, :position
     column :updated_at
     actions
   end
