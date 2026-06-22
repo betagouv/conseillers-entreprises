@@ -14,7 +14,7 @@ describe SolicitationMailer do
       context "for #{email_type}" do
         before { create :solicitation_mail_template, email_type: email_type.to_s }
 
-        subject(:mail) { described_class.send_email(solicitation, email_type).deliver_now }
+        subject(:mail) { described_class.template(solicitation, email_type).deliver_now }
 
         it_behaves_like 'an email'
 

@@ -20,12 +20,12 @@ class SendSolicitationGenericEmail
   private
 
   # `bad_quality` is a built-in type without a template and has its own mailer
-  # method. Other types are template-driven and go through `send_email`.
+  # method. Other types are template-driven and go through `template`.
   def deliver_email
     if @email_type.to_sym == :bad_quality
       SolicitationMailer.bad_quality(@solicitation).deliver_later
     else
-      SolicitationMailer.send_email(@solicitation, @email_type).deliver_later
+      SolicitationMailer.template(@solicitation, @email_type).deliver_later
     end
   end
 
