@@ -20,8 +20,6 @@ module.exports = defineConfig([{
     languageOptions: {
         globals: {
             ...globals.browser,
-            ...globals.jquery,
-            $: true,
             require: true,
             _paq: true,
             Highcharts: true,

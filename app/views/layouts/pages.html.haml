@@ -18,7 +18,6 @@
     = stylesheet_link_tag '@gouvfr/dsfr/dist/utility/icons/icons-communication/icons-communication.min', data: { 'turbo-track': 'reload' }
     = stylesheet_link_tag 'pages', data: { 'turbo-track': 'reload' }
     = javascript_include_tag 'gouvfr-module', type: 'module', data: { 'turbo-track': 'reload' }, nonce: true
-    = javascript_include_tag 'gouvfr-nomodule', type: 'text/javascript', nomodule: '', data: { 'turbo-track': 'reload' }, nonce: true
     = javascript_include_tag 'pages', data: { 'turbo-track': 'reload' }, type: "module", nonce: true
     - if in_iframe?
       %meta{ name: 'robots', content: 'noindex' }
