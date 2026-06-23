@@ -1,4 +1,0 @@
-- if current_user.experts.include?(@match.expert)
-  document.getElementById('match-actions').outerHTML = "#{j(render partial: 'needs/match_actions', locals: { match: @match, display_feedback_form: true })}";
-
-document.getElementById("row-match-#{@match.id}").outerHTML = "#{j(render partial: 'match', locals: { match: @match })}";
