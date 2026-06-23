@@ -12,6 +12,7 @@ gem 'openssl'
 
 # Assets
 gem 'haml-rails'
+gem 'jquery-rails'
 gem 'dartsass-sprockets'
 gem 'terser'
 gem 'premailer-rails'

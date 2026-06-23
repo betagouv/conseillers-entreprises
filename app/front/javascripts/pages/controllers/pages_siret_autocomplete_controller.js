@@ -87,7 +87,7 @@ export default class extends Controller {
     try {
       let data = await response.json();
       return data;
-    } catch {
+    } catch(err) {
       this.manageSourceError({error: "Problème de réception des données, veuillez réessayer avec d'autres paramètres"})
     }
   }

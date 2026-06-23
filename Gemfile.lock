@@ -791,6 +791,7 @@ DEPENDENCIES
   i18n-tasks
   ip_anonymizer
   jbuilder
+  jquery-rails
   jsbundling-rails
   kaminari
   letter_opener_web

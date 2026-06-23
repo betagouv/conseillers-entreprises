@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
-import { columnCharts } from "./charts/column_charts"
-import { lineCharts } from "./charts/line_charts"
-import { percentageColumnCharts } from "./charts/percentage_column_chart"
+import { columnCharts } from '../column_charts'
+import { lineCharts } from "../line_charts"
+import { percentageColumnCharts } from "../percentage_column_chart"
 
 export default class extends Controller {
   static targets = ['graph']

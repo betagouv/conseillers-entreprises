@@ -12,7 +12,7 @@
   function inIframe () {
     try {
       return window.self !== window.top
-    } catch {
+    } catch (e) {
       return true
     }
   }

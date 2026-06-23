@@ -56,5 +56,6 @@ exclude_patterns:
   - '**/services/csv_import/'
   - '**/models/clockwork.rb'
   - 'helpers/sitemap_helper.rb'
+  - 'babel.config.js'
   - 'services/sitemap_generator.rb'
   - 'services/diagnosis_creation/create_automatic_diagnosis.rb'
