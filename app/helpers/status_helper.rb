@@ -36,7 +36,7 @@ module StatusHelper
   def admin_match_actions_buttons(match)
     allowed_actions = match.allowed_new_status
 
-    form_with(model: match, url: match_path(match), class: 'menu admin-match-actions', local: true) do |f|
+    form_with(model: match, url: match_path(match), class: 'menu admin-match-actions') do |f|
       allowed_actions.map do |new_status|
         title = Match.human_attribute_value(:status, new_status, context: :action)
         classes = %w[fr-btn] << "btn-#{status_color(new_status)}"

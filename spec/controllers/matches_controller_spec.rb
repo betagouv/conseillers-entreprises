@@ -5,7 +5,10 @@ RSpec.describe MatchesController do
 
   describe 'PUT #update' do
     login_user
-    subject(:request) { put :update, xhr: true, params: params }
+    subject(:request) do
+      @request.headers["Turbo-Frame"] = "frame_name" # rubocop:disable RSpec/InstanceVariable
+      put :update, params: params
+    end
 
     let(:params) { { id: match.id, status: :taking_care } }
     let!(:match) { create :match }

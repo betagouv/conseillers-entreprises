@@ -1,9 +1,9 @@
-#match-actions
+= turbo_frame_tag('match-actions') do
   - if match.status_quo?
     .fr-grid-row.white-bg.fr-p-3w.fr-grid-row--middle
       .actions-default.fr-col
         %p.question= t('.can_you_help', company: match.need.company)
-        = form_with(model: match, url: match_path(match), local: true) do |f|
+        = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :taking_care, class: 'fr-btn btn-green fr-mr-2w', id: 'match_submit_taking_care' do
             %span.ri-phone-fill.fr-mr-2v{ 'aria-hidden': 'true' }
             = t('.take_care')
@@ -26,12 +26,12 @@
           - partner_full_link = match.solicitation&.landing&.partner_full_url
           - if partner_full_link.present?
             %p.sub-content= t('.deposited_on_partner_website_html', partner_link: link_to(match.solicitation.landing.partner_url, partner_full_link, target: '_blank', rel: 'noopener'))
-        = form_with(model: match, url: match_path(match), local: true) do |f|
+        = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :quo, class: 'gray-link', id: "cancel-match" do
             = t('.cancel_taking_care')
 
     %h3.fr-h4.fr-my-4w= t('.close_need')
-    = form_with(model: match, url: match_path(match), local: true) do |f|
+    = form_with(model: match, url: match_path(match)) do |f|
       %ul.list-unstyled.fr-grid-row.fr-grid-row--gutters.fr-col
         %li.fr-col-12.fr-col-md-4
           .fr-col.close-need-box.block-button
@@ -70,7 +70,7 @@
         %span.ri-checkbox-circle-fill.icon{ 'aria-hidden': 'true' }
         .content
           %p.explanations= t('.its_done')
-        = form_with(model: match, url: match_path(match), local: true) do |f|
+        = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :taking_care, class: 'gray-link' do
             = t('.cancel')
       - if local_assigns[:display_feedback_form]
@@ -88,7 +88,7 @@
             %p.explanations= t('.need_canceled_short')
           - else
             %p.explanations= t('.need_canceled')
-        = form_with(model: match, url: match_path(match), local: true) do |f|
+        = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :quo, class: 'gray-link' do
             = t('.cancel')
       - if local_assigns[:display_feedback_form]

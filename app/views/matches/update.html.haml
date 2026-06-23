@@ -1,0 +1,4 @@
+- if current_user.experts.include?(@match.expert)
+  = render partial: 'needs/match_actions', locals: { match: @match, display_feedback_form: true }
+
+= render partial: 'match', locals: { match: @match }

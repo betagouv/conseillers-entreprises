@@ -1,5 +1,5 @@
 - if !match.expert.deleted? || (match.expert.deleted? && policy(match.expert).show_deleted_experts?)
-  .fr-container.row-match{ id: "row-match-#{match.id}" }
+  = turbo_frame_tag("row-match-#{match.id}", class: "fr-container row-match") do
     .fr-grid-row.row-match__advisor
       .fr-col-sm-1.fr-col-1.col-icon
         = expert_status_icon(match)
