@@ -5,13 +5,15 @@ describe SolicitationMailer do
   describe '#send_generic_email' do
     let(:solicitation) { create :solicitation }
 
-    Solicitation::GENERIC_EMAILS_TYPES.flatten.each do |email_type|
-      subject(:mail) { described_class.send(email_type, solicitation).deliver_now }
+    let(:email_type) { :no_expert }
 
-      it_behaves_like 'an email'
+    before { create :solicitation_mail_template, email_type: email_type.to_s }
 
-      it { expect(mail.header[:to].value).to eq solicitation.email }
-    end
+    subject(:mail) { described_class.template(solicitation, email_type).deliver_now }
+
+    it_behaves_like 'an email'
+
+    it { expect(mail.header[:to].value).to eq solicitation.email }
   end
 
   describe '#bad_quality' do

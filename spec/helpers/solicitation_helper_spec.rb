@@ -48,4 +48,12 @@ describe SolicitationHelper do
       it { is_expected.to eq '<a href="https://exemple.fr/super-aide">exemple.fr/super-aide</a>' }
     end
   end
+
+  describe 'email_templates_by_type' do
+    let!(:template) { create :solicitation_mail_template, email_type: 'first_contact' }
+
+    it 'indexes templates by their email_type' do
+      expect(helper.email_templates_by_type['first_contact']).to eq template
+    end
+  end
 end

@@ -3,7 +3,10 @@ class Emails::SolicitationsController < ApplicationController
   before_action :authorize_index_solicitation
 
   def send_generic_email
-    email_type = ActionController::Base.helpers.sanitize(params[:email_type])
+    # `sanitize` returns an ActiveSupport::SafeBuffer; `.to_str` downgrades it to a
+    # plain String (`.to_s` would be a no-op and keep the SafeBuffer). This is the
+    # single normalization point: `email_type` is a plain String everywhere downstream.
+    email_type = ActionController::Base.helpers.sanitize(params[:email_type]).to_str
     processor = SendSolicitationGenericEmail.new(@solicitation, email_type)
     if processor.valid?
       processor.send_email

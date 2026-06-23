@@ -7,14 +7,26 @@ RSpec.describe Emails::SolicitationsController do
   describe '#send_generic_email' do
     let!(:solicitation) { create :solicitation, full_name: "Top Entreprise" }
 
-    Solicitation::GENERIC_EMAILS_TYPES.flatten.each do |email_type|
-      it "displays #{email_type}" do
-        # click_on I18n.t(email_type, scope: "solicitations.solicitation_actions.emails")
-        # expect(page.html).to have_css('turbo-frame', text: I18n.t('emails.sent'))
+    # Dynamic types are driven by the templates stored in the database.
+    # `bad_quality` is the special built-in type that has no template.
+    let!(:templates) do
+      %w[no_expert moderation creation intermediary].map do |email_type|
+        create(:solicitation_mail_template, email_type: email_type)
+      end
+    end
+
+    it 'sends each available email type' do
+      solicitation.available_email_types.each do |email_type|
         post :send_generic_email, params: { id: solicitation.id, email_type: email_type }, as: :turbo_stream
         expect(response.media_type).to eq(Mime[:turbo_stream])
-        expect(response.body).to include(I18n.t('emails.sent'))
+        expect(response.body).to(include(I18n.t('emails.sent')), "expected #{email_type} email to be sent")
       end
+    end
+
+    it 'rejects an unknown email type' do
+      post :send_generic_email, params: { id: solicitation.id, email_type: :nonexistent }, as: :turbo_stream
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(response.body).to include(I18n.t('emails.not_sent'))
     end
   end
 end
