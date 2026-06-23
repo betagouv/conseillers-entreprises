@@ -43,6 +43,17 @@ RSpec.describe LLMGenerator do
       expect(content).to include("/accessibilite")
     end
 
+    it "renders human-readable link titles, not missing translations" do
+      expect(content).to include("[#{I18n.t('about.accessibilite.title')}]")
+      expect(content).not_to include("translation missing")
+    end
+
+    it "nests each landing's non-archived themes under it" do
+      theme = create :landing_theme, title: 'Recrutement'
+      create :landing, slug: 'embauche', title: 'Embauche', landing_themes: [theme]
+      expect(content).to include("  - [Recrutement](http")
+    end
+
     it "excludes the regulatory pages" do
       expect(content).not_to include("/cgu")
       expect(content).not_to include("/mentions_legales")

@@ -14,7 +14,8 @@ module LLMGenerator
     lines = ["## #{I18n.t('llms.sections.landings')}"]
     Landing.ordered_for_indexing.each do |landing|
       lines << "- [#{landing.title}](#{helpers.landing_url(landing)})"
-      landing.landing_themes.not_archived.find_each do |theme|
+      # Filter the preloaded association in Ruby to avoid an N+1 query per landing.
+      landing.landing_themes.select(&:not_archived?).each do |theme|
         lines << "  - [#{theme.title}](#{helpers.landing_theme_url(landing, theme)})"
       end
     end
