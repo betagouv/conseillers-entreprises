@@ -5,8 +5,6 @@ class SolicitationMailerPreview < ActionMailer::Preview
 
   # Dynamically define preview methods for all generic email types defined in the database.
   SolicitationMailTemplate.pluck(:email_type).each do |email_type|
-    next if respond_to?(email_type)
-
     define_method(email_type) do
       SolicitationMailer.template(random_solicitation, email_type)
     end
