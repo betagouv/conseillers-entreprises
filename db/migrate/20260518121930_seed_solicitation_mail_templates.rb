@@ -278,20 +278,12 @@ class SeedSolicitationMailTemplates < ActiveRecord::Migration[8.1]
 
     templates.each do |attrs|
       SolicitationMailTemplate.find_or_create_by!(email_type: attrs[:email_type]) do |email|
-        email.body_html = normalize_html(attrs[:body_html])
+        email.body_html = attrs[:body_html].gsub(/>\s+</, '><').strip
       end
     end
   end
 
   def down
     SolicitationMailTemplate.destroy_all
-  end
-
-  private
-
-  # Strip whitespace-only text nodes between tags so the Quill editor does not
-  # render phantom spaces and empty list bullets from the heredoc indentation.
-  def normalize_html(html)
-    html.gsub(/>\s+</, '><').strip
   end
 end
