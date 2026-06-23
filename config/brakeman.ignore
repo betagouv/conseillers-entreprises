@@ -103,7 +103,7 @@
           "type": "controller",
           "class": "About::TemoignagesExpertsController",
           "method": "show",
-          "line": 13,
+          "line": 12,
           "file": "app/controllers/about/temoignages_experts_controller.rb",
           "rendered": {
             "name": "about/temoignages_experts/show",
@@ -209,6 +209,50 @@
       "confidence": "Weak",
       "cwe_id": [
         89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "f3eb470b4837786499afc539347f125ebf2ba5bb3e7c2cddea1f546cb00bfdb8",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/matches/_match.html.haml",
+      "line": 53,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "::Haml::AttributeBuilder.build_class(true, status_color(Match.find(params.expect(:id)).status))",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "MatchesController",
+          "method": "update",
+          "line": 12,
+          "file": "app/controllers/matches_controller.rb",
+          "rendered": {
+            "name": "matches/update",
+            "file": "app/views/matches/update.html.haml"
+          }
+        },
+        {
+          "type": "template",
+          "name": "matches/update",
+          "line": 4,
+          "file": "app/views/matches/update.html.haml",
+          "rendered": {
+            "name": "matches/_match",
+            "file": "app/views/matches/_match.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "matches/_match"
+      },
+      "user_input": "Match.find(params.expect(:id)).status",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
       ],
       "note": ""
     }
