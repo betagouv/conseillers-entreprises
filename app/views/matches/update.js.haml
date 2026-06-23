@@ -1,4 +1,4 @@
 - if current_user.experts.include?(@match.expert)
-  $('#match-actions').replaceWith("#{j(render partial: 'needs/match_actions', locals: { match: @match, display_feedback_form: true })}");
+  document.getElementById('match-actions').outerHTML = "#{j(render partial: 'needs/match_actions', locals: { match: @match, display_feedback_form: true })}";
 
-$("#row-match-#{@match.id}").replaceWith("#{j(render partial: 'match', locals: { match: @match })}");
+document.getElementById("row-match-#{@match.id}").outerHTML = "#{j(render partial: 'match', locals: { match: @match })}";

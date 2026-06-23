@@ -2,13 +2,13 @@
 - @need.badges.each do |badge|
   - html += "#{badge_label(badge)}"
 
-var $div = $('#need-#{@need.id}-badges')
-var $form = $('#need-#{@need.id}-form-badges')
+var $div = document.getElementById('need-#{@need.id}-badges')
+var $form = document.getElementById('need-#{@need.id}-form-badges')
 
-if ($div.length) {
-$div.html('#{html.html_safe}')
-$div.removeClass('hide')
+if ($div !== undefined) {
+$div.innerHTML = '#{html.html_safe}'
+$div.classList.remove('hide')
 }
-if ($form.length) {
-$form.addClass('hide')
+if ($form !== undefined ) {
+$form.classList.add('hide')
 }
