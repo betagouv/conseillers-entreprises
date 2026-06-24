@@ -73,10 +73,21 @@
                       = NafCode.nafa_libelle(code)
                       = " (#{code})"
               %li.fr-mt-3v= link_to t('.more_informations'), company_path(@facility.id), class: 'fr-link', data: { turbo: false }
-              - if @facility_needs.exists?
-                %li= link_to t('.needs_historic'), needs_company_path(@facility), class: 'fr-link'
-              - elsif @contact_needs.exists?
-                %li= link_to t('.needs_historic'), needs_historic_contact_path(@need.diagnosis.visitee), class: 'fr-link'
+              %li.fr-mt-3v
+                %span.ri-history-line.fr-mr-1v{ 'aria-hidden': 'true' }
+                %b= t('.needs_historic').upcase
+                - if @facility_needs.empty? && @contact_needs.empty?
+                  %li.fr-text--sm= t('.needs_historic_none')
+                - if @facility_needs.present?
+                  %li.fr-text--sm
+                    = t('.needs_historic_same_facility')
+                    %br
+                    = link_to @facility_needs.human_count, needs_company_path(@facility), class: 'fr-link fr-text--sm'
+                - if @contact_needs.present?
+                  %li.fr-text--sm
+                    = t('.needs_historic_same_contact')
+                    %br
+                    = link_to @contact_needs.human_count, needs_historic_contact_path(@need.diagnosis.visitee), class: 'fr-link fr-text--sm'
 
       .fr-grid-row.need-metadata
         .fr-col-lg-2.need-metadata--picto
