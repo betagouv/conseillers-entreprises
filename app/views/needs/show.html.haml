@@ -11,6 +11,9 @@
         %h1.fr-h3.fr-mb-2v= @need.subject
         %p
           %time.date{ datetime: @need.solicited_at }= t('needs.dates.solicited_at', date: l(@need.solicited_at, format: :long_sentence))
+          - if @match_for_current_user.present?
+            %br
+              %time.date{ datetime: @need.solicited_at }= t('needs.dates.match_sent_at', date: l(@match_for_current_user.sent_at, format: :long_sentence))
         = need_general_context(@need)
         - display_partner_url = (@need.solicitation&.cooperation&.display_url && PartnerOrigin.partner_url(@need.solicitation).present?)
         - if @need.subject_answers.any? || display_partner_url
@@ -87,11 +90,11 @@
             - else
               = t('.blank_advisor')
 
-- if policy(@need).show_need_actions?
+- if @match_for_current_user.present?
   .light-blue-bg
     .fr-container.fr-p-2w.fr-pb-8w
       %h2.fr-h3.fr-my-4w= t('.my_intervention')
-      = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
+      = render 'match_actions', match: @match_for_current_user
 
 .lighter-blue-bg
   .fr-container.fr-p-2w#all-experts

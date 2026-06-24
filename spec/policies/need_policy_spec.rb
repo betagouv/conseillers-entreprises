@@ -82,32 +82,6 @@ RSpec.describe NeedPolicy, type: :policy do
     end
   end
 
-  permissions :show_need_actions? do
-    context "user belongs to need experts" do
-      let(:user) { create :user, experts: [need.experts.first] }
-
-      it { is_expected.to permit(user, need) }
-    end
-
-    context "user in the same antenne" do
-      let(:user) { create :user, antenne: need.experts.first.antenne }
-
-      it { is_expected.not_to permit(user, need) }
-    end
-
-    context "denies access if user is admin" do
-      let(:user) { create :user, :admin }
-
-      it { is_expected.not_to permit(user, need) }
-    end
-
-    context "denies access if user is another user" do
-      let(:user) { create :user, antenne: create(:antenne) }
-
-      it { is_expected.not_to permit(user, need) }
-    end
-  end
-
   permissions :add_match? do
     let!(:need) { create :need_with_matches }
 
