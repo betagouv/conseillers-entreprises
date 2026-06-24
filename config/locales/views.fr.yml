@@ -686,6 +686,9 @@ fr:
       more_informations: Plus d'informations
       my_intervention: Mon intervention
       needs_historic: Historique des besoins
+      needs_historic_none: Aucun
+      needs_historic_same_contact: 'déposés depuis la même adresse email :'
+      needs_historic_same_facility: 'concernant la même société :'
       no_comment: Aucun commentaire
       no_match: Aucun expert de notifié
       origin_source: 'Demande effectuée depuis :'
