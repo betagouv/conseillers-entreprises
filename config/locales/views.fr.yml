@@ -235,6 +235,8 @@ fr:
       nom: Nom
       personne_morale: Personne morale
       raison_sociale: Raison Sociale
+    need:
+      details_hidden: Vous n’avez pas accès aux détails de ce besoin.
     needs:
       back_to_company: Voir la fiche entreprise
       company_contacts_needs: 'Liste des besoins pour les contacts de cette entreprise :'

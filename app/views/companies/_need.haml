@@ -1,13 +1,20 @@
 .fr-tile.fr-tile--horizontal.fr-col-12.fr-mb-2w
   .fr-tile__body
-    .left
-      .fr-tile__title.fr-mb-1v
-        = link_to need.subject.label, need_path(need), class: 'fr-tile__link'
-      %time{ datetime: need.solicited_at }= t("needs.dates.solicited_at", date: l(need.solicited_at, format: :long_sentence))
-      %p.fr-m-0.fr-mt-2w= need.matches.human_count
-    .right
-      - match = current_user.received_matches.find_by(need: need)
-      - if match.present?
-        = status_label(match)
-      - else
-        = status_label(need)
+    - if policy(need).show?
+      .left
+        .fr-tile__title.fr-mb-1v= link_to need.subject.label, need_path(need), class: 'fr-tile__link'
+        %time{ datetime: need.solicited_at }= t("needs.dates.solicited_at", date: l(need.solicited_at, format: :long_sentence))
+        %p.fr-m-0.fr-my-2w= need.matches.human_count
+      .right
+        - match = current_user.received_matches.find_by(need: need)
+        - if match.present?
+          = status_label(match)
+        - else
+          = status_label(need)
+    - else
+      .left
+        .fr-tile__title.fr-mb-1v
+          = need.subject.label
+        %time{ datetime: need.solicited_at }= t("needs.dates.solicited_at", date: l(need.solicited_at, format: :long_sentence))
+      .right
+        %p.fr-m-0.fr-mt-2w= t('.details_hidden')
