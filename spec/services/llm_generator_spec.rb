@@ -39,8 +39,22 @@ RSpec.describe LLMGenerator do
       expect(content).to include("comment_ca_marche")
       expect(content).to include("/equipe")
       expect(content).to include("/temoignages")
-      expect(content).to include("/stats")
+    end
+
+    it "lists secondary pages under an 'Optional' section" do
+      expect(content).to include("## Optional")
       expect(content).to include("/accessibilite")
+      expect(content).to include("/stats")
+    end
+
+    it "places the Optional section after the About section" do
+      expect(content.index("## Optional")).to be > content.index("## À propos")
+    end
+
+    it "keeps accessibilite and stats out of the About section" do
+      about_section = content[/## À propos.*?(?=\n## |\z)/m]
+      expect(about_section).not_to include("/accessibilite")
+      expect(about_section).not_to include("/stats")
     end
 
     it "renders human-readable link titles, not missing translations" do
@@ -54,10 +68,43 @@ RSpec.describe LLMGenerator do
       expect(content).to include("  - [Recrutement](http")
     end
 
-    it "excludes the regulatory pages" do
-      expect(content).not_to include("/cgu")
-      expect(content).not_to include("/mentions_legales")
-      expect(content).not_to include("/mentions_d_information")
+    it "appends the landing meta_description after the link" do
+      create :landing, slug: 'esus', title: 'ESUS', meta_description: 'Entreprise solidaire'
+      expect(content).to include("/aide-entreprise/esus): Entreprise solidaire")
+    end
+
+    it "appends the theme description on the nested line" do
+      theme = create :landing_theme, title: 'Recrutement', description: 'Aides à l’embauche'
+      create :landing, slug: 'embauche', title: 'Embauche', landing_themes: [theme]
+      expect(content).to include(": Aides à l’embauche")
+    end
+
+    it "squishes whitespace in titles" do
+      create :landing, slug: 'spaced', title: "  Titre   à   espaces  "
+      expect(content).to include("[Titre à espaces]")
+      expect(content).not_to include("Titre   à")
+    end
+
+    it "lists the regulatory pages under the Optional section" do
+      optional_section = content[/## Optional.*\z/m]
+      expect(optional_section).to include("/cgu")
+      expect(optional_section).to include("/mentions_legales")
+      expect(optional_section).to include("/mentions_d_information")
+    end
+  end
+
+  describe ".link_line" do
+    it "formats a link with a squished description after a colon" do
+      expect(described_class.link_line("Titre", "http://x", "  une   description ")).to eq("- [Titre](http://x): une description")
+    end
+
+    it "omits the colon when the description is blank" do
+      expect(described_class.link_line("Titre", "http://x", nil)).to eq("- [Titre](http://x)")
+      expect(described_class.link_line("Titre", "http://x", "   ")).to eq("- [Titre](http://x)")
+    end
+
+    it "squishes the title" do
+      expect(described_class.link_line("  Mon   titre ", "http://x")).to eq("- [Mon titre](http://x)")
     end
   end
 end
