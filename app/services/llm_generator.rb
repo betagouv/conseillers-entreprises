@@ -1,4 +1,8 @@
 module LLMGenerator
+  # Catch-all landing: a generic contact form shown when no theme matches.
+  # Rendered with a hand-written title/description instead of its unclear data.
+  CONTACT_LANDING_SLUG = 'contactez-nous'
+
   def self.perform
     [header, landings_section, about_section, optional_section].join("\n\n") + "\n"
   end
@@ -13,6 +17,10 @@ module LLMGenerator
   def self.landings_section
     lines = ["## #{I18n.t('llms.sections.landings')}"]
     Landing.ordered_for_indexing.each do |landing|
+      if landing.slug == CONTACT_LANDING_SLUG
+        lines << link_line(I18n.t('llms.contact.title'), helpers.landing_url(landing), I18n.t('llms.contact.description'))
+        next
+      end
       lines << link_line(landing.title, helpers.landing_url(landing), landing.meta_description)
       # Filter the preloaded association in Ruby to avoid an N+1 query per landing.
       landing.landing_themes.select(&:not_archived?).each do |theme|

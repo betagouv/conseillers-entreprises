@@ -35,6 +35,14 @@ RSpec.describe LLMGenerator do
       expect(content).not_to include("/aide-entreprise/old")
     end
 
+    it "renders the contact landing with a clear title and no sub-theme" do
+      theme = create :landing_theme, title: 'Échanger avec un conseiller pour :'
+      create :landing, slug: 'contactez-nous', title: 'Autre sujet ?', landing_themes: [theme]
+      expect(content).to include("[#{I18n.t('llms.contact.title')}]")
+      expect(content).to include(": #{I18n.t('llms.contact.description')}")
+      expect(content).not_to include("Échanger avec un conseiller pour")
+    end
+
     it "lists the 'about' pages that describe the service" do
       expect(content).to include("comment_ca_marche")
       expect(content).to include("/equipe")
