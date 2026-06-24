@@ -35,8 +35,8 @@ module LLMGenerator
   def self.about_section
     pages = [
       [I18n.t('about.comment_ca_marche.long_title'), helpers.comment_ca_marche_url],
-      [I18n.t('about.equipe.title'), helpers.equipe_url],
-      [I18n.t('about.temoignages_experts.title'), helpers.temoignages_experts_url]
+      [I18n.t('about.temoignages_experts.title'), helpers.temoignages_experts_url],
+      [I18n.t('about.equipe.title'), helpers.equipe_url]
     ]
     section('about', pages)
   end
