@@ -7,7 +7,10 @@ class ReportsController < ApplicationController
   layout 'side_menu', only: [:stats, :matches]
 
   def index
-    redirect_to action: :stats, antenne_id: params[:antenne_id]
+    if params[:antenne_id].present?
+      redirect_to action: :stats, antenne_id: params[:antenne_id]
+    end
+    @institutions = current_user.sponsored_institutions.preload(:antennes)
   end
 
   def stats; end
