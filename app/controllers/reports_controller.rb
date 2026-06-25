@@ -37,7 +37,6 @@ class ReportsController < ApplicationController
     end
     authorize @antenne, policy_class: ReportPolicy
     initialize_filters([:antennes])
-    @antennes_for_select = BuildAntennesCollection.new(current_user).for_manager
   end
 
   def retrieve_quarters
