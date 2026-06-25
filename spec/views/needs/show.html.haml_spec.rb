@@ -2,29 +2,27 @@ require 'rails_helper'
 
 RSpec.describe 'needs/show' do
   login_user
-  let(:expert) { create :expert, users: [current_user] }
   let(:need) { create :need_with_matches, status: :quo }
-  let(:matches) { need.matches }
-  let!(:taken_care_match) { create :match, need: need, status: :taking_care }
 
   let(:assignments) do
     enable_pundit(view, current_user)
     assign(:need, need)
     assign(:facility, need.facility)
-    assign(:matches, matches)
+    assign(:matches, need.matches)
+    assign(:match_for_current_user, match_for_current_user)
     assign(:facility_needs, Need.none)
     assign(:contact_needs, Need.none)
     render
   end
 
   context 'for expert user' do
-    let!(:a_match) { create :match, expert: expert, need: need }
+    let(:match_for_current_user) { need.matches.first }
 
     describe 'display page' do
       before { assignments }
 
       it('displays subject title') { expect(rendered).to have_css('h1', text: need.subject.label) }
-      it('display other experts matches') { expect(rendered).to have_css('#all-experts', text: matches.first.expert.full_name) }
+      it('display other experts matches') { expect(rendered).to have_css('#all-experts', text: need.matches.first.expert.full_name) }
       it('display new feedback form') { expect(rendered).to have_css('.feedbacks-form', text: I18n.t('feedbacks.form.title')) }
       it('have form for additional experts') { expect(render).to have_no_css('.additional-experts', count: 1) }
       it('has form for close matches') { expect(render).to have_no_css(".details--dropdown", count: 1) }
@@ -52,7 +50,7 @@ RSpec.describe 'needs/show' do
 
     describe 'status taking_care' do
       before do
-        a_match.update status: :taking_care
+        match_for_current_user.update status: :taking_care
         assignments
       end
 
@@ -62,7 +60,7 @@ RSpec.describe 'needs/show' do
 
     describe 'status done' do
       before do
-        a_match.update status: :done
+        match_for_current_user.update status: :done
         assignments
       end
 
@@ -71,7 +69,7 @@ RSpec.describe 'needs/show' do
 
     describe 'status done_not_reachable' do
       before do
-        a_match.update status: :done_not_reachable
+        match_for_current_user.update status: :done_not_reachable
         assignments
       end
 
@@ -80,7 +78,7 @@ RSpec.describe 'needs/show' do
 
     describe 'status done_no_help' do
       before do
-        a_match.update status: :done_no_help
+        match_for_current_user.update status: :done_no_help
         assignments
       end
 
@@ -89,7 +87,7 @@ RSpec.describe 'needs/show' do
 
     describe 'status not_for_me' do
       before do
-        a_match.update status: :not_for_me
+        match_for_current_user.update status: :not_for_me
         assignments
       end
 
@@ -98,6 +96,8 @@ RSpec.describe 'needs/show' do
   end
 
   context 'for admin' do
+    let(:match_for_current_user) { nil }
+
     before do
       current_user.user_rights.create(category: 'admin')
       assignments
@@ -106,6 +106,6 @@ RSpec.describe 'needs/show' do
     it('displays subject title') { expect(rendered).to match(need.subject.label) }
     it('not displays action for match') { expect(render).to have_no_css('#match-actions') }
     it('has form for additional experts') { expect(render).to have_css('.additional-experts', count: 1) }
-    it('has form for close matches') { expect(render).to have_css(".details--dropdown", count: 2) }
+    it('has form for close matches') { expect(render).to have_css(".details--dropdown", count: 1) }
   end
 end

@@ -57,6 +57,7 @@ class NeedsController < ApplicationController
     else
       @origin = params[:origin]
       @matches = @need.matches.sent.order(:created_at)
+      @match_for_current_user = @need.matches.find_by(expert: current_user.experts)
       @facility = @need.facility
 
       @facility_needs = policy_scope(@facility.needs)

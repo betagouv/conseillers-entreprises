@@ -23,10 +23,6 @@ class NeedPolicy < ApplicationPolicy
       (@user.is_manager? && (@record.expert_antennes.any? { |antenne| @user.supervised_antennes.include?(antenne) }))
   end
 
-  def show_need_actions?
-    @record.matches.find_by(expert: @user.experts).present?
-  end
-
   def add_match?
     admin?
   end
