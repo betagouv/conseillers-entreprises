@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe BuildAntennesCollection do
-  describe "for_manager" do
+  describe "for_manager_or_sponsor" do
     let(:current_user) { create :user }
     let(:institution) { create :institution }
 
-    subject { described_class.new(current_user).for_manager }
+    subject { described_class.new(current_user).for_manager_or_sponsor }
 
     context 'Regional antenne' do
       let(:regional_antenne) { create :antenne, :regional, institution: institution }

@@ -4,7 +4,7 @@ class BuildAntennesCollection
     @item = item
   end
 
-  def for_manager
+  def for_manager_or_sponsor
     manager_antennes = manager_antennes_included_regionals
     antennes_collection = antennes_collection_hash(Antenne.not_deleted, manager_antennes)
     add_locals_antennes(antennes_collection, manager_antennes)
