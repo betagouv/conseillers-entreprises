@@ -30,10 +30,12 @@ RSpec.describe 'companies/needs' do
       assignments
     end
 
-    it('displays title needs in progress') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_in_progress')) }
-    it('not displays title needs done') { expect(render).to have_no_css('h2', text: I18n.t('companies.needs.needs_done')) }
-    it('displays needs') { expect(render).to have_css('div.fr-tile', count: 1) }
-    it('displays need subject') { expect(render).to have_link(text: need.subject.label) }
+    it 'shows the need in the quo section' do
+      expect(rendered).to have_css('h2', text: I18n.t('companies.needs.needs_in_progress'))
+      expect(rendered).to have_no_css('h2', text: I18n.t('companies.needs.needs_done'))
+      expect(rendered).to have_css('div.fr-tile', count: 1)
+      expect(rendered).to have_link(text: need.subject.label)
+    end
   end
 
   describe 'with only done needs' do
@@ -43,11 +45,13 @@ RSpec.describe 'companies/needs' do
       assignments
     end
 
-    it('displays title needs done') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_done')) }
-    it('not displays title needs in progress') { expect(render).to have_no_css('h2', text: I18n.t('companies.needs.needs_in_progress')) }
-    it('displays needs') { expect(render).to have_css('div.fr-tile', count: 2) }
-    it('displays first need subject') { expect(render).to have_link(text: need.subject.label) }
-    it('displays second need subject') { expect(render).to have_link(text: another_need.subject.label) }
+    it('show the needs in the done section') do
+      expect(rendered).to have_css('h2', text: I18n.t('companies.needs.needs_done'))
+      expect(rendered).to have_no_css('h2', text: I18n.t('companies.needs.needs_in_progress'))
+      expect(rendered).to have_css('div.fr-tile', count: 2)
+      expect(rendered).to have_link(text: need.subject.label)
+      expect(rendered).to have_link(text: another_need.subject.label)
+    end
   end
 
   describe 'with done and in progress needs' do
@@ -57,11 +61,13 @@ RSpec.describe 'companies/needs' do
       assignments
     end
 
-    it('displays title needs done') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_done')) }
-    it('displays title needs in progress') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_in_progress')) }
-    it('displays needs') { expect(render).to have_css('div.fr-tile', count: 2) }
-    it('displays first need subject') { expect(render).to have_link(text: need.subject.label) }
-    it('displays second need subject') { expect(render).to have_link(text: another_need.subject.label) }
+    it('shows the need in each section') do
+      expect(rendered).to have_css('h2', text: I18n.t('companies.needs.needs_done'))
+      expect(rendered).to have_css('h2', text: I18n.t('companies.needs.needs_in_progress'))
+      expect(rendered).to have_css('div.fr-tile', count: 2)
+      expect(rendered).to have_link(text: need.subject.label)
+      expect(rendered).to have_link(text: another_need.subject.label)
+    end
   end
 
   describe 'with inaccessible need' do
@@ -71,10 +77,13 @@ RSpec.describe 'companies/needs' do
       assignments
     end
 
-    it('displays title needs done') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_done')) }
-    it('displays title needs in progress') { expect(render).to have_css('h2', text: I18n.t('companies.needs.needs_in_progress')) }
-    it('displays needs') { expect(render).to have_css('div.fr-tile', count: 2) }
-    it('displays first need subject') { expect(render).to have_link(text: need.subject.label) }
-    it('displays non-clickable other need subject') { expect(render).to have_text(inaccessible_need.subject.label) }
+    it('show the inaccessible need as non interactive') do
+      expect(rendered).to have_css('h2', text: I18n.t('companies.needs.needs_done'))
+      expect(rendered).to have_css('h2', text: I18n.t('companies.needs.needs_in_progress'))
+      expect(rendered).to have_css('div.fr-tile', count: 2)
+      expect(rendered).to have_link(text: need.subject.label)
+      expect(rendered).to have_no_link(text: inaccessible_need.subject.label)
+      expect(rendered).to have_text(inaccessible_need.subject.label)
+    end
   end
 end
