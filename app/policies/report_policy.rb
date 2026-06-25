@@ -16,7 +16,6 @@ class ReportPolicy < ApplicationPolicy
   private
 
   def in_supervised_antennes?(reportable)
-    reportable.is_a?(Antenne) &&
-    (@user.is_manager? && @user&.supervised_antennes&.include?(reportable))
+    reportable.is_a?(Antenne) && @user&.supervised_antennes&.include?(reportable)
   end
 end
