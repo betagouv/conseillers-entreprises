@@ -2,7 +2,8 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  timeout: 5000
+  variables:
+    statement_timeout: 30000
 
 development:
   <<: *default
@@ -20,4 +21,4 @@ test:
 
 production:
   <<: *default
-  database: place-des-entreprises-production
+  url: <%= ENV['DATABASE_URL'] %>
