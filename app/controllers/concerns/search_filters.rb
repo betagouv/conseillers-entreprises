@@ -40,7 +40,7 @@ module SearchFilters
   end
 
   def base_antennes
-    @base_antennes ||= BuildAntennesCollection.new(current_user).for_manager
+    @base_antennes ||= BuildAntennesCollection.new(current_user).for_manager_or_sponsor
   end
 
   def base_regions
