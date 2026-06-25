@@ -7,7 +7,9 @@ class ReportPolicy < ApplicationPolicy
     @user&.is_admin? || in_supervised_antennes?(@record) || in_sponsored_institutions?(@record)
   end
 
-  def matches? = stats?
+  def matches?
+    @user&.is_admin? || in_supervised_antennes?(@record)
+  end
 
   def download?
     @user.is_admin? || in_supervised_antennes?(@record.reportable)
