@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
   include SearchFilters
 
+  before_action :default_antenne_id, only: [:stats, :matches]
   before_action :retrieve_antenne, only: [:stats, :matches]
   before_action :retrieve_quarters, only: [:stats]
 
@@ -26,11 +27,7 @@ class ReportsController < ApplicationController
   private
 
   def retrieve_antenne
-    @antenne = if params[:antenne_id].present?
-      Antenne.find(params.expect(:antenne_id))
-    else
-      current_user.managed_antennes.by_higher_territorial_level.first || current_user.sponsored_institutions.first&.antennes&.first
-    end
+    @antenne = Antenne.find(params.expect(:antenne_id))
     authorize @antenne, policy_class: ReportPolicy
     initialize_filters([:antennes])
   end
