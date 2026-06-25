@@ -354,8 +354,8 @@ fr:
         mark_all_as_seen: Tout marquer comme "vu"
         no_results: Aucun résultat
         select_all: Sélectionner tous les retours de la page
-        short_title: Retours
-        title: Retours des entreprises aidées
+        short_title: Satisfaction
+        title: Satisfaction des entreprises aidées
       need_card:
         comment_date: Retour de %{author}, le %{date}
         process: Marquer comme "vu"
