@@ -58,7 +58,7 @@ module SearchFilters
     [:subjects]
   end
 
-  def default_antenne_id
+  def default_antenne_id # use this?
     return if params[:antenne_id].present?
 
     # Prefer the aggregated entry when it exists
