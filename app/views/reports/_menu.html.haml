@@ -2,7 +2,8 @@
   /besoins(/antenne)/:collection_name
 %ul.fr-sidemenu__list
   - [:stats, :matches].each do |key|
-    %li.fr-sidemenu__item.item-with-tag
-      - url = polymorphic_path([key, :reports].compact, antenne_id: antenne_id)
-      = active_link_to(url, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active') do
-        = t(key, scope: 'reports.sidemenu')
+    - if policy(:report).send("#{key}?")
+      %li.fr-sidemenu__item.item-with-tag
+        - url = polymorphic_path([key, :reports].compact, antenne_id: antenne_id)
+        = active_link_to(url, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active') do
+          = t(key, scope: 'reports.sidemenu')
