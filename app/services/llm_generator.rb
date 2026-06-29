@@ -9,11 +9,15 @@ module LLMGenerator
 
   def self.header
     name = I18n.t('landings.landings.seo.service_name')
-    summary = I18n.t('landings.landings.seo.service_description')
-    how_it_works = I18n.t('landings.landings.seo.service_how_it_works')
-    "# #{name}\n\n> #{summary}\n\n#{how_it_works}"
+    summary = I18n.t('llms.summary')
+    intro = I18n.t('llms.intro')
+    "# #{name}\n\n> #{summary}\n\n#{intro}"
   end
 
+  # Emits a flat (level-1) list: llms.txt parsers handle flat lists reliably,
+  # whereas nested sub-items risk being dropped or attached to the wrong link.
+  # A landing that only groups themes (e.g. Accueil) is represented by its
+  # themes directly; a landing without themes keeps its own link.
   def self.landings_section
     lines = ["## #{I18n.t('llms.sections.landings')}"]
     Landing.ordered_for_indexing.each do |landing|
@@ -21,10 +25,14 @@ module LLMGenerator
         lines << link_line(I18n.t('llms.contact.title'), helpers.landing_url(landing), I18n.t('llms.contact.description'))
         next
       end
-      lines << link_line(landing.title, helpers.landing_url(landing), landing.meta_description)
       # Filter the preloaded association in Ruby to avoid an N+1 query per landing.
-      landing.landing_themes.select(&:not_archived?).each do |theme|
-        lines << "  #{link_line(theme.title, helpers.landing_theme_url(landing, theme), theme.description)}"
+      themes = landing.landing_themes.select(&:not_archived?)
+      if themes.any?
+        themes.each do |theme|
+          lines << link_line(theme.title, helpers.landing_theme_url(landing, theme), theme.description)
+        end
+      else
+        lines << link_line(landing.title, helpers.landing_url(landing), landing.meta_description)
       end
     end
     lines.join("\n")

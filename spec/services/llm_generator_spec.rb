@@ -11,13 +11,13 @@ RSpec.describe LLMGenerator do
     it "starts with the service name as H1 and a summary blockquote" do
       expected_name = I18n.t('service_name', scope: 'landings.landings.seo')
       expect(content).to start_with("# #{expected_name}\n")
-      expect(content).to include("\n> #{I18n.t('service_description', scope: 'landings.landings.seo')}")
+      expect(content).to include("\n> #{I18n.t('llms.summary')}")
     end
 
     it "explains how the service works, after the summary and before the first section" do
-      how_it_works = I18n.t('service_how_it_works', scope: 'landings.landings.seo')
-      expect(content).to include(how_it_works)
-      expect(content.index(how_it_works)).to be < content.index("## Aide aux entreprises")
+      intro = I18n.t('llms.intro')
+      expect(content).to include(intro)
+      expect(content.index(intro)).to be < content.index("## Aide aux entreprises")
     end
 
     it "includes the content sections" do
@@ -70,10 +70,17 @@ RSpec.describe LLMGenerator do
       expect(content).not_to include("translation missing")
     end
 
-    it "nests each landing's non-archived themes under it" do
+    it "lists a landing's non-archived themes as flat level-1 items" do
       theme = create :landing_theme, title: 'Recrutement'
       create :landing, slug: 'embauche', title: 'Embauche', landing_themes: [theme]
-      expect(content).to include("  - [Recrutement](http")
+      expect(content).to include("- [Recrutement](http")
+      expect(content).not_to include("  - [Recrutement]")
+    end
+
+    it "drops a themed landing's own link and surfaces its themes instead" do
+      theme = create :landing_theme, title: 'Recrutement'
+      create :landing, slug: 'embauche', title: 'Embauche', landing_themes: [theme]
+      expect(content).not_to include("[Embauche](")
     end
 
     it "appends the landing meta_description after the link" do
@@ -81,7 +88,7 @@ RSpec.describe LLMGenerator do
       expect(content).to include("/aide-entreprise/esus): Entreprise solidaire")
     end
 
-    it "appends the theme description on the nested line" do
+    it "appends the theme description after the theme link" do
       theme = create :landing_theme, title: 'Recrutement', description: 'Aides à l’embauche'
       create :landing, slug: 'embauche', title: 'Embauche', landing_themes: [theme]
       expect(content).to include(": Aides à l’embauche")
