@@ -8,9 +8,6 @@ class MatchesController < ApplicationController
     if @match.contacted_users.include?(current_user)
       MatchMailerService.new(@match).deduplicated_notify_status(previous_status)
     end
-    respond_to do |format|
-      format.js
-      format.html { redirect_to need_path(@match.need, anchor: "match-#{@match.id}") }
-    end
+    redirect_to need_path(@match.need, anchor: "match-#{@match.id}") unless turbo_frame_request?
   end
 end
