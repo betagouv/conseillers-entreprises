@@ -87,7 +87,7 @@ RSpec.describe Api::Internal::CommunesSearch do
 
       it 'matches substring in commune name' do
         expect(results).not_to be_empty
-        expect(results).to all(include(normalized_nom: match(/bourg/)))
+        expect(results).to all(include(normalized_nom: include('bourg')))
       end
     end
 

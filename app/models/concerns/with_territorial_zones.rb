@@ -21,7 +21,7 @@ module WithTerritorialZones
       #   autre région ne doit pas exclure toute l'antenne de la hiérarchie.
       #   `insee_codes` n'est pas un champ en base mais une méthode de l'instance.
       includes(:territorial_zones).select do |record|
-        (record.insee_codes & insee_codes).any?
+        record.insee_codes.intersect?(insee_codes)
       end
     }
   end

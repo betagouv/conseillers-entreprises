@@ -55,6 +55,28 @@ describe AntenneHierarchy do
           expect(antenne.child_antennes).not_to include(local_antenne_outside_perimeter)
         end
       end
+
+      context 'when a local antenne overlaps the region but has a commune outside it' do
+        # Reproduit le bug réel (antenne 2845) : une antenne locale dont la
+        # quasi-totalité du territoire est dans la région, mais qui possède
+        # une commune isolée hors région (commune obsolète, fusionnée ou
+        # rattachée à une autre région). Elle ne doit pas disparaître de la
+        # hiérarchie : une intersection territoriale suffit à la rattacher.
+        let!(:local_antenne_overlapping) do
+          create :antenne, :local, institution: institution,
+                 territorial_zones: [
+                   create(:territorial_zone, :commune, code: "29232"), # Finistère → région 53
+                   create(:territorial_zone, :commune, code: "75056")  # Paris → région 11
+                 ]
+        end
+
+        before { described_class.new(antenne).call }
+
+        it "attaches the local antenne to the region it intersects with" do
+          expect(local_antenne_overlapping.reload.parent_antenne).to eq(regional_antenne)
+          expect(antenne.child_antennes).to include(local_antenne_overlapping)
+        end
+      end
     end
 
     context "Local antenne" do

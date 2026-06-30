@@ -22,7 +22,7 @@ RSpec.describe 'companies/show' do
       render
     end
 
-    it('displays a title') { expect(rendered).to match(/Raison Sociale/) }
+    it('displays a title') { expect(rendered).to include('Raison Sociale') }
   end
 
   context 'with API minor errors' do
