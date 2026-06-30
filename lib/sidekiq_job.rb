@@ -12,13 +12,11 @@ module SidekiqJob
   #
   # Unfortunately, the mechanism here is mostly untestable, unless we actually use Sidekiq and redis in our tests.
   def self.status_for(job_class, item)
+    item_gid = item.to_gid.uri.to_s
+
     work = Sidekiq::WorkSet.new
       .map{ |_process_id, _thread_id, work| work }
-      .find do |work|
-      job = work.job
-      hash = job.args.first
-      hash["job_class"] == job_class.to_s && hash.dig("arguments", 0, "_aj_globalid") == item.to_gid.uri.to_s
-    end
+      .find{ |work| matching_active_job?(work.job, job_class, item_gid) }
 
     if work.present?
       return {
@@ -28,10 +26,7 @@ module SidekiqJob
     end
 
     queue = Sidekiq::Queue.all.find{ it.name == job_class.queue_name }
-    job = queue.find do |job|
-      hash = job.args.first
-      hash["job_class"] == job_class.to_s && hash.dig("arguments", 0, "_aj_globalid") == item.to_gid.uri.to_s
-    end
+    job = queue&.find{ |job| matching_active_job?(job, job_class, item_gid) }
 
     if job.present?
       return {
@@ -40,5 +35,15 @@ module SidekiqJob
     end
 
     return {}
+  end
+
+  # WorkSet and Queue enumerate every job in Sidekiq, including plain Sidekiq::Job
+  # jobs whose first argument is not the ActiveJob payload hash. Guard against those
+  # before reaching into the expected ActiveJob structure.
+  def self.matching_active_job?(job, job_class, item_gid)
+    hash = job.args.first
+    return false unless hash.is_a?(Hash)
+
+    hash["job_class"] == job_class.to_s && hash.dig("arguments", 0, "_aj_globalid") == item_gid
   end
 end
