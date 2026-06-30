@@ -15,10 +15,13 @@ module WithTerritorialZones
 
     scope :with_insee_codes, -> (insee_codes) {
       return nil if insee_codes.blank?
-      #    Si self.insee_codes contient tous les insee_codes
-      #   insee_codes n'est pas un champs en base mais une methode de l'instance
+      #   Conserve les enregistrements dont le périmètre territorial recoupe
+      #   `insee_codes`. Une intersection (et non une inclusion stricte) suffit :
+      #   une seule commune orpheline fusionnée, obsolète ou rattachée à une
+      #   autre région ne doit pas exclure toute l'antenne de la hiérarchie.
+      #   `insee_codes` n'est pas un champ en base mais une méthode de l'instance.
       includes(:territorial_zones).select do |record|
-        (record.insee_codes - insee_codes).empty? || (insee_codes - record.insee_codes).empty?
+        (record.insee_codes & insee_codes).any?
       end
     }
   end
