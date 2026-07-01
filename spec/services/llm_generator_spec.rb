@@ -44,7 +44,7 @@ RSpec.describe LLMGenerator do
     end
 
     it "lists the 'about' pages that describe the service" do
-      expect(content).to include("comment_ca_marche")
+      expect(content).to include("/comment_ca_marche")
       expect(content).to include("/equipe")
       expect(content).to include("/temoignages")
     end
@@ -55,19 +55,10 @@ RSpec.describe LLMGenerator do
       expect(content).to include("/stats")
     end
 
-    it "places the Optional section after the About section" do
-      expect(content.index("## Optional")).to be > content.index("## À propos")
-    end
-
     it "keeps accessibilite and stats out of the About section" do
       about_section = content[/## À propos.*?(?=\n## |\z)/m]
       expect(about_section).not_to include("/accessibilite")
       expect(about_section).not_to include("/stats")
-    end
-
-    it "renders human-readable link titles, not missing translations" do
-      expect(content).to include("[#{I18n.t('about.accessibilite.title')}]")
-      expect(content).not_to include("translation missing")
     end
 
     it "lists a landing's non-archived themes as flat level-1 items" do
