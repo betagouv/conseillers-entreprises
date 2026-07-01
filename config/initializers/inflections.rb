@@ -16,6 +16,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'Match', 'Matches'
 
   inflect.acronym 'CSP'
+  inflect.acronym 'LLM'
 end
 
 # These inflection rules are supported but not enabled by default:

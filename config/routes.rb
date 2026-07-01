@@ -360,6 +360,10 @@ Rails.application.routes.draw do
     get :sitemap
   end
 
+  controller :llm do
+    get :show, as: :llms, path: 'llms.txt', format: false, defaults: { format: 'text' }
+  end
+
   resource :company_satisfactions, only: %i[new create], path: 'satisfaction' do
     collection do
       get :thank_you, path: 'merci'
