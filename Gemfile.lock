@@ -624,6 +624,8 @@ GEM
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
       rubocop-rspec (~> 3.5)
+    ruby-graphviz (1.2.5)
+      rexml
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (3.4.1)
@@ -818,6 +820,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   rubocop-rspec_rails
+  ruby-graphviz
   selenium-webdriver
   shoulda-matchers
   sidekiq
