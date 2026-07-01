@@ -20,7 +20,9 @@ module LLMGenerator
   # themes directly; a landing without themes keeps its own link.
   def self.landings_section
     lines = ["## #{I18n.t('llms.sections.landings')}"]
-    Landing.ordered_for_indexing.each do |landing|
+    landings = Landing.where(slug: 'accueil').to_a + Landing.intern.not_archived.where.not(slug: 'accueil').order(:title).to_a
+
+    landings.each do |landing|
       if landing.slug == CONTACT_LANDING_SLUG
         lines << link_line(I18n.t('llms.contact.title'), helpers.landing_url(landing), I18n.t('llms.contact.description'))
         next
