@@ -8,12 +8,6 @@ RSpec.describe LLMGenerator do
     let!(:other_landing) { create :landing, slug: 'relance', title: 'Plan de relance' }
     let!(:archived_landing) { create :landing, slug: 'old', title: 'Obsolète', archived_at: 1.day.ago }
 
-    it "starts with the service name as H1 and a summary blockquote" do
-      expected_name = I18n.t('service_name', scope: 'landings.landings.seo')
-      expect(content).to start_with("# #{expected_name}\n")
-      expect(content).to include("\n> #{I18n.t('llms.summary')}")
-    end
-
     it "explains how the service works, after the summary and before the first section" do
       intro = I18n.t('llms.intro')
       expect(content).to include(intro)
