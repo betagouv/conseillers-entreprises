@@ -139,6 +139,7 @@ group :development do
   gem 'rubocop-rspec_rails', require: false
   gem 'brakeman', require: false
   gem 'rails-erd'
+  gem 'ruby-graphviz' # for rails-erd to generate pdf
   gem 'database_consistency', require: false
 end
 
