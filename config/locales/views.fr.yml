@@ -235,6 +235,8 @@ fr:
       nom: Nom
       personne_morale: Personne morale
       raison_sociale: Raison Sociale
+    need:
+      details_hidden: Vous n’avez pas accès aux détails de ce besoin.
     needs:
       back_to_company: Voir la fiche entreprise
       company_contacts_needs: 'Liste des besoins pour les contacts de cette entreprise :'
@@ -696,6 +698,9 @@ fr:
       more_informations: Plus d'informations
       my_intervention: Mon intervention
       needs_historic: Historique des besoins
+      needs_historic_none: Aucun
+      needs_historic_same_contact: 'déposés depuis la même adresse email :'
+      needs_historic_same_facility: 'concernant la même société :'
       no_comment: Aucun commentaire
       no_match: Aucun expert de notifié
       origin_source: 'Demande effectuée depuis :'
