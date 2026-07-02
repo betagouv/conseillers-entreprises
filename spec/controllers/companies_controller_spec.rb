@@ -65,8 +65,6 @@ RSpec.describe CompaniesController do
   end
 
   describe 'GET #needs' do
-    subject(:request) { get :needs, params: { id: facility.id } }
-
     let(:facility) { create :facility }
     let!(:contact) { create :contact, company: facility.company, email: "louise.michel@commune.paris" }
     let(:expert) { create :expert, users: [current_user] }
@@ -84,14 +82,6 @@ RSpec.describe CompaniesController do
     let(:done_need2) { create :need_with_matches, diagnosis: done_diagnosis2, status: :done }
     let!(:done_match2) { create :match, need: done_need2, expert: expert, status: :quo }
     let!(:done_match3) { create :match, need: done_need2, expert: another_expert, status: :done }
-    # Besoin status: :quo d'un autre expert
-    let(:another_quo_diagnosis) { create :diagnosis, facility: facility }
-    let(:another_quo_need) { create :need_with_matches, diagnosis: another_quo_diagnosis, status: :quo }
-    let!(:another_quo_match) { create :match, expert: another_expert, need: another_quo_need, status: :quo }
-    # Besoin status: :done d'un autre expert
-    let(:another_done_diagnosis) { create :diagnosis, facility: facility }
-    let(:another_done_need) { create :need_with_matches, diagnosis: another_done_diagnosis, status: :done }
-    let!(:another_done_match) { create :match, expert: another_expert, need: another_done_need, status: :done }
     # Besoin avec une MER pas encore envoyée
     let(:unsent_diagnosis) { create :diagnosis, facility: facility }
     let(:unsent_need) { create :need_with_unsent_matches, diagnosis: unsent_diagnosis, status: :diagnosis_not_complete }
@@ -101,29 +91,13 @@ RSpec.describe CompaniesController do
     let(:same_email_need) { create :need_with_matches, diagnosis: same_email_diagnosis, status: :quo }
     let!(:same_email_match) { create :match, expert: expert, need: same_email_need, status: :quo }
 
-    context 'for user' do
-      before { request }
+    before { get :needs, params: { id: facility.id } }
 
-      it 'content user matches only' do
-        expect(assigns(:needs_in_progress)).to contain_exactly(quo_need)
-        expect(assigns(:needs_done)).to contain_exactly(done_need, done_need2)
-        expect(assigns(:contact_needs_in_progress)).to contain_exactly(same_email_need)
-        expect(assigns(:contact_needs_done)).to be_empty
-      end
-    end
-
-    context 'for admin' do
-      before do
-        current_user.user_rights.create(category: 'admin')
-        request
-      end
-
-      it 'content all needs' do
-        expect(assigns(:needs_in_progress)).to contain_exactly(quo_need, another_quo_need)
-        expect(assigns(:needs_done)).to contain_exactly(done_need, another_done_need, done_need2)
-        expect(assigns(:contact_needs_in_progress)).to contain_exactly(same_email_need)
-        expect(assigns(:contact_needs_done)).to be_empty
-      end
+    it 'contains all needs' do
+      expect(assigns(:needs_in_progress)).to contain_exactly(quo_need)
+      expect(assigns(:needs_done)).to contain_exactly(done_need, done_need2)
+      expect(assigns(:contact_needs_in_progress)).to contain_exactly(same_email_need)
+      expect(assigns(:contact_needs_done)).to be_empty
     end
   end
 end

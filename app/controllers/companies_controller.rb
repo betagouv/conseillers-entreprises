@@ -31,20 +31,20 @@ class CompaniesController < ApplicationController
   def needs
     @facility = authorize Facility.find(params.permit(:id)[:id])
 
-    @needs_in_progress = policy_scope(@facility.needs)
+    @needs_in_progress = @facility.needs
       .in_progress
       .order(created_at: :desc)
-    @needs_done = policy_scope(@facility.needs)
+    @needs_done = @facility.needs
       .done
       .order(created_at: :desc)
 
     email_needs = Need.for_emails(@facility.company.contacts.pluck(:email))
 
-    @contact_needs_in_progress = policy_scope(email_needs)
+    @contact_needs_in_progress = email_needs
       .in_progress
       .excluding(@needs_in_progress)
       .order(created_at: :desc)
-    @contact_needs_done = policy_scope(email_needs)
+    @contact_needs_done = email_needs
       .done
       .excluding(@needs_done)
       .order(created_at: :desc)

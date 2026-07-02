@@ -60,13 +60,12 @@ class NeedsController < ApplicationController
       @match_for_current_user = @need.matches.find_by(expert: current_user.experts)
       @facility = @need.facility
 
-      @facility_needs = policy_scope(@facility.needs)
+      @facility_needs = @facility.needs
         .diagnosis_completed
         .excluding(@need)
-      email_needs = Need.for_emails(@need.diagnosis.visitee.email)
-      @contact_needs = policy_scope(email_needs)
+      @contact_needs = Need.for_emails(@need.diagnosis.visitee.email)
         .diagnosis_completed
-        .excluding(@need)
+        .excluding(@need).excluding(@facility_needs)
     end
   end
 
