@@ -12,7 +12,7 @@ class ReportPolicy < ApplicationPolicy
   end
 
   def download?
-    @user.is_admin? || in_supervised_antennes?(@record.reportable)
+    @user.is_admin? || in_supervised_antennes?(@record.reportable) || in_sponsored_institutions?(@record)
   end
 
   private
