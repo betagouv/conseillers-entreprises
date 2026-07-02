@@ -16,6 +16,12 @@ RSpec.describe ReportPolicy, type: :policy do
       it { is_expected.to permit(user) }
     end
 
+    context "grants access if user is a sponsor" do
+      let(:user) { create :user, :sponsor }
+
+      it { is_expected.to permit(user) }
+    end
+
     context "denies access if user is another user" do
       let(:user) { create :user }
 
@@ -34,6 +40,12 @@ RSpec.describe ReportPolicy, type: :policy do
 
     context "grants access if antenne is in user managed antennes" do
       let(:user) { create :user, :manager, managed_antennes: [antenne] }
+
+      it { is_expected.to permit(user, antenne) }
+    end
+
+    context "grants access if user is a sponsor" do
+      let(:user) { create :user, :sponsor, sponsored_institutions: [antenne.institution] }
 
       it { is_expected.to permit(user, antenne) }
     end
