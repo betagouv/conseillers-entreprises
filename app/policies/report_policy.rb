@@ -1,6 +1,6 @@
 class ReportPolicy < ApplicationPolicy
   def index?
-    @user&.is_admin? || in_supervised_antennes?(@record) || @user&.is_manager?
+    @user&.is_admin? || @user&.is_manager?
   end
 
   def stats?
