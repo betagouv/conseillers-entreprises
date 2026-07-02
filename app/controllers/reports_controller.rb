@@ -19,12 +19,7 @@ class ReportsController < ApplicationController
   def download
     report = ActivityReport.find(params.expect(:id))
     authorize report, policy_class: ReportPolicy
-    respond_to do |format|
-      format.html
-      format.xlsx do
-        send_data report.file.download, type: "application/xlsx", filename: report.file.filename.to_s
-      end
-    end
+    send_data report.file.download, type: "application/xlsx", filename: report.file.filename.to_s
   end
 
   private
