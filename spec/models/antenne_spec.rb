@@ -478,23 +478,6 @@ RSpec.describe Antenne do
     end
   end
 
-  describe 'by_antenne_and_institution_names' do
-    subject(:result) { described_class.by_antenne_and_institution_names(query) }
-
-    let(:query) { [['Agence Douai', 'Pôle emploi'], ['Agence Cambrai', 'CMA']] }
-
-    let(:pe) { create :institution, name: 'Pôle emploi' }
-    let(:cma) { create :institution, name: 'CMA' }
-    let(:a1) { create :antenne, name: 'Agence Douai', institution: pe }
-    let(:a2) { create :antenne, name: 'Agence Cambrai', institution: pe }
-    let(:a3) { create :antenne, name: 'Agence Douai', institution: cma }
-    let(:a4) { create :antenne, name: 'Agence Cambrai', institution: cma }
-
-    before { [a1, a2, a3, a4] }
-
-    it { is_expected.to contain_exactly(a1, a4) }
-  end
-
   describe 'regional_antenne' do
     let(:institution1) { create :institution, name: 'Institution 1' }
     let!(:regional_antenne1) { create :antenne, :regional, institution: institution1 }
