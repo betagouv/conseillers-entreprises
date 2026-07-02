@@ -10,7 +10,7 @@ class ReportPolicy < ApplicationPolicy
   def matches? = stats?
 
   def download?
-    @user.is_admin? || in_supervised_antennes?(@record.reportable) || @record.reportable.managers.include?(@user)
+    @user.is_admin? || in_supervised_antennes?(@record.reportable)
   end
 
   private
