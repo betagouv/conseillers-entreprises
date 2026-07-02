@@ -4,7 +4,7 @@ class BuildAntennesCollection
     @item = item
   end
 
-  def for_manager
+  def for_manager_or_sponsor
     manager_antennes = manager_antennes_included_regionals
     antennes_collection = antennes_collection_hash(Antenne.not_deleted, manager_antennes)
     add_locals_antennes(antennes_collection, manager_antennes)
@@ -57,6 +57,7 @@ class BuildAntennesCollection
     user.managed_antennes.territorial_level_national.each do |antenne|
       antennes_ids << Antenne.where(institution: antenne.institution, territorial_level: :regional).not_deleted.ids
     end
+    antennes_ids << Antenne.where(institution: user.sponsored_institutions).ids
     Antenne.where(id: antennes_ids.flatten)
   end
 end

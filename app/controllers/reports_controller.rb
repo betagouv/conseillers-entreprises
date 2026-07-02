@@ -33,11 +33,10 @@ class ReportsController < ApplicationController
     @antenne = if params[:antenne_id].present?
       Antenne.find(params.expect(:antenne_id))
     else
-      current_user.managed_antennes.by_higher_territorial_level.first
+      current_user.managed_antennes.by_higher_territorial_level.first || current_user.sponsored_institutions.first.antennes.first
     end
     authorize @antenne, policy_class: ReportPolicy
     initialize_filters([:antennes])
-    @antennes_for_select = BuildAntennesCollection.new(current_user).for_manager
   end
 
   def retrieve_quarters

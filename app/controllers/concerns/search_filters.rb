@@ -40,7 +40,7 @@ module SearchFilters
   end
 
   def base_antennes
-    @base_antennes ||= BuildAntennesCollection.new(current_user).for_manager
+    @base_antennes ||= BuildAntennesCollection.new(current_user).for_manager_or_sponsor
   end
 
   def base_regions
@@ -58,7 +58,7 @@ module SearchFilters
     [:subjects]
   end
 
-  def default_antenne_id
+  def default_antenne_id # use this?
     return if params[:antenne_id].present?
 
     # Prefer the aggregated entry when it exists

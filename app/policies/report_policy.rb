@@ -1,22 +1,27 @@
 class ReportPolicy < ApplicationPolicy
   def index?
-    @user&.is_admin? || in_supervised_antennes?(@record) || @user&.is_manager?
+    @user&.is_admin? || in_supervised_antennes?(@record) || @user&.is_manager? || @user&.is_sponsor?
   end
 
   def stats?
+    @user&.is_admin? || in_supervised_antennes?(@record) || in_sponsored_institutions?(@record)
+  end
+
+  def matches?
     @user&.is_admin? || in_supervised_antennes?(@record)
   end
 
-  def matches? = stats?
-
   def download?
-    @user.is_admin? || in_supervised_antennes?(@record.reportable) || @record.reportable.managers.include?(@user)
+    @user.is_admin? || in_supervised_antennes?(@record.reportable) || in_sponsored_institutions?(@record)
   end
 
   private
 
   def in_supervised_antennes?(reportable)
-    reportable.is_a?(Antenne) &&
-    (@user.is_manager? && @user&.supervised_antennes&.include?(reportable))
+    reportable.is_a?(Antenne) && @user&.supervised_antennes&.include?(reportable)
+  end
+
+  def in_sponsored_institutions?(reportable)
+    reportable.is_a?(Antenne) && @user&.sponsored_institutions&.include?(reportable.institution)
   end
 end
