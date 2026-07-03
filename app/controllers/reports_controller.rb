@@ -18,7 +18,8 @@ class ReportsController < ApplicationController
 
   def download
     report = ActivityReport.find(params.expect(:id))
-    authorize report, policy_class: ReportPolicy
+    authorize report.antenne, "#{report.category}?", policy_class: ReportPolicy # report.category is 'matches' or 'stats' which maps to the ReportPolicy query names.
+
     send_data report.file.download, type: "application/xlsx", filename: report.file.filename.to_s
   end
 

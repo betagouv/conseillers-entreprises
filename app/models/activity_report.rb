@@ -26,6 +26,10 @@ class ActivityReport < ApplicationRecord
   belongs_to :antenne, -> { where(activity_reports: { reportable_type: 'Antenne' }) },
              foreign_key: 'reportable_id', inverse_of: :activity_reports, optional: true
 
+  def cooperation = (reportable if reportable_type == 'Cooperation')
+
+  def antenne = (reportable if reportable_type == 'Antenne')
+
   has_one_attached :file
 
   def period

@@ -1,4 +1,6 @@
 class ReportPolicy < ApplicationPolicy
+  # @record is not an ActivityReport, but an Antenne (or more generally a reportable)
+
   def index?
     @user&.is_admin? || @user&.is_manager? || @user&.is_sponsor?
   end
@@ -9,10 +11,6 @@ class ReportPolicy < ApplicationPolicy
 
   def matches?
     @user&.is_admin? || in_supervised_antennes?(@record)
-  end
-
-  def download?
-    @user.is_admin? || in_supervised_antennes?(@record.reportable)
   end
 
   private
