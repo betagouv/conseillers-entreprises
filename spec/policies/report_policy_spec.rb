@@ -1,88 +1,39 @@
 require 'rails_helper'
 
-RSpec.describe ReportPolicy, type: :policy do
+RSpec.describe ReportPolicy, :aggregate_failures, type: :policy do
   subject { described_class }
 
+  let(:antenne) { create :antenne }
+
+  let(:admin) { create :user, :admin }
+  let(:manager) { create :user, :manager, managed_antennes: [antenne] }
+  let(:sponsor) { create :user, :sponsor, sponsored_institutions: [antenne.institution] }
+  let(:other_user) { create :user }
+
   permissions :index? do
-    context "grants access if user is an admin" do
-      let(:user) { create :user, :admin }
-
-      it { is_expected.to permit(user) }
-    end
-
-    context "grants access if user is a manager" do
-      let(:user) { create :user, :manager }
-
-      it { is_expected.to permit(user) }
-    end
-
-    context "grants access if user is a sponsor" do
-      let(:user) { create :user, :sponsor }
-
-      it { is_expected.to permit(user) }
-    end
-
-    context "denies access if user is another user" do
-      let(:user) { create :user }
-
-      it { is_expected.not_to permit(user) }
+    it "grants access to admins, managers and sponsors" do
+      is_expected.to permit(admin)
+      is_expected.to permit(manager)
+      is_expected.to permit(sponsor)
+      is_expected.not_to permit(other_user)
     end
   end
 
   permissions :stats? do
-    let(:antenne) { create :antenne }
-
-    context "grant access if user is an admin" do
-      let(:user) { create :user, :admin }
-
-      it { is_expected.to permit(user, antenne) }
-    end
-
-    context "grants access if antenne is in user managed antennes" do
-      let(:user) { create :user, :manager, managed_antennes: [antenne] }
-
-      it { is_expected.to permit(user, antenne) }
-    end
-
-    context "grants access if user is a sponsor" do
-      let(:user) { create :user, :sponsor, sponsored_institutions: [antenne.institution] }
-
-      it { is_expected.to permit(user, antenne) }
-    end
-
-    context "denies access if user is another user" do
-      let(:user) { create :user }
-
-      it { is_expected.not_to permit(user, antenne) }
+    it "grants access to admins, managers and sponsors of the antenne" do
+      is_expected.to permit(admin, antenne)
+      is_expected.to permit(manager, antenne)
+      is_expected.to permit(sponsor, antenne)
+      is_expected.not_to permit(other_user)
     end
   end
 
   permissions :matches? do
-    let(:antenne) { create :antenne }
-
-    context "grant access if user is an admin" do
-      let(:user) { create :user, :admin }
-
-      it { is_expected.to permit(user, antenne) }
-    end
-
-    context "grants access if antenne is in user managed antennes" do
-      let(:user) { create :user, :manager, managed_antennes: [antenne] }
-
-      it { is_expected.to permit(user, antenne) }
-    end
-
-    context "denies access if user is a sponsor" do
-      let(:user) { create :user, :sponsor, sponsored_institutions: [antenne.institution] }
-
-      it { is_expected.not_to permit(user) }
-    end
-
-
-    context "denies access if user is another user" do
-      let(:user) { create :user }
-
-      it { is_expected.not_to permit(user, antenne) }
+    it "grants access to admins and managers of the antenne" do
+      is_expected.to permit(admin, antenne)
+      is_expected.to permit(manager, antenne)
+      is_expected.not_to permit(sponsor, antenne)
+      is_expected.not_to permit(other_user, antenne)
     end
   end
 end
