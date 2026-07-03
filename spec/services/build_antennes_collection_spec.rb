@@ -102,5 +102,58 @@ describe BuildAntennesCollection do
         end
       end
     end
+
+    context 'Sponsored antenne' do
+      let(:national_antenne) { create :antenne, :national, institution: institution }
+
+      before { current_user.sponsored_institutions << [national_antenne.institution] }
+
+      context 'Antenne national sans antennes locales' do
+        let!(:expert) { create :expert_with_users, antenne: national_antenne }
+        let!(:expert_subject) { create :expert_subject, expert: expert }
+
+        it { is_expected.to contain_exactly({ name: national_antenne.name, id: national_antenne.id, territorial_level: 0 }) }
+      end
+
+      context 'Antenne national avec des experts avec des antennes locales' do
+        let!(:local_antenne) { create :antenne, :local, institution: institution }
+        let!(:local_expert) { create :expert_with_users, antenne: local_antenne }
+        let!(:national_expert) { create :expert_with_users, antenne: national_antenne }
+        let!(:expert_subject_local) { create :expert_subject, expert: local_expert }
+        let!(:expert_subject_national) { create :expert_subject, expert: national_expert }
+
+        it do
+          is_expected.to contain_exactly({ name: national_antenne.name, id: "#{national_antenne.id}-aggregate", territorial_level: 0 },
+                                         { name: local_antenne.name, id: local_antenne.id, territorial_level: 2 })
+        end
+      end
+
+      context 'Antenne national sans expert avec des antennes locales' do
+        let!(:local_antenne) { create :antenne, :local, institution: institution }
+        let!(:expert) { create :expert_with_users, antenne: local_antenne }
+        let!(:expert_subject) { create :expert_subject, expert: expert }
+
+        it do
+          is_expected.to contain_exactly({ name: national_antenne.name, id: "#{national_antenne.id}-aggregate", territorial_level: 0 },
+                                         { name: local_antenne.name, id: local_antenne.id, territorial_level: 2 })
+        end
+      end
+
+      context "Antenne national sans expert avec des antennes regionales qui ont des antennes locales" do
+        let!(:local_antenne) { create :antenne, :local, institution: institution, parent_antenne: regional_antenne }
+        let!(:regional_antenne) { create :antenne, :regional, institution: institution, parent_antenne: national_antenne }
+        let!(:expert) { create :expert_with_users, antenne: local_antenne }
+        let!(:expert_subject) { create :expert_subject, expert: expert }
+
+        it do
+          is_expected.to contain_exactly(
+            { name: national_antenne.name, id: "#{national_antenne.id}-aggregate", territorial_level: 0 },
+                           { name: regional_antenne.name, id: regional_antenne.id.to_s, territorial_level: 1 },
+                           { name: "#{regional_antenne.name}#{I18n.t('helpers.stats_helper.with_locales')}", id: "#{regional_antenne.id}-aggregate", territorial_level: 1 },
+                           { name: local_antenne.name, id: local_antenne.id, territorial_level: 2 }
+          )
+        end
+      end
+    end
   end
 end
