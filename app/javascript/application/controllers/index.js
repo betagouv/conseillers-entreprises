@@ -10,8 +10,6 @@ import CoverageController from "./coverage_controller"
 stimulus_app.register("coverage", CoverageController)
 import DiagnosisNeedsStepController from "./diagnosis_needs_step_controller"
 stimulus_app.register("diagnosis-needs-step", DiagnosisNeedsStepController)
-import DirectSubmitController from "./direct_submit_controller"
-stimulus_app.register("direct-submit", DirectSubmitController)
 import ExpertAutocompleteController from "./expert_autocomplete_controller"
 stimulus_app.register("expert-autocomplete", ExpertAutocompleteController)
 import FeedbackFormController from "./feedback_form_controller"
