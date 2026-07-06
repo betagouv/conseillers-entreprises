@@ -236,7 +236,7 @@ fr:
       personne_morale: Personne morale
       raison_sociale: Raison Sociale
     need:
-      details_hidden: Vous n’avez pas accès aux détails de ce besoin.
+      details_hidden: L'accès à ce besoin est réservé aux conseillers notifiés pour intervenir.
     needs:
       back_to_company: Voir la fiche entreprise
       company_contacts_needs: 'Liste des besoins pour les contacts de cette entreprise :'
