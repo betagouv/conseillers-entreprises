@@ -11,15 +11,17 @@ class ReportsController < ApplicationController
     redirect_to action: :stats, antenne_id: params[:antenne_id]
   end
 
-  def stats; end
+  def stats
+    authorize :report
+  end
 
   def matches
+    authorize :report
     @grouped_reports = @antenne.matches_reports.order(start_date: :desc).group_by{ |r| r.start_date.year }
   end
 
   def download
-    report = ActivityReport.find(params.expect(:id))
-    authorize report.antenne, "#{report.category}?", policy_class: ReportPolicy # report.category is 'matches' or 'stats' which maps to the ReportPolicy query names.
+    report = authorize ActivityReport.find(params.expect(:id)), policy_class: ReportPolicy
 
     send_data report.file.download, type: "application/xlsx", filename: report.file.filename.to_s
   end
@@ -28,7 +30,6 @@ class ReportsController < ApplicationController
 
   def retrieve_antenne
     @antenne = Antenne.find(params.expect(:antenne_id))
-    authorize @antenne, policy_class: ReportPolicy
     initialize_filters([:antennes])
   end
 

@@ -1,25 +1,34 @@
 class ReportPolicy < ApplicationPolicy
-  # @record is not an ActivityReport, but an Antenne (or more generally a reportable)
-
   def index?
     @user&.is_admin? || @user&.is_manager? || @user&.is_sponsor?
   end
 
   def stats?
-    @user&.is_admin? || in_supervised_antennes?(@record) || in_sponsored_institutions?(@record)
+    @user&.is_admin? || @user&.is_manager? || @user&.is_sponsor?
   end
 
   def matches?
-    @user&.is_admin? || in_supervised_antennes?(@record)
+    @user&.is_admin? || @user&.is_manager?
+  end
+
+  def download?
+    case @record.category
+    when 'stats'
+      @user&.is_admin? || in_supervised_antennes?(@record.antenne) || in_sponsored_institutions?(@record.antenne.institution)
+    when 'matches'
+      @user&.is_admin? || in_supervised_antennes?(@record.antenne)
+    else
+      false
+    end
   end
 
   private
 
-  def in_supervised_antennes?(reportable)
-    reportable.is_a?(Antenne) && @user&.supervised_antennes&.include?(reportable)
+  def in_supervised_antennes?(antenne)
+    @user&.supervised_antennes&.include?(antenne)
   end
 
-  def in_sponsored_institutions?(reportable)
-    reportable.is_a?(Antenne) && @user&.sponsored_institutions&.include?(reportable.institution)
+  def in_sponsored_institutions?(institution)
+    @user&.sponsored_institutions&.include?(institution)
   end
 end
