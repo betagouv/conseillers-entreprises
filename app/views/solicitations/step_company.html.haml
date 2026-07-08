@@ -21,7 +21,7 @@
                 %span.fr-hint-text= t('attributes.help.no_creation_html')
               = f.text_field :siret, autofocus: @solicitation.errors[:siret].present?, placeholder: t("solicitations.creation_form.placeholder.siret"), class: 'fr-input white-bg', minlength: '9', maxlength: '18'
             - elsif @solicitation.landing_subject.fields_mode_location?
-              .insee-code-wrapper{ data: { controller: 'insee-code', 'insee-code-default-value-value': h(@solicitation.location) } }
+              .insee-code-wrapper{ data: { controller: 'insee-code', 'insee-code-default-value-value': h(@solicitation.location), 'insee-code-autofocus-value': @solicitation.errors[:location].present? } }
                 = f.label :location, class: 'fr-label' do
                   = t("attributes.location")
                   %span.fr-hint-text= t('attributes.help.location')

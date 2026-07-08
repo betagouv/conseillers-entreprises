@@ -14,7 +14,7 @@
     = form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, method: :get) do |f|
       .fr-fieldset
         .fr-fieldset__element
-          .fr-input-group.siret-autocomplete{ 'data-controller': "pages-siret-autocomplete" }
+          .fr-input-group.siret-autocomplete{ 'data-controller': "pages-siret-autocomplete", 'data-pages-siret-autocomplete-autofocus-value': @solicitation.errors[:siret].present? || @error_message.present? }
             = label_tag "query", class: 'fr-label' do
               = t("solicitations.creation_form.find_my_facility")
               %span.fr-hint-text= t("solicitations.creation_form.search_facility_placeholder")

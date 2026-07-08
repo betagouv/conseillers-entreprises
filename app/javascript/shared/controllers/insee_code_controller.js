@@ -13,7 +13,7 @@ function inputValueTemplate(result) {
 
 export default class extends Controller {
   static targets = ["autocomplete", "hidden"]
-  static values = { url: String, defaultValue: String, minLength: Number }
+  static values = { url: String, defaultValue: String, minLength: Number, autofocus: Boolean }
 
   initialize() {
     const autocompleteId = this.autocompleteTarget.dataset.id || 'city_autocomplete'
@@ -38,12 +38,13 @@ export default class extends Controller {
   }
 
   connect() {
+    const autocompleteId = this.autocompleteTarget.dataset.id || 'city_autocomplete'
+    const input = this.element.querySelector(`#${autocompleteId}`)// this.element.getElementById(autocompleteId)
     if (this.hasDefaultValueValue && this.defaultValueValue) {
-      const autocompleteId = this.autocompleteTarget.dataset.id || 'city_autocomplete'
-      const input = this.element.querySelector(`#${autocompleteId}`)
-      if (input) {
-        input.value = this.defaultValueValue
-      }
+      input.value = this.defaultValueValue
+    }
+    if (this.autofocusValue) {
+      input.focus()
     }
   }
 

@@ -4,6 +4,7 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 
 export default class extends Controller {
   static targets = [ "field", "loader", "siretField", "codeRegionField", "noResultLink" ]
+  static values = { autofocus: Boolean }
 
   connect() {
     if (exists(this.fieldTarget.dataset.defaultValue)) {
@@ -11,6 +12,10 @@ export default class extends Controller {
       document.querySelector('#query').value = siret;
       this.siretFieldTarget.value = parseInt(siret)
     }
+    if (this.autofocusValue) {
+      document.querySelector('#query').focus()
+    }
+
     this.fieldTarget.addEventListener('input', () => {
       if (this.siretFieldTarget.value != this.fieldTarget.value) { this.siretFieldTarget.value = '' }
     })
