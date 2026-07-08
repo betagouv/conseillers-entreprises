@@ -167,6 +167,7 @@ fr:
       invitation_not_accepted: Cette personne n’a pas encore accepté son invitation
   at_your_disposal: Nous restons à votre disposition pour tout complément d’informations.
   autocomplete_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
+  autocomplete_query_too_short: Saisissez au moins %{minQueryLength} caractères.
   back_to_admin: Retourner à l’admin
   badges:
     create:

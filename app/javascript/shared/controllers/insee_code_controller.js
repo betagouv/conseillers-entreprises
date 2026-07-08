@@ -31,7 +31,7 @@ export default class extends Controller {
         suggestion: suggestionTemplate
       },
       tAssistiveHint: () => this.autocompleteTarget.dataset.assistiveHint,
-      tStatusQueryTooShort: (minQueryLength) => `Saisissez au moins ${minQueryLength} caractères.`,
+      tStatusQueryTooShort: (minQueryLength) => this.autocompleteTarget.dataset.queryTooShort.replace('%{minQueryLength}', minQueryLength),
       source: this.debouncedSource.bind(this),
       onConfirm: this.onConfirm.bind(this)
     })

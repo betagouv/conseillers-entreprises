@@ -25,7 +25,7 @@
                 = f.label :location, class: 'fr-label' do
                   = t("attributes.location")
                   %span.fr-hint-text= t('attributes.help.location')
-                %div{ data: { 'insee-code-target': 'autocomplete', id: 'solicitation_location', name: 'solicitation[location]', 'assistive-hint': t('autocomplete_assistive_hint') } }
+                %div{ data: { 'insee-code-target': 'autocomplete', id: 'solicitation_location', name: 'solicitation[location]', 'assistive-hint': t('autocomplete_assistive_hint'), 'query-too-short': t("autocomplete_query_too_short") } }
                 = f.hidden_field :insee_code, data: { 'insee-code-target': 'hidden' }
 
           - if @solicitation.errors.present?
