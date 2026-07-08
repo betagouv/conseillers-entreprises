@@ -14,6 +14,7 @@ export default class extends Controller {
     }
     if (this.autofocusValue) {
       document.querySelector('#query').focus()
+      document.querySelector('#query').setAttribute('aria-errormessage', 'solicitation-error')
     }
 
     this.fieldTarget.addEventListener('input', () => {

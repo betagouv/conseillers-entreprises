@@ -45,6 +45,7 @@ export default class extends Controller {
     }
     if (this.autofocusValue) {
       input.focus()
+      input.setAttribute('aria-errormessage', 'solicitation-error')
     }
   }
 
