@@ -1,20 +1,20 @@
 import { Controller } from "stimulus";
-import { exists, debounce } from '../../shared/utils.js'
+import { debounce } from '../../shared/utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
 
 export default class extends Controller {
   static targets = [ "field", "loader", "siretField", "codeRegionField", "noResultLink" ]
-  static values = { autofocus: Boolean }
+  static values = { defaultSiret: String, url: String, name: String, assistiveHint: String, queryTooShort: String, showError: Boolean }
 
   connect() {
-    if (exists(this.fieldTarget.dataset.defaultValue)) {
-      const siret = this.fieldTarget.dataset.defaultValue;
-      document.querySelector('#query').value = siret;
-      this.siretFieldTarget.value = parseInt(siret)
+    let input = this.element.querySelector('#query')
+    if (this.hasDefaultSiretValue) {
+      input.value = this.defaultSiretValue;
+      this.siretFieldTarget.value = parseInt(this.defaultSiretValue)
     }
-    if (this.autofocusValue) {
-      document.querySelector('#query').focus()
-      document.querySelector('#query').setAttribute('aria-errormessage', 'solicitation-error')
+    if (this.showErrorValue) {
+      input.focus()
+      input.setAttribute('aria-errormessage', 'solicitation-error')
     }
 
     this.fieldTarget.addEventListener('input', () => {
@@ -26,7 +26,7 @@ export default class extends Controller {
     this.statusMessage = null;
     this.accessibleAutocomplete = accessibleAutocomplete({
       element: this.fieldTarget,
-      id: this.fieldTarget.dataset.name,
+      id: this.nameValue,
       name: 'query',
       showNoOptionsFound: true,
       required: true,
@@ -36,8 +36,8 @@ export default class extends Controller {
         suggestion: this.suggestionTemplate
       },
       tNoResults: () => this.statusMessage,
-      tAssistiveHint: () => this.fieldTarget.dataset.assistiveHint,
-      tStatusQueryTooShort: (minQueryLength) => this.fieldTarget.dataset.queryTooShort.replace('%{minQueryLength}', minQueryLength),
+      tAssistiveHint: () => this.assistiveHintValue,
+      tStatusQueryTooShort: (minQueryLength) => this.queryTooShortValue.replace('%{minQueryLength}', minQueryLength),
       tStatusNoResults: () => this.statusMessage,
       tStatusSelectedOption: (selectedOption, length, index) => `${selectedOption} ${index + 1} sur ${length} est sélectionné`,
       tStatusResults: (length, contentSelectedOption) => {
@@ -85,7 +85,7 @@ export default class extends Controller {
 
   async fetchEtablissements(query) {
     this.loaderTarget.style.display = 'block'
-    let baseUrl = this.fieldTarget.dataset.url
+    let baseUrl = this.urlValue
     let params = `query=${query}`;
     let response = await fetch(`${baseUrl}.json?${params}`, {
       credentials: "same-origin",
