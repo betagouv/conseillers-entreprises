@@ -23,9 +23,15 @@
           = facility_form.fields_for :company do |company_form|
             = company_form.label :name, t('.name'), class: 'fr-label'
             = company_form.text_field :name, required: true, class: 'fr-input'
-        .fr-fieldset__element{ data: { controller: 'insee-code', 'insee-code-default-value-value': h(@diagnosis.solicitation&.location) } }
+        .fr-fieldset__element{ data: {
+          controller: 'insee-code',
+          'insee-code': {
+            'default-value-value': h(@diagnosis.solicitation&.location),
+            'assistive-hint-value': t('autocomplete_assistive_hint'),
+            'query-too-short-value': t("autocomplete_query_too_short")
+          } } }
           = label_tag 'city_autocomplete', t('.city'), class: 'fr-label'
-          %div{ data: { 'insee-code-target': 'autocomplete', 'assistive-hint': t('autocomplete_assistive_hint'), 'query-too-short': t("autocomplete_query_too_short") } }
+          %div{ data: { 'insee-code-target': 'autocomplete' } }
           = facility_form.hidden_field :insee_code, data: { 'insee-code-target': 'hidden' }, value: @diagnosis.solicitation&.insee_code
       .text-right
         = form.button :submit, class: 'fr-btn btn-green btn-icon' do

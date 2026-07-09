@@ -21,11 +21,20 @@
                 %span.fr-hint-text= t('attributes.help.no_creation_html')
               = f.text_field :siret, autofocus: @solicitation.errors[:siret].present?, placeholder: t("solicitations.creation_form.placeholder.siret"), class: 'fr-input white-bg', minlength: '9', maxlength: '18'
             - elsif @solicitation.landing_subject.fields_mode_location?
-              .insee-code-wrapper{ data: { controller: 'insee-code', 'insee-code-default-value-value': h(@solicitation.location), 'insee-code-autofocus-value': @solicitation.errors[:location].present? } }
+              .insee-code-wrapper{ data: {
+                controller: 'insee-code',
+                'insee-code': {
+                  'id-value': 'solicitation_location',
+                  'name-value': 'solicitation[location]',
+                  'default-value-value': h(@solicitation.location),
+                  'show-error-value': @solicitation.errors[:location].present?,
+                  'assistive-hint-value': t('autocomplete_assistive_hint'),
+                  'query-too-short-value': t("autocomplete_query_too_short")
+                } } }
                 = f.label :location, class: 'fr-label' do
                   = t("attributes.location")
                   %span.fr-hint-text= t('attributes.help.location')
-                %div{ data: { 'insee-code-target': 'autocomplete', id: 'solicitation_location', name: 'solicitation[location]', 'assistive-hint': t('autocomplete_assistive_hint'), 'query-too-short': t("autocomplete_query_too_short") } }
+                %div{ data: { 'insee-code-target': 'autocomplete' } }
                 = f.hidden_field :insee_code, data: { 'insee-code-target': 'hidden' }
 
           - if @solicitation.errors.present?
