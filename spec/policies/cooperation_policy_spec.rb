@@ -1,75 +1,67 @@
 require 'rails_helper'
 
-RSpec.describe CooperationPolicy, type: :policy do
+RSpec.describe CooperationPolicy, :aggregate_failures, type: :policy do
   subject { described_class }
 
+  let(:cooperation) { create :cooperation }
+
+  let(:admin) { create :user, :admin }
+  let(:manager) { create :user, :cooperation_manager, managed_cooperations: [cooperation] }
+  let(:other_user) { create :user }
+
   permissions :index? do
-    context "grants access if user is a cooperation manager" do
-      let(:user) { create :user, :cooperation_manager }
-
-      it { is_expected.to permit(user) }
-    end
-
-    context "grants access if user is an admin" do
-      let(:user) { create :user, :admin }
-
-      it { is_expected.to permit(user) }
-    end
-
-    context "denies access if user is another user" do
-      let(:user) { create :user }
-
-      it { is_expected.not_to permit(user) }
+    it "grants access to admins and cooperation managers" do
+      is_expected.to permit(admin)
+      is_expected.to permit(manager)
+      is_expected.not_to permit(other_user)
     end
   end
 
-  permissions :index? do
-    let(:cooperation) { create :cooperation }
-
-    context "grants access if cooperation is in user managed cooperations" do
-      let(:user) { create :user, :cooperation_manager }
-
-      it { is_expected.to permit(user) }
-    end
-
-    context "grant access if user is an admin" do
-      let(:user) { create :user, :admin }
-
-      it { is_expected.to permit(user) }
-    end
-
-    context "denies access if user is another user" do
-      let(:user) { create :user }
-
-      it { is_expected.not_to permit(user) }
+  permissions :needs?, :reports? do
+    it "grants access to admins and managers of the cooperation" do
+      is_expected.to permit(admin, cooperation)
+      is_expected.to permit(manager, cooperation)
+      is_expected.not_to permit(other_user, cooperation)
     end
   end
 
-  permissions :manage? do
-    let(:cooperation) { create :cooperation }
-
-    context "grant access if user is an admin" do
-      let(:user) { create :user, :admin }
-
-      it { is_expected.to permit(user, cooperation) }
+  permissions :matches? do
+    context "the cooperation does not display matches stats" do
+      it "grants access to nobody" do
+        is_expected.not_to permit(admin, cooperation)
+        is_expected.not_to permit(manager, cooperation)
+        is_expected.not_to permit(other_user, cooperation)
+      end
     end
 
-    context "grants access if user manages this cooperation" do
-      let(:user) { create :user, :cooperation_manager, managed_cooperations: [cooperation] }
+    context "the cooperation displays matches stats" do
+      let(:cooperation) { create :cooperation, display_matches_stats: true }
 
-      it { is_expected.to permit(user, cooperation) }
+      it "grants access to admins and managers of the cooperation" do
+        is_expected.to permit(admin, cooperation)
+        is_expected.to permit(manager, cooperation)
+        is_expected.not_to permit(other_user, cooperation)
+      end
+    end
+  end
+
+  permissions :solicitations? do
+    context "the cooperation does not display solicitations stats" do
+      it "grants access to nobody" do
+        is_expected.not_to permit(admin, cooperation)
+        is_expected.not_to permit(manager, cooperation)
+        is_expected.not_to permit(other_user, cooperation)
+      end
     end
 
-    context "denies access if user manages another cooperation" do
-      let(:user) { create :user, :cooperation_manager }
+    context "the cooperation displays solicitations stats" do
+      let(:cooperation) { create :cooperation, wants_solicitations_export: true }
 
-      it { is_expected.not_to permit(user, cooperation) }
-    end
-
-    context "denies access if user is another user" do
-      let(:user) { create :user }
-
-      it { is_expected.not_to permit(user, cooperation) }
+      it "grants access to admins and managers of the cooperation" do
+        is_expected.to permit(admin, cooperation)
+        is_expected.to permit(manager, cooperation)
+        is_expected.not_to permit(other_user, cooperation)
+      end
     end
   end
 end

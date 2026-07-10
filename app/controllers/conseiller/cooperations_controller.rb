@@ -67,12 +67,8 @@ class Conseiller::CooperationsController < ApplicationController
   private
 
   def retrieve_cooperation
-    @cooperation = if params[:cooperation_id].present?
-      Cooperation.find_by(id: params[:cooperation_id])
-    else
-      current_user.managed_cooperation
-    end
-    authorize @cooperation, :manage?
+    @cooperation = Cooperation.find(params.expect(:id))
+    authorize @cooperation
   end
 
   def init_filters
