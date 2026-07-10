@@ -80,4 +80,28 @@ describe 'registrations' do
       end
     end
   end
+
+  describe 'api key management' do
+    login_user
+
+    before do
+      current_user.user_rights_tech.create(institution: current_user.institution)
+    end
+
+    it 'lets user create and reset an api key' do
+      visit api_key_user_path
+      click_on 'Créer un jeton'
+      expect(page).to have_text 'Votre nouveau jeton est'
+
+      page.refresh
+      expect(page).to have_text 'Vous avez déjà un jeton d’API'
+      api_key = current_user.institution.reload.api_key
+      expect(api_key).not_to be_nil
+
+      click_on 'Réinitialiser'
+      new_api_key = current_user.institution.reload.api_key
+      expect(api_key).not_to eq new_api_key
+      expect(ApiKey.exists?(api_key.id)).to be false
+    end
+  end
 end
