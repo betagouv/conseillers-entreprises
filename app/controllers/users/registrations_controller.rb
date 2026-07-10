@@ -10,7 +10,7 @@ module Users
     prepend_before_action -> { authenticate_scope! }, only: %i[password antenne api_key reset_api_key]
     prepend_before_action -> { set_minimum_password_length }, only: %i[password]
 
-    layout 'user_tabs', only: %i[edit password antenne update update_password api_key]
+    layout 'side_menu', only: %i[edit password antenne update update_password api_key]
 
     # The paths for Devise are heavily customized, see routes.rb.
     # The show action exists only for /mon_compte to redirect to /mon_compte/informations
