@@ -1,0 +1,20 @@
+%h2.fr-h5= ApiKey.model_name.human
+%p.fr-mb-2w
+  = t(".description_html", institution_name: current_user.institution, documentation_path: rswag_ui_path, email: "tech@entreprises.service-public.gouv.fr")
+
+- if flash[:new_token]
+  .fr-alert.fr-alert--info.fr-mb-2w
+    %p= t(".new_token")
+    %p
+      %b= flash[:new_token]
+    %p= t(".valid_until_html", datetime: l(@api_key.valid_until, format: :long_sentence))
+    %p= t(".copy_token_now")
+- elsif @api_key.present?
+  .fr-alert.fr-alert--info.fr-mb-2w
+    %p= t(".created_at_html", datetime: l(@api_key.created_at, format: :long_sentence))
+    %p= t(".valid_until_html", datetime: l(@api_key.valid_until, format: :long_sentence))
+  .fr-alert.fr-alert--warning.fr-mb-2w
+    = t(".click_to_reset")
+  = button_to t(".reset"), reset_api_key_user_path, method: :put, class: "fr-btn fr-btn--primary"
+- else
+  = button_to t(".create"), reset_api_key_user_path, method: :put, class: "fr-btn fr-btn--primary"

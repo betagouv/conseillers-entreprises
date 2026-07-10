@@ -1387,6 +1387,15 @@ fr:
       antenne:
         antenne_within_institution: Antenne (au sein de %{institution})
         no_team: Pas d’équipe
+      api_key:
+        click_to_reset: Cliquez sur Réinitialiser pour en générer un nouveau. Attention, le jeton existant cessera alors de fonctionner.
+        copy_token_now: Copiez-le maintenant, il ne pourra plus vous être affiché.
+        create: Créer un jeton
+        created_at_html: Vous avez déjà un jeton d’API, créé le <b>%{datetime}</b>.
+        description_html: Un jeton est nécessaire pour utiliser l’API de Service-Public Conseillers entreprises. Le jeton est commun à toute votre institution (%{institution_name}). Vous pouvez consulter <a href="%{documentation_path}">la documentation ici</a>, et n’hésitez pas à nous contacter à l’adresse <a href="mailto:%{email}">%{email}</a>.
+        new_token: 'Votre nouveau jeton est :'
+        reset: Réinitialiser
+        valid_until_html: Il est valide jusqu’au <b>%{datetime}</b>.
     thats_you: C’est vous !
   views:
     pagination:

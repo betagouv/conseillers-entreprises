@@ -81,7 +81,7 @@ RSpec.describe "Landings API" do
           run_test! do |response|
             expect(response.status).to eq(404)
             result = JSON.parse(response.body)
-            expect(result["errors"].first["source"]).to eq('Token d’API')
+            expect(result["errors"].first["source"]).to eq('Jeton d’API')
             expect(result["errors"].first["message"]).to eq('n’existe pas ou est invalide')
           end
         end

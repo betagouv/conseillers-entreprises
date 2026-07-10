@@ -20,8 +20,10 @@ class ApplicationController < SharedController
       team_index_path
     elsif user.is_admin?
       conseiller_solicitations_path
-    else
+    elsif user.experts.present?
       quo_active_needs_path
+    else
+      user_path
     end
   end
 

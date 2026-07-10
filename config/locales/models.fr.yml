@@ -813,8 +813,8 @@ fr:
         one: Antenne
         other: Antennes
       api_key:
-        one: Token d’API
-        other: Tokens d’API
+        one: Jeton d’API
+        other: Jetons d’API
       commune:
         one: Commune
         other: Communes

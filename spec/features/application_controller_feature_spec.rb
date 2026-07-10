@@ -88,7 +88,7 @@ describe 'ApplicationController specific features' do
     end
 
     context 'already connected' do
-      let(:user) { create :user, password: password, password_confirmation: password, sign_in_count: 1 }
+      let(:user) { create :user, :with_expert, password: password, password_confirmation: password, sign_in_count: 1 }
 
       it('redirects to needs quo page') { expect(current_url).to eq quo_active_needs_url }
     end

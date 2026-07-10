@@ -7,10 +7,10 @@ module Users
     # authenticate_scope! and set_minimum_password_length are defined and use in the superclass
     # If we redefine them with different `only:` conditions, we’ll replace the previous conditions
     # Use local blocks instead of symbols to avoid messing with the callbacks configured in the superclass
-    prepend_before_action -> { authenticate_scope! }, only: %i[password antenne]
+    prepend_before_action -> { authenticate_scope! }, only: %i[password antenne api_key reset_api_key]
     prepend_before_action -> { set_minimum_password_length }, only: %i[password]
 
-    layout 'user_tabs', only: %i[edit password antenne update update_password]
+    layout 'user_tabs', only: %i[edit password antenne update update_password api_key]
 
     # The paths for Devise are heavily customized, see routes.rb.
     # The show action exists only for /mon_compte to redirect to /mon_compte/informations
@@ -39,6 +39,20 @@ module Users
     def antenne
       @antenne = Antenne.find(params.permit(:id)[:id])
       authorize @antenne, :show?
+    end
+
+    def api_key
+      @api_key = @user.institution.api_key
+    end
+
+    def reset_api_key
+      if @user.institution.api_key.present?
+        @user.institution.api_key.destroy!
+      end
+
+      key = @user.institution.create_api_key
+      flash[:new_token] = key.token
+      redirect_to action: :api_key
     end
 
     # Override
