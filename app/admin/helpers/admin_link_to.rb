@@ -3,10 +3,28 @@ module Admin
     ## Additional helpers for the objects links and attributes within /admin
     #
     module AdminLinkTo
+      # link to objects in admin. Examples:
+      # - simple link: `admin_link_to user123`
+      # - to-one relation: `admin_link_to user123, :institution`
+      # - to-many relation, display the count of items and link to the table: `admin_link_to user123, :feedbacks`
+      # - to-many relation, one link per item: `admin_link_to user123, :feedbacks, list: true`
+      # The :name option can be used to customize the text of the link.
+      # - admin_link_to user123, "static text"
+      # - admin_link_to user123, -> (user) { user.full_name }
       def admin_link_to(object, association = nil, options = {})
+        name_proc = if options[:name].present?
+          if options[:name].respond_to?(:call)
+            options[:name]
+          else
+            proc { options[:name] }
+          end
+        else
+          proc { |object| object }
+        end
+
         if association.nil?
           return nil if object.nil?
-          return link_to(object, polymorphic_path([:admin, object]))
+          return link_to(name_proc.call(object), polymorphic_path([:admin, object]))
         end
 
         klass = object.class
@@ -16,7 +34,7 @@ module Admin
           if options[:list] # List of objects
             foreign_objects = object.send(association)
             if foreign_objects.present?
-              links = foreign_objects.map { |foreign_object| link_to(foreign_object, polymorphic_path([:admin, foreign_object])) }
+              links = foreign_objects.map { |foreign_object| link_to(name_proc.call(foreign_object), polymorphic_path([:admin, foreign_object])) }
               links.join('<br/>').html_safe
             else
               empty_result(options)
@@ -47,7 +65,7 @@ module Admin
         else # `has_one` association
           foreign_object = object.send(association)
           if foreign_object.present?
-            link_to(foreign_object, polymorphic_path([:admin, foreign_object]))
+            link_to(name_proc.call(foreign_object), polymorphic_path([:admin, foreign_object]))
           else
             empty_result(options)
           end

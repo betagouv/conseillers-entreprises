@@ -59,7 +59,8 @@ ActiveAdmin.register Cooperation do
         div admin_link_to(c, :landings, list: true)
       end
       row(:managers) do |c|
-        div admin_link_to(c, :managers, list: true)
+        name_proc = -> (manager) { manager.institution == c.institution ? manager : "#{manager} (#{manager.institution})" }
+        div admin_link_to(c, :managers, list: true, name: name_proc)
       end
     end
   end
