@@ -1,7 +1,7 @@
 class Conseiller::CooperationsController < ApplicationController
   include StatsUtilities
 
-  layout 'side_menu', only: %i[reports solicitations]
+  layout 'side_menu'
 
   before_action :retrieve_cooperation, only: %i[needs matches reports solicitations load_filter_options provenance_detail_autocomplete]
   before_action :init_filters, only: %i[needs matches load_filter_options]
@@ -18,6 +18,10 @@ class Conseiller::CooperationsController < ApplicationController
       matches_taken_care_in_three_days matches_taken_care_in_five_days
     ]
   }
+
+  def index
+    redirect_to needs_conseiller_cooperation_path(policy_scope(Cooperation).first)
+  end
 
   def needs
     set_stats_params(cooperation_id: @cooperation.id)

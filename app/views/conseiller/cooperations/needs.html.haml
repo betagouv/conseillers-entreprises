@@ -4,12 +4,12 @@
 - content_for :head do
   - javascript_include_tag 'highcharts', data: { 'turbo-track': 'reload' }, nonce: 'true'
 
+- content_for :menu, render('menu', cooperation: @cooperation)
+
 .fr-container
   .fr-grid-row
     .fr-col
-      %h1.fr-h2
-        = title
-      = render 'shared/breadcrumb', pages: [{ title: cooperation_title, path: needs_conseiller_cooperations_path }], current_page: title
+      %h1.fr-h2= title
 
 .fr-container
   .fr-grid-row

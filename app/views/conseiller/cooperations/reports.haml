@@ -1,7 +1,7 @@
 - title = t('.title', cooperation_name: @cooperation.name)
 - meta title: title
 
-- content_for :menu, render('menu', cooperation_id: @cooperation.id)
+- content_for :menu, render('menu', cooperation: @cooperation)
 
 .fr-container
   .fr-grid-row
