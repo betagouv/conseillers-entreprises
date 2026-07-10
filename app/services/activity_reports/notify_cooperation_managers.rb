@@ -6,8 +6,11 @@ module ActivityReports
 
     def call
       @managers.each do |user|
-        next unless user.managed_cooperations.map { |cooperation| cooperation.activity_reports.find_by(start_date: 3.months.ago.beginning_of_month) }.any?
-        UserMailer.with(user: user).cooperation_activity_report.deliver_later
+        user.managed_cooperations.each do |cooperation|
+          recent_reports = cooperation.activity_reports.find_by(start_date: 3.months.ago.beginning_of_month)
+          next if recent_reports.blank?
+          UserMailer.with(user: user, cooperation: cooperation).cooperation_activity_report.deliver_later
+        end
       end
     end
   end
