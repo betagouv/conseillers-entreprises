@@ -9,7 +9,7 @@ RSpec.describe Conseiller::CooperationsController do
 
   describe 'GET #needs' do
     it do
-      get :needs
+      get :needs, params: { id: cooperation.id }
       expect(response).to be_successful
       expect(assigns(:cooperation)).to eq(cooperation)
     end
