@@ -192,7 +192,6 @@ fr:
     missing_inherited_method: Méthode manquante dans la classe enfant
     one_territorial_referent_per_region: Un seul référent régional est autorisé par région
     one_user_for_referents: Un seul reférent est autorisé.
-    only_one_cooperation: Une seule coopération peut être attribuée au responsable de coopération. S'il faut modifier cette règle, demandez aux devs !
     page_title: Erreur - %{title}
     satisfaction_without_comment: Vous ne pouvez pas partager une satisfaction sans commentaire
     sponsor_without_institution: Une institution doit être attribuée à ce pilotage ministériel
