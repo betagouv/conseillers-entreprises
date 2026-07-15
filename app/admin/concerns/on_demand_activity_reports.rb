@@ -18,11 +18,11 @@ module OnDemandActivityReports
     def activity_report_sidebar_contents(generator)
       div do
         h4 t(generator.report_type, scope: "reports.type")
+        if generator.existing_reports_periods.any?
+          div t("active_admin.reports.latest_report_period_html", period: ActivityPeriods.period_name(generator.existing_reports_periods.last))
+        end
         if generator.missing_reports_periods.any?
           div t("active_admin.reports.missing_reports", count: generator.missing_reports_periods.count)
-        end
-        if generator.existing_reports_periods.any?
-          div t("active_admin.reports.latest_report_period", period: ActivityPeriods.period_name(generator.existing_reports_periods.last))
         end
 
         job_status = generator.job_status
@@ -31,7 +31,7 @@ module OnDemandActivityReports
         elsif job_status[:enqueued_at].present?
           t("active_admin.reports.job_enqueued")
         else
-          t('active_admin.reports.start_job_now')
+          t('active_admin.reports.start_job_now', count: generator.missing_reports_periods.count)
         end
         button_title = if job_status[:run_at].present?
           t("active_admin.reports.job_running_at", date: l(job_status[:run_at]))

@@ -69,18 +69,20 @@ fr:
       job_running: Génération en cours
       job_running_at: Génération lancée le %{date}
       job_started: Fichiers en cours de génération
-      latest_report_period: 'Dernier rapport : %{period}'
+      latest_report_period_html: 'Fichier le plus récent : <b>%{period}</b>'
       missing_reports:
-        one: "%{count} rapport à générer"
-        other: "%{count} rapports à générer"
-      start_job_now: Générer maintenant
+        one: "%{count} nouveau fichier à générer"
+        other: "%{count} nouveaux fichiers à générer"
+      start_job_now:
+        one: Générer le nouveau fichier
+        other: Générer les nouveaux fichiers
       start_job_now_message:
         expireds_reports:
-          one: "%{count} ancien rapport sera supprimé :"
-          other: "%{count} anciens rapports seront générés :"
+          one: "%{count} ancien fichier sera supprimé :"
+          other: "%{count} anciens fichiers seront générés :"
         missing_reports:
-          one: "%{count} rapport sera généré :"
-          other: "%{count} rapports seront générés :"
+          one: "%{count} fichier sera généré :"
+          other: "%{count} fichiers seront générés :"
         warning: Attention, si le rapport est généré à l’avance, les données seront tronquées.
       title: Rapports d’activité
       view_reports_app_page: Afficher les rapports

@@ -867,9 +867,9 @@ fr:
       title: Statistiques trimestrielles %{antenne}
     type:
       cooperation: Rapports de coopération
-      matches: Export des mises en relation
-      solicitations: Export des sollicitations
-      stats: Rapport d’antenne
+      matches: Exports des mises en relation
+      solicitations: Exports des sollicitations
+      stats: Rapports d’antenne
   republique_francaise_html: République <br /> Française
   shared:
     breadcrumb:
