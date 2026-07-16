@@ -80,6 +80,41 @@ module Seo
       }
     end
 
+    # Témoignage d'un conseiller : interview éditoriale publiée par le service.
+    # Le conseiller est l'interviewé (le sujet), pas l'auteur : on l'expose donc en `about`
+    # comme un Person rattaché à son institution (GovernmentOrganization), et l'auteur est
+    # l'organisation éditrice. Ce n'est pas un avis d'utilisateur, d'où "Article" (et non "Review").
+    def temoignage_article_schema(temoignage:, image:)
+      return nil if temoignage.blank?
+
+      page_url = request.original_url
+      {
+        '@type': "Article",
+        '@id': "#{page_url}#article",
+        headline: strip_tags(temoignage.title),
+        description: strip_tags(temoignage.subtitle),
+        image: image,
+        datePublished: temoignage.initial_publication_date.in_time_zone.iso8601,
+        dateModified: temoignage.publication_date.in_time_zone.iso8601,
+        inLanguage: "fr-FR",
+        author: { '@id': "#{root_url}#organization" },
+        publisher: { '@id': "#{root_url}#organization" },
+        about: [
+          { '@id': "#{root_url}#service" },
+          {
+            '@type': "Person",
+            name: temoignage.expert,
+            worksFor: {
+              '@type': "GovernmentOrganization",
+              name: temoignage.institution
+            }
+          }
+        ],
+        isPartOf: { '@id': "#{page_url}#webpage" },
+        mainEntityOfPage: { '@id': "#{page_url}#webpage" }
+      }
+    end
+
     def review_schema(author:, content:, index: 1)
       return nil if author.blank? || content.blank?
 
