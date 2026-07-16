@@ -136,6 +136,7 @@ module Seo
               '@id': "#{page_url}#article",
               headline: strip_tags(temoignage.title),
               url: page_url,
+              image: image_url("temoignages_experts/#{key}.jpeg"),
               datePublished: temoignage.initial_publication_date.in_time_zone.iso8601,
               author: { '@id': "#{root_url}#organization" },
               about: {

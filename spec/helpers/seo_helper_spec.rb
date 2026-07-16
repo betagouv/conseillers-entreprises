@@ -88,6 +88,7 @@ describe SeoHelper do
         '@type': 'Article',
         '@id': "#{helper.temoignages_expert_url(:banque_de_france)}#article",
         url: helper.temoignages_expert_url(:banque_de_france),
+        image: helper.image_url('temoignages_experts/banque_de_france.jpeg'),
         headline: 'Comment la Banque de France vous accompagne ?'
       )
     end
