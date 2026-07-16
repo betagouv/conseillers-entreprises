@@ -115,6 +115,43 @@ module Seo
       }
     end
 
+    # Liste des témoignages (page index) : un ItemList dont chaque élément est un Article
+    # résumé. Les items partagent le même `@id` (`...#article`) que le nœud complet de la
+    # page de détail, pour que les moteurs fusionnent les deux en une seule entité.
+    def temoignages_list_schema(temoignages:)
+      return nil if temoignages.blank?
+
+      {
+        '@type': "ItemList",
+        '@id': "#{request.original_url}#itemlist",
+        numberOfItems: temoignages.size,
+        itemListOrder: "https://schema.org/ItemListOrderAscending",
+        itemListElement: temoignages.map.with_index do |(key, temoignage), index|
+          page_url = temoignages_expert_url(key)
+          {
+            '@type': "ListItem",
+            position: index + 1,
+            item: {
+              '@type': "Article",
+              '@id': "#{page_url}#article",
+              headline: strip_tags(temoignage.title),
+              url: page_url,
+              datePublished: temoignage.initial_publication_date.in_time_zone.iso8601,
+              author: { '@id': "#{root_url}#organization" },
+              about: {
+                '@type': "Person",
+                name: temoignage.expert,
+                worksFor: {
+                  '@type': "GovernmentOrganization",
+                  name: temoignage.institution
+                }
+              }
+            }
+          }
+        end
+      }
+    end
+
     def review_schema(author:, content:, index: 1)
       return nil if author.blank? || content.blank?
 

@@ -27,6 +27,8 @@ fr:
       temoignage_alt: Photo de %{author}
     temoignages_experts:
       index:
+        meta_description: Découvrez comment les conseillers partenaires du service peuvent vous accompagner selon votre problématique. Partout en France, pour un projet ou une difficulté, nous mobilisons des conseillers engagés à vos côtés.
+        meta_title: Ils témoignent de leur engagement aux côtés des entreprises
         subtitle: Découvrez comment les conseillers partenaires du service peuvent vous accompagner selon votre problématique. Partout en France, pour un projet ou une difficulté, nous mobilisons des conseillers engagés à vos côtés.
         title_long: Ils témoignent de leur engagement aux côtés des entreprises.
       show:

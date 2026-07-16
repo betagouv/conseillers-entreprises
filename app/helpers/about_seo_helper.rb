@@ -1,6 +1,20 @@
 module AboutSeoHelper
   # Helpers pour simplifier la configuration des schémas SEO dans les pages "About"
 
+  def setup_temoignages_index_seo(temoignages:)
+    title = t('about.temoignages_experts.index.meta_title')
+    description = t('about.temoignages_experts.index.meta_description')
+
+    meta(title: title, description: description)
+    add_page_schema(page_schema(
+                      title: title,
+                      description: description,
+                      breadcrumb: true,
+                      main_entity_id: "#{request.original_url}#itemlist"
+                    ))
+    add_page_schema(temoignages_list_schema(temoignages: temoignages))
+  end
+
   def setup_temoignage_show_seo(temoignage:, key:)
     title = strip_tags(temoignage.title)
     description = strip_tags(temoignage.subtitle)

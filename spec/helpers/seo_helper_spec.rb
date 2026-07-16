@@ -50,4 +50,56 @@ describe SeoHelper do
       expect(schema[:about]).to include('@id': "#{helper.root_url}#service")
     end
   end
+
+  describe '#temoignages_list_schema' do
+    subject(:schema) { helper.temoignages_list_schema(temoignages: temoignages) }
+
+    let(:temoignages) do
+      {
+        banque_de_france: TemoignagesExperts::Temoignage.new(
+          title: 'Comment la Banque de France vous accompagne ?',
+          subtitle: 'J’écoute les chefs d’entreprise.',
+          institution: 'Banque de France',
+          expert: 'Dupond Dupont',
+          publication_date: Date.new(2026, 6, 11),
+          initial_publication_date: Date.new(2024, 12, 5),
+          landing_subject: 'tresorerie', mtm_kwd: 'a', voir_aussi: []
+        ),
+        douanes: TemoignagesExperts::Temoignage.new(
+          title: 'Comment les douanes accompagnent l’export ?',
+          subtitle: 'Nous levons les freins à l’international.',
+          institution: 'Douanes',
+          expert: 'Jean Valjean',
+          publication_date: Date.new(2026, 1, 1),
+          initial_publication_date: Date.new(2025, 1, 1),
+          landing_subject: 'export', mtm_kwd: 'b', voir_aussi: []
+        )
+      }
+    end
+
+    it 'is an ItemList counting every testimonial' do
+      expect(schema).to include('@type': 'ItemList', numberOfItems: 2)
+    end
+
+    it 'lists each testimonial as an Article ListItem pointing to its page' do
+      first = schema[:itemListElement].first
+      expect(first).to include('@type': 'ListItem', position: 1)
+      expect(first[:item]).to include(
+        '@type': 'Article',
+        '@id': "#{helper.temoignages_expert_url(:banque_de_france)}#article",
+        url: helper.temoignages_expert_url(:banque_de_france),
+        headline: 'Comment la Banque de France vous accompagne ?'
+      )
+    end
+
+    it 'keeps the interview modeling on each item: authored by the org, about the interviewed Person' do
+      item = schema[:itemListElement].first[:item]
+      expect(item[:author]).to eq('@id': "#{helper.root_url}#organization")
+      expect(item[:about]).to include(
+        '@type': 'Person',
+        name: 'Dupond Dupont',
+        worksFor: { '@type': 'GovernmentOrganization', name: 'Banque de France' }
+      )
+    end
+  end
 end
