@@ -15,4 +15,14 @@ class CooperationPolicy < ApplicationPolicy
 
   alias load_filter_options? needs?
   alias provenance_detail_autocomplete? needs?
+
+  class Scope < Scope
+    def resolve
+      if user.is_admin?
+        super
+      else
+        super.merge(user.managed_cooperations)
+      end
+    end
+  end
 end
