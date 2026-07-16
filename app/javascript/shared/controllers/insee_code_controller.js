@@ -45,6 +45,7 @@ export default class extends Controller {
     }
     if (this.showErrorValue) {
       input.focus()
+      input.setAttribute('aria-invalid', 'true')
       input.setAttribute('aria-errormessage', 'solicitation-error')
     }
   }
