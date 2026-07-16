@@ -9,22 +9,31 @@
     - if @error_message.present?
       .fr-alert.fr-alert--error.fr-mb-6w{ role: "alert" }
         %h2.fr-alert__title= t('api_requests.embraced_error_title')
-        %p= t('api_requests.embraced_error_html', message: @error_message, url: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs'))
+        %p#solicitation-error= t('api_requests.embraced_error_html', message: @error_message, url: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs'))
 
     = form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, method: :get) do |f|
       .fr-fieldset
         .fr-fieldset__element
-          .fr-input-group.siret-autocomplete{ 'data-controller': "pages-siret-autocomplete" }
+          .fr-input-group.siret-autocomplete{ data: {
+            controller: "siret-autocomplete",
+            'siret-autocomplete': {
+              'name-value': 'query',
+              'url-value': search_company_solicitation_path(@solicitation.uuid),
+              'default-siret-value': h(params[:query] || @solicitation.siret),
+              'show-error-value': @solicitation.errors[:siret].present? || @error_message.present?,
+              'assistive-hint-value': t("autocomplete_assistive_hint"),
+              'query-too-short-value': t("autocomplete_query_too_short")
+            } } }
             = label_tag "query", class: 'fr-label' do
               = t("solicitations.creation_form.find_my_facility")
               %span.fr-hint-text= t("solicitations.creation_form.search_facility_placeholder")
-            .loader.hidden{ data: { 'pages-siret-autocomplete-target': 'loader' } }
+            .loader.hidden{ data: { 'siret-autocomplete-target': 'loader' } }
 
-            %div{ data: { 'pages-siret-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'query', 'default-value': (h(params[:query] || @solicitation.siret)), url: search_company_solicitation_path(@solicitation.uuid) } }
-            = f.hidden_field :code_region, data: { 'pages-siret-autocomplete-target': 'codeRegionField' }
-            = f.hidden_field :siret, data: { 'pages-siret-autocomplete-target': 'siretField' }
+            %div{ data: { 'siret-autocomplete-target': "field" } }
+            = f.hidden_field :code_region, data: { 'siret-autocomplete-target': 'codeRegionField' }
+            = f.hidden_field :siret, data: { 'siret-autocomplete-target': 'siretField' }
 
-            .fr-my-3w.hidden{ data: { 'pages-siret-autocomplete-target': 'noResultLink' } }
+            .fr-my-3w.hidden{ data: { 'siret-autocomplete-target': 'noResultLink' } }
               = link_to t('solicitations.creation_form.buttons.manual_step_company'), step_company_solicitation_path(@solicitation.uuid, anchor: 'section-breadcrumbs'), class: 'fr-link'
 
       %ul.fr-btns-group.fr-btns-group--right.fr-btns-group--inline

@@ -13,36 +13,40 @@ function inputValueTemplate(result) {
 
 export default class extends Controller {
   static targets = ["autocomplete", "hidden"]
-  static values = { url: String, defaultValue: String, minLength: Number }
+  static values = { url: String, id: String, name: String, defaultValue: String, minLength: Number, assistiveHint: String, queryTooShort: String, showError: Boolean }
 
   initialize() {
-    const autocompleteId = this.autocompleteTarget.dataset.id || 'city_autocomplete'
+    const autocompleteId = this.idValue || 'city_autocomplete'
     this.searchUrl = this.hasUrlValue ? this.urlValue : '/api/internal/communes/search'
     const minLength = this.hasMinLengthValue ? this.minLengthValue : 3
 
     accessibleAutocomplete({
       element: this.autocompleteTarget,
       id: autocompleteId,
-      name: this.autocompleteTarget.dataset.name || 'query',
+      name: this.nameValue || 'query',
       showNoOptionsFound: false,
       minLength: minLength,
       templates: {
         inputValue: inputValueTemplate,
         suggestion: suggestionTemplate
       },
-      tAssistiveHint: () => this.autocompleteTarget.dataset.assistiveHint,
+      tAssistiveHint: () => this.assistiveHintValue,
+      tStatusQueryTooShort: (minQueryLength) => this.queryTooShortValue.replace('%{minQueryLength}', minQueryLength),
       source: this.debouncedSource.bind(this),
       onConfirm: this.onConfirm.bind(this)
     })
   }
 
   connect() {
+    const autocompleteId = this.idValue || 'city_autocomplete'
+    const input = this.element.querySelector(`#${autocompleteId}`)
     if (this.hasDefaultValueValue && this.defaultValueValue) {
-      const autocompleteId = this.autocompleteTarget.dataset.id || 'city_autocomplete'
-      const input = this.element.querySelector(`#${autocompleteId}`)
-      if (input) {
-        input.value = this.defaultValueValue
-      }
+      input.value = this.defaultValueValue
+    }
+    if (this.showErrorValue) {
+      input.focus()
+      input.setAttribute('aria-invalid', 'true')
+      input.setAttribute('aria-errormessage', 'solicitation-error')
     }
   }
 
