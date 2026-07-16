@@ -7,7 +7,8 @@
 
 %ul.fr-nav__list
   %li.fr-nav__item.fr-nav__item--align-right
-    %button.fr-nav__btn{ 'aria-controls': "fr-nav-item-account", 'aria-expanded': "false" }
+    - controller_names = %w[institutions badges csv_exports cooperations invitations]
+    %button.fr-nav__btn{ aria: { controls: "fr-nav-item-account", current: controller_name.in?(controller_names), expanded: "false" } }
       = t('.tools')
     .fr-menu.fr-collapse#fr-nav-item-account
       %ul.fr-menu__list
