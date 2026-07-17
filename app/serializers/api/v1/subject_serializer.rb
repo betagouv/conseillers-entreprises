@@ -1,0 +1,11 @@
+class Api::V1::SubjectSerializer < ActiveModel::Serializer
+  attributes :id, :label, :slug, :can_be_automated
+
+  def can_be_automated = object.cooperations.blank?
+
+  class LandingSubjectSerializer < ActiveModel::Serializer # not using Api::V1::LandingSubjectSerializer
+    attributes :id, :title, :slug, :description, :description_explanation
+  end
+
+  has_many :landing_subjects, serializer: LandingSubjectSerializer
+end

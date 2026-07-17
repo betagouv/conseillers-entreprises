@@ -29,7 +29,7 @@ RSpec.describe "Landing Subjects API" do
 
   describe 'index' do
     path '/api/v1/landings/{landing_id}/landing_subjects' do
-      get 'Liste des sujets' do
+      get 'Liste des sujets d’atterrissage' do
         tags 'Sujets'
         description 'Affiche tous les sujets d’une page d’atterrissage'
         operationId 'listLandingSubjects'

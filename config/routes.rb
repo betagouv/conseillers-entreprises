@@ -29,6 +29,7 @@ Rails.application.routes.draw do
           get :search, on: :collection
         end
       end
+      resources :subjects, only: [:index]
       resources :solicitations, only: [:create]
     end
     namespace :internal do
