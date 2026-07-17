@@ -4,6 +4,7 @@
 #
 #  id                   :bigint(8)        not null, primary key
 #  archived_at          :datetime
+#  can_be_automated     :boolean          default(FALSE), not null
 #  interview_sort_order :integer
 #  label                :string           not null
 #  slug                 :string           not null
@@ -140,7 +141,7 @@ class Subject < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     [
-      "archived", "archived_at", "created_at", "id", "id_value", "interview_sort_order", "label", "slug",
+      "archived", "archived_at", "created_at", "id", "id_value", "can_be_automated", "interview_sort_order", "label", "slug",
       "theme_id", "updated_at"
     ]
   end
