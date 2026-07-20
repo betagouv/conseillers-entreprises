@@ -120,7 +120,7 @@ describe BreadcrumbsHelper do
   end
 
   describe 'breadcrumbs_page' do
-    context 'without a parent (flat about page)' do
+    context 'without a parent' do
       subject { helper.breadcrumbs_page('Comment ça marche ?') }
 
       it {
@@ -131,7 +131,7 @@ describe BreadcrumbsHelper do
       }
     end
 
-    context 'with a parent (nested page)' do
+    context 'with a parent' do
       subject { helper.breadcrumbs_page('Dupond Dupont', { name: 'Qui sont les conseillers ?', url: '/temoignages' }) }
 
       it 'inserts a clickable parent crumb between home and the current page' do

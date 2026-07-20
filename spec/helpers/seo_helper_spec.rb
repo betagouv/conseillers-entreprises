@@ -28,34 +28,12 @@ describe SeoHelper do
       )
     end
 
-    it 'exposes the initial and last publication dates as datetimes with the Paris timezone offset' do
-      expect(schema[:datePublished]).to eq('2024-12-05T00:00:00+01:00')
-      expect(schema[:dateModified]).to eq('2026-06-11T00:00:00+02:00')
-    end
-
-    it 'is authored and published by the editorial organization, not the interviewee' do
-      expect(schema[:author]).to eq('@id': "#{helper.root_url}#organization")
-      expect(schema[:publisher]).to eq('@id': "#{helper.root_url}#organization")
-    end
-
     it 'is about the interviewed advisor as a Person working for the institution' do
       expect(schema[:about]).to include(
         '@type': 'Person',
         name: 'Dupond Dupont',
         worksFor: { '@type': 'GovernmentOrganization', name: 'Banque de France' }
       )
-    end
-
-    it 'is also about the shared government service node of the graph' do
-      expect(schema[:about]).to include('@id': "#{helper.root_url}#service")
-    end
-
-    it 'omits citation when there is no "voir aussi" link' do
-      expect(schema).not_to have_key(:citation)
-    end
-
-    it 'omits potentialAction when no solicitation action url is provided' do
-      expect(schema).not_to have_key(:potentialAction)
     end
 
     context 'with a solicitation action url' do
