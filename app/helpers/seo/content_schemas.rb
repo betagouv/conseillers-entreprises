@@ -84,7 +84,7 @@ module Seo
     # Le conseiller est l'interviewé (le sujet), pas l'auteur : on l'expose donc en `about`
     # comme un Person rattaché à son institution (GovernmentOrganization), et l'auteur est
     # l'organisation éditrice. Ce n'est pas un avis d'utilisateur, d'où "Article" (et non "Review").
-    def temoignage_article_schema(temoignage:, image:)
+    def temoignage_article_schema(temoignage:, image:, action_url: nil)
       return nil if temoignage.blank?
 
       page_url = request.original_url
@@ -115,11 +115,22 @@ module Seo
       }
 
       # Liens « Voir aussi » : ressources externes associées → `citation`.
-      return schema if temoignage.voir_aussi.blank?
+      if temoignage.voir_aussi.present?
+        schema = schema.merge(citation: temoignage.voir_aussi.map do |link|
+          { '@type': "CreativeWork", name: link[:name], url: link[:url] }
+        end)
+      end
 
-      schema.merge(citation: temoignage.voir_aussi.map do |link|
-        { '@type': "CreativeWork", name: link[:name], url: link[:url] }
-      end)
+      # CTA « Échanger avec un conseiller »
+      if action_url.present?
+        schema = schema.merge(potentialAction: {
+          '@type': "CommunicateAction",
+          name: t('cta_button'),
+          target: { '@type': "EntryPoint", urlTemplate: action_url }
+        })
+      end
+
+      schema
     end
 
     # Liste des témoignages (page index) : un ItemList dont chaque élément est un Article

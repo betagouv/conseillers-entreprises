@@ -36,7 +36,11 @@ module AboutSeoHelper
                       breadcrumb: true,
                       main_entity_id: "#{request.original_url}#article"
                     ))
-    add_page_schema(temoignage_article_schema(temoignage: temoignage, image: image))
+    add_page_schema(temoignage_article_schema(
+                      temoignage: temoignage,
+                      image: image,
+                      action_url: new_solicitation_url(landing_slug: 'accueil', landing_subject_slug: temoignage.landing_subject)
+                    ))
   end
 
   def setup_comment_ca_marche_seo_schemas(temoignages:)

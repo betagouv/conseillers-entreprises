@@ -54,6 +54,24 @@ describe SeoHelper do
       expect(schema).not_to have_key(:citation)
     end
 
+    it 'omits potentialAction when no solicitation action url is provided' do
+      expect(schema).not_to have_key(:potentialAction)
+    end
+
+    context 'with a solicitation action url' do
+      subject(:schema) do
+        helper.temoignage_article_schema(temoignage: temoignage, image: '/img.jpeg', action_url: 'http://test.host/aide-entreprise/accueil/demande/tresorerie')
+      end
+
+      it 'exposes a CommunicateAction targeting the subject-specific solicitation form' do
+        expect(schema[:potentialAction]).to eq(
+          '@type': 'CommunicateAction',
+          name: 'Échanger avec un conseiller',
+          target: { '@type': 'EntryPoint', urlTemplate: 'http://test.host/aide-entreprise/accueil/demande/tresorerie' }
+        )
+      end
+    end
+
     context 'with "voir aussi" links' do
       let(:temoignage) do
         TemoignagesExperts::Temoignage.new(
