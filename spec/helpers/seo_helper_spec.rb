@@ -49,6 +49,31 @@ describe SeoHelper do
     it 'is also about the shared government service node of the graph' do
       expect(schema[:about]).to include('@id': "#{helper.root_url}#service")
     end
+
+    it 'omits citation when there is no "voir aussi" link' do
+      expect(schema).not_to have_key(:citation)
+    end
+
+    context 'with "voir aussi" links' do
+      let(:temoignage) do
+        TemoignagesExperts::Temoignage.new(
+          title: 'T', subtitle: 'S', institution: 'Banque de France', expert: 'Dupond Dupont',
+          publication_date: Date.new(2026, 6, 11), initial_publication_date: Date.new(2024, 12, 5),
+          landing_subject: 'tresorerie', mtm_kwd: 'article-bdf',
+          voir_aussi: [
+            { name: 'Réagir aux premières difficultés', url: 'https://entreprendre.service-public.gouv.fr/vosdroits/N32550' },
+            { name: 'Éviter la cessation des paiements', url: 'https://entreprendre.service-public.gouv.fr/vosdroits/N32476' }
+          ]
+        )
+      end
+
+      it 'cites each "voir aussi" resource as a related CreativeWork' do
+        expect(schema[:citation]).to eq([
+          { '@type': 'CreativeWork', name: 'Réagir aux premières difficultés', url: 'https://entreprendre.service-public.gouv.fr/vosdroits/N32550' },
+          { '@type': 'CreativeWork', name: 'Éviter la cessation des paiements', url: 'https://entreprendre.service-public.gouv.fr/vosdroits/N32476' }
+        ])
+      end
+    end
   end
 
   describe '#temoignages_list_schema' do

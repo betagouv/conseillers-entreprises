@@ -88,7 +88,7 @@ module Seo
       return nil if temoignage.blank?
 
       page_url = request.original_url
-      {
+      schema = {
         '@type': "Article",
         '@id': "#{page_url}#article",
         headline: strip_tags(temoignage.title),
@@ -113,6 +113,13 @@ module Seo
         isPartOf: { '@id': "#{page_url}#webpage" },
         mainEntityOfPage: { '@id': "#{page_url}#webpage" }
       }
+
+      # Liens « Voir aussi » : ressources externes associées → `citation`.
+      return schema if temoignage.voir_aussi.blank?
+
+      schema.merge(citation: temoignage.voir_aussi.map do |link|
+        { '@type': "CreativeWork", name: link[:name], url: link[:url] }
+      end)
     end
 
     # Liste des témoignages (page index) : un ItemList dont chaque élément est un Article
