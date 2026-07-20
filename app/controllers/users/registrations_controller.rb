@@ -48,9 +48,7 @@ module Users
 
     def reset_api_key
       authorize @user
-      if @user.institution.api_key.present?
-        @user.institution.api_key.destroy!
-      end
+      @user.institution.api_key.presence&.destroy!
 
       key = @user.institution.create_api_key
       flash[:new_token] = key.token
