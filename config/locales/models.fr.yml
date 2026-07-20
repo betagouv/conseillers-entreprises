@@ -748,6 +748,7 @@ fr:
         manager: Responsable d’antenne
         national_referent: Admin - référent national
         sponsor: Pilotage ministériel
+        tech: Accès technique API
         territorial_referent: Référent régional
     errors:
       messages:
@@ -932,6 +933,9 @@ fr:
         sponsor:
           one: Droits pilotage ministériel
           other: Droits pilotage ministériel
+        tech:
+          one: Accès technique API
+          other: Accès techniques API
         territorial_referent:
           one: Droit référent régional
           other: Droits référent régional

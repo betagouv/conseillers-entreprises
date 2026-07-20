@@ -36,7 +36,8 @@ class UserRight < ApplicationRecord
     cooperation_manager: 4,
     cooperations_referent: 5,
     territorial_referent: 6,
-    sponsor: 7
+    sponsor: 7,
+    tech: 8
   }, prefix: true
 
   ADMIN_ONLY_CATEGORIES = %i[admin national_referent main_referent cooperations_referent territorial_referent]
@@ -53,7 +54,8 @@ class UserRight < ApplicationRecord
            :only_one_user_by_referent,
            :territorial_referent_has_managed_region,
            :only_one_territorial_referent_per_region,
-           :sponsor_has_institution
+           :sponsor_has_institution,
+           :tech_institution_is_users
 
   before_validation :create_territorial_zone_if_needed
   after_save :finalize_territorial_zone_link
@@ -108,6 +110,13 @@ class UserRight < ApplicationRecord
     return if rightable_element.is_a?(Institution)
 
     errors.add(:rightable_element_id, I18n.t('errors.sponsor_without_institution'))
+  end
+
+  def tech_institution_is_users
+    return unless category_tech?
+    return if rightable_element == user.institution
+
+    errors.add(:rightable_element_id, I18n.t('errors.tech_wrong_institution'))
   end
 
   def valid_territorial_zone_region?

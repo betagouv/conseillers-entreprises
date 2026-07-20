@@ -40,6 +40,7 @@ ActiveAdmin.register User do
   scope :managers, group: :role
   scope :cooperation_managers, group: :role
   scope :sponsors, group: :role
+  scope :techs, group: :role
 
   scope :managers_not_invited, group: :invitations
   scope :not_invited, group: :invitations
@@ -209,7 +210,7 @@ ActiveAdmin.register User do
   user_rights_attributes = [:id, :rightable_element_id, :rightable_element_type, :category, :_destroy]
   permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id, :create_expert, :absence_start_at, :absence_end_at,
                 expert_ids: [], user_rights_attributes: user_rights_attributes, user_rights_for_admin_attributes: user_rights_attributes,
-                user_rights_manager_attributes: user_rights_attributes, user_rights_sponsor_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes,
+                user_rights_manager_attributes: user_rights_attributes, user_rights_sponsor_attributes: user_rights_attributes, user_rights_tech_attributes: user_rights_attributes, user_rights_cooperation_manager_attributes: user_rights_attributes,
                 user_rights_territorial_referent_attributes: user_rights_attributes
 
   form do |f|
@@ -315,6 +316,14 @@ ActiveAdmin.register User do
                  label: 'Région',
                  include_blank: 'Sélectionner une région'
         ur.input :rightable_element_type, as: :hidden, input_html: { value: 'TerritorialZone' }
+      end
+
+      # Accès technique API
+      label_base = t('activerecord.models.user_right.tech')
+      f.has_many :user_rights_tech, heading: label_base[:other], allow_destroy: true, new_record: t('active_admin.has_many_new', model: label_base[:one]) do |ur|
+        ur.input :category, as: :hidden, input_html: { value: 'tech' }
+        ur.input :rightable_element_id, as: :hidden, input_html: { value: user.institution&.id }
+        ur.input :rightable_element_type, as: :hidden, input_html: { value: 'Institution' }
       end
 
       # Droits admin

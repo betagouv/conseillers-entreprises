@@ -48,7 +48,9 @@ class Institution < ApplicationRecord
 
   has_many :user_rights, as: :rightable_element, dependent: :destroy
   has_many :user_rights_sponsor, ->{ category_sponsor }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
+  has_many :user_rights_tech, ->{ category_tech }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
   has_many :sponsors, through: :user_rights_sponsor, source: :user, inverse_of: :sponsored_institutions
+  has_many :techs, through: :user_rights_tech, source: :user, inverse_of: :tech_institutions
 
   has_one :api_key
 
