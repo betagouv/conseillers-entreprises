@@ -12,8 +12,9 @@
           = active_link_to antenne.name, antenne_user_path(antenne), { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
   - else
     = active_link_to t('.antenne'), antenne_user_path(user.antenne), { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
-  %li.fr-sidemenu__item
-    = active_link_to ApiKey.model_name.human, api_key_user_path, { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
+  - if policy(user).api_key?
+    %li.fr-sidemenu__item
+      = active_link_to ApiKey.model_name.human, api_key_user_path, { class: 'fr-sidemenu__link', wrap_tag: :li, wrap_class: 'fr-sidemenu__item', class_active: 'fr-sidemenu__item--active' }
 
   - if user.experts.any?
     %li.fr-sidemenu__item

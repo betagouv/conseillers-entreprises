@@ -42,10 +42,12 @@ module Users
     end
 
     def api_key
+      authorize @user
       @api_key = @user.institution.api_key
     end
 
     def reset_api_key
+      authorize @user
       if @user.institution.api_key.present?
         @user.institution.api_key.destroy!
       end
