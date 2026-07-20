@@ -43,6 +43,8 @@ describe 'admin panel' do
       click_on 'Logos'
       click_on 'Créer Logo'
 
+      click_on 'Jetons d’API'
+
       click_on 'Thématiques'
       click_on 'Créer Thématique'
 
