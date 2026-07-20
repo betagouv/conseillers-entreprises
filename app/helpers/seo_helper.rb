@@ -37,6 +37,12 @@ module SeoHelper
     nil
   end
 
+  # Surcharge l'image Open Graph de la page (sinon le logo par défaut est utilisé dans `canonical_tags`).
+  def set_og_image(url)
+    content_for(:og_image, url)
+    nil
+  end
+
   def schema_org_tag(data)
     content_tag(:script, type: 'application/ld+json') do
       raw(data.to_json.gsub('</', '<\/"'))

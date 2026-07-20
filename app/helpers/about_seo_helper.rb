@@ -18,18 +18,25 @@ module AboutSeoHelper
   def setup_temoignage_show_seo(temoignage:, key:)
     title = strip_tags(temoignage.title)
     description = strip_tags(temoignage.subtitle)
+    image = image_url("temoignages_experts/#{key}.jpeg")
 
-    meta(title: title, description: description)
+    set_og_image(image)
+    meta(
+      title: title,
+      description: description,
+      og: { type: 'article', title: title, description: description, image: { alt: temoignage.expert } },
+      article: {
+        published_time: temoignage.initial_publication_date.in_time_zone.iso8601,
+        modified_time: temoignage.publication_date.in_time_zone.iso8601
+      }
+    )
     add_page_schema(page_schema(
                       title: title,
                       description: description,
                       breadcrumb: true,
                       main_entity_id: "#{request.original_url}#article"
                     ))
-    add_page_schema(temoignage_article_schema(
-                      temoignage: temoignage,
-                      image: image_url("temoignages_experts/#{key}.jpeg")
-                    ))
+    add_page_schema(temoignage_article_schema(temoignage: temoignage, image: image))
   end
 
   def setup_comment_ca_marche_seo_schemas(temoignages:)
