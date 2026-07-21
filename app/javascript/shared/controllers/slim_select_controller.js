@@ -2,16 +2,16 @@ import { Controller } from "stimulus";
 import SlimSelect from 'slim-select';
 
 export default class extends Controller {
-  connect() {
-    this.placeholderTextValue ||= 'Sélectionner'
+  static values = {searchPlaceholder: String, searchText: String, searchingText: String, placeholderText: String}
 
+  connect() {
     new SlimSelect({
       select: this.element,
       settings: {
-        searchPlaceholder: 'Rechercher',
-        searchText: 'Pas de résultat',
-        searchingText: 'Recherche…',
-        placeholderText: 'Sélectionner',
+        searchPlaceholder: this.searchPlaceholderValue,
+        searchText: this.searchTextValue,
+        searchingText: this.searchingTextValue,
+        placeholderText: this.placeholderTextValue,
       }
     })
   }
