@@ -8,7 +8,7 @@ class ReportsController < ApplicationController
   layout 'side_menu', only: [:stats, :matches]
 
   def index
-    authorize :report
+    authorize :activity_report
     redirect_to action: :stats, antenne_id: params[:antenne_id]
   end
 
@@ -20,7 +20,7 @@ class ReportsController < ApplicationController
 
   def download
     report = ActivityReport.find(params.expect(:id))
-    authorize report, "#{report.category}?", policy_class: ReportPolicy
+    authorize report, "#{report.category}?"
 
     send_data report.file.download, type: "application/xlsx", filename: report.file.filename.to_s
   end
@@ -31,7 +31,7 @@ class ReportsController < ApplicationController
     @antenne = Antenne.find(params.expect(:antenne_id))
 
     report = @antenne.activity_reports.new(category: action_name)
-    authorize report, policy_class: ReportPolicy
+    authorize report
 
     initialize_filters([:antennes])
   end

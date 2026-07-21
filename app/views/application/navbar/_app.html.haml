@@ -15,7 +15,7 @@
           %span.count-notification.count-notification--green.fr-tag.fr-tag--sm.fr-ml-1w#counter-unseen-nav= current_user.shared_satisfactions.unseen.size
   - if policy([:manager, :stats]).index?
     = navbar_item manager_stats_path, t('.stats'), 'ri-line-chart-line'
-  - if policy(:report).index?
+  - if policy(:activity_report).index?
     = navbar_item reports_path, t('.reports'), 'ri-file-text-line'
   - if policy(:cooperation).index?
     %li.fr-nav__item

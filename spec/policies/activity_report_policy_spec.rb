@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ReportPolicy, :aggregate_failures, type: :policy do
+RSpec.describe ActivityReportPolicy, :aggregate_failures, type: :policy do
   subject { described_class }
 
   let(:antenne) { create :antenne }

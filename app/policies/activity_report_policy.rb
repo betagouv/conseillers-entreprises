@@ -1,4 +1,4 @@
-class ReportPolicy < ApplicationPolicy
+class ActivityReportPolicy < ApplicationPolicy
   def index?
     @user&.is_admin? || @user&.is_manager? || @user&.is_sponsor?
   end
