@@ -4,22 +4,11 @@ class ReportPolicy < ApplicationPolicy
   end
 
   def stats?
-    @user&.is_admin? || @user&.is_manager? || @user&.is_sponsor?
+    @user&.is_admin? || in_supervised_antennes?(@record.antenne) || in_sponsored_institutions?(@record.antenne.institution)
   end
 
   def matches?
-    @user&.is_admin? || @user&.is_manager?
-  end
-
-  def download?
-    case @record.category
-    when 'stats'
-      @user&.is_admin? || in_supervised_antennes?(@record.antenne) || in_sponsored_institutions?(@record.antenne.institution)
-    when 'matches'
-      @user&.is_admin? || in_supervised_antennes?(@record.antenne)
-    else
-      false
-    end
+    @user&.is_admin? || in_supervised_antennes?(@record.antenne)
   end
 
   private

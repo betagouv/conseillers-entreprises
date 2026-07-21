@@ -1,7 +1,7 @@
 - title = t('.title', antenne: @antenne.name)
 - meta title: title
 - content_for :header, render('header', base: t('application.navbar.app.reports'), title: title)
-- content_for :menu, render('menu', antenne_id: @antenne.id)
+- content_for :menu, render('menu', antenne: @antenne)
 - content_for :search, render('search', filters: @filters, antenne: @antenne)
 
 - if @grouped_reports.present?
