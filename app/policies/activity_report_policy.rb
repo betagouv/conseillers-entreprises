@@ -11,10 +11,20 @@ class ActivityReportPolicy < ApplicationPolicy
     @user&.is_admin? || in_supervised_antennes?(@record.antenne)
   end
 
+  def cooperation?
+    @user&.is_admin? || in_managed_cooperation?(@record.cooperation) || in_sponsored_institutions?(@record.cooperation.institution)
+  end
+
+  alias solicitations? cooperation?
+
   private
 
   def in_supervised_antennes?(antenne)
     @user&.supervised_antennes&.include?(antenne)
+  end
+
+  def in_managed_cooperation?(cooperation)
+    @user&.managed_cooperations&.include?(cooperation)
   end
 
   def in_sponsored_institutions?(institution)
