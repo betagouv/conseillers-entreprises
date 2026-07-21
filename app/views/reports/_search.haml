@@ -4,12 +4,7 @@
       = f.label :antenne_id, t('filters.select_antenne'), class: 'fr-label'
       - options = options_for_select(filters[:antennes].pluck(:name, :id), selected: antenne.id)
       = f.select :antenne_id, options, {}, class: "fr-select fr-mb-2v",
-        data: { controller: "slim-select direct-submit",
-          slim_select_search_placeholder_value: t("helpers.slim_select.search_placeholder"),
-          slim_select_search_text_value: t("helpers.slim_select.search_text"),
-          slim_select_searching_text_value: t("helpers.slim_select.searching_text"),
-          slim_select_placeholder_text_value: t("helpers.slim_select.placeholder_text"),
-         action: "direct-submit#submit" }
+        data: { controller: "slim-select direct-submit", action: "direct-submit#submit" }, **i18n_stimulus_values("slim-select", "helpers.slim_select")
 
   .fr-grid-row.fr-grid-row--gutters
     .fr-col-12.fr-col-md-6.fr-col-offset-md-6.text-right
