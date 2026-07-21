@@ -146,3 +146,5 @@ end
 # Use Redis for Action Cable
 gem 'redis'
 gem 'hiredis'
+
+gem "solid_cache", "~> 1.0"
