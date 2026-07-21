@@ -48,4 +48,9 @@ module ApplicationHelper
 
     honeypot_html + timestamp_html
   end
+
+  # Format a hash of i18n key/values as data attributes to pass to a stimulus controller
+  def i18n_stimulus_values(controller, scope)
+    I18n.t(scope).transform_keys { |key| "data-#{controller.dasherize}-#{key.to_s.dasherize}-value" }
+  end
 end

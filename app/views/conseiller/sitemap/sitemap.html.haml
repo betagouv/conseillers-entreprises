@@ -18,7 +18,7 @@
     - if policy([:manager, :needs]).index?
       %li
         = link_to current_user.managed_antennes.many? ? t('application.navbar.antennes_needs') : t('application.navbar.antenne_needs'), manager_needs_path
-    - if policy(:report).index?
+    - if policy(:activity_report).index?
       %li
         = link_to t('application.navbar.app.reports'), reports_path
 

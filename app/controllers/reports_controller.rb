@@ -1,12 +1,14 @@
 class ReportsController < ApplicationController
   include SearchFilters
 
+  before_action :default_antenne_id, only: [:stats, :matches]
   before_action :retrieve_antenne, only: [:stats, :matches]
   before_action :retrieve_quarters, only: [:stats]
 
   layout 'side_menu', only: [:stats, :matches]
 
   def index
+    authorize :activity_report
     redirect_to action: :stats, antenne_id: params[:antenne_id]
   end
 
@@ -18,26 +20,20 @@ class ReportsController < ApplicationController
 
   def download
     report = ActivityReport.find(params.expect(:id))
-    authorize report, policy_class: ReportPolicy
-    respond_to do |format|
-      format.html
-      format.xlsx do
-        send_data report.file.download, type: "application/xlsx", filename: report.file.filename.to_s
-      end
-    end
+    authorize report, "#{report.category}?"
+
+    send_data report.file.download, type: "application/xlsx", filename: report.file.filename.to_s
   end
 
   private
 
   def retrieve_antenne
-    @antenne = if params[:antenne_id].present?
-      Antenne.find(params.expect(:antenne_id))
-    else
-      current_user.managed_antennes.by_higher_territorial_level.first
-    end
-    authorize @antenne, policy_class: ReportPolicy
+    @antenne = Antenne.find(params.expect(:antenne_id))
+
+    report = @antenne.activity_reports.new(category: action_name)
+    authorize report
+
     initialize_filters([:antennes])
-    @antennes_for_select = BuildAntennesCollection.new(current_user).for_manager
   end
 
   def retrieve_quarters

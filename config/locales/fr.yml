@@ -206,6 +206,11 @@ fr:
   helpers:
     select:
       prompt: Veuillez sélectionner
+    slim_select:
+      placeholder_text: Sélectionner
+      search_placeholder: Rechercher
+      search_text: Pas de résultat
+      searching_text: Recherche…
     submit:
       create: Créer un(e) %{model}
       submit: Enregistrer ce(tte) %{model}
