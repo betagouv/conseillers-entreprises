@@ -10,7 +10,7 @@
     </mj-text>
 
     <mj-button background-color="#000091" color="white" border-radius="0" font-weight="700">
-      <%= link_to t('.download_report'), reports_conseiller_cooperations_url, target: :blank, style: 'color: white; text-decoration: none' %>
+      <%= link_to t('.download_report'), reports_conseiller_cooperation_url(@cooperation), target: :blank, style: 'color: white; text-decoration: none' %>
     </mj-button>
 
     <mj-text>

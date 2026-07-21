@@ -13,7 +13,7 @@ class ApplicationController < SharedController
     if user.sign_in_count == 1
       tutoriels_path
     elsif user.is_only_cooperation_manager?
-      needs_conseiller_cooperations_path
+      conseiller_cooperations_path
     elsif user.is_manager?
       manager_needs_path
     elsif user.is_sponsor?

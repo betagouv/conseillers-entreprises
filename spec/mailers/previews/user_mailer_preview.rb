@@ -4,7 +4,8 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   def cooperation_activity_report
-    UserMailer.with(user: User.active.cooperation_managers.find_random).cooperation_activity_report
+    user = User.active.cooperation_managers.find_random
+    UserMailer.with(user: user, cooperation: user.managed_cooperations.find_random).cooperation_activity_report
   end
 
   def invite_to_demo

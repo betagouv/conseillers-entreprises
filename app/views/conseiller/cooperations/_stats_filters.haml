@@ -1,5 +1,13 @@
 = form_with url: request.url, method: :get, local: true do |f|
-  .fr-grid-row.fr-grid-row--gutters.fr-mb-3w#stats-params{ data: { controller: 'filters', url: load_filter_options_conseiller_cooperations_path } }
+  .fr-grid-row.fr-grid-row--gutters.fr-mb-3w#stats-params{ data: { controller: 'filters', url: load_filter_options_conseiller_cooperation_path(cooperation) } }
+
+    - if filters[:institutions].present?
+      .fr-col-12
+        .fr-select-group
+          = f.label :institution_id, class: 'fr-label' do
+            = t('activerecord.models.institution.one')
+          = f.collection_select :institution_id, filters[:institutions], :id, :name, { selected: params[:institution_id],
+          include_blank: t('all.feminine') }, class: "fr-select"
 
     .fr-col-12.fr-col-md-4
       .fr-input-group
@@ -32,12 +40,11 @@
             include_blank: t('all.feminine') }, class: "fr-select"
       - if cooperation.with_provenance_details?
         .fr-input-group.fr-pr-2v
-          .autocomplete-field{ 'data-autocomplete-url-value': "#{provenance_detail_autocomplete_conseiller_cooperations_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length-value': 2 }
+          .autocomplete-field{ 'data-autocomplete-url-value': "#{provenance_detail_autocomplete_conseiller_cooperation_path(cooperation)}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length-value': 2 }
             = f.label :provenance_detail, t('stats.stats_params.provenance_detail'), class: 'fr-label'
             = f.hidden_field :provenance_detail, 'data-autocomplete-target': 'hidden'
             %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text', value: params[:provenance_detail].presence }
             %ul.list-group{ 'data-autocomplete-target': 'results' }
-
 
     .fr-col-12
       .fr-input-group

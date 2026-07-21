@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'conseiller/cooperations/needs' do
+  login_user
+
   describe "index" do
     let(:cooperation) { create :cooperation }
     let(:need01) { create :need_with_matches, diagnosis: create(:diagnosis, solicitation: create(:solicitation, cooperation: cooperation)) }

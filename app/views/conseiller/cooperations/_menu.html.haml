@@ -1,9 +1,15 @@
--# Dynamically build the path for each of the collections. Paths look like this:
-  /cooperations(/cooperation)/:collection_name
+-# locals: (cooperation:)
+
+  Cooperation selection, for users that can access several cooperations:
+  (switch to another cooperation, on the same page than the current)
+= managed_cooperations_select_menu(cooperation)
+
+-# Dynamically build the path for each of the tabs. Paths look like this:
+  /conseiller/cooperations/(:cooperation)/:section
 %ul.fr-sidemenu__list
-  - sections = Cooperation.find(cooperation_id).wants_solicitations_export? ? [:reports, :solicitations] : [:reports]
-  - sections.each do |key|
-    %li.fr-sidemenu__item.item-with-tag
-      - url = polymorphic_path([key, :conseiller, :cooperations].compact, cooperation_id: cooperation_id)
-      = active_link_to(url, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active') do
-        = t(key, scope: 'conseiller.cooperations.sidemenu')
+  - %i[needs matches reports solicitations].each do |key|
+    - if policy(cooperation).send("#{key}?")
+      %li.fr-sidemenu__item.item-with-tag
+        - url = polymorphic_path([key, :conseiller, cooperation].compact)
+        = active_link_to(url, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active') do
+          = t(key, scope: 'conseiller.cooperations.sidemenu')

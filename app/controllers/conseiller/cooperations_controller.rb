@@ -1,10 +1,10 @@
 class Conseiller::CooperationsController < ApplicationController
   include StatsUtilities
 
-  layout 'side_menu', only: %i[reports solicitations]
+  layout 'side_menu'
 
   before_action :retrieve_cooperation, only: %i[needs matches reports solicitations load_filter_options provenance_detail_autocomplete]
-  before_action :init_filters, only: %i[needs matches load_filter_options]
+  before_action :init_filters, only: %i[load_filter_options]
 
   CHART_NAMES = {
     needs: %w[
@@ -19,14 +19,19 @@ class Conseiller::CooperationsController < ApplicationController
     ]
   }
 
+  def index
+    redirect_to needs_conseiller_cooperation_path(policy_scope(Cooperation).first)
+  end
+
   def needs
+    init_filters
     set_stats_params(cooperation_id: @cooperation.id)
     @charts_names = CHART_NAMES[:needs]
   end
 
   def matches
-    # On filtre les MER de l'institution
-    set_stats_params(cooperation_id: @cooperation.id, institution_id: @cooperation.institution.id)
+    init_filters(institutions: [@cooperation.institution, current_user.institution])
+    set_stats_params(cooperation_id: @cooperation.id)
     @charts_names = CHART_NAMES[:matches]
   end
 
@@ -63,15 +68,11 @@ class Conseiller::CooperationsController < ApplicationController
   private
 
   def retrieve_cooperation
-    @cooperation = if params[:cooperation_id].present?
-      Cooperation.find_by(id: params[:cooperation_id])
-    else
-      current_user.managed_cooperation
-    end
-    authorize @cooperation, :manage?
+    @cooperation = Cooperation.find(params.expect(:id))
+    authorize @cooperation
   end
 
-  def init_filters
+  def init_filters(institutions: nil)
     themes = @cooperation.themes.select(:id, :label).order(:label)
     subjects = @cooperation.subjects.not_archived.order(:label)
 
@@ -82,6 +83,7 @@ class Conseiller::CooperationsController < ApplicationController
     @filters = {
       themes: themes.uniq,
       subjects: subjects.uniq,
+      institutions: institutions&.uniq,
       regions: RegionOrderingService.call
     }
   end

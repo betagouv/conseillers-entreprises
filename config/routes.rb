@@ -127,15 +127,17 @@ Rails.application.routes.draw do
         patch :mark_as_seen
       end
     end
-    resources :cooperations, only: %i[], path: 'cooperation' do
-      collection do
+    resources :cooperations, only: %i[index] do
+      member do
         get :needs, path: 'pilotage-besoin'
         get :matches, path: 'pilotage-partenaire'
-        get :reports, path: 'rapports-activite'
-        get :solicitations, path: 'export-sollicitations'
-        get :load_data
         get :load_filter_options
         get :provenance_detail_autocomplete
+        get :reports, path: 'rapports-activite'
+        get :solicitations, path: 'export-sollicitations'
+      end
+      collection do
+        get :load_data
       end
     end
   end

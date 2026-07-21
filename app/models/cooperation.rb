@@ -86,7 +86,7 @@ class Cooperation < ApplicationRecord
   end
 
   def with_provenance_details?
-    self.solicitations.pluck(:provenance_detail).compact_blank.uniq.any?
+    solicitations.where.not(provenance_detail: nil).exists?
   end
 
   def support_user

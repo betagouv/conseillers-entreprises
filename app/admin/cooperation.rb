@@ -59,7 +59,8 @@ ActiveAdmin.register Cooperation do
         div admin_link_to(c, :landings, list: true)
       end
       row(:managers) do |c|
-        div admin_link_to(c, :managers, list: true)
+        name_proc = -> (manager) { manager.institution == c.institution ? manager : "#{manager} (#{manager.institution})" }
+        div admin_link_to(c, :managers, list: true, name: name_proc)
       end
     end
   end
@@ -98,7 +99,7 @@ ActiveAdmin.register Cooperation do
   end
 
   sidebar I18n.t('active_admin.reports.title'), only: [:show, :edit] do
-    div link_to t('active_admin.reports.view_reports_app_page'), reports_conseiller_cooperations_path(cooperation_id: resource.id)
+    div link_to t('active_admin.reports.view_reports_app_page'), reports_conseiller_cooperation_path(resource)
     hr
     activity_report_sidebar_contents(ActivityReports::CooperationStats.new(resource))
     hr

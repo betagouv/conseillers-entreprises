@@ -137,6 +137,7 @@ fr:
         admin: Administration
         annuaire: Annuaire
         badges: Tags
+        cooperation: Coopérations
         csv_exports: Exports csv
         invite: Inviter des utilisateurs
         tools: Outils
@@ -144,9 +145,6 @@ fr:
       antennes_needs: Besoins des antennes
       app:
         cooperation: Coopération
-        cooperation_matches: Pilotage par partenaire
-        cooperation_needs: Pilotage par besoin
-        cooperation_reports: Rapport d’activité
         questionnaire: Questionnaire de satisfaction
         reports: Export des données
         stats: Statistiques
@@ -265,7 +263,7 @@ fr:
   conseiller:
     cooperations:
       matches:
-        title: "%{cooperation_name} - Pilotage %{institution_name}"
+        title: "%{cooperation_name} - Pilotage par partenaire"
       needs:
         decalage_alert:
           description: Le total des besoins transmis peut à partir d’ici différer. Certains besoins ont été requalifiés par notre équipe pour être affectés au bon sujet.
@@ -280,6 +278,8 @@ fr:
         no_export_available: Votre rapport d’activité n’est pas encore disponible.
         title: "%{cooperation_name} - Rapport d’activité"
       sidemenu:
+        matches: Pilotage par partenaire
+        needs: Pilotage par besoin
         reports: Rapports d’activité
         solicitations: Export des sollicitations
       title: Coopération %{name}

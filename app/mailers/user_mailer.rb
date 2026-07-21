@@ -29,7 +29,7 @@ class UserMailer < ApplicationMailer
 
   def cooperation_activity_report
     @support_user = User.cooperations_referent.first
-    @cooperation = @user.managed_cooperation
+    @cooperation = params[:cooperation]
     return false if @support_user.nil? || @cooperation.nil?
     @cooperation_logo_name = @cooperation.logo&.filename
 
