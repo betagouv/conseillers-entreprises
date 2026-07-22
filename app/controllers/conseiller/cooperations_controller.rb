@@ -30,7 +30,11 @@ class Conseiller::CooperationsController < ApplicationController
   end
 
   def matches
-    init_filters(institutions: [@cooperation.institution, current_user.institution])
+    if current_user.is_sponsor?
+      init_filters(institutions: current_user.sponsored_institutions)
+    else
+      init_filters
+    end
     set_stats_params(cooperation_id: @cooperation.id)
     @charts_names = CHART_NAMES[:matches]
   end
