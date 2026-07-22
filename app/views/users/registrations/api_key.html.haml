@@ -1,6 +1,6 @@
 %h2.fr-h5= ApiKey.model_name.human
 %p.fr-mb-2w
-  = t(".description_html", institution_name: current_user.institution, documentation_path: rswag_ui_path, email: "tech@entreprises.service-public.gouv.fr")
+  = t(".description_html", institution_name: current_user.institution, documentation_path: rswag_ui_path, email: ENV.fetch('TECH_EMAIL'))
 
 - if flash[:new_token]
   .fr-alert.fr-alert--info.fr-mb-2w
