@@ -48,9 +48,11 @@ module Users
 
     def reset_api_key
       authorize @user
-      @user.institution.api_key.presence&.destroy!
+      transaction do
+            @user.institution.api_key.presence&.destroy!
 
-      key = @user.institution.create_api_key
+            key = @user.institution.create_api_key
+      end
       flash[:new_token] = key.token
       redirect_to action: :api_key
     end
