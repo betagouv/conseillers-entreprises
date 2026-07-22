@@ -47,6 +47,8 @@ class Cooperation < ApplicationRecord
   has_many :user_rights, as: :rightable_element, dependent: :destroy, inverse_of: :rightable_element
   has_many :user_rights_cooperation_manager, ->{ category_cooperation_manager }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
   has_many :managers, through: :user_rights_cooperation_manager, source: :user, inverse_of: :managed_cooperations
+  has_many :main_institution_managers, -> (c) { joins(:antenne).where(antennes: { institution: c.institution }) }, through: :user_rights_cooperation_manager, source: :user, inverse_of: :managed_cooperations
+  has_many :other_institution_managers, -> (c) { joins(:antenne).where.not(antennes: { institution: c.institution }) }, through: :user_rights_cooperation_manager, source: :user, inverse_of: :managed_cooperations
 
   has_many :activity_reports, as: :reportable, dependent: :destroy, inverse_of: :reportable
   has_many :cooperation_reports, -> { category_cooperation }, class_name: 'ActivityReport', dependent: :destroy, inverse_of: :reportable
