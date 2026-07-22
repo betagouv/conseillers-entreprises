@@ -1395,6 +1395,7 @@ fr:
         description_html: Un jeton est nécessaire pour utiliser l’API de Service-Public Conseillers entreprises. Le jeton est commun à toute votre institution (%{institution_name}). Vous pouvez consulter <a href="%{documentation_path}">la documentation ici</a>, et n’hésitez pas à nous contacter à l’adresse <a href="mailto:%{email}">%{email}</a>.
         new_token: 'Votre nouveau jeton est :'
         reset: Réinitialiser
+        reset_confirm: Attention, votre jeton existant va cesser de fonctionner. Assurez-vous qu’il n’est plus utilisé.
         valid_until_html: Il est valide jusqu’au <b>%{datetime}</b>.
     thats_you: C’est vous !
   views:

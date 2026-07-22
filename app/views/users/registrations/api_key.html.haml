@@ -15,6 +15,6 @@
     %p= t(".valid_until_html", datetime: l(@api_key.valid_until, format: :long_sentence))
   .fr-alert.fr-alert--warning.fr-mb-2w
     %p= t(".click_to_reset")
-  = button_to t(".reset"), reset_api_key_user_path, method: :put, class: "fr-btn fr-btn--primary"
+  = button_to t(".reset"), reset_api_key_user_path, method: :put, class: "fr-btn fr-btn--primary", data: { confirm: t('.reset_confirm') }
 - else
   = button_to t(".create"), reset_api_key_user_path, method: :put, class: "fr-btn fr-btn--primary"
