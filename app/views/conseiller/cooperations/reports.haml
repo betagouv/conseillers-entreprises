@@ -1,12 +1,7 @@
-- title = t('.title', cooperation_name: @cooperation.name)
-- meta title: title
+- meta title: t('.title', cooperation_name: @cooperation.name)
 
+- content_for :header, render('header', cooperation: @cooperation, cooperations: @cooperations)
 - content_for :menu, render('menu', cooperation: @cooperation)
-
-.fr-container
-  .fr-grid-row
-    .fr-col
-      %h1.fr-h2= title
 
 .fr-container.reports
   - if @reports_by_quarter.present?

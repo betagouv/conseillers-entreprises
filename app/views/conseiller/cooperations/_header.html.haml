@@ -1,0 +1,13 @@
+-# locals: (cooperation:, cooperations:)
+
+%h1.fr-h2= t('application.navbar.app.cooperation')
+
+.fr-grid-row.fr-grid-row--gutters
+  .fr-col
+    %fieldset.fr-fieldset.fr-mb-0
+      .fr-fieldset__element.fr-fieldset__element--inline
+        = label_tag :id, t(".select_cooperation"), class: 'fr-label'
+      .fr-fieldset__element.fr-fieldset__element--inline.fr-fieldset__element--inline-grow
+        - options = options_for_managed_cooperations_select_menu(cooperation, cooperations)
+        = select_tag("", options, class: 'fr-select',
+          data: { controller: "slim-select direct-submit", action: "direct-submit#submit" }, **i18n_stimulus_values("slim-select", "helpers.slim_select"))
