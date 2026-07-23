@@ -850,6 +850,8 @@ fr:
       matches: export-mises-en-relation
       solicitations: sollicitations
       stats: export-stats
+    header:
+      select_antenne: Choisissez une Antenne
     matches:
       download: Télécharger le fichier mises en relation %{date}
       file_infos: XLSX - %{weight} ko
