@@ -262,6 +262,8 @@ fr:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
   conseiller:
     cooperations:
+      header:
+        select_cooperation: Choisissez une coopération
       matches:
         title: "%{cooperation_name} - Pilotage par partenaire"
       needs:
@@ -282,7 +284,6 @@ fr:
         needs: Pilotage par besoin
         reports: Rapports d’activité
         solicitations: Export des sollicitations
-      title: Coopération %{name}
     csv_exports:
       index:
         no_export: Vous n'avez pas d'export actif
