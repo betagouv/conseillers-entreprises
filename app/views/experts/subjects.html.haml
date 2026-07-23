@@ -1,3 +1,6 @@
+- content_for :header, render('users/header', user: @user)
+- content_for :menu, render('users/menu', user: @user)
+
 %p
   = t('.instructions_html', institution: @expert.institution)
 

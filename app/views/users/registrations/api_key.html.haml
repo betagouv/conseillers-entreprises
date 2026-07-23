@@ -1,3 +1,6 @@
+- content_for :header, render('users/header', user: @user)
+- content_for :menu, render('users/menu', user: @user)
+
 %h2.fr-h5= ApiKey.model_name.human
 %p.fr-mb-2w
   = t(".description_html", institution_name: current_user.institution, documentation_path: rswag_ui_path, email: ENV.fetch('TECH_EMAIL'))

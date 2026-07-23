@@ -1,3 +1,6 @@
+- content_for :header, render('users/header', user: @user)
+- content_for :menu, render('users/menu', user: @user)
+
 = form_with model: @expert, local: true do |f|
   .fr-input-group
     = f.label :email, class: 'fr-label'

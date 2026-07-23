@@ -1,7 +1,7 @@
 class ExpertsController < ApplicationController
   before_action :find_expert, except: :index
 
-  layout 'user_tabs'
+  layout 'side_menu'
 
   def index
     redirect_to subjects_expert_path(current_user.experts.first)

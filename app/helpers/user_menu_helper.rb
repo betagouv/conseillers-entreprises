@@ -1,5 +1,5 @@
-module UserTabsHelper
-  # Helper for the user_tabs layout.
+module UserMenuHelper
+  # Helper for the side menu in Users::Registrations
   # If there are several tabs in the same section, add a sublist;
   def experts_items_in_section(experts, path_component, section_title)
     if experts.size == 1
