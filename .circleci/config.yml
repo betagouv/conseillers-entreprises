@@ -90,6 +90,7 @@ jobs:
             DATABASE_URL: "postgres://conseillers_entreprises_test@localhost:5432/conseillers_entreprises_test"
             APPLICATION_EMAIL: "contact@mailrandom.fr"
             APPLICATION_MARKETING_EMAIL: "contact@marketing.mailrandom.fr"
+            TECH_EMAIL: "tech@entreprises.service-public.gouv.fr"
             TEST_ERROR_RENDERING: "false"
             CI: 'true'
             RORVSWILD_KEY: 'rorvswild'
