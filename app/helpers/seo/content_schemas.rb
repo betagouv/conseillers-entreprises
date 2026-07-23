@@ -80,6 +80,97 @@ module Seo
       }
     end
 
+    # Témoignage d'un conseiller : interview éditoriale publiée par le service.
+    # Le conseiller est l'interviewé (le sujet), pas l'auteur : on l'expose donc en `about`
+    # comme un Person rattaché à son institution (GovernmentOrganization), et l'auteur est
+    # l'organisation éditrice. Ce n'est pas un avis d'utilisateur, d'où "Article" (et non "Review").
+    def temoignage_article_schema(temoignage:, image:, action_url: nil)
+      return nil if temoignage.blank?
+
+      page_url = request.original_url
+      schema = {
+        '@type': "Article",
+        '@id': "#{page_url}#article",
+        headline: strip_tags(temoignage.title),
+        description: strip_tags(temoignage.subtitle),
+        image: image,
+        datePublished: temoignage.initial_publication_date.in_time_zone.iso8601,
+        dateModified: temoignage.publication_date.in_time_zone.iso8601,
+        inLanguage: "fr-FR",
+        author: { '@id': "#{root_url}#organization" },
+        publisher: { '@id': "#{root_url}#organization" },
+        about: [
+          { '@id': "#{root_url}#service" },
+          {
+            '@type': "Person",
+            name: temoignage.expert,
+            worksFor: {
+              '@type': "GovernmentOrganization",
+              name: temoignage.institution
+            }
+          }
+        ],
+        isPartOf: { '@id': "#{page_url}#webpage" },
+        mainEntityOfPage: { '@id': "#{page_url}#webpage" }
+      }
+
+      # Liens « Voir aussi » : ressources externes associées → `citation`.
+      if temoignage.voir_aussi.present?
+        schema = schema.merge(citation: temoignage.voir_aussi.map do |link|
+          { '@type': "CreativeWork", name: link[:name], url: link[:url] }
+        end)
+      end
+
+      # CTA « Échanger avec un conseiller »
+      if action_url.present?
+        schema = schema.merge(potentialAction: {
+          '@type': "CommunicateAction",
+          name: t('cta_button'),
+          target: { '@type': "EntryPoint", urlTemplate: action_url }
+        })
+      end
+
+      schema
+    end
+
+    # Liste des témoignages (page index) : un ItemList dont chaque élément est un Article
+    # résumé. Les items partagent le même `@id` (`...#article`) que le nœud complet de la
+    # page de détail, pour que les moteurs fusionnent les deux en une seule entité.
+    def temoignages_list_schema(temoignages:)
+      return nil if temoignages.blank?
+
+      {
+        '@type': "ItemList",
+        '@id': "#{request.original_url}#itemlist",
+        numberOfItems: temoignages.size,
+        itemListOrder: "https://schema.org/ItemListOrderAscending",
+        itemListElement: temoignages.map.with_index do |(key, temoignage), index|
+          page_url = temoignages_expert_url(key)
+          {
+            '@type': "ListItem",
+            position: index + 1,
+            item: {
+              '@type': "Article",
+              '@id': "#{page_url}#article",
+              headline: strip_tags(temoignage.title),
+              url: page_url,
+              image: image_url("temoignages_experts/#{key}.jpeg"),
+              datePublished: temoignage.initial_publication_date.in_time_zone.iso8601,
+              author: { '@id': "#{root_url}#organization" },
+              about: {
+                '@type': "Person",
+                name: temoignage.expert,
+                worksFor: {
+                  '@type': "GovernmentOrganization",
+                  name: temoignage.institution
+                }
+              }
+            }
+          }
+        end
+      }
+    end
+
     def review_schema(author:, content:, index: 1)
       return nil if author.blank? || content.blank?
 

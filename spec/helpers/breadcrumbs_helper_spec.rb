@@ -118,4 +118,54 @@ describe BreadcrumbsHelper do
       end
     end
   end
+
+  describe 'breadcrumbs_page' do
+    context 'without a parent' do
+      subject { helper.breadcrumbs_page('Comment ça marche ?') }
+
+      it {
+        is_expected.to eq(
+          '<li><a class="fr-breadcrumb__link blue" href="/">Accueil</a></li>' \
+          '<li><a class="fr-breadcrumb__link" aria-current="page" href="#">Comment ça marche ?</a></li>'
+        )
+      }
+    end
+
+    context 'with a parent' do
+      subject { helper.breadcrumbs_page('Dupond Dupont', { name: 'Qui sont les conseillers ?', url: '/temoignages' }) }
+
+      it 'inserts a clickable parent crumb between home and the current page' do
+        is_expected.to eq(
+          '<li><a class="fr-breadcrumb__link blue" href="/">Accueil</a></li>' \
+          '<li><a class="fr-breadcrumb__link blue" href="/temoignages">Qui sont les conseillers ?</a></li>' \
+          '<li><a class="fr-breadcrumb__link" aria-current="page" href="#">Dupond Dupont</a></li>'
+        )
+      end
+    end
+  end
+
+  describe 'breadcrumbs_data_page' do
+    context 'without a parent' do
+      subject { helper.send(:breadcrumbs_data_page, 'Comment ça marche ?') }
+
+      it {
+        is_expected.to eq([
+          { name: 'Accueil', url: helper.root_url },
+          { name: 'Comment ça marche ?', url: helper.request.original_url }
+        ])
+      }
+    end
+
+    context 'with a parent' do
+      subject { helper.send(:breadcrumbs_data_page, 'Dupond Dupont', { name: 'Qui sont les conseillers ?', url: 'http://test.host/temoignages' }) }
+
+      it 'includes home, the parent, then the current page' do
+        is_expected.to eq([
+          { name: 'Accueil', url: helper.root_url },
+          { name: 'Qui sont les conseillers ?', url: 'http://test.host/temoignages' },
+          { name: 'Dupond Dupont', url: helper.request.original_url }
+        ])
+      end
+    end
+  end
 end

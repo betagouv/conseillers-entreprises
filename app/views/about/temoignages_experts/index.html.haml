@@ -1,3 +1,5 @@
+- setup_temoignages_index_seo(temoignages: @temoignages)
+
 .fr-container.fr-py-7w.fr-mt-3v
   .fr-grid-row
     .fr-col-12.fr-col-md-8
@@ -13,7 +15,7 @@
   .fr-grid-row.fr-grid-row--gutters.fr-my-7w
     - @temoignages.each do |key, temoignage|
       .fr-col-md-12
-        .fr-card.fr-card--sm.fr-enlarge-link.fr-card--horizontal.fr-card--horizontal-tier
+        %article.fr-card.fr-card--sm.fr-enlarge-link.fr-card--horizontal.fr-card--horizontal-tier
           .fr-card__body
             .fr-card__content
               %h2.fr-card__title

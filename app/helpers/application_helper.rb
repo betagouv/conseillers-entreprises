@@ -15,7 +15,8 @@ module ApplicationHelper
     capture do
       concat tag.link(href: canonical_url, rel: :canonical)
       concat tag.meta(property: 'og:url', content: canonical_url)
-      concat tag.meta(property: 'og:image', content: image_url('logo-ce.png'))
+      og_image = content_for?(:og_image) ? content_for(:og_image) : image_url('logo-ce.png')
+      concat tag.meta(property: 'og:image', content: og_image)
     end
   end
 

@@ -19,9 +19,12 @@ module BreadcrumbsHelper
   end
 
   # Breadcrumbs used for other pages
-  # Ex : "Déposer une demande › Comment ça marche ?"
-  def breadcrumbs_page(title)
+  # Ex : "Accueil › Comment ça marche ?"
+  # Avec un parent optionnel (page intermédiaire cliquable) :
+  # Ex : "Accueil › Qui sont les conseillers ? › Sophie Neel"
+  def breadcrumbs_page(title, parent = nil)
     html = content_tag('li', link_to(t('breadcrumbs_helper.home_link.home'), root_path, class: 'fr-breadcrumb__link blue'))
+    html << content_tag('li', link_to(parent[:name], parent[:url], class: 'fr-breadcrumb__link blue')) if parent.present?
     html << content_tag('li', link_to(title, '#', class: 'fr-breadcrumb__link', 'aria-current': 'page'))
     html
   end
@@ -70,10 +73,10 @@ module BreadcrumbsHelper
     items
   end
 
-  def breadcrumbs_data_page(title)
-    [
-      { name: t('breadcrumbs_helper.home_link.home'), url: root_url },
-      { name: title, url: request.original_url }
-    ]
+  def breadcrumbs_data_page(title, parent = nil)
+    items = [{ name: t('breadcrumbs_helper.home_link.home'), url: root_url }]
+    items << { name: parent[:name], url: parent[:url] } if parent.present?
+    items << { name: title, url: request.original_url }
+    items
   end
 end

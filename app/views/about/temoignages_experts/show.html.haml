@@ -1,6 +1,8 @@
-= render 'pages/breadcrumbs', title: t('about.temoignages_experts.title')
+- setup_temoignage_show_seo(temoignage: @temoignage, key: @key)
 
-.fr-container.fr-py-7w
+= render 'pages/breadcrumbs', title: @temoignage.expert, parent: { name: t('about.temoignages_experts.title'), url: temoignages_experts_url }
+
+%article.fr-container.fr-py-7w
   .fr-grid-row.fr-grid-row--center
     .fr-col-12.fr-col-md-10.fr-col-lg-8
       %h1= @temoignage.title
