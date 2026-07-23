@@ -37,4 +37,18 @@ RSpec.describe Cooperation do
       expect(landing_01.reload.archived_at).to be_nil
     end
   end
+
+  describe 'managers' do
+    let(:institution1) { create :institution }
+    let(:institution2) { create :institution }
+    let(:manager1) { create :user, institution: institution1 }
+    let(:manager2) { create :user, institution: institution2 }
+    let(:cooperation) { create :cooperation, institution: institution1, managers: [manager1, manager2] }
+
+    it do
+      expect(cooperation.managers).to contain_exactly(manager1, manager2)
+      expect(cooperation.main_institution_managers).to contain_exactly(manager1)
+      expect(cooperation.other_institution_managers).to contain_exactly(manager2)
+    end
+  end
 end
