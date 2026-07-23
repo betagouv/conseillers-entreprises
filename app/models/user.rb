@@ -105,9 +105,11 @@ class User < ApplicationRecord
   has_many :user_rights_cooperation_manager, ->{ category_cooperation_manager }, class_name: 'UserRight', inverse_of: :user
   has_many :user_rights_territorial_referent, ->{ category_territorial_referent }, class_name: 'UserRight', inverse_of: :user
   has_many :user_rights_sponsor, ->{ category_sponsor }, class_name: 'UserRight', inverse_of: :user
+  has_many :user_rights_tech, ->{ category_tech }, class_name: 'UserRight', inverse_of: :user
   has_many :managed_antennes, ->{ distinct }, through: :user_rights_manager, source: :antenne, inverse_of: :managers
   has_many :managed_cooperations, ->{ distinct }, through: :user_rights_cooperation_manager, source: :cooperation, inverse_of: :managers
   has_many :sponsored_institutions, ->{ distinct }, through: :user_rights_sponsor, source: :institution, inverse_of: :sponsors
+  has_many :tech_institutions, ->{ distinct }, through: :user_rights_tech, source: :institution, inverse_of: :techs
 
   # Utiles pour active_admin
   accepts_nested_attributes_for :user_rights, allow_destroy: true
@@ -115,6 +117,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :user_rights_territorial_referent, allow_destroy: true
   accepts_nested_attributes_for :user_rights_manager, allow_destroy: true
   accepts_nested_attributes_for :user_rights_sponsor, allow_destroy: true
+  accepts_nested_attributes_for :user_rights_tech, allow_destroy: true
   accepts_nested_attributes_for :user_rights_cooperation_manager, allow_destroy: true
 
   ## Validations
@@ -146,6 +149,7 @@ class User < ApplicationRecord
   scope :admin, -> { not_deleted.joins(:user_rights).merge(UserRight.category_admin) }
   scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_manager).distinct }
   scope :sponsors, -> { not_deleted.joins(:user_rights).merge(UserRight.category_sponsor).distinct }
+  scope :techs, -> { not_deleted.joins(:user_rights).merge(UserRight.category_tech).distinct }
   scope :cooperation_managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_cooperation_manager).distinct }
   scope :national_referent, -> { not_deleted.joins(:user_rights).merge(UserRight.category_national_referent).distinct }
   scope :cooperations_referent, -> { not_deleted.joins(:user_rights).merge(UserRight.category_cooperations_referent).distinct }
@@ -309,6 +313,10 @@ class User < ApplicationRecord
     user_rights_sponsor.any?
   end
 
+  def is_tech?
+    user_rights_tech.any?
+  end
+
   def is_cooperation_manager?
     user_rights_cooperation_manager.any?
   end
@@ -352,7 +360,7 @@ class User < ApplicationRecord
   end
 
   def support_user
-    if self.is_sponsor? || (self.is_manager? && self.antenne.national?)
+    if self.is_sponsor? || self.is_tech? || (self.is_manager? && self.antenne.national?)
       UserRight.category_main_referent.first.user
     elsif self.is_cooperation_manager?
       self.managed_cooperations.first.support_user

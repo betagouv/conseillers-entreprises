@@ -195,6 +195,7 @@ fr:
     page_title: Erreur - %{title}
     satisfaction_without_comment: Vous ne pouvez pas partager une satisfaction sans commentaire
     sponsor_without_institution: Une institution doit être attribuée à ce pilotage ministériel
+    tech_wrong_institution: Un accès tech ne doit être attribué qu’à l’institution propre de l’utilisateur
     template:
       body: 'Veuillez vérifier les champs suivants : '
       header:

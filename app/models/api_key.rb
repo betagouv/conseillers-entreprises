@@ -34,6 +34,7 @@ class ApiKey < ApplicationRecord
 
   ## Callbacks
   #
+  after_initialize :generate_token, if: :new_record?
   before_save :generate_token_hmac_digest
   before_save :calculate_valid_until
 
@@ -69,6 +70,12 @@ class ApiKey < ApplicationRecord
   end
 
   private
+
+  def generate_token
+    return unless self.token.nil?
+
+    self.token = SecureRandom.hex(32)
+  end
 
   def generate_token_hmac_digest
     raise ActiveRecord::RecordInvalid, 'token is required' if token.blank?

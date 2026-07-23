@@ -55,6 +55,8 @@ Rails.application.routes.draw do
       get :password, path: 'mot_de_passe'
       put :update_password
       get 'antenne/:id', action: :antenne, as: :antenne
+      get :api_key
+      put :reset_api_key
     end
   end
 

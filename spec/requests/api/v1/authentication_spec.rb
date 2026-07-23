@@ -17,16 +17,12 @@ RSpec.describe "Authentication API" do
 
       expect(response).not_to be_successful
       expect(response).to have_http_status(:not_found)
-      expect(json["errors"]).to eq([{ "message" => "n’existe pas ou est invalide", "source" => "Token d’API" }])
+      expect(json["errors"]).to eq([{ "message" => "n’existe pas ou est invalide", "source" => "Jeton d’API" }])
     end
   end
 
   describe "when token without institution" do
-    let(:token) { SecureRandom.hex(32) }
-
-    before do
-      ApiKey.create(token: token)
-    end
+    let(:token) { ApiKey.create.token }
 
     it 'returns error' do
       get "/api/v1/landings", headers: { 'Authorization' => "Bearer token=#{token}" }
@@ -34,7 +30,7 @@ RSpec.describe "Authentication API" do
 
       expect(response).not_to be_successful
       expect(response).to have_http_status(:not_found)
-      expect(json["errors"]).to eq([{ "message" => "n’existe pas ou est invalide", "source" => "Token d’API" }])
+      expect(json["errors"]).to eq([{ "message" => "n’existe pas ou est invalide", "source" => "Jeton d’API" }])
     end
   end
 
