@@ -9,6 +9,8 @@ class BuildAntennesCollection
     antennes_collection = antennes_collection_hash(Antenne.not_deleted, manager_antennes)
     sponsor_antennes = Antenne.where(institution: user.sponsored_institutions).territorial_level_national.not_deleted
     antennes_collection += sponsor_antennes.map { |a| { name: a.name, id: a.id, territorial_level: Antenne::TERRITORIAL_ORDER[a.territorial_level.to_sym] } }
+    admin_antennes = user.is_admin? ? Antenne.not_deleted : Antenne.none
+    antennes_collection += admin_antennes.map { |a| { name: a.name, id: a.id, territorial_level: Antenne::TERRITORIAL_ORDER[a.territorial_level.to_sym] } }
     add_locals_antennes(antennes_collection, manager_antennes)
   end
 
