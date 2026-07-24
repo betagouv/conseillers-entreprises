@@ -6,11 +6,16 @@ default: &default
     statement_timeout: 30000
 
 development:
-  <<: *default
-  database: place-des-entreprises-development
-  host: localhost
-  username: postgres
-  password: postgres
+  primary:
+    <<: *default
+    database: place-des-entreprises-development
+    host: localhost
+    username: postgres
+    password: postgres
+  cache:
+    <<: *default
+    database: app_development_cache
+    migrations_paths: db/cache_migrate
 
 test:
   <<: *default
