@@ -607,6 +607,8 @@ fr:
       solicitation_mail_template:
         email_type: Identifiant de l'email
         title: Titre de l'email
+      subject:
+        can_be_automated: automatisable
       subject_questions:
         ameliorer_conditions_travail:
           label:

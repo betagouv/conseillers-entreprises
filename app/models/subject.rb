@@ -4,6 +4,7 @@
 #
 #  id                   :bigint(8)        not null, primary key
 #  archived_at          :datetime
+#  can_be_automated     :boolean          default(FALSE), not null
 #  interview_sort_order :integer
 #  label                :string           not null
 #  slug                 :string           not null
@@ -59,6 +60,9 @@ class Subject < ApplicationRecord
   ## themes
   has_many :territorial_zones, through: :theme
   has_many :cooperations, through: :theme, inverse_of: :specific_subjects
+
+  ## landing_subjects
+  has_many :landing_subjects_not_archived, -> { not_archived }, class_name: 'LandingSubject', inverse_of: :subject
   has_many :landing_themes, -> { distinct }, through: :landing_subjects, inverse_of: :subjects
   has_many :landings, through: :landing_subjects, inverse_of: :subjects
   has_many :intern_landings, -> { intern }, through: :landing_subjects, inverse_of: :subjects, source: :landings
@@ -140,7 +144,7 @@ class Subject < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     [
-      "archived", "archived_at", "created_at", "id", "id_value", "interview_sort_order", "label", "slug",
+      "archived", "archived_at", "created_at", "id", "id_value", "can_be_automated", "interview_sort_order", "label", "slug",
       "theme_id", "updated_at"
     ]
   end
