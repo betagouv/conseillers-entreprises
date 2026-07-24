@@ -1,6 +1,7 @@
 desc 'Setup and push reviewed code to production'
 task :push_to_production do
   require 'highline/import'
+  require 'json'
 
   def fetch_main_and_production
     puts 'Updating main and production…'
@@ -26,9 +27,19 @@ task :push_to_production do
       message.match(/.*pull request #(?<pr>\d+).*\n*(?<title>.*)/)
     end
 
+    # Labels of the issues closed by the PR (bug, entreprises…), to give more context in the announce
+    def closing_issues_labels(pr_number)
+      query = "{ repository(owner: \"betagouv\", name: \"conseillers-entreprises\") { pullRequest(number: #{pr_number}) { closingIssuesReferences(first: 10) { nodes { labels(first: 10) { nodes { name } } } } } } }"
+      response = `gh api graphql -f query='#{query}' 2> /dev/null`
+      return [] unless $?.success?
+      JSON.parse(response).dig('data', 'repository', 'pullRequest', 'closingIssuesReferences', 'nodes')
+        .flat_map{ |issue| issue.dig('labels', 'nodes').pluck('name') }.uniq
+    end
+
     def format_parts(parts)
       pull_request_url = 'https://github.com/betagouv/conseillers-entreprises/pull/'
-      "* [##{parts['pr']}](#{pull_request_url}#{parts['pr']}) #{parts['title'].strip}"
+      labels = closing_issues_labels(parts['pr']).map{ |label| "`#{label}`" }.join(' ')
+      "* [##{parts['pr']}](#{pull_request_url}#{parts['pr']}) #{parts['title'].strip} #{labels}".strip
     end
 
     messages
@@ -75,4 +86,6 @@ task :push_to_production do
   ensure_clean_working_tree
   merge_main_to_production
   push_to_production
+
+  Rake::Task[:production_announcement].invoke
 end
