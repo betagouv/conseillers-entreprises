@@ -7,7 +7,7 @@
 
 %ul.fr-nav__list
   %li.fr-nav__item.fr-nav__item--align-right
-    - controller_names = %w[institutions badges csv_exports cooperations invitations]
+    - controller_names = %w[institutions badges csv_exports reports cooperations invitations]
     %button.fr-nav__btn{ aria: { controls: "fr-nav-item-account", current: controller_name.in?(controller_names), expanded: "false" } }
       = t('.tools')
     .fr-menu.fr-collapse#fr-nav-item-account
@@ -16,5 +16,6 @@
         = navbar_item institutions_path, t('.annuaire'), 'ri-government-line'
         = navbar_item badges_path, t('.badges'), 'ri-price-tag-3-line'
         = navbar_item conseiller_csv_exports_path, t('.csv_exports'), 'ri-folder-download-line'
+        = navbar_item reports_path, t('.reports'), 'ri-file-text-line'
         = navbar_item conseiller_cooperations_path, t('.cooperation'), 'ri-shake-hands-line'
         = navbar_item new_user_invitation_path, t('.invite'), 'ri-user-add-line'

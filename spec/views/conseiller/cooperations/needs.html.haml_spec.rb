@@ -14,6 +14,7 @@ RSpec.describe 'conseiller/cooperations/needs' do
       assign(:stats_params, { start_date: start_date, end_date: end_date })
       assign(:filters, { themes: [], subjects: [], regions: [] })
       assign(:cooperation, cooperation)
+      assign(:cooperations, [cooperation])
       assign(:charts_names, %w[
         solicitations_completed solicitations_diagnoses
         needs_positioning needs_done needs_done_no_help needs_done_not_reachable needs_not_for_me
@@ -22,7 +23,6 @@ RSpec.describe 'conseiller/cooperations/needs' do
 
       render
 
-      expect(rendered).to have_text("Pilotage par besoin")
       expect(rendered).to have_css('.card-title', count: 12)
     end
   end

@@ -72,6 +72,7 @@ class Conseiller::CooperationsController < ApplicationController
   private
 
   def retrieve_cooperation
+    @cooperations = policy_scope(Cooperation)
     @cooperation = Cooperation.find(params.expect(:id))
     authorize @cooperation
   end
