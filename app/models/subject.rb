@@ -60,6 +60,9 @@ class Subject < ApplicationRecord
   ## themes
   has_many :territorial_zones, through: :theme
   has_many :cooperations, through: :theme, inverse_of: :specific_subjects
+
+  ## landing_subjects
+  has_many :landing_subjects_not_archived, -> { not_archived }, class_name: 'LandingSubject', inverse_of: :subject
   has_many :landing_themes, -> { distinct }, through: :landing_subjects, inverse_of: :subjects
   has_many :landings, through: :landing_subjects, inverse_of: :subjects
   has_many :intern_landings, -> { intern }, through: :landing_subjects, inverse_of: :subjects, source: :landings

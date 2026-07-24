@@ -5,7 +5,5 @@ class Api::V1::SubjectSerializer < ActiveModel::Serializer
     attributes :id, :title, :slug, :description, :description_explanation
   end
 
-  has_many :landing_subjects, serializer: LandingSubjectSerializer do
-    object.landing_subjects.filter(&:not_archived?)
-  end
+  has_many :landing_subjects_not_archived, key: :landing_subjects, serializer: LandingSubjectSerializer
 end
