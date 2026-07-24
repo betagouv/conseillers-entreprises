@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_09_134557) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_24_131519) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -560,6 +560,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_09_134557) do
     t.index ["status"], name: "index_solicitations_on_status"
     t.index ["uuid"], name: "index_solicitations_on_uuid"
     t.check_constraint "insee_code::text ~ '^[0-9AB]{5}$'::text", name: "check_solicitations_insee_code_format"
+  end
+
+  create_table "solid_cache_entries", force: :cascade do |t|
+    t.integer "byte_size", null: false
+    t.datetime "created_at", null: false
+    t.binary "key", null: false
+    t.bigint "key_hash", null: false
+    t.binary "value", null: false
+    t.index ["byte_size"], name: "index_solid_cache_entries_on_byte_size"
+    t.index ["key_hash", "byte_size"], name: "index_solid_cache_entries_on_key_hash_and_byte_size"
+    t.index ["key_hash"], name: "index_solid_cache_entries_on_key_hash", unique: true
   end
 
   create_table "spams", force: :cascade do |t|
