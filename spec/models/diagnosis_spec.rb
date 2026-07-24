@@ -157,6 +157,41 @@ RSpec.describe Diagnosis do
     end
   end
 
+  describe 'deduplicate_visitee' do
+    let(:company) { create :company }
+    let(:facility) { create :facility, company: company }
+    let!(:existing_contact) { create :contact, company: company, email: 'visitee@example.com' }
+
+    context 'when a new visitee is built with an email already used in the company' do
+      it 'reuses the existing contact instead of creating a new one' do
+        diagnosis = build :diagnosis, facility: facility
+        diagnosis.build_visitee(full_name: 'Other Name', email: 'visitee@example.com', company: company)
+
+        expect { diagnosis.save! }.not_to change(Contact, :count)
+        expect(diagnosis.visitee).to eq existing_contact
+      end
+    end
+
+    context 'when the visitee email does not exist in the company' do
+      it 'creates a new contact' do
+        diagnosis = build :diagnosis, facility: facility
+        diagnosis.build_visitee(full_name: 'New Person', email: 'new@example.com', company: company)
+
+        expect { diagnosis.save! }.to change(Contact, :count).by(1)
+        expect(diagnosis.visitee.email).to eq 'new@example.com'
+      end
+    end
+
+    context 'when the visitee is already persisted' do
+      it 'does not change the visitee' do
+        diagnosis = build :diagnosis, facility: facility, visitee: existing_contact
+
+        expect { diagnosis.save! }.not_to change(Contact, :count)
+        expect(diagnosis.visitee).to eq existing_contact
+      end
+    end
+  end
+
   describe 'scopes' do
     describe 'in progress' do
       subject { described_class.in_progress.count }

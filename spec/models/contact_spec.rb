@@ -16,6 +16,33 @@ RSpec.describe Contact do
       end
     end
 
+    describe 'email uniqueness per company' do
+      let(:company) { create :company }
+      let!(:existing) { create :contact, company: company, email: 'shared@example.com' }
+
+      context 'same email in the same company' do
+        it 'is invalid' do
+          duplicate = build :contact, company: company, email: 'shared@example.com'
+          expect(duplicate).not_to be_valid
+          expect(duplicate.errors[:email]).to be_present
+        end
+      end
+
+      context 'same email in a different company' do
+        it 'is valid' do
+          other = build :contact, email: 'shared@example.com'
+          expect(other).to be_valid
+        end
+      end
+
+      context 'blank email with same company' do
+        it 'is valid (allow_blank)' do
+          contact = build :contact, :with_phone_number, company: company, email: nil
+          expect(contact).to be_valid
+        end
+      end
+    end
+
     describe 'email or phone_number' do
       context 'without any contact type' do
         it do
