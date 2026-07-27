@@ -16,14 +16,15 @@ info:
     email: tech@entreprises.service-public.gouv.fr
 tags:
 - name: Page d’atterrissage
+- name: Sujets d’atterrissage
 - name: Thèmes
 - name: Sujets
 paths:
   "/api/v1/landings/{landing_id}/landing_subjects":
     get:
-      summary: Liste des sujets
+      summary: Liste des sujets d’atterrissage
       tags:
-      - Sujets
+      - Sujets d’atterrissage
       description: Affiche tous les sujets d’une page d’atterrissage
       operationId: listLandingSubjects
       parameters:
@@ -109,7 +110,7 @@ paths:
     get:
       summary: Recherche d’un sujet à partir de son slug
       tags:
-      - Sujets
+      - Sujets d’atterrissage
       description: Recherche d’un sujet à partir de son slug, équivalent à un mot
         clé, pour faciliter la récupération d’un sujet spécifique.
       operationId: searchLandingSubject
@@ -206,7 +207,7 @@ paths:
     get:
       summary: Page sujet
       tags:
-      - Sujets
+      - Sujets d’atterrissage
       description: Affiche le détail d’un formulaire sujet
       operationId: showLandingSubject
       parameters:
@@ -654,6 +655,68 @@ paths:
                       total_themes:
                         type: integer
                         description: Nombre de thèmes liée à la page d’atterrissage.
+  "/api/v1/subjects":
+    get:
+      summary: Liste des sujets
+      tags:
+        - Sujets
+      description: Affiche tous les sujets de besoins ainsi que les sujets d’atterrissage associés.
+      operationId: listSubjects
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    data:
+                      - id: 111
+                        label: Développer son activité grâce à l'intelligence artificielle (IA)
+                        slug: developpement_numerique_developper_son_activite_grace_a_l_intelligence_artificielle_ia
+                        can_be_automated: true
+                        landing_subjects:
+                          - id: 218
+                            title: Développer votre activité grâce à l'intelligence artificielle (IA)
+                            slug: developper-votre-activite-grace-a-l-intelligence-artificielle-ia
+                            description:
+                              <ul><li>Réaliser un entretien gratuit et personnalisé pour identifier vos besoins (gestion des réservations, des stocks alimentaires…)</li>
+                              <li>Se former à l’IA pour créer des contenus, gagner du temps dans vos tâches quotidiennes</li>
+                              <li>Identifier en atelier les meilleures solutions d’IA par rapport à votre activité et vos usages</li></ul>
+                            description_explanation:
+                              <ul><li>votre activité</li>
+                              <li>vos questionnements sur l'IA</li>
+                              <li>sur quels aspects vous souhaitez être conseillé(e)</li></ul>
+                    metadata:
+                      total_results: 1
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/subject"
+                  metadata:
+                    type: object
+                    properties:
+                      total_results:
+                        type: integer
+                        description: Nombre de sujets.
+        '404':
+          description: Mauvais token
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    errors:
+                      - source: Token d’API
+                        message: n’existe pas ou est invalide
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
   "/api/v1/solicitations":
     post:
       summary: Créer une sollicitation
@@ -742,7 +805,8 @@ paths:
         required: true
 servers:
 - url: https://conseillers-entreprises.service-public.gouv.fr
-- url: https://ce-staging.osc-fr1.scalingo.io
+- url: https://staging.conseillers-entreprises.service-public.gouv.fr
+- url: https://localhost:3000
 components:
   schemas:
     landing:
@@ -809,6 +873,25 @@ components:
       - id
       - title
       - slug
+    subject:
+      type: object
+      properties:
+        id:
+          type: integer
+        label:
+          type: string
+        slug:
+          type: string
+        can_be_automated:
+          type: boolean
+        landing_subjects:
+          type: array
+          items:
+            "$ref": "#/components/schemas/landing_subject"
+      required:
+        - id
+        - label
+        - slug
     new_solicitation:
       type: object
       properties:

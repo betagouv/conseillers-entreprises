@@ -21,6 +21,7 @@ ActiveAdmin.register Subject do
     end
     column :theme, sortable: 'themes.interview_sort_order'
     column :interview_sort_order
+    column :can_be_automated
     column(:needs) do |s|
       div admin_link_to(s, :needs)
       div admin_link_to(s, :matches)
@@ -44,6 +45,7 @@ ActiveAdmin.register Subject do
 
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :label
+  filter :can_be_automated
 
   ## CSV
   #
@@ -51,6 +53,7 @@ ActiveAdmin.register Subject do
     column :label
     column :theme
     column :interview_sort_order
+    column :can_be_automated
     column_count :institutions_subjects
     column :is_archived
     column_count :institutions
@@ -64,6 +67,7 @@ ActiveAdmin.register Subject do
       row :theme
       row :label
       row :interview_sort_order
+      row :can_be_automated
       row :archived_at
     end
     attributes_table do
@@ -100,13 +104,14 @@ ActiveAdmin.register Subject do
 
   ## Form
   #
-  permit_params :theme_id, :label, :interview_sort_order
+  permit_params :theme_id, :label, :interview_sort_order, :can_be_automated
 
   form do |f|
     f.inputs do
       f.input :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
       f.input :label
       f.input :interview_sort_order
+      f.input :can_be_automated
     end
 
     actions
