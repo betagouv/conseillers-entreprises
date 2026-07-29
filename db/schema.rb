@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_17_131234) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_29_143000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -154,14 +154,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_17_131234) do
   end
 
   create_table "contacts", force: :cascade do |t|
-    t.bigint "company_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.string "email"
     t.string "full_name", null: false
     t.string "phone_number"
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["company_id"], name: "index_contacts_on_company_id"
-    t.index ["email"], name: "index_contacts_on_email"
+    t.index ["email"], name: "index_contacts_on_email", unique: true, where: "((email IS NOT NULL) AND ((email)::text <> ''::text))"
   end
 
   create_table "cooperation_themes", force: :cascade do |t|
@@ -695,7 +693,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_17_131234) do
   add_foreign_key "api_keys", "institutions"
   add_foreign_key "badge_badgeables", "badges"
   add_foreign_key "company_satisfactions", "needs"
-  add_foreign_key "contacts", "companies"
   add_foreign_key "cooperation_themes", "cooperations"
   add_foreign_key "cooperation_themes", "themes"
   add_foreign_key "cooperations", "institutions"

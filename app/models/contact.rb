@@ -8,16 +8,10 @@
 #  phone_number :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  company_id   :bigint(8)        not null
 #
 # Indexes
 #
-#  index_contacts_on_company_id  (company_id)
-#  index_contacts_on_email       (email)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (company_id => companies.id)
+#  index_contacts_on_email  (email) UNIQUE WHERE ((email IS NOT NULL) AND ((email)::text <> ''::text))
 #
 
 class Contact < ApplicationRecord
@@ -25,14 +19,14 @@ class Contact < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :company, inverse_of: :contacts
   has_many :diagnoses, dependent: :restrict_with_error, foreign_key: 'visitee_id', inverse_of: :visitee
   has_many :needs, through: :diagnoses, inverse_of: :visitee
+  has_many :companies, -> { distinct }, through: :diagnoses
 
   ## Validations
   #
   validate :at_least_email_or_phone_number
-  validates :email, uniqueness: { scope: :company_id, allow_blank: true }
+  validates :email, uniqueness: { allow_blank: true }
 
   ##
   #
@@ -43,10 +37,10 @@ class Contact < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["company_id", "created_at", "email", "full_name", "id", "id_value", "phone_number", "updated_at"]
+    ["created_at", "email", "full_name", "id", "id_value", "phone_number", "updated_at"]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["company", "diagnoses", "needs"]
+    ["companies", "diagnoses", "needs"]
   end
 end

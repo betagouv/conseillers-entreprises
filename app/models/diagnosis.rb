@@ -67,7 +67,7 @@ class Diagnosis < ApplicationRecord
 
   def deduplicate_visitee
     return unless visitee&.new_record? && visitee.email.present?
-    existing = facility.company.contacts.find_by(email: visitee.email)
+    existing = Contact.find_by(email: visitee.email)
     self.visitee = existing if existing
   end
 

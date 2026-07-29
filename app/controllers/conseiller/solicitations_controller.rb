@@ -179,7 +179,7 @@ class Conseiller::SolicitationsController < ApplicationController
 
     Facility
       .select('DISTINCT facilities.id, facilities.*, companies.name AS company_name, COALESCE(contacts.email, \'\') AS contact_email')
-      .joins(:company, :diagnoses, company: :contacts)
+      .joins(:company, diagnoses: :visitee)
       .where(diagnoses: { step: 5 })
       .where('contacts.email IN (?) OR facilities.siret IN (?)', emails, sirets)
   end

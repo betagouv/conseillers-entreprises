@@ -51,6 +51,33 @@ describe DiagnosisCreation::Steps do
         expect(diagnosis.errors.details).to eq({ :'visitee.full_name' => [{ error: :blank }] })
       end
     end
+
+    context 'a contact already exists with the same email' do
+      let(:existing_contact) { create :contact, email: 'visitee@example.com' }
+      let(:solicitation) { create :solicitation, email: 'visitee@example.com' }
+      let(:diagnosis) do
+        existing_contact # must exist before prepare_visitee_from_solicitation runs, in the `before` block above
+        create :diagnosis, solicitation: solicitation, visitee: nil
+      end
+
+      it 'reuses the existing contact instead of creating a duplicate, even for a different company' do
+        expect(diagnosis.visitee).to eq existing_contact
+      end
+    end
+
+    context 'solicitation has a blank email' do
+      let(:existing_contact) { create :contact, email: nil, phone_number: '0611111111' }
+      let(:solicitation) { create :solicitation, email: nil, phone_number: '0622222222' }
+      let(:diagnosis) do
+        existing_contact # must exist before prepare_visitee_from_solicitation runs, in the `before` block above
+        create :diagnosis, solicitation: solicitation, visitee: nil
+      end
+
+      it 'does not reuse an unrelated contact that also has no email' do
+        expect(diagnosis.visitee).to be_persisted
+        expect(diagnosis.visitee).not_to eq existing_contact
+      end
+    end
   end
 
   describe 'prepare_matches_from_solicitation' do

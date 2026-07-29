@@ -29,7 +29,7 @@ ActiveAdmin.register Company do
     column :created_at
     column(:facilities) do |c|
       div admin_link_to(c, :facilities)
-      div admin_link_to(c, :contacts)
+      div admin_link_to(c, :contacts, list: true)
     end
     column(:activity) do |c|
       div admin_link_to(c, :diagnoses, blank_if_empty: true)
@@ -79,7 +79,7 @@ ActiveAdmin.register Company do
       row :created_at
       row(:facilities) do |c|
         div admin_link_to(c, :facilities)
-        div admin_link_to(c, :contacts)
+        div admin_link_to(c, :contacts, list: true)
       end
       row(:activity) do |c|
         div admin_link_to(c, :diagnoses)

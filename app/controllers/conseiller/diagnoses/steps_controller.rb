@@ -8,7 +8,6 @@ class Conseiller::Diagnoses::StepsController < ApplicationController
 
   def update_contact
     diagnosis_params = params_for_visit
-    diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
     diagnosis_params[:step] = :needs if @diagnosis.step != 'matches'
 
     if @diagnosis.update(diagnosis_params)

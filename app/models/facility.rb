@@ -63,7 +63,7 @@ class Facility < ApplicationRecord
   end
 
   scope :for_contacts, -> (emails = []) do
-    joins(company: :contacts).where(contacts: { email: emails })
+    joins(diagnoses: :visitee).where(contacts: { email: emails }).distinct
   end
 
   # Cherche les établissements avec un code insee d'un département de la région

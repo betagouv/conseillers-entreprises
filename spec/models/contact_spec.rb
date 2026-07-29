@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Contact do
   describe 'associations' do
     it do
-      is_expected.to belong_to :company
       is_expected.to have_many(:diagnoses).dependent(:restrict_with_error)
     end
   end
@@ -12,33 +11,25 @@ RSpec.describe Contact do
     describe 'presence' do
       it do
         is_expected.to validate_presence_of(:full_name)
-        is_expected.to belong_to(:company)
       end
     end
 
-    describe 'email uniqueness per company' do
-      let(:company) { create :company }
-      let!(:existing) { create :contact, company: company, email: 'shared@example.com' }
+    describe 'email uniqueness' do
+      let!(:existing) { create :contact, email: 'shared@example.com' }
 
-      context 'same email in the same company' do
+      context 'same email' do
         it 'is invalid' do
-          duplicate = build :contact, company: company, email: 'shared@example.com'
+          duplicate = build :contact, email: 'shared@example.com'
           expect(duplicate).not_to be_valid
           expect(duplicate.errors[:email]).to be_present
         end
       end
 
-      context 'same email in a different company' do
-        it 'is valid' do
-          other = build :contact, email: 'shared@example.com'
-          expect(other).to be_valid
-        end
-      end
-
-      context 'blank email with same company' do
+      context 'blank email' do
         it 'is valid (allow_blank)' do
-          contact = build :contact, :with_phone_number, company: company, email: nil
-          expect(contact).to be_valid
+          create :contact, :with_phone_number, email: nil
+          other = build :contact, :with_phone_number, email: nil
+          expect(other).to be_valid
         end
       end
     end

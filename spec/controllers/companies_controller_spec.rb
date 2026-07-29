@@ -66,11 +66,11 @@ RSpec.describe CompaniesController do
 
   describe 'GET #needs' do
     let(:facility) { create :facility }
-    let!(:contact) { create :contact, company: facility.company, email: "louise.michel@commune.paris" }
+    let(:contact) { create :contact, email: "louise.michel@commune.paris" }
     let(:expert) { create :expert, users: [current_user] }
     let(:another_expert) { create :expert }
-    # Besoin avec MER status: :quo de l'expert
-    let(:quo_diagnosis) { create :diagnosis, facility: facility }
+    # Besoin avec MER status: :quo de l'expert, dont le contact est aussi rattaché à cette entreprise
+    let(:quo_diagnosis) { create :diagnosis, facility: facility, visitee: contact }
     let(:quo_need) { create :need_with_matches, diagnosis: quo_diagnosis, status: :quo }
     let!(:quo_match) { create :match, need: quo_need, expert: expert, status: :quo }
     # Besoin avec MER status: :done de l'expert
