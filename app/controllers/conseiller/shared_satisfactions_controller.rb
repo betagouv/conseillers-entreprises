@@ -74,12 +74,11 @@ class Conseiller::SharedSatisfactionsController < ApplicationController
   end
 
   def collections_counts
-    @satisfaction_collections_count = Rails.cache.fetch(['satisfaction', retrieve_unseen_satisfactions.size, retrieve_seen_satisfactions.size]) do
+    @satisfaction_collections_count ||=
       {
         unseen: retrieve_unseen_satisfactions.size,
         seen: retrieve_seen_satisfactions.size,
       }
-    end
   end
 
   def filter_params

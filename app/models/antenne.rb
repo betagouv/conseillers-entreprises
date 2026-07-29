@@ -209,65 +209,57 @@ class Antenne < ApplicationRecord
   # tous les besoins auxquels une antenne peut avoir accès suivant son échelon territorial
   #
   def perimeter_received_needs
-    Rails.cache.fetch(['perimeter_received_needs', id, territorial_level], expires_in: 1.hour) do
-      if self.national?
-        self.institution.perimeter_received_needs
-      elsif self.regional?
-        antenne_ids = self.territorial_antennes.pluck(:id) << self.id
-        Need
-          .diagnosis_completed
-          .joins(experts: :antenne)
-          .where(experts: { antenne_id: antenne_ids })
-          .distinct
-      else
-        self.received_needs_including_from_deleted_experts
-      end
+    if self.national?
+      self.institution.perimeter_received_needs
+    elsif self.regional?
+      antenne_ids = self.territorial_antennes.pluck(:id) << self.id
+      Need
+        .diagnosis_completed
+        .joins(experts: :antenne)
+        .where(experts: { antenne_id: antenne_ids })
+        .distinct
+    else
+      self.received_needs_including_from_deleted_experts
     end
   end
 
   def perimeter_received_matches
-    Rails.cache.fetch(['perimeter_received_matches', id, territorial_level], expires_in: 1.hour) do
-      if self.national?
-        self.institution.perimeter_received_matches
-      elsif self.regional?
-        antenne_ids = self.territorial_antennes.pluck(:id) << self.id
-        Match
-          .joins(expert: :antenne)
-          .sent
-          .where(expert: { antenne_id: antenne_ids })
-          .distinct
-      else
-        self.received_matches_including_from_deleted_experts
-      end
+    if self.national?
+      self.institution.perimeter_received_matches
+    elsif self.regional?
+      antenne_ids = self.territorial_antennes.pluck(:id) << self.id
+      Match
+        .joins(expert: :antenne)
+        .sent
+        .where(expert: { antenne_id: antenne_ids })
+        .distinct
+    else
+      self.received_matches_including_from_deleted_experts
     end
   end
 
   def perimeter_received_matches_from_needs(needs)
-    Rails.cache.fetch(['perimeter_received_matches_from_needs', id, needs.map(&:id)], expires_in: 1.hour) do
-      if self.national?
-        self.institution.perimeter_received_matches_from_needs(needs)
-      elsif self.regional?
-        antenne_ids = self.territorial_antennes.pluck(:id) << self.id
-        Match.joins(:need, expert: :antenne)
-          .where(need: needs, expert: { antenne_id: antenne_ids })
-          .distinct
-      else
-        self.received_matches_including_from_deleted_experts.joins(:need).where(need: needs).distinct
-      end
+    if self.national?
+      self.institution.perimeter_received_matches_from_needs(needs)
+    elsif self.regional?
+      antenne_ids = self.territorial_antennes.pluck(:id) << self.id
+      Match.joins(:need, expert: :antenne)
+        .where(need: needs, expert: { antenne_id: antenne_ids })
+        .distinct
+    else
+      self.received_matches_including_from_deleted_experts.joins(:need).where(need: needs).distinct
     end
   end
 
   def perimeter_received_shared_company_satisfactions
-    Rails.cache.fetch(['perimeter_received_satisfactions', id, territorial_level], expires_in: 1.hour) do
-      if self.national?
-        self.institution.received_shared_company_satisfactions
-      else
-        antenne_ids = self.regional? ? territorial_antennes.ids + [id] : [id]
-        CompanySatisfaction
-          .joins(shared_satisfactions: { expert: :antenne })
-          .where(experts: { antenne_id: antenne_ids })
-          .distinct
-      end
+    if self.national?
+      self.institution.received_shared_company_satisfactions
+    else
+      antenne_ids = self.regional? ? territorial_antennes.ids + [id] : [id]
+      CompanySatisfaction
+        .joins(shared_satisfactions: { expert: :antenne })
+        .where(experts: { antenne_id: antenne_ids })
+        .distinct
     end
   end
 
