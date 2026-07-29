@@ -3,7 +3,7 @@ ActiveAdmin.register Contact do
 
   ## Index
   #
-  includes :company
+  includes :companies
 
   index do
     selectable_column
@@ -12,15 +12,14 @@ ActiveAdmin.register Contact do
       div '✉ ' + (c.email || '')
       div '✆ ' + (c.phone_number || '')
     end
-    column(:company) do |c|
-      div admin_link_to(c, :company)
+    column(:companies) do |c|
+      admin_link_to(c, :companies, list: true)
     end
     actions dropdown: true do |contact|
       item t('active_admin.person.normalize_values'), normalize_values_admin_contact_path(contact)
     end
   end
 
-  filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :full_name
   filter :email
   filter :phone_number
@@ -32,7 +31,7 @@ ActiveAdmin.register Contact do
     column :full_name
     column :email
     column :phone_number
-    column :company
+    column(:companies) { |c| c.companies.map(&:name).join(', ') }
   end
 
   ## Show
@@ -42,7 +41,7 @@ ActiveAdmin.register Contact do
       row :full_name
       row :email
       row :phone_number
-      row :company
+      row(:companies) { |c| admin_link_to(c, :companies, list: true) }
     end
   end
 
@@ -52,18 +51,13 @@ ActiveAdmin.register Contact do
 
   ## Form
   #
-  permit_params :full_name, :email, :phone_number, :company_id
+  permit_params :full_name, :email, :phone_number
 
   form do |f|
     f.inputs do
       f.input :full_name
       f.input :email
       f.input :phone_number
-
-      f.input :company, as: :ajax_select, data: {
-        url: :admin_companies_path,
-        search_fields: [:name]
-      }
     end
 
     actions

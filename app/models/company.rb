@@ -24,7 +24,6 @@ class Company < ApplicationRecord
 
   ## Relations and Validations
   #
-  has_many :contacts, inverse_of: :company
   has_many :facilities, inverse_of: :company
 
   ## Validations
@@ -37,6 +36,7 @@ class Company < ApplicationRecord
   has_many :diagnoses, through: :facilities, inverse_of: :company
   has_many :needs, through: :facilities, inverse_of: :company
   has_many :matches, through: :facilities, inverse_of: :company
+  has_many :contacts, -> { distinct }, through: :diagnoses, source: :visitee
 
   ## Scopes
   #
