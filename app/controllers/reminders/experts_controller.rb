@@ -40,6 +40,7 @@ module Reminders
     end
 
     def taking_care
+      @action = :taking_care_match
       retrieve_needs(@expert, :taking_care, view: :quo)
     end
 

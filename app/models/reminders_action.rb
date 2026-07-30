@@ -25,7 +25,8 @@ class RemindersAction < ApplicationRecord
     refused: 5,           # Sortir du panier 'refusé'
     quo_match: 6,         # Sortir du suivi quali MER en attente
     starred_need: 7,      # Sortie de la veille Besoin suivi
-    refused_feedback: 8   # Sortie du suivi quali MER refusée avec commentaire
+    refused_feedback: 8,  # Sortie du suivi quali MER refusée avec commentaire
+    taking_care_match: 9  # Sortir du suivi Stock en cours
   }, prefix: true
 
   ## Associations
