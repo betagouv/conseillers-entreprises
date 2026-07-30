@@ -16,6 +16,7 @@ module InvolvementConcern
 
   def needs_taking_care
     received_needs_match_not_archived
+      .without_action(:taking_care_match)
       .merge(Match.status_taking_care)
   end
 
