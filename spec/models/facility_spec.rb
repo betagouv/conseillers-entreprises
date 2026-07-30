@@ -56,6 +56,36 @@ RSpec.describe Facility do
         is_expected.to contain_exactly(facility_in_region_1, facility_in_region_2)
       end
     end
+
+    describe "for_contacts" do
+      let(:company) { create :company }
+      let(:facility_with_diagnosis) { create :facility, company: company }
+      let(:other_facility_same_company) { create :facility, company: company }
+      let(:contact) { create :contact, email: 'contact@example.com' }
+      let!(:diagnosis) { create :diagnosis, facility: facility_with_diagnosis, visitee: contact }
+      let!(:unrelated_facility) { create :facility }
+
+      subject { described_class.for_contacts(['contact@example.com']) }
+
+      it 'returns only the facility this contact actually has a diagnosis on' do
+        is_expected.to contain_exactly(facility_with_diagnosis)
+      end
+
+      it 'does not return another facility of the same company without a diagnosis for this contact' do
+        is_expected.not_to include(other_facility_same_company)
+      end
+
+      context 'when several matching emails have diagnoses on the same facility' do
+        let(:other_contact) { create :contact, email: 'other@example.com' }
+        let!(:other_diagnosis) { create :diagnosis, facility: facility_with_diagnosis, visitee: other_contact }
+
+        subject { described_class.for_contacts(['contact@example.com', 'other@example.com']) }
+
+        it 'does not return duplicate rows for the same facility' do
+          expect(subject.to_a.size).to eq 1
+        end
+      end
+    end
   end
 
   describe "#region" do

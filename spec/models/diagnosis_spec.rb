@@ -171,6 +171,16 @@ RSpec.describe Diagnosis do
       end
     end
 
+    context 'when a new visitee is built with the same email but a different case' do
+      it 'still reuses the existing contact instead of failing on a stale uniqueness error' do
+        diagnosis = build :diagnosis, facility: facility
+        diagnosis.build_visitee(full_name: 'Other Name', email: 'Visitee@Example.com')
+
+        expect { diagnosis.save! }.not_to change(Contact, :count)
+        expect(diagnosis.visitee).to eq existing_contact
+      end
+    end
+
     context 'when the visitee email does not exist yet' do
       it 'creates a new contact' do
         diagnosis = build :diagnosis, facility: facility

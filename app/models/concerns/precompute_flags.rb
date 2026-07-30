@@ -29,11 +29,7 @@ module PrecomputeFlags
   private
 
   def precompute_sirets_per_solicitation(records, emails)
-    facility_sirets = Facility
-      .joins(diagnoses: :visitee)
-      .where(contacts: { email: emails })
-      .distinct
-      .pluck('contacts.email', :siret)
+    facility_sirets = Facility.for_contacts(emails).pluck('contacts.email', :siret)
 
     records.each_with_object({}) do |solicitation, hash|
       sirets = [solicitation.facility&.siret]
