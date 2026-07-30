@@ -20,7 +20,6 @@ module DiagnosisCreation
       diagnosis.build_visitee(full_name: solicitation.full_name,
                          email: solicitation.email,
                          phone_number: solicitation.phone_number)
-      # Reuses an existing contact by email if there is one, see Diagnosis#deduplicate_visitee
       diagnosis.step = :contact
       diagnosis.save # Validate and save both the new visitee and the diagnosis
 
