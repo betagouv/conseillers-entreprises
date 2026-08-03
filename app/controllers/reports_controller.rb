@@ -1,7 +1,4 @@
 class ReportsController < ApplicationController
-  include SearchFilters
-
-  before_action :default_antenne_id, only: [:stats, :matches]
   before_action :retrieve_antenne, only: [:stats, :matches]
   before_action :retrieve_quarters, only: [:stats]
 
@@ -28,20 +25,18 @@ class ReportsController < ApplicationController
   private
 
   def retrieve_antenne
-    @antenne = Antenne.find(params.expect(:antenne_id))
+    @antennes = BuildAntennesCollection.new(current_user).for_manager_or_sponsor
+    antenne_hash = if params[:antenne_id]
+      @antennes.find{ it[:id].to_s == params.expect(:antenne_id) }
+    else
+      @antennes.find { it[:id].to_s.include?('aggregate') } || @antennes.first
+    end
 
-    report = @antenne.activity_reports.new(category: action_name)
-    authorize report
-
-    initialize_filters([:antennes])
+    @antenne = Antenne.find(antenne_hash[:id])
+    authorize @antenne.activity_reports.new(category: action_name)
   end
 
   def retrieve_quarters
     @quarters = @antenne.stats_reports.order(start_date: :desc).pluck(:start_date, :end_date).uniq
-  end
-
-  # SearchFilter
-  def base_needs_for_filters
-    @base_needs_for_filters ||= @antenne.perimeter_received_needs.distinct
   end
 end

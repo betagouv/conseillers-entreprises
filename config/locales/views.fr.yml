@@ -140,6 +140,7 @@ fr:
         cooperation: Coopérations
         csv_exports: Exports csv
         invite: Inviter des utilisateurs
+        reports: Export des données
         tools: Outils
       antenne_needs: Besoins de l’antenne
       antennes_needs: Besoins des antennes
@@ -262,6 +263,8 @@ fr:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
   conseiller:
     cooperations:
+      header:
+        select_cooperation: Choisissez une coopération
       matches:
         title: "%{cooperation_name} - Pilotage par partenaire"
       needs:
@@ -282,7 +285,6 @@ fr:
         needs: Pilotage par besoin
         reports: Rapports d’activité
         solicitations: Export des sollicitations
-      title: Coopération %{name}
     csv_exports:
       index:
         no_export: Vous n'avez pas d'export actif
@@ -850,6 +852,8 @@ fr:
       matches: export-mises-en-relation
       solicitations: sollicitations
       stats: export-stats
+    header:
+      select_antenne: Choisissez une Antenne
     matches:
       download: Télécharger le fichier mises en relation %{date}
       file_infos: XLSX - %{weight} ko

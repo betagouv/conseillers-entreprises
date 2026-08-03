@@ -1,15 +1,9 @@
-- title = t('.title', cooperation_name: @cooperation.name)
-- cooperation_title = t('conseiller.cooperations.title', name: @cooperation.name)
-- meta title: title
+- meta title: t('.title', cooperation_name: @cooperation.name)
 - content_for :head do
   - javascript_include_tag 'highcharts', data: { 'turbo-track': 'reload' }, nonce: 'true'
 
+- content_for :header, render('header', cooperation: @cooperation, cooperations: @cooperations)
 - content_for :menu, render('menu', cooperation: @cooperation)
-
-.fr-container
-  .fr-grid-row
-    .fr-col
-      %h1.fr-h2= title
 
 .fr-container
   .fr-grid-row

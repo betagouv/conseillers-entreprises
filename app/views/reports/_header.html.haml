@@ -1,3 +1,14 @@
-%h1.fr-h2= title
+-# locals: (antenne:, antennes:)
 
-= render 'shared/breadcrumb', pages: [{ title: base, path: reports_path }], current_page: title
+%h1.fr-h2= t('application.navbar.app.reports')
+
+= form_with url: request.url, method: :get, local: true do |f|
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col
+      %fieldset.fr-fieldset.fr-mb-0
+        .fr-fieldset__element.fr-fieldset__element--inline
+          = f.label :antenne_id, t(".select_antenne"), class: 'fr-label'
+        .fr-fieldset__element.fr-fieldset__element--inline.fr-fieldset__element--inline-grow
+          - options = options_for_select(antennes.pluck(:name, :id), selected: antenne.id)
+          = f.select :antenne_id, options, {}, class: "fr-select",
+            data: { controller: "slim-select direct-submit", action: "direct-submit#submit" }, **i18n_stimulus_values("slim-select", "helpers.slim_select")
