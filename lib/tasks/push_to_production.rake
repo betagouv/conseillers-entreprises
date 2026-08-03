@@ -1,3 +1,5 @@
+require_relative 'production_helpers'
+
 desc 'Setup and push reviewed code to production'
 task :push_to_production do
   require 'highline/import'
@@ -5,12 +7,19 @@ task :push_to_production do
   def fetch_main_and_production
     puts 'Updating main and production…'
     `git fetch origin -u main:main production:production`
-    exit unless $?.success?
+    unless $?.success?
+      puts 'ERROR: git fetch failed. Exiting.'
+      exit
+    end
   end
 
   def find_last_production_commit_on_main
-    commit = `git show -s --pretty=%P production | cut -d " " -f 2`.strip
-    exit unless $?.success?
+    parents = `git show -s --pretty=%P production`.strip
+    unless $?.success?
+      puts 'ERROR: git show failed for production (does the branch exist locally?). Exiting.'
+      exit
+    end
+    commit = parents.split[1]
     puts "Last production commit is #{commit}"
     commit
   end
@@ -21,25 +30,33 @@ task :push_to_production do
     messages.split(separator)[0...-2]
   end
 
-  def format_commit_messages(messages)
-    def pr_number_and_title(message)
-      message.match(/.*pull request #(?<pr>\d+).*\n*(?<title>.*)/)
-    end
-
-    def format_parts(parts)
-      pull_request_url = 'https://github.com/betagouv/conseillers-entreprises/pull/'
-      "* [##{parts['pr']}](#{pull_request_url}#{parts['pr']}) #{parts['title'].strip}"
-    end
-
-    messages
-      .filter_map{ |message| pr_number_and_title(message) }
-      .map{ |parts| format_parts(parts) }
+  def pr_number_and_title(message)
+    message.match(/.*pull request #(?<pr>\d+).*\n*(?<title>.*)/)
   end
 
-  def prompt_for_confirmation(formatted)
-    puts "About to merge #{formatted.count} PRs and push to production:"
+  # Fetches each merged PR once: its data is reused both for the confirmation
+  # prompt preview below and for the production announcement afterwards.
+  def fetch_merged_prs(messages)
+    pr_numbers = messages.filter_map{ |message| pr_number_and_title(message) }.pluck('pr')
+    prs = pr_numbers.filter_map{ |number| ProductionHelpers.fetch_pr(number) }
+
+    missing = pr_numbers.map(&:to_i) - prs.pluck('number')
+    puts "WARNING: could not fetch #{missing.size} PR(s), they will be missing from the confirmation prompt and the announcement: #{missing.join(', ')}" if missing.any?
+
+    prs
+  end
+
+  # Labels of the issues closed by the PR (bug, entreprises…), to give more context in the confirmation prompt
+  def format_pr(pr)
+    pull_request_url = 'https://github.com/betagouv/conseillers-entreprises/pull/'
+    labels = ProductionHelpers.closing_issues_labels(pr).map{ |label| "`#{label}`" }.join(' ')
+    "* [##{pr['number']}](#{pull_request_url}#{pr['number']}) #{pr['title'].strip} #{labels}".strip
+  end
+
+  def prompt_for_confirmation(prs)
+    puts "About to merge #{prs.count} PRs and push to production:"
     puts '🚀 '
-    puts formatted.join("\n")
+    puts prs.map{ |pr| format_pr(pr) }.join("\n")
     if !agree("Proceed?")
       exit
     end
@@ -55,12 +72,18 @@ task :push_to_production do
 
   def merge_main_to_production
     `git checkout production && git merge main --no-edit`
-    exit unless $?.success?
+    unless $?.success?
+      puts 'ERROR: merge of main into production failed (conflict?). Repo is left on the production branch — resolve or abort the merge manually.'
+      exit
+    end
   end
 
   def push_to_production
     `git push origin production`
-    exit unless $?.success?
+    unless $?.success?
+      puts 'ERROR: git push to production failed. Exiting.'
+      exit
+    end
     puts 'Done!'
   end
 
@@ -69,10 +92,12 @@ task :push_to_production do
 
   last_commit = find_last_production_commit_on_main
   merge_messages = retrieve_merge_commits_messages(last_commit)
-  formatted = format_commit_messages(merge_messages)
-  prompt_for_confirmation(formatted)
+  prs = fetch_merged_prs(merge_messages)
+  prompt_for_confirmation(prs)
 
   ensure_clean_working_tree
   merge_main_to_production
   push_to_production
+
+  ProductionAnnouncement.run(prs: prs)
 end
