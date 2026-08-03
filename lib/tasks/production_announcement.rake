@@ -18,13 +18,21 @@ desc "Generate the production release announcement for the team chat. Optional a
 task :production_announcement, [:from, :to] do |_t, args|
   require 'json'
 
+  def second_parent(ref)
+    parents = `git show -s --pretty=%P #{ref}`.strip
+    unless $?.success?
+      puts "ERROR: git show failed for #{ref} (does the branch exist locally?). Exiting."
+      exit
+    end
+    parents.split(' ')[1]
+  end
+
   def deploy_range
     # Production tip is a merge of main into production: its second parent is the deployed main commit
-    deployed = `git show -s --pretty=%P production | cut -d " " -f 2`.strip
-    exit unless $?.success?
+    deployed = second_parent('production')
     if `git log --merges --oneline #{deployed}..main`.strip.empty?
       # Nothing new on main: announce the last deploy instead
-      previously_deployed = `git show -s --pretty=%P production^1 | cut -d " " -f 2`.strip
+      previously_deployed = second_parent('production^1')
       [previously_deployed, deployed]
     else
       [deployed, 'main']
@@ -40,6 +48,8 @@ task :production_announcement, [:from, :to] do |_t, args|
     response = `gh api graphql -f query='#{query}' 2> /dev/null`
     return nil unless $?.success?
     JSON.parse(response).dig('data', 'repository', 'pullRequest')
+  rescue JSON::ParserError
+    nil
   end
 
   def closing_issues_labels(pr)
@@ -92,7 +102,7 @@ task :production_announcement, [:from, :to] do |_t, args|
       io.close_write
       io.read
     end
-    output if $?.success?
+    output if $?.success? && output.present?
   rescue Errno::ENOENT
     nil
   end
@@ -100,11 +110,15 @@ task :production_announcement, [:from, :to] do |_t, args|
   range = args[:from] && args[:to] ? [args[:from], args[:to]] : deploy_range
   puts "Generating announcement for #{range.join('..')}…"
 
-  prs = merged_pr_numbers(range).filter_map{ |number| fetch_pr(number) }
+  pr_numbers = merged_pr_numbers(range)
+  prs = pr_numbers.filter_map{ |number| fetch_pr(number) }
   if prs.empty?
     puts 'Could not fetch the PR details (is gh installed and authenticated?). Exiting.'
     exit
   end
+
+  missing = pr_numbers.map(&:to_i) - prs.map{ |pr| pr['number'] }
+  puts "WARNING: could not fetch #{missing.size} PR(s), they will be missing from the announcement: #{missing.join(', ')}" if missing.any?
 
   announcement = generate_announcement(build_digest(prs))
   if announcement
