@@ -1,3 +1,19 @@
+PRODUCTION_ANNOUNCEMENT_SECTION_BY_LABEL = {
+  '🧑‍🏭 entreprises' => :entreprises,
+  '🧑‍🔧 partenaires' => :partenaires,
+  '👩‍💻 équipe CE' => :equipe,
+  'tech | maintenance' => :tech
+}.freeze
+
+PRODUCTION_ANNOUNCEMENT_SECTION_TITLES = {
+  entreprises: '**🧑‍🏭 Pour les entreprises**',
+  partenaires: '**🧑‍🔧 Pour les partenaires**',
+  equipe: "**👩‍💻 Pour l'équipe**",
+  tech: "**⚙️ Tech** — *pas d'impact visible*"
+}.freeze
+
+PRODUCTION_ANNOUNCEMENT_BUG_LABEL = '🐛 bug'
+
 desc "Generate the production release announcement for the team chat. Optional args: [from,to] commit range, e.g. rake 'production_announcement[abc123,def456]' to test by hand"
 task :production_announcement, [:from, :to] do |_t, args|
   require 'json'
@@ -26,11 +42,47 @@ task :production_announcement, [:from, :to] do |_t, args|
     JSON.parse(response).dig('data', 'repository', 'pullRequest')
   end
 
+  def closing_issues_labels(pr)
+    pr['closingIssuesReferences']['nodes'].flat_map{ |issue| issue['labels']['nodes'].pluck('name') }
+  end
+
+  # Deterministic classification from the closing issues' labels. Returns nil
+  # when no unambiguous label matched, meaning Claude has to decide instead.
+  def classify_section(pr)
+    labels = closing_issues_labels(pr)
+    PRODUCTION_ANNOUNCEMENT_SECTION_BY_LABEL.each do |label, section|
+      return section if labels.include?(label)
+    end
+    nil
+  end
+
   def describe_pr(pr)
     issues = pr['closingIssuesReferences']['nodes'].map do |issue|
       "Issue liée : #{issue['title']} — labels : #{issue['labels']['nodes'].pluck('name').join(', ')}"
     end
-    ["## PR ##{pr['number']} : #{pr['title']}", *issues, pr['body'].to_s[0, 1500]].join("\n")
+    is_bug = closing_issues_labels(pr).include?(PRODUCTION_ANNOUNCEMENT_BUG_LABEL)
+    lines = ["## PR ##{pr['number']} : #{pr['title']}", *issues]
+    lines << 'Label : 🐛 bug' if is_bug
+    [*lines, pr['body'].to_s[0, 1500]].join("\n")
+  end
+
+  # Groups PRs by their deterministic section, so Claude only has to write the
+  # announcement lines and classify the few PRs left without a clear label.
+  def build_digest(prs)
+    by_section = prs.group_by{ |pr| classify_section(pr) }
+
+    sections = PRODUCTION_ANNOUNCEMENT_SECTION_TITLES.filter_map do |key, title|
+      section_prs = by_section[key]
+      next if section_prs.blank?
+      "### Section : #{title}\n\n#{section_prs.map{ |pr| describe_pr(pr) }.join("\n\n")}"
+    end
+
+    unclassified = by_section[nil]
+    if unclassified.present?
+      sections << "### À classer toi-même dans une des sections ci-dessus\n\n#{unclassified.map{ |pr| describe_pr(pr) }.join("\n\n")}"
+    end
+
+    sections.join("\n\n")
   end
 
   def generate_announcement(digest)
@@ -54,7 +106,7 @@ task :production_announcement, [:from, :to] do |_t, args|
     exit
   end
 
-  announcement = generate_announcement(prs.map{ |pr| describe_pr(pr) }.join("\n\n"))
+  announcement = generate_announcement(build_digest(prs))
   if announcement
     puts announcement
   else
