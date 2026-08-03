@@ -27,7 +27,7 @@ module ProductionAnnouncement
         puts "ERROR: git show failed for #{ref} (does the branch exist locally?). Exiting."
         exit
       end
-      parents.split(' ')[1]
+      parents.split[1]
     end
 
     def deploy_range
@@ -85,6 +85,28 @@ module ProductionAnnouncement
       sections.join("\n\n")
     end
 
+    def link_pr(pr)
+      is_bug = ProductionHelpers.closing_issues_labels(pr).include?(PRODUCTION_ANNOUNCEMENT_BUG_LABEL)
+      "* #{'🐛️ ' if is_bug}[##{pr['number']}](https://github.com/betagouv/conseillers-entreprises/pull/#{pr['number']}) #{pr['title']}"
+    end
+
+    # Same section grouping as build_digest, without Claude's rewording — used
+    # as a fallback when the claude CLI is unavailable.
+    def plain_text_digest(prs)
+      by_section = prs.group_by{ |pr| classify_section(pr) }
+
+      sections = PRODUCTION_ANNOUNCEMENT_SECTION_TITLES.filter_map do |key, title|
+        section_prs = by_section[key]
+        next if section_prs.blank?
+        "#{title}\n#{section_prs.map{ |pr| link_pr(pr) }.join("\n")}"
+      end
+
+      unclassified = by_section[nil]
+      sections << unclassified.map{ |pr| link_pr(pr) }.join("\n") if unclassified.present?
+
+      sections.join("\n\n")
+    end
+
     def generate_announcement(digest)
       prompt = File.read(File.expand_path('production_announcement_prompt.md', __dir__))
       output = IO.popen(['claude', '-p'], 'r+') do |io|
@@ -111,7 +133,7 @@ module ProductionAnnouncement
           exit
         end
 
-        missing = pr_numbers.map(&:to_i) - prs.map{ |pr| pr['number'] }
+        missing = pr_numbers.map(&:to_i) - prs.pluck('number')
         puts "WARNING: could not fetch #{missing.size} PR(s), they will be missing from the announcement: #{missing.join(', ')}" if missing.any?
       end
 
@@ -119,8 +141,8 @@ module ProductionAnnouncement
       if announcement
         puts announcement
       else
-        puts 'claude CLI unavailable, falling back to the raw PR list:'
-        prs.each{ |pr| puts "* [##{pr['number']}](https://github.com/betagouv/conseillers-entreprises/pull/#{pr['number']}) #{pr['title']}" }
+        puts 'claude CLI unavailable, falling back to a plain PR list grouped by section:'
+        puts plain_text_digest(prs)
       end
     end
   end

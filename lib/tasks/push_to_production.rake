@@ -19,7 +19,7 @@ task :push_to_production do
       puts 'ERROR: git show failed for production (does the branch exist locally?). Exiting.'
       exit
     end
-    commit = parents.split(' ')[1]
+    commit = parents.split[1]
     puts "Last production commit is #{commit}"
     commit
   end
@@ -37,9 +37,13 @@ task :push_to_production do
   # Fetches each merged PR once: its data is reused both for the confirmation
   # prompt preview below and for the production announcement afterwards.
   def fetch_merged_prs(messages)
-    messages
-      .filter_map{ |message| pr_number_and_title(message) }
-      .filter_map{ |parts| ProductionHelpers.fetch_pr(parts['pr']) }
+    pr_numbers = messages.filter_map{ |message| pr_number_and_title(message) }.pluck('pr')
+    prs = pr_numbers.filter_map{ |number| ProductionHelpers.fetch_pr(number) }
+
+    missing = pr_numbers.map(&:to_i) - prs.pluck('number')
+    puts "WARNING: could not fetch #{missing.size} PR(s), they will be missing from the confirmation prompt and the announcement: #{missing.join(', ')}" if missing.any?
+
+    prs
   end
 
   # Labels of the issues closed by the PR (bug, entreprises…), to give more context in the confirmation prompt
