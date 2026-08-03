@@ -1,5 +1,5 @@
-desc 'Generate the production release announcement for the team chat'
-task :production_announcement do
+desc "Generate the production release announcement for the team chat. Optional args: [from,to] commit range, e.g. rake 'production_announcement[abc123,def456]' to test by hand"
+task :production_announcement, [:from, :to] do |_t, args|
   require 'json'
 
   def deploy_range
@@ -45,7 +45,7 @@ task :production_announcement do
     nil
   end
 
-  range = deploy_range
+  range = args[:from] && args[:to] ? [args[:from], args[:to]] : deploy_range
   puts "Generating announcement for #{range.join('..')}…"
 
   prs = merged_pr_numbers(range).filter_map{ |number| fetch_pr(number) }
