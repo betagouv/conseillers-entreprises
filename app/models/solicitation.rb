@@ -611,16 +611,18 @@ class Solicitation < ApplicationRecord
   end
 
   # Il peut y avoir des sollicitations sans need, et des needs sans sollicitation
-  def final_subject
+  def final_landing_subject
     if needs.present?
-      needs.first.subject
+      subject = needs.first.subject
+      Landing.accueil&.landing_subjects&.not_archived&.find_by(subject:) ||
+        LandingSubject.not_archived.find_by(subject:)
     else
-      landing_subject.title
+      landing_subject
     end
   end
 
   def final_subject_title
-    final_subject.label
+    final_landing_subject.title
   end
 
   # Provenance

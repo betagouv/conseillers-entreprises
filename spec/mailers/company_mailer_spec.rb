@@ -53,11 +53,12 @@ describe CompanyMailer do
 
     context 'when need has been requalified with a different subject' do
       let(:need_subject) { create :subject, label: "Sujet requalifié" }
+      let!(:need_landing_subject) { create :landing_subject, subject: need_subject, title: "Sujet requalifié" }
 
       it_behaves_like 'an email'
 
       it 'uses the requalified subject in the body, not the original one' do
-        expect(mail.body.parts.first.body).to match(/#{need_subject.label.split.join('\s*')}/)
+        expect(mail.body.parts.first.body).to match(/#{need_landing_subject.title.split.join('\s*')}/)
         expect(mail.body.parts.first.body).not_to include initial_landing_subject.title
       end
 

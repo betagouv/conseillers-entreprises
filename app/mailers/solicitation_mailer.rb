@@ -7,7 +7,7 @@ class SolicitationMailer < ApplicationMailer
   def bad_quality(solicitation)
     @solicitation = solicitation
     @cooperation_logo_name = @solicitation.cooperation&.logo&.filename
-    @landing_subject = LandingSubject.not_archived.find_by(subject: @solicitation.final_subject)
+    @landing_subject = @solicitation.final_landing_subject
 
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end

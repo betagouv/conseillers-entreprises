@@ -818,9 +818,10 @@ end
 
     context 'with needs' do
       let(:subject_2) { create :subject, label: 'Subject 2 label' }
+      let!(:landing_subject_2) { create :landing_subject, title: 'Landing Subject 2 Title', subject: subject_2 }
       let!(:need) { create :need, subject: subject_2, diagnosis: create(:diagnosis, solicitation: solicitation) }
 
-      it { is_expected.to eq 'Subject 2 label' }
+      it { is_expected.to eq 'Landing Subject 2 Title' }
     end
   end
 end
