@@ -4,7 +4,7 @@
 
     <mj-text><%= t('mailers.company_mailer.intro_from_solicitation_html', company: @solicitation.diagnosis.company.name) %></mj-text>
 
-    <mj-text><strong><%= @solicitation.landing_subject.title %></strong></mj-text>
+    <mj-text><strong><%= @solicitation.final_subject_title %></strong></mj-text>
 
     <mj-text><%= t('.we_continue_to_follow_up_html') %></mj-text>
 
