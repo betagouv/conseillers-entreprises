@@ -611,13 +611,17 @@ class Solicitation < ApplicationRecord
   end
 
   # Il peut y avoir des sollicitations sans need, et des needs sans sollicitation
-  def final_subject_title
+  def final_subject
     if needs.present?
-      needs.first.subject.label
+      needs.first.subject
     else
       landing_subject.title
     end
-end
+  end
+
+  def final_subject_title
+    final_subject.label
+  end
 
   # Provenance
   #
