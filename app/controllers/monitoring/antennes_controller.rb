@@ -32,9 +32,9 @@ class Monitoring::AntennesController < ApplicationController
   def collections_counts
     @collections_counts ||=
       {
-        often_not_for_me: Antenne.often_not_for_me.size,
-        rarely_done: Antenne.rarely_done.size,
-        rarely_satisfying: Antenne.rarely_satisfying.size,
+        often_not_for_me: Antenne.often_not_for_me.apply_filters(index_search_params).size,
+        rarely_done: Antenne.rarely_done.apply_filters(index_search_params).size,
+        rarely_satisfying: Antenne.rarely_satisfying.apply_filters(index_search_params).size,
       }
   end
 
