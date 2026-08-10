@@ -43,7 +43,7 @@ class TerritorialZone < ApplicationRecord
   def territory_model
     model_class = ZONE_TYPE_MODELS[zone_type]
     return nil unless model_class
-    @territory_model ||= model_class.find(code)
+    @territory_model ||= TerritorialZone.better_find(model_class, code)
   end
 
   def name
@@ -77,6 +77,12 @@ class TerritorialZone < ApplicationRecord
     errors.add(:code, :invalid_format, zone_type: zone_type, code: code) unless code.match?(regex)
   end
 
+  def self.better_find(model_class, code)
+    @indexes ||= {}
+    @indexes[model_class] ||= model_class.all.index_by(&:code)
+    @indexes[model_class][code]
+  end
+
   def validate_existence
     zone = I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone')
 
@@ -84,7 +90,7 @@ class TerritorialZone < ApplicationRecord
     return errors.add(:code, :not_found, zone_type: zone, code: code) unless model_class
 
     begin
-      model = model_class.find(code)
+      model = TerritorialZone.better_find(model_class, code)
       return errors.add(:code, :not_found, zone_type: zone, code: code) if model.nil?
     rescue DecoupageAdministratif::NotFoundError
       errors.add(:code, :not_found, zone_type: zone, code: code)
