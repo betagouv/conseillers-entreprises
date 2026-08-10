@@ -801,10 +801,11 @@ fr:
             email_type:
               bad_quality: ne peut pas être 'bad_quality' car ce type d'email est réservé.
               invalid: doit être composé uniquement de lettres minuscules, chiffres et tirets du bas (_)
-        territorial_zones:
-          code:
-            invalid_format: Format pour %{zone_type} est invalide.
-            not_found: "%{zone_type} non trouvé"
+        territorial_zone:
+          attributes:
+            code:
+              invalid_format: Format pour %{zone_type} (%{code}) est invalide.
+              not_found: "%{zone_type} %{code} non trouvé"
         territory:
           attributes:
             insee_codes:
@@ -1273,6 +1274,7 @@ fr:
     territorial_antennes: Antennes du territoires
     territorial_level: Niveau territorial
     territorial_zone: Zone d’intervention
+    territorial_zones: Zones d’intervention
     territories:
       one: Territoire
       other: Territoires

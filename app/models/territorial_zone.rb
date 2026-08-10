@@ -67,31 +67,27 @@ class TerritorialZone < ApplicationRecord
   private
 
   def validate_code_format
-    error_message = I18n.t('activerecord.errors.models.territorial_zones.code.invalid_format', zone_type: zone_type)
-    case zone_type
-    when 'commune'
-      errors.add(:code, error_message) unless code.match?(/^(?:[0-9]{2}[0-9]{3}|2[AB][0-9]{3})$/)
-    when 'departement'
-      errors.add(:code, error_message) unless code.match?(/^(?:[0-9]{2}|2[AB]|[0-9]{3})$/)
-    when 'region'
-      errors.add(:code, error_message) unless code.match?(/^(?:\d{2}|9[78]\d)$/)
-    when 'epci'
-      errors.add(:code, error_message) unless code.match?(/^\d{9}$/)
-    end
+    regex = {
+      'commune' => /^(?:[0-9]{2}[0-9]{3}|2[AB][0-9]{3})$/,
+      'departement' => /^(?:[0-9]{2}|2[AB]|[0-9]{3})$/,
+      'region' => /^(?:\d{2}|9[78]\d)$/,
+      'epci' => /^\d{9}$/
+    }[zone_type]
+
+    errors.add(:code, :invalid_format, zone_type: zone_type, code: code) unless code.match?(regex)
   end
 
   def validate_existence
-    zone = I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone').capitalize
-    error_message = I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: zone)
+    zone = I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone')
 
     model_class = ZONE_TYPE_MODELS[zone_type]
-    return errors.add(:code, error_message) unless model_class
+    return errors.add(:code, :not_found, zone_type: zone, code: code) unless model_class
 
     begin
       model = model_class.find(code)
-      return errors.add(:code, error_message) if model.nil?
+      return errors.add(:code, :not_found, zone_type: zone, code: code) if model.nil?
     rescue DecoupageAdministratif::NotFoundError
-      errors.add(:code, error_message)
+      errors.add(:code, :not_found, zone_type: zone, code: code)
     end
   end
 

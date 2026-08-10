@@ -10,7 +10,7 @@ RSpec.describe TerritorialZone do
         it 'is invalid if code does not match INSEE format' do
           expect(valid_commune).to be_valid
           expect(invalid_commune).not_to be_valid
-          expect(invalid_commune.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.invalid_format', zone_type: :commune))
+          expect(invalid_commune.errors.details[:code]).to include(error: :invalid_format, zone_type: "commune", code: "123")
         end
       end
 
@@ -21,7 +21,7 @@ RSpec.describe TerritorialZone do
         it 'is invalid if code does not match department format' do
           expect(valid_departement).to be_valid
           expect(invalid_departement).not_to be_valid
-          expect(invalid_departement.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.invalid_format', zone_type: :departement))
+          expect(invalid_departement.errors.details[:code]).to include(error: :invalid_format, zone_type: "departement", code: "1")
         end
       end
 
@@ -33,7 +33,7 @@ RSpec.describe TerritorialZone do
           it 'is invalid if code does not match region format' do
             expect(valid_region).to be_valid
             expect(invalid_region).not_to be_valid
-            expect(invalid_region.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.invalid_format', zone_type: :region))
+            expect(invalid_region.errors.details[:code]).to include(error: :invalid_format, zone_type: "region", code: "1")
           end
         end
 
@@ -44,7 +44,7 @@ RSpec.describe TerritorialZone do
           it 'is invalid if code does not match region format' do
             expect(valid_region).to be_valid
             expect(invalid_region).not_to be_valid
-            expect(invalid_region.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.invalid_format', zone_type: :region))
+            expect(invalid_region.errors.details[:code]).to include(error: :invalid_format, zone_type: "region", code: "123")
           end
         end
       end
@@ -56,7 +56,7 @@ RSpec.describe TerritorialZone do
         it 'is invalid if code does not match EPCI format' do
           expect(valid_epci).to be_valid
           expect(invalid_epci).not_to be_valid
-          expect(invalid_epci.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.invalid_format', zone_type: :epci))
+          expect(invalid_epci.errors.details[:code]).to include(error: :invalid_format, zone_type: "epci", code: "123")
         end
       end
     end
@@ -91,7 +91,7 @@ RSpec.describe TerritorialZone do
 
           it 'is invalid' do
             expect(invalid_commune).not_to be_valid
-            expect(invalid_commune.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: "Commune"))
+            expect(invalid_commune.errors.details[:code]).to include(error: :not_found, zone_type: "Commune", code: "99999")
           end
         end
       end
@@ -112,7 +112,7 @@ RSpec.describe TerritorialZone do
 
           it 'is invalid' do
             expect(invalid_departement).not_to be_valid
-            expect(invalid_departement.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: "Département"))
+            expect(invalid_departement.errors.details[:code]).to include(error: :not_found, zone_type: "Département", code: "98")
           end
         end
       end
@@ -133,7 +133,7 @@ RSpec.describe TerritorialZone do
 
           it 'is invalid' do
             expect(invalid_region).not_to be_valid
-            expect(invalid_region.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: "Région"))
+            expect(invalid_region.errors.details[:code]).to eq [{ error: :not_found, zone_type: "Région", code: "98" }]
           end
         end
       end
@@ -154,7 +154,7 @@ RSpec.describe TerritorialZone do
 
           it 'is invalid' do
             expect(invalid_epci).not_to be_valid
-            expect(invalid_epci.errors[:code]).to include(I18n.t('activerecord.errors.models.territorial_zones.code.not_found', zone_type: "Epci"))
+            expect(invalid_epci.errors.details[:code]).to include(error: :not_found, zone_type: "EPCI", code: "98")
           end
         end
       end
