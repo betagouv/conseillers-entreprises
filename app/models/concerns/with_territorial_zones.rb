@@ -4,6 +4,7 @@ module WithTerritorialZones
   included do
     has_many :territorial_zones, as: :zoneable, dependent: :destroy, inverse_of: :zoneable
     accepts_nested_attributes_for :territorial_zones, allow_destroy: true
+    validates_associated :territorial_zones, on: :import
 
     scope :by_region, -> (region_code) {
       return all if region_code.blank?
