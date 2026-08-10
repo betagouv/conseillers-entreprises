@@ -137,14 +137,15 @@ module CsvImport
     private
 
     def import_specific_territories(expert, attributes)
-      expert.territorial_zones = []
+      expert.territorial_zones.delete_all
       zone_types = %w[commune epci departement region]
       zone_types.each do |zone_type|
         next if attributes[:"custom_#{zone_type}s"].blank?
 
-        expert.territorial_zones += attributes[:"custom_#{zone_type}s"].split(",").map do |code|
-          expert.territorial_zones.find_or_create_by(zone_type: zone_type, code: code.strip)
+        db_attributes = attributes[:"custom_#{zone_type}s"].split(",").map do |code|
+          { zone_type: zone_type, code: code.strip }
         end
+        expert.territorial_zones.insert_all(db_attributes)
       end
     end
   end
