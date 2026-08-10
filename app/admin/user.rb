@@ -62,6 +62,7 @@ ActiveAdmin.register User do
       end
     end
     column :created_at
+    column :imported_at
     column :job do |u|
       div u.job
       div admin_link_to(u, :antenne)
