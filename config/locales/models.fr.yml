@@ -181,7 +181,6 @@ fr:
       connection: Connexion
       create_expert: Créer un expert identique
       create_expert_done: L’expert a bien été créé
-      created: Utilisateur créé avec succès
       delete: Supprimer l’utilisateur
       delete_confirmation:
         one: Voulez-vous supprimer cet utilisateur ? Cela va aussi supprimer son équipe individuelle.
