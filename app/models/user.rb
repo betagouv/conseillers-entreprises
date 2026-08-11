@@ -58,6 +58,7 @@ class User < ApplicationRecord
   include InvolvementConcern
   include SoftDeletable
   include Monitoring
+  extend DuplicateUser
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :async,
          :validatable,
@@ -327,19 +328,6 @@ class User < ApplicationRecord
 
   def is_admin?
     user_rights_admin.any?
-  end
-
-  def duplicate(params)
-    params[:job] ||= self.job
-    new_user = User.create(params.merge(antenne: antenne))
-    return new_user unless new_user.valid?
-    user_experts = self.experts
-    if user_experts.present?
-      new_user.experts.concat(user_experts)
-      new_user.save
-    end
-    self.user_rights.each { |right| right.dup.update(user_id: new_user.id) }
-    new_user
   end
 
   def supervised_antennes
