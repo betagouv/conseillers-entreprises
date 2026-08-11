@@ -142,7 +142,7 @@ module CsvImport
       zone_types.each do |zone_type|
         next if attributes[:"custom_#{zone_type}s"].blank?
 
-        db_attributes = attributes[:"custom_#{zone_type}s"].split(",").map do |code|
+        db_attributes = attributes[:"custom_#{zone_type}s"].split(",").uniq.map do |code|
           { zone_type: zone_type, code: code.strip }
         end
         expert.territorial_zones.insert_all(db_attributes)
