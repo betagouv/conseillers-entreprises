@@ -94,6 +94,12 @@ class Expert < ApplicationRecord
       .having("COUNT(users.id)=1")
   end
 
+  scope :with_many_users, -> do
+    joins(:users)
+      .group(:id)
+      .having("COUNT(users.id)>1")
+  end
+
   scope :with_users, -> { joins(:users) }
 
   # On s'appuie sur table de jointure pour éviter les faux positifs
@@ -289,6 +295,10 @@ class Expert < ApplicationRecord
 
   def without_users?
     users.empty?
+  end
+
+  def with_many_users?
+    users.size > 1
   end
 
   def with_one_user?
