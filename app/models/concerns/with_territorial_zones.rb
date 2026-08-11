@@ -4,7 +4,7 @@ module WithTerritorialZones
   included do
     has_many :territorial_zones, as: :zoneable, dependent: :destroy, inverse_of: :zoneable
     accepts_nested_attributes_for :territorial_zones, allow_destroy: true
-    validates_associated :territorial_zones, on: :import
+    validate :territorial_zones_codes_are_known, on: :import
 
     scope :by_region, -> (region_code) {
       return all if region_code.blank?
@@ -25,6 +25,20 @@ module WithTerritorialZones
         record.insee_codes.intersect?(insee_codes)
       end
     }
+
+    def territorial_zones_codes_are_known
+      codes_by_zone_type = territorial_zones.pluck(:zone_type, :code)
+        .group_by(&:first).transform_values{ it.map(&:last) }
+
+      codes_by_zone_type.each do |zone_type, codes|
+        known_codes = WithTerritorialZones.known_insee_codes(zone_type)
+        unknown_codes = (Set.new(codes) - known_codes)
+        if unknown_codes.present?
+          zone = I18n.t(zone_type, scope: 'activerecord.attributes.territorial_zone')
+          errors.add(:territorial_zones, :not_found, zone_type: zone, codes: unknown_codes.to_a.to_sentence)
+        end
+      end
+    end
   end
 
   def insee_codes
@@ -64,4 +78,11 @@ module WithTerritorialZones
 
     (commune_codes + territory_codes).uniq
   end
+
+  def known_insee_codes(zone_type)
+    @codes ||= {}
+    model_class = TerritorialZone::ZONE_TYPE_MODELS[zone_type]
+    @codes[model_class] ||= Set.new(model_class.all.map(&:code))
+  end
+  module_function :known_insee_codes
 end

@@ -1350,6 +1350,10 @@ fr:
       transmitted_header: Transmission des besoins déposés sur la période
   deleted_account:
     full_name: "(Compte supprimé)"
+  errors:
+    attributes:
+      territorial_zones:
+        not_found: "%{zone_type} %{codes} non trouvé(s)"
   flash:
     actions:
       create:
