@@ -63,7 +63,7 @@ class User < ApplicationRecord
          :validatable,
          :invitable, invited_by_class_name: 'User', validate_on_invite: true
 
-  attr_accessor :cgu_accepted, :specifics_territories, :create_expert
+  attr_accessor :cgu_accepted, :create_expert
 
   APP_INFO_KEYS = %w[bascule_seen questionnaire_2026_seen questionnaire_2026_done]
   store_accessor :app_info, APP_INFO_KEYS

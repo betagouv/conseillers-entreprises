@@ -8,7 +8,7 @@ ActiveAdmin.register_page 'Duplicate user' do
       flash[:alert] = I18n.t('active_admin.duplicate_user.deleted_user')
       redirect_to admin_users_path and return
     end
-    user_params = params.require(:user).permit(:full_name, :email, :phone_number, :job, :specifics_territories)
+    user_params = params.require(:user).permit(:full_name, :email, :phone_number, :job)
     new_user = old_user.duplicate(user_params)
     if new_user.valid?
       flash[:notice] = t('active_admin.user.created')
@@ -32,9 +32,6 @@ ActiveAdmin.register_page 'Duplicate user' do
           end
           f.input :email, input_html: { required: true }
           f.input :phone_number
-          if user.experts.map(&:custom_territories?).any?
-            f.input :specifics_territories, as: :boolean, label: I18n.t('active_admin.user.duplicate_territories')
-          end
           f.submit
         end
       end
