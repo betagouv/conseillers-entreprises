@@ -9,7 +9,7 @@ ActiveAdmin.register_page 'Duplicate user' do
       redirect_to admin_users_path and return
     end
     user_params = params.require(:user).permit(:full_name, :email, :phone_number, :job)
-    new_user = old_user.duplicate(user_params)
+    new_user = User.duplicate_from(old_user, user_params)
     if new_user.valid?
       flash[:notice] = t('active_admin.user.created')
       redirect_to admin_users_path
@@ -24,13 +24,39 @@ ActiveAdmin.register_page 'Duplicate user' do
     new_user = User.new(job: old_user.job)
 
     panel t('active_admin.duplicate_user.new_user_details'), class: 'active-admin-form' do
+      div class: "information" do
+        # single-user expert
+        single_user_expert = old_user.single_user_experts.first
+        if single_user_expert.present?
+          div t('active_admin.duplicate_user.old_user_has_single_expert', user: old_user)
+          # territorial zones
+          if single_user_expert.territorial_zones.any?
+            div t('active_admin.duplicate_user.old_expert_has_territorial_zones')
+          end
+          # match filters
+          if single_user_expert.match_filters.any?
+            div t('active_admin.duplicate_user.old_expert_has_match_filters', count: single_user_expert.match_filters.size)
+          end
+        end
+        # teams
+        teams = old_user.experts.with_many_users
+        if teams.any?
+          div t('active_admin.duplicate_user.old_user_has_teams', user: old_user, teams: teams.map(&:to_s).to_sentence, count: teams.size)
+        end
+        # user rights
+        user_rights = old_user.user_rights
+        if user_rights.any?
+          div t('active_admin.duplicate_user.old_user_has_user_rights', user: old_user, count: user_rights.size)
+        end
+      end
+
       table do
         active_admin_form_for new_user, url: admin_user_duplicate_user_duplicate_path do |f|
           f.input :full_name, input_html: { required: true }
           f.input :job
           f.input :email, input_html: { required: true }
           f.input :phone_number
-          f.submit
+          f.submit t('active_admin.duplicate_user.submit')
         end
       end
     end

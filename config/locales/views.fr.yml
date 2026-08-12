@@ -47,6 +47,18 @@ fr:
     duplicate_user:
       deleted_user: Cet utilisateur a été supprimé, cette action n'est donc pas possible
       new_user_details: Coordonnées du nouvel utilisateur
+      old_expert_has_match_filters:
+        one: Ce profil expert a un filtre de mise en relation. Il sera copié dans le nouvel expert.
+        other: Ce profil expert a des filtres de mise en relation. Ils seront copiés dans le nouvel expert.
+      old_expert_has_territorial_zones: Ce profil expert a une zone d’intervention spécifique. Elle sera copiée dans le nouvel expert.
+      old_user_has_single_expert: "%{user} a son propre profil expert, qui va être dupliqué pour le nouvel utilisateur."
+      old_user_has_teams:
+        one: "%{user} fait partie de l’équipe %{teams}. Le nouvel utilisateur sera affecté à cette équipe."
+        other: "%{user} fait partie des équipes %{teams}. Le nouvel utilisateur sera affecté à ces équipes."
+      old_user_has_user_rights:
+        one: "%{user} a un rôle spécifique. Il sera copié dans le nouvel utilisateur."
+        other: "%{user} a des rôles spécifiques. Ils seront copiés dans le nouvel utilisateur."
+      submit: Créer un nouvel utilisateur
       title: Dupliquer un utilisateur
     reassign_matches:
       title: Transférer les mises en relation
