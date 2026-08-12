@@ -20,16 +20,14 @@ ActiveAdmin.register_page 'Duplicate user' do
   end
 
   content title: I18n.t('active_admin.duplicate_user.title') do
+    old_user = User.find(params[:user_id])
+    new_user = User.new(job: old_user.job)
+
     panel t('active_admin.duplicate_user.new_user_details'), class: 'active-admin-form' do
       table do
-        new_user = User.new
-        user = User.find(params[:user_id])
         active_admin_form_for new_user, url: admin_user_duplicate_user_duplicate_path do |f|
           f.input :full_name, input_html: { required: true }
-          li do
-            f.label :job
-            f.text_field :job, value: user.job
-          end
+          f.input :job
           f.input :email, input_html: { required: true }
           f.input :phone_number
           f.submit
