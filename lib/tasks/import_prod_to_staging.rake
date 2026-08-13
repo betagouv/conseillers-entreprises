@@ -74,4 +74,4 @@ namespace :import_prod_to_staging do
 end
 
 desc 'import production data in staging db'
-task import_prod_to_staging: %w[import_prod_to_staging:all anonymize:all db:seed staging:transform_data_for_demo]
+task import_prod_to_staging: %w[import_prod_to_staging:all db:seed staging:transform_data_for_demo]

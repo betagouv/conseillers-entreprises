@@ -8,6 +8,9 @@ fr:
     masculin: Tous
   all_choices: Tout
   and_connector: " et "
+  anonymization:
+    data: Donnée Anonymisée
+    paragraphs: Anonymisation - Ce texte a été effacé, ceci est un texte de remplacement.
   api_pde:
     errors:
       not_found: n’existe pas ou est invalide

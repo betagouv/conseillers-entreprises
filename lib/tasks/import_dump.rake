@@ -38,8 +38,12 @@ namespace :import_dump do
     Rake::Task['db:environment:set'].invoke('RAILS_ENV=development')
   end
 
+  task anonymize: :environment do
+    Anonymization.suppress_all
+  end
+
   task all: %i[dump import]
 end
 
 desc 'import anonymized production data in development db'
-task import_anonymized: %w[import_dump:all anonymize:all db:seed]
+task import_anonymized: %w[import_dump:all import_dump:anonymize db:seed]
