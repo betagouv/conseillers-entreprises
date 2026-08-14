@@ -246,11 +246,9 @@ class SolicitationsController < PagesController
   def calculate_needs_count
     @needs_count = Rails.cache.fetch(['needs_count_in_one_year', @landing_subject.subject.needs], expires_in: 1.hour) do
       # expire the cache after 1 hour because the result will change depending on the matches
-      Need
-        .by_subject(@landing_subject.subject)
-        .min_closed_at(1.year.ago..Date.today)
-        .pluck(:id)
-        .size
+      @landing_subject.subject.needs
+        .where(id: Need.min_closed_at(1.year.ago..Date.today))
+        .count
     end
   end
 end
