@@ -1043,7 +1043,6 @@ fr:
     advisors:
       one: Conseiller
       other: Conseillers
-    anonymized: Donnée Anonymisée
     antenne: Antenne
     antenne_communes: Commune de l’antenne
     antenne_experts:

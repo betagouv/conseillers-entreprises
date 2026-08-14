@@ -3,6 +3,18 @@ module Anonymization
 
   def anonymized_marker = I18n.t('anonymization.data')
 
+  # In-production: anonymize old solicitations and diagnoses
+  def anonymize_old_diagnoses(range = 3.years.ago..(3.years - 8.days).ago)
+    diagnoses = Diagnosis.where(created_at: range)
+    diagnoses.each do |diagnosis|
+      diagnosis&.visitee&.update(email: nil, full_name: anonymized_marker, phone_number: anonymized_marker)
+      diagnosis&.solicitation&.update(email: nil, full_name: anonymized_marker, phone_number: anonymized_marker, siret: nil)
+      next if diagnosis.company.diagnoses.pluck(:created_at).max > range.end
+      diagnosis.company.update(name: anonymized_marker, siren: nil)
+      diagnosis.company.facilities.each { |facility| facility.update(siret: nil) }
+    end
+  end
+
   # Batch-anonymize all the records that can contain identifying information.
   # Used for development copies of the production DB.
   #
