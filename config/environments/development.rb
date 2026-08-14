@@ -26,7 +26,14 @@ Rails.application.configure do
   end
 
   # Change to :null_store to avoid any caching.
-  config.cache_store = :file_store, "#{root}/tmp/cache"
+  config.cache_store =
+    :redis_cache_store, { url: "redis://localhost:6379/2", reconnect_attempts: 3,
+                          error_handler: -> (method:, returning:, exception:) {
+                            Appsignal.send_error(exception) do |transaction|
+                              transaction.set_tags(method: method, returning: returning)
+                            end
+                          }
+    }
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
