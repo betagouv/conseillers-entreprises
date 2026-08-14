@@ -12,7 +12,7 @@ class AboutController < PagesController
   def accessibilite; end
 
   def comment_ca_marche
-    @institutions = Rails.cache.fetch("institutions-#{Institution.maximum(:updated_at)}") do
+    @institutions = Rails.cache.fetch(["institutions-names-list", Institution.all]) do
       institutions = Institution.not_deleted.where(show_on_list: true).pluck(:name).sort
       institutions.each_slice((institutions.count.to_f / 4).ceil).to_a
     end
