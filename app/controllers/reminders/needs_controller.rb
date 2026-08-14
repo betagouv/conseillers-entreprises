@@ -85,6 +85,7 @@ module Reminders
     end
 
     def collections_counts
+      collection_action_names = %i[poke last_chance refused]
       @collections_by_reminders_actions_count = Rails.cache.fetch(['reminders_need', filtered_needs]) do
         collection_action_names.index_with { |name| filtered_needs.reminders_to(name).size }
       end
