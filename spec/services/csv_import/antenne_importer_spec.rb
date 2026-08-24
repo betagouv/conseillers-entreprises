@@ -42,7 +42,7 @@ describe CsvImport::AntenneImporter, CsvImport do
     it do
       expect(result).not_to be_success
       expect(result.header_errors).to be_empty
-      expect(result.postprocess_errors.first).to eq("Échec de l’import : Erreur lors du post-traitement de l'antenne : La validation a échoué : Code Format pour commune est invalide., Code Commune non trouvé")
+      expect(result.postprocess_errors.first).to eq("Échec de l’import : Erreur lors du post-traitement de l'antenne : La validation a échoué : Code Format pour commune (invalid_code) est invalide., Code Commune invalid_code non trouvé")
     end
   end
 
