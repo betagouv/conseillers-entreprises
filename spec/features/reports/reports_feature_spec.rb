@@ -31,4 +31,17 @@ describe 'reports' do
       expect(page).to have_css('.fr-download__link', count: 3)
     end
   end
+
+  describe 'national antenne with local antennes (aggregated id)' do
+    let!(:institution) { create :institution }
+    let!(:national_antenne) { create :antenne, :national, institution: institution, managers: [current_user] }
+    let!(:local_antenne) { create :antenne, :local, institution: institution }
+    let!(:category_stats) { create :activity_report, :category_stats, reportable: national_antenne, start_date: Date.new(2024, 01, 01), end_date: Date.new(2024, 03, 31) }
+
+    it 'falls back to the aggregated antenne when visiting with the plain antenne id' do
+      visit stats_reports_path(antenne_id: national_antenne.id)
+
+      expect(page.html).to include I18n.t('reports.stats.title', antenne: national_antenne.name)
+    end
+  end
 end

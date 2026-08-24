@@ -27,7 +27,8 @@ class ReportsController < ApplicationController
   def retrieve_antenne
     @antennes = BuildAntennesCollection.new(current_user).for_manager_or_sponsor
     antenne_hash = if params[:antenne_id]
-      @antennes.find{ it[:id].to_s == params.expect(:antenne_id) }
+      requested_id = params.expect(:antenne_id)
+      @antennes.find { it[:id].to_s == requested_id } || @antennes.find { it[:id].to_s == "#{requested_id}-aggregate" }
     else
       @antennes.find { it[:id].to_s.include?('aggregate') } || @antennes.first
     end
