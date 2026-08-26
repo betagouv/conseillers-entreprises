@@ -1,18 +1,11 @@
 class MakeContactEmailGloballyUnique < ActiveRecord::Migration[8.1]
-  def up
-    merge_duplicate_contacts_by_email
+  def change
+    up_only { merge_duplicate_contacts_by_email }
 
     remove_reference :contacts, :company, foreign_key: true, index: true
 
     remove_index :contacts, :email
     add_index :contacts, :email, unique: true, where: "email IS NOT NULL AND email != ''"
-  end
-
-  def down
-    remove_index :contacts, :email
-    add_index :contacts, :email
-
-    add_reference :contacts, :company, foreign_key: true
   end
 
   private
