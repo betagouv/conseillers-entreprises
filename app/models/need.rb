@@ -6,7 +6,6 @@
 #  abandoned_email_sent    :boolean          default(FALSE), not null
 #  content                 :text
 #  matches_count           :integer
-#  retention_sent_at       :datetime
 #  satisfaction_email_sent :boolean          default(FALSE), not null
 #  starred_at              :datetime
 #  status                  :enum             default("diagnosis_not_complete"), not null
@@ -504,7 +503,7 @@ class Need < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     [
       "abandoned_email_sent", "archived", "content", "created_at", "diagnosis_id", "id", "id_value", "matches_count",
-      "retention_sent_at", "satisfaction_email_sent", "status", "subject_id", "updated_at"
+      "satisfaction_email_sent", "status", "subject_id", "updated_at"
     ]
   end
 
