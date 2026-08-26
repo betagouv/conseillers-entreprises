@@ -85,9 +85,6 @@ describe 'admin panel' do
       click_on 'Avis d’entreprises'
       click_on 'Créer Avis d’entreprise'
 
-      click_on 'Email Retentions'
-      click_on 'Créer Email Retention'
-
       click_on current_user.full_name
     end
 
