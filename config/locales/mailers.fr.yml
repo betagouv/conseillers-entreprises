@@ -140,7 +140,7 @@ fr:
         recruitment_html: "<strong>pour votre projet de recrutement :</strong> contexte du recrutement et type de contrat"
         treasury_html: "<strong>pour votre problème de trésorerie :</strong> contexte des difficultés et montant du besoin"
         upon_receipt: 'Nous vous invitons à compléter votre demande pour qu’elle soit transmise :'
-    team_html: L’équipe du <a href=%{url}> Service Public Conseillers entreprises </a>
+    team_html: L’équipe du <a href="%{url}"> Service Public Conseillers entreprises </a>
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service.
     thanks_for_your_trust: Merci pour votre confiance,
