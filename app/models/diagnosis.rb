@@ -69,7 +69,11 @@ class Diagnosis < ApplicationRecord
     return unless visitee&.new_record? && visitee.email.present?
     visitee.normalize_email
     existing = Contact.find_by(email: visitee.email)
-    self.visitee = existing if existing
+    return unless existing
+
+    existing.full_name = visitee.full_name if visitee.full_name.present?
+    existing.phone_number = visitee.phone_number if visitee.phone_number.present?
+    self.visitee = existing
   end
 
   ## Through Associations

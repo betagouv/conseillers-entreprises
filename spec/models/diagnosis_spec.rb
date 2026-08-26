@@ -159,7 +159,7 @@ RSpec.describe Diagnosis do
 
   describe 'deduplicate_visitee' do
     let(:facility) { create :facility }
-    let!(:existing_contact) { create :contact, email: 'visitee@example.com' }
+    let!(:existing_contact) { create :contact, email: 'visitee@example.com', full_name: 'Old Name', phone_number: '0100000000' }
 
     context 'when a new visitee is built with an email already used by another contact' do
       it 'reuses the existing contact instead of creating a new one, even for a different company' do
@@ -168,6 +168,15 @@ RSpec.describe Diagnosis do
 
         expect { diagnosis.save! }.not_to change(Contact, :count)
         expect(diagnosis.visitee).to eq existing_contact
+      end
+
+      it 'updates the existing contact full_name and phone_number with the new values' do
+        diagnosis = build :diagnosis, facility: facility
+        diagnosis.build_visitee(full_name: 'Other Name', email: 'visitee@example.com', phone_number: '0200000000')
+
+        diagnosis.save!
+
+        expect(existing_contact.reload).to have_attributes(full_name: 'Other Name', phone_number: '02 00 00 00 00')
       end
     end
 
