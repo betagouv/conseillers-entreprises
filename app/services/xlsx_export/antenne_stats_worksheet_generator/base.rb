@@ -63,38 +63,56 @@ module XlsxExport
 
       # Pages résumé
       #
-      def add_agglomerate_headers(tab_scope)
-        sheet.add_row [
+      def add_agglomerate_headers(tab_scope, with_response_time: false)
+        headers = [
           I18n.t(tab_scope, scope: ['antenne_stats_exporter']),
           I18n.t('antenne_stats_exporter.needs_count'),
           I18n.t('antenne_stats_exporter.needs_percentage'),
           I18n.t('antenne_stats_exporter.positionning_rate'),
           I18n.t('antenne_stats_exporter.positionning_accepted_rate'),
           I18n.t('antenne_stats_exporter.done_rate')
-        ], style: [@left_header, @right_header, @right_header, @right_header, @right_header, @right_header]
+        ]
+        styles = [@left_header, @right_header, @right_header, @right_header, @right_header, @right_header]
+
+        if with_response_time
+          headers << I18n.t('antenne_stats_exporter.taken_care_in_five_days_rate')
+          styles << @right_header
+        end
+
+        sheet.add_row headers, style: styles
       end
 
-      def add_agglomerate_rows(needs, row_title, recipient, ratio = nil)
+      def add_agglomerate_rows(needs, row_title, recipient, ratio = nil, with_response_time: false)
         matches = recipient.perimeter_received_matches_from_needs(needs)
         positionning_size = calculate_positionning_status_size(:positionning, matches)
         positionning_accepted_size = calculate_positionning_status_size(:positionning_accepted, matches)
         done_size = calculate_positionning_status_size(:done, matches)
-        sheet.add_row [
+        row = [
           row_title,
           needs.size,
           ratio,
           calculate_rate(positionning_size, matches),
           calculate_rate(positionning_accepted_size, matches),
           calculate_rate(done_size, matches),
-        ], style: [nil, nil, @rate, @rate, @rate, @rate]
+        ]
+        styles = [nil, nil, @rate, @rate, @rate, @rate]
+
+        if with_response_time
+          row << calculate_rate(matches.taken_care_in_five_days.size, matches.with_exchange)
+          styles << @rate
+        end
+
+        sheet.add_row row, style: styles
       end
 
-      def finalise_agglomerate_style
-        [
-          'A1:F1',
-        ].each { |range| sheet.merge_cells(range) }
-
-        sheet.column_widths 50, 15, 20, 25, 25, 25
+      def finalise_agglomerate_style(with_response_time: false)
+        if with_response_time
+          sheet.merge_cells('A1:G1')
+          sheet.column_widths 50, 15, 20, 25, 25, 25, 35
+        else
+          sheet.merge_cells('A1:F1')
+          sheet.column_widths 50, 15, 20, 25, 25, 25
+        end
       end
     end
   end
