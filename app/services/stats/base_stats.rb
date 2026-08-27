@@ -147,11 +147,27 @@ module Stats
       category
     end
 
+    # Overridden by graphs whose categories are built from a join that may
+    # inflate rows (e.g. needs joined to matches), to count distinct records.
+    def category_count_distinct? # rubocop:disable Naming/PredicateMethod
+      false
+    end
+
+    # Table holding the timestamp used to bucket columns by month. Overridable
+    # for graphs bucketing by another model's date (e.g. matches by needs).
+    def month_group_table(query)
+      query.model.table_name
+    end
+
     private
 
-    def grouped_by_month(query)
+    def month_group_sql(query)
       # Ici les mois sont en UTC
-      query.group("DATE_TRUNC('month', #{query.model.name.pluralize}.created_at)")
+      "DATE_TRUNC('month', #{month_group_table(query)}.#{date_group_attribute})"
+    end
+
+    def grouped_by_month(query)
+      query.group(month_group_sql(query))
     end
 
     def grouped_by_category(query)
@@ -174,13 +190,19 @@ module Stats
       #  ...
       # ]
 
-      query.count.each_with_object({}) do |entry, hash|
+      grouped_counts(query).each_with_object({}) do |entry, hash|
         month = entry.first.first.to_datetime
         category = entry.first.second
         count = entry.second
         hash[category] ||= {}
         hash[category][month] = count
       end
+    end
+
+    def grouped_counts(query)
+      return query.count unless category_count_distinct?
+
+      query.distinct.count("#{query.table_name}.#{query.primary_key}")
     end
 
     def full_results(results)
