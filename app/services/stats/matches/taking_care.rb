@@ -4,42 +4,22 @@ module Stats::Matches
     include ::Stats::BaseStats
     include ::Stats::TwoRatesStats
     include Stats::Matches::Base
+    include Stats::Concerns::PartitionedCategory
 
-    def main_query
-      matches_base_scope
+    # series[0] = other statuses (compared), series[1] = taking_care (target)
+    def category_buckets
+      [
+        [:other, :else],
+        [:taking_care, "matches.status = '#{Match.statuses[:taking_care]}'"]
+      ]
     end
 
-    def build_series
-      query = filtered_main_query
-      @taking_care_status = []
-      @other_status = []
-
-      search_range_by_month.each do |range|
-        month_query = get_month_query(query, range)
-        @taking_care_status.push(month_query.status_taking_care.count)
-        @other_status.push(month_query.not_status_taking_care.count)
-      end
-
-      as_series(@taking_care_status, @other_status)
+    def category_name(key)
+      key == 'taking_care' ? I18n.t('stats.taking_care_status') : I18n.t('stats.other_status')
     end
 
     def subtitle
       I18n.t('stats.series.matches_taking_care.subtitle')
-    end
-
-    private
-
-    def as_series(taking_care_status, other_status)
-      [
-        {
-          name: I18n.t('stats.other_status'),
-          data: other_status
-        },
-        {
-          name: I18n.t('stats.taking_care_status'),
-          data: taking_care_status
-        }
-      ]
     end
   end
 end
