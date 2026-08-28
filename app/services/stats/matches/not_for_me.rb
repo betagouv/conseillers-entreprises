@@ -4,42 +4,22 @@ module Stats::Matches
     include ::Stats::BaseStats
     include ::Stats::TwoRatesStats
     include Stats::Matches::Base
+    include Stats::Concerns::PartitionedCategory
 
-    def main_query
-      matches_base_scope
+    # series[0] = other statuses (compared), series[1] = not_for_me (target)
+    def category_buckets
+      [
+        [:other, :else],
+        [:not_for_me, "matches.status = '#{Match.statuses[:not_for_me]}'"]
+      ]
     end
 
-    def build_series
-      query = filtered_main_query
-      @not_for_me_status = []
-      @other_status = []
-
-      search_range_by_month.each do |range|
-        month_query = get_month_query(query, range)
-        @not_for_me_status.push(month_query.status_not_for_me.count)
-        @other_status.push(month_query.not_status_not_for_me.count)
-      end
-
-      as_series(@not_for_me_status, @other_status)
+    def category_name(key)
+      key == 'not_for_me' ? I18n.t('stats.not_for_me_status') : I18n.t('stats.other_status')
     end
 
     def subtitle
       I18n.t('stats.series.matches_not_for_me.subtitle')
-    end
-
-    private
-
-    def as_series(not_for_me_status, other_status)
-      [
-        {
-          name: I18n.t('stats.other_status'),
-          data: other_status
-        },
-        {
-          name: I18n.t('stats.not_for_me_status'),
-          data: not_for_me_status
-        }
-      ]
     end
   end
 end

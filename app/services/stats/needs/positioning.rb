@@ -2,40 +2,22 @@ module Stats::Needs
   class Positioning
     include Stats::Needs::Base
     include ::Stats::TwoRatesStats
+    include Stats::Concerns::PartitionedCategory
 
-    def build_series
-      query = filtered_main_query
-      @positioning, @not_positioning = [], []
-      search_range_by_month.each do |range|
-        month_query = query.created_between(range.first, range.last)
-        @positioning.push(month_query.not_status_quo.count)
-        @not_positioning.push(month_query.status_quo.count)
-      end
+    # series[0] = not_positioning (status quo), series[1] = positioning (non-quo, target)
+    def category_buckets
+      [
+        [:not_positioning, "needs.status = '#{Need.statuses[:quo]}'"],
+        [:positioning, :else]
+      ]
+    end
 
-      as_series(@positioning, @not_positioning)
+    def category_name(key)
+      key == 'positioning' ? I18n.t('stats.positioning') : I18n.t('stats.not_positioning')
     end
 
     def subtitle
       I18n.t('stats.series.needs_positioning.subtitle')
-    end
-
-    def secondary_count
-      @secondary_count ||= filtered_main_query.not_status_quo.size
-    end
-
-    private
-
-    def as_series(positioning, not_positioning)
-      [
-        {
-          name: I18n.t('stats.not_positioning'),
-          data: not_positioning
-        },
-        {
-          name: I18n.t('stats.positioning'),
-          data: positioning
-        }
-      ]
     end
   end
 end
