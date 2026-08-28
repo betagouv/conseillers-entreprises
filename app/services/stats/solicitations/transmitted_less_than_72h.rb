@@ -1,6 +1,7 @@
 module Stats::Solicitations
   class TransmittedLessThan72h
     include ::Stats::BaseStats
+    include Stats::Concerns::PartitionedCategory
 
     def main_query
       Solicitation.joins(diagnosis: :needs).status_processed.where(created_at: @start_date..@end_date)
@@ -10,50 +11,25 @@ module Stats::Solicitations
       Stats::Filters::Solicitations.new(query, self).call
     end
 
-    def build_series
-      query = main_query
-      query = filtered(query)
-      @less_than_72h = []
-      @more_than_72h = []
-
-      search_range_by_month.each do |range|
-        grouped_result = group_by_date_in_range(query, range)
-        @less_than_72h.push(grouped_result[true]&.size || 0)
-        @more_than_72h.push(grouped_result[false]&.size || 0)
-      end
-
-      as_series(@less_than_72h, @more_than_72h)
+    # series[0] = more_than_72h (compared), series[1] = less_than_72h (target).
+    # Rows keep the diagnosis->needs join fan-out (plain COUNT, no distinct) as
+    # before; solicitations without a transmission date (NULL completed_at) fall
+    # out of both buckets, mirroring the original nil group.
+    def category_buckets
+      within_72h = 'diagnoses.completed_at BETWEEN solicitations.created_at ' \
+                   "AND solicitations.created_at + INTERVAL '3 days'"
+      [
+        [:more_than_72h, "NOT (#{within_72h})"],
+        [:less_than_72h, within_72h]
+      ]
     end
 
-    def group_by_date_in_range(query, range)
-      query_range = query.created_between(range.first, range.last)
-      group_by_date(query_range)
-    end
-
-    def group_by_date(query)
-      query.preload(:diagnosis).group_by do |solicitation|
-        solicitation.transmitted_at&.between?(solicitation.created_at, solicitation.created_at + 3.days)
-      end
+    def category_name(key)
+      key == 'less_than_72h' ? I18n.t('stats.less_than_72h') : I18n.t('stats.more_than_72h')
     end
 
     def count
-      series
-      percentage_two_numbers(@less_than_72h, @more_than_72h)
-    end
-
-    private
-
-    def as_series(less_than_72h, more_than_72h)
-      [
-        {
-          name: I18n.t('stats.more_than_72h'),
-          data: more_than_72h
-        },
-        {
-          name: I18n.t('stats.less_than_72h'),
-          data: less_than_72h
-        }
-      ]
+      @count ||= percentage_two_numbers(series[1][:data], series[0][:data])
     end
   end
 end
