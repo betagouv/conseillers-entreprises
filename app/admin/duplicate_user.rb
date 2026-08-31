@@ -11,10 +11,13 @@ ActiveAdmin.register_page 'Duplicate user' do
     user_params = params.require(:user).permit(:full_name, :email, :phone_number, :job)
     new_user = User.duplicate_from(old_user, user_params)
     if new_user.valid?
-      message_1 = t('active_admin.duplicate_user.completed', new_user: new_user)
-      message_2 = t('active_admin.duplicate_user.completed_reassign_matches', old_user: old_user)
-      reassign_path = admin_expert_reassign_matches_path(old_user.single_user_experts.first, selected_expert_id: new_user.single_user_experts.first.id)
-      flash[:notice] = "#{message_1} #{helpers.link_to message_2, reassign_path}"
+      message = t('active_admin.duplicate_user.completed', new_user: new_user)
+      if old_user.single_user_experts&.first&.received_matches&.in_progress.present? # Suggest to reassign in-progress matches
+        message_2 = t('active_admin.duplicate_user.completed_reassign_matches', old_user: old_user)
+        reassign_path = admin_expert_reassign_matches_path(old_user.single_user_experts.first, selected_expert_id: new_user.single_user_experts.first.id)
+        message = "#{message} #{helpers.link_to message_2, reassign_path}"
+      end
+      flash[:notice] = message
       redirect_to admin_user_path(new_user)
     else
       flash[:alert] = new_user.errors.full_messages.to_sentence
