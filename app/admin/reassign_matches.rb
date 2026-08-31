@@ -7,7 +7,7 @@ ActiveAdmin.register_page 'Reassign matches' do
     selected_expert = Expert.find(params[:selected_expert_id])
     begin
       result = old_expert.reassign_matches(selected_expert)
-      flash[:notice] = t('active_admin.expert.reassign_matches_done', count: result.count, expert: selected_expert)
+      flash[:notice] = t('active_admin.expert.reassign_matches_done', count: result.count, expert: helpers.link_to(selected_expert, admin_expert_path(selected_expert)))
       redirect_to admin_expert_path(old_expert)
     rescue StandardError => e
       flash[:alert] = I18n.t('activerecord.attributes.expert.errors.cant_transfer_match', error: e.message)
