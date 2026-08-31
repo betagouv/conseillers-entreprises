@@ -46,7 +46,7 @@ fr:
     csv_export_launched: La génération du CSV a commencé, retrouvez-le dans quelques minutes dans votre espace personnel.
     duplicate_user:
       completed: Utilisateur %{new_user} créé.
-      completed_reassign_matches: Réassigner les mises en relations de %{old_user}?
+      completed_reassign_matches: Réassigner les mises en relations de %{old_user} ?
       deleted_user: Cet utilisateur a été supprimé, cette action n'est donc pas possible
       new_user_details: Coordonnées du nouvel utilisateur
       old_expert_has_match_filters:

@@ -31,10 +31,8 @@ RSpec.describe DuplicateUser do
       # match filters
       expect(new_expert.match_filters.first.min_years_of_existence).to eq 2
       expect(new_expert.match_filters.first.id).not_to eq old_expert.match_filters.first.id
-
       # teams
       expect(new_user.experts).to include old_team
-
       # user rights
       expect(new_user.user_rights.first.category).to eq "manager"
       expect(new_user.user_rights.first.id).not_to eq old_user.user_rights.first.id
