@@ -552,6 +552,7 @@ fr:
       home_emphasis_item:
         cta:
           landing: Découvrir les mesures
+          landing_subject: Échanger avec un conseiller
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
         title: Le Service Public Conseillers entreprises vous met en relation avec le conseiller qui peut vous aider.
