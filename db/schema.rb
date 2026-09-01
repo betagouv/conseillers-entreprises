@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_17_131234) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_26_135034) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -223,22 +223,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_17_131234) do
     t.index ["solicitation_id"], name: "index_diagnoses_on_solicitation_id"
     t.index ["step", "created_at"], name: "index_diagnoses_on_step_and_created_at"
     t.index ["visitee_id"], name: "index_diagnoses_on_visitee_id"
-  end
-
-  create_table "email_retentions", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "email_subject", null: false
-    t.text "first_paragraph", null: false
-    t.bigint "first_subject_id", null: false
-    t.string "first_subject_label", null: false
-    t.bigint "second_subject_id", null: false
-    t.string "second_subject_label", null: false
-    t.bigint "subject_id", null: false
-    t.datetime "updated_at", null: false
-    t.integer "waiting_time", null: false
-    t.index ["first_subject_id"], name: "index_email_retentions_on_first_subject_id"
-    t.index ["second_subject_id"], name: "index_email_retentions_on_second_subject_id"
-    t.index ["subject_id"], name: "index_email_retentions_on_subject_id", unique: true
   end
 
   create_table "experts", force: :cascade do |t|
@@ -463,7 +447,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_17_131234) do
     t.datetime "created_at", precision: nil, null: false
     t.bigint "diagnosis_id", null: false
     t.integer "matches_count"
-    t.datetime "retention_sent_at", precision: nil
     t.boolean "satisfaction_email_sent", default: false, null: false
     t.datetime "starred_at", precision: nil
     t.enum "status", default: "diagnosis_not_complete", null: false, enum_type: "need_status"
@@ -703,9 +686,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_17_131234) do
   add_foreign_key "diagnoses", "facilities"
   add_foreign_key "diagnoses", "solicitations"
   add_foreign_key "diagnoses", "users", column: "advisor_id"
-  add_foreign_key "email_retentions", "subjects"
-  add_foreign_key "email_retentions", "subjects", column: "first_subject_id"
-  add_foreign_key "email_retentions", "subjects", column: "second_subject_id"
   add_foreign_key "experts", "antennes"
   add_foreign_key "experts_subjects", "experts"
   add_foreign_key "experts_subjects", "institutions_subjects"
