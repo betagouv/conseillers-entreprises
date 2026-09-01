@@ -1,5 +1,5 @@
 <mj-text><%= t('mailers.best_regards') %></mj-text>
 
 <mj-text>
-  <%= t('mailers.team_html', url: root_url(mtm_campaign: 'retention', mtm_kwd: 'sequence-mail-pde')) %>
+  <%= t('mailers.team_html', url: root_url) %>
 </mj-text>

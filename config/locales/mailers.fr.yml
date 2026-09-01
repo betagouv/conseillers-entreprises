@@ -25,8 +25,6 @@ fr:
         service_improvement: C’est en détectant de nouvelles situations que nous pouvons améliorer ce service. Nous faisons notre maximum pour compléter l’expertise du service en intégrant de nouveaux partenaires. Nous espérons ainsi proposer à terme un conseil personnalisé à toutes les TPE & PME dans votre situation.
         subject: Échec de votre demande sur le Service Public Conseillers entreprises
         your_need_html: Vous avez utilisé le service public %{link_to_root} - ou un site partenaire intégrant ce service - sur le sujet <strong>%{subject}</strong>.
-      intelligent_retention:
-        and_you: Et vous, souhaitez-vous être aidé par un conseiller sur ces sujets ?
       intro_from_solicitation_html: 'Vous avez utilisé le Service Public Conseillers entreprises pour <i>%{company}</i>. Votre demande concerne :'
       intro_from_solicitation_with_subject_html: Vous avez utilisé le Service Public Conseillers entreprises pour <i>%{company}</i>. Votre demande concerne <b>« %{subject} »</b>.
       not_yet_taken_care:
@@ -142,7 +140,7 @@ fr:
         recruitment_html: "<strong>pour votre projet de recrutement :</strong> contexte du recrutement et type de contrat"
         treasury_html: "<strong>pour votre problème de trésorerie :</strong> contexte des difficultés et montant du besoin"
         upon_receipt: 'Nous vous invitons à compléter votre demande pour qu’elle soit transmise :'
-    team_html: L’équipe du <a href=%{url}> Service Public Conseillers entreprises </a>
+    team_html: L’équipe du <a href="%{url}"> Service Public Conseillers entreprises </a>
     thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service.
     thanks_for_your_trust: Merci pour votre confiance,

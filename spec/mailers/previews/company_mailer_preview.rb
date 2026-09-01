@@ -35,10 +35,6 @@ class CompanyMailerPreview < ActionMailer::Preview
     CompanyMailer.solicitation_relaunch_description(Solicitation.status_step_description.where.not(uuid: nil).find_random)
   end
 
-  def intelligent_retention
-    CompanyMailer.intelligent_retention(Need.where(status: :done).where.associated(:solicitation).find_random, EmailRetention.all.find_random)
-  end
-
   def not_yet_taken_care
     CompanyMailer.not_yet_taken_care(Diagnosis.completed.find_random.solicitation)
   end
