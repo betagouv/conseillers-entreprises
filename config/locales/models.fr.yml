@@ -1018,6 +1018,7 @@ fr:
     subject: Sujet
     subtitle: Analyse statistique des besoins transmis aux experts
     take_care_rate: Taux de prise en charge
+    taken_care_in_five_days_rate: Taux d’échange dans les 5 jours
     taking_care: "- dont en cours de traitement"
     taking_care_caption_definition: Besoins pris en charge par un expert, qui n’a pas encore été clôturé après l’appel de l’entreprise.
     taking_care_caption_label: En cours de traitement

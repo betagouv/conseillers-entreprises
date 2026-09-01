@@ -15,6 +15,8 @@ module XlsxExport
         done_size = calculate_positionning_status_size(:done, matches)
         @rate_done = calculate_rate(done_size, matches)
 
+        @rate_taken_care_in_five_days = calculate_rate(matches.taken_care_in_five_days.size, matches.with_exchange)
+
         sheet.add_row [
           [@antenne.name, "besoins agglomérés"].join(' - '),
           @needs.size,
@@ -22,7 +24,8 @@ module XlsxExport
           @rate_positionning,
           @rate_positionning_accepted,
           @rate_done,
-        ], style: [nil, nil, @rate, @rate, @rate, @rate]
+          @rate_taken_care_in_five_days,
+        ], style: [nil, nil, @rate, @rate, @rate, @rate, @rate]
 
         # Antenne régionale non agglomérée
 
@@ -44,9 +47,9 @@ module XlsxExport
       end
 
       def finalise_by_antenne_calculation_style(start_row = 5, territorial_antennes_count = @antenne.territorial_antennes.count)
-        # highlight positionning (D), positionning_accepted (E), done (F).
+        # highlight positionning (D), positionning_accepted (E), done (F), taken_care_in_five_days (G).
         last_row = territorial_antennes_count + (start_row)
-        sheet.add_conditional_formatting("D#{start_row}:F#{last_row}",
+        sheet.add_conditional_formatting("D#{start_row}:G#{last_row}",
           type: :cellIs,
           operator: :lessThan,
           formula: "D$#{start_row - 1}", # The cell of @rate_positioning; the column is relative, the row is absolute.

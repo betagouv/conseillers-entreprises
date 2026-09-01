@@ -21,6 +21,8 @@ module XlsxExport
         done_size = calculate_positionning_status_size(:done, matches)
         @rate_done = calculate_rate(done_size, matches)
 
+        @rate_taken_care_in_five_days = calculate_rate(matches.taken_care_in_five_days.size, matches.with_exchange)
+
         sheet.add_row [
           I18n.t('antenne_stats_exporter.national'),
           @needs.size,
@@ -28,7 +30,8 @@ module XlsxExport
           @rate_positionning,
           @rate_positionning_accepted,
           @rate_done,
-        ], style: [nil, nil, @rate, @rate, @rate, @rate]
+          @rate_taken_care_in_five_days,
+        ], style: [nil, nil, @rate, @rate, @rate, @rate, @rate]
 
         # Chiffres des antennes locales
         needs_by_regions = {}
@@ -63,11 +66,13 @@ module XlsxExport
 
       private
 
+      def with_response_time? = true
+
       def finalise_by_region_calculation_style(start_row = 5)
-        # highlight positionning (D), positionning_accepted (E), done (F).
+        # highlight positionning (D), positionning_accepted (E), done (F), taken_care_in_five_days (G).
         regions_count = RegionOrderingService.call.count
         last_row = regions_count + (start_row - 1)
-        sheet.add_conditional_formatting("D#{start_row}:F#{last_row}",
+        sheet.add_conditional_formatting("D#{start_row}:G#{last_row}",
           type: :cellIs,
           operator: :lessThan,
           formula: "D$#{start_row - 1}", # The cell of @rate_positioning; the column is relative, the row is absolute.
