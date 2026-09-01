@@ -543,13 +543,15 @@ fr:
         iframe_fields: Champs iframe
       home:
         answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
-        discover_measures: Découvrir les mesures
         how-it-works: Comment ça marche ?
         meta:
           description: 'TPE & PME vous avez un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
           title: Accueil | Service Public Conseillers entreprises
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
         subtitle: 'Service public simple et rapide : %{count} TPE & PME ont déjà été accompagnées cette année par un conseiller %{subject}'
+      home_emphasis_item:
+        cta:
+          landing: Découvrir les mesures
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
         title: Le Service Public Conseillers entreprises vous met en relation avec le conseiller qui peut vous aider.
