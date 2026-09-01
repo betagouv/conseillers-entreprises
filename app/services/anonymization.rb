@@ -97,7 +97,10 @@ module Anonymization
     ensure_can_anonymize!
 
     puts name
-    yield
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute("SET LOCAL statement_timeout = '0'")
+      yield
+    end
     puts "Done"
   end
 end
