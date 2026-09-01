@@ -95,7 +95,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/about/temoignages_experts/show.html.haml",
-      "line": 10,
+      "line": 12,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(partial => params[:id], {})",
       "render_path": [
@@ -121,50 +121,6 @@
         22
       ],
       "note": "params[:id] is checked to be a key of the yml file"
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "bfdd8ccaa5da4688e66d26f048d517c6ab675bb5e343af61c17fbc2fd83ba00a",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/needs/_admin_need.html.haml",
-      "line": 32,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "build_admin_need_card_footer(:quo_match, (Unresolved Model).new)",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Conseiller::OptimisationController",
-          "method": "quo_matches",
-          "line": 22,
-          "file": "app/controllers/conseiller/optimisation_controller.rb",
-          "rendered": {
-            "name": "conseiller/optimisation/quo_matches",
-            "file": "app/views/conseiller/optimisation/quo_matches.html.haml"
-          }
-        },
-        {
-          "type": "template",
-          "name": "conseiller/optimisation/quo_matches",
-          "line": 13,
-          "file": "app/views/conseiller/optimisation/quo_matches.html.haml",
-          "rendered": {
-            "name": "needs/_admin_need",
-            "file": "app/views/needs/_admin_need.html.haml"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "needs/_admin_need"
-      },
-      "user_input": "(Unresolved Model).new",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": ""
     },
     {
       "warning_type": "SQL Injection",
@@ -234,5 +190,5 @@
       "note": ""
     }
   ],
-  "brakeman_version": "8.0.4"
+  "brakeman_version": "8.0.5"
 }
