@@ -3,9 +3,7 @@ class Landings::LandingsController < Landings::BaseController
 
   def home
     @landing = Landing.accueil
-    @landing_themes = Rails.cache.fetch('landing_themes', expires_in: 3.minutes) do
-      @landing.landing_themes.not_archived.order(:position)
-    end
+    @landing_themes = @landing.landing_themes.not_archived.order(:position)
     @landing_emphasis = Landing.emphasis
   end
 

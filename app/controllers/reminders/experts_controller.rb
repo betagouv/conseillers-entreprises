@@ -120,8 +120,9 @@ module Reminders
     end
 
     def collections_counts
-      @expert_collections_count = Rails.cache.fetch(['expert_reminders_need', filtered_experts, RemindersRegister.current_remainder_category.pluck(:updated_at).max]) do
-        experts_collection_names.index_with { |name| filtered_experts.send(name).distinct.size }
+      collection_names = %i[inputs many_pending_needs medium_pending_needs one_pending_need expired_needs outputs]
+      @expert_collections_count = Rails.cache.fetch(['expert_reminders_need', filtered_experts, RemindersRegister.current_remainder_category]) do
+        collection_names.index_with { |name| filtered_experts.send(name).distinct.size }
       end
     end
 

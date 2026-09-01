@@ -42,9 +42,7 @@ module WithTerritorialZones
   end
 
   def insee_codes
-    cache_key = ["insee_codes", self.class.name, self.id, territorial_zones.ids]
-
-    Rails.cache.fetch(cache_key, expires_in: 1.day) do
+    Rails.cache.fetch(["insee_codes", self, territorial_zones]) do
       calculate_insee_codes
     end
   end
