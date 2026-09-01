@@ -62,6 +62,8 @@ fr:
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
+    pseudonymize: Pseudonymiser
+    pseudonymize_done: Données pseudonymisées
     regional_theme: Thème régional
     reports:
       job_enqueued: Génération en attente

@@ -99,6 +99,50 @@ module Anonymization
     end
   end
 
+  # Pseudonymization
+  # Useful in development to create realistic data
+  def pseudonymize_expert(expert)
+    ensure_can_anonymize!
+
+    domain = expert.institution.name.parameterize(separator: ".")
+    if expert.with_one_user?
+      name = Faker::Name.name
+      email = Faker::Internet.email(name: name, domain: domain)
+      expert.update(full_name: name, email: email, phone_number: Faker::PhoneNumber.phone_number)
+      expert.users.first.update(full_name: name, email: email, phone_number: Faker::PhoneNumber.phone_number, current_sign_in_ip: Faker::Internet.ip_v4_address, last_sign_in_ip: Faker::Internet.ip_v4_address)
+    else
+      team_name = Faker::Team.name
+      team_email = Faker::Internet.email(name: team_name, domain: domain)
+
+      expert.update(full_name: team_name, email: team_email, phone_number: Faker::PhoneNumber.phone_number)
+      expert.users.each do |user|
+        user_name = Faker::Name.name
+        user_email = Faker::Internet.email(name: user_name, domain: domain)
+        user.update(email: user_email, full_name: user_name, phone_number: Faker::PhoneNumber.phone_number, current_sign_in_ip: Faker::Internet.ip_v4_address, last_sign_in_ip: Faker::Internet.ip_v4_address)
+      end
+    end
+  end
+
+  def pseudonymize_solicitation(solicitation)
+    ensure_can_anonymize!
+
+    siret = Faker::Company.french_siret_number
+    description = Faker::Lorem.paragraph(sentence_count: 20)
+    name = Faker::Name.name
+    company_name = Faker::Company.name
+    email = Faker::Internet.email(name: name, domain: company_name.parameterize(separator: "."))
+    phone_number = Faker::PhoneNumber.phone_number
+
+    solicitation.update(siret: siret, description: description, email: email, full_name: name, phone_number: phone_number)
+
+    if solicitation.diagnosis.present?
+      solicitation.diagnosis.update(content: description)
+      solicitation.visitee.update(email: email, full_name: name, phone_number: phone_number)
+      solicitation.facility.update(siret: siret)
+      solicitation.company.update(siren: siret.first(9), name: company_name)
+    end
+  end
+
   ## Helpers
   #
   def ensure_can_anonymize!

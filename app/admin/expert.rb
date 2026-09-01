@@ -254,6 +254,10 @@ ActiveAdmin.register Expert do
       unless resource.deleted?
         li link_to t('annuaire.users.table.reassign_matches'), admin_expert_reassign_matches_path(expert), class: 'action'
       end
+
+      if Rails.env.development?
+        li link_to t('active_admin.pseudonymize'), pseudonymize_admin_expert_path(expert), class: 'action'
+      end
     end
   end
 
@@ -379,6 +383,11 @@ ActiveAdmin.register Expert do
   member_action :normalize_values do
     resource.normalize_values!
     redirect_back_or_to collection_path, notice: t('active_admin.person.normalize_values_done')
+  end
+
+  member_action :pseudonymize do
+    Anonymization.pseudonymize_expert(resource)
+    redirect_back_or_to collection_path, notice: t('active_admin.pseudonymize_done')
   end
 
   batch_action I18n.t('active_admin.person.normalize_values') do |ids|
