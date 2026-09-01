@@ -111,7 +111,7 @@ module XlsxExport
       def finalise_agglomerate_style
         if with_response_time?
           sheet.merge_cells('A1:G1')
-          sheet.column_widths 50, 15, 20, 25, 25, 25, 35
+          sheet.column_widths 50, 15, 20, 25, 25, 25, 30
         else
           sheet.merge_cells('A1:F1')
           sheet.column_widths 50, 15, 20, 25, 25, 25
