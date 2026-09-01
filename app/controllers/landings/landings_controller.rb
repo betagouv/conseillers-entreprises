@@ -4,7 +4,7 @@ class Landings::LandingsController < Landings::BaseController
   def home
     @landing = Landing.accueil
     @landing_themes = @landing.landing_themes.not_archived.order(:position)
-    @landing_emphasis = Landing.emphasis
+    @emphasis_item = HomeEmphasis.home_emphasis_item
   end
 
   def show
