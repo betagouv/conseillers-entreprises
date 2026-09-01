@@ -80,7 +80,7 @@ ActiveAdmin.register Landing do
       end
     end
 
-    attributes_table title: I18n.t("activerecord.attributes.landing.featured_on_home") do
+    attributes_table title: I18n.t("attributes.featured_on_home") do
       row :emphasis
       row :home_description
     end
@@ -132,7 +132,7 @@ ActiveAdmin.register Landing do
       f.input :information_banner, as: :quill_editor
     end
 
-    f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
+    f.inputs I18n.t("attributes.featured_on_home") do
       f.input :emphasis, as: :boolean
       f.input :home_description, input_html: { rows: 2 }
     end
