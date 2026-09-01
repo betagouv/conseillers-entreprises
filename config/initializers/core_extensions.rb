@@ -5,4 +5,5 @@ Rails.application.reloader.to_prepare do
   # See https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#autoloading-when-the-application-boots
   ActiveRecord::Relation.include RecordExtensions::HumanCount
   ActiveRecord::Relation.include RecordExtensions::Random
+  ActiveRecord::Relation.include RecordExtensions::InBatchesWithProgress
 end
