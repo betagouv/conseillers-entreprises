@@ -47,8 +47,23 @@ RSpec.describe Expert do
 
       it do
         is_expected.to be_with_one_user
+        is_expected.not_to be_with_many_users
         is_expected.not_to be_without_users
         expect(described_class.with_one_user).to include(expert)
+        expect(described_class.with_many_users).not_to include(expert)
+        expect(described_class.without_users).not_to include(expert)
+      end
+    end
+
+    context 'an expert with several user is a team' do
+      let(:expert_users) { [user, user2] }
+
+      it do
+        is_expected.not_to be_with_one_user
+        is_expected.to be_with_many_users
+        is_expected.not_to be_without_users
+        expect(described_class.with_one_user).not_to include(expert)
+        expect(described_class.with_many_users).to include(expert)
         expect(described_class.without_users).not_to include(expert)
       end
     end
@@ -58,8 +73,10 @@ RSpec.describe Expert do
 
       it do
         is_expected.not_to be_with_one_user
+        is_expected.not_to be_with_many_users
         is_expected.to be_without_users
         expect(described_class.with_one_user).not_to include(expert)
+        expect(described_class.with_many_users).not_to include(expert)
         expect(described_class.without_users).to include(expert)
       end
     end

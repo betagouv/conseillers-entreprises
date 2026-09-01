@@ -181,7 +181,6 @@ fr:
       connection: Connexion
       create_expert: Créer un expert identique
       create_expert_done: L’expert a bien été créé
-      created: Utilisateur créé avec succès
       delete: Supprimer l’utilisateur
       delete_confirmation:
         one: Voulez-vous supprimer cet utilisateur ? Cela va aussi supprimer son équipe individuelle.
@@ -191,7 +190,6 @@ fr:
       do_invite_done: Invitation(s) envoyée(s)
       do_reset_password: Réinitialiser le mot de passe
       do_reset_password_done: Réinitialisation du mot de passe envoyée
-      duplicate_territories: Dupliquer les territoires spécifiques
       impersonate: Voir le site comme %{name}
       invite_to_demo: Inviter à une démo
       invited_to_demo: Invitation(s) à la démo envoyée(s)

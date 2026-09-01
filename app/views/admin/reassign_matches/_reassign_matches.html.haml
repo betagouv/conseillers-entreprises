@@ -4,7 +4,8 @@
       .active-admin-form.panel
         %h3= t('.select_expert')
         .panel_contents
+          %p.information= t('.matches_to_reassign', count: expert.received_matches.in_progress.count)
           = form_with(url: admin_expert_reassign_matches_reassign_path, local: true) do |f|
             %li.input.required.stringish
-              = f.select(:selected_expert_id, options_from_collection_for_select(expert.antenne.experts, :id, :full_name))
+              = f.select(:selected_expert_id, options_from_collection_for_select(expert.antenne.experts, :id, :full_name, params[:selected_expert_id]))
             = f.submit t('.save')
