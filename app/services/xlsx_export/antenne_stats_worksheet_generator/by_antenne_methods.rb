@@ -2,7 +2,7 @@ module XlsxExport
   module AntenneStatsWorksheetGenerator
     module ByAntenneMethods
       def generate_by_antenne_table(territorial_antennes = @antenne.territorial_antennes)
-        add_agglomerate_headers(:antenne, with_response_time: true)
+        add_agglomerate_headers(:antenne)
 
         # Chiffres de référence - antenne régionale agglomérée
         matches = @antenne.perimeter_received_matches_from_needs(@needs)
@@ -31,7 +31,7 @@ module XlsxExport
 
         regional_needs = @needs.joins(:expert_antennes).where(antennes: { id: @antenne.id }).distinct
         ratio = calculate_rate(regional_needs.count, @needs)
-        add_agglomerate_rows(regional_needs, @antenne.name, @antenne, ratio, with_response_time: true)
+        add_agglomerate_rows(regional_needs, @antenne.name, @antenne, ratio)
 
         # Chiffres des antennes locales
         needs_by_antennes = {}
@@ -42,7 +42,7 @@ module XlsxExport
 
         needs_by_antennes.sort_by { |_, needs| -needs.count }.each do |antenne_name, needs|
           ratio = calculate_rate(needs.count, @needs)
-          add_agglomerate_rows(needs, antenne_name, @antenne, ratio, with_response_time: true)
+          add_agglomerate_rows(needs, antenne_name, @antenne, ratio)
         end
       end
 

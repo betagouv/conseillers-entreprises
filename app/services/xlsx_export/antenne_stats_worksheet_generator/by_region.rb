@@ -8,7 +8,7 @@ module XlsxExport
 
         ## Par région
         #
-        add_agglomerate_headers(:region, with_response_time: true)
+        add_agglomerate_headers(:region)
 
         # Chiffres de référence - antenne régionale
         matches = @antenne.perimeter_received_matches_from_needs(@needs)
@@ -42,7 +42,7 @@ module XlsxExport
 
         needs_by_regions.sort_by { |_, needs| -needs.count }.each do |region_name, needs|
           ratio = calculate_rate(needs.count, @needs)
-          add_agglomerate_rows(needs, region_name, @antenne, ratio, with_response_time: true)
+          add_agglomerate_rows(needs, region_name, @antenne, ratio)
         end
 
         finalise_by_region_calculation_style(5)
@@ -61,10 +61,12 @@ module XlsxExport
         antennes_start_row = 5 + regions_count + 3
         finalise_by_antenne_calculation_style(antennes_start_row, territorial_antennes.count)
 
-        finalise_agglomerate_style(with_response_time: true)
+        finalise_agglomerate_style
       end
 
       private
+
+      def with_response_time? = true
 
       def finalise_by_region_calculation_style(start_row = 5)
         # highlight positionning (D), positionning_accepted (E), done (F), taken_care_in_five_days (G).
