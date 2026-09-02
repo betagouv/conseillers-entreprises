@@ -9,7 +9,7 @@ module HomeEmphasis
     before_save :set_unique_emphasis_item
   end
 
-  EMPHASIS_CLASSES = [Landing]
+  EMPHASIS_CLASSES = [Landing, LandingSubject]
 
   def set_unique_emphasis_item
     if emphasis
