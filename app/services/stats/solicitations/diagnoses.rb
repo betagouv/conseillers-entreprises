@@ -19,13 +19,9 @@ module Stats::Solicitations
     # "without" is the complement of a completed diagnosis (no diagnosis or one
     # still in progress), so :else reproduces the original union exactly.
     def category_buckets
-      completed = <<~SQL.squish
-        EXISTS (SELECT 1 FROM diagnoses d
-                WHERE d.solicitation_id = solicitations.id AND d.step = #{Diagnosis.steps[:completed]})
-      SQL
       [
         [:without_diagnosis, :else],
-        [:with_diagnosis, completed]
+        [:with_diagnosis, completed_diagnosis_exists_sql]
       ]
     end
 
@@ -37,12 +33,25 @@ module Stats::Solicitations
       @count ||= percentage_two_numbers(series[1][:data], series[0][:data])
     end
 
+    # Uses the same EXISTS as category_buckets so a solicitation with several
+    # completed diagnoses (no unique constraint on diagnoses.solicitation_id)
+    # is counted once here too, matching count/series instead of duplicating
+    # it as a JOIN would.
     def secondary_count
-      @secondary_count ||= filtered_main_query.joins(:diagnosis).merge(Diagnosis.completed).size
+      @secondary_count ||= filtered_main_query.where(completed_diagnosis_exists_sql).size
     end
 
     def subtitle
       I18n.t('stats.series.solicitations_diagnoses.subtitle_html')
+    end
+
+    private
+
+    def completed_diagnosis_exists_sql
+      <<~SQL.squish
+        EXISTS (SELECT 1 FROM diagnoses d
+                WHERE d.solicitation_id = solicitations.id AND d.step = #{Diagnosis.steps[:completed]})
+      SQL
     end
   end
 end
