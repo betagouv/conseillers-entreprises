@@ -35,6 +35,7 @@
 class Landing < ApplicationRecord
   include WithSlug
   include Archivable
+  include HomeEmphasis
 
   enum :integration, {
     intern: 0,
@@ -71,15 +72,12 @@ class Landing < ApplicationRecord
 
   accepts_nested_attributes_for :landing_joint_themes, allow_destroy: true
 
-  before_save :set_emphasis
-
   ## Validation
   #
   validates :slug, presence: true, uniqueness: true
 
   ## Scopes
   #
-  scope :emphasis, -> { where(emphasis: true) }
   scope :cooperation, -> { where.not(cooperation_id: nil) }
 
   def self.accueil
@@ -157,13 +155,5 @@ class Landing < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     ["landing_joint_themes", "landing_subjects", "landing_themes", "solicitations", "cooperation"]
-  end
-
-  private
-
-  def set_emphasis
-    if emphasis
-      Landing.where.not(id: id).update_all(emphasis: false)
-    end
   end
 end
