@@ -68,4 +68,19 @@ describe 'Stats::Solicitations graphs', type: :model do
       expect(QueryCounter.count { fresh = described_class.new(params); fresh.series; fresh.count }).to be <= 2
     end
   end
+
+  describe "#{Stats::Solicitations::TransmittedLessThan72h} with a multi-need diagnosis" do
+    it 'counts the solicitation once per need, per the documented diagnosis->needs join fan-out' do
+      diagnosis = create(:diagnosis_completed)
+      diagnosis.solicitation.update_columns(status: Solicitation.statuses[:processed], created_at: '2026-01-10')
+      diagnosis.update_columns(completed_at: '2026-01-11')
+      create(:need_with_matches, diagnosis: diagnosis)
+
+      g = Stats::Solicitations::TransmittedLessThan72h.new(params)
+      expect(g.series).to eq [
+        { name: I18n.t('stats.more_than_72h'), data: [0, 0] },
+        { name: I18n.t('stats.less_than_72h'), data: [2, 0] }
+      ]
+    end
+  end
 end
