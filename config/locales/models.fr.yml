@@ -287,6 +287,9 @@ fr:
         phone_number: Numéro de téléphone de la personne rencontrée
         waiting_time: délai (en mois)
       expert:
+        activity_matches:
+          one: mise en relation avec action
+          other: mises en relation avec action
         errors:
           cant_transfer_match: 'Les mises en relation n’ont pas pu être transférés : %{error}'
         full_name: Nom de l’équipe
@@ -681,9 +684,10 @@ fr:
       user:
         absence_end_at: Date de fin d’absence
         absence_start_at: Date de début d’absence
+        activity_feedbacks: Commentaires déposés
         activity_matches:
-          one: Action de MER
-          other: Actions de MER
+          one: Mise en relation avec action
+          other: Mises en relation avec action
         app_info: Marqueurs
         created_at: Création
         current_password: Mot de passe actuel
@@ -699,6 +703,7 @@ fr:
         invitees: Invités
         inviter: Invité par
         job: Fonction
+        last_active_at: Dernière activité enregistrée
         last_sign_in_at: Date de la dernière connexion
         last_sign_in_ip: IP lors de la dernière connexion
         password: Mot de passe
@@ -931,6 +936,13 @@ fr:
         territorial_referent:
           one: Droit référent régional
           other: Droits référent régional
+  activity:
+    expert:
+      single: En temps qu’expert autonome
+      team: Mises en relations reçues par %{team_name}
+    explanation: Activité dans les deux dernières années. Les « mises en relation avec action » correspondent aux mises en relation sur lesquelles l’expert (ou un membre de l’équipe) a cliqué sur un des boutons de prise en charge ou de refus.
+    last_feedback: Le dernier le %{latest}
+    last_match: La dernière le %{latest}
   antenne_stats_exporter:
     annual_national_stats: Repères nationaux
     annual_stats_by_antenne: Stats ann. par antenne

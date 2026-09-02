@@ -98,6 +98,7 @@ class User < ApplicationRecord
   belongs_to :inviter, class_name: 'User', inverse_of: :invitees, optional: true
   has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter, counter_cache: :invitations_count
   has_many_attached :csv_exports
+  has_many :activity_feedbacks, -> { where(updated_at: Match.default_activity_period) }, class_name: 'Feedback', inverse_of: :user, dependent: :nullify
 
   # :rights / roles
   has_many :user_rights, inverse_of: :user, dependent: :destroy
@@ -140,7 +141,6 @@ class User < ApplicationRecord
 
   # :experts
   has_many :received_matches, through: :experts, source: :received_matches, inverse_of: :contacted_users
-  has_many :activity_matches, through: :experts, source: :activity_matches, inverse_of: :contacted_users
   has_many :received_needs, through: :experts, source: :received_needs, inverse_of: :contacted_users
   has_many :received_diagnoses, through: :experts, source: :received_diagnoses, inverse_of: :contacted_users
   has_many :themes, through: :experts, inverse_of: :advisors
@@ -296,6 +296,10 @@ class User < ApplicationRecord
   # Used for matches transfer
   def single_user_experts
     experts.with_one_user
+  end
+
+  def team_experts
+    experts.with_many_users
   end
 
   def create_single_user_experts

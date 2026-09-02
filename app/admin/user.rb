@@ -3,7 +3,7 @@ ActiveAdmin.register User do
 
   controller do
     def scoped_collection
-      base_includes = [:antenne, :institution, :experts, :activity_matches, :experts_with_subjects, :feedbacks]
+      base_includes = [:antenne, :institution, :experts, :experts_with_subjects]
       additional_includes = []
 
       # If using role scopes, include user_rights
@@ -69,10 +69,7 @@ ActiveAdmin.register User do
     column(:experts) do |u|
       div admin_link_to(u, :experts, list: true)
     end
-    column(:activity) do |u|
-      div admin_link_to(u, :activity_matches)
-      div admin_link_to(u, :feedbacks)
-    end
+    column :last_active_at
 
     actions dropdown: true do |u|
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
@@ -89,6 +86,7 @@ ActiveAdmin.register User do
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :region, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }
   filter :created_at
+  filter :last_active_at
   filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
 
   ## CSV
@@ -102,11 +100,8 @@ ActiveAdmin.register User do
     column :job
     column :antenne
     column :institution
+    column :last_active_at
     column_list :experts
-    column_count :sent_diagnoses
-    column_count :sent_needs
-    column_count :sent_matches
-    column_count :feedbacks
   end
 
   # Show
@@ -136,11 +131,33 @@ ActiveAdmin.register User do
       row(:experts) do |u|
         div admin_link_to(u, :experts, list: true)
       end
-      row :activity do |u|
-        div admin_link_to(u, :sent_diagnoses)
-        div admin_link_to(u, :sent_needs)
-        div admin_link_to(u, :sent_matches)
-        div admin_link_to(u, :feedbacks)
+    end
+
+    panel t("attributes.activity") do
+      div t("activity.explanation"), class: "information"
+      attributes_table_for user do
+        row :last_active_at do |u|
+          u.last_active_at.present? ? l(u.last_active_at, format: :long) : "-"
+        end
+        row :activity_feedbacks do |u|
+          div admin_link_to(u, :activity_feedbacks)
+          max_updated_at = u.activity_feedbacks.maximum(:updated_at)
+          div t("activity.last_feedback", latest: l(max_updated_at, format: :long_sentence)) if max_updated_at.present?
+        end
+        user.single_user_experts.each do |expert|
+          row t("activity.expert.single") do
+            div admin_link_to(expert, :activity_matches)
+            max_updated_at = expert.activity_matches.maximum(:updated_at)
+            div t("activity.last_match", latest: l(max_updated_at, format: :long_sentence)) if max_updated_at.present?
+          end
+        end
+        user.team_experts.each do |expert|
+          row t("activity.expert.team", team_name: expert) do
+            div admin_link_to(expert, :activity_matches)
+            max_updated_at = expert.activity_matches.maximum(:updated_at)
+            div t("activity.last_match", latest: l(max_updated_at, format: :long_sentence)) if max_updated_at.present?
+          end
+        end
       end
     end
   end
