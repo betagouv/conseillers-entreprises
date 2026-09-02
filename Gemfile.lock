@@ -290,6 +290,9 @@ GEM
       rainbow
       rubocop (>= 1.0)
       sysexits (~> 1.1)
+    haml_to_erb (0.1.0)
+      haml (>= 5.0, < 8)
+      prism (>= 0.24, < 2)
     has_scope (0.9.0)
       actionpack (>= 7.0)
       activesupport (>= 7.0)
@@ -767,6 +770,7 @@ DEPENDENCIES
   foreman
   haml-rails
   haml_lint
+  haml_to_erb
   highcharts-rails
   highline
   hiredis

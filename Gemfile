@@ -141,6 +141,7 @@ group :development do
   gem 'rails-erd'
   gem 'ruby-graphviz' # for rails-erd to generate pdf
   gem 'database_consistency', require: false
+  gem 'haml_to_erb', require: false
 end
 
 # Use Redis for Action Cable

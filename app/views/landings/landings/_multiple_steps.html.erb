@@ -1,0 +1,22 @@
+<%# locals: (landing_themes:, landing:) %>
+
+<% cache [landing_themes, landing] do %>
+  <% unless in_iframe? %>
+    <h2 class="fr-h3 fr-mb-6w"><%= t('you_wish') %></h2>
+  <% end %>
+  <div class="fr-grid-row fr-grid-row--gutters landing-theme-container <%= 'in-iframe' if in_iframe? %>">
+    <%= render partial: 'landings/landing_themes/card', collection: landing_themes, as: :landing_theme, locals: { landing: landing } %>
+  </div>
+  <% if in_iframe? && landing.landing_themes.not_archived.pluck(:slug).include?('contactez-nous') %>
+    <p class="text-center contact-us">
+      <b><%= t('.other_questions') %></b>
+      <b><%= link_to t('.contact_us'), landing_theme_path({ landing_slug: landing.slug, slug: 'contactez-nous' }), class: 'click-on-landing-theme' %></b>
+    </p>
+  <% end %>
+  <% unless in_iframe? %>
+    <p class="text-center contact-us">
+      <b><%= t('.other_questions') %></b>
+      <b><%= link_to t('.contact_us'), landing_path({ landing_slug: 'contactez-nous' }), class: 'click-on-landing-theme' %></b>
+    </p>
+  <% end %>
+<% end %>
