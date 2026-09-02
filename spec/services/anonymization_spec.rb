@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'anonymize_old_diagnoses', type: :task do
-  let(:anonymized) { I18n.t('attributes.anonymized') }
+describe Anonymization do
+  let(:anonymized) { I18n.t('anonymization.data') }
   let(:three_years_ago) { (3.years - 1.day).ago }
   let(:two_years_ago) { 2.years.ago }
 
@@ -12,7 +12,7 @@ describe 'anonymize_old_diagnoses', type: :task do
     let!(:diagnosis) { create :diagnosis_completed, facility: facility, created_at: three_years_ago, solicitation: solicitation }
 
     before do
-      task.invoke
+      described_class.anonymize_old_diagnoses
       diagnosis.reload
     end
 
@@ -37,7 +37,7 @@ describe 'anonymize_old_diagnoses', type: :task do
     let!(:diagnosis) { create :diagnosis_completed, facility: facility, created_at: two_years_ago, solicitation: solicitation }
 
     before do
-      task.invoke
+      described_class.anonymize_old_diagnoses
       diagnosis.reload
     end
 
@@ -66,7 +66,7 @@ describe 'anonymize_old_diagnoses', type: :task do
     let!(:diagnosis_2) { create :diagnosis_completed, facility: facility, created_at: two_years_ago, solicitation: solicitation_2 }
 
     before do
-      task.invoke
+      described_class.anonymize_old_diagnoses
       company.reload
       facility.reload
       diagnosis_1.reload

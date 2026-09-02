@@ -211,6 +211,14 @@ ActiveAdmin.register Solicitation do
     end
   end
 
+  if Rails.env.development?
+    sidebar I18n.t('active_admin.actions'), only: :show do
+      ul class: 'actions' do
+        li link_to t('active_admin.pseudonymize'), pseudonymize_admin_solicitation_path(solicitation), class: 'action'
+      end
+    end
+  end
+
   sidebar I18n.t('activerecord.models.solicitation.one'), only: :show do
     attributes_table_for solicitation do
       row(:status) { human_attribute_status_tag solicitation, :status }
@@ -237,6 +245,14 @@ ActiveAdmin.register Solicitation do
     end
 
     f.actions
+  end
+
+  ## Actions
+  #
+
+  member_action :pseudonymize do
+    Anonymization.pseudonymize_solicitation(resource)
+    redirect_back_or_to collection_path, notice: t('active_admin.pseudonymize_done')
   end
 
   form_options = -> do

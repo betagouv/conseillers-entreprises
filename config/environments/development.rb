@@ -98,6 +98,9 @@ Rails.application.configure do
     Bullet.alert = false
     Bullet.console = false
   end
+
+  # Let Faker load its :en text
+  config.i18n.available_locales << :en
 end
 
 PpSql.rewrite_to_sql_method = false

@@ -3,6 +3,18 @@ module Anonymization
 
   def anonymized_marker = I18n.t('anonymization.data')
 
+  # In-production: anonymize old solicitations and diagnoses
+  def anonymize_old_diagnoses(range = 3.years.ago..(3.years - 8.days).ago)
+    diagnoses = Diagnosis.where(created_at: range)
+    diagnoses.each do |diagnosis|
+      diagnosis&.visitee&.update(email: nil, full_name: anonymized_marker, phone_number: anonymized_marker)
+      diagnosis&.solicitation&.update(email: nil, full_name: anonymized_marker, phone_number: anonymized_marker, siret: nil)
+      next if diagnosis.company.diagnoses.pluck(:created_at).max > range.end
+      diagnosis.company.update(name: anonymized_marker, siren: nil)
+      diagnosis.company.facilities.each { |facility| facility.update(siret: nil) }
+    end
+  end
+
   # Batch-anonymize all the records that can contain identifying information.
   # Used for development copies of the production DB.
   #
@@ -84,6 +96,50 @@ module Anonymization
       CompanySatisfaction.where.not(comment: [nil, "", anonymized_text]).update_all(comment: anonymized_text)
       Diagnosis.where.not(content: [nil, "", anonymized_text]).update_all(content: anonymized_text)
       Feedback.where.not(description: [nil, "", anonymized_text]).update_all(description: anonymized_text)
+    end
+  end
+
+  # Pseudonymization
+  # Useful in development to create realistic data
+  def pseudonymize_expert(expert)
+    ensure_can_anonymize!
+
+    domain = "#{expert.institution.slug}.demo"
+    if expert.with_one_user?
+      name = Faker::Name.name
+      email = "#{name.parameterize}@#{domain}"
+      expert.update(full_name: name, email: email, phone_number: Faker::PhoneNumber.phone_number)
+      expert.users.first.update(full_name: name, email: email, phone_number: Faker::PhoneNumber.phone_number, current_sign_in_ip: Faker::Internet.ip_v4_address, last_sign_in_ip: Faker::Internet.ip_v4_address)
+    else
+      team_name = Faker::Team.name
+      team_email = "#{team_name.parameterize}@#{domain}"
+
+      expert.update(full_name: team_name, email: team_email, phone_number: Faker::PhoneNumber.phone_number)
+      expert.users.each do |user|
+        user_name = Faker::Name.name
+        user_email = Faker::Internet.email(name: user_name, domain: domain)
+        user.update(email: user_email, full_name: user_name, phone_number: Faker::PhoneNumber.phone_number, current_sign_in_ip: Faker::Internet.ip_v4_address, last_sign_in_ip: Faker::Internet.ip_v4_address)
+      end
+    end
+  end
+
+  def pseudonymize_solicitation(solicitation)
+    ensure_can_anonymize!
+
+    siret = Faker::Company.french_siret_number
+    description = Faker::Lorem.paragraph(sentence_count: 20)
+    name = Faker::Name.name
+    company_name = Faker::Company.name
+    email = "#{name.parameterize}@#{company_name.parameterize(separator: ".")}"
+    phone_number = Faker::PhoneNumber.phone_number
+
+    solicitation.update(siret: siret, description: description, email: email, full_name: name, phone_number: phone_number)
+
+    if solicitation.diagnosis.present?
+      solicitation.diagnosis.update(content: description)
+      solicitation.visitee.update(email: email, full_name: name, phone_number: phone_number)
+      solicitation.facility.update(siret: siret)
+      solicitation.company.update(siren: siret.first(9), name: company_name)
     end
   end
 
