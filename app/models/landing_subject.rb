@@ -37,6 +37,7 @@
 class LandingSubject < ApplicationRecord
   include WithSlug
   include Archivable
+  include HomeEmphasis
 
   enum :fields_mode, { location: 'location', siret: 'siret' }, prefix: true
 
@@ -85,8 +86,8 @@ class LandingSubject < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     [
-      "archived", "archived_at", "created_at", "description", "description_explanation", "description_prefill",
-      "form_description", "form_title", "id", "id_value", "landing_theme_id", "meta_description",
+      "archived", "archived_at", "created_at", "emphasis", "description", "description_explanation", "description_prefill",
+      "home_description", "form_description", "form_title", "id", "id_value", "landing_theme_id", "meta_description",
       "meta_title", "position", "fields_mode", "slug",
       "subject_id", "title", "updated_at"
     ]
