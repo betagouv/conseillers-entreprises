@@ -44,7 +44,7 @@ class Match < ApplicationRecord
     not_for_me: 'not_for_me'
   }, prefix: true
 
-  DEFAULT_ACTIVITY_PERIOD = (2.years.ago..)
+  def self.default_activity_period = (2.years.ago..)
 
   ## Associations
   #
@@ -189,7 +189,7 @@ class Match < ApplicationRecord
     taken_care_before(5)
   end
 
-  scope :with_activity, -> (date_range = Match::DEFAULT_ACTIVITY_PERIOD) do
+  scope :with_activity, -> (date_range = Match.default_activity_period) do
     where.not(status: :quo).where(updated_at: date_range)
   end
 

@@ -84,8 +84,8 @@ class Expert < ApplicationRecord
 
   ## Scopes
   #
-  scope :with_activity, -> (date_range = Match::DEFAULT_ACTIVITY_PERIOD) { not_deleted.where(id: Match.with_activity(date_range).select(:expert_id)) }
-  scope :without_activity, -> (date_range = Match::DEFAULT_ACTIVITY_PERIOD) { not_deleted.where.not(id: Match.with_activity(date_range).select(:expert_id)) }
+  scope :with_activity, -> (date_range = Match.default_activity_period) { not_deleted.where(id: Match.with_activity(date_range).select(:expert_id)) }
+  scope :without_activity, -> (date_range = Match.default_activity_period) { not_deleted.where.not(id: Match.with_activity(date_range).select(:expert_id)) }
 
   # Team stuff
   scope :with_one_user, -> do
