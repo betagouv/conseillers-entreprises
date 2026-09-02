@@ -32,7 +32,7 @@ ActiveAdmin.register User do
   config.sort_order = 'created_at_desc'
 
   scope I18n.t("active_admin.user.active"), :active, default: true
-  scope :without_activity, show_count: false
+  scope :without_activity, show_count: false # -
   scope :currently_absent
   scope :deleted
 
@@ -72,8 +72,8 @@ ActiveAdmin.register User do
       div admin_link_to(u, :experts, list: true)
     end
     column(:activity) do |u|
-      div admin_link_to(u, :activity_matches)
-      div admin_link_to(u, :feedbacks)
+      div admin_link_to(u, :activity_matches) # - N actions de MER dans les deux dernières années - la dernière le date.
+      div admin_link_to(u, :feedbacks) # -
     end
 
     actions dropdown: true do |u|
@@ -138,11 +138,14 @@ ActiveAdmin.register User do
       row(:experts) do |u|
         div admin_link_to(u, :experts, list: true)
       end
-      row :activity do |u|
-        div admin_link_to(u, :sent_diagnoses)
-        div admin_link_to(u, :sent_needs)
-        div admin_link_to(u, :sent_matches)
-        div admin_link_to(u, :feedbacks)
+      row :activity do |u| #  could use activity_matches?
+        div u.last_active_at
+        div do
+          span admin_link_to(u, :activity_matches)
+          date = u.activity_matches.maximum(:updated_at)
+          span(" depuis 2 ans, la dernière #{relative_time_in_words(date)}", title: l(date))
+        end
+        div admin_link_to(u, :feedbacks) # ok
       end
     end
   end

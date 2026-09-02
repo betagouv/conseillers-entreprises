@@ -104,8 +104,8 @@ ActiveAdmin.register Expert do
       div admin_link_to(e, :subjects)
     end
     column(:activity) do |e|
-      div admin_link_to(e, :received_matches, blank_if_empty: true)
-      admin_link_to_expert_shared_satisfaction(e)
+      div admin_link_to(e, :activity_matches, blank_if_empty: true)
+      admin_link_to_expert_shared_satisfaction(e) # - ?
     end
     column(:filters) do |i|
       div i.match_filters.count if i.match_filters.any?
@@ -169,8 +169,8 @@ ActiveAdmin.register Expert do
         div admin_link_to(e, :users, list: true)
       end
       row(:activity) do |e|
-        div admin_link_to(e, :received_matches)
-        admin_link_to_expert_shared_satisfaction(e)
+        div admin_link_to(e, :activity_matches)
+        admin_link_to_expert_shared_satisfaction(e) # ?
       end
 
       attributes_table title: I18n.t('active_admin.expert.skills') do
