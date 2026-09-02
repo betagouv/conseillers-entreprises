@@ -7,9 +7,11 @@
 #  description             :text
 #  description_explanation :text
 #  description_prefill     :text
+#  emphasis                :boolean          default(FALSE), not null
 #  fields_mode             :enum             not null
 #  form_description        :text
 #  form_title              :string
+#  home_description        :text             default("")
 #  meta_description        :string
 #  meta_title              :string
 #  position                :integer
