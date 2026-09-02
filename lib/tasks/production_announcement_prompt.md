@@ -18,7 +18,8 @@ Tu rédiges le message d'annonce d'une mise en production de « Conseillers-Entr
 4. Fusionne en une seule ligne les PRs qui participent au même changement (followups, ajustements l'une de l'autre), même si elles ne sont pas dans la même section du digest — dans ce cas choisis la section la plus pertinente pour le lecteur.
 5. Préfixe la ligne de 🛠️ quand c'est une correction de bug (`Label : 🐛 bug` indiqué dans le digest, ou nature évidente d'après le titre/la description).
 6. Commence le message par `🚀 **En production aujourd'hui** — N PRs` où N est le nombre total de PRs.
-7. Réponds uniquement avec le message final en markdown, sans commentaire ni introduction.
+7. Avant de répondre, vérifie que chaque PR du digest (chaque `## PR #...` reçu en entrée) apparaît au moins une fois dans un lien du message final — y compris quand elle est fusionnée avec une autre sur la même ligne (règle 4). N'omets aucune PR.
+8. Réponds uniquement avec le message final en markdown, sans commentaire ni introduction.
 
 ## Exemple de sortie
 
