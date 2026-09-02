@@ -167,10 +167,6 @@ ActiveAdmin.register Expert do
         div admin_link_to(e, :users)
         div admin_link_to(e, :users, list: true)
       end
-      row(:activity) do |e|
-        div admin_link_to(e, :received_matches)
-        admin_link_to_expert_shared_satisfaction(e)
-      end
 
       attributes_table title: I18n.t('active_admin.expert.skills') do
         table_for expert.experts_subjects.ordered_for_interview do
@@ -179,6 +175,23 @@ ActiveAdmin.register Expert do
           column(:institution_subject)
           column(:intervention_criteria)
           column(:archived_at) { |es| es.subject.archived_at }
+        end
+      end
+    end
+
+    panel t("attributes.activity") do
+      attributes_table_for expert do
+        row(:received_matches) do |e|
+          admin_link_to(e, :received_matches)
+        end
+        row(:shared_company_satisfactions) do |e|
+          admin_link_to_expert_shared_satisfaction(e)
+        end
+      end
+      attributes_table_for expert do
+        row(:activity_matches) do |e|
+          div t("activity.explanation"), class: "information"
+          div admin_link_to(e, :activity_matches)
         end
       end
     end
