@@ -15,9 +15,7 @@ module Stats::Solicitations
       'completed_at'
     end
 
-    # series[0] = without_diagnosis (compared), series[1] = with_diagnosis (target).
-    # "without" is the complement of a completed diagnosis (no diagnosis or one
-    # still in progress), so :else reproduces the original union exactly.
+    # series[0] = without_diagnosis (compared), series[1] = with_diagnosis (target)
     def category_buckets
       [
         [:without_diagnosis, :else],
@@ -33,10 +31,6 @@ module Stats::Solicitations
       @count ||= percentage_two_numbers(series[1][:data], series[0][:data])
     end
 
-    # Uses the same EXISTS as category_buckets so a solicitation with several
-    # completed diagnoses (no unique constraint on diagnoses.solicitation_id)
-    # is counted once here too, matching count/series instead of duplicating
-    # it as a JOIN would.
     def secondary_count
       @secondary_count ||= filtered_main_query.where(completed_diagnosis_exists_sql).size
     end

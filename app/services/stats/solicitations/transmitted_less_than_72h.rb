@@ -11,10 +11,7 @@ module Stats::Solicitations
       Stats::Filters::Solicitations.new(query, self).call
     end
 
-    # series[0] = more_than_72h (compared), series[1] = less_than_72h (target).
-    # Rows keep the diagnosis->needs join fan-out (plain COUNT, no distinct) as
-    # before; solicitations without a transmission date (NULL completed_at) fall
-    # out of both buckets, mirroring the original nil group.
+    # series[0] = more_than_72h (compared), series[1] = less_than_72h (target)
     def category_buckets
       within_72h = 'diagnoses.completed_at BETWEEN solicitations.created_at ' \
                    "AND solicitations.created_at + INTERVAL '3 days'"

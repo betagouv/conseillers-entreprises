@@ -14,7 +14,6 @@ module Stats::Solicitations
       'completed_at'
     end
 
-    # Single series, one grouped query instead of one count per month.
     def build_series
       counts = grouped_by_month(filtered(main_query)).count
       by_month = counts.transform_keys { |month| month.to_date.beginning_of_month }

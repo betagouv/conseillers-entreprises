@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 describe Stats::Concerns::PartitionedCategory, type: :model do
-  # Minimal stand-in for Stats::BaseStats: PartitionedCategory#categorized_results
-  # calls `super`, so the including class must provide the base pipeline's
-  # private categorized_results(query) that PartitionedCategory overrides.
   let(:base_class) do
     Class.new do
       attr_accessor :category_buckets
@@ -14,8 +11,6 @@ describe Stats::Concerns::PartitionedCategory, type: :model do
 
       private
 
-      # Shaped like the real Stats::BaseStats#categorized_results output:
-      # { category => { month => count } }, one entry per category grouping.
       def categorized_results(_query)
         { 'a' => { '2026-01-01' => 2 }, nil => { '2026-01-01' => 3 } }
       end

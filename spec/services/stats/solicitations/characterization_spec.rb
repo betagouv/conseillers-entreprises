@@ -70,7 +70,7 @@ describe 'Stats::Solicitations graphs', type: :model do
   end
 
   describe "#{Stats::Solicitations::TransmittedLessThan72h} with a multi-need diagnosis" do
-    it 'counts the solicitation once per need, per the documented diagnosis->needs join fan-out' do
+    it 'counts the solicitation once per need' do
       diagnosis = create(:diagnosis_completed)
       diagnosis.solicitation.update_columns(status: Solicitation.statuses[:processed], created_at: '2026-01-10')
       diagnosis.update_columns(completed_at: '2026-01-11')

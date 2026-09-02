@@ -21,10 +21,6 @@ module Stats::Concerns
 
     private
 
-    # An :else bucket is meant to catch every remaining row, so a NULL
-    # category despite one being declared means a row slipped through
-    # (e.g. a bucket condition doesn't match what :else's own logic assumes) -
-    # surfacing this early avoids a silently undercounted graph.
     def warn_on_unexpected_nil_category(dropped_month_counts)
       return if dropped_month_counts.blank?
       return unless category_buckets.any? { |_, condition| condition == :else }
