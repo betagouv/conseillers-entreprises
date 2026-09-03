@@ -1,54 +1,32 @@
 module Stats::Needs
   class Requalification
     include Stats::Needs::Base
+    include ::Stats::TwoRatesStats
+    include Stats::Concerns::PartitionedCategory
 
     def main_query
       # This stat is available since 2020-09-01
       needs_base_scope
         .where(created_at: Time.zone.local(2020, 9, 1)..)
+        .joins(diagnosis: { solicitation: :landing_subject })
     end
 
-    def build_series
-      query = filtered_main_query
+    # series[0] = not_requalified (compared), series[1] = requalified (target).
+    # Both conditions are explicit (no :else) so needs without a comparable
+    # landing_subject fall out of both buckets, as in the original scopes.
+    def category_buckets
+      [
+        [:not_requalified, 'needs.subject_id = landing_subjects.subject_id'],
+        [:requalified, 'needs.subject_id != landing_subjects.subject_id']
+      ]
+    end
 
-      @needs_requalified = []
-      @needs_not_requalified = []
-
-      search_range_by_month.each do |range|
-        month_query = query.created_between(range.first, range.last)
-        @needs_requalified.push(month_query.requalified.count)
-        @needs_not_requalified.push(month_query.not_requalified.count)
-      end
-
-      as_series(@needs_requalified, @needs_not_requalified)
+    def category_name(key)
+      I18n.t("stats.series.needs_requalification.#{key}")
     end
 
     def subtitle
       nil
-    end
-
-    def count
-      series
-      percentage_two_numbers(@needs_requalified, @needs_not_requalified)
-    end
-
-    def secondary_count
-      @secondary_count ||= filtered_main_query.requalified.size
-    end
-
-    private
-
-    def as_series(needs_requalified, needs_not_requalified)
-      [
-        {
-          name: I18n.t('stats.series.needs_requalification.not_requalified'),
-          data: needs_not_requalified
-        },
-        {
-          name: I18n.t('stats.series.needs_requalification.requalified'),
-          data: needs_requalified
-        }
-      ]
     end
   end
 end

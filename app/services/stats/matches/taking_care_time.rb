@@ -2,6 +2,7 @@ module Stats::Matches::TakingCareTime
   include ::Stats::BaseStats
   include ::Stats::TwoRatesStats
   include Stats::Matches::Base
+  include Stats::Concerns::PartitionedCategory
 
   def main_query
     matches_base_scope.with_exchange
@@ -11,38 +12,22 @@ module Stats::Matches::TakingCareTime
     @number_of_days ||= 5
   end
 
-  def build_series
-    query = filtered_main_query
-
-    @taken_care_before = []
-    @taken_care_after = []
-
-    search_range_by_month.each do |range|
-      month_query = query.created_between(range.first, range.last)
-      @taken_care_before.push(month_query.taken_care_before(number_of_days).count)
-      @taken_care_after.push(month_query.taken_care_after(number_of_days).count)
-    end
-
-    as_series(@taken_care_before, @taken_care_after)
+  # This graph buckets by the match's own creation month.
+  def month_group_table(_query)
+    'matches'
   end
 
-  def count
-    series
-    @count ||= percentage_two_numbers(@taken_care_before, @taken_care_after)
-  end
-
-  private
-
-  def as_series(taken_care_before, taken_care_after)
+  # series[0] = after (compared), series[1] = before (target). Explicit conditions
+  # (no :else) so matches with a NULL taken_care_of_at fall out of both buckets.
+  def category_buckets
+    gap = "ABS(DATE_PART('day', matches.taken_care_of_at - matches.sent_at))"
     [
-      {
-        name: taken_care_after_label,
-          data: taken_care_after
-      },
-      {
-        name: taken_care_before_label,
-          data: taken_care_before
-      }
+      [:after, "NOT (#{gap} < #{number_of_days})"],
+      [:before, "#{gap} < #{number_of_days}"]
     ]
+  end
+
+  def category_name(key)
+    key == 'before' ? taken_care_before_label : taken_care_after_label
   end
 end

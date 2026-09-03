@@ -7,17 +7,11 @@ module Stats::Needs
       Stats::Filters::Needs.new(query, self).call
     end
 
+    # Single distinct-count series, one grouped query instead of one per month.
     def build_series
-      query = filtered(main_query)
-
-      @needs = []
-
-      search_range_by_month.each do |range|
-        month_query = query.created_between(range.first, range.last)
-        @needs.push(month_query.distinct.count)
-      end
-
-      as_series(@needs)
+      counts = grouped_by_month(filtered(main_query)).distinct.count(:id)
+      by_month = counts.transform_keys { |month| month.to_date.beginning_of_month }
+      [{ name: I18n.t('stats.series.transmitted_needs.title'), data: all_months.map { |month| by_month[month] || 0 } }]
     end
 
     def chart
@@ -29,18 +23,7 @@ module Stats::Needs
     end
 
     def format
-      '{series.name} : <b>{point.y}</b>'
-    end
-
-    private
-
-    def as_series(needs)
-      [
-        {
-          name: I18n.t('stats.series.transmitted_needs.title'),
-          data: needs
-        }
-      ]
+      '{series.name} : <b>{point.y}</b>'
     end
   end
 end
