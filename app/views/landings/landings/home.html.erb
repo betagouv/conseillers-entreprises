@@ -29,13 +29,13 @@
 <div class="fr-container-fluid light-blue-bg fr-py-7w home landing">
   <div class="fr-container">
     <% unless in_iframe? %>
+      <div id="scroll-section"></div>
       <% if @emphasis_item.present? %>
         <%= render "home_emphasis_item", emphasis_item: @emphasis_item, query_params: query_params %>
       <% end %>
     <% end %>
-    <% unless in_iframe? %>
-      <div id="scroll-section"></div>
-    <% end %>
+  </div>
+  <div class="fr-container">
     <%= render 'multiple_steps', landing_themes: @landing_themes, landing: @landing %>
   </div>
 </div>
