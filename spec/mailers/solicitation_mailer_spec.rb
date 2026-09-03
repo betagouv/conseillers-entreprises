@@ -50,6 +50,7 @@ describe SolicitationMailer do
     end
 
     context 'when need has been changed to a subject not offered on the original landing' do
+      let!(:landing_accueil) { create :landing, slug: 'accueil' }
       let(:other_landing) { create :landing }
       let!(:other_landing_theme) { create :landing_theme, landings: [other_landing] }
       let!(:second_landing_subject) { create :landing_subject, subject: second_subject, title: "Sujet requalifié ailleurs", description_explanation: "instructions du sujet requalifié", landing_theme: other_landing_theme }

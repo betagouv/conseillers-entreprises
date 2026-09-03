@@ -614,7 +614,8 @@ class Solicitation < ApplicationRecord
     if needs.present?
       subject = needs.first.subject
       return landing_subject if landing_subject.subject == subject
-      Landing.accueil.landing_subjects.not_archived.find_by(subject:) ||
+      Landing.find(landing.id).landing_subjects.not_archived.find_by(subject:) ||
+        Landing.accueil.landing_subjects.not_archived.find_by(subject:) ||
         LandingSubject.not_archived.find_by(subject:)
     else
       landing_subject

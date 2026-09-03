@@ -810,6 +810,7 @@ end
 
     let(:subject_1) { create :subject, label: 'Subject 1 label' }
     let(:landing_subject) { create :landing_subject, title: 'Landing Subject Title', subject: subject_1 }
+    let!(:landing_accueil) { create :landing, slug: 'accueil' }
     let(:solicitation) { create :solicitation, landing_subject: landing_subject }
 
     context 'with only landing_subject' do
