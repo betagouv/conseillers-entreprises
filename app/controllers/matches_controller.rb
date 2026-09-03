@@ -4,6 +4,7 @@ class MatchesController < ApplicationController
     authorize @match
     previous_status = @match.status
     @match.update status: params[:status]
+    current_user.update(last_active_at: DateTime.now)
     # Don't send emails when the current user is an administrator and therefore is not present in @match.contacted_users
     if @match.contacted_users.include?(current_user)
       MatchMailerService.new(@match).deduplicated_notify_status(previous_status)
