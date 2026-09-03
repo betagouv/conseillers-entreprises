@@ -1,15 +1,13 @@
 <%# locals: (emphasis_item:, query_params: nil) %>
 
-<div class="block-link">
-  <div class="emphasis fr-grid-row">
-    <div class="fr-col-md-3 fr-col-9 display-flex-center">
-      <%= simple_format("#{emphasis_item.title} : ", {}, wrapper_tag: 'h2') %>
-    </div>
-    <div class="fr-col-md-6 fr-col-12 fr-my-md-0 fr-my-2w display-flex-center">
-      <%= simple_format(emphasis_item.home_description, { class: 'fr-m-0' }, wrapper_tag: 'p') %>
-    </div>
-    <div class="fr-col-md-3 fr-col-12 display-flex-center">
-      <%= link_to t(".cta.#{emphasis_item.model_name.param_key}"), path_to_emphasis_item(emphasis_item, **query_params), class: 'fr-btn fr-btn--secondary' %>
+<div class="fr-notice fr-notice--info emphasis block-link">
+  <div class="fr-container">
+    <div class="fr-notice__body">
+      <p>
+        <%= simple_format(emphasis_item.title, { class: "fr-notice__title" }, wrapper_tag: 'span') %>
+        <%= simple_format(emphasis_item.home_description, { class: "fr-notice__desc" }, wrapper_tag: 'span') %>
+        <%= link_to t(".cta.#{emphasis_item.model_name.param_key}"), path_to_emphasis_item(emphasis_item, **query_params), class: 'fr-notice__link' %>
+      </p>
     </div>
   </div>
 </div>

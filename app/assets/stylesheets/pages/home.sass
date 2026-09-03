@@ -29,29 +29,16 @@
       max-width: 100%
 
 .home
-  .emphasis.fr-grid-row
+  .emphasis
     background-color: base.$emphasis-background
     border: 1px solid base.$emphasis-border
+    color: base.$emphasis-text
     margin-top: -5rem
     margin-bottom: 3rem
-    padding: 1rem
-    display: flex
-    &:hover
-      border: 2px solid base.$emphasis-border-hover
-      padding: calc(1rem - 1px)
-    h2
-      line-height: 1.5rem
-      font-size: 1rem
-      margin: 0
-    span
-      margin: 0 0.5rem
-    .fr-btn--secondary
-      background-color: base.$white
-      position: static
-    img
-      max-height: 50px
-      width: 50px
-      margin-right: 0.5rem
+    &:has(a:hover)
+      border-color: base.$emphasis-border-hover
+    &:active, a:active
+      background-color: base.$emphasis-background-active
 .contact-us
   font-size: 1.2rem
   margin: 3rem 0 2rem
