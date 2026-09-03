@@ -10,17 +10,15 @@ module Stats::Solicitations
       Stats::Filters::Solicitations.new(query, self).call
     end
 
+    def date_group_attribute
+      'completed_at'
+    end
+
+    # Single series, one grouped query instead of one count per month.
     def build_series
-      query = filtered(main_query)
-
-      @solicitations = []
-
-      search_range_by_month.each do |range|
-        month_query = query.where(completed_at: range.first.beginning_of_day..range.last.end_of_day)
-        @solicitations.push(month_query.count)
-      end
-
-      as_series(@solicitations)
+      counts = grouped_by_month(filtered(main_query)).count
+      by_month = counts.transform_keys { |month| month.to_date.beginning_of_month }
+      [{ name: I18n.t('stats.series.solicitations_completed.series'), data: all_months.map { |month| by_month[month] || 0 } }]
     end
 
     def format
@@ -33,17 +31,6 @@ module Stats::Solicitations
 
     def subtitle
       I18n.t('stats.series.solicitations_completed.subtitle_html')
-    end
-
-    private
-
-    def as_series(solicitations)
-      [
-        {
-          name: I18n.t('stats.series.solicitations_completed.series'),
-          data: solicitations
-        }
-      ]
     end
   end
 end
