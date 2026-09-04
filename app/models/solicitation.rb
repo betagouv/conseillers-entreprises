@@ -330,6 +330,14 @@ class Solicitation < ApplicationRecord
       .or(where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}%"))
   }
 
+  # Same match as `mtm_campaign_cont`, but returned as a raw SQL fragment so it can
+  # be reused inside an aggregate `FILTER (WHERE …)` (stats), where a relation can't be passed.
+  def self.mtm_campaign_cont_sql(value)
+    escaped = sanitize_sql_like(value)
+    "(solicitations.form_info::json->>'pk_campaign' ILIKE '%#{escaped}%' " \
+      "OR solicitations.form_info::json->>'mtm_campaign' ILIKE '%#{escaped}%')"
+  end
+
   scope :mtm_kwd_eq, -> (query) {
     where('form_info @> ?', { pk_kwd: query }.to_json)
       .or(where('form_info @> ?', { mtm_kwd: query }.to_json))
@@ -430,6 +438,13 @@ class Solicitation < ApplicationRecord
   # Scope for stats
   scope :from_integration, -> (integration) do
     joins(:landing).where(landings: { integration: integration })
+  end
+
+  # Solicitations whose landing has the given integration, as a join-free SQL
+  # fragment (subquery) so it can be reused inside an aggregate `FILTER (WHERE …)`
+  # (stats) without joining `landings`.
+  def self.from_integration_sql(integration)
+    "solicitations.landing_id IN (#{Landing.where(integration: integration).select(:id).to_sql})"
   end
 
   def self.apply_filters(params)

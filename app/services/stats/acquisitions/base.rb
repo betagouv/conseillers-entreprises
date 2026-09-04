@@ -7,11 +7,12 @@ module Stats::Acquisitions::Base
 
   def aggregate_filters
     {
-      from_entreprendre: campaign_condition('entreprendre'),
-      from_google_ads: campaign_condition('googleads'),
-      from_iframes: integration_condition(:iframe),
-      from_redirections: "(#{campaign_condition('orientation-partenaire')} OR #{campaign_condition('compartenaire')})",
-      from_api: integration_condition(:api),
+      from_entreprendre: Solicitation.mtm_campaign_cont_sql('entreprendre'),
+      from_google_ads: Solicitation.mtm_campaign_cont_sql('googleads'),
+      from_iframes: Solicitation.from_integration_sql(:iframe),
+      from_redirections: "(#{Solicitation.mtm_campaign_cont_sql('orientation-partenaire')} OR " \
+                         "#{Solicitation.mtm_campaign_cont_sql('compartenaire')})",
+      from_api: Solicitation.from_integration_sql(:api),
     }
   end
 
@@ -35,17 +36,5 @@ module Stats::Acquisitions::Base
 
   def columns_colors
     %w[#cecece #c9191e #F1C40F #AFD2E9 #A8C256 #345995]
-  end
-
-  private
-
-  def campaign_condition(value)
-    escaped_value = ActiveRecord::Base.sanitize_sql_like(value)
-    "(solicitations.form_info::json->>'pk_campaign' ILIKE '%#{escaped_value}%' " \
-      "OR solicitations.form_info::json->>'mtm_campaign' ILIKE '%#{escaped_value}%')"
-  end
-
-  def integration_condition(integration)
-    "solicitations.landing_id IN (#{Landing.where(integration: integration).select(:id).to_sql})"
   end
 end
