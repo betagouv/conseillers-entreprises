@@ -40,8 +40,9 @@ module Stats::Acquisitions::Base
   private
 
   def campaign_condition(value)
-    "(solicitations.form_info::json->>'pk_campaign' ILIKE '%#{value}%' " \
-      "OR solicitations.form_info::json->>'mtm_campaign' ILIKE '%#{value}%')"
+    escaped_value = ActiveRecord::Base.sanitize_sql_like(value)
+    "(solicitations.form_info::json->>'pk_campaign' ILIKE '%#{escaped_value}%' " \
+      "OR solicitations.form_info::json->>'mtm_campaign' ILIKE '%#{escaped_value}%')"
   end
 
   def integration_condition(integration)
