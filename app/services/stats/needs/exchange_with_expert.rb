@@ -1,6 +1,8 @@
 module Stats::Needs
   class ExchangeWithExpert
     include Stats::Needs::Base
+    include ::Stats::TwoRatesStats
+    include Stats::Concerns::PartitionedCategory
 
     def main_query
       # This stat is available since 2020-09-01
@@ -8,47 +10,31 @@ module Stats::Needs
         .where(created_at: Time.zone.local(2020, 9, 1)..)
     end
 
-    def build_series
-      query = filtered_main_query
+    # series[0] = without_exchange (compared), series[1] = with_exchange (target)
+    def category_buckets
+      without = [
+        Need.statuses[:not_for_me], Need.statuses[:done_not_reachable],
+        Need.statuses[:quo], Need.statuses[:taking_care]
+      ]
+      with = [Need.statuses[:done], Need.statuses[:done_no_help]]
+      [
+        [:without_exchange, status_in(without)],
+        [:with_exchange, status_in(with)]
+      ]
+    end
 
-      @needs_with_exchange = []
-      @needs_without_exchange = []
-
-      search_range_by_month.each do |range|
-        month_query = query.created_between(range.first, range.last)
-        @needs_with_exchange.push(month_query.with_exchange.count)
-        @needs_without_exchange.push(month_query.without_exchange.count)
-      end
-
-      as_series(@needs_with_exchange, @needs_without_exchange)
+    def category_name(key)
+      I18n.t("stats.series.needs_exchange_with_expert.#{key}")
     end
 
     def subtitle
       nil
     end
 
-    def count
-      series
-      percentage_two_numbers(@needs_with_exchange, @needs_without_exchange)
-    end
-
-    def secondary_count
-      @secondary_count ||= filtered_main_query.with_exchange.size
-    end
-
     private
 
-    def as_series(needs_with_exchange, needs_without_exchange)
-      [
-        {
-          name: I18n.t('stats.series.needs_exchange_with_expert.without_exchange'),
-          data: needs_without_exchange
-        },
-        {
-          name: I18n.t('stats.series.needs_exchange_with_expert.with_exchange'),
-          data: needs_with_exchange
-        }
-      ]
+    def status_in(statuses)
+      "needs.status IN (#{statuses.map { |status| "'#{status}'" }.join(', ')})"
     end
   end
 end

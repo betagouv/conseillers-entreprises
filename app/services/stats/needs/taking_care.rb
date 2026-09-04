@@ -1,46 +1,19 @@
 module Stats::Needs
   class TakingCare
     include Stats::Needs::Base
+    include ::Stats::TwoRatesStats
+    include Stats::Concerns::PartitionedCategory
 
-    def build_series
-      query = filtered_main_query
-
-      @needs_taking_care = []
-      @needs_other_status = []
-
-      search_range_by_month.each do |range|
-        month_query = query.created_between(range.first, range.last)
-        needs_taking_care_query = month_query.where(status: :taking_care)
-        needs_other_status_query = month_query.where.not(status: :taking_care)
-        @needs_taking_care.push(needs_taking_care_query.count)
-        @needs_other_status.push(needs_other_status_query.count)
-      end
-
-      as_series(@needs_taking_care, @needs_other_status)
-    end
-
-    def count
-      series
-      percentage_two_numbers(@needs_taking_care, @needs_other_status)
-    end
-
-    def secondary_count
-      @secondary_count ||= filtered_main_query.status_taking_care.size
-    end
-
-    private
-
-    def as_series(needs_taking_care, needs_other_status)
+    # series[0] = other statuses (compared), series[1] = taking_care (target)
+    def category_buckets
       [
-        {
-          name: I18n.t('stats.other_status'),
-          data: needs_other_status
-        },
-        {
-          name: I18n.t('stats.status_taking_care'),
-          data: needs_taking_care
-        }
+        [:other, :else],
+        [:taking_care, "needs.status = '#{Need.statuses[:taking_care]}'"]
       ]
+    end
+
+    def category_name(key)
+      key == 'taking_care' ? I18n.t('stats.status_taking_care') : I18n.t('stats.other_status')
     end
   end
 end
