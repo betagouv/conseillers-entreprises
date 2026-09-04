@@ -13,6 +13,9 @@ include Pundit::Authorization
 RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
 
+  # Unlike Minitest, RSpec doesn't auto-revert travel_to, so a frozen time could leak into later examples
+  config.after { travel_back } # rubocop:disable Rails/RedundantTravelBack
+
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end

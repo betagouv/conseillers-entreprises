@@ -1,7 +1,9 @@
 module Stats::Acquisitions
   class ByNewCompanies
     include ::Stats::BaseStats
-    include Stats::Acquisitions::NeedsBase
+    include Stats::Acquisitions::NeedsScope
+    include ::Stats::TwoRatesStats
+    include Stats::Concerns::PartitionedCategory
 
     def main_query
       base_scope.where(status: :done).joins(:solicitation)
@@ -13,49 +15,16 @@ module Stats::Acquisitions
         .select('min(solicitations.id) as id')
     end
 
-    def build_series
-      query = filtered_main_query
-      @from_new_companies = []
-      @from_known_companies = []
-
-      search_range_by_month.each do |range|
-        month_query = month_query(query, range)
-        @from_new_companies.push(month_query
-                                   .where(solicitations: { id: first_solicitations })
-                                   .count)
-        @from_known_companies.push(month_query
-                                     .where.not(solicitations: { id: first_solicitations })
-                                     .count)
-      end
-
-      as_series(@from_known_companies, @from_new_companies)
-    end
-
-    def month_query(query, range)
-      query.created_between(range.first, range.last)
-    end
-
-    def as_series(from_known_companies, from_new_companies)
+    # series[0] = from_known_companies (compared), series[1] = from_new_companies (target)
+    def category_buckets
       [
-        {
-          name: I18n.t('stats.from_known_companies'),
-          data: from_known_companies
-        },
-        {
-          name: I18n.t('stats.from_new_companies'),
-          data: from_new_companies
-        }
+        [:from_known_companies, :else],
+        [:from_new_companies, "solicitations.id IN (#{first_solicitations.to_sql})"]
       ]
     end
 
-    def count
-      series
-      percentage_two_numbers(@from_new_companies, @from_known_companies)
-    end
-
-    def secondary_count
-      series
-      @from_new_companies.sum
+    def category_name(key)
+      I18n.t("stats.#{key}")
     end
 
     def colors
