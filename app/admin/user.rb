@@ -151,9 +151,9 @@ ActiveAdmin.register User do
         end
         u.experts.each do |expert|
           div do
-            span "#{expert.matches_activity_prefix} : "
             matches_updated_at = expert.activity_matches.pluck(:updated_at)
             span admin_link_to(expert, :activity_matches, text: t("activity.matches", count: matches_updated_at.size))
+            span "#{expert.matches_activity_suffix},"
             span t("activity.last_match", count: matches_updated_at.size, latest: l(matches_updated_at.max, format: :long_sentence))
           end
         end

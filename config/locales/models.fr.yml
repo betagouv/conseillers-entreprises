@@ -1375,8 +1375,8 @@ fr:
       iframe: Iframe
   activity:
     expert:
-      single: Activité en temps qu’expert autonome
-      team: "Activité commune de l’équipe %{team_name}"
+      single: en temps qu’expert autonome
+      team: "par l’équipe %{team_name}"
     matches:
       one: "Une action de MER réalisée depuis 2 ans"
       other: "%{count} actions de MER réalisées depuis 2 ans"

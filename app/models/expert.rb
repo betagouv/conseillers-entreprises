@@ -313,7 +313,7 @@ class Expert < ApplicationRecord
     antenne.support_user
   end
 
-  def matches_activity_prefix
+  def matches_activity_suffix
     if with_identical_user?
       I18n.t("activity.expert.single")
     else
