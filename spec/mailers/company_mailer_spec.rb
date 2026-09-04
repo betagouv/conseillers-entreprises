@@ -52,6 +52,7 @@ describe CompanyMailer do
     end
 
     context 'when need has been requalified with a different subject' do
+      let!(:landing_accueil) { create :landing, slug: 'accueil' }
       let(:need_subject) { create :subject, label: "Sujet requalifié" }
       let!(:need_landing_subject) { create :landing_subject, subject: need_subject, title: "Sujet requalifié" }
 
