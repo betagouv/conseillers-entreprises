@@ -104,8 +104,9 @@ ActiveAdmin.register Expert do
       div admin_link_to(e, :subjects)
     end
     column(:activity) do |e|
+      #       indiquer le nombre d’actions de MER dans les deux ans et la date de la dernière
       div admin_link_to(e, :activity_matches, blank_if_empty: true)
-      admin_link_to_expert_shared_satisfaction(e) # - ?
+      admin_link_to_expert_shared_satisfaction(e) # dans les deux ans
     end
     column(:filters) do |i|
       div i.match_filters.count if i.match_filters.any?
@@ -169,8 +170,9 @@ ActiveAdmin.register Expert do
         div admin_link_to(e, :users, list: true)
       end
       row(:activity) do |e|
+        #       indiquer le nombre d’actions de MER dans les deux ans et la date de la dernière
         div admin_link_to(e, :activity_matches)
-        admin_link_to_expert_shared_satisfaction(e) # ?
+        admin_link_to_expert_shared_satisfaction(e) # dans les deux ans?
       end
 
       attributes_table title: I18n.t('active_admin.expert.skills') do

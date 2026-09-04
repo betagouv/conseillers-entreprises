@@ -298,6 +298,10 @@ class User < ApplicationRecord
     experts.with_one_user
   end
 
+  def team_experts
+    experts.with_many_users
+  end
+
   def create_single_user_experts
     existing = single_user_experts.first
     return existing if existing.present?
@@ -361,6 +365,17 @@ class User < ApplicationRecord
   def fill_absence_start_at
     self.absence_start_at = Time.zone.now if self.absence_start_at.nil?
   end
+
+  # def feedbacks_activity
+  #   feedbacks_updated_ats = feedbacks.where(updated_at: Match.default_activity_period).pluck(:updated_at)
+  #   I18n.t("activity.feedbacks", count: feedbacks_updated_ats.size, latest: I18n.l(feedbacks_updated_ats.max, format: :long_sentence))
+  # end
+  #
+  # def matches_activity
+  #   experts.map do |expert|
+  #     expert.matches_activity
+  #   end.join("\n")
+  # end
 
   def add_shared_satisfactions
     AddSharedSatisfactionsJob.perform_later(self.id)

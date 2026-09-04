@@ -704,6 +704,7 @@ fr:
         invitees: Invités
         inviter: Invité par
         job: Fonction
+        last_active_at: Dernière activité enregistrée
         last_sign_in_at: Date de la dernière connexion
         last_sign_in_ip: IP lors de la dernière connexion
         password: Mot de passe
@@ -1372,3 +1373,19 @@ fr:
       campaign: Campagne
       googleads: Google Ads
       iframe: Iframe
+  activity:
+    expert:
+      single: Activité en temps qu’expert autonome
+      team: "Activité commune de l’équipe %{team_name}"
+    matches:
+      one: "Une action de MER réalisée depuis 2 ans"
+      other: "%{count} actions de MER réalisées depuis 2 ans"
+    last_match:
+      one: "le %{latest}"
+      other: "la dernière le %{latest}"
+    feedbacks:
+      one: "Un commentaire déposé sur les besoins depuis 2 ans"
+      other: "%{count} commentaires déposés sur les besoins depuis 2 ans"
+    last_feedback:
+      one: "le %{latest}"
+      other: "le dernier le %{latest}"

@@ -8,9 +8,10 @@ module Admin
       # - to-one relation: `admin_link_to user123, :institution`
       # - to-many relation, display the count of items and link to the table: `admin_link_to user123, :feedbacks`
       # - to-many relation, one link per item: `admin_link_to user123, :feedbacks, list: true`
-      # The :name option can be used to customize the text of the link.
+      # The :text option can be used to override the text of the link;
+      # The :name option can be used to customize the text of each linked object.
       # - admin_link_to user123, "static text"
-      # - admin_link_to user123, -> (user) { user.full_name }
+      # - admin_link_to user123, name: -> (user) { user.full_name }
       def admin_link_to(object, association = nil, options = {})
         name_proc = if options[:name].present?
           if options[:name].respond_to?(:call)
@@ -43,7 +44,7 @@ module Admin
             count = object.send(association).size
             return empty_result(options) if count == 0
 
-            text = "#{count} #{klass.human_attribute_name(association, count: count).downcase_first}"
+            text = options[:text] || "#{count} #{klass.human_attribute_name(association, count: count).downcase_first}"
             foreign_klass = reflection.klass
             if reflection.options[:through].present?
               # I’m not using `reflection.through_reflection` on purpose:

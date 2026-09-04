@@ -138,14 +138,43 @@ ActiveAdmin.register User do
       row(:experts) do |u|
         div admin_link_to(u, :experts, list: true)
       end
-      row :activity do |u| #  could use activity_matches?
-        div u.last_active_at
-        div do
-          span admin_link_to(u, :activity_matches)
-          date = u.activity_matches.maximum(:updated_at)
-          span(" depuis 2 ans, la dernière #{relative_time_in_words(date)}", title: l(date))
+      row :activity do |u|
+        if u.last_active_at.present?
+          div "#{User.human_attribute_name(:last_active_at)} : #{l(u.last_active_at, format: :long)}"
         end
-        div admin_link_to(u, :feedbacks) # ok
+        div do
+          feedbacks_updated_ats = u.feedbacks.where(updated_at: Match.default_activity_period).pluck(:updated_at)
+          span admin_link_to(u, :feedbacks, text: t("activity.feedbacks", count: feedbacks_updated_ats.size))
+          if feedbacks_updated_ats.present?
+            span t("activity.last_feedback", count: feedbacks_updated_ats.size, latest: l(feedbacks_updated_ats.max, format: :long_sentence))
+          end
+        end
+        u.experts.each do |expert|
+          div do
+            span "#{expert.matches_activity_prefix} : "
+            matches_updated_at = expert.activity_matches.pluck(:updated_at)
+            span admin_link_to(expert, :activity_matches, text: t("activity.matches", count: matches_updated_at.size))
+            span t("activity.last_match", count: matches_updated_at.size, latest: l(matches_updated_at.max, format: :long_sentence))
+          end
+        end
+        nil
+
+        # 1. indiquer la date enregistrée de dernière activité
+        # 2. 1. pour son propre expert:
+        #       indiquer le nombre d’actions de MER dans les deux ans et la date de la dernière
+        #    2. pour chacune des équipes dont il fait partie
+        #       indiquer le nombre d’actions de MER dans les deux ans et la date de la dernière
+        # 3. indiquer le nombre de feedbacks dans le deux ans et la date du dernier
+        # Dernière activité enregistrée le 3 septembre 2026 à 15:22 (self.last_activity_at?)
+        # 19 commentaires déposés sur des besoins depuis 2 ans, le dernier le 3 septembre 2026 à 15:13 (:feedbacks)
+        # Activité en temps qu’expert propre: 12 actions depuis 2 ans, la dernière le 3 septembre 2026 à 15:13 (single_user_expert.activity_matches)
+        # Activité commune de l’équipe Fiscalité: 45 actions depuis 2 ans, la dernière le 4 septembre 2026 à 9:12  (teams[].activity_matches)
+        # div do
+        #   span admin_link_to(u, :activity_matches)
+        #   date = u.activity_matches.maximum(:updated_at)
+        #   span(" depuis 2 ans, la dernière #{relative_time_in_words(date)}", title: l(date))
+        # end
+        # div admin_link_to(u, :feedbacks) # ok
       end
     end
   end
