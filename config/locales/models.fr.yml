@@ -324,11 +324,6 @@ fr:
       landing:
         api: Api
         custom_css: CSS personnalisé
-        emphasis: Mettre en avant sur la page d’accueil
-        featured_on_home: Champs encart page d’accueil
-        home_description: Description sur la page d’accueil
-        home_sort_order: Position sur la page d’accueil
-        home_title: Titre sur la page d’accueil
         iframe: Iframe
         iframe_category: Type d’iframe
         information_banner: Bandeau d’alerte
@@ -1099,6 +1094,7 @@ fr:
     done_institutions: Institution ayant clôturé avec aide
     effectif: Effectif
     email: Email
+    emphasis: Mettre en avant sur la page d’accueil
     epcis_codes: Codes EPCI
     expert: Expert
     expert_antenne: Antenne de l’expert
@@ -1121,6 +1117,7 @@ fr:
     facility_nature_activites: Nature des activités
     facility_region: Région de l’établissement
     facility_regions: Région de l’établissement
+    featured_on_home: Champs encart page d’accueil
     feedbacks:
       one: Commentaire
       other: Commentaires
@@ -1138,6 +1135,7 @@ fr:
       location: Choisir une commune de votre périmètre de recherche
       no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire. (14 chiffres)
       phone_number_html: 'Exemple : 0612345678 ou +33 6 12 34 56 78'
+    home_description: Description sur la page d’accueil
     iframe_landings: Iframes
     imported_at: Date d’import
     insee_code: Code Insee

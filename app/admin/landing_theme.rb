@@ -80,6 +80,8 @@ ActiveAdmin.register LandingTheme do
             row :fields_mode
             row :meta_title
             row :meta_description
+            row :emphasis
+            row :home_description
           end
         end
       end
@@ -89,7 +91,7 @@ ActiveAdmin.register LandingTheme do
   ## Form
   #
   landing_subjects_attributes = [
-    :id, :title, :slug, :subject_id, :description, :description_explanation, :description_prefill, :form_title, :form_description,
+    :id, :title, :slug, :subject_id, :emphasis, :home_description, :description, :description_explanation, :description_prefill, :form_title, :form_description,
     :meta_title, :meta_description, :fields_mode, :archived_at,
     :position, :_destroy
   ]
@@ -125,6 +127,9 @@ ActiveAdmin.register LandingTheme do
         ls.input :meta_title
         ls.input :meta_description
         ls.input :archived_at, as: :datepicker, datepicker_options: { min_date: "2017-01-01" }
+
+        ls.input :emphasis, as: :boolean
+        ls.input :home_description, input_html: { rows: 2 }
       end
     end
 
