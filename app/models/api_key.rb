@@ -3,6 +3,7 @@
 # Table name: api_keys
 #
 #  id             :bigint(8)        not null, primary key
+#  scopes         :string           default([]), not null, is an Array
 #  token_digest   :string           not null
 #  valid_until    :datetime
 #  created_at     :datetime         not null
@@ -23,6 +24,8 @@ class ApiKey < ApplicationRecord
   HMAC_SECRET_KEY = ENV.fetch('API_KEY_HMAC_SECRET_KEY', '0a1b2c3d')
   # Durée de vie max d'un token (recommandation ANSI, il me semble)
   LIFETIME = 18.months
+  QUALIFICATION = 'qualification'
+  SCOPES = [QUALIFICATION].freeze
 
   ## Associations
   #
@@ -31,6 +34,12 @@ class ApiKey < ApplicationRecord
   ## Scopes
   #
   scope :active, -> { where(arel_table[:valid_until].gt(Date.today)) }
+
+  def has_scope?(scope) = scopes.include?(scope.to_s)
+
+  ## validations
+  #
+  validate :only_known_scopes
 
   ## Callbacks
   #
@@ -70,6 +79,10 @@ class ApiKey < ApplicationRecord
   end
 
   private
+
+  def only_known_scopes
+    errors.add(:scopes, :inclusion) if (scopes - SCOPES).any?
+  end
 
   def generate_token
     return unless self.token.nil?
