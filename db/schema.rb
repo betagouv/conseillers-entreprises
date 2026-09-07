@@ -86,6 +86,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_07_122718) do
   create_table "api_keys", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "institution_id", null: false
+    t.string "scopes", default: [], null: false, array: true
     t.string "token_digest", null: false
     t.datetime "updated_at", null: false
     t.datetime "valid_until"

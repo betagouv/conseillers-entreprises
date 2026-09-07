@@ -12,7 +12,52 @@ RSpec.describe ApiKey do
     end
   end
 
+  describe 'validations' do
+    describe 'scopes' do
+      subject(:api_key) { build :api_key, scopes: scopes }
+
+      context 'with a known scope' do
+        let(:scopes) { [described_class::QUALIFICATION] }
+
+        it { is_expected.to be_valid }
+      end
+
+      context 'with an unknown scope' do
+        let(:scopes) { ['unknown'] }
+
+        it { is_expected.not_to be_valid }
+
+        it 'adds an inclusion error on scopes' do
+          api_key.valid?
+          expect(api_key.errors[:scopes]).to include('n\'est pas inclus(e) dans la liste')
+        end
+      end
+
+      context 'with no scope' do
+        let(:scopes) { [] }
+
+        it { is_expected.to be_valid }
+      end
+    end
+  end
+
   describe 'instance_methods' do
+    describe 'has_scope?' do
+      subject(:api_key) { build :api_key, scopes: [described_class::QUALIFICATION] }
+
+      it 'returns true when the scope is present' do
+        expect(api_key.has_scope?(described_class::QUALIFICATION)).to be true
+      end
+
+      it 'returns false when the scope is absent' do
+        expect(api_key.has_scope?('unknown')).to be false
+      end
+
+      it 'accepts a symbol' do
+        expect(api_key.has_scope?(described_class::QUALIFICATION.to_sym)).to be true
+      end
+    end
+
     describe 'revoke' do
       subject(:api_key) { create :api_key, valid_until: described_class::LIFETIME.since }
 
