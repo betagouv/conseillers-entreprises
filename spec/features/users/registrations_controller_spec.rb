@@ -103,5 +103,16 @@ describe 'registrations' do
       expect(api_key).not_to eq new_api_key
       expect(ApiKey.exists?(api_key.id)).to be false
     end
+
+    it 'transfers the scopes to the new api key on reset' do
+      current_user.institution.api_key&.destroy
+      current_user.institution.create_api_key(scopes: [ApiKey::QUALIFICATION])
+
+      visit api_key_user_path
+      click_on 'Réinitialiser'
+
+      new_api_key = current_user.institution.reload.api_key
+      expect(new_api_key.scopes).to eq [ApiKey::QUALIFICATION]
+    end
   end
 end

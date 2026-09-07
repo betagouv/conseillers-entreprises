@@ -50,8 +50,9 @@ module Users
       authorize @user
 
       ApiKey.transaction do
+        previous_scopes = @user.institution.api_key&.scopes || []
         @user.institution.api_key.presence&.destroy!
-        key = @user.institution.create_api_key
+        key = @user.institution.create_api_key(scopes: previous_scopes)
         flash[:new_token] = key.token
       end
 
