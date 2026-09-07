@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_03_080706) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_07_122718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -531,6 +531,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_080706) do
     t.string "phone_number"
     t.jsonb "prepare_diagnosis_errors_details", default: {}
     t.string "provenance_detail"
+    t.string "qualification_details"
+    t.boolean "qualified"
+    t.datetime "qualified_at"
     t.string "requested_help_amount"
     t.string "siret"
     t.integer "status", default: 0

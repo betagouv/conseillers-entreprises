@@ -15,6 +15,9 @@
 #  phone_number                     :string
 #  prepare_diagnosis_errors_details :jsonb
 #  provenance_detail                :string
+#  qualification_details            :string
+#  qualified                        :boolean
+#  qualified_at                     :datetime
 #  requested_help_amount            :string
 #  siret                            :string
 #  status                           :integer          default("step_contact")
