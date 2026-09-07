@@ -531,6 +531,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_28_084735) do
     t.string "phone_number"
     t.jsonb "prepare_diagnosis_errors_details", default: {}
     t.string "provenance_detail"
+    t.string "qualification_details"
+    t.boolean "qualified"
+    t.datetime "qualified_at"
     t.string "requested_help_amount"
     t.string "siret"
     t.integer "status", default: 0
