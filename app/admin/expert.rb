@@ -2,7 +2,6 @@ ActiveAdmin.register Expert do
   menu priority: 4
 
   controller do
-    include SoftDeletable::ActiveAdminResourceController
     include DynamicallyFiltrable
 
     helper ActiveAdminUtilitiesHelper

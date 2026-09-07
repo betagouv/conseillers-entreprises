@@ -2,8 +2,6 @@ ActiveAdmin.register User do
   menu priority: 3
 
   controller do
-    include SoftDeletable::ActiveAdminResourceController
-
     def scoped_collection
       base_includes = [:antenne, :institution, :experts, :activity_matches, :experts_with_subjects, :feedbacks]
       additional_includes = []

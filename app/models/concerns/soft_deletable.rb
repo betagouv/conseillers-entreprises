@@ -29,13 +29,4 @@ module SoftDeletable
       phone_number: nil
     }
   end
-
-  module ActiveAdminResourceController
-    # Override methods from ActiveAdmin::ResourceController::DataAccess
-
-    def find_resource
-      # … however, if accessing directly the object, we like to see it even if it is soft-deleted.
-      resource_class.all.send method_for_find, params[:id]
-    end
-  end
 end

@@ -2,7 +2,6 @@ ActiveAdmin.register Institution do
   menu parent: :experts, priority: 2
 
   controller do
-    include SoftDeletable::ActiveAdminResourceController
     include DynamicallyFiltrable
 
     helper ActiveAdminUtilitiesHelper
