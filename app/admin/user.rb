@@ -423,6 +423,16 @@ ActiveAdmin.register User do
   end
 
   controller do
+    def find_collection(options = {})
+      if params[:order] == 'last_active_at_desc'
+        super.reorder("last_active_at desc NULLS LAST")
+      elsif params[:order] == 'last_active_at_asc'
+        super.reorder("last_active_at asc NULLS LAST")
+      else
+        super
+      end
+    end
+
     def update
       resource.update_without_password(permitted_params.require(:user))
       redirect_or_display_form
