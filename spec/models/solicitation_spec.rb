@@ -5,6 +5,26 @@ RSpec.describe Solicitation do
     it { is_expected.to have_one :diagnosis }
   end
 
+  describe 'scopes' do
+    describe 'unqualified' do
+      subject { described_class.unqualified }
+
+      let!(:unqualified_in_progress) { create :solicitation, status: :in_progress, qualified: nil }
+      let!(:qualified_in_progress) { create :solicitation, status: :in_progress, qualified: true }
+      let!(:unqualified_processed) { create :solicitation, status: :processed, qualified: nil }
+
+      it 'returns in_progress solicitations with no qualified value' do
+        expect(subject).to contain_exactly(unqualified_in_progress)
+      end
+
+      it 'orders by id' do
+        other_unqualified_in_progress = create :solicitation, status: :in_progress, qualified: nil
+
+        expect(subject).to eq [unqualified_in_progress, other_unqualified_in_progress]
+      end
+    end
+  end
+
   describe 'validations' do
     subject { described_class.new }
 

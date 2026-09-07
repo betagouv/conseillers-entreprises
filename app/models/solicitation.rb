@@ -39,6 +39,7 @@
 #  index_solicitations_on_siret                    (siret)
 #  index_solicitations_on_status                   (status)
 #  index_solicitations_on_status_and_completed_at  (status,completed_at)
+#  index_solicitations_on_unqualified              (id) WHERE ((qualified IS NULL) AND (status = 3))
 #  index_solicitations_on_uuid                     (uuid)
 #
 # Foreign Keys
@@ -419,6 +420,8 @@ class Solicitation < ApplicationRecord
     where(cooperation_id: cooperation_id)
   }
 
+  scope :unqualified, -> { where(qualified: nil, status: :in_progress).order(:id) }
+
   # Solicitations similaires
   #
   scope :from_same_company, -> (solicitation) {
@@ -725,6 +728,10 @@ class Solicitation < ApplicationRecord
     Spam.find_or_create_by(email: email)
     self.cancel!
     tag_as_spam
+  end
+
+  def qualify!(qualified:, details: nil)
+    update!(qualified: qualified, qualification_details: details, qualified_at: Time.current)
   end
 
   def self.ransackable_attributes(auth_object = nil)
