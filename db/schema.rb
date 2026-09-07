@@ -543,6 +543,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_22_103000) do
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["cooperation_id"], name: "index_solicitations_on_cooperation_id"
     t.index ["email"], name: "index_solicitations_on_email"
+    t.index ["id"], name: "index_solicitations_on_unqualified", where: "((qualified IS NULL) AND (status = 3))"
     t.index ["landing_id"], name: "index_solicitations_on_landing_id"
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
     t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"
