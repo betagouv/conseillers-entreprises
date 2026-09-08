@@ -7,6 +7,7 @@
 #  custom_css         :string
 #  emphasis           :boolean          default(FALSE), not null
 #  home_description   :text             default("")
+#  home_link_text     :text             default("")
 #  iframe_category    :integer          default("integral")
 #  information_banner :text
 #  integration        :integer          default("intern")
@@ -35,6 +36,7 @@
 class Landing < ApplicationRecord
   include WithSlug
   include Archivable
+  include HomeEmphasis
 
   enum :integration, {
     intern: 0,
@@ -71,15 +73,12 @@ class Landing < ApplicationRecord
 
   accepts_nested_attributes_for :landing_joint_themes, allow_destroy: true
 
-  before_save :set_emphasis
-
   ## Validation
   #
   validates :slug, presence: true, uniqueness: true
 
   ## Scopes
   #
-  scope :emphasis, -> { where(emphasis: true) }
   scope :cooperation, -> { where.not(cooperation_id: nil) }
 
   def self.accueil
@@ -150,20 +149,12 @@ class Landing < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     [
       "archived", "archived_at", "created_at", "custom_css", "emphasis",
-      "home_description", "id", "id_value", "iframe_category", "cooperation_id", "integration", "layout",
+      "home_description", "home_link_text", "id", "id_value", "iframe_category", "cooperation_id", "integration", "layout",
       "meta_description", "meta_title", "url_path", "slug", "title", "updated_at"
     ]
   end
 
   def self.ransackable_associations(auth_object = nil)
     ["landing_joint_themes", "landing_subjects", "landing_themes", "solicitations", "cooperation"]
-  end
-
-  private
-
-  def set_emphasis
-    if emphasis
-      Landing.where.not(id: id).update_all(emphasis: false)
-    end
   end
 end

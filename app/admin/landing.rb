@@ -80,9 +80,10 @@ ActiveAdmin.register Landing do
       end
     end
 
-    attributes_table title: I18n.t("activerecord.attributes.landing.featured_on_home") do
+    attributes_table title: I18n.t("attributes.featured_on_home") do
       row :emphasis
       row :home_description
+      row :home_link_text
     end
 
     attributes_table title: I18n.t("landings.landings.admin.iframe_and_api_fields") do
@@ -117,7 +118,7 @@ ActiveAdmin.register Landing do
 
   permit_params :slug, :title,
                 :layout,
-                :emphasis, :home_description,
+                :emphasis, :home_description, :home_link_text,
                 :meta_title, :meta_description,
                 :integration, :cooperation_id, :url_path,
                 :iframe_category, :custom_css, :information_banner,
@@ -132,9 +133,10 @@ ActiveAdmin.register Landing do
       f.input :information_banner, as: :quill_editor
     end
 
-    f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
+    f.inputs I18n.t("attributes.featured_on_home") do
       f.input :emphasis, as: :boolean
       f.input :home_description, input_html: { rows: 2 }
+      f.input :home_link_text, as: :string
     end
 
     f.inputs I18n.t("landings.landings.admin.iframe_and_api_fields") do

@@ -148,25 +148,6 @@ blockquote
       font-size: 2em
       margin: 0 1em 0.8em
 
-// Clickable items containing an a
-.block-link
-  position: relative
-  a::after
-    z-index: 1
-    position: absolute
-    content: ""
-    top: 0
-    bottom: 0
-    left: 0
-    right: 0
-
-// Clickable cards
-.card.block-link
-  a
-    color: #000
-  &:hover
-    background: #efefef
-
 @media (max-width: 620px)
   body
     width: 100%
