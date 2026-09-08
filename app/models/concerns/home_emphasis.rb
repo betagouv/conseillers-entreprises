@@ -6,6 +6,7 @@ module HomeEmphasis
   extend ActiveSupport::Concern
 
   included do
+    validates :home_description, :home_link_text, presence: true, if: -> { emphasis? }
     before_save :set_unique_emphasis_item
   end
 
