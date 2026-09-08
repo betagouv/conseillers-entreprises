@@ -13,6 +13,7 @@
 ActiveRecord::Schema[8.1].define(version: 2026_09_01_142450) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
 
@@ -340,6 +341,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_01_142450) do
     t.text "form_description"
     t.string "form_title"
     t.text "home_description", default: ""
+    t.text "home_link_text", default: ""
     t.bigint "landing_theme_id", null: false
     t.string "meta_description"
     t.string "meta_title"
@@ -375,6 +377,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_01_142450) do
     t.string "custom_css"
     t.boolean "emphasis", default: false, null: false
     t.text "home_description", default: ""
+    t.text "home_link_text", default: ""
     t.integer "iframe_category", default: 1
     t.text "information_banner"
     t.integer "integration", default: 0

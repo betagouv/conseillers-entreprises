@@ -7,6 +7,7 @@
 #  custom_css         :string
 #  emphasis           :boolean          default(FALSE), not null
 #  home_description   :text             default("")
+#  home_link_text     :text             default("")
 #  iframe_category    :integer          default("integral")
 #  information_banner :text
 #  integration        :integer          default("intern")
@@ -148,7 +149,7 @@ class Landing < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     [
       "archived", "archived_at", "created_at", "custom_css", "emphasis",
-      "home_description", "id", "id_value", "iframe_category", "cooperation_id", "integration", "layout",
+      "home_description", "home_link_text", "id", "id_value", "iframe_category", "cooperation_id", "integration", "layout",
       "meta_description", "meta_title", "url_path", "slug", "title", "updated_at"
     ]
   end

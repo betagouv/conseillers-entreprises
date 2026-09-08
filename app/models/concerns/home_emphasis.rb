@@ -1,7 +1,7 @@
 module HomeEmphasis
   # Used in Landing and LandingSubject.
-  # These classes have two needed attributes:
-  # :emphasis and :home_description
+  # These classes have 3 needed attributes:
+  # :emphasis, :home_description and :home_link_text
 
   extend ActiveSupport::Concern
 
@@ -12,7 +12,7 @@ module HomeEmphasis
   EMPHASIS_CLASSES = [Landing, LandingSubject]
 
   def set_unique_emphasis_item
-    if emphasis
+    if emphasis?
       EMPHASIS_CLASSES.each do |klass|
         if self.is_a? klass
           klass.where.not(id: id).update_all(emphasis: false)

@@ -82,6 +82,7 @@ ActiveAdmin.register LandingTheme do
             row :meta_description
             row :emphasis
             row :home_description
+            row :home_link_text
           end
         end
       end
@@ -91,7 +92,7 @@ ActiveAdmin.register LandingTheme do
   ## Form
   #
   landing_subjects_attributes = [
-    :id, :title, :slug, :subject_id, :emphasis, :home_description, :description, :description_explanation, :description_prefill, :form_title, :form_description,
+    :id, :title, :slug, :subject_id, :emphasis, :home_description, :home_link_text, :description, :description_explanation, :description_prefill, :form_title, :form_description,
     :meta_title, :meta_description, :fields_mode, :archived_at,
     :position, :_destroy
   ]
@@ -130,6 +131,7 @@ ActiveAdmin.register LandingTheme do
 
         ls.input :emphasis, as: :boolean
         ls.input :home_description, input_html: { rows: 2 }
+        ls.input :home_link_text, as: :string
       end
     end
 
