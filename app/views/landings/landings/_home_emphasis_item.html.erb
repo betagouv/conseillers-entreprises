@@ -6,6 +6,8 @@
       <p>
         <%= simple_format(emphasis_item.title, { class: "fr-notice__title" }, wrapper_tag: 'span') %>
         <%= simple_format(emphasis_item.home_description, { class: "fr-notice__desc" }, wrapper_tag: 'span') %>
+      </p>
+      <p>
         <%= link_to t(".cta.#{emphasis_item.model_name.param_key}"), path_to_emphasis_item(emphasis_item, **query_params), class: 'fr-notice__link' %>
       </p>
     </div>
