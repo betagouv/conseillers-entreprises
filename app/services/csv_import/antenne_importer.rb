@@ -1,5 +1,4 @@
 module CsvImport
-  ## UserImporter needs an :institution to be passed in the options
   class AntenneImporter < BaseImporter
     def mapping
       @mapping ||=
@@ -16,7 +15,7 @@ module CsvImport
     def preprocess(attributes)
       attributes.transform_values!(&:squish)
       attributes[:communes_codes] = FormatInseeCodes.normalize(attributes[:communes_codes]) if attributes[:communes_codes].present?
-      attributes[:institution] = Institution.find_by(name: attributes[:institution]) || @options[:institution]
+      attributes[:institution] = Institution.find_by(name: attributes[:institution]) || @institution
     end
 
     def find_instance(attributes)
