@@ -97,6 +97,7 @@ module CsvImport
       opened_files = files_or_exceptions.grep_v(CSV::MalformedCSVError)
       raise files_or_exceptions.first if opened_files.empty?
 
+      # find_best_separator could use check_headers instead: the one that greater count of expected headers.
       # Find the separator that find the most headers
       best_index = opened_files.map { |x| x.headers.count }.each_with_index.max.second
       col_seps[best_index]
@@ -105,7 +106,7 @@ module CsvImport
     def row_to_attributes(row)
       row.transform_keys(&:squish)
         .slice(*mapping.keys)
-        .transform_keys{ |k| mapping[k] }
+        .transform_keys{ |k| mapping[k] } # Allow custom mapping?
         .compact
     end
 
