@@ -9,8 +9,8 @@ module CsvImport
       @imported_at = Time.zone.now
     end
 
-    def import
-      csv = open_with_best_separator(@input)
+    def import(preview)
+      csv = open_with_best_separator(@input) # Allow configuring the separator? Allow other file types?
       if csv.is_a? CSV::MalformedCSVError
         return Result.new(rows: [], header_errors: [csv], preprocess_errors: [], postprocess_errors: [], objects: [])
       end
@@ -21,7 +21,11 @@ module CsvImport
       preprocess = []
       preprocess_errors = []
       postprocess_errors = []
-      ActiveRecord::Base.transaction do
+      ActiveRecord::Base.transaction do |transaction|
+        if preview
+          transaction.before_commit { raise ActiveRecord::Rollback }
+        end
+
         # Convert CSV rows to attributes
         objects = rows.each_with_index.map do |row|
           row.delete_if { |k, v| k.nil? && v.nil? }
@@ -37,9 +41,9 @@ module CsvImport
           next if object.nil?
 
           object.imported_at = @imported_at
-          object.update(attributes)
+          object.update(attributes) # here the object is created for real
 
-          object = postprocess(object, row)
+          object = postprocess(object, row) # additional objects are created here as well (users, experts, experts_subjects, territorial_zones)
           postprocess_errors << object if object.is_a? CsvImport::PostprocessError
           next if postprocess_errors.present?
           object
@@ -78,6 +82,8 @@ module CsvImport
     end
 
     def open_with_best_separator(input)
+      # Split in two methods: find_best_separator and open_with_separator
+      #
       separators = %w[, ;]
       attempted = separators.map { |separator| open_with_separator(input, separator) }
 
@@ -85,6 +91,7 @@ module CsvImport
       return attempted.first if opened_files.empty?
 
       # Find the separator that find the most headers
+      # find_best_separator could use check_headers instead.
       best_index = opened_files.map { |x| x.headers.count }.each_with_index.max.second
       opened_files[best_index]
     end
@@ -92,7 +99,7 @@ module CsvImport
     def row_to_attributes(row)
       row.transform_keys(&:squish)
         .slice(*mapping.keys)
-        .transform_keys{ |k| mapping[k] }
+        .transform_keys{ |k| mapping[k] } # Allow custom mapping?
         .compact
     end
 

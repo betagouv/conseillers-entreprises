@@ -1,5 +1,5 @@
 module CsvImport
-  ## UserImporter needs an :institution to be passed in the options
+  ## UserImporter needs an :institution to be passed in the options # What?
   class AntenneImporter < BaseImporter
     def mapping
       @mapping ||=

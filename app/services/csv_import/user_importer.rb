@@ -1,5 +1,5 @@
 module CsvImport
-  ## UserImporter needs an :institution to be passed in the options
+  ## UserImporter needs an :institution to be passed in the options # ?
   class UserImporter < BaseImporter
     def mapping
       @mapping ||=
@@ -93,7 +93,7 @@ module CsvImport
     end
 
     def several_subjects_mapping
-      @several_subjects_mapping
+      @several_subjects_mapping # use ||= for memoization
     end
 
     def import_several_subjects(expert, all_attributes)
@@ -117,7 +117,7 @@ module CsvImport
       end
     end
 
-    def one_subject_mapping
+    def one_subject_mapping # remove this
       { Expert.human_attribute_name(:subject) => :subject }
     end
 
