@@ -22,6 +22,7 @@
 #  invitation_token       :string
 #  invitations_count      :integer          default(0)
 #  job                    :string           not null
+#  last_active_at         :datetime
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
 #  phone_number           :string
