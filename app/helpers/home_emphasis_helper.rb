@@ -4,7 +4,7 @@ module HomeEmphasisHelper
     when Landing
       landing_path(item, **query_params)
     when LandingSubject
-      new_solicitation_path(landing_slug: "accueil", landing_subject_slug: item.slug, anchor: 'section-breadcrumbs', **query_params)
+      new_solicitation_path(landing_slug: "accueil", landing_subject_slug: item.slug, **query_params)
     end
   end
 end
