@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe CsvImport::AntenneImporter, CsvImport do
-  subject(:result) { Antenne.import_csv(csv, institution: institution) }
+  subject(:result) { described_class.import(csv, institution: institution) }
 
   let(:institution) { create :institution, name: 'Test Institution' }
 
@@ -211,7 +211,7 @@ describe CsvImport::AntenneImporter, CsvImport do
         expect(data_line).to include('01 23 45 67 89, 09 87 65 43 21, 01 47 25 83 69')
 
         # Import the same CSV back
-        import_result = institution.antennes.import_csv(export_result.csv, institution: institution)
+        import_result = described_class.import(export_result.csv, institution: institution)
 
         # Verify import success
         expect(import_result).to be_success
