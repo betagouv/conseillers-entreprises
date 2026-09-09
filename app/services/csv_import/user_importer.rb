@@ -10,6 +10,10 @@ module CsvImport
       static_headers = mapping.keys + team_mapping.keys + one_subject_mapping.keys
       build_several_subjects_mapping(headers, static_headers)
       known_headers = static_headers + several_subjects_mapping.keys
+      # full infered mapping is
+      #   mapping + team_mapping + one_subject_mapping
+      # or
+      #   mapping + team_mapping + several_subjects_mapping
       headers.filter_map do |header|
         UnknownHeaderError.new(header) unless known_headers.include? header.squish
       end
@@ -92,7 +96,7 @@ module CsvImport
     end
 
     def several_subjects_mapping
-      @several_subjects_mapping
+      @several_subjects_mapping # use ||= for memoization
     end
 
     def import_several_subjects(expert, all_attributes)
@@ -116,7 +120,7 @@ module CsvImport
       end
     end
 
-    def one_subject_mapping
+    def one_subject_mapping # remove this
       { Expert.human_attribute_name(:subject) => :subject }
     end
 
