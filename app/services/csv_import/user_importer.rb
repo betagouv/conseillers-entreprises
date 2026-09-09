@@ -33,7 +33,7 @@ module CsvImport
     end
 
     def find_instance(attributes)
-      return User.find_or_initialize_by(email: attributes[:email]), attributes # Handle casing, see #1408
+      [User.find_or_initialize_by(email: attributes[:email]), attributes] # Handle casing, see #1408
     end
 
     def postprocess(user, attributes)

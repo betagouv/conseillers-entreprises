@@ -1,4 +1,4 @@
-module  Annuaire
+module Annuaire
   class UsersController < BaseController
     include InstitutionsSubjectsSorter
 
