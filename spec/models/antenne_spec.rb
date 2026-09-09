@@ -187,6 +187,16 @@ RSpec.describe Antenne do
     end
   end
 
+  describe '#flexible_find' do
+    it do
+      a = create(:antenne, name: "Hôtel du  Nord")
+      expect(described_class.flexible_find(a.institution, "Hôtel du  Nord")).to eq a
+      expect(described_class.flexible_find(a.institution, "Hôtel  du Nord")).to eq a
+      expect(described_class.flexible_find(a.institution, "Hotel du  Nôrd")).to eq a
+      expect(described_class.flexible_find(a.institution, "hôtel Du  nord")).to eq a
+    end
+  end
+
   describe 'sent_matches' do
     subject { antenne.sent_matches }
 

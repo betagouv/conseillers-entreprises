@@ -267,13 +267,12 @@ class Antenne < ApplicationRecord
   #
   def self.flexible_find_or_initialize(institution, name)
     return nil unless institution.present? && name.present?
-    antenne = institution.antennes.find_by('lower(name) = ?', name.squish.downcase)
-    antenne ||= Antenne.new(institution: institution, name: name.squish)
+    flexible_find(institution, name) || Antenne.new(institution: institution, name: name.squish)
   end
 
   def self.flexible_find(institution, name)
     return nil unless institution.present? && name.present?
-    institution.antennes.find_by('lower(name) = ?', name.squish.downcase)
+    institution.antennes.find_by("unaccent(lower(regexp_replace(name, '\s+', ' ', 1, 0))) = unaccent(lower(regexp_replace(?, '\s+', ' ', 1, 0)))", name)
   end
 
   ## Soft deletion
