@@ -49,7 +49,7 @@ module CsvImport
         postprocess_errors = postprocess_errors.group_by(&:message).keys
         # Validate all objects to collect errors, but rollback everything if there is one error
         all_valid = objects.map{ |object| object&.validate(:import) }
-        if postprocess_errors.present? || (all_valid.include? false || preprocess_errors.present?)
+        if postprocess_errors.present? || all_valid.include?(false) || preprocess_errors.present?
           raise ActiveRecord::Rollback
         end
       end
