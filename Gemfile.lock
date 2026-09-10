@@ -126,7 +126,7 @@ GEM
     awesome_print (1.9.2)
     aws-eventstream (1.4.0)
     aws-partitions (1.1284.0)
-    aws-sdk-core (3.254.1)
+    aws-sdk-core (3.255.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
@@ -134,11 +134,12 @@ GEM
       bigdecimal
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-kms (1.130.0)
-      aws-sdk-core (~> 3, >= 3.254.0)
+      rexml (~> 3.4, >= 3.4.2)
+    aws-sdk-kms (1.131.0)
+      aws-sdk-core (~> 3, >= 3.255.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.230.0)
-      aws-sdk-core (~> 3, >= 3.254.1)
+    aws-sdk-s3 (1.231.0)
+      aws-sdk-core (~> 3, >= 3.255.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
     aws-sigv4 (1.12.1)
@@ -239,7 +240,7 @@ GEM
       actionmailer (>= 5.0)
       devise (>= 4.6)
     diff-lcs (1.6.2)
-    domain_name (0.6.20260902)
+    domain_name (0.6.20260907)
     dotenv (3.2.0)
     dotenv-rails (3.2.0)
       dotenv (= 3.2.0)
@@ -348,7 +349,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (3.0.2)
+    json (2.21.2)
     json-schema (6.2.0)
       addressable (~> 2.8)
       bigdecimal (>= 3.1, < 5)
@@ -405,7 +406,7 @@ GEM
       prism (~> 1.5)
     mjml-rails (5.0.0)
     msgpack (1.8.4)
-    net-imap (0.6.6)
+    net-imap (0.6.7)
       date
       net-protocol
     net-pop (0.1.2)
@@ -643,7 +644,7 @@ GEM
       sass-embedded (~> 1.80)
     securerandom (0.4.1)
     selectize-rails (0.12.6)
-    selenium-webdriver (4.48.0)
+    selenium-webdriver (4.49.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -776,6 +777,7 @@ DEPENDENCIES
   ip_anonymizer
   jbuilder
   jsbundling-rails
+  json (< 3)
   kaminari
   letter_opener_web
   listen
