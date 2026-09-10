@@ -3,21 +3,10 @@ module Stats::Acquisitions::SolicitationsBase
   include Stats::Acquisitions::Base
 
   def main_query
-    Solicitation.step_complete
+    Solicitation.step_complete.where(created_at: @start_date..@end_date)
   end
 
   def filtered(query)
     Stats::Filters::Solicitations.new(query, self).call
-  end
-
-  private
-
-  def as_series(results)
-    results.map do |key, value|
-      {
-        name: I18n.t("stats.series.#{key}.title"),
-        data: value
-      }
-    end
   end
 end

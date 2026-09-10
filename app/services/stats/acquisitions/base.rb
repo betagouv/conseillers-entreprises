@@ -1,40 +1,23 @@
 module Stats::Acquisitions::Base
-  def build_series_for_type(type)
-    query = main_query
-    query = filtered(query)
+  include Stats::Concerns::FilteredAggregates
 
-    @results = Hash.new { |hash, key| hash[key] = [] }
-    @results['from_others'] = [] if type == 'percentage-column-chart'
-
-    search_range_by_month.each do |range|
-      if type == 'percentage-column-chart'
-        build_range_data_with_others(query, range)
-      else
-        build_range_data(query, range)
-      end
-    end
-
-    as_series(@results)
+  def build_series
+    build_filtered_series
   end
 
-  def build_range_data(query, range)
-    month_query = month_query(query, range)
-    @results['from_entreprendre'] << month_query.mtm_campaign_cont('entreprendre').count
-    @results['from_google_ads'] << month_query.mtm_campaign_cont('googleads').count
-    @results['from_iframes'] << month_query.from_integration('iframe').count
-    @results['from_redirections'] << month_query.mtm_campaign_cont('orientation-partenaire')
-      .or(month_query.mtm_campaign_cont('compartenaire')).count
-    @results['from_api'] << month_query.from_integration('api').count
+  def aggregate_filters
+    {
+      from_entreprendre: Solicitation.mtm_campaign_cont_sql('entreprendre'),
+      from_google_ads: Solicitation.mtm_campaign_cont_sql('googleads'),
+      from_iframes: Solicitation.from_integration_sql(:iframe),
+      from_redirections: "(#{Solicitation.mtm_campaign_cont_sql('orientation-partenaire')} OR " \
+                         "#{Solicitation.mtm_campaign_cont_sql('compartenaire')})",
+      from_api: Solicitation.from_integration_sql(:api),
+    }
   end
 
-  def build_range_data_with_others(query, range)
-    build_range_data(query, range)
-    @results['from_others'] << (month_query(query, range).count - @results['from_entreprendre'].last - @results['from_google_ads'].last -
-      @results['from_iframes'].last - @results['from_redirections'].last - @results['from_api'].last)
-  end
-
-  def category_group_attribute
-    :status
+  def with_others?
+    chart == 'percentage-column-chart'
   end
 
   def count; end
@@ -53,11 +36,5 @@ module Stats::Acquisitions::Base
 
   def columns_colors
     %w[#cecece #c9191e #F1C40F #AFD2E9 #A8C256 #345995]
-  end
-
-  private
-
-  def month_query(query, range)
-    query.created_between(range.first, range.last)
   end
 end

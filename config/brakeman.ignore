@@ -169,25 +169,71 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "caeb5035f86b6b391254bf0d8d77bfb1838cf7559a4b19852a55c33bd6e32422",
+      "fingerprint": "cbc91f12993eb07a7d6ef3519044809e70299e03d77b8844457fa028c795c06d",
       "check_name": "SQL",
       "message": "Possible SQL injection",
-      "file": "app/services/stats/base_stats.rb",
-      "line": 154,
+      "file": "app/services/stats/concerns/partitioned_category.rb",
+      "line": 20,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "query.group(\"DATE_TRUNC('month', #{query.model.name.pluralize}.created_at)\")",
+      "code": "Arel.sql(\"CASE #{category_buckets.reject do\n (condition == :else)\n end.map do\n \"WHEN (#{condition}) THEN '#{key}'\"\n end.join(\" \")} #{(\"ELSE '#{category_buckets.find do\n (condition == :else)\n end.first}'\" or \"\")} END\")",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Stats::BaseStats",
-        "method": "grouped_by_month"
+        "class": "Stats::Concerns::PartitionedCategory",
+        "method": "category_group_attribute"
       },
-      "user_input": "query.model.name.pluralize",
-      "confidence": "Weak",
+      "user_input": "category_buckets.reject do\n (condition == :else)\n end.map do\n \"WHEN (#{condition}) THEN '#{key}'\"\n end.join(\" \")",
+      "confidence": "Medium",
       "cwe_id": [
         89
       ],
-      "note": ""
+      "note": "Raw SQL built from trusted constants (enum values, column/table names, fixed labels) — never user input"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "cea613a7f3a5f453ed42cb7efe5a77a433a43c078d6b4c4fcda5c831e90047e0",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/stats/concerns/filtered_aggregates.rb",
+      "line": 36,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"COUNT(*) FILTER (WHERE #{condition}) AS #{key}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Stats::Concerns::FilteredAggregates",
+        "method": "indexed_aggregate_rows"
+      },
+      "user_input": "condition",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "Raw SQL built from trusted constants (enum values, column/table names, fixed labels) — never user input"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "edb921fbe0405e604b3f37c85f454a3e449c9a4a791f815b391d0f48ce95b72d",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/stats/concerns/filtered_aggregates.rb",
+      "line": 35,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"#{month_group_sql(filtered(main_query))} AS month\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Stats::Concerns::FilteredAggregates",
+        "method": "indexed_aggregate_rows"
+      },
+      "user_input": "month_group_sql(filtered(main_query))",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "Raw SQL built from trusted constants (enum values, column/table names, fixed labels) — never user input"
     },
     {
       "warning_type": "Cross-Site Scripting",

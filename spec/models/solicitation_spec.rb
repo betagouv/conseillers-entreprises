@@ -452,6 +452,31 @@ end
     it { is_expected.to contain_exactly(solicitation) }
   end
 
+  describe '.mtm_campaign_cont_sql' do
+    let!(:from_pk_campaign) { create :solicitation, form_info: { pk_campaign: 'entreprendre-2026' } }
+    let!(:from_mtm_campaign) { create :solicitation, form_info: { mtm_campaign: 'via-entreprendre' } }
+    let!(:other) { create :solicitation, form_info: { mtm_campaign: 'googleads' } }
+
+    subject { described_class.where(described_class.mtm_campaign_cont_sql('entreprendre')) }
+
+    it 'matches the same rows as the mtm_campaign_cont scope' do
+      is_expected.to contain_exactly(from_pk_campaign, from_mtm_campaign)
+      is_expected.to match_array(described_class.mtm_campaign_cont('entreprendre'))
+    end
+  end
+
+  describe '.from_integration_sql' do
+    let!(:from_iframe) { create :solicitation, landing: create(:landing, integration: :iframe) }
+    let!(:from_intern) { create :solicitation, landing: create(:landing, integration: :intern) }
+
+    subject { described_class.where(described_class.from_integration_sql(:iframe)) }
+
+    it 'matches the same rows as the from_integration scope' do
+      is_expected.to contain_exactly(from_iframe)
+      is_expected.to match_array(described_class.from_integration(:iframe))
+    end
+  end
+
   describe '#have_landing' do
     let(:landing) { create :landing, slug: 'landing-slug' }
     let(:solicitation) { create :solicitation, landing: landing }
