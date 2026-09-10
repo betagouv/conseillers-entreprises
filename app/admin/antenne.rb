@@ -4,7 +4,6 @@ ActiveAdmin.register Antenne do
   include OnDemandActivityReports
 
   controller do
-    include SoftDeletable::ActiveAdminResourceController
     include TerritorialZonesSearchable
 
     helper ActiveAdminUtilitiesHelper
