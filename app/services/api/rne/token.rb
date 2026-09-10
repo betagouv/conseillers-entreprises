@@ -1,10 +1,9 @@
 module Api::Rne::Token
   class Base < Api::Rne::Base
-    # rubocop:disable Style/RedundantInitialize
+    # rubocop:disable-next Style/RedundantInitialize
     def initialize(call_count = 0)
       @call_count = call_count
     end
-    # rubocop:enable Style/RedundantInitialize
 
     def call
       invalid_cache_if_error

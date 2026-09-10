@@ -106,9 +106,8 @@ describe 'New Solicitation', :js do
       expect(page).to have_current_path(/\/votre-demande\/.*\/rechercher-mon-etablissement/)
       expect(solicitation.status_step_description?).to be true
       fill_in 'Recherchez votre entreprise', with: query
-      # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
+      # rubocop:disable-next Capybara/FindAllFirst -- sinon le test plante
       option = find(".autocomplete__option", match: :first)
-      # rubocop:enable Capybara/FindAllFirst
       expect(option).to have_text('Octo Technology')
       page.execute_script("document.querySelector('.autocomplete__option').click()")
       click_on 'Suivant'
@@ -216,9 +215,8 @@ describe 'New Solicitation', :js do
       expect(solicitation.status_step_company?).to be true
 
       fill_in 'Recherchez votre entreprise', with: query
-      # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
+      # rubocop:disable-next Capybara/FindAllFirst -- sinon le test plante
       option = find(".autocomplete__option", match: :first)
-      # rubocop:enable Capybara/FindAllFirst
       expect(option).to have_text('Octo Technology')
       page.execute_script("document.querySelector('.autocomplete__option').click()")
       click_on 'Suivant'
@@ -269,9 +267,8 @@ describe 'New Solicitation', :js do
       expect(solicitation.status_step_company?).to be true
 
       fill_in 'Recherchez votre entreprise', with: query
-      # rubocop:disable Capybara/FindAllFirst -- sinon le test plante
+      # rubocop:disable-next Capybara/FindAllFirst -- sinon le test plante
       option = find(".autocomplete__option", match: :first)
-      # rubocop:enable Capybara/FindAllFirst
       expect(option).to have_text('Octo Technology')
       page.execute_script("document.querySelector('.autocomplete__option').click()")
       click_on 'Suivant'
