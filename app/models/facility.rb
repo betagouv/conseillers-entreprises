@@ -85,15 +85,15 @@ class Facility < ApplicationRecord
   end
 
   def has_artisanale_activites
-    all_nature_activites.any? { |a| ["ARTISANALE", "ARTISANALE_REGLEMENTEE", "INDEPENDANTE", "GESTION_DE_BIENS"].include?(a) } || nafa_codes.any?
+    all_nature_activites.intersect?(["ARTISANALE", "ARTISANALE_REGLEMENTEE", "INDEPENDANTE", "GESTION_DE_BIENS"]) || nafa_codes.any?
   end
 
   def has_commerciale_activites
-    all_nature_activites.any?{ |a| ["COMMERCIALE", "AGENT_COMMERCIAL", "INDEPENDANTE", "GESTION_DE_BIENS"].include?(a) }
+    all_nature_activites.intersect?(["COMMERCIALE", "AGENT_COMMERCIAL", "INDEPENDANTE", "GESTION_DE_BIENS"])
   end
 
   def has_liberal_activities
-    all_nature_activites.any? { |a| ["LIBERALE_REGLEMENTEE", "LIBERALE_NON_REGLEMENTEE", "INDEPENDANTE", "GESTION_DE_BIENS"].include?(a) }
+    all_nature_activites.intersect?(["LIBERALE_REGLEMENTEE", "LIBERALE_NON_REGLEMENTEE", "INDEPENDANTE", "GESTION_DE_BIENS"])
   end
 
   # Si demande de Mayotte, tout est envoyé vers l'OPCO Akto
