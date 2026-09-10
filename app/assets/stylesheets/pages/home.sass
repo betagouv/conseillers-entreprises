@@ -39,8 +39,18 @@
       border-color: base.$emphasis-border-hover
     &:active, a:active
       background-color: base.$emphasis-background-active
+    .fr-notice__body
+      align-items: center
+    .fr-notice__desc, .fr-notice__title
+      display: block
     .fr-notice__link
+      background: none
+      border: 1px solid base.$emphasis-border
       white-space: nowrap
+      padding: .5rem 1rem
+      min-height: 2.5rem
+      &:hover
+        border-color: base.$emphasis-border-hover
 
 .contact-us
   font-size: 1.2rem

@@ -3,13 +3,11 @@
 <div class="fr-notice fr-notice--info emphasis block-link">
   <div class="fr-container">
     <div class="fr-notice__body">
-      <p>
-        <%= simple_format(emphasis_item.title, { class: "fr-notice__title" }, wrapper_tag: 'span') %>
-        <%= simple_format(emphasis_item.home_description, { class: "fr-notice__desc" }, wrapper_tag: 'span') %>
-      </p>
-      <p>
-        <%= link_to emphasis_item.home_link_text, path_to_emphasis_item(emphasis_item, **query_params), class: 'fr-notice__link' %>
-      </p>
+      <div>
+        <%= simple_format(emphasis_item.title, { class: "fr-notice__title" }) %>
+        <%= simple_format(emphasis_item.home_description, { class: "fr-notice__desc" }) %>
+      </div>
+      <%= link_to emphasis_item.home_link_text, path_to_emphasis_item(emphasis_item, **query_params), class: 'fr-notice__link' %>
     </div>
   </div>
 </div>
