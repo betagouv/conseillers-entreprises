@@ -172,10 +172,10 @@ RSpec.describe Need do
         let(:s2)    { create :subject, interview_sort_order: 2, theme: t1 }
         let(:s3)    { create :subject, interview_sort_order: 1, theme: t2 }
         let(:s4)    { create :subject, interview_sort_order: 2, theme: t2 }
-        let(:need1) { create  :need, subject: s1 }
-        let(:need2) { create  :need, subject: s2 }
-        let(:need3) { create  :need, subject: s3 }
-        let(:need4) { create  :need, subject: s4 }
+        let(:need1) { create :need, subject: s1 }
+        let(:need2) { create :need, subject: s2 }
+        let(:need3) { create :need, subject: s3 }
+        let(:need4) { create :need, subject: s4 }
 
         it { is_expected.to contain_exactly(need1, need2, need3, need4) }
       end
