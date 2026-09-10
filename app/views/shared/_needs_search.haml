@@ -2,7 +2,7 @@
 
 - mode = mode.inquiry # normal or manager
 - load_path = polymorphic_path([:load_filter_options, (mode.manager? ? :manager : nil), :needs])
-= form_with url: request.path, method: :get, class: 'fr-mb-2w', local: true, data: { controller: 'filters', url: load_path } do |f|
+= form_with url: request.path, method: :get, class: 'fr-mb-2w', data: { controller: 'filters', url: load_path } do |f|
   -# on n'affiche le select que si BAL manager + plusieurs antennes gérées
   - if filters[:antennes].present? && filters[:antennes].size > 1
     .fr-grid-row.fr-grid-row--gutters

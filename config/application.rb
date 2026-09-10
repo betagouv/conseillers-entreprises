@@ -43,7 +43,6 @@ module PlaceDesEntreprises
     config.active_storage.variant_processor = :disabled
 
     config.middleware.insert_after ActionDispatch::RemoteIp, IpAnonymizer::MaskIp
-    config.action_view.form_with_generates_remote_forms = true
   end
 end
 
