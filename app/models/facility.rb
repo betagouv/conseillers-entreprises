@@ -84,15 +84,15 @@ class Facility < ApplicationRecord
     (nature_activites + [company.forme_exercice]).compact.uniq
   end
 
-  def has_artisanale_activites
+  def has_artisanale_activite?
     all_nature_activites.intersect?(["ARTISANALE", "ARTISANALE_REGLEMENTEE", "INDEPENDANTE", "GESTION_DE_BIENS"]) || nafa_codes.any?
   end
 
-  def has_commerciale_activites
+  def has_commerciale_activite?
     all_nature_activites.intersect?(["COMMERCIALE", "AGENT_COMMERCIAL", "INDEPENDANTE", "GESTION_DE_BIENS"])
   end
 
-  def has_liberal_activities
+  def has_liberal_activite?
     all_nature_activites.intersect?(["LIBERALE_REGLEMENTEE", "LIBERALE_NON_REGLEMENTEE", "INDEPENDANTE", "GESTION_DE_BIENS"])
   end
 
