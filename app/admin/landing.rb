@@ -29,12 +29,12 @@ ActiveAdmin.register Landing do
       div link_to l.title, l if l.slug.present?
     end
     column(:solicitations) do |l|
-      div  admin_link_to(l, :solicitations)
-      div  admin_link_to(l, :needs)
-      div  admin_link_to(l, :landing_themes)
+      div admin_link_to(l, :solicitations)
+      div admin_link_to(l, :needs)
+      div admin_link_to(l, :landing_themes)
     end
     column(:cooperation) do |l|
-      div  admin_link_to(l, :cooperation)
+      div admin_link_to(l, :cooperation)
       if l.institution.present?
         div t('activerecord.attributes.landing.institution') + ' : ' do
           div admin_link_to(l.institution)

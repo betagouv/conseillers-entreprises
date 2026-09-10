@@ -25,7 +25,7 @@ namespace :migrations do
       institution.match_filters.find_or_initialize_by(filtrable_element: institution)
     end
 
-    # rubocop:disable Metrics/CollectionLiteralLength
+    # rubocop:disable-next Metrics/CollectionLiteralLength
     institutions_to_process = [
       { name: "Chambre de Commerce et d'Industrie (CCI)", codes_to_remove: %w[6540] },
       { name: "Chambre des Métiers et de l'Artisanat (CMA)", codes_to_remove: %w[6540] },
@@ -55,7 +55,6 @@ namespace :migrations do
         ].uniq
       }
     ]
-    # rubocop:enable Metrics/CollectionLiteralLength
 
     institutions_to_process.each do |institution_data|
       institution_name = institution_data[:name]
