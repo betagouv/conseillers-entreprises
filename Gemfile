@@ -4,6 +4,8 @@ ruby '4.0.6'
 
 gem 'rails', '~> 8.0'
 
+gem "json", "< 3" # Remove this line when rails > 8.1.3.1. See https://github.com/rails/rails/issues/58685#issuecomment-5572420067
+
 # Server
 gem 'foreman'
 gem 'pg'
