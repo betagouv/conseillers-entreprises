@@ -8,7 +8,6 @@ module Stats::Needs
       needs_base_scope
     end
 
-    # EXISTS counts at the need level despite the reminders_actions fan-out.
     def category_buckets
       abandoned = <<~SQL.squish
         EXISTS (SELECT 1 FROM reminders_actions ra
