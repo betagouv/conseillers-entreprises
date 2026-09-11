@@ -160,8 +160,9 @@ module Stats
     private
 
     def month_group_sql(query)
-      # Ici les mois sont en UTC
-      "DATE_TRUNC('month', #{month_group_table(query)}.#{date_group_attribute})"
+      # created_at is stored in UTC, it is converted back to Paris time before being truncated
+      column = "#{month_group_table(query)}.#{date_group_attribute}"
+      "DATE_TRUNC('month', #{column} AT TIME ZONE 'UTC' AT TIME ZONE 'Europe/Paris')"
     end
 
     def grouped_by_month(query)
@@ -222,7 +223,7 @@ module Stats
       all_categories_results = all_categories.index_with { |c| all_months_zero.dup }
 
       results.each do |category, month_values|
-        all_categories_results[category].merge! month_values
+        all_categories_results[category].merge!(month_values.slice(*all_months))
       end
 
       all_categories_results

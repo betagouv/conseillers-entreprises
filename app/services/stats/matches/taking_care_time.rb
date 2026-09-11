@@ -5,7 +5,8 @@ module Stats::Matches::TakingCareTime
   include Stats::Concerns::PartitionedCategory
 
   def main_query
-    matches_base_scope.with_exchange
+    # We group by the month of the match, so we also need to limit its created_at
+    matches_base_scope.with_exchange.created_between(start_date, end_date)
   end
 
   def number_of_days
