@@ -5,8 +5,9 @@ module Stats::Matches::Base
     Match.sent.joins(:need).where(need: needs_base_scope)
   end
 
-  def get_month_query(query, range)
-    query.joins(:need).merge(Need.created_between(range.first, range.last))
+  # Matches are grouped by their need's creation month.
+  def month_group_table(_query)
+    'needs'
   end
 
   def colors
