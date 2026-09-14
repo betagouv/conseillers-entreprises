@@ -16,6 +16,7 @@ RSpec.describe FeedbacksController do
       request
       expect(Feedback.count).to eq(1)
       expect(response).to have_http_status(:found)
+      expect(current_user.reload.last_active_at).to be_within(1.second).of(DateTime.now)
     end
   end
 

@@ -32,6 +32,7 @@ RSpec.describe MatchesController do
         expect(match.reload.status_taking_care?).to be true
         expect(scheduled.size).to eq 1
         expect(scheduled.first.queue).to eq 'match_notification'
+        expect(current_user.reload.last_active_at).to be_within(1.second).of(DateTime.now)
       end
     end
 
