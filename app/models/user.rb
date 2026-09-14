@@ -43,6 +43,7 @@
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
 #  index_users_on_invitations_count     (invitations_count)
 #  index_users_on_inviter_id            (inviter_id)
+#  index_users_on_last_active_at        (last_active_at)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 # Foreign Keys
