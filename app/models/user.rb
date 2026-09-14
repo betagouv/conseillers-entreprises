@@ -60,6 +60,7 @@ class User < ApplicationRecord
   include SoftDeletable
   include Monitoring
   extend DuplicateUser
+  include Activity::User
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :async,
          :validatable,
@@ -98,7 +99,6 @@ class User < ApplicationRecord
   belongs_to :inviter, class_name: 'User', inverse_of: :invitees, optional: true
   has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter, counter_cache: :invitations_count
   has_many_attached :csv_exports
-  has_many :activity_feedbacks, -> { where(updated_at: Match.default_activity_period) }, class_name: 'Feedback', inverse_of: :user, dependent: :nullify
 
   # :rights / roles
   has_many :user_rights, inverse_of: :user, dependent: :destroy
@@ -167,17 +167,6 @@ class User < ApplicationRecord
   scope :recent_active_invitation_not_accepted, -> do
     active_invitation_not_accepted
       .where(invitation_sent_at: 6.months.ago..)
-  end
-
-  scope :with_activity, -> (date_range = Match.default_activity_period) do
-    where(id: User.joins(:experts).merge(Expert.with_activity(date_range)))
-      .or(where(id: Feedback.where(updated_at: date_range).select(:user_id)))
-      .or(where(id: managers))
-  end
-  scope :without_activity, -> (date_range = Match.default_activity_period) do
-    where.not(id: User.joins(:experts).merge(Expert.with_activity(date_range)))
-      .where.not(id: Feedback.where(updated_at: date_range).select(:user_id))
-      .where.not(id: managers)
   end
 
   scope :ordered_by_institution, -> do

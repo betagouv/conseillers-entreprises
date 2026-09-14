@@ -32,6 +32,7 @@
 class Match < ApplicationRecord
   include Archivable
   include RangeScopes
+  include Activity::Match
 
   ## Constants
   #
@@ -43,8 +44,6 @@ class Match < ApplicationRecord
     done_not_reachable: 'done_not_reachable',
     not_for_me: 'not_for_me'
   }, prefix: true
-
-  def self.default_activity_period = (2.years.ago..)
 
   ## Associations
   #
@@ -187,10 +186,6 @@ class Match < ApplicationRecord
 
   scope :taken_care_in_five_days, -> do
     taken_care_before(5)
-  end
-
-  scope :with_activity, -> (date_range = Match.default_activity_period) do
-    where.not(status: :quo).where(updated_at: date_range)
   end
 
   scope :by_region, -> (region_code) {
