@@ -24,6 +24,8 @@ class AddUserLastActiveAt < ActiveRecord::Migration[8.1]
         bar.increment!
       end
       puts "Done"
+
+      add_index :users, :last_active_at
     end
   end
 end
