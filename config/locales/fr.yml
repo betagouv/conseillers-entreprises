@@ -13,6 +13,9 @@ fr:
     paragraphs: Anonymisation - Ce texte a été effacé, ceci est un texte de remplacement.
   api_pde:
     errors:
+      forbidden:
+        message: Cette clé d’API n’a pas les droits nécessaires pour accéder à cette ressource
+        source: Accès refusé
       not_found: n’existe pas ou est invalide
       parameter_missing: le paramètre est manquant
       parsing:
