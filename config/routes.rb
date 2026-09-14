@@ -30,7 +30,12 @@ Rails.application.routes.draw do
         end
       end
       resources :subjects, only: [:index]
-      resources :solicitations, only: [:create]
+      resources :solicitations, only: [:create] do
+        collection do
+          get :unqualified, controller: "solicitations/qualifications"
+          put :qualifications, controller: "solicitations/qualifications", action: :update
+        end
+      end
     end
     namespace :internal do
       get 'communes/search', to: 'communes#search', as: :communes_search

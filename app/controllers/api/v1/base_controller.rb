@@ -11,12 +11,10 @@ class Api::V1::BaseController < ActionController::API
 
   def authenticate_with_api_key!
     @current_institution = authenticate_or_request_with_http_token do |token, options|
-      current_api_key = ApiKey.authenticate_by_token! token
-      current_api_key&.institution
+      @current_api_key = ApiKey.authenticate_by_token! token
+      @current_api_key&.institution
     end
   end
-
-  private
 
   def render_error_payload(errors: nil, status: :unprocessable_content)
     render json: { errors: errors }, status: status
@@ -41,6 +39,10 @@ class Api::V1::BaseController < ActionController::API
 
   def current_institution
     @current_institution
+  end
+
+  def current_api_key
+    @current_api_key
   end
 
   def sanitize_params(params)

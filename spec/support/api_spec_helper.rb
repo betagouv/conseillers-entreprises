@@ -4,14 +4,18 @@ module ApiSpecHelper
     @authentication_headers ||= { 'Authorization' => "Bearer token=#{token}" }
   end
 
-  def find_token(institution = Institution.first)
+  def find_token(institution = Institution.first, scopes: [])
     token = SecureRandom.hex(32)
     if institution.api_key.present?
-      institution.api_key.update(token: token)
+      institution.api_key.update(token: token, scopes: scopes)
     else
-      institution.create_api_key(token: token)
+      institution.create_api_key(token: token, scopes: scopes)
     end
     token
+  end
+
+  def find_qualification_token(institution = Institution.first)
+    find_token(institution, scopes: [ApiKey::QUALIFICATION])
   end
 
   # Base data -----------------------------
