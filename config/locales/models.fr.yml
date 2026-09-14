@@ -940,7 +940,7 @@ fr:
     expert:
       single: En temps qu’expert autonome
       team: Mises en relations reçues par %{team_name}
-    explanation: Activité dans les deux dernières années. Les « mises en relation avec action » correspondent aux mises en relation sur lesquelles l’expert (ou un membre de l’équipe) a cliqué sur un des boutons de prise en charge ou de refus.
+    explanation: Activité dans les deux dernières années. Les « mises en relation avec action » correspondent aux mises en relation sur lesquelles l’utilisateur (ou un collègue de son équipe) a cliqué sur un des boutons de prise en charge ou de refus.
     last_feedback: Le dernier le %{latest}
     last_match: La dernière le %{latest}
   antenne_stats_exporter:
