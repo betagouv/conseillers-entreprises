@@ -3,6 +3,22 @@ require 'rails_helper'
 RSpec.describe FeedbacksController do
   login_user
 
+  describe 'PUT #create' do
+    let(:request) do
+      put :create, params: { feedback: { description: "Some Text",
+                             feedbackable_id: need.id,
+                             feedbackable_type: 'Need',
+                             category: 'need' } }
+    end
+    let(:need) { create :need }
+
+    it 'destroys feedback' do
+      request
+      expect(Feedback.count).to eq(1)
+      expect(response).to have_http_status(:found)
+    end
+  end
+
   describe 'DELETE #destroy' do
     context 'when feedback exists' do
       let(:request) { delete :destroy, params: { id: feedback.id } }
