@@ -3,7 +3,7 @@ class FeedbacksController < ApplicationController
     sanitized_params = sanitize_params feedback_params.merge(user: current_user)
     authorize Feedback.new(sanitized_params)
     @feedback = Feedback.create(sanitized_params)
-    current_user.update(last_active_at: DateTime.now)
+    current_user.touch(:last_active_at)
     if @feedback.persisted?
       @feedback.notify_for_need!
     else
