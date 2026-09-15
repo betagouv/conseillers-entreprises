@@ -164,6 +164,23 @@ RSpec.configure do |config|
               answer: { type: :boolean }
             }
           },
+          unqualified_solicitation: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              subject: { type: :string, description: 'Libellé du sujet d’atterrissage.' },
+              description: { type: :string, description: 'Description saisie par l’entreprise.' }
+            },
+            required: [ 'id', 'subject', 'description' ]
+          },
+          qualification_result: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              status: { type: :integer, description: 'Statut de prise en compte de la qualification (200 ou 400).' }
+            },
+            required: [ 'id', 'status' ]
+          },
           error: {
             type: :object,
             properties: {

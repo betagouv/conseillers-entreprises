@@ -16,7 +16,11 @@ fr:
       forbidden:
         message: Cette clé d’API n’a pas les droits nécessaires pour accéder à cette ressource
         source: Accès refusé
+      invalid_batch:
+        message: Le corps de la requête doit être un tableau de %{max} qualifications maximum
+        source: Format de la requête
       not_found: n’existe pas ou est invalide
+      not_qualifiable: n’existe pas ou n’est pas en cours de traitement
       parameter_missing: le paramètre est manquant
       parsing:
         message: Les données envoyées sont mal formattées
