@@ -48,8 +48,9 @@ RSpec.describe "Solicitations qualifications API" do
           run_test! do |response|
             expect(response.parsed_body).to eq([
               { 'id' => solicitation.id, 'status' => 200 },
-              { 'id' => 0, 'status' => 400 }
+              { 'id' => 0, 'status' => 400, 'message' => I18n.t('api_pde.errors.not_qualifiable') }
             ])
+            expect(solicitation.reload).to be_qualified
           end
         end
 
@@ -123,7 +124,19 @@ RSpec.describe "Solicitations qualifications API" do
       put_qualifications([{ id: solicitation.id }])
 
       expect(response).to have_http_status(:multi_status)
-      expect(response.parsed_body).to eq([{ 'id' => solicitation.id, 'status' => 400 }])
+      expect(response.parsed_body).to eq([
+        { 'id' => solicitation.id, 'status' => 400, 'message' => I18n.t('api_pde.errors.not_qualifiable') }
+      ])
+    end
+
+    it 'rejects an item whose verdict is not a real boolean' do
+      put_qualifications([{ id: solicitation.id, qualified: 'maybe' }])
+
+      expect(response).to have_http_status(:multi_status)
+      expect(response.parsed_body).to eq([
+        { 'id' => solicitation.id, 'status' => 400, 'message' => I18n.t('api_pde.errors.not_qualifiable') }
+      ])
+      expect(solicitation.reload.qualified).to be_nil
     end
 
     it 'rejects a solicitation that is no longer in progress' do
@@ -132,7 +145,9 @@ RSpec.describe "Solicitations qualifications API" do
       put_qualifications([{ id: processed_solicitation.id, qualified: true }])
 
       expect(response).to have_http_status(:multi_status)
-      expect(response.parsed_body).to eq([{ 'id' => processed_solicitation.id, 'status' => 400 }])
+      expect(response.parsed_body).to eq([
+        { 'id' => processed_solicitation.id, 'status' => 400, 'message' => I18n.t('api_pde.errors.not_qualifiable') }
+      ])
       expect(processed_solicitation.reload.qualified).to be_nil
     end
   end
