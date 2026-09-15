@@ -119,9 +119,26 @@ RSpec.describe "Unqualified solicitations API" do
     end
 
     it 'never exposes personal data' do
+      identified_solicitation = create(:solicitation,
+        full_name: "Jean Dupont", email: "jean.dupont@example.com",
+        phone_number: "0612345678", siret: "12345678900011")
+
       get "/api/v1/solicitations/unqualified", headers: headers
 
       expect(response.parsed_body['solicitations'].first.keys).to contain_exactly('id', 'subject', 'description')
+      expect(response.body).not_to include(identified_solicitation.full_name, identified_solicitation.email,
+        identified_solicitation.phone_number, identified_solicitation.siret)
+    end
+
+    it 'denies access with a revoked key' do
+      # `headers` crée la clé à la volée : on la référence avant de pouvoir la révoquer.
+      revoked_headers = headers
+      institution.api_key.revoke
+
+      get "/api/v1/solicitations/unqualified", headers: revoked_headers
+
+      expect(response).to have_http_status(:not_found)
+      expect(response.body).not_to include(solicitation.description)
     end
   end
 end

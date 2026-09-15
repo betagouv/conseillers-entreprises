@@ -66,6 +66,28 @@ RSpec.describe ApiKey do
         api_key.revoke
         expect(api_key.reload.active?).to be false
       end
+
+      # Le token en clair n’existe qu’en mémoire à la création : une clé relue en base
+      # ne l’a plus, et doit rester révocable.
+      it 'revokes a key loaded from the database' do
+        reloaded_key = described_class.find(api_key.id)
+
+        reloaded_key.revoke
+
+        expect(reloaded_key.reload.active?).to be false
+      end
+    end
+
+    describe 'updating a persisted key' do
+      subject(:api_key) { create :api_key }
+
+      it 'keeps the token digest untouched' do
+        reloaded_key = described_class.find(api_key.id)
+
+        expect { reloaded_key.update!(scopes: [described_class::QUALIFICATION]) }
+          .not_to change { reloaded_key.reload.token_digest }
+        expect(reloaded_key.has_scope?(described_class::QUALIFICATION)).to be true
+      end
     end
 
     describe 'extend_lifetime' do
@@ -89,6 +111,33 @@ RSpec.describe ApiKey do
           api_key.extend_lifetime
           expect(api_key.reload.active?).to be true
         end
+      end
+
+      context 'key loaded from the database' do
+        subject(:api_key) { create :api_key, valid_until: 1.month.since }
+
+        it 'changes key validation' do
+          reloaded_key = described_class.find(api_key.id)
+
+          reloaded_key.extend_lifetime
+
+          expect(reloaded_key.reload.revoked_soon?).to be false
+        end
+      end
+    end
+
+    describe 'authenticate_by_token!' do
+      it 'finds an active key' do
+        api_key = create :api_key, valid_until: described_class::LIFETIME.since
+
+        expect(described_class.authenticate_by_token!(api_key.token)).to eq(api_key)
+      end
+
+      it 'raises for a revoked key' do
+        api_key = create :api_key, valid_until: 1.month.ago
+
+        expect { described_class.authenticate_by_token!(api_key.token) }
+          .to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
