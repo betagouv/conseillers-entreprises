@@ -1,8 +1,7 @@
 module Api::FranceCompetence::Token
   class Base < Api::FranceCompetence::Base
-    # rubocop:disable Style/RedundantInitialize
+    # rubocop:disable-next Style/RedundantInitialize
     def initialize; end
-    # rubocop:enable Style/RedundantInitialize
 
     def call
       Rails.cache.fetch('france_competence_token', expires_in: 1.day) do

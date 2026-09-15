@@ -1,4 +1,4 @@
-# rubocop:disable Rails/HelperInstanceVariable
+# rubocop:disable-next Rails/HelperInstanceVariable
 module SeoHelper
   include Seo::BaseSchemas
   include Seo::ContentSchemas
@@ -77,4 +77,3 @@ module SeoHelper
     schema_org_tag(schema_graph(*all_schemas))
   end
 end
-# rubocop:enable Rails/HelperInstanceVariable
