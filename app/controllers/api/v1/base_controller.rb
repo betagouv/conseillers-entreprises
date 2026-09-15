@@ -2,6 +2,7 @@ class Api::V1::BaseController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActionDispatch::Http::Parameters::ParseError, with: :parsing_error
   serialization_scope :current_institution
 
   before_action :authenticate_with_api_key!
@@ -34,7 +35,7 @@ class Api::V1::BaseController < ActionController::API
   def parsing_error(e)
     render_error_payload(errors: [
       { source: I18n.t('api_pde.errors.parsing.source'), message: I18n.t('api_pde.errors.parsing.message') }
-    ])
+    ], status: :bad_request)
   end
 
   def current_institution
