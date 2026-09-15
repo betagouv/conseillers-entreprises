@@ -44,7 +44,7 @@ class ApiKey < ApplicationRecord
   ## Callbacks
   #
   after_initialize :generate_token, if: :new_record?
-  before_save :generate_token_hmac_digest
+  before_save :generate_token_hmac_digest, if: -> { token.present? }
   before_save :calculate_valid_until
 
   # Virtual attribute for raw token value, allowing us to respond with the
@@ -53,7 +53,7 @@ class ApiKey < ApplicationRecord
 
   def self.authenticate_by_token!(token)
     digest = OpenSSL::HMAC.hexdigest 'SHA256', HMAC_SECRET_KEY, token
-    find_by! token_digest: digest
+    active.find_by! token_digest: digest
   end
 
   def self.authenticate_by_token(token)
@@ -91,7 +91,6 @@ class ApiKey < ApplicationRecord
   end
 
   def generate_token_hmac_digest
-    raise ActiveRecord::RecordInvalid, 'token is required' if token.blank?
     digest = OpenSSL::HMAC.hexdigest 'SHA256', HMAC_SECRET_KEY, token
     self.token_digest = digest
   end
