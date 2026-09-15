@@ -1,0 +1,127 @@
+require "rails_helper"
+require 'swagger_helper'
+
+RSpec.describe "Unqualified solicitations API" do
+  let(:institution) { create(:institution) }
+  let(:Authorization) { "Bearer token=#{find_qualification_token(institution)}" }
+  let!(:landing_subject) { create(:landing_subject, title: "Recruter un salarié") }
+  let!(:solicitation) { create(:solicitation, landing_subject: landing_subject, description: "Besoin de recruter") }
+
+  describe 'unqualified' do
+    path '/api/v1/solicitations/unqualified' do
+      get 'Liste des sollicitations non qualifiées' do
+        tags 'Sollicitations'
+        description 'Affiche les sollicitations en cours de traitement dont la qualification n’a pas encore été renseignée.'
+        operationId 'listUnqualifiedSolicitations'
+        produces 'application/json'
+        parameter name: :page, in: :query, type: :integer, required: false, description: 'Numéro de page (défaut 1).'
+        parameter name: :per_page, in: :query, type: :integer, required: false, description: 'Nombre de résultats par page (défaut 100, maximum 1000).'
+
+        response '200', 'ok' do
+          schema type: :object,
+                 properties: {
+                   count: { type: :integer, description: 'Nombre total de sollicitations non qualifiées.' },
+                   solicitations: {
+                     type: :array,
+                     items: { '$ref': "#/components/schemas/unqualified_solicitation" }
+                   }
+                 }
+
+          before do |example|
+            submit_request(example.metadata)
+          end
+
+          it 'returns a valid 200 response' do |example|
+            expect(response).to have_http_status(:ok)
+            result = response.parsed_body
+
+            expect(result['count']).to eq(1)
+            expect(result['solicitations'].size).to eq(1)
+            expect(result['solicitations'].first).to eq(
+              'id' => solicitation.id,
+              'subject' => "Recruter un salarié",
+              'description' => "Besoin de recruter"
+            )
+          end
+        end
+
+        response '403', 'Token sans le scope de qualification' do
+          schema errors: {
+            type: :array,
+            items: { '$ref': "#/components/schemas/error" }
+          }
+          let(:Authorization) { "Bearer token=#{find_token(institution)}" }
+
+          run_test! do |response|
+            result = response.parsed_body
+
+            expect(result['errors'].first['source']).to eq('Accès refusé')
+            expect(result['errors'].first['message']).to eq('Cette clé d’API n’a pas les droits nécessaires pour accéder à cette ressource')
+          end
+        end
+
+        response '404', 'Mauvais token' do
+          schema errors: {
+            type: :array,
+            items: { '$ref': "#/components/schemas/error" }
+          }
+          let(:Authorization) { "Bearer token=tatayoyo}" }
+
+          run_test! do |response|
+            expect(response.parsed_body['errors'].first['source']).to eq('Jeton d’API')
+          end
+        end
+      end
+    end
+  end
+
+  describe 'scoping and pagination' do
+    let(:headers) { { 'Authorization' => "Bearer token=#{find_qualification_token(institution)}" } }
+
+    it 'excludes already qualified and non in_progress solicitations' do
+      create(:solicitation, qualified: true)
+      create(:solicitation, status: :processed)
+
+      get "/api/v1/solicitations/unqualified", headers: headers
+      result = response.parsed_body
+
+      expect(result['count']).to eq(1)
+      expect(result['solicitations'].pluck('id')).to eq([solicitation.id])
+    end
+
+    it 'returns the global count regardless of pagination' do
+      create_list(:solicitation, 2)
+
+      get "/api/v1/solicitations/unqualified", params: { per_page: 1 }, headers: headers
+      result = response.parsed_body
+
+      expect(result['count']).to eq(3)
+      expect(result['solicitations'].size).to eq(1)
+    end
+
+    it 'ignores an out of range per_page instead of trusting it' do
+      create_list(:solicitation, 2)
+
+      get "/api/v1/solicitations/unqualified", params: { per_page: 0 }, headers: headers
+      expect(response.parsed_body['solicitations'].size).to eq(1)
+
+      get "/api/v1/solicitations/unqualified", params: { per_page: 99_999 }, headers: headers
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['solicitations'].size).to eq(3)
+    end
+
+    it 'paginates with the page parameter' do
+      second_solicitation = create(:solicitation)
+
+      get "/api/v1/solicitations/unqualified", params: { page: 2, per_page: 1 }, headers: headers
+
+      expect(response.parsed_body['solicitations'].pluck('id')).to eq([second_solicitation.id])
+    end
+
+    it 'never exposes personal data' do
+      get "/api/v1/solicitations/unqualified", headers: headers
+
+      expect(response.parsed_body['solicitations'].first.keys).to contain_exactly('id', 'subject', 'description')
+    end
+  end
+end
