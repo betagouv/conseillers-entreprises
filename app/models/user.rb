@@ -22,6 +22,7 @@
 #  invitation_token       :string
 #  invitations_count      :integer          default(0)
 #  job                    :string           not null
+#  last_active_at         :datetime
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
 #  phone_number           :string
@@ -42,6 +43,7 @@
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
 #  index_users_on_invitations_count     (invitations_count)
 #  index_users_on_inviter_id            (inviter_id)
+#  index_users_on_last_active_at        (last_active_at)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 # Foreign Keys
@@ -59,6 +61,7 @@ class User < ApplicationRecord
   include SoftDeletable
   include Monitoring
   extend DuplicateUser
+  include Activity::User
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :async,
          :validatable,
@@ -139,7 +142,6 @@ class User < ApplicationRecord
 
   # :experts
   has_many :received_matches, through: :experts, source: :received_matches, inverse_of: :contacted_users
-  has_many :activity_matches, through: :experts, source: :activity_matches, inverse_of: :contacted_users
   has_many :received_needs, through: :experts, source: :received_needs, inverse_of: :contacted_users
   has_many :received_diagnoses, through: :experts, source: :received_diagnoses, inverse_of: :contacted_users
   has_many :themes, through: :experts, inverse_of: :advisors
@@ -166,17 +168,6 @@ class User < ApplicationRecord
   scope :recent_active_invitation_not_accepted, -> do
     active_invitation_not_accepted
       .where(invitation_sent_at: 6.months.ago..)
-  end
-
-  scope :with_activity, -> (date_range = Match::DEFAULT_ACTIVITY_PERIOD) do
-    where(id: User.joins(:experts).merge(Expert.with_activity(date_range)))
-      .or(where(id: Feedback.where(updated_at: date_range).select(:user_id)))
-      .or(where(id: managers))
-  end
-  scope :without_activity, -> (date_range = Match::DEFAULT_ACTIVITY_PERIOD) do
-    where.not(id: User.joins(:experts).merge(Expert.with_activity(date_range)))
-      .where.not(id: Feedback.where(updated_at: date_range).select(:user_id))
-      .where.not(id: managers)
   end
 
   scope :ordered_by_institution, -> do
@@ -295,6 +286,10 @@ class User < ApplicationRecord
   # Used for matches transfer
   def single_user_experts
     experts.with_one_user
+  end
+
+  def team_experts
+    experts.with_many_users
   end
 
   def create_single_user_experts

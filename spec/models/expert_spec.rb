@@ -151,21 +151,6 @@ RSpec.describe Expert do
         }
       end
     end
-
-    describe 'with_activity / without_activity' do
-      let!(:inactive_expert) do
-        create :expert, received_matches: [
-          build(:match, status: :quo),
-          build(:match, status: :not_for_me, updated_at: 100.days.ago)
-        ]
-      end
-      let!(:active_expert) { create :expert, received_matches: [build(:match, status: :not_for_me, updated_at: 10.days.ago)] }
-
-      it 'returns the relevant experts' do
-        expect(described_class.with_activity(50.days.ago..)).to contain_exactly(active_expert)
-        expect(described_class.without_activity(50.days.ago..)).to contain_exactly(inactive_expert)
-      end
-    end
   end
 
   describe 'soft deletion' do

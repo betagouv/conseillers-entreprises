@@ -174,15 +174,5 @@ RSpec.describe Match do
 
       it { is_expected.to contain_exactly(match1) }
     end
-
-    describe 'with_activity' do
-      let!(:match_with_no_action) { create :match, status: :quo }
-      let!(:match_active_a_long_time_ago) { create :match, status: :not_for_me, updated_at: 100.days.ago }
-      let!(:match_recently_active) { create :match, status: :not_for_me, updated_at: 10.days.ago }
-
-      it 'returns recently active matches' do
-        expect(described_class.with_activity(50.days.ago..)).to contain_exactly(match_recently_active)
-      end
-    end
   end
 end

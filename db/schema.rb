@@ -10,10 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_01_142450) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_03_080706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
 
@@ -659,6 +658,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_01_142450) do
     t.integer "invitations_count", default: 0
     t.bigint "inviter_id"
     t.string "job", null: false
+    t.datetime "last_active_at"
     t.datetime "last_sign_in_at", precision: nil
     t.inet "last_sign_in_ip"
     t.string "phone_number"
@@ -673,6 +673,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_01_142450) do
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["inviter_id"], name: "index_users_on_inviter_id"
+    t.index ["last_active_at"], name: "index_users_on_last_active_at"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
