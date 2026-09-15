@@ -15,7 +15,8 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
     qualifications = params.permit(_json: [:id, :qualified, :details])[:_json]
     return render_invalid_batch if qualifications.blank? || qualifications.size > MAX_BATCH_SIZE
 
-    results = qualifications.map { |qualification| apply_qualification(qualification) }
+    solicitations = Solicitation.where(id: batch_ids(qualifications)).index_by(&:id)
+    results = qualifications.map { |qualification| apply_qualification(qualification, solicitations) }
 
     if results.all? { |result| result[:status] == 200 }
       head :no_content
@@ -26,16 +27,37 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
 
   private
 
-  def apply_qualification(qualification)
+  def batch_ids(qualifications)
+    qualifications.filter_map { |qualification| qualification[:id].presence }
+  end
+
+  def apply_qualification(qualification, solicitations)
     id = qualification[:id]
-    qualified = qualification[:qualified]
-    return { id: id, status: 400 } if id.blank? || qualified.nil?
+    qualified = cast_qualified(qualification[:qualified])
+    return invalid_item(id) if id.blank? || qualified.nil?
 
-    solicitation = Solicitation.find_by(id: id)
-    return { id: id, status: 400 } if solicitation.nil? || !solicitation.status_in_progress?
+    solicitation = solicitations[id.to_i]
+    return invalid_item(id) if solicitation.nil? || !solicitation.status_in_progress?
 
-    solicitation.qualify!(qualified: ActiveModel::Type::Boolean.new.cast(qualified), details: qualification[:details])
+    solicitation.qualify!(qualified: qualified, details: qualification[:details])
     { id: id, status: 200 }
+  rescue ActiveRecord::ActiveRecordError => e
+    Appsignal.send_exception(e)
+    invalid_item(id)
+  end
+
+  # Le service de qualification est externe : on n'accepte que de vrais booléens,
+  # là où ActiveModel::Type::Boolean convertirait "maybe" ou "yes" en true.
+  def cast_qualified(qualified)
+    return qualified if qualified == true || qualified == false
+    return true if qualified == 'true'
+    return false if qualified == 'false'
+
+    nil
+  end
+
+  def invalid_item(id)
+    { id: id, status: 400, message: I18n.t('api_pde.errors.not_qualifiable') }
   end
 
   def per_page
