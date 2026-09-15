@@ -34,6 +34,22 @@ RSpec.describe "Authentication API" do
     end
   end
 
+  describe "when revoked token" do
+    let!(:institution) { create(:institution) }
+
+    it 'returns error' do
+      token = find_token(institution)
+      institution.api_key.revoke
+
+      get "/api/v1/landings", headers: { 'Authorization' => "Bearer token=#{token}" }
+      json = response.parsed_body
+
+      expect(response).not_to be_successful
+      expect(response).to have_http_status(:not_found)
+      expect(json["errors"]).to eq([{ "message" => "n’existe pas ou est invalide", "source" => "Jeton d’API" }])
+    end
+  end
+
   describe "when good token" do
     let!(:institution) { create(:institution) }
 
