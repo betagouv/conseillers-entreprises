@@ -631,20 +631,22 @@ class Solicitation < ApplicationRecord
     end
   end
 
+  # Passe par `diagnosis` plutôt que par l'association `has_many through` `needs` :
+  # cette dernière ignore le préchargement et rejoue une requête par sollicitation.
   def final_landing_subject
-    if needs.present?
-      subject = needs.first.subject
-      return landing_subject if landing_subject.subject == subject
-      landing.landing_subjects.not_archived.find_by(subject:) ||
-        Landing.accueil.landing_subjects.not_archived.find_by(subject:) ||
-        LandingSubject.not_archived.find_by(subject:)
-    else
-      landing_subject
-    end
+    need = diagnosis&.needs&.min_by(&:id)
+    return landing_subject if need.nil?
+
+    return landing_subject if landing_subject&.subject_id == need.subject_id
+
+    subject = need.subject
+    landing.landing_subjects.not_archived.find_by(subject:) ||
+      Landing.accueil.landing_subjects.not_archived.find_by(subject:) ||
+      LandingSubject.not_archived.find_by(subject:)
   end
 
   def final_subject_title
-    final_landing_subject.title
+    final_landing_subject&.title
   end
 
   # Provenance
