@@ -33,6 +33,7 @@ RSpec.configure do |config|
       },
       tags: [
         { name: 'Page d’atterrissage' },
+        { name: 'Sujets d’atterrissage' },
         { name: 'Thèmes' },
         { name: 'Sujets' },
       ],
@@ -98,6 +99,22 @@ RSpec.configure do |config|
               }
             },
             required: [ 'id', 'title', 'slug' ]
+          },
+          subject: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              label: { type: :string },
+              slug: { type: :string },
+              can_be_automated: { type: :boolean },
+              landing_subjects: {
+                type: :array,
+                items: {
+                  '$ref': "#/components/schemas/landing_subject"
+                }
+              }
+            },
+            required: [ 'id', 'label', 'slug' ]
           },
           new_solicitation: {
             type: :object,
@@ -177,7 +194,8 @@ RSpec.configure do |config|
             type: :object,
             properties: {
               id: { type: :integer },
-              status: { type: :integer, description: 'Statut de prise en compte de la qualification (200 ou 400).' }
+              status: { type: :integer, description: 'Statut de prise en compte de la qualification (200 ou 400).' },
+              message: { type: :string, description: 'Motif du rejet, présent uniquement lorsque le statut est 400.' }
             },
             required: [ 'id', 'status' ]
           },
