@@ -30,7 +30,7 @@ RSpec.describe "Landing Subjects API" do
   describe 'index' do
     path '/api/v1/landings/{landing_id}/landing_subjects' do
       get 'Liste des sujets d’atterrissage' do
-        tags 'Sujets'
+        tags 'Sujets d’atterrissage'
         description 'Affiche tous les sujets d’une page d’atterrissage'
         operationId 'listLandingSubjects'
         parameter name: :landing_id, in: :path, type: :integer, description: 'identifiant de la page d’atterrissage', required: true
@@ -78,7 +78,7 @@ RSpec.describe "Landing Subjects API" do
   describe 'search_by_slug' do
     path '/api/v1/landings/{landing_id}/landing_subjects/search' do
       get 'Recherche d’un sujet à partir de son slug' do
-        tags 'Sujets'
+        tags 'Sujets d’atterrissage'
         description 'Recherche d’un sujet à partir de son slug, équivalent à un mot clé, pour faciliter la récupération d’un sujet spécifique.'
         operationId 'searchLandingSubject'
         produces 'application/json'
@@ -150,7 +150,7 @@ RSpec.describe "Landing Subjects API" do
   describe 'show' do
     path '/api/v1/landings/{landing_id}/landing_subjects/{id}' do
       get 'Page sujet' do
-        tags 'Sujets'
+        tags 'Sujets d’atterrissage'
         description 'Affiche le détail d’un formulaire sujet'
         operationId 'showLandingSubject'
         parameter name: :landing_id, in: :path, type: :integer, description: 'identifiant de la page d’atterrissage', required: true
