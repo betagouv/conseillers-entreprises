@@ -31,7 +31,7 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
     qualifications.filter_map { |qualification| cast_id(qualification[:id]) }
   end
 
-  # `"12abc".to_i` vaut 12 : sans contrôle, un id malformé qualifierait une autre sollicitation.
+  # "12abc".to_i` equals 12: without checking, a malformed id would qualify another request.
   def cast_id(id)
     Integer(id, exception: false)
   end
@@ -51,8 +51,8 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
     invalid_item(id)
   end
 
-  # Le service de qualification est externe : on n'accepte que de vrais booléens,
-  # là où ActiveModel::Type::Boolean convertirait "maybe" ou "yes" en true.
+  # The qualification service is external: it accepts only actual booleans,
+  # whereas ActiveModel::Type::Boolean would convert "maybe" or "yes" to true.
   def cast_qualified(qualified)
     return qualified if qualified == true || qualified == false
     return true if qualified == 'true'

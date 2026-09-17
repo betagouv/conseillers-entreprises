@@ -11,8 +11,7 @@ class Api::V1::BaseController < ActionController::API
 
   private
 
-  # Identifiant de corrélation partagé avec les appelants, pour recouper les logs des deux côtés
-  # lors d'une investigation. Posé avant l'authentification, pour couvrir aussi les réponses en erreur.
+  # Correlation ID shared with callers to cross-reference logs from both sides
   def set_call_id
     response.set_header('X-Call-Id', request.request_id)
   end
