@@ -185,7 +185,7 @@ RSpec.configure do |config|
             type: :object,
             properties: {
               id: { type: :integer },
-              subject: { type: :integer, description: 'Identifiant du sujet retenu pour la mise en relation.' },
+              subject: { type: [:integer, 'null'], description: 'Identifiant du sujet retenu pour la mise en relation, null pour les sollicitations antérieures à novembre 2020 qui n’en ont pas.' },
               description: { type: :string, description: 'Description saisie par l’entreprise.' }
             },
             required: [ 'id', 'subject', 'description' ]
