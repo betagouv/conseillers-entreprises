@@ -4,7 +4,8 @@ require 'swagger_helper'
 RSpec.describe "Unqualified solicitations API" do
   let(:institution) { create(:institution) }
   let(:Authorization) { "Bearer token=#{find_qualification_token(institution)}" }
-  let!(:landing_subject) { create(:landing_subject, title: "Recruter un salarié") }
+  let(:subject_recrutement) { create(:subject) }
+  let!(:landing_subject) { create(:landing_subject, subject: subject_recrutement) }
   let!(:solicitation) { create(:solicitation, landing_subject: landing_subject, description: "Besoin de recruter") }
 
   describe 'unqualified' do
@@ -40,7 +41,7 @@ RSpec.describe "Unqualified solicitations API" do
             expect(result['solicitations'].size).to eq(1)
             expect(result['solicitations'].first).to eq(
               'id' => solicitation.id,
-              'subject' => "Recruter un salarié",
+              'subject' => subject_recrutement.id,
               'description' => "Besoin de recruter"
             )
           end
@@ -129,6 +130,15 @@ RSpec.describe "Unqualified solicitations API" do
       expect(response.parsed_body['solicitations'].first.keys).to contain_exactly('id', 'subject', 'description')
       expect(response.body).not_to include(identified_solicitation.full_name, identified_solicitation.email,
         identified_solicitation.phone_number, identified_solicitation.siret)
+    end
+
+    it 'exposes the subject of the need rather than the one of the landing subject' do
+      corrected_subject = create(:subject)
+      solicitation.update!(diagnosis: create(:diagnosis, needs: [build(:need, subject: corrected_subject)]))
+
+      get "/api/v1/solicitations/unqualified", headers: headers
+
+      expect(response.parsed_body['solicitations'].first['subject']).to eq(corrected_subject.id)
     end
 
     it 'returns a correlation id in the response headers' do
