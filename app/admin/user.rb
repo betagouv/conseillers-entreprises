@@ -361,7 +361,7 @@ ActiveAdmin.register User do
   # Actions
   #
   # Delete default destroy action to create a new one with more explicit alert message
-  config.action_items.delete_at(2)
+  config.remove_action_item(:destroy)
 
   action_item :destroy, only: :show do
     if Match.sent.where(expert: user.single_user_experts).in_progress.exists?

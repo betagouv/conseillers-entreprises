@@ -198,7 +198,7 @@ ActiveAdmin.register Institution do
   ## Actions
   #
   # Delete default destroy action to create a new one with more explicit alert message
-  config.action_items.delete_at(2)
+  config.remove_action_item(:destroy)
 
   action_item :destroy, only: :show do
     link_to t('active_admin.institution.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.institution.delete_confirmation') }
