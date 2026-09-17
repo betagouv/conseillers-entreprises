@@ -21,8 +21,8 @@
 #  fk_rails_...  (institution_id => institutions.id)
 #
 class ApiKey < ApplicationRecord
-  # Le premier secret signe les nouveaux jetons, les suivants restent acceptés
-  # en vérification le temps d'une rotation.
+  # The first secret signs new tokens; subsequent ones remain accepted
+  # for verification during a rotation period.
   HMAC_SECRET_KEYS = ENV.fetch('API_KEY_HMAC_SECRET_KEY').split(',').map(&:strip).compact_blank.freeze
   LIFETIME = 18.months
   QUALIFICATION = 'qualification'
@@ -91,7 +91,7 @@ class ApiKey < ApplicationRecord
     errors.add(:scopes, :inclusion) if (scopes - SCOPES).any?
   end
 
-  # Utilisé uniquement par la DILA
+  # Used only by the DILA
   def qualification_scope_is_exclusive
     return unless scopes.include?(QUALIFICATION)
 
