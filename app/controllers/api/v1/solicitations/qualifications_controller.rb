@@ -28,15 +28,20 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
   private
 
   def batch_ids(qualifications)
-    qualifications.filter_map { |qualification| qualification[:id].presence }
+    qualifications.filter_map { |qualification| cast_id(qualification[:id]) }
+  end
+
+  # `"12abc".to_i` vaut 12 : sans contrôle, un id malformé qualifierait une autre sollicitation.
+  def cast_id(id)
+    Integer(id, exception: false)
   end
 
   def apply_qualification(qualification, solicitations)
-    id = qualification[:id]
+    id = cast_id(qualification[:id])
     qualified = cast_qualified(qualification[:qualified])
-    return invalid_item(id) if id.blank? || qualified.nil?
+    return invalid_item(qualification[:id]) if id.nil? || qualified.nil?
 
-    solicitation = solicitations[id.to_i]
+    solicitation = solicitations[id]
     return invalid_item(id) if solicitation.nil? || !solicitation.status_in_progress?
 
     solicitation.qualify!(qualified: qualified, details: qualification[:details])
