@@ -754,7 +754,7 @@ class Solicitation < ApplicationRecord
   end
 
   def qualify!(qualified:, details: nil)
-    update!(qualified: qualified, qualification_details: details, qualified_at: Time.current)
+    update_columns(qualified: qualified, qualification_details: details, qualified_at: Time.current)
   end
 
   def self.ransackable_attributes(auth_object = nil)
