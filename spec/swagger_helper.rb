@@ -185,7 +185,7 @@ RSpec.configure do |config|
             type: :object,
             properties: {
               id: { type: :integer },
-              subject: { type: :string, description: 'Libellé du sujet d’atterrissage.' },
+              subject: { type: :integer, description: 'Identifiant du sujet retenu pour la mise en relation.' },
               description: { type: :string, description: 'Description saisie par l’entreprise.' }
             },
             required: [ 'id', 'subject', 'description' ]
