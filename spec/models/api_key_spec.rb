@@ -168,6 +168,37 @@ RSpec.describe ApiKey do
         expect { described_class.authenticate_by_token!(api_key.token) }
           .to raise_error(ActiveRecord::RecordNotFound)
       end
+
+      context 'during a secret rotation' do
+        let(:api_key) do
+          stub_const("#{described_class}::HMAC_SECRET_KEYS", ['old-secret'])
+          create :api_key, valid_until: described_class::LIFETIME.since
+        end
+
+        it 'accepts a token signed with a previous secret' do
+          token = api_key.token
+          stub_const("#{described_class}::HMAC_SECRET_KEYS", ['new-secret', 'old-secret'])
+
+          expect(described_class.authenticate_by_token!(token)).to eq(api_key)
+        end
+
+        it 'signs a new token with the first secret only' do
+          api_key
+          stub_const("#{described_class}::HMAC_SECRET_KEYS", ['new-secret', 'old-secret'])
+          new_key = create :api_key, valid_until: described_class::LIFETIME.since
+
+          stub_const("#{described_class}::HMAC_SECRET_KEYS", ['new-secret'])
+          expect(described_class.authenticate_by_token!(new_key.token)).to eq(new_key)
+        end
+
+        it 'rejects a token signed with a dropped secret' do
+          token = api_key.token
+          stub_const("#{described_class}::HMAC_SECRET_KEYS", ['new-secret'])
+
+          expect { described_class.authenticate_by_token!(token) }
+            .to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
     end
   end
 end
