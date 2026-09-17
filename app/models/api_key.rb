@@ -21,8 +21,9 @@
 #  fk_rails_...  (institution_id => institutions.id)
 #
 class ApiKey < ApplicationRecord
-  HMAC_SECRET_KEY = ENV.fetch('API_KEY_HMAC_SECRET_KEY', '0a1b2c3d')
-  # Durée de vie max d'un token (recommandation ANSI, il me semble)
+  # Le premier secret signe les nouveaux jetons, les suivants restent acceptés
+  # en vérification le temps d'une rotation.
+  HMAC_SECRET_KEYS = ENV.fetch('API_KEY_HMAC_SECRET_KEY').split(',').map(&:strip).compact_blank.freeze
   LIFETIME = 18.months
   QUALIFICATION = 'qualification'
   SCOPES = [QUALIFICATION].freeze
@@ -58,8 +59,8 @@ class ApiKey < ApplicationRecord
   attr_accessor :token
 
   def self.authenticate_by_token!(token)
-    digest = OpenSSL::HMAC.hexdigest 'SHA256', HMAC_SECRET_KEY, token
-    active.find_by! token_digest: digest
+    digests = HMAC_SECRET_KEYS.map { |secret| OpenSSL::HMAC.hexdigest 'SHA256', secret, token }
+    active.find_by! token_digest: digests
   end
 
   def self.authenticate_by_token(token)
@@ -105,7 +106,7 @@ class ApiKey < ApplicationRecord
   end
 
   def generate_token_hmac_digest
-    digest = OpenSSL::HMAC.hexdigest 'SHA256', HMAC_SECRET_KEY, token
+    digest = OpenSSL::HMAC.hexdigest 'SHA256', HMAC_SECRET_KEYS.first, token
     self.token_digest = digest
   end
 
