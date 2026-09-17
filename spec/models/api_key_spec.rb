@@ -39,6 +39,35 @@ RSpec.describe ApiKey do
         it { is_expected.to be_valid }
       end
     end
+
+    describe 'qualification scope exclusivity' do
+      subject(:api_key) { build :api_key, scopes: [described_class::QUALIFICATION] }
+
+      context 'when no other key holds the qualification scope' do
+        before { create :api_key, scopes: [] }
+
+        it { is_expected.to be_valid }
+      end
+
+      context 'when another key already holds the qualification scope' do
+        before { create :api_key, scopes: [described_class::QUALIFICATION] }
+
+        it { is_expected.not_to be_valid }
+
+        it 'adds a taken error on scopes' do
+          api_key.valid?
+          expect(api_key.errors[:scopes]).to include('n’est pas disponible')
+        end
+      end
+
+      context 'when the holding key is updated' do
+        subject(:api_key) { create :api_key, scopes: [described_class::QUALIFICATION] }
+
+        it 'does not conflict with itself' do
+          expect(api_key.update(valid_until: described_class::LIFETIME.since)).to be true
+        end
+      end
+    end
   end
 
   describe 'instance_methods' do

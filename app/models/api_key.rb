@@ -40,6 +40,7 @@ class ApiKey < ApplicationRecord
   ## validations
   #
   validate :only_known_scopes
+  validate :qualification_scope_is_exclusive
 
   ## Callbacks
   #
@@ -82,6 +83,14 @@ class ApiKey < ApplicationRecord
 
   def only_known_scopes
     errors.add(:scopes, :inclusion) if (scopes - SCOPES).any?
+  end
+
+  # Utilisé uniquement par la DILA
+  def qualification_scope_is_exclusive
+    return unless scopes.include?(QUALIFICATION)
+
+    already_granted = self.class.where.not(id: id).exists?(['? = ANY(scopes)', QUALIFICATION])
+    errors.add(:scopes, :taken) if already_granted
   end
 
   def generate_token
