@@ -151,5 +151,15 @@ RSpec.describe "Solicitations qualifications API" do
       ])
       expect(processed_solicitation.reload.qualified).to be_nil
     end
+
+    it 'rejects a malformed id rather than qualifying the truncated one' do
+      put_qualifications([{ id: "#{solicitation.id}abc", qualified: true }])
+
+      expect(response).to have_http_status(:multi_status)
+      expect(response.parsed_body).to eq([
+        { 'id' => "#{solicitation.id}abc", 'status' => 400, 'message' => I18n.t('api_pde.errors.not_qualifiable') }
+      ])
+      expect(solicitation.reload.qualified).to be_nil
+    end
   end
 end
