@@ -80,6 +80,20 @@ RSpec.describe "Solicitations qualifications API" do
             expect(solicitation.reload.qualified).to be_nil
           end
         end
+
+        response '404', 'Mauvais token' do
+          schema errors: {
+            type: :array,
+            items: { '$ref': "#/components/schemas/error" }
+          }
+          let(:Authorization) { "Bearer token=tatayoyo}" }
+          let(:qualifications) { [{ id: solicitation.id, qualified: true }] }
+
+          run_test! do |response|
+            expect(response.parsed_body['errors'].first['source']).to eq('Jeton d’API')
+            expect(solicitation.reload.qualified).to be_nil
+          end
+        end
       end
     end
   end
