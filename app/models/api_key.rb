@@ -37,6 +37,11 @@ class ApiKey < ApplicationRecord
 
   def has_scope?(scope) = scopes.include?(scope.to_s)
 
+  # ActiveAdmin checkboxes send an empty value.
+  def scopes=(value)
+    super(Array(value).compact_blank)
+  end
+
   ## validations
   #
   validate :only_known_scopes
