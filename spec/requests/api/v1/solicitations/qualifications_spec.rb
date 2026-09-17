@@ -28,6 +28,7 @@ RSpec.describe "Solicitations qualifications API" do
         }
 
         response '204', 'Toutes les qualifications ont été prises en compte' do
+          header 'X-Call-Id', schema: { type: :string }, description: 'Identifiant de corrélation de l’appel, à fournir lors d’une investigation.'
           let(:qualifications) { [{ id: solicitation.id, qualified: true }] }
 
           before do |example|

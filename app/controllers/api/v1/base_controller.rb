@@ -5,10 +5,17 @@ class Api::V1::BaseController < ActionController::API
   rescue_from ActionDispatch::Http::Parameters::ParseError, with: :parsing_error
   serialization_scope :current_institution
 
+  before_action :set_call_id
   before_action :authenticate_with_api_key!
   around_action :set_appsignal_context
 
   private
+
+  # Identifiant de corrélation partagé avec les appelants, pour recouper les logs des deux côtés
+  # lors d'une investigation. Posé avant l'authentification, pour couvrir aussi les réponses en erreur.
+  def set_call_id
+    response.set_header('X-Call-Id', request.request_id)
+  end
 
   def authenticate_with_api_key!
     @current_institution = authenticate_or_request_with_http_token do |token, options|
