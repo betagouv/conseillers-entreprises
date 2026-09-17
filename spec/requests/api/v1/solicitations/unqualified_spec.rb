@@ -26,6 +26,7 @@ RSpec.describe "Unqualified solicitations API" do
                      items: { '$ref': "#/components/schemas/unqualified_solicitation" }
                    }
                  }
+          header 'X-Call-Id', schema: { type: :string }, description: 'Identifiant de corrélation de l’appel, à fournir lors d’une investigation.'
 
           before do |example|
             submit_request(example.metadata)
@@ -128,6 +129,19 @@ RSpec.describe "Unqualified solicitations API" do
       expect(response.parsed_body['solicitations'].first.keys).to contain_exactly('id', 'subject', 'description')
       expect(response.body).not_to include(identified_solicitation.full_name, identified_solicitation.email,
         identified_solicitation.phone_number, identified_solicitation.siret)
+    end
+
+    it 'returns a correlation id in the response headers' do
+      get "/api/v1/solicitations/unqualified", headers: headers
+
+      expect(response.headers['X-Call-Id']).to be_present
+    end
+
+    it 'returns a correlation id even when authentication fails' do
+      get "/api/v1/solicitations/unqualified", headers: { 'Authorization' => "Bearer token=tatayoyo" }
+
+      expect(response).to have_http_status(:not_found)
+      expect(response.headers['X-Call-Id']).to be_present
     end
 
     it 'denies access with a revoked key' do
