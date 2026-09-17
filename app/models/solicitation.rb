@@ -649,6 +649,12 @@ class Solicitation < ApplicationRecord
     final_landing_subject&.title
   end
 
+  # Le sujet retenu pour le matching. Contrairement à `final_landing_subject`, qui cherche une
+  # déclinaison éditoriale à afficher, on a déjà l'identifiant sous la main : pas de requête de repli.
+  def final_subject_id
+    diagnosis&.needs&.min_by(&:id)&.subject_id || landing_subject&.subject_id
+  end
+
   # Provenance
   #
   def provenance_category

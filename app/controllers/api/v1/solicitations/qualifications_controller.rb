@@ -4,7 +4,7 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
   MAX_BATCH_SIZE = 100
 
   def unqualified
-    solicitations = Solicitation.unqualified.includes(:landing_subject, diagnosis: { needs: :subject })
+    solicitations = Solicitation.unqualified.includes(:landing_subject, diagnosis: :needs)
     count = solicitations.count
     page = solicitations.page(params[:page]).per(per_page)
 
