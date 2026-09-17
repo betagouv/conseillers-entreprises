@@ -631,10 +631,16 @@ class Solicitation < ApplicationRecord
     end
   end
 
+  # Le besoin qui représente la sollicitation, partagé par `final_landing_subject` et
+  # `final_subject_id` pour que les deux ne divergent pas.
   # Passe par `diagnosis` plutôt que par l'association `has_many through` `needs` :
   # cette dernière ignore le préchargement et rejoue une requête par sollicitation.
+  def matching_need
+    diagnosis&.needs&.min_by(&:id)
+  end
+
   def final_landing_subject
-    need = diagnosis&.needs&.min_by(&:id)
+    need = matching_need
     return landing_subject if need.nil?
 
     return landing_subject if landing_subject&.subject_id == need.subject_id
@@ -652,7 +658,7 @@ class Solicitation < ApplicationRecord
   # Le sujet retenu pour le matching. Contrairement à `final_landing_subject`, qui cherche une
   # déclinaison éditoriale à afficher, on a déjà l'identifiant sous la main : pas de requête de repli.
   def final_subject_id
-    diagnosis&.needs&.min_by(&:id)&.subject_id || landing_subject&.subject_id
+    matching_need&.subject_id || landing_subject&.subject_id
   end
 
   # Provenance
