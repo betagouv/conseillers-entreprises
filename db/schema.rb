@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_03_080706) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_07_130113) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -86,6 +86,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_080706) do
   create_table "api_keys", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "institution_id", null: false
+    t.string "scopes", default: [], null: false, array: true
     t.string "token_digest", null: false
     t.datetime "updated_at", null: false
     t.datetime "valid_until"
@@ -531,6 +532,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_080706) do
     t.string "phone_number"
     t.jsonb "prepare_diagnosis_errors_details", default: {}
     t.string "provenance_detail"
+    t.string "qualification_details"
+    t.boolean "qualified"
+    t.datetime "qualified_at"
     t.string "requested_help_amount"
     t.string "siret"
     t.integer "status", default: 0
@@ -539,6 +543,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_080706) do
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["cooperation_id"], name: "index_solicitations_on_cooperation_id"
     t.index ["email"], name: "index_solicitations_on_email"
+    t.index ["id"], name: "index_solicitations_on_unqualified", where: "((qualified IS NULL) AND (status = 3))"
     t.index ["landing_id"], name: "index_solicitations_on_landing_id"
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
     t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"

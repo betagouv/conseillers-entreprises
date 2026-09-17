@@ -2,21 +2,26 @@ class Api::V1::BaseController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActionDispatch::Http::Parameters::ParseError, with: :parsing_error
   serialization_scope :current_institution
 
+  before_action :set_call_id
   before_action :authenticate_with_api_key!
   around_action :set_appsignal_context
 
   private
 
-  def authenticate_with_api_key!
-    @current_institution = authenticate_or_request_with_http_token do |token, options|
-      current_api_key = ApiKey.authenticate_by_token! token
-      current_api_key&.institution
-    end
+  # Correlation ID shared with callers to cross-reference logs from both sides
+  def set_call_id
+    response.set_header('X-Call-Id', request.request_id)
   end
 
-  private
+  def authenticate_with_api_key!
+    @current_institution = authenticate_or_request_with_http_token do |token, options|
+      @current_api_key = ApiKey.authenticate_by_token! token
+      @current_api_key&.institution
+    end
+  end
 
   def render_error_payload(errors: nil, status: :unprocessable_content)
     render json: { errors: errors }, status: status
@@ -36,11 +41,15 @@ class Api::V1::BaseController < ActionController::API
   def parsing_error(e)
     render_error_payload(errors: [
       { source: I18n.t('api_pde.errors.parsing.source'), message: I18n.t('api_pde.errors.parsing.message') }
-    ])
+    ], status: :bad_request)
   end
 
   def current_institution
     @current_institution
+  end
+
+  def current_api_key
+    @current_api_key
   end
 
   def sanitize_params(params)

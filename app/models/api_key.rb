@@ -3,6 +3,7 @@
 # Table name: api_keys
 #
 #  id             :bigint(8)        not null, primary key
+#  scopes         :string           default([]), not null, is an Array
 #  token_digest   :string           not null
 #  valid_until    :datetime
 #  created_at     :datetime         not null
@@ -20,9 +21,12 @@
 #  fk_rails_...  (institution_id => institutions.id)
 #
 class ApiKey < ApplicationRecord
-  HMAC_SECRET_KEY = ENV.fetch('API_KEY_HMAC_SECRET_KEY', '0a1b2c3d')
-  # Durée de vie max d'un token (recommandation ANSI, il me semble)
+  # The first secret signs new tokens; subsequent ones remain accepted
+  # for verification during a rotation period.
+  HMAC_SECRET_KEYS = ENV.fetch('API_KEY_HMAC_SECRET_KEY').split(',').map(&:strip).compact_blank.freeze
   LIFETIME = 18.months
+  QUALIFICATION = 'qualification'
+  SCOPES = [QUALIFICATION].freeze
 
   ## Associations
   #
@@ -32,10 +36,22 @@ class ApiKey < ApplicationRecord
   #
   scope :active, -> { where(arel_table[:valid_until].gt(Date.today)) }
 
+  def has_scope?(scope) = scopes.include?(scope.to_s)
+
+  # ActiveAdmin checkboxes send an empty value.
+  def scopes=(value)
+    super(Array(value).compact_blank)
+  end
+
+  ## validations
+  #
+  validate :only_known_scopes
+  validate :qualification_scope_is_exclusive
+
   ## Callbacks
   #
   after_initialize :generate_token, if: :new_record?
-  before_save :generate_token_hmac_digest
+  before_save :generate_token_hmac_digest, if: -> { token.present? }
   before_save :calculate_valid_until
 
   # Virtual attribute for raw token value, allowing us to respond with the
@@ -43,8 +59,8 @@ class ApiKey < ApplicationRecord
   attr_accessor :token
 
   def self.authenticate_by_token!(token)
-    digest = OpenSSL::HMAC.hexdigest 'SHA256', HMAC_SECRET_KEY, token
-    find_by! token_digest: digest
+    digests = HMAC_SECRET_KEYS.map { |secret| OpenSSL::HMAC.hexdigest 'SHA256', secret, token }
+    active.find_by! token_digest: digests
   end
 
   def self.authenticate_by_token(token)
@@ -71,6 +87,18 @@ class ApiKey < ApplicationRecord
 
   private
 
+  def only_known_scopes
+    errors.add(:scopes, :inclusion) if (scopes - SCOPES).any?
+  end
+
+  # Used only by the DILA
+  def qualification_scope_is_exclusive
+    return unless scopes.include?(QUALIFICATION)
+
+    already_granted = self.class.where.not(id: id).exists?(['? = ANY(scopes)', QUALIFICATION])
+    errors.add(:scopes, :taken) if already_granted
+  end
+
   def generate_token
     return unless self.token.nil?
 
@@ -78,8 +106,7 @@ class ApiKey < ApplicationRecord
   end
 
   def generate_token_hmac_digest
-    raise ActiveRecord::RecordInvalid, 'token is required' if token.blank?
-    digest = OpenSSL::HMAC.hexdigest 'SHA256', HMAC_SECRET_KEY, token
+    digest = OpenSSL::HMAC.hexdigest 'SHA256', HMAC_SECRET_KEYS.first, token
     self.token_digest = digest
   end
 
