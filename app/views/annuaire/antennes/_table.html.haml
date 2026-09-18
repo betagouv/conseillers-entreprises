@@ -1,3 +1,5 @@
+-# locals: (antennes:)
+
 .fr-table--c-annuaire.fr-text--sm
   %table
     %thead
@@ -16,7 +18,7 @@
             = link_to institution_users_path(antenne.institution, region_code: index_search_params[:region_code].presence) do
               %ul
                 %li= antenne.experts.human_count
-                %li= antenne.advisors.not_deleted.human_count
+                %li= antenne.advisors.human_count
           %td
             %ul
               - antenne.territorial_zones.each do |territory|
