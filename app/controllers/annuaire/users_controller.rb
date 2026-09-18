@@ -10,7 +10,7 @@ module Annuaire
 
     def index
       institutions_subjects_by_theme = @institution.institutions_subjects
-        .includes(:subject, :theme, :experts_subjects, :not_deleted_experts)
+        .includes(:subject, :experts_subjects, :not_deleted_experts, theme: [:territorial_zones, :cooperations])
         .sort { |a, b| compare_institution_subjects(a, b) }
         .group_by(&:theme)
         .to_h
@@ -81,22 +81,28 @@ module Annuaire
     end
 
     def retrieve_users_without_experts
-      @grouped_experts.each_key do |antenne|
-        users = User.joins('LEFT OUTER JOIN experts_users ON experts_users.user_id = users.id')
-          .where(experts_users: { expert_id: nil })
-          .where(antenne: antenne, deleted_at: nil)
-        users.each do |user|
-          next if user.managed_antennes.any?
-          @grouped_experts[antenne][Expert.new] = [user]
+      # Note: we can’t use .where.missing(:experts), because the experts relation is customized with .not_deleted
+      users_without_experts = User.not_deleted
+        .where(antenne: @grouped_experts.keys)
+        .joins('LEFT OUTER JOIN experts_users ON experts_users.user_id = users.id')
+        .where(experts_users: { expert_id: nil })
+        .where.missing(:user_rights_manager)
+        .includes(:user_rights_manager)
+        .group_by(&:antenne_id)
+
+
+      @grouped_experts.each do |antenne, experts|
+        users_without_experts[antenne.id]&.each do |user|
+          experts[Expert.new] = [user]
         end
       end
     end
 
-    def retrieve_managers_without_experts
+    def retrieve_managers_without_experts # antenne: [managers: :experts]
       @grouped_experts.each_key do |antenne|
-        managers_from_other_antennes = antenne.managers.not_deleted
+        managers_from_other_antennes = antenne.managers
         managers_from_other_antennes.each do |manager|
-          next if manager.experts.any?
+          next if manager.experts.any? || manager.deleted?
           @grouped_experts[antenne][Expert.new] = [manager]
         end
       end
@@ -110,9 +116,9 @@ module Annuaire
       elsif index_search_params[:theme_id].blank? && index_search_params[:subject_id].blank?
         antennes = @institution.antennes.where.missing(:experts)
       else
-        antennes = []
+        antennes = Antenne.none
       end
-      antennes.each do |antenne|
+      antennes.includes(advisors: [:user_rights_manager], managers: [:experts, :user_rights_manager]).find_each do |antenne| # Second request is here
         @grouped_experts[antenne] = { Expert.new => antenne.advisors } if antenne.advisors.any?
       end
     end
@@ -133,15 +139,13 @@ module Annuaire
     def filtered_experts
       experts = base_experts
         .not_deleted
-        .preload(:antenne, :experts_subjects, users: :user_rights_manager)
         .by_region(index_search_params[:region_code])
         .by_theme(index_search_params[:theme_id])
         .by_subject(index_search_params[:subject_id])
 
-      # Re-join with antennes for ordering since some scopes might break the join
-      experts.joins(:antenne)
-        .select('experts.*, antennes.name as antenne_name')
+      experts.where(id: experts) # Main request is done here.
         .order('antennes.name', 'experts.full_name')
+        .includes(:experts_subjects, :territorial_zones, antenne: [managers: [:experts, :user_rights_manager]], users: :user_rights_manager)
     end
 
     def group_experts
