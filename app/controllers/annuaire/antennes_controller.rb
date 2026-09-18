@@ -29,9 +29,7 @@ module  Annuaire
 
     def retrieve_antennes
       @antennes = @institution.antennes.not_deleted.apply_filters(index_search_params)
-        .left_outer_joins(:experts, :advisors)
-        .group(:id)
-        .select("antennes.*", "COUNT(DISTINCT experts.id) AS experts_count", "COUNT(DISTINCT users.id) AS advisors_count")
+        .with_count(:experts, :advisors)
         .order(:name)
         .preload(:managers, :territorial_zones)
     end
