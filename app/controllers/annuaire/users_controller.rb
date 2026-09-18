@@ -10,7 +10,7 @@ module  Annuaire
 
     def index
       institutions_subjects_by_theme = @institution.institutions_subjects
-        .includes(:subject, :theme, :experts_subjects, :not_deleted_experts)
+        .includes(:subject, :experts_subjects, :not_deleted_experts, theme: [:territorial_zones, :cooperations])
         .sort { |a, b| compare_institution_subjects(a, b) }
         .group_by(&:theme)
         .to_h
@@ -83,6 +83,7 @@ module  Annuaire
     def retrieve_users_without_experts
       @grouped_experts.each_key do |antenne|
         users = User.joins('LEFT OUTER JOIN experts_users ON experts_users.user_id = users.id')
+          .includes(:user_rights_manager)
           .where(experts_users: { expert_id: nil })
           .where(antenne: antenne, deleted_at: nil)
         users.each do |user|
@@ -94,7 +95,7 @@ module  Annuaire
 
     def retrieve_managers_without_experts
       @grouped_experts.each_key do |antenne|
-        managers_from_other_antennes = antenne.managers.not_deleted
+        managers_from_other_antennes = antenne.managers.not_deleted.includes(:user_rights_manager)
         managers_from_other_antennes.each do |manager|
           next if manager.experts.any?
           @grouped_experts[antenne][Expert.new] = [manager]
@@ -113,7 +114,7 @@ module  Annuaire
         antennes = []
       end
       antennes.each do |antenne|
-        @grouped_experts[antenne] = { Expert.new => antenne.advisors } if antenne.advisors.any?
+        @grouped_experts[antenne] = { Expert.new => antenne.advisors.includes(:user_rights_manager) } if antenne.advisors.any?
       end
     end
 
@@ -133,7 +134,7 @@ module  Annuaire
     def filtered_experts
       experts = base_experts
         .not_deleted
-        .preload(:antenne, :experts_subjects, users: :user_rights_manager)
+        .preload(:antenne, :experts_subjects, :territorial_zones, users: :user_rights_manager)
         .by_region(index_search_params[:region_code])
         .by_theme(index_search_params[:theme_id])
         .by_subject(index_search_params[:subject_id])

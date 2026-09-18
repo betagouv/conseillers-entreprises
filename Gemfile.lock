@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/betagouv/decoupage-administratif-gem.git
+  revision: daadd8beb5e72827ad8e1d6fe813114e72598ee7
+  branch: better-find
+  specs:
+    decoupage_administratif (0.4.0)
+      rake
+
 GEM
   remote: https://gem.coop/
   specs:
@@ -225,8 +233,6 @@ GEM
     database_consistency (3.0.11)
       activerecord (>= 3.2)
     date (3.5.1)
-    decoupage_administratif (0.4.0)
-      rake
     devise (5.0.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -757,7 +763,7 @@ DEPENDENCIES
   daemons
   dartsass-sprockets
   database_consistency
-  decoupage_administratif
+  decoupage_administratif!
   devise
   devise-async
   devise_invitable
