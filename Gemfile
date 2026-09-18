@@ -67,7 +67,7 @@ gem 'caxlsx_rails'
 gem 'matrix'
 gem 'mjml-rails'
 gem 'progress_bar'
-gem 'decoupage_administratif'
+gem 'decoupage_administratif', github: 'betagouv/decoupage-administratif-gem', branch: 'better-find'
 gem 'parallel'
 
 # Notifiers
