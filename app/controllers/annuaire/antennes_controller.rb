@@ -31,6 +31,7 @@ module  Annuaire
       @antennes = @institution.antennes.not_deleted.apply_filters(index_search_params)
         .preload(:experts, :advisors)
         .distinct
+        .preload(:managers, :territorial_zones)
     end
   end
 end
