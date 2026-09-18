@@ -14,7 +14,7 @@
     = render 'form', subjects: @subjects
 
 - if @institutions.present?
-  = render 'table', institutions: @institutions, antennes_count: @antennes_count, users_count: @users_count
+  = render 'table', institutions: @institutions
 - else
   .fr-alert.fr-alert--info.fr-alert--sm
     %p= t('.no_institution')

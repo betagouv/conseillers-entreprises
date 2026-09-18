@@ -19,7 +19,7 @@
                   %li #{theme.label} (#{institutions_subjects.size})
           %td.fr-enlarge-link
             = link_to institution_antennes_path(institution, region_code: params[:region_code].presence) do
-              = antennes_count_display(antennes_count, institution.id)
+              = institution.antennes.human_count
           %td.fr-enlarge-link
             = link_to institution_users_path(institution, region_code: params[:region_code].presence) do
-              = users_count_display(users_count, institution.id)
+              = institution.advisors.human_count
