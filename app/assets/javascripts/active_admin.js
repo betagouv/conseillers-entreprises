@@ -1,7 +1,7 @@
 //= require active_admin/base
 //= require selectize
 //= require activeadmin-ajax_filter
-//= require activeadmin/quill_editor/quill
-//= require activeadmin/quill_editor_input
+//= require quill/dist/quill
+//= require admin/quill_editor
 //= require admin/reorderable
 //= require admin/custom

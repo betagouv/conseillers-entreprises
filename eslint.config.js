@@ -23,6 +23,7 @@ module.exports = defineConfig([{
             require: true,
             _paq: true,
             Highcharts: true,
+            Quill: true,
         },
     },
 

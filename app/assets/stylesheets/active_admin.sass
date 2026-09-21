@@ -20,8 +20,7 @@
 @import "selectize"
 @import "selectize.default"
 @import "activeadmin-ajax_filter"
-@import 'activeadmin/quill_editor/quill.snow'
-@import 'activeadmin/quill_editor_input'
+@import 'quill/dist/quill.snow'
 
 .status_tag
   &:not(:last-child)
@@ -283,3 +282,48 @@ body.active_admin nav.pagination
 
 .dragged-row
   opacity: 0
+
+// Quill rich-text editor (see app/assets/javascripts/admin/quill_editor.js)
+.ql-editor *
+  margin: initial
+  padding: initial
+  text-align: initial
+
+body.active_admin [data-quill-editor]
+  display: inline-block
+  width: calc(80% - 2px)
+
+  button
+    text-shadow: none
+    box-shadow: none
+    &:hover
+      background-image: none
+      background-color: transparent
+
+  .ql-container
+    border: 1px solid #c9d0d6
+    border-radius: 0 0 3px 3px
+
+  .ql-editor
+    background-color: #fff
+    max-height: 300px
+    min-height: 150px
+    padding: 10px
+    word-break: break-all
+
+    ol
+      list-style-type: decimal
+
+    p
+      margin-bottom: 1em
+
+    ul
+      list-style-type: disc
+
+    ul, ol
+      margin: 0 1.5em 1.5em 0
+      padding-left: 1.5em
+
+  .ql-toolbar
+    border: 1px solid #c9d0d6
+    border-radius: 3px 3px 0 0

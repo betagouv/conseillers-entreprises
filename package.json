@@ -9,6 +9,7 @@
     "@rails/ujs": "^6.0.3-4",
     "accessible-autocomplete": "^2.0.3",
     "mjml": ">4.15.3",
+    "quill": "^2",
     "remixicon": "^4.2.0",
     "slim-select": "^2.9.2",
     "stimulus": ">2.0.0"
