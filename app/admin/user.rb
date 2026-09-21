@@ -252,8 +252,8 @@ ActiveAdmin.register User do
     end
 
     f.inputs I18n.t('active_admin.user.absence') do
-      f.input :absence_start_at, as: :datepicker, datepicker_options: { min_date: Date.today }
-      f.input :absence_end_at, as: :datepicker, datepicker_options: { min_date: Date.today }
+      f.input :absence_start_at, as: :date_picker, input_html: { min: Date.today }
+      f.input :absence_end_at, as: :date_picker, input_html: { min: Date.today }
     end
 
     f.inputs I18n.t('active_admin.user.roles') do

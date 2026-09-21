@@ -127,7 +127,7 @@ ActiveAdmin.register LandingTheme do
         ls.input :form_description, as: :quill_editor
         ls.input :meta_title
         ls.input :meta_description
-        ls.input :archived_at, as: :datepicker, datepicker_options: { min_date: "2017-01-01" }
+        ls.input :archived_at, as: :date_picker, input_html: { min: "2017-01-01" }
 
         ls.input :emphasis, as: :boolean
         ls.input :home_description, input_html: { rows: 2 }
