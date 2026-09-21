@@ -19,6 +19,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_07_130113) do
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "activity_reports_categories", ["matches", "stats", "cooperation", "solicitations"]
+  create_enum "api_key_scope", ["qualification"]
   create_enum "feedbacks_categories", ["need", "need_reminder", "solicitation", "expert_reminder"]
   create_enum "landing_subject_fields_mode", ["siret", "location"]
   create_enum "match_status", ["quo", "taking_care", "done", "done_no_help", "done_not_reachable", "not_for_me"]
@@ -86,7 +87,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_07_130113) do
   create_table "api_keys", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "institution_id", null: false
-    t.string "scopes", default: [], null: false, array: true
+    t.enum "scopes", default: [], null: false, array: true, enum_type: "api_key_scope"
     t.string "token_digest", null: false
     t.datetime "updated_at", null: false
     t.datetime "valid_until"
