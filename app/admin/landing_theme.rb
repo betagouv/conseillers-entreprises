@@ -46,7 +46,7 @@ ActiveAdmin.register LandingTheme do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row :title
       row :page_title
       row :slug
@@ -60,29 +60,33 @@ ActiveAdmin.register LandingTheme do
       end
     end
 
-    attributes_table title: I18n.t('active_admin.meta') do
-      row :meta_title
-      row :meta_description
+    panel I18n.t('active_admin.meta') do
+      attributes_table_for resource do
+        row :meta_title
+        row :meta_description
+      end
     end
 
-    attributes_table title: I18n.t('activerecord.attributes.landing_themes.landing_subjects') do
-      landing_theme.landing_subjects.order(:position).map do |s|
-        panel s.title do
-          attributes_table_for s do
-            row :title
-            row :archived_at
-            row(:subject) { |ls| admin_link_to ls.subject }
-            row(:description) { |ls| ls.description&.html_safe }
-            row(:description_explanation) { |ls| ls.description_explanation&.html_safe }
-            row(:description_prefill) { |ls| ls.description_prefill&.html_safe }
-            row :form_title
-            row(:form_description) { |ls| ls.form_description&.html_safe }
-            row :fields_mode
-            row :meta_title
-            row :meta_description
-            row :emphasis
-            row :home_description
-            row :home_link_text
+    panel I18n.t('activerecord.attributes.landing_themes.landing_subjects') do
+      attributes_table_for resource do
+        landing_theme.landing_subjects.order(:position).map do |s|
+          panel s.title do
+            attributes_table_for s do
+              row :title
+              row :archived_at
+              row(:subject) { |ls| admin_link_to ls.subject }
+              row(:description) { |ls| ls.description&.html_safe }
+              row(:description_explanation) { |ls| ls.description_explanation&.html_safe }
+              row(:description_prefill) { |ls| ls.description_prefill&.html_safe }
+              row :form_title
+              row(:form_description) { |ls| ls.form_description&.html_safe }
+              row :fields_mode
+              row :meta_title
+              row :meta_description
+              row :emphasis
+              row :home_description
+              row :home_link_text
+            end
           end
         end
       end

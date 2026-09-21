@@ -184,29 +184,35 @@ ActiveAdmin.register Solicitation do
       end
     end
 
-    attributes_table title: t('attributes.coordinates') do
-      row :siret do |s|
-        if s.siret.present?
-          div link_to s.siret, show_with_siret_companies_path(s.siret), data: { turbo: false }
+    panel t('attributes.coordinates') do
+      attributes_table_for resource do
+        row :siret do |s|
+          if s.siret.present?
+            div link_to s.siret, show_with_siret_companies_path(s.siret), data: { turbo: false }
+          end
         end
+        row :full_name
+        row :phone_number
+        row :email
+        row(:code_region) do |i|
+          I18n.t(i.code_region, scope: 'regions_codes_to_libelles', default: "")
+        end
+        row :location
       end
-      row :full_name
-      row :phone_number
-      row :email
-      row(:code_region) do |i|
-        I18n.t(i.code_region, scope: 'regions_codes_to_libelles', default: "")
-      end
-      row :location
     end
 
-    attributes_table title: t('activerecord.attributes.solicitation.tracking') do
-      row I18n.t('attributes.badges.other') do |s|
-        render 'badges', badges: s.badges
-      end
-      row :institution
-      row :provenance_detail
-      Solicitation::FORM_INFO_KEYS.each do |k|
-        row k, humanize_name: false
+    panel t('activerecord.attributes.solicitation.tracking') do
+      attributes_table_for resource do
+        row I18n.t('attributes.badges.other') do |s|
+          render 'badges', badges: s.badges
+        end
+        row :institution
+        row :provenance_detail
+        # Passed as a String on purpose: ActiveAdmin only humanizes Symbol row
+        # titles, which is what the dropped humanize_name: false used to prevent.
+        Solicitation::FORM_INFO_KEYS.each do |k|
+          row k.to_s
+        end
       end
     end
   end
@@ -214,14 +220,14 @@ ActiveAdmin.register Solicitation do
   if Rails.env.development?
     sidebar I18n.t('active_admin.actions'), only: :show do
       ul class: 'actions' do
-        li link_to t('active_admin.pseudonymize'), pseudonymize_admin_solicitation_path(solicitation), class: 'action'
+        li link_to t('active_admin.pseudonymize'), pseudonymize_admin_solicitation_path(resource), class: 'action'
       end
     end
   end
 
   sidebar I18n.t('activerecord.models.solicitation.one'), only: :show do
-    attributes_table_for solicitation do
-      row(:status) { human_attribute_status_tag solicitation, :status }
+    attributes_table_for resource do
+      row(:status) { human_attribute_status_tag resource, :status }
       row :diagnosis
       row :created_at
       row :completed_at

@@ -49,7 +49,7 @@ ActiveAdmin.register Diagnosis do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row :solicitation
       row :facility
       row(:happened_on) { |d| d.display_date }

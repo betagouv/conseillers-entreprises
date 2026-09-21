@@ -38,7 +38,7 @@ ActiveAdmin.register Contact do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row :full_name
       row :email
       row :phone_number
@@ -47,7 +47,7 @@ ActiveAdmin.register Contact do
   end
 
   action_item :normalize_values, only: :show do
-    link_to t('active_admin.person.normalize_values'), normalize_values_admin_contact_path(contact)
+    link_to t('active_admin.person.normalize_values'), normalize_values_admin_contact_path(resource)
   end
 
   ## Form

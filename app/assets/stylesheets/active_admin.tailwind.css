@@ -1,0 +1,119 @@
+@import "tailwindcss";
+@import "quill/dist/quill.snow.css";
+@import "slim-select/styles";
+
+@config "../../../tailwind-active_admin.config.mjs";
+
+/* Business statuses.
+   human_attribute_status_tag passes the raw enum value as a class, so the state
+   is carried by the class rather than by the data-status attribute, which holds
+   the translated label. */
+.status-tag.ok,
+.status-tag.done,
+.status-tag.create,
+.status-tag.processed { background: #03bd5b; }
+
+.status-tag.warning,
+.status-tag.taking_care,
+.status-tag.update { background: #bd5500; }
+
+.status-tag.error,
+.status-tag.not_for_me,
+.status-tag.destroy,
+.status-tag.canceled,
+.status-tag.abandonné { background: #932419; }
+
+.status-tag.done_no_help { background: yellow; color: black; }
+.status-tag.done_not_reachable { background: teal; }
+
+.status-tag:not(:last-child) { margin-bottom: 0.25rem; }
+
+/* Badges. The per-badge colour comes from the database and is injected as a
+   <style> tag by BadgesHelper#badges_css_tag. */
+.badge {
+  padding: 0.2rem;
+  text-align: center;
+  border: 1px solid;
+}
+
+/* Sidebar action lists */
+.actions {
+  list-style: none;
+}
+
+.actions li {
+  margin-top: 1rem;
+}
+
+.actions .action {
+  border: 1px solid transparent;
+  background-color: rgba(8, 97, 199, 0.87);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.3rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.information {
+  background-color: #dce9dd;
+  color: #416347;
+  padding: 1em;
+  margin-block-end: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.mb-1 { margin-bottom: 1rem; }
+.bold { font-weight: bold; }
+
+/* Drag-and-drop reordering, see app/javascript/admin/reorderable.js */
+.reorder-handle {
+  cursor: move;
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  background: #efefef;
+  border: 1px solid #5e6469;
+  border-radius: 4px;
+  color: #5e6469;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.dragged-row { opacity: 0; }
+
+/* Quill rich-text editor, see app/javascript/admin/quill_editor.js */
+.ql-editor * {
+  margin: initial;
+  padding: initial;
+  text-align: initial;
+}
+
+[data-quill-editor] .ql-container {
+  border: 1px solid #c9d0d6;
+  border-radius: 0 0 3px 3px;
+}
+
+[data-quill-editor] .ql-toolbar {
+  border: 1px solid #c9d0d6;
+  border-radius: 3px 3px 0 0;
+}
+
+[data-quill-editor] .ql-editor {
+  background-color: #fff;
+  max-height: 300px;
+  min-height: 150px;
+  padding: 10px;
+  word-break: break-word;
+}
+
+[data-quill-editor] .ql-editor p { margin-bottom: 1em; }
+[data-quill-editor] .ql-editor ul { list-style-type: disc; }
+[data-quill-editor] .ql-editor ol { list-style-type: decimal; }
+
+[data-quill-editor] .ql-editor ul,
+[data-quill-editor] .ql-editor ol {
+  margin: 0 1.5em 1.5em 0;
+  padding-left: 1.5em;
+}

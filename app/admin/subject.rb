@@ -63,26 +63,28 @@ ActiveAdmin.register Subject do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row :theme
       row :label
       row :interview_sort_order
       row :can_be_automated
       row :archived_at
     end
-    attributes_table do
+    attributes_table_for resource do
       row(:needs) { |s| admin_link_to(s, :needs) }
       row(:matches) { |s| admin_link_to(s, :matches) }
       row(:institutions) { |s| admin_link_to(s, :institutions) }
       row(:experts) { |s| admin_link_to(s, :experts) }
     end
 
-    attributes_table title: I18n.t('activerecord.models.landing.other') do
-      row(:intern_landings) { |s| s.intern_landings.map{ |l| admin_link_to(l) } }.join(', ')
-      row(:iframe_landings) { |s| s.iframe_landings.map{ |l| admin_link_to(l) } }.join(', ')
-      row(:api_landings) { |s| s.api_landings.map{ |l| admin_link_to(l) } }.join(', ')
+    panel I18n.t('activerecord.models.landing.other') do
+      attributes_table_for resource do
+        row(:intern_landings) { |s| s.intern_landings.map{ |l| admin_link_to(l) } }.join(', ')
+        row(:iframe_landings) { |s| s.iframe_landings.map{ |l| admin_link_to(l) } }.join(', ')
+        row(:api_landings) { |s| s.api_landings.map{ |l| admin_link_to(l) } }.join(', ')
+      end
     end
-    attributes_table title: I18n.t('activerecord.models.subject_question.other') do
+    panel I18n.t('activerecord.models.subject_question.other') do
       table_for subject.subject_questions do |question|
         column(:key)
         column(:label) { |question| question_label(question.key, :long) }

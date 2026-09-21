@@ -66,7 +66,7 @@ ActiveAdmin.register Feedback do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row :created_at
       row :feedbackable
       row(:category) { |feedback| human_attribute_status_tag feedback, :category }

@@ -107,7 +107,7 @@ ActiveAdmin.register User do
   # Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row(:deleted_at) if resource.deleted?
       if resource.absence_start_at
         row :absence_start_at do
@@ -165,11 +165,11 @@ ActiveAdmin.register User do
   sidebar I18n.t('active_admin.actions'), only: :show do
     ul class: 'actions' do
       unless resource.deleted?
-        li link_to t('annuaire.users.table.duplicate_user'), admin_user_duplicate_user_path(user), class: 'action'
+        li link_to t('annuaire.users.table.duplicate_user'), admin_user_duplicate_user_path(resource), class: 'action'
       end
-      li link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user), class: 'action'
-      li link_to t('active_admin.user.clear_app_info'), clear_app_info_admin_user_path(user), class: 'action'
-      li link_to t('active_admin.user.create_expert'), create_expert_admin_user_path(user), class: 'action'
+      li link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(resource), class: 'action'
+      li link_to t('active_admin.user.clear_app_info'), clear_app_info_admin_user_path(resource), class: 'action'
+      li link_to t('active_admin.user.create_expert'), create_expert_admin_user_path(resource), class: 'action'
     end
   end
 
@@ -191,7 +191,7 @@ ActiveAdmin.register User do
   end
 
   sidebar I18n.t('active_admin.user.connection'), only: :show do
-    attributes_table_for user do
+    attributes_table_for resource do
       row :created_at
       row :imported_at
       row :inviter
@@ -202,8 +202,8 @@ ActiveAdmin.register User do
   end
 
   sidebar I18n.t("activerecord.attributes.user.app_info"), only: :show do
-    attributes_table_for user do
-      user.app_info&.each do |k,v|
+    attributes_table_for resource do
+      resource.app_info&.each do |k,v|
         row k, v
       end
     end
@@ -211,14 +211,14 @@ ActiveAdmin.register User do
 
   sidebar I18n.t('active_admin.user.send_emails'), only: :show do
     ul class: 'actions' do
-      li link_to t('active_admin.user.do_invite'), invite_user_admin_user_path(user), class: 'action'
-      li link_to t('active_admin.user.invite_to_demo'), invite_to_demo_admin_user_path(user), class: 'action'
-      li link_to t('active_admin.user.do_reset_password'), reset_password_admin_user_path(user), class: 'action'
+      li link_to t('active_admin.user.do_invite'), invite_user_admin_user_path(resource), class: 'action'
+      li link_to t('active_admin.user.invite_to_demo'), invite_to_demo_admin_user_path(resource), class: 'action'
+      li link_to t('active_admin.user.do_reset_password'), reset_password_admin_user_path(resource), class: 'action'
     end
   end
 
   action_item :impersonate, only: :show do
-    link_to t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
+    link_to t('active_admin.user.impersonate', name: resource.full_name), impersonate_engine.impersonate_user_path(resource)
   end
 
   # Form
@@ -364,7 +364,7 @@ ActiveAdmin.register User do
   config.remove_action_item(:destroy)
 
   action_item :destroy, only: :show do
-    if Match.sent.where(expert: user.single_user_experts).in_progress.exists?
+    if Match.sent.where(expert: resource.single_user_experts).in_progress.exists?
       button_tag t('active_admin.user.delete'), title: t('activerecord.errors.models.expert.attributes.base.cant_delete_experts_with_in_progress_matches'), disabled: true, class: "button-base"
     else
       link_to t('active_admin.user.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.user.delete_confirmation', count: 1) }

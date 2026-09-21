@@ -105,7 +105,7 @@ ActiveAdmin.register Match do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row(:status) { |m| human_attribute_status_tag m, :status }
       row(:need) do |m|
         human_attribute_status_tag m.need, :status

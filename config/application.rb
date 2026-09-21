@@ -30,6 +30,14 @@ module PlaceDesEntreprises
 
     config.time_zone = 'Paris'
 
+    # dartsass-sprockets enables the Sass CSS compressor outside development, which
+    # runs Dart Sass over every stylesheet. It cannot parse the Tailwind build that
+    # ActiveAdmin 4 relies on, because Tailwind v4 emits bare `@layer a, b;`
+    # statements. Tailwind already minifies its own output, so the compressor is
+    # turned off and Sass minifies the stylesheets it compiles itself.
+    config.assets.css_compressor = nil
+    config.sass.style = :compressed unless Rails.env.development?
+
     config.i18n.available_locales = [:fr]
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.default_locale = :fr

@@ -45,7 +45,7 @@ ActiveAdmin.register Theme do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row :label
       row :interview_sort_order
       row(:subjects) { |t| admin_link_to(t, :subjects) }
@@ -54,7 +54,7 @@ ActiveAdmin.register Theme do
         t.cooperations.map { |r| admin_link_to r }.join(', ').html_safe
       end
     end
-    attributes_table do
+    attributes_table_for resource do
       row(:needs) { |t| admin_link_to(t, :needs) }
       row(:matches) { |t| admin_link_to(t, :matches) }
     end

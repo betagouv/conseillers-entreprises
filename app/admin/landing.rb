@@ -80,28 +80,36 @@ ActiveAdmin.register Landing do
       end
     end
 
-    attributes_table title: I18n.t("attributes.featured_on_home") do
-      row :emphasis
-      row :home_description
-      row :home_link_text
+    panel I18n.t("attributes.featured_on_home") do
+      attributes_table_for resource do
+        row :emphasis
+        row :home_description
+        row :home_link_text
+      end
     end
 
-    attributes_table title: I18n.t("landings.landings.admin.iframe_and_api_fields") do
-      row :cooperation
-      row :url_path
+    panel I18n.t("landings.landings.admin.iframe_and_api_fields") do
+      attributes_table_for resource do
+        row :cooperation
+        row :url_path
+      end
     end
 
-    attributes_table title: I18n.t("landings.landings.admin.iframe_fields") do
-      row(:iframe_category) { |landing| human_attribute_status_tag landing, :iframe_category }
-      row :custom_css
+    panel I18n.t("landings.landings.admin.iframe_fields") do
+      attributes_table_for resource do
+        row(:iframe_category) { |landing| human_attribute_status_tag landing, :iframe_category }
+        row :custom_css
+      end
     end
 
-    attributes_table title: I18n.t("active_admin.meta") do
-      row :meta_title
-      row :meta_description
+    panel I18n.t("active_admin.meta") do
+      attributes_table_for resource do
+        row :meta_title
+        row :meta_description
+      end
     end
 
-    attributes_table title: I18n.t('activerecord.attributes.landing.landing_themes') do
+    panel I18n.t('activerecord.attributes.landing.landing_themes') do
       table_for landing.landing_themes do
         column(:title) { |t| admin_link_to t }
         column(:landing_subjects) { |t| div t.landing_subjects.map { |l| div l.title } }

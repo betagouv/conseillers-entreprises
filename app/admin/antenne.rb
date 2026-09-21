@@ -70,7 +70,7 @@ ActiveAdmin.register Antenne do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row(:deleted_at) if resource.deleted?
       row :name
       row :institution
@@ -109,24 +109,28 @@ ActiveAdmin.register Antenne do
       end
     end
 
-    attributes_table title: I18n.t('active_admin.antenne.institution_match_filters') do
-      antenne.institution.match_filters.map.with_index do |mf, index|
-        panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
-          attributes_table_for mf do
-            format_match_filter_attributes(mf).each do |filter, content|
-              row(filter) { content }
+    panel I18n.t('active_admin.antenne.institution_match_filters') do
+      attributes_table_for resource do
+        antenne.institution.match_filters.map.with_index do |mf, index|
+          panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
+            attributes_table_for mf do
+              format_match_filter_attributes(mf).each do |filter, content|
+                row(filter) { content }
+              end
             end
           end
         end
       end
     end
 
-    attributes_table title: I18n.t('active_admin.antenne.match_filters') do
-      antenne.match_filters.map.with_index do |mf, index|
-        panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
-          attributes_table_for mf do
-            format_match_filter_attributes(mf).each do |filter, content|
-              row(filter) { content }
+    panel I18n.t('active_admin.antenne.match_filters') do
+      attributes_table_for resource do
+        antenne.match_filters.map.with_index do |mf, index|
+          panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
+            attributes_table_for mf do
+              format_match_filter_attributes(mf).each do |filter, content|
+                row(filter) { content }
+              end
             end
           end
         end

@@ -1,0 +1,23 @@
+<%#
+  Overrides the ActiveAdmin partial of the same name for two reasons:
+
+  - the admin JavaScript is bundled by esbuild like the rest of the app, so it is
+    loaded with a plain script tag instead of the importmap tags ActiveAdmin ships
+    with by default;
+  - the per-badge colours come from the database, so they are injected here rather
+    than through a monkey patch on the Arbre head component.
+%>
+<%= stylesheet_link_tag "active_admin" %>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
+<%= badges_css_tag %>
+<% # On page load or when changing themes, best to add inline in `head` to avoid FOUC %>
+<%= javascript_tag nonce: true do %>
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+<% end %>
+<%= javascript_include_tag "active_admin", type: "module", nonce: true %>

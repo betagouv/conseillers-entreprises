@@ -150,7 +150,7 @@ ActiveAdmin.register Expert do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row(:deleted_at) if resource.deleted?
       row :full_name
       row :job
@@ -168,7 +168,7 @@ ActiveAdmin.register Expert do
         div admin_link_to(e, :users, list: true)
       end
 
-      attributes_table title: I18n.t('active_admin.expert.skills') do
+      panel I18n.t('active_admin.expert.skills') do
         table_for expert.experts_subjects.ordered_for_interview do
           column(:theme)
           column(:subject)
@@ -201,20 +201,22 @@ ActiveAdmin.register Expert do
         TerritorialZone.zone_types.keys.reverse_each do |zone_type|
           expert_territorial_zones = expert.territorial_zones.select { |tz| tz.zone_type == zone_type }
           next if expert_territorial_zones.empty?
-          attributes_table title: I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
-            model = DecoupageAdministratif.const_get(zone_type.camelize)
-            expert_territorial_zones.map do |tz|
-              row(tz.code) do
-                model_instance = model.find(tz.code)
-                name = model_instance.nom
-                if zone_type == "epci"
-                  communes_names = []
-                  model_instance.communes.sort_by(&:nom).map do |commune|
-                    communes_names << "#{commune.nom} (#{commune.code})"
+          panel I18n.t(zone_type, scope: "activerecord.attributes.territorial_zone").pluralize do
+            attributes_table_for resource do
+              model = DecoupageAdministratif.const_get(zone_type.camelize)
+              expert_territorial_zones.map do |tz|
+                row(tz.code) do
+                  model_instance = model.find(tz.code)
+                  name = model_instance.nom
+                  if zone_type == "epci"
+                    communes_names = []
+                    model_instance.communes.sort_by(&:nom).map do |commune|
+                      communes_names << "#{commune.nom} (#{commune.code})"
+                    end
+                    name = "<b>" + name + "</b><br/>" + communes_names.join(', ')
                   end
-                  name = "<b>" + name + "</b><br/>" + communes_names.join(', ')
+                  name.html_safe
                 end
-                name.html_safe
               end
             end
           end
@@ -224,36 +226,42 @@ ActiveAdmin.register Expert do
       end
     end
 
-    attributes_table title: I18n.t('active_admin.antenne.institution_match_filters') do
-      expert.institution.match_filters.map.with_index do |mf, index|
-        panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
-          attributes_table_for mf do
-            format_match_filter_attributes(mf).each do |filter, content|
-              row(filter) { content }
+    panel I18n.t('active_admin.antenne.institution_match_filters') do
+      attributes_table_for resource do
+        expert.institution.match_filters.map.with_index do |mf, index|
+          panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
+            attributes_table_for mf do
+              format_match_filter_attributes(mf).each do |filter, content|
+                row(filter) { content }
+              end
             end
           end
         end
       end
     end
 
-    attributes_table title: I18n.t('active_admin.antenne.match_filters') do
-      expert.antenne.match_filters.map.with_index do |mf, index|
-        panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
-          attributes_table_for mf do
-            format_match_filter_attributes(mf).each do |filter, content|
-              row(filter) { content }
+    panel I18n.t('active_admin.antenne.match_filters') do
+      attributes_table_for resource do
+        expert.antenne.match_filters.map.with_index do |mf, index|
+          panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
+            attributes_table_for mf do
+              format_match_filter_attributes(mf).each do |filter, content|
+                row(filter) { content }
+              end
             end
           end
         end
       end
     end
 
-    attributes_table title: I18n.t('active_admin.expert.match_filters') do
-      expert.match_filters.map.with_index do |mf, index|
-        panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
-          attributes_table_for mf do
-            format_match_filter_attributes(mf).each do |filter, content|
-              row(filter) { content }
+    panel I18n.t('active_admin.expert.match_filters') do
+      attributes_table_for resource do
+        expert.match_filters.map.with_index do |mf, index|
+          panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
+            attributes_table_for mf do
+              format_match_filter_attributes(mf).each do |filter, content|
+                row(filter) { content }
+              end
             end
           end
         end
@@ -264,17 +272,17 @@ ActiveAdmin.register Expert do
   sidebar I18n.t('active_admin.actions'), only: :show do
     ul class: 'actions' do
       unless resource.deleted?
-        li link_to t('annuaire.users.table.reassign_matches'), admin_expert_reassign_matches_path(expert), class: 'action'
+        li link_to t('annuaire.users.table.reassign_matches'), admin_expert_reassign_matches_path(resource), class: 'action'
       end
 
       if Rails.env.development?
-        li link_to t('active_admin.pseudonymize'), pseudonymize_admin_expert_path(expert), class: 'action'
+        li link_to t('active_admin.pseudonymize'), pseudonymize_admin_expert_path(resource), class: 'action'
       end
     end
   end
 
   sidebar I18n.t('attributes.created_at'), only: :show do
-    attributes_table_for expert do
+    attributes_table_for resource do
       row :created_at
     end
   end
@@ -381,11 +389,11 @@ ActiveAdmin.register Expert do
   config.remove_action_item(:destroy)
 
   action_item :normalize_values, only: :show do
-    link_to t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
+    link_to t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(resource)
   end
 
   action_item :destroy, only: :show do
-    if expert.received_matches.in_progress.exists?
+    if resource.received_matches.in_progress.exists?
       button_tag t('active_admin.expert.delete'), title: t('activerecord.errors.models.expert.attributes.base.cant_delete_experts_with_in_progress_matches'), disabled: true, class: "button-base"
     else
       link_to t('active_admin.expert.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.expert.delete_confirmation', count: 1) }

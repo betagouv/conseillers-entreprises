@@ -102,7 +102,7 @@ ActiveAdmin.register CompanySatisfaction do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row :created_at
       row :contacted_by_expert
       row :useful_exchange

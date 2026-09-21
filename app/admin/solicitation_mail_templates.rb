@@ -24,7 +24,7 @@ ActiveAdmin.register SolicitationMailTemplate do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row :title
       row :email_type
       row :position

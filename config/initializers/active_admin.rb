@@ -6,11 +6,6 @@ ActiveAdmin.setup do |config|
   #
   config.site_title = 'Service Public Conseillers entreprises'
 
-  # Set the link url for the title. For example, to take
-  # users to your main site. Defaults to no link.
-  #
-  config.site_title_link = :app_root
-
   # Set an optional image to be displayed for the header
   # instead of a string (overrides :site_title)
   #
@@ -100,12 +95,6 @@ ActiveAdmin.setup do |config|
   # Default:
   config.logout_link_path = :destroy_user_session_path
 
-  # This setting changes the http method used when rendering the
-  # link. For example :get, :delete, :put, etc..
-  #
-  # Default:
-  config.logout_link_method = :delete
-
   # == Root
   #
   # Set the action to call for the root path. You can set different
@@ -154,10 +143,6 @@ ActiveAdmin.setup do |config|
   # https://github.com/svenfuchs/i18n/blob/master/lib%2Fi18n%2Fbackend%2Fbase.rb#L52
   #
   config.localize_format = '%Y-%m-%d %H:%M'
-
-  # == Setting a Favicon
-  #
-  config.favicon = 'favicon/favicon.ico'
 
   # == Meta Tags
   #

@@ -18,6 +18,7 @@ gem 'dartsass-sprockets'
 gem 'terser'
 gem 'premailer-rails'
 gem 'css_parser'
+gem 'cssbundling-rails'
 gem 'jsbundling-rails'
 
 # Parallel processes
@@ -46,8 +47,7 @@ gem 'pg_search'
 gem 'highcharts-rails'
 
 # Misc
-gem 'activeadmin'
-gem 'activeadmin_blaze_theme'
+gem 'activeadmin', '4.0.0.beta23'
 gem 'http'
 gem 'jbuilder'
 gem 'turbo-rails'

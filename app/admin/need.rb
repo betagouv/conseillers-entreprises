@@ -66,7 +66,7 @@ ActiveAdmin.register Need do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row :diagnosis
       row :subject
       row :advisor

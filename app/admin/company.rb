@@ -65,7 +65,7 @@ ActiveAdmin.register Company do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row :name
       row :siren
       row :legal_form_code do |c|

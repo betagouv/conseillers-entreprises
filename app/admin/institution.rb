@@ -71,7 +71,7 @@ ActiveAdmin.register Institution do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row(:deleted_at) if resource.deleted?
       row :name
       row :slug
@@ -101,7 +101,7 @@ ActiveAdmin.register Institution do
       row :show_on_list
     end
 
-    attributes_table title: I18n.t('activerecord.models.institution_subject.other') do
+    panel I18n.t('activerecord.models.institution_subject.other') do
       table_for institution.institutions_subjects.ordered_for_interview do
         column(:theme)
         column(:subject)
@@ -110,7 +110,7 @@ ActiveAdmin.register Institution do
       end
     end
 
-    attributes_table title: I18n.t('active_admin.institution.subject_questions') do
+    panel I18n.t('active_admin.institution.subject_questions') do
       institution.subject_answer_groupings.map.with_index do |sag, index|
         panel I18n.t('active_admin.subject_answer_grouping.title_with_index', index: index + 1) do
           table_for sag.subject_answers.ordered do
@@ -125,12 +125,14 @@ ActiveAdmin.register Institution do
       end
     end
 
-    attributes_table title: I18n.t('activerecord.attributes.antenne.match_filters') do
-      institution.match_filters.map.with_index do |mf, index|
-        panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
-          attributes_table_for mf do
-            format_match_filter_attributes(mf).each do |filter, content|
-              row(filter) { content }
+    panel I18n.t('activerecord.attributes.antenne.match_filters') do
+      attributes_table_for resource do
+        institution.match_filters.map.with_index do |mf, index|
+          panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
+            attributes_table_for mf do
+              format_match_filter_attributes(mf).each do |filter, content|
+                row(filter) { content }
+              end
             end
           end
         end

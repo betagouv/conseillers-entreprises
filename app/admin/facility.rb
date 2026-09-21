@@ -65,7 +65,7 @@ ActiveAdmin.register Facility do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row :siret
       row :naf_code
       row :nafa_codes

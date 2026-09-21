@@ -41,7 +41,7 @@ ActiveAdmin.register Cooperation do
   ## Show
   #
   show do
-    attributes_table do
+    attributes_table_for resource do
       row :name
       row(:institution) do |c|
         div admin_link_to(c, :institution)

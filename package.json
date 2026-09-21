@@ -3,16 +3,20 @@
     "node": "^20.15.0 || ^22.12.0 || ^24.0.0 || ^26.0.0"
   },
   "dependencies": {
+    "@activeadmin/activeadmin": "4.0.0-beta23",
     "@gouvfr/dsfr": "^1.10.0",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.4",
     "@rails/ujs": "^6.0.3-4",
+    "@tailwindcss/cli": "^4",
     "accessible-autocomplete": "^2.0.3",
+    "flowbite": "3.1.2",
     "mjml": ">4.15.3",
     "quill": "^2",
     "remixicon": "^4.2.0",
     "slim-select": "^2.9.2",
-    "stimulus": ">2.0.0"
+    "stimulus": ">2.0.0",
+    "tailwindcss": "^4"
   },
   "devDependencies": {
     "@eslint/eslintrc": ">=3.3.5",
@@ -23,7 +27,8 @@
     "sass-migrator": "^2.5.7"
   },
   "scripts": {
-    "lint:js": "eslint ./app/javascript ./app/assets/javascripts",
-    "build": "esbuild ./app/javascript/*.* --bundle --minify --sourcemap --format=esm --outdir=app/assets/builds"
+    "lint:js": "eslint ./app/javascript",
+    "build": "esbuild ./app/javascript/*.* --bundle --minify --sourcemap --format=esm --outdir=app/assets/builds",
+    "build:css": "npx @tailwindcss/cli -i ./app/assets/stylesheets/active_admin.tailwind.css -o ./app/assets/builds/active_admin.css --minify"
   }
 }
