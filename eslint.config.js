@@ -24,6 +24,7 @@ module.exports = defineConfig([{
             _paq: true,
             Highcharts: true,
             Quill: true,
+            SlimSelect: true,
         },
     },
 
