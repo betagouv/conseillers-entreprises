@@ -13,33 +13,6 @@ RSpec.describe ApiKey do
   end
 
   describe 'validations' do
-    describe 'scopes' do
-      subject(:api_key) { build :api_key, scopes: scopes }
-
-      context 'with a known scope' do
-        let(:scopes) { [described_class::QUALIFICATION] }
-
-        it { is_expected.to be_valid }
-      end
-
-      context 'with an unknown scope' do
-        let(:scopes) { ['unknown'] }
-
-        it { is_expected.not_to be_valid }
-
-        it 'adds an inclusion error on scopes' do
-          api_key.valid?
-          expect(api_key.errors[:scopes]).to include('n\'est pas inclus(e) dans la liste')
-        end
-      end
-
-      context 'with no scope' do
-        let(:scopes) { [] }
-
-        it { is_expected.to be_valid }
-      end
-    end
-
     describe 'qualification scope exclusivity' do
       subject(:api_key) { build :api_key, scopes: [described_class::QUALIFICATION] }
 

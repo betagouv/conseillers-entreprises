@@ -3,7 +3,7 @@
 # Table name: api_keys
 #
 #  id             :bigint(8)        not null, primary key
-#  scopes         :string           default([]), not null, is an Array
+#  scopes         :enum             default([]), not null, is an Array
 #  token_digest   :string           not null
 #  valid_until    :datetime
 #  created_at     :datetime         not null
@@ -45,7 +45,6 @@ class ApiKey < ApplicationRecord
 
   ## validations
   #
-  validate :only_known_scopes
   validate :qualification_scope_is_exclusive
 
   ## Callbacks
@@ -86,10 +85,6 @@ class ApiKey < ApplicationRecord
   end
 
   private
-
-  def only_known_scopes
-    errors.add(:scopes, :inclusion) if (scopes - SCOPES).any?
-  end
 
   # Used only by the DILA
   def qualification_scope_is_exclusive
