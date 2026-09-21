@@ -11,11 +11,8 @@ module Stats::Needs
     end
 
     def category_buckets
-      without = [
-        Need.statuses[:not_for_me], Need.statuses[:done_not_reachable],
-        Need.statuses[:quo], Need.statuses[:taking_care]
-      ]
-      with = [Need.statuses[:done], Need.statuses[:done_no_help]]
+      without = %i[not_for_me done_not_reachable quo taking_care]
+      with = %i[done done_no_help]
       [
         [:without_exchange, status_in(without)],
         [:with_exchange, status_in(with)]
