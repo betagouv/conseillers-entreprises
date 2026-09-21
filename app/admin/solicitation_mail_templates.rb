@@ -4,11 +4,14 @@ ActiveAdmin.register SolicitationMailTemplate do
   config.paginate = false
   config.sort_order = 'position_asc'
   config.filters = false
-  reorderable
 
   ## Index
   #
-  index as: :reorderable_table do
+  index do
+    column '', class: 'reorder-handle-col' do |solicitation_mail_template|
+      span '≡≡', class: 'reorder-handle',
+                 'data-reorder-url': reorder_admin_solicitation_mail_template_path(solicitation_mail_template)
+    end
     column :title do |solicitation_mail_template|
       link_to solicitation_mail_template.title, admin_solicitation_mail_template_path(solicitation_mail_template)
     end
@@ -54,5 +57,13 @@ ActiveAdmin.register SolicitationMailTemplate do
     end
 
     f.actions
+  end
+
+  ## Actions
+  #
+  # Target of the drag-and-drop handles rendered on the index table
+  member_action :reorder, method: :post do
+    resource.insert_at(params[:position].to_i)
+    head :ok
   end
 end
