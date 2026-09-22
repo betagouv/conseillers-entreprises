@@ -2,6 +2,6 @@ mode_contact_privilegie:
   - :tel 
   - :visio
   - :ecrit 
-moins_de_10k_restant_a_financer:
+moins_de_20k_restant_a_financer:
   - 'true'
   - 'false'
