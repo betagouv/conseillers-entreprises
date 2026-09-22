@@ -1,0 +1,43 @@
+<% setup_temoignages_index_seo(temoignages: @temoignages) %>
+<div class="fr-container fr-py-7w fr-mt-3v">
+  <div class="fr-grid-row">
+    <div class="fr-col-12 fr-col-md-8">
+      <h1 class="fr-h2"><%= t('.title_long') %></h1>
+      <p class="fr-text--lead">
+        <%= t('.subtitle') %>
+      </p>
+    </div>
+    <div class="fr-col-12 fr-col-md-4 landing-header__picture">
+      <%= header_picture_tag("conseillers") %>
+    </div>
+  </div>
+</div>
+<%= render 'pages/breadcrumbs', title: t('about.temoignages_experts.title') %>
+<div class="fr-container">
+  <div class="fr-grid-row fr-grid-row--gutters fr-my-7w">
+    <% @temoignages.each do |key, temoignage| %>
+      <div class="fr-col-md-12">
+        <article class="fr-card fr-card--sm fr-enlarge-link fr-card--horizontal fr-card--horizontal-tier">
+          <div class="fr-card__body">
+            <div class="fr-card__content">
+              <h2 class="fr-card__title">
+                <%= link_to temoignage.title, temoignages_expert_path(key) %>
+              </h2>
+              <p class="fr-card__desc"><%= sanitize temoignage.subtitle %></p>
+              <div class="fr-card__end">
+                <p class="fr-card__detail">
+                  <%= temoignage.expert %> — <%= temoignage.institution %>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="fr-card__header">
+            <div class="fr-card__img">
+              <%= image_tag "temoignages_experts/#{key}.jpeg", class: "fr-responsive-img", alt: "" %>
+            </div>
+          </div>
+        </article>
+      </div>
+    <% end %>
+  </div>
+</div>
