@@ -21,6 +21,16 @@ module ImagesHelper
     display_all_logos(logos, 'institutions/')
   end
 
+  def header_picture_tag(basename = "home")
+    picture_tag do
+      safe_join([
+        tag.source(srcset: image_path("#{basename}-430w.png"), media: "(max-width: 430px)"),
+        tag.source(srcset: image_path("#{basename}.webp")),
+        image_tag("#{basename}.png", alt: "", fetchpriority: "high")
+      ])
+    end
+  end
+
   def display_svg(path)
     Rails.root.join('app', 'assets', 'images', path).open('r') do |file|
       raw file.read
