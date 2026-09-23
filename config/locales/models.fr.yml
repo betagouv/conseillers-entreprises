@@ -628,10 +628,10 @@ fr:
           label:
             long: Comment souhaitez-vous échanger avec le ou les conseillers ?
             short: Moyen de contact privilégié ?
-        moins_de_10k_restant_a_financer:
+        moins_de_20k_restant_a_financer:
           answers:
-            'false': 10 000 euros et plus
-            'true': moins de 10 000 euros
+            'false': 20 000 euros et plus
+            'true': moins de 20 000 euros
           label:
             long: Quel est le montant qu’il reste à financer pour votre projet (hors apport et prêt bancaire) ?
             short: Montant restant à financer ?

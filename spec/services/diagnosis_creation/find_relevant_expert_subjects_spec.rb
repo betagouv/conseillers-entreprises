@@ -691,13 +691,13 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
     end
 
     context 'real practical case' do
-      # moins de 10 000 + oui banque = Adie, Initiative
-      # moins de 10 000 + non banque = Adie
-      # plus de 10 000 + oui banque = Bpi, BDF, Initiative
-      # plus de 10 000 + non banque = BDF, Adie
+      # moins de 20 000 + oui banque = Adie, Initiative
+      # moins de 20 000 + non banque = Adie
+      # plus de 20 000 + oui banque = Bpi, BDF, Initiative
+      # plus de 20 000 + non banque = BDF, Adie
 
       let(:investment_subject) { create :subject, label: 'Investissement' }
-      let(:less_than_10k_question) { create :subject_question, key: 'moins_de_10k_restant_a_financer', subject: investment_subject }
+      let(:less_than_20k_question) { create :subject_question, key: 'moins_de_20k_restant_a_financer', subject: investment_subject }
       let(:bank_question) { create :subject_question, key: 'financement_bancaire_envisage', subject: investment_subject }
 
       let(:adie) { create :institution, slug: 'adie' }
@@ -720,28 +720,28 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
       let(:need) { create :need, :skip_validate, subject: investment_subject }
 
       before do
-        adie_grouping_1.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: true), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
-        adie_grouping_2.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: true), create(:subject_answer_filter, subject_question: bank_question, filter_value: false)]
-        adie_grouping_3.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: false)]
-        initiative_grouping_1.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: true), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
-        initiative_grouping_2.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
-        bpi_grouping.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
-        bdf_grouping_1.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
-        bdf_grouping_2.subject_answers = [create(:subject_answer_filter, subject_question: less_than_10k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: false)]
+        adie_grouping_1.subject_answers = [create(:subject_answer_filter, subject_question: less_than_20k_question, filter_value: true), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
+        adie_grouping_2.subject_answers = [create(:subject_answer_filter, subject_question: less_than_20k_question, filter_value: true), create(:subject_answer_filter, subject_question: bank_question, filter_value: false)]
+        adie_grouping_3.subject_answers = [create(:subject_answer_filter, subject_question: less_than_20k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: false)]
+        initiative_grouping_1.subject_answers = [create(:subject_answer_filter, subject_question: less_than_20k_question, filter_value: true), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
+        initiative_grouping_2.subject_answers = [create(:subject_answer_filter, subject_question: less_than_20k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
+        bpi_grouping.subject_answers = [create(:subject_answer_filter, subject_question: less_than_20k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
+        bdf_grouping_1.subject_answers = [create(:subject_answer_filter, subject_question: less_than_20k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: true)]
+        bdf_grouping_2.subject_answers = [create(:subject_answer_filter, subject_question: less_than_20k_question, filter_value: false), create(:subject_answer_filter, subject_question: bank_question, filter_value: false)]
       end
 
-      describe 'moins de 10 000 + oui banque' do
+      describe 'moins de 20 000 + oui banque' do
         before do
-          need.subject_answers.create(subject_question: less_than_10k_question, filter_value: true)
+          need.subject_answers.create(subject_question: less_than_20k_question, filter_value: true)
           need.subject_answers.create(subject_question: bank_question, filter_value: true)
         end
 
         it { is_expected.to contain_exactly(es_adie, es_initiative) }
       end
 
-      describe 'moins de 10 000 + non banque' do
+      describe 'moins de 20 000 + non banque' do
         before do
-          need.subject_answers.create(subject_question: less_than_10k_question, filter_value: true)
+          need.subject_answers.create(subject_question: less_than_20k_question, filter_value: true)
           need.subject_answers.create(subject_question: bank_question, filter_value: false)
         end
 
@@ -758,18 +758,18 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
         end
       end
 
-      describe 'plus de 10 000 + oui banque' do
+      describe 'plus de 20 000 + oui banque' do
         before do
-          need.subject_answers.create(subject_question: less_than_10k_question, filter_value: false)
+          need.subject_answers.create(subject_question: less_than_20k_question, filter_value: false)
           need.subject_answers.create(subject_question: bank_question, filter_value: true)
         end
 
         it { is_expected.to contain_exactly(es_bpi, es_bdf, es_initiative) }
       end
 
-      describe 'plus de 10 000 + non banque' do
+      describe 'plus de 20 000 + non banque' do
         before do
-          need.subject_answers.create(subject_question: less_than_10k_question, filter_value: false)
+          need.subject_answers.create(subject_question: less_than_20k_question, filter_value: false)
           need.subject_answers.create(subject_question: bank_question, filter_value: false)
         end
 
