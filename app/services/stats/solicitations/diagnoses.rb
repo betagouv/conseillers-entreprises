@@ -1,38 +1,38 @@
 module Stats::Solicitations
   class Diagnoses
     include ::Stats::BaseStats
+    include Stats::Concerns::PartitionedCategory
 
     def main_query
       Solicitation.step_complete.where(completed_at: @start_date..@end_date)
     end
 
-    def build_series
-      query = filtered_main_query
-
-      @with_diagnosis = []
-      @without_diagnosis = []
-      search_range_by_month.each do |range|
-        month_query = query.where(completed_at: range.first.beginning_of_day..range.last.end_of_day)
-        with_diagnosis_query = month_query.joins(:diagnosis).merge(Diagnosis.completed)
-        without_diagnosis_query = month_query.without_diagnosis.or(month_query.left_outer_joins(:diagnosis).merge(Diagnosis.in_progress))
-        @with_diagnosis.push(with_diagnosis_query.count)
-        @without_diagnosis.push(without_diagnosis_query.count)
-      end
-
-      as_series(@with_diagnosis, @without_diagnosis)
+    def filtered(query)
+      Stats::Filters::Solicitations.new(query, self).call
     end
 
-    def filtered_main_query
-      Stats::Filters::Solicitations.new(main_query, self).call
+    def date_group_attribute
+      'completed_at'
     end
 
-    def secondary_count
-      @secondary_count ||= filtered_main_query.joins(:diagnosis).merge(Diagnosis.completed).size
+    # series[0] = without_diagnosis (compared), series[1] = with_diagnosis (target)
+    def category_buckets
+      [
+        [:without_diagnosis, :else],
+        [:with_diagnosis, completed_diagnosis_exists_sql]
+      ]
+    end
+
+    def category_name(key)
+      key == 'with_diagnosis' ? I18n.t('stats.with_diagnosis') : I18n.t('stats.without_diagnosis')
     end
 
     def count
-      series
-      percentage_two_numbers(@with_diagnosis, @without_diagnosis)
+      @count ||= percentage_two_numbers(series[1][:data], series[0][:data])
+    end
+
+    def secondary_count
+      @secondary_count ||= filtered_main_query.where(completed_diagnosis_exists_sql).size
     end
 
     def subtitle
@@ -41,17 +41,11 @@ module Stats::Solicitations
 
     private
 
-    def as_series(with_diagnosis, without_diagnosis)
-      [
-        {
-          name: I18n.t('stats.without_diagnosis'),
-            data: without_diagnosis
-        },
-        {
-          name: I18n.t('stats.with_diagnosis'),
-            data: with_diagnosis
-        }
-      ]
+    def completed_diagnosis_exists_sql
+      <<~SQL.squish
+        EXISTS (SELECT 1 FROM diagnoses d
+                WHERE d.solicitation_id = solicitations.id AND d.step = #{Diagnosis.steps[:completed]})
+      SQL
     end
   end
 end
