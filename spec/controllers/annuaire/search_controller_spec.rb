@@ -42,5 +42,19 @@ RSpec.describe Annuaire::SearchController do
         expect(response).to redirect_to(institutions_path)
       end
     end
+
+    context 'when the query is blank' do
+      it 'redirects to the institutions index' do
+        post :search, params: { query: '' }
+        expect(response).to redirect_to(institutions_path)
+      end
+    end
+
+    context 'when the query is omitted' do
+      it 'redirects to the institutions index' do
+        post :search, params: {}
+        expect(response).to redirect_to(institutions_path)
+      end
+    end
   end
 end
