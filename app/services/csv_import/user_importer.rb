@@ -88,7 +88,7 @@ module CsvImport
       @several_subjects_mapping =
         headers
           .without(other_known_headers)
-          .index_with { |header| InstitutionSubject.find_with_name(@options[:institution], header) }
+          .index_with { |header| InstitutionSubject.flexible_find(@options[:institution], header) }
           .compact
     end
 
@@ -125,7 +125,7 @@ module CsvImport
       name = all_attributes[Expert.human_attribute_name('subject')]
       return if name.blank?
 
-      institution_subject = InstitutionSubject.find_with_name(expert.institution, name)
+      institution_subject = InstitutionSubject.flexible_find(expert.institution, name)
 
       # Avoid duplicate ExpertsSubjects
       return if expert.institutions_subjects.include? institution_subject
