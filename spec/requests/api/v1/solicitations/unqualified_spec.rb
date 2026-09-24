@@ -21,10 +21,15 @@ RSpec.describe "Unqualified solicitations API" do
         response '200', 'ok' do
           schema type: :object,
                  properties: {
-                   count: { type: :integer, description: 'Nombre total de sollicitations non qualifiées.' },
-                   solicitations: {
+                   data: {
                      type: :array,
                      items: { '$ref': "#/components/schemas/unqualified_solicitation" }
+                   },
+                   metadata: {
+                     type: :object,
+                     properties: {
+                       total_results: { type: :integer, description: 'Nombre total de sollicitations non qualifiées.' }
+                     }
                    }
                  }
           header 'X-Call-Id', schema: { type: :string }, description: 'Identifiant de corrélation de l’appel, à fournir lors d’une investigation.'
@@ -37,9 +42,9 @@ RSpec.describe "Unqualified solicitations API" do
             expect(response).to have_http_status(:ok)
             result = response.parsed_body
 
-            expect(result['count']).to eq(1)
-            expect(result['solicitations'].size).to eq(1)
-            expect(result['solicitations'].first).to eq(
+            expect(result['metadata']['total_results']).to eq(1)
+            expect(result['data'].size).to eq(1)
+            expect(result['data'].first).to eq(
               'id' => solicitation.id,
               'subject' => subject_recrutement.id,
               'description' => "Besoin de recruter"
@@ -87,8 +92,8 @@ RSpec.describe "Unqualified solicitations API" do
       get "/api/v1/solicitations/unqualified", headers: headers
       result = response.parsed_body
 
-      expect(result['count']).to eq(1)
-      expect(result['solicitations'].pluck('id')).to eq([solicitation.id])
+      expect(result['metadata']['total_results']).to eq(1)
+      expect(result['data'].pluck('id')).to eq([solicitation.id])
     end
 
     it 'returns the global count regardless of pagination' do
@@ -97,19 +102,19 @@ RSpec.describe "Unqualified solicitations API" do
       get "/api/v1/solicitations/unqualified", params: { per_page: 1 }, headers: headers
       result = response.parsed_body
 
-      expect(result['count']).to eq(3)
-      expect(result['solicitations'].size).to eq(1)
+      expect(result['metadata']['total_results']).to eq(3)
+      expect(result['data'].size).to eq(1)
     end
 
     it 'ignores an out of range per_page instead of trusting it' do
       create_list(:solicitation, 2)
 
       get "/api/v1/solicitations/unqualified", params: { per_page: 0 }, headers: headers
-      expect(response.parsed_body['solicitations'].size).to eq(1)
+      expect(response.parsed_body['data'].size).to eq(1)
 
       get "/api/v1/solicitations/unqualified", params: { per_page: 99_999 }, headers: headers
       expect(response).to have_http_status(:ok)
-      expect(response.parsed_body['solicitations'].size).to eq(3)
+      expect(response.parsed_body['data'].size).to eq(3)
     end
 
     it 'paginates with the page parameter' do
@@ -117,7 +122,7 @@ RSpec.describe "Unqualified solicitations API" do
 
       get "/api/v1/solicitations/unqualified", params: { page: 2, per_page: 1 }, headers: headers
 
-      expect(response.parsed_body['solicitations'].pluck('id')).to eq([second_solicitation.id])
+      expect(response.parsed_body['data'].pluck('id')).to eq([second_solicitation.id])
     end
 
     it 'never exposes personal data' do
@@ -127,7 +132,7 @@ RSpec.describe "Unqualified solicitations API" do
 
       get "/api/v1/solicitations/unqualified", headers: headers
 
-      expect(response.parsed_body['solicitations'].first.keys).to contain_exactly('id', 'subject', 'description')
+      expect(response.parsed_body['data'].first.keys).to contain_exactly('id', 'subject', 'description')
       expect(response.body).not_to include(identified_solicitation.full_name, identified_solicitation.email,
         identified_solicitation.phone_number, identified_solicitation.siret)
     end
@@ -138,7 +143,7 @@ RSpec.describe "Unqualified solicitations API" do
 
       get "/api/v1/solicitations/unqualified", headers: headers
 
-      expect(response.parsed_body['solicitations'].first['subject']).to eq(corrected_subject.id)
+      expect(response.parsed_body['data'].first['subject']).to eq(corrected_subject.id)
     end
 
     it 'returns a correlation id in the response headers' do
