@@ -5,10 +5,9 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
 
   def unqualified
     solicitations = Solicitation.unqualified.includes(:landing_subject, diagnosis: :needs)
-    count = solicitations.count
     page = solicitations.page(params[:page]).per(per_page)
 
-    render json: { count: count, solicitations: serialize(page) }, status: :ok
+    render json: page, each_serializer: serializer, meta: { total_results: page.total_count }
   end
 
   def update
@@ -69,13 +68,7 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
     (params[:per_page].presence || DEFAULT_PER_PAGE).to_i.clamp(1, MAX_PER_PAGE)
   end
 
-  def serialize(solicitations)
-    ActiveModelSerializers::SerializableResource.new(
-      solicitations,
-      each_serializer: Api::V1::Solicitations::UnqualifiedSerializer,
-      adapter: :attributes
-    ).as_json
-  end
+  def serializer = Api::V1::Solicitations::UnqualifiedSerializer
 
   def render_invalid_batch
     errors = [

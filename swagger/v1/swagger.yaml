@@ -761,13 +761,16 @@ paths:
               schema:
                 type: object
                 properties:
-                  count:
-                    type: integer
-                    description: Nombre total de sollicitations non qualifiées.
-                  solicitations:
+                  data:
                     type: array
                     items:
                       "$ref": "#/components/schemas/unqualified_solicitation"
+                  metadata:
+                    type: object
+                    properties:
+                      total_results:
+                        type: integer
+                        description: Nombre total de sollicitations non qualifiées.
         '403':
           description: Token sans le scope de qualification
           content:
