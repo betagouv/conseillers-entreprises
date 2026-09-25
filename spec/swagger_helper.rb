@@ -33,6 +33,7 @@ RSpec.configure do |config|
       },
       tags: [
         { name: 'Page d’atterrissage' },
+        { name: 'Sujets d’atterrissage' },
         { name: 'Thèmes' },
         { name: 'Sujets' },
       ],
@@ -99,6 +100,22 @@ RSpec.configure do |config|
             },
             required: [ 'id', 'title', 'slug' ]
           },
+          subject: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              label: { type: :string },
+              slug: { type: :string },
+              can_be_automated: { type: :boolean },
+              landing_subjects: {
+                type: :array,
+                items: {
+                  '$ref': "#/components/schemas/landing_subject"
+                }
+              }
+            },
+            required: [ 'id', 'label', 'slug' ]
+          },
           new_solicitation: {
             type: :object,
             properties: {
@@ -163,6 +180,24 @@ RSpec.configure do |config|
               question_label: { type: :string },
               answer: { type: :boolean }
             }
+          },
+          unqualified_solicitation: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              subject: { type: [:integer, 'null'], description: 'Identifiant du sujet retenu pour la mise en relation, null pour les sollicitations antérieures à novembre 2020 qui n’en ont pas.' },
+              description: { type: :string, description: 'Description saisie par l’entreprise.' }
+            },
+            required: [ 'id', 'subject', 'description' ]
+          },
+          qualification_result: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              status: { type: :integer, description: 'Statut de prise en compte de la qualification (200 ou 400).' },
+              message: { type: :string, description: 'Motif du rejet, présent uniquement lorsque le statut est 400.' }
+            },
+            required: [ 'id', 'status' ]
           },
           error: {
             type: :object,

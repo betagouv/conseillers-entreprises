@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_03_080706) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_07_130113) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -19,6 +19,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_080706) do
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "activity_reports_categories", ["matches", "stats", "cooperation", "solicitations"]
+  create_enum "api_key_scope", ["qualification"]
   create_enum "feedbacks_categories", ["need", "need_reminder", "solicitation", "expert_reminder"]
   create_enum "landing_subject_fields_mode", ["siret", "location"]
   create_enum "match_status", ["quo", "taking_care", "done", "done_no_help", "done_not_reachable", "not_for_me"]
@@ -86,6 +87,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_080706) do
   create_table "api_keys", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "institution_id", null: false
+    t.enum "scopes", default: [], null: false, array: true, enum_type: "api_key_scope"
     t.string "token_digest", null: false
     t.datetime "updated_at", null: false
     t.datetime "valid_until"
@@ -531,6 +533,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_080706) do
     t.string "phone_number"
     t.jsonb "prepare_diagnosis_errors_details", default: {}
     t.string "provenance_detail"
+    t.string "qualification_details"
+    t.boolean "qualified"
+    t.datetime "qualified_at"
     t.string "requested_help_amount"
     t.string "siret"
     t.integer "status", default: 0
@@ -539,6 +544,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_080706) do
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["cooperation_id"], name: "index_solicitations_on_cooperation_id"
     t.index ["email"], name: "index_solicitations_on_email"
+    t.index ["id"], name: "index_solicitations_on_unqualified", where: "((qualified IS NULL) AND (status = 3))"
     t.index ["landing_id"], name: "index_solicitations_on_landing_id"
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
     t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"

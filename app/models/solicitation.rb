@@ -15,6 +15,9 @@
 #  phone_number                     :string
 #  prepare_diagnosis_errors_details :jsonb
 #  provenance_detail                :string
+#  qualification_details            :string
+#  qualified                        :boolean
+#  qualified_at                     :datetime
 #  requested_help_amount            :string
 #  siret                            :string
 #  status                           :integer          default("step_contact")
@@ -36,6 +39,7 @@
 #  index_solicitations_on_siret                    (siret)
 #  index_solicitations_on_status                   (status)
 #  index_solicitations_on_status_and_completed_at  (status,completed_at)
+#  index_solicitations_on_unqualified              (id) WHERE ((qualified IS NULL) AND (status = 3))
 #  index_solicitations_on_uuid                     (uuid)
 #
 # Foreign Keys
@@ -159,6 +163,7 @@ class Solicitation < ApplicationRecord
   validates :origin_url, presence: true, if: -> { landing&.api? }
   validates :completed_at, presence: true, if: -> { step_complete? }
   validates :insee_code, format: { with: /\A[0-9AB]{5}\z/, message: :invalid_insee_code }, allow_blank: true
+  validates :qualification_details, presence: true, if: -> { qualified == false }, on: :qualification
 
   # Todo : à supprimer une fois que la migration api_url est passée ?
   validate if: -> { landing&.api? } do
@@ -424,6 +429,8 @@ class Solicitation < ApplicationRecord
     where(cooperation_id: cooperation_id)
   }
 
+  scope :unqualified, -> { where(qualified: nil, status: :in_progress).order(:id) }
+
   # Solicitations similaires
   #
   scope :from_same_company, -> (solicitation) {
@@ -625,20 +632,34 @@ class Solicitation < ApplicationRecord
     end
   end
 
+  # Le besoin qui représente la sollicitation, partagé par `final_landing_subject` et
+  # `final_subject_id` pour que les deux ne divergent pas.
+  # Passe par `diagnosis` plutôt que par l'association `has_many through` `needs` :
+  # cette dernière ignore le préchargement et rejoue une requête par sollicitation.
+  def matching_need
+    diagnosis&.needs&.min_by(&:id)
+  end
+
   def final_landing_subject
-    if needs.present?
-      subject = needs.first.subject
-      return landing_subject if landing_subject.subject == subject
-      landing.landing_subjects.not_archived.find_by(subject:) ||
-        Landing.accueil.landing_subjects.not_archived.find_by(subject:) ||
-        LandingSubject.not_archived.find_by(subject:)
-    else
-      landing_subject
-    end
+    need = matching_need
+    return landing_subject if need.nil?
+
+    return landing_subject if landing_subject&.subject_id == need.subject_id
+
+    subject = need.subject
+    landing.landing_subjects.not_archived.find_by(subject:) ||
+      Landing.accueil.landing_subjects.not_archived.find_by(subject:) ||
+      LandingSubject.not_archived.find_by(subject:)
   end
 
   def final_subject_title
-    final_landing_subject.title
+    final_landing_subject&.title
+  end
+
+  # Le sujet retenu pour le matching. Contrairement à `final_landing_subject`, qui cherche une
+  # déclinaison éditoriale à afficher, on a déjà l'identifiant sous la main : pas de requête de repli.
+  def final_subject_id
+    matching_need&.subject_id || landing_subject&.subject_id
   end
 
   # Provenance
@@ -737,6 +758,11 @@ class Solicitation < ApplicationRecord
     Spam.find_or_create_by(email: email)
     self.cancel!
     tag_as_spam
+  end
+
+  def qualify(qualified:, details: nil)
+    assign_attributes(qualified: qualified, qualification_details: details, qualified_at: Time.current)
+    save(context: :qualification)
   end
 
   def self.ransackable_attributes(auth_object = nil)

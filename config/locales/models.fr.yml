@@ -565,6 +565,7 @@ fr:
         provenance_category: Type de source
         provenance_detail: Détail de la source
         provenance_title: Intitulé de la source
+        qualification_details: Motif de la qualification
         relaunch: Relance
         requested_help_amount: Montant de l’aide demandée
         siret: SIRET

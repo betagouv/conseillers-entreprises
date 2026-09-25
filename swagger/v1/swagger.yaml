@@ -4,10 +4,10 @@ info:
   title: API Service Public Conseillers entreprises V1
   description: "## Bienvenue sur la documentation de l’API de conseillers-entreprises.service-public.gouv.fr\n
     \       \nCette API permet à une organisation de proposer un formulaire de dépôt
-    de besoin d'entreprise connecté à Conseillers-entreprises.service-public.gouv.fr sur
-    son propre site internet.\n        \nConcrètement, cette API permet de :\n        \n-
-    récupérer la liste des pages d'atterrisage, thèmes et sujets autorisés pour l'organisation
-    concernée,\n        \n- d'envoyer à Conseillers-entreprises.service-public.gouv.fr
+    de besoin d'entreprise connecté à Conseillers-entreprises.service-public.gouv.fr
+    sur son propre site internet.\n        \nConcrètement, cette API permet de :\n
+    \       \n- récupérer la liste des pages d'atterrissage, thèmes et sujets autorisés
+    pour l'organisation concernée,\n        \n- d'envoyer à Conseillers-entreprises.service-public.gouv.fr
     un besoin\n        \n### Limite des requêtes\n        \nLe serveur accepte un
     maximum de 300 appels par 5 minutes.\n        "
   version: 1.0.0
@@ -43,11 +43,11 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 103
+                    - id: 813
                       title: Recruter un ou plusieurs salariés
                       slug: recruter
-                      landing_id: 101
-                      landing_theme_id: 115
+                      landing_id: 773
+                      landing_theme_id: 835
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>S’informer sur les aides à l'embauche
                         des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
@@ -60,24 +60,24 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles:
-                      - id: 93
+                      - id: 224
                         key: recrutement_poste_cadre
                         position: 1
                         question: Recrutez-vous sur un poste d’ingénieur, de manager
                           ou de niveau Bac +3 ?
                         question_type: boolean
-                      - id: 94
+                      - id: 225
                         key: recrutement_en_apprentissage
                         position: 2
                         question: Recrutez-vous un apprenti ou un stagiaire ?
                         question_type: boolean
                       institutions_partenaires:
                       - Chambre de Commerce et d'Industrie (CCI)
-                    - id: 104
+                    - id: 814
                       title: Mettre en place un projet de formation
                       slug: former
-                      landing_id: 101
-                      landing_theme_id: 115
+                      landing_id: 773
+                      landing_theme_id: 835
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>Choisir la bonne formation</li><li>Trouver
                         votre OPCO, financer la formation</li><li>Mettre en place
@@ -136,11 +136,11 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 106
+                      id: 816
                       title: Recruter un ou plusieurs salariés
                       slug: recruter
-                      landing_id: 103
-                      landing_theme_id: 117
+                      landing_id: 775
+                      landing_theme_id: 837
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>S’informer sur les aides à l'embauche
                         des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
@@ -153,13 +153,13 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles:
-                      - id: 95
+                      - id: 226
                         key: recrutement_poste_cadre
                         position: 1
                         question: Recrutez-vous sur un poste d’ingénieur, de manager
                           ou de niveau Bac +3 ?
                         question_type: boolean
-                      - id: 96
+                      - id: 227
                         key: recrutement_en_apprentissage
                         position: 2
                         question: Recrutez-vous un apprenti ou un stagiaire ?
@@ -232,11 +232,11 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 112
+                      id: 822
                       title: Recruter un ou plusieurs salariés
                       slug: recruter
-                      landing_id: 106
-                      landing_theme_id: 120
+                      landing_id: 778
+                      landing_theme_id: 840
                       landing_theme_slug: recrutement-formation
                       description: "<ul><li>S’informer sur les aides à l'embauche
                         des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
@@ -249,13 +249,13 @@ paths:
                       requires_siret: true
                       requires_location: false
                       questions_additionnelles:
-                      - id: 101
+                      - id: 232
                         key: recrutement_poste_cadre
                         position: 1
                         question: Recrutez-vous sur un poste d’ingénieur, de manager
                           ou de niveau Bac +3 ?
                         question_type: boolean
-                      - id: 102
+                      - id: 233
                         key: recrutement_en_apprentissage
                         position: 2
                         question: Recrutez-vous un apprenti ou un stagiaire ?
@@ -293,7 +293,7 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 121
+                    - id: 841
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -301,11 +301,11 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 114
+                      - id: 824
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_id: 107
-                        landing_theme_id: 121
+                        landing_id: 779
+                        landing_theme_id: 841
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -316,11 +316,11 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 115
+                      - id: 825
                         title: Gestion de l’eau
                         slug: eau
-                        landing_id: 107
-                        landing_theme_id: 121
+                        landing_id: 779
+                        landing_theme_id: 841
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -333,7 +333,7 @@ paths:
                           en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                    - id: 123
+                    - id: 843
                       title: Recruter ou former vos salariés, améliorer l’organisation
                         du travail
                       slug: recrutement-formation
@@ -386,7 +386,7 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 126
+                      id: 846
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -394,11 +394,11 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 120
+                      - id: 830
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_id: 110
-                        landing_theme_id: 126
+                        landing_id: 782
+                        landing_theme_id: 846
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -409,11 +409,11 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 121
+                      - id: 831
                         title: Gestion de l’eau
                         slug: eau
-                        landing_id: 110
-                        landing_theme_id: 126
+                        landing_id: 782
+                        landing_theme_id: 846
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -455,19 +455,19 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 111
+                    - id: 783
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
-                      partner_url: https://schamberger.example
+                      partner_url: https://mckenzie.test
                       landing_themes:
-                      - id: 127
+                      - id: 847
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 128
+                      - id: 848
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -499,7 +499,7 @@ paths:
                 test_example:
                   value:
                     errors:
-                    - source: Token d’API
+                    - source: Jeton d’API
                       message: n’existe pas ou est invalide
               schema:
                 errors:
@@ -532,19 +532,19 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 115
+                    - id: 787
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
-                      partner_url: https://tremblay-kreiger.test
+                      partner_url: https://price-sipes.example
                       landing_themes:
-                      - id: 133
+                      - id: 853
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 134
+                      - id: 854
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -622,19 +622,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 118
+                      id: 790
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
-                      partner_url: https://brakus.example
+                      partner_url: https://daugherty-harvey.example
                       landing_themes:
-                      - id: 139
+                      - id: 859
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 140
+                      - id: 860
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -655,63 +655,135 @@ paths:
                       total_themes:
                         type: integer
                         description: Nombre de thèmes liée à la page d’atterrissage.
-  "/api/v1/subjects":
-    get:
-      summary: Liste des sujets
+  "/api/v1/solicitations/qualifications":
+    put:
+      summary: Qualification des sollicitations
       tags:
-        - Sujets
-      description: Affiche tous les sujets de besoins ainsi que les sujets d’atterrissage associés.
-      operationId: listSubjects
+      - Sollicitations
+      description: Enregistre le verdict de qualification pour un lot de 100 sollicitations
+        maximum.
+      operationId: updateSolicitationsQualifications
+      parameters: []
+      responses:
+        '204':
+          description: Toutes les qualifications ont été prises en compte
+          headers:
+            X-Call-Id:
+              schema:
+                type: string
+              description: Identifiant de corrélation de l’appel, à fournir lors d’une
+                investigation.
+        '207':
+          description: Erreur partielle
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/qualification_result"
+        '400':
+          description: Format de requête invalide
+          content:
+            application/json:
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
+        '403':
+          description: Token sans le scope de qualification
+          content:
+            application/json:
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
+        '404':
+          description: Mauvais token
+          content:
+            application/json:
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  qualified:
+                    type: boolean
+                  details:
+                    type: string
+                    description: Motif, attendu lorsque la sollicitation est rejetée.
+                required:
+                - id
+                - qualified
+  "/api/v1/solicitations/unqualified":
+    get:
+      summary: Liste des sollicitations non qualifiées
+      tags:
+      - Sollicitations
+      description: Affiche les sollicitations en cours de traitement dont la qualification
+        n’a pas encore été renseignée.
+      operationId: listUnqualifiedSolicitations
+      parameters:
+      - name: page
+        in: query
+        required: false
+        description: Numéro de page (défaut 1).
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Nombre de résultats par page (défaut 100, maximum 1000).
+        schema:
+          type: integer
       responses:
         '200':
           description: ok
+          headers:
+            X-Call-Id:
+              schema:
+                type: string
+              description: Identifiant de corrélation de l’appel, à fournir lors d’une
+                investigation.
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    data:
-                      - id: 111
-                        label: Développer son activité grâce à l'intelligence artificielle (IA)
-                        slug: developpement_numerique_developper_son_activite_grace_a_l_intelligence_artificielle_ia
-                        can_be_automated: true
-                        landing_subjects:
-                          - id: 218
-                            title: Développer votre activité grâce à l'intelligence artificielle (IA)
-                            slug: developper-votre-activite-grace-a-l-intelligence-artificielle-ia
-                            description:
-                              <ul><li>Réaliser un entretien gratuit et personnalisé pour identifier vos besoins (gestion des réservations, des stocks alimentaires…)</li>
-                              <li>Se former à l’IA pour créer des contenus, gagner du temps dans vos tâches quotidiennes</li>
-                              <li>Identifier en atelier les meilleures solutions d’IA par rapport à votre activité et vos usages</li></ul>
-                            description_explanation:
-                              <ul><li>votre activité</li>
-                              <li>vos questionnements sur l'IA</li>
-                              <li>sur quels aspects vous souhaitez être conseillé(e)</li></ul>
-                    metadata:
-                      total_results: 1
               schema:
                 type: object
                 properties:
                   data:
                     type: array
                     items:
-                      "$ref": "#/components/schemas/subject"
+                      "$ref": "#/components/schemas/unqualified_solicitation"
                   metadata:
                     type: object
                     properties:
                       total_results:
                         type: integer
-                        description: Nombre de sujets.
+                        description: Nombre total de sollicitations non qualifiées.
+        '403':
+          description: Token sans le scope de qualification
+          content:
+            application/json:
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
         '404':
           description: Mauvais token
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    errors:
-                      - source: Token d’API
-                        message: n’existe pas ou est invalide
               schema:
                 errors:
                   type: array
@@ -734,7 +806,7 @@ paths:
                 solicitation_creee:
                   value:
                     data:
-                      solicitation_id: 22
+                      solicitation_id: 611
                       institutions_partenaires:
                       - Chambre de Commerce et d'Industrie (CCI)
                       - OPérateur de COmpétences (OPCO)
@@ -803,10 +875,44 @@ paths:
             schema:
               "$ref": "#/components/schemas/new_solicitation"
         required: true
+  "/api/v1/subjects":
+    get:
+      summary: Liste des sujets
+      tags:
+      - Sujets
+      description: Affiche tous les sujets de besoins ainsi que les sujets d’atterrissage
+        associés.
+      operationId: listSubjects
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/subject"
+                  metadata:
+                    type: object
+                    properties:
+                      total_results:
+                        type: integer
+                        description: Nombre de sujets.
+        '404':
+          description: Mauvais token
+          content:
+            application/json:
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
 servers:
 - url: https://conseillers-entreprises.service-public.gouv.fr
-- url: https://staging.conseillers-entreprises.service-public.gouv.fr
-- url: https://localhost:3000
+- url: https://ce-staging.osc-fr1.scalingo.io
 components:
   schemas:
     landing:
@@ -889,9 +995,9 @@ components:
           items:
             "$ref": "#/components/schemas/landing_subject"
       required:
-        - id
-        - label
-        - slug
+      - id
+      - label
+      - slug
     new_solicitation:
       type: object
       properties:
@@ -981,6 +1087,38 @@ components:
           type: string
         answer:
           type: boolean
+    unqualified_solicitation:
+      type: object
+      properties:
+        id:
+          type: integer
+        subject:
+          type:
+          - integer
+          - 'null'
+          description: Identifiant du sujet retenu pour la mise en relation, null
+            pour les sollicitations antérieures à novembre 2020 qui n’en ont pas.
+        description:
+          type: string
+          description: Description saisie par l’entreprise.
+      required:
+      - id
+      - subject
+      - description
+    qualification_result:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: integer
+          description: Statut de prise en compte de la qualification (200 ou 400).
+        message:
+          type: string
+          description: Motif du rejet, présent uniquement lorsque le statut est 400.
+      required:
+      - id
+      - status
     error:
       type: object
       properties:

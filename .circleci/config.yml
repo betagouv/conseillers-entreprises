@@ -83,6 +83,7 @@ jobs:
           environment:
             DATABASE_URL: "postgres://conseillers_entreprises_test@localhost:5432/conseillers_entreprises_test"
             RORVSWILD_KEY: 'rorvswild'
+            API_KEY_HMAC_SECRET_KEY: 'test-hmac-secret'
           name: Create DB
           command: bundle exec rake db:create db:schema:load db:migrate RAILS_ENV=test
       - run:
@@ -95,6 +96,7 @@ jobs:
             CI: 'true'
             RORVSWILD_KEY: 'rorvswild'
             REDIS_URL: 'redis://localhost:6379/1'
+            API_KEY_HMAC_SECRET_KEY: 'test-hmac-secret'
           name: Run Tests, Split by Timings
           command: |
             bundle exec rspec --profile 10 \
