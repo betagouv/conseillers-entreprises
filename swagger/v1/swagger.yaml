@@ -655,7 +655,7 @@ paths:
                       total_themes:
                         type: integer
                         description: Nombre de thèmes liée à la page d’atterrissage.
-  "/api/v1/solicitations/qualifications":
+  "/api/v1/qualifications":
     put:
       summary: Qualification des sollicitations
       tags:
@@ -726,7 +726,7 @@ paths:
                 required:
                 - id
                 - qualified
-  "/api/v1/solicitations/unqualified":
+  "/api/v1/qualifications/unqualified":
     get:
       summary: Liste des sollicitations non qualifiées
       tags:
