@@ -43,7 +43,10 @@ RSpec.configure do |config|
           url: 'https://conseillers-entreprises.service-public.gouv.fr',
         },
         {
-          url: 'https://ce-staging.osc-fr1.scalingo.io',
+          url: 'https://staging.conseillers-entreprises.service-public.gouv.fr',
+        },
+        {
+          url: 'https://localhost:3000',
         },
       ],
       components: {
