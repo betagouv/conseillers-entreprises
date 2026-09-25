@@ -16,7 +16,7 @@ class Api::V1::QualificationsController < Api::V1::BaseController
     qualifications = params.permit(_json: [:id, :qualified, :details])[:_json]
     return render_invalid_batch if qualifications.blank? || qualifications.size > MAX_BATCH_SIZE
 
-    solicitations = Solicitation.where(id: batch_ids(qualifications)).index_by(&:id)
+    solicitations = Solicitation.where(id: qualifications.pluck(:id)).index_by(&:id)
     results = qualifications.map { |qualification| apply_qualification(qualification, solicitations) }
 
     if results.all? { |result| result[:status] == 200 }
@@ -35,22 +35,11 @@ class Api::V1::QualificationsController < Api::V1::BaseController
     render_error_payload(errors: errors, status: :forbidden)
   end
 
-  def batch_ids(qualifications)
-    qualifications.filter_map { |qualification| cast_id(qualification[:id]) }
-  end
-
-  # "12abc".to_i` equals 12: without checking, a malformed id would qualify another request.
-  def cast_id(id)
-    Integer(id, exception: false)
-  end
-
   def apply_qualification(qualification, solicitations)
-    id = cast_id(qualification[:id])
+    id = qualification[:id]
     qualified = cast_qualified(qualification[:qualified])
-    return invalid_item(qualification[:id]) if id.nil? || qualified.nil?
-
     solicitation = solicitations[id]
-    return invalid_item(id) if solicitation.nil? || !solicitation.status_in_progress?
+    return invalid_item(id) if qualified.nil? || solicitation.nil? || !solicitation.status_in_progress?
 
     if solicitation.qualify(qualified: qualified, details: qualification[:details])
       { id: id, status: 200 }
