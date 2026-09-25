@@ -4,7 +4,7 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
   MAX_BATCH_SIZE = 100
 
   def unqualified
-    solicitations = Solicitation.unqualified.includes(:landing_subject, diagnosis: :needs)
+    solicitations = Solicitation.unqualified.includes(:landing_subject, :needs)
     page = solicitations.page(params[:page]).per(per_page)
 
     render json: page, each_serializer: serializer, meta: { total_results: page.total_count }
