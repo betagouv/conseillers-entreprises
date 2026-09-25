@@ -12,7 +12,7 @@ class Api::V1::QualificationsController < Api::V1::BaseController
     render json: page, each_serializer: serializer, meta: { total_results: page.total_count }
   end
 
-  def update
+  def batch_update
     qualifications = params.permit(_json: [:id, :qualified, :details])[:_json]
     return render_invalid_batch if qualifications.blank? || qualifications.size > MAX_BATCH_SIZE
 
