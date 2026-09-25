@@ -126,6 +126,16 @@ RSpec.describe "Solicitations qualifications API" do
       expect(solicitation.reload).to have_attributes(qualified: false, qualification_details: "Finalement non")
     end
 
+    it 'rejects a disqualification without details' do
+      put_qualifications([{ id: solicitation.id, qualified: false }])
+
+      expect(response).to have_http_status(:multi_status)
+      expect(response.parsed_body).to eq([
+        { 'id' => solicitation.id, 'status' => 400, 'message' => 'Motif de la qualification doit être rempli(e)' }
+      ])
+      expect(solicitation.reload.qualified_at).to be_nil
+    end
+
     it 'rejects a batch above the maximum size' do
       payload = Array.new(Api::V1::Solicitations::QualificationsController::MAX_BATCH_SIZE + 1) { { id: solicitation.id, qualified: true } }
 

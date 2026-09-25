@@ -43,8 +43,11 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
     solicitation = solicitations[id]
     return invalid_item(id) if solicitation.nil? || !solicitation.status_in_progress?
 
-    solicitation.qualify!(qualified: qualified, details: qualification[:details])
-    { id: id, status: 200 }
+    if solicitation.qualify(qualified: qualified, details: qualification[:details])
+      { id: id, status: 200 }
+    else
+      invalid_item(id, solicitation.errors.full_messages.to_sentence)
+    end
   rescue ActiveRecord::ActiveRecordError => e
     Appsignal.send_exception(e)
     invalid_item(id)
@@ -60,8 +63,8 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
     nil
   end
 
-  def invalid_item(id)
-    { id: id, status: 400, message: I18n.t('api_pde.errors.not_qualifiable') }
+  def invalid_item(id, message = I18n.t('api_pde.errors.not_qualifiable'))
+    { id: id, status: 400, message: message }
   end
 
   def per_page
