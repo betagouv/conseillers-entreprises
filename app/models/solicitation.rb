@@ -634,10 +634,8 @@ class Solicitation < ApplicationRecord
 
   # Le besoin qui représente la sollicitation, partagé par `final_landing_subject` et
   # `final_subject_id` pour que les deux ne divergent pas.
-  # Passe par `diagnosis` plutôt que par l'association `has_many through` `needs` :
-  # cette dernière ignore le préchargement et rejoue une requête par sollicitation.
   def matching_need
-    diagnosis&.needs&.min_by(&:id)
+    needs.min_by(&:id)
   end
 
   def final_landing_subject
