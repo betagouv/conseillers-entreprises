@@ -1,7 +1,9 @@
-class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations::BaseController
+class Api::V1::QualificationsController < Api::V1::BaseController
   DEFAULT_PER_PAGE = 100
   MAX_PER_PAGE = 1000
   MAX_BATCH_SIZE = 100
+
+  before_action :authorize_qualification_scope!
 
   def unqualified
     solicitations = Solicitation.unqualified.includes(:landing_subject, :needs)
@@ -26,6 +28,13 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
 
   private
 
+  def authorize_qualification_scope!
+    return if current_api_key&.has_scope?(ApiKey::QUALIFICATION)
+
+    errors = [{ source: I18n.t('api_pde.errors.forbidden.source'), message: I18n.t('api_pde.errors.forbidden.message') }]
+    render_error_payload(errors: errors, status: :forbidden)
+  end
+
   def batch_ids(qualifications)
     qualifications.filter_map { |qualification| cast_id(qualification[:id]) }
   end
@@ -48,8 +57,7 @@ class Api::V1::Solicitations::QualificationsController < Api::V1::Solicitations:
     else
       invalid_item(id, solicitation.errors.full_messages.to_sentence)
     end
-  rescue ActiveRecord::ActiveRecordError => e
-    Appsignal.send_exception(e)
+  rescue ActiveRecord::ActiveRecordError
     invalid_item(id)
   end
 
