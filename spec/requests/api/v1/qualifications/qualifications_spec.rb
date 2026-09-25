@@ -6,8 +6,8 @@ RSpec.describe "Solicitations qualifications API" do
   let(:Authorization) { "Bearer token=#{find_qualification_token(institution)}" }
   let!(:solicitation) { create(:solicitation) }
 
-  describe 'update' do
-    path '/api/v1/solicitations/qualifications' do
+  describe 'batch_update' do
+    path '/api/v1/qualifications' do
       put 'Qualification des sollicitations' do
         tags 'Sollicitations'
         description 'Enregistre le verdict de qualification pour un lot de 100 sollicitations maximum.'
@@ -107,7 +107,7 @@ RSpec.describe "Solicitations qualifications API" do
     end
 
     def put_qualifications(payload)
-      put "/api/v1/solicitations/qualifications", params: payload.to_json, headers: headers
+      put "/api/v1/qualifications", params: payload.to_json, headers: headers
     end
 
     it 'stores the rejection details' do
@@ -137,7 +137,7 @@ RSpec.describe "Solicitations qualifications API" do
     end
 
     it 'rejects a batch above the maximum size' do
-      payload = Array.new(Api::V1::Solicitations::QualificationsController::MAX_BATCH_SIZE + 1) { { id: solicitation.id, qualified: true } }
+      payload = Array.new(Api::V1::QualificationsController::MAX_BATCH_SIZE + 1) { { id: solicitation.id, qualified: true } }
 
       put_qualifications(payload)
 

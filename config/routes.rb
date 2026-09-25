@@ -30,11 +30,9 @@ Rails.application.routes.draw do
         end
       end
       resources :subjects, only: [:index]
-      resources :solicitations, only: [:create] do
-        collection do
-          get :unqualified, controller: "solicitations/qualifications"
-          put :qualifications, controller: "solicitations/qualifications", action: :update
-        end
+      resources :solicitations, only: [:create]
+      resource :qualifications, only: [:update] do
+        get :unqualified
       end
     end
     namespace :internal do

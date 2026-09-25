@@ -9,7 +9,7 @@ RSpec.describe "Unqualified solicitations API" do
   let!(:solicitation) { create(:solicitation, landing_subject: landing_subject, description: "Besoin de recruter") }
 
   describe 'unqualified' do
-    path '/api/v1/solicitations/unqualified' do
+    path '/api/v1/qualifications/unqualified' do
       get 'Liste des sollicitations non qualifiées' do
         tags 'Sollicitations'
         description 'Affiche les sollicitations en cours de traitement dont la qualification n’a pas encore été renseignée.'
@@ -89,7 +89,7 @@ RSpec.describe "Unqualified solicitations API" do
       create(:solicitation, qualified: true)
       create(:solicitation, status: :processed)
 
-      get "/api/v1/solicitations/unqualified", headers: headers
+      get "/api/v1/qualifications/unqualified", headers: headers
       result = response.parsed_body
 
       expect(result['metadata']['total_results']).to eq(1)
@@ -99,7 +99,7 @@ RSpec.describe "Unqualified solicitations API" do
     it 'returns the global count regardless of pagination' do
       create_list(:solicitation, 2)
 
-      get "/api/v1/solicitations/unqualified", params: { per_page: 1 }, headers: headers
+      get "/api/v1/qualifications/unqualified", params: { per_page: 1 }, headers: headers
       result = response.parsed_body
 
       expect(result['metadata']['total_results']).to eq(3)
@@ -109,10 +109,10 @@ RSpec.describe "Unqualified solicitations API" do
     it 'ignores an out of range per_page instead of trusting it' do
       create_list(:solicitation, 2)
 
-      get "/api/v1/solicitations/unqualified", params: { per_page: 0 }, headers: headers
+      get "/api/v1/qualifications/unqualified", params: { per_page: 0 }, headers: headers
       expect(response.parsed_body['data'].size).to eq(1)
 
-      get "/api/v1/solicitations/unqualified", params: { per_page: 99_999 }, headers: headers
+      get "/api/v1/qualifications/unqualified", params: { per_page: 99_999 }, headers: headers
       expect(response).to have_http_status(:ok)
       expect(response.parsed_body['data'].size).to eq(3)
     end
@@ -120,7 +120,7 @@ RSpec.describe "Unqualified solicitations API" do
     it 'paginates with the page parameter' do
       second_solicitation = create(:solicitation)
 
-      get "/api/v1/solicitations/unqualified", params: { page: 2, per_page: 1 }, headers: headers
+      get "/api/v1/qualifications/unqualified", params: { page: 2, per_page: 1 }, headers: headers
 
       expect(response.parsed_body['data'].pluck('id')).to eq([second_solicitation.id])
     end
@@ -130,7 +130,7 @@ RSpec.describe "Unqualified solicitations API" do
         full_name: "Jean Dupont", email: "jean.dupont@example.com",
         phone_number: "0612345678", siret: "12345678900011")
 
-      get "/api/v1/solicitations/unqualified", headers: headers
+      get "/api/v1/qualifications/unqualified", headers: headers
 
       expect(response.parsed_body['data'].first.keys).to contain_exactly('id', 'subject', 'description')
       expect(response.body).not_to include(identified_solicitation.full_name, identified_solicitation.email,
@@ -141,19 +141,19 @@ RSpec.describe "Unqualified solicitations API" do
       corrected_subject = create(:subject)
       solicitation.update!(diagnosis: create(:diagnosis, needs: [build(:need, subject: corrected_subject)]))
 
-      get "/api/v1/solicitations/unqualified", headers: headers
+      get "/api/v1/qualifications/unqualified", headers: headers
 
       expect(response.parsed_body['data'].first['subject']).to eq(corrected_subject.id)
     end
 
     it 'returns a correlation id in the response headers' do
-      get "/api/v1/solicitations/unqualified", headers: headers
+      get "/api/v1/qualifications/unqualified", headers: headers
 
       expect(response.headers['X-Call-Id']).to be_present
     end
 
     it 'returns a correlation id even when authentication fails' do
-      get "/api/v1/solicitations/unqualified", headers: { 'Authorization' => "Bearer token=tatayoyo" }
+      get "/api/v1/qualifications/unqualified", headers: { 'Authorization' => "Bearer token=tatayoyo" }
 
       expect(response).to have_http_status(:not_found)
       expect(response.headers['X-Call-Id']).to be_present
@@ -164,7 +164,7 @@ RSpec.describe "Unqualified solicitations API" do
       revoked_headers = headers
       institution.api_key.revoke
 
-      get "/api/v1/solicitations/unqualified", headers: revoked_headers
+      get "/api/v1/qualifications/unqualified", headers: revoked_headers
 
       expect(response).to have_http_status(:not_found)
       expect(response.body).not_to include(solicitation.description)
