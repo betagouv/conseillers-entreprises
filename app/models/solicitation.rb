@@ -163,6 +163,7 @@ class Solicitation < ApplicationRecord
   validates :origin_url, presence: true, if: -> { landing&.api? }
   validates :completed_at, presence: true, if: -> { step_complete? }
   validates :insee_code, format: { with: /\A[0-9AB]{5}\z/, message: :invalid_insee_code }, allow_blank: true
+  validates :qualification_details, presence: true, if: -> { qualified == false }, on: :qualification
 
   # Todo : à supprimer une fois que la migration api_url est passée ?
   validate if: -> { landing&.api? } do
@@ -759,8 +760,9 @@ class Solicitation < ApplicationRecord
     tag_as_spam
   end
 
-  def qualify!(qualified:, details: nil)
-    update_columns(qualified: qualified, qualification_details: details, qualified_at: Time.current)
+  def qualify(qualified:, details: nil)
+    assign_attributes(qualified: qualified, qualification_details: details, qualified_at: Time.current)
+    save(context: :qualification)
   end
 
   def self.ransackable_attributes(auth_object = nil)
