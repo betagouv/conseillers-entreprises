@@ -29,8 +29,9 @@ module  Annuaire
 
     def retrieve_antennes
       @antennes = @institution.antennes.not_deleted.apply_filters(index_search_params)
-        .preload(:experts, :advisors)
-        .distinct
+        .with_count(:experts, :advisors)
+        .order(:name)
+        .preload(:managers, :territorial_zones)
     end
   end
 end
