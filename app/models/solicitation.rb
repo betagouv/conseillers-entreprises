@@ -164,6 +164,8 @@ class Solicitation < ApplicationRecord
   validates :completed_at, presence: true, if: -> { step_complete? }
   validates :insee_code, format: { with: /\A[0-9AB]{5}\z/, message: :invalid_insee_code }, allow_blank: true
   validates :qualification_details, presence: true, if: -> { qualified == false }, on: :qualification
+  validates :qualified, inclusion: { in: [true, false] }, on: :qualification
+  validate :qualifiable_status, on: :qualification
 
   # Todo : à supprimer une fois que la migration api_url est passée ?
   validate if: -> { landing&.api? } do
@@ -761,6 +763,10 @@ class Solicitation < ApplicationRecord
   def qualify(qualified:, details: nil)
     assign_attributes(qualified: qualified, qualification_details: details, qualified_at: Time.current)
     save(context: :qualification)
+  end
+
+  def qualifiable_status
+    errors.add(:base, :not_qualifiable) unless status_in_progress?
   end
 
   def self.ransackable_attributes(auth_object = nil)

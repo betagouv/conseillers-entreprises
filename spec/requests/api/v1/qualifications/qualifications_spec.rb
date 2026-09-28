@@ -150,7 +150,7 @@ RSpec.describe "Solicitations qualifications API" do
 
       expect(response).to have_http_status(:multi_status)
       expect(response.parsed_body).to eq([
-        { 'id' => solicitation.id, 'status' => 400, 'message' => I18n.t('api_pde.errors.not_qualifiable') }
+        { 'id' => solicitation.id, 'status' => 400, 'message' => 'Verdict de qualification doit valoir true ou false' }
       ])
     end
 
@@ -159,7 +159,7 @@ RSpec.describe "Solicitations qualifications API" do
 
       expect(response).to have_http_status(:multi_status)
       expect(response.parsed_body).to eq([
-        { 'id' => solicitation.id, 'status' => 400, 'message' => I18n.t('api_pde.errors.not_qualifiable') }
+        { 'id' => solicitation.id, 'status' => 400, 'message' => 'Verdict de qualification doit valoir true ou false' }
       ])
       expect(solicitation.reload.qualified).to be_nil
     end
@@ -171,7 +171,7 @@ RSpec.describe "Solicitations qualifications API" do
 
       expect(response).to have_http_status(:multi_status)
       expect(response.parsed_body).to eq([
-        { 'id' => processed_solicitation.id, 'status' => 400, 'message' => I18n.t('api_pde.errors.not_qualifiable') }
+        { 'id' => processed_solicitation.id, 'status' => 400, 'message' => 'La sollicitation n’est pas en cours de traitement' }
       ])
       expect(processed_solicitation.reload.qualified).to be_nil
     end
