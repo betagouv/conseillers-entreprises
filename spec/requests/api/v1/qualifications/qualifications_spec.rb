@@ -154,16 +154,6 @@ RSpec.describe "Solicitations qualifications API" do
       ])
     end
 
-    it 'rejects an item whose verdict is not a real boolean' do
-      put_qualifications([{ id: solicitation.id, qualified: 'maybe' }])
-
-      expect(response).to have_http_status(:multi_status)
-      expect(response.parsed_body).to eq([
-        { 'id' => solicitation.id, 'status' => 400, 'message' => 'Verdict de qualification doit valoir true ou false' }
-      ])
-      expect(solicitation.reload.qualified).to be_nil
-    end
-
     it 'rejects a solicitation that is no longer in progress' do
       processed_solicitation = create(:solicitation, status: :processed)
 

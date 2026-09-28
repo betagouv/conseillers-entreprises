@@ -40,23 +40,13 @@ class Api::V1::QualificationsController < Api::V1::BaseController
     solicitation = solicitations[id]
     return invalid_item(id) if solicitation.nil?
 
-    if solicitation.qualify(qualified: cast_qualified(qualification[:qualified]), details: qualification[:details])
+    if solicitation.qualify(qualified: qualification[:qualified], details: qualification[:details])
       { id: id, status: 200 }
     else
       invalid_item(id, solicitation.errors.full_messages.to_sentence)
     end
   rescue ActiveRecord::ActiveRecordError
     invalid_item(id)
-  end
-
-  # The qualification service is external: it accepts only actual booleans,
-  # whereas ActiveModel::Type::Boolean would convert "maybe" or "yes" to true.
-  def cast_qualified(qualified)
-    return qualified if qualified == true || qualified == false
-    return true if qualified == 'true'
-    return false if qualified == 'false'
-
-    nil
   end
 
   def invalid_item(id, message = I18n.t('api_pde.errors.not_qualifiable'))
