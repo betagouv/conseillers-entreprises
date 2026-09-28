@@ -566,6 +566,7 @@ fr:
         provenance_detail: Détail de la source
         provenance_title: Intitulé de la source
         qualification_details: Motif de la qualification
+        qualified: Verdict de qualification
         relaunch: Relance
         requested_help_amount: Montant de l’aide demandée
         siret: SIRET
@@ -785,6 +786,10 @@ fr:
             solicitations: Vous ne pouvez pas supprimer la thématique car des sollicitations y font référence
         solicitation:
           attributes:
+            base:
+              not_qualifiable: La sollicitation n’est pas en cours de traitement
+            qualified:
+              inclusion: doit valoir true ou false
             siret:
               must_be_a_valid_siret: doit être un numéro à 14 chiffres valide
             subject_answers:

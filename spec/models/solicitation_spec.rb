@@ -822,6 +822,33 @@ end
     end
   end
 
+  describe '#qualify' do
+    let(:solicitation) { create :solicitation, status: :in_progress }
+
+    it 'records a qualification' do
+      expect(solicitation.qualify(qualified: true)).to be true
+      expect(solicitation.reload).to have_attributes(qualified: true, qualified_at: be_present)
+    end
+
+    it 'requires details for a disqualification' do
+      expect(solicitation.qualify(qualified: false)).to be false
+      expect(solicitation.errors).to be_added(:qualification_details, :blank)
+    end
+
+    it 'requires a verdict' do
+      expect(solicitation.qualify(qualified: nil)).to be false
+      expect(solicitation.errors).to be_added(:qualified, :inclusion, value: nil)
+    end
+
+    it 'rejects a solicitation that is no longer in progress' do
+      solicitation.update_columns(status: :processed)
+
+      expect(solicitation.qualify(qualified: true)).to be false
+      expect(solicitation.errors).to be_added(:base, :not_qualifiable)
+      expect(solicitation.reload.qualified).to be_nil
+    end
+  end
+
   describe 'mark_as_spam' do
     let(:solicitation) { create(:solicitation, email: email, status: 'in_progress') }
     let(:email) { Faker::Internet.email }

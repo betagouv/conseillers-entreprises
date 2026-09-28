@@ -37,11 +37,10 @@ class Api::V1::QualificationsController < Api::V1::BaseController
 
   def apply_qualification(qualification, solicitations)
     id = qualification[:id]
-    qualified = cast_qualified(qualification[:qualified])
     solicitation = solicitations[id]
-    return invalid_item(id) if qualified.nil? || solicitation.nil? || !solicitation.status_in_progress?
+    return invalid_item(id) if solicitation.nil?
 
-    if solicitation.qualify(qualified: qualified, details: qualification[:details])
+    if solicitation.qualify(qualified: cast_qualified(qualification[:qualified]), details: qualification[:details])
       { id: id, status: 200 }
     else
       invalid_item(id, solicitation.errors.full_messages.to_sentence)
