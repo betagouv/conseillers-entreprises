@@ -39,60 +39,6 @@ paths:
           description: ok
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    data:
-                    - id: 725
-                      title: Mettre en place un projet de formation
-                      slug: former
-                      landing_id: 679
-                      landing_theme_id: 739
-                      landing_theme_slug: recrutement-formation
-                      description: "<ul><li>Choisir la bonne formation</li><li>Trouver
-                        votre OPCO, financer la formation</li><li>Mettre en place
-                        un plan de formation entreprise</li><li>Se former en tant
-                        que chef d'entreprise</li><li>Former vos salariés en activité
-                        partielle grâce au FNE formation</li></ul>"
-                      description_explanation: "<ul><li>votre activité</li><li>combien
-                        de salariés vous souhaitez former</li><li>sur quelles thématiques</li><li>dans
-                        quel but</li></ul>"
-                      requires_siret: true
-                      requires_location: false
-                      questions_additionnelles: []
-                      institutions_partenaires: []
-                    - id: 724
-                      title: Recruter un ou plusieurs salariés
-                      slug: recruter
-                      landing_id: 679
-                      landing_theme_id: 739
-                      landing_theme_slug: recrutement-formation
-                      description: "<ul><li>S’informer sur les aides à l'embauche
-                        des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
-                        francs en quartiers prioritaires, le contrat de professionnalisation,
-                        le VTE Vert sur les métiers de la transition écologique</li><li>Trouver
-                        des candidats</li></ul>"
-                      description_explanation: "<ul><li>le type de poste</li><li>si
-                        l'offre est déjà connue de Pôle emploi</li><li>si vous envisagez
-                        de recruter une personne en situation de handicap</li></ul>"
-                      requires_siret: true
-                      requires_location: false
-                      questions_additionnelles:
-                      - id: 175
-                        key: recrutement_poste_cadre
-                        position: 1
-                        question: Recrutez-vous sur un poste d’ingénieur, de manager
-                          ou de niveau Bac +3 ?
-                        question_type: boolean
-                      - id: 176
-                        key: recrutement_en_apprentissage
-                        position: 2
-                        question: Recrutez-vous un apprenti ou un stagiaire ?
-                        question_type: boolean
-                      institutions_partenaires:
-                      - Chambre de Commerce et d'Industrie (CCI)
-                    metadata:
-                      total_results: 2
               schema:
                 type: object
                 properties:
@@ -132,40 +78,6 @@ paths:
           description: Sujet trouvé
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    data:
-                      id: 727
-                      title: Recruter un ou plusieurs salariés
-                      slug: recruter
-                      landing_id: 681
-                      landing_theme_id: 741
-                      landing_theme_slug: recrutement-formation
-                      description: "<ul><li>S’informer sur les aides à l'embauche
-                        des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
-                        francs en quartiers prioritaires, le contrat de professionnalisation,
-                        le VTE Vert sur les métiers de la transition écologique</li><li>Trouver
-                        des candidats</li></ul>"
-                      description_explanation: "<ul><li>le type de poste</li><li>si
-                        l'offre est déjà connue de Pôle emploi</li><li>si vous envisagez
-                        de recruter une personne en situation de handicap</li></ul>"
-                      requires_siret: true
-                      requires_location: false
-                      questions_additionnelles:
-                      - id: 177
-                        key: recrutement_poste_cadre
-                        position: 1
-                        question: Recrutez-vous sur un poste d’ingénieur, de manager
-                          ou de niveau Bac +3 ?
-                        question_type: boolean
-                      - id: 178
-                        key: recrutement_en_apprentissage
-                        position: 2
-                        question: Recrutez-vous un apprenti ou un stagiaire ?
-                        question_type: boolean
-                      institutions_partenaires:
-                      - Chambre de Commerce et d'Industrie (CCI)
               schema:
                 type: object
                 properties:
@@ -177,12 +89,6 @@ paths:
           description: Page d’atterrissage inconnue
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    errors:
-                    - source: Sujet de landing
-                      message: n’existe pas ou est invalide
               schema:
                 errors:
                   type: array
@@ -192,12 +98,6 @@ paths:
           description: Paramètres vides
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    errors:
-                    - source: paramètres de requête
-                      message: malformés ou inconnus
               schema:
                 errors:
                   type: array
@@ -228,41 +128,6 @@ paths:
           description: Sujet trouvé
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    data:
-                      id: 733
-                      title: Recruter un ou plusieurs salariés
-                      slug: recruter
-                      landing_id: 684
-                      landing_theme_id: 744
-                      landing_theme_slug: recrutement-formation
-                      description: "<ul><li>S’informer sur les aides à l'embauche
-                        des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
-                        francs en quartiers prioritaires, le contrat de professionnalisation,
-                        le VTE Vert sur les métiers de la transition écologique</li><li>Trouver
-                        des candidats</li></ul>"
-                      description_explanation: "<ul><li>le type de poste</li><li>si
-                        l'offre est déjà connue de Pôle emploi</li><li>si vous envisagez
-                        de recruter une personne en situation de handicap</li></ul>"
-                      requires_siret: true
-                      requires_location: false
-                      questions_additionnelles:
-                      - id: 183
-                        key: recrutement_poste_cadre
-                        position: 1
-                        question: Recrutez-vous sur un poste d’ingénieur, de manager
-                          ou de niveau Bac +3 ?
-                        question_type: boolean
-                      - id: 184
-                        key: recrutement_en_apprentissage
-                        position: 2
-                        question: Recrutez-vous un apprenti ou un stagiaire ?
-                        question_type: boolean
-                      institutions_partenaires:
-                      - Chambre de Commerce et d'Industrie (CCI)
-                      - OPérateur de COmpétences (OPCO)
               schema:
                 type: object
                 properties:
@@ -289,61 +154,6 @@ paths:
           description: ok
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    data:
-                    - id: 745
-                      title: Environnement, transition écologique & RSE
-                      slug: environnement-transition-ecologique
-                      description: Optimiser vos consommations d’énergie, valoriser
-                        vos déchets par la revente de matière, éco-concevoir un produit,
-                        mettre en place une démarche RSE, un plan de déplacement entreprise
-                        (PDE).
-                      landing_subjects:
-                      - id: 735
-                        title: Traitement et valorisation des déchets
-                        slug: dechets
-                        landing_id: 685
-                        landing_theme_id: 745
-                        landing_theme_slug: environnement-transition-ecologique
-                        description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
-                          vos déchets</li><li>Valoriser la revente de matières, trouver
-                          de nouveaux débouchés</li></ul>"
-                        description_explanation: "<ul><li>quelle est concrètement
-                          votre activité</li><li>ce que votre projet apporte à votre
-                          entreprise</li><li>quel accompagnement vous souhaitez (réflexion
-                          stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
-                        requires_siret: true
-                        requires_location: false
-                      - id: 736
-                        title: Gestion de l’eau
-                        slug: eau
-                        landing_id: 685
-                        landing_theme_id: 745
-                        landing_theme_slug: environnement-transition-ecologique
-                        description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
-                          la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
-                          sur votre territoire</li></ul>"
-                        description_explanation: "<ul><li>quelle est concrètement
-                          votre activité</li><li>si vous utilisez de l’eau dans votre
-                          process de fabrication</li><li>ce que votre projet apporte
-                          à votre entreprise</li><li>quel accompagnement vous souhaitez
-                          (réflexion stratégique, appui technique ou appui à la mise
-                          en oeuvre)</li></ul>"
-                        requires_siret: true
-                        requires_location: false
-                    - id: 747
-                      title: Recruter ou former vos salariés, améliorer l’organisation
-                        du travail
-                      slug: recrutement-formation
-                      description: S’informer sur les aides à l’embauche, trouver
-                        des candidats, recruter un travailleur handicapé, identifier
-                        la bonne formation, être accompagné sur la GPEC, gérer les
-                        départs en retraite.
-                      landing_subjects: []
-                    metadata:
-                      total_results: 2
               schema:
                 type: object
                 properties:
@@ -382,52 +192,6 @@ paths:
           description: Page thème trouvée
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    data:
-                      id: 750
-                      title: Environnement, transition écologique & RSE
-                      slug: environnement-transition-ecologique
-                      description: Optimiser vos consommations d’énergie, valoriser
-                        vos déchets par la revente de matière, éco-concevoir un produit,
-                        mettre en place une démarche RSE, un plan de déplacement entreprise
-                        (PDE).
-                      landing_subjects:
-                      - id: 741
-                        title: Traitement et valorisation des déchets
-                        slug: dechets
-                        landing_id: 688
-                        landing_theme_id: 750
-                        landing_theme_slug: environnement-transition-ecologique
-                        description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
-                          vos déchets</li><li>Valoriser la revente de matières, trouver
-                          de nouveaux débouchés</li></ul>"
-                        description_explanation: "<ul><li>quelle est concrètement
-                          votre activité</li><li>ce que votre projet apporte à votre
-                          entreprise</li><li>quel accompagnement vous souhaitez (réflexion
-                          stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
-                        requires_siret: true
-                        requires_location: false
-                      - id: 742
-                        title: Gestion de l’eau
-                        slug: eau
-                        landing_id: 688
-                        landing_theme_id: 750
-                        landing_theme_slug: environnement-transition-ecologique
-                        description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
-                          la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
-                          sur votre territoire</li></ul>"
-                        description_explanation: "<ul><li>quelle est concrètement
-                          votre activité</li><li>si vous utilisez de l’eau dans votre
-                          process de fabrication</li><li>ce que votre projet apporte
-                          à votre entreprise</li><li>quel accompagnement vous souhaitez
-                          (réflexion stratégique, appui technique ou appui à la mise
-                          en oeuvre)</li></ul>"
-                        requires_siret: true
-                        requires_location: false
-                    metadata:
-                      total_subjects: 2
               schema:
                 type: object
                 properties:
@@ -451,32 +215,6 @@ paths:
           description: ok
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    data:
-                    - id: 689
-                      title: Page d’atterrissage 01
-                      slug: page-atterrissage-01
-                      partner_url: https://pouros-balistreri.example
-                      landing_themes:
-                      - id: 751
-                        title: Environnement, transition écologique & RSE
-                        slug: environnement-transition-ecologique
-                        description: Optimiser vos consommations d’énergie, valoriser
-                          vos déchets par la revente de matière, éco-concevoir un
-                          produit, mettre en place une démarche RSE, un plan de déplacement
-                          entreprise (PDE).
-                      - id: 752
-                        title: Améliorer la santé et la sécurité au travail
-                        slug: sante-securite-travail
-                        description: Réviser votre document unique d’évaluation des
-                          risques professionnels, former vos salariés à la prévention
-                          des risques professionnels (DUERP), connaître les règles
-                          d’hygiène, améliorer la qualité de vie au travail pour être
-                          plus performant.
-                    metadata:
-                      total_results: 1
               schema:
                 type: object
                 properties:
@@ -495,12 +233,6 @@ paths:
           description: Mauvais token
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    errors:
-                    - source: Jeton d’API
-                      message: n’existe pas ou est invalide
               schema:
                 errors:
                   type: array
@@ -528,32 +260,6 @@ paths:
           description: Pages d’atterrissage trouvées
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    data:
-                    - id: 693
-                      title: Page d’atterrissage 01
-                      slug: page-atterrissage-01
-                      partner_url: https://stehr.test
-                      landing_themes:
-                      - id: 757
-                        title: Environnement, transition écologique & RSE
-                        slug: environnement-transition-ecologique
-                        description: Optimiser vos consommations d’énergie, valoriser
-                          vos déchets par la revente de matière, éco-concevoir un
-                          produit, mettre en place une démarche RSE, un plan de déplacement
-                          entreprise (PDE).
-                      - id: 758
-                        title: Améliorer la santé et la sécurité au travail
-                        slug: sante-securite-travail
-                        description: Réviser votre document unique d’évaluation des
-                          risques professionnels, former vos salariés à la prévention
-                          des risques professionnels (DUERP), connaître les règles
-                          d’hygiène, améliorer la qualité de vie au travail pour être
-                          plus performant.
-                    metadata:
-                      total_results: 1
               schema:
                 type: object
                 properties:
@@ -572,12 +278,6 @@ paths:
           description: Page d’atterrissage inconnue
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    errors:
-                    - source: Coopération
-                      message: n’existe pas ou est invalide
               schema:
                 errors:
                   type: array
@@ -587,12 +287,6 @@ paths:
           description: Paramètres vides
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    errors:
-                    - source: paramètres de requête
-                      message: malformés ou inconnus
               schema:
                 errors:
                   type: array
@@ -618,32 +312,6 @@ paths:
           description: Page d’atterrissage trouvée
           content:
             application/json:
-              examples:
-                test_example:
-                  value:
-                    data:
-                      id: 696
-                      title: Page d’atterrissage 01
-                      slug: page-atterrissage-01
-                      partner_url: https://wunsch.example
-                      landing_themes:
-                      - id: 763
-                        title: Environnement, transition écologique & RSE
-                        slug: environnement-transition-ecologique
-                        description: Optimiser vos consommations d’énergie, valoriser
-                          vos déchets par la revente de matière, éco-concevoir un
-                          produit, mettre en place une démarche RSE, un plan de déplacement
-                          entreprise (PDE).
-                      - id: 764
-                        title: Améliorer la santé et la sécurité au travail
-                        slug: sante-securite-travail
-                        description: Réviser votre document unique d’évaluation des
-                          risques professionnels, former vos salariés à la prévention
-                          des risques professionnels (DUERP), connaître les règles
-                          d’hygiène, améliorer la qualité de vie au travail pour être
-                          plus performant.
-                    metadata:
-                      total_themes: 2
               schema:
                 type: object
                 properties:
@@ -802,14 +470,6 @@ paths:
           description: Solicitation créée
           content:
             application/json:
-              examples:
-                solicitation_creee:
-                  value:
-                    data:
-                      solicitation_id: 576
-                      institutions_partenaires:
-                      - Chambre de Commerce et d'Industrie (CCI)
-                      - OPérateur de COmpétences (OPCO)
               schema:
                 type: object
                 properties:
@@ -821,12 +481,6 @@ paths:
           description: Paramètre "Solicitation" manquant
           content:
             application/json:
-              examples:
-                parametre_solicitation_manquant:
-                  value:
-                    errors:
-                    - source: solicitation
-                      message: le paramètre est manquant
               schema:
                 errors:
                   type: array
@@ -836,34 +490,6 @@ paths:
           description: Page introuvable
           content:
             application/json:
-              examples:
-                url_d_origine_manquante:
-                  value:
-                    errors:
-                    - source: Url page d’origine
-                      message: doit être rempli(e)
-                siret_invalide:
-                  value:
-                    errors:
-                    - source: SIRET
-                      message: doit être un numéro à 14 chiffres valide
-                un_champs_obligatoire_de_la_solicitation_manquant:
-                  value:
-                    errors:
-                    - source: Questions additionnelles
-                      message: doit être rempli(e)
-                    - source: Questions additionnelles
-                      message: doivent correspondre aux questions du sujet de la demande
-                solicitation_creee_meme_avec_de_mauvais_id_de_questions_additionnelles:
-                  value:
-                    errors:
-                    - source: Questions additionnelles
-                      message: doivent correspondre aux questions du sujet de la demande
-                page_introuvable:
-                  value:
-                    errors:
-                    - source: Page d’atterrissage
-                      message: doit être rempli(e)
               schema:
                 errors:
                   type: array
