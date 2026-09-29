@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_28_084735) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_29_115447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -20,6 +20,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_28_084735) do
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "activity_reports_categories", ["matches", "stats", "cooperation", "solicitations"]
   create_enum "feedbacks_categories", ["need", "need_reminder", "solicitation", "expert_reminder"]
+  create_enum "file_imports_entities", ["User", "Antenne"]
   create_enum "landing_subject_fields_mode", ["siret", "location"]
   create_enum "match_status", ["quo", "taking_care", "done", "done_no_help", "done_not_reachable", "not_for_me"]
   create_enum "need_status", ["diagnosis_not_complete", "quo", "taking_care", "done", "not_for_me", "done_no_help", "done_not_reachable"]
@@ -287,6 +288,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_28_084735) do
     t.index ["category"], name: "index_feedbacks_on_category"
     t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable_type_and_feedbackable_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
+  end
+
+  create_table "file_imports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.enum "entity", null: false, enum_type: "file_imports_entities"
+    t.bigint "institution_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["institution_id"], name: "index_file_imports_on_institution_id"
+    t.index ["user_id"], name: "index_file_imports_on_user_id"
   end
 
   create_table "institutions", force: :cascade do |t|
