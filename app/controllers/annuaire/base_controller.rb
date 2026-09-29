@@ -5,7 +5,8 @@ module Annuaire
     layout 'annuaire'
 
     def retrieve_institution
-      @institution = Institution.find_by(slug: params[:institution_slug].presence || params[:institution])
+      slug = params[:institution_slug].presence || params[:institution]
+      @institution = Institution.find_by!(slug: slug)
       authorize @institution
     end
 
@@ -20,7 +21,7 @@ module Annuaire
 
     def retrieve_subjects
       @subjects = if index_search_params[:theme_id].present?
-        Theme.find_by(id: index_search_params[:theme_id]).subjects
+        Theme.find(index_search_params[:theme_id]).subjects
       else
         Subject.not_archived.order(:label)
       end
