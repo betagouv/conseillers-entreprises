@@ -1,4 +1,4 @@
-module  Annuaire
+module Annuaire
   class InstitutionsController < BaseController
     before_action :retrieve_institutions, only: :index
     before_action :retrieve_subjects, only: :index

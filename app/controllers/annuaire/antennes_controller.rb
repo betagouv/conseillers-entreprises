@@ -1,4 +1,4 @@
-module  Annuaire
+module Annuaire
   class AntennesController < BaseController
     before_action :retrieve_institution
     before_action :retrieve_antennes, only: :index

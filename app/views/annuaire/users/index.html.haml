@@ -24,7 +24,7 @@
           = t('.load_all_coverage')
         %p.fr-text--sm.fr-m-0.fr-mt-1v
           %p= t('.antenne_experts_performance')
-    = render 'table', grouped_subjects: @grouped_subjects, grouped_experts: @grouped_experts, referencement_coverages: @referencement_coverages
+    = render 'table', grouped_subjects: @grouped_subjects, grouped_experts: @grouped_experts
 - else
   .fr-alert.fr-alert--info.fr-alert--sm
     %p= t('.no_users')
