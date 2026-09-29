@@ -19,6 +19,18 @@ describe CsvImport::BaseImporter, CsvImport do
 
       it { expect(result).to be_success }
     end
+
+    context "with semicolons" do
+      let(:csv) do
+        <<~CSV
+          Institution;Antenne;Prénom et nom;Email;Téléphone;Fonction
+          The Institution;The Antenne;Marie Dupont;marie.dupont@antenne.com;0123456789;Cheffe
+          ;; ;;
+        CSV
+      end
+
+      it { expect(result).to be_success }
+    end
   end
 
   describe 'automatic column separator detection' do
