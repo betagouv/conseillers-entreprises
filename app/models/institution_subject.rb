@@ -3,7 +3,7 @@
 # Table name: institutions_subjects
 #
 #  id             :bigint(8)        not null, primary key
-#  description    :string
+#  description    :string           default(""), not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  institution_id :bigint(8)        not null
@@ -72,7 +72,7 @@ class InstitutionSubject < ApplicationRecord
   #
   def unique_name
     if similar_institutions_subjects.present?
-      "#{subject.label}:#{description}" # We know description isn‘t blank, see :validate_description_presence
+      "#{subject.label}:#{description}" # We know description isn’t blank, see :validate_description_presence
     else
       subject.label
     end
