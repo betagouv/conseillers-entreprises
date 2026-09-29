@@ -1,24 +1,23 @@
 require 'rails_helper'
 
 describe CsvImport::BaseImporter, CsvImport do
-  describe 'with blank line' do
-    subject(:result) { Antenne.import_csv(csv, institution: institution) }
+  describe "ignore blank lines" do
+    subject(:result) { User.import_csv(csv, institution: institution) }
 
-    let(:institution) { create :institution, name: 'Test Institution' }
+    let(:institution) { create :institution, name: 'The Institution' }
 
-    context 'blank row' do
+    before { create :antenne, name: 'The Antenne', institution: institution }
+
+    context "with commas" do
       let(:csv) do
         <<~CSV
-          Institution,Nom,Codes INSEE,Codes EPCI,Codes départements,Codes régions
-          Test Institution,Antenne1,,,,
-          ,,
-          Test Institution,Antenne2,72110,,,
+          Institution,Antenne,Prénom et nom,Email,Téléphone,Fonction
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe
+          ,, ,,
         CSV
       end
 
-      it do
-        is_expected.to be_success
-      end
+      it { expect(result).to be_success }
     end
   end
 
