@@ -217,6 +217,13 @@ fr:
         local: Local
         national: National
         regional: Régional
+      api_key:
+        scopes: Autorisations
+      api_key/scopes:
+        all_subjects: Tous les sujets
+        landing_subjects: Landings et sujets associés
+        qualification: Qualification des sollicitations
+        solicitation_creation: Création de sollicitations
       badge/categories:
         needs: Besoins
         solicitations: Sollicitations

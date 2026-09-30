@@ -9,7 +9,7 @@ ActiveAdmin.register ApiKey do
     column :id
     column :institution
     column :scopes do |api_key|
-      api_key.scopes.join(', ')
+      api_key.scopes.map { |scope| ApiKey.human_attribute_value(:scopes, scope, disable_cast: true) }.join(', ')
     end
     column :created_at
     column :updated_at
@@ -19,7 +19,7 @@ ActiveAdmin.register ApiKey do
 
   form do |f|
     f.inputs do
-      f.input :scopes, as: :check_boxes, collection: ApiKey::SCOPES
+      f.input :scopes, as: :check_boxes, collection: ApiKey::SCOPES.index_by { |scope| ApiKey.human_attribute_value(:scopes, scope, disable_cast: true) }
     end
     f.actions
   end
