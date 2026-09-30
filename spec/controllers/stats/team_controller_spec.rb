@@ -2,13 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Stats::TeamController do
   login_admin
+  mock_landing_themes
 
   describe 'GET #matches' do
-    before do
-      # Mock footer_landing to avoid SharedController errors
-      allow(controller).to receive(:fetch_themes).and_return(nil)
-    end
-
     let(:institution) { create :institution }
     let(:antenne) { create :antenne, institution: institution }
     let(:subject_model) { create :subject }
