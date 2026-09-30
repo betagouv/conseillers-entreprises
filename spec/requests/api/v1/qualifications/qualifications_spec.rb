@@ -7,7 +7,7 @@ RSpec.describe "Solicitations qualifications API" do
   let!(:solicitation) { create(:solicitation) }
 
   describe 'batch_update' do
-    path '/api/v1/qualifications' do
+    path '/api/v1/solicitations/qualifications' do
       put 'Qualification des sollicitations' do
         tags 'Sollicitations'
         description 'Enregistre le verdict de qualification pour un lot de 100 sollicitations maximum.'
@@ -107,7 +107,7 @@ RSpec.describe "Solicitations qualifications API" do
     end
 
     def put_qualifications(payload)
-      put "/api/v1/qualifications", params: payload.to_json, headers: headers
+      put "/api/v1/solicitations/qualifications", params: payload.to_json, headers: headers
     end
 
     it 'stores the rejection details' do
