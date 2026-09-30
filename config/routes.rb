@@ -31,9 +31,9 @@ Rails.application.routes.draw do
       end
       resources :subjects, only: [:index]
       resources :solicitations, only: [:create]
-      resource :qualifications, only: [] do
+      resource :qualifications, only: [], path: "solicitations" do
         get :unqualified
-        put "/", action: :batch_update
+        put "qualifications", action: :batch_update
       end
     end
     namespace :internal do
