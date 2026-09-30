@@ -12,9 +12,10 @@ module Users
     end
 
     def configure_permitted_parameters
-      editable_attributes = %i[email full_name job phone_number antenne_id cgu_accepted_at]
-      devise_parameter_sanitizer.permit(:invite, keys: editable_attributes)
-      devise_parameter_sanitizer.permit(:accept_invitation, keys: editable_attributes)
+      invite_editable_attributes = %i[email full_name phone_number job antenne_id]
+      accept_editable_attributes = %i[full_name phone_number job cgu_accepted_at]
+      devise_parameter_sanitizer.permit(:invite, keys: invite_editable_attributes)
+      devise_parameter_sanitizer.permit(:accept_invitation, keys: accept_editable_attributes)
     end
   end
 end
