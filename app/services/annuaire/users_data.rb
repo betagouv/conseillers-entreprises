@@ -18,10 +18,21 @@ module Annuaire
     private
 
     def retrieve_experts_and_users
-      @grouped_experts = group_experts
-      retrieve_antennes_without_experts if @antenne.blank?
-      retrieve_managers_without_experts
-      retrieve_users_without_experts
+      experts = base_experts
+      experts = filtered_experts(experts)
+      grouped_experts = group_experts(experts)
+      if @antenne.blank?
+        antenne_without_experts = retrieve_antennes_without_experts
+        grouped_experts = grouped_experts.merge(antenne_without_experts)
+      end
+
+      managers_without_experts = retrieve_managers_without_experts(grouped_experts.keys)
+      grouped_experts = grouped_experts.deep_merge(managers_without_experts)
+
+      users_without_experts = retrieve_users_without_experts(grouped_experts.keys)
+      grouped_experts = grouped_experts.deep_merge(users_without_experts)
+
+      @grouped_experts = grouped_experts
     end
 
     def base_experts
@@ -39,8 +50,8 @@ module Annuaire
       experts
     end
 
-    def filtered_experts
-      experts = base_experts
+    def filtered_experts(experts)
+      experts = experts
         .not_deleted
         .by_region(@index_search_params[:region_code])
         .by_theme(@index_search_params[:theme_id])
@@ -51,9 +62,9 @@ module Annuaire
         .includes(:experts_subjects, :territorial_zones, antenne: [managers: [:experts, :user_rights_manager]], users: :user_rights_manager)
     end
 
-    def group_experts
-      filtered_experts.group_by(&:antenne).transform_values do |experts|
-        experts.index_with do |expert|
+    def group_experts(experts)
+      experts.group_by(&:antenne).transform_values do |antenne_group|
+        antenne_group.index_with do |expert|
           expert.users.presence || [User.new]
         end
       end
@@ -69,25 +80,29 @@ module Annuaire
       else
         antennes = Antenne.none
       end
+      result = {}
       antennes.includes(advisors: [:user_rights_manager], managers: [:experts, :user_rights_manager]).find_each do |antenne| # Second request is here
-        @grouped_experts[antenne] = { Expert.new => antenne.advisors } if antenne.advisors.any?
+        result[antenne] = { Expert.new => antenne.advisors } if antenne.advisors.any?
       end
+      result
     end
 
-    def retrieve_managers_without_experts # antenne: [managers: :experts]
-      @grouped_experts.each_key do |antenne|
+    def retrieve_managers_without_experts(antennes) # antenne: [managers: :experts]
+      result = {}
+      antennes.each do |antenne|
         managers_from_other_antennes = antenne.managers
         managers_from_other_antennes.each do |manager|
           next if manager.experts.any? || manager.deleted?
-          @grouped_experts[antenne][Expert.new] = [manager]
+          result[antenne] = { Expert.new => [manager] }
         end
       end
+      result
     end
 
-    def retrieve_users_without_experts
+    def retrieve_users_without_experts(antennes)
       # Note: we can’t use .where.missing(:experts), because the experts relation is customized with .not_deleted
       users_without_experts = User.not_deleted
-        .where(antenne: @grouped_experts.keys)
+        .where(antenne: antennes)
         .joins('LEFT OUTER JOIN experts_users ON experts_users.user_id = users.id')
         .where(experts_users: { expert_id: nil })
         .where.missing(:user_rights_manager)
@@ -95,11 +110,13 @@ module Annuaire
         .group_by(&:antenne_id)
 
 
-      @grouped_experts.each do |antenne, experts|
+      result = {}
+      antennes.each do |antenne|
         users_without_experts[antenne.id]&.each do |user|
-          experts[Expert.new] = [user]
+          result[antenne] = { Expert.new => [user] }
         end
       end
+      result
     end
   end
 end
