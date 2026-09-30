@@ -1,4 +1,6 @@
 class Api::V1::Landings::LandingsController < Api::V1::BaseController
+  require_api_key_scope ApiKey::LANDING_SUBJECTS
+
   def index
     landings = base_scope
     render json: landings, each_serializer: serializer, meta: { total_results: landings.size }

@@ -9,6 +9,10 @@ class Api::V1::BaseController < ActionController::API
   before_action :authenticate_with_api_key!
   around_action :set_appsignal_context
 
+  def self.require_api_key_scope(scope)
+    before_action -> { authorize_api_key_scope!(scope) }
+  end
+
   private
 
   # Correlation ID shared with callers to cross-reference logs from both sides
@@ -21,6 +25,13 @@ class Api::V1::BaseController < ActionController::API
       @current_api_key = ApiKey.authenticate_by_token! token
       @current_api_key&.institution
     end
+  end
+
+  def authorize_api_key_scope!(scope)
+    return if current_api_key&.has_scope?(scope)
+
+    errors = [{ source: I18n.t('api_pde.errors.forbidden.source'), message: I18n.t('api_pde.errors.forbidden.message') }]
+    render_error_payload(errors: errors, status: :forbidden)
   end
 
   def render_error_payload(errors: nil, status: :unprocessable_content)

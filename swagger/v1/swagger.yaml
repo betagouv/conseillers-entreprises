@@ -229,6 +229,15 @@ paths:
                         type: integer
                         description: Nombre de pages d’atterrissage pour l’organisation
                           authentifiée.
+        '403':
+          description: Token sans le scope landing_subjects
+          content:
+            application/json:
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
         '404':
           description: Mauvais token
           content:
@@ -477,6 +486,15 @@ paths:
                     type: array
                     items:
                       "$ref": "#/components/schemas/solicitation_created"
+        '403':
+          description: Token sans le scope de dépôt de sollicitation
+          content:
+            application/json:
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
         '400':
           description: Paramètre "Solicitation" manquant
           content:
@@ -527,6 +545,15 @@ paths:
                       total_results:
                         type: integer
                         description: Nombre de sujets.
+        '403':
+          description: Token sans le scope all_subjects
+          content:
+            application/json:
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
         '404':
           description: Mauvais token
           content:

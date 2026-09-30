@@ -4,7 +4,7 @@ module ApiSpecHelper
     @authentication_headers ||= { 'Authorization' => "Bearer token=#{token}" }
   end
 
-  def find_token(institution = Institution.first, scopes: [])
+  def find_token(institution = Institution.first, scopes: [ApiKey::LANDING_SUBJECTS, ApiKey::SOLICITATION_CREATION])
     token = SecureRandom.hex(32)
     if institution.api_key.present?
       institution.api_key.update(token: token, scopes: scopes)

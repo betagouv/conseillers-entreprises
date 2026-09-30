@@ -3,7 +3,7 @@ require 'swagger_helper'
 
 RSpec.describe "Subjects API" do
   let(:institution) { create(:institution) }
-  let(:Authorization) { "Bearer token=#{find_token(institution)}" }
+  let(:Authorization) { "Bearer token=#{find_token(institution, scopes: [ApiKey::ALL_SUBJECTS])}" }
   let!(:subject_01) { create(:subject, label: "Subjet 01") }
   let!(:landing_subject_01) { create(:landing_subject, title: "Landing Subject 01", subject: subject_01) }
 
@@ -50,6 +50,18 @@ RSpec.describe "Subjects API" do
             expect(result_item["label"]).to eq('Subjet 01')
             expect(result_item["landing_subjects"].size).to eq(1)
             expect(result_item["landing_subjects"].first["title"]).to eq("Landing Subject 01")
+          end
+        end
+
+        response '403', 'Token sans le scope all_subjects' do
+          schema errors: {
+            type: :array,
+            items: { '$ref': "#/components/schemas/error" }
+          }
+          let(:Authorization) { "Bearer token=#{find_token(institution, scopes: [ApiKey::LANDING_SUBJECTS])}" }
+
+          run_test! do |response|
+            expect(response.parsed_body['errors'].first['source']).to eq('Accès refusé')
           end
         end
 
