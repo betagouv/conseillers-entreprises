@@ -12,34 +12,26 @@ describe Annuaire::UsersData do
     let!(:antenne_2) { create :antenne, institution: institution_1 }
     let!(:expert_2) { create :expert, :with_expert_subjects, antenne: antenne_2 }
 
-    context 'with a user params' do
-      subject { described_class.new(institution_1, antenne_1, {}, {}, {}, {}) }
-
-      it 'return all users for the user antenne' do
-        expect(subject.send(:filtered_experts)).to contain_exactly(expert_1, expert_1_same_antenne)
-        expect(subject.send(:grouped_experts).keys).to contain_exactly(antenne_1)
-        expect(subject.send(:grouped_experts)[antenne_1].keys).to contain_exactly(expert_1, expert_1_same_antenne)
-      end
-    end
-
     context 'with an antenne params' do
-      subject { described_class.new(institution_1, antenne_1, {}, {}, {}, {}) }
+      subject { described_class.new(institution_1, antenne_1) }
 
       it 'return all users for the antenne' do
-        expect(subject.send(:filtered_experts)).to contain_exactly(expert_1, expert_1_same_antenne)
-        expect(subject.send(:grouped_experts).keys).to contain_exactly(antenne_1)
-        expect(subject.send(:grouped_experts)[antenne_1].keys).to contain_exactly(expert_1, expert_1_same_antenne)
+        expect(subject.filtered_experts).to contain_exactly(expert_1, expert_1_same_antenne)
+        expect(subject.group_experts.keys).to contain_exactly(antenne_1)
+        expect(subject.group_experts[antenne_1].keys).to contain_exactly(expert_1, expert_1_same_antenne)
       end
     end
 
     context 'with an institution params' do
-      subject { described_class.new(institution_1, nil, {}, {}, {}, {}) }
+      subject { described_class.new(institution_1, nil) }
 
       it 'return all users for the institution' do
-        expect(subject.send(:filtered_experts)).to contain_exactly(expert_1, expert_1_same_antenne, expert_2)
-        expect(subject.send(:grouped_experts).keys).to contain_exactly(antenne_1, antenne_2)
-        expect(subject.send(:grouped_experts)[antenne_1].keys).to contain_exactly(expert_1, expert_1_same_antenne)
-        expect(subject.send(:grouped_experts)[antenne_2].keys).to contain_exactly(expert_2)
+        filtered_experts = subject.filtered_experts
+        expect(filtered_experts).to contain_exactly(expert_1, expert_1_same_antenne, expert_2)
+        grouped_experts = subject.group_experts
+        expect(grouped_experts.keys).to contain_exactly(antenne_1, antenne_2)
+        expect(grouped_experts[antenne_1].keys).to contain_exactly(expert_1, expert_1_same_antenne)
+        expect(grouped_experts[antenne_2].keys).to contain_exactly(expert_2)
       end
     end
 
@@ -50,51 +42,58 @@ describe Annuaire::UsersData do
         manager.managed_antennes.push(antenne_1)
       end
 
-      subject { described_class.new(institution_1, nil, {}, {}, {}, {}) }
+      subject { described_class.new(institution_1, nil) }
 
       it 'return all users for the institution' do
-        expect(subject.send(:filtered_experts)).to contain_exactly(expert_1, expert_1_same_antenne, expert_2)
-        expect(subject.send(:grouped_experts).keys).to contain_exactly(antenne_1, antenne_2)
-        expect(subject.send(:grouped_experts)[antenne_1].keys).to contain_exactly(
-          expert_1,
+        subject.retrieve_experts_and_users
+        grouped_experts = subject.grouped_experts
+        expect(grouped_experts.keys).to contain_exactly(antenne_1, antenne_2)
+        expect(grouped_experts[antenne_1].keys).to contain_exactly(
           expert_1_same_antenne,
+          expert_1,
           an_instance_of(Expert).and(have_attributes(id: nil))
+        )
+        expect(grouped_experts[antenne_2].keys).to contain_exactly(expert_2)
+        all_users = grouped_experts.values.map(&:values).flatten
+        expect(all_users).to contain_exactly(
+          an_instance_of(User).and(have_attributes(id: nil)),
+          user_1,
+          manager,
+          an_instance_of(User).and(have_attributes(id: nil))
         )
       end
     end
   end
 
   describe "additional methods" do
-    subject { described_class.new(antenne.institution, antenne, {}, {}, {}, {}) }
+    subject { described_class.new(antenne.institution, antenne) }
 
     describe '#retrieve_users_without_experts' do
       let(:antenne) { create(:antenne) }
       let(:user_with_experts) { create(:user, antenne: antenne) }
       let!(:user_without_experts) { create(:user, antenne: antenne) }
       let!(:expert) { create(:expert, users: [user_with_experts]) }
-      let(:grouped_experts) { { antenne => {} } }
-
-      before do
-        subject.instance_variable_set(:@grouped_experts, grouped_experts)
-        subject.send(:retrieve_users_without_experts)
-      end
+      # let(:grouped_experts) { { antenne => {} } }
 
       context 'normal user' do
         it 'adds users without experts' do
-          expect(grouped_experts[antenne].keys).to include(an_instance_of(Expert))
-          expect(grouped_experts[antenne].first.last).to include(user_without_experts)
+          result = subject.retrieve_users_without_experts([antenne])
+          expect(result[antenne].keys).to include(an_instance_of(Expert))
+          expect(result[antenne].first.last).to include(user_without_experts)
         end
 
         it 'does not add users with experts' do
-          expect(grouped_experts[antenne].keys).not_to include(expert)
+          result = subject.retrieve_users_without_experts([antenne])
+          expect(result[antenne].keys).not_to include(expert)
         end
       end
 
       context 'manager' do
-        before { user_without_experts.update(managed_antennes: [create(:antenne)]) }
+        let!(:manager) { create(:user, antenne: antenne, managed_antennes: [create(:antenne)]) }
 
         it 'does not add users who manage other antennes' do
-          expect(grouped_experts[antenne].first.last).to include(user_without_experts)
+          result = subject.retrieve_users_without_experts([antenne])
+          expect(result[antenne].first.last).not_to include(manager)
         end
       end
     end
@@ -104,20 +103,17 @@ describe Annuaire::UsersData do
       let(:manager_with_experts) { create(:user, :manager, antenne: antenne) }
       let!(:manager_without_experts) { create(:user, :manager, antenne: antenne) }
       let!(:expert) { create(:expert, users: [manager_with_experts]) }
-      let(:grouped_experts) { { antenne => {} } }
-
-      before do
-        subject.instance_variable_set(:@grouped_experts, grouped_experts)
-        subject.send(:retrieve_managers_without_experts)
-      end
+      # let(:grouped_experts) { { antenne => {} } }
 
       it 'adds managers without experts' do
-        expect(grouped_experts[antenne].keys).to include(an_instance_of(Expert))
-        expect(grouped_experts[antenne].first.last).to include(manager_without_experts)
+        managers_without_experts = subject.retrieve_managers_without_experts([antenne])
+        expect(managers_without_experts[antenne].keys).to include(an_instance_of(Expert))
+        expect(managers_without_experts[antenne].first.last).to include(manager_without_experts)
       end
 
       it 'does not add managers with experts' do
-        expect(grouped_experts[antenne].keys).not_to include(expert)
+        managers_without_experts = subject.retrieve_managers_without_experts([antenne])
+        expect(managers_without_experts[antenne].keys).not_to include(expert)
       end
     end
   end
