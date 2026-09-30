@@ -1,4 +1,6 @@
 class Api::V1::SolicitationsController < Api::V1::BaseController
+  require_api_key_scope ApiKey::SOLICITATION_CREATION
+
   def create
     begin
       params = format_params(sanitize_params(solicitation_params))

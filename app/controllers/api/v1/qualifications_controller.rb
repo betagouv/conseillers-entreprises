@@ -3,7 +3,7 @@ class Api::V1::QualificationsController < Api::V1::BaseController
   MAX_PER_PAGE = 1000
   MAX_BATCH_SIZE = 100
 
-  before_action :authorize_qualification_scope!
+  require_api_key_scope ApiKey::QUALIFICATION
 
   def unqualified
     solicitations = Solicitation.unqualified.includes(:landing_subject, :needs)
@@ -27,13 +27,6 @@ class Api::V1::QualificationsController < Api::V1::BaseController
   end
 
   private
-
-  def authorize_qualification_scope!
-    return if current_api_key&.has_scope?(ApiKey::QUALIFICATION)
-
-    errors = [{ source: I18n.t('api_pde.errors.forbidden.source'), message: I18n.t('api_pde.errors.forbidden.message') }]
-    render_error_payload(errors: errors, status: :forbidden)
-  end
 
   def apply_qualification(qualification, solicitations)
     id = qualification[:id]

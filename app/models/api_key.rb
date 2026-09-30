@@ -25,8 +25,11 @@ class ApiKey < ApplicationRecord
   # for verification during a rotation period.
   HMAC_SECRET_KEYS = ENV.fetch('API_KEY_HMAC_SECRET_KEY').split(',').map(&:strip).compact_blank.freeze
   LIFETIME = 18.months
+  LANDING_SUBJECTS = 'landing_subjects'
+  ALL_SUBJECTS = 'all_subjects'
+  SOLICITATION_CREATION = 'solicitation_creation'
   QUALIFICATION = 'qualification'
-  SCOPES = [QUALIFICATION].freeze
+  SCOPES = [LANDING_SUBJECTS, ALL_SUBJECTS, SOLICITATION_CREATION, QUALIFICATION].freeze
 
   ## Associations
   #

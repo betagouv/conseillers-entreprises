@@ -69,6 +69,18 @@ RSpec.describe "Landings API" do
           end
         end
 
+        response '403', 'Token sans le scope landing_subjects' do
+          schema errors: {
+            type: :array,
+            items: { '$ref': "#/components/schemas/error" }
+          }
+          let(:Authorization) { "Bearer token=#{find_token(institution, scopes: [ApiKey::ALL_SUBJECTS])}" }
+
+          run_test! do |response|
+            expect(response.parsed_body['errors'].first['source']).to eq('Accès refusé')
+          end
+        end
+
         response '404', 'Mauvais token' do
           schema errors: {
             type: :array,
