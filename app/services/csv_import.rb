@@ -5,20 +5,20 @@ module CsvImport
   #
   # Errors reporting relies (a lot, maybe too much) on ActiveRecord validation.
   # See nested_errors_helper.rb for a UI-side helper.
-  def self.import(klass, input, preview:,  **options)
+  def self.import(klass, input, preview:, **options, &block)
     # Verify that the record klass is compliant
     raise ArgumentError unless klass.attribute_names.include? 'imported_at'
 
     # Look for an Importer class with a matching name
     importer_klass = CsvImport.const_get("#{klass}Importer")
-    importer_klass.new(input, options).import(preview)
+    importer_klass.new(input, options).import(preview, &block)
   end
 
   ## Helper method
   # Just call <ModelClass>.import_csv(<file_or_string>, <option>)
   module RecordExtension
-    def import_csv(input, preview:, **options)
-      CsvImport.import(self, input, preview: preview, **options)
+    def import_csv(input, preview:, **options, &block)
+      CsvImport.import(self, input, preview: preview, **options, &block)
     end
   end
 

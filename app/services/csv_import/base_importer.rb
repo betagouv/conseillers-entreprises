@@ -9,7 +9,7 @@ module CsvImport
       @imported_at = Time.zone.now
     end
 
-    def import(preview)
+    def import(preview, &block)
       csv = open_with_best_separator(@input) # Allow configuring the separator? Allow other file types?
       if csv.is_a? CSV::MalformedCSVError
         return Result.new(rows: [], header_errors: [csv], preprocess_errors: [], postprocess_errors: [], objects: [])
@@ -22,9 +22,9 @@ module CsvImport
       preprocess_errors = []
       postprocess_errors = []
       ActiveRecord::Base.transaction do |transaction|
-        if preview
-          transaction.before_commit { raise ActiveRecord::Rollback }
-        end
+        # if preview
+        #   transaction.before_commit { raise ActiveRecord::Rollback }
+        # end
 
         # Convert CSV rows to attributes
         objects = rows.each_with_index.map do |row|
@@ -53,7 +53,13 @@ module CsvImport
         postprocess_errors = postprocess_errors.group_by(&:message).keys
         # Validate all objects to collect errors, but rollback everything if there is one error
         all_valid = objects.map{ |object| object&.validate(:import) }
-        if postprocess_errors.present? || (all_valid.include? false || preprocess_errors.present?)
+        if postprocess_errors.present? || (all_valid.include? false) || preprocess_errors.present?
+          raise ActiveRecord::Rollback
+        end
+
+        yield if block_given?
+
+        if preview
           raise ActiveRecord::Rollback
         end
       end

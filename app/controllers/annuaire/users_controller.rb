@@ -11,17 +11,6 @@ module Annuaire
       respond_to do |format|
         format.html do
           @users_data.preload
-
-          ActiveRecord::Base.transaction do |transaction|# Transaction begins here
-            if params[:preview_import].present?
-              @result = FileImport.find(params[:preview_import]).import(false)
-            end
-
-            @users_data.preload
-
-            render :index
-            raise ActiveRecord::Rollback
-          end
         end
         format.csv do
           user_ids = @users_data.grouped_experts.values.flat_map(&:values).flatten.map(&:id).uniq
@@ -51,30 +40,6 @@ module Annuaire
         flash[:alert] = t('.invitations_no_sent')
       end
       redirect_to institution_users_path(slug: params[:institution_slug])
-    end
-
-    def import; end
-
-    def import_create
-      # if params[:import_id]
-      #   @import = FileImport.find(params[:import_id])
-      #   # @import.update(params[:mapping]) ?
-      # else
-        @import = FileImport.create(entity: User, institution: @institution, user: current_user)
-        @import.file.attach(params[:file])
-      # end
-      redirect_to action: :index, preview_import: @import
-
-      # commit = params[:commit] || false
-      # if @import.import(commit).result.success?
-      #   if commit
-      #     redirect_to action: :index, highlight_import: @import
-      #   else
-      #     render :import
-      #   end
-      # else
-      #   render :import, status: :unprocessable_content
-      # end
     end
 
     def create_territorial_coverage

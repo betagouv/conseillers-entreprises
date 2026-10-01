@@ -13,12 +13,14 @@
 ActiveRecord::Schema[8.1].define(version: 2026_09_29_115447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "activity_reports_categories", ["matches", "stats", "cooperation", "solicitations"]
+  create_enum "api_key_scope", ["landing_subjects", "all_subjects", "solicitation_creation", "qualification"]
   create_enum "feedbacks_categories", ["need", "need_reminder", "solicitation", "expert_reminder"]
   create_enum "file_imports_entities", ["User", "Antenne"]
   create_enum "landing_subject_fields_mode", ["siret", "location"]
@@ -87,6 +89,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_29_115447) do
   create_table "api_keys", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "institution_id", null: false
+    t.enum "scopes", default: [], null: false, array: true, enum_type: "api_key_scope"
     t.string "token_digest", null: false
     t.datetime "updated_at", null: false
     t.datetime "valid_until"
@@ -542,6 +545,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_29_115447) do
     t.string "phone_number"
     t.jsonb "prepare_diagnosis_errors_details", default: {}
     t.string "provenance_detail"
+    t.string "qualification_details"
+    t.boolean "qualified"
+    t.datetime "qualified_at"
     t.string "requested_help_amount"
     t.string "siret"
     t.integer "status", default: 0
@@ -550,6 +556,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_29_115447) do
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["cooperation_id"], name: "index_solicitations_on_cooperation_id"
     t.index ["email"], name: "index_solicitations_on_email"
+    t.index ["id"], name: "index_solicitations_on_unqualified", where: "((qualified IS NULL) AND (status = 3))"
     t.index ["landing_id"], name: "index_solicitations_on_landing_id"
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
     t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"

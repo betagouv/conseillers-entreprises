@@ -22,9 +22,9 @@ class FileImport < ApplicationRecord
 
   def entity_klass = entity.constantize
 
-  def import(preview)
+  def import(preview, &block)
     file.open do |f|
-      entity_klass.import_csv(f, preview: preview, institution: institution)
+      entity_klass.import_csv(f, preview: preview, institution: institution, &block)
       # how do I store result? preprocess and postprocess errors are easy, but
       # objects.errors is the interesting stuff.
       # wait I don't need to, since I just imported

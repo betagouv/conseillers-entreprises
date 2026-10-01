@@ -17,6 +17,8 @@ module Annuaire
       retrieve_subjects
       retrieve_experts_and_users
       retrieve_not_invited_users
+
+      self
     end
 
     # @returns [Hash<Theme, Hash<Subject, Array<InstitutionSubject>>>]
@@ -179,10 +181,10 @@ module Annuaire
 
     def retrieve_not_invited_users
       if @flash[:table_highlighted_ids].present?
-        User.not_deleted.where(id: @flash[:table_highlighted_ids]).where(invitation_sent_at: nil)
+        User.not_deleted.where(id: @flash[:table_highlighted_ids]).where(invitation_sent_at: nil).load
       else
         antennes = grouped_experts.keys
-        User.not_deleted.joins(:antenne).where(antenne: antennes, invitation_sent_at: nil)
+        User.not_deleted.joins(:antenne).where(antenne: antennes, invitation_sent_at: nil).load
       end
     end
   end

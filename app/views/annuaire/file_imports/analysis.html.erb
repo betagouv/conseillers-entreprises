@@ -1,0 +1,74 @@
+<% meta title: @institution.name %>
+<% content_for :header, render('header', institution: @institution) %>
+<% content_for :menu, render('menu', institution: @institution) %>
+
+<% if @result.success? %>
+  <div>
+    <%= link_to "Preview", preview_institution_file_import_path %>
+  </div>
+<% else %>
+  <div class="fr-alert fr-alert--error fr-mb-2w" role="alert">
+    <h2 class="fr-h3 fr-alert__title"><%= t('.import_failed') %></h2>
+    <% if @result.preprocess_errors.present? || @result.postprocess_errors.present? %>
+      <ul>
+        <% @result.preprocess_errors.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        <% @result.postprocess_errors.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <% if @result.header_errors.present? %>
+      <p><%= t(".unknown_headers", count: @result.header_errors.count) %></p>
+      <ul>
+        <% @result.header_errors.each do |error| %>
+          <li><%= error.message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+<% end %>
+<% if @result.rows.present? %>
+  <div class="fr-table fr-table--bordered">
+    <div class="fr-table__wrapper">
+      <div class="fr-table__container">
+        <div class="fr-table__content">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <% @result.rows.first.each_key do |header| %>
+                  <th scope="col"><%= header %></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <% @result.rows.each_with_index do |row, index| %>
+                <% object = @result.objects[index] %>
+                <% next if object.nil? %>
+                <tr>
+                  <% has_errors = object.errors.present? %>
+                  <td rowspan="<%= has_errors ? 2 : 1 %>">
+                    <%= index + 1 %>
+                  </td>
+                  <% row.each_value do |value| %>
+                    <td><%= value %></td>
+                  <% end %>
+                </tr>
+                <% if has_errors %>
+                  <tr class="red">
+                    <td class="rowspanned"></td>
+                    <td colspan="<%= row.count + 1 %>">
+                      <%= simple_format(nested_errors_messages(object)) %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

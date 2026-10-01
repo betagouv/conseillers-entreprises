@@ -1,0 +1,12 @@
+<% meta title: @institution.name %>
+<% content_for :header, render('header', institution: @institution) %>
+<% content_for :menu, render('menu', institution: @institution) %>
+
+
+<%= form_with url: institution_file_imports_url, local: true do |f| %>
+  <div class="fr-input-group fr-mt-6w">
+    <%= f.hidden_field :entity, value: "User" %>
+    <%= f.file_field :file, accept: 'text/csv', required: true, class: '' %>
+  </div>
+  <%= f.submit t('submit'), class: 'fr-btn' %>
+<% end %>
