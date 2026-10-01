@@ -2,7 +2,7 @@
 
 module Annuaire
   class UsersData
-    attr_reader :grouped_experts
+    include InstitutionsSubjectsSorter
 
     def initialize(institution, antenne, params, index_search_params, flash, session)
       @institution = institution
@@ -11,11 +11,69 @@ module Annuaire
       @index_search_params = index_search_params
       @flash = flash
       @session = session
+    end
 
+    def preload
+      retrieve_subjects
       retrieve_experts_and_users
+      retrieve_not_invited_users
+    end
+
+    # @returns [Hash<Theme, Hash<Subject, Array<InstitutionSubject>>>]
+    def grouped_subjects
+      @grouped_subjects ||= retrieve_subjects
+    end
+
+    # @returns [Array<Theme>]
+    def themes
+      grouped_subjects.keys
+    end
+
+    # @returns [Array<Subject>]
+    def subjects
+      grouped_subjects.values.map(&:keys).flatten
+    end
+
+    # @returns [Array<InstitutionSubject>]
+    def institutions_subjects
+      grouped_subjects.values.map(&:values).flatten
+    end
+
+    # @returns [Hash<Antenne, Hash<Expert, Array<User>>>]
+    def grouped_experts
+      @grouped_experts ||= retrieve_experts_and_users
+    end
+
+    # @returns [Array<Antenne>]
+    def antennes
+      grouped_experts.keys
+    end
+
+    # @returns [Array<Expert>]
+    def experts
+      grouped_experts.values.map(&:keys).flatten
+    end
+
+    # @returns [Array<User>]
+    def users
+      grouped_experts.values.map(&:values).flatten
+    end
+
+    # @returns [Array<User>]
+    def not_invited_users
+      @not_invited_users ||= retrieve_not_invited_users
     end
 
     private
+
+    def retrieve_subjects
+      institutions_subjects_by_theme = @institution.institutions_subjects
+        .includes(:subject, :experts_subjects, :not_deleted_experts, theme: [:territorial_zones, :cooperations])
+        .sort { |a, b| compare_institution_subjects(a, b) }
+        .group_by(&:theme)
+        .to_h
+      @grouped_subjects = institutions_subjects_by_theme.transform_values{ |is| is.group_by(&:subject) }
+    end
 
     def retrieve_experts_and_users
       experts = base_experts
@@ -117,6 +175,15 @@ module Annuaire
         end
       end
       result
+    end
+
+    def retrieve_not_invited_users
+      if @flash[:table_highlighted_ids].present?
+        User.not_deleted.where(id: @flash[:table_highlighted_ids]).where(invitation_sent_at: nil)
+      else
+        antennes = grouped_experts.keys
+        User.not_deleted.joins(:antenne).where(antenne: antennes, invitation_sent_at: nil)
+      end
     end
   end
 end
