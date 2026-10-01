@@ -7,6 +7,10 @@ class InstitutionPolicy < ApplicationPolicy
     admin?
   end
 
+  def form?
+    admin?
+  end
+
   def subjects?
     admin?
   end
