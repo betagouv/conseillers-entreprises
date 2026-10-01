@@ -7,7 +7,7 @@
           = f.label :institution_id, class: 'fr-label' do
             = t('activerecord.models.institution.one')
           = f.collection_select :institution_id, filters[:institutions], :id, :name, { selected: params[:institution_id],
-          include_blank: t('all.feminine') }, class: "fr-select"
+          include_blank: filters[:include_blank_institution] && t('all.feminine') }, class: "fr-select"
 
     .fr-col-12.fr-col-md-4
       .fr-input-group
