@@ -31,6 +31,10 @@ Rails.application.routes.draw do
       end
       resources :subjects, only: [:index]
       resources :solicitations, only: [:create]
+      resource :qualifications, only: [], path: "solicitations" do
+        get :unqualified
+        put "qualifications", action: :batch_update
+      end
     end
     namespace :internal do
       get 'communes/search', to: 'communes#search', as: :communes_search

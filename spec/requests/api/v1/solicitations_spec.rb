@@ -102,6 +102,29 @@ RSpec.describe "Solicitations API" do
           end
         end
 
+        context 'Token sans le scope de dépôt de sollicitation' do
+          response '403', 'Token sans le scope de dépôt de sollicitation' do
+            schema errors: {
+              type: :array,
+                   items: {
+                     '$ref': "#/components/schemas/error"
+                   }
+            }
+            let(:Authorization) { "Bearer token=#{find_qualification_token(institution)}" }
+            let(:solicitation) { { solicitation: base_solicitation } }
+
+            before do |example|
+              submit_request(example.metadata)
+            end
+
+            it 'returns a 403 response without creating a solicitation' do |example|
+              expect(response).to have_http_status(:forbidden)
+              expect(response.parsed_body['errors'].first['source']).to eq('Accès refusé')
+              expect(Solicitation.count).to eq 0
+            end
+          end
+        end
+
         context 'Paramètre "Solicitation" manquant' do
           response '400', 'Paramètre "Solicitation" manquant' do
             schema errors: {
