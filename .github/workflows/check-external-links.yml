@@ -1,0 +1,37 @@
+name: "Check external links"
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+jobs:
+  links:
+    permissions:
+      contents: read
+      issues: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+      - name: Check links
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          fail: false
+          args: >-
+            --no-progress
+            --max-retries 3
+            --timeout 30
+            --user-agent 'Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0'
+            --exclude '[#%]\{'
+            --exclude 'info\.gouv\.fr'
+            --exclude 'googletagmanager\.com'
+            'app/views/**/*.haml'
+            'app/views/**/*.erb'
+            'config/locales/**/*.yml'
+      - name: Create issue
+        if: steps.lychee.outputs.exit_code != 0
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: 'Liens externes cassés'
+          content-filepath: ./lychee/out.md
