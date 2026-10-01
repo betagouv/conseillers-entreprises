@@ -261,11 +261,6 @@ Rails.application.routes.draw do
   scope :annuaire, module: :annuaire do
     get '/', to: redirect('/annuaire/institutions')
 
-    concern :importable do
-      get :import, on: :collection
-      post :import, action: :import_create, on: :collection
-    end
-
     controller :search do
       post :search, as: 'annuaire_search'
       get :autocomplete, as: 'annuaire_autocomplete'
@@ -274,14 +269,21 @@ Rails.application.routes.draw do
 
     resources :institutions, param: :slug, only: %i[index show] do
       resources :subjects, path: 'domaines', only: :index
-      resources :users, path: 'conseillers', only: :index, concerns: [:importable] do
+      resources :users, path: 'conseillers', only: :index do
         collection do
           post :send_invitations
           get :create_territorial_coverage
         end
       end
-      resources :antennes, only: :index, concerns: [:importable] do
+      resources :antennes, only: :index do
         resources :users, path: 'conseillers', only: :index
+      end
+      resources :file_imports, only: %i[new create update] do
+        member do
+          get :analysis
+          get :preview
+          put :commit
+        end
       end
     end
   end

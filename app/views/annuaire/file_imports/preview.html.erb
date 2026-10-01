@@ -1,0 +1,25 @@
+<% meta title: @institution.name %>
+<% content_for :header, render('header', institution: @institution) %>
+<% content_for :menu, render('menu', institution: @institution) %>
+
+
+<%= link_to "Commit", commit_institution_file_import_path, method: :put %>
+
+<% if @users_data.grouped_experts.present? %>
+  <div data-controller="coverage">
+    <% if large_search?(@users_data.grouped_experts, @users_data.grouped_subjects) %>
+      <div class="coverage-controls fr-mb-2w">
+        <button class="fr-btn fr-btn--secondary load-all-coverage" data-antenne-id="<%= params[:antenne_id].to_i %>" data-action="click->coverage#loadAll" data-loading-text="<%= t('.loading_coverages') %>" data-progress-text="<%= t('.loading_progress') %>">
+          <%= t('.load_all_coverage') %>
+        </button>
+        <p class="fr-text--sm fr-m-0 fr-mt-1v"></p>
+        <p><%= t('.antenne_experts_performance') %></p>
+      </div>
+    <% end %>
+    <%= render 'annuaire/users/table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts %>
+  </div>
+<% else %>
+  <div class="fr-alert fr-alert--info fr-alert--sm">
+    <p><%= t('.no_users') %></p>
+  </div>
+<% end %>
