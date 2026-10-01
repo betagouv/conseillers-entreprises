@@ -76,7 +76,7 @@ module CsvImport
           # @input is a string:
           CSV.new(input, **common_options).read
         end
-      rescue CSV::MalformedCSVError => e
+      rescue CSV::MalformedCSVError => e # just raise?
         return e
       end
     end
