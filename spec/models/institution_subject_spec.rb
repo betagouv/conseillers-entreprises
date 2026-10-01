@@ -69,14 +69,21 @@ RSpec.describe InstitutionSubject do
     end
   end
 
-  describe 'find_with_name' do
-    subject { described_class.find_with_name(institution, label) }
+  describe 'flexible_find' do
+    subject { described_class.flexible_find(institution, label) }
 
     let(:institution) { create :institution, name: 'The Institution' }
     let(:theme) { create :theme, label: 'The Theme' }
     let(:the_subject) { create :subject, label: 'The Subject', theme: theme }
+    let(:the_other_subject) { create :subject, label: 'The Other Subject', theme: theme }
+    let(:cooperation) { create :cooperation, name: "La cooperation" }
     let!(:is1) { create :institution_subject, institution: institution, subject: the_subject, description: 'First IS' }
     let!(:is2) { create :institution_subject, institution: institution, subject: the_subject, description: 'Second IS' }
+    let!(:is3) { create :institution_subject, institution: institution, subject: the_other_subject }
+
+    before do
+      theme.cooperations << cooperation
+    end
 
     context 'label is not found' do
       let(:label) { 'other' }
@@ -94,6 +101,18 @@ RSpec.describe InstitutionSubject do
       let(:label) { 'The Subject' }
 
       it{ is_expected.to be_nil }
+    end
+
+    context 'label includes cooperation name' do
+      let(:label) { 'The Other Subject (La cooperation)' }
+
+      it{ is_expected.to eq is3 }
+    end
+
+    context 'label includes extra spaces and case' do
+      let(:label) { 'the  other subject  (LA COOPERATION)' }
+
+      it{ is_expected.to eq is3 }
     end
   end
 end

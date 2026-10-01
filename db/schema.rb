@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_22_103000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_28_084735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -310,7 +310,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_22_103000) do
 
   create_table "institutions_subjects", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
-    t.string "description"
+    t.string "description", default: "", null: false
     t.bigint "institution_id", null: false
     t.bigint "subject_id", null: false
     t.datetime "updated_at", precision: nil, null: false

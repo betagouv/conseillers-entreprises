@@ -3,7 +3,7 @@
 # Table name: institutions_subjects
 #
 #  id             :bigint(8)        not null, primary key
-#  description    :string
+#  description    :string           default(""), not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  institution_id :bigint(8)        not null
@@ -72,16 +72,16 @@ class InstitutionSubject < ApplicationRecord
   #
   def unique_name
     if similar_institutions_subjects.present?
-      "#{subject.label}:#{description}" # We know description isn‘t blank, see :validate_description_presence
+      "#{subject.label}:#{description}" # We know description isn’t blank, see :validate_description_presence
     else
       subject.label
     end
   end
 
-  def self.find_with_name(institution, name)
+  def self.flexible_find(institution, name)
     return nil if name.nil?
 
-    clean_name = name.downcase.strip
+    clean_name = name.downcase.squish
 
     matches = institution.institutions_subjects.preload(:subject, :theme).filter do |institution_subject|
       institution_subject.possible_names.include? clean_name
@@ -92,14 +92,17 @@ class InstitutionSubject < ApplicationRecord
   end
 
   def possible_names
-    cooperation_names = theme.cooperations.pluck(:name).join(', ')
+    cooperations_clean = theme.cooperations.map{ it.name.downcase.squish }.join(', ')
+    theme_clean = theme.label.downcase.squish
+    subject_clean = subject.label.downcase.squish
+    description_clean = description.downcase.squish
     [
-      "#{theme.label}:#{subject.label}:#{description}".downcase.strip,
-      "#{subject.label}:#{description}".downcase.strip,
-      description&.downcase.strip,
-      subject.label.downcase.strip,
-      "#{subject.label} (#{cooperation_names})".downcase.strip,
-      theme.label.downcase.strip
+      "#{theme_clean}:#{subject_clean}:#{description_clean}",
+      "#{subject_clean}:#{description_clean}",
+      description_clean,
+      subject_clean,
+      "#{subject_clean} (#{cooperations_clean})",
+      theme_clean
     ]
   end
 
