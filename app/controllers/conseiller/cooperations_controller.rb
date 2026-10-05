@@ -30,12 +30,11 @@ class Conseiller::CooperationsController < ApplicationController
   end
 
   def matches
-    if current_user.is_sponsor?
-      init_filters(institutions: current_user.sponsored_institutions)
-    else
-      init_filters
-    end
-    set_stats_params(cooperation_id: @cooperation.id)
+    institutions = matches_institutions
+    institution = institutions.find_by(id: stats_filter_params[:institution_id])
+    institution ||= institutions.first unless current_user.is_admin?
+    init_filters(institutions: institutions, include_blank_institution: current_user.is_admin?)
+    set_stats_params(cooperation_id: @cooperation.id, institution_id: institution&.id)
     @charts_names = CHART_NAMES[:matches]
   end
 
@@ -77,7 +76,18 @@ class Conseiller::CooperationsController < ApplicationController
     authorize @cooperation
   end
 
-  def init_filters(institutions: nil)
+  def matches_institutions
+    if current_user.is_admin?
+      managers_institution_ids = @cooperation.managers.joins(:antenne).pluck('antennes.institution_id')
+      Institution.where(id: [@cooperation.institution_id, *managers_institution_ids]).order(:name)
+    elsif current_user.is_sponsor?
+      current_user.sponsored_institutions.order(:name)
+    else
+      Institution.where(id: current_user.institution)
+    end
+  end
+
+  def init_filters(institutions: nil, include_blank_institution: false)
     themes = @cooperation.themes.select(:id, :label).order(:label)
     subjects = @cooperation.subjects.not_archived.order(:label)
 
@@ -89,6 +99,7 @@ class Conseiller::CooperationsController < ApplicationController
       themes: themes.uniq,
       subjects: subjects.uniq,
       institutions: institutions&.uniq,
+      include_blank_institution: include_blank_institution,
       regions: RegionOrderingService.call
     }
   end
