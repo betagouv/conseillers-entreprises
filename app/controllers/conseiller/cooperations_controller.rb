@@ -30,19 +30,11 @@ class Conseiller::CooperationsController < ApplicationController
   end
 
   def matches
-    if current_user.is_admin?
-      institutions = matches_institutions
-      init_filters(institutions: institutions, include_blank_institution: true)
-      institution_id = institutions.find_by(id: stats_filter_params[:institution_id])&.id
-    elsif current_user.is_sponsor?
-      institutions = current_user.sponsored_institutions.order(:name)
-      init_filters(institutions: institutions)
-      institution_id = (institutions.find_by(id: stats_filter_params[:institution_id]) || institutions.first)&.id
-    else
-      init_filters(institutions: Array(current_user.institution))
-      institution_id = current_user.institution&.id
-    end
-    set_stats_params(cooperation_id: @cooperation.id, institution_id: institution_id)
+    institutions = matches_institutions
+    institution = institutions.find_by(id: stats_filter_params[:institution_id])
+    institution ||= institutions.first unless current_user.is_admin?
+    init_filters(institutions: institutions, include_blank_institution: current_user.is_admin?)
+    set_stats_params(cooperation_id: @cooperation.id, institution_id: institution&.id)
     @charts_names = CHART_NAMES[:matches]
   end
 
@@ -85,8 +77,14 @@ class Conseiller::CooperationsController < ApplicationController
   end
 
   def matches_institutions
-    managers_institution_ids = @cooperation.managers.not_deleted.joins(:antenne).pluck('antennes.institution_id')
-    Institution.where(id: [@cooperation.institution_id, *managers_institution_ids]).order(:name)
+    if current_user.is_admin?
+      managers_institution_ids = @cooperation.managers.not_deleted.joins(:antenne).pluck('antennes.institution_id')
+      Institution.where(id: [@cooperation.institution_id, *managers_institution_ids]).order(:name)
+    elsif current_user.is_sponsor?
+      current_user.sponsored_institutions.order(:name)
+    else
+      Institution.where(id: current_user.institution)
+    end
   end
 
   def init_filters(institutions: nil, include_blank_institution: false)
