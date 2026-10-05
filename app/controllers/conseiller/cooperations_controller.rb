@@ -78,7 +78,7 @@ class Conseiller::CooperationsController < ApplicationController
 
   def matches_institutions
     if current_user.is_admin?
-      managers_institution_ids = @cooperation.managers.not_deleted.joins(:antenne).pluck('antennes.institution_id')
+      managers_institution_ids = @cooperation.managers.joins(:antenne).pluck('antennes.institution_id')
       Institution.where(id: [@cooperation.institution_id, *managers_institution_ids]).order(:name)
     elsif current_user.is_sponsor?
       current_user.sponsored_institutions.order(:name)
