@@ -898,7 +898,7 @@ fr:
       see_breadcrumb: Voir le fil d’Ariane
       you_are_here: 'Vous êtes ici :'
     password_tips:
-      tips_html: 'Astuce : utiliser une phrase comme votre mot de passe (« phrase de passe ») ou un <a href="https://www.cybermalveillance.gouv.fr/medias/2024/05/220721_FichePratique_MotsDePasse_SCREEN.pdf" target="_blank" rel="noopener">gestionnaire de mot de passe</a>. Les consignes de mot de passe visent à assurer la sécurité du service.'
+      tips_html: 'Astuce : utiliser une phrase comme votre mot de passe (« phrase de passe ») ou un <a href="https://www.cybermalveillance.gouv.fr/medias/2024/05/220721_FichePratique_MotsDePasse_SCREEN.pdf" target="_blank" rel="noopener">gestionnaire de mot de passe</a>. Découvrez également les <a href="https://www.cybermalveillance.gouv.fr/tous-nos-contenus/bonnes-pratiques/10-mesures-essentielles-assurer-securite-numerique" title="Les 10 mesures essentielles de sécurité numérique - ouvre une nouvelle fenêtre" target="_blank" rel="noopener">10 mesures essentielles</a> pour assurer votre cybersécurité.'
     skiplinks:
       content: Contenu
       fast_access: Accès rapide
