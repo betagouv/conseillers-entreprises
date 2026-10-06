@@ -897,4 +897,34 @@ end
       it { is_expected.to eq 'Landing Subject 2 Title' }
     end
   end
+
+  describe 'final_subject_answers' do
+    subject(:final_subject_answers) { solicitation.final_subject_answers }
+
+    let(:subject_1) { create :subject }
+    let(:solicitation) { create :solicitation, landing_subject: create(:landing_subject, subject: subject_1) }
+    let!(:solicitation_answer) do
+      create :solicitation_subject_answer, subject_questionable: solicitation, subject_question: create(:subject_question, subject: subject_1)
+    end
+
+    context 'with only landing_subject' do
+      it { is_expected.to contain_exactly(solicitation_answer) }
+    end
+
+    context 'with a need on another subject with questions' do
+      let(:subject_2) { create :subject }
+      let(:need) { create :need, subject: subject_2, diagnosis: create(:diagnosis, solicitation: solicitation) }
+      let!(:need_answer) do
+        create :need_subject_answer, subject_questionable: need, subject_question: create(:subject_question, subject: subject_2)
+      end
+
+      it { is_expected.to contain_exactly(need_answer) }
+    end
+
+    context 'with a need on another subject without questions' do
+      let!(:need) { create :need, subject: create(:subject), diagnosis: create(:diagnosis, solicitation: solicitation) }
+
+      it { is_expected.to be_empty }
+    end
+  end
 end
