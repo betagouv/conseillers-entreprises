@@ -99,7 +99,7 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def ordered_solicitations(status, order = :asc)
     Solicitation
-      .includes(:badges, :diagnosis, :facility,
+      .includes(:badges, :diagnosis, :facility, :needs,
         feedbacks: { user: :antenne },
         landing_subject: :subject,
         subject_answers: :subject_question)

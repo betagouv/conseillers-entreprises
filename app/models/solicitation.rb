@@ -634,8 +634,8 @@ class Solicitation < ApplicationRecord
     end
   end
 
-  # Le besoin qui représente la sollicitation, partagé par `final_landing_subject` et
-  # `final_subject_id` pour que les deux ne divergent pas.
+  # Le besoin qui représente la sollicitation, partagé par les méthodes `final_*`
+  # pour qu'elles ne divergent pas.
   def matching_need
     needs.min_by(&:id)
   end
@@ -660,6 +660,11 @@ class Solicitation < ApplicationRecord
   # déclinaison éditoriale à afficher, on a déjà l'identifiant sous la main : pas de requête de repli.
   def final_subject_id
     matching_need&.subject_id || landing_subject&.subject_id
+  end
+
+  # Les réponses suivent le sujet affiché : celles du besoin dès qu'il existe, car c'est lui qu'on modifie.
+  def final_subject_answers
+    (matching_need || self).subject_answers
   end
 
   # Provenance
