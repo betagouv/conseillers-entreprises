@@ -71,7 +71,7 @@ module Annuaire
 
     def retrieve_subjects
       institutions_subjects_by_theme = @institution.institutions_subjects
-        .includes(:subject, :experts_subjects, :not_deleted_experts, theme: [:territorial_zones, :cooperations])
+        .includes(:subject, :experts_subjects, :not_deleted_experts, :similar_institutions_subjects, theme: [:territorial_zones, :cooperations])
         .strict_loading!
         .sort { |a, b| compare_institution_subjects(a, b) }
         .group_by(&:theme)
@@ -100,7 +100,7 @@ module Annuaire
       @base_experts
         .joins(:antenne)
         .order('antennes.name', 'experts.full_name')
-        .includes(:experts_subjects, :territorial_zones, antenne: [managers: [:experts, :user_rights_manager]], users: :user_rights_manager)
+        .includes(:experts_subjects, :territorial_zones, antenne: [:territorial_zones, :parent_antenne, :child_antennes, :institution, managers: [:experts, :user_rights_manager]], users: :user_rights_manager)
         .strict_loading!
     end
 
