@@ -26,6 +26,7 @@
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
 #  phone_number           :string
+#  proconnect_sub         :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -44,6 +45,7 @@
 #  index_users_on_invitations_count     (invitations_count)
 #  index_users_on_inviter_id            (inviter_id)
 #  index_users_on_last_active_at        (last_active_at)
+#  index_users_on_proconnect_sub        (proconnect_sub) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 # Foreign Keys
@@ -65,7 +67,8 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :async,
          :validatable,
-         :invitable, invited_by_class_name: 'User', validate_on_invite: true
+         :invitable, :omniauthable,
+         invited_by_class_name: 'User', validate_on_invite: true, omniauth_providers: [:proconnect]
 
   attr_accessor :cgu_accepted, :create_expert
 
