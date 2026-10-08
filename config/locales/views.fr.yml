@@ -1404,6 +1404,9 @@ fr:
       password: Mot de passe
       subjects: Domaines d’intervention
       teams: 'Équipes :'
+    omniauth_callbacks:
+      proconnect:
+        unknown_account: Aucun compte conseiller n’est associé à votre adresse email ProConnect.
     registrations:
       antenne:
         antenne_within_institution: Antenne (au sein de %{institution})

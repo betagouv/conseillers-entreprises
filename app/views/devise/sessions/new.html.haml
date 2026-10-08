@@ -8,6 +8,14 @@
   .fr-grid-row.fr-grid-row--center.fr-grid-row--gutters.fr-mb-5w
     .fr-col-12.fr-col-md-10.fr-col-lg-8
       %h1.fr-mb-5w= t('advisor_sign_in')
+      - if ENV['PROCONNECT_CLIENT_ID'].present?
+        .fr-connect-group.text-center
+          = button_to user_proconnect_omniauth_authorize_path, class: 'fr-connect fr-connect--pro', data: { turbo: false } do
+            %span.fr-connect__login= t('.proconnect_login')
+            %span.fr-connect__brand= t('.proconnect_brand')
+          %p
+            = link_to t('.what_is_proconnect'), 'https://www.proconnect.gouv.fr/', target: '_blank', rel: 'noopener', title: t('.what_is_proconnect_title')
+        %p.fr-hr-or= t('.or')
       = form_for resource, as: resource_name, url: session_path(resource_name), html: { data: { turbo: false } } do |f|
         .fr-fieldset
           .fr-fieldset__element

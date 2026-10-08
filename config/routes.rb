@@ -48,7 +48,9 @@ Rails.application.routes.draw do
              path: 'mon_compte',
              controllers: {
                registrations: 'users/registrations',
-               invitations: 'users/invitations'
+               invitations: 'users/invitations',
+               sessions: 'users/sessions',
+               omniauth_callbacks: 'users/omniauth_callbacks'
              },
              skip: [:registrations]
 
