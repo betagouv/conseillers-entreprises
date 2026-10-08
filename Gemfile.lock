@@ -110,6 +110,7 @@ GEM
       activesupport (>= 6.1)
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
+    aes_key_wrap (1.1.0)
     anbt-sql-formatter (0.1.2)
     annotaterb (4.25.0)
       activerecord (>= 6.0.0)
@@ -156,6 +157,7 @@ GEM
     base64 (0.3.0)
     bcrypt (3.1.22)
     bigdecimal (4.1.3)
+    bindata (3.0.1)
     bindex (0.8.1)
     bootsnap (1.26.0)
       msgpack (~> 1.5)
@@ -258,6 +260,14 @@ GEM
       railties (>= 6.1.0)
     faker (3.8.0)
       i18n (>= 1.8.11, < 2)
+    faraday (2.14.4)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-follow_redirects (0.5.0)
+      faraday (>= 1, < 3)
+    faraday-net_http (3.4.4)
+      net-http (~> 0.5)
     ffi (1.17.4-arm64-darwin)
     ffi (1.17.4-x86_64-linux-gnu)
     fiber-annotation (0.2.0)
@@ -300,6 +310,8 @@ GEM
       actionpack (>= 7.0)
       activesupport (>= 7.0)
     hashdiff (1.2.1)
+    hashie (5.1.0)
+      logger
     highcharts-rails (6.0.3)
       railties (>= 3.1)
     highline (3.1.2)
@@ -350,6 +362,13 @@ GEM
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
     json (2.21.2)
+    json-jwt (1.17.2)
+      activesupport (>= 4.2)
+      aes_key_wrap
+      base64
+      bindata
+      faraday (~> 2.0)
+      faraday-follow_redirects
     json-schema (6.2.0)
       addressable (~> 2.8)
       bigdecimal (>= 3.1, < 5)
@@ -406,6 +425,9 @@ GEM
       prism (~> 1.5)
     mjml-rails (5.0.0)
     msgpack (1.8.5)
+    net-http (0.10.0)
+      net-protocol (>= 0.3.0)
+      uri (>= 0.11.1)
     net-imap (0.6.7)
       date
       net-protocol
@@ -420,6 +442,18 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.4-x86_64-linux-gnu)
       racc (~> 1.4)
+    omniauth (2.1.4)
+      hashie (>= 3.4.6)
+      logger
+      rack (>= 2.2.3)
+      rack-protection
+    omniauth-proconnect (0.6.2)
+      faraday (~> 2)
+      json-jwt (~> 1)
+      omniauth
+    omniauth-rails_csrf_protection (2.0.1)
+      actionpack (>= 4.2)
+      omniauth (~> 2.0)
     openssl (4.0.2)
     options (2.3.2)
     orm_adapter (0.5.0)
@@ -462,6 +496,10 @@ GEM
     rack (3.2.7)
     rack-attack (6.8.0)
       rack (>= 1.0, < 4)
+    rack-protection (4.2.1)
+      base64 (>= 0.1.0)
+      logger (>= 1.6.0)
+      rack (>= 3.0.0, < 4)
     rack-session (2.1.2)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -784,6 +822,8 @@ DEPENDENCIES
   matrix
   metamagic
   mjml-rails
+  omniauth-proconnect
+  omniauth-rails_csrf_protection
   openssl
   ostruct
   parallel

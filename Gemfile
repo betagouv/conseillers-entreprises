@@ -69,6 +69,8 @@ gem 'mjml-rails'
 gem 'progress_bar'
 gem 'decoupage_administratif'
 gem 'parallel'
+gem 'omniauth-proconnect'
+gem 'omniauth-rails_csrf_protection'
 
 # Notifiers
 gem 'appsignal'
