@@ -592,7 +592,7 @@ fr:
     prefets_regions: Préfet région %{name}
     regions: Conseil régional %{name}
     republique_francaise: République française
-    title: 'Le Service Public Conseillers entreprises est porté par les services du Premier ministre, le ministère du Travail et le ministère de l’Économie, en partenariat avec :'
+    title: 'Le Service Public Conseillers entreprises est porté par les services du Premier ministre et le ministère du Travail, en partenariat avec :'
   manager:
     needs:
       index:
