@@ -100,7 +100,7 @@ module Annuaire
       @base_experts
         .joins(:antenne)
         .order('antennes.name', 'experts.full_name')
-        .includes(:experts_subjects, :territorial_zones, antenne: [managers: [:experts, :user_rights_manager]], users: :user_rights_manager)
+        .includes(:experts_subjects, :territorial_zones, antenne: [:territorial_zones, :parent_antenne, :child_antennes, :institution, managers: [:experts, :user_rights_manager]], users: :user_rights_manager)
         .strict_loading!
     end
 

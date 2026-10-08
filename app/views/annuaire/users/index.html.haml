@@ -6,15 +6,15 @@
 
 = render 'import_buttons'
 
-- if @not_invited_users.present?
+- if @users_data.not_invited_users.present?
   = form_with url: send_invitations_institution_users_path, local: true do |f|
-    = f.hidden_field :users_ids, value: @not_invited_users.map(&:id)
+    = f.hidden_field :users_ids, value: @users_data.not_invited_users.map(&:id)
     = f.hidden_field :slug, value: params[:institution_slug]
-    = f.submit t('.send_invitations', count: @not_invited_users.length), class: 'fr-btn fr-mb-2w fr-ml-2w'
+    = f.submit t('.send_invitations', count: @users_data.not_invited_users.length), class: 'fr-btn fr-mb-2w fr-ml-2w'
 
-- if @grouped_experts.present?
+- if @users_data.grouped_experts.present?
   %div{ data: { controller: 'coverage' } }
-    - if large_search?(@grouped_experts, @grouped_subjects)
+    - if large_search?(@users_data.grouped_experts, @users_data.grouped_subjects)
       .coverage-controls.fr-mb-2w
         %button.fr-btn.fr-btn--secondary.load-all-coverage{ data: {
           antenne_id: params[:antenne_id].to_i,
@@ -24,7 +24,7 @@
           = t('.load_all_coverage')
         %p.fr-text--sm.fr-m-0.fr-mt-1v
           %p= t('.antenne_experts_performance')
-    = render 'table', grouped_subjects: @grouped_subjects, grouped_experts: @grouped_experts
+    = render 'table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts
 - else
   .fr-alert.fr-alert--info.fr-alert--sm
     %p= t('.no_users')
