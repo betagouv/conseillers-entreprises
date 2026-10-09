@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe CsvImport::UserImporter, CsvImport do
-  subject(:result) { User.import_csv(csv, institution: institution) }
+  subject(:result) { described_class.import(csv, institution: institution) }
 
   let(:institution) { create :institution, name: 'The Institution' }
   let(:theme) { create :theme, label: 'The Theme' }
@@ -419,7 +419,7 @@ describe CsvImport::UserImporter, CsvImport do
     end
 
     before do
-      User.import_csv(first_csv, institution: institution)
+      described_class.import(first_csv, institution: institution)
     end
 
     it do
@@ -524,7 +524,7 @@ describe CsvImport::UserImporter, CsvImport do
       CSV
     end
 
-    before { User.import_csv(initial_state, institution: institution) }
+    before { described_class.import(initial_state, institution: institution) }
 
     context 'who has no subject' do
       let(:csv) do

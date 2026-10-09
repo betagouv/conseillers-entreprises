@@ -407,5 +407,5 @@ Rails.application.routes.draw do
   }
 
   ## Handle 404 properly
-  get '*unmatched_route', :to => 'shared#not_found'
+  # get '*unmatched_route', :to => 'shared#not_found'
 end

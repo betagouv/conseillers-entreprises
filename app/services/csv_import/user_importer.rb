@@ -1,5 +1,4 @@
 module CsvImport
-  ## UserImporter needs an :institution to be passed in the options
   class UserImporter < BaseImporter
     def mapping
       @mapping ||=
@@ -11,6 +10,10 @@ module CsvImport
       static_headers = mapping.keys + team_mapping.keys + one_subject_mapping.keys
       build_several_subjects_mapping(headers, static_headers)
       known_headers = static_headers + several_subjects_mapping.keys
+      # full infered mapping is
+      #   mapping + team_mapping + one_subject_mapping
+      # or
+      #   mapping + team_mapping + several_subjects_mapping
       headers.filter_map do |header|
         UnknownHeaderError.new(header) unless known_headers.include? header.squish
       end
@@ -18,7 +21,7 @@ module CsvImport
 
     def preprocess(attributes)
       attributes = sanitize_inputs(attributes)
-      institution = Institution.find_by(name: attributes[:institution]) || @options[:institution]
+      institution = Institution.find_by(name: attributes[:institution]) || @institution
       antenne = Antenne.flexible_find institution, attributes[:antenne]
       attributes.delete(:institution)
       return PreprocessError::AntenneNotFound.new(attributes[:antenne]) if antenne.nil?
@@ -71,7 +74,7 @@ module CsvImport
       attributes = sanitize_inputs(attributes)
 
       if attributes[:email].present?
-        expert = @options[:institution].experts.find_or_initialize_by(email: attributes[:email])
+        expert = @institution.experts.find_or_initialize_by(email: attributes[:email])
         expert.update(email: attributes[:email], full_name: attributes[:full_name], phone_number: attributes[:phone_number], antenne: user.antenne)
         expert.save!
         import_specific_territories(expert, attributes)
@@ -88,7 +91,7 @@ module CsvImport
       @several_subjects_mapping =
         headers
           .without(other_known_headers)
-          .index_with { |header| InstitutionSubject.flexible_find(@options[:institution], header) }
+          .index_with { |header| InstitutionSubject.flexible_find(@institution, header) }
           .compact
     end
 
@@ -117,7 +120,7 @@ module CsvImport
       end
     end
 
-    def one_subject_mapping
+    def one_subject_mapping # remove this
       { Expert.human_attribute_name(:subject) => :subject }
     end
 
