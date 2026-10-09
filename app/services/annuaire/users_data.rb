@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module Annuaire
+  NO_EXPERT = Expert.new.freeze
+  NO_USER = User.new.freeze
+
   class UsersData
     include InstitutionsSubjectsSorter
 
@@ -83,15 +86,14 @@ module Annuaire
       grouped_experts = group_experts
 
       if @antenne.blank?
-        antenne_without_experts = retrieve_antennes_without_experts
-        grouped_experts = grouped_experts.merge(antenne_without_experts)
+        grouped_experts.merge!(retrieve_antennes_without_experts)
       end
 
       managers_without_experts = retrieve_managers_without_experts(grouped_experts.keys)
-      grouped_experts = grouped_experts.deep_merge(managers_without_experts)
+      grouped_experts.deep_merge!(managers_without_experts) { |_key, users, more_users| users | more_users }
 
       users_without_experts = retrieve_users_without_experts(grouped_experts.keys)
-      grouped_experts = grouped_experts.deep_merge(users_without_experts)
+      grouped_experts.deep_merge!(users_without_experts) { |_key, users, more_users| users | more_users }
 
       @grouped_experts = grouped_experts
     end
@@ -107,7 +109,7 @@ module Annuaire
     def group_experts
       filtered_experts.group_by(&:antenne).transform_values do |antenne_group|
         antenne_group.index_with do |expert|
-          expert.users.presence || [User.new]
+          expert.users.presence || [NO_USER]
         end
       end
     end
@@ -117,19 +119,16 @@ module Annuaire
 
       result = {}
       antennes.includes(advisors: [:user_rights_manager], managers: [:experts, :user_rights_manager]).find_each do |antenne| # Second request is here
-        result[antenne] = { Expert.new => antenne.advisors } if antenne.advisors.any?
+        result[antenne] = { NO_EXPERT => antenne.advisors.presence || [NO_USER] }
       end
       result
     end
 
-    def retrieve_managers_without_experts(antennes) # antenne: [managers: :experts]
+    def retrieve_managers_without_experts(antennes)
       result = {}
       antennes.each do |antenne|
-        managers_from_other_antennes = antenne.managers
-        managers_from_other_antennes.each do |manager|
-          next if manager.experts.any? || manager.deleted?
-          result[antenne] = { Expert.new => [manager] }
-        end
+        managers_without_experts = antenne.managers.not_deleted.reject { it.experts.any? }
+        result[antenne] = { NO_EXPERT => managers_without_experts } if managers_without_experts.any?
       end
       result
     end
@@ -145,9 +144,8 @@ module Annuaire
 
       result = {}
       antennes.each do |antenne|
-        users_without_experts[antenne.id]&.each do |user|
-          result[antenne] = { Expert.new => [user] }
-        end
+        users_without_experts_of_antenne = users_without_experts[antenne.id]
+        result[antenne] = { NO_EXPERT => users_without_experts_of_antenne } if users_without_experts_of_antenne.present?
       end
       result
     end
