@@ -326,6 +326,11 @@ fr:
         need: Besoin
         reminder: Relance
         solicitation: Sollicitation
+      file_import:
+        author: Auteur
+        completed?: Réalisé
+        file: Fichier
+        result_objects: Objets importés
       institution:
         antennes: Antennes
         subjects: Sujets
@@ -857,6 +862,9 @@ fr:
       feedback:
         one: Commentaire
         other: Commentaires
+      file_import:
+        one: Import de fichier
+        other: Imports de fichiers
       iframe_landing:
         one: Iframe
         other: Iframes
