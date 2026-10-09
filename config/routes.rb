@@ -275,9 +275,7 @@ Rails.application.routes.draw do
           get :create_territorial_coverage
         end
       end
-      resources :antennes, only: :index do
-        resources :users, path: 'conseillers', only: :index
-      end
+      resources :antennes, only: :index
       resources :file_imports, only: %i[new create update] do
         member do
           get :analysis
