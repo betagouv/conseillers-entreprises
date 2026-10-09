@@ -1,0 +1,31 @@
+<%# meta title: @institution.name %>
+<%# content_for :header, render('header', institution: @institution, antenne: @antenne) %>
+<%# content_for :menu, render('menu', institution: @institution) %>
+<!---->
+<%# if @not_invited_users.present? %>
+  <%#= form_with url: send_invitations_institution_users_path, local: true do |f| %>
+    <%#= f.hidden_field :users_ids, value: @not_invited_users.map(&:id) %>
+    <%#= f.hidden_field :slug, value: params[:institution_slug] %>
+    <%#= f.submit t('.send_invitations', count: @not_invited_users.length), class: 'fr-btn fr-mb-2w fr-ml-2w' %>
+  <%# end %>
+<%# end %>
+<!---->
+<%# if @grouped_experts.present? %>
+<!--  <div data-controller="coverage">-->
+    <%# if large_search?(@grouped_experts, @grouped_subjects) %>
+<!--      <div class="coverage-controls fr-mb-2w">-->
+<!--        <button class="fr-btn fr-btn--secondary load-all-coverage" data-antenne-id="<%#= params[:antenne_id].to_i %>" data-action="click->coverage#loadAll" data-loading-text="<%#= t('.loading_coverages') %>" data-progress-text="<%#= t('.loading_progress') %>">-->
+          <%#= t('.load_all_coverage') %>
+<!--        </button>-->
+<!--        <p class="fr-text--sm fr-m-0 fr-mt-1v">-->
+<!--        <p><%#= t('.antenne_experts_performance') %></p>-->
+<!--        </p>-->
+<!--      </div>-->
+    <%# end %>
+    <%#= render 'table', grouped_subjects: @grouped_subjects, grouped_experts: @grouped_experts, referencement_coverages: @referencement_coverages %>
+<!--  </div>-->
+<%# else %>
+<!--  <div class="fr-alert fr-alert--info fr-alert--sm">-->
+<!--    <p><%#= t('.no_users') %></p>-->
+<!--  </div>-->
+<%# end %>
