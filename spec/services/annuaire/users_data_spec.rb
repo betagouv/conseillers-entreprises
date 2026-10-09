@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Annuaire::UsersData do
-  describe '#filtered_experts and #grouped_experts' do
+  describe '#grouped_experts' do
     let(:institution_1) { create :institution }
     let(:subject_1) { create :subject }
     let!(:institution_subject) { create :institution_subject, institution: institution_1, subject: subject_1 }
@@ -11,108 +11,92 @@ describe Annuaire::UsersData do
     let!(:expert_1_same_antenne) { create :expert, :with_expert_subjects, antenne: antenne_1 }
     let!(:antenne_2) { create :antenne, institution: institution_1 }
     let!(:expert_2) { create :expert, :with_expert_subjects, antenne: antenne_2 }
+    let!(:antenne_3) { create :antenne, institution: institution_1 }
+    let!(:manager_1) { create :user, antenne: antenne_3, managed_antennes: [antenne_3] }
+    let!(:manager_2) { create :user, antenne: antenne_3, managed_antennes: [antenne_3] }
+    let!(:user_3) { create :user, antenne: antenne_3 }
+    let!(:user_4) { create :user, antenne: antenne_3 }
+    let!(:antenne_4) { create :antenne, institution: institution_1 }
+
+    context 'for the full institution' do
+      subject { described_class.new(institution_1, nil) }
+
+      it 'return all users for the institution' do
+        expect(subject.grouped_experts).to eq({
+          antenne_1 => {
+            expert_1 => [user_1],
+            expert_1_same_antenne => [Annuaire::NO_USER]
+          },
+          antenne_2 => {
+            expert_2 => [Annuaire::NO_USER]
+          },
+          antenne_3 => {
+            Annuaire::NO_EXPERT => [manager_1, manager_2, user_3, user_4]
+          },
+          antenne_4 => {
+            Annuaire::NO_EXPERT => [Annuaire::NO_USER]
+          }
+        })
+      end
+    end
 
     context 'with an antenne params' do
       subject { described_class.new(institution_1, antenne_1) }
 
-      it 'return all users for the antenne' do
-        expect(subject.filtered_experts).to contain_exactly(expert_1, expert_1_same_antenne)
-        expect(subject.group_experts.keys).to contain_exactly(antenne_1)
-        expect(subject.group_experts[antenne_1].keys).to contain_exactly(expert_1, expert_1_same_antenne)
-      end
-    end
-
-    context 'with an institution params' do
-      subject { described_class.new(institution_1, nil) }
-
-      it 'return all users for the institution' do
-        filtered_experts = subject.filtered_experts
-        expect(filtered_experts).to contain_exactly(expert_1, expert_1_same_antenne, expert_2)
-        grouped_experts = subject.group_experts
-        expect(grouped_experts.keys).to contain_exactly(antenne_1, antenne_2)
-        expect(grouped_experts[antenne_1].keys).to contain_exactly(expert_1, expert_1_same_antenne)
-        expect(grouped_experts[antenne_2].keys).to contain_exactly(expert_2)
-      end
-    end
-
-    context 'with a manager without experts' do
-      let!(:manager) { create :user, antenne: antenne_1 }
-
-      before do
-        manager.managed_antennes.push(antenne_1)
-      end
-
-      subject { described_class.new(institution_1, nil) }
-
-      it 'return all users for the institution' do
-        subject.retrieve_experts_and_users
-        grouped_experts = subject.grouped_experts
-        expect(grouped_experts.keys).to contain_exactly(antenne_1, antenne_2)
-        expect(grouped_experts[antenne_1].keys).to contain_exactly(
-          expert_1_same_antenne,
-          expert_1,
-          an_instance_of(Expert).and(have_attributes(id: nil))
-        )
-        expect(grouped_experts[antenne_2].keys).to contain_exactly(expert_2)
-        all_users = grouped_experts.values.map(&:values).flatten
-        expect(all_users).to contain_exactly(
-          an_instance_of(User).and(have_attributes(id: nil)),
-          user_1,
-          manager,
-          an_instance_of(User).and(have_attributes(id: nil))
-        )
+      it 'returns only users for the antenne' do
+        expect(subject.grouped_experts).to eq({
+          antenne_1 => {
+            expert_1 => [user_1],
+            expert_1_same_antenne => [Annuaire::NO_USER]
+          }
+        })
       end
     end
   end
 
-  describe "additional methods" do
-    subject { described_class.new(antenne.institution, antenne) }
+  describe '#retrieve_antennes_without_experts' do
+    subject { described_class.new(institution, nil).retrieve_antennes_without_experts }
 
-    describe '#retrieve_users_without_experts' do
-      let(:antenne) { create(:antenne) }
-      let(:user_with_experts) { create(:user, antenne: antenne) }
-      let!(:user_without_experts) { create(:user, antenne: antenne) }
-      let!(:expert) { create(:expert, users: [user_with_experts]) }
+    let(:institution) { create :institution }
+    let!(:antenne_with_expert) { create :antenne, institution: institution, experts: [create(:expert)] }
+    let!(:antenne_without_experts) { create :antenne, institution: institution }
+    let!(:antenne_without_experts_with_users) { create :antenne, institution: institution, advisors: [user] }
+    let!(:user) { create(:user) }
 
-      context 'normal user' do
-        it 'adds users without experts' do
-          result = subject.retrieve_users_without_experts([antenne])
-          expect(result[antenne].keys).to include(an_instance_of(Expert))
-          expect(result[antenne].first.last).to include(user_without_experts)
-        end
-
-        it 'does not add users with experts' do
-          result = subject.retrieve_users_without_experts([antenne])
-          expect(result[antenne].keys).not_to include(expert)
-        end
-      end
-
-      context 'manager' do
-        let!(:manager) { create(:user, antenne: antenne, managed_antennes: [create(:antenne)]) }
-
-        it 'does not add users who manage other antennes' do
-          result = subject.retrieve_users_without_experts([antenne])
-          expect(result[antenne].first.last).not_to include(manager)
-        end
-      end
+    it 'return the empty antennes' do
+      expect(subject.keys).to contain_exactly(antenne_without_experts, antenne_without_experts_with_users)
+      expect(subject).to eq({
+        antenne_without_experts => { Annuaire::NO_EXPERT => [Annuaire::NO_USER] },
+        antenne_without_experts_with_users => { Annuaire::NO_EXPERT => [user] }
+      })
     end
+  end
 
-    describe '#retrieve_managers_without_experts' do
-      let(:antenne) { create(:antenne) }
-      let(:manager_with_experts) { create(:user, :manager, antenne: antenne) }
-      let!(:manager_without_experts) { create(:user, :manager, antenne: antenne) }
-      let!(:expert) { create(:expert, users: [manager_with_experts]) }
+  describe '#retrieve_users_without_experts' do
+    subject { described_class.new(antenne.institution, antenne).retrieve_users_without_experts([antenne]) }
 
-      it 'adds managers without experts' do
-        managers_without_experts = subject.retrieve_managers_without_experts([antenne])
-        expect(managers_without_experts[antenne].keys).to include(an_instance_of(Expert))
-        expect(managers_without_experts[antenne].first.last).to include(manager_without_experts)
-      end
+    let!(:antenne) { create(:antenne) }
 
-      it 'does not add managers with experts' do
-        managers_without_experts = subject.retrieve_managers_without_experts([antenne])
-        expect(managers_without_experts[antenne].keys).not_to include(expert)
-      end
+    let!(:user_without_experts) { create(:user, antenne: antenne) }
+    let!(:other_user_without_experts) { create(:user, antenne: antenne) }
+    let!(:user_with_experts) { create(:user, antenne: antenne, experts: [create(:expert)]) }
+    let!(:manager) { create(:user, antenne: antenne, managed_antennes: [create(:antenne)]) }
+
+    it 'adds only users without experts' do
+      expect(subject[antenne][Annuaire::NO_EXPERT]).to contain_exactly(user_without_experts, other_user_without_experts)
+    end
+  end
+
+  describe '#retrieve_managers_without_experts' do
+    subject { described_class.new(antenne.institution, antenne).retrieve_managers_without_experts([antenne]) }
+
+    let(:antenne) { create(:antenne) }
+    let!(:manager_with_experts) { create(:user, :manager, antenne: antenne, experts: [create(:expert)]) }
+    let!(:manager_without_experts) { create(:user, :manager, antenne: antenne) }
+    let!(:other_manager_without_experts) { create(:user, :manager, antenne: antenne) }
+
+    it 'adds managers without experts' do
+      expect(subject[antenne][Annuaire::NO_EXPERT]).to contain_exactly(manager_without_experts, other_manager_without_experts)
     end
   end
 end
