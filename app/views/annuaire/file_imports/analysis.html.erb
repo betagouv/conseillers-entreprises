@@ -2,9 +2,11 @@
 <% content_for :header, render('header', institution: @institution) %>
 <% content_for :menu, render('menu', institution: @institution) %>
 
+<h3> Analyse du fichier </h3>
 <% if @result.success? %>
   <div>
-    <%= link_to "Preview", preview_institution_file_import_path %>
+    <p>Aucune erreur détectée</p>
+    <%= link_to "Prévisualier l’import", preview_institution_file_import_path, class: "fr-btn fr-btn--primary" %>
   </div>
 <% else %>
   <div class="fr-alert fr-alert--error fr-mb-2w" role="alert">
