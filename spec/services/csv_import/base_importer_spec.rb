@@ -69,6 +69,23 @@ describe CsvImport::BaseImporter, CsvImport do
     end
   end
 
+  describe 'blank headers' do
+    subject(:result) { CsvImport::AntenneImporter.import(csv, institution: institution) }
+
+    let(:institution) { create :institution, name: 'Test Institution' }
+
+    let(:csv) do
+      <<~CSV
+        Institution,Nom,Codes INSEE,,
+        Test Institution,Antenne1,72110,some_value
+      CSV
+    end
+
+    it do
+      expect(result).to be_success
+    end
+  end
+
   describe 'header errors' do
     subject(:result) { CsvImport::AntenneImporter.import(csv, institution: institution) }
 
