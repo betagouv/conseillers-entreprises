@@ -541,6 +541,8 @@ end
     # - solicitation inclassables (sans analyse, sans région...)
     let!(:solicitation_without_diagnosis) { create :solicitation, siret: 'wrong siret', code_region: nil }
     let!(:solicitation_with_diagnosis_no_region) { create :solicitation, :with_diagnosis, siret: 'wrong siret', code_region: nil }
+    # - solicitation dans une collectivité d'outre-mer sans région (Saint-Barthélemy par ex)
+    let!(:solicitation_in_com) { create :solicitation, code_region: 0 }
 
     subject { described_class.by_possible_region(possible_region) }
 
@@ -556,7 +558,7 @@ end
     context 'filter by diagnoses problem' do
       let(:possible_region) { 'uncategorisable' }
 
-      it { is_expected.to contain_exactly(solicitation_without_diagnosis, solicitation_with_diagnosis_no_region) }
+      it { is_expected.to contain_exactly(solicitation_without_diagnosis, solicitation_with_diagnosis_no_region, solicitation_in_com) }
     end
   end
 
