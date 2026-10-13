@@ -272,6 +272,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  OmniAuth.config.logger = Rails.logger
   # PROCONNECT_DOMAIN must include the /api/v2 suffix
   config.omniauth :proconnect,
                   client_id: ENV['PROCONNECT_CLIENT_ID'],

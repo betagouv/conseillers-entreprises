@@ -1405,6 +1405,8 @@ fr:
       subjects: Domaines d’intervention
       teams: 'Équipes :'
     omniauth_callbacks:
+      failure:
+        sign_in_failed: La connexion avec ProConnect n’a pas abouti. Veuillez réessayer ou vous identifier avec votre adresse email et votre mot de passe.
       proconnect:
         unknown_account: Aucun compte conseiller n’est associé à votre adresse email ProConnect.
     registrations:
