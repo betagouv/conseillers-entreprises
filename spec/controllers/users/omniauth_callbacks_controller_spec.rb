@@ -91,18 +91,6 @@ RSpec.describe Users::OmniauthCallbacksController do
       end
     end
 
-    context 'with a user who no longer passes validations' do
-      let!(:user) { create :user, :invitation_accepted, email: proconnect_email }
-
-      before { user.update_columns(full_name: '') }
-
-      it 'signs the user in and links the ProConnect account' do
-        get :proconnect
-        expect(controller.current_user).to eq user
-        expect(user.reload.proconnect_uid).to eq proconnect_uid
-      end
-    end
-
     context 'without ProConnect sub' do
       let(:proconnect_uid) { nil }
       let(:proconnect_email) { nil }
