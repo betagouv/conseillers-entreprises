@@ -1,5 +1,7 @@
 -# locals: (grouped_subjects:, grouped_experts:)
 
+-# grouped_subjects: { theme: [{subject: [institution_subject]}] }
+-# grouped_experts: { antenne: [{expert: [user*]]} (* this is a collectionproxy)
 .fr-table--c-annuaire
   %table
     %thead
@@ -31,20 +33,22 @@
               %th.coverage-table-cell
                 - if large_search?(grouped_experts, grouped_subjects)
                   = turbo_frame_tag "institution-subject-#{institution_subject.id}" do
-                    = render 'lazy_coverage', institution_subject: institution_subject
+                    = render 'annuaire/users/lazy_coverage', institution_subject: institution_subject
                 - else
                   = turbo_frame_tag "institution-subject-#{institution_subject.id}", src: create_territorial_coverage_institution_users_path(institution_subject_id: institution_subject.id, antenne_id: params[:antenne_id]) do
-                    = render 'skeleton_coverage'
+                    = render 'annuaire/users/skeleton_coverage'
 
     %tbody
       - grouped_experts.each do |antenne, experts|
         - experts.each do |expert, users|
           - users.each_with_index do |user, index_in_expert|
-            - highlighted_ids = flash[:table_highlighted_ids]
+            - # highlighted_ids = @result.objects.compact.map(&:id)
             - expert_first_row = index_in_expert == 0
             - antenne_first_row = expert == experts.keys.first && expert_first_row
             - antenne_separation_class = antenne_first_row ? 'tr--distinct' : ''
-            - highlighted_class = highlighted_ids&.include?(user.id) ? 'blue' : ''
+            - highlighted_class = (@result && (user.in? @result&.objects)) ? 'blue' : ''
+            - # if highlighted_class do stuff with @result.rows[@result.objects.index(user)]
+            - errors = @result&.objects&.find{it.id == user.id}&.errors
             %tr{ class: [antenne_separation_class, highlighted_class].compact.join(" ") }
               -# antenne cell
               - if antenne_first_row
@@ -62,7 +66,9 @@
               %td.td-header.td-header--user
                 - if user.persisted?
                   = build_user_name_cell(user, antenne)
-
+                - if errors.present?
+                  = "LOL"
+                  = errors.full_messages
               - if expert_first_row
                 - grouped_subjects.each_value do |subjects|
                   - subjects.each_value do |institutions_subjects|
