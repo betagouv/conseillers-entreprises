@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_28_084735) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_29_115447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
 
@@ -21,6 +22,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_28_084735) do
   create_enum "activity_reports_categories", ["matches", "stats", "cooperation", "solicitations"]
   create_enum "api_key_scope", ["landing_subjects", "all_subjects", "solicitation_creation", "qualification"]
   create_enum "feedbacks_categories", ["need", "need_reminder", "solicitation", "expert_reminder"]
+  create_enum "file_imports_entities", ["User", "Antenne"]
   create_enum "landing_subject_fields_mode", ["siret", "location"]
   create_enum "match_status", ["quo", "taking_care", "done", "done_no_help", "done_not_reachable", "not_for_me"]
   create_enum "need_status", ["diagnosis_not_complete", "quo", "taking_care", "done", "not_for_me", "done_no_help", "done_not_reachable"]
@@ -289,6 +291,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_28_084735) do
     t.index ["category"], name: "index_feedbacks_on_category"
     t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable_type_and_feedbackable_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
+  end
+
+  create_table "file_imports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.enum "entity", null: false, enum_type: "file_imports_entities"
+    t.bigint "author_id", null: false
+    t.bigint "institution_id", null: false
+    t.bigint "result_object_ids", default: [], null: false, array: true
+    t.index ["author_id"], name: "index_file_imports_on_author_id"
+    t.index ["institution_id"], name: "index_file_imports_on_institution_id"
   end
 
   create_table "institutions", force: :cascade do |t|
@@ -706,6 +719,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_28_084735) do
   add_foreign_key "facilities", "companies"
   add_foreign_key "facilities", "institutions", column: "opco_id"
   add_foreign_key "feedbacks", "users"
+  add_foreign_key "file_imports", "users", column: "author_id"
   add_foreign_key "institutions_subjects", "institutions"
   add_foreign_key "institutions_subjects", "subjects"
   add_foreign_key "landing_joint_themes", "landing_themes"
