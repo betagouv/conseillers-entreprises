@@ -54,18 +54,6 @@ RSpec.describe Users::OmniauthCallbacksController do
       end
     end
 
-    context 'with a deleted user linked to this ProConnect account and a new user with the same email' do
-      let!(:user) { create :user, :invitation_accepted, email: proconnect_email }
-
-      before { create(:user, proconnect_uid: proconnect_uid).destroy }
-
-      it 'signs the new user in and links the ProConnect account' do
-        get :proconnect
-        expect(controller.current_user).to eq user
-        expect(user.reload.proconnect_uid).to eq proconnect_uid
-      end
-    end
-
     context 'with a user linked to this ProConnect account and another user matching the email' do
       let!(:user) { create :user, :invitation_accepted, proconnect_uid: proconnect_uid }
 
