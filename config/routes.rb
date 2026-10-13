@@ -405,7 +405,9 @@ Rails.application.routes.draw do
     landing_slug = hash[query_params['institution']]
     ["/aide-entreprise/#{landing_slug}", req.query_string.presence].compact.join('?')
   }
+end
 
+Rails.application.routes.append do
   ## Handle 404 properly
   get '*unmatched_route', :to => 'shared#not_found'
 end
