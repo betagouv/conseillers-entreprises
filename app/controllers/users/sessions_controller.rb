@@ -5,6 +5,7 @@ module Users
     PROCONNECT_STATE_KEY = 'omniauth.state'
 
     def destroy
+      # Devise resets the session on sign out: keep the token to restore it afterwards
       proconnect_id_token = session[PROCONNECT_ID_TOKEN_KEY]
 
       super do
