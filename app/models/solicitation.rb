@@ -416,7 +416,11 @@ class Solicitation < ApplicationRecord
   # scope destiné à recevoir les solicitations qui ne sortent pas
   # dans les autres filtres des solicitation.
   # La méthode d'identification pourra evoluer au fil du temps
-  scope :uncategorisable, -> { where(code_region: nil) }
+  # Sans code région, ou avec un code hors des régions proposées dans le filtre
+  # (les collectivités d'outre-mer sans région ont un code_region à 0)
+  scope :uncategorisable, -> {
+    where(code_region: nil).or(where.not(code_region: RegionOrderingService.call.map(&:code)))
+  }
 
   # param peut être un code région ou une clé correspondant à un scope ("uncategorisable" par ex)
   scope :by_possible_region, -> (param) {
