@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   resource :app_root, path: "app", only: [:show]
 
   devise_scope :user do
+    get 'mon_compte/sign_out/proconnect', to: 'users/sessions#proconnect_signed_out', as: :proconnect_signed_out
     resource :user, only: %i[show update], path: 'mon_compte', controller: 'users/registrations' do
       get :edit, path: 'informations'
       get :password, path: 'mot_de_passe'

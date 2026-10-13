@@ -17,5 +17,22 @@ module Users
         end
       end
     end
+
+    # Where ProConnect sends the user back once its own session is closed (post_logout_redirect_uri)
+    def proconnect_signed_out
+      if proconnect_state_valid?
+        session.delete(PROCONNECT_ID_TOKEN_KEY)
+        session.delete(PROCONNECT_STATE_KEY)
+        flash.notice = t('devise.sessions.signed_out')
+      end
+      redirect_to after_sign_out_path_for(resource_name)
+    end
+
+    private
+
+    def proconnect_state_valid?
+      proconnect_state = session[PROCONNECT_STATE_KEY]
+      proconnect_state.present? && ActiveSupport::SecurityUtils.secure_compare(params[:state].to_s, proconnect_state)
+    end
   end
 end
