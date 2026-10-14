@@ -54,14 +54,20 @@ RSpec.describe Users::OmniauthCallbacksController do
       end
     end
 
-    context 'with a user linked to this ProConnect account and another user matching the email' do
-      let!(:user) { create :user, :invitation_accepted, proconnect_uid: proconnect_uid }
+    context 'with a user matching the email and another user linked to this ProConnect account' do
+      let!(:user) { create :user, :invitation_accepted, email: proconnect_email }
+      let!(:linked_user) { create :user, :invitation_accepted, proconnect_uid: proconnect_uid }
 
-      before { create :user, :invitation_accepted, email: proconnect_email }
+      before { allow(Appsignal).to receive(:send_error) }
 
-      it 'signs in the user linked to the ProConnect account' do
+      it 'signs nobody in, changes no link and reports the conflict' do
         get :proconnect
-        expect(controller.current_user).to eq user
+        expect(controller.current_user).to be_nil
+        expect(response).to redirect_to new_user_session_path
+        expect(flash[:alert]).to eq I18n.t('users.omniauth_callbacks.failure.sign_in_failed')
+        expect(Appsignal).to have_received(:send_error).with(an_instance_of(Users::OmniauthCallbacksController::ProconnectAccountConflict))
+        expect(user.reload.proconnect_uid).to be_nil
+        expect(linked_user.reload.proconnect_uid).to eq proconnect_uid
       end
     end
 

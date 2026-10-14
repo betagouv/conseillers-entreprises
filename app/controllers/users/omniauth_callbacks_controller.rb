@@ -5,6 +5,9 @@ module Users
     # OAuth 2.0 error code returned when the user or the identity provider denies the request (RFC 6749, 4.1.2.1)
     ACCESS_DENIED_ERROR = 'access_denied'
 
+    # The ProConnect email and the ProConnect link designate two different users
+    class ProconnectAccountConflict < StandardError; end
+
     def proconnect
       auth = request.env['omniauth.auth']
       PROCONNECT_UNUSED_TOKEN_KEYS.each { |key| session.delete(key) }
@@ -20,9 +23,11 @@ module Users
         return
       end
 
-      # ProConnect `sub` is specific to each identity provider: keep the last one used
       user.update_columns(proconnect_uid: auth.uid) if user.proconnect_uid != auth.uid
       sign_in_and_redirect user, event: :authentication
+    rescue ProconnectAccountConflict => e
+      Appsignal.send_error(e)
+      redirect_to new_user_session_path, alert: t('users.omniauth_callbacks.failure.sign_in_failed')
     end
 
     # Called by OmniAuth for any error raised while talking to ProConnect, at sign in or at sign out
@@ -44,7 +49,14 @@ module Users
 
       users = User.not_deleted
       email = auth.info.email&.downcase
-      users.find_by(proconnect_uid: auth.uid) || (users.find_by(email: email) if email.present?)
+      user_by_email = users.find_by(email: email) if email.present?
+      user_by_proconnect_uid = users.find_by(proconnect_uid: auth.uid)
+
+      if user_by_email && user_by_proconnect_uid && user_by_email != user_by_proconnect_uid
+        raise ProconnectAccountConflict, "ProConnect email matches user ##{user_by_email.id}, ProConnect uid is linked to user ##{user_by_proconnect_uid.id}"
+      end
+
+      user_by_email || user_by_proconnect_uid
     end
   end
 end
