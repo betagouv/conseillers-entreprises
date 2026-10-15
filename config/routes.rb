@@ -283,9 +283,7 @@ Rails.application.routes.draw do
           get :create_territorial_coverage
         end
       end
-      resources :antennes, only: :index, concerns: [:importable] do
-        resources :users, path: 'conseillers', only: :index
-      end
+      resources :antennes, only: :index, concerns: [:importable]
     end
   end
 
