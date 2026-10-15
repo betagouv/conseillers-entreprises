@@ -1,5 +1,6 @@
 <%# locals: (grouped_subjects:, grouped_experts:) %>
 
+<% import_changes = defined?(@old_data) ? Annuaire::ImportChanges.new(@old_data, @result) : nil %>
 <div class="fr-table fr-table--multiline">
   <div class="fr-table__wrapper">
     <div class="fr-table__container">
@@ -7,11 +8,15 @@
         <table>
           <%= render 'annuaire/users/table/header', grouped_subjects: grouped_subjects, load_coverage: false && !large_search?(grouped_experts, grouped_subjects) %>
           <tbody>
+            <% grouped_experts = grouped_experts.reject{ |antenne| import_changes.antenne_changes(antenne) == :removed } %>
             <% grouped_experts.each do |antenne, experts| %>
 
+              <% experts = experts.reject{ |expert| import_changes.expert_changes(expert) == :removed }%>
               <% all_users = experts.values.flatten %>
+              <% all_users = all_users.reject{ |user| import_changes.user_changes(user) == :removed }%>
               <% experts.each_with_index do |expert_and_users, index_in_antenne| %>
                 <% expert, users = expert_and_users %>
+                <% users = users.reject{ |user| import_changes.user_changes(user) == :removed }%>
                 <% users.each_with_index do |user, index_in_expert| %>
                   <% expert_first_row = index_in_expert == 0 %>
                   <% antenne_first_row = index_in_antenne == 0 && index_in_expert == 0 %>

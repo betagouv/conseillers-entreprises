@@ -1,3 +1,19 @@
-<td class="td-header td-header--antenne" rowspan="<%= total_users(experts) %>" title="<%= antenne.name %>">
+<%# locals: (antenne:, size:) %>
+
+<% old_antenne = @old_data&.antennes&.find{ it.name == antenne.name } %>
+<% in_imported_set = @result&.objects&.flat_map(&:antenne)&.find{it.name == antenne.name} %>
+
+<%
+  css_class = if old_antenne.present? && in_imported_set.present?
+    'touched'
+  elsif !old_antenne.present? && in_imported_set.present?
+    'created' # can't happen
+  elsif old_antenne.present? && !in_imported_set.present?
+    'removed'
+  end
+%>
+
+
+<td class="td-header td-header--antenne user-cell--<%= css_class %>" rowspan="<%= size %>" title="<%= antenne.name %>">
   <%= link_to antenne, admin_antenne_path(antenne) %>
 </td>
