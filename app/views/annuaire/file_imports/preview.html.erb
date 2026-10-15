@@ -10,15 +10,20 @@
 
 <% case @import.entity.to_s %>
 <% when "User" %>
-  <%= render 'annuaire/users/table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts %>
+  <% if @users_data.grouped_experts.present? %>
+    <%= render 'annuaire/users/table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts %>
+  <% else %>
+    <div class="fr-alert fr-alert--info fr-alert--sm">
+      <p><%= t('.no_users') %></p>
+    </div>
+  <% end %>
 <% when "Antenne" %>
-  <%= render 'annuaire/antennes/table', grouped_subjects: @antennes %>
-
+  <% if @antennes.present? %>
+    <%= render 'annuaire/antennes/table', antennes: @antennes %>
+  <% else %>
+    <div class="fr-alert fr-alert--info fr-alert--sm">
+      <p><%= t('.no_antenne') %></p>
+    </div>
+  <% end %>
 <% end %>
 
-<% if @users_data.grouped_experts.present? %>
-<% else %>
-  <div class="fr-alert fr-alert--info fr-alert--sm">
-    <p><%= t('.no_users') %></p>
-  </div>
-<% end %>

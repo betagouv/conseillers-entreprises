@@ -114,6 +114,7 @@ fr:
         load_all_coverage: Charger toutes les couvertures géographiques
         loading_coverages: Chargement en cours...
         loading_progress: Chargement... %{progress}%
+        no_antenne: Aucune antenne n’a été trouvé
         no_users: Aucun utilisateur n'a été trouvé
         send_invitations:
           one: Envoyer une invitation
