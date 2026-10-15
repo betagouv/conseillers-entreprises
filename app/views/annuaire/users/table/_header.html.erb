@@ -3,7 +3,7 @@
   <%# For the subjects columns, we'll build our header on 3 rows: theme, subject and institutions_subject. %>
   <tr>
     <%# The first 3 columns are for the antenne, team, and user names, spanning the 4 header rows. %>
-    <th rowspan="3"></th>
+    <th rowspan="3" class="fr-col--md"></th>
     <th rowspan="3"><%= User.human_attribute_name(:team_full_name) %></th>
     <th rowspan="3"><%= User.human_attribute_name(:user) %></th>
     <%# Subjects columns, first row: the themes, column-spanned for the two remaining header rows %>

@@ -27,3 +27,23 @@
 .coverage-controls, .lazy-coverage-container
   .ri-spin
     animation: spin 1s linear infinite
+
+.annuaire-download-dropdown
+  position: relative
+  display: inline-block
+  li
+    padding: 0
+  .dropdown-content
+    display: none
+    position: absolute
+    z-index: 2
+    right: 0
+    box-shadow: 0 2px 6px base.$grey
+    a, .clickable
+      padding: 0.5rem 0.5rem 0.5rem 1rem
+      background: none
+      cursor: pointer
+      &:hover
+        background-color: base.$grey-lighter
+.annuaire-download-dropdown:hover .dropdown-content
+  display: block
