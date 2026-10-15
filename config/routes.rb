@@ -279,7 +279,7 @@ Rails.application.routes.draw do
         end
       end
       resources :antennes, only: :index
-      resources :file_imports, only: %i[new create update] do
+      resources :file_imports, only: %i[create] do
         member do
           get :analysis
           get :preview

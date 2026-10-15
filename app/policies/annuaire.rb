@@ -28,11 +28,7 @@ module Annuaire
   end
 
   class FileImportPolicy < ApplicationPolicy
-    def new? = admin?
-
     def create? = admin?
-
-    def update? = admin?
 
     def analysis? = admin?
 
