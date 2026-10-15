@@ -2,11 +2,10 @@
   Based on the main application layout
 
 - content_for :content do
-  .fr-container.fr-pb-6w
+  .fr-container
     = yield :header
 
-  .fr-tabs--c-annuaire
-    = yield :menu
+  = yield :menu
 
   .fr-tabs--c-annuaire__panel
     = yield

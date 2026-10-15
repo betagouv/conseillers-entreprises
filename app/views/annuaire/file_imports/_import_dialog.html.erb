@@ -1,0 +1,33 @@
+<%# locals: (entity:) %>
+
+<dialog id="import_dialog" data-fr-opened="true" class="fr-modal">
+  <div class="fr-container fr-container--fluid fr-container-md">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+        <div class="fr-modal__body">
+          <div class="fr-modal__header">
+            <button aria-controls="import_dialog" title="Fermer" type="button" class="fr-btn--close fr-btn"><%= t("navbar.close") %>></button>
+          </div>
+          <div class="fr-modal__content">
+            <h2 id="modal-title" class="fr-modal__title">
+              <span class="fr-icon-arrow-right-line fr-icon--lg" aria-hidden="true"></span>
+              Importer un nouveau fichier de (conseillers)
+            </h2>
+            <%= form_with url: institution_file_imports_url, local: true do |f| %>
+              <%= f.hidden_field :entity, value: entity %>
+              <div class="fr-upload-group">
+                <label class="fr-label" for="file-upload">
+                  Ajouter un fichier
+                  <span class="fr-hint-text">Format supporté : csv.</span>
+                </label>
+                <%= f.file_field :file, accept: 'text/csv', required: true, class: "fr-upload" %>
+              </div>
+              <%= f.submit t('submit'), class: 'fr-btn' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
