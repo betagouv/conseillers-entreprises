@@ -1,0 +1,70 @@
+<% if flash.alert.present? %>
+  <% meta title: t('errors.page_title', title: t('.meta_title')) %>
+<% else %>
+  <% meta title: t('.meta_title') %>
+<% end %>
+<% meta description: t('.meta_description') %>
+<div class="fr-container">
+  <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutters fr-mb-5w">
+    <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
+      <h1 class="fr-mb-5w"><%= t('advisor_sign_in') %></h1>
+      <% if ENV['PROCONNECT_CLIENT_ID'].present? %>
+        <div class="fr-connect-group text-center">
+          <%= button_to user_proconnect_omniauth_authorize_path, class: 'fr-connect fr-connect--pro', data: { turbo: false } do %>
+            <span class="fr-connect__login"><%= t('.proconnect_login') %></span>
+            <span class="fr-connect__brand"><%= t('.proconnect_brand') %></span>
+          <% end %>
+          <p>
+            <%= link_to t('.what_is_proconnect'), 'https://www.proconnect.gouv.fr/', target: '_blank', rel: 'noopener', title: t('.what_is_proconnect_title') %>
+          </p>
+        </div>
+        <p class="fr-hr-or"><%= t('.or') %></p>
+      <% end %>
+      <%= form_for resource, as: resource_name, url: session_path(resource_name), html: { data: { turbo: false } } do |f| %>
+        <div class="fr-fieldset">
+          <div class="fr-fieldset__element">
+            <p class="fr-hint-text fr-text--bold"><%= t('.all_fields_are_mandatory') %></p>
+            <div class="fr-input-group">
+              <%= f.label :email, class: 'fr-label' do %>
+                <%= t('.email') %>
+                <span class="fr-hint-text"><%= t('.email_help') %></span>
+              <% end %>
+              <%= f.email_field :email, class: 'fr-input', required: true, autocomplete: 'email' %>
+            </div>
+            <div class="fr-input-group" data-controller="password-visibility">
+              <%= f.label :password, class: 'fr-label' do %>
+                <div class="justify-between vertical-centered">
+                  <%= t('activerecord.attributes.user.password') %>
+                  <%= render 'visibility_password_button' %>
+                </div>
+                <span class="fr-hint-text"><%= t('devise.password_minimum_characters') %></span>
+              <% end %>
+              <%= f.password_field :password, class: 'fr-input', autocomplete: 'current-password', required: true, data: { 'password-visibility-target': "input" } %>
+              <%= link_to new_password_path(resource_name), class: 'fr-link fr-mt-2w' do %>
+                <%= t('devise.forgot_password') %>
+              <% end %>
+            </div>
+            <% if devise_mapping.rememberable? %>
+              <div class="fr-checkbox-group">
+                <%= f.check_box :remember_me, checked: true %>
+                <%= f.label :remember_me, class: 'fr-label' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="fr-mt-3w">
+          <%= f.submit t('sign_in'), class: 'fr-btn' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="fr-container--fluid light-blue-bg fr-py-6w">
+  <div class="fr-container">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
+        <%= t('.how_to_sign_up_html', email: mail_to(ENV['APPLICATION_EMAIL'])) %>
+      </div>
+    </div>
+  </div>
+</div>
