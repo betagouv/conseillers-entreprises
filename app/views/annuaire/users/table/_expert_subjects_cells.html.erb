@@ -1,14 +1,25 @@
 <%# locals: (grouped_subjects:, expert:, users:) %>
 
+<% old_expert = @old_data&.experts&.find{ it.email == expert.email } %>
+<%# in_imported_set = @result&.objects&.flat_map(&:experts)&.find{it.email == expert.email} %>
+
 <% grouped_subjects.each_value do |subjects| %>
   <% subjects.each_value do |institutions_subjects| %>
     <% institutions_subjects.each do |institution_subject| %>
-      <%# We’re using `&` instead of .merge to use the preloaded relations instead of doing a new DB query. %>
-      <% experts_subjects = expert&.experts_subjects & institution_subject.experts_subjects %>
-      <% raise 'There should only be one ExpertSubject' if experts_subjects.size > 1 %>
-      <% expert_subject = experts_subjects.first %>
+      <% expert_subject = expert&.experts_subjects&.find{ it.institution_subject_id == institution_subject.id } %>
+
+      <% old_expert_subject = old_expert&.experts_subjects&.find{ it.institution_subject_id == institution_subject.id } %>
+
+      <%
+        css_class = if old_expert_subject.present? != expert_subject.present?
+          'updated'
+        else
+          'touched'
+        end
+      %>
+
       <%# The InstitutionSubjects cells themselves are spanned on all the rows of the members of the expert team. %>
-      <td class="<%= ('yellow' if expert_subject.present?) %>" rowspan="<%= users.size %>">
+      <td class="user-cell--<%= css_class %>" rowspan="<%= users.size %>">
         <% if expert_subject.present? %>
           <% intervention_criteria = expert_subject.intervention_criteria %>
           <% if intervention_criteria.present? %>

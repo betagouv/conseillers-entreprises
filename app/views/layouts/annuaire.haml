@@ -2,6 +2,7 @@
   Based on the main application layout
 
 - content_for :content do
+  = turbo_frame_tag :modal
   .fr-container
     = yield :header
 

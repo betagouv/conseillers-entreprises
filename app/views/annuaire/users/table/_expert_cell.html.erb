@@ -1,6 +1,19 @@
 <%# locals: (expert:, users:, antenne:) %>
 
-<td class="td-header td-header--expert" rowspan="<%= users.size %>">
+<% old_expert = @old_data&.experts&.find{ it.email == expert.email } %>
+<% in_imported_set = @result&.objects&.flat_map(&:experts)&.find{it.email == expert.email} %>
+
+<%
+  css_class = if old_expert.present? && in_imported_set.present?
+    'touched'
+  elsif !old_expert.present? && in_imported_set.present?
+    'created'
+  elsif old_expert.present? && !in_imported_set.present?
+    'removed'
+  end
+%>
+
+<td class="td-header td-header--expert user-cell--<%= css_class %>" rowspan="<%= users.size %>">
   <% if expert.persisted? %>
     <%= link_to expert.full_name, admin_expert_path(expert), title: t('annuaire.users.table.expert', expert_name: expert.full_name, antenne: antenne) %>
     <% if expert.territorial_zones.any? %>
