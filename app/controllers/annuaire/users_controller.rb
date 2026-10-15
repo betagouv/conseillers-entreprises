@@ -2,6 +2,7 @@ module Annuaire
   class UsersController < BaseController
     include InstitutionsSubjectsSorter
 
+    before_action -> { authorize [:annuaire, User] }
     before_action :retrieve_institution
     before_action :retrieve_antenne, only: [:index, :create_territorial_coverage]
     before_action :retrieve_users_data, only: [:index, :create_territorial_coverage]

@@ -1,5 +1,6 @@
 module Annuaire
   class AntennesController < BaseController
+    before_action -> { authorize [:annuaire, Antenne] }
     before_action :retrieve_institution
     before_action :retrieve_antennes, only: :index
 
