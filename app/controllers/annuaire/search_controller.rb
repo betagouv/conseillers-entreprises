@@ -2,6 +2,7 @@ module Annuaire
   class SearchController < BaseController
     include LoadFilterOptions
 
+    before_action -> { authorize [:annuaire, :search] }
     before_action :init_filters, only: %i[load_filter_options]
 
     def search
