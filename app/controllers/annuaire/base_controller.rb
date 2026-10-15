@@ -7,7 +7,6 @@ module Annuaire
     def retrieve_institution
       slug = params[:institution_slug].presence || params[:institution]
       @institution = Institution.find_by!(slug: slug)
-      authorize @institution
     end
 
     def form_params
