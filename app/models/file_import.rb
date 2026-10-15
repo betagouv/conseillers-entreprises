@@ -20,12 +20,17 @@
 #  fk_rails_...  (author_id => users.id)
 #
 class FileImport < ApplicationRecord
-  ## Relations
+  ## Associations
+  #
   belongs_to :author, class_name: 'User'
   belongs_to :institution
   has_one_attached :file
 
+  ## Validations
+  #
+
   ## Attributes
+  #
   enum :entity, [User, Antenne].index_with(&:to_s)
 
   def importer_klass = CsvImport.const_get("#{entity}Importer")
