@@ -46,10 +46,10 @@ RSpec.describe Users::SessionsController do
     end
 
     context 'with another state' do
-      it 'leaves the session untouched' do
+      it 'clears the ProConnect data without the signed out notice' do
         get :proconnect_signed_out, params: { state: 'forged-state' }
-        expect(session['omniauth.pc.id_token']).to eq 'proconnect-id-token'
-        expect(session['omniauth.state']).to eq 'state-sent-to-proconnect'
+        expect(session['omniauth.pc.id_token']).to be_nil
+        expect(session['omniauth.state']).to be_nil
         expect(response).to redirect_to root_path
         expect(flash[:notice]).to be_nil
       end
@@ -58,10 +58,11 @@ RSpec.describe Users::SessionsController do
     context 'without any state' do
       before { session.delete('omniauth.state') }
 
-      it 'leaves the session untouched' do
+      it 'clears the ProConnect data without the signed out notice' do
         get :proconnect_signed_out
-        expect(session['omniauth.pc.id_token']).to eq 'proconnect-id-token'
+        expect(session['omniauth.pc.id_token']).to be_nil
         expect(response).to redirect_to root_path
+        expect(flash[:notice]).to be_nil
       end
     end
   end
