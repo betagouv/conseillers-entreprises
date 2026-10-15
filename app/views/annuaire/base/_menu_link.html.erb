@@ -1,3 +1,5 @@
+<%# locals: (institution:, key:) %>
+
 <li role="presentation">
   <% path = polymorphic_path([institution, key]) %>
   <% tabindex = is_active_link?(path, :inclusive) ? 0 : 1 %>
