@@ -70,6 +70,7 @@ ActiveAdmin.register User do
       div admin_link_to(u, :experts, list: true)
     end
     column :last_active_at
+    column(:connected_with_proconnect) { |u| status_tag u.proconnect_uid.present? }
 
     actions dropdown: true do |u|
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
@@ -87,6 +88,7 @@ ActiveAdmin.register User do
   filter :region, as: :select, collection: -> { RegionOrderingService.call.map { |r| [r.nom, r.code] } }
   filter :created_at
   filter :last_active_at
+  filter :proconnect_uid_present, as: :boolean, label: User.human_attribute_name(:connected_with_proconnect)
   filter :antenne_territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
 
   ## CSV
@@ -101,6 +103,7 @@ ActiveAdmin.register User do
     column :antenne
     column :institution
     column :last_active_at
+    column(:connected_with_proconnect) { |u| I18n.t(u.proconnect_uid.present?, scope: [:boolean, :text]) }
     column_list :experts
   end
 
