@@ -1,6 +1,6 @@
 module AnnuaireHelper
   def build_user_name_cell(user, antenne)
-    html = link_to(user.full_name, admin_user_path(user), title: t('annuaire_helper.build_user_name_cell.user', user_name: user.full_name, antenne: antenne))
+    html = link_to(user.full_name, admin_user_path(user), title: t('annuaire_helper.build_user_name_cell.user', user_name: user.full_name, antenne: antenne)) # Antenne is unneeded here
     html << tag.span(class: 'ri-mail-add-fill blue fr-ml-1v', aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.not_invited')) if user.invitation_sent_at.nil?
     html << tag.span(class: 'ri-nurse-fill blue fr-ml-1v', aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.antenne_manager')) if user.is_manager?
     html
