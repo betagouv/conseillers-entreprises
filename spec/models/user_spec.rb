@@ -64,6 +64,12 @@ RSpec.describe User do
       end
     end
 
+    describe 'deleted users are unlinked from ProConnect' do
+      subject(:user) { create :user, proconnect_uid: 'e7a41249-123d-46b7-b362-5f00d3166ea1' }
+
+      it { expect(user[:proconnect_uid]).to be_nil }
+    end
+
     describe 'feedbacks and diagnoses of deleted users still have their author / advisor' do
       let(:feedback) { create :feedback, :for_need, user: user }
       let(:diagnosis) { create :diagnosis, advisor: user }

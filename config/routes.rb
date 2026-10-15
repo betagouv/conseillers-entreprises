@@ -48,13 +48,16 @@ Rails.application.routes.draw do
              path: 'mon_compte',
              controllers: {
                registrations: 'users/registrations',
-               invitations: 'users/invitations'
+               invitations: 'users/invitations',
+               sessions: 'users/sessions',
+               omniauth_callbacks: 'users/omniauth_callbacks'
              },
              skip: [:registrations]
 
   resource :app_root, path: "app", only: [:show]
 
   devise_scope :user do
+    get 'mon_compte/sign_out/proconnect', to: 'users/sessions#proconnect_signed_out', as: :proconnect_signed_out
     resource :user, only: %i[show update], path: 'mon_compte', controller: 'users/registrations' do
       get :edit, path: 'informations'
       get :password, path: 'mot_de_passe'

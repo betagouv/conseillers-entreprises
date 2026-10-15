@@ -698,6 +698,7 @@ fr:
           one: Mise en relation avec action
           other: Mises en relation avec action
         app_info: Marqueurs
+        connected_with_proconnect: Connecté via ProConnect
         created_at: Création
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion

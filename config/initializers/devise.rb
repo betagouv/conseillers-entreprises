@@ -272,6 +272,14 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  OmniAuth.config.logger = Rails.logger
+  # PROCONNECT_DOMAIN must include the /api/v2 suffix
+  config.omniauth :proconnect,
+                  client_id: ENV['PROCONNECT_CLIENT_ID'],
+                  client_secret: ENV['PROCONNECT_CLIENT_SECRET'],
+                  proconnect_domain: ENV['PROCONNECT_DOMAIN'],
+                  redirect_uri: ENV['PROCONNECT_REDIRECT_URI'],
+                  post_logout_redirect_uri: ENV['PROCONNECT_POST_LOGOUT_REDIRECT_URI']
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

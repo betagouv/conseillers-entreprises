@@ -26,6 +26,7 @@
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
 #  phone_number           :string
+#  proconnect_uid         :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -44,6 +45,7 @@
 #  index_users_on_invitations_count     (invitations_count)
 #  index_users_on_inviter_id            (inviter_id)
 #  index_users_on_last_active_at        (last_active_at)
+#  index_users_on_proconnect_uid        (proconnect_uid) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 # Foreign Keys
@@ -65,7 +67,8 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :async,
          :validatable,
-         :invitable, invited_by_class_name: 'User', validate_on_invite: true
+         :invitable, :omniauthable,
+         invited_by_class_name: 'User', validate_on_invite: true, omniauth_providers: [:proconnect]
 
   attr_accessor :cgu_accepted, :create_expert
 
@@ -129,6 +132,7 @@ class User < ApplicationRecord
   validates :full_name, presence: true, unless: :deleted?
   validates :job, presence: true
   validate :password_complexity
+  validates :proconnect_uid, uniqueness: true, allow_nil: true
   validates_associated :experts, on: :import
 
   ## "Through" Associations
@@ -265,7 +269,7 @@ class User < ApplicationRecord
   def soft_delete
     self.transaction do
       self.single_user_experts.destroy_all
-      update_columns(SoftDeletable.persons_attributes)
+      update_columns(SoftDeletable.persons_attributes.merge(proconnect_uid: nil))
       self.user_rights.destroy_all
     end
   end
@@ -365,7 +369,7 @@ class User < ApplicationRecord
       "absence_start_at", "absence_end_at", "antenne_id", "cgu_accepted_at", "created_at", "current_sign_in_at", "current_sign_in_ip", "deleted_at", "email",
       "encrypted_password", "full_name", "id", "id_value", "invitation_accepted_at", "invitation_created_at",
       "invitation_limit", "invitation_sent_at", "invitation_token", "invitations_count", "inviter_id", "job",
-      "last_sign_in_at", "last_sign_in_ip", "phone_number", "remember_created_at", "reset_password_sent_at",
+      "last_sign_in_at", "last_sign_in_ip", "phone_number", "proconnect_uid", "remember_created_at", "reset_password_sent_at",
       "reset_password_token", "sign_in_count", "updated_at"
     ]
   end
