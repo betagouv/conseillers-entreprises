@@ -5,8 +5,14 @@
       .fr-input-group.fr-pr-2v
         .autocomplete-field{ 'data-autocomplete-url-value': "#{annuaire_autocomplete_path}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length-value': 3 }
           = f.label :query, t('search'), class: 'fr-label'
-          = f.hidden_field :query, 'data-autocomplete-target': 'hidden'
-          %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text' }
+          - if params[:antenne_id]
+            - query = "Antenne-#{params[:antenne_id]}"
+            - value = Antenne.find(params[:antenne_id]).name
+          - if params[:advisor]
+            - query = "User-#{params[:advisor]}"
+            - value = "#{User.find(params[:advisor]).full_name} (#{User.find(params[:advisor]).antenne})"
+          = f.hidden_field :query, 'data-autocomplete-target': 'hidden', value: query
+          %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text', value: value }
           %ul.list-group{ 'data-autocomplete-target': 'results' }
     .fr-col
       .fr-select-group
@@ -25,6 +31,6 @@
         = f.label :subject_id, t('attributes.subject'), class: 'fr-label'
         = f.collection_select :subject_id, subjects, :id, :label, { selected: index_search_params[:subject_id],
           include_blank: t('all.masculin') }, class: "fr-select", data: { 'filters-target': 'subjects' }
-  - if index_search_params[:theme_id].present? || index_search_params[:subject_id].present? || index_search_params[:query].present? || index_search_params[:region_code].present?
+  - if params[:advisor].present? || params[:antenne_id].present? || index_search_params[:theme_id].present? || index_search_params[:subject_id].present? || index_search_params[:query].present? || index_search_params[:region_code].present?
     = link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline'
   = f.submit t('.submit'), class: 'fr-btn fr-mt-2w'
