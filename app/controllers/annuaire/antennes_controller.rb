@@ -13,18 +13,6 @@ module Annuaire
       end
     end
 
-    def import; end
-
-    def import_create
-      @result = Antenne.import_csv(params.require(:file), institution: @institution)
-      if @result.success?
-        flash[:table_highlighted_ids] = @result.objects.compact.map(&:id)
-        redirect_to action: :index
-      else
-        render :import, status: :unprocessable_content
-      end
-    end
-
     private
 
     def retrieve_antennes

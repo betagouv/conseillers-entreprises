@@ -1,0 +1,24 @@
+<% meta title: @institution.name %>
+<% content_for :header, render('header', institution: @institution) %>
+<% content_for :menu, render('menu', institution: @institution) %>
+
+<h3> Prévisualisation </h3>
+
+<div class="fr-my-2w">
+  <%= button_to "Réaliser l’import", commit_institution_file_import_path, method: :put, class: "fr-btn fr-btn--primary" %>
+</div>
+
+<% case @import.entity.to_s %>
+<% when "User" %>
+  <%= render 'annuaire/users/table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts %>
+<% when "Antenne" %>
+  <%= render 'annuaire/antennes/table', grouped_subjects: @antennes %>
+
+<% end %>
+
+<% if @users_data.grouped_experts.present? %>
+<% else %>
+  <div class="fr-alert fr-alert--info fr-alert--sm">
+    <p><%= t('.no_users') %></p>
+  </div>
+<% end %>
