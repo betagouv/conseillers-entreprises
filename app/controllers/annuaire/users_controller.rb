@@ -43,19 +43,6 @@ module Annuaire
       redirect_to institution_users_path(slug: params[:institution_slug])
     end
 
-    def import; end
-
-    def import_create
-      @result = User.import_csv(params.require(:file), institution: @institution)
-      if @result.success?
-        flash[:table_highlighted_ids] = @result.objects.compact.map(&:id)
-        session[:highlighted_antennes_ids] = Antenne.where(advisors: @result.objects).ids
-        redirect_to action: :index
-      else
-        render :import, status: :unprocessable_content
-      end
-    end
-
     def create_territorial_coverage
       institution_subject = InstitutionSubject.find_by(id: params[:institution_subject_id])
       coverage = Rails.cache.fetch(["coverage-service", institution_subject, @users_data.antennes], expires_in: 2.minutes) do
