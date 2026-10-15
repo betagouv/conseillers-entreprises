@@ -1,7 +1,9 @@
+<%# locals: (institution:, antenne: nil) %>
+
 <h1 class="fr-h2">
   <%= institution.name %>
-  <% if local_assigns[:antenne].present? %>
-     - <%= local_assigns[:antenne] %>
+  <% if antenne.present? %>
+     - <%= antenne %>
   <% end %>
 </h1>
 
@@ -12,14 +14,14 @@
       <li>
         <%= link_to Institution.model_name.human.pluralize, institutions_path, class: 'fr-breadcrumb__link' %>
       </li>
-      <% if local_assigns[:antenne].present? %>
+      <% if antenne.present? %>
         <li>
           <%= link_to institution.name, institution, class: 'fr-breadcrumb__link' %>
         </li>
-        <% if local_assigns[:antenne].present? %>
+        <% if antenne.present? %>
           <li>
             <a class="fr-breadcrumb__link" aria-current="page">
-              <%= local_assigns[:antenne] %>
+              <%= antenne %>
             </a>
           </li>
         <% end %>
