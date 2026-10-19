@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_28_084735) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_29_150000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -673,6 +673,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_28_084735) do
     t.datetime "absence_end_at"
     t.datetime "imported_at"
     t.datetime "last_active_at"
+    t.string "proconnect_uid"
     t.index ["antenne_id"], name: "index_users_on_antenne_id"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true, where: "((email)::text <> NULL::text)"
@@ -680,6 +681,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_28_084735) do
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["inviter_id"], name: "index_users_on_inviter_id"
     t.index ["last_active_at"], name: "index_users_on_last_active_at"
+    t.index ["proconnect_uid"], name: "index_users_on_proconnect_uid", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
