@@ -6,7 +6,12 @@ class Api::V1::QualificationsController < Api::V1::BaseController
   require_api_key_scope ApiKey::QUALIFICATION
 
   def unqualified
-    solicitations = Solicitation.unqualified.includes(:landing_subject, :needs)
+    solicitations = if ENV['FEATURE_API_SOLICITATIONS_UNQUALIFIED_RETURNS_ANONYMIZED_EXAMPLES'] == 'true'
+      AnonymizedExamples.solicitations
+    else
+      Solicitation.unqualified.includes!(:landing_subject, :needs)
+    end
+
     page = solicitations.page(params[:page]).per(per_page)
 
     render json: page, each_serializer: serializer, meta: { total_results: page.total_count }
