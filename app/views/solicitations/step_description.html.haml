@@ -58,6 +58,14 @@
               = check_box_tag :certify_being_company_boss, false, @solicitation.certify_being_company_boss, required: true
               = label_tag :certify_being_company_boss, t('solicitations.creation_form.certify_being_company_boss'), class: 'fr-label'
 
+      - if @solicitation.require_additional_health_data_agreement?
+        %hr.fr-mt-5w
+        %fieldset.fr-fieldset
+          .fr-fieldset__element.fr-fieldset__element--inline
+            .fr-checkbox-group
+              = check_box_tag :additional_health_data_agreement, false, @solicitation.additional_health_data_agreement, required: true
+              = label_tag :additional_health_data_agreement, t('solicitations.creation_form.additional_health_data_agreement'), class: 'fr-label'
+
       %ul.fr-btns-group.fr-btns-group--inline.fr-btns-group--right
         %li= render 'previous_button',
                 path: retrieve_company_step_path,

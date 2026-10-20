@@ -81,7 +81,7 @@ class Solicitation < ApplicationRecord
   has_many :badge_badgeables, as: :badgeable
   has_many :badges, through: :badge_badgeables, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
 
-  attr_accessor :certify_being_company_boss
+  attr_accessor :certify_being_company_boss, :additional_health_data_agreement
 
   before_validation :normalize_insee_code
   before_create :set_uuid, :set_cooperation, :set_provenance_detail
@@ -614,6 +614,10 @@ class Solicitation < ApplicationRecord
       ressources_humaines_former_un_ou_plusieurs_salaries
     ]
     landing_subject.subject.slug.in? slugs
+  end
+
+  def require_additional_health_data_agreement?
+    landing&.slug == "portail-des-travailleurs-independants-handicapes"
   end
 
   # Format fiche : F1234..
