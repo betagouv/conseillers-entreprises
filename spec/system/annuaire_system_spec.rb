@@ -76,12 +76,12 @@ describe 'annuaire', :js do
     end
   end
 
-  context '/annuaire/institutions/:slug/antennes/:antenne_id/conseillers' do
+  context '/annuaire/institutions/:slug/conseillers' do
     describe 'without user' do
       let!(:institution_subject) { create :institution_subject, institution: institution }
 
       it 'displays no users' do
-        visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
+        visit "annuaire/institutions/#{institution.slug}/conseillers?antenne_id=#{antenne.id}"
 
         expect(page).to have_css 'h1', text: institution.name
         expect(page).to have_css('.fr-alert--info')
@@ -97,8 +97,8 @@ describe 'annuaire', :js do
         let!(:institution_subject) { create :institution_subject, institution: institution }
         let!(:expert_subject) { create :expert_subject, institution_subject: institution_subject, expert: expert }
 
-        xit 'display users without warning' do
-          visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
+        it 'display users without warning' do
+          visit "annuaire/institutions/#{institution.slug}/conseillers"
           expect(page).to have_css 'h1', text: institution.name
           expect(page).to have_css('.fr-table--c-annuaire', count: 1)
           expect(page).to have_css('.td-header--user', count: 1)
@@ -131,7 +131,7 @@ describe 'annuaire', :js do
         # Sans zone spécifique
         context 'without specifics territories' do
           before do
-            visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
+            visit "annuaire/institutions/#{institution.slug}/conseillers"
           end
 
           it 'display users with many experts warning' do
