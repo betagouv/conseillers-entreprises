@@ -1,0 +1,35 @@
+<dialog class="fr-modal" id="modal-coverage-<%= institution_subject.id %>" aria-labelledby="modal-coverage-<%= institution_subject.id %>-title" role="dialog">
+  <div class="fr-container fr-container--fluid fr-container-md">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+        <div class="fr-modal__body coverage-modal text-left">
+          <div class="fr-modal__header fr-mb-2w">
+            <button class="fr-btn--close fr-btn" aria-controls="modal-coverage-<%= institution_subject.id %>" title="<%= t('navbar.close') %>">
+              <%= t('navbar.close') %>
+            </button>
+            <div>
+              <h2 class="fr-h4 fr-m-0" id="modal-coverage-<%= institution_subject.id %>-title">
+                <span class="<%= t(referencement_coverage[:anomalie], scope: 'activerecord.attributes.referencement_coverage/anomalie_icons') %>" aria-hidden="true"></span>
+                <%= t("#{referencement_coverage[:anomalie]}", scope: 'activerecord.attributes.referencement_coverage/anomalie') %>
+              </h2>
+            </div>
+          </div>
+          <div class="fr-modal__content">
+            <div class="fr-mb-2w">
+              <p class="fr-badge fr-badge--blue-ecume"><%= institution_subject.subject.label %></p>
+              <% if referencement_coverage[:coverage].present? %>
+                <p class="fr-badge fr-badge--green-menthe fr-mt-2w"><%= t(referencement_coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.long') %></p>
+              <% end %>
+            </div>
+            <% if referencement_coverage[:anomalie_details].present? %>
+              <%= build_coverage_details(referencement_coverage[:anomalie_details]) %>
+            <% end %>
+            <% if referencement_coverage[:cooperations_details].present? %>
+              <%= build_cooperations_details(referencement_coverage[:cooperations_details]) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
