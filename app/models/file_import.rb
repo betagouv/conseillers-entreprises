@@ -50,7 +50,7 @@ class FileImport < ApplicationRecord
 
   DESTROY_DELAY = 1.week
 
-  def auto_destroy = DestroyJob.set(wait: DESTROY_DELAY).perform_later(self)
+  def auto_destroy = DestroyJob.set(wait_until: DESTROY_DELAY.from_now).perform_later(self)
 
   class DestroyJob < ApplicationJob
     def perform(file_import) = file_import.destroy
