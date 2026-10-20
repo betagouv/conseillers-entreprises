@@ -608,8 +608,12 @@ class Solicitation < ApplicationRecord
   ## Expérimentations - customisations
   #
   def certify_being_company_boss_required?
-    # Pour les sujets "Former un ou plusieurs salariés" et "Obtenir un renseignement en droit du travail" et "Financer ses projets d'investissement"
-    landing_subject.subject.id == 45 || landing_subject.subject.id == 47 || landing_subject.subject.id == 55
+    slugs = %w[
+      droit_du_travail_etre_accompagne_sur_les_questions_de_droit_du_travail
+      investissement_financer_sa_croissance_et_ses_investissements
+      ressources_humaines_former_un_ou_plusieurs_salaries
+    ]
+    landing_subject.subject.slug.in? slugs
   end
 
   # Format fiche : F1234..
@@ -619,8 +623,8 @@ class Solicitation < ApplicationRecord
 
   # Experimentation pour l'URSSAF 59 et 62
   def experimentation_urssaf?
-    # pour departements 59 et 62 sur le sujet "Solliciter des avantages fiscaux"
-    (subject&.id == 170) && facility&.readable_locality&.start_with?("59", "62")
+    slug = "investissement_comprendre_les_avantages_fiscaux_et_les_reductions_d_impots"
+    (subject&.id == slug) && facility&.readable_locality&.start_with?("59", "62")
   end
 
   ## Preselection
