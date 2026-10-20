@@ -1,0 +1,29 @@
+<%= form_with url: institutions_path, local: true, method: :get, class: 'fr-mb-3w' do |f| %>
+  <div class="fr-grid-row fr-grid-row--gutters" data-controller="filters" data-url="<%= annuaire_load_filter_options_path %>">
+    <div class="fr-col">
+      <div class="fr-select-group">
+        <%= f.label :region_code, t('attributes.region'), class: 'fr-label' %>
+        <%= f.collection_select :region_code, RegionOrderingService.call, :code, :nom, { selected: index_search_params[:region_code], include_blank: t('all.feminine') }, class: "fr-select", id: 'institutions-region' %>
+      </div>
+    </div>
+    <div class="fr-col">
+      <div class="fr-select-group">
+        <%= f.label :theme_id, class: 'fr-label' do %>
+          <%= t('attributes.theme') %>
+          <div class="loader loader--sm hidden" data-filters-target="loader"></div>
+        <% end %>
+        <%= f.collection_select :theme_id, Theme.order(:label), :id, :label, { selected: index_search_params[:theme_id], include_blank: t('all.masculin') }, class: "fr-select", data: { action: 'change->filters#fetchFilters', 'filters-target': 'themes' } %>
+      </div>
+    </div>
+    <div class="fr-col">
+      <div class="fr-select-group">
+        <%= f.label :subject_id, t('attributes.subject'), class: 'fr-label' %>
+        <%= f.collection_select :subject_id, subjects, :id, :label, { selected: index_search_params[:subject_id], include_blank: t('all.masculin') }, class: "fr-select", data: { 'filters-target': 'subjects' } %>
+      </div>
+    </div>
+  </div>
+  <% if index_search_params[:region_code].present? || index_search_params[:theme_id].present? || index_search_params[:subject_id].present? %>
+    <%= link_to t('clear_search'), request.fullpath.split('?').first + "?reset_query=true", id: 'clear-search', class: 'fr-btn fr-btn--tertiary-no-outline' %>
+  <% end %>
+  <%= f.submit t('annuaire.search.form.submit'), class: 'fr-btn fr-mt-2w', id: 'search-institutions' %>
+<% end %>

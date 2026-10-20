@@ -1,0 +1,48 @@
+<%# locals: (antennes:) %>
+
+<div class="fr-table--c-annuaire fr-text--sm">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"><%= Antenne.human_attribute_name(:advisors, count: 2) %></th>
+        <th scope="col"><%= Antenne.human_attribute_name(:territorial_zone) %></th>
+        <th scope="col"><%= Antenne.human_attribute_name(:managers) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% antennes.each do |antenne| %>
+        <% highlighted_ids = flash[:table_highlighted_ids] %>
+        <tr class="<%= highlighted_ids&.include?(antenne.id) ? 'blue' : '' %>">
+          <td class="fr-enlarge-link">
+            <%= link_to antenne, admin_antenne_path(antenne) %>
+          </td>
+          <td class="fr-enlarge-link">
+            <%= link_to institution_users_path(antenne.institution,  antenne_id: antenne) do %>
+              <ul>
+                <li><%= antenne.experts.human_count %></li>
+                <li><%= antenne.advisors.human_count %></li>
+              </ul>
+            <% end %>
+          </td>
+          <td>
+            <ul>
+              <% antenne.territorial_zones.each do |territory| %>
+                <li><%= territory.zone_type.capitalize %> <%= territory.name %></li>
+              <% end %>
+            </ul>
+          </td>
+          <td>
+            <% antenne.managers.each do |manager| %>
+              <ul>
+                <li><%= manager.full_name %></li>
+                <li><%= mail_to manager.email, manager.email, target: :blank %></li>
+                <li><%= link_to(manager.phone_number, "tel:#{manager.phone_number}") %></li>
+              </ul>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

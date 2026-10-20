@@ -1,0 +1,35 @@
+<h1 class="fr-h2">
+  <%= institution.name %>
+  <% if local_assigns[:antenne].present? %>
+     - <%= local_assigns[:antenne] %>
+  <% end %>
+</h1>
+
+<nav class="fr-breadcrumb" aria-label="<%= t('shared.breadcrumb.you_are_here') %>" role="navigation">
+  <button class="fr-breadcrumb__button" aria-controls="breadcrumb-189" aria-expanded="false"></button>
+  <div class="fr-collapse" id="breadcrumb-189">
+    <ol class="fr-breadcrumb__list">
+      <li>
+        <%= link_to Institution.model_name.human.pluralize, institutions_path, class: 'fr-breadcrumb__link' %>
+      </li>
+      <% if local_assigns[:antenne].present? %>
+        <li>
+          <%= link_to institution.name, institution, class: 'fr-breadcrumb__link' %>
+        </li>
+        <% if local_assigns[:antenne].present? %>
+          <li>
+            <a class="fr-breadcrumb__link" aria-current="page">
+              <%= local_assigns[:antenne] %>
+            </a>
+          </li>
+        <% end %>
+      <% else %>
+        <li>
+          <a class="fr-breadcrumb__link" aria-current="page">
+            <%= institution.name %>
+          </a>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+</nav>
