@@ -921,6 +921,7 @@ fr:
       nombre_etablissements_ouverts: 'Nombre d’établissements ouverts : %{count}'
     creation_form:
       accompaniments: 'Des conseillers vous accompagnent pour :'
+      additional_health_data_agreement: Si je partage des informations relatives à ma santé dans ma demande, j’accepte qu’elles soient traitées dans le cadre de la mise en relation avec un conseiller.
       all_fields_compulsary: Tous les champs sont obligatoires.
       already_submitted_solicitation: Cette demande a déjà été envoyée aux conseillers.
       average_delays: "(délai moyen de prise en charge)"
