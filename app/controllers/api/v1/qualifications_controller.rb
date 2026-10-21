@@ -6,7 +6,7 @@ class Api::V1::QualificationsController < Api::V1::BaseController
   require_api_key_scope ApiKey::QUALIFICATION
 
   def unqualified
-    solicitations = if ENV['FEATURE_API_SOLICITATIONS_UNQUALIFIED_RETURNS_ANONYMIZED_EXAMPLES'] == 'true'
+    solicitations = if ENV['FEATURE_API_SOLICITATIONS_UNQUALIFIED_RETURN_ANONYMIZED_FAKE'] == 'true'
       AnonymizedExamples.solicitations
     else
       Solicitation.unqualified.includes!(:landing_subject, :needs)
