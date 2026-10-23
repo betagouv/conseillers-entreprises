@@ -35,7 +35,7 @@ module CsvImport
       ActiveRecord::Base.transaction do |transaction|
         # Convert CSV rows to attributes
         objects = rows.each_with_index.map do |row|
-          row.delete_if { |k, v| k.nil? && v.nil? }
+          row.delete_if { |k, v| k.nil? }
           # Convert row to attributes
           attributes = row_to_attributes(row)
 
