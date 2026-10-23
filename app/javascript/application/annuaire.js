@@ -1,4 +1,5 @@
 (function () {
+  // is this doing anything?
   addEventListener('turbo:load', function() {
     let subjectCells = document.querySelectorAll('tr.subjects th')
     if (subjectCells.length != 0) {

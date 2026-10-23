@@ -1,30 +1,37 @@
 <%# locals: (grouped_subjects:, grouped_experts:) %>
 
-<div class="fr-table--c-annuaire">
-  <table>
-    <%= render 'annuaire/users/table/header', grouped_subjects: grouped_subjects, load_coverage: false && !large_search?(grouped_experts, grouped_subjects) %>
-    <tbody>
-      <% grouped_experts.each do |antenne, experts| %>
-        <% experts.each do |expert, users| %>
-          <%# optionaly skip if expert does not contain any objects in @result.objects %>
+<% import_changes = defined?(@old_data) ? Annuaire::ImportChanges.new(@old_data, @result) : nil %>
+<div class="fr-table fr-table--multiline">
+  <div class="fr-table__wrapper">
+    <div class="fr-table__container">
+      <div class="fr-table__content">
+        <table>
+          <%= render 'annuaire/users/table/header', grouped_subjects: grouped_subjects, load_coverage: false && !large_search?(grouped_experts, grouped_subjects) %>
+          <tbody>
+            <% grouped_experts = grouped_experts.reject{ |antenne| import_changes.antenne_changes(antenne) == :removed } %>
+            <% grouped_experts.each do |antenne, experts| %>
 
-          <% users.each_with_index do |user, index_in_expert| %>
-            <%# hightlight: the rows in @result.objects %>
-            <%# highlighted_ids = @result.objects.compact.map(&:id) %>
-            <% expert_first_row = index_in_expert == 0 %>
-            <% antenne_first_row = expert == experts.keys.first && expert_first_row %>
-            <% antenne_separation_class = antenne_first_row ? 'tr--distinct' : '' %>
-            <% highlighted_class = (@result && (user.in? @result&.objects)) ? 'blue' : '' %>
-            <% # if highlighted_class do stuff with @result.rows[@result.objects.index(user)] %>
-            <tr class="<%= [antenne_separation_class, highlighted_class].compact.join(" ") %>">
-              <%= render('annuaire/users/table/antenne_cell', antenne: antenne, experts: experts) if antenne_first_row %>
-              <%= render('annuaire/users/table/expert_cell', expert: expert, users: users, antenne: antenne) if expert_first_row %>
-              <%= render 'annuaire/users/table/user_cell', user: user, antenne: antenne %>
-              <%= render('annuaire/users/table/expert_subjects_cells', grouped_subjects: grouped_subjects, expert: expert, users: users) if expert_first_row %>
-            </tr>
-          <% end %>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
+              <% experts = experts.reject{ |expert| import_changes.expert_changes(expert) == :removed }%>
+              <% all_users = experts.values.flatten %>
+              <% all_users = all_users.reject{ |user| import_changes.user_changes(user) == :removed }%>
+              <% experts.each_with_index do |expert_and_users, index_in_antenne| %>
+                <% expert, users = expert_and_users %>
+                <% users = users.reject{ |user| import_changes.user_changes(user) == :removed }%>
+                <% users.each_with_index do |user, index_in_expert| %>
+                  <% expert_first_row = index_in_expert == 0 %>
+                  <% antenne_first_row = index_in_antenne == 0 && index_in_expert == 0 %>
+                  <tr>
+                    <%= render('annuaire/users/table/antenne_cell', antenne: antenne, size: all_users.size) if antenne_first_row %>
+                    <%= render('annuaire/users/table/expert_cell', expert: expert, users: users, antenne: antenne) if expert_first_row %>
+                    <%= render 'annuaire/users/table/user_cell', import_changes: import_changes, user: user, antenne: antenne %>
+                    <%= render('annuaire/users/table/expert_subjects_cells', grouped_subjects: grouped_subjects, expert: expert, users: users) if expert_first_row %>
+                  </tr>
+                <% end %>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

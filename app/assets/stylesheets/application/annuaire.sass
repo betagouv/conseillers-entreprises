@@ -27,3 +27,51 @@
 .coverage-controls, .lazy-coverage-container
   .ri-spin
     animation: spin 1s linear infinite
+
+.user-cell--touched
+  background: base.$blue-light !important
+.user-cell--updated
+  background: base.$orange !important
+.user-cell--created
+  background: base.$green !important
+.user-cell--removed
+  background: base.$red-lighter !important
+
+.annuaire-cell--changes
+  position: relative
+  &:before
+    content: ""
+    position: absolute
+    left: 0
+    border-radius: 10px
+    height: 20px
+    width: 20px
+    background: var(--changes-background)
+  &[data-changes="touched"]
+    --changes-background: blue
+  &[data-changes="updated"]
+    --changes-background: orange
+  &[data-changes="create"]
+    --changes-background: green
+  &[data-changes="removed"]
+    --changes-background: red
+
+.annuaire-download-dropdown
+  position: relative
+  display: inline-block
+  li
+    padding: 0
+  .dropdown-content
+    display: none
+    position: absolute
+    z-index: 2
+    right: 0
+    box-shadow: 0 2px 6px base.$grey
+    a, .clickable
+      padding: 0.5rem 0.5rem 0.5rem 1rem
+      background: none
+      cursor: pointer
+      &:hover
+        background-color: base.$grey-lighter
+.annuaire-download-dropdown:hover .dropdown-content
+  display: block

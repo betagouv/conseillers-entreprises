@@ -119,14 +119,16 @@ fr:
         send_invitations:
           one: Envoyer une invitation
           other: Envoyer les %{count} invitations
+        title: "Prévisualisation"
+        commit: "Confirmer l’import"
     institutions:
       index:
         no_institution: Aucune institution n’a été trouvé
-        title: Annuaire
+        title: Annuaire des institutions
     search:
       form:
         submit: Chercher
-      free_text_search: Rechercher un ou des conseillers
+      free_text_search: Rechercher une antenne ou un conseiller
     subjects:
       index:
         no_subject: Aucun sujet n’a été trouvé
