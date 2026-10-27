@@ -1,8 +1,7 @@
 class CreateTerritorialCoverage
-  def initialize(institution_subject, grouped_experts)
+  def initialize(institution_subject, antennes)
     @institution_subject = institution_subject
-    @grouped_experts = grouped_experts
-    @antennes = @grouped_experts.keys
+    @antennes = antennes
     @antennes_insee_codes = @antennes.flat_map(&:insee_codes).uniq
     @all_potential_antennes_ids = compute_all_potential_antennes_ids
     @all_experts = gather_all_experts
