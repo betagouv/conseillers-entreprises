@@ -47,7 +47,7 @@ module XlsxExport
         ], style: count_rate_row_style
 
         add_status_rows(ordered_scopes, matches, previous_matches)
-        add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], matches.with_exchange, previous_matches, suffix: ' **')
+        add_status_rows([:taken_care_in_three_days, :taken_care_in_five_days], matches.with_exchange, previous_matches.with_exchange, suffix: ' **')
 
         sheet.add_row
       end
