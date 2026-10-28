@@ -1,0 +1,27 @@
+<%# locals: (import:) %>
+
+<h1 class="fr-h2">
+  <%= "import d’utilisateurs"  %>
+  <p class="fr-text--lead">
+    <%= "pour #{import.institution.name}" %>
+  </p>
+</h1>
+
+<nav class="fr-breadcrumb" aria-label="<%= t('shared.breadcrumb.you_are_here') %>" role="navigation">
+  <button class="fr-breadcrumb__button" aria-controls="breadcrumb-189" aria-expanded="false"></button>
+  <div class="fr-collapse" id="breadcrumb-189">
+    <ol class="fr-breadcrumb__list">
+      <li>
+        <%= link_to t("annuaire.institutions.index.title"), institutions_path, class: 'fr-breadcrumb__link' %>
+      </li>
+      <li>
+        <%= link_to "Analyse", analysis_institution_file_import_path, class: 'fr-breadcrumb__link' %>
+      </li>
+      <li>
+        <a class="fr-breadcrumb__link" aria-current="page">
+          <%= "Preview" %>
+        </a>
+      </li>
+    </ol>
+  </div>
+</nav>

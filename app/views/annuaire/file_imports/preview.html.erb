@@ -1,29 +1,72 @@
 <% meta title: @institution.name %>
-<% content_for :header, render('header', institution: @institution) %>
-<% content_for :menu, render('menu', institution: @institution) %>
+<% content_for :header, render('header', import: @import) %>
 
-<h3> Prévisualisation </h3>
+<!--<div class="fr-container">-->
+<!--  <div class="fr-stepper">-->
+<!--    <h2 class="fr-stepper__title">-->
+<!--      Prévisualisation-->
+<!--      <span class="fr-stepper__state">Étape 2 sur 2</span>-->
+<!--    </h2>-->
+<!--    <div class="fr-stepper__steps" data-fr-current-step="2" data-fr-steps="2"></div>-->
+<!--    <p class="fr-stepper__details">-->
+<!--      <span class="fr-text--bold">Étape suivante :</span> Confirmer l’import-->
+<!--    </p>-->
+<!--  </div>-->
+<!--</div>-->
+<!---->
+<!--<nav class="fr-breadcrumb" aria-label="<%#= t('shared.breadcrumb.you_are_here') %>" role="navigation">-->
+<!--  <button class="fr-breadcrumb__button" aria-controls="breadcrumb-189" aria-expanded="false"></button>-->
+<!--  <div class="fr-collapse" id="breadcrumb-189">-->
+<!--    <ol class="fr-breadcrumb__list">-->
+<!--      <li>-->
+<!--        Autre fichier-->
+<!--      </li>-->
+<!--      <li>-->
+        <%#= link_to "Analyse", analysis_institution_file_import_path, class: 'fr-breadcrumb__link' %>
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a class="fr-breadcrumb__link" aria-current="page">-->
+          <%#= t('.title') %>
+<!--        </a>-->
+<!--      </li>-->
+<!--    </ol>-->
+<!--  </div>-->
+<!--</nav>-->
 
-<div class="fr-my-2w">
-  <%= button_to "Réaliser l’import", commit_institution_file_import_path, method: :put, class: "fr-btn fr-btn--primary" %>
+<div class="fr-container">
+  <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--right">
+    <div class="fr-col fr-col-2">
+      <%= link_to "Revoir l’analyse", analysis_institution_file_import_path, class: "fr-btn fr-btn--secondary" %>
+    </div>
+    <div class="fr-col fr-col-2">
+      <%= button_to t('.commit'), commit_institution_file_import_path, method: :put, class: "fr-btn fr-btn--primary", disabled: @import.completed? %>
+    </div>
+  </div>
 </div>
 
 <% case @import.entity.to_s %>
 <% when "User" %>
   <% if @users_data.grouped_experts.present? %>
-    <%= render 'annuaire/users/table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts %>
+    <div class="fr-container-fluid">
+      <%= render 'annuaire/users/table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts %>
+    </div>
   <% else %>
-    <div class="fr-alert fr-alert--info fr-alert--sm">
-      <p><%= t('.no_users') %></p>
+    <div class="fr-container">
+      <div class="fr-alert fr-alert--info fr-alert--sm">
+        <p><%= t('.no_users') %></p>
+      </div>
     </div>
   <% end %>
 <% when "Antenne" %>
   <% if @antennes.present? %>
-    <%= render 'annuaire/antennes/table', antennes: @antennes %>
+    <div class="fr-container-fluid">
+      <%= render 'annuaire/antennes/table', antennes: @antennes %>
+    </div>
   <% else %>
-    <div class="fr-alert fr-alert--info fr-alert--sm">
-      <p><%= t('.no_antenne') %></p>
+    <div class="fr-container">
+      <div class="fr-alert fr-alert--info fr-alert--sm">
+        <p><%= t('.no_antenne') %></p>
+      </div>
     </div>
   <% end %>
 <% end %>
-

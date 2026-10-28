@@ -1,37 +1,41 @@
-<%# locals: (institution:, antenne: nil) %>
+<%# locals: (institution: nil, antenne: nil) %>
 
 <h1 class="fr-h2">
-  <%= institution.name %>
+  <% if institution.present? %>
+    <%= institution.name  %>
+  <% else %>
+    <%= t("annuaire.institutions.index.title") %>
+  <% end %>
   <% if antenne.present? %>
      - <%= antenne %>
   <% end %>
 </h1>
 
-<nav class="fr-breadcrumb" aria-label="<%= t('shared.breadcrumb.you_are_here') %>" role="navigation">
-  <button class="fr-breadcrumb__button" aria-controls="breadcrumb-189" aria-expanded="false"></button>
-  <div class="fr-collapse" id="breadcrumb-189">
-    <ol class="fr-breadcrumb__list">
-      <li>
-        <%= link_to Institution.model_name.human.pluralize, institutions_path, class: 'fr-breadcrumb__link' %>
-      </li>
-      <% if antenne.present? %>
+<% if institution.present? %>
+  <nav class="fr-breadcrumb" aria-label="<%= t('shared.breadcrumb.you_are_here') %>" role="navigation">
+    <button class="fr-breadcrumb__button" aria-controls="breadcrumb-189" aria-expanded="false"></button>
+    <div class="fr-collapse" id="breadcrumb-189">
+      <ol class="fr-breadcrumb__list">
         <li>
-          <%= link_to institution.name, institution, class: 'fr-breadcrumb__link' %>
+          <%= link_to t("annuaire.institutions.index.title"), institutions_path, class: 'fr-breadcrumb__link' %>
         </li>
         <% if antenne.present? %>
+          <li>
+            <%= link_to institution.name, institution, class: 'fr-breadcrumb__link' %>
+          </li>
           <li>
             <a class="fr-breadcrumb__link" aria-current="page">
               <%= antenne %>
             </a>
           </li>
+        <% else %>
+          <li>
+            <a class="fr-breadcrumb__link" aria-current="page">
+              <%= institution.name %>
+            </a>
+          </li>
         <% end %>
-      <% else %>
-        <li>
-          <a class="fr-breadcrumb__link" aria-current="page">
-            <%= institution.name %>
-          </a>
-        </li>
-      <% end %>
-    </ol>
-  </div>
-</nav>
+      </ol>
+    </div>
+  </nav>
+<% end %>

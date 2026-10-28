@@ -2,14 +2,22 @@
 <% content_for :header, render('header', institution: @institution) %>
 <% content_for :menu, render('menu', institution: @institution) %>
 
-<%= render 'form', institution: @institution %>
+<div class="fr-container">
+  <%= render 'form', institution: @institution %>
+</div>
 
-<%= render 'import_buttons' %>
+<div class="fr-container">
+  <%= render 'import_buttons' %>
+</div>
 
 <% if @antennes.present? %>
-  <%= render 'table', antennes: @antennes %>
+  <div class="fr-container--fluid">
+    <%= render 'table', antennes: @antennes %>
+  </div>
 <% else %>
-  <div class="fr-alert fr-alert--info fr-alert--sm">
-    <p><%= t('.no_antenne') %></p>
+  <div class="fr-container">
+    <div class="fr-alert fr-alert--info fr-alert--sm">
+      <p><%= t('.no_antenne') %></p>
+    </div>
   </div>
 <% end %>

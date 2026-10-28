@@ -1,22 +1,23 @@
 <%# locals: () %>
 
-<div class="fr-mb-3w">
-  <span class="fr-ml-2w">
-    <%= link_to institution_users_path(format: 'csv', antenne_id: params[:antenne_id].presence, region_code: params[:region_code].presence) do %>
-      <span class="ri-download-2-line fr-mr-1w" aria-hidden="true"></span>
-      <%= t('download_csv') %>
-    <% end %>
-  </span>
-  <span class="fr-ml-2w">
-    <%= link_to institution_users_path(format: 'xlsx', antenne_id: params[:antenne_id].presence, region_code: params[:region_code].presence) do %>
-      <span class="ri-download-2-line fr-mr-1w" aria-hidden="true"></span>
-      <%= t('download_xls') %>
-    <% end %>
-  </span>
-  <span class="fr-ml-2w">
-    <%= link_to new_institution_file_import_path(entity: "User") do %>
-      <span class="ri-upload-2-line fr-mr-1w" aria-hidden="true"></span>
-      <%= t('import') %>
-    <% end %>
-  </span>
+<div>
+  <div class="annuaire-download-dropdown">
+    <button class="fr-btn fr-btn--tertiary">Télécharger</button>
+    <ul class="dropdown-content fr-menu__list">
+      <li class="fr-menu__item">
+        <%= link_to institution_users_path(format: 'csv', antenne_id: params[:antenne_id].presence, region_code: params[:region_code].presence) do %>
+          <%= t('download_csv') %>
+        <% end %>
+      </li>
+      <li class="fr-menu__item">
+        <%= link_to institution_users_path(format: 'xlsx', antenne_id: params[:antenne_id].presence, region_code: params[:region_code].presence) do %>
+          <%= t('download_xls') %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <%= render "annuaire/file_imports/import_dialog", entity: "User" %>
+    <button data-fr-opened="false" aria-controls="import_dialog" type="button" class="fr-btn fr-btn--tertiary">Importer</button>
+  </div>
 </div>
