@@ -13,9 +13,9 @@
         - highlighted_ids = flash[:table_highlighted_ids]
         %tr{ class: highlighted_ids&.include?(antenne.id) ? 'blue' : '' }
           %td.fr-enlarge-link
-            = link_to antenne, institution_antenne_users_path(antenne_id: antenne)
+            = link_to antenne, admin_antenne_path(antenne)
           %td.fr-enlarge-link
-            = link_to institution_users_path(antenne.institution, region_code: index_search_params[:region_code].presence) do
+            = link_to institution_users_path(antenne.institution, antenne_id: antenne) do
               %ul
                 %li= antenne.experts.human_count
                 %li= antenne.advisors.human_count
