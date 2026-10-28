@@ -1,0 +1,9 @@
+<%# locals: (institution_subject:) %>
+
+<div class="lazy-coverage-container" data-controller="coverage" data-institution-subject-id="<%= institution_subject.id %>">
+  <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline load-single-coverage" data-institution-subject-id="<%= institution_subject.id %>" data-antenne-id="<%= params[:antenne_id].to_i %>" data-action="click->coverage#loadSingle">
+    <span class="ri-loader-4-line fr-hidden"></span>
+    <%= t('.load_coverage') %>
+  </button>
+  <div class="coverage-result d-none"></div>
+</div>

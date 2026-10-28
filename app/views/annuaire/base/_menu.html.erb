@@ -1,0 +1,7 @@
+<%# locals: (institution:) %>
+
+<ul class="fr-tabs__list list-unstyled" aria-label="Menu annuaire" role="tablist">
+  <%= render 'menu_link', institution: institution, key: :subjects %>
+  <%= render 'menu_link', institution: institution, key: :antennes %>
+  <%= render 'menu_link', institution: institution, key: :users %>
+</ul>

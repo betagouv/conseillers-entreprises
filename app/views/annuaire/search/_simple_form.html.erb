@@ -1,0 +1,17 @@
+<%# locals: (subjects:, institution:) %>
+
+<%= form_with url: annuaire_search_path, local: true, class: 'fr-mb-3w' do |f| %>
+  <div class="fr-grid-row fr-grid-row--gutters" data-controller="stats" data-url="<%= annuaire_load_filter_options_path %>">
+    <div class="fr-col">
+      <div class="fr-input-group fr-pr-2v">
+        <div class="autocomplete-field" data-autocomplete-url-value="<%= annuaire_autocomplete_path %>" data-controller="autocomplete" data-autocomplete-min-length-value="3">
+          <%= f.label :query, t('search'), class: 'fr-label' %>
+          <%= f.hidden_field :query, 'data-autocomplete-target': 'hidden' %>
+          <input class="fr-input" data-autocomplete-target="input" type="text">
+          <ul class="list-group" data-autocomplete-target="results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= f.submit t('annuaire.search.form.submit'), class: 'fr-btn fr-mt-2w' %>
+<% end %>

@@ -1,0 +1,34 @@
+<%# locals: (institutions_subjects:)%>
+
+<div class="fr-table--c-annuaire">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"><%= InstitutionSubject.human_attribute_name(:subject) %></th>
+        <th scope="col"><%= InstitutionSubject.human_attribute_name(:description) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%# We’re building a three-column table, but the cells in the first and second columns span over multiple rows
+        We’re grouping themes, and then subjects, together. %>
+      <% grouped_subjects = institutions_subjects.group_by(&:theme).transform_values{ |is| is.group_by(&:subject) } %>
+      <% grouped_subjects.each do |theme, subjects| %>
+        <% subjects.each_with_index do |key_and_value, subject_index| %>
+          <% subject, institutions_subjects = key_and_value.first, key_and_value.last %>
+          <% institutions_subjects.each_with_index do |institution_subject, institution_subject_index| %>
+            <tr>
+              <% if subject_index == 0 && institution_subject_index == 0 %>
+                <td class="td-header" rowspan="<%= subjects.values.sum(&:size) %>"><%= theme.label %></td>
+              <% end %>
+              <% if institution_subject_index == 0 %>
+                <td rowspan="<%= institutions_subjects.size %>"><%= subject.label %></td>
+              <% end %>
+              <td><%= institution_subject.description %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
