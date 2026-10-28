@@ -1,5 +1,6 @@
 module Annuaire
   class SubjectsController < BaseController
+    before_action -> { authorize [:annuaire, Subject] }
     before_action :retrieve_institution
 
     def index

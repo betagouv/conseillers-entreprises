@@ -1,0 +1,10 @@
+<td class="td-header td-header--user">
+  <% if user.persisted? %>
+    <%= build_user_name_cell(user, antenne) %>
+  <% end %>
+  <% errors = @result&.objects&.find{it.id == user.id}&.errors %>
+  <% if errors.present? # can we have errors at this step? %>
+    <%= "LOL" %>
+    <%= errors.full_messages %>
+  <% end %>
+</td>

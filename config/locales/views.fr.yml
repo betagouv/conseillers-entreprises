@@ -101,6 +101,24 @@ fr:
         unknown_headers:
           one: En-tête non reconnu
           other: En-têtes non reconnus
+    file_imports:
+      analysis:
+        antenne_not_found: 'Antenne non reconnue : %{name}'
+        import_failed: Échec de l’import
+        import_failed_with_error: 'Échec de l’import : %{error}'
+        unknown_headers:
+          one: En-tête non reconnu
+          other: En-têtes non reconnus
+      preview:
+        antenne_experts_performance: Cette recherche a beaucoup d'experts et de sujets. Pour améliorer les performances, vous pouvez charger toutes les couvertures en une fois ou individuellement.
+        load_all_coverage: Charger toutes les couvertures géographiques
+        loading_coverages: Chargement en cours...
+        loading_progress: Chargement... %{progress}%
+        no_antenne: Aucune antenne n’a été trouvé
+        no_users: Aucun utilisateur n'a été trouvé
+        send_invitations:
+          one: Envoyer une invitation
+          other: Envoyer les %{count} invitations
     institutions:
       index:
         no_institution: Aucune institution n’a été trouvé

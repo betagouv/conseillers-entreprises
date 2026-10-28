@@ -2,6 +2,7 @@ module Annuaire
   class UsersController < BaseController
     include InstitutionsSubjectsSorter
 
+    before_action -> { authorize [:annuaire, User] }
     before_action :retrieve_institution
     before_action :retrieve_antenne, only: [:index, :create_territorial_coverage]
     before_action :retrieve_users_data, only: [:index, :create_territorial_coverage]
@@ -41,19 +42,6 @@ module Annuaire
         flash[:alert] = t('.invitations_no_sent')
       end
       redirect_to institution_users_path(slug: params[:institution_slug])
-    end
-
-    def import; end
-
-    def import_create
-      @result = User.import_csv(params.require(:file), institution: @institution)
-      if @result.success?
-        flash[:table_highlighted_ids] = @result.objects.compact.map(&:id)
-        session[:highlighted_antennes_ids] = Antenne.where(advisors: @result.objects).ids
-        redirect_to action: :index
-      else
-        render :import, status: :unprocessable_content
-      end
     end
 
     def create_territorial_coverage
