@@ -22,6 +22,7 @@ ActiveAdmin.register Subject do
     column :theme, sortable: 'themes.interview_sort_order'
     column :interview_sort_order
     column :can_be_automated
+    column :excluded_from_qualification
     column(:needs) do |s|
       div admin_link_to(s, :needs)
       div admin_link_to(s, :matches)
@@ -46,6 +47,7 @@ ActiveAdmin.register Subject do
   filter :theme, as: :select, collection: -> { Theme.order(:label).pluck(:label, :id) }
   filter :label
   filter :can_be_automated
+  filter :excluded_from_qualification
 
   ## CSV
   #
@@ -54,6 +56,7 @@ ActiveAdmin.register Subject do
     column :theme
     column :interview_sort_order
     column :can_be_automated
+    column :excluded_from_qualification
     column_count :institutions_subjects
     column :is_archived
     column_count :institutions
@@ -68,6 +71,7 @@ ActiveAdmin.register Subject do
       row :label
       row :interview_sort_order
       row :can_be_automated
+      row :excluded_from_qualification
       row :archived_at
     end
     attributes_table do
@@ -104,7 +108,7 @@ ActiveAdmin.register Subject do
 
   ## Form
   #
-  permit_params :theme_id, :label, :interview_sort_order, :can_be_automated
+  permit_params :theme_id, :label, :interview_sort_order, :can_be_automated, :excluded_from_qualification
 
   form do |f|
     f.inputs do
@@ -112,6 +116,7 @@ ActiveAdmin.register Subject do
       f.input :label
       f.input :interview_sort_order
       f.input :can_be_automated
+      f.input :excluded_from_qualification
     end
 
     actions
