@@ -99,6 +99,10 @@ class Subject < ApplicationRecord
     where.not(id: external_ids)
   end
 
+  # Subjects hidden from the qualification API, along with their solicitations
+  scope :excluded_from_qualification, -> { where(excluded_from_qualification: true) }
+  scope :not_excluded_from_qualification, -> { where(excluded_from_qualification: false) }
+
   def copy_experts_from_other(other)
     self.transaction do
       self.institutions_subjects.destroy_all

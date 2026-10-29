@@ -11,7 +11,7 @@ RSpec.describe "Subjects API" do
     path '/api/v1/subjects' do
       get 'Liste des sujets' do
         tags 'Sujets'
-        description 'Affiche tous les sujets de besoins ainsi que les sujets d’atterrissage associés.'
+        description 'Affiche les sujets de besoins ainsi que les sujets d’atterrissage associés. Les sujets exclus de la qualification n’y figurent pas.'
         operationId 'listSubjects'
         produces 'application/json'
 
@@ -82,6 +82,20 @@ RSpec.describe "Subjects API" do
           end
         end
       end
+    end
+  end
+
+  describe 'excluded subjects' do
+    let(:headers) { { 'Authorization' => "Bearer token=#{find_token(institution, scopes: [ApiKey::ALL_SUBJECTS])}" } }
+
+    it 'hides subjects excluded from qualification' do
+      create(:subject, label: "Sujet exclu", excluded_from_qualification: true)
+
+      get "/api/v1/subjects", headers: headers
+      result = response.parsed_body
+
+      expect(result['metadata']['total_results']).to eq(1)
+      expect(result['data'].pluck('id')).to eq([subject_01.id])
     end
   end
 end
