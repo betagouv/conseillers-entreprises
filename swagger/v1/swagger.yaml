@@ -332,7 +332,7 @@ paths:
                       total_themes:
                         type: integer
                         description: Nombre de thèmes liée à la page d’atterrissage.
-  "/api/v1/qualifications":
+  "/api/v1/solicitations/qualifications":
     put:
       summary: Qualification des sollicitations
       tags:
@@ -403,13 +403,14 @@ paths:
                 required:
                 - id
                 - qualified
-  "/api/v1/qualifications/unqualified":
+  "/api/v1/solicitations/unqualified":
     get:
       summary: Liste des sollicitations non qualifiées
       tags:
       - Sollicitations
       description: Affiche les sollicitations en cours de traitement dont la qualification
-        n’a pas encore été renseignée.
+        n’a pas encore été renseignée. Les sollicitations liées à un sujet exclu de
+        la qualification n’y figurent pas.
       operationId: listUnqualifiedSolicitations
       parameters:
       - name: page
@@ -524,8 +525,8 @@ paths:
       summary: Liste des sujets
       tags:
       - Sujets
-      description: Affiche tous les sujets de besoins ainsi que les sujets d’atterrissage
-        associés.
+      description: Affiche les sujets de besoins ainsi que les sujets d’atterrissage
+        associés. Les sujets exclus de la qualification n’y figurent pas.
       operationId: listSubjects
       responses:
         '200':

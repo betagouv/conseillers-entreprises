@@ -12,7 +12,7 @@ RSpec.describe "Unqualified solicitations API" do
     path '/api/v1/solicitations/unqualified' do
       get 'Liste des sollicitations non qualifiées' do
         tags 'Sollicitations'
-        description 'Affiche les sollicitations en cours de traitement dont la qualification n’a pas encore été renseignée.'
+        description 'Affiche les sollicitations en cours de traitement dont la qualification n’a pas encore été renseignée. Les sollicitations liées à un sujet exclu de la qualification n’y figurent pas.'
         operationId 'listUnqualifiedSolicitations'
         produces 'application/json'
         parameter name: :page, in: :query, type: :integer, required: false, description: 'Numéro de page (défaut 1).'
@@ -144,6 +144,39 @@ RSpec.describe "Unqualified solicitations API" do
       get "/api/v1/solicitations/unqualified", headers: headers
 
       expect(response.parsed_body['data'].first['subject']).to eq(corrected_subject.id)
+    end
+
+    context 'with a subject excluded from qualification' do
+      let(:excluded_subject) { create(:subject, excluded_from_qualification: true) }
+
+      it 'excludes solicitations whose landing subject is excluded' do
+        create(:solicitation, landing_subject: create(:landing_subject, subject: excluded_subject))
+
+        get "/api/v1/solicitations/unqualified", headers: headers
+        result = response.parsed_body
+
+        expect(result['metadata']['total_results']).to eq(1)
+        expect(result['data'].pluck('id')).to eq([solicitation.id])
+      end
+
+      it 'excludes solicitations whose need subject is excluded' do
+        create(:diagnosis, solicitation: solicitation, needs: [build(:need, subject: excluded_subject)])
+
+        get "/api/v1/solicitations/unqualified", headers: headers
+        result = response.parsed_body
+
+        expect(result['metadata']['total_results']).to eq(0)
+        expect(result['data']).to be_empty
+      end
+
+      it 'excludes solicitations from an excluded landing subject even when the need was moved to another subject' do
+        excluded_solicitation = create(:solicitation, landing_subject: create(:landing_subject, subject: excluded_subject))
+        create(:diagnosis, solicitation: excluded_solicitation, needs: [build(:need, subject: subject_recrutement)])
+
+        get "/api/v1/solicitations/unqualified", headers: headers
+
+        expect(response.parsed_body['data'].pluck('id')).to eq([solicitation.id])
+      end
     end
 
     it 'returns a correlation id in the response headers' do
