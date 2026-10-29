@@ -23,6 +23,23 @@ RSpec.describe Solicitation do
         expect(subject).to eq [unqualified_in_progress, other_unqualified_in_progress]
       end
     end
+
+    describe 'qualifiable' do
+      subject { described_class.qualifiable }
+
+      let(:excluded_subject) { create :subject, excluded_from_qualification: true }
+      let!(:allowed_solicitation) { create :solicitation }
+      let!(:excluded_by_landing_subject) { create :solicitation, landing_subject: create(:landing_subject, subject: excluded_subject) }
+      let!(:excluded_by_need) do
+        create(:solicitation).tap do |solicitation|
+          create(:diagnosis, solicitation: solicitation, needs: [build(:need, subject: excluded_subject)])
+        end
+      end
+
+      it 'excludes solicitations linked to an excluded subject' do
+        expect(subject).to contain_exactly(allowed_solicitation)
+      end
+    end
   end
 
   describe 'validations' do
