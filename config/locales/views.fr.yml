@@ -93,14 +93,20 @@ fr:
     antennes:
       index:
         no_antenne: Aucune antenne n’a été trouvé
-    base:
-      import_errors:
+    file_imports:
+      analysis:
         antenne_not_found: 'Antenne non reconnue : %{name}'
         import_failed: Échec de l’import
         import_failed_with_error: 'Échec de l’import : %{error}'
+        no_error: Aucune erreur détectée
+        start_preview: Prévisualier l’import
+        title: Analyse du fichier
         unknown_headers:
           one: En-tête non reconnu
           other: En-têtes non reconnus
+      preview:
+        commit: Réaliser l’import
+        title: Prévisualisation
     institutions:
       index:
         no_institution: Aucune institution n’a été trouvé
