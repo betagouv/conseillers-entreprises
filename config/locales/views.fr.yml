@@ -95,6 +95,12 @@ fr:
         select_expert: Expert pour la réatribution des mises en relation
   admin_link: Lien admin
   annuaire:
+    actions_buttons:
+      actions: Actions
+      import: Importer…
+      send_invitations:
+        one: Envoyer une invitation
+        other: Envoyer les %{count} invitations
     antennes:
       index:
         no_antenne: Aucune antenne n’a été trouvé
@@ -115,6 +121,12 @@ fr:
         title:
           antenne: Import d’antennes
           user: Import d’utilisateurs
+      import_dialog:
+        action:
+          antenne: Importer un nouveau fichier d’antennes
+          user: Importer un nouveau fichier de conseillers
+        add_a_file: Ajouter un fichier
+        supported_formats: 'Format supporté : csv.'
       preview:
         commit: Réaliser l’import
         title: Prévisualisation
@@ -136,9 +148,6 @@ fr:
         loading_coverages: Chargement en cours...
         loading_progress: Chargement... %{progress}%
         no_users: Aucun utilisateur n'a été trouvé
-        send_invitations:
-          one: Envoyer une invitation
-          other: Envoyer les %{count} invitations
       lazy_coverage:
         load_coverage: Charger
       send_invitations:
