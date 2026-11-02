@@ -1,0 +1,10 @@
+<%# locals: (expert:, users:, antenne:) %>
+
+<td class="td-header td-header--expert" rowspan="<%= users.size %>">
+  <% if expert.persisted? %>
+    <%= link_to expert.full_name, admin_expert_path(expert), title: t('annuaire.users.table.expert', expert_name: expert.full_name, antenne: antenne) %>
+    <% if expert.territorial_zones.any? %>
+      <span class="ri-map-2-line blue fr-ml-1v" aria-hidden="true" title="<%= t('annuaire_helper.build_user_name_cell.specific_territories') %>"></span>
+    <% end %>
+  <% end %>
+</td>
