@@ -32,7 +32,7 @@ module CsvImport
       preprocess = []
       preprocess_errors = []
       postprocess_errors = []
-      ActiveRecord::Base.transaction do |transaction|
+      ActiveRecord::Base.transaction do
         # Convert CSV rows to attributes
         objects = rows.each_with_index.map do |row|
           row.delete_if { |k, v| k.nil? && v.nil? }
