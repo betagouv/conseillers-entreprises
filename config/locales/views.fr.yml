@@ -98,6 +98,8 @@ fr:
     antennes:
       index:
         no_antenne: Aucune antenne n’a été trouvé
+      import_buttons:
+        actions: "Actions"
     file_imports:
       analysis:
         antenne_not_found: 'Antenne non reconnue : %{name}'

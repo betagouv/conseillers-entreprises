@@ -1,16 +1,14 @@
 <%# locals: () %>
 
-<div class="fr-mb-3w">
-  <span class="fr-ml-2w">
+<div class="annuaire-import-menu fr-mb-3w">
+  <%= render "annuaire/file_imports/import_dialog", entity: "Antenne" %>
+  <button class="fr-btn fr-btn--tertiary fr-icon-settings-5-line fr-btn--icon-left"><%= t(".actions") %></button>
+  <div class="annuaire-import-menu__content">
     <%= link_to institution_antennes_path(format: 'csv') do %>
       <span class="ri-download-2-line fr-mr-1w" aria-hidden="true"></span>
       <%= t('download_csv') %>
     <% end %>
-  </span>
-  <span class="fr-ml-2w">
-    <%= link_to new_institution_file_import_path(entity: "Antenne") do %>
-      <span class="ri-upload-2-line fr-mr-1w" aria-hidden="true"></span>
-      <%= t('import') %>
-    <% end %>
-  </span>
+
+    <button data-fr-opened="false" aria-controls="import_dialog" type="button"><span class="ri-upload-2-line fr-mr-1w" aria-hidden="true"></span><%= t('.import') %></button>
+  </div>
 </div>

@@ -1,12 +1,8 @@
 module Annuaire
   class FileImportsController < BaseController
     before_action -> { authorize [:annuaire, FileImport] }
-    before_action :retrieve_institution, only: [:new, :create]
+    before_action :retrieve_institution, only: [:create]
     before_action :retrieve_import, only: [:analysis, :preview, :commit]
-
-    def new
-      @entity = params[:entity]
-    end
 
     def create
       entity = params[:entity]
