@@ -106,7 +106,14 @@ fr:
           other: En-têtes non reconnus
       preview:
         commit: Réaliser l’import
+        antenne_experts_performance: Cette recherche a beaucoup d'experts et de sujets. Pour améliorer les performances, vous pouvez charger toutes les couvertures en une fois ou individuellement.
+        load_all_coverage: Charger toutes les couvertures géographiques
+        loading_coverages: Chargement en cours...
+        loading_progress: Chargement... %{progress}%
         title: Prévisualisation
+        send_invitations:
+          one: Envoyer une invitation
+          other: Envoyer les %{count} invitations
     institutions:
       index:
         no_institution: Aucune institution n’a été trouvé
