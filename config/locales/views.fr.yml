@@ -109,17 +109,23 @@ fr:
         unknown_headers:
           one: En-tête non reconnu
           other: En-têtes non reconnus
+      header:
+        file_choice: Choix du fichier
+        subtitle: pour %{name}
+        title:
+          antenne: Import d’antennes
+          user: Import d’utilisateurs
       preview:
         commit: Réaliser l’import
         title: Prévisualisation
     institutions:
       index:
         no_institution: Aucune institution n’a été trouvé
-        title: Annuaire
+        title: Annuaire des institutions
     search:
       form:
         submit: Chercher
-      free_text_search: Rechercher un ou des conseillers
+      free_text_search: Rechercher une antenne ou un conseiller
     subjects:
       index:
         no_subject: Aucun sujet n’a été trouvé
@@ -140,8 +146,6 @@ fr:
         invitations_sent:
           one: Une invitation envoyée
           other: "%{count} invitations envoyées"
-      table:
-        expert: "%{expert_name} - %{antenne}"
   annuaire_helper:
     build_user_name_cell:
       antenne_manager: Responsables d’antenne.
@@ -149,7 +153,6 @@ fr:
       not_invited: Invitation pas encore envoyée.
       specific_territories: Équipe avec des territoires spécifiques.
       theme_with_specific_territories: Thème avec des territoires spécifiques.
-      user: "%{user_name} - %{antenne}"
   application:
     footer:
       cookies: Gestion des cookies
