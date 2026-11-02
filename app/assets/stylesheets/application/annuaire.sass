@@ -27,3 +27,59 @@
 .coverage-controls, .lazy-coverage-container
   .ri-spin
     animation: spin 1s linear infinite
+
+.user-cell--touched
+  background: base.$blue-light !important
+.user-cell--updated
+  background: base.$orange !important
+.user-cell--created
+  background: base.$green !important
+.user-cell--removed
+  background: base.$red-lighter !important
+
+.annuaire-cell--changes
+  position: relative
+  &:before
+    content: ""
+    position: absolute
+    left: 0
+    border-radius: 10px
+    height: 20px
+    width: 20px
+    background: var(--changes-background)
+  &[data-changes="touched"]
+    --changes-background: blue
+  &[data-changes="updated"]
+    --changes-background: orange
+  &[data-changes="create"]
+    --changes-background: green
+  &[data-changes="removed"]
+    --changes-background: red
+
+.annuaire-import-menu
+  position: relative
+  width: fit-content
+  .annuaire-import-menu__content
+    width: max-content
+    display: none
+    flex-direction: column
+    position: absolute
+    z-index: 2
+    box-shadow: 0 2px 6px base.$grey
+    a, button, input
+      text-align: left
+      width: 100%
+      padding: .75rem 1rem
+      background: base.$white
+      font-size: inherit
+      &:hover
+        background-color: base.$grey-lighter
+.annuaire-import-menu:hover .annuaire-import-menu__content
+  display: flex
+
+.annuaire-header
+  display: flex
+  flex-direction: row
+  gap: 1rem
+  margin-bottom: 2rem
+  align-items: center

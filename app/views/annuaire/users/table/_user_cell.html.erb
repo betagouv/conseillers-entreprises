@@ -1,6 +1,9 @@
-<td class="td-header td-header--user">
-  <% if user.persisted? %>
-    <%= build_user_name_cell(user, antenne) %>
+<%# locals: ( user:, import_changes:) %>
+
+<% changes = import_changes&.user_changes(user)%>
+<td class="td-header td-header--user annuaire-cell--changes" data-changes=<%= changes %>>
+  <% if user.persisted? %> <%# we don't display the name in case of errors? %>
+    <%= build_user_name_cell(user, import_changes) %>
   <% end %>
   <% errors = @result&.objects&.find{it.id == user.id}&.errors %>
   <% if errors.present? # can we have errors at this step? %>

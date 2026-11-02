@@ -21,6 +21,7 @@ fr:
         other: Voulez-vous supprimer ces experts ?
       match_filters: Filtres de mise en relation de l’expert
       no_specifique_zone: Cet expert n’a pas de territoire spécifique
+      reassign_matches: Réassigner les mises en relation
       reassign_matches_done:
         one: "%{count} mise en relation réattribuée à %{expert}"
         other: "%{count} mises en relation réattribuées à %{expert}"
@@ -192,6 +193,7 @@ fr:
       do_invite_done: Invitation(s) envoyée(s)
       do_reset_password: Réinitialiser le mot de passe
       do_reset_password_done: Réinitialisation du mot de passe envoyée
+      duplicate_user: Dupliquer cet utilisateur
       impersonate: Voir le site comme %{name}
       invite_to_demo: Inviter à une démo
       invited_to_demo: Invitation(s) à la démo envoyée(s)

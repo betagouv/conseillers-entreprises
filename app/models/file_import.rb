@@ -36,7 +36,7 @@ class FileImport < ApplicationRecord
   def importer_klass = CsvImport.const_get("#{entity}Importer")
 
   def import(commit:, &block)
-    raise "Can’t reimport the same record" if completed?
+    raise "Can’t reimport the same record" if commit && completed?
 
     file.open do |f|
       result = importer_klass.import(f, institution: institution, commit: commit, &block)

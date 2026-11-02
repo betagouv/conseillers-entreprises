@@ -1,22 +1,26 @@
 <%# locals: () %>
 
-<div class="fr-mb-3w">
-  <span class="fr-ml-2w">
+
+<div class="annuaire-import-menu fr-mb-3w">
+  <%= render "annuaire/file_imports/import_dialog", entity: "User" %>
+  <button class="fr-btn fr-btn--tertiary fr-icon-settings-5-line fr-btn--icon-left"><%= t(".actions") %></button>
+  <div class="annuaire-import-menu__content">
     <%= link_to institution_users_path(format: 'csv', antenne_id: params[:antenne_id].presence, region_code: params[:region_code].presence) do %>
-      <span class="ri-download-2-line fr-mr-1w" aria-hidden="true"></span>
       <%= t('download_csv') %>
     <% end %>
-  </span>
-  <span class="fr-ml-2w">
+
     <%= link_to institution_users_path(format: 'xlsx', antenne_id: params[:antenne_id].presence, region_code: params[:region_code].presence) do %>
-      <span class="ri-download-2-line fr-mr-1w" aria-hidden="true"></span>
       <%= t('download_xls') %>
     <% end %>
-  </span>
-  <span class="fr-ml-2w">
-    <%= link_to new_institution_file_import_path(entity: "User") do %>
-      <span class="ri-upload-2-line fr-mr-1w" aria-hidden="true"></span>
-      <%= t('import') %>
+
+    <button data-fr-opened="false" aria-controls="import_dialog" type="button"><%= t('.import') %></button>
+
+    <% if @users_data.not_invited_users.present? %>
+      <%= form_with url: send_invitations_institution_users_path, local: true do |f| %>
+        <%= f.hidden_field :users_ids, value: @users_data.not_invited_users.map(&:id) %>
+        <%= f.hidden_field :slug, value: params[:institution_slug] %>
+        <%= f.submit t('annuaire.users.index.send_invitations', count: @users_data.not_invited_users.length) %>
+      <% end %>
     <% end %>
-  </span>
+  </div>
 </div>

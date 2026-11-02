@@ -114,14 +114,26 @@ fr:
         send_invitations:
           one: Envoyer une invitation
           other: Envoyer les %{count} invitations
+      header:
+        title:
+          user: Import d’utilisateurs
+          antenne: Import d’antennes
+        subtitle: pour %{name}
+        file_choice: "Choix du fichier"
+      import_dialog:
+        supported_formats: "Format supporté : csv."
+        add_a_file: "Ajouter un fichier"
+        action:
+          antenne: Importer un nouveau fichier d’antennes
+          user: Importer un nouveau fichier de conseillers
     institutions:
       index:
         no_institution: Aucune institution n’a été trouvé
-        title: Annuaire
+        title: Annuaire des institutions
     search:
       form:
         submit: Chercher
-      free_text_search: Rechercher un ou des conseillers
+      free_text_search: Rechercher une antenne ou un conseiller
     subjects:
       index:
         no_subject: Aucun sujet n’a été trouvé
@@ -142,10 +154,9 @@ fr:
         invitations_sent:
           one: Une invitation envoyée
           other: "%{count} invitations envoyées"
-      table:
-        duplicate_user: Dupliquer cet utilisateur
-        expert: "%{expert_name} - %{antenne}"
-        reassign_matches: Réassigner les mises en relation
+      import_buttons:
+        actions: Actions
+        import: "Importer…"
   annuaire_helper:
     build_user_name_cell:
       antenne_manager: Responsables d’antenne.

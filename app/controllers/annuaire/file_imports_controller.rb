@@ -1,12 +1,8 @@
 module Annuaire
   class FileImportsController < BaseController
     before_action -> { authorize [:annuaire, FileImport] }
-    before_action :retrieve_institution, only: [:new, :create]
+    before_action :retrieve_institution, only: [:create]
     before_action :retrieve_import, only: [:analysis, :preview, :commit]
-
-    def new
-      @entity = params[:entity]
-    end
 
     def create
       entity = params[:entity]
@@ -21,6 +17,7 @@ module Annuaire
     end
 
     def preview
+      @old_data = UsersData.new(@institution, nil).preload
       @result = @import.import(commit: false) do
         case @import.entity.to_s
         when "User"

@@ -264,7 +264,7 @@ ActiveAdmin.register Expert do
   sidebar I18n.t('active_admin.actions'), only: :show do
     ul class: 'actions' do
       unless resource.deleted?
-        li link_to t('annuaire.users.table.reassign_matches'), admin_expert_reassign_matches_path(expert), class: 'action'
+        li link_to t('active_admin.expert.reassign_matches'), admin_expert_reassign_matches_path(expert), class: 'action'
       end
 
       if Rails.env.development?
