@@ -1,3 +1,5 @@
-<td class="td-header td-header--antenne" rowspan="<%= total_users(experts) %>" title="<%= antenne.name %>">
+<%# locals: (antenne:, all_users_size:) %>
+
+<th class="td-header td-header--antenne" rowspan="<%= all_users_size %>">
   <%= link_to antenne, admin_antenne_path(antenne) %>
-</td>
+</th>
