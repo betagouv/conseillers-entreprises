@@ -19,7 +19,7 @@
             <%= link_to [institution, :subjects] do %>
               <ul>
                 <% institution.institutions_subjects.group_by(&:theme).each do |theme, institutions_subjects| %>
-                  <li><%= theme.label %>\u00A0(<%= institutions_subjects.size %>)</li>
+                  <li><%= theme.label %> (<%= institutions_subjects.size %>)</li>
                 <% end %>
               </ul>
             <% end %>
