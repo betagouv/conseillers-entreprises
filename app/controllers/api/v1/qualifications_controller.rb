@@ -9,7 +9,7 @@ class Api::V1::QualificationsController < Api::V1::BaseController
     solicitations = if ENV['FEATURE_API_SOLICITATIONS_UNQUALIFIED_RETURN_ANONYMIZED_FAKE'] == 'true'
       AnonymizedExamples.solicitations
     else
-      Solicitation.unqualified.includes!(:landing_subject, :needs)
+      Solicitation.unqualified.qualifiable.includes!(:landing_subject, :needs)
     end
 
     page = solicitations.page(params[:page]).per(per_page)

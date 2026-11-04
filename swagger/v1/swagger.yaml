@@ -748,7 +748,8 @@ paths:
       tags:
       - Sollicitations
       description: Affiche les sollicitations en cours de traitement dont la qualification
-        n’a pas encore été renseignée.
+        n’a pas encore été renseignée. Les sollicitations liées à un sujet exclu de
+        la qualification n’y figurent pas.
       operationId: listUnqualifiedSolicitations
       parameters:
       - name: page
@@ -912,8 +913,8 @@ paths:
       summary: Liste des sujets
       tags:
       - Sujets
-      description: Affiche tous les sujets de besoins ainsi que les sujets d’atterrissage
-        associés.
+      description: Affiche les sujets de besoins ainsi que les sujets d’atterrissage
+        associés. Les sujets exclus de la qualification n’y figurent pas.
       operationId: listSubjects
       responses:
         '200':

@@ -2,15 +2,16 @@
 #
 # Table name: subjects
 #
-#  id                   :bigint(8)        not null, primary key
-#  archived_at          :datetime
-#  can_be_automated     :boolean          default(FALSE), not null
-#  interview_sort_order :integer
-#  label                :string           not null
-#  slug                 :string           not null
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
-#  theme_id             :bigint(8)        not null
+#  id                          :bigint(8)        not null, primary key
+#  archived_at                 :datetime
+#  can_be_automated            :boolean          default(FALSE), not null
+#  excluded_from_qualification :boolean          default(FALSE), not null
+#  interview_sort_order        :integer
+#  label                       :string           not null
+#  slug                        :string           not null
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  theme_id                    :bigint(8)        not null
 #
 # Indexes
 #
@@ -98,6 +99,10 @@ class Subject < ApplicationRecord
     where.not(id: external_ids)
   end
 
+  # Subjects hidden from the qualification API, along with their solicitations
+  scope :excluded_from_qualification, -> { where(excluded_from_qualification: true) }
+  scope :not_excluded_from_qualification, -> { where(excluded_from_qualification: false) }
+
   def copy_experts_from_other(other)
     self.transaction do
       self.institutions_subjects.destroy_all
@@ -144,7 +149,7 @@ class Subject < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     [
-      "archived", "archived_at", "created_at", "id", "id_value", "can_be_automated", "interview_sort_order", "label", "slug",
+      "archived", "archived_at", "created_at", "id", "id_value", "can_be_automated", "excluded_from_qualification", "interview_sort_order", "label", "slug",
       "theme_id", "updated_at"
     ]
   end
