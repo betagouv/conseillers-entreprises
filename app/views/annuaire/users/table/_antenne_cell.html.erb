@@ -1,20 +1,8 @@
 <%# locals: (antenne:, all_users_size:, import_changes:) %>
 
-<% old_antenne = @old_data&.antennes&.find{ it.name == antenne.name } %>
-<% in_imported_set = @result&.objects&.flat_map(&:antenne)&.find{it.name == antenne.name} %>
+<% changes = import_changes&.antenne_changes(antenne)%>
 
-<%
-  css_class = if old_antenne.present? && in_imported_set.present?
-    'touched'
-  elsif !old_antenne.present? && in_imported_set.present?
-    'created' # can't happen
-  elsif old_antenne.present? && !in_imported_set.present?
-    'removed'
-  end
-%>
-
-
-<td class="td-header td-header--antenne user-cell--<%= css_class %>" rowspan="<%= all_users_size %>">
+<td class="td-header td-header--antenne annuaire-cell--changes" rowspan="<%= all_users_size %>" data-changes=<%= changes %>>
   <% if import_changes.present? %>
     <span><%= antenne %></span>
   <% else %>

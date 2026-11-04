@@ -1,19 +1,8 @@
 <%# locals: (expert:, users_size:, import_changes:) %>
 
-<% old_expert = @old_data&.experts&.find{ it.email == expert.email } %>
-<% in_imported_set = @result&.objects&.flat_map(&:experts)&.find{it.email == expert.email} %>
+<% changes = import_changes&.expert_changes(expert)%>
 
-<%
-  css_class = if old_expert.present? && in_imported_set.present?
-    'touched'
-  elsif !old_expert.present? && in_imported_set.present?
-    'created'
-  elsif old_expert.present? && !in_imported_set.present?
-    'removed'
-  end
-%>
-
-<td class="td-header td-header--expert user-cell--<%= css_class %>" rowspan="<%= users_size %>">
+<td class="td-header td-header--expert annuaire-cell--changes" rowspan="<%= users_size %>" data-changes=<%= changes %>>
   <% if expert.persisted? %>
     <% if import_changes.present? %>
       <span><%= expert.full_name %></span>

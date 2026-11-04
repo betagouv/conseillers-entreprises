@@ -21,7 +21,7 @@ module Annuaire
         end
       elsif old_user.blank? && in_imported_set.present?
         :created
-      elsif old_user.present? && in_imported_set.blank?
+      elsif old_user&.persisted? && in_imported_set.blank?
         :removed
       end
     end
@@ -32,11 +32,27 @@ module Annuaire
 
       if old_expert.present? && in_imported_set.present?
         :touched
-      elsif !old_expert.present? && in_imported_set.present?
+      elsif old_expert.blank? && in_imported_set.present?
         :created
-      elsif old_expert.present? && !in_imported_set.present?
+      elsif old_expert&.persisted? && in_imported_set.blank?
         :removed
       end
+    end
+
+    def expert_subject_change(expert_subject)
+      old_expert = @old_data.experts.find{ it.email == expert_subject.expert.email }
+      old_expert_subject = old_expert&.experts_subjects&.find{ it.institution_subject_id == expert_subject.institution_subject_id }
+      expert_in_imported_set = @import_result.objects.flat_map(&:experts).find{it.email == expert.email}
+      in_imported_set = @import_result.objects.flat_map(&:experts).find{it.email == expert.email}
+
+      if old_expert_subject.present? && in_imported_set.present?
+        :touched
+      elsif old_expert.blank? && in_imported_set.present?
+        :created
+      elsif old_expert&.persisted? && in_imported_set.blank?
+        :removed
+      end
+
     end
 
     def antenne_changes(antenne)

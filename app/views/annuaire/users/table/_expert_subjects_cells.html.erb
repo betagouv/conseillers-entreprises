@@ -1,7 +1,6 @@
 <%# locals: (grouped_subjects:, expert:, users_size:) %>
 
 <% old_expert = @old_data&.experts&.find{ it.email == expert.email } %>
-<%# in_imported_set = @result&.objects&.flat_map(&:experts)&.find{it.email == expert.email} %>
 
 <% grouped_subjects.each_value do |subjects| %>
   <% subjects.each_value do |institutions_subjects| %>
@@ -14,7 +13,7 @@
         css_class = if old_expert_subject.present? != expert_subject.present?
           'updated'
         else
-          'touched'
+          'created'
         end
       %>
 

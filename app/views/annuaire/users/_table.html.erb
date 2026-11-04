@@ -1,7 +1,7 @@
 <%# locals: (grouped_subjects:, grouped_experts:) %>
 
 <% import_changes = defined?(@old_data) ? Annuaire::ImportChanges.new(@old_data, @result) : nil %>
-<div class="fr-table fr-table--multiline">
+<div class="fr-table fr-table--multiline fr-table--bordered">
   <div class="fr-table__wrapper">
     <div class="fr-table__container">
       <div class="fr-table__content">
@@ -21,7 +21,7 @@
                 <% users.each_with_index do |user, index_in_expert| %>
                   <% expert_first_row = index_in_expert == 0 %>
                   <% antenne_first_row = index_in_antenne == 0 && index_in_expert == 0 %>
-                  <tr>
+                  <tr class="tr--distinct">
                     <%= render('annuaire/users/table/antenne_cell', antenne: antenne, all_users_size: all_users.size, import_changes: import_changes) if antenne_first_row %>
                     <%= render('annuaire/users/table/expert_cell', expert: expert, users_size: users.size, import_changes: import_changes) if expert_first_row %>
                     <%= render 'annuaire/users/table/user_cell', user: user, import_changes: import_changes %>
