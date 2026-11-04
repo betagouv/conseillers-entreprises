@@ -75,8 +75,9 @@ module CsvImport
     # @raise [CSV::MalformedCSVError]
     def open_with_separator(input, col_sep)
       squish_converter = lambda { |header| header.squish }
+      bom_remover = lambda { |header| header.delete("\xEF\xBB\xBF") }
 
-      common_options = { headers: true, header_converters: squish_converter, col_sep: col_sep, skip_blanks: true, skip_lines: /^(?:#{col_sep}\s*)+$/ }
+      common_options = { headers: true, header_converters: [squish_converter, bom_remover], col_sep: col_sep, skip_blanks: true, skip_lines: /^(?:#{col_sep}\s*)+$/ }
       CSV.new(input, **common_options).read
     end
 

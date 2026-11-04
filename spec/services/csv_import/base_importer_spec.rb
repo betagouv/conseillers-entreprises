@@ -69,6 +69,41 @@ describe CsvImport::BaseImporter, CsvImport do
     end
   end
 
+  describe 'headers cleanup' do
+    subject(:importer) { CsvImport::AntenneImporter.new(csv, institution: institution) }
+
+    let(:institution) { create :institution, name: 'Test Institution' }
+
+    context 'no error' do
+      context 'additional white space' do
+        let(:csv) do
+          <<~CSV
+            Institution , Nom ,\tCodes \t INSEE,Codes EPCI,Codes départements,Codes régions
+            Test Institution,Antenne1,72110,,,
+          CSV
+        end
+
+        it do
+          expect(importer.import).to be_success
+          expect(Antenne.last&.territorial_zones&.first&.code).to eq '72110'
+        end
+      end
+
+      context 'bom_remover' do
+        let(:csv) do
+          <<~CSV
+            \xEF\xBB\xBFInstitution;Nom;Codes INSEE;Codes EPCI;Codes départements;Codes régions
+            Test Institution;Antenne1;72110;;;
+          CSV
+        end
+
+        it do
+          expect(importer.import).to be_success
+        end
+      end
+    end
+  end
+
   describe 'blank headers' do
     subject(:result) { CsvImport::AntenneImporter.import(csv, institution: institution) }
 
