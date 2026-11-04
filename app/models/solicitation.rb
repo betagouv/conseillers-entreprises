@@ -439,7 +439,7 @@ class Solicitation < ApplicationRecord
 
   # Excluded as soon as the landing subject or a need points to an excluded subject:
   scope :qualifiable, -> do
-    excluded_subjects = Subject.excluded_from_qualification.select(:id)
+    excluded_subjects = Subject.excluded_from_qualification
     excluded_by_landing_subject = Solicitation.unscoped.joins(:landing_subject).where(landing_subjects: { subject_id: excluded_subjects })
     excluded_by_need = Solicitation.unscoped.joins(:needs).where(needs: { subject_id: excluded_subjects })
     where.not(id: excluded_by_landing_subject).where.not(id: excluded_by_need)
