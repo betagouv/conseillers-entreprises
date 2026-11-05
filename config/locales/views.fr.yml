@@ -999,6 +999,14 @@ fr:
         step_description: Votre demande
         step_verification: Récapitulatif avant envoi
       submit_in_progress: Envoi en cours...
+    examples:
+      description: Le Service Public Conseillers entreprises a permis à ces dirigeants d’être directement rappelés, dans les 5 jours, par les conseillers compétents près de chez eux. Ces conseillers se sont coordonnés via le service pour apporter collectivement des solutions aux dirigeants (%{solutions}).
+      description_with_institutions:
+        one: 'Le Service Public Conseillers entreprises a permis à ces dirigeants d’être directement rappelés, dans les 5 jours, par les conseillers compétents près de chez eux, au sein de l’organisme suivant : %{institutions}. Ces conseillers se sont coordonnés via le service pour apporter collectivement des solutions aux dirigeants (%{solutions}).'
+        other: 'Le Service Public Conseillers entreprises a permis à ces dirigeants d’être directement rappelés, dans les 5 jours, par les conseillers compétents près de chez eux, au sein des organismes suivants : %{institutions}. Ces conseillers se sont coordonnés via le service pour apporter collectivement des solutions aux dirigeants (%{solutions}).'
+        zero: Le Service Public Conseillers entreprises a permis à ces dirigeants d’être directement rappelés, dans les 5 jours, par les conseillers compétents près de chez eux. Ces conseillers se sont coordonnés via le service pour apporter collectivement des solutions aux dirigeants (%{solutions}).
+      invitation: Une question sur le même sujet ? Un conseiller vous rappelle sous 5 jours.
+      submit_request: Déposer une demande
     form_complete:
       iframe_message_html: Votre demande a bien été transmise au Service Public Conseillers entreprises, le service public de mise en relation pour les TPE & PME.
       process_description_step_1_html: Nous allons <b> identifier le bon conseiller </b> près de chez vous.

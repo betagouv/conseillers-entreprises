@@ -124,4 +124,38 @@ describe SeoHelper do
       )
     end
   end
+
+  describe '#solicitation_examples_schema' do
+    subject(:schema) { helper.solicitation_examples_schema(name: name, description: 'Description', cases: cases) }
+
+    let(:name) { 'Exemples d’entreprises accompagnées' }
+    let(:cases) do
+      [
+        { title: 'Boulangerie : TVA', text: "Bonjour,\nJe souhaiterais des conseils sur la TVA" },
+        { title: 'Traiteur : mécénat', text: 'Bonjour' }
+      ]
+    end
+
+    it 'is an ItemList counting every example' do
+      expect(schema).to include('@type': 'ItemList', name: name, numberOfItems: 2)
+    end
+
+    it 'belongs to the current web page' do
+      expect(schema[:isPartOf]).to eq('@id': 'http://test.host#webpage')
+    end
+
+    it 'lists each example as a Question asked about the service' do
+      expect(schema[:itemListElement].first).to eq(
+        '@type': 'ListItem',
+        position: 1,
+        item: {
+          '@type': 'Question',
+          name: 'Boulangerie : TVA',
+          text: "Bonjour,\nJe souhaiterais des conseils sur la TVA",
+          inLanguage: 'fr-FR',
+          about: { '@id': 'http://test.host/#service' }
+        }
+      )
+    end
+  end
 end
