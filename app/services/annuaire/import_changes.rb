@@ -13,16 +13,21 @@ module Annuaire
       old_user = @old_data.users.find{ it.email == user.email }
       in_imported_set = @import_result.objects.find{ it.email == user.email }
 
+
       if old_user.present? && in_imported_set.present?
-        if old_user.attributes.except("updated_at", "imported_at") == user.attributes.except("updated_at", "imported_at")
-          :touched
+        old_attributes = old_user.attributes.except("updated_at", "imported_at")
+        new_attributes = user.attributes.except("updated_at", "imported_at")
+        diff = Hashdiff.best_diff(old_attributes, new_attributes)
+
+        if diff.empty?
+          [:touched, diff]
         else
-          :updated
+          [:updated, diff]
         end
       elsif old_user.blank? && in_imported_set.present?
-        :created
+        [:created, []]
       elsif old_user&.persisted? && in_imported_set.blank?
-        :removed
+        [:removed, []]
       end
     end
 
