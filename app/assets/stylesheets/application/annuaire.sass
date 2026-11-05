@@ -28,15 +28,6 @@
   .ri-spin
     animation: spin 1s linear infinite
 
-//.user-cell--touched
-//  background: base.$blue-light !important
-//.user-cell--updated
-//  background: base.$orange !important
-//.user-cell--created
-//  background: base.$green !important
-//.user-cell--removed
-//  background: base.$red-lighter !important
-
 .annuaire-cell--changes
   position: relative
   &:before
@@ -49,13 +40,13 @@
     width: 12px
     background: var(--changes-background)
   &[data-changes="touched"]
-    --changes-background: blue
+    --changes-background: #0078f3
   &[data-changes="updated"]
-    --changes-background: orange
-  &[data-changes="create"]
-    --changes-background: green
+    --changes-background: #fd7b44
+  &[data-changes="created"]
+    --changes-background: #1f8d49
   &[data-changes="removed"]
-    --changes-background: red
+    --changes-background: #b20400
 
 .annuaire-import-menu
   position: relative
