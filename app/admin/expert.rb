@@ -409,6 +409,15 @@ ActiveAdmin.register Expert do
     redirect_back_or_to collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
   end
 
+  if Rails.env.development?
+    batch_action I18n.t('active_admin.pseudonymize') do |ids|
+      batch_action_collection.find(ids).each do |expert|
+        Anonymization.pseudonymize_expert(expert)
+      end
+      redirect_back_or_to collection_path, notice: I18n.t('active_admin.pseudonymize_done')
+    end
+  end
+
   batch_action :destroy, confirm: I18n.t('active_admin.expert.delete_confirmation', count: 2) do |ids|
     Expert.where(id: ids).destroy_all
     redirect_to collection_path, notice: I18n.t('active_admin.experts.deleted')
