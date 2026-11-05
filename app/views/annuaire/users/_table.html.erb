@@ -25,7 +25,7 @@
                     <%= render('annuaire/users/table/antenne_cell', antenne: antenne, all_users_size: all_users.size, import_changes: import_changes) if antenne_first_row %>
                     <%= render('annuaire/users/table/expert_cell', expert: expert, users_size: users.size, import_changes: import_changes) if expert_first_row %>
                     <%= render 'annuaire/users/table/user_cell', user: user, import_changes: import_changes %>
-                    <%= render('annuaire/users/table/expert_subjects_cells', grouped_subjects: grouped_subjects, expert: expert, users_size: users.size) if expert_first_row %>
+                    <%= render('annuaire/users/table/expert_subjects_cells', grouped_subjects: grouped_subjects, expert: expert, users_size: users.size, import_changes: import_changes) if expert_first_row %>
                   </tr>
                 <% end %>
               <% end %>
