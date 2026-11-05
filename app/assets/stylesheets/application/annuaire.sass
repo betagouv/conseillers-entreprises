@@ -29,24 +29,14 @@
     animation: spin 1s linear infinite
 
 .annuaire-cell--changes
-  position: relative
-  &:before
-    content: ""
-    position: absolute
-    right: 1rem
-    top: calc(50% - 6px)
-    border-radius: 6px
-    height: 12px
-    width: 12px
-    background: var(--changes-background)
   &[data-changes="touched"]
-    --changes-background: #0078f3
+    background-color: #ecf5ff
   &[data-changes="updated"]
-    --changes-background: #fd7b44
+    background-color: #ffeac9
   &[data-changes="created"]
-    --changes-background: #1f8d49
+    background-color: #baffd3
   &[data-changes="removed"]
-    --changes-background: #b20400
+    background-color: #f6ddd9
 
 .annuaire-import-menu
   position: relative
