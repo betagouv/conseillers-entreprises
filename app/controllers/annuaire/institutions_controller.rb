@@ -1,11 +1,10 @@
 module Annuaire
   class InstitutionsController < BaseController
+    before_action -> { authorize [:annuaire, Institution] }
     before_action :retrieve_institutions, only: :index
     before_action :retrieve_subjects, only: :index
 
-    def index
-      authorize Institution, :index?
-    end
+    def index; end
 
     def show
       redirect_to institution_subjects_path(params[:slug])

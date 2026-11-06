@@ -22,14 +22,14 @@ module CsvImport
   class PreprocessError < StandardError
     class AntenneNotFound < PreprocessError
       def message
-        I18n.t('annuaire.base.import_errors.antenne_not_found', name: super)
+        I18n.t('annuaire.file_imports.analysis.antenne_not_found', name: super)
       end
     end
   end
 
   class PostprocessError < StandardError
     def message
-      I18n.t('annuaire.base.import_errors.import_failed_with_error', error: super)
+      I18n.t('annuaire.file_imports.analysis.import_failed_with_error', error: super)
     end
   end
 end
