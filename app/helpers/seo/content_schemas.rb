@@ -80,6 +80,35 @@ module Seo
       }
     end
 
+    # Exemples anonymisés de demandes de dirigeants : ni des avis ("Review"), ni une FAQ ("FAQPage"),
+    # car les textes sont des questions sans réponse publiée.
+    def solicitation_examples_schema(name:, description:, cases:)
+      return nil if cases.blank?
+
+      {
+        '@type': "ItemList",
+        '@id': "#{request.original_url}#solicitation-examples",
+        name: strip_tags(name),
+        description: strip_tags(description),
+        numberOfItems: cases.size,
+        itemListOrder: "https://schema.org/ItemListUnordered",
+        isPartOf: { '@id': "#{request.original_url}#webpage" },
+        itemListElement: cases.map.with_index do |example, index|
+          {
+            '@type': "ListItem",
+            position: index + 1,
+            item: {
+              '@type': "Question",
+              name: strip_tags(example[:title]),
+              text: strip_tags(example[:text]),
+              inLanguage: "fr-FR",
+              about: { '@id': "#{root_url}#service" }
+            }
+          }
+        end
+      }
+    end
+
     # Témoignage d'un conseiller : interview éditoriale publiée par le service.
     # Le conseiller est l'interviewé (le sujet), pas l'auteur : on l'expose donc en `about`
     # comme un Person rattaché à son institution (GovernmentOrganization), et l'auteur est

@@ -38,6 +38,8 @@ module LandingsSeoHelper
                         index: 1
                       ))
     end
+    examples = SolicitationExamples.new(landing_subject)
+    add_page_schema(solicitation_examples_schema(name: examples.title, description: examples.description, cases: examples.cases)) if examples.any?
     set_theme_partner_institutions(landing_subject.landing_theme)
   end
 end
