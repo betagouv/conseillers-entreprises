@@ -1,26 +1,8 @@
 module CsvImport
-  # CSV Import facility.
-  # Instantiate a model-specific importer and run it.
-  # See also csv_import/base_importer.rb
+  # See csv_import/base_importer.rb and subclasses.
   #
   # Errors reporting relies (a lot, maybe too much) on ActiveRecord validation.
   # See nested_errors_helper.rb for a UI-side helper.
-  def self.import(klass, input, options = {})
-    # Verify that the record klass is compliant
-    raise ArgumentError unless klass.attribute_names.include? 'imported_at'
-
-    # Look for an Importer class with a matching name
-    importer_klass = CsvImport.const_get("#{klass}Importer")
-    importer_klass.new(input, options).import
-  end
-
-  ## Helper method
-  # Just call <ModelClass>.import_csv(<file_or_string>, <option>)
-  module RecordExtension
-    def import_csv(input, options = {})
-      CsvImport.import(self, input, options)
-    end
-  end
 
   class Result
     attr_reader :rows, :objects, :header_errors, :preprocess_errors, :postprocess_errors

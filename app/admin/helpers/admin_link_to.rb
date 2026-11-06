@@ -12,15 +12,7 @@ module Admin
       # - admin_link_to user123, "static text"
       # - admin_link_to user123, -> (user) { user.full_name }
       def admin_link_to(object, association = nil, options = {})
-        name_proc = if options[:name].present?
-          if options[:name].respond_to?(:call)
-            options[:name]
-          else
-            proc { options[:name] }
-          end
-        else
-          proc { |object| object }
-        end
+        name_proc = admin_link_name_option_to_proc(options)
 
         if association.nil?
           return nil if object.nil?
@@ -33,12 +25,7 @@ module Admin
         if reflection.collection? # `has_many` association
           if options[:list] # List of objects
             foreign_objects = object.send(association)
-            if foreign_objects.present?
-              links = foreign_objects.map { |foreign_object| link_to(name_proc.call(foreign_object), polymorphic_path([:admin, foreign_object])) }
-              links.join('<br/>').html_safe
-            else
-              empty_result(options)
-            end
+            admin_link_to_objects(foreign_objects, options)
           else # Single link with count
             count = object.send(association).size
             return empty_result(options) if count == 0
@@ -47,7 +34,7 @@ module Admin
             foreign_klass = reflection.klass
             if reflection.options[:through].present?
               # I’m not using `reflection.through_reflection` on purpose:
-              # when the through association is a HABTM, the reflectio returned by
+              # when the through association is a HABTM, the reflection returned by
               # `reflection.through_reflection` is missing the :inverse_of option that we need.
               # If we query the original klass for the reflection on the through association,
               # we get all the declared options.
@@ -70,6 +57,33 @@ module Admin
             empty_result(options)
           end
         end
+      end
+
+      # helper for admin_link_to, convert the :name option to a proc
+      def admin_link_name_option_to_proc(options)
+        if options[:name].present?
+          if options[:name].respond_to?(:call)
+            options[:name]
+          else
+            proc { options[:name] }
+          end
+        else
+          proc { |object| object }
+        end
+      end
+
+      def admin_link_to_objects(objects, options = {})
+        if objects.present?
+          name_proc = admin_link_name_option_to_proc(options)
+          links = objects.map { |foreign_object| link_to(name_proc.call(foreign_object), polymorphic_path([:admin, foreign_object])) }
+          links.join('<br/>').html_safe
+        else
+          empty_result(options)
+        end
+      end
+
+      def admin_link_to_collection(collection)
+        link_to(collection.human_count, polymorphic_path([:admin, collection.model], 'q[id_in]': collection.map(&:id)))
       end
 
       def admin_attr(object, attribute)
