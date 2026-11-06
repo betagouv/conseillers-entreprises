@@ -1,0 +1,16 @@
+<%# locals: (results:) %>
+
+<div class="fr-py-1w">
+  <% results.each do |result| %>
+    <li class="list-group-item" data-autocomplete-value="<%= result.class %>-<%= result.id %>" role="option">
+      <% if defined? result.full_name %>
+        <%= result.full_name %>
+        <i>
+          (<%= result.antenne.name %>)
+        </i>
+      <% else %>
+        <%= result.name %>
+      <% end %>
+    </li>
+  <% end %>
+</div>

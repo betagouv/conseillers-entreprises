@@ -1,0 +1,16 @@
+<%# locals: () %>
+
+<div class="fr-mb-3w">
+  <span class="fr-ml-2w">
+    <%= link_to institution_antennes_path(format: 'csv') do %>
+      <span class="ri-download-2-line fr-mr-1w" aria-hidden="true"></span>
+      <%= t('download_csv') %>
+    <% end %>
+  </span>
+  <span class="fr-ml-2w">
+    <%= link_to import_institution_antennes_path do %>
+      <span class="ri-upload-2-line fr-mr-1w" aria-hidden="true"></span>
+      <%= t('import') %>
+    <% end %>
+  </span>
+</div>
