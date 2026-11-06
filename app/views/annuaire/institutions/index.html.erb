@@ -1,21 +1,17 @@
-<% title = Institution.model_name.human.pluralize %>
-<% meta title: title %>
+<% meta title: Institution.model_name.human.pluralize %>
+<% content_for :header, render('header', institution: @institution) %>
+
+<!--<div class="fr-container">-->
+<!--  <h1 class="fr-h2"><%#= t('.title') %></h1>-->
+<!--</div>-->
+
 <div class="fr-container">
-  <h1 class="fr-h2"><%= t('.title') %></h1>
+  <%= render 'annuaire/search/simple_form', subjects: @subjects, institution: @institution %>
 </div>
 
-<div class="fr-container light-blue-bg fr-p-3w">
-  <h2><%= t('annuaire.search.free_text_search') %></h2>
-  <div>
-    <%= render 'annuaire/search/simple_form', subjects: @subjects, institution: @institution %>
-  </div>
-</div>
-
-<div class="fr-container fr-mt-9w">
+<div class="fr-container">
   <h2><%= title %></h2>
-  <div class="fr-mb-6w">
-    <%= render 'form', subjects: @subjects %>
-  </div>
+  <%= render 'form', subjects: @subjects %>
 </div>
 
 <% if @institutions.present? %>

@@ -1,29 +1,29 @@
 <% meta title: @institution.name %>
-<% content_for :header, render('header', institution: @institution) %>
-<% content_for :menu, render('menu', institution: @institution) %>
-
-<h3> <%= t('.title') %> </h3>
-
-<div class="fr-my-2w">
-  <%= button_to t('.commit'), commit_institution_file_import_path, method: :put, class: "fr-btn fr-btn--primary" %>
-</div>
+<% content_for :header, render('header', import: @import, current: "preview") %>
 
 <% case @import.entity.to_s %>
 <% when "User" %>
   <% if @users_data.grouped_experts.present? %>
-    <%= render 'annuaire/users/table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts %>
+    <div class="fr-container-fluid">
+      <%= render 'annuaire/users/table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts %>
+    </div>
   <% else %>
-    <div class="fr-alert fr-alert--info fr-alert--sm">
-      <p><%= t('annuaire.users.index.no_users') %></p>
+    <div class="fr-container">
+      <div class="fr-alert fr-alert--info fr-alert--sm">
+        <p><%= t('annuaire.users.index.no_users') %></p>
+      </div>
     </div>
   <% end %>
 <% when "Antenne" %>
   <% if @antennes.present? %>
-    <%= render 'annuaire/antennes/table', antennes: @antennes %>
+    <div class="fr-container-fluid">
+      <%= render 'annuaire/antennes/table', antennes: @antennes %>
+    </div>
   <% else %>
-    <div class="fr-alert fr-alert--info fr-alert--sm">
-      <p><%= t('annuaire.antennes.index.no_antenne') %></p>
+    <div class="fr-container">
+      <div class="fr-alert fr-alert--info fr-alert--sm">
+        <p><%= t('annuaire.antennes.index.no_antenne') %></p>
+      </div>
     </div>
   <% end %>
 <% end %>
-

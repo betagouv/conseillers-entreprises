@@ -168,7 +168,7 @@ ActiveAdmin.register User do
   sidebar I18n.t('active_admin.actions'), only: :show do
     ul class: 'actions' do
       unless resource.deleted?
-        li link_to t('annuaire.users.table.duplicate_user'), admin_user_duplicate_user_path(user), class: 'action'
+        li link_to t('active_admin.user.duplicate_user'), admin_user_duplicate_user_path(user), class: 'action'
       end
       li link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user), class: 'action'
       li link_to t('active_admin.user.clear_app_info'), clear_app_info_admin_user_path(user), class: 'action'
