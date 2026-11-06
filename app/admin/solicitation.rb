@@ -20,6 +20,7 @@ ActiveAdmin.register Solicitation do
 
   scope :step_complete, default: true
   scope :step_incomplete
+  scope :qualification_in_progress
 
   scope :status_step_company, group: :completion_incomplete
   scope :status_step_description, group: :completion_incomplete
@@ -51,6 +52,12 @@ ActiveAdmin.register Solicitation do
       end
       div raw diagnosis_link(s.diagnosis)
       div raw needs_links(s.needs) if s.needs.present? && s.diagnosis.step_completed?
+      if s.qualification_details.present?
+        hr
+        div t('activerecord.attributes.solicitation.qualification_details') + ' : ' do
+          blockquote p(s.qualification_details)
+        end
+      end
     end
     column I18n.t('attributes.badges.other') do |s|
       render 'badges', badges: s.badges
@@ -81,6 +88,11 @@ ActiveAdmin.register Solicitation do
       end
       if s.institution.present?
         admin_attr(s, :institution)
+      end
+    end
+    column t("activerecord.attributes.solicitation.qualified_short"), sortable: :qualified do |s|
+      if s.qualified_at?
+        div status_tag s.qualified
       end
     end
   end
@@ -122,6 +134,11 @@ ActiveAdmin.register Solicitation do
   filter :completed_at
   filter :description, as: :string
   filter :badges, as: :select, collection: -> { Badge.category_solicitations.order(:title).pluck(:title, :id) }
+
+  # Filtres Qualification
+  filter :qualified_at
+  filter :qualified
+  filter :qualification_details
 
   # Filtres acquisition
   filter :cooperation, as: :ajax_select, collection: -> { Cooperation.pluck(:name, :id) }, data: { url: :admin_cooperations_path, search_fields: [:name] }
@@ -209,6 +226,12 @@ ActiveAdmin.register Solicitation do
         row k, humanize_name: false
       end
     end
+
+    attributes_table title: t('activerecord.attributes.solicitation.qualified_short') do
+      row(:qualified) { |s| s.qualified } # avoid displaying nil values as false
+      row :qualified_at
+      row :qualification_details
+    end
   end
 
   if Rails.env.development?
@@ -242,6 +265,10 @@ ActiveAdmin.register Solicitation do
       f.input :location
       f.input :description, as: :text
       f.input :badges, collection: Badge.all
+    end
+    f.inputs t("activerecord.attributes.solicitation.qualified_short") do
+      f.input :qualified, as: :select
+      f.input :qualification_details, as: :text
     end
 
     f.actions

@@ -445,6 +445,8 @@ class Solicitation < ApplicationRecord
     where.not(id: excluded_by_landing_subject).where.not(id: excluded_by_need)
   end
 
+  scope :qualification_in_progress, -> { where.not(qualified_at: nil).where(status: :in_progress) }
+
   # Solicitations similaires
   #
   scope :from_same_company, -> (solicitation) {
@@ -799,7 +801,7 @@ class Solicitation < ApplicationRecord
       "code_region", "completed_at", "created_at", "description", "email", "form_info", "full_name", "id", "id_value",
       "institution_id", "cooperation_id", "landing_id", "landing_slug", "landing_subject_id", "location", "phone_number",
       "prepare_diagnosis_errors_details", "requested_help_amount", "siret", "status", "updated_at", "uuid", "mtm_campaign",
-      "mtm_kwd", "relaunch"
+      "mtm_kwd", "relaunch", "qualified_at", "qualified", "qualification_details"
     ]
   end
 
