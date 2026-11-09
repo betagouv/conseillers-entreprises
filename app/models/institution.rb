@@ -33,12 +33,11 @@ class Institution < ApplicationRecord
   #
   has_many :antennes, -> { not_deleted }, inverse_of: :institution
   has_many :institutions_subjects, dependent: :destroy, inverse_of: :institution
+  accepts_nested_attributes_for :institutions_subjects, allow_destroy: true
   has_and_belongs_to_many :categories # Une institution peut avoir plusieurs categories a la fois, donc une enum serait trop limitante
   has_one :logo, as: :logoable, dependent: :destroy, inverse_of: :logoable
 
   has_many :cooperations, dependent: :destroy, inverse_of: :institution
-  has_many :solicitations, through: :cooperations, inverse_of: :cooperation
-  has_many :landings, through: :cooperations, inverse_of: :cooperation
 
   has_many :facilities, inverse_of: :opco
   has_many :subject_answer_groupings, dependent: :destroy, inverse_of: :institution
@@ -49,8 +48,6 @@ class Institution < ApplicationRecord
   has_many :user_rights, as: :rightable_element, dependent: :destroy
   has_many :user_rights_sponsor, ->{ category_sponsor }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
   has_many :user_rights_tech, ->{ category_tech }, as: :rightable_element, class_name: 'UserRight', inverse_of: :rightable_element
-  has_many :sponsors, through: :user_rights_sponsor, source: :user, inverse_of: :sponsored_institutions
-  has_many :techs, through: :user_rights_tech, source: :user, inverse_of: :tech_institutions
 
   has_one :api_key
 
@@ -92,7 +89,13 @@ class Institution < ApplicationRecord
   has_many :received_shared_satisfactions, through: :experts_including_deleted, source: :shared_satisfactions
   has_many :received_shared_company_satisfactions, -> { distinct }, through: :received_shared_satisfactions, class_name: 'CompanySatisfaction', source: :company_satisfaction
 
-  accepts_nested_attributes_for :institutions_subjects, :allow_destroy => true
+  # :cooperations
+  has_many :solicitations, through: :cooperations, inverse_of: :cooperation
+  has_many :landings, through: :cooperations, inverse_of: :cooperation
+
+  # :user_rights
+  has_many :sponsors, through: :user_rights_sponsor, source: :user, inverse_of: :sponsored_institutions
+  has_many :techs, through: :user_rights_tech, source: :user, inverse_of: :tech_institutions
 
   ## Scopes
   #
