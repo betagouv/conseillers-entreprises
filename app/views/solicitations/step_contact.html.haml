@@ -24,7 +24,7 @@
 
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3
-    = form_with(model: @solicitation, url: path, local: true) do |f|
+    = form_with(model: @solicitation, url: path, local: true, id: 'solicitation-form') do |f|
       = spam_trap_fields
       .fr-fieldset
         .fr-fieldset__element
@@ -70,6 +70,10 @@
       = render 'pages/how_it_works_short'
     - temoignage = TemoignageGenerator.new(@landing_subject.slug)
     = render 'about/temoignage', temoignage: temoignage
+
+    - examples = SolicitationExamples.new(@landing_subject)
+    - if examples.any?
+      = render 'solicitations/examples', examples: examples
 
     - if @landing_subject.solicitable_institutions.with_solicitable_logo.any?
       .lighter-blue-bg.fr-pt-8w.fr-pb-5w

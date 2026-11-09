@@ -119,6 +119,7 @@ ignore_unused:
   - 'regions_slugs_to_codes.*'
   - 'faq.*'
   - 'landing_subject_subtitle.*'
+  - 'solicitations.examples.description*'
   - 'prefill_feedbacks.*'
   - '{date,datetime,errors,helpers,number,support,time}.*'
   - 'solicitation.provenance_categories.*'
