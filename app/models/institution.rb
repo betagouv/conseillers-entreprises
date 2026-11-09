@@ -51,6 +51,8 @@ class Institution < ApplicationRecord
 
   has_one :api_key
 
+  has_many :file_imports, dependent: :destroy
+
   ## Hooks and Validations
   #
   auto_strip_attributes :name
