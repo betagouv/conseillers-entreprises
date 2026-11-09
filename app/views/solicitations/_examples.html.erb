@@ -6,21 +6,23 @@
       <div class="fr-col-12 fr-col-md-10">
         <h2 id="solicitation-examples-title"><%= examples.title %></h2>
         <p class="fr-text--lg fr-mb-5w"><%= examples.description %></p>
-        <% examples.cases.each do |example| %>
-          <article class="white-bg fr-p-3w fr-mb-3w">
-            <h3 class="fr-h6 fr-mb-2w"><%= example[:title] %></h3>
-            <figure class="fr-quote">
-              <blockquote><%= simple_format(example[:text], class: 'fr-text--md fr-text--regular') %></blockquote>
-            </figure>
-            <p class="fr-mb-0">
-              <%= t('solicitations.examples.invitation') %>
-              <%= link_to '#solicitation-form', class: 'fr-link' do %>
-                <%= t('solicitations.examples.submit_request') %>
-                <span class="ri-arrow-up-line fr-ml-1v" aria-hidden="true"></span>
-              <% end %>
-            </p>
-          </article>
-        <% end %>
+        <ul class="fr-raw-list">
+          <% examples.cases.each do |example| %>
+            <li class="white-bg fr-p-3w fr-mb-3w">
+              <h3 class="fr-h6 fr-mb-2w"><%= example[:title] %></h3>
+              <figure class="fr-quote">
+                <blockquote><%= simple_format(example[:text], class: 'fr-text--md fr-text--regular') %></blockquote>
+              </figure>
+              <p class="fr-mb-0">
+                <%= t('solicitations.examples.invitation') %>
+                <%= link_to '#solicitation-form', class: 'fr-link' do %>
+                  <%= t('solicitations.examples.submit_request') %>
+                  <span class="ri-arrow-up-line fr-ml-1v" aria-hidden="true"></span>
+                <% end %>
+              </p>
+            </li>
+          <% end %>
+        </ul>
       </div>
     </div>
   </div>

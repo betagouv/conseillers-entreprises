@@ -15,7 +15,8 @@ describe 'Solicitation examples below the form' do
   context 'with a subject that has examples' do
     it 'shows every example as a visible quote under its own heading' do
       expect(page).to have_css('h2', text: 'Exemples d’entreprises accompagnées par le service sur leurs questions fiscales')
-      expect(page).to have_css('figure.fr-quote blockquote', count: 30)
+      expect(page).to have_css('ul > li figure.fr-quote blockquote', count: 30)
+      expect(page).to have_no_css('article')
       expect(page).to have_css('h3', text: 'Courtage grossiste - Crédit d’impôt famille')
       expect(page).to have_css('blockquote', text: 'Mon entreprise a une activité de courtage grossiste.')
       expect(page).to have_no_css('.fr-accordion')
