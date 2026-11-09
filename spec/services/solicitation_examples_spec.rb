@@ -70,9 +70,9 @@ describe SolicitationExamples do
         it 'does not expose direct identifiers' do
           texts = content[:cases].pluck(:text)
 
-          expect(texts).not_to include(match(/\S+@\S+\.\S+/))
-          expect(texts).not_to include(match(/(?:\+33|\b0)[\s.]?[1-9](?:[\s.]?\d{2}){4}\b/))
-          expect(texts).not_to include(match(/\b\d{3}\s?\d{3}\s?\d{3}(?:\s?\d{5})?\b/))
+          expect(texts).not_to include(match(/\S+@\S+\.\S+/)) # Do not expose email addresses
+          expect(texts).not_to include(match(/(?:\+33|\b0)[\s.]?[1-9](?:[\s.]?\d{2}){4}\b/)) # Do not expose phone numbers
+          expect(texts).not_to include(match(/\b\d{3}\s?\d{3}\s?\d{3}(?:\s?\d{5})?\b/)) # Do not expose SIREN or SIRET numbers
         end
       end
     end
