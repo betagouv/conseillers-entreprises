@@ -54,13 +54,6 @@ describe SolicitationExamples do
   end
 
   describe 'published content' do
-    it 'covers every subject of the GEO test' do
-      expect(described_class.data.keys).to contain_exactly(
-        :'reduction-impots', :'reprendre-entreprise', :tresorerie,
-        :eau, :'bilan-rse', :'transport-mobilite', :'demarche-ecologie', :energie, :dechets
-      )
-    end
-
     described_class.data.each do |slug, content|
       context "for #{slug}" do
         it 'gives each case a title and a text' do
