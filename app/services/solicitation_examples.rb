@@ -21,8 +21,7 @@ class SolicitationExamples
 
   def description
     institutions = @landing_subject.solicitable_institutions_names
-    key = institutions.any? ? 'description_with_institutions' : 'description'
-    I18n.t(key, scope: 'solicitations.examples', count: institutions.size, institutions: institutions.to_sentence, solutions: entry[:solutions])
+    I18n.t('description', scope: 'solicitations.examples', count: institutions.size, institutions: institutions.to_sentence, solutions: entry[:solutions])
   end
 
   private
