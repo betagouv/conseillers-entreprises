@@ -277,6 +277,7 @@ fr:
         landings_or_mtm: Landing / Campagne
         main_institution_managers: Responsables principaux
         other_institution_managers: Responsables d’autres institutions
+        reserves_institution_experts: Experts de l’institution réservés à cette coopération (ils ne reçoivent que ses sollicitations)
         wants_solicitations_export: Générer l’export de solicitations
       diagnosis:
         content: Commentaire
