@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_06_115447) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_10_140000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -189,6 +189,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_115447) do
     t.boolean "display_matches_stats", default: false, null: false
     t.boolean "external", default: false, null: false
     t.boolean "wants_solicitations_export", default: false, null: false
+    t.boolean "reserves_institution_experts", default: false, null: false
     t.index ["institution_id"], name: "index_cooperations_on_institution_id"
     t.index ["name"], name: "index_cooperations_on_name", unique: true
   end

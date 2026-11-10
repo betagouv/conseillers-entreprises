@@ -55,6 +55,7 @@ ActiveAdmin.register Cooperation do
       row :display_matches_stats
       row :wants_solicitations_export
       row :external
+      row :reserves_institution_experts
       row(:landings) do |c|
         div admin_link_to(c, :landings, list: true)
       end
@@ -71,7 +72,7 @@ ActiveAdmin.register Cooperation do
   #
   permit_params :name,
                 :logo_id, :mtm_campaign, :root_url, :display_url, :display_matches_stats, :wants_solicitations_export,
-                :external, :institution_id, landing_ids: []
+                :external, :reserves_institution_experts, :institution_id, landing_ids: []
 
   form do |f|
     f.inputs do
@@ -95,6 +96,7 @@ ActiveAdmin.register Cooperation do
       f.input :display_matches_stats
       f.input :wants_solicitations_export
       f.input :external
+      f.input :reserves_institution_experts
     end
 
     f.actions
