@@ -24,7 +24,7 @@
       <% end %>
     <% end %>
 
-    <% if @users_data.not_invited_users.present? %>
+    <% if @users_data.not_invited_users.present? || true %>
       <%= form_with url: send_invitations_institution_users_path, local: true do |f| %>
         <%= f.hidden_field :users_ids, value: @users_data.not_invited_users.map(&:id) %>
         <%= f.hidden_field :slug, value: params[:institution_slug] %>
