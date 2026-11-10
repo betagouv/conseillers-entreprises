@@ -778,6 +778,54 @@ describe DiagnosisCreation::FindRelevantExpertSubjects do
     end
   end
 
+  describe 'call with a cooperation reserving its institution experts' do
+    subject{ described_class.new(need).call }
+
+    let(:cress) { create :institution }
+    let!(:ess_cooperation) { create :cooperation, institution: cress, reserves_institution_experts: true }
+    let(:esus_subject) { create :subject }
+    let(:facility) { create :facility, insee_code: "94068" }
+    let(:diagnosis) { create :diagnosis, facility: facility, solicitation: solicitation }
+    let(:need) { create :need, diagnosis: diagnosis, subject: esus_subject }
+
+    let!(:es_classic) do
+      create :expert_subject,
+             institution_subject: create(:institution_subject, subject: esus_subject),
+             expert: create(:expert, territorial_zones: [create(:territorial_zone, zone_type: :commune, code: "94068")])
+    end
+
+    let!(:es_cress) do
+      create :expert_subject,
+             institution_subject: create(:institution_subject, subject: esus_subject, institution: cress),
+             expert: create(:expert, antenne: create(:antenne, institution: cress),
+                                     territorial_zones: [create(:territorial_zone, zone_type: :commune, code: "94068")])
+    end
+
+    context 'solicitation from the cooperation' do
+      let(:solicitation) { create :solicitation, cooperation: ess_cooperation }
+
+      it { is_expected.to contain_exactly(es_cress, es_classic) }
+    end
+
+    context 'solicitation from the website' do
+      let(:solicitation) { create :solicitation }
+
+      it { is_expected.to contain_exactly(es_classic) }
+    end
+
+    context 'solicitation from a cooperation not reserving experts' do
+      let(:solicitation) { create :solicitation, cooperation: create(:cooperation) }
+
+      it { is_expected.to contain_exactly(es_classic) }
+    end
+
+    context 'solicitation from another cooperation of the same institution, not reserving experts' do
+      let(:solicitation) { create :solicitation, cooperation: create(:cooperation, institution: cress) }
+
+      it { is_expected.to contain_exactly(es_classic) }
+    end
+  end
+
   describe 'call' do
     subject{ described_class.new(need).call }
 
