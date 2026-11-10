@@ -10,6 +10,7 @@
 #  external                        :boolean          default(FALSE), not null
 #  mtm_campaign                    :string
 #  name                            :string           not null
+#  reserves_institution_experts    :boolean          default(FALSE), not null
 #  root_url                        :string
 #  wants_solicitations_export      :boolean          default(FALSE), not null
 #  created_at                      :datetime         not null

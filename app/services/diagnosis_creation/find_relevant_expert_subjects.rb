@@ -22,6 +22,7 @@ module DiagnosisCreation
         .of_institution(institutions)
         .without_irrelevant_chambres(facility)
         .without_irrelevant_opcos(facility)
+        .without_irrelevant_reserved_institutions(solicitation&.cooperation)
     end
 
     def apply_subject_question_filters(expert_subjects)
