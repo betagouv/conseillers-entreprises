@@ -1,3 +1,11 @@
-<td class="td-header td-header--antenne" rowspan="<%= total_users(experts) %>" title="<%= antenne.name %>">
-  <%= link_to antenne, admin_antenne_path(antenne) %>
-</td>
+<%# locals: (antenne:, all_users_size:, import_changes:) %>
+
+<% changes = import_changes&.antenne_changes(antenne)%>
+
+<th class="td-header td-header--antenne annuaire-cell--changes" rowspan="<%= all_users_size %>" data-changes=<%= changes %>>
+  <% if import_changes.present? %>
+    <span><%= antenne %></span>
+  <% else %>
+    <%= link_to antenne, admin_antenne_path(antenne) %>
+  <% end %>
+</th>

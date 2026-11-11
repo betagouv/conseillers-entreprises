@@ -1,10 +1,43 @@
-<td class="td-header td-header--user">
-  <% if user.persisted? %>
-    <%= build_user_name_cell(user, antenne) %>
+<%# locals: (user:, import_changes:) %>
+
+<% changes, diff = import_changes&.user_changes(user)%>
+<th class="annuaire-cell--changes" data-changes=<%= changes %>>
+   <% if user.persisted? %> <%# we don't display the name in case of errors? %>
+    <%= build_user_name_cell(user, import_changes) %>
   <% end %>
   <% errors = @result&.objects&.find{it.id == user.id}&.errors %>
   <% if errors.present? # can we have errors at this step? %>
-    <%= "LOL" %>
     <%= errors.full_messages %>
   <% end %>
-</td>
+
+  <% if diff.present? %>
+    <button data-fr-opened="false" aria-controls="user_diff" type="button" class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-icon-arrow-left-right-line"></button>
+    <dialog id="user_diff" class="fr-modal">
+      <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+          <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+            <div class="fr-modal__body">
+              <div class="fr-modal__header">
+                <button aria-controls="user_diff" type="button" class="fr-btn--close fr-btn"><%= t("navbar.close") %></button>
+              </div>
+              <div class="fr-modal__content">
+                <ul>
+                  <% diff.each do |difference| %>
+                    <li>
+                      <span>
+                        <b>
+                          <%= User.human_attribute_name(difference[1]) %>
+                        </b>
+                        <%= "#{difference[2]} -> #{difference[3]}" %>
+                      </span>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  <% end %>
+</th>

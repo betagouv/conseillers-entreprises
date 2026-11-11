@@ -3,9 +3,9 @@
   <%# For the subjects columns, we'll build our header on 3 rows: theme, subject and institutions_subject. %>
   <tr>
     <%# The first 3 columns are for the antenne, team, and user names, spanning the 4 header rows. %>
-    <th rowspan="3"></th>
-    <th rowspan="3"><%= User.human_attribute_name(:team_full_name) %></th>
-    <th rowspan="3"><%= User.human_attribute_name(:user) %></th>
+    <th rowspan="3" class="fr-col--md td-header td-header--antenne"><%= Antenne.model_name.human %></th>
+    <th rowspan="3" class="fr-col--md td-header td-header--expert"><%= User.human_attribute_name(:team_full_name) %></th>
+    <th rowspan="3" class="fr-col--md"><%= User.human_attribute_name(:user) %></th>
     <%# Subjects columns, first row: the themes, column-spanned for the two remaining header rows %>
     <% grouped_subjects.each do |theme, subjects| %>
       <th colspan="<%= subjects.values.sum(&:size) %>">
@@ -24,8 +24,8 @@
     <%# Subjects columns, first row: the subjects, column-spanned for the remaining header row %>
     <% grouped_subjects.each_value do |subjects| %>
       <% subjects.each do |subject, institutions_subjects| %>
-        <th colspan="<%= institutions_subjects.size %>" title="<%= subject.label %>">
-          <%= subject.label.truncate(30) %>
+        <th colspan="<%= institutions_subjects.size %>">
+          <%= subject.label %>
         </th>
       <% end %>
     <% end %>
@@ -33,9 +33,10 @@
   <tr class="users-count">
     <% grouped_subjects.each_value do |subjects| %>
       <% subjects.each_value do |institutions_subjects| %>
+<!--    there can be only one institutions_subjects ?    -->
         <% institutions_subjects.each do |institution_subject| %>
-          <th class="coverage-table-cell">
-            <% if !load_coverage %>
+          <th class="coverage-table-cell fr-col--sm">
+            <% if true %>
               <%= turbo_frame_tag "institution-subject-#{institution_subject.id}" do %>
                 <%= render 'annuaire/users/lazy_coverage', institution_subject: institution_subject %>
               <% end %>

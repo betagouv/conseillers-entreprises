@@ -1,55 +1,32 @@
 @use "sass:color"
 @use "../shared/base"
 
-.fr-table.fr-table--c-sm
-  td, th
-    padding: 0.5rem
-
-.fr-table
-  p
-    line-height: 1.25rem
-    margin: 0
-
 .fr-table--c-annuaire
-  margin-bottom: 2.5rem
+  .fr-table__wrapper:after
+    background: none
+  .fr-table__container
+    overflow: revert
   table
-    border-spacing: 0
-    border-top: 0.125rem solid base.$grey
-  thead
-    position: sticky
-    inset-block-start: 0
-    z-index: 1
-  td, th
-    padding: 0.75rem
-    text-align: left
-    vertical-align: middle
-    display: table-cell
-    font-size: 0.875rem
-    line-height: 1.5rem
-  td
-    border-left: 1px solid base.$grey-light
-    border-bottom: 1px solid base.$grey-light
-    &:last-child
-      border-right: 1px solid base.$grey-light
-    &.td-header
-      left: 0
+    outline: 1px solid gray
+    thead
       position: sticky
-    &.td-header--antenne
-      min-width: 110px
-      width: 110px
-      left: 0
-    &.td-header--expert
-      min-width: 110px
-      width: 110px
-      left: 110px
-    &.td-header--user
-      left: 226px
-      border-right: 0.125rem solid base.$grey
-    &.yellow
-      background: #fff9d2
-      color: #B58105
+      inset-block-start: 0
+      z-index: 1
+    td, th
+      &.td-header
+        left: 0
+        position: sticky
+      &.td-header--antenne
+        min-width: 12.5rem
+        width: 12.5rem
+        left: 0
+      &.td-header--expert
+        min-width: 12.5rem
+        width: 12.5rem
+        left: 12.5rem
+      &.td-header--user
+        z-index: -1
   th.coverage-table-cell
-    //color: var(--text-inverted-error)
     text-align: center
     cursor: pointer
     padding: 0
@@ -75,47 +52,10 @@
         background: var(--info-425-625) !important
         &:hover
           background-color: var(--info-425-625-hover) !important
-  th.red, td.red
-      background: base.$red-lighter
-      color: base.$red
-  th.orange, td.orange
-      background: base.$orange-lighter
-      color: base.$orange
-  th, td.td-header
-    top: 0
-    border-left: 0.125rem solid base.$grey
-    border-bottom: 0.125rem solid base.$grey
-    background-color: base.$fr-beige
-    background-color: base.$fr-beige
-    color: base.$grey-darker
-    font-weight: 700
-    z-index: 0
-  th:last-child
-    border-right: 0.125rem solid base.$grey
-  // sticky header
-  thead tr.subjects th
-    top: 64px
-  thead tr.users-count th
-    top: 191px
-  thead tr.regional-users-count th
-    top: 236px
-  tbody tr:hover
-    background: rgba(0,0,0,0.02)
-    .td-header
-      background-color: color.adjust(base.$fr-beige, $lightness: -2%)
-  .tr--distinct:not(:first-child) td
-    border-top: 5px solid base.$grey
-  tr.blue, tr.blue td
-    background-color: base.$grey-blue-lighter
   img
     max-width: 50px
     max-height: 30px
     margin-right: 5px
-  .fr-enlarge-link a
-    box-shadow: none
-  .fr-enlarge-link:hover
-    cursor: pointer
-    background: rgba(0,0,0,0.03)
   .tooltip
     // evite que le tooltip passe au dessus des cases du tableau
     position: static
