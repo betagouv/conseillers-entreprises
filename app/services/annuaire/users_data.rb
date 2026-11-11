@@ -5,8 +5,6 @@ module Annuaire
   NO_USER = User.new.freeze
 
   class UsersData
-    include InstitutionsSubjectsSorter
-
     # Preload the whole data tree to fill the Annuaire::Users table
     # @param institution [Institution]
     # @param antenne [Antenne, nil]
@@ -20,31 +18,10 @@ module Annuaire
     end
 
     def preload
-      retrieve_subjects
       retrieve_experts_and_users
       retrieve_not_invited_users
 
       self
-    end
-
-    # @returns [Hash<Theme, Hash<Subject, Array<InstitutionSubject>>>]
-    def grouped_subjects
-      @grouped_subjects ||= retrieve_subjects
-    end
-
-    # @returns [Array<Theme>]
-    def themes
-      grouped_subjects.keys
-    end
-
-    # @returns [Array<Subject>]
-    def subjects
-      grouped_subjects.values.map(&:keys).flatten
-    end
-
-    # @returns [Array<InstitutionSubject>]
-    def institutions_subjects
-      grouped_subjects.values.map(&:values).flatten
     end
 
     # @returns [Hash<Antenne, Hash<Expert, Array<User>>>]
@@ -70,16 +47,6 @@ module Annuaire
     # @returns [Array<User>]
     def not_invited_users
       @not_invited_users ||= retrieve_not_invited_users
-    end
-
-    def retrieve_subjects
-      institutions_subjects_by_theme = @institution.institutions_subjects
-        .includes(:subject, :experts_subjects, :not_deleted_experts, :similar_institutions_subjects, theme: [:territorial_zones, :cooperations])
-        .strict_loading!
-        .sort { |a, b| compare_institution_subjects(a, b) }
-        .group_by(&:theme)
-        .to_h
-      @grouped_subjects = institutions_subjects_by_theme.transform_values{ |is| is.group_by(&:subject) }
     end
 
     def retrieve_experts_and_users

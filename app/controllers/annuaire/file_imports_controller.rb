@@ -17,11 +17,16 @@ module Annuaire
     end
 
     def preview
-      @result = @import.import(commit: false) do
-        case @import.entity.to_s
-        when "User"
-          @users_data = UsersData.new(@institution, nil).preload
-        when "Antenne"
+      case @import.entity.to_s
+      when "User"
+        @subjects_data = SubjectsData.new(@institution).preload
+        old_data = UsersData.new(@institution, nil).preload
+        @import.import(commit: false) do |result|
+          new_data = UsersData.new(@institution, nil).preload
+          @import_changes = Annuaire::ImportChanges.new(new_data, result.objects, old_data)
+        end
+      when "Antenne"
+        @result = @import.import(commit: false) do |result|
           @antennes = @institution.antennes.not_deleted.apply_filters(index_search_params)
             .with_count(:experts, :advisors)
             .order(:name)
@@ -33,7 +38,7 @@ module Annuaire
     def commit
       @import.import(commit: true)
 
-      redirect_to institution_users_path(@import.institution)
+      redirect_to institution_users_path(@import.institution, highlight_last_import: true)
     end
 
     private

@@ -805,6 +805,7 @@ DEPENDENCIES
   haml-rails
   haml_lint
   haml_to_erb
+  hashdiff
   highcharts-rails
   highline
   hiredis

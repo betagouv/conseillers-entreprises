@@ -12,7 +12,7 @@
   </div>
 
   <% if @users_data.grouped_experts.present? %>
-    <% if large_search?(@users_data.grouped_experts, @users_data.grouped_subjects) %>
+    <% if large_search?(@changes.filtered, @subjects_data.grouped_subjects) %>
       <div class="fr-container coverage-controls">
         <button class="fr-btn fr-btn--secondary load-all-coverage" data-antenne-id="<%= params[:antenne_id].to_i %>" data-action="click->coverage#loadAll" data-loading-text="<%= t('.loading_coverages') %>" data-progress-text="<%= t('.loading_progress') %>">
           <%= t('.load_all_coverage') %>
@@ -23,7 +23,7 @@
       </div>
     <% end %>
     <div class="fr-container-fluid">
-      <%= render 'table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts %>
+      <%= render 'table', subjects_data: @subjects_data, import_changes: @changes %>
     </div>
   <% else %>
     <div class="fr-container">

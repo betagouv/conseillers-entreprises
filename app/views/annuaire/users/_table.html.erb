@@ -1,26 +1,26 @@
-<%# locals: (grouped_subjects:, grouped_experts:) %>
+<%# locals: (subjects_data:, import_changes:) %>
 
 <div class="fr-table fr-table--multiline fr-table--bordered fr-table--c-annuaire">
   <div class="fr-table__wrapper">
     <div class="fr-table__container">
       <div class="fr-table__content">
         <table>
-          <%= render 'annuaire/users/table/header', grouped_subjects: grouped_subjects, load_coverage: !large_search?(grouped_experts, grouped_subjects) %>
+          <%= render 'annuaire/users/table/header', grouped_subjects: subjects_data.grouped_subjects, load_coverage: import_changes.nil? && !large_search?(import_changes.filtered, subjects_data.grouped_subjects) %>
           <tbody>
-            <% grouped_experts.each do |antenne, experts| %>
+          <%  %>
+            <% import_changes.filtered.each do |antenne, experts| %>
 
               <% all_users = experts.values.flatten %>
               <% experts.each_with_index do |expert_and_users, index_in_antenne| %>
                 <% expert, users = expert_and_users %>
-                <% expert_span = users.size %>
                 <% users.each_with_index do |user, index_in_expert| %>
                   <% expert_first_row = index_in_expert == 0 %>
                   <% antenne_first_row = index_in_antenne == 0 && index_in_expert == 0 %>
                   <tr class="tr--distinct">
-                    <%= render('annuaire/users/table/antenne_cell', antenne: antenne, all_users_size: all_users.size) if antenne_first_row %>
-                    <%= render('annuaire/users/table/expert_cell', expert: expert, users_size: users.size) if expert_first_row %>
-                    <%= render 'annuaire/users/table/user_cell', user: user %>
-                    <%= render('annuaire/users/table/expert_subjects_cells', grouped_subjects: grouped_subjects, expert: expert, users_size: users.size) if expert_first_row %>
+                    <%= render('annuaire/users/table/antenne_cell', antenne: antenne, all_users_size: all_users.size, import_changes: import_changes) if antenne_first_row %>
+                    <%= render('annuaire/users/table/expert_cell', expert: expert, users_size: users.size, import_changes: import_changes) if expert_first_row %>
+                    <%= render 'annuaire/users/table/user_cell', user: user, import_changes: import_changes %>
+                    <%= render('annuaire/users/table/expert_subjects_cells', grouped_subjects: subjects_data.grouped_subjects, expert: expert, users_size: users.size, import_changes: import_changes) if expert_first_row %>
                   </tr>
                 <% end %>
               <% end %>

@@ -1,11 +1,14 @@
 <% meta title: @institution.name %>
 <% content_for :header, render('header', import: @import, current: "preview") %>
 
+
+<!-- Add display filter here -->
+
 <% case @import.entity.to_s %>
-<% when "User" %>
-  <% if @users_data.grouped_experts.present? %>
+<% when "User" %> <%# split in two partials %>
+  <% if @import_changes.filtered.present? %>
     <div class="fr-container-fluid">
-      <%= render 'annuaire/users/table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts %>
+      <%= render 'annuaire/users/table', subjects_data: @subjects_data, import_changes: @import_changes %>
     </div>
   <% else %>
     <div class="fr-container">
@@ -17,7 +20,7 @@
 <% when "Antenne" %>
   <% if @antennes.present? %>
     <div class="fr-container-fluid">
-      <%= render 'annuaire/antennes/table', antennes: @antennes %>
+      <%= render 'annuaire/antennes/table', antennes: @antennes %> <%# pass @result  %>
     </div>
   <% else %>
     <div class="fr-container">

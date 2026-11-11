@@ -62,7 +62,7 @@
                     <% end %>
                   </tr>
                   <% if has_errors %>
-                    <tr class="red">
+                    <tr class="red"> <%# fix thes class names %>
                       <td class="rowspanned"></td>
                       <td colspan="<%= row.count + 1 %>">
                         <%= simple_format(nested_errors_messages(object)) %>

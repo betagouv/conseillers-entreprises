@@ -28,6 +28,16 @@
   .ri-spin
     animation: spin 1s linear infinite
 
+.annuaire-cell--changes
+  &[data-changes="touched"]
+    background-color: #ecf5ff
+  &[data-changes="updated"]
+    background-color: #ffeac9
+  &[data-changes="created"]
+    background-color: #baffd3
+  &[data-changes="removed"]
+    background-color: #f6ddd9
+
 .annuaire-import-menu
   position: relative
   width: fit-content
