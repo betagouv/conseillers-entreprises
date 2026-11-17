@@ -93,6 +93,13 @@ class ExpertSubject < ApplicationRecord
     not_of_institution(irrelevant_opcos)
   end
 
+  # Les experts d'une institution réservée par sa coopération ne reçoivent que les sollicitations de cette coopération
+  scope :without_irrelevant_reserved_institutions, -> (cooperation) do
+    reserving_cooperations = Cooperation.where(reserves_institution_experts: true)
+    reserving_cooperations = reserving_cooperations.where.not(id: cooperation) if cooperation&.reserves_institution_experts?
+    not_of_institution(Institution.where(cooperations: reserving_cooperations))
+  end
+
   ##
   #
   def match_filters
