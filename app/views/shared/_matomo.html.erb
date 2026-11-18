@@ -7,9 +7,9 @@
   _paq.push(['enableLinkTracking']);
 
   (function() {
-  var u="//stats.beta.gouv.fr/";
+  var u="//<%= Matomo::BASE_HOST %>/";
   _paq.push(['setTrackerUrl', u+'matomo.php']);
-  _paq.push(['setSiteId', '74']);
+  _paq.push(['setSiteId', '<%= Matomo::SITE_ID %>']);
   var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
   g.async=true; g.rel="dns-prefetch"; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
   })();
