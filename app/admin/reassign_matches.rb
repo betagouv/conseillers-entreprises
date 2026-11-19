@@ -16,6 +16,16 @@ ActiveAdmin.register_page 'Reassign matches' do
   end
 
   content title: I18n.t('active_admin.reassign_matches.title') do
-    render partial: "reassign_matches", locals: { expert: Expert.find(params[:expert_id]) }
+    expert = Expert.find(params[:expert_id])
+    antennes = expert.institution.antennes.order(:name)
+    selected_antenne = antennes.find_by(id: params[:antenne_id]) ||
+                       antennes.joins(:experts).find_by(experts: { id: params[:selected_expert_id] }) ||
+                       expert.antenne
+    render partial: "reassign_matches", locals: {
+      expert: expert,
+      antennes: antennes,
+      selected_antenne: selected_antenne,
+      candidate_experts: selected_antenne.experts.where.not(id: expert.id).order(:full_name)
+    }
   end
 end
