@@ -1,4 +1,6 @@
 class PagesController < SharedController
+  include MatomoAiAssistantTracking
+
   # Abstract Controller for the public pages
   # implicitly uses the 'pages' layout
 
