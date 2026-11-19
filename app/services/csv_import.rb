@@ -20,11 +20,6 @@ module CsvImport
   end
 
   class PreprocessError < StandardError
-    class AntenneNotFound < PreprocessError
-      def message
-        I18n.t('annuaire.file_imports.analysis.antenne_not_found', name: super)
-      end
-    end
   end
 
   class PostprocessError < StandardError

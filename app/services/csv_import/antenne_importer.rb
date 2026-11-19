@@ -29,7 +29,7 @@ module CsvImport
         import_territories(antenne, territories_attributes(row)) if territories_attributes(row).present?
         antenne
       rescue => e
-        CsvImport::PostprocessError.new("Erreur lors du post-traitement de l'antenne : #{e.message}")
+        CsvImport::PostprocessError.new(e)
       end
     end
 

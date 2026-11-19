@@ -110,7 +110,6 @@ fr:
         no_antenne: Aucune antenne n’a été trouvé
     file_imports:
       analysis:
-        antenne_not_found: 'Antenne non reconnue : %{name}'
         import_failed: Échec de l’import
         import_failed_with_error: 'Échec de l’import : %{error}'
         no_error: Aucune erreur détectée
