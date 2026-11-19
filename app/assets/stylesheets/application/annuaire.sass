@@ -28,6 +28,28 @@
   .ri-spin
     animation: spin 1s linear infinite
 
+.annuaire-cell--changes
+  &[data-changes="touched"]
+    background-color: #f9faff
+  &[data-changes="updated"]
+    background-color: #ffeac9
+  &[data-changes="created"]
+    background-color: #baffd3
+  &[data-changes="removed"]
+    background-color: #f6ddd9
+
+.annuaire-cell--highlighted
+  position: relative
+  &:before
+    content: ""
+    pointer-events: none
+    position: absolute
+    top: 0
+    left: 0
+    width: calc(100% - 1px)
+    height: calc(100% - 1px)
+    border: 2px dotted base.$success-main-525
+
 .annuaire-import-menu
   position: relative
   width: fit-content
@@ -58,3 +80,28 @@
 
 .annuaire-content
   padding: 1rem
+
+.fr-table__content table tbody .annuaire-analysis-error td
+  background-color: base.$red-lighter
+
+.attribute-diff
+  font-weight: initial
+  label
+    font-weight: bold
+  label + span
+    margin-inline-start: 1em
+  &[data-type='+']
+    span
+      background-color: #baffd3
+  &[data-type='~']
+    span
+      background-color: #f6ddd9
+    span:last-child
+      background-color: #baffd3
+      &:before
+        background-color: white
+        content: '➡'
+        padding-inline: 1em
+  &[data-type='-']
+    span
+      background-color: #f6ddd9

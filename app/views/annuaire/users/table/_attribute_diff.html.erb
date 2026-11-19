@@ -1,0 +1,29 @@
+<%# locals: (object:) %>
+
+<% diff = object.import_attributes_diff %>
+
+<% modal_id = "attribute_diff-#{object.id}" %>
+<button data-fr-opened="false" aria-controls="<%= modal_id %>" type="button" class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-icon-arrow-left-right-line"></button>
+
+<dialog id="<%= modal_id %>"  class="fr-modal">
+  <div class="fr-container fr-container--fluid fr-container-md">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+        <div class="fr-modal__body">
+          <div class="fr-modal__header">
+            <button aria-controls="<%= modal_id %>"  type="button" class="fr-btn--close fr-btn"><%= t("navbar.close") %></button>
+          </div>
+          <div class="fr-modal__content">
+            <ul>
+              <% object.import_attributes_diff.each do |difference| %>
+                <li>
+                  <%= attribute_diff_span(object.class, *difference) %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>

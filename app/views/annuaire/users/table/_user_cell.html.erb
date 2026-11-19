@@ -1,12 +1,9 @@
-<%# locals: (user:) %>
+<%# locals: (user:, preview:, highlighted:) %>
 
-<th>
-  <% if user.persisted? %> <%# we don't display the name in case of errors? %>
-    <%= build_user_name_cell(user) %>
-  <% end %>
-  <% errors = @result&.objects&.find{it.id == user.id}&.errors %>
-  <% if errors.present? # can we have errors at this step? %>
-    <%= "LOL" %>
-    <%= errors.full_messages %>
+<th class="<%= class_names("annuaire-cell--changes", "annuaire-cell--highlighted" => highlighted) %>" data-changes="<%= user.import_change_type %>">
+  <%= build_user_name_cell(user, preview) %>
+
+  <% if user.import_attributes_diff.present? %>
+    <%= render 'annuaire/users/table/attribute_diff', object: user %>
   <% end %>
 </th>

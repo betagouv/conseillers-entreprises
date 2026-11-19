@@ -25,6 +25,7 @@ class FileImport < ApplicationRecord
   belongs_to :author, class_name: 'User'
   belongs_to :institution
   has_one_attached :file
+  scope :completed, -> { where.not(result_object_ids: []) }
 
   ## Attributes
   #
@@ -33,7 +34,7 @@ class FileImport < ApplicationRecord
   def importer_klass = CsvImport.const_get("#{entity}Importer")
 
   def import(commit:, &block)
-    raise "Can’t reimport the same record" if completed?
+    raise "Can’t reimport the same record" if commit && completed?
 
     file.open do |f|
       result = importer_klass.import(f, institution: institution, commit: commit, &block)

@@ -6,7 +6,10 @@ module Annuaire
 
     def index
       respond_to do |format|
-        format.html
+        format.html do
+          @file_import = @institution.file_imports.where(entity: Antenne).completed.order(:created_at).last if params[:highlight_last_import]
+
+        end
         format.csv do
           result = @antennes.export_csv
           send_data result.csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{result.filename}.csv"

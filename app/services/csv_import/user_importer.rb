@@ -20,7 +20,7 @@ module CsvImport
       institution = Institution.find_by(name: attributes[:institution]) || @institution
       antenne = Antenne.flexible_find institution, attributes[:antenne]
       attributes.delete(:institution)
-      return PreprocessError::AntenneNotFound.new(attributes[:antenne]) if antenne.nil?
+      # return PreprocessError::AntenneNotFound.new(attributes[:antenne]) if antenne.nil?
       attributes[:antenne] = antenne
     end
 
@@ -36,6 +36,8 @@ module CsvImport
     end
 
     def postprocess(user, attributes)
+      return user if user.errors.present?
+
       expert = import_team(user, attributes)
       if has_subjects_to_import?(attributes)
         expert = user.create_single_user_experts if expert.blank?
@@ -72,7 +74,6 @@ module CsvImport
       if attributes[:email].present?
         expert = @institution.experts.find_or_initialize_by(email: attributes[:email])
         expert.update(email: attributes[:email], full_name: attributes[:full_name], phone_number: attributes[:phone_number], antenne: user.antenne)
-        expert.save!
         import_specific_territories(expert, attributes)
 
         expert
