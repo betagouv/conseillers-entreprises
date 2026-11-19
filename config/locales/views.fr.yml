@@ -87,12 +87,15 @@ fr:
   admin:
     reassign_matches:
       reassign_matches:
+        antenne: Antenne
+        expert: Expert
         matches_to_reassign:
           one: "%{count} mise en relation à réassigner."
           other: "%{count} mises en relation à réassigner."
           zero: Aucune mise en relation à réassigner.
         save: Enregistrer
         select_expert: Expert pour la réatribution des mises en relation
+        show_experts: Afficher les experts
   admin_link: Lien admin
   annuaire:
     antennes:
