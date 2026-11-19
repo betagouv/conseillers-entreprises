@@ -227,7 +227,6 @@ fr:
       update: Modifier ce(tte) %{model}
   honeypot_captcha:
     comment: Laissez ce champ vide !
-  import: Importer
   next_step: Passer à la suite
   'no': non
   number:

@@ -132,6 +132,8 @@ ignore_unused:
   - 'natures_entreprise.*'
   - 'reports.filename_prefix.*'
   - 'reports.type.*'
+  - 'annuaire.file_imports.header.title.*'
+  - 'annuaire.file_imports.import_dialog.action.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

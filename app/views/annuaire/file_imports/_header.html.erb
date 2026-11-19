@@ -1,0 +1,38 @@
+<%# locals: (import:, current:) %>
+
+<h1 class="fr-h2">
+  <%= t(import.entity.to_s.downcase, scope: 'annuaire.file_imports.header.title' ) %>
+  <p class="fr-text--lead">
+    <%= t('.subtitle', name: import.institution.name) %>
+  </p>
+</h1>
+
+<nav class="fr-breadcrumb" aria-label="<%= t('shared.breadcrumb.you_are_here') %>" role="navigation">
+  <button class="fr-breadcrumb__button" aria-controls="breadcrumb-189" aria-expanded="false"></button>
+  <div class="fr-collapse" id="breadcrumb-189">
+    <ol class="fr-breadcrumb__list">
+      <li>
+        <%= link_to t("annuaire.institutions.index.title"), institutions_path, class: 'fr-breadcrumb__link' %>
+      </li>
+      <li>
+        <%= render "annuaire/file_imports/import_dialog", entity: import.entity.to_s %>
+        <button data-fr-opened="false" aria-controls="import_dialog" type="button" class="fr-breadcrumb__link"><%= t('.file_choice') %></button>
+      </li>
+      <% if current == "analysis" %>
+        <li><a class="fr-breadcrumb__link" aria-current="page"><%= t("annuaire.file_imports.analysis.title") %></a></li>
+      <% elsif current == "preview"  %>
+        <li><%= link_to t("annuaire.file_imports.analysis.title"), analysis_institution_file_import_path, class: 'fr-breadcrumb__link' %></li>
+        <li><a class="fr-breadcrumb__link" aria-current="page"><%= t("annuaire.file_imports.preview.title") %></a></li>
+      <% end %>
+    </ol>
+  </div>
+
+  <div class="text-right">
+    <% if current == "analysis" %>
+      <%= link_to t('annuaire.file_imports.analysis.start_preview'), preview_institution_file_import_path, class: "fr-btn fr-btn--primary" %>
+    <% elsif current == "preview"  %>
+      <%= button_to t('annuaire.file_imports.preview.commit'), commit_institution_file_import_path, method: :put, class: "fr-btn fr-btn--primary", disabled: @import.completed? %>
+    <% end %>
+  </div>
+</nav>
+

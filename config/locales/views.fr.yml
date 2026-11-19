@@ -95,6 +95,12 @@ fr:
         select_expert: Expert pour la réatribution des mises en relation
   admin_link: Lien admin
   annuaire:
+    actions_buttons:
+      actions: Actions
+      import: Importer…
+      send_invitations:
+        one: Envoyer une invitation
+        other: Envoyer les %{count} invitations
     antennes:
       index:
         no_antenne: Aucune antenne n’a été trouvé
@@ -109,17 +115,29 @@ fr:
         unknown_headers:
           one: En-tête non reconnu
           other: En-têtes non reconnus
+      header:
+        file_choice: Choix du fichier
+        subtitle: pour %{name}
+        title:
+          antenne: Import d’antennes
+          user: Import d’utilisateurs
+      import_dialog:
+        action:
+          antenne: Importer un nouveau fichier d’antennes
+          user: Importer un nouveau fichier de conseillers
+        add_a_file: Ajouter un fichier
+        supported_formats: 'Format supporté : csv.'
       preview:
         commit: Réaliser l’import
         title: Prévisualisation
     institutions:
       index:
         no_institution: Aucune institution n’a été trouvé
-        title: Annuaire
+        title: Annuaire des institutions
     search:
       form:
         submit: Chercher
-      free_text_search: Rechercher un ou des conseillers
+      free_text_search: Rechercher une antenne ou un conseiller
     subjects:
       index:
         no_subject: Aucun sujet n’a été trouvé
@@ -130,9 +148,6 @@ fr:
         loading_coverages: Chargement en cours...
         loading_progress: Chargement... %{progress}%
         no_users: Aucun utilisateur n'a été trouvé
-        send_invitations:
-          one: Envoyer une invitation
-          other: Envoyer les %{count} invitations
       lazy_coverage:
         load_coverage: Charger
       send_invitations:
@@ -140,8 +155,6 @@ fr:
         invitations_sent:
           one: Une invitation envoyée
           other: "%{count} invitations envoyées"
-      table:
-        expert: "%{expert_name} - %{antenne}"
   annuaire_helper:
     build_user_name_cell:
       antenne_manager: Responsables d’antenne.
@@ -149,7 +162,6 @@ fr:
       not_invited: Invitation pas encore envoyée.
       specific_territories: Équipe avec des territoires spécifiques.
       theme_with_specific_territories: Thème avec des territoires spécifiques.
-      user: "%{user_name} - %{antenne}"
   application:
     footer:
       cookies: Gestion des cookies
