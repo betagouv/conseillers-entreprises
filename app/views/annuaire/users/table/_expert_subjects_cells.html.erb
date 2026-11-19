@@ -1,12 +1,14 @@
-<%# locals: (grouped_subjects:, expert:, users_size:) %>
+<%# locals: (users_data:, expert:, users_size:) %>
 
-<% grouped_subjects.each_value do |subjects| %>
+<% users_data.grouped_subjects.each_value do |subjects| %>
   <% subjects.each_value do |institutions_subjects| %>
     <% institutions_subjects.each do |institution_subject| %>
+
       <% expert_subject = expert&.experts_subjects&.find{ it.institution_subject_id == institution_subject.id } %>
 
-      <%# The InstitutionSubjects cells themselves are spanned on all the rows of the members of the expert team. %>
-      <td rowspan="<%= users_size %>">
+      <% changes = expert.import_subjects_changes[institution_subject] %>
+
+      <td class="annuaire-cell--changes" rowspan="<%= users_size %>" data-changes="<%= changes %>">
         <% if expert_subject.present? %>
           <% intervention_criteria = expert_subject.intervention_criteria %>
           <% if intervention_criteria.present? %>

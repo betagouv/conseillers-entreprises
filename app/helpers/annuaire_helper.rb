@@ -1,9 +1,29 @@
 module AnnuaireHelper
-  def build_user_name_cell(user)
-    html = link_to(user.full_name, admin_user_path(user), title: user.full_name)
+  def build_user_name_cell(user, preview)
+    html = if preview
+      tag.span user.full_name
+    else
+      link_to(user.full_name, admin_user_path(user), title: user.full_name)
+    end
     html << tag.span(class: 'ri-mail-add-fill blue fr-ml-1v', aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.not_invited')) if user.invitation_sent_at.nil?
     html << tag.span(class: 'ri-nurse-fill blue fr-ml-1v', aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.antenne_manager')) if user.is_manager?
     html
+  end
+
+  # Return a description of an attribute difference
+  # Params are similar to arrays returned by HashDiff.diff
+  # @param type [String] '~', '+' or '-'
+  # @param attribute_name [String] the name of the attribute in model
+  # @param value1, value2 [String] the old and new values
+  # @param model [Class] An ActiveModel subclass.
+  # @return [String] e.g. <span class='attribute-diff' data-type:'~'><label>Fonction</label><span>Stagiaire</span><span>Directeur</span></span>
+  def attribute_diff_span(model, type, attribute_name, value1, value2 = nil)
+    tag.span(class: 'attribute-diff', data: { type: type }) do
+      content = tag.label(model.human_attribute_name(attribute_name))
+      content += tag.span(value1)
+      content += tag.span(value2) if value2.present?
+      content
+    end
   end
 
   def referencement_coverage_cell_title(referencement_coverage)
@@ -29,11 +49,6 @@ module AnnuaireHelper
     content_tag(:button, class: "coverage-modal-button #{alert_classe}", 'aria-controls': "modal-coverage-#{institution_subject.id}", 'data-fr-opened': 'false', title: referencement_coverage_cell_title(coverage)) do
       t(coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.short', default: "?")
     end
-  end
-
-  def total_users(experts)
-    # Permet de compter le nombre de users même non persistés pour afficher les experts sans user
-    experts.each_value.sum{ |users| [users.size, 1].max }
   end
 
   def build_coverage_details(anomalie_details)
@@ -132,9 +147,9 @@ module AnnuaireHelper
     content
   end
 
-  def large_search?(grouped_experts, grouped_subjects)
-    total_experts = grouped_experts.values.sum { |experts| experts.keys.count(&:persisted?) }
-    total_subjects = grouped_subjects.values.sum { |subjects| subjects.values.sum(&:size) }
+  def large_users_data?(users_data)
+    total_experts = users_data.grouped_experts.values.sum { |experts| experts.keys.count(&:persisted?) }
+    total_subjects = users_data.grouped_subjects.values.sum { |subjects| subjects.values.sum(&:size) }
     (total_experts * total_subjects) > 100
   end
 end

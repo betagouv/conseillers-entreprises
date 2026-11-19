@@ -1,11 +1,39 @@
 <% meta title: @institution.name %>
 <% content_for :header, render('header', import: @import, current: "preview") %>
 
+
+<% if @import.entity.to_s == "User" %>
+  <div class="fr-container">
+    <div class="annuaire-header">
+      <%= form_with url: request.url, method: :get, local: true do |f| %>
+        <div class="fr-grid-row fr-grid-row--gutters">
+          <div class="fr-col">
+
+            <fieldset class="fr-fieldset fr-mb-0">
+              <div class="fr-fieldset__element fr-fieldset__element--inline">
+                <%= f.label :display, t(".display_filter"), class: 'fr-label' %>
+              </div>
+              <div class="fr-fieldset__element fr-fieldset__element--inline fr-fieldset__element--inline-grow">
+                <% values = Annuaire::ImportedUsersData::FILTERS %>
+                <% options = options_for_select(values.index_by{ t(it, scope: "annuaire.file_imports.preview.filter")}, selected: params[:display_filter]) %>
+                <%= f.select :display_filter, options, {}, class: "fr-select",
+                             data: { controller: "direct-submit", action: "direct-submit#submit" }
+                %>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+
 <% case @import.entity.to_s %>
-<% when "User" %>
+<% when "User" %> <%# split in two partials %>
   <% if @users_data.grouped_experts.present? %>
     <div class="fr-container-fluid">
-      <%= render 'annuaire/users/table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts %>
+      <%= render 'annuaire/users/table', users_data: @users_data %>
     </div>
   <% else %>
     <div class="fr-container">
@@ -17,7 +45,7 @@
 <% when "Antenne" %>
   <% if @antennes.present? %>
     <div class="fr-container-fluid">
-      <%= render 'annuaire/antennes/table', antennes: @antennes %>
+      <%= render 'annuaire/antennes/table', antennes: @antennes, highlighted_objects: @result.objects %>
     </div>
   <% else %>
     <div class="fr-container">
