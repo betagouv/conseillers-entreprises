@@ -1,6 +1,6 @@
 source 'https://gem.coop'
 
-ruby '4.0.9'
+ruby '4.0.10'
 
 gem 'rails', '~> 8.0'
 
