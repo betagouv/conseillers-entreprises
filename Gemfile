@@ -92,7 +92,7 @@ gem 'rorvswild'
 gem 'rack-timeout'
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', git: 'git@github.com:teamcapybara/capybara.git', ref: 'refs/pull/2868/head' # until https://github.com/teamcapybara/capybara/issues/2865 is fixed
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'

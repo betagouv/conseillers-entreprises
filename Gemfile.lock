@@ -1,3 +1,18 @@
+GIT
+  remote: git@github.com:teamcapybara/capybara.git
+  revision: 0a1a87bbcee0b1380e3aa547cabc062e35946fdb
+  ref: refs/pull/2868/head
+  specs:
+    capybara (3.40.0)
+      addressable
+      matrix
+      mini_mime (>= 0.1.3)
+      nokogiri (~> 1.11)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (>= 1.5, < 3.0)
+      xpath (~> 3.2)
+
 GEM
   remote: https://gem.coop/
   specs:
@@ -170,15 +185,6 @@ GEM
       uniform_notifier (~> 1.11)
     byebug (13.0.0)
       reline (>= 0.6.0)
-    capybara (3.40.0)
-      addressable
-      matrix
-      mini_mime (>= 0.1.3)
-      nokogiri (~> 1.11)
-      rack (>= 1.6.0)
-      rack-test (>= 0.6.3)
-      regexp_parser (>= 1.5, < 3.0)
-      xpath (~> 3.2)
     case_transform (0.2)
       activesupport
     caxlsx (4.5.0)
@@ -786,7 +792,7 @@ DEPENDENCIES
   browser
   bullet
   byebug
-  capybara
+  capybara!
   caxlsx
   caxlsx_rails
   clockwork
