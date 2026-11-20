@@ -28,6 +28,12 @@ module CsvExport
         solicitation_phone_number: -> { solicitation&.phone_number },
         solicitation_badges: -> { solicitation.badges.pluck(:title).join(', ') if solicitation&.badges&.any? },
         solicitation_status: -> { solicitation&.human_attribute_value(:status) },
+        solicitation_qualification: -> { I18n.t(solicitation.qualification_state, scope: %i(solicitation qualification_states)) unless solicitation&.qualified.nil? },
+        solicitation_qualified_at: -> { I18n.l(solicitation.qualified_at, format: :admin) if solicitation&.qualified_at.present? },
+        solicitation_qualification_details: -> { solicitation&.qualification_details },
+        solicitation_qualification_disagreement: -> { I18n.t(solicitation.qualification_disagreement, scope: [:boolean, :text]) if solicitation.present? },
+        solicitation_qualification_feedback: -> { solicitation&.qualification_feedback },
+        solicitation_qualification_feedback_user: -> { solicitation&.qualification_feedback_user&.full_name },
         match_created_at:  -> { I18n.l(created_at, format: :admin) },
         need_id: -> { need&.id },
         advisor: :advisor,
@@ -58,7 +64,7 @@ module CsvExport
         :need, :diagnosis, :facility, :company, :related_matches,
         :advisor, :expert, :expert_antenne, :expert_institution,
         :theme, :solicitation, :company_satisfaction,
-        solicitation: [:badges, :landing_theme, :landing, :subject], diagnosis: :visitee, need: [:reminders_actions]
+        solicitation: [:badges, :landing_theme, :landing, :subject, :qualification_feedback_user], diagnosis: :visitee, need: [:reminders_actions]
       ]
     end
 

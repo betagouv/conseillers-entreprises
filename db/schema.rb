@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_10_140000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_20_130000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -554,6 +554,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_10_140000) do
     t.boolean "qualified"
     t.string "qualification_details"
     t.datetime "qualified_at"
+    t.text "qualification_feedback"
+    t.boolean "qualification_disagreement", default: false, null: false
+    t.bigint "qualification_feedback_user_id"
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["cooperation_id"], name: "index_solicitations_on_cooperation_id"
     t.index ["email"], name: "index_solicitations_on_email"
@@ -561,6 +564,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_10_140000) do
     t.index ["landing_id"], name: "index_solicitations_on_landing_id"
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
     t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"
+    t.index ["qualification_feedback_user_id"], name: "index_solicitations_on_qualification_feedback_user_id"
     t.index ["siret"], name: "index_solicitations_on_siret"
     t.index ["status", "completed_at"], name: "index_solicitations_on_status_and_completed_at"
     t.index ["status"], name: "index_solicitations_on_status"
@@ -744,6 +748,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_10_140000) do
   add_foreign_key "solicitations", "cooperations"
   add_foreign_key "solicitations", "landing_subjects"
   add_foreign_key "solicitations", "landings"
+  add_foreign_key "solicitations", "users", column: "qualification_feedback_user_id", on_delete: :nullify
   add_foreign_key "subject_answer_groupings", "institutions"
   add_foreign_key "subject_answers", "subject_questions"
   add_foreign_key "subject_questions", "subjects"

@@ -1,0 +1,38 @@
+<%# locals: (solicitation:) %>
+
+<% state = solicitation.qualification_state %>
+<div class="dropdown actions white-bg qualification qualification--<%= state %>" id="qualification-<%= solicitation.id %>">
+  <button type="button" class="button">
+    <%= qualification_icon(solicitation) %>
+    <%= t(".label.#{state}") %>
+    <% if solicitation.qualification_disagreement? %>
+      <span class="fr-badge fr-badge--sm fr-badge--no-icon fr-ml-1w"><%= t('.disputed') %></span>
+    <% end %>
+  </button>
+  <div class="dropdown-content white-bg fr-p-2w">
+    <p class="fr-text--bold fr-mb-1v"><%= t(".title.#{state}") %></p>
+    <% if solicitation.qualified_at.present? %>
+      <p class="fr-text--xs fr-text-mention--grey fr-mb-2w">
+        <%= t('.qualified_at', date: l(solicitation.qualified_at.to_date), time: l(solicitation.qualified_at, format: '%H:%M')) %>
+      </p>
+    <% end %>
+    <% if state == :pending %>
+      <p class="fr-text--sm fr-mb-0"><%= t('.pending_explanation') %></p>
+    <% else %>
+      <% if solicitation.qualification_details.present? %>
+        <p class="fr-text--sm"><%= solicitation.qualification_details %></p>
+      <% end %>
+      <%= form_with model: solicitation, url: update_qualification_feedback_conseiller_solicitation_path(solicitation), method: :patch, data: { turbo: false } do |form| %>
+        <div class="fr-input-group">
+          <%= form.label :qualification_feedback, t('.feedback_label'), class: 'fr-label', for: "qualification-feedback-#{solicitation.id}" %>
+          <%= form.text_area :qualification_feedback, class: 'fr-input', rows: 3, id: "qualification-feedback-#{solicitation.id}" %>
+        </div>
+        <div class="fr-checkbox-group fr-mb-2w">
+          <%= form.check_box :qualification_disagreement, id: "qualification-disagreement-#{solicitation.id}" %>
+          <%= form.label :qualification_disagreement, t('.disagreement_label'), class: 'fr-label', for: "qualification-disagreement-#{solicitation.id}" %>
+        </div>
+        <%= form.submit t('.submit'), class: 'fr-btn' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
