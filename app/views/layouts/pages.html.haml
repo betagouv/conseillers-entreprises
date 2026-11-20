@@ -33,6 +33,7 @@
   %body
     = render 'shared/skiplinks'
     = render 'pages/navbar' unless in_iframe?
+    = render 'shared/maintenance_banner'
     = render 'environment_ribbon'
     = render 'user_impersonate'
     %main#content{ role: 'main' }
