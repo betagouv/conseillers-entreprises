@@ -16,6 +16,8 @@
 #  prepare_diagnosis_errors_details :jsonb
 #  provenance_detail                :string
 #  qualification_details            :string
+#  qualification_disagreement       :boolean          default(FALSE), not null
+#  qualification_feedback           :text
 #  qualified                        :boolean
 #  qualified_at                     :datetime
 #  requested_help_amount            :string
@@ -27,26 +29,29 @@
 #  cooperation_id                   :bigint(8)
 #  landing_id                       :bigint(8)
 #  landing_subject_id               :bigint(8)
+#  qualification_feedback_user_id   :bigint(8)
 #
 # Indexes
 #
-#  index_solicitations_on_code_region              (code_region)
-#  index_solicitations_on_cooperation_id           (cooperation_id)
-#  index_solicitations_on_email                    (email)
-#  index_solicitations_on_landing_id               (landing_id)
-#  index_solicitations_on_landing_slug             (landing_slug)
-#  index_solicitations_on_landing_subject_id       (landing_subject_id)
-#  index_solicitations_on_siret                    (siret)
-#  index_solicitations_on_status                   (status)
-#  index_solicitations_on_status_and_completed_at  (status,completed_at)
-#  index_solicitations_on_unqualified              (id) WHERE ((qualified IS NULL) AND (status = 3))
-#  index_solicitations_on_uuid                     (uuid)
+#  index_solicitations_on_code_region                     (code_region)
+#  index_solicitations_on_cooperation_id                  (cooperation_id)
+#  index_solicitations_on_email                           (email)
+#  index_solicitations_on_landing_id                      (landing_id)
+#  index_solicitations_on_landing_slug                    (landing_slug)
+#  index_solicitations_on_landing_subject_id              (landing_subject_id)
+#  index_solicitations_on_qualification_feedback_user_id  (qualification_feedback_user_id)
+#  index_solicitations_on_siret                           (siret)
+#  index_solicitations_on_status                          (status)
+#  index_solicitations_on_status_and_completed_at         (status,completed_at)
+#  index_solicitations_on_unqualified                     (id) WHERE ((qualified IS NULL) AND (status = 3))
+#  index_solicitations_on_uuid                            (uuid)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (cooperation_id => cooperations.id)
 #  fk_rails_...  (landing_id => landings.id)
 #  fk_rails_...  (landing_subject_id => landing_subjects.id)
+#  fk_rails_...  (qualification_feedback_user_id => users.id) ON DELETE => nullify
 #
 
 class Solicitation < ApplicationRecord
@@ -61,6 +66,7 @@ class Solicitation < ApplicationRecord
   #
   belongs_to :landing, inverse_of: :solicitations, optional: true
   belongs_to :cooperation, inverse_of: :solicitations, optional: true
+  belongs_to :qualification_feedback_user, class_name: 'User', inverse_of: :qualification_feedback_solicitations, optional: true
   has_one :institution, through: :cooperation, source: :institution, inverse_of: :cooperations
 
   belongs_to :landing_subject, inverse_of: :solicitations, optional: true
@@ -792,6 +798,14 @@ class Solicitation < ApplicationRecord
     save(context: :qualification)
   end
 
+  def qualification_state
+    case qualified
+    when true then :go
+    when false then :stop
+    else :pending
+    end
+  end
+
   def qualifiable_status
     errors.add(:base, :not_qualifiable) unless status_in_progress?
   end
@@ -801,7 +815,8 @@ class Solicitation < ApplicationRecord
       "code_region", "completed_at", "created_at", "description", "email", "form_info", "full_name", "id", "id_value",
       "institution_id", "cooperation_id", "landing_id", "landing_slug", "landing_subject_id", "location", "phone_number",
       "prepare_diagnosis_errors_details", "requested_help_amount", "siret", "status", "updated_at", "uuid", "mtm_campaign",
-      "mtm_kwd", "relaunch", "qualified_at", "qualified", "qualification_details"
+      "mtm_kwd", "relaunch", "qualified_at", "qualified", "qualification_details", "qualification_disagreement",
+      "qualification_feedback"
     ]
   end
 

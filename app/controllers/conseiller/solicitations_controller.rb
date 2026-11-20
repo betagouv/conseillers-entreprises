@@ -2,7 +2,7 @@ class Conseiller::SolicitationsController < ApplicationController
   include PersistedSearch
 
   before_action :authorize_index_solicitation, :set_category_content, :count_solicitations, only: [:index, :processed, :canceled]
-  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis]
+  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis, :update_qualification_feedback]
 
   layout 'side_menu'
 
@@ -86,6 +86,17 @@ class Conseiller::SolicitationsController < ApplicationController
       flash.alert = @solicitation.prepare_diagnosis_errors_to_s.to_sentence
       redirect_to [:conseiller, @solicitation]
     end
+  end
+
+  def update_qualification_feedback
+    authorize @solicitation, :update?
+    feedback_params = params.expect(solicitation: [:qualification_feedback, :qualification_disagreement])
+    if @solicitation.update(feedback_params.merge(qualification_feedback_user: current_user))
+      flash.notice = t('.saved')
+    else
+      flash.alert = @solicitation.errors.full_messages.to_sentence
+    end
+    redirect_to [:conseiller, @solicitation]
   end
 
   def mark_as_spam
