@@ -1,0 +1,12 @@
+<% if maintenance_banner_title.present? && !in_iframe? %>
+  <div class="fr-notice fr-notice--warning">
+    <div class="fr-container">
+      <div class="fr-notice__body">
+        <p>
+          <span class="fr-notice__title"><%= maintenance_banner_title %></span>
+          <span class="fr-notice__desc"><%= t('.description') %></span>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

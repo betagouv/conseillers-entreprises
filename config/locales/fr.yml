@@ -88,6 +88,7 @@ fr:
       month: "%b %Y"
       month_name: "%B"
       short: "%e %b"
+      with_day_name: "%A %-d %B %Y"
     month_names:
     -
     - janvier
@@ -310,6 +311,7 @@ fr:
       admin: "%Y-%m-%d %H:%M"
       default: "%d %B %Y %Hh %Mmin %Ss"
       fr: "%d/%m/%Y %H:%M"
+      hour: "%Hh%M"
       hours: "%H:%M:%S"
       long: "%A %d %B %Y %Hh%M"
       long_sentence: "%A %d %B %Y à %Hh%M"
