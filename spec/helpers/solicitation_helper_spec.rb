@@ -56,4 +56,26 @@ describe SolicitationHelper do
       expect(helper.email_templates_by_type['first_contact']).to eq template
     end
   end
+
+  describe 'qualification_icon' do
+    subject { helper.qualification_icon(build(:solicitation, qualified: qualified)) }
+
+    context 'qualified solicitation' do
+      let(:qualified) { true }
+
+      it { is_expected.to eq '<span class="ri-thumb-up-line fr-mr-1w" aria-hidden="true"></span>' }
+    end
+
+    context 'disqualified solicitation' do
+      let(:qualified) { false }
+
+      it { is_expected.to include 'ri-thumb-down-line' }
+    end
+
+    context 'pending solicitation' do
+      let(:qualified) { nil }
+
+      it { is_expected.to include 'ri-hourglass-line' }
+    end
+  end
 end

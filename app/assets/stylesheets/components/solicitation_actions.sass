@@ -52,3 +52,18 @@
         margin-bottom: 0
         a.fr-nav__link
           min-width: 12rem
+  .qualification
+    border: 1px solid base.$grey-dark
+    .button
+      color: base.$grey-darkest
+    &.qualification--pending
+      border-style: dashed
+      border-color: base.$grey
+      .button
+        color: base.$grey-dark
+    .dropdown-content
+      left: 0
+      right: auto
+      width: 28rem
+  .qualification:focus-within .dropdown-content
+    display: block

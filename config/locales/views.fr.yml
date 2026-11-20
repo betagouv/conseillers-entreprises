@@ -411,6 +411,21 @@ fr:
         search: Rechercher
         search_placeholder: Tag, aide demandée…
         title: Sollicitations
+      qualification:
+        disagreement_label: Je ne suis pas d’accord avec ce résultat
+        disputed: contesté
+        feedback_label: Votre retour sur cette qualification
+        label:
+          go: IA GO
+          pending: IA en attente
+          stop: IA STOP
+        pending_explanation: Le service de qualification n’a pas encore analysé cette sollicitation.
+        qualified_at: Qualifiée le %{date} à %{time}
+        submit: Enregistrer
+        title:
+          go: 'Qualification IA : la demande peut être traitée'
+          pending: 'Qualification IA : en attente'
+          stop: 'Qualification IA : la demande ne peut pas être traitée en l’état'
       retry_diagnosis:
         prepare_diagnosis_retry: Réessayer
         start_auto_diagnosis: Analyse automatique
@@ -442,6 +457,8 @@ fr:
         canceled: Abandonnées
         index: Reçues
         processed: Mises en relation
+      update_qualification_feedback:
+        saved: Votre retour sur la qualification a été enregistré
   contacts:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>

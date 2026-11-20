@@ -124,6 +124,7 @@ fr:
       not_taken_after_3_weeks: 3 semaines sans réponse
       old_active_invitation_not_accepted: Invitations non acceptées (+ de 6 mois)
       opco: Opco
+      qualification_in_progress: Qualifiées par l’IA, en cours
       recent_active_invitation_not_accepted: Invitations non acceptées (- de 6 mois)
       sent: Mises en relation envoyées
       shared: Partagé

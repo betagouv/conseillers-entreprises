@@ -83,6 +83,7 @@ Rails.application.routes.draw do
         post :update_badges
         post :prepare_diagnosis
         patch :mark_as_spam
+        patch :update_qualification_feedback
       end
       collection do
         get :processed, path: 'mises-en-relation'
