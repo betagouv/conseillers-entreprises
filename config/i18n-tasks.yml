@@ -123,7 +123,7 @@ ignore_unused:
   - 'prefill_feedbacks.*'
   - '{date,datetime,errors,helpers,number,support,time}.*'
   - 'solicitation.provenance_categories.*'
-#  - 'solicitation.qualification_states.*'
+  - 'solicitation.qualification_states.*'
   - 'password.missing_elements.*'
   - 'antenne_stats_exporter.*'
   - 'cooperation_stats_exporter.*'
