@@ -1,0 +1,18 @@
+<% banner_title = ENV['FEATURE_MAINTENANCE_BANNER_TITLE'] %>
+<% banner_description = ENV['FEATURE_MAINTENANCE_BANNER_DESCRIPTION'] %>
+<% if (banner_title.present? || banner_description.present?) && !in_iframe? %>
+  <div class="fr-notice fr-notice--warning">
+    <div class="fr-container">
+      <div class="fr-notice__body">
+        <p>
+          <% if banner_title.present? %>
+            <span class="fr-notice__title"><%= banner_title %></span>
+          <% end %>
+          <% if banner_description.present? %>
+            <span class="fr-notice__desc"><%= banner_description %></span>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>
