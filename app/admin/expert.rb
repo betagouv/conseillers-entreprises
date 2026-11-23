@@ -264,7 +264,7 @@ ActiveAdmin.register Expert do
   sidebar I18n.t('active_admin.actions'), only: :show do
     ul class: 'actions' do
       unless resource.deleted?
-        li link_to t('annuaire.users.table.reassign_matches'), admin_expert_reassign_matches_path(expert), class: 'action'
+        li link_to t('active_admin.reassign_matches.action'), admin_expert_reassign_matches_path(expert), class: 'action'
       end
 
       if Rails.env.development?
@@ -407,6 +407,15 @@ ActiveAdmin.register Expert do
       expert.normalize_values!
     end
     redirect_back_or_to collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
+  end
+
+  if Rails.env.development?
+    batch_action I18n.t('active_admin.pseudonymize') do |ids|
+      batch_action_collection.find(ids).each do |expert|
+        Anonymization.pseudonymize_expert(expert)
+      end
+      redirect_back_or_to collection_path, notice: I18n.t('active_admin.pseudonymize_done')
+    end
   end
 
   batch_action :destroy, confirm: I18n.t('active_admin.expert.delete_confirmation', count: 2) do |ids|
