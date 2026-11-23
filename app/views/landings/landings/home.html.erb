@@ -1,5 +1,5 @@
 <% setup_home_seo_schemas(landing_themes: @landing_themes, landing: @landing) %>
-<div class="fr-container-fluid fr-py-8w home-banner">
+<div class="fr-container--fluid fr-py-8w home-banner">
   <div class="fr-container">
     <div class="fr-grid-row fr-grid-row--gutters">
       <div class="fr-col-12 fr-col-md-7" id="col-text">
@@ -26,7 +26,7 @@
     </div>
   </div>
 </div>
-<div class="fr-container-fluid light-blue-bg fr-py-7w home landing">
+<div class="fr-container--fluid light-blue-bg fr-py-7w home landing">
   <div class="fr-container">
     <% unless in_iframe? %>
       <div id="scroll-section"></div>
@@ -39,7 +39,7 @@
     <%= render 'multiple_steps', landing_themes: @landing_themes, landing: @landing %>
   </div>
 </div>
-<div class="fr-container-fluid section-partners fr-py-7w lighter-blue-bg">
+<div class="fr-container--fluid section-partners fr-py-7w lighter-blue-bg">
   <div class="fr-container text-center">
     <%= render 'index_institutions' %>
   </div>

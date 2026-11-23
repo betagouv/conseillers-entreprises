@@ -2,7 +2,7 @@
 
 <% cache_unless(flash.present?, [@landing, @landing_themes, query_params]) do %>
   <% unless in_iframe? %>
-    <div class="fr-container-fluid fr-py-7w fr-mt-3v home-banner">
+    <div class="fr-container--fluid fr-py-7w fr-mt-3v home-banner">
       <div class="fr-container">
         <div class="fr-grid-row fr-grid-row--gutters">
           <div class="fr-col-12 fr-col-md-7" id="col-text">
@@ -33,7 +33,7 @@
   <% if @landing.layout_single_page? %>
     <%= render 'single_page', landing_themes: @landing.landing_themes, landing: @landing %>
   <% else %>
-    <div class="fr-container-fluid light-blue-bg fr-py-4w landing-theme-section landing">
+    <div class="fr-container--fluid light-blue-bg fr-py-4w landing-theme-section landing">
       <div class="fr-container">
         <%= render 'multiple_steps', landing_themes: @landing_themes, landing: @landing %>
       </div>
@@ -41,7 +41,7 @@
   <% end %>
 
   <% unless in_iframe? %>
-    <div class="fr-container-fluid light-blue-bg landing">
+    <div class="fr-container--fluid light-blue-bg landing">
       <%= render 'pages/how_it_works_short' %>
     </div>
     <div class="fr-container fr-py-7w">
