@@ -67,3 +67,21 @@
       width: 28rem
   .qualification:focus-within .dropdown-content
     display: block
+
+.qualification--expanded
+  border: 1px solid base.$grey-dark
+  .qualification__header
+    display: flex
+    align-items: center
+    color: base.$grey-darkest
+  &.qualification--go
+    border-color: var(--border-plain-success)
+    .qualification__header
+      color: var(--text-default-success)
+  &.qualification--stop
+    border-color: var(--border-plain-error)
+    .qualification__header
+      color: var(--text-default-error)
+  &.qualification--pending
+    border-style: dashed
+    border-color: base.$grey

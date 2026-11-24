@@ -50,6 +50,9 @@
         .loader.hidden{ data: { 'expert-autocomplete-target': 'loader' } }
         %div{ data: { 'expert-autocomplete-target': "field", 'assistive-hint': t("autocomplete_assistive_hint"), name: 'omnisearch', 'search-url': conseiller_experts_path, 'search-insee-code': h(@diagnosis.facility.insee_code) } }
 
+    - if @diagnosis.solicitation.present?
+      = render 'conseiller/solicitations/qualification', solicitation: @diagnosis.solicitation, expanded: true
+
     .fr-callout
       %p.fr-callout__text= t('.before_sending_emails')
 

@@ -96,7 +96,7 @@ class Conseiller::SolicitationsController < ApplicationController
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
     end
-    redirect_to [:conseiller, @solicitation]
+    redirect_back_or_to [:conseiller, @solicitation]
   end
 
   def mark_as_spam
