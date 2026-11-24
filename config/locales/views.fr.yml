@@ -457,7 +457,7 @@ fr:
         index: Reçues
         processed: Mises en relation
       update_qualification_feedback:
-        saved: Votre retour sur la qualification a été enregistré
+        saved: Retour enregistré.
   contacts:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
