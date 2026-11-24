@@ -590,6 +590,7 @@ fr:
         subject_answers: Questions additionnelles
         theme: Thématique réelle
         tracking: Suivi
+        with_qualification_feedback: Retour sur la qualification présent
       solicitation/statuses:
         canceled: Abandonnée
         in_progress: Reçue
