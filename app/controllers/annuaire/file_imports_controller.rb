@@ -23,7 +23,7 @@ module Annuaire
     def commit
       @import.import(commit: true)
 
-      redirect_to polymorphic_path([:institution, @import.entity.model_name.plural.to_sym], institution_slug: @import.institution)
+      redirect_to polymorphic_path([:institution, @import.entity.model_name.plural.to_sym], institution_slug: @import.institution, highlight_last_import: true)
     end
 
     private

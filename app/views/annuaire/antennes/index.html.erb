@@ -11,7 +11,7 @@
 
 <% if @antennes.present? %>
   <div class="container--table">
-    <%= render 'table', antennes: @antennes %>
+    <%= render 'table', antennes: @antennes, imported_objects: @file_import&.result_objects %>
   </div>
 <% else %>
   <div class="fr-container">

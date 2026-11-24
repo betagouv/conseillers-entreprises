@@ -14,6 +14,16 @@
 
     <button data-fr-opened="false" aria-controls="import_dialog" type="button"><%= t('annuaire.actions_buttons.import') %></button>
 
+    <% if params[:highlight_last_import] %>
+      <%= link_to institution_users_path do %>
+        <%= t('annuaire.actions_buttons.highlight_last_import_stop') %>
+      <% end %>
+    <% else %>
+      <%= link_to institution_users_path(highlight_last_import: true) do %>
+        <%= t('annuaire.actions_buttons.highlight_last_import') %>
+      <% end %>
+    <% end %>
+
     <% if @users_data.not_invited_users.present? %>
       <%= form_with url: send_invitations_institution_users_path, local: true do |f| %>
         <%= f.hidden_field :users_ids, value: @users_data.not_invited_users.map(&:id) %>

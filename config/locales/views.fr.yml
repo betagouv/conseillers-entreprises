@@ -101,6 +101,8 @@ fr:
       actions: Actions
       download_csv: Télécharger CSV
       download_xls: Télécharger XLSX
+      highlight_last_import: Surligner le dernier import
+      highlight_last_import_stop: Ne plus surligner
       import: Importer…
       send_invitations:
         one: Envoyer une invitation
