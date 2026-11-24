@@ -132,6 +132,11 @@ fr:
         supported_formats: 'Format supporté : csv.'
       preview:
         commit: Réaliser l’import
+        display_filter: Afficher
+        filter:
+          all: Tous les conseillers de l’institution
+          only_imported_users: Seulement les conseillers présents dans le fichier
+          referenced_antennes: Tous les conseillers dans les antennes importées
         title: Prévisualisation
     institutions:
       index:

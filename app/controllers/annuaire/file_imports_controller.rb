@@ -42,7 +42,7 @@ module Annuaire
       old_data = UsersData.new(@institution, nil).preload
       @import.import(commit: false) do |result|
         new_data = UsersData.new(@institution, nil).preload
-        @data = Annuaire::ImportedUsersData.new(new_data, result.objects, old_data)
+        @data = Annuaire::ImportedUsersData.new(new_data, result.objects, old_data, filter: params[:display_filter]&.to_sym)
       end
     end
 

@@ -15,6 +15,8 @@ module Annuaire
     end
     ::Expert.attr_accessor :import_subjects_changes # Hash of {institution_subject -> CHANGES}
 
+    FILTERS = %i[all referenced_antennes only_imported_users].freeze
+
     # ImportedUsersData may be created:
     # 1. with `data`, `imported_users` and `old_data`. This is used to **preview** the result of an ongoing (incomplete) import.
     # 2. with `data` and `imported_users`. This is used to **highlight** the result of a past (completed) import.
@@ -24,13 +26,20 @@ module Annuaire
     # In **highlight** mode, only `User`s are annotated.
     # In proxy mode, nothing is annotated.
     #
+    # Additionally, in **preview** mode, the returned data tree is filtered according to `filter`.
+    # - :only_imported_users : only the data contained in the imported_users is returned. Other antennes and experts are hidden.
+    # - :referenced_antennes : users that belong to antennes referenced by imported_users are displayed as well, even if they are not themselves in imported_users.
+    # - :all : the whole data tree is returned.
+    #
     # @param data [UsersData]
     # @param imported_users [ActiveRecord::Relation, nil] of [User]
     # @param old_data [UsersData]
+    # @param filter [Symbol, nil] any of FILTERS
     def initialize(data, imported_users, old_data = nil, filter: :all)
       @data = data
       @imported_users = imported_users
       @old_data = old_data
+      @filter = filter || :all
     end
 
     # Public API
@@ -39,6 +48,7 @@ module Annuaire
       @grouped_experts ||= begin
         decorate_data
         aggregate_decorations
+        filtered_grouped_experts(@data, @filter)
       end
     end
 
@@ -104,6 +114,26 @@ module Annuaire
             antenne.import_change_type = :updated
           end
         end
+      end
+    end
+
+    # Filter the data grouped experts according to the filter and their #import_change_type
+    def filtered_grouped_experts(data, filter)
+      touched_filter = Proc.new { it.import_change_type.in?(%i[touched updated created]) }
+
+      case filter
+      when :only_imported_users
+        grouped_experts = data.grouped_experts.select(&touched_filter)
+        grouped_experts.transform_values! { |experts| experts.select(&touched_filter) }
+        grouped_experts.each_value do |experts|
+          experts.transform_values! { |users| users.select(&touched_filter) }
+        end
+      when :referenced_antennes
+        data.grouped_experts.select(&touched_filter)
+      when :all
+        data.grouped_experts
+      else
+        raise ArgumentError
       end
     end
 

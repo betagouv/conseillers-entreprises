@@ -198,5 +198,49 @@ describe Annuaire::ImportedUsersData do
         expect(antenne_2.import_change_type).to eq :removed
       end
     end
+
+    describe '#grouped_experts (filtered data)' do
+      context ':all' do
+        let(:filter) { :all }
+
+        it {
+          expect(imported_users_data.grouped_experts).to eq({
+            antenne_1 => {
+              expert_1 => [user_1, user_2],
+              expert_2 => [user_3, user_4]
+            },
+            antenne_2 => {
+              expert_3 => [user_5]
+            }
+          })
+        }
+      end
+
+      context ':only_imported_users' do
+        let(:filter) { :only_imported_users }
+
+        it do
+          expect(imported_users_data.grouped_experts).to eq({
+            antenne_1 => {
+              expert_1 => [user_1, user_2],
+              expert_2 => [user_3]
+            }
+          })
+        end
+      end
+
+      context ':referenced_antennes' do
+        let(:filter) { :referenced_antennes }
+
+        it do
+          expect(imported_users_data.grouped_experts).to eq({
+            antenne_1 => {
+              expert_1 => [user_1, user_2],
+              expert_2 => [user_3, user_4]
+            }
+          })
+        end
+      end
+    end
   end
 end

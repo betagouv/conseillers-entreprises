@@ -2,6 +2,29 @@
 <% content_for :header, render('header', import: @import, current: "preview") %>
 
 <div class="fr-container">
+  <div class="annuaire-header">
+    <% if @import.entity == User %>
+      <%= form_with url: request.url, method: :get, local: true do |f| %>
+        <div class="fr-grid-row fr-grid-row--gutters">
+          <div class="fr-col">
+
+            <fieldset class="fr-fieldset fr-mb-0">
+              <div class="fr-fieldset__element fr-fieldset__element--inline">
+                <%= f.label :display, t(".display_filter"), class: 'fr-label' %>
+              </div>
+              <div class="fr-fieldset__element fr-fieldset__element--inline fr-fieldset__element--inline-grow">
+                <% values = Annuaire::ImportedUsersData::FILTERS %>
+                <% options = options_for_select(values.index_by{ t(it, scope: "annuaire.file_imports.preview.filter")}, selected: params[:display_filter]) %>
+                <%= f.select :display_filter, options, {}, class: "fr-select",
+                             data: { controller: "direct-submit", action: "direct-submit#submit" }
+                %>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
   <div class="text-right">
     <%= button_to t('annuaire.file_imports.preview.commit'), commit_institution_file_import_path, method: :put, class: "fr-btn fr-btn--primary", disabled: @import.completed? %>
   </div>
