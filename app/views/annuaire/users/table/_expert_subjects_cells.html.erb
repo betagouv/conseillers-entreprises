@@ -1,6 +1,6 @@
-<%# locals: (grouped_subjects:, expert:, users_size:) %>
+<%# locals: (users_data:, expert:, users_size:) %>
 
-<% grouped_subjects.each_value do |subjects| %>
+<% users_data.grouped_subjects.each_value do |subjects| %>
   <% subjects.each_value do |institutions_subjects| %>
     <% institutions_subjects.each do |institution_subject| %>
       <% expert_subject = expert&.experts_subjects&.find{ it.institution_subject_id == institution_subject.id } %>

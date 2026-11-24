@@ -31,11 +31,6 @@ module AnnuaireHelper
     end
   end
 
-  def total_users(experts)
-    # Permet de compter le nombre de users même non persistés pour afficher les experts sans user
-    experts.each_value.sum{ |users| [users.size, 1].max }
-  end
-
   def build_coverage_details(anomalie_details)
     anomalie_details.map do |anomalie_type, value|
       next if anomalie_type == :match_filters && anomalie_details[:match_filters].values.flatten.blank?
@@ -132,9 +127,9 @@ module AnnuaireHelper
     content
   end
 
-  def large_search?(grouped_experts, grouped_subjects)
-    total_experts = grouped_experts.values.sum { |experts| experts.keys.count(&:persisted?) }
-    total_subjects = grouped_subjects.values.sum { |subjects| subjects.values.sum(&:size) }
+  def large_users_data?(users_data)
+    total_experts = users_data.grouped_experts.values.sum { |experts| experts.keys.count(&:persisted?) }
+    total_subjects = users_data.grouped_subjects.values.sum { |subjects| subjects.values.sum(&:size) }
     (total_experts * total_subjects) > 100
   end
 end

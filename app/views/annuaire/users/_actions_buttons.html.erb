@@ -5,11 +5,11 @@
   <button class="fr-btn fr-btn--tertiary fr-icon-settings-5-line fr-btn--icon-left"><%= t("annuaire.actions_buttons.actions") %></button>
   <div class="annuaire-import-menu__content">
     <%= link_to institution_users_path(format: 'csv', antenne_id: params[:antenne_id].presence, region_code: params[:region_code].presence) do %>
-      <%= t('download_csv') %>
+      <%= t('annuaire.actions_buttons.download_csv') %>
     <% end %>
 
     <%= link_to institution_users_path(format: 'xlsx', antenne_id: params[:antenne_id].presence, region_code: params[:region_code].presence) do %>
-      <%= t('download_xls') %>
+      <%= t('annuaire.actions_buttons.download_xls') %>
     <% end %>
 
     <button data-fr-opened="false" aria-controls="import_dialog" type="button"><%= t('annuaire.actions_buttons.import') %></button>

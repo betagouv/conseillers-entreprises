@@ -8,6 +8,9 @@
         <%= t('.no_error') %>
       </p>
     </div>
+    <div class="fr-mt-1w text-right">
+      <%= link_to t('.start_preview'), preview_institution_file_import_path, class: "fr-btn fr-btn--primary" %>
+    </div>
   <% else %>
     <div class="fr-alert fr-alert--error" role="alert">
       <h3 class="fr-alert__title"><%= t('.import_failed') %></h3>
@@ -62,9 +65,8 @@
                     <% end %>
                   </tr>
                   <% if has_errors %>
-                    <tr class="red">
-                      <td class="rowspanned"></td>
-                      <td colspan="<%= row.count + 1 %>">
+                    <tr class="annuaire-analysis-error">
+                      <td colspan="<%= row.count %>">
                         <%= simple_format(nested_errors_messages(object)) %>
                       </td>
                     </tr>

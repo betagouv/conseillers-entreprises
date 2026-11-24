@@ -99,6 +99,8 @@ fr:
   annuaire:
     actions_buttons:
       actions: Actions
+      download_csv: Télécharger CSV
+      download_xls: Télécharger XLSX
       import: Importer…
       send_invitations:
         one: Envoyer une invitation
@@ -112,7 +114,7 @@ fr:
         import_failed: Échec de l’import
         import_failed_with_error: 'Échec de l’import : %{error}'
         no_error: Aucune erreur détectée
-        start_preview: Prévisualier l’import
+        start_preview: Prévisualiser l’import
         title: Analyse du fichier
         unknown_headers:
           one: En-tête non reconnu
@@ -457,7 +459,6 @@ fr:
   contacts:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
-  download_xls: Télécharger XLSX
   emails:
     not_sent: L’email n’a pu être envoyé
     sent: L’email a été envoyé

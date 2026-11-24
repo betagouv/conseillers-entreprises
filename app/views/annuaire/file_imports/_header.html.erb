@@ -26,13 +26,5 @@
       <% end %>
     </ol>
   </div>
-
-  <div class="text-right">
-    <% if current == "analysis" %>
-      <%= link_to t('annuaire.file_imports.analysis.start_preview'), preview_institution_file_import_path, class: "fr-btn fr-btn--primary" %>
-    <% elsif current == "preview"  %>
-      <%= button_to t('annuaire.file_imports.preview.commit'), commit_institution_file_import_path, method: :put, class: "fr-btn fr-btn--primary", disabled: @import.completed? %>
-    <% end %>
-  </div>
 </nav>
 
