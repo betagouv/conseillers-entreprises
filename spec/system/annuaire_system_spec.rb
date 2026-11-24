@@ -14,7 +14,7 @@ describe 'annuaire', :js do
     login_as user, scope: :user
   end
 
-  context 'annuaire/institutions' do
+  describe 'annuaire/institutions' do
     it 'displays all institution' do
       visit 'annuaire/institutions'
 
@@ -28,7 +28,7 @@ describe 'annuaire', :js do
     end
   end
 
-  context '/annuaire/institutions/:slug/domaines' do
+  describe '/annuaire/institutions/:slug/domaines' do
     context 'without expert_subject' do
       it 'displays no institution subjects' do
         visit "annuaire/institutions/#{institution.slug}/domaines"
@@ -54,7 +54,7 @@ describe 'annuaire', :js do
     end
   end
 
-  context '/annuaire/institutions/:slug/antennes' do
+  describe '/annuaire/institutions/:slug/antennes' do
     context 'without antenne' do
       it 'displays no institution antennes' do
         visit "annuaire/institutions/#{another_institution.slug}/antennes"
@@ -76,8 +76,8 @@ describe 'annuaire', :js do
     end
   end
 
-  context '/annuaire/institutions/:slug/conseillers' do
-    describe 'without user' do
+  describe '/annuaire/institutions/:slug/conseillers' do
+    context 'without user' do
       let!(:institution_subject) { create :institution_subject, institution: institution }
 
       it 'displays no users' do
@@ -93,7 +93,7 @@ describe 'annuaire', :js do
       let!(:expert) { create :expert, antenne: antenne }
       let!(:user_1) { create :user, experts: [expert], antenne: antenne }
 
-      describe 'one expert with institution_subject' do
+      context 'one expert with institution_subject' do
         let!(:institution_subject) { create :institution_subject, institution: institution }
         let!(:expert_subject) { create :expert_subject, institution_subject: institution_subject, expert: expert }
 
@@ -114,7 +114,7 @@ describe 'annuaire', :js do
         end
       end
 
-      describe 'many experts on institution_subject' do
+      context 'many experts on institution_subject' do
         let!(:institution_subject) { create :institution_subject, institution: institution }
         let!(:expert_2) { create :expert, antenne: antenne }
         let!(:user_2) { create(:user, antenne: antenne).tap { |u| u.experts << expert_2 } }
