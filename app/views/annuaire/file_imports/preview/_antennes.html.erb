@@ -2,7 +2,7 @@
 
 <% if data[:antennes].present? %>
   <div class="fr-container-fluid">
-    <%= render 'annuaire/antennes/table', antennes: data[:antennes] %>
+    <%= render 'annuaire/antennes/table', antennes: data[:antennes], imported_objects: data[:result].objects %>
   </div>
 <% else %>
   <div class="fr-container">

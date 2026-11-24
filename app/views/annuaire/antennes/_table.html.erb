@@ -1,4 +1,4 @@
-<%# locals: (antennes:) %>
+<%# locals: (antennes:, imported_objects: []) %>
 
 <div class="fr-table fr-table--multiline fr-table--bordered fr-table--c-annuaire">
   <div class="fr-table__wrapper">
@@ -15,9 +15,9 @@
           </thead>
           <tbody>
             <% antennes.each do |antenne| %>
-              <% highlighted_ids = flash[:table_highlighted_ids] %>
-              <tr class="<%= highlighted_ids&.include?(antenne.id) ? 'blue' : '' %>">
-                <th class="fr-enlarge-link">
+              <tr>
+                <% changes = (imported_objects&.include?(antenne) ? 'touched' : 'removed') if imported_objects.present? %>
+                <th class="fr-enlarge-link annuaire-cell--changes" data-changes="<%= changes %>">
                   <%= link_to antenne, admin_antenne_path(antenne) %>
                 </th>
                 <td class="fr-enlarge-link">
