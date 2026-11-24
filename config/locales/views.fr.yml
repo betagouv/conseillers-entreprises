@@ -412,8 +412,7 @@ fr:
         search_placeholder: Tag, aide demandée…
         title: Sollicitations
       qualification:
-        disagreement_label: Je ne suis pas d’accord avec ce résultat
-        disputed: contesté
+        disputed: contestée
         feedback_label: Votre retour sur cette qualification
         label:
           go: IA GO

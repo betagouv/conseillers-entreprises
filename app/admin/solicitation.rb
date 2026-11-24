@@ -139,7 +139,6 @@ ActiveAdmin.register Solicitation do
   filter :qualified_at
   filter :qualified
   filter :qualification_details
-  filter :qualification_disagreement
   filter :qualification_feedback
 
   # Filtres acquisition
@@ -233,7 +232,6 @@ ActiveAdmin.register Solicitation do
       row(:qualified) { |s| s.qualified } # avoid displaying nil values as false
       row :qualified_at
       row :qualification_details
-      row :qualification_disagreement
       row :qualification_feedback
       row :qualification_feedback_user
     end

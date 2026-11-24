@@ -577,7 +577,6 @@ fr:
         provenance_detail: Détail de la source
         provenance_title: Intitulé de la source
         qualification_details: Motif de la qualification
-        qualification_disagreement: Désaccord avec la qualification
         qualification_feedback: Retour sur la qualification
         qualification_feedback_user: Auteur du retour sur la qualification
         qualified: Verdict de qualification
@@ -1293,7 +1292,6 @@ fr:
     solicitation_provenance_title: Intitulé de la source
     solicitation_qualification: Qualification IA
     solicitation_qualification_details: Motif de la qualification IA
-    solicitation_qualification_disagreement: Désaccord avec la qualification IA
     solicitation_qualification_feedback: Retour sur la qualification IA
     solicitation_qualification_feedback_user: Auteur du retour sur la qualification IA
     solicitation_qualified_at: Date de qualification IA

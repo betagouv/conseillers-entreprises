@@ -31,7 +31,6 @@ module CsvExport
         solicitation_qualification: -> { I18n.t(solicitation.qualification_state, scope: %i(solicitation qualification_states)) unless solicitation&.qualified.nil? },
         solicitation_qualified_at: -> { I18n.l(solicitation.qualified_at, format: :admin) if solicitation&.qualified_at.present? },
         solicitation_qualification_details: -> { solicitation&.qualification_details },
-        solicitation_qualification_disagreement: -> { I18n.t(solicitation.qualification_disagreement, scope: [:boolean, :text]) if solicitation.present? },
         solicitation_qualification_feedback: -> { solicitation&.qualification_feedback },
         solicitation_qualification_feedback_user: -> { solicitation&.qualification_feedback_user&.full_name },
         match_created_at:  -> { I18n.l(created_at, format: :admin) },

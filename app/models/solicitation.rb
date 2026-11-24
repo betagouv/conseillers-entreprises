@@ -16,7 +16,6 @@
 #  prepare_diagnosis_errors_details :jsonb
 #  provenance_detail                :string
 #  qualification_details            :string
-#  qualification_disagreement       :boolean          default(FALSE), not null
 #  qualification_feedback           :text
 #  qualified                        :boolean
 #  qualified_at                     :datetime
@@ -815,7 +814,7 @@ class Solicitation < ApplicationRecord
       "code_region", "completed_at", "created_at", "description", "email", "form_info", "full_name", "id", "id_value",
       "institution_id", "cooperation_id", "landing_id", "landing_slug", "landing_subject_id", "location", "phone_number",
       "prepare_diagnosis_errors_details", "requested_help_amount", "siret", "status", "updated_at", "uuid", "mtm_campaign",
-      "mtm_kwd", "relaunch", "qualified_at", "qualified", "qualification_details", "qualification_disagreement",
+      "mtm_kwd", "relaunch", "qualified_at", "qualified", "qualification_details",
       "qualification_feedback"
     ]
   end

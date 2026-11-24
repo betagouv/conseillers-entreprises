@@ -555,7 +555,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_20_130000) do
     t.string "qualification_details"
     t.datetime "qualified_at"
     t.text "qualification_feedback"
-    t.boolean "qualification_disagreement", default: false, null: false
     t.bigint "qualification_feedback_user_id"
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["cooperation_id"], name: "index_solicitations_on_cooperation_id"

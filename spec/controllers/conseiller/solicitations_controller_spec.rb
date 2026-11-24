@@ -76,16 +76,15 @@ RSpec.describe Conseiller::SolicitationsController do
 
   describe 'PATCH #update_qualification_feedback' do
     let(:solicitation) { create :solicitation, qualified: false, qualification_details: 'Besoin imprécis', qualified_at: Time.current }
-    let(:feedback_params) { { qualification_feedback: 'Le besoin est clair au téléphone', qualification_disagreement: '1' } }
+    let(:feedback_params) { { qualification_feedback: 'Le besoin est clair au téléphone' } }
 
     subject(:request) { patch :update_qualification_feedback, params: { id: solicitation.id, solicitation: feedback_params } }
 
-    it 'saves the feedback, the disagreement and its author' do
+    it 'saves the feedback and its author' do
       request
 
       expect(solicitation.reload).to have_attributes(
-        qualification_feedback: 'Le besoin est clair',
-        qualification_disagreement: true,
+        qualification_feedback: 'Le besoin est clair au téléphone',
         qualification_feedback_user: current_user
       )
       expect(response).to redirect_to conseiller_solicitation_path(solicitation)

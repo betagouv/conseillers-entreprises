@@ -90,7 +90,7 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def update_qualification_feedback
     authorize @solicitation, :update?
-    feedback_params = params.expect(solicitation: [:qualification_feedback, :qualification_disagreement])
+    feedback_params = params.expect(solicitation: [:qualification_feedback])
     if @solicitation.update(feedback_params.merge(qualification_feedback_user: current_user))
       flash.notice = t('.saved')
     else
