@@ -39,8 +39,10 @@ module Annuaire
     end
 
     def preview_users
+      old_data = UsersData.new(@institution, nil).preload
       @import.import(commit: false) do |result|
-        @data = UsersData.new(@institution, nil).preload
+        new_data = UsersData.new(@institution, nil).preload
+        @data = Annuaire::ImportedUsersData.new(new_data, result.objects, old_data)
       end
     end
 

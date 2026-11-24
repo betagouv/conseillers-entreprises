@@ -1,8 +1,12 @@
-<%# locals: (expert:, users_size:) %>
+<%# locals: (expert:, users_size:, preview:) %>
 
-<th class="td-header td-header--expert" rowspan="<%= users_size %>">
-  <% if expert.persisted? %>
-    <%= link_to expert.full_name, admin_expert_path(expert) %>
+<th class="td-header td-header--expert annuaire-cell--changes" data-changes="<%= expert.import_change_type %>" rowspan="<%= users_size %>">
+  <% if expert != Annuaire::NO_EXPERT %>
+    <% if preview %>
+      <span><%= expert.full_name %></span>
+    <% else %>
+      <%= link_to expert.full_name, admin_expert_path(expert) %>
+    <% end %>
     <% if expert.territorial_zones.any? %>
       <span class="ri-map-2-line blue fr-ml-1v" aria-hidden="true" title="<%= t('annuaire_helper.build_user_name_cell.specific_territories') %>"></span>
     <% end %>

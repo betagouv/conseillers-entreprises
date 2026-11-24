@@ -17,9 +17,9 @@
                   <% expert_first_row = index_in_expert == 0 %>
                   <% antenne_first_row = index_in_antenne == 0 && index_in_expert == 0 %>
                   <tr class="tr--distinct">
-                    <%= render('annuaire/users/table/antenne_cell', antenne: antenne, all_users_size: all_users.size) if antenne_first_row %>
-                    <%= render('annuaire/users/table/expert_cell', expert: expert, users_size: users.size) if expert_first_row %>
-                    <%= render 'annuaire/users/table/user_cell', user: user %>
+                    <%= render('annuaire/users/table/antenne_cell', antenne: antenne, all_users_size: all_users.size, preview: users_data.preview?) if antenne_first_row %>
+                    <%= render('annuaire/users/table/expert_cell', expert: expert, users_size: users.size, preview: users_data.preview?) if expert_first_row %>
+                    <%= render('annuaire/users/table/user_cell', user: user, preview: users_data.preview?) %>
                     <%= render('annuaire/users/table/expert_subjects_cells', users_data: users_data, expert: expert, users_size: users.size) if expert_first_row %>
                   </tr>
                 <% end %>
