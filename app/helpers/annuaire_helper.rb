@@ -10,6 +10,22 @@ module AnnuaireHelper
     html
   end
 
+  # Return a description of an attribute difference
+  # Params are similar to arrays returned by HashDiff.diff
+  # @param type [String] '~', '+' or '-'
+  # @param attribute_name [String] the name of the attribute in model
+  # @param value1, value2 [String] the old and new values
+  # @param model [Class] An ActiveModel subclass.
+  # @return [String] e.g. <span class='attribute-diff' data-type:'~'><label>Fonction</label><span>Stagiaire</span><span>Directeur</span></span>
+  def attribute_diff_span(model, type, attribute_name, value1, value2 = nil)
+    tag.span(class: 'attribute-diff', data: { type: type }) do
+      content = tag.label(model.human_attribute_name(attribute_name))
+      content += tag.span(value1)
+      content += tag.span(value2) if value2.present?
+      content
+    end
+  end
+
   def referencement_coverage_cell_title(referencement_coverage)
     anomalie_title = t(referencement_coverage[:anomalie], scope: 'activerecord.attributes.referencement_coverage/anomalie')
     details = t('application.modal.see_details')

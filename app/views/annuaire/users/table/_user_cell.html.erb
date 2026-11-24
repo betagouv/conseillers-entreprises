@@ -3,5 +3,9 @@
 <td class="tr--user annuaire-cell--changes <%= class_names("annuaire-cell--highlighted" => highlighted) %>" data-changes="<%= user.import_change_type %>">
   <% if user != Annuaire::NO_USER %>
     <%= build_user_name_cell(user, preview) %>
+
+    <% if user.import_attributes_diff.present? %>
+      <%= render 'annuaire/users/table/attribute_diff', object: user %>
+    <% end %>
   <% end %>
 </td>

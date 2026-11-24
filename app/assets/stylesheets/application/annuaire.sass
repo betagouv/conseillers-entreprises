@@ -82,3 +82,25 @@
 
 .fr-table__content table tbody .annuaire-analysis-error td
   background-color: base.$red-lighter
+
+.attribute-diff
+  font-weight: initial
+  label
+    font-weight: bold
+  label + span
+    margin-inline-start: 1em
+  &[data-type='+']
+    span
+      background-color: #baffd3
+  &[data-type='~']
+    span
+      background-color: #f6ddd9
+    span:last-child
+      background-color: #baffd3
+      &:before
+        background-color: white
+        content: '➡'
+        padding-inline: 1em
+  &[data-type='-']
+    span
+      background-color: #f6ddd9

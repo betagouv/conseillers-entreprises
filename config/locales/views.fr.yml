@@ -165,6 +165,9 @@ fr:
         invitations_sent:
           one: Une invitation envoyée
           other: "%{count} invitations envoyées"
+      table:
+        attribute_diff:
+          view_differences: Voir les différences
   annuaire_helper:
     build_user_name_cell:
       antenne_manager: Responsables d’antenne.
