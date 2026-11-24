@@ -23,7 +23,7 @@
       </div>
     <% end %>
     <div class="container--table">
-      <%= render 'table', users_data: @users_data %>
+      <%= render 'table', users_data: @users_data, highlighted_objects: @highlighted_objects %>
     </div>
   <% else %>
     <div class="fr-container">

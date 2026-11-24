@@ -38,6 +38,18 @@
   &[data-changes="removed"]
     background-color: #f6ddd9
 
+.annuaire-cell--highlighted
+  position: relative
+  &:before
+    content: ""
+    pointer-events: none
+    position: absolute
+    top: 0
+    left: 0
+    width: calc(100% - 1px)
+    height: calc(100% - 1px)
+    border: 2px dotted base.$success-main-525
+
 .annuaire-import-menu
   position: relative
   width: fit-content

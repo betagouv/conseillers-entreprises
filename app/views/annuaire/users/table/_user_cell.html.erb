@@ -1,6 +1,6 @@
-<%# locals: (user:, preview:) %>
+<%# locals: (user:, preview:, highlighted:) %>
 
-<td class="tr--user annuaire-cell--changes" data-changes="<%= user.import_change_type %>">
+<td class="tr--user annuaire-cell--changes <%= class_names("annuaire-cell--highlighted" => highlighted) %>" data-changes="<%= user.import_change_type %>">
   <% if user != Annuaire::NO_USER %>
     <%= build_user_name_cell(user, preview) %>
   <% end %>
