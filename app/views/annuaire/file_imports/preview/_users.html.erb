@@ -1,0 +1,13 @@
+<%# locals: (data:) %>
+
+<% if data.grouped_experts.present? %>
+  <div class="fr-container-fluid">
+    <%= render 'annuaire/users/table', users_data: data %>
+  </div>
+<% else %>
+  <div class="fr-container">
+    <div class="fr-alert fr-alert--info fr-alert--sm">
+      <p><%= t('annuaire.users.index.no_users') %></p>
+    </div>
+  </div>
+<% end %>

@@ -1,29 +1,11 @@
 <% meta title: @institution.name %>
 <% content_for :header, render('header', import: @import, current: "preview") %>
 
-<% case @import.entity.to_s %>
-<% when "User" %>
-  <% if @users_data.grouped_experts.present? %>
-    <div class="fr-container-fluid">
-      <%= render 'annuaire/users/table', grouped_subjects: @users_data.grouped_subjects, grouped_experts: @users_data.grouped_experts %>
-    </div>
-  <% else %>
-    <div class="fr-container">
-      <div class="fr-alert fr-alert--info fr-alert--sm">
-        <p><%= t('annuaire.users.index.no_users') %></p>
-      </div>
-    </div>
-  <% end %>
-<% when "Antenne" %>
-  <% if @antennes.present? %>
-    <div class="fr-container-fluid">
-      <%= render 'annuaire/antennes/table', antennes: @antennes %>
-    </div>
-  <% else %>
-    <div class="fr-container">
-      <div class="fr-alert fr-alert--info fr-alert--sm">
-        <p><%= t('annuaire.antennes.index.no_antenne') %></p>
-      </div>
-    </div>
-  <% end %>
-<% end %>
+<div class="fr-container">
+  <div class="text-right">
+    <%= button_to t('annuaire.file_imports.preview.commit'), commit_institution_file_import_path, method: :put, class: "fr-btn fr-btn--primary", disabled: @import.completed? %>
+  </div>
+</div>
+
+<%= render("annuaire/file_imports/preview/#{@import.entity.model_name.plural}", data: @data) %>
+
