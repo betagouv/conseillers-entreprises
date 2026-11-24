@@ -6,8 +6,8 @@ describe 'annuaire', :js do
   let(:region_code) { "52 " }
   let(:commune_code_1) { "44003" }
   let(:other_commune_code) { "44002" }
-  let!(:antenne) { create :antenne, territorial_level: :local, institution: institution, territorial_zones: [create(:territorial_zone, :commune, code: commune_code_1)] }
-  let(:institution) { create :institution, :expert_provider }
+  let!(:antenne) { create :antenne, territorial_level: :local, name: 'The Antenne', institution: institution, territorial_zones: [create(:territorial_zone, :commune, code: commune_code_1)] }
+  let(:institution) { create :institution, :expert_provider, name: 'The Institution' }
   let!(:another_institution) { create :institution, :expert_provider }
 
   before do
@@ -144,6 +144,40 @@ describe 'annuaire', :js do
           end
         end
       end
+    end
+  end
+
+  describe '/annaire/file_imports' do
+    it do
+      visit "annuaire/institutions/#{institution.slug}/conseillers"
+      within('.tr--user') { expect(it.text).to eq '' }
+
+      find('.annuaire-import-menu').hover
+      click_on 'Importer…'
+
+      expect(page).to have_text 'Importer un nouveau fichier de conseillers'
+
+      attach_file('file', file_fixture('csv_import/users.csv'))
+      click_on 'Envoyer'
+
+      expect(page).to have_no_text 'Envoyer'
+      expect(page).to have_current_path(/annuaire\/institutions\/the-institution\/file_imports\/.*\/analysis/)
+      expect(page).to have_text 'Import d’utilisateurs'
+      expect(page).to have_text 'pour The Institution'
+      expect(page).to have_text 'Aucune erreur détectée'
+
+      click_on "Prévisualiser l’import"
+
+      expect(page).to have_no_text 'Prévisualiser l’import'
+      expect(page).to have_current_path(/annuaire\/institutions\/the-institution\/file_imports\/.*\/preview/)
+      within('.tr--user.annuaire-cell--changes[data-changes=created]') { expect(it.text).to eq 'Marie Dupont' }
+
+      click_on "Réaliser l’import"
+
+      expect(page).to have_no_text 'Réaliser l’import'
+      expect(page).to have_current_path('/annuaire/institutions/the-institution/conseillers?highlight_last_import=true')
+
+      within('.tr--user.annuaire-cell--changes[data-changes=touched]') { expect(it.text).to eq 'Marie Dupont' }
     end
   end
 end
