@@ -12,26 +12,23 @@ module MatomoAiAssistantTracking
   def track_ai_assistant_visit
     started_at = Process.clock_gettime(Process::CLOCK_MONOTONIC, :millisecond)
     yield
-    return unless track_ai_assistant_visit?
-
-    enqueue_ai_assistant_visit(Process.clock_gettime(Process::CLOCK_MONOTONIC, :millisecond) - started_at)
+    send_ai_assistant_visit(started_at) if track_ai_assistant_visit?
   end
 
-  def track_ai_assistant_visit?
-    ENV['MATOMO_BOT_TRACKING_ENABLED'].to_b && request.get? && Matomo.ai_assistant?(request.user_agent)
-  end
-
-  def enqueue_ai_assistant_visit(server_time_ms)
-    MatomoAiAssistantTrackingJob.perform_later(
+  def send_ai_assistant_visit(started_at)
+    Matomo::AiAssistantTracker.track(
       url: request.base_url + request.path,
       user_agent: request.user_agent,
       http_status: response.status,
       bytes: response.body.bytesize,
-      server_time_ms: server_time_ms,
-      requested_at: Time.current.utc.iso8601
+      server_time_ms: Process.clock_gettime(Process::CLOCK_MONOTONIC, :millisecond) - started_at,
+      requested_at: Time.current
     )
   rescue StandardError => e
-    Rails.logger.warn("Matomo AI assistant visit not enqueued: #{e.message}")
     Appsignal.send_exception(e)
+  end
+
+  def track_ai_assistant_visit?
+    ENV['MATOMO_BOT_TRACKING_ENABLED'].to_b && request.get? && Matomo.ai_assistant?(request.user_agent)
   end
 end
