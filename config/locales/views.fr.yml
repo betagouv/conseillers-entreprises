@@ -95,7 +95,6 @@ fr:
           zero: Aucune mise en relation à réassigner.
         save: Enregistrer
         select_expert: Expert pour la réatribution des mises en relation
-        show_experts: Afficher les experts
   admin_link: Lien admin
   annuaire:
     antennes:
