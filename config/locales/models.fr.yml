@@ -506,6 +506,13 @@ fr:
         not_for_me: Refusé
         quo: Pas de réponse
         taking_care: Pris en charge
+      qualification:
+        details: Motif de la qualification
+        feedback: Retour sur la qualification
+        feedback_user: Auteur du retour sur la qualification
+        qualified: Verdict de qualification
+        qualified_at: Date de qualification
+        solicitation: Sollicitation
       referencement_coverage:
         anomalie: Anomalie
         anomalie_details: Détail
@@ -576,11 +583,6 @@ fr:
         provenance_category: Type de source
         provenance_detail: Détail de la source
         provenance_title: Intitulé de la source
-        qualification_details: Motif de la qualification
-        qualification_feedback: Retour sur la qualification
-        qualification_feedback_user: Auteur du retour sur la qualification
-        qualified: Verdict de qualification
-        qualified_at: Date de qualification
         qualified_short: "🤖"
         relaunch: Relance
         requested_help_amount: Montant de l’aide demandée
@@ -802,12 +804,14 @@ fr:
         landing_themes:
           restrict_dependent_destroy:
             solicitations: Vous ne pouvez pas supprimer la thématique car des sollicitations y font référence
+        qualification:
+          attributes:
+            qualified:
+              inclusion: doit valoir true ou false
         solicitation:
           attributes:
             base:
               not_qualifiable: La sollicitation n’est pas en cours de traitement
-            qualified:
-              inclusion: doit valoir true ou false
             siret:
               must_be_a_valid_siret: doit être un numéro à 14 chiffres valide
             subject_answers:
@@ -909,6 +913,9 @@ fr:
       profil_picture:
         one: Image de profil
         other: Images de profil
+      qualification:
+        one: Qualification
+        other: Qualifications
       search:
         one: Recherche
         other: Recherches

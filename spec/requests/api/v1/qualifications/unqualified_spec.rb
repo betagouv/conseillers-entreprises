@@ -86,7 +86,7 @@ RSpec.describe "Unqualified solicitations API" do
     let(:headers) { { 'Authorization' => "Bearer token=#{find_qualification_token(institution)}" } }
 
     it 'excludes already qualified and non in_progress solicitations' do
-      create(:solicitation, qualified: true)
+      create(:qualification)
       create(:solicitation, status: :processed)
 
       get "/api/v1/solicitations/unqualified", headers: headers

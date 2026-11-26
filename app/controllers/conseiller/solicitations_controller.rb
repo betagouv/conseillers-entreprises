@@ -90,11 +90,12 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def update_qualification_feedback
     authorize @solicitation, :update?
-    feedback_params = params.expect(solicitation: [:qualification_feedback])
-    if @solicitation.update(feedback_params.merge(qualification_feedback_user: current_user))
+    qualification = Qualification.find_by!(solicitation: @solicitation)
+    feedback_params = params.expect(qualification: [:feedback])
+    if qualification.update(feedback_params.merge(feedback_user: current_user))
       flash.notice = t('.saved')
     else
-      flash.alert = @solicitation.errors.full_messages.to_sentence
+      flash.alert = qualification.errors.full_messages.to_sentence
     end
     redirect_back_or_to [:conseiller, @solicitation]
   end
@@ -110,7 +111,7 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def ordered_solicitations(status, order = :asc)
     Solicitation
-      .includes(:badges, :diagnosis, :facility, :needs,
+      .includes(:badges, :diagnosis, :facility, :needs, :qualification,
         feedbacks: { user: :antenne },
         landing_subject: :subject,
         subject_answers: :subject_question)

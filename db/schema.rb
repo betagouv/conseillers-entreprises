@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_20_130000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_25_100000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
 
@@ -484,6 +485,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_20_130000) do
     t.index ["user_id"], name: "index_profil_pictures_on_user_id", unique: true
   end
 
+  create_table "qualifications", force: :cascade do |t|
+    t.bigint "solicitation_id", null: false
+    t.boolean "qualified", null: false
+    t.string "details"
+    t.datetime "qualified_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.text "feedback"
+    t.bigint "feedback_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feedback_user_id"], name: "index_qualifications_on_feedback_user_id"
+    t.index ["solicitation_id"], name: "index_qualifications_on_solicitation_id", unique: true
+  end
+
   create_table "reminders_actions", force: :cascade do |t|
     t.bigint "need_id", null: false
     t.datetime "created_at", null: false
@@ -551,19 +565,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_20_130000) do
     t.bigint "cooperation_id"
     t.string "provenance_detail"
     t.string "insee_code"
-    t.boolean "qualified"
-    t.string "qualification_details"
-    t.datetime "qualified_at"
-    t.text "qualification_feedback"
-    t.bigint "qualification_feedback_user_id"
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["cooperation_id"], name: "index_solicitations_on_cooperation_id"
     t.index ["email"], name: "index_solicitations_on_email"
-    t.index ["id"], name: "index_solicitations_on_unqualified", where: "((qualified IS NULL) AND (status = 3))"
     t.index ["landing_id"], name: "index_solicitations_on_landing_id"
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
     t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"
-    t.index ["qualification_feedback_user_id"], name: "index_solicitations_on_qualification_feedback_user_id"
     t.index ["siret"], name: "index_solicitations_on_siret"
     t.index ["status", "completed_at"], name: "index_solicitations_on_status_and_completed_at"
     t.index ["status"], name: "index_solicitations_on_status"
@@ -739,6 +746,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_20_130000) do
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
   add_foreign_key "profil_pictures", "users"
+  add_foreign_key "qualifications", "solicitations", on_delete: :cascade
+  add_foreign_key "qualifications", "users", column: "feedback_user_id", on_delete: :nullify
   add_foreign_key "reminders_actions", "needs"
   add_foreign_key "reminders_registers", "experts"
   add_foreign_key "shared_satisfactions", "company_satisfactions"
@@ -747,7 +756,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_20_130000) do
   add_foreign_key "solicitations", "cooperations"
   add_foreign_key "solicitations", "landing_subjects"
   add_foreign_key "solicitations", "landings"
-  add_foreign_key "solicitations", "users", column: "qualification_feedback_user_id", on_delete: :nullify
   add_foreign_key "subject_answer_groupings", "institutions"
   add_foreign_key "subject_answers", "subject_questions"
   add_foreign_key "subject_questions", "subjects"

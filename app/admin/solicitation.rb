@@ -25,7 +25,7 @@ ActiveAdmin.register Solicitation do
   scope :status_step_company, group: :completion_incomplete
   scope :status_step_description, group: :completion_incomplete
 
-  includes :diagnosis, :landing, :institution, :badges, :landing_subject, needs: :subject, diagnosis: :company
+  includes :diagnosis, :landing, :institution, :badges, :landing_subject, :qualification, needs: :subject, diagnosis: :company
 
   index do
     selectable_column
@@ -52,10 +52,10 @@ ActiveAdmin.register Solicitation do
       end
       div raw diagnosis_link(s.diagnosis)
       div raw needs_links(s.needs) if s.needs.present? && s.diagnosis.step_completed?
-      if s.qualification_details.present?
+      if s.qualification&.details.present?
         hr
-        div t('activerecord.attributes.solicitation.qualification_details') + ' : ' do
-          blockquote p(s.qualification_details)
+        div Qualification.human_attribute_name(:details) + ' : ' do
+          blockquote p(s.qualification.details)
         end
       end
     end
@@ -90,9 +90,9 @@ ActiveAdmin.register Solicitation do
         admin_attr(s, :institution)
       end
     end
-    column t("activerecord.attributes.solicitation.qualified_short"), sortable: :qualified do |s|
-      if s.qualified_at?
-        div status_tag s.qualified
+    column t("activerecord.attributes.solicitation.qualified_short"), sortable: false do |s|
+      if s.qualification.present?
+        div status_tag s.qualification.qualified
       end
     end
   end
@@ -136,10 +136,10 @@ ActiveAdmin.register Solicitation do
   filter :badges, as: :select, collection: -> { Badge.category_solicitations.order(:title).pluck(:title, :id) }
 
   # Filtres Qualification
-  filter :qualified_at
-  filter :qualified
-  filter :qualification_details
-  filter :qualification_feedback
+  filter :qualification_qualified_at, as: :date_range, label: Qualification.human_attribute_name(:qualified_at)
+  filter :qualification_qualified, as: :boolean, label: Qualification.human_attribute_name(:qualified)
+  filter :qualification_details, as: :string, label: Qualification.human_attribute_name(:details)
+  filter :qualification_feedback, as: :string, label: Qualification.human_attribute_name(:feedback)
   filter :qualification_feedback_present, as: :boolean, label: Solicitation.human_attribute_name(:with_qualification_feedback)
 
   # Filtres acquisition
@@ -229,12 +229,18 @@ ActiveAdmin.register Solicitation do
       end
     end
 
-    attributes_table title: t('activerecord.attributes.solicitation.qualified_short') do
-      row(:qualified) { |s| s.qualified } # avoid displaying nil values as false
-      row :qualified_at
-      row :qualification_details
-      row :qualification_feedback
-      row :qualification_feedback_user
+    panel t('activerecord.attributes.solicitation.qualified_short') do
+      if solicitation.qualification.present?
+        attributes_table_for solicitation.qualification do
+          row :qualified
+          row :qualified_at
+          row :details
+          row :feedback
+          row :feedback_user
+        end
+      else
+        para t('conseiller.solicitations.qualification.title.pending')
+      end
     end
   end
 
@@ -258,7 +264,7 @@ ActiveAdmin.register Solicitation do
 
   ## Form
   #
-  permit_params :description, :status, :siret, :full_name, :phone_number, :email, badge_ids: []
+  permit_params :description, :status, :siret, :full_name, :phone_number, :email, badge_ids: [], qualification_attributes: [:qualified, :details]
   form do |f|
     f.inputs do
       f.input :status, as: :select, collection: Solicitation.human_attribute_values(:status).invert.to_a
@@ -270,9 +276,9 @@ ActiveAdmin.register Solicitation do
       f.input :description, as: :text
       f.input :badges, collection: Badge.all
     end
-    f.inputs t("activerecord.attributes.solicitation.qualified_short") do
-      f.input :qualified, as: :select
-      f.input :qualification_details, as: :text
+    f.inputs t("activerecord.attributes.solicitation.qualified_short"), for: [:qualification, f.object.qualification || f.object.build_qualification] do |qualification_form|
+      qualification_form.input :qualified, as: :select
+      qualification_form.input :details, as: :text
     end
 
     f.actions

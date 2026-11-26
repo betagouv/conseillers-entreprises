@@ -1,5 +1,6 @@
 <%# locals: (solicitation:, expanded: false) %>
 
+<% qualification = solicitation.qualification %>
 <% state = solicitation.qualification_state %>
 <% label = qualification_label(solicitation) %>
 <div class="<%= class_names('qualification white-bg', "qualification--#{state}", 'dropdown actions' => !expanded, 'qualification--expanded fr-p-2w fr-mb-2w' => expanded) %>" id="qualification-<%= solicitation.id %>">
@@ -10,21 +11,19 @@
   <% end %>
   <div class="<%= class_names('dropdown-content white-bg fr-p-2w' => !expanded) %>">
     <p class="fr-text--bold fr-mb-1v"><%= t(".title.#{state}") %></p>
-    <% if solicitation.qualified_at.present? %>
-      <p class="fr-text--xs fr-text-mention--grey fr-mb-2w">
-        <%= t('.qualified_at', date: l(solicitation.qualified_at.to_date), time: l(solicitation.qualified_at, format: '%H:%M')) %>
-      </p>
-    <% end %>
-    <% if state == :pending %>
+    <% if qualification.nil? %>
       <p class="fr-text--sm fr-mb-0"><%= t('.pending_explanation') %></p>
     <% else %>
-      <% if solicitation.qualification_details.present? %>
-        <p class="fr-text--sm"><%= solicitation.qualification_details %></p>
+      <p class="fr-text--xs fr-text-mention--grey fr-mb-2w">
+        <%= t('.qualified_at', date: l(qualification.qualified_at.to_date), time: l(qualification.qualified_at, format: '%H:%M')) %>
+      </p>
+      <% if qualification.details.present? %>
+        <p class="fr-text--sm"><%= qualification.details %></p>
       <% end %>
-      <%= form_with model: solicitation, url: update_qualification_feedback_conseiller_solicitation_path(solicitation), method: :patch, data: { turbo: false } do |form| %>
+      <%= form_with model: qualification, url: update_qualification_feedback_conseiller_solicitation_path(solicitation), method: :patch, data: { turbo: false } do |form| %>
         <div class="fr-input-group">
-          <%= form.label :qualification_feedback, t('.feedback_label'), class: 'fr-label', for: "qualification-feedback-#{solicitation.id}" %>
-          <%= form.text_area :qualification_feedback, class: 'fr-input', rows: 3, id: "qualification-feedback-#{solicitation.id}" %>
+          <%= form.label :feedback, t('.feedback_label'), class: 'fr-label', for: "qualification-feedback-#{solicitation.id}" %>
+          <%= form.text_area :feedback, class: 'fr-input', rows: 3, id: "qualification-feedback-#{solicitation.id}" %>
         </div>
         <%= form.submit t('.submit'), class: 'fr-btn' %>
       <% end %>

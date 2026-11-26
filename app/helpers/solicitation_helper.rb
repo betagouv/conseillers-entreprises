@@ -41,7 +41,7 @@ module SolicitationHelper
 
   def qualification_label(solicitation)
     state_label = t("conseiller.solicitations.qualification.label.#{solicitation.qualification_state}")
-    if solicitation.qualification_feedback.present?
+    if solicitation.qualification&.feedback.present?
       disputed_badge = tag.span(t('conseiller.solicitations.qualification.disputed'), class: 'fr-badge fr-badge--sm fr-badge--no-icon fr-ml-1w')
     end
     safe_join([qualification_icon(solicitation), state_label, disputed_badge].compact, ' ')

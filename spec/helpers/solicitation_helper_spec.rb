@@ -58,22 +58,22 @@ describe SolicitationHelper do
   end
 
   describe 'qualification_icon' do
-    subject { helper.qualification_icon(build(:solicitation, qualified: qualified)) }
+    subject { helper.qualification_icon(build(:solicitation, qualification: qualification)) }
 
     context 'qualified solicitation' do
-      let(:qualified) { true }
+      let(:qualification) { build :qualification }
 
       it { is_expected.to eq '<span class="ri-thumb-up-line fr-mr-1w" aria-hidden="true"></span>' }
     end
 
     context 'disqualified solicitation' do
-      let(:qualified) { false }
+      let(:qualification) { build :qualification, :stop }
 
       it { is_expected.to include 'ri-thumb-down-line' }
     end
 
     context 'pending solicitation' do
-      let(:qualified) { nil }
+      let(:qualification) { nil }
 
       it { is_expected.to include 'ri-hourglass-line' }
     end

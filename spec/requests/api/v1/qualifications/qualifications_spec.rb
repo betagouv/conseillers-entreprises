@@ -37,7 +37,7 @@ RSpec.describe "Solicitations qualifications API" do
 
           it 'returns a valid 204 response' do |example|
             expect(response).to have_http_status(:no_content)
-            expect(solicitation.reload).to be_qualified
+            expect(solicitation.reload.qualification).to be_qualified
           end
         end
 
@@ -51,7 +51,7 @@ RSpec.describe "Solicitations qualifications API" do
               { 'id' => solicitation.id, 'status' => 200 },
               { 'id' => 0, 'status' => 400, 'message' => I18n.t('api_pde.errors.not_qualifiable') }
             ])
-            expect(solicitation.reload).to be_qualified
+            expect(solicitation.reload.qualification).to be_qualified
           end
         end
 
@@ -77,7 +77,7 @@ RSpec.describe "Solicitations qualifications API" do
 
           run_test! do |response|
             expect(response.parsed_body['errors'].first['source']).to eq('Accès refusé')
-            expect(solicitation.reload.qualified).to be_nil
+            expect(solicitation.reload.qualification).to be_nil
           end
         end
 
@@ -91,7 +91,7 @@ RSpec.describe "Solicitations qualifications API" do
 
           run_test! do |response|
             expect(response.parsed_body['errors'].first['source']).to eq('Jeton d’API')
-            expect(solicitation.reload.qualified).to be_nil
+            expect(solicitation.reload.qualification).to be_nil
           end
         end
       end
@@ -114,8 +114,7 @@ RSpec.describe "Solicitations qualifications API" do
       put_qualifications([{ id: solicitation.id, qualified: false, details: "Hors périmètre" }])
 
       expect(response).to have_http_status(:no_content)
-      expect(solicitation.reload).to have_attributes(qualified: false, qualification_details: "Hors périmètre")
-      expect(solicitation.qualified_at).to be_present
+      expect(solicitation.reload.qualification).to have_attributes(qualified: false, details: "Hors périmètre", qualified_at: be_present)
     end
 
     it 'is idempotent' do
@@ -123,7 +122,7 @@ RSpec.describe "Solicitations qualifications API" do
       put_qualifications([{ id: solicitation.id, qualified: false, details: "Finalement non" }])
 
       expect(response).to have_http_status(:no_content)
-      expect(solicitation.reload).to have_attributes(qualified: false, qualification_details: "Finalement non")
+      expect(solicitation.reload.qualification).to have_attributes(qualified: false, details: "Finalement non")
     end
 
     it 'rejects a disqualification without details' do
@@ -133,7 +132,7 @@ RSpec.describe "Solicitations qualifications API" do
       expect(response.parsed_body).to eq([
         { 'id' => solicitation.id, 'status' => 400, 'message' => 'Motif de la qualification doit être rempli(e)' }
       ])
-      expect(solicitation.reload.qualified_at).to be_nil
+      expect(solicitation.reload.qualification).to be_nil
     end
 
     it 'rejects a batch above the maximum size' do
@@ -142,7 +141,7 @@ RSpec.describe "Solicitations qualifications API" do
       put_qualifications(payload)
 
       expect(response).to have_http_status(:bad_request)
-      expect(solicitation.reload.qualified).to be_nil
+      expect(solicitation.reload.qualification).to be_nil
     end
 
     it 'rejects an item without a verdict' do
@@ -163,7 +162,7 @@ RSpec.describe "Solicitations qualifications API" do
       expect(response.parsed_body).to eq([
         { 'id' => processed_solicitation.id, 'status' => 400, 'message' => 'La sollicitation n’est pas en cours de traitement' }
       ])
-      expect(processed_solicitation.reload.qualified).to be_nil
+      expect(processed_solicitation.reload.qualification).to be_nil
     end
   end
 end
