@@ -1,4 +1,5 @@
 .solicitation-actions
+  = render 'qualification', solicitation: solicitation
   - if solicitation.diagnosis.nil?
     - if solicitation.may_prepare_diagnosis?
       - if solicitation.prepare_diagnosis_errors.present?

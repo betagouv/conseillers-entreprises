@@ -99,6 +99,7 @@ class User < ApplicationRecord
   has_many :needs_with_shared_satisfaction, through: :shared_company_satisfactions, source: :need
 
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
+  has_many :qualification_feedbacks, class_name: 'Qualification', foreign_key: :feedback_user_id, inverse_of: :feedback_user
   has_many :feedbacks, inverse_of: :user
   belongs_to :inviter, class_name: 'User', inverse_of: :invitees, optional: true
   has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter, counter_cache: :invitations_count

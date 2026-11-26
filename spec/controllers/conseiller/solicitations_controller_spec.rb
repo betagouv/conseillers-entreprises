@@ -73,4 +73,21 @@ RSpec.describe Conseiller::SolicitationsController do
       expect(solicitation.badges.pluck(:title)).to include('Spam')
     end
   end
+
+  describe 'PATCH #update_qualification_feedback' do
+    let(:solicitation) { create(:qualification, :stop).solicitation }
+    let(:feedback_params) { { feedback: 'Le besoin est clair au téléphone' } }
+
+    subject(:request) { patch :update_qualification_feedback, params: { id: solicitation.id, qualification: feedback_params } }
+
+    it 'saves the feedback and its author' do
+      request
+
+      expect(solicitation.qualification.reload).to have_attributes(
+        feedback: 'Le besoin est clair au téléphone',
+        feedback_user: current_user
+      )
+      expect(response).to redirect_to conseiller_solicitation_path(solicitation)
+    end
+  end
 end

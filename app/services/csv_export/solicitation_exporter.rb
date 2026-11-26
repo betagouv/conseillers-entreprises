@@ -91,12 +91,17 @@ module CsvExport
         solicitation_phone_number: -> { phone_number },
         solicitation_badges: -> { badges.pluck(:title).join(', ') if badges&.any? },
         solicitation_status: -> { human_attribute_value(:status) },
+        solicitation_qualification: -> { I18n.t(qualification_state, scope: %i(solicitation qualification_states)) if qualification.present? },
+        solicitation_qualified_at: -> { I18n.l(qualification.qualified_at, format: :admin) if qualification.present? },
+        solicitation_qualification_details: -> { qualification&.details },
+        solicitation_qualification_feedback: -> { qualification&.feedback },
+        solicitation_qualification_feedback_user: -> { qualification&.feedback_user&.full_name },
       }
     end
 
     def preloaded_associations
       [
-        :diagnosis, :facility, :badges, :landing_theme, :landing, :subject, :facility, diagnosis: :company
+        :diagnosis, :facility, :badges, :landing_theme, :landing, :subject, :facility, qualification: :feedback_user, diagnosis: :company
       ]
     end
 

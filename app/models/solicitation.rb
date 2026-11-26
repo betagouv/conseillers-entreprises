@@ -15,9 +15,6 @@
 #  phone_number                     :string
 #  prepare_diagnosis_errors_details :jsonb
 #  provenance_detail                :string
-#  qualification_details            :string
-#  qualified                        :boolean
-#  qualified_at                     :datetime
 #  requested_help_amount            :string
 #  siret                            :string
 #  status                           :integer          default("step_contact")
@@ -39,7 +36,6 @@
 #  index_solicitations_on_siret                    (siret)
 #  index_solicitations_on_status                   (status)
 #  index_solicitations_on_status_and_completed_at  (status,completed_at)
-#  index_solicitations_on_unqualified              (id) WHERE ((qualified IS NULL) AND (status = 3))
 #  index_solicitations_on_uuid                     (uuid)
 #
 # Foreign Keys
@@ -65,6 +61,8 @@ class Solicitation < ApplicationRecord
 
   belongs_to :landing_subject, inverse_of: :solicitations, optional: true
   has_one :landing_theme, through: :landing_subject, source: :landing_theme, inverse_of: :landing_subjects
+  has_one :qualification, dependent: :destroy, inverse_of: :solicitation
+  accepts_nested_attributes_for :qualification, update_only: true, reject_if: -> (attributes) { attributes['qualified'].blank? }
   has_one :subject, through: :landing_subject, source: :subject, inverse_of: :landing_subjects
   has_one :theme, through: :subject, source: :theme, inverse_of: :subjects
 
@@ -163,8 +161,6 @@ class Solicitation < ApplicationRecord
   validates :origin_url, presence: true, if: -> { landing&.api? }
   validates :completed_at, presence: true, if: -> { step_complete? }
   validates :insee_code, format: { with: /\A[0-9AB]{5}\z/, message: :invalid_insee_code }, allow_blank: true
-  validates :qualification_details, presence: true, if: -> { qualified == false }, on: :qualification
-  validates :qualified, inclusion: { in: [true, false] }, on: :qualification
   validate :qualifiable_status, on: :qualification
 
   # Todo : à supprimer une fois que la migration api_url est passée ?
@@ -435,7 +431,7 @@ class Solicitation < ApplicationRecord
     where(cooperation_id: cooperation_id)
   }
 
-  scope :unqualified, -> { where(qualified: nil, status: :in_progress).order(:id) }
+  scope :unqualified, -> { where.missing(:qualification).where(status: :in_progress).order(:id) }
 
   # Excluded as soon as the landing subject or a need points to an excluded subject:
   scope :qualifiable, -> do
@@ -445,7 +441,7 @@ class Solicitation < ApplicationRecord
     where.not(id: excluded_by_landing_subject).where.not(id: excluded_by_need)
   end
 
-  scope :qualification_in_progress, -> { where.not(qualified_at: nil).where(status: :in_progress) }
+  scope :qualification_in_progress, -> { joins(:qualification).where(status: :in_progress) }
 
   # Solicitations similaires
   #
@@ -788,7 +784,8 @@ class Solicitation < ApplicationRecord
   end
 
   def qualify(qualified:, details: nil)
-    assign_attributes(qualified: qualified, qualification_details: details, qualified_at: Time.current)
+    current_qualification = qualification || build_qualification
+    current_qualification.assign_attributes(qualified: qualified, details: details, qualified_at: Time.current)
     save(context: :qualification)
   end
 
@@ -796,19 +793,21 @@ class Solicitation < ApplicationRecord
     errors.add(:base, :not_qualifiable) unless status_in_progress?
   end
 
+  def qualification_state = qualification&.state || :pending
+
   def self.ransackable_attributes(auth_object = nil)
     [
       "code_region", "completed_at", "created_at", "description", "email", "form_info", "full_name", "id", "id_value",
       "institution_id", "cooperation_id", "landing_id", "landing_slug", "landing_subject_id", "location", "phone_number",
       "prepare_diagnosis_errors_details", "requested_help_amount", "siret", "status", "updated_at", "uuid", "mtm_campaign",
-      "mtm_kwd", "relaunch", "qualified_at", "qualified", "qualification_details"
+      "mtm_kwd", "relaunch"
     ]
   end
 
   def self.ransackable_associations(auth_object = nil)
     [
       "badge_badgeables", "badges", "diagnosis", "facility", "company", "feedbacks", "institution", "cooperation",
-      "subject_answers", "landing", "landing_subject", "landing_theme", "matches", "needs", "subject", "theme", "visitee"
+      "subject_answers", "landing", "landing_subject", "landing_theme", "matches", "needs", "qualification", "subject", "theme", "visitee"
     ]
   end
 

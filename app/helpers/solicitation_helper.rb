@@ -28,6 +28,25 @@ module SolicitationHelper
     canceled: %w[red]
   }
 
+  QUALIFICATION_ICONS = {
+    go: %w[ri-thumb-up-line],
+    stop: %w[ri-thumb-down-line],
+    pending: %w[ri-hourglass-line]
+  }
+
+  def qualification_icon(solicitation)
+    classes = QUALIFICATION_ICONS[solicitation.qualification_state] + %w[fr-mr-1w]
+    tag.span(class: classes.join(' '), aria: { hidden: "true" })
+  end
+
+  def qualification_label(solicitation)
+    state_label = t("conseiller.solicitations.qualification.label.#{solicitation.qualification_state}")
+    if solicitation.qualification&.feedback.present?
+      disputed_badge = tag.span(t('conseiller.solicitations.qualification.disputed'), class: 'fr-badge fr-badge--sm fr-badge--no-icon fr-ml-1w')
+    end
+    safe_join([qualification_icon(solicitation), state_label, disputed_badge].compact, ' ')
+  end
+
   def status_action_link(solicitation, new_status, classes = %w[])
     name = Solicitation.human_attribute_value(:status, new_status, context: :action)
     path = update_status_conseiller_solicitation_path(solicitation, status: new_status)

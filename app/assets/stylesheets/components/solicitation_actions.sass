@@ -52,3 +52,36 @@
         margin-bottom: 0
         a.fr-nav__link
           min-width: 12rem
+  .qualification
+    border: 1px solid base.$grey-dark
+    .button
+      color: base.$grey-darkest
+    &.qualification--pending
+      border-style: dashed
+      border-color: base.$grey
+      .button
+        color: base.$grey-dark
+    .dropdown-content
+      left: 0
+      right: auto
+      width: 28rem
+  .qualification:focus-within .dropdown-content
+    display: block
+
+.qualification--expanded
+  border: 1px solid base.$grey-dark
+  .qualification__header
+    display: flex
+    align-items: center
+    color: base.$grey-darkest
+  &.qualification--go
+    border-color: var(--border-plain-success)
+    .qualification__header
+      color: var(--text-default-success)
+  &.qualification--stop
+    border-color: var(--border-plain-error)
+    .qualification__header
+      color: var(--text-default-error)
+  &.qualification--pending
+    border-style: dashed
+    border-color: base.$grey
