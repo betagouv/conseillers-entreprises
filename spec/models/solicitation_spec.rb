@@ -51,7 +51,8 @@ RSpec.describe Solicitation do
     it { is_expected.to validate_presence_of :email }
 
     context 'validate_description' do
-      let(:landing_subject) { create :landing_subject, description_prefill: "Préremplissage" }
+      let(:prefill) { "Bonjour,\r\n\r\nJ'aimerais reprendre une entreprise dans le secteur d'activité de \r\n\r\nJ’ai de l’expérience professionnelle dans \r\n\r\nJe recherche une entreprise dont le nombre de salariés est d'environ \r\n\r\nMa zone géographique de recherche est \r\n\r\nJ'envisage de faire un apport de  \r\n\r\nJ'ai besoin d'être accompagné sur \r\n\r\nMerci d'avance pour votre appel" }
+      let(:landing_subject) { create :landing_subject, description_prefill: prefill }
       let(:solicitation) { create :solicitation, status: 'step_description', description: description, landing_subject: landing_subject }
 
       subject { build :solicitation, status: 'in_progress', description: description, landing_subject: landing_subject }
@@ -63,7 +64,13 @@ RSpec.describe Solicitation do
       end
 
       context 'with non completed description' do
-        let(:description) { landing_subject.description_prefill }
+        let(:description) { prefill }
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context 'with whitespace-changed description' do
+        let(:description) { prefill.gsub("\r\n", "\n") }
 
         it { is_expected.not_to be_valid }
       end

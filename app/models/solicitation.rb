@@ -211,8 +211,14 @@ class Solicitation < ApplicationRecord
     errors.add(:description, :blank) if (description.blank?)
 
     if landing_subject&.description_prefill.present?
-      distance = DidYouMean::Levenshtein.distance(description, landing_subject.description_prefill)
-      errors.add(:description, :blank) if distance < 10 # not zero to allow for newline encoding changes
+      clean_description = description
+        .encode(description.encoding, universal_newline: true)
+        .unicode_normalize
+      clean_prefill = landing_subject.description_prefill
+        .encode(landing_subject.description_prefill.encoding, universal_newline: true)
+        .unicode_normalize
+      distance = DidYouMean::Levenshtein.distance(clean_description, clean_prefill)
+      errors.add(:description, :blank) if distance < 10
     end
   end
 
