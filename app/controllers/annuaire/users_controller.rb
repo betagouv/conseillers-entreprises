@@ -11,9 +11,9 @@ module Annuaire
     def index
       respond_to do |format|
         format.html do
-          flash[:table_highlighted_ids] = User.where(id: params.expect(:advisor)).ids if params[:advisor].present?
-
-          @users_data.preload
+          @highlighted_objects = @institution.advisors.where(id: params[:advisor]) if params[:advisor].present?
+          file_import = @institution.file_imports.where(entity: User).completed.order(:created_at).last if params[:highlight_last_import]
+          @users_data = ImportedUsersData.new(@users_data, file_import&.result_objects)
         end
         format.csv do
           users = User.where(id: @users_data.users)

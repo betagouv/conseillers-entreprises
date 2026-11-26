@@ -101,6 +101,8 @@ fr:
       actions: Actions
       download_csv: Télécharger CSV
       download_xls: Télécharger XLSX
+      highlight_last_import: Surligner le dernier import
+      highlight_last_import_stop: Ne plus surligner
       import: Importer…
       send_invitations:
         one: Envoyer une invitation
@@ -110,7 +112,6 @@ fr:
         no_antenne: Aucune antenne n’a été trouvé
     file_imports:
       analysis:
-        antenne_not_found: 'Antenne non reconnue : %{name}'
         import_failed: Échec de l’import
         import_failed_with_error: 'Échec de l’import : %{error}'
         no_error: Aucune erreur détectée
@@ -133,6 +134,11 @@ fr:
         supported_formats: 'Format supporté : csv.'
       preview:
         commit: Réaliser l’import
+        display_filter: Afficher
+        filter:
+          all: Tous les conseillers de l’institution
+          only_imported_users: Seulement les conseillers présents dans le fichier
+          referenced_antennes: Tous les conseillers dans les antennes importées
         title: Prévisualisation
     institutions:
       index:
@@ -159,6 +165,9 @@ fr:
         invitations_sent:
           one: Une invitation envoyée
           other: "%{count} invitations envoyées"
+      table:
+        attribute_diff:
+          view_differences: Voir les différences
   annuaire_helper:
     build_user_name_cell:
       antenne_manager: Responsables d’antenne.

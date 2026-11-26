@@ -1,5 +1,9 @@
-<%# locals: (antenne:, all_users_size:) %>
+<%# locals: (antenne:, all_users_size:, preview:) %>
 
-<th class="td-header td-header--antenne" rowspan="<%= all_users_size %>">
-  <%= link_to antenne, admin_antenne_path(antenne) %>
+<th class="td-header td-header--antenne annuaire-cell--changes" data-changes="<%= antenne&.import_change_type %>" rowspan="<%= all_users_size %>">
+  <% if preview %>
+    <span><%= antenne %></span>
+  <% else %>
+    <%= link_to antenne, admin_antenne_path(antenne) %>
+  <% end %>
 </th>

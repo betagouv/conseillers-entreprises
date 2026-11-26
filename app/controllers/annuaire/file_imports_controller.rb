@@ -23,7 +23,7 @@ module Annuaire
     def commit
       @import.import(commit: true)
 
-      redirect_to polymorphic_path([:institution, @import.entity.model_name.plural.to_sym], institution_slug: @import.institution)
+      redirect_to polymorphic_path([:institution, @import.entity.model_name.plural.to_sym], institution_slug: @import.institution, highlight_last_import: true)
     end
 
     private
@@ -39,8 +39,10 @@ module Annuaire
     end
 
     def preview_users
+      old_data = UsersData.new(@institution, nil).preload
       @import.import(commit: false) do |result|
-        @data = UsersData.new(@institution, nil).preload
+        new_data = UsersData.new(@institution, nil).preload
+        @data = Annuaire::ImportedUsersData.new(new_data, result.objects, old_data, filter: params[:display_filter]&.to_sym)
       end
     end
 

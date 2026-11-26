@@ -25,6 +25,7 @@ class FileImport < ApplicationRecord
   belongs_to :author, class_name: 'User'
   belongs_to :institution
   has_one_attached :file
+  scope :completed, -> { where.not(result_object_ids: []) }
 
   ## Attributes
   #

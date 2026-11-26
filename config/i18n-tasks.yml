@@ -134,6 +134,7 @@ ignore_unused:
   - 'reports.type.*'
   - 'annuaire.file_imports.header.title.*'
   - 'annuaire.file_imports.import_dialog.action.*'
+  - 'annuaire.file_imports.preview.filter.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

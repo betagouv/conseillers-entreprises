@@ -28,12 +28,13 @@ module CsvImport
       header_errors = check_headers(csv.headers.compact)
 
       rows = csv.map(&:to_h)
-      objects = []
-      preprocess = []
-      preprocess_errors = []
-      postprocess_errors = []
+      result = nil
       ActiveRecord::Base.transaction do
         # Convert CSV rows to attributes
+        preprocess = []
+        preprocess_errors = []
+        postprocess_errors = []
+
         objects = rows.each_with_index.map do |row|
           row.delete_if { |k, v| k.nil? }
           # Convert row to attributes
@@ -60,15 +61,17 @@ module CsvImport
         postprocess_errors = postprocess_errors.group_by(&:message).keys
         # Validate all objects to collect errors, but rollback everything if there is one error
         all_valid = objects.map{ |object| object&.validate(:import) }
-        if postprocess_errors.present? || all_valid.include?(false) || preprocess_errors.present?
+        result = Result.new(rows: rows, header_errors: header_errors, preprocess_errors: preprocess_errors, postprocess_errors: postprocess_errors, objects: objects)
+
+        if preprocess_errors.present? || postprocess_errors.present? || all_valid.include?(false)
           raise ActiveRecord::Rollback
         end
 
-        @before_end_block&.call
+        @before_end_block&.call(result)
         raise ActiveRecord::Rollback unless @commit
       end
 
-      Result.new(rows: rows, header_errors: header_errors, preprocess_errors: preprocess_errors, postprocess_errors: postprocess_errors, objects: objects)
+      result
     end
 
     # @return [CSV::Table, Array, ] opened file

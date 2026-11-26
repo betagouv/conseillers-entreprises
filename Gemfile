@@ -71,6 +71,7 @@ gem 'decoupage_administratif'
 gem 'parallel'
 gem 'omniauth-proconnect'
 gem 'omniauth-rails_csrf_protection'
+gem 'hashdiff'
 
 # Notifiers
 gem 'appsignal'
