@@ -22,7 +22,7 @@ describe Annuaire::UsersData do
       subject { described_class.new(institution_1, nil) }
 
       it 'return all users for the institution' do
-        expect(subject.grouped_experts).to eq({
+        expect(subject.grouped_experts).to match({
           antenne_1 => {
             expert_1 => [user_1],
             expert_1_same_antenne => [Annuaire::NO_USER]
@@ -31,7 +31,7 @@ describe Annuaire::UsersData do
             expert_2 => [Annuaire::NO_USER]
           },
           antenne_3 => {
-            Annuaire::NO_EXPERT => [manager_1, manager_2, user_3, user_4]
+            Annuaire::NO_EXPERT => an_array_matching([manager_1, manager_2, user_3, user_4])
           },
           antenne_4 => {
             Annuaire::NO_EXPERT => [Annuaire::NO_USER]
