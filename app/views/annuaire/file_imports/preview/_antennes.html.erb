@@ -1,0 +1,13 @@
+<%# locals: (data:) %>
+
+<% if data[:antennes].present? %>
+  <div class="fr-container-fluid">
+    <%= render 'annuaire/antennes/table', antennes: data[:antennes] %>
+  </div>
+<% else %>
+  <div class="fr-container">
+    <div class="fr-alert fr-alert--info fr-alert--sm">
+      <p><%= t('annuaire.antennes.index.no_antenne') %></p>
+    </div>
+  </div>
+<% end %>

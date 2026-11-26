@@ -101,7 +101,7 @@ describe 'annuaire', :js do
           visit "annuaire/institutions/#{institution.slug}/conseillers"
           expect(page).to have_css 'h1', text: institution.name
           expect(page).to have_css('.fr-table--c-annuaire', count: 1)
-          expect(page).to have_css('.td-header--user', count: 1)
+          expect(page).to have_text(user_1.full_name)
           frame_selector = "turbo-frame[id='institution-subject-#{institution_subject.id}']"
           if page.has_css?(frame_selector, wait: 0.5)
             within(frame_selector) do
@@ -137,7 +137,8 @@ describe 'annuaire', :js do
           it 'display users with many experts warning' do
             expect(page).to have_css 'h1', text: institution.name
             expect(page).to have_css('.fr-table--c-annuaire', count: 1)
-            expect(page).to have_css('.td-header--user', count: 2)
+            expect(page).to have_text(user_1.full_name)
+            expect(page).to have_text(user_2.full_name)
             expect(page).to have_css('.error-table-cell')
             expect(page).to have_button('L', title: "Plusieurs experts pour le même sujet - Voir le détail")
           end

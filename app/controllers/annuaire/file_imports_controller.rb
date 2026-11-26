@@ -1,12 +1,8 @@
 module Annuaire
   class FileImportsController < BaseController
     before_action -> { authorize [:annuaire, FileImport] }
-    before_action :retrieve_institution, only: [:new, :create]
+    before_action :retrieve_institution, only: [:create]
     before_action :retrieve_import, only: [:analysis, :preview, :commit]
-
-    def new
-      @entity = params[:entity]
-    end
 
     def create
       entity = params[:entity]
@@ -21,26 +17,32 @@ module Annuaire
     end
 
     def preview
-      @result = @import.import(commit: false) do
-        case @import.entity.to_s
-        when "User"
-          @users_data = UsersData.new(@institution, nil).preload
-        when "Antenne"
-          @antennes = @institution.antennes.not_deleted.apply_filters(index_search_params)
-            .with_count(:experts, :advisors)
-            .order(:name)
-            .preload(:managers, :territorial_zones)
-        end
-      end
+      send("preview_#{@import.entity.model_name.plural}")
     end
 
     def commit
       @import.import(commit: true)
 
-      redirect_to institution_users_path(@import.institution)
+      redirect_to polymorphic_path([:institution, @import.entity.model_name.plural.to_sym], institution_slug: @import.institution)
     end
 
     private
+
+    def preview_antennes
+      @import.import(commit: false) do |result|
+        antennes = @institution.antennes.not_deleted.apply_filters(index_search_params)
+          .with_count(:experts, :advisors)
+          .order(:name)
+          .preload(:managers, :territorial_zones)
+        @data = { antennes: antennes, result: result }
+      end
+    end
+
+    def preview_users
+      @import.import(commit: false) do |result|
+        @data = UsersData.new(@institution, nil).preload
+      end
+    end
 
     def retrieve_import
       @import = FileImport.find(params.expect(:id))

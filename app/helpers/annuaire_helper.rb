@@ -1,6 +1,6 @@
 module AnnuaireHelper
-  def build_user_name_cell(user, antenne)
-    html = link_to(user.full_name, admin_user_path(user), title: t('annuaire_helper.build_user_name_cell.user', user_name: user.full_name, antenne: antenne))
+  def build_user_name_cell(user)
+    html = link_to(user.full_name, admin_user_path(user), title: user.full_name)
     html << tag.span(class: 'ri-mail-add-fill blue fr-ml-1v', aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.not_invited')) if user.invitation_sent_at.nil?
     html << tag.span(class: 'ri-nurse-fill blue fr-ml-1v', aria: { hidden: true }, title: t('annuaire_helper.build_user_name_cell.antenne_manager')) if user.is_manager?
     html
@@ -29,11 +29,6 @@ module AnnuaireHelper
     content_tag(:button, class: "coverage-modal-button #{alert_classe}", 'aria-controls': "modal-coverage-#{institution_subject.id}", 'data-fr-opened': 'false', title: referencement_coverage_cell_title(coverage)) do
       t(coverage[:coverage], scope: 'activerecord.attributes.referencement_coverage/coverage.short', default: "?")
     end
-  end
-
-  def total_users(experts)
-    # Permet de compter le nombre de users même non persistés pour afficher les experts sans user
-    experts.each_value.sum{ |users| [users.size, 1].max }
   end
 
   def build_coverage_details(anomalie_details)
@@ -132,9 +127,9 @@ module AnnuaireHelper
     content
   end
 
-  def large_search?(grouped_experts, grouped_subjects)
-    total_experts = grouped_experts.values.sum { |experts| experts.keys.count(&:persisted?) }
-    total_subjects = grouped_subjects.values.sum { |subjects| subjects.values.sum(&:size) }
+  def large_users_data?(users_data)
+    total_experts = users_data.grouped_experts.values.sum { |experts| experts.keys.count(&:persisted?) }
+    total_subjects = users_data.grouped_subjects.values.sum { |subjects| subjects.values.sum(&:size) }
     (total_experts * total_subjects) > 100
   end
 end
