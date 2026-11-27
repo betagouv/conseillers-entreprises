@@ -162,9 +162,11 @@ class Conseiller::SolicitationsController < ApplicationController
   def prepare_emails_sirets_and_solicitations
     emails, sirets = [], []
     solicitations_hash = @solicitations.each_with_object({}) do |solicitation, hash|
-      emails << solicitation.email
-      hash[solicitation.email] = solicitation.id
-      unless solicitation.siret.nil?
+      if solicitation.email.present?
+        emails << solicitation.email
+        hash[solicitation.email] = solicitation.id
+      end
+      if solicitation.siret.present?
         sirets << solicitation.siret
         hash[solicitation.siret] = solicitation.id
       end
