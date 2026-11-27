@@ -8,14 +8,14 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def index
     @solicitations = ordered_solicitations(:in_progress)
-    @facilities = get_and_format_facilities
+    @facilities_histories = get_and_format_histories
     @solicitations.precompute_flags
     @status = t('solicitations.header.index')
   end
 
   def processed
     @solicitations = ordered_solicitations(:processed, :desc)
-    @facilities = get_and_format_facilities
+    @facilities_histories = get_and_format_histories
     @solicitations.precompute_flags
     @status = t('solicitations.header.processed')
     render :index
@@ -23,7 +23,7 @@ class Conseiller::SolicitationsController < ApplicationController
 
   def canceled
     @solicitations = ordered_solicitations(:canceled, :desc)
-    @facilities = get_and_format_facilities
+    @facilities_histories = get_and_format_histories
     @solicitations.precompute_flags
     @status = t('solicitations.header.canceled')
     render :index
@@ -98,6 +98,7 @@ class Conseiller::SolicitationsController < ApplicationController
   private
 
   def ordered_solicitations(status, order = :asc)
+    # 15594, 153737, 160857, 165126, 175892, 225798, 281417, 298046, 314208, 316929, 320735, 321929, 324536, 325698, 331062
     Solicitation
       .includes(:badges, :diagnosis, :facility, :needs,
         feedbacks: { user: :antenne },
@@ -145,43 +146,60 @@ class Conseiller::SolicitationsController < ApplicationController
     [ t('helpers.solicitation.uncategorisable_label'), t('helpers.solicitation.uncategorisable_value') ]
   end
 
-  def get_and_format_facilities
+  def get_and_format_histories
     emails, sirets, solicitations = prepare_emails_sirets_and_solicitations
-    facilities = get_facilities_for_email_and_sirets(emails, sirets)
-    return facilities.each_with_object({}) do |facility, hash|
-      solicitation_id = solicitations[facility.siret] || solicitations[facility.contact_email]
+    history = get_history_for_email_and_sirets(emails, sirets)
+
+    # Group the history rows with the related solicitation
+    result = history.each_with_object({}) do |history_row, result|
+      solicitation_id = solicitations[history_row[:siret]] || solicitations[history_row[:email]]
       if solicitation_id.present?
-        hash[solicitation_id] = [] if hash[solicitation_id].nil?
-        hash[solicitation_id] << { id: facility.id, company_name: facility.company_name }
+        result[solicitation_id] ||= []
+        result[solicitation_id] << history_row
+      end
+    end
+    # and group the history rows of the same facility
+    result.transform_values! do |h|
+      h.group_by { |facility| facility[:facility_id] }.map do |facility_id, history_rows|
+        { facility_id: facility_id, company_name: history_rows.first[:company_name], solicitation_completed_ats: history_rows.pluck(:solicitation_completed_at) }
       end
     end
   end
 
-  # Facilities en lien avec les solicitations
-  # Préparation des données dans le controller pour améliorer les performances
+  # List the emails/siret related to @solicitations
   def prepare_emails_sirets_and_solicitations
     emails, sirets = [], []
     solicitations_hash = @solicitations.each_with_object({}) do |solicitation, hash|
-      emails << solicitation.email
-      hash[solicitation.email] = solicitation.id
-      unless solicitation.siret.nil?
+      if solicitation.email.present?
+        emails << solicitation.email
+        hash[solicitation.email] = solicitation.id
+      end
+      if solicitation.siret.present?
         sirets << solicitation.siret
         hash[solicitation.siret] = solicitation.id
       end
     end
     sirets = (sirets.flatten | Facility.for_contacts(emails).pluck(:siret)).compact_blank
 
-    return emails, sirets, solicitations_hash
+    [emails, sirets, solicitations_hash]
   end
 
-  def get_facilities_for_email_and_sirets(emails, sirets)
+  # Fetch the related history for the passed emails/sirets
+  # returns an array of hashes with the following attributes
+  # - email
+  # - siret
+  # - facility_id
+  # - company_name
+  # - solicitation_completed_at
+  def get_history_for_email_and_sirets(emails, sirets)
     return Facility.none if emails.empty? && sirets.empty?
 
     Facility
-      .select('DISTINCT facilities.id, facilities.*, companies.name AS company_name, COALESCE(contacts.email, \'\') AS contact_email')
-      .joins(:company, :diagnoses, company: :contacts)
+      .select("DISTINCT ON (solicitations.id) COALESCE(contacts.email, '') AS email, facilities.siret, facilities.id as facility_id, companies.name AS company_name, solicitations.completed_at AS solicitation_completed_at")
+      .joins(:company, diagnoses: :solicitation, company: :contacts)
       .where(diagnoses: { step: 5 })
       .where('contacts.email IN (?) OR facilities.siret IN (?)', emails, sirets)
+      .to_a.map{ it.attributes.symbolize_keys }
   end
 
   def calculate_page_number(status_scope, completed_at, nb_per_page, order = :asc)

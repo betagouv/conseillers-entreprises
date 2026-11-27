@@ -68,11 +68,17 @@
                   = display_solicitation_attribute(solicitation, attribute)
           .card__meta
             %ul.fr-badge-group.meta__warnings
-              - if facilities[solicitation.id].present?
+              - if facilities_histories[solicitation.id].present?
                 .meta__items
-                  .item= t('.needs_historic')
-                  - facilities[solicitation.id].each do |facility|
-                    = link_to facility[:company_name], needs_company_path(facility[:id]), 'data-turbo': false
+                  %li.item
+                    = t('.needs_historic')
+                    %ul
+                      - history = facilities_histories[solicitation.id]
+                      - history.each do |history_row|
+                        %li
+                          = link_to history_row[:company_name], needs_company_path(history_row[:facility_id]), 'data-turbo': false
+                          %br
+                          = history_row[:solicitation_completed_ats].map{ l(it.to_date) }.join(", ")
 
         .card__feedbacks
           %hr
