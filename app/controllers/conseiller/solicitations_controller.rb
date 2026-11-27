@@ -152,7 +152,7 @@ class Conseiller::SolicitationsController < ApplicationController
       solicitation_id = solicitations[facility.siret] || solicitations[facility.contact_email]
       if solicitation_id.present?
         hash[solicitation_id] = [] if hash[solicitation_id].nil?
-        hash[solicitation_id] << { id: facility.id, company_name: facility.company_name }
+        hash[solicitation_id] << { id: facility.id, company_name: facility.company_name, completed_at: facility.diagnosis_completed_at }
       end
     end
   end
@@ -178,7 +178,7 @@ class Conseiller::SolicitationsController < ApplicationController
     return Facility.none if emails.empty? && sirets.empty?
 
     Facility
-      .select('DISTINCT facilities.id, facilities.*, companies.name AS company_name, COALESCE(contacts.email, \'\') AS contact_email')
+      .select('DISTINCT facilities.id, facilities.*, companies.name AS company_name, diagnoses.completed_at AS diagnosis_completed_at, COALESCE(contacts.email, \'\') AS contact_email')
       .joins(:company, :diagnoses, company: :contacts)
       .where(diagnoses: { step: 5 })
       .where('contacts.email IN (?) OR facilities.siret IN (?)', emails, sirets)

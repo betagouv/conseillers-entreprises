@@ -70,9 +70,18 @@
             %ul.fr-badge-group.meta__warnings
               - if facilities[solicitation.id].present?
                 .meta__items
-                  .item= t('.needs_historic')
-                  - facilities[solicitation.id].each do |facility|
-                    = link_to facility[:company_name], needs_company_path(facility[:id]), 'data-turbo': false
+                  %li.item
+                    = t('.needs_historic')
+                    %ul
+                      - history = facilities[solicitation.id]
+                      - history = history.group_by { |facility| [facility[:id], facility[:company_name]] }
+                      - history.each do |id_and_name, facilities|
+                        - dates = facilities.pluck(:completed_at).map{ l(it.to_date) }
+                        %li
+                          = link_to id_and_name.last, needs_company_path(id_and_name.first), 'data-turbo': false
+                          %br
+                          = dates.join(", ")
+
 
         .card__feedbacks
           %hr
