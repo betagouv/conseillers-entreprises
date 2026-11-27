@@ -178,7 +178,7 @@ class Conseiller::SolicitationsController < ApplicationController
     return Facility.none if emails.empty? && sirets.empty?
 
     Facility
-      .select('DISTINCT facilities.id, facilities.*, companies.name AS company_name, diagnoses.completed_at AS diagnosis_completed_at, COALESCE(contacts.email, \'\') AS contact_email')
+      .select('DISTINCT ON (diagnoses.id) facilities.id, facilities.*, companies.name AS company_name, diagnoses.created_at AS diagnosis_completed_at, COALESCE(contacts.email, \'\') AS contact_email')
       .joins(:company, :diagnoses, company: :contacts)
       .where(diagnoses: { step: 5 })
       .where('contacts.email IN (?) OR facilities.siret IN (?)', emails, sirets)
